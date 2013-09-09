@@ -1,0 +1,34 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc.Html
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+hello test world
+@{
+    if (ViewBag.IsSetFromClient == true)
+    {
+    <p>I am set from the client : )</p> 
+    }
+    else
+    {
+    <p>I am NOT SET from the client : (</p> 
+    }
+  
+}
+
+
+<hr />
+@{
+    var model1 = new Generic.Models.StringContainer() { Detail = "Woo Hoo!" };
+    Html.RenderPartial("_TestPartial", model1);
+}
+<hr />
+<!-- The HTML helper needs the using reference above.-->
+<!-- This code will test overriding for client specific actions.-->
+@using (Html.BeginForm("Submit", "TestPage"))
+{
+    <input type="submit" name="btn_test" value="Test Click" /> 
+}
+

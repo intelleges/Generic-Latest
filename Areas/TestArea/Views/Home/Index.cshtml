@@ -1,0 +1,18 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc.Html
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>I am in the area view</h2>
+
+@{
+Html.RenderPartial("_TestPartialArea",null);
+}
+
+<br /> <br />
+
+@using (Html.BeginForm("Submit","Home",new{ Area ="TestArea"}))
+{
+    <input type="submit" name="btn_test" value="Test Click" /> 
+}

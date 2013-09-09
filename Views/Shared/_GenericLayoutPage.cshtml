@@ -1,0 +1,21 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using Generic.Helpers
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    @ClientJavascriptHelper.LoadClientJavascript()
+
+</head>
+<body>
+    <div> 
+        I am in generic layout.
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
