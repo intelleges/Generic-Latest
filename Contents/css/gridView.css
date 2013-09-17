@@ -1,0 +1,91 @@
+﻿/* stcss styles for  freezing the  first column of a gridView */
+
+.viewFormBody 
+{
+    overflow: scroll;
+    max-height: 600px;
+    width: 800px; 
+}
+.viewFormBody table  
+{
+    border: none;
+}
+.viewFormBody td
+{
+    white-space: nowrap;
+    height: 20px;
+    text-align: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 12px;
+}
+
+/* Locks the left column */
+/*.viewFormBody td.locked, th.locked 
+{
+        white-space: nowrap;
+        font-weight: bold;
+        text-align: left;
+        color: white;
+        height: 20px;
+        position:relative;
+        cursor: default;
+}*/
+
+/* Locks table header */
+.viewFormBody th 
+{
+	background-color:#004a8d;
+	white-space: nowrap;
+	text-align: left;
+	padding-left: 15px;
+	padding-right: 15px;
+	text-decoration: none;
+	font-family: Arial;
+	font-size: 13px;
+	font-weight: normal;
+	height: 20px;
+}
+
+.viewFormBody td a
+{
+    text-decoration: none;
+    color: blue;
+}
+
+.viewFormBody th a
+{
+    text-decoration: none;
+    color: white;
+}
+
+.lockPager
+{
+    font-weight: bold;
+    text-align: left;
+    position:relative;
+    cursor: default;
+}
+
+.lockLabel
+{
+    position: relative;
+    cursor: default;   
+}
+
+.alternatingRow
+{
+    background: #e4f3f9;
+}
+
+.rowStyle
+{
+    background: #d3e8ef;
+}
+
+.excelIcon
+{
+    width: 15px;
+    height: 15px;
+}
+

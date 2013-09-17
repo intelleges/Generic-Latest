@@ -1,0 +1,768 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using Generic.Helpers
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <meta name="viewport" content="width=device-width" />
+<title>@ViewBag.Title</title>
+<link rel="icon" href="~/Contents/images/favicon.ico" type="image/ico" />
+<link href="Contents/css/styles.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="Contents/css/tabcontent.css" />
+<script type="text/javascript" src="Contents/js/tabcontent.js">
+</script>
+
+<!-- Css and javascription for population menu -->
+<link href="Contents/css/menu.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">qmad=new Object();qmad.bvis="";qmad.bhide="";</script>
+<script type="text/javascript" src="Contents/js/menu/menu.js"></script>
+<script type="text/javascript" src="Contents/js/menu/imgcontent.js"></script>
+<script type="text/javascript" src="Contents/javaScript/menu.js"></script>
+<script type="text/javascript" src="Contents/javaScript/jquery.js"></script>
+<style type="text/css">
+.qmfv{visibility:visible !important;}.qmfh{visibility:hidden !important;}
+div#wn	{
+position:relative;
+width:390px;
+height:43px;
+overflow:hidden;
+}
+</style>
+<!-- End -->
+<!-- jsProgressBarHandler prerequisites : prototype.js -->
+<script type="text/javascript" src="Contents/js/prototype/prototype.js"></script>
+<!-- jsProgressBarHandler core -->
+<script type="text/javascript" src="Contents/js/bramus/jsProgressBarHandler.js"></script>
+
+<script type="text/javascript">
+function uparrow() {
+var i;
+for (i = 1; i <= 4; i++) 
+{
+var cnname = "ctl00_ddl" + i;
+
+if (document.getElementById(cnname).hasFocus)
+{
+    alert(cnname);
+    break;
+//                if (i == 4) {
+//                    i = 1;
+//                    cnname = "ctl00_ddl" + i;
+//                    document.getElementById(cnname).focus();
+//                    break;
+//                }
+//                else {
+//                    var a = i;
+//                    a = a + 1;
+//                    cnname = "ctl00_ddl" + a;
+//                    document.getElementById(cnname).focus();
+//                    break;
+//                }
+}
+}
+}
+
+function mvddl() {
+var i;
+for (i = 1; i <= 4; i++) 
+{
+var cnname = "ctl00_ddl" + i;
+
+if (document.getElementById(cnname).hasFocus)
+{
+    alert(cnname);
+    break;
+    
+    }
+}}
+</script>
+<script type="text/javascript" src="Contents/https://www.google.com/jsapi?key=ABQIAAAAb7eKW7nPsaL-v-t6-2_HghT-Eh8X4WApu9-Y6-QZ-lXcrTAzVBRyyAD1_fumqCdyAEz_W3KW9RWrOA"></script>
+<script type="text/javascript">        google.load("feeds", "1"); function initialize() {
+var feed = new google.feeds.Feed("https://news.google.com/news?cf=all&ned=us&hl=en&q=Buy American Act&cf=all&output=rss");
+feed.load(function (result) {
+    if (!result.error) {
+        var container = document.getElementById("feed"); for (var i = 0; i < result.feed.entries.length; i++) {
+            var entry = result.feed.entries[i];
+            var div = document.createElement("div"); div.appendChild(document.createTextNode(entry.title)); container.appendChild(div);
+        }
+    }
+});
+}
+google.setOnLoadCallback(initialize);     </script>     
+<script type="text/javascript">
+ function LoadDynamicFeedControl() {
+     var feeds = [
+{ title: ' ',
+url: 'https://news.google.com/news?cf=all&ned=us&hl=en&q=Buy American Act&cf=all&output=rss'
+}];
+     var options = {
+         stacked: false,
+         horizontal: false,
+         title: "",
+         numResults: 8
+
+     }
+
+     new GFdynamicFeedControl(feeds, 'feed-control', options);
+ }
+ // Load the feeds API and set the onload callback.
+ google.load('feeds', '1');
+ google.setOnLoadCallback(LoadDynamicFeedControl);
+</script>
+
+<script src="Contents/https://www.google.com/jsapi?key=notsupplied-wizard"
+type="text/javascript"></script>
+
+<script src="Contents/https://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js"
+type="text/javascript"></script>
+<link href="Contents/css/gfdynamicfeedcontroller.css" type="text/css" rel="stylesheet" /></head>
+<body>
+<form name="aspnetForm" method="post" action="home.aspx" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTM1MTg0NTEwNg9kFgJmD2QWAgIDD2QWFAIBDxYCHgRUZXh0BQpJTlRFTExFR0VTZAIDDxYCHwAFGE5FVyBDVVNUT01FUiBPTi1CT0FSRElOR2QCBQ8WAh8ABQ9KT0hOIEJFVEFOQ09VUlRkAgcPDxYCHwAFDVN5c3RlbSBNYXN0ZXJkZAIJDxYCHwAFx208bGk+PGEgaHJlZj0namF2YXNjcmlwdDogdm9pZCgwKSc+Jm5ic3A7Jm5ic3A7VXNlcjwvYT48dWw+CjxsaT48YSBocmVmPScjJz5BZGQ8L2E+PHVsPgo8bGk+PGEgaHJlZj0nIyc+VXNlcjwvYT48dWw+PGxpPjxhIGhyZWY9J3VzZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0xJz5NYW51YWw8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3VwbG9hZFNwcmVhZFNoZWV0LmFzcHg/dHlwZT1Vc2VyJz5TcHJlYWRzaGVldDwvYT48L2xpPgo8L3VsPjwvbGk+CjxsaT48YSBocmVmPSd1c2VyUm9sZUZvcm0uYXNweD9hY3Rpb25UeXBlPTEnPlVzZXIgUm9sZTwvYT48L2xpPgo8L3VsPgo8L2xpPgo8bGk+PGEgaHJlZj0nIyc+QWxlcnQ8L2E+PHVsPgo8bGk+PGEgaHJlZj0ndmlld0FsZXJ0TWVtYmVyLmFzcHg/dmlld0J5PUFsbCc+QWxsPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3QWxlcnRNZW1iZXI/dmlld0J5PUFsbCBDYW1wYWlnbic+QnkgQ2FtcGFpZ248L2E+PHVsPjxsaT48YSBocmVmPSd2aWV3QWxlcnRNZW1iZXIuYXNweD92aWV3Qnk9QnkgQ2FtcGFpZ24maWQ9MzA2NCc+Rm9yZWlnbiBNaWxpdGFyeSBGaW5hbmNpbmcgLSAyMDEzPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3QWxlcnRNZW1iZXIuYXNweD92aWV3Qnk9QnkgQ2FtcGFpZ24maWQ9MjA2Myc+RnJlZSB0cmFpbDwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndmlld0FsZXJ0TWVtYmVyLmFzcHg/dmlld0J5PUJ5IENhbXBhaWduJmlkPTYyJz5OZXcgQ3VzdG9tZXIgT24tQm9hcmRpbmc8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdBbGVydE1lbWJlci5hc3B4P3ZpZXdCeT1CeSBDYW1wYWlnbiZpZD0yMDY0Jz5TSzwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndmlld0FsZXJ0TWVtYmVyLmFzcHg/dmlld0J5PUJ5IENhbXBhaWduJmlkPTEwNjInPlRlc3RpbmcgVGl0bGU8L2E+PC9saT4KPC91bD48L2xpPgo8bGk+PGEgaHJlZj0ndmlld0FsZXJ0TWVtYmVyLmFzcHg/dmlld0J5PUFsbCBTU0FQJz5CeSBHcm91cDwvYT48L2xpPgo8L3VsPgo8L2xpPgo8bGk+PGEgaHJlZj0nIyc+QXJjaGl2ZTwvYT48dWw+CjxsaT48YSBocmVmPSdBcmNoaWV2ZU11bHRpcGxlLmFzcHgnPk11bHRpcGxlPC9hPjwvbGk+CjxsaT48YSBocmVmPSdSZXRyZWl2ZWFyY2hpZXZlZHVzZXIuYXNweCc+UmV0cmlldmU8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3VzZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT01Jz5TaW5nbGU8L2E+PC9saT4KPC91bD4KPC9saT4KPGxpPjxhIGhyZWY9JyMnPkFzc2lnbiBHcm91cDwvYT48dWw+CjxsaT48YSBocmVmPSdhc3NpZ25Vc2VyU1NBUC5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9QWxsJz5BbGw8L2E+PC9saT4KPGxpPjxhIGhyZWY9JyMnPkJ5IFJvbGU8L2E+PHVsPjxsaT48YSBocmVmPSdhc3NpZ25Vc2VyU1NBUC5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9QnkgUm9sZSZpZD0zJz5CdXNpbmVzcyBMZWFkZXI8L2E+PC9saT4KPGxpPjxhIGhyZWY9J2Fzc2lnblVzZXJTU0FQLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBSb2xlJmlkPTInPkNvcnBvcmF0ZSBVc2VyPC9hPjwvbGk+CjxsaT48YSBocmVmPSdhc3NpZ25Vc2VyU1NBUC5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9QnkgUm9sZSZpZD00Jz5TcG9uc29yPC9hPjwvbGk+CjwvdWw+PC9saT4KPC91bD4KPC9saT4KPGxpPjxhIGhyZWY9J3VzZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0yJz5GaW5kPC9hPjwvbGk+CjxsaT48YSBocmVmPScjJz5Nb2RpZnk8L2E+PHVsPgo8bGk+PGEgaHJlZj0ndXNlckZvcm0uYXNweD9hY3Rpb25UeXBlPTMnPlVzZXI8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3VzZXJSb2xlRm9ybS5hc3B4P2FjdGlvblR5cGU9Myc+VXNlciBSb2xlPC9hPjwvbGk+CjwvdWw+CjwvbGk+CjxsaT48YSBocmVmPScjJz5SZW1vdmU8L2E+PHVsPgo8bGk+PGEgaHJlZj0ndXNlckZvcm0uYXNweD9hY3Rpb25UeXBlPTQnPlVzZXI8L2E+PC9saT4KPGxpPjxhIGhyZWY9JyMnPlVzZXIgUm9sZTwvYT48L2xpPgo8L3VsPgo8L2xpPgo8bGk+PGEgaHJlZj0ncmVtb3ZlYWxsdXNlci5hc3B4Jz5SZW1vdmUgQWxsPC9hPjwvbGk+CjxsaT48YSBocmVmPSd1c2VyRm9ybS5hc3B4P2FjdGlvblR5cGU9Nic+UmVzdG9yZTwvYT48dWw+CjxsaT48YSBocmVmPSdSZXN0b3JlTXVsdGlwbGUuYXNweCc+TXVsdGlwbGU8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3VzZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT02Jz5TaW5nbGU8L2E+PC9saT4KPC91bD4KPC9saT4KPGxpPjxhIGhyZWY9JyMnPlZpZXc8L2E+PHVsPgo8bGk+PGEgaHJlZj0ndmlld1VzZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1BbGwnPkFsbDwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndmlld1NzYXBGb3JtLmFzcHg/YWN0aW9uVHlwZT0xOSZ0eXBlPXVzZXInPkJ5IEdyb3VwPC9hPjwvbGk+CjxsaT48YSBocmVmPScjJz5CeSBSb2xlPC9hPjx1bD48bGk+PGEgaHJlZj0ndmlld1VzZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBSb2xlJnZpZXdCeVR5cGU9QnVzaW5lc3MrTGVhZGVyJmlkPTMnPkJ1c2luZXNzIExlYWRlcjwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndmlld1VzZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBSb2xlJnZpZXdCeVR5cGU9QnVzaW5lc3MrTGVhZGVyJmlkPTIzJz5idXNpbmVzcyBsZWQ8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdVc2VyRm9ybS5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9QnkgUm9sZSZ2aWV3QnlUeXBlPUNvcnBvcmF0ZSBVc2VyJmlkPTInPkNvcnBvcmF0ZSBVc2VyPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3VXNlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUJ5IFJvbGUmdmlld0J5VHlwZT1CdXNpbmVzcytMZWFkZXImaWQ9MjUnPk5ldyByb2xlPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3VXNlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUJ5IFJvbGUmdmlld0J5VHlwZT1CdXNpbmVzcytMZWFkZXImaWQ9MjQnPm5ldyB0ZXN0IHVzZXIgcm9sPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3VXNlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUJ5IFJvbGUmdmlld0J5VHlwZT1TcG9uc29yJmlkPTQnPlNwb25zb3I8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdVc2VyRm9ybS5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9QnkgUm9sZSZ2aWV3QnlUeXBlPUJ1c2luZXNzK0xlYWRlciZpZD0yMic+VGVzdCBSb2xlIER1cG9uPC9hPjwvbGk+CjwvdWw+PC9saT4KPC91bD4KPC9saT4KPC91bD48L2xpPgo8bGk+PGEgaHJlZj0namF2YXNjcmlwdDogdm9pZCgwKSc+Jm5ic3A7Jm5ic3A7Jm5ic3A7UGFydG5lcjwvYT48dWw+CjxsaT48YSBocmVmPScjJz5BZGQ8L2E+PHVsPgo8bGk+PGEgaHJlZj0nIyc+Q291bnRyeSBSaXNrIFJhdGluZzwvYT48L2xpPgo8bGk+PGEgaHJlZj0nIyc+UGFydG5lcjwvYT48dWw+PGxpPjxhIGhyZWY9J2FkZFByb3ZpZGVyTWFudWFsLmFzcHg/YWN0aW9uVHlwZT0xJz5NYW51YWw8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3VwbG9hZFNwcmVhZFNoZWV0LmFzcHg/dHlwZT1wcm92aWRlcic+U3ByZWFkc2hlZXQ8L2E+PC9saT4KPC91bD48L2xpPgo8bGk+PGEgaHJlZj0ncHJvdmlkZXJUeXBlRm9ybS5hc3B4P2FjdGlvblR5cGU9MSc+UGFydG5lciBUeXBlPC9hPjwvbGk+CjwvdWw+CjwvbGk+CjxsaT48YSBocmVmPScjJz5BbGVydDwvYT48dWw+CjxsaT48YSBocmVmPSd2aWV3QWxlcnRQYXJ0bmVyLmFzcHg/ZmluZD10cnVlJz5BbGw8L2E+PC9saT4KPC91bD4KPC9saT4KPGxpPjxhIGhyZWY9J3Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9NSc+QXJjaGl2ZTwvYT48L2xpPgo8bGk+PGEgaHJlZj0nTlVMTCc+Q29uZmlybTwvYT48dWw+CjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT03JnZpZXdCeT1Db2xsYXBzZWQnPkNvbGxhcHNlZDwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndmlld1Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9NyZ2aWV3Qnk9RXhwYW5kZWQnPkV4cGFuZGVkPC9hPjwvbGk+CjwvdWw+CjwvbGk+CjxsaT48YSBocmVmPSdwcm92aWRlckZvcm0uYXNweD9hY3Rpb25UeXBlPTInPkZpbmQ8L2E+PC9saT4KPGxpPjxhIGhyZWY9JyMnPkludml0ZTwvYT48dWw+CjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0zMSZ2aWV3Qnk9SW52aXRlVG9SZWdpc3Rlcic+SW52aXRlVG9SZWdpc3RlcjwvYT48L2xpPgo8bGk+PGEgaHJlZj0ncHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT04JnZpZXdCeT1Nb2RpZnlDb250YWN0Jz5Nb2QgQ29udGFjdDwvYT48L2xpPgo8bGk+PGEgaHJlZj0ncHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT04JnZpZXdCeT1SZW1pbmQnPlJlbWluZDwvYT48L2xpPgo8bGk+PGEgaHJlZj0nSFJPRW1haWwuYXNweCc+UmVtaW5kIEhSTzwvYT48L2xpPgo8bGk+PGEgaHJlZj0ncHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT04JnZpZXdCeT1JbnZpdGF0aW9uVG9SZXRyaWV2YWwnPlJldHJpZXZlPC9hPjwvbGk+CjxsaT48YSBocmVmPSdwcm92aWRlckZvcm0uYXNweD9hY3Rpb25UeXBlPTgmdmlld0J5PVNlbmQnPlNlbmQ8L2E+PC9saT4KPC91bD4KPC9saT4KPGxpPjxhIGhyZWY9J05VTEwnPk1vZGlmeTwvYT48dWw+CjxsaT48YSBocmVmPScjJz5QYXJ0bmVyPC9hPjx1bD48bGk+PGEgaHJlZj0ncHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0zJnZpZXdCeT1Db25maXJtZWQnPkNvbmZpcm1lZDwvYT48L2xpPgo8bGk+PGEgaHJlZj0ncHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0zJnZpZXdCeT1VbmNvbmZpcm1lZCc+VW5jb25maXJtZWQ8L2E+PC9saT4KPC91bD48L2xpPgo8bGk+PGEgaHJlZj0ncHJvdmlkZXJUeXBlRm9ybS5hc3B4P2FjdGlvblR5cGU9Myc+UGFydG5lciBUeXBlPC9hPjwvbGk+CjwvdWw+CjwvbGk+CjxsaT48YSBocmVmPScjJz5SZW1vdmU8L2E+PHVsPgo8bGk+PGEgaHJlZj0nIyc+UGFydG5lcjwvYT48dWw+PGxpPjxhIGhyZWY9J3Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9NCZ2aWV3Qnk9UmVmZXJlbmNlJz5SZWZlcmVuY2U8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9NCZ2aWV3Qnk9U2hhZG93Jz5TaGFkb3c8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9NCZ2aWV3Qnk9VW5jb25maXJtZWQnPlVuY29uZmlybWVkPC9hPjwvbGk+CjwvdWw+PC9saT4KPC91bD4KPC9saT4KPGxpPjxhIGhyZWY9J3JlbW92ZWFsbHByb3ZpZGVyLmFzcHgnPlJlbW92ZSBBbGw8L2E+PC9saT4KPGxpPjxhIGhyZWY9JyMnPlJlcG9ydDwvYT48dWw+CjxsaT48YSBocmVmPSdwYXJ0bmVycmVwb3J0LmFzcHgnPlJlcG9ydCAxOiBTdGFuZGFyZDwvYT48L2xpPgo8bGk+PGEgaHJlZj0ncGFydG5lcnJlcG9ydDEuYXNweCc+UmVwb3J0IDI6IENvbXBsZXRlIEk8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3BhcnRuZXJyZXBvcnQxMS5hc3B4Jz5SZXBvcnQgMjogQ29tcGxldGUgSUkgRmluYWw8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3BhcnRuZXJyZXBvcnQyLmFzcHg/UmVzPUknPlJlcG9ydCAzOiBJbmNvbXBsZXRlPC9hPjwvbGk+CjxsaT48YSBocmVmPSdwYXJ0bmVycmVwb3J0Mi5hc3B4P1Jlcz1OJz5SZXBvcnQgNDogTm8gUmVzcG9uc2U8L2E+PC9saT4KPC91bD4KPC9saT4KPGxpPjxhIGhyZWY9J3Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9Nic+UmVzdG9yZTwvYT48L2xpPgo8bGk+PGEgaHJlZj0nIyc+U3dpdGNoPC9hPjx1bD4KPGxpPjxhIGhyZWY9J3N3aXRjaFByb3ZpZGVyLmFzcHg/dmlld0J5PURlbW90ZStSZWZlcmVuY2UnPkRlbW90ZSBSZWZlcmVuY2U8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3N3aXRjaFByb3ZpZGVyLmFzcHg/dmlld0J5PVByb21vdGUrU2hhZG93Jz5Qcm9tb3RlIFNoYWRvdzwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndXBsb2FkU3ByZWFkU2hlZXQuYXNweD90eXBlPXByb3ZpZGVycHJvbW90ZSc+VXBsb2FkIFNwcmVhZHNoZWV0PC9hPjwvbGk+CjwvdWw+CjwvbGk+CjxsaT48YSBocmVmPScjJz5UcmFuc2ZlcjwvYT48dWw+CjxsaT48YSBocmVmPSd0cmFuc2Zlci5hc3B4P3ZpZXdUeXBlPU93bmVyJz5Pd25lcnNoaXA8L2E+PC9saT4KPGxpPjxhIGhyZWY9J05VTEwnPlBhcnRuZXI8L2E+PHVsPjxsaT48YSBocmVmPSd2aWV3U3NhcEZvcm0uYXNweD9hY3Rpb25UeXBlPTkmdHlwZT1wcm92aWRlcic+QnkgR3JvdXA8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdVc2VyRm9ybS5hc3B4P2FjdGlvblR5cGU9OSZ2aWV3Qnk9QnkgVXNlcic+QnkgVXNlcjwvYT48L2xpPgo8bGk+PGEgaHJlZj0ncHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT05Jz5GaW5kPC9hPjwvbGk+CjwvdWw+PC9saT4KPC91bD4KPC9saT4KPGxpPjxhIGhyZWY9JyMnPlZpZXc8L2E+PHVsPgo8bGk+PGEgaHJlZj0nIyc+QWxsPC9hPjx1bD48bGk+PGEgaHJlZj0ndmlld1Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9QWxsJnZpZXdCeVR5cGU9UmVmZXJlbmNlJz5SZWZlcmVuY2U8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdQcm92aWRlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUFsbCZ2aWV3QnlUeXBlPVJlZmVyZW5jZS9TaGFkb3cnPlJlZmVyZW5jZS9TaGFkb3c8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdQcm92aWRlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUFsbCZ2aWV3QnlUeXBlPVNoYWRvdyc+U2hhZG93PC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1BbGwmdmlld0J5VHlwZT1VbmNvbmZpcm0nPlVuY29uZmlybWVkPC9hPjwvbGk+CjwvdWw+PC9saT4KPGxpPjxhIGhyZWY9JyMnPkJ5IENvdW50cnkgUmlzayBSYXRpbmc8L2E+PHVsPjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBDb3VudHJ5IFJpc2sgUmF0aW5nJnZpZXdCeVR5cGU9MHRoLTEwdGgnPjB0aC0xMHRoPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBDb3VudHJ5IFJpc2sgUmF0aW5nJnZpZXdCeVR5cGU9MTB0aC0yNXRoJz4xMHRoLTI1dGg8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdQcm92aWRlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUJ5IENvdW50cnkgUmlzayBSYXRpbmcmdmlld0J5VHlwZT0yNXRoLTUwdGgnPjI1dGgtNTB0aDwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndmlld1Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9QnkgQ291bnRyeSBSaXNrIFJhdGluZyZ2aWV3QnlUeXBlPTUwdGgtNzV0aCc+NTB0aC03NXRoPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBDb3VudHJ5IFJpc2sgUmF0aW5nJnZpZXdCeVR5cGU9NzV0aC05MHRoJz43NXRoLTkwdGg8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdQcm92aWRlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUJ5IENvdW50cnkgUmlzayBSYXRpbmcmdmlld0J5VHlwZT05MHRoLTEwMHRoJz45MHRoLTEwMHRoPC9hPjwvbGk+CjwvdWw+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdTc2FwRm9ybS5hc3B4P2FjdGlvblR5cGU9MTkmdHlwZT1wcm92aWRlcic+QnkgR3JvdXA8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdQcm92aWRlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUJ5IE1lJz5CeSBtZTogQ3VycmVudCBVc2VyPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3VXNlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PVByb3ZpZGVyIENvdW50Jz5CeSBPd25lcjwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndmlld1N0YXR1c0Zvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUFsbCc+QnkgU3RhdHVzPC9hPjwvbGk+CjxsaT48YSBocmVmPScjJz5CeSBUeXBlPC9hPjx1bD48bGk+PGEgaHJlZj0ndmlld1Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9QnkgVHlwZSZ2aWV3QnlUeXBlPUNvbmZsaWN0IE1pbmVyYWxzICgzVEcpJmlkPTQ1Jz4zVEc8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdQcm92aWRlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUJ5IFR5cGUmdmlld0J5VHlwZT1BbnRpLU1vbmV5IExhdW5kZXJpbmcvS25vdyBZb3VyIEN1c3RvbWVyJmlkPTQ2Jz5BTUwtS1lDPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBUeXBlJnZpZXdCeVR5cGU9QnV5IEFtZXJpY2FuIEFjdCZpZD00Nyc+QkFBPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBUeXBlJnZpZXdCeVR5cGU9Q2VudGVyIGZvciBEaXNlYXNlIENvbnRyb2wmaWQ9NDgnPkNEQzwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndmlld1Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9QnkgVHlwZSZ2aWV3QnlUeXBlPUNlcnRzICYgUmVwcy9lU1JTJmlkPTUwJz5DTlI8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdQcm92aWRlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUJ5IFR5cGUmdmlld0J5VHlwZT1BbnRpLUNvdW50ZXJmZWl0IFN5c3RlbSZpZD00OSc+Q1RSPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBUeXBlJnZpZXdCeVR5cGU9RXhlY3V0aXZlIENvbXBlbnNhdGlvbiZpZD01MSc+RUM8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdQcm92aWRlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUJ5IFR5cGUmdmlld0J5VHlwZT1Gb3JlaWduIENvcnJ1cHQgUHJhY3RpY2VzIEFjdCZpZD01Mic+RkNQQTwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndmlld1Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9QnkgVHlwZSZ2aWV3QnlUeXBlPUZvcmVpZ24gTWlsaXRhcnkgRmluYW5jaW5nJmlkPTUzJz5GTUY8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdQcm92aWRlckZvcm0uYXNweD9hY3Rpb25UeXBlPTAmdmlld0J5PUJ5IFR5cGUmdmlld0J5VHlwZT0maWQ9MTA1Nyc+R2VuZXJhbCBDb3Vuc2VsPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBUeXBlJnZpZXdCeVR5cGU9cmNvaSZpZD0xMDY2Jz5yY29pPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBUeXBlJnZpZXdCeVR5cGU9U3VwcGx5IENoYWluIEludGVncml0eSZpZD01NCc+U0NJPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBUeXBlJnZpZXdCeVR5cGU9U3VwcGx5IENoYWluIFNlY3VyaXR5L0MtVFBBVCZpZD01NSc+U0NTPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3UHJvdmlkZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1CeSBUeXBlJnZpZXdCeVR5cGU9VHJhZGUgQWdyZWVtZW50IEFjdCZpZD01Nic+VEFBPC9hPjwvbGk+CjwvdWw+PC9saT4KPC91bD4KPC9saT4KPC91bD48L2xpPgo8bGk+PGEgaHJlZj0namF2YXNjcmlwdDogdm9pZCgwKSc+Jm5ic3A7Jm5ic3A7Jm5ic3A7R3JvdXA8L2E+PHVsPgo8bGk+PGEgaHJlZj0nc3NhcEZvcm0uYXNweD9hY3Rpb25UeXBlPTEnPkFkZDwvYT48dWw+CjxsaT48YSBocmVmPSdzc2FwRm9ybS5hc3B4P2FjdGlvblR5cGU9MSc+TWFudWFsPC9hPjwvbGk+CjxsaT48YSBocmVmPSd1cGxvYWRTcHJlYWRTaGVldC5hc3B4P3R5cGU9Z3JvdXAnPlNwcmVhZHNoZWV0PC9hPjwvbGk+CjwvdWw+CjwvbGk+CjxsaT48YSBocmVmPSdzc2FwRm9ybS5hc3B4P2FjdGlvblR5cGU9NSc+QXJjaGl2ZTwvYT48L2xpPgo8bGk+PGEgaHJlZj0nTlVMTCc+RGFzaGJvYXJkPC9hPjx1bD4KPGxpPjxhIGhyZWY9J2Rhc2hib2FyZC5hc3B4P3ZpZXdCeT1BbGwnPkFsbDwvYT48L2xpPgo8bGk+PGEgaHJlZj0nTlVMTCc+QnkgQ2FtcGFpZ248L2E+PHVsPjxsaT48YSBocmVmPSdkYXNoYm9hcmQuYXNweD92aWV3Qnk9QnkgQ2FtcGFpZ24maWQ9MTAnPkNoaWxkX0NhbXBhaWduX29mX2ZhdGhlcjwvYT48L2xpPgo8bGk+PGEgaHJlZj0nZGFzaGJvYXJkLmFzcHg/dmlld0J5PUJ5IENhbXBhaWduJmlkPTgnPkMtVFBBVCAyMDA5PC9hPjwvbGk+CjwvdWw+PC9saT4KPC91bD4KPC9saT4KPGxpPjxhIGhyZWY9J3NzYXBGb3JtLmFzcHg/YWN0aW9uVHlwZT0yJz5GaW5kPC9hPjwvbGk+CjxsaT48YSBocmVmPSdzc2FwRm9ybS5hc3B4P2FjdGlvblR5cGU9Myc+TW9kaWZ5PC9hPjx1bD4KPGxpPjxhIGhyZWY9J3VwbG9hZFNwcmVhZFNoZWV0LmFzcHg/dHlwZT1nb2FsJz5Hb2FsPC9hPjwvbGk+CjxsaT48YSBocmVmPSdzc2FwRm9ybS5hc3B4P2FjdGlvblR5cGU9Myc+UHJvcGVydHk8L2E+PC9saT4KPC91bD4KPC9saT4KPGxpPjxhIGhyZWY9J3NzYXBGb3JtLmFzcHg/YWN0aW9uVHlwZT00Jz5SZW1vdmU8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3JlbW92ZWFsbHNzYXAuYXNweCc+UmVtb3ZlIEFsbDwvYT48L2xpPgo8bGk+PGEgaHJlZj0nc3NhcEZvcm0uYXNweD9hY3Rpb25UeXBlPTYnPlJlc3RvcmU8L2E+PC9saT4KPGxpPjxhIGhyZWY9JyMnPlRyYW5zZmVyPC9hPjx1bD4KPGxpPjxhIGhyZWY9J3ZpZXdTc2FwRm9ybS5hc3B4P2FjdGlvblR5cGU9OSZ0eXBlPXByb3ZpZGVyJz5CeSBHcm91cDwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndmlld1VzZXJGb3JtLmFzcHg/YWN0aW9uVHlwZT05JnZpZXdCeT1CeSBVc2VyJz5CeSBVc2VyPC9hPjwvbGk+CjxsaT48YSBocmVmPSdwcm92aWRlckZvcm0uYXNweD9hY3Rpb25UeXBlPTknPkZpbmQ8L2E+PC9saT4KPC91bD4KPC9saT4KPGxpPjxhIGhyZWY9J3NzYXBGb3JtLmFzcHg/YWN0aW9uVHlwZT0xMSc+VmlldzwvYT48L2xpPgo8L3VsPjwvbGk+CjxsaT48YSBocmVmPSdqYXZhc2NyaXB0OiB2b2lkKDApJz4mbmJzcDsmbmJzcDsmbmJzcDtQcm90b2NvbDwvYT48dWw+CjxsaT48YSBocmVmPSdwcm90b2NvbEZvcm0uYXNweD9hY3Rpb25UeXBlPTEnPkFkZDwvYT48L2xpPgo8bGk+PGEgaHJlZj0ncHJvdG9jb2xGb3JtLmFzcHg/YWN0aW9uVHlwZT01Jz5BcmNoaXZlPC9hPjwvbGk+CjxsaT48YSBocmVmPSdwcm90b2NvbEZvcm0uYXNweD9hY3Rpb25UeXBlPTInPkZpbmQ8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3Byb3RvY29sRm9ybS5hc3B4P2FjdGlvblR5cGU9Myc+TW9kaWZ5PC9hPjwvbGk+CjxsaT48YSBocmVmPSdwcm90b2NvbEZvcm0uYXNweD9hY3Rpb25UeXBlPTQnPlJlbW92ZTwvYT48L2xpPgo8bGk+PGEgaHJlZj0ncHJvdG9jb2xGb3JtLmFzcHg/YWN0aW9uVHlwZT02Jz5SZXN0b3JlPC9hPjwvbGk+CjxsaT48YSBocmVmPSd2aWV3UHJvdG9jb2xGb3JtLmFzcHg/YWN0aW9uVHlwZT0wJnZpZXdCeT1BbGwnPlZpZXc8L2E+PC9saT4KPC91bD48L2xpPgo8bGk+PGEgaHJlZj0namF2YXNjcmlwdDogdm9pZCgwKSc+Jm5ic3A7Jm5ic3A7Jm5ic3A7UXVlc3Rpb248L2E+PHVsPgo8bGk+PGEgaHJlZj0nIyc+Q2FtcGFpZ248L2E+PHVsPgo8bGk+PGEgaHJlZj0nY2FtcGFpZ25Gb3JtLmFzcHg/YWN0aW9uVHlwZT0xJz5BZGQ8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3VwbG9hZFNwcmVhZFNoZWV0LmFzcHg/dHlwZT1tYXR1cml0eXBhdGgnPkFkZCBNYXR1cml0eSBQYXRoIFRpbWUgU2hlZXQ8L2E+PC9saT4KPGxpPjxhIGhyZWY9J2NhbXBhaWduRm9ybS5hc3B4P2FjdGlvblR5cGU9NSc+QXJjaGl2ZTwvYT48L2xpPgo8bGk+PGEgaHJlZj0nYXNzaWduQ2FtcGFpZ25Tc2FwTWFudWFsLmFzcHgnPkFzc2lnbiBHcm91cDwvYT48L2xpPgo8bGk+PGEgaHJlZj0nYXV0b01haWwuYXNweCc+QXV0b01haWwgTWVzc2FnZTwvYT48L2xpPgo8bGk+PGEgaHJlZj0nY2FtcGFpZ25Gb3JtLmFzcHg/YWN0aW9uVHlwZT0yJz5GaW5kPC9hPjwvbGk+CjxsaT48YSBocmVmPSdjYW1wYWlnbkZvcm0uYXNweD9hY3Rpb25UeXBlPTMnPk1vZGlmeTwvYT48L2xpPgo8bGk+PGEgaHJlZj0nY2FtcGFpZ25Gb3JtLmFzcHg/YWN0aW9uVHlwZT00Jz5SZW1vdmU8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3JlcG9ydC5hc3B4Jz5SZXBvcnQ8L2E+PC9saT4KPGxpPjxhIGhyZWY9J2NhbXBhaWduRm9ybS5hc3B4P2FjdGlvblR5cGU9Nic+UmVzdG9yZTwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndmlld0NhbXBhaWduRm9ybS5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9QWxsJz5WaWV3PC9hPjwvbGk+CjwvdWw+CjwvbGk+CjxsaT48YSBocmVmPScjJz5Db3VudHJ5PC9hPjx1bD4KPGxpPjxhIGhyZWY9JyMnPkFkZDwvYT48L2xpPgo8bGk+PGEgaHJlZj0nIyc+RmluZDwvYT48L2xpPgo8bGk+PGEgaHJlZj0naHR0cHM6Ly93d3cuaW50ZWxsZWdlcy5jb20vaG9uZXl3ZWxsYmFhL2hzM2FkbWluL3Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9MjEnPk1vZGlmeTwvYT48L2xpPgo8bGk+PGEgaHJlZj0naHR0cHM6Ly93d3cuaW50ZWxsZWdlcy5jb20vaG9uZXl3ZWxsYmFhL2hzM2FkbWluL3Byb3ZpZGVyRm9ybS5hc3B4P2FjdGlvblR5cGU9MjEnPlJlbW92ZTwvYT48L2xpPgo8L3VsPgo8L2xpPgo8bGk+PGEgaHJlZj0nIyc+UGFydCAjPC9hPjx1bD4KPGxpPjxhIGhyZWY9JyMnPkFkZDwvYT48dWw+PGxpPjxhIGhyZWY9J3BhcnROdW1iZXIuYXNweD9hY3Rpb25UeXBlPTEnPk1hbnVhbDwvYT48L2xpPgo8bGk+PGEgaHJlZj0ndXBsb2FkU3ByZWFkU2hlZXQuYXNweD90eXBlPWFkZHBhcnRudW1iZXInPlNwcmVhZHNoZWV0PC9hPjwvbGk+CjwvdWw+PC9saT4KPGxpPjxhIGhyZWY9JyMnPkZpbmQ8L2E+PC9saT4KPGxpPjxhIGhyZWY9JyMnPk1vZGlmeTwvYT48L2xpPgo8bGk+PGEgaHJlZj0nIyc+UmVtb3ZlPC9hPjx1bD48bGk+PGEgaHJlZj0ncGFydE51bWJlci5hc3B4P2FjdGlvblR5cGU9NCc+TWFudWFsPC9hPjwvbGk+CjxsaT48YSBocmVmPSd1cGxvYWRTcHJlYWRTaGVldC5hc3B4P3R5cGU9cGFydG51bWJlcic+U3ByZWFkc2hlZXQ8L2E+PC9saT4KPC91bD48L2xpPgo8L3VsPgo8L2xpPgo8bGk+PGEgaHJlZj0nIyc+UXVlc3Rpb25uYWlyZTwvYT48dWw+CjxsaT48YSBocmVmPScjJz5BZGQ8L2E+PHVsPjxsaT48YSBocmVmPSdxdWVzdGlvbm5haXJlRm9ybS5hc3B4P2FjdGlvblR5cGU9MSc+TWFudWFsPC9hPjwvbGk+CjxsaT48YSBocmVmPSd1cGxvYWRTcHJlYWRTaGVldC5hc3B4P3R5cGU9UXVlc3Rpb25uYWlyZSc+U3ByZWFkc2hlZXQ8L2E+PC9saT4KPC91bD48L2xpPgo8bGk+PGEgaHJlZj0ncXVlc3Rpb25uYWlyZUZvcm0uYXNweD9hY3Rpb25UeXBlPTUnPkFyY2hpdmU8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdRdWVzdGlvbm5haXJlRm9ybS5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9Q29udGVudCc+Q29udGVudDwvYT48L2xpPgo8bGk+PGEgaHJlZj0ncXVlc3Rpb25uYWlyZUZvcm0uYXNweD9hY3Rpb25UeXBlPTInPkZpbmQ8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3F1ZXN0aW9ubmFpcmVGb3JtLmFzcHg/YWN0aW9uVHlwZT0zJz5Nb2RpZnk8L2E+PC9saT4KPGxpPjxhIGhyZWY9J3ZpZXdRdWVzdGlvbm5haXJlRm9ybS5hc3B4P2FjdGlvblR5cGU9MCZ2aWV3Qnk9UmVzcG9uc2UnPlJlc3BvbnNlPC9hPjwvbGk+CjxsaT48YSBocmVmPSdxdWVzdGlvbm5haXJlRm9ybS5hc3B4P2FjdGlvblR5cGU9Nic+UmVzdG9yZTwvYT48L2xpPgo8L3VsPgo8L2xpPgo8L3VsPjwvbGk+CjxsaT48YSBocmVmPSdqYXZhc2NyaXB0OiB2b2lkKDApJz4mbmJzcDsmbmJzcDsmbmJzcDtTeXN0ZW08L2E+PHVsPgo8bGk+PGEgaHJlZj0nc3lzdGVtSW5mb0Zvcm0uYXNweD9hY3Rpb25UeXBlPTAnPlN5c3RlbSBJbmZvPC9hPjwvbGk+CjwvdWw+PC9saT4KZAILDw8WAh8ABQQzNDU2ZGQCDQ9kFgICAw8UKwAFDxYEHgxTY3JvbGxUYXJnZXRkHg5SZW5kZXJpbmdTdGF0ZQsplgFNaWNyb3NvZnQuUmVwb3J0aW5nLldlYkZvcm1zLlJlcG9ydFJlbmRlcmluZ1N0YXRlLCBNaWNyb3NvZnQuUmVwb3J0Vmlld2VyLldlYkZvcm1zLCBWZXJzaW9uPTEwLjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EDZCgpWFN5c3RlbS5HdWlkLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkkOWY1YzA5OGUtYTFlMi00Nzg2LWI4ZmYtY2RhZDRjYjBiOWE1AgEUKwABFCsABAIBZBQrAAMoKXJTeXN0ZW0uRHJhd2luZy5QcmludGluZy5NYXJnaW5zLCBTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2ESMTAwLCAxMDAsIDEwMCwgMTAwMsUCAAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAACFTeXN0ZW0uRHJhd2luZy5QcmludGluZy5QYXBlclNpemUFAAAABGtpbmQEbmFtZQV3aWR0aAZoZWlnaHQbY3JlYXRlZEJ5RGVmYXVsdENvbnN0cnVjdG9yBAEAAAAhU3lzdGVtLkRyYXdpbmcuUHJpbnRpbmcuUGFwZXJLaW5kAgAAAAgIAQIAAAAF/f///yFTeXN0ZW0uRHJhd2luZy5QcmludGluZy5QYXBlcktpbmQBAAAAB3ZhbHVlX18ACAIAAAAAAAAABgQAAAAAUgMAAEwEAAAAC2hkZBYCAgEPZBYCZg9kFgJmD2QWDAIBDw8WAh4HVmlzaWJsZWhkZAICD2QWAgICDxYCHgVWYWx1ZQUFZmFsc2VkAgMPZBYCZg9kFgJmDw8WAh8DaGRkAgUPZBYCAgIPFgIfBAUFZmFsc2VkAgYPZBYCZg9kFgJmD2QWBGYPD2QWAh4Fc3R5bGUFEHZpc2liaWxpdHk6bm9uZTtkAgMPZBYEAgEPFgIeB0VuYWJsZWRoZAIEDxYCHwQFAzEwMGQCCg9kFgICAQ8WAh8EBQVGYWxzZWQCIQ9kFgICAQ8UKwAFDxYEHwFkHwILKwQDZCgrBSQ1YjQ4ZTAyMi0xODc3LTRhZGYtYjcwMS02ZjBjZDJmYmRhNDUCARQrAAEUKwAEAgFkFCsAAygrBhIxMDAsIDEwMCwgMTAwLCAxMDAyxQIAAQAAAP////8BAAAAAAAAAAwCAAAAUVN5c3RlbS5EcmF3aW5nLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49YjAzZjVmN2YxMWQ1MGEzYQUBAAAAIVN5c3RlbS5EcmF3aW5nLlByaW50aW5nLlBhcGVyU2l6ZQUAAAAEa2luZARuYW1lBXdpZHRoBmhlaWdodBtjcmVhdGVkQnlEZWZhdWx0Q29uc3RydWN0b3IEAQAAACFTeXN0ZW0uRHJhd2luZy5QcmludGluZy5QYXBlcktpbmQCAAAACAgBAgAAAAX9////IVN5c3RlbS5EcmF3aW5nLlByaW50aW5nLlBhcGVyS2luZAEAAAAHdmFsdWVfXwAIAgAAAAAAAAAGBAAAAABSAwAATAQAAAALaGRkFgICAQ9kFgJmD2QWAmYPZBYMAgEPDxYCHwNoZGQCAg9kFgICAg8WAh8EBQVmYWxzZWQCAw9kFgJmD2QWAmYPDxYCHwNoZGQCBQ9kFgICAg8WAh8EBQVmYWxzZWQCBg9kFgJmD2QWAmYPZBYEZg8PZBYCHwUFEHZpc2liaWxpdHk6bm9uZTtkAgMPZBYEAgEPFgIfBmhkAgQPFgIfBAUDMTAwZAIKD2QWAgIBDxYCHwQFBUZhbHNlZAIjDxBkEBULGE5ldyBDdXN0b21lciBPbi1Cb2FyZGluZw1UZXN0aW5nIFRpdGxlCkZyZWUgdHJhaWwCU0shRm9yZWlnbiBNaWxpdGFyeSBGaW5hbmNpbmcgLSAyMDEzF0NvbmZsaWN0IE1pbmVyYWxzICgzVEcpF0NvbmZsaWN0IE1pbmVyYWxzICgzVEcpF0NvbmZsaWN0IE1pbmVyYWxzICgzVEcpF0NvbmZsaWN0IE1pbmVyYWxzICgzVEcpF0NvbmZsaWN0IE1pbmVyYWxzICgzVEcpF0NvbmZsaWN0IE1pbmVyYWxzICgzVEcpFQsCNjIEMTA2MgQyMDYzBDIwNjQEMzA2NAQzMDY1BDMwNjYEMzA2NwQzMDY4BDMwNjkEMzA3MBQrAwtnZ2dnZ2dnZ2dnZxYBZmQCJQ9kFgoCAQ8PFgIfAAUCMTZkZAIDDw8WAh8ABQExZGQCBQ8PFgIfAAUCNTBkZAIHDw8WAh8ABQExZGQCCQ88KwARAGQYAgUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgQFL2N0bDAwJGNvbnRlbnRNYWluJFJlcG9ydFZpZXdlcjEkVG9nZ2xlUGFyYW0kaW1nBSljdGwwMCRjb250ZW50TWFpbiRSZXBvcnRWaWV3ZXIxJGN0bDA4JGltZwU2Y3RsMDAkY29udGVudFJpZ2h0Qm90dG9tJFJlcG9ydFZpZXdlcjIkVG9nZ2xlUGFyYW0kaW1nBTBjdGwwMCRjb250ZW50UmlnaHRCb3R0b20kUmVwb3J0Vmlld2VyMiRjdGwwOCRpbWcFD2N0bDAwJEdyaWRWaWV3MQ9nZEQJpTsPCSZDhLO0h1E19DEJKpW3gMp/cYuS5G5q0tZX" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+theForm.__EVENTTARGET.value = eventTarget;
+theForm.__EVENTARGUMENT.value = eventArgument;
+theForm.submit();
+}
+}
+//]]>
+</script>
+
+
+<script src="Contents//intellegesHs3Intelleges/WebResource.axd?d=sU7GZfBdZPWksNdojZSCfQ2&amp;t=634680501876440000" type="text/javascript"></script>
+
+
+<script src="Contents//intellegesHs3Intelleges/ScriptResource.axd?d=LOLXg1APRfVJFjo2zFA3QedFtR_ukxvvDGavf5Ad3z1jDeI9DrpTPia2ngUyUJA-wfmb3kQhv9I1n9ODiwRSr2UgZuYZLZ4aRPfFLDCZsoA1&amp;t=16ab2387" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<script src="Contents//intellegesHs3Intelleges/ScriptResource.axd?d=LOLXg1APRfVJFjo2zFA3QedFtR_ukxvvDGavf5Ad3z1jDeI9DrpTPia2ngUyUJA--qHqn_8PWdhhrlkSAvkIHDzgiw-VzQcekBvg8qj6hch_EWH2MwzzqmSaY4aYRkKQ0&amp;t=16ab2387" type="text/javascript"></script>
+<script src="Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=ViewerScript" type="text/javascript"></script>
+<script src="Contents//intellegesHs3Intelleges/ScriptResource.axd?d=LOLXg1APRfVJFjo2zFA3QedFtR_ukxvvDGavf5Ad3z1jDeI9DrpTPia2ngUyUJA-DtdO6u6WRsyzlE3pQeFNMWpPhyfuAFcCoPISNQM0Vcs1&amp;t=16ab2387" type="text/javascript"></script>
+<div>
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWMwKO4MPLDwLgu7flBAL7pNX6DgLKz8asDgLJz8asDgKhpOHNCALC+IbLDwLv9/a5CwKq04H5BwLj5IZZAs7ZgaoLArnr9PkBArXcouMKArDSu4wHAt7J2s4LApqK9M8MApmK9M8MApiK9M8MAv/3laAMAv/3maAMAqCy1f8EAqCywaQMAqL3/8sBArjN2+8GAoOgzPgFAtq9tq8MArGsxLMMAuL2x7wCAr330ZkJAp3rkK0EAqa+y9ABApTko7EJAoHekKwOAoHepIcHAoHemIkKAs2dy28Cx/KpggwChriTvwsCh7iPmgICh7j79QoChLj79QoChLjX0AEChLjDiwgChLi/ZwKEuOuPAgKEuMfqCgKpk9XzBwKw6d8WAv7H/coBAuvek+UGAvbP6/IC9OqpiJZZ9OWfwFYnpBarqJDKfjNRa+x/yEeQSLAX4NI=" />
+</div>
+<div id="container">
+    <div id="header2">
+    	<div class="header-top-r">
+            <div class="persons2"> 
+                JOHN BETANCOURT
+                <span id="ctl00_lblRole">
+                    System Master
+                </span>
+            </div><!-- .persons2 -->
+            <div class="survey3">
+                <select name="new-customer-on-boarding" class="new-customer-on-boarding-class">
+                    <option>NEW CUSTOMER ON BOARDING</option>
+                    <option>NEW CUSTOMER ON BOARDING</option>
+                    <option>NEW CUSTOMER ON BOARDING</option>
+                    <option>NEW CUSTOMER ON BOARDING</option>
+                </select>
+            </div><!-- .survey3 -->
+            <div class="logo2">
+                <div class="survey2">
+                    <a href="Contents/#"><img src="Contents/images/logo-r1.png" alt="Logo" /></a>
+                </div><!-- .survey2 -->
+            </div><!-- .logo2 -->
+        </div><!-- .header-top-r -->
+        <!-- start: navigation bar -->
+        <div class="menu-side-text-r">
+            <p>Cloud Based Global Compliance Automation Services</p>
+        </div><!-- .menu-side-text-r -->
+        <div id="menu" >
+            <ul id="qm0" class="qmmc">
+            <li><a href='javascript: void(0)'>&nbsp;&nbsp;User</a><ul>
+            <li><a href='#'>Add</a><ul>
+            <li><a href='#'>User</a><ul><li><a href='userForm.aspx?actionType=1'>Manual</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=User'>Spreadsheet</a></li>
+            </ul></li>
+            <li><a href='userRoleForm.aspx?actionType=1'>User Role</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Alert</a><ul>
+            <li><a href='viewAlertMember.aspx?viewBy=All'>All</a></li>
+            <li><a href='viewAlertMember?viewBy=All Campaign'>By Campaign</a><ul><li><a href='viewAlertMember.aspx?viewBy=By Campaign&id=3064'>Foreign Military Financing - 2013</a></li>
+            <li><a href='viewAlertMember.aspx?viewBy=By Campaign&id=2063'>Free trail</a></li>
+            <li><a href='viewAlertMember.aspx?viewBy=By Campaign&id=62'>New Customer On-Boarding</a></li>
+            <li><a href='viewAlertMember.aspx?viewBy=By Campaign&id=2064'>SK</a></li>
+            <li><a href='viewAlertMember.aspx?viewBy=By Campaign&id=1062'>Testing Title</a></li>
+            </ul></li>
+            <li><a href='viewAlertMember.aspx?viewBy=All SSAP'>By Group</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Archive</a><ul>
+            <li><a href='ArchieveMultiple.aspx'>Multiple</a></li>
+            <li><a href='Retreivearchieveduser.aspx'>Retrieve</a></li>
+            <li><a href='userForm.aspx?actionType=5'>Single</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Assign Group</a><ul>
+            <li><a href='assignUserSSAP.aspx?actionType=0&viewBy=All'>All</a></li>
+            <li><a href='#'>By Role</a><ul><li><a href='assignUserSSAP.aspx?actionType=0&viewBy=By Role&id=3'>Business Leader</a></li>
+            <li><a href='assignUserSSAP.aspx?actionType=0&viewBy=By Role&id=2'>Corporate User</a></li>
+            <li><a href='assignUserSSAP.aspx?actionType=0&viewBy=By Role&id=4'>Sponsor</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            <li><a href='userForm.aspx?actionType=2'>Find</a></li>
+            <li><a href='#'>Modify</a><ul>
+            <li><a href='userForm.aspx?actionType=3'>User</a></li>
+            <li><a href='userRoleForm.aspx?actionType=3'>User Role</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Remove</a><ul>
+            <li><a href='userForm.aspx?actionType=4'>User</a></li>
+            <li><a href='#'>User Role</a></li>
+            </ul>
+            </li>
+            <li><a href='removealluser.aspx'>Remove All</a></li>
+            <li><a href='userForm.aspx?actionType=6'>Restore</a><ul>
+            <li><a href='RestoreMultiple.aspx'>Multiple</a></li>
+            <li><a href='userForm.aspx?actionType=6'>Single</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>View</a><ul>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=All'>All</a></li>
+            <li><a href='viewSsapForm.aspx?actionType=19&type=user'>By Group</a></li>
+            <li><a href='#'>By Role</a><ul><li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Business+Leader&id=3'>Business Leader</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Business+Leader&id=23'>business led</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Corporate User&id=2'>Corporate User</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Business+Leader&id=25'>New role</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Business+Leader&id=24'>new test user rol</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Sponsor&id=4'>Sponsor</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Business+Leader&id=22'>Test Role Dupon</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            </ul></li>
+            <li><a href='javascript: void(0)'>&nbsp;&nbsp;&nbsp;Partner</a><ul>
+            <li><a href='#'>Add</a><ul>
+            <li><a href='#'>Country Risk Rating</a></li>
+            <li><a href='#'>Partner</a><ul><li><a href='addProviderManual.aspx?actionType=1'>Manual</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=provider'>Spreadsheet</a></li>
+            </ul></li>
+            <li><a href='providerTypeForm.aspx?actionType=1'>Partner Type</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Alert</a><ul>
+            <li><a href='viewAlertPartner.aspx?find=true'>All</a></li>
+            </ul>
+            </li>
+            <li><a href='providerForm.aspx?actionType=5'>Archive</a></li>
+            <li><a href='NULL'>Confirm</a><ul>
+            <li><a href='viewProviderForm.aspx?actionType=7&viewBy=Collapsed'>Collapsed</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=7&viewBy=Expanded'>Expanded</a></li>
+            </ul>
+            </li>
+            <li><a href='providerForm.aspx?actionType=2'>Find</a></li>
+            <li><a href='#'>Invite</a><ul>
+            <li><a href='viewProviderForm.aspx?actionType=31&viewBy=InviteToRegister'>InviteToRegister</a></li>
+            <li><a href='providerForm.aspx?actionType=8&viewBy=ModifyContact'>Mod Contact</a></li>
+            <li><a href='providerForm.aspx?actionType=8&viewBy=Remind'>Remind</a></li>
+            <li><a href='HROEmail.aspx'>Remind HRO</a></li>
+            <li><a href='providerForm.aspx?actionType=8&viewBy=InvitationToRetrieval'>Retrieve</a></li>
+            <li><a href='providerForm.aspx?actionType=8&viewBy=Send'>Send</a></li>
+            </ul>
+            </li>
+            <li><a href='NULL'>Modify</a><ul>
+            <li><a href='#'>Partner</a><ul><li><a href='providerForm.aspx?actionType=3&viewBy=Confirmed'>Confirmed</a></li>
+            <li><a href='providerForm.aspx?actionType=3&viewBy=Unconfirmed'>Unconfirmed</a></li>
+            </ul></li>
+            <li><a href='providerTypeForm.aspx?actionType=3'>Partner Type</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Remove</a><ul>
+            <li><a href='#'>Partner</a><ul><li><a href='providerForm.aspx?actionType=4&viewBy=Reference'>Reference</a></li>
+            <li><a href='providerForm.aspx?actionType=4&viewBy=Shadow'>Shadow</a></li>
+            <li><a href='providerForm.aspx?actionType=4&viewBy=Unconfirmed'>Unconfirmed</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            <li><a href='removeallprovider.aspx'>Remove All</a></li>
+            <li><a href='#'>Report</a><ul>
+            <li><a href='partnerreport.aspx'>Report 1: Standard</a></li>
+            <li><a href='partnerreport1.aspx'>Report 2: Complete I</a></li>
+            <li><a href='partnerreport11.aspx'>Report 2: Complete II Final</a></li>
+            <li><a href='partnerreport2.aspx?Res=I'>Report 3: Incomplete</a></li>
+            <li><a href='partnerreport2.aspx?Res=N'>Report 4: No Response</a></li>
+            </ul>
+            </li>
+            <li><a href='providerForm.aspx?actionType=6'>Restore</a></li>
+            <li><a href='#'>Switch</a><ul>
+            <li><a href='switchProvider.aspx?viewBy=Demote+Reference'>Demote Reference</a></li>
+            <li><a href='switchProvider.aspx?viewBy=Promote+Shadow'>Promote Shadow</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=providerpromote'>Upload Spreadsheet</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Transfer</a><ul>
+            <li><a href='transfer.aspx?viewType=Owner'>Ownership</a></li>
+            <li><a href='NULL'>Partner</a><ul><li><a href='viewSsapForm.aspx?actionType=9&type=provider'>By Group</a></li>
+            <li><a href='viewUserForm.aspx?actionType=9&viewBy=By User'>By User</a></li>
+            <li><a href='providerForm.aspx?actionType=9'>Find</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            <li><a href='#'>View</a><ul>
+            <li><a href='#'>All</a><ul><li><a href='viewProviderForm.aspx?actionType=0&viewBy=All&viewByType=Reference'>Reference</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=All&viewByType=Reference/Shadow'>Reference/Shadow</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=All&viewByType=Shadow'>Shadow</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=All&viewByType=Unconfirm'>Unconfirmed</a></li>
+            </ul></li>
+            <li><a href='#'>By Country Risk Rating</a><ul><li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Country Risk Rating&viewByType=0th-10th'>0th-10th</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Country Risk Rating&viewByType=10th-25th'>10th-25th</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Country Risk Rating&viewByType=25th-50th'>25th-50th</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Country Risk Rating&viewByType=50th-75th'>50th-75th</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Country Risk Rating&viewByType=75th-90th'>75th-90th</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Country Risk Rating&viewByType=90th-100th'>90th-100th</a></li>
+            </ul></li>
+            <li><a href='viewSsapForm.aspx?actionType=19&type=provider'>By Group</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Me'>By me: Current User</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=Provider Count'>By Owner</a></li>
+            <li><a href='viewStatusForm.aspx?actionType=0&viewBy=All'>By Status</a></li>
+            <li><a href='#'>By Type</a><ul><li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Conflict Minerals (3TG)&id=45'>3TG</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Anti-Money Laundering/Know Your Customer&id=46'>AML-KYC</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Buy American Act&id=47'>BAA</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Center for Disease Control&id=48'>CDC</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Certs & Reps/eSRS&id=50'>CNR</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Anti-Counterfeit System&id=49'>CTR</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Executive Compensation&id=51'>EC</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Foreign Corrupt Practices Act&id=52'>FCPA</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Foreign Military Financing&id=53'>FMF</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=&id=1057'>General Counsel</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=rcoi&id=1066'>rcoi</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Supply Chain Integrity&id=54'>SCI</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Supply Chain Security/C-TPAT&id=55'>SCS</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Trade Agreement Act&id=56'>TAA</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            </ul></li>
+            <li><a href='javascript: void(0)'>&nbsp;&nbsp;&nbsp;Group</a><ul>
+            <li><a href='ssapForm.aspx?actionType=1'>Add</a><ul>
+            <li><a href='ssapForm.aspx?actionType=1'>Manual</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=group'>Spreadsheet</a></li>
+            </ul>
+            </li>
+            <li><a href='ssapForm.aspx?actionType=5'>Archive</a></li>
+            <li><a href='NULL'>Dashboard</a><ul>
+            <li><a href='dashboard.aspx?viewBy=All'>All</a></li>
+            <li><a href='NULL'>By Campaign</a><ul><li><a href='dashboard.aspx?viewBy=By Campaign&id=10'>Child_Campaign_of_father</a></li>
+            <li><a href='dashboard.aspx?viewBy=By Campaign&id=8'>C-TPAT 2009</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            <li><a href='ssapForm.aspx?actionType=2'>Find</a></li>
+            <li><a href='ssapForm.aspx?actionType=3'>Modify</a><ul>
+            <li><a href='uploadSpreadSheet.aspx?type=goal'>Goal</a></li>
+            <li><a href='ssapForm.aspx?actionType=3'>Property</a></li>
+            </ul>
+            </li>
+            <li><a href='ssapForm.aspx?actionType=4'>Remove</a></li>
+            <li><a href='removeallssap.aspx'>Remove All</a></li>
+            <li><a href='ssapForm.aspx?actionType=6'>Restore</a></li>
+            <li><a href='#'>Transfer</a><ul>
+            <li><a href='viewSsapForm.aspx?actionType=9&type=provider'>By Group</a></li>
+            <li><a href='viewUserForm.aspx?actionType=9&viewBy=By User'>By User</a></li>
+            <li><a href='providerForm.aspx?actionType=9'>Find</a></li>
+            </ul>
+            </li>
+            <li><a href='ssapForm.aspx?actionType=11'>View</a></li>
+            </ul></li>
+            <li><a href='javascript: void(0)'>&nbsp;&nbsp;&nbsp;Protocol</a><ul>
+            <li><a href='protocolForm.aspx?actionType=1'>Add</a></li>
+            <li><a href='protocolForm.aspx?actionType=5'>Archive</a></li>
+            <li><a href='protocolForm.aspx?actionType=2'>Find</a></li>
+            <li><a href='protocolForm.aspx?actionType=3'>Modify</a></li>
+            <li><a href='protocolForm.aspx?actionType=4'>Remove</a></li>
+            <li><a href='protocolForm.aspx?actionType=6'>Restore</a></li>
+            <li><a href='viewProtocolForm.aspx?actionType=0&viewBy=All'>View</a></li>
+            </ul></li>
+            <li><a href='javascript: void(0)'>&nbsp;&nbsp;&nbsp;Question</a><ul>
+            <li><a href='#'>Campaign</a><ul>
+            <li><a href='campaignForm.aspx?actionType=1'>Add</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=maturitypath'>Add Maturity Path Time Sheet</a></li>
+            <li><a href='campaignForm.aspx?actionType=5'>Archive</a></li>
+            <li><a href='assignCampaignSsapManual.aspx'>Assign Group</a></li>
+            <li><a href='autoMail.aspx'>AutoMail Message</a></li>
+            <li><a href='campaignForm.aspx?actionType=2'>Find</a></li>
+            <li><a href='campaignForm.aspx?actionType=3'>Modify</a></li>
+            <li><a href='campaignForm.aspx?actionType=4'>Remove</a></li>
+            <li><a href='report.aspx'>Report</a></li>
+            <li><a href='campaignForm.aspx?actionType=6'>Restore</a></li>
+            <li><a href='viewCampaignForm.aspx?actionType=0&viewBy=All'>View</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Country</a><ul>
+            <li><a href='#'>Add</a></li>
+            <li><a href='#'>Find</a></li>
+            <li><a href='https://www.intelleges.com/honeywellbaa/hs3admin/providerForm.aspx?actionType=21'>Modify</a></li>
+            <li><a href='https://www.intelleges.com/honeywellbaa/hs3admin/providerForm.aspx?actionType=21'>Remove</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Part #</a><ul>
+            <li><a href='#'>Add</a><ul><li><a href='partNumber.aspx?actionType=1'>Manual</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=addpartnumber'>Spreadsheet</a></li>
+            </ul></li>
+            <li><a href='#'>Find</a></li>
+            <li><a href='#'>Modify</a></li>
+            <li><a href='#'>Remove</a><ul><li><a href='partNumber.aspx?actionType=4'>Manual</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=partnumber'>Spreadsheet</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            <li><a href='#'>Questionnaire</a><ul>
+            <li><a href='#'>Add</a><ul><li><a href='questionnaireForm.aspx?actionType=1'>Manual</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=Questionnaire'>Spreadsheet</a></li>
+            </ul></li>
+            <li><a href='questionnaireForm.aspx?actionType=5'>Archive</a></li>
+            <li><a href='viewQuestionnaireForm.aspx?actionType=0&viewBy=Content'>Content</a></li>
+            <li><a href='questionnaireForm.aspx?actionType=2'>Find</a></li>
+            <li><a href='questionnaireForm.aspx?actionType=3'>Modify</a></li>
+            <li><a href='viewQuestionnaireForm.aspx?actionType=0&viewBy=Response'>Response</a></li>
+            <li><a href='questionnaireForm.aspx?actionType=6'>Restore</a></li>
+            </ul>
+            </li>
+            </ul></li>
+            <li><a href='javascript: void(0)'>&nbsp;&nbsp;&nbsp;System</a><ul>
+            <li><a href='systemInfoForm.aspx?actionType=0'>System Info</a></li>
+            </ul></li>
+
+            <li class="qmclear">&nbsp;</li>
+            </ul>
+        <script type="text/javascript">qm_create(0, false, 0, 500, false, false, false, false, false);</script>             
+        </div><!-- #menu -->
+        <div class="logout-button-r">
+            <a href="Contents/#"><img src="Contents/images/logout-r1.png" alt="Logout Button" /></a>
+        </div>
+        <div class="clear-r"></div>
+        <!-- end: navigation bar -->
+    </div><!-- .header2 -->
+ <!--   <div class="spacer-r"> 
+        
+    </div> -->
+    <div id="wrapper">
+        <div id="left">
+            <div class="date"><span id="ctl00_lblDayLeft">3456</span></div>
+            <div id="leftmenu"><a href="Contents/CompanyNews.aspx">IN THE NEWS</a> <a href="Contents/#">BEST PRACTICES</a> <a href="Contents/#" style="padding:10px 0 0 0; height:43px">TEMPLATES & POLICIES</a> <a href="Contents/#">POST IT!</a> <a href="Contents/#">OPEN TASK: 3</a></div>
+        </div><!-- #left -->
+        <div  id="content" style="padding:0 0 5px 0">   
+
+        <!-- Index content -->
+        <div style="padding:0 0 0 5px; overflow:hidden; float:left; width:420px;">
+        <div class="tabcontentarea">
+
+        <script type="text/javascript">
+        //<![CDATA[
+        Sys.WebForms.PageRequestManager._initialize('ctl00$contentMain$ScriptManager1', 'aspnetForm', ['fctl00$contentMain$ReportViewer1$ReportViewer','','fctl00$contentMain$ReportViewer1$Toolbar','','fctl00$contentMain$ReportViewer1$DocMap','','fctl00$contentMain$ReportViewer1$ctl10$ReportArea','','fctl00$contentRightBottom$ReportViewer2$ReportViewer','','fctl00$contentRightBottom$ReportViewer2$Toolbar','','fctl00$contentRightBottom$ReportViewer2$DocMap','','fctl00$contentRightBottom$ReportViewer2$ctl10$ReportArea',''], [], ['ctl00$contentMain$ReportViewer1$ctl10$ReportControl$ctl00','','ctl00$contentRightBottom$ReportViewer2$ctl10$ReportControl$ctl00',''], 90, 'ctl00');
+        //]]>
+        </script>
+
+
+
+
+        <noscript>
+        &nbsp;Your browser does not support scripts or has been configured not to allow scripts.
+        </noscript><span id="ctl00_contentMain_ReportViewer1_ReportViewer"><div id="ctl00_contentMain_ReportViewer1" class="rptview" onclick="if ($get(&#39;ctl00_contentMain_ReportViewer1_ctl04&#39;) != null &amp;&amp; $get(&#39;ctl00_contentMain_ReportViewer1_ctl04&#39;).control != null) $get(&#39;ctl00_contentMain_ReportViewer1_ctl04&#39;).control.HideActiveDropDown();" onactivate="if ($get(&#39;ctl00_contentMain_ReportViewer1_ctl04&#39;) != null &amp;&amp; $get(&#39;ctl00_contentMain_ReportViewer1_ctl04&#39;).control != null) $get(&#39;ctl00_contentMain_ReportViewer1_ctl04&#39;).control.HideActiveDropDown();" style="height:229px;width:385px;">
+        <div id="ctl00_contentMain_ReportViewer1_HttpHandlerMissingErrorMessage" style="border-color:Red;border-width:2px;border-style:Solid;padding:10px;display:none;overflow:auto;font-size:.85em;">
+        <h2>
+        Report Viewer Configuration Error
+        </h2><p>The Report Viewer Web Control HTTP Handler has not been registered in the application&#39;s web.config file.  Add &lt;add verb=&quot;*&quot; path=&quot;Reserved.ReportViewerWebControl.axd&quot; type = &quot;Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&quot; /&gt; to the system.web/httpHandlers section of the web.config file, or add &lt;add name=&quot;ReportViewerWebControlHandler&quot; preCondition=&quot;integratedMode&quot; verb=&quot;*&quot; path=&quot;Reserved.ReportViewerWebControl.axd&quot; type=&quot;Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&quot; /&gt; to the system.webServer/handlers section for Internet Information Services 7 or later.</p>
+        </div><span id="ctl00_contentMain_ReportViewer1_ctl03"><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl03$ctl00" id="ctl00_contentMain_ReportViewer1_ctl03_ctl00" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl03$ctl01" id="ctl00_contentMain_ReportViewer1_ctl03_ctl01" /></span><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl11" id="ctl00_contentMain_ReportViewer1_ctl11" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl12" id="ctl00_contentMain_ReportViewer1_ctl12" /><div id="ctl00_contentMain_ReportViewer1_AsyncWait" style="background-color:White;opacity:0.7;position:absolute;display:none;filter:alpha(opacity=70);">
+
+        </div><div id="ctl00_contentMain_ReportViewer1_AsyncWait_Wait" style="cursor:wait;background-color:#D8D9DB;padding:15px;border:1px solid black;display:none;position:absolute;">
+        <table height="100%">
+        <tr>
+            <td width="32px" height="32px"><img src="Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SpinningWheel.gif" style="height:32px;width:32px;border-width:0px;" /></td><td style="vertical-align:middle;text-align:center;"><span style="font-family:Verdana;font-size:14pt;">Loading...</span><div style="margin-top:3px;">
+                <a href="Contents/javascript:$get(&#39;ctl00_contentMain_ReportViewer1_AsyncWait&#39;).control._cancelCurrentPostback();" style="font-family:Verdana;font-size:8pt;color:#3366CC;">Cancel</a>
+            </div></td>
+        </tr>
+        </table>
+        </div><input type="hidden" name="ctl00$contentMain$ReportViewer1$AsyncWait$HiddenCancelField" id="ctl00_contentMain_ReportViewer1_AsyncWait_HiddenCancelField" value="False" /><table cellpadding="0" cellspacing="0" id="ctl00_contentMain_ReportViewer1_fixedTable" style="table-layout:fixed;width:100%;height:100%;">
+        <tr>
+        <td style="display:none;width:25%;"></td><td style="display:none;width:6px;"></td><td style="width:100%;"></td>
+        </tr><tr id="ParametersRowctl00_contentMain_ReportViewer1" style="display:none;">
+        <td colspan="3"></td>
+        </tr><tr style="height:6px;font-size:2pt;display:none;">
+        <td colspan="3" style="padding:0px;margin:0px;text-align:center;background-color:#ECE9D8;"><div id="ctl00_contentMain_ReportViewer1_ToggleParam">
+            <input type="image" name="ctl00$contentMain$ReportViewer1$ToggleParam$img" id="ctl00_contentMain_ReportViewer1_ToggleParam_img" title="Show / Hide Parameters" src="Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SplitterHorizCollapse.png" alt="Show / Hide Parameters" align="middle" onclick="void(0);" style="border-width:0px;cursor:pointer;" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ToggleParam$store" id="ctl00_contentMain_ReportViewer1_ToggleParam_store" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ToggleParam$collapse" id="ctl00_contentMain_ReportViewer1_ToggleParam_collapse" value="false" />
+        </div></td>
+        </tr><tr style="display:none;">
+
+        </tr><tr>
+        <td style="vertical-align:top;width:25%;height:100%;display:none;"><div style="width:100%;height:100%;">
+            <span id="ctl00_contentMain_ReportViewer1_DocMap"><div id="ctl00_contentMain_ReportViewer1_ctl09" style="display:none;">
+                <input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl09$ClientClickedId" id="ctl00_contentMain_ReportViewer1_ctl09_ClientClickedId" />
+            </div></span>
+        </div></td><td style="display:none;width:4px;padding:0px;margin:0px;height:100%;vertical-align:middle;background-color:#ECE9D8;"><div id="ctl00_contentMain_ReportViewer1_ctl08">
+            <input type="image" name="ctl00$contentMain$ReportViewer1$ctl08$img" id="ctl00_contentMain_ReportViewer1_ctl08_img" title="Show / Hide Document Map" src="Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SplitterVertCollapse.png" alt="Show / Hide Document Map" align="top" onclick="void(0);" style="border-width:0px;cursor:pointer;" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl08$store" id="ctl00_contentMain_ReportViewer1_ctl08_store" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl08$collapse" id="ctl00_contentMain_ReportViewer1_ctl08_collapse" value="false" />
+        </div></td><td style="height:100%;vertical-align:top;"><div id="ctl00_contentMain_ReportViewer1_ctl10" style="height:100%;width:100%;overflow:auto;position:relative;">
+            <div id="VisibleReportContentctl00_contentMain_ReportViewer1_ctl10" style="height:100%;display:none;">
+
+  @RenderBody()
+
+            </div><div id="ctl00_contentMain_ReportViewer1_ctl10_ReportArea">
+                <div NewContentType="Microsoft.Reporting.WebFormsClient.ReportAreaContent.None" ForNonReportContentArea="false" id="ctl00_contentMain_ReportViewer1_ctl10_VisibilityState" style="visibility:none;">
+                    <input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl10$VisibilityState$ctl00" value="None" />
+                </div><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl10$ScrollPosition" id="ctl00_contentMain_ReportViewer1_ctl10_ScrollPosition" /><span id="ctl00_contentMain_ReportViewer1_ctl10_Reserved_AsyncLoadTarget"></span><div id="ctl00_contentMain_ReportViewer1_ctl10_ReportControl" style="display:none;">
+                    <span></span><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl10$ReportControl$ctl02" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl10$ReportControl$ctl03" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl10$ReportControl$ctl04" id="ctl00_contentMain_ReportViewer1_ctl10_ReportControl_ctl04" value="100" />
+                </div><div id="ctl00_contentMain_ReportViewer1_ctl10_NonReportContent" style="height:100%;width:100%;">
+
+                </div>
+            </div>
+        </div></td>
+        </tr>
+        </table>
+        </div></span>
+
+
+        <!-- <div id="country1" class="tabcontent"> <img src="Contents/images/home-tab-content.jpg" width="418" height="351" border="" alt="" /> </div>
+        <div id="country2" class="tabcontent">
+        </div>
+        <div id="country3" class="tabcontent">
+        </div>
+        <div id="country4" class="tabcontent">
+        </div>-->
+        </div>
+        <div id="countrytabs" class="shadetabs"> 
+        <span class="risk"><a href="Contents/#" rel="country1" class="selected"></a></span> 
+        <span class="dashbord" onclick="javascript: window.location='dashboard.aspx?viewBy=My Dashboard'; return true;"><a href="Contents/#" rel="" ></a></span> 
+        <span class="alert" onclick="javascript: window.location='alertForm.aspx'; return true;"><a href="Contents/#" rel="country3" style="margin:0 4px 0 0;"> </a></span> 
+        <span class="partners" onclick="javascript: window.location='uploadSpreadsheet.aspx?type=provider'; return true;"> <a href="Contents/#" rel="country4" style="margin:0;"> </a></span></div>
+        </div>
+        <script type="text/javascript" >
+        var countries=new ddtabcontent("countrytabs")
+        countries.setpersist(true)
+        countries.setselectedClassTarget("link") //"link" or "linkparent"
+        countries.init()
+        </script>
+        <div id="watch">
+
+        <h2>In the News</h2>
+        <div id="feed-control" style="width:440px;height:125px;overflow-y:scroll;overflow-x:hidden;">
+        <span style="color:#676767;font-size:11px;margin:10px;padding:4px;">Loading...</span>
+        </div>
+
+
+        <!--<h2>Watch Items</h2>
+        <div class="watchcon">
+        <script type="text/javascript">
+
+        iens6=document.all||document.getElementById
+        ns4=document.layers
+
+        //specify speed of scroll (greater=faster)
+        var speed=3
+
+        if (iens6){
+        document.write('<div id="watchcontainer" style="position:relative;width:100%;height:100px;overflow:hidden">')
+        document.write('<div id="watchcontent" style="position:absolute;width:100%;left:0;top:0">')
+        }
+        </script>
+
+        <a id="ctl00_linkRefused" href="Contents/viewProviderForm.aspx?actionType=0&amp;viewBy=By Campaign&amp;viewByType=Refused"></a> 
+        <a id="ctl00_linkIncomplete" href="Contents/viewProviderForm.aspx?actionType=0&amp;viewBy=By Campaign&amp;viewByType=Incompleted"></a> 
+        <a id="ctl00_linkNA" href="Contents/viewProviderForm.aspx?actionType=0&amp;viewBy=By Campaign&amp;viewByType=ScoreNA"></a> 
+        <a id="ctl00_linkRefused2" href="Contents/viewProviderForm.aspx?actionType=0&amp;viewBy=By Campaign&amp;viewByType=Refused"></a> 
+        <a id="ctl00_linkRefused3" href="Contents/viewProviderForm.aspx?actionType=0&amp;viewBy=By Campaign&amp;viewByType=Refused"></a> 
+        <a id="ctl00_linkIncomplete2" href="Contents/viewProviderForm.aspx?actionType=0&amp;viewBy=By Campaign&amp;viewByType=Incompleted"></a> 
+        <a id="ctl00_linkNA2" href="Contents/viewProviderForm.aspx?actionType=0&amp;viewBy=By Campaign&amp;viewByType=ScoreNA"></a> 
+        <a id="ctl00_linkRefused4" href="Contents/viewProviderForm.aspx?actionType=0&amp;viewBy=By Campaign&amp;viewByType=Refused"></a> 
+
+        <script language="JavaScript1.2">
+        if (iens6)
+        document.write('</div></div>')
+        </script>
+        <script language="javascript1.2" src="Contents/js/scroll.js" type="text/javascript"></script>
+        </div>-->
+
+        </div>
+        <div class="map">
+
+
+        <noscript>
+        &nbsp;Your browser does not support scripts or has been configured not to allow scripts.
+        </noscript><span id="ctl00_contentRightBottom_ReportViewer2_ReportViewer"><div id="ctl00_contentRightBottom_ReportViewer2" class="rptviewRight" onclick="if ($get(&#39;ctl00_contentRightBottom_ReportViewer2_ctl04&#39;) != null &amp;&amp; $get(&#39;ctl00_contentRightBottom_ReportViewer2_ctl04&#39;).control != null) $get(&#39;ctl00_contentRightBottom_ReportViewer2_ctl04&#39;).control.HideActiveDropDown();" onactivate="if ($get(&#39;ctl00_contentRightBottom_ReportViewer2_ctl04&#39;) != null &amp;&amp; $get(&#39;ctl00_contentRightBottom_ReportViewer2_ctl04&#39;).control != null) $get(&#39;ctl00_contentRightBottom_ReportViewer2_ctl04&#39;).control.HideActiveDropDown();" style="height:400px;width:400px;">
+        <div id="ctl00_contentRightBottom_ReportViewer2_HttpHandlerMissingErrorMessage" style="border-color:Red;border-width:2px;border-style:Solid;padding:10px;display:none;overflow:auto;font-size:.85em;">
+        <h2>
+        Report Viewer Configuration Error
+        </h2><p>The Report Viewer Web Control HTTP Handler has not been registered in the application&#39;s web.config file.  Add &lt;add verb=&quot;*&quot; path=&quot;Reserved.ReportViewerWebControl.axd&quot; type = &quot;Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&quot; /&gt; to the system.web/httpHandlers section of the web.config file, or add &lt;add name=&quot;ReportViewerWebControlHandler&quot; preCondition=&quot;integratedMode&quot; verb=&quot;*&quot; path=&quot;Reserved.ReportViewerWebControl.axd&quot; type=&quot;Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&quot; /&gt; to the system.webServer/handlers section for Internet Information Services 7 or later.</p>
+        </div><span id="ctl00_contentRightBottom_ReportViewer2_ctl03"><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl03$ctl00" id="ctl00_contentRightBottom_ReportViewer2_ctl03_ctl00" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl03$ctl01" id="ctl00_contentRightBottom_ReportViewer2_ctl03_ctl01" /></span><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl11" id="ctl00_contentRightBottom_ReportViewer2_ctl11" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl12" id="ctl00_contentRightBottom_ReportViewer2_ctl12" /><div id="ctl00_contentRightBottom_ReportViewer2_AsyncWait" style="background-color:White;opacity:0.7;position:absolute;display:none;filter:alpha(opacity=70);">
+
+        </div><div id="ctl00_contentRightBottom_ReportViewer2_AsyncWait_Wait" style="cursor:wait;background-color:Red;padding:15px;border:1px solid black;display:none;position:absolute;">
+        <table height="100%">
+        <tr>
+            <td width="32px" height="32px"><img src="Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SpinningWheel.gif" style="height:32px;width:32px;border-width:0px;" /></td><td style="vertical-align:middle;text-align:center;"><span style="font-family:Verdana;font-size:14pt;">Loading...</span><div style="margin-top:3px;">
+                <a href="Contents/javascript:$get(&#39;ctl00_contentRightBottom_ReportViewer2_AsyncWait&#39;).control._cancelCurrentPostback();" style="font-family:Verdana;font-size:8pt;color:#3366CC;">Cancel</a>
+            </div></td>
+        </tr>
+        </table>
+        </div><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$AsyncWait$HiddenCancelField" id="ctl00_contentRightBottom_ReportViewer2_AsyncWait_HiddenCancelField" value="False" /><table cellpadding="0" cellspacing="0" id="ctl00_contentRightBottom_ReportViewer2_fixedTable" style="table-layout:fixed;width:100%;height:100%;">
+        <tr>
+        <td style="display:none;width:25%;"></td><td style="display:none;width:6px;"></td><td style="width:100%;"></td>
+        </tr><tr id="ParametersRowctl00_contentRightBottom_ReportViewer2" style="display:none;">
+        <td colspan="3"></td>
+        </tr><tr style="height:6px;font-size:2pt;display:none;">
+        <td colspan="3" style="padding:0px;margin:0px;text-align:center;background-color:#ECE9D8;"><div id="ctl00_contentRightBottom_ReportViewer2_ToggleParam">
+            <input type="image" name="ctl00$contentRightBottom$ReportViewer2$ToggleParam$img" id="ctl00_contentRightBottom_ReportViewer2_ToggleParam_img" title="Show / Hide Parameters" src="Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SplitterHorizCollapse.png" alt="Show / Hide Parameters" align="middle" onclick="void(0);" style="border-width:0px;cursor:pointer;" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ToggleParam$store" id="ctl00_contentRightBottom_ReportViewer2_ToggleParam_store" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ToggleParam$collapse" id="ctl00_contentRightBottom_ReportViewer2_ToggleParam_collapse" value="false" />
+        </div></td>
+        </tr><tr style="display:none;">
+
+        </tr><tr>
+        <td style="vertical-align:top;width:25%;height:100%;display:none;"><div style="width:100%;height:100%;">
+            <span id="ctl00_contentRightBottom_ReportViewer2_DocMap"><div id="ctl00_contentRightBottom_ReportViewer2_ctl09" style="display:none;">
+                <input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl09$ClientClickedId" id="ctl00_contentRightBottom_ReportViewer2_ctl09_ClientClickedId" />
+            </div></span>
+        </div></td><td style="display:none;width:4px;padding:0px;margin:0px;height:100%;vertical-align:middle;background-color:#ECE9D8;"><div id="ctl00_contentRightBottom_ReportViewer2_ctl08">
+            <input type="image" name="ctl00$contentRightBottom$ReportViewer2$ctl08$img" id="ctl00_contentRightBottom_ReportViewer2_ctl08_img" title="Show / Hide Document Map" src="Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SplitterVertCollapse.png" alt="Show / Hide Document Map" align="top" onclick="void(0);" style="border-width:0px;cursor:pointer;" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl08$store" id="ctl00_contentRightBottom_ReportViewer2_ctl08_store" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl08$collapse" id="ctl00_contentRightBottom_ReportViewer2_ctl08_collapse" value="false" />
+        </div></td><td style="height:100%;vertical-align:top;"><div id="ctl00_contentRightBottom_ReportViewer2_ctl10" style="height:100%;width:100%;overflow:auto;position:relative;">
+            <div id="VisibleReportContentctl00_contentRightBottom_ReportViewer2_ctl10" style="height:100%;display:none;">
+
+            </div><div id="ctl00_contentRightBottom_ReportViewer2_ctl10_ReportArea">
+                <div NewContentType="Microsoft.Reporting.WebFormsClient.ReportAreaContent.None" ForNonReportContentArea="false" id="ctl00_contentRightBottom_ReportViewer2_ctl10_VisibilityState" style="visibility:none;">
+                    <input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl10$VisibilityState$ctl00" value="None" />
+                </div><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl10$ScrollPosition" id="ctl00_contentRightBottom_ReportViewer2_ctl10_ScrollPosition" /><span id="ctl00_contentRightBottom_ReportViewer2_ctl10_Reserved_AsyncLoadTarget"></span><div id="ctl00_contentRightBottom_ReportViewer2_ctl10_ReportControl" style="display:none;">
+                    <span></span><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl10$ReportControl$ctl02" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl10$ReportControl$ctl03" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl10$ReportControl$ctl04" id="ctl00_contentRightBottom_ReportViewer2_ctl10_ReportControl_ctl04" value="100" />
+                </div><div id="ctl00_contentRightBottom_ReportViewer2_ctl10_NonReportContent" style="height:100%;width:100%;">
+
+                </div>
+            </div>
+        </div></td>
+        </tr>
+        </table>
+        </div></span>
+
+        <!--<img src="Contents/images/map.jpg" alt="" width="441" height="244" border="0" />-->
+        </div>
+
+        <!-- Index content  End-->
+
+        </div>
+
+
+        <div class="bottomcon">
+            <div class="client"><a href="Contents/home.aspx"><img src="Contents/images/client-logo.jpg" width="211" height="55" alt="" /></a></div>
+
+            <div class="arrow">
+
+            <img src="Contents/images/scroll.jpg" alt="" width="82" height="80" border="0" usemap="#Map" />
+            <map name="Map" id="Map">
+            <area shape="poly" coords="9,36,21,26,21,49" href="Contents/javascript:countries.cycleit('prev')" />
+            <area shape="poly" coords="53,25,64,37,54,50" href="Contents/javascript:countries.cycleit('next')" />
+            <area shape="poly" coords="26,18,37,7,49,19" href="Contents/#" onmouseover ="mvddl()"  />
+            <area shape="poly" coords="26,53,49,53,37,65" href="Contents/#" onmouseover ="uparrow()" />
+            </map>
+            </div>
+            <div id="ctl00_BAACounts" style="padding-top:7px;color:White">
+            <table style="padding-left:185px">
+                <tr>
+                    <td>Part# Count:</td>
+                    <td class="bottom-table-td-r"><a id="ctl00_lbPart" href="Contents/javascript:__doPostBack(&#39;ctl00$lbPart&#39;,&#39;&#39;)" style="color:White;">16</a></td>
+                </tr>
+                <tr>
+                    <td>Part# Completed Count:</td>
+                    <td class="bottom-table-td-r"><a id="ctl00_lbPartComplete" href="Contents/javascript:__doPostBack(&#39;ctl00$lbPartComplete&#39;,&#39;&#39;)" style="color:White;">1</a></td>
+                </tr>
+                <tr>
+                    <td>Partner Count:</td>
+                    <td class="bottom-table-td-r"><a id="ctl00_lbPartner" href="Contents/javascript:__doPostBack(&#39;ctl00$lbPartner&#39;,&#39;&#39;)" style="color:White;">50</a></td>
+                </tr>
+                <tr>
+                    <td>Partner Completed Count:</td>
+                    <td class="bottom-table-td-r"><a id="ctl00_lbPartnerComplete" href="Contents/javascript:__doPostBack(&#39;ctl00$lbPartnerComplete&#39;,&#39;&#39;)" style="color:White;">1</a></td>
+                </tr>
+            </table>
+            </div>
+        </div><!-- .bottomcon -->
+    </div><!-- #wrapper -->
+</div><!-- #container -->
+
+
+<script type="text/javascript">
+//<![CDATA[
+Sys.Application.add_init(function() {
+
+if (typeof Microsoft == 'undefined' ||
+typeof Microsoft.Reporting == 'undefined' ||
+typeof Microsoft.Reporting.WebFormsClient == 'undefined' ||
+typeof Microsoft.Reporting.WebFormsClient.ReportViewer == 'undefined')
+Sys.UI.DomElement.setVisible($get('ctl00_contentMain_ReportViewer1_HttpHandlerMissingErrorMessage'), true);
+$create(Microsoft.Reporting.WebFormsClient.ReportViewer, {"_internalViewerId":"ctl00_contentMain_ReportViewer1_ctl03","id":"ctl00_contentMain_ReportViewer1"}, null, null);
+});
+Sys.WebForms.PageRequestManager.getInstance()._registerDisposeScript("ctl00_contentMain_ReportViewer1_ReportViewer", "$find(\u0027ctl00_contentMain_ReportViewer1_SessionKeepAlive\u0027).dispose();");
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._InternalReportViewer, {"ActionParamId":"ctl00_contentMain_ReportViewer1_ctl03_ctl01","ActionTypeId":"ctl00_contentMain_ReportViewer1_ctl03_ctl00","BaseHeight":"229px","BaseWidth":"385px","BrowserModeId":"ctl00_contentMain_ReportViewer1_ctl12","DirectionCacheId":"ctl00_contentMain_ReportViewer1_ctl11","DocMapAreaId":"ctl00_contentMain_ReportViewer1_ctl09","DocMapHeaderOverflowDivId":"ctl00_contentMain_ReportViewer1_ctl09DocMapHeaderOverflowDiv","DocMapSplitterId":"ctl00_contentMain_ReportViewer1_ctl08","ExportUrlBase":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?Culture=1033&CultureOverrides=True&UICulture=1033&UICultureOverrides=True&ReportStack=1&ControlID=9f5c098ea1e24786b8ffcdad4cb0b9a5&Mode=true&OpType=Export&FileName=Report&ContentDisposition=OnlyHtmlInline&Format=","FixedTableId":"ctl00_contentMain_ReportViewer1_fixedTable","HasSizingRow":true,"PostBackToClientScript":function(){__doPostBack('ctl00$contentMain$ReportViewer1$ctl03','');},"PrintInfo":{"CabUrl":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?Culture=1033&CultureOverrides=True&UICulture=1033&UICultureOverrides=True&ReportStack=1&ControlID=9f5c098ea1e24786b8ffcdad4cb0b9a5&Mode=true&OpType=PrintCab&Arch=X86#Version=2009,100,1352,12","CabClsid":"5554DCB0-700B-498D-9B58-4E40E5814405","MarginLeft":25.4,"MarginRight":25.4,"MarginTop":25.4,"MarginBottom":25.4,"PageHeight":279.4,"PageWidth":215.9,"Culture":1033,"UICulture":1033,"UseSingleRequest":true,"PrintRequestPath":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd","PrintRequestQuery":"Culture=1033&CultureOverrides=True&UICulture=1033&UICultureOverrides=True&ReportStack=1&ControlID=9f5c098ea1e24786b8ffcdad4cb0b9a5&Mode=true&OpType=PrintRequest","ReportDisplayName":"Report"},"PromptAreaRowId":"ParametersRowctl00_contentMain_ReportViewer1","PromptSplitterId":"ctl00_contentMain_ReportViewer1_ToggleParam","ReportAreaId":"ctl00_contentMain_ReportViewer1_ctl10","ReportViewerId":"ctl00_contentMain_ReportViewer1","UnableToLoadPrintMessage":"Unable to load client print control."}, null, null, $get("ctl00_contentMain_ReportViewer1_ctl03"));
+$create(Microsoft.Reporting.WebFormsClient._SessionKeepAlive, {"KeepAliveBody":null,"KeepAliveIntervalSeconds":1140,"KeepAliveUrl":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=SessionKeepAlive&ControlID=9f5c098ea1e24786b8ffcdad4cb0b9a5&Mode=true","id":"ctl00_contentMain_ReportViewer1_SessionKeepAlive"}, null, null);
+});
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._AsyncWaitControl, {"ClientCanceledId":"ctl00_contentMain_ReportViewer1_AsyncWait_HiddenCancelField","DisplayDelay":1000,"FixedTableId":"ctl00_contentMain_ReportViewer1_fixedTable","ReportViewerId":"ctl00_contentMain_ReportViewer1","SkipTimer":true,"TriggerIds":["ctl00_contentMain_ReportViewer1"],"WaitControlId":"ctl00_contentMain_ReportViewer1_AsyncWait_Wait"}, null, null, $get("ctl00_contentMain_ReportViewer1_AsyncWait"));
+});
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._Splitter, {"HoverColor":"#DDEEF7","ImageCollapse":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterHorizCollapse.png","ImageCollapseHover":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterHorizCollapseHover.png","ImageExpand":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterHorizExpand.png","ImageExpandHover":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterHorizExpandHover.png","ImageId":"ctl00_contentMain_ReportViewer1_ToggleParam_img","IsCollapsable":true,"NormalColor":"#ECE9D8","Resizable":false,"StoreCollapseField":"ctl00_contentMain_ReportViewer1_ToggleParam_collapse","StorePositionField":"ctl00_contentMain_ReportViewer1_ToggleParam_store","Vertical":false}, null, null, $get("ctl00_contentMain_ReportViewer1_ToggleParam"));
+});
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._Splitter, {"HoverColor":"#DDEEF7","ImageCollapse":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterVertCollapse.png","ImageCollapseHover":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterVertCollapseHover.png","ImageExpand":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterVertExpand.png","ImageExpandHover":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterVertExpandHover.png","ImageId":"ctl00_contentMain_ReportViewer1_ctl08_img","IsCollapsable":true,"NormalColor":"#ECE9D8","Resizable":true,"StoreCollapseField":"ctl00_contentMain_ReportViewer1_ctl08_collapse","StorePositionField":"ctl00_contentMain_ReportViewer1_ctl08_store","Vertical":true}, null, null, $get("ctl00_contentMain_ReportViewer1_ctl08"));
+});
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._ReportArea, {"NonReportContentId":"ctl00_contentMain_ReportViewer1_ctl10_NonReportContent","ReportAreaVisibilityStateId":"ctl00_contentMain_ReportViewer1_ctl10_VisibilityState","ReportControlId":"ctl00_contentMain_ReportViewer1_ctl10_ReportControl","ScrollPositionId":"ctl00_contentMain_ReportViewer1_ctl10_ScrollPosition","VisibleReportContentContainerId":"VisibleReportContentctl00_contentMain_ReportViewer1_ctl10"}, null, null, $get("ctl00_contentMain_ReportViewer1_ctl10"));
+});
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._ReportAreaAsyncLoadTarget, {"PostBackForAsyncLoad":function() {__doPostBack('ctl00$contentMain$ReportViewer1$ctl10$Reserved_AsyncLoadTarget','');}}, null, null, $get("ctl00_contentMain_ReportViewer1_ctl10_Reserved_AsyncLoadTarget"));
+});
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._ReportPage, {"HiddenZoomLevelId":"ctl00_contentMain_ReportViewer1_ctl10_ReportControl_ctl04","StyleElementId":"ctl00_contentMain_ReportViewer1_ctl10_ReportControl_styles"}, null, null, $get("ctl00_contentMain_ReportViewer1_ctl10_ReportControl"));
+});
+Sys.Application.add_init(function() {
+
+if (typeof Microsoft == 'undefined' ||
+typeof Microsoft.Reporting == 'undefined' ||
+typeof Microsoft.Reporting.WebFormsClient == 'undefined' ||
+typeof Microsoft.Reporting.WebFormsClient.ReportViewer == 'undefined')
+Sys.UI.DomElement.setVisible($get('ctl00_contentRightBottom_ReportViewer2_HttpHandlerMissingErrorMessage'), true);
+$create(Microsoft.Reporting.WebFormsClient.ReportViewer, {"_internalViewerId":"ctl00_contentRightBottom_ReportViewer2_ctl03","id":"ctl00_contentRightBottom_ReportViewer2"}, null, null);
+});
+Sys.WebForms.PageRequestManager.getInstance()._registerDisposeScript("ctl00_contentRightBottom_ReportViewer2_ReportViewer", "$find(\u0027ctl00_contentRightBottom_ReportViewer2_SessionKeepAlive\u0027).dispose();");
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._InternalReportViewer, {"ActionParamId":"ctl00_contentRightBottom_ReportViewer2_ctl03_ctl01","ActionTypeId":"ctl00_contentRightBottom_ReportViewer2_ctl03_ctl00","BaseHeight":"400px","BaseWidth":"400px","BrowserModeId":"ctl00_contentRightBottom_ReportViewer2_ctl12","DirectionCacheId":"ctl00_contentRightBottom_ReportViewer2_ctl11","DocMapAreaId":"ctl00_contentRightBottom_ReportViewer2_ctl09","DocMapHeaderOverflowDivId":"ctl00_contentRightBottom_ReportViewer2_ctl09DocMapHeaderOverflowDiv","DocMapSplitterId":"ctl00_contentRightBottom_ReportViewer2_ctl08","ExportUrlBase":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?Culture=1033&CultureOverrides=True&UICulture=1033&UICultureOverrides=True&ReportStack=1&ControlID=5b48e02218774adfb7016f0cd2fbda45&Mode=true&OpType=Export&FileName=ReportUploading1&ContentDisposition=OnlyHtmlInline&Format=","FixedTableId":"ctl00_contentRightBottom_ReportViewer2_fixedTable","HasSizingRow":true,"PostBackToClientScript":function(){__doPostBack('ctl00$contentRightBottom$ReportViewer2$ctl03','');},"PrintInfo":{"CabUrl":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?Culture=1033&CultureOverrides=True&UICulture=1033&UICultureOverrides=True&ReportStack=1&ControlID=5b48e02218774adfb7016f0cd2fbda45&Mode=true&OpType=PrintCab&Arch=X86#Version=2009,100,1352,12","CabClsid":"5554DCB0-700B-498D-9B58-4E40E5814405","MarginLeft":25.4,"MarginRight":25.4,"MarginTop":25.4,"MarginBottom":25.4,"PageHeight":279.4,"PageWidth":215.9,"Culture":1033,"UICulture":1033,"UseSingleRequest":true,"PrintRequestPath":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd","PrintRequestQuery":"Culture=1033&CultureOverrides=True&UICulture=1033&UICultureOverrides=True&ReportStack=1&ControlID=5b48e02218774adfb7016f0cd2fbda45&Mode=true&OpType=PrintRequest","ReportDisplayName":"ReportUploading1"},"PromptAreaRowId":"ParametersRowctl00_contentRightBottom_ReportViewer2","PromptSplitterId":"ctl00_contentRightBottom_ReportViewer2_ToggleParam","ReportAreaId":"ctl00_contentRightBottom_ReportViewer2_ctl10","ReportViewerId":"ctl00_contentRightBottom_ReportViewer2","UnableToLoadPrintMessage":"Unable to load client print control."}, null, null, $get("ctl00_contentRightBottom_ReportViewer2_ctl03"));
+$create(Microsoft.Reporting.WebFormsClient._SessionKeepAlive, {"KeepAliveBody":null,"KeepAliveIntervalSeconds":1140,"KeepAliveUrl":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=SessionKeepAlive&ControlID=5b48e02218774adfb7016f0cd2fbda45&Mode=true","id":"ctl00_contentRightBottom_ReportViewer2_SessionKeepAlive"}, null, null);
+});
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._AsyncWaitControl, {"ClientCanceledId":"ctl00_contentRightBottom_ReportViewer2_AsyncWait_HiddenCancelField","DisplayDelay":1000,"FixedTableId":"ctl00_contentRightBottom_ReportViewer2_fixedTable","ReportViewerId":"ctl00_contentRightBottom_ReportViewer2","SkipTimer":true,"TriggerIds":["ctl00_contentRightBottom_ReportViewer2"],"WaitControlId":"ctl00_contentRightBottom_ReportViewer2_AsyncWait_Wait"}, null, null, $get("ctl00_contentRightBottom_ReportViewer2_AsyncWait"));
+});
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._Splitter, {"HoverColor":"#DDEEF7","ImageCollapse":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterHorizCollapse.png","ImageCollapseHover":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterHorizCollapseHover.png","ImageExpand":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterHorizExpand.png","ImageExpandHover":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterHorizExpandHover.png","ImageId":"ctl00_contentRightBottom_ReportViewer2_ToggleParam_img","IsCollapsable":true,"NormalColor":"#ECE9D8","Resizable":false,"StoreCollapseField":"ctl00_contentRightBottom_ReportViewer2_ToggleParam_collapse","StorePositionField":"ctl00_contentRightBottom_ReportViewer2_ToggleParam_store","Vertical":false}, null, null, $get("ctl00_contentRightBottom_ReportViewer2_ToggleParam"));
+});
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._Splitter, {"HoverColor":"#DDEEF7","ImageCollapse":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterVertCollapse.png","ImageCollapseHover":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterVertCollapseHover.png","ImageExpand":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterVertExpand.png","ImageExpandHover":"/intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&Version=10.0.30319.1&Name=Microsoft.Reporting.WebForms.Icons.SplitterVertExpandHover.png","ImageId":"ctl00_contentRightBottom_ReportViewer2_ctl08_img","IsCollapsable":true,"NormalColor":"#ECE9D8","Resizable":true,"StoreCollapseField":"ctl00_contentRightBottom_ReportViewer2_ctl08_collapse","StorePositionField":"ctl00_contentRightBottom_ReportViewer2_ctl08_store","Vertical":true}, null, null, $get("ctl00_contentRightBottom_ReportViewer2_ctl08"));
+});
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._ReportArea, {"NonReportContentId":"ctl00_contentRightBottom_ReportViewer2_ctl10_NonReportContent","ReportAreaVisibilityStateId":"ctl00_contentRightBottom_ReportViewer2_ctl10_VisibilityState","ReportControlId":"ctl00_contentRightBottom_ReportViewer2_ctl10_ReportControl","ScrollPositionId":"ctl00_contentRightBottom_ReportViewer2_ctl10_ScrollPosition","VisibleReportContentContainerId":"VisibleReportContentctl00_contentRightBottom_ReportViewer2_ctl10"}, null, null, $get("ctl00_contentRightBottom_ReportViewer2_ctl10"));
+});
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._ReportAreaAsyncLoadTarget, {"PostBackForAsyncLoad":function() {__doPostBack('ctl00$contentRightBottom$ReportViewer2$ctl10$Reserved_AsyncLoadTarget','');}}, null, null, $get("ctl00_contentRightBottom_ReportViewer2_ctl10_Reserved_AsyncLoadTarget"));
+});
+Sys.Application.add_init(function() {
+$create(Microsoft.Reporting.WebFormsClient._ReportPage, {"HiddenZoomLevelId":"ctl00_contentRightBottom_ReportViewer2_ctl10_ReportControl_ctl04","StyleElementId":"ctl00_contentRightBottom_ReportViewer2_ctl10_ReportControl_styles"}, null, null, $get("ctl00_contentRightBottom_ReportViewer2_ctl10_ReportControl"));
+});
+//]]>
+</script>
+</form>
+</body>
+</html>
+

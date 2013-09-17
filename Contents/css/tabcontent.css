@@ -1,0 +1,88 @@
+/* ######### CSS for Shade Tabs. Remove if not using ######### */
+
+.tabcontentarea{
+	background-image:url(../images/tab-content-bg.jpg);
+	width:418px;
+	height:351px;
+	overflow:hidden;
+}
+.tabcontentareaProvider{	
+	width:870px;
+	height:351px;
+	overflow:hidden;
+}
+.rptview
+{
+	text-align:center;
+	padding-top:50px;
+	padding-left:10px;	
+	overflow:hidden;
+	Height:229px;
+	Width:390px;	
+}
+.rptviewRight
+{
+	text-align:center;
+	padding-top:10px;
+	padding-left:10px;	
+	overflow:hidden;
+	Height:229px;
+	Width:412px;	
+}
+.shadetabs{
+margin:0;
+padding:0px;
+float:left;
+overflow:hidden;
+}
+.shadetabs a{
+	display:block;
+	float:left;
+	margin:0 5px 0 0;
+}
+.shadetabs .risk a{
+	background:url(../images/risk.jpg) no-repeat;
+	width:94px;
+	height:61px;
+}
+.shadetabs .risk a:hover, .shadetabs .risk a.selected{
+	background:url(../images/risk_over.jpg) no-repeat;
+}
+
+
+.shadetabs .dashbord a{
+	background:url(../images/dashboard.jpg) no-repeat;
+	width:109px;
+	height:61px;
+}
+.shadetabs .dashbord a:hover, .shadetabs .dashbord a.selected{
+	background:url(../images/dashboard_over.jpg) no-repeat;
+}
+
+.shadetabs .alert a{
+	background:url(../images/alert.jpg) no-repeat;
+	width:69px;
+	height:61px;
+}
+.shadetabs .alert a:hover, .shadetabs .alert a.selected{
+	background:url(../images/alert_over.jpg) no-repeat;
+}
+
+.shadetabs .partners a{
+	background:url(../images/partners.jpg) no-repeat;
+	width:131px;
+	height:61px;
+}
+.shadetabs .partners a:hover, .shadetabs .partners a.selected{
+	background:url(../images/partners_over.jpg) no-repeat;
+}
+
+.tabcontent{
+display:none;
+}
+
+@media print {
+.tabcontent {
+display:block !important;
+}
+}

@@ -1,0 +1,634 @@
+        body
+        {
+            background-color: white;
+        }
+        .headrule_b 
+        {
+	    BACKGROUND-COLOR: #d6d7d6
+        }
+        .bgnav1_off 
+        {
+	    BACKGROUND-COLOR: #2e6099;
+	    height: 12px;
+	    }
+        .loginForm
+        {
+	        BACKGROUND-COLOR: #dce8f5;
+	        height: 350px;
+	        FONT-FAMILY:  Helvetica,Verdana, Arial, sans-serif;
+        }
+        .adminTop
+        {
+            width: 800px;
+        }
+        .adminSide
+        {
+            width: 192px;
+            height: 400px;
+            text-align: left;
+            background-color: #B1D0D6;
+        }
+        .mainBody
+        {
+            min-height: 440px;
+            width: 800px;
+        }    
+        .reportBody
+        {
+            width: 800px;
+            min-height: 415px;
+            border: 1px solid #B1D0D6;
+            text-align: left;           
+        }
+        .reportBodyTitle
+        {
+            height: 25px;
+            width: 800px;
+            background-color:#B1D0D6;
+            font-weight:bold;
+		    font-size:12px;
+		    font-family:Arial, Helvetica, sans-serif;
+        }
+        .reportBodyContent
+        {
+            width: 800px;
+        }
+        .adminBody
+        {
+            width: 600px;
+            min-height: 390px;
+            border: 1px solid #B1D0D6;
+            text-align: left;
+        }
+        .adminBodyTitle
+        {
+            height: 25px;
+            width: 600px;
+            background-color:#B1D0D6;
+            font-weight:bold;
+		    font-size:12px;
+		    font-family:Arial, Helvetica, sans-serif;
+        }
+        .adminSideRightColumn
+        {
+            text-align: right;
+        }
+        .screen
+        {
+            padding-left: 10px;
+        }
+        .adminBodyTitleDescription
+        {
+            padding-left: 10px;
+            padding-top: 3px;
+        }
+        .adminBodyRightColumn
+        {
+            width: 50px;
+        }
+        .adminBodyLeftColumn
+        {
+            width: 25px;
+        }
+        .star
+        {
+            color: Red;
+        }
+        .providerForm
+        {
+            margin-left: 50px;
+            margin-right: 25px;
+        }
+        .headerDescription
+        {
+            border: solid 1px grey;
+            width: 500px;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }   
+         .uploadHeaderDescription
+        {
+            border: solid 1px grey;
+            width: 500px;
+            text-align: left;
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }   
+        #providerForm span.left
+        {
+            border: solid 1px grey;
+            width: 200px;
+        }
+        .formLeftColumn
+        {
+            background: #CCC;
+            padding-left: 3px;
+            BORDER-RIGHT: #ccc 1px solid; 
+            VERTICAL-ALIGN: middle; 
+            BORDER-BOTTOM: #bbb 1px solid; 
+            TEXT-ALIGN: left;
+            height: 26px;
+        }
+        .formRightColumn
+        {
+            border: none;
+            background: #CCC;
+            padding-left: 3px;
+            BORDER-RIGHT: #ccc 1px solid; 
+            VERTICAL-ALIGN: middle; 
+            BORDER-BOTTOM: #bbb 1px solid; 
+            TEXT-ALIGN: left;
+            height: 20px;
+            widows: 380px;
+        }
+        .formRightColumnTextArea
+        {
+            border: none;
+            background: #CCC;
+            padding-left: 3px;
+            BORDER-RIGHT: #ccc 1px solid; 
+            VERTICAL-ALIGN: middle; 
+            BORDER-BOTTOM: #bbb 1px solid; 
+            TEXT-ALIGN: left;
+            widows: 380px;
+        }
+        .noBorderTextBox
+        {
+            border: none;
+            background-color: Red;
+        }
+        
+        table.grid 
+        {
+             border:1px ridge #DDD;
+	         border-top: 0px;
+        }
+        
+        .actionDoneHeader
+        {	 
+	        color:#ffffff;
+		    font-weight:bold;
+		    font-size:12px;
+		    font-family:Helvetica,Verdana, Arial,sans-serif;
+		    background-color:#0000cc;
+		    border-top: 1px solid #3399ff;
+		    border-left: 1px solid #3399ff;
+		    border-right: 1px solid #000066;
+		    border-bottom: 1px solid #000066;
+		    padding: 3px;
+		    text-decoration: none;
+		    text-align: center;
+        }
+        .actionDoneBody
+        {
+            color:#006600; 
+            font-weight:bold;
+            font-size:16px;
+            text-align: center; 
+            min-height: 200px;
+            padding-top: 25px;
+            margin-bottom: 15px;
+            height: 200px;
+            vertical-align: top;
+        }
+        .actionDoneBottom
+        {
+            text-align: center;
+        }
+        .footerButton
+        {
+            padding-right: 25px;
+        }
+        .hideColumn
+        {
+            display: none;
+        }
+        .tableHeader
+        {
+            color:#ffffff;
+		    font-weight:bold;
+		    font-size:12px;
+		    font-family:Helvetica,Verdana, Arial,sans-serif;
+		    background-color:#0000cc;
+		    border-top: 1px solid #3399ff;
+		    border-left: 1px solid #3399ff;
+		    border-right: 1px solid #000066;
+		    border-bottom: 1px solid #000066;
+		    padding: 3px;
+		    text-decoration: none;
+		    text-align: center; 
+		    white-space: nowrap;
+        }
+        .tableLeftColumn
+        {
+            width: 200px;
+        }
+        .tableBody
+        {
+            white-space: nowrap;
+        }
+        .viewFormMainTable
+        {
+            min-width: 200px; 
+            width: 800px;
+        }
+        .pageNote
+        {
+            border: 1px solid #658FDB;
+		    padding: 3px;
+		    color:#000000;
+		    font-family: Arial, Helvetica, sans-serif;
+            font-size:13px;
+		    margin-top: 3px;
+		    margin-bottom: 3px;
+        }
+        .systemInfoTable
+        {
+            width: 425px;
+            padding-top: 75px;
+        }
+        .systemInfoLeftColumn
+        {
+            text-align: right;
+            width: 200px;
+            font-weight: bold;
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+        .systemInfoRightColumn
+        {
+            text-align: left;
+            widows: 200px;
+        }
+        .alternatingRow
+        {
+            background: #FFF;
+        }
+         table.ssap 
+         {
+  	        border: 1px solid #336;
+	        border-collapse: collapse;
+		    width:150px;
+		    font-family:Arial, Helvetica, sans-serif;
+		    }
+	    table.ssap th 
+	    {
+	         color:#FFFFFF;
+	        background-color: #336;
+		    text-align:center;
+		    font-weight:bold;
+		    font-size:12px;
+		    padding:1px;
+	    }
+	    table.ssap td 
+	    {
+	        background-color:#FFFFFF;
+		    text-align:center;
+		    font-size: 11px;
+		    padding: 1px;
+		    border: 1px solid #336;
+		    }
+		.summary 
+		{
+             border: 1px solid #C1C1BB;
+             width: 400px;
+        }
+        .tdRow 
+        {
+            background-color:#CCCCCC;
+	        text-align:right;
+	        padding: 3px;
+	        width: 200px;
+         }
+         .tbHeader 
+         {
+            background-color:#004080;
+	        color:#FFFFFF;
+	        padding:3px;
+	        font-size: 12px;
+	        font-family:Verdana, Arial, Helvetica, sans-serif;
+	        font-weight:bold;
+	        text-align:left;
+	        width: 200px;
+	        }
+	        .reportTableHeader{
+	            color:#FFFFFF;
+	            background-color:#004080;
+		        text-align:left;
+		        font-weight:bold;
+		        font-size:12px;
+		        padding-left:5px;
+		        height:25px;
+		        vertical-align:middle;
+	            }
+	            
+	            table.naic {
+  	border: 1px solid #B1D0D6;
+	  border-collapse: collapse;
+		font-family:Arial, Helvetica, sans-serif;
+		margin-top: 10px;
+		/*width:600px;
+		height:400px;*/
+  }
+	table.naic td {
+  	border: 1px solid #B1D0D6;
+	  color:#000;
+		text-align:left;
+		font-size:12px;
+		padding-left:5px;
+		height:25px;
+		vertical-align:middle;
+	}
+	.titlePadding
+	{
+	    padding-left: 10px;
+	}
+	.errorMessage
+	{
+	    color: Red;
+	}
+	.errorPageMessage
+	{
+	    font-size: 18px;
+	}
+		    
+b { color:#373abe }	
+p { font: 12px Arial, Helvetica, sans-serif }
+h1 {  font-family: Arial, Helvetica, sans-serif; font-size: 23px; font-weight: normal; color: #ff6600}
+h2 {  font-family: Arial, Helvetica, sans-serif; font-size: 15px; font-weight: bold; text-decoration: none}
+h3 {  font-family: Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold}
+.menu {  font-family: Arial, Helvetica, sans-serif; color: #FFFFFF; font-size: 11px; font-weight: bold; text-decoration: none}
+.menu:active {  color: #333333}
+.menu:hover {  font-family: Arial, Helvetica, sans-serif; color: #FFFFFF; font-weight: bold; text-decoration: none }
+.menu:visited {  font-family: Arial, Helvetica, sans-serif; color: #FFFFFF}
+.menu:visited:hover {  font-family: Arial, Helvetica, sans-serif; color: #FFFFFF}
+
+.whitenav:link {text-decoration: none; color: #ffffff;}
+.whitenav:visited {text-decoration: none; color: #ffffff;}
+.whitenav:active {text-decoration: none;color:#ffffff;}
+.whitenav:hover {text-decoration: none; color: #ffffff;}
+
+.white { color: #FFFFFF}
+.red { color: #FF0000}
+.grey { color: #808080}
+.darkgrey { color: #323232}
+.darkgrey:visited { color: #323232}
+.blue { color: #373ABE}
+.greek {  font-family: Symbol }
+ pre {  font-family: Monaco, Courier; font-size: 10px}
+.prebody {  font-size: 11px; font-family: Arial, Helvetica, sans-serif}
+.head1 {  font-family: Arial, Helvetica, sans-serif; font-size: 20px; color: #ff6600}
+.subhead1 {  font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #808080}
+.ref {  font-size: 10px }
+.ten {  font-size: 10px }
+.eleven {  font-size: 11px }
+.twelve {  font-size: 12px }
+.thirteen {  font-size: 13px }
+.fourteen {  font-size: 14px }
+.fifteen {  font-size: 15px }
+.formselecttitle { font-size: 12px; font-weight: bold; color: #C40042 }
+.searchtabs {  font-size: 11px; color: #0044CC; font-weight: bold; text-decoration: underline}
+.searchtabs:hover {  color: #4488FF; font-weight: bold; text-decoration: underline}
+.searchtabs:visited {  color: #0044CC; font-weight: bold; text-decoration: underline}
+.searchtabs:visited:hover {  color: #4488FF; font-weight: bold; text-decoration: underline}
+sup {  font-size: 9px; font-family: Arial, Helvetica, sans-serif}
+sub {  font-size: 9px; font-family: Arial, Helvetica, sans-serif}
+a 
+{
+    font-weight: bold;
+	text-decoration: none;
+	color: #373ABE;
+	}
+a:visited	{
+	color: #373ABE;
+	}
+a:hover	{
+	color: #C40042;
+	}
+td	{
+	font-family: Arial;
+	font-size : 11px;
+	}
+.main	{
+	border-top: 2px solid #e1e1e1;
+	width: 99%;
+	}
+.bluebox	{
+	background: #2f61bd;
+	color: #FFF;
+	padding: 0px 0px 0px 8px;
+	}
+.breadcrumb	{
+	background: #FFF;
+	color: #323232;
+/*	padding: 0px 0px 0px 8px;
+	border-top: 1px solid #777;
+	border-bottom: 1px solid #323232;
+	height: 20px;*/
+	}
+.breadcrumb a	{
+	font-weight: normal;
+	text-decoration: none;
+	color: #323232;
+	}
+.breadcrumb a:hover	{
+	color: #C40042;
+	text-decoration: underline;
+	}
+.breadcrumb a:visited	{
+	font-weight: normal;
+	text-decoration: none;
+	color: #323232;
+	}
+.breadcrumb a:visited:hover	{
+	color: #C40042;
+	text-decoration: underline;
+	}
+.prodspotimg	{
+	margin: 0px 8px 0px 0px;
+	}
+.prodspot	{
+	margin: 10px 0px 10px 0px;
+	padding: 10px 0px 10px 0px;
+	border-top: 1px solid #e1e1e1;
+	line-height: 14px;
+	}
+.latestnews a	{
+	text-decoration: none;
+	font-weight: normal;
+	color: #111;
+	display: block;
+	margin: 10px 0px;
+	}
+.latestnews a:hover	{
+	color: #C40042;
+	}
+
+/* ////////////////////////
+   STYLES FOR FORM ELEMENTS
+   //////////////////////// */
+
+form	{
+	margin: 0px;
+	padding: 0px;
+	}
+.inputblue	{
+	font-size : 11px;
+	border: 2px inset #2f61bd;
+	color: #000099;
+	height: 16px;
+	}
+.productsmenu	{
+	font-family: Arial;
+	font-size : 11px;
+	font-weight: bold;
+	color: #016BA9;
+	height: 19px;
+	border: 1px solid #016BA9;
+	background: #CCE4E4;
+	}
+	
+/* ////////////////////////
+   STYLES FOR DROPDOWN MENU
+   //////////////////////// */
+
+.clsCMOn {
+	color: #373ABE;
+	font-size : 11px;
+	line-height : 14px;
+	font-weight: bold;
+	text-decoration : none;
+	padding: 2px 4px;
+	}
+.clsCMOver {
+	color: #C40042;
+	font-size : 11px;
+	line-height : 14px;
+	font-weight: bold;
+	text-decoration : none;
+	padding: 2px 4px;
+	}
+
+/* ////////////////////////
+   STYLES FOR LEFT NAV MENU
+   //////////////////////// */
+
+	div.navigate { 
+		text-decoration: none; 
+		width: 125px;
+		font-family: arial;
+		font-size: 11px;
+		border-bottom: 1px solid #777;
+		line-height: 16px;
+		}
+	div.navigate a { 
+		text-decoration: none; 
+		font-weight: bold;
+		}
+	div.navigate a:hover { 
+		text-decoration: none; 
+		}
+	div.navigatesec {  
+		text-decoration: none; 
+		border-left: 1px solid #777;
+		border-right: 1px solid #777;
+		padding: 0px 0px 2px 0px;
+		background: #C4E1E8;
+		margin: 0px 0px 0px 0px;
+		}
+	div.navigatesec a { 
+		text-decoration: none;
+		font-weight: normal;
+		display: block; 
+		padding: 0px 6px 0px 6px;
+		background: #C4E1E8; 
+		color: #373ABE;
+		}
+	div.navigatesec a:hover {
+		text-decoration: none; 
+		color: #C40042; 
+		background: #D7F1F7;
+		} 
+	div.navigatesechead { 
+		text-decoration: none; 
+		border-bottom: 1px solid #8BB0B8;
+		border-top: 1px solid #8BB0B8;
+		margin: 0px 0px 2px 0px
+		}
+	div.navigatesechead a	{ 
+		font-weight: bold;
+		text-decoration: none; 
+		background: #ACCCD3;
+		padding: 2px 6px 0px 6px;
+		display: block;
+		}
+/*	div.navigatesechead a:before	{ 
+		content: url("images/arrow_down.gif") " ";
+		}*/
+	div.navigatesechead a:hover	{
+		text-decoration: none; 
+		background: #D6EDF2;
+		}
+
+
+	.leftnavtable	{
+		margin: 0px;
+		padding: 0px;
+		font-family: Verdana;
+		font-size: 10px;
+		border-bottom: 1px solid #777;
+		background-color: #C4E1E8;
+		}
+	.leftnavtable a	{
+		background-color: #ACCCD3;
+		padding: 1px 5px 3px 5px;
+		display: block;
+		text-decoration: none;
+		color: #373ABE;
+		font-weight: normal;
+		}
+	.leftnavtable a:hover	{
+		background-color: #D6EDF2;
+		color: #C40042;
+		}
+	.leftnavcategory	{
+		border-left: 1px solid #777;
+		border-right: 1px solid #777;
+		}
+	.leftnavcategory a	{
+		font-weight: bold;
+		padding: 4px 5px 4px 4px;
+		border-top: 1px solid #D6EDF2;
+		border-bottom: 1px solid #8BB0B8;		
+		}
+	.leftnavitem	{
+		border-left: 1px solid #777;
+		border-right: 1px solid #777;
+		}		
+	.leftnavitem a	{
+		background-color: #C4E1E8;
+		border-top: 1px solid #D6EDF2;
+		border-bottom: 1px solid #ACCCD3;
+		}		
+
+
+		
+/* ////////////////////////
+   STYLES FOR RIGHT NAV
+   //////////////////////// */
+	.rightnav	{
+		border: 1px solid #ACCCD3;
+		padding: 8px 8px 8px 8px;
+		font-family: arial;
+		font-size: 11px;
+		}
+	.rightnav a	{
+		text-decoration: none;
+		color: #000;
+		display: block;
+		margin-bottom: 8px;
+		}
+	.rightnav a:hover	{
+		color: #C40042;
+		}

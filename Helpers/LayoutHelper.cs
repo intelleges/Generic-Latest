@@ -12,11 +12,11 @@ namespace Generic.Helpers
             // Default to the generic layout 
             // Note the output will be in the tmp folder when published. 
             string layoutName ="~/tmp/Views/Shared/_GenericLayoutPage.cshtml";
-
-            if (1 == 2)// NOTE: Condition will be met. 
-            {
-                layoutName = "~/Views/Shared/_ClientLayoutPage.cshtml";
-            }
+            layoutName = "~/tmp/Views/Shared/_GenericAdminLayout.cshtml";
+            //if (1 == 2)// NOTE: Condition will be met. 
+            //{
+            //    layoutName = "~/Views/Shared/_ClientLayoutPage.cshtml";
+            //}
             return layoutName;
         }
     }

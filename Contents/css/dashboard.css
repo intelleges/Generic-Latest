@@ -1,0 +1,313 @@
+/* Dashboard styles */
+body{
+	margin:0px;
+	}
+.mainboxone{
+	width:982px;
+	height:610px;
+	margin:0px auto;
+	overflow:hidden;
+	background-color:#8EAEBB;
+	}
+.dheader{
+	float:left;
+	width:982px;
+	text-align:right;
+	background-color:#091a36;
+	}
+.dleftside{
+	float:left;
+	width:253px;
+	overflow:hidden;
+	background-color:#8eaebb;
+	background-image:url(../images/dashboard/dleft_bg.jpg);
+	}
+.drightside{
+	float:left;
+	width:720px;
+	overflow:hidden;
+	background-color:#fff;
+	}
+.ddarkbluebg{
+	float:left;
+	width:13px;
+	overflow:hidden;
+	background-color:#081935;
+	}
+.dleftheadbg{
+	float:right;
+	width:240px;
+	color:#FFFFFF;
+	font-size:22px;
+	overflow:hidden;
+	padding:10px 0px;
+	line-height:22px;
+	text-align:center;
+	background-color:#607e88;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.dleftsubtitle{
+	color:#FFFFFF;
+	font-size:18px;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.dtopnav{
+	float:left;
+	width:100%;
+	height:33px;
+	background-color:#90adbb;
+	}
+.dmenutext{
+	color:#000;
+	}
+.dleftnev{
+	float:right;
+	width:240px;
+	color:#000000;
+	font-size:12px;
+	overflow:hidden;
+	font-weight:bold;
+	padding:10px 0px;
+	background-position:bottom right;
+	background-repeat:no-repeat;
+	font-family:Arial, Helvetica, sans-serif;
+	background-image:url(../images/dashboard/dashboard_bg.jpg);
+	}
+.dleftnev a{
+	width:228px;
+	float:right;
+	color:#FFFFFF;
+	display:block;
+	text-align:right;
+	text-decoration:none;
+	padding:6px 12px 6px 0px;
+	background-position:center;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.dleftnev a:hover{
+	color:#000000;
+	background-repeat:no-repeat;
+	background-image:url(../images/dashboard/dover_img.jpg);
+	}
+.dleftnev a.current{
+	color:#000000;
+	background-repeat:no-repeat;
+	background-image:url(../images/dashboard/dover_img.jpg);
+	}
+.dleftnev a.active{
+	color:#000000;
+	background-repeat:no-repeat;
+	background-image:url(../images/dashboard/dover_img.jpg);
+	}
+.dleftnevone{
+	float:right;
+	width:240px;
+	color:#000000;
+	overflow:hidden;
+	}
+.dleftnevone a{
+	width:228px;
+	float:right;
+	color:#FFFFFF;
+	display:block;
+	text-align:right;
+	text-decoration:none;
+	padding:6px 12px 6px 0px;
+	background-position:center;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.dleftnevone a:hover{
+	color:#000000;
+	background-repeat:no-repeat;
+	background-image:url(../images/dashboard/dover_img1.jpg);
+	}
+.dleftnevone a.current{
+	color:#000000;
+	background-repeat:no-repeat;
+	background-image:url(../images/dashboard/dover_img1.jpg);
+	}
+.dleftnevone a.active{
+	color:#000000;
+	background-repeat:no-repeat;
+	background-image:url(../images/dashboard/dover_img1.jpg);
+	}
+.dleftnevtwo{
+	float:right;
+	width:240px;
+	color:#000000;
+	overflow:hidden;
+	}
+.dleftnevtwo a{
+	float:right;
+	width:228px;
+	color:#FFFFFF;
+	display:block;
+	text-align:right;
+	text-decoration:none;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.dleftnevtwo a:hover{
+	color:#000000;
+	background-repeat:no-repeat;
+	background-image:url(../images/dashboard/dover_img2.jpg);
+	}
+.dleftnevtwo a.current{
+	color:#000000;
+	background-repeat:no-repeat;
+	background-image:url(../images/dashboard/dover_img2.jpg);
+	}
+.dleftnevtwo a.active{
+	color:#000000;
+	background-repeat:no-repeat;
+	background-image:url(../images/dashboard/dover_img2.jpg);
+	}
+.dbluebottombg{
+	float:left;
+	width:243px;
+	overflow:hidden;
+	padding:20px 0px;
+	background-color:#081935;
+	}
+.dbluebottom{
+	float:right;
+	overflow:hidden;
+	padding:0 10px 0 0px;
+	}
+.btopm{
+	background-repeat:repeat-x;
+	background-image:url(../images/dashboard/dash_topm.jpg);
+	}
+.bmidl{
+	background-repeat:repeat-y;
+	background-image:url(../images/dashboard/dash_midl.jpg);
+	}
+.bmidr{
+	background-repeat:repeat-y;
+	background-image:url(../images/dashboard/dash_midr.jpg);
+	}
+.bbotm{
+	background-repeat:repeat-x;
+	background-image:url(../images/dashboard/dash_botm.jpg);
+	}
+.dboxtitle{
+	color:#b3b198;
+	font-size:18px;
+	text-align:center;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.dboxtext{
+	color:#a1bac1;
+	font-size:14px;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.whitelin{
+	color:#FFFFFF;
+	}
+.whitelin a{
+	color:#FFFFFF;
+	text-decoration:underline;
+	}
+.whitelin a:hover{
+	text-decoration:none;
+	}
+.orangelin{
+	color:#d87033;
+	}
+.orangelin a{
+	color:#d87033;
+	text-decoration:underline;
+	}
+.orangelin a:hover{
+	text-decoration:none;
+	}
+.dwelcome{
+	float:right;
+	width:190px;
+	color:#FFFFFF;
+	font-size:18px;
+	text-align:right;
+	padding:32px 25px 0 0px;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.dlogout{
+	float:right;
+	width:190px;
+	color:#a1bac1;
+	font-size:14px;
+	font-weight:bold;
+	text-align:right;
+	padding:8px 25px 0 0px;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.dlogout a{
+	color:#a1bac1;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.dlogout a:hover{
+	text-decoration:none;
+	}
+.dfooterleft{
+	float:left;
+	height:33px;
+	*height:20px;
+	width:100%;
+	overflow:hidden;
+	background-color:#8eaebb;
+	}
+.dfooterright{
+	float:left;
+	width:100%;
+	overflow:hidden;
+	background-color:#8eaebb;
+	}
+.dcontentoutbox{
+	float:left;
+	width:723px;
+	height:487px;
+	color:#000000;
+	font-size:12px;
+	overflow:hidden;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.dcontentbox{
+	float:left;
+	width:100%;
+	color:#000000;
+	font-size:12px;
+	overflow:hidden;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.drightbor{
+	width:6px;
+	float:right;
+	height:492px;
+	overflow:hidden;
+	background-color:#8eaebb;
+	}
+.dtextbox{
+	float:left;
+	width:100%;
+	overflow:hidden;
+	}
+.dfotbut{
+	float:right;
+	padding:0 30px 0 0px;
+	}
+.dfotbut a{
+	color:#fff;
+	width:98px;
+	height:25px;
+	float:right;
+	display:inline;
+	font-size:14px;
+	padding:8px 0 0 0px;
+	text-align:center;
+	text-decoration:none;
+	background-repeat:no-repeat;
+	font-family:Arial, Helvetica, sans-serif;
+	background-image:url(../images/dashboard/dfooter_but.jpg);
+	}
+.dtabletext{
+	padding:5px;
+	overflow:hidden;
+	}

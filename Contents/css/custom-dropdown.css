@@ -1,0 +1,11 @@
+span.select {
+	position: absolute;
+	width: 690px;
+	height: 27px;
+	font-size:14px;
+	padding: 5px 0px 0px 5px;
+	color: #000;
+	text-align:left;
+	background:url(../images/ssap-listmenu.gif) no-repeat;
+	overflow: hidden;
+}

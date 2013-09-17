@@ -1,12 +1,11 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
 @using System.Web.Mvc.Html
+@using Generic.Helpers
 @{
-    Layout = null;
+    Layout = LayoutHelper.GetLayout();
     ViewBag.Title = ViewBag.Project + "Admin";
 }
-<head>
-    
-<title> @ViewBag.Project Admin </title>
-    </head>
-<h2>Hello, @ViewBag.Project Admin (Login)</h2>
 
+<h2>Hello, @ViewBag.Project Admin</h2>
+
+<a href="http://localhost:51208/../Generic/Contents/images/favicon.ico">http://localhost:51208/../Generic/Contents/images/favicon.ico</a>
