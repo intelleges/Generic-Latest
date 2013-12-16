@@ -1,0 +1,150 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@{
+    Layout = "~/Views/Shared/_LayoutMasterAdmin.cshtml";
+}
+
+
+ <!-- Index content -->
+        <div style="padding:0 0 0 5px; overflow:hidden; float:left; width:420px;">
+        <div class="tabcontentarea">
+
+        <script type="text/javascript">
+        //<![CDATA[
+        Sys.WebForms.PageRequestManager._initialize('ctl00$contentMain$ScriptManager1', 'aspnetForm', ['fctl00$contentMain$ReportViewer1$ReportViewer','','fctl00$contentMain$ReportViewer1$Toolbar','','fctl00$contentMain$ReportViewer1$DocMap','','fctl00$contentMain$ReportViewer1$ctl10$ReportArea','','fctl00$contentRightBottom$ReportViewer2$ReportViewer','','fctl00$contentRightBottom$ReportViewer2$Toolbar','','fctl00$contentRightBottom$ReportViewer2$DocMap','','fctl00$contentRightBottom$ReportViewer2$ctl10$ReportArea',''], [], ['ctl00$contentMain$ReportViewer1$ctl10$ReportControl$ctl00','','ctl00$contentRightBottom$ReportViewer2$ctl10$ReportControl$ctl00',''], 90, 'ctl00');
+        //]]>
+        </script>
+
+
+
+
+        <noscript>
+        &nbsp;Your browser does not support scripts or has been configured not to allow scripts.
+        </noscript><span id="ctl00_contentMain_ReportViewer1_ReportViewer"><div id="ctl00_contentMain_ReportViewer1" class="rptview" onclick="if ($get(&#39;ctl00_contentMain_ReportViewer1_ctl04&#39;) != null &amp;&amp; $get(&#39;ctl00_contentMain_ReportViewer1_ctl04&#39;).control != null) $get(&#39;ctl00_contentMain_ReportViewer1_ctl04&#39;).control.HideActiveDropDown();" onactivate="if ($get(&#39;ctl00_contentMain_ReportViewer1_ctl04&#39;) != null &amp;&amp; $get(&#39;ctl00_contentMain_ReportViewer1_ctl04&#39;).control != null) $get(&#39;ctl00_contentMain_ReportViewer1_ctl04&#39;).control.HideActiveDropDown();" style="height:229px;width:385px;">
+        <div id="ctl00_contentMain_ReportViewer1_HttpHandlerMissingErrorMessage" style="border-color:Red;border-width:2px;border-style:Solid;padding:10px;display:none;overflow:auto;font-size:.85em;">
+        <h2>
+        Report Viewer Configuration Error
+        </h2><p>The Report Viewer Web Control HTTP Handler has not been registered in the application&#39;s web.config file.  Add &lt;add verb=&quot;*&quot; path=&quot;Reserved.ReportViewerWebControl.axd&quot; type = &quot;Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&quot; /&gt; to the system.web/httpHandlers section of the web.config file, or add &lt;add name=&quot;ReportViewerWebControlHandler&quot; preCondition=&quot;integratedMode&quot; verb=&quot;*&quot; path=&quot;Reserved.ReportViewerWebControl.axd&quot; type=&quot;Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&quot; /&gt; to the system.webServer/handlers section for Internet Information Services 7 or later.</p>
+        </div><span id="ctl00_contentMain_ReportViewer1_ctl03"><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl03$ctl00" id="ctl00_contentMain_ReportViewer1_ctl03_ctl00" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl03$ctl01" id="ctl00_contentMain_ReportViewer1_ctl03_ctl01" /></span><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl11" id="ctl00_contentMain_ReportViewer1_ctl11" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl12" id="ctl00_contentMain_ReportViewer1_ctl12" /><div id="ctl00_contentMain_ReportViewer1_AsyncWait" style="background-color:White;opacity:0.7;position:absolute;display:none;filter:alpha(opacity=70);">
+
+        </div><div id="ctl00_contentMain_ReportViewer1_AsyncWait_Wait" style="cursor:wait;background-color:#D8D9DB;padding:15px;border:1px solid black;display:none;position:absolute;">
+        <table height="100%">
+        <tr>
+            <td width="32px" height="32px"><img src="/Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SpinningWheel.gif" style="height:32px;width:32px;border-width:0px;" /></td><td style="vertical-align:middle;text-align:center;"><span style="font-family:Verdana;font-size:14pt;">Loading...</span><div style="margin-top:3px;">
+                <a href="/Contents/javascript:$get(&#39;ctl00_contentMain_ReportViewer1_AsyncWait&#39;).control._cancelCurrentPostback();" style="font-family:Verdana;font-size:8pt;color:#3366CC;">Cancel</a>
+            </div></td>
+        </tr>
+        </table>
+        </div><input type="hidden" name="ctl00$contentMain$ReportViewer1$AsyncWait$HiddenCancelField" id="ctl00_contentMain_ReportViewer1_AsyncWait_HiddenCancelField" value="False" /><table cellpadding="0" cellspacing="0" id="ctl00_contentMain_ReportViewer1_fixedTable" style="table-layout:fixed;width:100%;height:100%;">
+        <tr>
+        <td style="display:none;width:25%;"></td><td style="display:none;width:6px;"></td><td style="width:100%;"></td>
+        </tr><tr id="ParametersRowctl00_contentMain_ReportViewer1" style="display:none;">
+        <td colspan="3"></td>
+        </tr><tr style="height:6px;font-size:2pt;display:none;">
+        <td colspan="3" style="padding:0px;margin:0px;text-align:center;background-color:#ECE9D8;"><div id="ctl00_contentMain_ReportViewer1_ToggleParam">
+            <input type="image" name="ctl00$contentMain$ReportViewer1$ToggleParam$img" id="ctl00_contentMain_ReportViewer1_ToggleParam_img" title="Show / Hide Parameters" src="/Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SplitterHorizCollapse.png" alt="Show / Hide Parameters" align="middle" onclick="void(0);" style="border-width:0px;cursor:pointer;" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ToggleParam$store" id="ctl00_contentMain_ReportViewer1_ToggleParam_store" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ToggleParam$collapse" id="ctl00_contentMain_ReportViewer1_ToggleParam_collapse" value="false" />
+        </div></td>
+        </tr><tr style="display:none;">
+
+        </tr><tr>
+        <td style="vertical-align:top;width:25%;height:100%;display:none;"><div style="width:100%;height:100%;">
+            <span id="ctl00_contentMain_ReportViewer1_DocMap"><div id="ctl00_contentMain_ReportViewer1_ctl09" style="display:none;">
+                <input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl09$ClientClickedId" id="ctl00_contentMain_ReportViewer1_ctl09_ClientClickedId" />
+            </div></span>
+        </div></td><td style="display:none;width:4px;padding:0px;margin:0px;height:100%;vertical-align:middle;background-color:#ECE9D8;"><div id="ctl00_contentMain_ReportViewer1_ctl08">
+            <input type="image" name="ctl00$contentMain$ReportViewer1$ctl08$img" id="ctl00_contentMain_ReportViewer1_ctl08_img" title="Show / Hide Document Map" src="/Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SplitterVertCollapse.png" alt="Show / Hide Document Map" align="top" onclick="void(0);" style="border-width:0px;cursor:pointer;" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl08$store" id="ctl00_contentMain_ReportViewer1_ctl08_store" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl08$collapse" id="ctl00_contentMain_ReportViewer1_ctl08_collapse" value="false" />
+        </div></td><td style="height:100%;vertical-align:top;"><div id="ctl00_contentMain_ReportViewer1_ctl10" style="height:100%;width:100%;overflow:auto;position:relative;">
+            <div id="VisibleReportContentctl00_contentMain_ReportViewer1_ctl10" style="height:100%;">
+
+  @RenderBody()
+
+            </div><div id="ctl00_contentMain_ReportViewer1_ctl10_ReportArea">
+                <div NewContentType="Microsoft.Reporting.WebFormsClient.ReportAreaContent.None" ForNonReportContentArea="false" id="ctl00_contentMain_ReportViewer1_ctl10_VisibilityState" style="visibility:none;">
+                    <input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl10$VisibilityState$ctl00" value="None" />
+                </div><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl10$ScrollPosition" id="ctl00_contentMain_ReportViewer1_ctl10_ScrollPosition" /><span id="ctl00_contentMain_ReportViewer1_ctl10_Reserved_AsyncLoadTarget"></span><div id="ctl00_contentMain_ReportViewer1_ctl10_ReportControl" style="display:none;">
+                    <span></span><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl10$ReportControl$ctl02" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl10$ReportControl$ctl03" /><input type="hidden" name="ctl00$contentMain$ReportViewer1$ctl10$ReportControl$ctl04" id="ctl00_contentMain_ReportViewer1_ctl10_ReportControl_ctl04" value="100" />
+                </div><div id="ctl00_contentMain_ReportViewer1_ctl10_NonReportContent" style="height:100%;width:100%;">
+
+                </div>
+            </div>
+        </div></td>
+        </tr>
+        </table>
+        </div></span>
+
+
+       
+        </div>
+        <div id="countrytabs" class="shadetabs"> 
+        <span class="risk"><a href="/Contents/#" rel="country1" class="selected"></a></span> 
+        <span class="dashbord" onclick="javascript: window.location='dashboard.aspx?viewBy=My Dashboard'; return true;"><a href="/Contents/#" rel="" ></a></span> 
+        <span class="alert" onclick="javascript: window.location='alertForm.aspx'; return true;"><a href="/Contents/#" rel="country3" style="margin:0 4px 0 0;"> </a></span> 
+        <span class="partners" onclick="javascript: window.location='uploadSpreadsheet.aspx?type=provider'; return true;"> <a href="/Contents/#" rel="country4" style="margin:0;"> </a></span></div>
+        </div>
+        <script type="text/javascript" >
+        var countries=new ddtabcontent("countrytabs")
+        countries.setpersist(true)
+        countries.setselectedClassTarget("link") //"link" or "linkparent"
+        countries.init()
+        </script>
+        <div id="watch">
+
+        <h2>In the News</h2>
+        <div id="feed-control" style="width:440px;height:125px;overflow-y:scroll;overflow-x:hidden;">
+        <span style="color:#676767;font-size:11px;margin:10px;padding:4px;">Loading...</span>
+        </div>
+
+
+      
+
+        </div>
+        <div class="map">
+
+
+        <noscript>
+        &nbsp;Your browser does not support scripts or has been configured not to allow scripts.
+        </noscript><span id="ctl00_contentRightBottom_ReportViewer2_ReportViewer"><div id="ctl00_contentRightBottom_ReportViewer2" class="rptviewRight" onclick="if ($get(&#39;ctl00_contentRightBottom_ReportViewer2_ctl04&#39;) != null &amp;&amp; $get(&#39;ctl00_contentRightBottom_ReportViewer2_ctl04&#39;).control != null) $get(&#39;ctl00_contentRightBottom_ReportViewer2_ctl04&#39;).control.HideActiveDropDown();" onactivate="if ($get(&#39;ctl00_contentRightBottom_ReportViewer2_ctl04&#39;) != null &amp;&amp; $get(&#39;ctl00_contentRightBottom_ReportViewer2_ctl04&#39;).control != null) $get(&#39;ctl00_contentRightBottom_ReportViewer2_ctl04&#39;).control.HideActiveDropDown();" style="height:400px;width:400px;">
+        <div id="ctl00_contentRightBottom_ReportViewer2_HttpHandlerMissingErrorMessage" style="border-color:Red;border-width:2px;border-style:Solid;padding:10px;display:none;overflow:auto;font-size:.85em;">
+        <h2>
+        Report Viewer Configuration Error
+        </h2><p>The Report Viewer Web Control HTTP Handler has not been registered in the application&#39;s web.config file.  Add &lt;add verb=&quot;*&quot; path=&quot;Reserved.ReportViewerWebControl.axd&quot; type = &quot;Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&quot; /&gt; to the system.web/httpHandlers section of the web.config file, or add &lt;add name=&quot;ReportViewerWebControlHandler&quot; preCondition=&quot;integratedMode&quot; verb=&quot;*&quot; path=&quot;Reserved.ReportViewerWebControl.axd&quot; type=&quot;Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&quot; /&gt; to the system.webServer/handlers section for Internet Information Services 7 or later.</p>
+        </div><span id="ctl00_contentRightBottom_ReportViewer2_ctl03"><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl03$ctl00" id="ctl00_contentRightBottom_ReportViewer2_ctl03_ctl00" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl03$ctl01" id="ctl00_contentRightBottom_ReportViewer2_ctl03_ctl01" /></span><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl11" id="ctl00_contentRightBottom_ReportViewer2_ctl11" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl12" id="ctl00_contentRightBottom_ReportViewer2_ctl12" /><div id="ctl00_contentRightBottom_ReportViewer2_AsyncWait" style="background-color:White;opacity:0.7;position:absolute;display:none;filter:alpha(opacity=70);">
+
+        </div><div id="ctl00_contentRightBottom_ReportViewer2_AsyncWait_Wait" style="cursor:wait;background-color:Red;padding:15px;border:1px solid black;display:none;position:absolute;">
+        <table height="100%">
+        <tr>
+            <td width="32px" height="32px"><img src="/Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SpinningWheel.gif" style="height:32px;width:32px;border-width:0px;" /></td><td style="vertical-align:middle;text-align:center;"><span style="font-family:Verdana;font-size:14pt;">Loading...</span><div style="margin-top:3px;">
+                <a href="/Contents/javascript:$get(&#39;ctl00_contentRightBottom_ReportViewer2_AsyncWait&#39;).control._cancelCurrentPostback();" style="font-family:Verdana;font-size:8pt;color:#3366CC;">Cancel</a>
+            </div></td>
+        </tr>
+        </table>
+        </div><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$AsyncWait$HiddenCancelField" id="ctl00_contentRightBottom_ReportViewer2_AsyncWait_HiddenCancelField" value="False" /><table cellpadding="0" cellspacing="0" id="ctl00_contentRightBottom_ReportViewer2_fixedTable" style="table-layout:fixed;width:100%;height:100%;">
+        <tr>
+        <td style="display:none;width:25%;"></td><td style="display:none;width:6px;"></td><td style="width:100%;"></td>
+        </tr><tr id="ParametersRowctl00_contentRightBottom_ReportViewer2" style="display:none;">
+        <td colspan="3"></td>
+        </tr><tr style="height:6px;font-size:2pt;display:none;">
+        <td colspan="3" style="padding:0px;margin:0px;text-align:center;background-color:#ECE9D8;"><div id="ctl00_contentRightBottom_ReportViewer2_ToggleParam">
+            <input type="image" name="ctl00$contentRightBottom$ReportViewer2$ToggleParam$img" id="ctl00_contentRightBottom_ReportViewer2_ToggleParam_img" title="Show / Hide Parameters" src="/Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SplitterHorizCollapse.png" alt="Show / Hide Parameters" align="middle" onclick="void(0);" style="border-width:0px;cursor:pointer;" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ToggleParam$store" id="ctl00_contentRightBottom_ReportViewer2_ToggleParam_store" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ToggleParam$collapse" id="ctl00_contentRightBottom_ReportViewer2_ToggleParam_collapse" value="false" />
+        </div></td>
+        </tr><tr style="display:none;">
+
+        </tr><tr>
+        <td style="vertical-align:top;width:25%;height:100%;display:none;"><div style="width:100%;height:100%;">
+            <span id="ctl00_contentRightBottom_ReportViewer2_DocMap"><div id="ctl00_contentRightBottom_ReportViewer2_ctl09" style="display:none;">
+                <input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl09$ClientClickedId" id="ctl00_contentRightBottom_ReportViewer2_ctl09_ClientClickedId" />
+            </div></span>
+        </div></td><td style="display:none;width:4px;padding:0px;margin:0px;height:100%;vertical-align:middle;background-color:#ECE9D8;"><div id="ctl00_contentRightBottom_ReportViewer2_ctl08">
+            <input type="image" name="ctl00$contentRightBottom$ReportViewer2$ctl08$img" id="ctl00_contentRightBottom_ReportViewer2_ctl08_img" title="Show / Hide Document Map" src="/Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SplitterVertCollapse.png" alt="Show / Hide Document Map" align="top" onclick="void(0);" style="border-width:0px;cursor:pointer;" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl08$store" id="ctl00_contentRightBottom_ReportViewer2_ctl08_store" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl08$collapse" id="ctl00_contentRightBottom_ReportViewer2_ctl08_collapse" value="false" />
+        </div></td>
+            <td style="height:100%;vertical-align:top;">
+          <div id="ReportViewer2" style="height:100%;width:100%;overflow:auto;position:relative;">
+      @RenderSection("ReportViewer2", false)
+        </div></td>
+        </tr>
+        </table>
+        </div></span>
+
+        
+        </div>
+
+        <!-- Index content  End-->

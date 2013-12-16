@@ -1,0 +1,32 @@
+/* Deskydo IE CSS Document */
+
+/* ----- Header ----- */
+/* ----- Header Ends ----- */
+
+/* ----- Content ----- */
+.supplyleft{
+	float:left;
+	margin:100px 0 0 48px;
+	width:355px;
+	font-size:13px;
+	}
+.supplyright{
+	float:right;
+	margin:100px 70px 0 0;
+	width:290px;
+	font-size:14px;
+	}
+
+.surveyleft{
+	float:left;
+	margin:115px 0 0 48px;
+	width:355px;
+	font-size:13px;
+	}
+.surveyright{
+	float:right;
+	margin:115px 70px 0 0;
+	width:290px;
+	font-size:14px;
+	}
+/* ----- Content Ends ----- */

@@ -1,0 +1,97 @@
+.drag-handle{ /*Overwrite default drag handle bar background color with below*/
+background-image:url(../../images/terms_bg.jpg);
+background-repeat:no-repeat;
+}
+
+#interVeil{ /*CSS for veil that covers entire page while modal window is visible*/
+position: absolute;
+background:#cccccc;
+width: 10px;
+left: 0;
+top: 0;
+z-index: 5;
+visibility: hidden;
+filter:progid:DXImageTransform.Microsoft.alpha(opacity=80);
+opacity: 0.8;
+}
+
+/* ----- Div tag Page ----- */
+.termstitle{
+	color:#b0aa91;
+	font-size:18px;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.termstitleone{
+	color:#b0aa91;
+	font-size:14px;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.normaltext{	
+	color:#000000;
+	font-size:13px;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.termslin{
+	color:#0091c7;
+	}
+.termslin a{
+	color:#0091c7;
+	}
+.termslin a:hover{
+	color:#0091c7;
+	text-decoration:none;
+	}
+.contacttitle{
+	color:#FFFFFF;
+	font-size:18px;
+	padding:10px 0px;
+	text-align:center;
+	background-color:#0091c7;
+	}
+.contactsubtitle{
+	color:#FFFFFF;
+	font-size:14px;
+	text-align:center;
+	background-color:#0091c7;
+	}
+.graybor{
+	color:#0096c9;
+	font-size:13px;
+	border:1px solid #CCCCCC;
+	background-color:#eff5f6;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.contactbox{
+	width:249px;
+	padding:0 3px;
+	font-size:13px;
+	border:1px solid #CCCCCC;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.contactboxone{
+	width:105px;
+	padding:0 3px;
+	font-size:13px;
+	border:1px solid #CCCCCC;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.contactdropdown{
+	width:113px;
+	font-size:13px;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.contactsubmit{
+	border:0px;
+	width:66px;
+	height:22px;
+	background-repeat:no-repeat;
+	background-image:url(../../images/contact_submit.jpg);
+	}
+.contactcancle{
+	border:0px;
+	width:66px;
+	height:22px;
+	background-repeat:no-repeat;
+	background-image:url(../../images/contact_cancle.jpg);
+	}
+/* ----- Div tag Page ----- */

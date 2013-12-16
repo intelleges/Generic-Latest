@@ -1,0 +1,151 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@{
+    Layout = "~/tmp/Views/Shared/_LayoutMaster.cshtml";    
+}
+
+ <script type="text/javascript">
+     try {
+         var pageTracker = _gat._getTracker("UA-7827202-1");
+         pageTracker._trackPageview();
+     } catch (err) { }</script>
+
+
+    <link rel="icon" href="images/favicon.ico" type="image/ico">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Intelleges</title>
+  <link href="/Contents/RegistrationStyle/css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="/Contents/RegistrationStyle/css/menu.css" rel="stylesheet" type="text/css" />
+    
+    <link rel="stylesheet" href="/Contents/RegistrationStyle/divwindow/css/dhtmlwindow.css" type="text/css" />
+
+
+ @*   
+<link rel="stylesheet" href="/Contents/Partner/modal.css" type="text/css" />*@
+
+@*<link href="~/Generic/Contents/Partner/dhtmlwindow.css" rel="stylesheet" />
+<link href="~/Generic/Contents/Partner/menu.css" rel="stylesheet" />
+<link href="~/Generic/Contents/Partner/modal.css" rel="stylesheet" />
+<link href="~/Generic/Contents/Partner/styles.css" rel="stylesheet" />*@
+
+
+    
+<script type ="text/javascript" src="https://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js">s</script>
+    @*<script type="text/javascript"  src="/Contents/js/modal.js"></script>*@
+<link href="/Contents/css/gfdynamicfeedcontroller.css" type="text/css" rel="stylesheet" />
+
+
+<body>
+    <form name="aspnetForm" method="post" action="" id="aspnetForm">
+@*<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTc4Njk4ODE5MA9kFgJmD2QWAgIBD2QWCAIBDw8WAh4EVGV4dAUtRnJlZSBUcmlhbCBSZWdpc3RyYXRpb24gZm9yIENvbmZsaWN0IE1pbmVyYWxzZGQCAw8WAh4JaW5uZXJodG1sBdMBSW50ZWxsZWdlcyA8Yj4zVEcvQ29uZmxpY3QgTWluZXJhbHMgUmVhZGluZXNzIFF1ZXN0aW9ubmFpcmU8L2I+IGlzIGRlc2lnbmVkIHRvIGNhcHR1cmUgaW5mb3JtYXRpb24gYWJvdXQgeW91ciBjb21wYW55J3MgcmVhZGluZXNzIHBlcnRhaW5pbmcgdG8gY29tcGxpYW5jZSB3aXRoIFNFQyBEb2RkLUZyYW5rIFNlY3Rpb24gMTUwMiBDb25mbGljdCBNaW5lcmFscyBydWxlLmQCBQ8WAh8BBYQBRW50ZXIgeW91ciBhY2Nlc3MgY29kZSAoZm91bmQgaW4geW91ciBpbnZpdGF0aW9uIGVtYWlsKSBiZWxvdyB0byBjb21wbGV0ZSB0aGUgPGI+M1RHL0NvbmZsaWN0IE1pbmVyYWxzIFJlYWRpbmVzcyBRdWVzdGlvbm5haXJlPC9iPi4gZAIJDw8WAh8ABQQyMDEzZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFJ2N0bDAwJGNvbnRlbnRRdWVzdGlvbm5haXJlQm9keSRidG5sb2dpbojZ1JMLX2sy/yOsrSUw9uKtH6yo7NqwChbDqbXsyh5j" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<div>
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAQLfov54whVQg5nMK5WEHTaFBlB47vb2EzujU37xwO3kDCOy1DB+wZYys1JnQ94bycFwCLejyMbw2dg4NbzQrjOM4xqCdeFd0bLH92RZZUZvT88SKQPvtx4rZx/s8HDfck=" />
+</div>*@
+    <!-- Contact us : -->
+
+    <script type="text/javascript">
+        function contact() { //Define arbitrary function to run desired DHTML Window widget codes
+        //    emailwindow = dhtmlmodal.open("ajaxbox", "iframe", "RegistrationStyle/divwindow/contact_us.php", "", "width=452px,height=600px,left=8px,top=1px,resize=0,scrolling=0")
+        }
+    </script>
+        <div id="dhtmlwindowholder"><span style="display:none"></span></div>
+        <div>
+            @RenderSection("Bottom", required: false)
+        </div>
+        
+   
+    
+    <!-- Contact us Ends : -->
+    <div class="main"> 
+        
+        <div class="content">
+            <div class="infologinbanner">
+            @RenderSection("Top", false)
+            </div>
+            
+    <div class="supplycon">
+        <div class="commonh">
+        </div>
+        <div>
+            <table width="89%" height="78" border="0" align="center" cellpadding="0" cellspacing="0">
+               
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                       
+                                     @RenderBody()
+                                   
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @*<span style="color: #8faebb;">*Required Fields</span>*@
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+            <div>
+                 @RenderSection("BottomFooter", required: false)
+            </div>
+           
+            @*<div class="supplyfot">
+                <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td height="60">
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </div>*@
+        </div>
+        <div class="footer">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="66%" class="textone">
+                    </td>
+                    <td width="34%" align="right" class="texttwo">
+                        <div style="margin-right: 18px;">
+                            Copyright ©
+                            <span id="ctl00_lblCurrentDate">2013</span>, Intelleges®. All rights
+                            reserved.</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="bluebg">
+        </div>
+    </div>
+    
+
+</form>
+</body>
+

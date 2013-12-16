@@ -175,6 +175,7 @@
     <Content Include="Contents\images\c-tpat.gif" />
     <Content Include="Contents\images\calendar_button.gif" />
     <Content Include="Contents\images\campaign_head.jpg" />
+    <Content Include="Contents\images\cancel.gif" />
     <Content Include="Contents\images\cancel_button.gif" />
     <Content Include="Contents\images\change.gif" />
     <Content Include="Contents\images\ChineseSimplified.jpg" />
@@ -186,8 +187,10 @@
     <Content Include="Contents\images\close_button.gif" />
     <Content Include="Contents\images\collapse_blue.jpg" />
     <Content Include="Contents\images\complete_button.gif" />
+    <Content Include="Contents\images\confirm.gif" />
     <Content Include="Contents\images\confirm_button.gif" />
     <Content Include="Contents\images\content_bg.jpg" />
+    <Content Include="Contents\images\correct.gif" />
     <Content Include="Contents\images\cross-r.png" />
     <Content Include="Contents\images\cross-r5.png" />
     <Content Include="Contents\images\curve_05.jpg" />
@@ -206,6 +209,7 @@
     <Content Include="Contents\images\dropdown-r.jpg" />
     <Content Include="Contents\images\dropdown1-r.jpg" />
     <Content Include="Contents\images\dropdownsmall-r.jpg" />
+    <Content Include="Contents\images\edit.gif" />
     <Content Include="Contents\images\email_button.gif" />
     <Content Include="Contents\images\excel-icon.png" />
     <Content Include="Contents\images\excel.gif" />
@@ -228,6 +232,7 @@
     <Content Include="Contents\images\header_bg2.jpg" />
     <Content Include="Contents\images\home-tab-content.jpg" />
     <Content Include="Contents\images\ignore_button.gif" />
+    <Content Include="Contents\images\infosubmit.gif" />
     <Content Include="Contents\images\israel.jpg" />
     <Content Include="Contents\images\Italian.jpg" />
     <Content Include="Contents\images\Japanese.jpg" />
@@ -278,6 +283,7 @@
     <Content Include="Contents\images\menu\user_on.gif" />
     <Content Include="Contents\images\modify_member.jpg" />
     <Content Include="Contents\images\new_button.gif" />
+    <Content Include="Contents\images\Next.jpg" />
     <Content Include="Contents\images\next_arrow.gif" />
     <Content Include="Contents\images\next_button.gif" />
     <Content Include="Contents\images\ok_button.gif" />
@@ -358,11 +364,13 @@
     <Content Include="Contents\images\tabcontentarea-r.png" />
     <Content Include="Contents\images\tabcontentarea-r1.png" />
     <Content Include="Contents\images\tickmark-r.png" />
+    <Content Include="Contents\images\tickmark.gif" />
     <Content Include="Contents\images\toggle-bg.gif" />
     <Content Include="Contents\images\toggle-browse.gif" />
     <Content Include="Contents\images\toggle_bg.gif" />
     <Content Include="Contents\images\triangule.gif" />
     <Content Include="Contents\images\up.gif" />
+    <Content Include="Contents\images\update.gif" />
     <Content Include="Contents\images\us.jpg" />
     <Content Include="Contents\images\watch.jpg" />
     <Content Include="Contents\js\animatedcollapse.js" />
@@ -375,12 +383,17 @@
     <Content Include="Contents\js\jquery.min.js" />
     <Content Include="Contents\js\menu\imgcontent.js" />
     <Content Include="Contents\js\menu\menu.js" />
+    <Content Include="Contents\js\modal.js" />
     <Content Include="Contents\js\myJScript.js" />
     <Content Include="Contents\js\prototype\prototype.js" />
     <Content Include="Contents\js\prototype\_notes\dwsync.xml" />
     <Content Include="Contents\js\scroll.js" />
     <Content Include="Contents\js\tabber.js" />
     <Content Include="Contents\js\tabcontent.js" />
+    <Content Include="Contents\Partner\dhtmlwindow.css" />
+    <Content Include="Contents\Partner\menu.css" />
+    <Content Include="Contents\Partner\modal.css" />
+    <Content Include="Contents\Partner\styles.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -416,9 +429,6 @@
     <EmbeddedResource Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\Partner\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Views\Shared\_GenericAdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -426,6 +436,30 @@
     <Content Include="Contents\images\buttons.zip" />
     <Content Include="Contents\images\menu\Thumbs.db" />
     <Content Include="Contents\images\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Partner\CompanyInfomation.cshtml" />
+    <EmbeddedResource Include="Views\Partner\ContactInformation.cshtml" />
+    <EmbeddedResource Include="Views\Partner\EditCompanyInformation.cshtml" />
+    <EmbeddedResource Include="Views\Partner\EditContactInformation.cshtml" />
+    <EmbeddedResource Include="Views\Partner\ESignature.cshtml" />
+    <EmbeddedResource Include="Views\Partner\eSignatureEnd.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Partner\Questionnaire.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Shared\_LayoutMaster.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_LayoutMasterAdmin.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_LayoutMasterAdminHome.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_LayoutMasterHome.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_LayoutMasterPartner.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partner\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partner\AccessCode.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

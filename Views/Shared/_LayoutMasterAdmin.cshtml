@@ -1,0 +1,345 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+<div id="header2">
+<div class="header-top-r">
+            <div class="persons2"> 
+                JOHN BETANCOURT
+                <span id="ctl00_lblRole">
+                    System Master
+                </span>
+            </div><!-- .persons2 -->
+            <div class="survey3">
+                <select name="new-customer-on-boarding" class="new-customer-on-boarding-class">
+                    <option>NEW CUSTOMER ON BOARDING</option>
+                    <option>NEW CUSTOMER ON BOARDING</option>
+                    <option>NEW CUSTOMER ON BOARDING</option>
+                    <option>NEW CUSTOMER ON BOARDING</option>
+                </select>
+            </div><!-- .survey3 -->
+            <div class="logo2">
+                <div class="survey2">
+                    <a href="/Contents/#"><img src="/Contents/images/logo-r1.png" alt="Logo" /></a>
+                </div><!-- .survey2 -->
+            </div><!-- .logo2 -->
+        </div><!-- .header-top-r -->
+ <div class="menu-side-text-r">
+            <p>Cloud Based Global Compliance Automation Services</p>
+        </div>
+
+       <div id="menu" >
+            <ul id="qm0" class="qmmc">
+            <li><a href='javascript: void(0)'>&nbsp;&nbsp;User</a><ul>
+            <li><a href='#'>Add</a><ul>
+            <li><a href='#'>User</a><ul><li><a href='userForm.aspx?actionType=1'>Manual</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=User'>Spreadsheet</a></li>
+            </ul></li>
+            <li><a href='userRoleForm.aspx?actionType=1'>User Role</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Alert</a><ul>
+            <li><a href='viewAlertMember.aspx?viewBy=All'>All</a></li>
+            <li><a href='viewAlertMember?viewBy=All Campaign'>By Campaign</a><ul><li><a href='viewAlertMember.aspx?viewBy=By Campaign&id=3064'>Foreign Military Financing - 2013</a></li>
+            <li><a href='viewAlertMember.aspx?viewBy=By Campaign&id=2063'>Free trail</a></li>
+            <li><a href='viewAlertMember.aspx?viewBy=By Campaign&id=62'>New Customer On-Boarding</a></li>
+            <li><a href='viewAlertMember.aspx?viewBy=By Campaign&id=2064'>SK</a></li>
+            <li><a href='viewAlertMember.aspx?viewBy=By Campaign&id=1062'>Testing Title</a></li>
+            </ul></li>
+            <li><a href='viewAlertMember.aspx?viewBy=All SSAP'>By Group</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Archive</a><ul>
+            <li><a href='ArchieveMultiple.aspx'>Multiple</a></li>
+            <li><a href='Retreivearchieveduser.aspx'>Retrieve</a></li>
+            <li><a href='userForm.aspx?actionType=5'>Single</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Assign Group</a><ul>
+            <li><a href='assignUserSSAP.aspx?actionType=0&viewBy=All'>All</a></li>
+            <li><a href='#'>By Role</a><ul><li><a href='assignUserSSAP.aspx?actionType=0&viewBy=By Role&id=3'>Business Leader</a></li>
+            <li><a href='assignUserSSAP.aspx?actionType=0&viewBy=By Role&id=2'>Corporate User</a></li>
+            <li><a href='assignUserSSAP.aspx?actionType=0&viewBy=By Role&id=4'>Sponsor</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            <li><a href='userForm.aspx?actionType=2'>Find</a></li>
+            <li><a href='#'>Modify</a><ul>
+            <li><a href='userForm.aspx?actionType=3'>User</a></li>
+            <li><a href='userRoleForm.aspx?actionType=3'>User Role</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Remove</a><ul>
+            <li><a href='userForm.aspx?actionType=4'>User</a></li>
+            <li><a href='#'>User Role</a></li>
+            </ul>
+            </li>
+            <li><a href='removealluser.aspx'>Remove All</a></li>
+            <li><a href='userForm.aspx?actionType=6'>Restore</a><ul>
+            <li><a href='RestoreMultiple.aspx'>Multiple</a></li>
+            <li><a href='userForm.aspx?actionType=6'>Single</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>View</a><ul>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=All'>All</a></li>
+            <li><a href='viewSsapForm.aspx?actionType=19&type=user'>By Group</a></li>
+            <li><a href='#'>By Role</a><ul><li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Business+Leader&id=3'>Business Leader</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Business+Leader&id=23'>business led</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Corporate User&id=2'>Corporate User</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Business+Leader&id=25'>New role</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Business+Leader&id=24'>new test user rol</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Sponsor&id=4'>Sponsor</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=By Role&viewByType=Business+Leader&id=22'>Test Role Dupon</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            </ul></li>
+            <li><a href='javascript: void(0)'>&nbsp;&nbsp;&nbsp;Partner</a><ul>
+            <li><a href='#'>Add</a><ul>
+            <li><a href='#'>Country Risk Rating</a></li>
+            <li><a href='#'>Partner</a><ul><li><a href='addProviderManual.aspx?actionType=1'>Manual</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=provider'>Spreadsheet</a></li>
+            </ul></li>
+            <li><a href='providerTypeForm.aspx?actionType=1'>Partner Type</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Alert</a><ul>
+            <li><a href='viewAlertPartner.aspx?find=true'>All</a></li>
+            </ul>
+            </li>
+            <li><a href='providerForm.aspx?actionType=5'>Archive</a></li>
+            <li><a href='NULL'>Confirm</a><ul>
+            <li><a href='viewProviderForm.aspx?actionType=7&viewBy=Collapsed'>Collapsed</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=7&viewBy=Expanded'>Expanded</a></li>
+            </ul>
+            </li>
+            <li><a href='providerForm.aspx?actionType=2'>Find</a></li>
+            <li><a href='#'>Invite</a><ul>
+            <li><a href='viewProviderForm.aspx?actionType=31&viewBy=InviteToRegister'>InviteToRegister</a></li>
+            <li><a href='providerForm.aspx?actionType=8&viewBy=ModifyContact'>Mod Contact</a></li>
+            <li><a href='providerForm.aspx?actionType=8&viewBy=Remind'>Remind</a></li>
+            <li><a href='HROEmail.aspx'>Remind HRO</a></li>
+            <li><a href='providerForm.aspx?actionType=8&viewBy=InvitationToRetrieval'>Retrieve</a></li>
+            <li><a href='providerForm.aspx?actionType=8&viewBy=Send'>Send</a></li>
+            </ul>
+            </li>
+            <li><a href='NULL'>Modify</a><ul>
+            <li><a href='#'>Partner</a><ul><li><a href='providerForm.aspx?actionType=3&viewBy=Confirmed'>Confirmed</a></li>
+            <li><a href='providerForm.aspx?actionType=3&viewBy=Unconfirmed'>Unconfirmed</a></li>
+            </ul></li>
+            <li><a href='providerTypeForm.aspx?actionType=3'>Partner Type</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Remove</a><ul>
+            <li><a href='#'>Partner</a><ul><li><a href='providerForm.aspx?actionType=4&viewBy=Reference'>Reference</a></li>
+            <li><a href='providerForm.aspx?actionType=4&viewBy=Shadow'>Shadow</a></li>
+            <li><a href='providerForm.aspx?actionType=4&viewBy=Unconfirmed'>Unconfirmed</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            <li><a href='removeallprovider.aspx'>Remove All</a></li>
+            <li><a href='#'>Report</a><ul>
+            <li><a href='partnerreport.aspx'>Report 1: Standard</a></li>
+            <li><a href='partnerreport1.aspx'>Report 2: Complete I</a></li>
+            <li><a href='partnerreport11.aspx'>Report 2: Complete II Final</a></li>
+            <li><a href='partnerreport2.aspx?Res=I'>Report 3: Incomplete</a></li>
+            <li><a href='partnerreport2.aspx?Res=N'>Report 4: No Response</a></li>
+            </ul>
+            </li>
+            <li><a href='providerForm.aspx?actionType=6'>Restore</a></li>
+            <li><a href='#'>Switch</a><ul>
+            <li><a href='switchProvider.aspx?viewBy=Demote+Reference'>Demote Reference</a></li>
+            <li><a href='switchProvider.aspx?viewBy=Promote+Shadow'>Promote Shadow</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=providerpromote'>Upload Spreadsheet</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Transfer</a><ul>
+            <li><a href='transfer.aspx?viewType=Owner'>Ownership</a></li>
+            <li><a href='NULL'>Partner</a><ul><li><a href='viewSsapForm.aspx?actionType=9&type=provider'>By Group</a></li>
+            <li><a href='viewUserForm.aspx?actionType=9&viewBy=By User'>By User</a></li>
+            <li><a href='providerForm.aspx?actionType=9'>Find</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            <li><a href='#'>View</a><ul>
+            <li><a href='#'>All</a><ul><li><a href='viewProviderForm.aspx?actionType=0&viewBy=All&viewByType=Reference'>Reference</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=All&viewByType=Reference/Shadow'>Reference/Shadow</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=All&viewByType=Shadow'>Shadow</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=All&viewByType=Unconfirm'>Unconfirmed</a></li>
+            </ul></li>
+            <li><a href='#'>By Country Risk Rating</a><ul><li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Country Risk Rating&viewByType=0th-10th'>0th-10th</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Country Risk Rating&viewByType=10th-25th'>10th-25th</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Country Risk Rating&viewByType=25th-50th'>25th-50th</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Country Risk Rating&viewByType=50th-75th'>50th-75th</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Country Risk Rating&viewByType=75th-90th'>75th-90th</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Country Risk Rating&viewByType=90th-100th'>90th-100th</a></li>
+            </ul></li>
+            <li><a href='viewSsapForm.aspx?actionType=19&type=provider'>By Group</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Me'>By me: Current User</a></li>
+            <li><a href='viewUserForm.aspx?actionType=0&viewBy=Provider Count'>By Owner</a></li>
+            <li><a href='viewStatusForm.aspx?actionType=0&viewBy=All'>By Status</a></li>
+            <li><a href='#'>By Type</a><ul><li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Conflict Minerals (3TG)&id=45'>3TG</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Anti-Money Laundering/Know Your Customer&id=46'>AML-KYC</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Buy American Act&id=47'>BAA</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Center for Disease Control&id=48'>CDC</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Certs & Reps/eSRS&id=50'>CNR</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Anti-Counterfeit System&id=49'>CTR</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Executive Compensation&id=51'>EC</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Foreign Corrupt Practices Act&id=52'>FCPA</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Foreign Military Financing&id=53'>FMF</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=&id=1057'>General Counsel</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=rcoi&id=1066'>rcoi</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Supply Chain Integrity&id=54'>SCI</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Supply Chain Security/C-TPAT&id=55'>SCS</a></li>
+            <li><a href='viewProviderForm.aspx?actionType=0&viewBy=By Type&viewByType=Trade Agreement Act&id=56'>TAA</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            </ul></li>
+            <li><a href='javascript: void(0)'>&nbsp;&nbsp;&nbsp;Group</a><ul>
+            <li><a href='ssapForm.aspx?actionType=1'>Add</a><ul>
+            <li><a href='ssapForm.aspx?actionType=1'>Manual</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=group'>Spreadsheet</a></li>
+            </ul>
+            </li>
+            <li><a href='ssapForm.aspx?actionType=5'>Archive</a></li>
+            <li><a href='NULL'>Dashboard</a><ul>
+            <li><a href='dashboard.aspx?viewBy=All'>All</a></li>
+            <li><a href='NULL'>By Campaign</a><ul><li><a href='dashboard.aspx?viewBy=By Campaign&id=10'>Child_Campaign_of_father</a></li>
+            <li><a href='dashboard.aspx?viewBy=By Campaign&id=8'>C-TPAT 2009</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            <li><a href='ssapForm.aspx?actionType=2'>Find</a></li>
+            <li><a href='ssapForm.aspx?actionType=3'>Modify</a><ul>
+            <li><a href='uploadSpreadSheet.aspx?type=goal'>Goal</a></li>
+            <li><a href='ssapForm.aspx?actionType=3'>Property</a></li>
+            </ul>
+            </li>
+            <li><a href='ssapForm.aspx?actionType=4'>Remove</a></li>
+            <li><a href='removeallssap.aspx'>Remove All</a></li>
+            <li><a href='ssapForm.aspx?actionType=6'>Restore</a></li>
+            <li><a href='#'>Transfer</a><ul>
+            <li><a href='viewSsapForm.aspx?actionType=9&type=provider'>By Group</a></li>
+            <li><a href='viewUserForm.aspx?actionType=9&viewBy=By User'>By User</a></li>
+            <li><a href='providerForm.aspx?actionType=9'>Find</a></li>
+            </ul>
+            </li>
+            <li><a href='ssapForm.aspx?actionType=11'>View</a></li>
+            </ul></li>
+            <li><a href='javascript: void(0)'>&nbsp;&nbsp;&nbsp;Protocol</a><ul>
+            <li><a href='protocolForm.aspx?actionType=1'>Add</a></li>
+            <li><a href='protocolForm.aspx?actionType=5'>Archive</a></li>
+            <li><a href='protocolForm.aspx?actionType=2'>Find</a></li>
+            <li><a href='protocolForm.aspx?actionType=3'>Modify</a></li>
+            <li><a href='protocolForm.aspx?actionType=4'>Remove</a></li>
+            <li><a href='protocolForm.aspx?actionType=6'>Restore</a></li>
+            <li><a href='viewProtocolForm.aspx?actionType=0&viewBy=All'>View</a></li>
+            </ul></li>
+            <li><a href='javascript: void(0)'>&nbsp;&nbsp;&nbsp;Question</a><ul>
+            <li><a href='#'>Campaign</a><ul>
+            <li><a href='campaignForm.aspx?actionType=1'>Add</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=maturitypath'>Add Maturity Path Time Sheet</a></li>
+            <li><a href='campaignForm.aspx?actionType=5'>Archive</a></li>
+            <li><a href='assignCampaignSsapManual.aspx'>Assign Group</a></li>
+            <li><a href='autoMail.aspx'>AutoMail Message</a></li>
+            <li><a href='campaignForm.aspx?actionType=2'>Find</a></li>
+            <li><a href='campaignForm.aspx?actionType=3'>Modify</a></li>
+            <li><a href='campaignForm.aspx?actionType=4'>Remove</a></li>
+            <li><a href='report.aspx'>Report</a></li>
+            <li><a href='campaignForm.aspx?actionType=6'>Restore</a></li>
+            <li><a href='viewCampaignForm.aspx?actionType=0&viewBy=All'>View</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Country</a><ul>
+            <li><a href='#'>Add</a></li>
+            <li><a href='#'>Find</a></li>
+            <li><a href='https://www.intelleges.com/honeywellbaa/hs3admin/providerForm.aspx?actionType=21'>Modify</a></li>
+            <li><a href='https://www.intelleges.com/honeywellbaa/hs3admin/providerForm.aspx?actionType=21'>Remove</a></li>
+            </ul>
+            </li>
+            <li><a href='#'>Part #</a><ul>
+            <li><a href='#'>Add</a><ul><li><a href='partNumber.aspx?actionType=1'>Manual</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=addpartnumber'>Spreadsheet</a></li>
+            </ul></li>
+            <li><a href='#'>Find</a></li>
+            <li><a href='#'>Modify</a></li>
+            <li><a href='#'>Remove</a><ul><li><a href='partNumber.aspx?actionType=4'>Manual</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=partnumber'>Spreadsheet</a></li>
+            </ul></li>
+            </ul>
+            </li>
+            <li><a href='#'>Questionnaire</a><ul>
+            <li><a href='#'>Add</a><ul><li><a href='questionnaireForm.aspx?actionType=1'>Manual</a></li>
+            <li><a href='uploadSpreadSheet.aspx?type=Questionnaire'>Spreadsheet</a></li>
+            </ul></li>
+            <li><a href='questionnaireForm.aspx?actionType=5'>Archive</a></li>
+            <li><a href='viewQuestionnaireForm.aspx?actionType=0&viewBy=Content'>Content</a></li>
+            <li><a href='questionnaireForm.aspx?actionType=2'>Find</a></li>
+            <li><a href='questionnaireForm.aspx?actionType=3'>Modify</a></li>
+            <li><a href='viewQuestionnaireForm.aspx?actionType=0&viewBy=Response'>Response</a></li>
+            <li><a href='questionnaireForm.aspx?actionType=6'>Restore</a></li>
+            </ul>
+            </li>
+            </ul></li>
+            <li><a href='javascript: void(0)'>&nbsp;&nbsp;&nbsp;System</a><ul>
+            <li><a href='systemInfoForm.aspx?actionType=0'>System Info</a></li>
+            </ul></li>
+
+            <li class="qmclear">&nbsp;</li>
+            </ul>
+        <script type="text/javascript">qm_create(0, false, 0, 500, false, false, false, false, false);</script>             
+        </div><!-- #menu -->
+        <div class="logout-button-r">
+            <a href="/Contents/#"><img src="/Contents/images/logout-r1.png" alt="Logout Button" /></a>
+        </div>
+    <div class="clear-r"></div>
+     </div>
+    <div id="wrapper">
+        <div id="left">
+            <div class="ssdate"><span id="ctl00_lblDayLeft">3456</span></div>
+            <div id="leftmenu"><a href="/Contents/CompanyNews.aspx">IN THE NEWS</a> <a href="/Contents/#">BEST PRACTICES</a> <a href="/Contents/#" style="padding:10px 0 0 0; height:43px">TEMPLATES & POLICIES</a> <a href="/Contents/#">POST IT!</a> <a href="/Contents/#">OPEN TASK: 3</a></div>
+        </div><!-- #left -->
+        
+
+        @*Render Part*@
+           <div  id="content" style="padding:0 0 5px 0"> 
+               @RenderBody()
+               </div>
+           <div class="bottomcon">
+            <div class="client"><a href="/Contents/home.aspx"><img src="/Contents/images/client-logo.jpg" width="211" height="55" alt="" /></a></div>
+
+            <div class="arrow">
+
+            <img src="/Contents/images/scroll.jpg" alt="" width="82" height="80" border="0" usemap="#Map" />
+            <map name="Map" id="Map">
+            <area shape="poly" coords="9,36,21,26,21,49" href="/Contents/javascript:countries.cycleit('prev')" />
+            <area shape="poly" coords="53,25,64,37,54,50" href="/Contents/javascript:countries.cycleit('next')" />
+            <area shape="poly" coords="26,18,37,7,49,19" href="/Contents/#" onmouseover ="mvddl()"  />
+            <area shape="poly" coords="26,53,49,53,37,65" href="/Contents/#" onmouseover ="uparrow()" />
+            </map>
+            </div>
+            <div id="ctl00_BAACounts" style="padding-top:7px;color:White">
+            <table style="padding-left:185px">
+                <tr>
+                    <td>Part# Count:</td>
+                    <td class="bottom-table-td-r"><a id="ctl00_lbPart" href="/Contents/javascript:__doPostBack(&#39;ctl00$lbPart&#39;,&#39;&#39;)" style="color:White;">16</a></td>
+                </tr>
+                <tr>
+                    <td>Part# Completed Count:</td>
+                    <td class="bottom-table-td-r"><a id="ctl00_lbPartComplete" href="/Contents/javascript:__doPostBack(&#39;ctl00$lbPartComplete&#39;,&#39;&#39;)" style="color:White;">1</a></td>
+                </tr>
+                <tr>
+                    <td>Partner Count:</td>
+                    <td class="bottom-table-td-r"><a id="ctl00_lbPartner" href="/Contents/javascript:__doPostBack(&#39;ctl00$lbPartner&#39;,&#39;&#39;)" style="color:White;">50</a></td>
+                </tr>
+                <tr>
+                    <td>Partner Completed Count:</td>
+                    <td class="bottom-table-td-r"><a id="ctl00_lbPartnerComplete" href="/Contents/javascript:__doPostBack(&#39;ctl00$lbPartnerComplete&#39;,&#39;&#39;)" style="color:White;">1</a></td>
+                </tr>
+            </table>
+            </div>
+        </div>
+        </div>
+
+   

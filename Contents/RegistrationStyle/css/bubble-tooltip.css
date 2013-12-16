@@ -1,0 +1,34 @@
+#bubble_tooltip{
+	position:absolute;
+	display:none;
+	padding:3px 0;
+	text-decoration:none;
+}
+#bubble_tooltip .bubble_top{
+	background-image: url('../images/bubble_top.gif');
+	background-repeat:no-repeat;
+	text-decoration:none;
+}
+#bubble_tooltip .bubble_middle{
+	background-image: url('../images/bubble_middle.gif');
+	background-repeat:repeat-y;	
+	background-position:bottom left;
+	padding-left:7px;
+	padding-right:7px;
+	text-decoration:none;
+}
+#bubble_tooltip .bubble_middle span{
+	position:relative;
+	top:-8px;
+	font-family: Trebuchet MS, Lucida Sans Unicode, Arial, sans-serif;
+	font-size:11px;
+	text-decoration:none;
+}
+#bubble_tooltip .bubble_bottom{
+	background-image: url('../images/bubble_bottom.gif');
+	background-repeat:no-repeat;
+	background-repeat:no-repeat;
+	position:relative;
+	top:-6px;
+	text-decoration:none;
+}
