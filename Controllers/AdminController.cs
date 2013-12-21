@@ -65,8 +65,8 @@ namespace Generic.Controllers
                     //{
 
 
-                    return Redirect(Url.Action("Home"));
-                     //   return RedirectToAction("Home", "Admin");
+                   // return Redirect("~/mvcmt/scs/admin/home");
+                        return RedirectToAction("Home", "Admin");
                     //}
                 }
                 else
@@ -81,7 +81,7 @@ namespace Generic.Controllers
 
         }
 
-         [Authorize]
+       
         public virtual ActionResult Home()
         {
             ViewBag.Project = "Generic";
