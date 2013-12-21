@@ -64,9 +64,9 @@ namespace Generic.Controllers
                     //else
                     //{
 
-                  
 
-                        return RedirectToAction("Home", "Admin");
+                    return Redirect(Url.Action("Home"));
+                     //   return RedirectToAction("Home", "Admin");
                     //}
                 }
                 else
