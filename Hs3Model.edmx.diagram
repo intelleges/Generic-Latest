@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eebac0c329e742b786a7f20ad6657fda" Name="Diagram1">
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.accessLevel" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterprise" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseObjectName" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseSystemInfo" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.hs3Menu" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.letter" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.letterSeed" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.loadHistory" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.menuAccessLevel" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.menuGroup" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.numberSeed" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.person" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLoginAudit" Width="1.5" PointX="7.5" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLoginAuditEvent" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personRelationshipType" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personSearchCount" Width="1.5" PointX="7.5" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personStatu" Width="1.5" PointX="3" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.role" Width="1.5" PointX="3" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.sysdiagram" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseObjectName_enterprise" ManuallyRouted="false" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseSystemInfo_enterprise" ManuallyRouted="false" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_person_enterprise" ManuallyRouted="false" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_role_enterprise" ManuallyRouted="false" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_person_personStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_person_role" ManuallyRouted="false" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLoginAudit_person" ManuallyRouted="false" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_personSearchCount_person" ManuallyRouted="false" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

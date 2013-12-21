@@ -1,0 +1,814 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="hs3MVCMTQa2ModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="accessLevels">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.accessLevel">
+        <MappingFragment StoreEntitySet="accessLevel">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="index" ColumnName="index" />
+          <ScalarProperty Name="base2" ColumnName="base2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="enterprises">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterprise">
+        <MappingFragment StoreEntitySet="enterprise">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="logo" ColumnName="logo" />
+          <ScalarProperty Name="applicationPath" ColumnName="applicationPath" />
+          <ScalarProperty Name="companyName" ColumnName="companyName" />
+          <ScalarProperty Name="instanceName" ColumnName="instanceName" />
+          <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="enterpriseObjectNames">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterpriseObjectName">
+        <MappingFragment StoreEntitySet="enterpriseObjectName">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="objectName" ColumnName="objectName" />
+          <ScalarProperty Name="alias" ColumnName="alias" />
+          <ScalarProperty Name="device" ColumnName="device" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="enterpriseSystemInfoes">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterpriseSystemInfo">
+        <MappingFragment StoreEntitySet="enterpriseSystemInfo">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="systemExpiry" ColumnName="systemExpiry" />
+          <ScalarProperty Name="licenseLimit" ColumnName="licenseLimit" />
+          <ScalarProperty Name="companyName" ColumnName="companyName" />
+          <ScalarProperty Name="contractCoordinator" ColumnName="contractCoordinator" />
+          <ScalarProperty Name="companyWebSite" ColumnName="companyWebSite" />
+          <ScalarProperty Name="coordinatorEmail" ColumnName="coordinatorEmail" />
+          <ScalarProperty Name="isCurrentDataBase" ColumnName="isCurrentDataBase" />
+          <ScalarProperty Name="logoImage" ColumnName="logoImage" />
+          <ScalarProperty Name="configured" ColumnName="configured" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hs3Menu">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.hs3Menu">
+        <MappingFragment StoreEntitySet="hs3Menu">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="parentid" ColumnName="parentid" />
+          <ScalarProperty Name="grand" ColumnName="grand" />
+          <ScalarProperty Name="sort" ColumnName="sort" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+          <ScalarProperty Name="menuGroup" ColumnName="menuGroup" />
+          <ScalarProperty Name="isDynamicCreated" ColumnName="isDynamicCreated" />
+          <ScalarProperty Name="device" ColumnName="device" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="letters">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.letter">
+        <MappingFragment StoreEntitySet="letter">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="body" ColumnName="body" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="letterSeeds">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.letterSeed">
+        <MappingFragment StoreEntitySet="letterSeed">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="code" ColumnName="code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="loadHistories">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.loadHistory">
+        <MappingFragment StoreEntitySet="loadHistory">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="person" ColumnName="person" />
+          <ScalarProperty Name="uploadDate" ColumnName="uploadDate" />
+          <ScalarProperty Name="recordcount" ColumnName="recordcount" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="oldInt" ColumnName="oldInt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="menuAccessLevels">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.menuAccessLevel">
+        <MappingFragment StoreEntitySet="menuAccessLevel">
+          <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+          <ScalarProperty Name="menu" ColumnName="menu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="menuGroups">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.menuGroup">
+        <MappingFragment StoreEntitySet="menuGroup">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="numberSeeds">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.numberSeed">
+        <MappingFragment StoreEntitySet="numberSeed">
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="letter" ColumnName="letter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="people">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.person">
+        <MappingFragment StoreEntitySet="person">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="manager" ColumnName="manager" />
+          <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+          <ScalarProperty Name="riskType" ColumnName="riskType" />
+          <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+          <ScalarProperty Name="campaign" ColumnName="campaign" />
+          <ScalarProperty Name="internalId" ColumnName="internalId" />
+          <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+          <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="suffix" ColumnName="suffix" />
+          <ScalarProperty Name="nickName" ColumnName="nickName" />
+          <ScalarProperty Name="passWord" ColumnName="passWord" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+          <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+          <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+          <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+          <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="personLoginAudits">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personLoginAudit">
+        <MappingFragment StoreEntitySet="personLoginAudit">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="person" ColumnName="person" />
+          <ScalarProperty Name="auditLoginEvent" ColumnName="auditLoginEvent" />
+          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+          <ScalarProperty Name="deviceIP" ColumnName="deviceIP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="personLoginAuditEvents">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personLoginAuditEvent">
+        <MappingFragment StoreEntitySet="personLoginAuditEvent">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="personRelationshipTypes">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personRelationshipType">
+        <MappingFragment StoreEntitySet="personRelationshipType">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="personSearchCounts">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personSearchCount">
+        <MappingFragment StoreEntitySet="personSearchCount">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="person" ColumnName="person" />
+          <ScalarProperty Name="queryDateTime" ColumnName="queryDateTime" />
+          <ScalarProperty Name="countSearch" ColumnName="countSearch" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="personStatus">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personStatu">
+        <MappingFragment StoreEntitySet="personStatus">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roles">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.role">
+        <MappingFragment StoreEntitySet="role">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="access" ColumnName="access" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GenerateSPforInsertUpdateDelete2" FunctionName="hs3MVCMTQa2Model.Store.GenerateSPforInsertUpdateDelete2" />
+    <FunctionImportMapping FunctionImportName="pr_addEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise" />
+    <FunctionImportMapping FunctionImportName="pr_addEnterpriseSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseSystemInfo" />
+    <FunctionImportMapping FunctionImportName="pr_addPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_addPerson" />
+    <FunctionImportMapping FunctionImportName="pr_addPersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonStatus" />
+    <FunctionImportMapping FunctionImportName="pr_addRole" FunctionName="hs3MVCMTQa2Model.Store.pr_addRole" />
+    <FunctionImportMapping FunctionImportName="pr_addUserRole" FunctionName="hs3MVCMTQa2Model.Store.pr_addUserRole" />
+    <FunctionImportMapping FunctionImportName="pr_archiveEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveEnterprise" />
+    <FunctionImportMapping FunctionImportName="pr_archivePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePerson" />
+    <FunctionImportMapping FunctionImportName="pr_archivePersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePersonStatus" />
+    <FunctionImportMapping FunctionImportName="pr_archiveRole" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveRole" />
+    <FunctionImportMapping FunctionImportName="pr_doLogin" FunctionName="hs3MVCMTQa2Model.Store.pr_doLogin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_doLogin_Result">
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="personstatus" ColumnName="personstatus" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="campaign" ColumnName="campaign" />
+          <ScalarProperty Name="riskType" ColumnName="riskType" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_findPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_findPerson" />
+    <FunctionImportMapping FunctionImportName="pr_findUserRole" FunctionName="hs3MVCMTQa2Model.Store.pr_findUserRole">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_findUserRole_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="userRole" ColumnName="userRole" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getAccesscode" FunctionName="hs3MVCMTQa2Model.Store.pr_getAccesscode" />
+    <FunctionImportMapping FunctionImportName="pr_getEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterprise">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEnterprise_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="logo" ColumnName="logo" />
+          <ScalarProperty Name="applicationPath" ColumnName="applicationPath" />
+          <ScalarProperty Name="companyName" ColumnName="companyName" />
+          <ScalarProperty Name="instanceName" ColumnName="instanceName" />
+          <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getObjectNameByEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getObjectNameByEnterprise">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getObjectNameByEnterprise_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="objectName" ColumnName="objectName" />
+          <ScalarProperty Name="alias" ColumnName="alias" />
+          <ScalarProperty Name="device" ColumnName="device" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getObjectNameByEnterpriseForMobile" FunctionName="hs3MVCMTQa2Model.Store.pr_getObjectNameByEnterpriseForMobile">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getObjectNameByEnterpriseForMobile_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="objectName" ColumnName="objectName" />
+          <ScalarProperty Name="alias" ColumnName="alias" />
+          <ScalarProperty Name="device" ColumnName="device" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getObjectNameByEnterpriseObjectName" FunctionName="hs3MVCMTQa2Model.Store.pr_getObjectNameByEnterpriseObjectName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getObjectNameByEnterpriseObjectName_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="objectName" ColumnName="objectName" />
+          <ScalarProperty Name="alias" ColumnName="alias" />
+          <ScalarProperty Name="device" ColumnName="device" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getPerson">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPerson_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="manager" ColumnName="manager" />
+          <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+          <ScalarProperty Name="riskType" ColumnName="riskType" />
+          <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+          <ScalarProperty Name="campaign" ColumnName="campaign" />
+          <ScalarProperty Name="internalId" ColumnName="internalId" />
+          <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+          <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="suffix" ColumnName="suffix" />
+          <ScalarProperty Name="nickName" ColumnName="nickName" />
+          <ScalarProperty Name="passWord" ColumnName="passWord" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+          <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+          <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+          <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+          <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="manager" ColumnName="manager" />
+          <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+          <ScalarProperty Name="riskType" ColumnName="riskType" />
+          <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+          <ScalarProperty Name="campaign" ColumnName="campaign" />
+          <ScalarProperty Name="internalId" ColumnName="internalId" />
+          <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+          <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="suffix" ColumnName="suffix" />
+          <ScalarProperty Name="nickName" ColumnName="nickName" />
+          <ScalarProperty Name="passWord" ColumnName="passWord" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+          <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+          <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+          <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+          <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonAllConfirmed" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonAllConfirmed">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonAllConfirmed_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="internalID" ColumnName="internalID" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByEmail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByEmail_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonByEmailForLoginAttemps" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByEmailForLoginAttemps">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByEmailForLoginAttemps_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="manager" ColumnName="manager" />
+          <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+          <ScalarProperty Name="riskType" ColumnName="riskType" />
+          <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+          <ScalarProperty Name="campaign" ColumnName="campaign" />
+          <ScalarProperty Name="internalId" ColumnName="internalId" />
+          <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+          <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="suffix" ColumnName="suffix" />
+          <ScalarProperty Name="nickName" ColumnName="nickName" />
+          <ScalarProperty Name="passWord" ColumnName="passWord" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+          <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+          <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+          <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+          <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonByInternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByInternalID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByInternalID_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonByInternalIDEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByInternalIDEmail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByInternalIDEmail_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="manager" ColumnName="manager" />
+          <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+          <ScalarProperty Name="riskType" ColumnName="riskType" />
+          <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+          <ScalarProperty Name="campaign" ColumnName="campaign" />
+          <ScalarProperty Name="internalId" ColumnName="internalId" />
+          <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+          <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="suffix" ColumnName="suffix" />
+          <ScalarProperty Name="nickName" ColumnName="nickName" />
+          <ScalarProperty Name="passWord" ColumnName="passWord" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+          <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+          <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+          <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+          <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonByLoadHistory" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByLoadHistory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByLoadHistory_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonByStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByStatus">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByStatus_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="internalID" ColumnName="internalID" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonColumnHeader" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonColumnHeader">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonColumnHeader_Result">
+          <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonColumnNameByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonColumnNameByID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonColumnNameByID_Result">
+          <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonCountByAllRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonCountByAllRole">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonCountByAllRole_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonCountByRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonCountByRole" />
+    <FunctionImportMapping FunctionImportName="pr_getPersonDupByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonDupByEmail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonDupByEmail_Result">
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="count" ColumnName="count" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonDupByInternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonDupByInternalID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonDupByInternalID_Result">
+          <ScalarProperty Name="internalID" ColumnName="internalID" />
+          <ScalarProperty Name="count" ColumnName="count" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonEmailCount" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonEmailCount" />
+    <FunctionImportMapping FunctionImportName="pr_getPersonExcel" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonExcel">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonExcel_Result">
+          <ScalarProperty Name="internalID" ColumnName="internalID" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonExcelByAuthor" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonExcelByAuthor" />
+    <FunctionImportMapping FunctionImportName="pr_getPersonExcelByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonExcelByEmail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonExcelByEmail_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonExcelByInternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonExcelByInternalID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonExcelByInternalID_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonExcelDupByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonExcelDupByEmail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonExcelDupByEmail_Result">
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="count" ColumnName="count" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonExcelDupByInternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonExcelDupByInternalID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonExcelDupByInternalID_Result">
+          <ScalarProperty Name="internalID" ColumnName="internalID" />
+          <ScalarProperty Name="count" ColumnName="count" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonInfoByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonInfoByID" />
+    <FunctionImportMapping FunctionImportName="pr_getPersonInternalIDCount" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonInternalIDCount" />
+    <FunctionImportMapping FunctionImportName="pr_getPersonNameById" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonNameById" />
+    <FunctionImportMapping FunctionImportName="pr_getPersonPartnerCount" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPartnerCount" />
+    <FunctionImportMapping FunctionImportName="pr_getPersonPartnerCountByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPartnerCountByID" />
+    <FunctionImportMapping FunctionImportName="pr_getPersonPreviousNext" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPreviousNext">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPreviousNext_Result">
+          <ScalarProperty Name="previous" ColumnName="previous" />
+          <ScalarProperty Name="next" ColumnName="next" />
+          <ScalarProperty Name="first" ColumnName="first" />
+          <ScalarProperty Name="last" ColumnName="last" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonPwdByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPwdByEmail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPwdByEmail_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="manager" ColumnName="manager" />
+          <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+          <ScalarProperty Name="riskType" ColumnName="riskType" />
+          <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+          <ScalarProperty Name="campaign" ColumnName="campaign" />
+          <ScalarProperty Name="internalId" ColumnName="internalId" />
+          <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+          <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="suffix" ColumnName="suffix" />
+          <ScalarProperty Name="nickName" ColumnName="nickName" />
+          <ScalarProperty Name="passWord" ColumnName="passWord" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+          <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+          <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+          <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+          <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonRoleAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonRoleAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonRoleAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getRole" />
+    <FunctionImportMapping FunctionImportName="pr_getRoleAccessByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleAccessByID" />
+    <FunctionImportMapping FunctionImportName="pr_getRoleAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRoleAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="access" ColumnName="access" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getRoleByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleByID" />
+    <FunctionImportMapping FunctionImportName="pr_getRoleByName" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleByName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRoleByName_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="access" ColumnName="access" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getStateAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getStateAll" />
+    <FunctionImportMapping FunctionImportName="pr_getStateByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getStateByID" />
+    <FunctionImportMapping FunctionImportName="pr_getStateByName" FunctionName="hs3MVCMTQa2Model.Store.pr_getStateByName" />
+    <FunctionImportMapping FunctionImportName="pr_getStateName" FunctionName="hs3MVCMTQa2Model.Store.pr_getStateName" />
+    <FunctionImportMapping FunctionImportName="pr_getSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_getSystemInfo" />
+    <FunctionImportMapping FunctionImportName="pr_modifyEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterprise" />
+    <FunctionImportMapping FunctionImportName="pr_modifyEnterpriseSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterpriseSystemInfo" />
+    <FunctionImportMapping FunctionImportName="pr_modifyPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPerson" />
+    <FunctionImportMapping FunctionImportName="pr_modifyPersonInfoByID" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonInfoByID" />
+    <FunctionImportMapping FunctionImportName="pr_modifyPersonIsArchivedByID" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonIsArchivedByID" />
+    <FunctionImportMapping FunctionImportName="pr_modifyPersonManager" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonManager" />
+    <FunctionImportMapping FunctionImportName="pr_modifyPersonPasswordByID" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonPasswordByID" />
+    <FunctionImportMapping FunctionImportName="pr_modifyPersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonStatus" />
+    <FunctionImportMapping FunctionImportName="pr_modifyPersonStatusByID" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonStatusByID" />
+    <FunctionImportMapping FunctionImportName="pr_modifyPersonStatusByLoadHistory" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonStatusByLoadHistory" />
+    <FunctionImportMapping FunctionImportName="pr_modifyRole" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyRole" />
+    <FunctionImportMapping FunctionImportName="pr_modifySystemExpiry" FunctionName="hs3MVCMTQa2Model.Store.pr_modifySystemExpiry" />
+    <FunctionImportMapping FunctionImportName="pr_modifyUserRole" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyUserRole" />
+    <FunctionImportMapping FunctionImportName="pr_removeEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_removeEnterprise" />
+    <FunctionImportMapping FunctionImportName="pr_removeEnterpriseSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_removeEnterpriseSystemInfo" />
+    <FunctionImportMapping FunctionImportName="pr_removePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_removePerson" />
+    <FunctionImportMapping FunctionImportName="pr_removePersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_removePersonStatus" />
+    <FunctionImportMapping FunctionImportName="pr_removeRole" FunctionName="hs3MVCMTQa2Model.Store.pr_removeRole" />
+    <FunctionImportMapping FunctionImportName="pr_removeUserRole" FunctionName="hs3MVCMTQa2Model.Store.pr_removeUserRole" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveEnterprise" />
+    <FunctionImportMapping FunctionImportName="pr_unArchivePersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePersonStatus" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveRole" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveRole" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="hs3MVCMTQa2Model.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="hs3MVCMTQa2Model.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="hs3MVCMTQa2Model.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="hs3MVCMTQa2Model.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="hs3MVCMTQa2Model.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="hs3MVCMTQa2Model.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="hs3MVCMTQa2Model.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="xx_generateSPforInsertUpdateDelete2" FunctionName="hs3MVCMTQa2Model.Store.xx_generateSPforInsertUpdateDelete2" />
+    <FunctionImportMapping FunctionImportName="xx_getLastDBModified" FunctionName="hs3MVCMTQa2Model.Store.xx_getLastDBModified">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xx_getLastDBModified_Result">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+          <ScalarProperty Name="name1" ColumnName="name1" />
+          <ScalarProperty Name="object_id" ColumnName="object_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="schema_id" ColumnName="schema_id" />
+          <ScalarProperty Name="parent_object_id" ColumnName="parent_object_id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="type_desc" ColumnName="type_desc" />
+          <ScalarProperty Name="create_date" ColumnName="create_date" />
+          <ScalarProperty Name="modify_date1" ColumnName="modify_date1" />
+          <ScalarProperty Name="is_ms_shipped" ColumnName="is_ms_shipped" />
+          <ScalarProperty Name="is_published" ColumnName="is_published" />
+          <ScalarProperty Name="is_schema_published" ColumnName="is_schema_published" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

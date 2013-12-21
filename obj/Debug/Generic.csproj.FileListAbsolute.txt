@@ -50,3 +50,5 @@ C:\Users\john\Desktop\MVCMT\Generic\bin\System.Web.WebPages.Razor.xml
 C:\Users\john\Desktop\MVCMT\Generic\obj\Debug\Generic.dll
 C:\Users\john\Desktop\MVCMT\Generic\obj\Debug\Generic.pdb
 C:\Users\john\Desktop\MVCMT\Generic\obj\Debug\Generic.csprojResolveAssemblyReference.cache
+C:\Users\john\Desktop\MVCMT\Generic\bin\EntityFramework.dll
+C:\Users\john\Desktop\MVCMT\Generic\bin\EntityFramework.xml

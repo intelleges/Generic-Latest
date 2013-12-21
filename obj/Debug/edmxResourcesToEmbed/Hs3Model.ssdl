@@ -1,0 +1,797 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="hs3MVCMTQa2Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="hs3MVCMTQa2ModelStoreContainer">
+    <EntitySet Name="accessLevel" EntityType="hs3MVCMTQa2Model.Store.accessLevel" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="enterprise" EntityType="hs3MVCMTQa2Model.Store.enterprise" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="enterpriseObjectName" EntityType="hs3MVCMTQa2Model.Store.enterpriseObjectName" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="enterpriseSystemInfo" EntityType="hs3MVCMTQa2Model.Store.enterpriseSystemInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="hs3Menu" EntityType="hs3MVCMTQa2Model.Store.hs3Menu" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="letter" EntityType="hs3MVCMTQa2Model.Store.letter" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="letterSeed" EntityType="hs3MVCMTQa2Model.Store.letterSeed" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="loadHistory" EntityType="hs3MVCMTQa2Model.Store.loadHistory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="menuAccessLevel" EntityType="hs3MVCMTQa2Model.Store.menuAccessLevel" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="menuGroup" EntityType="hs3MVCMTQa2Model.Store.menuGroup" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="numberSeed" EntityType="hs3MVCMTQa2Model.Store.numberSeed" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="person" EntityType="hs3MVCMTQa2Model.Store.person" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="personLoginAudit" EntityType="hs3MVCMTQa2Model.Store.personLoginAudit" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="personLoginAuditEvent" EntityType="hs3MVCMTQa2Model.Store.personLoginAuditEvent" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="personRelationshipType" EntityType="hs3MVCMTQa2Model.Store.personRelationshipType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="personSearchCount" EntityType="hs3MVCMTQa2Model.Store.personSearchCount" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="personStatus" EntityType="hs3MVCMTQa2Model.Store.personStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="role" EntityType="hs3MVCMTQa2Model.Store.role" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="hs3MVCMTQa2Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_enterpriseObjectName_enterprise" Association="hs3MVCMTQa2Model.Store.FK_enterpriseObjectName_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="enterpriseObjectName" EntitySet="enterpriseObjectName" />
+    </AssociationSet>
+    <AssociationSet Name="FK_enterpriseSystemInfo_enterprise" Association="hs3MVCMTQa2Model.Store.FK_enterpriseSystemInfo_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="enterpriseSystemInfo" EntitySet="enterpriseSystemInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_person_enterprise" Association="hs3MVCMTQa2Model.Store.FK_person_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="person" EntitySet="person" />
+    </AssociationSet>
+    <AssociationSet Name="FK_person_personStatus" Association="hs3MVCMTQa2Model.Store.FK_person_personStatus">
+      <End Role="personStatus" EntitySet="personStatus" />
+      <End Role="person" EntitySet="person" />
+    </AssociationSet>
+    <AssociationSet Name="FK_person_role" Association="hs3MVCMTQa2Model.Store.FK_person_role">
+      <End Role="role" EntitySet="role" />
+      <End Role="person" EntitySet="person" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personLoginAudit_person" Association="hs3MVCMTQa2Model.Store.FK_personLoginAudit_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="personLoginAudit" EntitySet="personLoginAudit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personLoginAudit_personLoginAuditEvent" Association="hs3MVCMTQa2Model.Store.FK_personLoginAudit_personLoginAuditEvent">
+      <End Role="personLoginAuditEvent" EntitySet="personLoginAuditEvent" />
+      <End Role="personLoginAudit" EntitySet="personLoginAudit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personSearchCount_person" Association="hs3MVCMTQa2Model.Store.FK_personSearchCount_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="personSearchCount" EntitySet="personSearchCount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_role_enterprise" Association="hs3MVCMTQa2Model.Store.FK_role_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="role" EntitySet="role" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="accessLevel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="index" Type="int" />
+    <Property Name="base2" Type="int" />
+  </EntityType>
+  <EntityType Name="enterprise">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="logo" Type="varchar" MaxLength="500" />
+    <Property Name="applicationPath" Type="varchar" MaxLength="500" />
+    <Property Name="companyName" Type="varchar" MaxLength="50" />
+    <Property Name="instanceName" Type="varchar" MaxLength="50" />
+    <Property Name="archivedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="enterpriseObjectName">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="enterprise" Type="int" Nullable="false" />
+    <Property Name="objectName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="alias" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="device" Type="int" />
+  </EntityType>
+  <EntityType Name="enterpriseSystemInfo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="systemExpiry" Type="smalldatetime" />
+    <Property Name="licenseLimit" Type="int" />
+    <Property Name="companyName" Type="varchar" MaxLength="100" />
+    <Property Name="contractCoordinator" Type="varchar" MaxLength="100" />
+    <Property Name="companyWebSite" Type="varchar" MaxLength="100" />
+    <Property Name="coordinatorEmail" Type="varchar" MaxLength="100" />
+    <Property Name="isCurrentDataBase" Type="int" />
+    <Property Name="logoImage" Type="varchar" MaxLength="100" />
+    <Property Name="configured" Type="bit" Nullable="false" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="hs3Menu">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="nvarchar" MaxLength="255" />
+    <Property Name="url" Type="nvarchar" MaxLength="255" />
+    <Property Name="parentid" Type="int" />
+    <Property Name="grand" Type="int" />
+    <Property Name="sort" Type="int" />
+    <Property Name="active" Type="int" />
+    <Property Name="accesslevel" Type="int" />
+    <Property Name="menuGroup" Type="int" />
+    <Property Name="isDynamicCreated" Type="bit" />
+    <Property Name="device" Type="int" />
+  </EntityType>
+  <EntityType Name="letter">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="body" Type="varchar" MaxLength="3000" />
+    <Property Name="sortOrder" Type="int" />
+  </EntityType>
+  <EntityType Name="letterSeed">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="code" Type="varchar" Nullable="false" MaxLength="2" />
+  </EntityType>
+  <EntityType Name="loadHistory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="person" Type="int" Nullable="false" />
+    <Property Name="uploadDate" Type="datetime" Nullable="false" />
+    <Property Name="recordcount" Type="int" />
+    <Property Name="type" Type="int" />
+    <Property Name="oldInt" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="menuAccessLevel">
+    <Key>
+      <PropertyRef Name="accessLevel" />
+      <PropertyRef Name="menu" />
+    </Key>
+    <Property Name="accessLevel" Type="int" Nullable="false" />
+    <Property Name="menu" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="menuGroup">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="numberSeed">
+    <Key>
+      <PropertyRef Name="number" />
+    </Key>
+    <Property Name="number" Type="int" Nullable="false" />
+    <Property Name="letter" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="person">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="enterprise" Type="int" />
+    <Property Name="role" Type="int" />
+    <Property Name="manager" Type="int" />
+    <Property Name="personStatus" Type="int" />
+    <Property Name="riskType" Type="int" />
+    <Property Name="loadHistory" Type="int" />
+    <Property Name="campaign" Type="int" />
+    <Property Name="internalId" Type="varchar" MaxLength="20" />
+    <Property Name="nmNumber" Type="varchar" MaxLength="20" />
+    <Property Name="socialSecurity" Type="varchar" MaxLength="20" />
+    <Property Name="firstName" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="lastName" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="title" Type="varchar" MaxLength="50" />
+    <Property Name="suffix" Type="varchar" MaxLength="200" />
+    <Property Name="nickName" Type="varchar" MaxLength="200" />
+    <Property Name="passWord" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="address1" Type="varchar" MaxLength="200" />
+    <Property Name="address2" Type="varchar" MaxLength="200" />
+    <Property Name="city" Type="varchar" MaxLength="50" />
+    <Property Name="state" Type="int" />
+    <Property Name="zipcode" Type="varchar" MaxLength="50" />
+    <Property Name="country" Type="int" />
+    <Property Name="phone" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="fax" Type="varchar" MaxLength="50" />
+    <Property Name="active" Type="int" />
+    <Property Name="ismanager" Type="int" />
+    <Property Name="partnerPerPage" Type="int" />
+    <Property Name="resetDate" Type="datetime" />
+    <Property Name="IsArchived" Type="bit" />
+    <Property Name="archivedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="personLoginAudit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="person" Type="int" Nullable="false" />
+    <Property Name="auditLoginEvent" Type="int" Nullable="false" />
+    <Property Name="timestamp" Type="datetime" Nullable="false" />
+    <Property Name="deviceIP" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="personLoginAuditEvent">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+  </EntityType>
+  <EntityType Name="personRelationshipType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+  </EntityType>
+  <EntityType Name="personSearchCount">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="person" Type="int" Nullable="false" />
+    <Property Name="queryDateTime" Type="datetime" Nullable="false" />
+    <Property Name="countSearch" Type="bigint" />
+  </EntityType>
+  <EntityType Name="personStatus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+  </EntityType>
+  <EntityType Name="role">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="int" />
+    <Property Name="accessLevel" Type="int" />
+    <Property Name="enterprise" Type="int" />
+    <Property Name="access" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_enterpriseObjectName_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="1" />
+    <End Role="enterpriseObjectName" Type="hs3MVCMTQa2Model.Store.enterpriseObjectName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="enterpriseObjectName">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_enterpriseSystemInfo_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="enterpriseSystemInfo" Type="hs3MVCMTQa2Model.Store.enterpriseSystemInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="enterpriseSystemInfo">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_person_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="person">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_person_personStatus">
+    <End Role="personStatus" Type="hs3MVCMTQa2Model.Store.personStatus" Multiplicity="0..1" />
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="personStatus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="person">
+        <PropertyRef Name="personStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_person_role">
+    <End Role="role" Type="hs3MVCMTQa2Model.Store.role" Multiplicity="0..1" />
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="role">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="person">
+        <PropertyRef Name="role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_personLoginAudit_person">
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+    <End Role="personLoginAudit" Type="hs3MVCMTQa2Model.Store.personLoginAudit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="personLoginAudit">
+        <PropertyRef Name="person" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_personLoginAudit_personLoginAuditEvent">
+    <End Role="personLoginAuditEvent" Type="hs3MVCMTQa2Model.Store.personLoginAuditEvent" Multiplicity="1" />
+    <End Role="personLoginAudit" Type="hs3MVCMTQa2Model.Store.personLoginAudit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="personLoginAuditEvent">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="personLoginAudit">
+        <PropertyRef Name="auditLoginEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_personSearchCount_person">
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+    <End Role="personSearchCount" Type="hs3MVCMTQa2Model.Store.personSearchCount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="personSearchCount">
+        <PropertyRef Name="person" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_role_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="role" Type="hs3MVCMTQa2Model.Store.role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="role">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GenerateSPforInsertUpdateDelete2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Schemaname" Type="nvarchar" Mode="In" />
+    <Parameter Name="Tablename" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProcName" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_addEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="logo" Type="varchar" Mode="In" />
+    <Parameter Name="applicationPath" Type="varchar" Mode="In" />
+    <Parameter Name="companyName" Type="varchar" Mode="In" />
+    <Parameter Name="instanceName" Type="varchar" Mode="In" />
+    <Parameter Name="archivedDate" Type="date" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="systemExpiry" Type="smalldatetime" Mode="In" />
+    <Parameter Name="licenseLimit" Type="int" Mode="In" />
+    <Parameter Name="companyName" Type="varchar" Mode="In" />
+    <Parameter Name="contractCoordinator" Type="varchar" Mode="In" />
+    <Parameter Name="companyWebSite" Type="varchar" Mode="In" />
+    <Parameter Name="coordinatorEmail" Type="varchar" Mode="In" />
+    <Parameter Name="isCurrentDataBase" Type="int" Mode="In" />
+    <Parameter Name="logoImage" Type="varchar" Mode="In" />
+    <Parameter Name="configured" Type="bit" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="role" Type="int" Mode="In" />
+    <Parameter Name="manager" Type="int" Mode="In" />
+    <Parameter Name="personStatus" Type="int" Mode="In" />
+    <Parameter Name="riskType" Type="int" Mode="In" />
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+    <Parameter Name="campaign" Type="int" Mode="In" />
+    <Parameter Name="internalId" Type="varchar" Mode="In" />
+    <Parameter Name="nmNumber" Type="varchar" Mode="In" />
+    <Parameter Name="socialSecurity" Type="varchar" Mode="In" />
+    <Parameter Name="firstName" Type="varchar" Mode="In" />
+    <Parameter Name="lastName" Type="varchar" Mode="In" />
+    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="suffix" Type="varchar" Mode="In" />
+    <Parameter Name="nickName" Type="varchar" Mode="In" />
+    <Parameter Name="passWord" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="address1" Type="varchar" Mode="In" />
+    <Parameter Name="address2" Type="varchar" Mode="In" />
+    <Parameter Name="city" Type="varchar" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+    <Parameter Name="zipcode" Type="varchar" Mode="In" />
+    <Parameter Name="country" Type="int" Mode="In" />
+    <Parameter Name="phone" Type="varchar" Mode="In" />
+    <Parameter Name="fax" Type="varchar" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+    <Parameter Name="ismanager" Type="int" Mode="In" />
+    <Parameter Name="partnerPerPage" Type="int" Mode="In" />
+    <Parameter Name="resetDate" Type="datetime" Mode="In" />
+    <Parameter Name="IsArchived1" Type="bit" Mode="In" />
+    <Parameter Name="archivedDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="pr_addPersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_addRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+    <Parameter Name="accessLevel" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="access" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="accessLevel" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="access" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archivePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archivePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_doLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="password" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_findPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="selected_sql" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_findUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="userRole" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_getAccesscode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="access" Type="varchar" Mode="InOut" />
+  </Function>
+  <Function Name="pr_getEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getObjectNameByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getObjectNameByEnterpriseForMobile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="Device" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getObjectNameByEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="objectName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_getPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="person" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonAllConfirmed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonByEmailForLoginAttemps" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonByInternalID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="internalID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonByInternalIDEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="internalID" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonByLoadHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonByStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="status" Type="int" Mode="In" />
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonColumnHeader" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getPersonColumnNameByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonCountByAllRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonCountByRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="role" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonDupByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonDupByInternalID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonEmailCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonExcel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonExcelByAuthor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="person" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonExcelByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonExcelByInternalID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="internalID" Type="varchar" Mode="In" />
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonExcelDupByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonExcelDupByInternalID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonInfoByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonInternalIDCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="internalID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonNameById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonPartnerCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonPartnerCountByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonPreviousNext" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonPwdByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonRoleAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="roleName" Type="varchar" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="pr_getRoleAccessByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getRoleAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getRoleByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getRoleByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="roleName" Type="varchar" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getStateAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getStateByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getStateByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="stateName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_getStateName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="stateName" Type="char" Mode="InOut" />
+  </Function>
+  <Function Name="pr_getSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="logo" Type="varchar" Mode="In" />
+    <Parameter Name="applicationPath" Type="varchar" Mode="In" />
+    <Parameter Name="companyName" Type="varchar" Mode="In" />
+    <Parameter Name="instanceName" Type="varchar" Mode="In" />
+    <Parameter Name="archivedDate" Type="date" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="systemExpiry" Type="smalldatetime" Mode="In" />
+    <Parameter Name="licenseLimit" Type="int" Mode="In" />
+    <Parameter Name="companyName" Type="varchar" Mode="In" />
+    <Parameter Name="contractCoordinator" Type="varchar" Mode="In" />
+    <Parameter Name="companyWebSite" Type="varchar" Mode="In" />
+    <Parameter Name="coordinatorEmail" Type="varchar" Mode="In" />
+    <Parameter Name="isCurrentDataBase" Type="int" Mode="In" />
+    <Parameter Name="logoImage" Type="varchar" Mode="In" />
+    <Parameter Name="configured" Type="bit" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="internalID" Type="varchar" Mode="In" />
+    <Parameter Name="role" Type="int" Mode="In" />
+    <Parameter Name="firstName" Type="varchar" Mode="In" />
+    <Parameter Name="lastName" Type="varchar" Mode="In" />
+    <Parameter Name="password" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="phone" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPersonInfoByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="firstName" Type="varchar" Mode="In" />
+    <Parameter Name="lastName" Type="varchar" Mode="In" />
+    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="role" Type="int" Mode="In" />
+    <Parameter Name="phone" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPersonIsArchivedByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="isArchived" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPersonManager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="manager" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPersonPasswordByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="pwd" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPersonStatusByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="status" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPersonStatusByLoadHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+    <Parameter Name="status" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+    <Parameter Name="accessLevel" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="access" Type="int" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifySystemExpiry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="systemExpiry" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="userRole" Type="varchar" Mode="In" />
+    <Parameter Name="access" Type="int" Mode="In" />
+    <Parameter Name="accessLevel" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchivePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="xx_generateSPforInsertUpdateDelete2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Schemaname" Type="nvarchar" Mode="In" />
+    <Parameter Name="Tablename" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProcName" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="xx_getLastDBModified" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <!--Errors Found During Generation:
+      warning 6013: The table/view 'hs3MVCMTQa2.dbo.personRelationship' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="personRelationship">
+        <Property Name="personIsThe" Type="int" />
+        <Property Name="personHasThe" Type="int" />
+        <Property Name="RelationshipTypeID" Type="int" />
+      </EntityType>-->
+</Schema>

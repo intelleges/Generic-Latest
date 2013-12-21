@@ -16,7 +16,7 @@ namespace Generic
             routes.MapRoute("GenericNew", // Route name 
                 "{controller}/{action}/{id}",
                 // URL with parameters 
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional },// Parameter defaults 
+                new { controller = "Admin", action = "Index", id = UrlParameter.Optional },// Parameter defaults 
                 null,
                 new string[] { "Generic.Controllers" }  //NOTE: namespace to check 
                 );
@@ -24,7 +24,7 @@ namespace Generic
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

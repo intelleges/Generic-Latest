@@ -1,0 +1,252 @@
+/* CSS Document */
+
+* {
+	padding:0px;
+	margin:0px;
+}
+
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:100%;
+	color:#2C2C2C;
+}
+
+.wrapper {
+	width:1000px;
+	margin:20px auto;
+}
+
+.clearfix {
+	clear:both;
+}
+
+.bold-text {
+	font-weight:bold;
+}
+
+.font-size-14 {
+	font-size:14px;
+}
+
+.font-size-12 {
+	font-size:12px;
+}
+
+.text-color-878787 {
+	color:#878787;
+}
+
+.text-color-369CD7 {
+	color:#369CD7;	
+}
+
+.text-align-adjust {
+	padding-left: 5px;
+}
+
+/***************** start: header ******************/
+
+.header {
+	overflow:auto;
+	border-bottom:2px solid #a99f86;
+}
+
+.header > a {
+	float:right;
+	padding-bottom:5px;
+}
+
+/***************** end: header *******************/
+
+
+/***************** start: top-nav ****************/
+
+.top-nav {
+	overflow:auto;
+}
+
+.top-nav-left {
+	float:left;
+	padding: 6px 0px;
+	border:0px solid red;
+	margin-left:35px;
+}
+
+.top-nav-right {
+	float:right;
+	/*padding: 6px 0px;*/
+	border:0px solid blue;
+	/*margin-right:25px;*/
+}
+
+.navbar > ul > li {
+	list-style:none;
+	display:inline;
+	padding:0px 10px;
+}
+
+.navbar > ul > li a:link,
+.navbar > ul > li a:visited {
+	text-decoration:none;
+	color:#767777;
+}
+
+.navbar > ul > li a:hover {
+	text-decoration:none;
+	color:#a99f86;
+}
+
+.youtube-image {
+	padding-left: 25px;
+	padding-top: 10px;
+}
+
+
+/***************** end: top-nav ******************/
+
+/***************** start: main-content *****************/
+
+.main-content {
+	border:4px solid #D8D9D9;
+	margin:20px;
+	overflow:auto;
+}
+
+.main-content-left {
+	background-color:#F2F2F2;
+	width:456px;
+	height:310px;
+	float:left;
+	padding:10px;
+}
+
+.main-content-right {
+	width:450px;
+	height:310px;
+	float:left;
+	padding:10px;
+	overflow:auto;
+}
+
+.main-content-right-free {
+	width:460px;
+	height:310px;
+	float:left;
+	padding:10px 0px 10px 10px;
+	overflow:auto;
+}
+
+.input-field-text {
+	border:2px solid #D8D9D9;
+	width:280px;
+	height:22px;
+	padding-left:2px;
+}
+
+/*::-webkit-input-placeholder {
+    color:    #2C2C2C;
+}
+:-moz-placeholder {
+    color:    #2C2C2C;
+}
+::-moz-placeholder {
+    color:    #2C2C2C;
+}
+:-ms-input-placeholder {
+    color:    #2C2C2C;
+}*/
+
+.input-field-submit {
+	padding:10px 20px;
+	border-radius:6px;
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px;
+	color:#ffffff;
+	font-size:20px;
+	box-shadow:none;
+	border:none;
+	cursor: pointer;
+	
+	/*** start: button gredient ***/
+	background: #6db3f2; /* Old browsers */
+	background: -moz-linear-gradient(top,  #6db3f2 0%, #1e69de 61%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6db3f2), color-stop(61%,#1e69de)); 
+	background: -webkit-linear-gradient(top,  #6db3f2 0%,#1e69de 61%);
+	background: -o-linear-gradient(top,  #6db3f2 0%,#1e69de 61%);
+	background: -ms-linear-gradient(top,  #6db3f2 0%,#1e69de 61%);
+	background: linear-gradient(to bottom,  #6db3f2 0%,#1e69de 61%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6db3f2', endColorstr='#1e69de',GradientType=0 );
+	/*** end: button gredient ***/
+
+}
+
+.form-input-section {
+	float: left;
+	width: 288px;
+	border:0px solid green;
+	padding:2px 0px;
+	padding-left: 7px;
+}
+
+.form-submit-section {
+	margin-top:203px;
+	margin-left:20px;
+	float: left;
+	width: 125px;
+	border:0px solid blue;
+}
+
+.text-align-adjust-small{
+	padding-left: 5px;
+}
+
+.align-text-with {
+	padding-left: 5px;
+}
+
+/***************** end: main-content ******************/
+
+/*************** Start: Home Page *********************/
+
+.homepage-signin-div {
+	width: 120px;
+	margin-top:123px;
+	border:0px solid red;
+    margin-left: 10px;
+}
+
+.homepage-signin-button {
+	padding:10px 30px;
+}
+
+.homepage-input-bottom-link a:link,
+.homepage-input-bottom-link a:visited {
+	color:#369CD7;
+	text-decoration:none;
+}
+
+.homepage-input-bottom-link a:hover {
+	color:#369CD7;
+	text-decoration:underline;
+}
+
+.homepage-main-content-left,
+.homepage-main-content-right {
+	height:310px;
+}
+
+
+/*************** End: Home Page ***********************/
+
+/*************** Start: Free Trial ********************/
+
+.product-list-dropdown {
+	border:2px solid #D8D9D9;
+	width:286px;
+	height:26px;
+	padding-left:0px;
+	color:#2C2C2C;
+}
+
+
+/***************** End: Free Trail ********************/

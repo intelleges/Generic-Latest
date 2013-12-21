@@ -20,7 +20,7 @@
             </div><!-- .survey3 -->
             <div class="logo2">
                 <div class="survey2">
-                    <a href="/Contents/#"><img src="/Contents/images/logo-r1.png" alt="Logo" /></a>
+                    <a href="/Contents/#"><img src="@Url.Content("~/Contents/images/logo-r1.png")" alt="Logo" /></a>
                 </div><!-- .survey2 -->
             </div><!-- .logo2 -->
         </div><!-- .header-top-r -->
@@ -291,7 +291,7 @@
         <script type="text/javascript">qm_create(0, false, 0, 500, false, false, false, false, false);</script>             
         </div><!-- #menu -->
         <div class="logout-button-r">
-            <a href="/Contents/#"><img src="/Contents/images/logout-r1.png" alt="Logout Button" /></a>
+            <a href="/Contents/#"><img src="@Url.Content("~/Contents/images/logout-r1.png")" alt="Logout Button" /></a>
         </div>
     <div class="clear-r"></div>
      </div>
@@ -307,11 +307,11 @@
                @RenderBody()
                </div>
            <div class="bottomcon">
-            <div class="client"><a href="/Contents/home.aspx"><img src="/Contents/images/client-logo.jpg" width="211" height="55" alt="" /></a></div>
+            <div class="client"><a href="/Contents/home.aspx"><img src="@Url.Content("~/Contents/images/client-logo.jpg")" width="211" height="55" alt="" /></a></div>
 
             <div class="arrow">
 
-            <img src="/Contents/images/scroll.jpg" alt="" width="82" height="80" border="0" usemap="#Map" />
+            <img src="@Url.Content("~/Contents/images/scroll.jpg")" alt="" width="82" height="80" border="0" usemap="#Map" />
             <map name="Map" id="Map">
             <area shape="poly" coords="9,36,21,26,21,49" href="/Contents/javascript:countries.cycleit('prev')" />
             <area shape="poly" coords="53,25,64,37,54,50" href="/Contents/javascript:countries.cycleit('next')" />

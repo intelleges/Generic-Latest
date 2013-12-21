@@ -39,11 +39,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=1.0.20229.20821, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleTranslateAPI, Version=0.3.0.100, Culture=neutral, PublicKeyToken=37a8e65b17fcdcbb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\GoogleTranslateAPI.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SendGridMail, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SendGridMail.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -105,19 +123,193 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="accessLevel.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PartnerController.cs" />
     <Compile Include="Controllers\TestPageController.cs" />
     <Compile Include="EmbeddedResourceViewEngine.cs" />
+    <Compile Include="enterprise.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="enterpriseObjectName.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="enterpriseSystemInfo.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ClientJavascriptHelper.cs" />
+    <Compile Include="Helpers\CurrentInstance.cs" />
+    <Compile Include="Helpers\CustomMembershipProvider.cs" />
+    <Compile Include="Helpers\CustomRoleProvider.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
+    <Compile Include="hs3Menu.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hs3Model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Hs3Model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hs3Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hs3Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Hs3Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="letter.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="letterSeed.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="loadHistory.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="menuAccessLevel.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="menuGroup.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\StringContainer.cs" />
+    <Compile Include="numberSeed.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="person.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="personLoginAudit.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="personLoginAuditEvent.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="personRelationshipType.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="personSearchCount.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="personStatu.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="pr_doLogin_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_findUserRole_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getEnterprise_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getObjectNameByEnterpriseForMobile_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getObjectNameByEnterpriseObjectName_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getObjectNameByEnterprise_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonAllConfirmed_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonByEmailForLoginAttemps_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonByEmail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonByInternalIDEmail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonByInternalID_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonByLoadHistory_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonByStatus_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonColumnHeader_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonColumnNameByID_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonCountByAllRole_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonDupByEmail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonDupByInternalID_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonExcelByEmail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonExcelByInternalID_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonExcelDupByEmail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonExcelDupByInternalID_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonExcel_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonPreviousNext_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonPwdByEmail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonRoleAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPerson_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getRoleAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getRoleByName_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="role.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Session\SessionSingleton.cs" />
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="xx_getLastDBModified_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -373,6 +565,30 @@
     <Content Include="Contents\images\update.gif" />
     <Content Include="Contents\images\us.jpg" />
     <Content Include="Contents\images\watch.jpg" />
+    <Content Include="Contents\IntellegesLogin_files\2U6KsI6z3wg.htm" />
+    <Content Include="Contents\IntellegesLogin_files\Certifications-01.png" />
+    <Content Include="Contents\IntellegesLogin_files\Clients-01.png" />
+    <Content Include="Contents\IntellegesLogin_files\ga.js" />
+    <Content Include="Contents\IntellegesLogin_files\ga_002.js" />
+    <Content Include="Contents\IntellegesLogin_files\jquery-1.js" />
+    <Content Include="Contents\IntellegesLogin_files\jquery-ui.css" />
+    <Content Include="Contents\IntellegesLogin_files\jquery-ui.js" />
+    <Content Include="Contents\IntellegesLogin_files\jquery.js" />
+    <Content Include="Contents\IntellegesLogin_files\jquery_002.js" />
+    <Content Include="Contents\IntellegesLogin_files\jqx.css" />
+    <Content Include="Contents\IntellegesLogin_files\jqxcore.js" />
+    <Content Include="Contents\IntellegesLogin_files\jqxmenu.js" />
+    <Content Include="Contents\IntellegesLogin_files\Loc.jpg" />
+    <Content Include="Contents\IntellegesLogin_files\logo.png" />
+    <Content Include="Contents\IntellegesLogin_files\modal.js" />
+    <Content Include="Contents\IntellegesLogin_files\mtcFormAPI.js" />
+    <Content Include="Contents\IntellegesLogin_files\mtcJSAPI.js" />
+    <Content Include="Contents\IntellegesLogin_files\nextStreetImage.jpg" />
+    <Content Include="Contents\IntellegesLogin_files\nextStreetImage.png" />
+    <Content Include="Contents\IntellegesLogin_files\style.css" />
+    <Content Include="Contents\IntellegesLogin_files\TrialHelper.js" />
+    <Content Include="Contents\IntellegesLogin_files\WebResource.js" />
+    <Content Include="Contents\IntellegesLogin_files\WebResource_002.js" />
     <Content Include="Contents\js\animatedcollapse.js" />
     <Content Include="Contents\js\bramus\jsProgressBarHandler.js" />
     <Content Include="Contents\js\bramus\_notes\dwsync.xml" />
@@ -394,6 +610,164 @@
     <Content Include="Contents\Partner\menu.css" />
     <Content Include="Contents\Partner\modal.css" />
     <Content Include="Contents\Partner\styles.css" />
+    <Content Include="Contents\RegistrationStyle\css\bubble-tooltip.css" />
+    <Content Include="Contents\RegistrationStyle\css\dashboard.css" />
+    <Content Include="Contents\RegistrationStyle\css\iestyle.css" />
+    <Content Include="Contents\RegistrationStyle\css\menu.css" />
+    <Content Include="Contents\RegistrationStyle\css\menuone.css" />
+    <Content Include="Contents\RegistrationStyle\css\scrollbar.css" />
+    <Content Include="Contents\RegistrationStyle\css\styles.css" />
+    <Content Include="Contents\RegistrationStyle\css\styles_sri.css" />
+    <Content Include="Contents\RegistrationStyle\css\_notes\dwsync.xml" />
+    <Content Include="Contents\RegistrationStyle\divwindow\connection\connectionAsp.asp" />
+    <Content Include="Contents\RegistrationStyle\divwindow\css\dhtmlwindow.css" />
+    <Content Include="Contents\RegistrationStyle\divwindow\css\modal.css" />
+    <Content Include="Contents\RegistrationStyle\divwindow\doContactUs.asp" />
+    <Content Include="Contents\RegistrationStyle\divwindow\doRegister.asp" />
+    <Content Include="Contents\RegistrationStyle\divwindow\images\close.gif" />
+    <Content Include="Contents\RegistrationStyle\divwindow\js\dhtmlwindow.js" />
+    <Content Include="Contents\RegistrationStyle\divwindow\js\modal.js" />
+    <Content Include="Contents\RegistrationStyle\images\acess.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\aeo.gif" />
+    <Content Include="Contents\RegistrationStyle\images\aeo_icon.gif" />
+    <Content Include="Contents\RegistrationStyle\images\analayze.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\arrow.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\banner.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\block.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\bluearrow.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\brownarrow.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\bubble.gif" />
+    <Content Include="Contents\RegistrationStyle\images\bubble_bottom.gif" />
+    <Content Include="Contents\RegistrationStyle\images\bubble_filler.gif" />
+    <Content Include="Contents\RegistrationStyle\images\bubble_middle.gif" />
+    <Content Include="Contents\RegistrationStyle\images\bubble_top.gif" />
+    <Content Include="Contents\RegistrationStyle\images\button.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\cancel.gif" />
+    <Content Include="Contents\RegistrationStyle\images\chain.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\CHECKLIST.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\clients_bg.gif" />
+    <Content Include="Contents\RegistrationStyle\images\client_bgbutton.gif" />
+    <Content Include="Contents\RegistrationStyle\images\company.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\company_ban.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\contact_cancle.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\contact_submit.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\Copy of servicebg.gif" />
+    <Content Include="Contents\RegistrationStyle\images\correct.gif" />
+    <Content Include="Contents\RegistrationStyle\images\c_bantitle.gif" />
+    <Content Include="Contents\RegistrationStyle\images\c_bullot.gif" />
+    <Content Include="Contents\RegistrationStyle\images\c_butover.gif" />
+    <Content Include="Contents\RegistrationStyle\images\c_history.gif" />
+    <Content Include="Contents\RegistrationStyle\images\c_managment.gif" />
+    <Content Include="Contents\RegistrationStyle\images\c_philo.gif" />
+    <Content Include="Contents\RegistrationStyle\images\c_year.gif" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dashboard_bg.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dash_botl.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dash_botm.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dash_botr.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dash_midl.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dash_midr.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dash_topl.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dash_topm.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dash_topr.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dfooter_but.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dleft_bg.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dover_img.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dover_img1.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\dover_img2.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\dashboard\logo1.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\edit.gif" />
+    <Content Include="Contents\RegistrationStyle\images\ENGAGEMENT.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\engagementteam_banner.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\engagementterm_buttonbg.gif" />
+    <Content Include="Contents\RegistrationStyle\images\engagementtitle.gif" />
+    <Content Include="Contents\RegistrationStyle\images\esignature.gif" />
+    <Content Include="Contents\RegistrationStyle\images\events.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\favicon.ico" />
+    <Content Include="Contents\RegistrationStyle\images\getdirections.gif" />
+    <Content Include="Contents\RegistrationStyle\images\green_butbg.gif" />
+    <Content Include="Contents\RegistrationStyle\images\honeywell.gif" />
+    <Content Include="Contents\RegistrationStyle\images\hs3.gif" />
+    <Content Include="Contents\RegistrationStyle\images\icon.gif" />
+    <Content Include="Contents\RegistrationStyle\images\icon1.gif" />
+    <Content Include="Contents\RegistrationStyle\images\icon10.gif" />
+    <Content Include="Contents\RegistrationStyle\images\icon11.gif" />
+    <Content Include="Contents\RegistrationStyle\images\icon2.gif" />
+    <Content Include="Contents\RegistrationStyle\images\icon3.gif" />
+    <Content Include="Contents\RegistrationStyle\images\icon4.gif" />
+    <Content Include="Contents\RegistrationStyle\images\icon5.gif" />
+    <Content Include="Contents\RegistrationStyle\images\icon6.gif" />
+    <Content Include="Contents\RegistrationStyle\images\icon7.gif" />
+    <Content Include="Contents\RegistrationStyle\images\icon8.gif" />
+    <Content Include="Contents\RegistrationStyle\images\icon9.gif" />
+    <Content Include="Contents\RegistrationStyle\images\infosubmit.gif" />
+    <Content Include="Contents\RegistrationStyle\images\lbanner.gif" />
+    <Content Include="Contents\RegistrationStyle\images\lbox_bottom.gif" />
+    <Content Include="Contents\RegistrationStyle\images\lbox_middle.gif" />
+    <Content Include="Contents\RegistrationStyle\images\lbox_top.gif" />
+    <Content Include="Contents\RegistrationStyle\images\logibg.gif" />
+    <Content Include="Contents\RegistrationStyle\images\login.gif" />
+    <Content Include="Contents\RegistrationStyle\images\login.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\loginbg.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\loginimg.gif" />
+    <Content Include="Contents\RegistrationStyle\images\login_banner.gif" />
+    <Content Include="Contents\RegistrationStyle\images\login_hover.gif" />
+    <Content Include="Contents\RegistrationStyle\images\logo.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\logobg.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\logout_button.gif" />
+    <Content Include="Contents\RegistrationStyle\images\maps.gif" />
+    <Content Include="Contents\RegistrationStyle\images\menuarrow.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\more_button.gif" />
+    <Content Include="Contents\RegistrationStyle\images\Next.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\next_arrow.gif" />
+    <Content Include="Contents\RegistrationStyle\images\november.gif" />
+    <Content Include="Contents\RegistrationStyle\images\operate.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\pbannerbg.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\previous.gif" />
+    <Content Include="Contents\RegistrationStyle\images\prev_arrow.gif" />
+    <Content Include="Contents\RegistrationStyle\images\product.gif" />
+    <Content Include="Contents\RegistrationStyle\images\product_banner.gif" />
+    <Content Include="Contents\RegistrationStyle\images\pro_bullut.gif" />
+    <Content Include="Contents\RegistrationStyle\images\pro_butover.gif" />
+    <Content Include="Contents\RegistrationStyle\images\pro_supply.gif" />
+    <Content Include="Contents\RegistrationStyle\images\register.gif" />
+    <Content Include="Contents\RegistrationStyle\images\roundbg.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\saveforlater.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\scrips.gif" />
+    <Content Include="Contents\RegistrationStyle\images\servicebg.gif" />
+    <Content Include="Contents\RegistrationStyle\images\service_butbg.gif" />
+    <Content Include="Contents\RegistrationStyle\images\service_img.gif" />
+    <Content Include="Contents\RegistrationStyle\images\service_title.gif" />
+    <Content Include="Contents\RegistrationStyle\images\software_service.gif" />
+    <Content Include="Contents\RegistrationStyle\images\solution.gif" />
+    <Content Include="Contents\RegistrationStyle\images\SOLUTIONS.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\startinglocation.gif" />
+    <Content Include="Contents\RegistrationStyle\images\submit.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\Supply Chain.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\Supply Chainbg.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\survay.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\tableborder.png" />
+    <Content Include="Contents\RegistrationStyle\images\terms_bg.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\tickmark.gif" />
+    <Content Include="Contents\RegistrationStyle\images\top10.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\topbar.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\update.gif" />
+    <Content Include="Contents\RegistrationStyle\images\webinar.gif" />
+    <Content Include="Contents\RegistrationStyle\images\welcome.jpg" />
+    <Content Include="Contents\RegistrationStyle\images\_notes\dwsync.xml" />
+    <Content Include="Contents\RegistrationStyle\js\bubble-tooltip.js" />
+    <Content Include="Contents\RegistrationStyle\js\ddscroll.js" />
+    <Content Include="Contents\RegistrationStyle\js\dw_event.js" />
+    <Content Include="Contents\RegistrationStyle\js\dw_scroll.js" />
+    <Content Include="Contents\RegistrationStyle\js\imagetab.js" />
+    <Content Include="Contents\RegistrationStyle\js\imgcontent.js" />
+    <Content Include="Contents\RegistrationStyle\js\jquery_scroll.js" />
+    <Content Include="Contents\RegistrationStyle\js\loginscrollcont.js" />
+    <Content Include="Contents\RegistrationStyle\js\menu.js" />
+    <Content Include="Contents\RegistrationStyle\js\scrollcont.js" />
+    <Content Include="Contents\RegistrationStyle\js\scroll_controls.js" />
+    <Content Include="Contents\RegistrationStyle\js\tab.js" />
+    <Content Include="Contents\RegistrationStyle\js\tabcontent.js" />
+    <Content Include="Contents\RegistrationStyle\js\_notes\dwsync.xml" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -460,6 +834,47 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Partner\AccessCode.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Admin\Home.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Contents\RegistrationStyle\css\styles.css_BK_140910" />
+    <Content Include="Contents\RegistrationStyle\divwindow\connection\connection.php" />
+    <Content Include="Contents\RegistrationStyle\divwindow\contact_us.php" />
+    <Content Include="Contents\RegistrationStyle\divwindow\directions.php" />
+    <Content Include="Contents\RegistrationStyle\divwindow\images\Thumbs.db" />
+    <Content Include="Contents\RegistrationStyle\divwindow\privacy.php" />
+    <Content Include="Contents\RegistrationStyle\divwindow\register_now.php" />
+    <Content Include="Contents\RegistrationStyle\divwindow\terms.php" />
+    <Content Include="Contents\RegistrationStyle\divwindow\Thumbs.db" />
+    <Content Include="Contents\RegistrationStyle\images\Intelleges Foreign Corrupt Practices Act Compliance.pdf" />
+    <Content Include="Contents\RegistrationStyle\images\SAMPLE.pdf" />
+    <Content Include="Contents\RegistrationStyle\images\_notes\.mno" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Hs3Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Hs3Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Hs3Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Hs3Model.edmx</DependentUpon>
+      <LastGenOutput>Hs3Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Hs3Model.edmx.diagram">
+      <DependentUpon>Hs3Model.edmx</DependentUpon>
+    </Content>
+    <Content Include="Hs3Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Hs3Model.edmx</DependentUpon>
+      <LastGenOutput>Hs3Model.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

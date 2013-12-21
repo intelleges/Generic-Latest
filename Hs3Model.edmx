@@ -1,0 +1,2828 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="hs3MVCMTQa2Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="hs3MVCMTQa2ModelStoreContainer">
+          <EntitySet Name="accessLevel" EntityType="hs3MVCMTQa2Model.Store.accessLevel" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="enterprise" EntityType="hs3MVCMTQa2Model.Store.enterprise" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="enterpriseObjectName" EntityType="hs3MVCMTQa2Model.Store.enterpriseObjectName" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="enterpriseSystemInfo" EntityType="hs3MVCMTQa2Model.Store.enterpriseSystemInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="hs3Menu" EntityType="hs3MVCMTQa2Model.Store.hs3Menu" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="letter" EntityType="hs3MVCMTQa2Model.Store.letter" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="letterSeed" EntityType="hs3MVCMTQa2Model.Store.letterSeed" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="loadHistory" EntityType="hs3MVCMTQa2Model.Store.loadHistory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="menuAccessLevel" EntityType="hs3MVCMTQa2Model.Store.menuAccessLevel" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="menuGroup" EntityType="hs3MVCMTQa2Model.Store.menuGroup" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="numberSeed" EntityType="hs3MVCMTQa2Model.Store.numberSeed" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="person" EntityType="hs3MVCMTQa2Model.Store.person" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="personLoginAudit" EntityType="hs3MVCMTQa2Model.Store.personLoginAudit" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="personLoginAuditEvent" EntityType="hs3MVCMTQa2Model.Store.personLoginAuditEvent" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="personRelationshipType" EntityType="hs3MVCMTQa2Model.Store.personRelationshipType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="personSearchCount" EntityType="hs3MVCMTQa2Model.Store.personSearchCount" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="personStatus" EntityType="hs3MVCMTQa2Model.Store.personStatus" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="role" EntityType="hs3MVCMTQa2Model.Store.role" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="hs3MVCMTQa2Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_enterpriseObjectName_enterprise" Association="hs3MVCMTQa2Model.Store.FK_enterpriseObjectName_enterprise">
+            <End Role="enterprise" EntitySet="enterprise" />
+            <End Role="enterpriseObjectName" EntitySet="enterpriseObjectName" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseSystemInfo_enterprise" Association="hs3MVCMTQa2Model.Store.FK_enterpriseSystemInfo_enterprise">
+            <End Role="enterprise" EntitySet="enterprise" />
+            <End Role="enterpriseSystemInfo" EntitySet="enterpriseSystemInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_person_enterprise" Association="hs3MVCMTQa2Model.Store.FK_person_enterprise">
+            <End Role="enterprise" EntitySet="enterprise" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_person_personStatus" Association="hs3MVCMTQa2Model.Store.FK_person_personStatus">
+            <End Role="personStatus" EntitySet="personStatus" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_person_role" Association="hs3MVCMTQa2Model.Store.FK_person_role">
+            <End Role="role" EntitySet="role" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personLoginAudit_person" Association="hs3MVCMTQa2Model.Store.FK_personLoginAudit_person">
+            <End Role="person" EntitySet="person" />
+            <End Role="personLoginAudit" EntitySet="personLoginAudit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personLoginAudit_personLoginAuditEvent" Association="hs3MVCMTQa2Model.Store.FK_personLoginAudit_personLoginAuditEvent">
+            <End Role="personLoginAuditEvent" EntitySet="personLoginAuditEvent" />
+            <End Role="personLoginAudit" EntitySet="personLoginAudit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personSearchCount_person" Association="hs3MVCMTQa2Model.Store.FK_personSearchCount_person">
+            <End Role="person" EntitySet="person" />
+            <End Role="personSearchCount" EntitySet="personSearchCount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_role_enterprise" Association="hs3MVCMTQa2Model.Store.FK_role_enterprise">
+            <End Role="enterprise" EntitySet="enterprise" />
+            <End Role="role" EntitySet="role" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="accessLevel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" />
+          <Property Name="index" Type="int" />
+          <Property Name="base2" Type="int" />
+        </EntityType>
+        <EntityType Name="enterprise">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" />
+          <Property Name="logo" Type="varchar" MaxLength="500" />
+          <Property Name="applicationPath" Type="varchar" MaxLength="500" />
+          <Property Name="companyName" Type="varchar" MaxLength="50" />
+          <Property Name="instanceName" Type="varchar" MaxLength="50" />
+          <Property Name="archivedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="enterpriseObjectName">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="objectName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="alias" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="device" Type="int" />
+        </EntityType>
+        <EntityType Name="enterpriseSystemInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="systemExpiry" Type="smalldatetime" />
+          <Property Name="licenseLimit" Type="int" />
+          <Property Name="companyName" Type="varchar" MaxLength="100" />
+          <Property Name="contractCoordinator" Type="varchar" MaxLength="100" />
+          <Property Name="companyWebSite" Type="varchar" MaxLength="100" />
+          <Property Name="coordinatorEmail" Type="varchar" MaxLength="100" />
+          <Property Name="isCurrentDataBase" Type="int" />
+          <Property Name="logoImage" Type="varchar" MaxLength="100" />
+          <Property Name="configured" Type="bit" Nullable="false" />
+          <Property Name="enterprise" Type="int" />
+        </EntityType>
+        <EntityType Name="hs3Menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="url" Type="nvarchar" MaxLength="255" />
+          <Property Name="parentid" Type="int" />
+          <Property Name="grand" Type="int" />
+          <Property Name="sort" Type="int" />
+          <Property Name="active" Type="int" />
+          <Property Name="accesslevel" Type="int" />
+          <Property Name="menuGroup" Type="int" />
+          <Property Name="isDynamicCreated" Type="bit" />
+          <Property Name="device" Type="int" />
+        </EntityType>
+        <EntityType Name="letter">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+          <Property Name="body" Type="varchar" MaxLength="3000" />
+          <Property Name="sortOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="letterSeed">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="loadHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="person" Type="int" Nullable="false" />
+          <Property Name="uploadDate" Type="datetime" Nullable="false" />
+          <Property Name="recordcount" Type="int" />
+          <Property Name="type" Type="int" />
+          <Property Name="oldInt" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="menuAccessLevel">
+          <Key>
+            <PropertyRef Name="accessLevel" />
+            <PropertyRef Name="menu" />
+          </Key>
+          <Property Name="accessLevel" Type="int" Nullable="false" />
+          <Property Name="menu" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="menuGroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="numberSeed">
+          <Key>
+            <PropertyRef Name="number" />
+          </Key>
+          <Property Name="number" Type="int" Nullable="false" />
+          <Property Name="letter" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="enterprise" Type="int" />
+          <Property Name="role" Type="int" />
+          <Property Name="manager" Type="int" />
+          <Property Name="personStatus" Type="int" />
+          <Property Name="riskType" Type="int" />
+          <Property Name="loadHistory" Type="int" />
+          <Property Name="campaign" Type="int" />
+          <Property Name="internalId" Type="varchar" MaxLength="20" />
+          <Property Name="nmNumber" Type="varchar" MaxLength="20" />
+          <Property Name="socialSecurity" Type="varchar" MaxLength="20" />
+          <Property Name="firstName" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="lastName" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="title" Type="varchar" MaxLength="50" />
+          <Property Name="suffix" Type="varchar" MaxLength="200" />
+          <Property Name="nickName" Type="varchar" MaxLength="200" />
+          <Property Name="passWord" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="address1" Type="varchar" MaxLength="200" />
+          <Property Name="address2" Type="varchar" MaxLength="200" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="state" Type="int" />
+          <Property Name="zipcode" Type="varchar" MaxLength="50" />
+          <Property Name="country" Type="int" />
+          <Property Name="phone" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="fax" Type="varchar" MaxLength="50" />
+          <Property Name="active" Type="int" />
+          <Property Name="ismanager" Type="int" />
+          <Property Name="partnerPerPage" Type="int" />
+          <Property Name="resetDate" Type="datetime" />
+          <Property Name="IsArchived" Type="bit" />
+          <Property Name="archivedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="personLoginAudit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="person" Type="int" Nullable="false" />
+          <Property Name="auditLoginEvent" Type="int" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="deviceIP" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="personLoginAuditEvent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="personRelationshipType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="personSearchCount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="person" Type="int" Nullable="false" />
+          <Property Name="queryDateTime" Type="datetime" Nullable="false" />
+          <Property Name="countSearch" Type="bigint" />
+        </EntityType>
+        <EntityType Name="personStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="int" />
+          <Property Name="accessLevel" Type="int" />
+          <Property Name="enterprise" Type="int" />
+          <Property Name="access" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_enterpriseObjectName_enterprise">
+          <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="1" />
+          <End Role="enterpriseObjectName" Type="hs3MVCMTQa2Model.Store.enterpriseObjectName" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseObjectName">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enterpriseSystemInfo_enterprise">
+          <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+          <End Role="enterpriseSystemInfo" Type="hs3MVCMTQa2Model.Store.enterpriseSystemInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseSystemInfo">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_person_enterprise">
+          <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+          <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_person_personStatus">
+          <End Role="personStatus" Type="hs3MVCMTQa2Model.Store.personStatus" Multiplicity="0..1" />
+          <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="personStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_person_role">
+          <End Role="role" Type="hs3MVCMTQa2Model.Store.role" Multiplicity="0..1" />
+          <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personLoginAudit_person">
+          <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+          <End Role="personLoginAudit" Type="hs3MVCMTQa2Model.Store.personLoginAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personLoginAudit">
+              <PropertyRef Name="person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personLoginAudit_personLoginAuditEvent">
+          <End Role="personLoginAuditEvent" Type="hs3MVCMTQa2Model.Store.personLoginAuditEvent" Multiplicity="1" />
+          <End Role="personLoginAudit" Type="hs3MVCMTQa2Model.Store.personLoginAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personLoginAuditEvent">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personLoginAudit">
+              <PropertyRef Name="auditLoginEvent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personSearchCount_person">
+          <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+          <End Role="personSearchCount" Type="hs3MVCMTQa2Model.Store.personSearchCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personSearchCount">
+              <PropertyRef Name="person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_role_enterprise">
+          <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+          <End Role="role" Type="hs3MVCMTQa2Model.Store.role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="role">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GenerateSPforInsertUpdateDelete2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Schemaname" Type="nvarchar" Mode="In" />
+          <Parameter Name="Tablename" Type="nvarchar" Mode="In" />
+          <Parameter Name="ProcName" Type="nvarchar" Mode="In" />
+          <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_addEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+          <Parameter Name="logo" Type="varchar" Mode="In" />
+          <Parameter Name="applicationPath" Type="varchar" Mode="In" />
+          <Parameter Name="companyName" Type="varchar" Mode="In" />
+          <Parameter Name="instanceName" Type="varchar" Mode="In" />
+          <Parameter Name="archivedDate" Type="date" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="systemExpiry" Type="smalldatetime" Mode="In" />
+          <Parameter Name="licenseLimit" Type="int" Mode="In" />
+          <Parameter Name="companyName" Type="varchar" Mode="In" />
+          <Parameter Name="contractCoordinator" Type="varchar" Mode="In" />
+          <Parameter Name="companyWebSite" Type="varchar" Mode="In" />
+          <Parameter Name="coordinatorEmail" Type="varchar" Mode="In" />
+          <Parameter Name="isCurrentDataBase" Type="int" Mode="In" />
+          <Parameter Name="logoImage" Type="varchar" Mode="In" />
+          <Parameter Name="configured" Type="bit" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="role" Type="int" Mode="In" />
+          <Parameter Name="manager" Type="int" Mode="In" />
+          <Parameter Name="personStatus" Type="int" Mode="In" />
+          <Parameter Name="riskType" Type="int" Mode="In" />
+          <Parameter Name="loadHistory" Type="int" Mode="In" />
+          <Parameter Name="campaign" Type="int" Mode="In" />
+          <Parameter Name="internalId" Type="varchar" Mode="In" />
+          <Parameter Name="nmNumber" Type="varchar" Mode="In" />
+          <Parameter Name="socialSecurity" Type="varchar" Mode="In" />
+          <Parameter Name="firstName" Type="varchar" Mode="In" />
+          <Parameter Name="lastName" Type="varchar" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="suffix" Type="varchar" Mode="In" />
+          <Parameter Name="nickName" Type="varchar" Mode="In" />
+          <Parameter Name="passWord" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="address1" Type="varchar" Mode="In" />
+          <Parameter Name="address2" Type="varchar" Mode="In" />
+          <Parameter Name="city" Type="varchar" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+          <Parameter Name="zipcode" Type="varchar" Mode="In" />
+          <Parameter Name="country" Type="int" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="fax" Type="varchar" Mode="In" />
+          <Parameter Name="active" Type="int" Mode="In" />
+          <Parameter Name="ismanager" Type="int" Mode="In" />
+          <Parameter Name="partnerPerPage" Type="int" Mode="In" />
+          <Parameter Name="resetDate" Type="datetime" Mode="In" />
+          <Parameter Name="IsArchived1" Type="bit" Mode="In" />
+          <Parameter Name="archivedDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="pr_addPersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_addRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="int" Mode="In" />
+          <Parameter Name="accessLevel" Type="int" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="access" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accessLevel" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="access" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archivePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archivePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_doLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_findPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="selected_sql" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_findUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="userRole" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getAccesscode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="access" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="pr_getEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getObjectNameByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getObjectNameByEnterpriseForMobile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="Device" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getObjectNameByEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="objectName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonAllConfirmed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonByEmailForLoginAttemps" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonByInternalID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="internalID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonByInternalIDEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="internalID" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonByLoadHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loadHistory" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonByStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="status" Type="int" Mode="In" />
+          <Parameter Name="loadHistory" Type="int" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonColumnHeader" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getPersonColumnNameByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonCountByAllRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonCountByRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="role" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonDupByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loadHistory" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonDupByInternalID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loadHistory" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonEmailCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonExcel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loadHistory" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonExcelByAuthor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonExcelByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="loadHistory" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonExcelByInternalID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="internalID" Type="varchar" Mode="In" />
+          <Parameter Name="loadHistory" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonExcelDupByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loadHistory" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonExcelDupByInternalID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loadHistory" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonInfoByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonInternalIDCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="internalID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonNameById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonPartnerCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonPartnerCountByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonPreviousNext" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonPwdByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonRoleAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="roleName" Type="varchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="pr_getRoleAccessByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getRoleAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getRoleByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getRoleByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="roleName" Type="varchar" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getStateAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getStateByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getStateByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="stateName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getStateName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="stateName" Type="char" Mode="InOut" />
+        </Function>
+        <Function Name="pr_getSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+          <Parameter Name="logo" Type="varchar" Mode="In" />
+          <Parameter Name="applicationPath" Type="varchar" Mode="In" />
+          <Parameter Name="companyName" Type="varchar" Mode="In" />
+          <Parameter Name="instanceName" Type="varchar" Mode="In" />
+          <Parameter Name="archivedDate" Type="date" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="systemExpiry" Type="smalldatetime" Mode="In" />
+          <Parameter Name="licenseLimit" Type="int" Mode="In" />
+          <Parameter Name="companyName" Type="varchar" Mode="In" />
+          <Parameter Name="contractCoordinator" Type="varchar" Mode="In" />
+          <Parameter Name="companyWebSite" Type="varchar" Mode="In" />
+          <Parameter Name="coordinatorEmail" Type="varchar" Mode="In" />
+          <Parameter Name="isCurrentDataBase" Type="int" Mode="In" />
+          <Parameter Name="logoImage" Type="varchar" Mode="In" />
+          <Parameter Name="configured" Type="bit" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="internalID" Type="varchar" Mode="In" />
+          <Parameter Name="role" Type="int" Mode="In" />
+          <Parameter Name="firstName" Type="varchar" Mode="In" />
+          <Parameter Name="lastName" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPersonInfoByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="firstName" Type="varchar" Mode="In" />
+          <Parameter Name="lastName" Type="varchar" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="role" Type="int" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPersonIsArchivedByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="isArchived" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPersonManager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="manager" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPersonPasswordByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="pwd" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPersonStatusByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPersonStatusByLoadHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loadHistory" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="int" Mode="In" />
+          <Parameter Name="accessLevel" Type="int" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="access" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifySystemExpiry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="systemExpiry" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="userRole" Type="varchar" Mode="In" />
+          <Parameter Name="access" Type="int" Mode="In" />
+          <Parameter Name="accessLevel" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchivePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="xx_generateSPforInsertUpdateDelete2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Schemaname" Type="nvarchar" Mode="In" />
+          <Parameter Name="Tablename" Type="nvarchar" Mode="In" />
+          <Parameter Name="ProcName" Type="nvarchar" Mode="In" />
+          <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="xx_getLastDBModified" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <!--Errors Found During Generation:
+      warning 6013: The table/view 'hs3MVCMTQa2.dbo.personRelationship' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="personRelationship">
+        <Property Name="personIsThe" Type="int" />
+        <Property Name="personHasThe" Type="int" />
+        <Property Name="RelationshipTypeID" Type="int" />
+      </EntityType>-->
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="hs3MVCMTQa2Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="accessLevels" EntityType="hs3MVCMTQa2Model.accessLevel" />
+          <EntitySet Name="enterprises" EntityType="hs3MVCMTQa2Model.enterprise" />
+          <EntitySet Name="enterpriseObjectNames" EntityType="hs3MVCMTQa2Model.enterpriseObjectName" />
+          <EntitySet Name="enterpriseSystemInfoes" EntityType="hs3MVCMTQa2Model.enterpriseSystemInfo" />
+          <EntitySet Name="hs3Menu" EntityType="hs3MVCMTQa2Model.hs3Menu" />
+          <EntitySet Name="letters" EntityType="hs3MVCMTQa2Model.letter" />
+          <EntitySet Name="letterSeeds" EntityType="hs3MVCMTQa2Model.letterSeed" />
+          <EntitySet Name="loadHistories" EntityType="hs3MVCMTQa2Model.loadHistory" />
+          <EntitySet Name="menuAccessLevels" EntityType="hs3MVCMTQa2Model.menuAccessLevel" />
+          <EntitySet Name="menuGroups" EntityType="hs3MVCMTQa2Model.menuGroup" />
+          <EntitySet Name="numberSeeds" EntityType="hs3MVCMTQa2Model.numberSeed" />
+          <EntitySet Name="people" EntityType="hs3MVCMTQa2Model.person" />
+          <EntitySet Name="personLoginAudits" EntityType="hs3MVCMTQa2Model.personLoginAudit" />
+          <EntitySet Name="personLoginAuditEvents" EntityType="hs3MVCMTQa2Model.personLoginAuditEvent" />
+          <EntitySet Name="personRelationshipTypes" EntityType="hs3MVCMTQa2Model.personRelationshipType" />
+          <EntitySet Name="personSearchCounts" EntityType="hs3MVCMTQa2Model.personSearchCount" />
+          <EntitySet Name="personStatus" EntityType="hs3MVCMTQa2Model.personStatu" />
+          <EntitySet Name="roles" EntityType="hs3MVCMTQa2Model.role" />
+          <EntitySet Name="sysdiagrams" EntityType="hs3MVCMTQa2Model.sysdiagram" />
+          <AssociationSet Name="FK_enterpriseObjectName_enterprise" Association="hs3MVCMTQa2Model.FK_enterpriseObjectName_enterprise">
+            <End Role="enterprise" EntitySet="enterprises" />
+            <End Role="enterpriseObjectName" EntitySet="enterpriseObjectNames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseSystemInfo_enterprise" Association="hs3MVCMTQa2Model.FK_enterpriseSystemInfo_enterprise">
+            <End Role="enterprise" EntitySet="enterprises" />
+            <End Role="enterpriseSystemInfo" EntitySet="enterpriseSystemInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_person_enterprise" Association="hs3MVCMTQa2Model.FK_person_enterprise">
+            <End Role="enterprise" EntitySet="enterprises" />
+            <End Role="person" EntitySet="people" />
+          </AssociationSet>
+          <AssociationSet Name="FK_role_enterprise" Association="hs3MVCMTQa2Model.FK_role_enterprise">
+            <End Role="enterprise" EntitySet="enterprises" />
+            <End Role="role" EntitySet="roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_person_personStatus" Association="hs3MVCMTQa2Model.FK_person_personStatus">
+            <End Role="personStatus" EntitySet="personStatus" />
+            <End Role="person" EntitySet="people" />
+          </AssociationSet>
+          <AssociationSet Name="FK_person_role" Association="hs3MVCMTQa2Model.FK_person_role">
+            <End Role="role" EntitySet="roles" />
+            <End Role="person" EntitySet="people" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personLoginAudit_person" Association="hs3MVCMTQa2Model.FK_personLoginAudit_person">
+            <End Role="person" EntitySet="people" />
+            <End Role="personLoginAudit" EntitySet="personLoginAudits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personSearchCount_person" Association="hs3MVCMTQa2Model.FK_personSearchCount_person">
+            <End Role="person" EntitySet="people" />
+            <End Role="personSearchCount" EntitySet="personSearchCounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personLoginAudit_personLoginAuditEvent" Association="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent">
+            <End Role="personLoginAuditEvent" EntitySet="personLoginAuditEvents" />
+            <End Role="personLoginAudit" EntitySet="personLoginAudits" />
+          </AssociationSet>
+          <FunctionImport Name="GenerateSPforInsertUpdateDelete2">
+            <Parameter Name="Schemaname" Mode="In" Type="String" />
+            <Parameter Name="Tablename" Mode="In" Type="String" />
+            <Parameter Name="ProcName" Mode="In" Type="String" />
+            <Parameter Name="IdentityInsert" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addEnterprise" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="logo" Mode="In" Type="String" />
+            <Parameter Name="applicationPath" Mode="In" Type="String" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="instanceName" Mode="In" Type="String" />
+            <Parameter Name="archivedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addEnterpriseSystemInfo" ReturnType="Collection(Decimal)">
+            <Parameter Name="systemExpiry" Mode="In" Type="DateTime" />
+            <Parameter Name="licenseLimit" Mode="In" Type="Int32" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="contractCoordinator" Mode="In" Type="String" />
+            <Parameter Name="companyWebSite" Mode="In" Type="String" />
+            <Parameter Name="coordinatorEmail" Mode="In" Type="String" />
+            <Parameter Name="isCurrentDataBase" Mode="In" Type="Int32" />
+            <Parameter Name="logoImage" Mode="In" Type="String" />
+            <Parameter Name="configured" Mode="In" Type="Boolean" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPerson">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="role" Mode="In" Type="Int32" />
+            <Parameter Name="manager" Mode="In" Type="Int32" />
+            <Parameter Name="personStatus" Mode="In" Type="Int32" />
+            <Parameter Name="riskType" Mode="In" Type="Int32" />
+            <Parameter Name="loadHistory" Mode="In" Type="Int32" />
+            <Parameter Name="campaign" Mode="In" Type="Int32" />
+            <Parameter Name="internalId" Mode="In" Type="String" />
+            <Parameter Name="nmNumber" Mode="In" Type="String" />
+            <Parameter Name="socialSecurity" Mode="In" Type="String" />
+            <Parameter Name="firstName" Mode="In" Type="String" />
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="suffix" Mode="In" Type="String" />
+            <Parameter Name="nickName" Mode="In" Type="String" />
+            <Parameter Name="passWord" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="address1" Mode="In" Type="String" />
+            <Parameter Name="address2" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+            <Parameter Name="zipcode" Mode="In" Type="String" />
+            <Parameter Name="country" Mode="In" Type="Int32" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="fax" Mode="In" Type="String" />
+            <Parameter Name="active" Mode="In" Type="Int32" />
+            <Parameter Name="ismanager" Mode="In" Type="Int32" />
+            <Parameter Name="partnerPerPage" Mode="In" Type="Int32" />
+            <Parameter Name="resetDate" Mode="In" Type="DateTime" />
+            <Parameter Name="IsArchived1" Mode="In" Type="Boolean" />
+            <Parameter Name="archivedDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPersonStatus" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addRole" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Int32" />
+            <Parameter Name="accessLevel" Mode="In" Type="Int32" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="access" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addUserRole" ReturnType="Collection(Int32)">
+            <Parameter Name="accessLevel" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="access" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveEnterprise">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archivePerson">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archivePersonStatus">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveRole">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_doLogin" ReturnType="Collection(hs3MVCMTQa2Model.pr_doLogin_Result)">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_findPerson">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="selected_sql" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_findUserRole" ReturnType="Collection(hs3MVCMTQa2Model.pr_findUserRole_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="userRole" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAccesscode">
+            <Parameter Name="access" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterprise_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getObjectNameByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getObjectNameByEnterprise_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getObjectNameByEnterpriseForMobile" ReturnType="Collection(hs3MVCMTQa2Model.pr_getObjectNameByEnterpriseForMobile_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="Device" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getObjectNameByEnterpriseObjectName" ReturnType="Collection(hs3MVCMTQa2Model.pr_getObjectNameByEnterpriseObjectName_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="objectName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPerson_Result)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonAll_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonAllConfirmed" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonAllConfirmed_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonByEmail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonByEmail_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonByEmailForLoginAttemps" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonByEmailForLoginAttemps_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonByInternalID" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonByInternalID_Result)">
+            <Parameter Name="internalID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonByInternalIDEmail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonByInternalIDEmail_Result)">
+            <Parameter Name="internalID" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonByLoadHistory" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonByLoadHistory_Result)">
+            <Parameter Name="loadHistory" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonByStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonByStatus_Result)">
+            <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="loadHistory" Mode="In" Type="Int32" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonColumnHeader" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonColumnHeader_Result)" />
+          <FunctionImport Name="pr_getPersonColumnNameByID" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonColumnNameByID_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonCountByAllRole" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonCountByAllRole_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonCountByRole" ReturnType="Collection(Int32)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="role" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonDupByEmail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonDupByEmail_Result)">
+            <Parameter Name="loadHistory" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonDupByInternalID" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonDupByInternalID_Result)">
+            <Parameter Name="loadHistory" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonEmailCount">
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonExcel" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonExcel_Result)">
+            <Parameter Name="loadHistory" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonExcelByAuthor">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonExcelByEmail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonExcelByEmail_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="loadHistory" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonExcelByInternalID" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonExcelByInternalID_Result)">
+            <Parameter Name="internalID" Mode="In" Type="String" />
+            <Parameter Name="loadHistory" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonExcelDupByEmail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonExcelDupByEmail_Result)">
+            <Parameter Name="loadHistory" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonExcelDupByInternalID" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonExcelDupByInternalID_Result)">
+            <Parameter Name="loadHistory" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonInfoByID">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonInternalIDCount">
+            <Parameter Name="internalID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonNameById" ReturnType="Collection(String)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonPartnerCount">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonPartnerCountByID">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonPreviousNext" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPreviousNext_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonPwdByEmail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPwdByEmail_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonRoleAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonRoleAll_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRole">
+            <Parameter Name="roleName" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRoleAccessByID" ReturnType="Collection(Int32)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRoleAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleAll_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRoleByID" ReturnType="Collection(String)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRoleByName" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleByName_Result)">
+            <Parameter Name="roleName" Mode="In" Type="String" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getStateAll" />
+          <FunctionImport Name="pr_getStateByID">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getStateByName">
+            <Parameter Name="stateName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getStateName">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="stateName" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSystemInfo">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyEnterprise">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="logo" Mode="In" Type="String" />
+            <Parameter Name="applicationPath" Mode="In" Type="String" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="instanceName" Mode="In" Type="String" />
+            <Parameter Name="archivedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyEnterpriseSystemInfo">
+            <Parameter Name="systemExpiry" Mode="In" Type="DateTime" />
+            <Parameter Name="licenseLimit" Mode="In" Type="Int32" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="contractCoordinator" Mode="In" Type="String" />
+            <Parameter Name="companyWebSite" Mode="In" Type="String" />
+            <Parameter Name="coordinatorEmail" Mode="In" Type="String" />
+            <Parameter Name="isCurrentDataBase" Mode="In" Type="Int32" />
+            <Parameter Name="logoImage" Mode="In" Type="String" />
+            <Parameter Name="configured" Mode="In" Type="Boolean" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPerson">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="internalID" Mode="In" Type="String" />
+            <Parameter Name="role" Mode="In" Type="Int32" />
+            <Parameter Name="firstName" Mode="In" Type="String" />
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonInfoByID">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="firstName" Mode="In" Type="String" />
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="role" Mode="In" Type="Int32" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonIsArchivedByID">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="isArchived" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonManager">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="manager" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonPasswordByID">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="pwd" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonStatus">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonStatusByID">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonStatusByLoadHistory">
+            <Parameter Name="loadHistory" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyRole">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Int32" />
+            <Parameter Name="accessLevel" Mode="In" Type="Int32" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="access" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifySystemExpiry">
+            <Parameter Name="systemExpiry" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyUserRole">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="userRole" Mode="In" Type="String" />
+            <Parameter Name="access" Mode="In" Type="Int32" />
+            <Parameter Name="accessLevel" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeEnterprise">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeEnterpriseSystemInfo">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePerson">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePersonStatus">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeRole">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeUserRole">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveEnterprise">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchivePersonStatus">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveRole">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(hs3MVCMTQa2Model.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(hs3MVCMTQa2Model.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="xx_generateSPforInsertUpdateDelete2">
+            <Parameter Name="Schemaname" Mode="In" Type="String" />
+            <Parameter Name="Tablename" Mode="In" Type="String" />
+            <Parameter Name="ProcName" Mode="In" Type="String" />
+            <Parameter Name="IdentityInsert" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="xx_getLastDBModified" ReturnType="Collection(hs3MVCMTQa2Model.xx_getLastDBModified_Result)" />
+        </EntityContainer>
+        <EntityType Name="accessLevel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
+          <Property Name="index" Type="Int32" />
+          <Property Name="base2" Type="Int32" />
+        </EntityType>
+        <EntityType Name="enterprise">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
+          <Property Name="logo" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="applicationPath" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="companyName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="instanceName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="archivedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="enterpriseObjectNames" Relationship="hs3MVCMTQa2Model.FK_enterpriseObjectName_enterprise" FromRole="enterprise" ToRole="enterpriseObjectName" />
+          <NavigationProperty Name="enterpriseSystemInfoes" Relationship="hs3MVCMTQa2Model.FK_enterpriseSystemInfo_enterprise" FromRole="enterprise" ToRole="enterpriseSystemInfo" />
+          <NavigationProperty Name="people" Relationship="hs3MVCMTQa2Model.FK_person_enterprise" FromRole="enterprise" ToRole="person" />
+          <NavigationProperty Name="roles" Relationship="hs3MVCMTQa2Model.FK_role_enterprise" FromRole="enterprise" ToRole="role" />
+        </EntityType>
+        <EntityType Name="enterpriseObjectName">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="enterprise" Type="Int32" Nullable="false" />
+          <Property Name="objectName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="alias" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="device" Type="Int32" />
+          <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_enterpriseObjectName_enterprise" FromRole="enterpriseObjectName" ToRole="enterprise" />
+        </EntityType>
+        <EntityType Name="enterpriseSystemInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="systemExpiry" Type="DateTime" Precision="0" />
+          <Property Name="licenseLimit" Type="Int32" />
+          <Property Name="companyName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="contractCoordinator" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="companyWebSite" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="coordinatorEmail" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="isCurrentDataBase" Type="Int32" />
+          <Property Name="logoImage" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="configured" Type="Boolean" Nullable="false" />
+          <Property Name="enterprise" Type="Int32" />
+          <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_enterpriseSystemInfo_enterprise" FromRole="enterpriseSystemInfo" ToRole="enterprise" />
+        </EntityType>
+        <EntityType Name="hs3Menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="url" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="parentid" Type="Int32" />
+          <Property Name="grand" Type="Int32" />
+          <Property Name="sort" Type="Int32" />
+          <Property Name="active" Type="Int32" />
+          <Property Name="accesslevel" Type="Int32" />
+          <Property Name="menuGroup" Type="Int32" />
+          <Property Name="isDynamicCreated" Type="Boolean" />
+          <Property Name="device" Type="Int32" />
+        </EntityType>
+        <EntityType Name="letter">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="body" Type="String" MaxLength="3000" Unicode="false" FixedLength="false" />
+          <Property Name="sortOrder" Type="Int32" />
+        </EntityType>
+        <EntityType Name="letterSeed">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="loadHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="uploadDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="recordcount" Type="Int32" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="oldInt" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="menuAccessLevel">
+          <Key>
+            <PropertyRef Name="accessLevel" />
+            <PropertyRef Name="menu" />
+          </Key>
+          <Property Name="accessLevel" Type="Int32" Nullable="false" />
+          <Property Name="menu" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="menuGroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="numberSeed">
+          <Key>
+            <PropertyRef Name="number" />
+          </Key>
+          <Property Name="number" Type="Int32" Nullable="false" />
+          <Property Name="letter" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="enterprise" Type="Int32" />
+          <Property Name="role" Type="Int32" />
+          <Property Name="manager" Type="Int32" />
+          <Property Name="personStatus" Type="Int32" />
+          <Property Name="riskType" Type="Int32" />
+          <Property Name="loadHistory" Type="Int32" />
+          <Property Name="campaign" Type="Int32" />
+          <Property Name="internalId" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="nmNumber" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="socialSecurity" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="title" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="suffix" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="nickName" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="passWord" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="address1" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="address2" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="city" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="state" Type="Int32" />
+          <Property Name="zipcode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="country" Type="Int32" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="fax" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="active" Type="Int32" />
+          <Property Name="ismanager" Type="Int32" />
+          <Property Name="partnerPerPage" Type="Int32" />
+          <Property Name="resetDate" Type="DateTime" Precision="3" />
+          <Property Name="IsArchived" Type="Boolean" />
+          <Property Name="archivedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_person_enterprise" FromRole="person" ToRole="enterprise" />
+          <NavigationProperty Name="personStatu" Relationship="hs3MVCMTQa2Model.FK_person_personStatus" FromRole="person" ToRole="personStatus" />
+          <NavigationProperty Name="role1" Relationship="hs3MVCMTQa2Model.FK_person_role" FromRole="person" ToRole="role" />
+          <NavigationProperty Name="personLoginAudits" Relationship="hs3MVCMTQa2Model.FK_personLoginAudit_person" FromRole="person" ToRole="personLoginAudit" />
+          <NavigationProperty Name="personSearchCounts" Relationship="hs3MVCMTQa2Model.FK_personSearchCount_person" FromRole="person" ToRole="personSearchCount" />
+        </EntityType>
+        <EntityType Name="personLoginAudit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="auditLoginEvent" Type="Int32" Nullable="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="deviceIP" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK_personLoginAudit_person" FromRole="personLoginAudit" ToRole="person" />
+          <NavigationProperty Name="personLoginAuditEvent" Relationship="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" FromRole="personLoginAudit" ToRole="personLoginAuditEvent" />
+        </EntityType>
+        <EntityType Name="personLoginAuditEvent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="personLoginAudits" Relationship="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" FromRole="personLoginAuditEvent" ToRole="personLoginAudit" />
+        </EntityType>
+        <EntityType Name="personRelationshipType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="personSearchCount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="queryDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="countSearch" Type="Int64" />
+          <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK_personSearchCount_person" FromRole="personSearchCount" ToRole="person" />
+        </EntityType>
+        <EntityType Name="personStatu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="people" Relationship="hs3MVCMTQa2Model.FK_person_personStatus" FromRole="personStatus" ToRole="person" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Int32" />
+          <Property Name="accessLevel" Type="Int32" />
+          <Property Name="enterprise" Type="Int32" />
+          <Property Name="access" Type="Int32" />
+          <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_role_enterprise" FromRole="role" ToRole="enterprise" />
+          <NavigationProperty Name="people" Relationship="hs3MVCMTQa2Model.FK_person_role" FromRole="role" ToRole="person" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_enterpriseObjectName_enterprise">
+          <End Role="enterprise" Type="hs3MVCMTQa2Model.enterprise" Multiplicity="1" />
+          <End Role="enterpriseObjectName" Type="hs3MVCMTQa2Model.enterpriseObjectName" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseObjectName">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enterpriseSystemInfo_enterprise">
+          <End Role="enterprise" Type="hs3MVCMTQa2Model.enterprise" Multiplicity="0..1" />
+          <End Role="enterpriseSystemInfo" Type="hs3MVCMTQa2Model.enterpriseSystemInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseSystemInfo">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_person_enterprise">
+          <End Role="enterprise" Type="hs3MVCMTQa2Model.enterprise" Multiplicity="0..1" />
+          <End Role="person" Type="hs3MVCMTQa2Model.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_role_enterprise">
+          <End Role="enterprise" Type="hs3MVCMTQa2Model.enterprise" Multiplicity="0..1" />
+          <End Role="role" Type="hs3MVCMTQa2Model.role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="role">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_person_personStatus">
+          <End Role="personStatus" Type="hs3MVCMTQa2Model.personStatu" Multiplicity="0..1" />
+          <End Role="person" Type="hs3MVCMTQa2Model.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="personStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_person_role">
+          <End Role="role" Type="hs3MVCMTQa2Model.role" Multiplicity="0..1" />
+          <End Role="person" Type="hs3MVCMTQa2Model.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personLoginAudit_person">
+          <End Role="person" Type="hs3MVCMTQa2Model.person" Multiplicity="1" />
+          <End Role="personLoginAudit" Type="hs3MVCMTQa2Model.personLoginAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personLoginAudit">
+              <PropertyRef Name="person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personSearchCount_person">
+          <End Role="person" Type="hs3MVCMTQa2Model.person" Multiplicity="1" />
+          <End Role="personSearchCount" Type="hs3MVCMTQa2Model.personSearchCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personSearchCount">
+              <PropertyRef Name="person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personLoginAudit_personLoginAuditEvent">
+          <End Role="personLoginAuditEvent" Type="hs3MVCMTQa2Model.personLoginAuditEvent" Multiplicity="1" />
+          <End Role="personLoginAudit" Type="hs3MVCMTQa2Model.personLoginAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personLoginAuditEvent">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personLoginAudit">
+              <PropertyRef Name="auditLoginEvent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="pr_doLogin_Result">
+          <Property Type="Int32" Name="login" Nullable="true" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="personstatus" Nullable="true" />
+          <Property Type="Int32" Name="role" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_findUserRole_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="userRole" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_getEnterprise_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="String" Name="logo" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="applicationPath" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="companyName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="instanceName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getObjectNameByEnterprise_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="objectName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="alias" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="device" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getObjectNameByEnterpriseForMobile_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="objectName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="alias" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="device" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getObjectNameByEnterpriseObjectName_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="objectName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="alias" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="device" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getPerson_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="role" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="nickName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="role" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="nickName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonAllConfirmed_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="role" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonByEmail_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="InternalID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Role" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonByEmailForLoginAttemps_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="role" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="nickName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonByInternalID_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="InternalID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Role" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonByInternalIDEmail_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="role" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="nickName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonByLoadHistory_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="InternalID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Role" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonByStatus_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="role" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonColumnHeader_Result">
+          <Property Type="String" Name="InternalID" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Role" Nullable="true" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonColumnNameByID_Result">
+          <Property Type="String" Name="InternalID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="Role" Nullable="true" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonCountByAllRole_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="Role" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Name" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonDupByEmail_Result">
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="count" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonDupByInternalID_Result">
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="count" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonExcel_Result">
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="role" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonExcelByEmail_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="InternalID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Role" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonExcelByInternalID_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="InternalID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Role" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonExcelDupByEmail_Result">
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="count" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonExcelDupByInternalID_Result">
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="count" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonPreviousNext_Result">
+          <Property Type="String" Name="previous" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="next" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="first" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="last" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonPwdByEmail_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="role" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="nickName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonRoleAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_getRoleAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="accessLevel" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="access" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getRoleByName_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="accessLevel" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="access" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="xx_getLastDBModified_Result">
+          <Property Type="String" Name="name" Nullable="false" MaxLength="128" />
+          <Property Type="DateTime" Name="modify_date" Nullable="false" Precision="23" />
+          <Property Type="String" Name="name1" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="object_id" Nullable="false" />
+          <Property Type="Int32" Name="principal_id" Nullable="true" />
+          <Property Type="Int32" Name="schema_id" Nullable="false" />
+          <Property Type="Int32" Name="parent_object_id" Nullable="false" />
+          <Property Type="String" Name="type" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="type_desc" Nullable="true" MaxLength="60" />
+          <Property Type="DateTime" Name="create_date" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="modify_date1" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="is_ms_shipped" Nullable="false" />
+          <Property Type="Boolean" Name="is_published" Nullable="false" />
+          <Property Type="Boolean" Name="is_schema_published" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="hs3MVCMTQa2ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="accessLevels">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.accessLevel">
+              <MappingFragment StoreEntitySet="accessLevel">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="index" ColumnName="index" />
+                <ScalarProperty Name="base2" ColumnName="base2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enterprises">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterprise">
+              <MappingFragment StoreEntitySet="enterprise">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="applicationPath" ColumnName="applicationPath" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="instanceName" ColumnName="instanceName" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enterpriseObjectNames">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterpriseObjectName">
+              <MappingFragment StoreEntitySet="enterpriseObjectName">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="objectName" ColumnName="objectName" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
+                <ScalarProperty Name="device" ColumnName="device" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enterpriseSystemInfoes">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterpriseSystemInfo">
+              <MappingFragment StoreEntitySet="enterpriseSystemInfo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="systemExpiry" ColumnName="systemExpiry" />
+                <ScalarProperty Name="licenseLimit" ColumnName="licenseLimit" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="contractCoordinator" ColumnName="contractCoordinator" />
+                <ScalarProperty Name="companyWebSite" ColumnName="companyWebSite" />
+                <ScalarProperty Name="coordinatorEmail" ColumnName="coordinatorEmail" />
+                <ScalarProperty Name="isCurrentDataBase" ColumnName="isCurrentDataBase" />
+                <ScalarProperty Name="logoImage" ColumnName="logoImage" />
+                <ScalarProperty Name="configured" ColumnName="configured" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hs3Menu">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.hs3Menu">
+              <MappingFragment StoreEntitySet="hs3Menu">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="parentid" ColumnName="parentid" />
+                <ScalarProperty Name="grand" ColumnName="grand" />
+                <ScalarProperty Name="sort" ColumnName="sort" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+                <ScalarProperty Name="menuGroup" ColumnName="menuGroup" />
+                <ScalarProperty Name="isDynamicCreated" ColumnName="isDynamicCreated" />
+                <ScalarProperty Name="device" ColumnName="device" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="letters">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.letter">
+              <MappingFragment StoreEntitySet="letter">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="letterSeeds">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.letterSeed">
+              <MappingFragment StoreEntitySet="letterSeed">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loadHistories">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.loadHistory">
+              <MappingFragment StoreEntitySet="loadHistory">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="uploadDate" ColumnName="uploadDate" />
+                <ScalarProperty Name="recordcount" ColumnName="recordcount" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="oldInt" ColumnName="oldInt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="menuAccessLevels">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.menuAccessLevel">
+              <MappingFragment StoreEntitySet="menuAccessLevel">
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="menu" ColumnName="menu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="menuGroups">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.menuGroup">
+              <MappingFragment StoreEntitySet="menuGroup">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="numberSeeds">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.numberSeed">
+              <MappingFragment StoreEntitySet="numberSeed">
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="letter" ColumnName="letter" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="people">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personLoginAudits">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personLoginAudit">
+              <MappingFragment StoreEntitySet="personLoginAudit">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="auditLoginEvent" ColumnName="auditLoginEvent" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="deviceIP" ColumnName="deviceIP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personLoginAuditEvents">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personLoginAuditEvent">
+              <MappingFragment StoreEntitySet="personLoginAuditEvent">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personRelationshipTypes">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personRelationshipType">
+              <MappingFragment StoreEntitySet="personRelationshipType">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personSearchCounts">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personSearchCount">
+              <MappingFragment StoreEntitySet="personSearchCount">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="queryDateTime" ColumnName="queryDateTime" />
+                <ScalarProperty Name="countSearch" ColumnName="countSearch" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personStatus">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personStatu">
+              <MappingFragment StoreEntitySet="personStatus">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="access" ColumnName="access" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GenerateSPforInsertUpdateDelete2" FunctionName="hs3MVCMTQa2Model.Store.GenerateSPforInsertUpdateDelete2" />
+          <FunctionImportMapping FunctionImportName="pr_addEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise" />
+          <FunctionImportMapping FunctionImportName="pr_addEnterpriseSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseSystemInfo" />
+          <FunctionImportMapping FunctionImportName="pr_addPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_addPerson" />
+          <FunctionImportMapping FunctionImportName="pr_addPersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonStatus" />
+          <FunctionImportMapping FunctionImportName="pr_addRole" FunctionName="hs3MVCMTQa2Model.Store.pr_addRole" />
+          <FunctionImportMapping FunctionImportName="pr_addUserRole" FunctionName="hs3MVCMTQa2Model.Store.pr_addUserRole" />
+          <FunctionImportMapping FunctionImportName="pr_archiveEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveEnterprise" />
+          <FunctionImportMapping FunctionImportName="pr_archivePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePerson" />
+          <FunctionImportMapping FunctionImportName="pr_archivePersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePersonStatus" />
+          <FunctionImportMapping FunctionImportName="pr_archiveRole" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveRole" />
+          <FunctionImportMapping FunctionImportName="pr_doLogin" FunctionName="hs3MVCMTQa2Model.Store.pr_doLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_doLogin_Result">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="personstatus" ColumnName="personstatus" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_findPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_findPerson" />
+          <FunctionImportMapping FunctionImportName="pr_findUserRole" FunctionName="hs3MVCMTQa2Model.Store.pr_findUserRole">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_findUserRole_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userRole" ColumnName="userRole" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAccesscode" FunctionName="hs3MVCMTQa2Model.Store.pr_getAccesscode" />
+          <FunctionImportMapping FunctionImportName="pr_getEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterprise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEnterprise_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="applicationPath" ColumnName="applicationPath" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="instanceName" ColumnName="instanceName" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getObjectNameByEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getObjectNameByEnterprise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getObjectNameByEnterprise_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="objectName" ColumnName="objectName" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
+                <ScalarProperty Name="device" ColumnName="device" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getObjectNameByEnterpriseForMobile" FunctionName="hs3MVCMTQa2Model.Store.pr_getObjectNameByEnterpriseForMobile">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getObjectNameByEnterpriseForMobile_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="objectName" ColumnName="objectName" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
+                <ScalarProperty Name="device" ColumnName="device" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getObjectNameByEnterpriseObjectName" FunctionName="hs3MVCMTQa2Model.Store.pr_getObjectNameByEnterpriseObjectName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getObjectNameByEnterpriseObjectName_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="objectName" ColumnName="objectName" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
+                <ScalarProperty Name="device" ColumnName="device" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getPerson">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPerson_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonAllConfirmed" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonAllConfirmed">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonAllConfirmed_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByEmail_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonByEmailForLoginAttemps" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByEmailForLoginAttemps">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByEmailForLoginAttemps_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonByInternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByInternalID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByInternalID_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonByInternalIDEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByInternalIDEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByInternalIDEmail_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonByLoadHistory" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByLoadHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByLoadHistory_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonByStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByStatus_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonColumnHeader" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonColumnHeader">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonColumnHeader_Result">
+                <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonColumnNameByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonColumnNameByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonColumnNameByID_Result">
+                <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonCountByAllRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonCountByAllRole">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonCountByAllRole_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonCountByRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonCountByRole" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonDupByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonDupByEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonDupByEmail_Result">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="count" ColumnName="count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonDupByInternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonDupByInternalID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonDupByInternalID_Result">
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="count" ColumnName="count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonEmailCount" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonEmailCount" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonExcel" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonExcel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonExcel_Result">
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonExcelByAuthor" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonExcelByAuthor" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonExcelByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonExcelByEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonExcelByEmail_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonExcelByInternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonExcelByInternalID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonExcelByInternalID_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="InternalID" ColumnName="InternalID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonExcelDupByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonExcelDupByEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonExcelDupByEmail_Result">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="count" ColumnName="count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonExcelDupByInternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonExcelDupByInternalID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonExcelDupByInternalID_Result">
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="count" ColumnName="count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonInfoByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonInfoByID" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonInternalIDCount" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonInternalIDCount" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonNameById" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonNameById" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonPartnerCount" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPartnerCount" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonPartnerCountByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPartnerCountByID" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonPreviousNext" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPreviousNext">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPreviousNext_Result">
+                <ScalarProperty Name="previous" ColumnName="previous" />
+                <ScalarProperty Name="next" ColumnName="next" />
+                <ScalarProperty Name="first" ColumnName="first" />
+                <ScalarProperty Name="last" ColumnName="last" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonPwdByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPwdByEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPwdByEmail_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonRoleAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonRoleAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonRoleAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getRole" />
+          <FunctionImportMapping FunctionImportName="pr_getRoleAccessByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleAccessByID" />
+          <FunctionImportMapping FunctionImportName="pr_getRoleAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRoleAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="access" ColumnName="access" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getRoleByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleByID" />
+          <FunctionImportMapping FunctionImportName="pr_getRoleByName" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleByName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRoleByName_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="access" ColumnName="access" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getStateAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getStateAll" />
+          <FunctionImportMapping FunctionImportName="pr_getStateByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getStateByID" />
+          <FunctionImportMapping FunctionImportName="pr_getStateByName" FunctionName="hs3MVCMTQa2Model.Store.pr_getStateByName" />
+          <FunctionImportMapping FunctionImportName="pr_getStateName" FunctionName="hs3MVCMTQa2Model.Store.pr_getStateName" />
+          <FunctionImportMapping FunctionImportName="pr_getSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_getSystemInfo" />
+          <FunctionImportMapping FunctionImportName="pr_modifyEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterprise" />
+          <FunctionImportMapping FunctionImportName="pr_modifyEnterpriseSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterpriseSystemInfo" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPerson" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonInfoByID" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonInfoByID" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonIsArchivedByID" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonIsArchivedByID" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonManager" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonManager" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonPasswordByID" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonPasswordByID" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonStatus" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonStatusByID" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonStatusByID" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonStatusByLoadHistory" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonStatusByLoadHistory" />
+          <FunctionImportMapping FunctionImportName="pr_modifyRole" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyRole" />
+          <FunctionImportMapping FunctionImportName="pr_modifySystemExpiry" FunctionName="hs3MVCMTQa2Model.Store.pr_modifySystemExpiry" />
+          <FunctionImportMapping FunctionImportName="pr_modifyUserRole" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyUserRole" />
+          <FunctionImportMapping FunctionImportName="pr_removeEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_removeEnterprise" />
+          <FunctionImportMapping FunctionImportName="pr_removeEnterpriseSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_removeEnterpriseSystemInfo" />
+          <FunctionImportMapping FunctionImportName="pr_removePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_removePerson" />
+          <FunctionImportMapping FunctionImportName="pr_removePersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_removePersonStatus" />
+          <FunctionImportMapping FunctionImportName="pr_removeRole" FunctionName="hs3MVCMTQa2Model.Store.pr_removeRole" />
+          <FunctionImportMapping FunctionImportName="pr_removeUserRole" FunctionName="hs3MVCMTQa2Model.Store.pr_removeUserRole" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveEnterprise" />
+          <FunctionImportMapping FunctionImportName="pr_unArchivePersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePersonStatus" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveRole" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveRole" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="hs3MVCMTQa2Model.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="hs3MVCMTQa2Model.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="hs3MVCMTQa2Model.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="hs3MVCMTQa2Model.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="hs3MVCMTQa2Model.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="hs3MVCMTQa2Model.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="hs3MVCMTQa2Model.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="xx_generateSPforInsertUpdateDelete2" FunctionName="hs3MVCMTQa2Model.Store.xx_generateSPforInsertUpdateDelete2" />
+          <FunctionImportMapping FunctionImportName="xx_getLastDBModified" FunctionName="hs3MVCMTQa2Model.Store.xx_getLastDBModified">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xx_getLastDBModified_Result">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="name1" ColumnName="name1" />
+                <ScalarProperty Name="object_id" ColumnName="object_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="schema_id" ColumnName="schema_id" />
+                <ScalarProperty Name="parent_object_id" ColumnName="parent_object_id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="type_desc" ColumnName="type_desc" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="modify_date1" ColumnName="modify_date1" />
+                <ScalarProperty Name="is_ms_shipped" ColumnName="is_ms_shipped" />
+                <ScalarProperty Name="is_published" ColumnName="is_published" />
+                <ScalarProperty Name="is_schema_published" ColumnName="is_schema_published" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

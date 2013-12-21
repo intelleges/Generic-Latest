@@ -15,7 +15,7 @@ namespace Generic.Helpers
             layoutName = "~/tmp/Views/Shared/_GenericAdminLayout.cshtml";
             //if (1 == 2)// NOTE: Condition will be met. 
             //{
-            //    layoutName = "~/Views/Shared/_ClientLayoutPage.cshtml";
+         //   layoutName = "~/Views/Shared/_GenericAdminLayout.cshtml";
             //}
             return layoutName;
         }
