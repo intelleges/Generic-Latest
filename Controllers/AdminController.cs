@@ -48,6 +48,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public virtual ActionResult Index(string userName, string password)
         {
             if (ModelState.IsValid)
@@ -81,7 +82,7 @@ namespace Generic.Controllers
 
         }
 
-       
+        [Authorize]
         public virtual ActionResult Home()
         {
             ViewBag.Project = "Generic";
