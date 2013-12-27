@@ -1,0 +1,125 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.touchpoint>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Touch Point";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>touchpoint</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.protocol)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.protocol)
+            @Html.ValidationMessageFor(model => model.protocol)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.person)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.person)
+            @Html.ValidationMessageFor(model => model.person)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.sponsor)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.sponsor)
+            @Html.ValidationMessageFor(model => model.sponsor)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.admin)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.admin)
+            @Html.ValidationMessageFor(model => model.admin)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.title)
+            @Html.ValidationMessageFor(model => model.title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.abbreviation)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.abbreviation)
+            @Html.ValidationMessageFor(model => model.abbreviation)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.startDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.startDate)
+            @Html.ValidationMessageFor(model => model.startDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.endDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.endDate)
+            @Html.ValidationMessageFor(model => model.endDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.automaticReminder)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.automaticReminder)
+            @Html.ValidationMessageFor(model => model.automaticReminder)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.sortOrder)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.sortOrder)
+            @Html.ValidationMessageFor(model => model.sortOrder)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.active)
+            @Html.ValidationMessageFor(model => model.active)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

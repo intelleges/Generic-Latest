@@ -16,7 +16,7 @@ namespace Generic
     {
         public role()
         {
-            this.people = new HashSet<person>();
+            this.person = new HashSet<person>();
         }
     
         public int id { get; set; }
@@ -28,6 +28,6 @@ namespace Generic
         public Nullable<int> access { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
-        public virtual ICollection<person> people { get; set; }
+        public virtual ICollection<person> person { get; set; }
     }
 }

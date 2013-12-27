@@ -39,9 +39,9 @@ namespace Generic.Controllers
         public virtual ActionResult Index()
         {
 
-           
+
             var enterprises = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID);
-            
+
 
             ViewBag.Project = "Generic";
             return View(enterprises.FirstOrDefault());
@@ -53,10 +53,10 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
-              //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
+                //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
                 if (MembershipService.ValidateUser(userName, password))
                 {
-                    FormsAuthentication.SetAuthCookie(userName, false );
+                    FormsAuthentication.SetAuthCookie(userName, false);
                     //if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                     //    && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     //{
@@ -66,8 +66,8 @@ namespace Generic.Controllers
                     //{
 
 
-                   // return Redirect("~/mvcmt/scs/admin/home");
-                        return RedirectToAction("Home", "Admin");
+                    // return Redirect("~/mvcmt/scs/admin/home");
+                    return RedirectToAction("Home", "Admin");
                     //}
                 }
                 else
@@ -75,8 +75,11 @@ namespace Generic.Controllers
                     ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 }
             }
+
+          
+
             var enterprises = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID);
-        
+
             // If we got this far, something failed, redisplay form
             return View(enterprises.FirstOrDefault());
 

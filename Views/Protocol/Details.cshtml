@@ -1,0 +1,192 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.protocol>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Protocol";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>protocol</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.menuGroup)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.menuGroup)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.enterprise1.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.enterprise1.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.abbreviation)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.abbreviation)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.background)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.background)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.purpose)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.purpose)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.summary)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.summary)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.agency)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.agency)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.person.internalId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.person.internalId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.person1.internalId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.person1.internalId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.domain)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.domain)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.validationRequested)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.validationRequested)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.keyBenefits)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.keyBenefits)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.keyWords)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.keyWords)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.startDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.startDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.endDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.endDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.bestPractice)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.bestPractice)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.riskBenefits)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.riskBenefits)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.checkList)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.checkList)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.removeWithoutTouchpointExpiry)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.removeWithoutTouchpointExpiry)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.removeWithoutNotice)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.removeWithoutNotice)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.isLimited)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.isLimited)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.sortOrder)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.sortOrder)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.active)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.active)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

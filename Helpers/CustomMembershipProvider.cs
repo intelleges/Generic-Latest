@@ -39,14 +39,22 @@ namespace Generic.Helpers
                 return false;
 
             pr_doLogin_Result login = db.pr_doLogin(username, password).FirstOrDefault();
-
+            
             if (login == null)
             {
+
                 return false;
             }
             else 
-            { 
-                return true; 
+            {
+                if (login.enterprise == Generic.Helpers.CurrentInstance.EnterpriseID)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
 
         }

@@ -1,0 +1,35 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.group>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Assign Group To Person";
+}
+
+
+
+
+<h2>Assign Group To Person</h2>
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+<table>
+    <tr>
+            <td>Person :</td>
+            <td>  @Html.DropDownList("person", String.Empty)
+           </td>
+        </tr>
+        <tr>
+            <td>Group :</td>
+            <td>  @Html.DropDownList("groups", String.Empty)
+           </td>
+        </tr>
+       <tr>
+            <td></td>
+            <td>     <input type="submit" value="Save" />
+           </td>
+        </tr>
+
+</table>
+}

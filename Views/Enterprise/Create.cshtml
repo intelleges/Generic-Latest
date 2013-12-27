@@ -1,0 +1,93 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.enterprise>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Create Enterprise";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>enterprise</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.sortOrder)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.sortOrder)
+            @Html.ValidationMessageFor(model => model.sortOrder)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.active)
+            @Html.ValidationMessageFor(model => model.active)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.logo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.logo)
+            @Html.ValidationMessageFor(model => model.logo)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.applicationPath)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.applicationPath)
+            @Html.ValidationMessageFor(model => model.applicationPath)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.companyName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.companyName)
+            @Html.ValidationMessageFor(model => model.companyName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.instanceName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.instanceName)
+            @Html.ValidationMessageFor(model => model.instanceName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.archivedDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.archivedDate)
+            @Html.ValidationMessageFor(model => model.archivedDate)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

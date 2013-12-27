@@ -1,0 +1,214 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.person>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = ViewBag.Project + "Admin";
+}
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.enterprise1.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.role1.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.manager)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.personStatus1.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.riskType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.loadHistory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.campaign)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.internalId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nmNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.socialSecurity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.firstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.suffix)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nickName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.passWord)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.state)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.zipcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ismanager)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.partnerPerPage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.resetDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsArchived)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.archivedDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.enterprise1.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.role1.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.manager)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.personStatus1.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.riskType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.loadHistory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.campaign)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.internalId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nmNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.socialSecurity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.firstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.suffix)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nickName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.passWord)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.state)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.zipcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.country)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ismanager)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.partnerPerPage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.resetDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsArchived)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.archivedDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

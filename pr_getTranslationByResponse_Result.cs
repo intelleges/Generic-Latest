@@ -10,20 +10,21 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class personStatu
+    public partial class pr_getTranslationByResponse_Result
     {
-        public personStatu()
-        {
-            this.people = new HashSet<person>();
-        }
-    
         public int id { get; set; }
         public string description { get; set; }
+        public string title { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<bool> active { get; set; }
-    
-        public virtual ICollection<person> people { get; set; }
+        public Nullable<int> enterprise { get; set; }
+        public int id1 { get; set; }
+        public string name { get; set; }
+        public string originalName { get; set; }
+        public byte[] flagImage { get; set; }
+        public Nullable<int> sortOrder1 { get; set; }
+        public Nullable<bool> active1 { get; set; }
+        public Nullable<int> enterprise1 { get; set; }
     }
 }

@@ -1,0 +1,229 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.protocol>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Protocol";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>protocol</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.menuGroup)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.menuGroup)
+            @Html.ValidationMessageFor(model => model.menuGroup)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.enterprise, "enterprise1")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("enterprise", String.Empty)
+            @Html.ValidationMessageFor(model => model.enterprise)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.abbreviation)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.abbreviation)
+            @Html.ValidationMessageFor(model => model.abbreviation)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.background)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.background)
+            @Html.ValidationMessageFor(model => model.background)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.purpose)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.purpose)
+            @Html.ValidationMessageFor(model => model.purpose)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.summary)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.summary)
+            @Html.ValidationMessageFor(model => model.summary)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.agency)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.agency)
+            @Html.ValidationMessageFor(model => model.agency)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.admin, "person")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("admin", String.Empty)
+            @Html.ValidationMessageFor(model => model.admin)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.sponsor, "person1")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("sponsor", String.Empty)
+            @Html.ValidationMessageFor(model => model.sponsor)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.domain)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.domain)
+            @Html.ValidationMessageFor(model => model.domain)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.validationRequested)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.validationRequested)
+            @Html.ValidationMessageFor(model => model.validationRequested)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.keyBenefits)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.keyBenefits)
+            @Html.ValidationMessageFor(model => model.keyBenefits)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.keyWords)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.keyWords)
+            @Html.ValidationMessageFor(model => model.keyWords)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.startDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.startDate)
+            @Html.ValidationMessageFor(model => model.startDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.endDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.endDate)
+            @Html.ValidationMessageFor(model => model.endDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.bestPractice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.bestPractice)
+            @Html.ValidationMessageFor(model => model.bestPractice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.riskBenefits)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.riskBenefits)
+            @Html.ValidationMessageFor(model => model.riskBenefits)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.checkList)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.checkList)
+            @Html.ValidationMessageFor(model => model.checkList)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.removeWithoutTouchpointExpiry)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.removeWithoutTouchpointExpiry)
+            @Html.ValidationMessageFor(model => model.removeWithoutTouchpointExpiry)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.removeWithoutNotice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.removeWithoutNotice)
+            @Html.ValidationMessageFor(model => model.removeWithoutNotice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.isLimited)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.isLimited)
+            @Html.ValidationMessageFor(model => model.isLimited)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.sortOrder)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.sortOrder)
+            @Html.ValidationMessageFor(model => model.sortOrder)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.active)
+            @Html.ValidationMessageFor(model => model.active)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

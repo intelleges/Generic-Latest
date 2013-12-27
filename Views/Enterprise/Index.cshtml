@@ -1,0 +1,77 @@
+﻿@inherits System.Web.Mvc.WebViewPage < IEnumerable < Generic.enterprise >>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Enterprise";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sortOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.logo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.applicationPath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.companyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.instanceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.archivedDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sortOrder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.logo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.applicationPath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.companyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.instanceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.archivedDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

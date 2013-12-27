@@ -10,14 +10,14 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class pr_getResponse_Result
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int id { get; set; }
+        public string description { get; set; }
+        public string title { get; set; }
+        public Nullable<int> sortOrder { get; set; }
+        public Nullable<bool> active { get; set; }
+        public Nullable<int> enterprise { get; set; }
     }
 }

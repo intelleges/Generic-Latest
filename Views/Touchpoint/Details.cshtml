@@ -1,0 +1,101 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.touchpoint>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Touch Point";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>touchpoint</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.protocol)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.protocol)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.person)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.person)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.sponsor)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.sponsor)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.admin)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.admin)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.abbreviation)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.abbreviation)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.startDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.startDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.endDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.endDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.automaticReminder)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.automaticReminder)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.sortOrder)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.sortOrder)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.active)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.active)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

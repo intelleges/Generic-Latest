@@ -2,24 +2,92 @@
 <Schema Namespace="hs3MVCMTQa2Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="hs3MVCMTQa2ModelStoreContainer">
     <EntitySet Name="accessLevel" EntityType="hs3MVCMTQa2Model.Store.accessLevel" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="agency" EntityType="hs3MVCMTQa2Model.Store.agency" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="country" EntityType="hs3MVCMTQa2Model.Store.country" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="enterprise" EntityType="hs3MVCMTQa2Model.Store.enterprise" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="enterpriseObjectName" EntityType="hs3MVCMTQa2Model.Store.enterpriseObjectName" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="enterpriseSystemInfo" EntityType="hs3MVCMTQa2Model.Store.enterpriseSystemInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="group" EntityType="hs3MVCMTQa2Model.Store.group" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="groupCollection" EntityType="hs3MVCMTQa2Model.Store.groupCollection" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="groupOrgChart" EntityType="hs3MVCMTQa2Model.Store.groupOrgChart" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="groupType" EntityType="hs3MVCMTQa2Model.Store.groupType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="hs3Menu" EntityType="hs3MVCMTQa2Model.Store.hs3Menu" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="language" EntityType="hs3MVCMTQa2Model.Store.language" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="languageInfo" EntityType="hs3MVCMTQa2Model.Store.languageInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="letter" EntityType="hs3MVCMTQa2Model.Store.letter" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="letterSeed" EntityType="hs3MVCMTQa2Model.Store.letterSeed" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="loadHistory" EntityType="hs3MVCMTQa2Model.Store.loadHistory" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="menuAccessLevel" EntityType="hs3MVCMTQa2Model.Store.menuAccessLevel" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="menuGroup" EntityType="hs3MVCMTQa2Model.Store.menuGroup" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="numberSeed" EntityType="hs3MVCMTQa2Model.Store.numberSeed" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="page" EntityType="hs3MVCMTQa2Model.Store.page" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="pageSurveyset" EntityType="hs3MVCMTQa2Model.Store.pageSurveyset" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="partner" EntityType="hs3MVCMTQa2Model.Store.partner" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="partnerClass" EntityType="hs3MVCMTQa2Model.Store.partnerClass" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="partnerRelationshipOwner" EntityType="hs3MVCMTQa2Model.Store.partnerRelationshipOwner" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="partnerRemitAddress" EntityType="hs3MVCMTQa2Model.Store.partnerRemitAddress" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="partnerTouchpointStatus" EntityType="hs3MVCMTQa2Model.Store.partnerTouchpointStatus" store:Type="Tables" store:Schema="dbo" store:Name="partnerTouchpointStatus">
+      <DefiningQuery>SELECT 
+      [partnerTouchpointStatus].[partner] AS [partner], 
+      [partnerTouchpointStatus].[touchpoint] AS [touchpoint], 
+      [partnerTouchpointStatus].[status] AS [status], 
+      [partnerTouchpointStatus].[accesscode] AS [accesscode], 
+      [partnerTouchpointStatus].[actor] AS [actor], 
+      [partnerTouchpointStatus].[note] AS [note], 
+      [partnerTouchpointStatus].[invitedDate] AS [invitedDate], 
+      [partnerTouchpointStatus].[completeDate] AS [completeDate], 
+      [partnerTouchpointStatus].[SCSII] AS [SCSII], 
+      [partnerTouchpointStatus].[progress] AS [progress]
+      FROM [dbo].[partnerTouchpointStatus] AS [partnerTouchpointStatus]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="partnerType" EntityType="hs3MVCMTQa2Model.Store.partnerType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="person" EntityType="hs3MVCMTQa2Model.Store.person" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="personGroup" EntityType="hs3MVCMTQa2Model.Store.personGroup" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="personLoginAudit" EntityType="hs3MVCMTQa2Model.Store.personLoginAudit" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="personLoginAuditEvent" EntityType="hs3MVCMTQa2Model.Store.personLoginAuditEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="personRelationshipType" EntityType="hs3MVCMTQa2Model.Store.personRelationshipType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="personSearchCount" EntityType="hs3MVCMTQa2Model.Store.personSearchCount" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="personStatus" EntityType="hs3MVCMTQa2Model.Store.personStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="protocol" EntityType="hs3MVCMTQa2Model.Store.protocol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="protocolTouchpoint" EntityType="hs3MVCMTQa2Model.Store.protocolTouchpoint" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="question" EntityType="hs3MVCMTQa2Model.Store.question" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="questionLanguage" EntityType="hs3MVCMTQa2Model.Store.questionLanguage" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="questionnaire" EntityType="hs3MVCMTQa2Model.Store.questionnaire" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="questionnaireLevel" EntityType="hs3MVCMTQa2Model.Store.questionnaireLevel" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="questionnairePage" EntityType="hs3MVCMTQa2Model.Store.questionnairePage" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="questionResponse" EntityType="hs3MVCMTQa2Model.Store.questionResponse" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="questionTranslation" EntityType="hs3MVCMTQa2Model.Store.questionTranslation" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="response" EntityType="hs3MVCMTQa2Model.Store.response" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="responseLanguage" EntityType="hs3MVCMTQa2Model.Store.responseLanguage" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="responseTranslation" EntityType="hs3MVCMTQa2Model.Store.responseTranslation" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="responseType" EntityType="hs3MVCMTQa2Model.Store.responseType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="role" EntityType="hs3MVCMTQa2Model.Store.role" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="rule" EntityType="hs3MVCMTQa2Model.Store.rule" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ruleType" EntityType="hs3MVCMTQa2Model.Store.ruleType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="state" EntityType="hs3MVCMTQa2Model.Store.state" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="survey" EntityType="hs3MVCMTQa2Model.Store.survey" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="surveyQuestion" EntityType="hs3MVCMTQa2Model.Store.surveyQuestion" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="surveyset" EntityType="hs3MVCMTQa2Model.Store.surveyset" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="surveySetSurvey" EntityType="hs3MVCMTQa2Model.Store.surveySetSurvey" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="sysdiagrams" EntityType="hs3MVCMTQa2Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="touchpoint" EntityType="hs3MVCMTQa2Model.Store.touchpoint" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="touchpointGroup" EntityType="hs3MVCMTQa2Model.Store.touchpointGroup" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="touchpointPartnerTypeQuestionnaire" EntityType="hs3MVCMTQa2Model.Store.touchpointPartnerTypeQuestionnaire" store:Type="Tables" store:Schema="dbo" store:Name="touchpointPartnerTypeQuestionnaire">
+      <DefiningQuery>SELECT 
+      [touchpointPartnerTypeQuestionnaire].[touchpoint] AS [touchpoint], 
+      [touchpointPartnerTypeQuestionnaire].[partnerType] AS [partnerType], 
+      [touchpointPartnerTypeQuestionnaire].[questionnaire] AS [questionnaire], 
+      [touchpointPartnerTypeQuestionnaire].[description] AS [description]
+      FROM [dbo].[touchpointPartnerTypeQuestionnaire] AS [touchpointPartnerTypeQuestionnaire]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_agency_enterprise" Association="hs3MVCMTQa2Model.Store.FK_agency_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="agency" EntitySet="agency" />
+    </AssociationSet>
+    <AssociationSet Name="FK_country_enterprise" Association="hs3MVCMTQa2Model.Store.FK_country_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="country" EntitySet="country" />
+    </AssociationSet>
     <AssociationSet Name="FK_enterpriseObjectName_enterprise" Association="hs3MVCMTQa2Model.Store.FK_enterpriseObjectName_enterprise">
       <End Role="enterprise" EntitySet="enterprise" />
       <End Role="enterpriseObjectName" EntitySet="enterpriseObjectName" />
@@ -27,6 +95,74 @@
     <AssociationSet Name="FK_enterpriseSystemInfo_enterprise" Association="hs3MVCMTQa2Model.Store.FK_enterpriseSystemInfo_enterprise">
       <End Role="enterprise" EntitySet="enterprise" />
       <End Role="enterpriseSystemInfo" EntitySet="enterpriseSystemInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_group_enterprise" Association="hs3MVCMTQa2Model.Store.FK_group_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="group" EntitySet="group" />
+    </AssociationSet>
+    <AssociationSet Name="FK_group_groupCollection" Association="hs3MVCMTQa2Model.Store.FK_group_groupCollection">
+      <End Role="groupCollection" EntitySet="groupCollection" />
+      <End Role="group" EntitySet="group" />
+    </AssociationSet>
+    <AssociationSet Name="FK_group_person" Association="hs3MVCMTQa2Model.Store.FK_group_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="group" EntitySet="group" />
+    </AssociationSet>
+    <AssociationSet Name="FK_groupCollection_enterprise" Association="hs3MVCMTQa2Model.Store.FK_groupCollection_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="groupCollection" EntitySet="groupCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hs3Menu_enterprise" Association="hs3MVCMTQa2Model.Store.FK_hs3Menu_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="hs3Menu" EntitySet="hs3Menu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_language_enterprise" Association="hs3MVCMTQa2Model.Store.FK_language_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="language" EntitySet="language" />
+    </AssociationSet>
+    <AssociationSet Name="FK_languageInfo_enterprise" Association="hs3MVCMTQa2Model.Store.FK_languageInfo_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="languageInfo" EntitySet="languageInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pageSurveyset_page" Association="hs3MVCMTQa2Model.Store.FK_pageSurveyset_page">
+      <End Role="page" EntitySet="page" />
+      <End Role="pageSurveyset" EntitySet="pageSurveyset" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pageSurveyset_surveyset" Association="hs3MVCMTQa2Model.Store.FK_pageSurveyset_surveyset">
+      <End Role="surveyset" EntitySet="surveyset" />
+      <End Role="pageSurveyset" EntitySet="pageSurveyset" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partner_enterprise" Association="hs3MVCMTQa2Model.Store.FK_partner_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="partner" EntitySet="partner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerRelationshipOwner_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerRelationshipOwner_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="partnerRelationshipOwner" EntitySet="partnerRelationshipOwner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerRelationshipOwner_person" Association="hs3MVCMTQa2Model.Store.FK_partnerRelationshipOwner_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="partnerRelationshipOwner" EntitySet="partnerRelationshipOwner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerRemitAddress_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerRemitAddress_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="partnerRemitAddress" EntitySet="partnerRemitAddress" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerTouchpointStatus_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerTouchpointStatus_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="partnerTouchpointStatus" EntitySet="partnerTouchpointStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerTouchpointStatus_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_partnerTouchpointStatus_touchpoint">
+      <End Role="touchpoint" EntitySet="touchpoint" />
+      <End Role="partnerTouchpointStatus" EntitySet="partnerTouchpointStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerType_enterprise" Association="hs3MVCMTQa2Model.Store.FK_partnerType_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="partnerType" EntitySet="partnerType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerType_partnerClass" Association="hs3MVCMTQa2Model.Store.FK_partnerType_partnerClass">
+      <End Role="partnerClass" EntitySet="partnerClass" />
+      <End Role="partnerType" EntitySet="partnerType" />
     </AssociationSet>
     <AssociationSet Name="FK_person_enterprise" Association="hs3MVCMTQa2Model.Store.FK_person_enterprise">
       <End Role="enterprise" EntitySet="enterprise" />
@@ -40,6 +176,14 @@
       <End Role="role" EntitySet="role" />
       <End Role="person" EntitySet="person" />
     </AssociationSet>
+    <AssociationSet Name="FK_personGroup_group" Association="hs3MVCMTQa2Model.Store.FK_personGroup_group">
+      <End Role="group" EntitySet="group" />
+      <End Role="personGroup" EntitySet="personGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personGroup_person" Association="hs3MVCMTQa2Model.Store.FK_personGroup_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="personGroup" EntitySet="personGroup" />
+    </AssociationSet>
     <AssociationSet Name="FK_personLoginAudit_person" Association="hs3MVCMTQa2Model.Store.FK_personLoginAudit_person">
       <End Role="person" EntitySet="person" />
       <End Role="personLoginAudit" EntitySet="personLoginAudit" />
@@ -52,9 +196,117 @@
       <End Role="person" EntitySet="person" />
       <End Role="personSearchCount" EntitySet="personSearchCount" />
     </AssociationSet>
+    <AssociationSet Name="FK_protocol_enterprise" Association="hs3MVCMTQa2Model.Store.FK_protocol_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="protocol" EntitySet="protocol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_protocol_person" Association="hs3MVCMTQa2Model.Store.FK_protocol_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="protocol" EntitySet="protocol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_protocol_person1" Association="hs3MVCMTQa2Model.Store.FK_protocol_person1">
+      <End Role="person" EntitySet="person" />
+      <End Role="protocol" EntitySet="protocol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_question_responseType" Association="hs3MVCMTQa2Model.Store.FK_question_responseType">
+      <End Role="responseType" EntitySet="responseType" />
+      <End Role="question" EntitySet="question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionLanguage_language" Association="hs3MVCMTQa2Model.Store.FK_questionLanguage_language">
+      <End Role="language" EntitySet="language" />
+      <End Role="questionLanguage" EntitySet="questionLanguage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionLanguage_question" Association="hs3MVCMTQa2Model.Store.FK_questionLanguage_question">
+      <End Role="question" EntitySet="question" />
+      <End Role="questionLanguage" EntitySet="questionLanguage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionnairePage_page" Association="hs3MVCMTQa2Model.Store.FK_questionnairePage_page">
+      <End Role="page" EntitySet="page" />
+      <End Role="questionnairePage" EntitySet="questionnairePage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionnairePage_questionnaire" Association="hs3MVCMTQa2Model.Store.FK_questionnairePage_questionnaire">
+      <End Role="questionnaire" EntitySet="questionnaire" />
+      <End Role="questionnairePage" EntitySet="questionnairePage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionResponse_question" Association="hs3MVCMTQa2Model.Store.FK_questionResponse_question">
+      <End Role="question" EntitySet="question" />
+      <End Role="questionResponse" EntitySet="questionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionResponse_question1" Association="hs3MVCMTQa2Model.Store.FK_questionResponse_question1">
+      <End Role="question" EntitySet="question" />
+      <End Role="questionResponse" EntitySet="questionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionResponse_response" Association="hs3MVCMTQa2Model.Store.FK_questionResponse_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="questionResponse" EntitySet="questionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionTranslation_language" Association="hs3MVCMTQa2Model.Store.FK_questionTranslation_language">
+      <End Role="language" EntitySet="language" />
+      <End Role="questionTranslation" EntitySet="questionTranslation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionTranslation_question" Association="hs3MVCMTQa2Model.Store.FK_questionTranslation_question">
+      <End Role="question" EntitySet="question" />
+      <End Role="questionTranslation" EntitySet="questionTranslation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_responseLanguage_language" Association="hs3MVCMTQa2Model.Store.FK_responseLanguage_language">
+      <End Role="language" EntitySet="language" />
+      <End Role="responseLanguage" EntitySet="responseLanguage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_responseLanguage_response" Association="hs3MVCMTQa2Model.Store.FK_responseLanguage_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="responseLanguage" EntitySet="responseLanguage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_responseTranslation_language" Association="hs3MVCMTQa2Model.Store.FK_responseTranslation_language">
+      <End Role="language" EntitySet="language" />
+      <End Role="responseTranslation" EntitySet="responseTranslation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_responseTranslation_response" Association="hs3MVCMTQa2Model.Store.FK_responseTranslation_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="responseTranslation" EntitySet="responseTranslation" />
+    </AssociationSet>
     <AssociationSet Name="FK_role_enterprise" Association="hs3MVCMTQa2Model.Store.FK_role_enterprise">
       <End Role="enterprise" EntitySet="enterprise" />
       <End Role="role" EntitySet="role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rule_enterprise" Association="hs3MVCMTQa2Model.Store.FK_rule_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="rule" EntitySet="rule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rule_ruleType" Association="hs3MVCMTQa2Model.Store.FK_rule_ruleType">
+      <End Role="ruleType" EntitySet="ruleType" />
+      <End Role="rule" EntitySet="rule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ruleType_enterprise" Association="hs3MVCMTQa2Model.Store.FK_ruleType_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="ruleType" EntitySet="ruleType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_state_enterprise" Association="hs3MVCMTQa2Model.Store.FK_state_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="state" EntitySet="state" />
+    </AssociationSet>
+    <AssociationSet Name="FK_surveySetSurvey_survey" Association="hs3MVCMTQa2Model.Store.FK_surveySetSurvey_survey">
+      <End Role="survey" EntitySet="survey" />
+      <End Role="surveySetSurvey" EntitySet="surveySetSurvey" />
+    </AssociationSet>
+    <AssociationSet Name="FK_surveySetSurvey_surveyset" Association="hs3MVCMTQa2Model.Store.FK_surveySetSurvey_surveyset">
+      <End Role="surveyset" EntitySet="surveyset" />
+      <End Role="surveySetSurvey" EntitySet="surveySetSurvey" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpoint_protocol" Association="hs3MVCMTQa2Model.Store.FK_touchpoint_protocol">
+      <End Role="protocol" EntitySet="protocol" />
+      <End Role="touchpoint" EntitySet="touchpoint" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_partnerType" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerTypeQuestionnaire_partnerType">
+      <End Role="partnerType" EntitySet="partnerType" />
+      <End Role="touchpointPartnerTypeQuestionnaire" EntitySet="touchpointPartnerTypeQuestionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerTypeQuestionnaire_questionnaire">
+      <End Role="questionnaire" EntitySet="questionnaire" />
+      <End Role="touchpointPartnerTypeQuestionnaire" EntitySet="touchpointPartnerTypeQuestionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerTypeQuestionnaire_touchpoint">
+      <End Role="touchpoint" EntitySet="touchpoint" />
+      <End Role="touchpointPartnerTypeQuestionnaire" EntitySet="touchpointPartnerTypeQuestionnaire" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="accessLevel">
@@ -67,6 +319,29 @@
     <Property Name="active" Type="bit" />
     <Property Name="index" Type="int" />
     <Property Name="base2" Type="int" />
+  </EntityType>
+  <EntityType Name="agency">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="250" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="country">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="eplsCountryID" Type="int" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="code" Type="varchar" MaxLength="50" />
+    <Property Name="governanceCode" Type="varchar" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="enterprise" Type="int" />
   </EntityType>
   <EntityType Name="enterprise">
     <Key>
@@ -108,6 +383,48 @@
     <Property Name="configured" Type="bit" Nullable="false" />
     <Property Name="enterprise" Type="int" />
   </EntityType>
+  <EntityType Name="group">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="enterprise" Type="int" />
+    <Property Name="groupCollection" Type="int" Nullable="false" />
+    <Property Name="author" Type="int" />
+    <Property Name="state" Type="int" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="dateCreated" Type="datetime" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="int" />
+  </EntityType>
+  <EntityType Name="groupCollection">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="varchar" MaxLength="100" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="int" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="groupOrgChart">
+    <Key>
+      <PropertyRef Name="group" />
+      <PropertyRef Name="orgChartChild" />
+    </Key>
+    <Property Name="group" Type="int" Nullable="false" />
+    <Property Name="orgChartChild" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="groupType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="type" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
   <EntityType Name="hs3Menu">
     <Key>
       <PropertyRef Name="id" />
@@ -123,6 +440,31 @@
     <Property Name="menuGroup" Type="int" />
     <Property Name="isDynamicCreated" Type="bit" />
     <Property Name="device" Type="int" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="language">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="originalName" Type="varchar" MaxLength="100" />
+    <Property Name="flagImage" Type="varbinary" MaxLength="100" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="languageInfo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="languageCode" Type="varchar" MaxLength="50" />
+    <Property Name="languageName" Type="varchar" MaxLength="50" />
+    <Property Name="languageFlag" Type="varchar" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="enterprise" Type="int" />
   </EntityType>
   <EntityType Name="letter">
     <Key>
@@ -173,6 +515,118 @@
     <Property Name="number" Type="int" Nullable="false" />
     <Property Name="letter" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="page">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+  </EntityType>
+  <EntityType Name="pageSurveyset">
+    <Key>
+      <PropertyRef Name="page" />
+      <PropertyRef Name="surveyset" />
+    </Key>
+    <Property Name="page" Type="int" Nullable="false" />
+    <Property Name="surveyset" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="partner">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="enterprise" Type="int" />
+    <Property Name="internalID" Type="varchar" MaxLength="255" />
+    <Property Name="name" Type="varchar" MaxLength="255" />
+    <Property Name="address1" Type="varchar" MaxLength="255" />
+    <Property Name="address2" Type="varchar" MaxLength="255" />
+    <Property Name="city" Type="varchar" MaxLength="255" />
+    <Property Name="state" Type="int" />
+    <Property Name="province" Type="varchar" MaxLength="50" />
+    <Property Name="zipcode" Type="varchar" MaxLength="20" />
+    <Property Name="country" Type="int" />
+    <Property Name="phone" Type="varchar" MaxLength="100" />
+    <Property Name="fax" Type="varchar" MaxLength="100" />
+    <Property Name="firstName" Type="varchar" MaxLength="255" />
+    <Property Name="lastName" Type="varchar" MaxLength="255" />
+    <Property Name="title" Type="varchar" MaxLength="255" />
+    <Property Name="email" Type="varchar" MaxLength="255" />
+    <Property Name="dunsNumber" Type="varchar" MaxLength="20" />
+    <Property Name="federalID" Type="varchar" MaxLength="20" />
+    <Property Name="status" Type="int" />
+    <Property Name="loadHistory" Type="int" />
+    <Property Name="owner" Type="int" />
+    <Property Name="author" Type="int" />
+    <Property Name="dateApproved" Type="smalldatetime" />
+    <Property Name="active" Type="bit" />
+    <Property Name="lastModified" Type="datetime" />
+  </EntityType>
+  <EntityType Name="partnerClass">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="250" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+  </EntityType>
+  <EntityType Name="partnerRelationshipOwner">
+    <Key>
+      <PropertyRef Name="partner" />
+      <PropertyRef Name="person" />
+    </Key>
+    <Property Name="partner" Type="int" Nullable="false" />
+    <Property Name="person" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="partnerRemitAddress">
+    <Key>
+      <PropertyRef Name="partner" />
+    </Key>
+    <Property Name="partner" Type="int" Nullable="false" />
+    <Property Name="remitAddress1" Type="varchar" MaxLength="255" />
+    <Property Name="remitAddress2" Type="varchar" MaxLength="255" />
+    <Property Name="remitCity" Type="varchar" MaxLength="255" />
+    <Property Name="remitState" Type="int" />
+    <Property Name="remitProvince" Type="varchar" MaxLength="50" />
+    <Property Name="remitZipCode" Type="varchar" MaxLength="20" />
+    <Property Name="remitCountry" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.partnerTouchpointStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="partnerTouchpointStatus">
+    <Key>
+      <PropertyRef Name="partner" />
+      <PropertyRef Name="touchpoint" />
+      <PropertyRef Name="status" />
+      <PropertyRef Name="accesscode" />
+    </Key>
+    <Property Name="partner" Type="int" Nullable="false" />
+    <Property Name="touchpoint" Type="int" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="accesscode" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="actor" Type="int" />
+    <Property Name="note" Type="varchar" MaxLength="500" />
+    <Property Name="invitedDate" Type="datetime" />
+    <Property Name="completeDate" Type="datetime" />
+    <Property Name="SCSII" Type="decimal" Scale="2" />
+    <Property Name="progress" Type="int" />
+  </EntityType>
+  <EntityType Name="partnerType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="alias" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="partnerClass" Type="int" />
+    <Property Name="enterprise" Type="int" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="int" />
+  </EntityType>
   <EntityType Name="person">
     <Key>
       <PropertyRef Name="id" />
@@ -209,6 +663,14 @@
     <Property Name="resetDate" Type="datetime" />
     <Property Name="IsArchived" Type="bit" />
     <Property Name="archivedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="personGroup">
+    <Key>
+      <PropertyRef Name="person" />
+      <PropertyRef Name="group" />
+    </Key>
+    <Property Name="person" Type="int" Nullable="false" />
+    <Property Name="group" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="personLoginAudit">
     <Key>
@@ -256,6 +718,170 @@
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
   </EntityType>
+  <EntityType Name="protocol">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="menuGroup" Type="int" />
+    <Property Name="enterprise" Type="int" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+    <Property Name="abbreviation" Type="varchar" MaxLength="50" />
+    <Property Name="background" Type="varchar" MaxLength="500" />
+    <Property Name="purpose" Type="varchar" MaxLength="500" />
+    <Property Name="summary" Type="varchar" MaxLength="500" />
+    <Property Name="agency" Type="int" />
+    <Property Name="admin" Type="int" />
+    <Property Name="sponsor" Type="int" />
+    <Property Name="domain" Type="int" />
+    <Property Name="validationRequested" Type="varchar" MaxLength="500" />
+    <Property Name="keyBenefits" Type="varchar" MaxLength="500" />
+    <Property Name="keyWords" Type="varchar" MaxLength="500" />
+    <Property Name="startDate" Type="datetime" />
+    <Property Name="endDate" Type="datetime" />
+    <Property Name="bestPractice" Type="varchar" MaxLength="250" />
+    <Property Name="riskBenefits" Type="varchar" MaxLength="500" />
+    <Property Name="checkList" Type="varchar" MaxLength="250" />
+    <Property Name="removeWithoutTouchpointExpiry" Type="bit" />
+    <Property Name="removeWithoutNotice" Type="bit" />
+    <Property Name="isLimited" Type="bit" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="int" />
+  </EntityType>
+  <EntityType Name="protocolTouchpoint">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="touchpointAnchor" Type="int" />
+    <Property Name="touchpointId" Type="int" />
+  </EntityType>
+  <EntityType Name="question">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="question" Type="varchar(max)" />
+    <Property Name="name" Type="varchar(max)" />
+    <Property Name="title" Type="varchar(max)" Nullable="false" />
+    <Property Name="tag" Type="varchar" MaxLength="100" />
+    <Property Name="responseType" Type="int" />
+    <Property Name="required" Type="int" />
+    <Property Name="skipLogicAnswer" Type="bit" />
+    <Property Name="skipLogicJump" Type="varchar" MaxLength="500" />
+    <Property Name="accessLevel" Type="int" />
+    <Property Name="commentRequired" Type="int" />
+    <Property Name="commentBoxTxt" Type="varchar" MaxLength="500" />
+    <Property Name="commentUploadTxt" Type="varchar" MaxLength="500" />
+    <Property Name="commentType" Type="int" />
+    <Property Name="spinOffQuestionnaire" Type="char" MaxLength="1" />
+    <Property Name="spinOffQID" Type="int" />
+    <Property Name="emailAlert" Type="char" MaxLength="1" />
+    <Property Name="emailAlertList" Type="varchar(max)" />
+    <Property Name="updated" Type="int" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="questionLanguage">
+    <Key>
+      <PropertyRef Name="question" />
+      <PropertyRef Name="language" />
+    </Key>
+    <Property Name="question" Type="int" Nullable="false" />
+    <Property Name="language" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="questionnaire">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="person" Type="int" Nullable="false" />
+    <Property Name="partnerType" Type="int" Nullable="false" />
+    <Property Name="letter" Type="int" />
+    <Property Name="title" Type="varchar" MaxLength="100" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+    <Property Name="footer" Type="varchar" MaxLength="100" />
+    <Property Name="locked" Type="int" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="int" />
+    <Property Name="multiLanguage" Type="int" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="questionnaireLevel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="int" />
+  </EntityType>
+  <EntityType Name="questionnairePage">
+    <Key>
+      <PropertyRef Name="questionnaire" />
+      <PropertyRef Name="page" />
+    </Key>
+    <Property Name="questionnaire" Type="int" Nullable="false" />
+    <Property Name="page" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="questionResponse">
+    <Key>
+      <PropertyRef Name="question" />
+      <PropertyRef Name="response" />
+    </Key>
+    <Property Name="question" Type="int" Nullable="false" />
+    <Property Name="response" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="questionTranslation">
+    <Key>
+      <PropertyRef Name="question" />
+      <PropertyRef Name="language" />
+    </Key>
+    <Property Name="question" Type="int" Nullable="false" />
+    <Property Name="language" Type="int" Nullable="false" />
+    <Property Name="title" Type="varchar" Nullable="false" MaxLength="2000" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="response">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="2000" />
+    <Property Name="title" Type="varchar" MaxLength="80" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="responseLanguage">
+    <Key>
+      <PropertyRef Name="response" />
+      <PropertyRef Name="language" />
+    </Key>
+    <Property Name="response" Type="int" Nullable="false" />
+    <Property Name="language" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="responseTranslation">
+    <Key>
+      <PropertyRef Name="response" />
+      <PropertyRef Name="language" />
+    </Key>
+    <Property Name="response" Type="int" Nullable="false" />
+    <Property Name="language" Type="int" Nullable="false" />
+    <Property Name="description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="responseType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
   <EntityType Name="role">
     <Key>
       <PropertyRef Name="id" />
@@ -268,6 +894,77 @@
     <Property Name="enterprise" Type="int" />
     <Property Name="access" Type="int" />
   </EntityType>
+  <EntityType Name="rule">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="ruleType" Type="int" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="ruleType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="state">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="stateCode" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="survey">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="2000" />
+    <Property Name="name" Type="varchar" MaxLength="500" />
+    <Property Name="display" Type="int" Nullable="false" />
+    <Property Name="sortOrder" Type="int" Nullable="false" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="creationDate" Type="datetime" Nullable="false" />
+    <Property Name="lastModifiedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="surveyQuestion">
+    <Key>
+      <PropertyRef Name="survey" />
+      <PropertyRef Name="question" />
+    </Key>
+    <Property Name="survey" Type="int" Nullable="false" />
+    <Property Name="question" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="surveyset">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="2000" />
+    <Property Name="sortOrder" Type="int" Nullable="false" />
+    <Property Name="active" Type="bit" />
+    <Property Name="accessLevel" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="surveySetSurvey">
+    <Key>
+      <PropertyRef Name="surveySet" />
+      <PropertyRef Name="survey" />
+    </Key>
+    <Property Name="surveySet" Type="int" Nullable="false" />
+    <Property Name="survey" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -278,6 +975,70 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <EntityType Name="touchpoint">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="protocol" Type="int" />
+    <Property Name="person" Type="int" />
+    <Property Name="sponsor" Type="int" />
+    <Property Name="admin" Type="int" />
+    <Property Name="title" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="varchar" MaxLength="150" />
+    <Property Name="abbreviation" Type="varchar" MaxLength="50" />
+    <Property Name="startDate" Type="datetime" />
+    <Property Name="endDate" Type="datetime" />
+    <Property Name="automaticReminder" Type="bit" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="int" />
+  </EntityType>
+  <EntityType Name="touchpointGroup">
+    <Key>
+      <PropertyRef Name="group" />
+      <PropertyRef Name="touchpoint" />
+    </Key>
+    <Property Name="group" Type="int" Nullable="false" />
+    <Property Name="touchpoint" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.touchpointPartnerTypeQuestionnaire' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="touchpointPartnerTypeQuestionnaire">
+    <Key>
+      <PropertyRef Name="touchpoint" />
+      <PropertyRef Name="partnerType" />
+      <PropertyRef Name="questionnaire" />
+    </Key>
+    <Property Name="touchpoint" Type="int" Nullable="false" />
+    <Property Name="partnerType" Type="int" Nullable="false" />
+    <Property Name="questionnaire" Type="int" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="1500" />
+  </EntityType>
+  <Association Name="FK_agency_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="agency" Type="hs3MVCMTQa2Model.Store.agency" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="agency">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_country_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="country" Type="hs3MVCMTQa2Model.Store.country" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="country">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_enterpriseObjectName_enterprise">
     <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="1" />
     <End Role="enterpriseObjectName" Type="hs3MVCMTQa2Model.Store.enterpriseObjectName" Multiplicity="*" />
@@ -299,6 +1060,210 @@
       </Principal>
       <Dependent Role="enterpriseSystemInfo">
         <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_group_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="group" Type="hs3MVCMTQa2Model.Store.group" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="group">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_group_groupCollection">
+    <End Role="groupCollection" Type="hs3MVCMTQa2Model.Store.groupCollection" Multiplicity="1" />
+    <End Role="group" Type="hs3MVCMTQa2Model.Store.group" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="groupCollection">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="group">
+        <PropertyRef Name="groupCollection" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_group_person">
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="0..1" />
+    <End Role="group" Type="hs3MVCMTQa2Model.Store.group" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="group">
+        <PropertyRef Name="author" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_groupCollection_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="groupCollection" Type="hs3MVCMTQa2Model.Store.groupCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="groupCollection">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hs3Menu_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="hs3Menu" Type="hs3MVCMTQa2Model.Store.hs3Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="hs3Menu">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_language_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="language" Type="hs3MVCMTQa2Model.Store.language" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="language">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_languageInfo_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="languageInfo" Type="hs3MVCMTQa2Model.Store.languageInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="languageInfo">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pageSurveyset_page">
+    <End Role="page" Type="hs3MVCMTQa2Model.Store.page" Multiplicity="1" />
+    <End Role="pageSurveyset" Type="hs3MVCMTQa2Model.Store.pageSurveyset" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="page">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pageSurveyset">
+        <PropertyRef Name="page" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pageSurveyset_surveyset">
+    <End Role="surveyset" Type="hs3MVCMTQa2Model.Store.surveyset" Multiplicity="1" />
+    <End Role="pageSurveyset" Type="hs3MVCMTQa2Model.Store.pageSurveyset" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="surveyset">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pageSurveyset">
+        <PropertyRef Name="surveyset" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partner_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partner">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnerRelationshipOwner_partner">
+    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
+    <End Role="partnerRelationshipOwner" Type="hs3MVCMTQa2Model.Store.partnerRelationshipOwner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="partner">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnerRelationshipOwner">
+        <PropertyRef Name="partner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnerRelationshipOwner_person">
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+    <End Role="partnerRelationshipOwner" Type="hs3MVCMTQa2Model.Store.partnerRelationshipOwner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnerRelationshipOwner">
+        <PropertyRef Name="person" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnerRemitAddress_partner">
+    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
+    <End Role="partnerRemitAddress" Type="hs3MVCMTQa2Model.Store.partnerRemitAddress" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="partner">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnerRemitAddress">
+        <PropertyRef Name="partner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnerTouchpointStatus_partner">
+    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
+    <End Role="partnerTouchpointStatus" Type="hs3MVCMTQa2Model.Store.partnerTouchpointStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="partner">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnerTouchpointStatus">
+        <PropertyRef Name="partner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnerTouchpointStatus_touchpoint">
+    <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
+    <End Role="partnerTouchpointStatus" Type="hs3MVCMTQa2Model.Store.partnerTouchpointStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="touchpoint">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnerTouchpointStatus">
+        <PropertyRef Name="touchpoint" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnerType_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="partnerType" Type="hs3MVCMTQa2Model.Store.partnerType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnerType">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnerType_partnerClass">
+    <End Role="partnerClass" Type="hs3MVCMTQa2Model.Store.partnerClass" Multiplicity="0..1" />
+    <End Role="partnerType" Type="hs3MVCMTQa2Model.Store.partnerType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="partnerClass">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnerType">
+        <PropertyRef Name="partnerClass" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -338,6 +1303,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_personGroup_group">
+    <End Role="group" Type="hs3MVCMTQa2Model.Store.group" Multiplicity="1" />
+    <End Role="personGroup" Type="hs3MVCMTQa2Model.Store.personGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="group">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="personGroup">
+        <PropertyRef Name="group" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_personGroup_person">
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+    <End Role="personGroup" Type="hs3MVCMTQa2Model.Store.personGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="personGroup">
+        <PropertyRef Name="person" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_personLoginAudit_person">
     <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
     <End Role="personLoginAudit" Type="hs3MVCMTQa2Model.Store.personLoginAudit" Multiplicity="*" />
@@ -374,6 +1363,210 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_protocol_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="protocol" Type="hs3MVCMTQa2Model.Store.protocol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="protocol">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_protocol_person">
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="0..1" />
+    <End Role="protocol" Type="hs3MVCMTQa2Model.Store.protocol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="protocol">
+        <PropertyRef Name="admin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_protocol_person1">
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="0..1" />
+    <End Role="protocol" Type="hs3MVCMTQa2Model.Store.protocol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="protocol">
+        <PropertyRef Name="sponsor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_question_responseType">
+    <End Role="responseType" Type="hs3MVCMTQa2Model.Store.responseType" Multiplicity="0..1" />
+    <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="responseType">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="question">
+        <PropertyRef Name="responseType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questionLanguage_language">
+    <End Role="language" Type="hs3MVCMTQa2Model.Store.language" Multiplicity="1" />
+    <End Role="questionLanguage" Type="hs3MVCMTQa2Model.Store.questionLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="language">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questionLanguage">
+        <PropertyRef Name="language" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questionLanguage_question">
+    <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="1" />
+    <End Role="questionLanguage" Type="hs3MVCMTQa2Model.Store.questionLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="question">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questionLanguage">
+        <PropertyRef Name="question" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questionnairePage_page">
+    <End Role="page" Type="hs3MVCMTQa2Model.Store.page" Multiplicity="1" />
+    <End Role="questionnairePage" Type="hs3MVCMTQa2Model.Store.questionnairePage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="page">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questionnairePage">
+        <PropertyRef Name="page" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questionnairePage_questionnaire">
+    <End Role="questionnaire" Type="hs3MVCMTQa2Model.Store.questionnaire" Multiplicity="1" />
+    <End Role="questionnairePage" Type="hs3MVCMTQa2Model.Store.questionnairePage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="questionnaire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questionnairePage">
+        <PropertyRef Name="questionnaire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questionResponse_question">
+    <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="1" />
+    <End Role="questionResponse" Type="hs3MVCMTQa2Model.Store.questionResponse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="question">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questionResponse">
+        <PropertyRef Name="question" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questionResponse_question1">
+    <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="1" />
+    <End Role="questionResponse" Type="hs3MVCMTQa2Model.Store.questionResponse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="question">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questionResponse">
+        <PropertyRef Name="question" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questionResponse_response">
+    <End Role="response" Type="hs3MVCMTQa2Model.Store.response" Multiplicity="1" />
+    <End Role="questionResponse" Type="hs3MVCMTQa2Model.Store.questionResponse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="response">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questionResponse">
+        <PropertyRef Name="response" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questionTranslation_language">
+    <End Role="language" Type="hs3MVCMTQa2Model.Store.language" Multiplicity="1" />
+    <End Role="questionTranslation" Type="hs3MVCMTQa2Model.Store.questionTranslation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="language">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questionTranslation">
+        <PropertyRef Name="language" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questionTranslation_question">
+    <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="1" />
+    <End Role="questionTranslation" Type="hs3MVCMTQa2Model.Store.questionTranslation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="question">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questionTranslation">
+        <PropertyRef Name="question" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_responseLanguage_language">
+    <End Role="language" Type="hs3MVCMTQa2Model.Store.language" Multiplicity="1" />
+    <End Role="responseLanguage" Type="hs3MVCMTQa2Model.Store.responseLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="language">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="responseLanguage">
+        <PropertyRef Name="language" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_responseLanguage_response">
+    <End Role="response" Type="hs3MVCMTQa2Model.Store.response" Multiplicity="1" />
+    <End Role="responseLanguage" Type="hs3MVCMTQa2Model.Store.responseLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="response">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="responseLanguage">
+        <PropertyRef Name="response" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_responseTranslation_language">
+    <End Role="language" Type="hs3MVCMTQa2Model.Store.language" Multiplicity="1" />
+    <End Role="responseTranslation" Type="hs3MVCMTQa2Model.Store.responseTranslation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="language">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="responseTranslation">
+        <PropertyRef Name="language" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_responseTranslation_response">
+    <End Role="response" Type="hs3MVCMTQa2Model.Store.response" Multiplicity="1" />
+    <End Role="responseTranslation" Type="hs3MVCMTQa2Model.Store.responseTranslation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="response">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="responseTranslation">
+        <PropertyRef Name="response" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_role_enterprise">
     <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
     <End Role="role" Type="hs3MVCMTQa2Model.Store.role" Multiplicity="*" />
@@ -386,12 +1579,141 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_rule_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="rule" Type="hs3MVCMTQa2Model.Store.rule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="rule">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rule_ruleType">
+    <End Role="ruleType" Type="hs3MVCMTQa2Model.Store.ruleType" Multiplicity="0..1" />
+    <End Role="rule" Type="hs3MVCMTQa2Model.Store.rule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ruleType">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="rule">
+        <PropertyRef Name="ruleType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ruleType_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="ruleType" Type="hs3MVCMTQa2Model.Store.ruleType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ruleType">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_state_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="state" Type="hs3MVCMTQa2Model.Store.state" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="state">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_surveySetSurvey_survey">
+    <End Role="survey" Type="hs3MVCMTQa2Model.Store.survey" Multiplicity="1" />
+    <End Role="surveySetSurvey" Type="hs3MVCMTQa2Model.Store.surveySetSurvey" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="survey">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="surveySetSurvey">
+        <PropertyRef Name="survey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_surveySetSurvey_surveyset">
+    <End Role="surveyset" Type="hs3MVCMTQa2Model.Store.surveyset" Multiplicity="1" />
+    <End Role="surveySetSurvey" Type="hs3MVCMTQa2Model.Store.surveySetSurvey" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="surveyset">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="surveySetSurvey">
+        <PropertyRef Name="surveySet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_touchpoint_protocol">
+    <End Role="protocol" Type="hs3MVCMTQa2Model.Store.protocol" Multiplicity="0..1" />
+    <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="protocol">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="touchpoint">
+        <PropertyRef Name="protocol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_touchpointPartnerTypeQuestionnaire_partnerType">
+    <End Role="partnerType" Type="hs3MVCMTQa2Model.Store.partnerType" Multiplicity="1" />
+    <End Role="touchpointPartnerTypeQuestionnaire" Type="hs3MVCMTQa2Model.Store.touchpointPartnerTypeQuestionnaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="partnerType">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="touchpointPartnerTypeQuestionnaire">
+        <PropertyRef Name="partnerType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire">
+    <End Role="questionnaire" Type="hs3MVCMTQa2Model.Store.questionnaire" Multiplicity="1" />
+    <End Role="touchpointPartnerTypeQuestionnaire" Type="hs3MVCMTQa2Model.Store.touchpointPartnerTypeQuestionnaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="questionnaire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="touchpointPartnerTypeQuestionnaire">
+        <PropertyRef Name="questionnaire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint">
+    <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
+    <End Role="touchpointPartnerTypeQuestionnaire" Type="hs3MVCMTQa2Model.Store.touchpointPartnerTypeQuestionnaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="touchpoint">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="touchpointPartnerTypeQuestionnaire">
+        <PropertyRef Name="touchpoint" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-  <Function Name="GenerateSPforInsertUpdateDelete2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="Schemaname" Type="nvarchar" Mode="In" />
-    <Parameter Name="Tablename" Type="nvarchar" Mode="In" />
-    <Parameter Name="ProcName" Type="nvarchar" Mode="In" />
-    <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
+  <Function Name="pr_addAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="eplsCountryID" Type="int" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="code" Type="varchar" Mode="In" />
+    <Parameter Name="governanceCode" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_addEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="description" Type="varchar" Mode="In" />
@@ -402,7 +1724,6 @@
     <Parameter Name="companyName" Type="varchar" Mode="In" />
     <Parameter Name="instanceName" Type="varchar" Mode="In" />
     <Parameter Name="archivedDate" Type="date" Mode="In" />
-    <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_addEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="systemExpiry" Type="smalldatetime" Mode="In" />
@@ -415,6 +1736,130 @@
     <Parameter Name="logoImage" Type="varchar" Mode="In" />
     <Parameter Name="configured" Type="bit" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="groupCollection" Type="int" Mode="In" />
+    <Parameter Name="author" Type="int" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="dateCreated" Type="datetime" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addGroupCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="originalName" Type="varchar" Mode="In" />
+    <Parameter Name="flagImage" Type="varbinary" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="languageCode" Type="varchar" Mode="In" />
+    <Parameter Name="languageName" Type="varchar" Mode="In" />
+    <Parameter Name="languageFlag" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_addPageSurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="page" Type="int" Mode="In" />
+    <Parameter Name="surveyset" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="internalID" Type="varchar" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="address1" Type="varchar" Mode="In" />
+    <Parameter Name="address2" Type="varchar" Mode="In" />
+    <Parameter Name="city" Type="varchar" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+    <Parameter Name="province" Type="varchar" Mode="In" />
+    <Parameter Name="zipcode" Type="varchar" Mode="In" />
+    <Parameter Name="country" Type="int" Mode="In" />
+    <Parameter Name="phone" Type="varchar" Mode="In" />
+    <Parameter Name="fax" Type="varchar" Mode="In" />
+    <Parameter Name="firstName" Type="varchar" Mode="In" />
+    <Parameter Name="lastName" Type="varchar" Mode="In" />
+    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="dunsNumber" Type="varchar" Mode="In" />
+    <Parameter Name="federalID" Type="varchar" Mode="In" />
+    <Parameter Name="status" Type="int" Mode="In" />
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+    <Parameter Name="owner" Type="int" Mode="In" />
+    <Parameter Name="author" Type="int" Mode="In" />
+    <Parameter Name="dateApproved" Type="smalldatetime" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="lastModified" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="pr_addPartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+    <Parameter Name="businessDescription" Type="varchar" Mode="In" />
+    <Parameter Name="taxExemptId" Type="nchar" Mode="In" />
+    <Parameter Name="alias" Type="varchar" Mode="In" />
+    <Parameter Name="ssn" Type="varchar" Mode="In" />
+    <Parameter Name="corp" Type="bit" Mode="In" />
+    <Parameter Name="taxExemptEntity" Type="bit" Mode="In" />
+    <Parameter Name="us" Type="bit" Mode="In" />
+    <Parameter Name="astate" Type="bit" Mode="In" />
+    <Parameter Name="foreignGovernment" Type="bit" Mode="In" />
+    <Parameter Name="naicsCode" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_addPartnerCorpW9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+    <Parameter Name="w9Person" Type="varchar" Mode="In" />
+    <Parameter Name="w9Title" Type="varchar" Mode="In" />
+    <Parameter Name="w9AuthorizedSignature" Type="varchar" Mode="In" />
+    <Parameter Name="w9DateSigned" Type="datetime" Mode="In" />
+    <Parameter Name="w9Phone" Type="varchar" Mode="In" />
+    <Parameter Name="w9Address" Type="varchar" Mode="In" />
+    <Parameter Name="w9City" Type="varchar" Mode="In" />
+    <Parameter Name="w9State" Type="int" Mode="In" />
+    <Parameter Name="w9ZipCode" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_addPartnerEPLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+    <Parameter Name="EPLSCheckedBy" Type="int" Mode="In" />
+    <Parameter Name="EPLSCheckedDate" Type="datetime" Mode="In" />
+    <Parameter Name="EPLSStatus" Type="int" Mode="In" />
+    <Parameter Name="epls" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addPartnerRelationshipowner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+    <Parameter Name="person" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addPartnerremitaddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+    <Parameter Name="remitAddress1" Type="varchar" Mode="In" />
+    <Parameter Name="remitAddress2" Type="varchar" Mode="In" />
+    <Parameter Name="remitCity" Type="varchar" Mode="In" />
+    <Parameter Name="remitState" Type="int" Mode="In" />
+    <Parameter Name="remitProvince" Type="varchar" Mode="In" />
+    <Parameter Name="remitZipCode" Type="varchar" Mode="In" />
+    <Parameter Name="remitCountry" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addPartnerType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="alias" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="partnerClass" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_addPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -446,13 +1891,134 @@
     <Parameter Name="ismanager" Type="int" Mode="In" />
     <Parameter Name="partnerPerPage" Type="int" Mode="In" />
     <Parameter Name="resetDate" Type="datetime" Mode="In" />
-    <Parameter Name="IsArchived1" Type="bit" Mode="In" />
     <Parameter Name="archivedDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="pr_addPersonGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="group" Type="int" Mode="In" />
+    <Parameter Name="person" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addPersonRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="accessLevel" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="access" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_addPersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="description" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_addProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="menuGroup" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="abbreviation" Type="varchar" Mode="In" />
+    <Parameter Name="background" Type="varchar" Mode="In" />
+    <Parameter Name="purpose" Type="varchar" Mode="In" />
+    <Parameter Name="summary" Type="varchar" Mode="In" />
+    <Parameter Name="agency" Type="int" Mode="In" />
+    <Parameter Name="admin" Type="int" Mode="In" />
+    <Parameter Name="sponsor" Type="int" Mode="In" />
+    <Parameter Name="domain" Type="int" Mode="In" />
+    <Parameter Name="validationRequested" Type="varchar" Mode="In" />
+    <Parameter Name="keyBenefits" Type="varchar" Mode="In" />
+    <Parameter Name="keyWords" Type="varchar" Mode="In" />
+    <Parameter Name="startDate" Type="datetime" Mode="In" />
+    <Parameter Name="endDate" Type="datetime" Mode="In" />
+    <Parameter Name="bestPractice" Type="varchar" Mode="In" />
+    <Parameter Name="riskBenefits" Type="varchar" Mode="In" />
+    <Parameter Name="checkList" Type="varchar" Mode="In" />
+    <Parameter Name="removeWithoutTouchpointExpiry" Type="bit" Mode="In" />
+    <Parameter Name="removeWithoutNotice" Type="bit" Mode="In" />
+    <Parameter Name="isLimited" Type="bit" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="varchar(max)" Mode="In" />
+    <Parameter Name="name" Type="varchar(max)" Mode="In" />
+    <Parameter Name="title" Type="varchar(max)" Mode="In" />
+    <Parameter Name="tag" Type="varchar" Mode="In" />
+    <Parameter Name="responseType" Type="int" Mode="In" />
+    <Parameter Name="required" Type="int" Mode="In" />
+    <Parameter Name="skipLogicAnswer" Type="bit" Mode="In" />
+    <Parameter Name="skipLogicJump" Type="varchar" Mode="In" />
+    <Parameter Name="accessLevel" Type="int" Mode="In" />
+    <Parameter Name="commentRequired" Type="int" Mode="In" />
+    <Parameter Name="commentBoxTxt" Type="varchar" Mode="In" />
+    <Parameter Name="commentUploadTxt" Type="varchar" Mode="In" />
+    <Parameter Name="commentType" Type="int" Mode="In" />
+    <Parameter Name="spinOffQuestionnaire" Type="char" Mode="In" />
+    <Parameter Name="spinOffQID" Type="int" Mode="In" />
+    <Parameter Name="emailAlert" Type="char" Mode="In" />
+    <Parameter Name="emailAlertList" Type="varchar(max)" Mode="In" />
+    <Parameter Name="updated" Type="int" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addQuestionLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="person" Type="int" Mode="In" />
+    <Parameter Name="partnerType" Type="int" Mode="In" />
+    <Parameter Name="letter" Type="int" Mode="In" />
+    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="footer" Type="varchar" Mode="In" />
+    <Parameter Name="locked" Type="int" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+    <Parameter Name="multiLanguage" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addQuestionnairelevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addQuestionnairePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+    <Parameter Name="page" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="response" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addQuestionRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="rule" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addQuestionTranslation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="language" Type="int" Mode="In" />
+    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_addResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addResponseLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="response" Type="int" Mode="In" />
+    <Parameter Name="language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addResponseTranslation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="response" Type="int" Mode="In" />
+    <Parameter Name="language" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="pr_addResponseType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_addRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="description" Type="varchar" Mode="In" />
@@ -462,13 +2028,91 @@
     <Parameter Name="enterprise" Type="int" Mode="In" />
     <Parameter Name="access" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_addUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="accessLevel" Type="int" Mode="In" />
+  <Function Name="pr_addRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="ruleType" Type="int" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
-    <Parameter Name="access" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addRuleType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StateCode" Type="varchar" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="display" Type="int" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="creationDate" Type="datetime" Mode="In" />
+    <Parameter Name="lastModifiedDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="pr_addSurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="accessLevel" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addSurveysetSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="surveySet" Type="int" Mode="In" />
+    <Parameter Name="survey" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="protocol" Type="int" Mode="In" />
+    <Parameter Name="person" Type="int" Mode="In" />
+    <Parameter Name="sponsor" Type="int" Mode="In" />
+    <Parameter Name="admin" Type="int" Mode="In" />
+    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="abbreviation" Type="varchar" Mode="In" />
+    <Parameter Name="startDate" Type="datetime" Mode="In" />
+    <Parameter Name="endDate" Type="datetime" Mode="In" />
+    <Parameter Name="automaticReminder" Type="bit" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addTouchpointGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="touchpoint" Type="int" Mode="In" />
+    <Parameter Name="group" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_archiveEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveGroupCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archivelanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archivePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archivePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archivePartnerType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_archivePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -477,7 +2121,43 @@
   <Function Name="pr_archivePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_archiveProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveQuestionnaireLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveResponseType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_archiveRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveRuleType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveSurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_doLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -495,7 +2175,54 @@
   <Function Name="pr_getAccesscode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="access" Type="varchar" Mode="InOut" />
   </Function>
+  <Function Name="pr_getAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getAgencyAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getCountryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getEnterpriseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getGroupAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getGroupByPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="person" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getGroupByTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="touchpoint" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getGroupCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getGroupCollectionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getLanguageAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getLanguageByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getLanguageByResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="response" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getLanguageinfoAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getObjectNameByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -508,6 +2235,46 @@
   <Function Name="pr_getObjectNameByEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
     <Parameter Name="objectName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_getPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPageAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getPageByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPageBySurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="surveyset" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getParnterType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnerAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnerByRelationshipowner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="person" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnerCorpW9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnerEPLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnerrRemitAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnerType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnerTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="person" Type="int" Mode="In" />
@@ -522,8 +2289,11 @@
     <Parameter Name="email" Type="varchar" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_getPersonByEmailForLoginAttemps" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_getPersonByEmailForLoginAttempts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="email" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="group" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getPersonByInternalID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="internalID" Type="varchar" Mode="In" />
@@ -543,6 +2313,9 @@
   <Function Name="pr_getPersonColumnHeader" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="pr_getPersonColumnNameByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonCountAllByRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getPersonCountByAllRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -604,6 +2377,71 @@
   <Function Name="pr_getPersonRoleAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_getProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getProtocolAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionByLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionByResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="response" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionByRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="rule" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionBySurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="survey" Type="int" Mode="In" />
+    <Parameter Name="question" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionByTranslation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="translation" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionnaireAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionnaireByPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="page" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionnaireLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionnaireLevelAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getRelationshipownerByPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getResponseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getResponseByLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getResponseByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getResponseByTranslation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="translation" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getResponseType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getResponseTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="roleName" Type="varchar" Mode="In" />
     <Parameter Name="id" Type="int" Mode="InOut" />
@@ -621,7 +2459,27 @@
     <Parameter Name="roleName" Type="varchar" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_getStateAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getRuleAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getRuleByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getRuleType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getRuletypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getStateAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getStateByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
@@ -632,10 +2490,59 @@
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="stateName" Type="char" Mode="InOut" />
   </Function>
+  <Function Name="pr_getSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getSurveyAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getSurveyByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getSurveyBySurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="surveyset" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getSurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getSurveysetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getSurveysetByPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="page" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getSurveysetBySurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="survey" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_getTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getTouchpointAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getTouchpointByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="group" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getTranslationByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getTranslationByResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="response" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="eplsCountryID" Type="int" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="code" Type="varchar" Mode="In" />
+    <Parameter Name="governanceCode" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
   <Function Name="pr_modifyEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="description" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
@@ -644,7 +2551,6 @@
     <Parameter Name="companyName" Type="varchar" Mode="In" />
     <Parameter Name="instanceName" Type="varchar" Mode="In" />
     <Parameter Name="archivedDate" Type="date" Mode="In" />
-    <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_modifyEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="systemExpiry" Type="smalldatetime" Mode="In" />
@@ -658,6 +2564,128 @@
     <Parameter Name="configured" Type="bit" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
     <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="groupCollection" Type="int" Mode="In" />
+    <Parameter Name="author" Type="int" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="dateCreated" Type="datetime" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyGroupCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="originalName" Type="varchar" Mode="In" />
+    <Parameter Name="flagImage" Type="varbinary" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="languageCode" Type="varchar" Mode="In" />
+    <Parameter Name="languageName" Type="varchar" Mode="In" />
+    <Parameter Name="languageFlag" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="internalID" Type="varchar" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="address1" Type="varchar" Mode="In" />
+    <Parameter Name="address2" Type="varchar" Mode="In" />
+    <Parameter Name="city" Type="varchar" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+    <Parameter Name="province" Type="varchar" Mode="In" />
+    <Parameter Name="zipcode" Type="varchar" Mode="In" />
+    <Parameter Name="country" Type="int" Mode="In" />
+    <Parameter Name="phone" Type="varchar" Mode="In" />
+    <Parameter Name="fax" Type="varchar" Mode="In" />
+    <Parameter Name="firstName" Type="varchar" Mode="In" />
+    <Parameter Name="lastName" Type="varchar" Mode="In" />
+    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="dunsNumber" Type="varchar" Mode="In" />
+    <Parameter Name="federalID" Type="varchar" Mode="In" />
+    <Parameter Name="status" Type="int" Mode="In" />
+    <Parameter Name="loadHistory" Type="int" Mode="In" />
+    <Parameter Name="owner" Type="int" Mode="In" />
+    <Parameter Name="author" Type="int" Mode="In" />
+    <Parameter Name="dateApproved" Type="smalldatetime" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="lastModified" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+    <Parameter Name="businessDescription" Type="varchar" Mode="In" />
+    <Parameter Name="taxExemptId" Type="nchar" Mode="In" />
+    <Parameter Name="alias" Type="varchar" Mode="In" />
+    <Parameter Name="ssn" Type="varchar" Mode="In" />
+    <Parameter Name="corp" Type="bit" Mode="In" />
+    <Parameter Name="taxExemptEntity" Type="bit" Mode="In" />
+    <Parameter Name="us" Type="bit" Mode="In" />
+    <Parameter Name="astate" Type="bit" Mode="In" />
+    <Parameter Name="foreignGovernment" Type="bit" Mode="In" />
+    <Parameter Name="naicsCode" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPartnerCorpW9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+    <Parameter Name="w9Person" Type="varchar" Mode="In" />
+    <Parameter Name="w9Title" Type="varchar" Mode="In" />
+    <Parameter Name="w9AuthorizedSignature" Type="varchar" Mode="In" />
+    <Parameter Name="w9DateSigned" Type="datetime" Mode="In" />
+    <Parameter Name="w9Phone" Type="varchar" Mode="In" />
+    <Parameter Name="w9Address" Type="varchar" Mode="In" />
+    <Parameter Name="w9City" Type="varchar" Mode="In" />
+    <Parameter Name="w9State" Type="int" Mode="In" />
+    <Parameter Name="w9ZipCode" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPartnerEPLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+    <Parameter Name="EPLSCheckedBy" Type="int" Mode="In" />
+    <Parameter Name="EPLSCheckedDate" Type="datetime" Mode="In" />
+    <Parameter Name="EPLSStatus" Type="int" Mode="In" />
+    <Parameter Name="epls" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPartnerremitaddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="partner" Type="int" Mode="In" />
+    <Parameter Name="remitAddress1" Type="varchar" Mode="In" />
+    <Parameter Name="remitAddress2" Type="varchar" Mode="In" />
+    <Parameter Name="remitCity" Type="varchar" Mode="In" />
+    <Parameter Name="remitState" Type="int" Mode="In" />
+    <Parameter Name="remitProvince" Type="varchar" Mode="In" />
+    <Parameter Name="remitZipCode" Type="varchar" Mode="In" />
+    <Parameter Name="remitCountry" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyPartnerType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="alias" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="partnerClass" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_modifyPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -704,6 +2732,89 @@
     <Parameter Name="loadHistory" Type="int" Mode="In" />
     <Parameter Name="status" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_modifyProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="menuGroup" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="abbreviation" Type="varchar" Mode="In" />
+    <Parameter Name="background" Type="varchar" Mode="In" />
+    <Parameter Name="purpose" Type="varchar" Mode="In" />
+    <Parameter Name="summary" Type="varchar" Mode="In" />
+    <Parameter Name="agency" Type="int" Mode="In" />
+    <Parameter Name="admin" Type="int" Mode="In" />
+    <Parameter Name="sponsor" Type="int" Mode="In" />
+    <Parameter Name="domain" Type="int" Mode="In" />
+    <Parameter Name="validationRequested" Type="varchar" Mode="In" />
+    <Parameter Name="keyBenefits" Type="varchar" Mode="In" />
+    <Parameter Name="keyWords" Type="varchar" Mode="In" />
+    <Parameter Name="startDate" Type="datetime" Mode="In" />
+    <Parameter Name="endDate" Type="datetime" Mode="In" />
+    <Parameter Name="bestPractice" Type="varchar" Mode="In" />
+    <Parameter Name="riskBenefits" Type="varchar" Mode="In" />
+    <Parameter Name="checkList" Type="varchar" Mode="In" />
+    <Parameter Name="removeWithoutTouchpointExpiry" Type="bit" Mode="In" />
+    <Parameter Name="removeWithoutNotice" Type="bit" Mode="In" />
+    <Parameter Name="isLimited" Type="bit" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="question" Type="varchar(max)" Mode="In" />
+    <Parameter Name="name" Type="varchar(max)" Mode="In" />
+    <Parameter Name="title" Type="varchar(max)" Mode="In" />
+    <Parameter Name="tag" Type="varchar" Mode="In" />
+    <Parameter Name="responseType" Type="int" Mode="In" />
+    <Parameter Name="required" Type="int" Mode="In" />
+    <Parameter Name="skipLogicAnswer" Type="bit" Mode="In" />
+    <Parameter Name="skipLogicJump" Type="varchar" Mode="In" />
+    <Parameter Name="accessLevel" Type="int" Mode="In" />
+    <Parameter Name="commentRequired" Type="int" Mode="In" />
+    <Parameter Name="commentBoxTxt" Type="varchar" Mode="In" />
+    <Parameter Name="commentUploadTxt" Type="varchar" Mode="In" />
+    <Parameter Name="commentType" Type="int" Mode="In" />
+    <Parameter Name="spinOffQuestionnaire" Type="char" Mode="In" />
+    <Parameter Name="spinOffQID" Type="int" Mode="In" />
+    <Parameter Name="emailAlert" Type="char" Mode="In" />
+    <Parameter Name="emailAlertList" Type="varchar(max)" Mode="In" />
+    <Parameter Name="updated" Type="int" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="person" Type="int" Mode="In" />
+    <Parameter Name="partnerType" Type="int" Mode="In" />
+    <Parameter Name="letter" Type="int" Mode="In" />
+    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="footer" Type="varchar" Mode="In" />
+    <Parameter Name="locked" Type="int" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+    <Parameter Name="multiLanguage" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyQuestionnaireLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyResponseType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
   <Function Name="pr_modifyRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="description" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -713,8 +2824,60 @@
     <Parameter Name="access" Type="int" Mode="In" />
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_modifyRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="ruleType" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyRuleType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="StateCode" Type="varchar" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_modifySurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="display" Type="int" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="creationDate" Type="datetime" Mode="In" />
+    <Parameter Name="lastModifiedDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="pr_modifySurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="accessLevel" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_modifySystemExpiry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="systemExpiry" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="protocol" Type="int" Mode="In" />
+    <Parameter Name="person" Type="int" Mode="In" />
+    <Parameter Name="sponsor" Type="int" Mode="In" />
+    <Parameter Name="admin" Type="int" Mode="In" />
+    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="abbreviation" Type="varchar" Mode="In" />
+    <Parameter Name="startDate" Type="datetime" Mode="In" />
+    <Parameter Name="endDate" Type="datetime" Mode="In" />
+    <Parameter Name="automaticReminder" Type="bit" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_modifyUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -722,32 +2885,225 @@
     <Parameter Name="access" Type="int" Mode="In" />
     <Parameter Name="accessLevel" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_removeAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_removeEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_removeEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_removeGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeGroupCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removePageSurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="page" Type="int" Mode="In" />
+    <Parameter Name="surveyset" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removePartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removePartnerCorpW9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removePartnerEPLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removePartnerRelationshipowner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+    <Parameter Name="person" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removePartnerRemitAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partner" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removePartnerType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_removePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_removePersonGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="person" Type="int" Mode="In" />
+    <Parameter Name="group" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_removePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeQuestionLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeQuestionnaireLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeQuestionnairePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+    <Parameter Name="page" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="response" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeQuestionRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="rule" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeQuestionTranslation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeResponseLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="response" Type="int" Mode="In" />
+    <Parameter Name="language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeResponseTranslation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="response" Type="int" Mode="In" />
+    <Parameter Name="language" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeResponseType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_removeRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_removeRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeRuleType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeSurveyQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="survey" Type="int" Mode="In" />
+    <Parameter Name="question" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeSurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeSurveysetSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="surveySet" Type="int" Mode="In" />
+    <Parameter Name="survey" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeTouchpointGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="touchpoint" Type="int" Mode="In" />
+    <Parameter Name="group" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_removeUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_unArchiveEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_unArchiveGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveGroupCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchivePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchivePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchivePartnerType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_unArchivePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveQuestionnaireLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveResponseType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_unArchiveRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveRuleType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveSurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ProperCase" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Text" Type="varchar" Mode="In" />
   </Function>
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -779,7 +3135,37 @@
     <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="xx__GenerateSPforInsertUpdateDelete25" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Schemaname" Type="nvarchar" Mode="In" />
+    <Parameter Name="Tablename" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProcName" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="xx_generateSPforInsertUpdateDelete_MM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Schemaname" Type="nvarchar" Mode="In" />
+    <Parameter Name="Tablename" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProcName" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
+  </Function>
   <Function Name="xx_generateSPforInsertUpdateDelete2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Schemaname" Type="nvarchar" Mode="In" />
+    <Parameter Name="Tablename" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProcName" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="xx_generateSPforInsertUpdateDeleteNew" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Schemaname" Type="nvarchar" Mode="In" />
+    <Parameter Name="Tablename" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProcName" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="xx_generateSPforInsertUpdateDeleteTest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Schemaname" Type="nvarchar" Mode="In" />
+    <Parameter Name="Tablename" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProcName" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="xx_generateSPforInsertUpdateDeleteTest2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Schemaname" Type="nvarchar" Mode="In" />
     <Parameter Name="Tablename" Type="nvarchar" Mode="In" />
     <Parameter Name="ProcName" Type="nvarchar" Mode="In" />
@@ -787,6 +3173,47 @@
   </Function>
   <Function Name="xx_getLastDBModified" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <!--Errors Found During Generation:
+      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerCorpInfo' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="partnerCorpInfo">
+        <Property Name="partner" Type="int" />
+        <Property Name="businessDescription" Type="varchar" MaxLength="1000" />
+        <Property Name="taxExemptId" Type="nchar" MaxLength="10" />
+        <Property Name="alias" Type="varchar" MaxLength="255" />
+        <Property Name="ssn" Type="varchar" MaxLength="15" />
+        <Property Name="corp" Type="bit" />
+        <Property Name="taxExemptEntity" Type="bit" />
+        <Property Name="us" Type="bit" />
+        <Property Name="astate" Type="bit" />
+        <Property Name="foreignGovernment" Type="bit" />
+        <Property Name="naicsCode" Type="varchar" MaxLength="20" />
+      </EntityType>
+      Errors Found During Generation:
+      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerCorpW9' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="partnerCorpW9">
+        <Property Name="partner" Type="int" />
+        <Property Name="w9Person" Type="varchar" MaxLength="50" />
+        <Property Name="w9Title" Type="varchar" MaxLength="50" />
+        <Property Name="w9AuthorizedSignature" Type="varchar" MaxLength="50" />
+        <Property Name="w9DateSigned" Type="datetime" />
+        <Property Name="w9Phone" Type="varchar" MaxLength="20" />
+        <Property Name="w9Address" Type="varchar" MaxLength="200" />
+        <Property Name="w9City" Type="varchar" MaxLength="20" />
+        <Property Name="w9State" Type="int" />
+        <Property Name="w9ZipCode" Type="varchar" MaxLength="20" />
+      </EntityType>
+      Errors Found During Generation:
+      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerEPLS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="partnerEPLS">
+        <Property Name="partner" Type="int" />
+        <Property Name="EPLSCheckedBy" Type="int" />
+        <Property Name="EPLSCheckedDate" Type="datetime" />
+        <Property Name="EPLSStatus" Type="int" />
+        <Property Name="epls" Type="int" />
+      </EntityType>
+      Errors Found During Generation:
       warning 6013: The table/view 'hs3MVCMTQa2.dbo.personRelationship' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
       
       <EntityType Name="personRelationship">

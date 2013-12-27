@@ -16,7 +16,7 @@ namespace Generic
     {
         public personLoginAuditEvent()
         {
-            this.personLoginAudits = new HashSet<personLoginAudit>();
+            this.personLoginAudit = new HashSet<personLoginAudit>();
         }
     
         public int id { get; set; }
@@ -24,6 +24,6 @@ namespace Generic
         public Nullable<int> sortOrder { get; set; }
         public Nullable<bool> active { get; set; }
     
-        public virtual ICollection<personLoginAudit> personLoginAudits { get; set; }
+        public virtual ICollection<personLoginAudit> personLoginAudit { get; set; }
     }
 }

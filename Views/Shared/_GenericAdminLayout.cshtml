@@ -119,7 +119,7 @@ type="text/javascript"></script>
 type="text/javascript"></script>
 <link href="@Url.Content("~/Contents/css/gfdynamicfeedcontroller.css")" type="text/css" rel="stylesheet" /></head>
 <body>
-<form name="aspnetForm" method="post" action="home.aspx" id="aspnetForm">
+
 <div>
 <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
 <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
@@ -195,7 +195,7 @@ if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side frame
             <ul id="qm0" class="qmmc">
             <li><a href='javascript: void(0)'>&nbsp;&nbsp;User</a><ul>
             <li><a href='#'>Add</a><ul>
-            <li><a href='#'>User</a><ul><li><a href='userForm.aspx?actionType=1'>Manual</a></li>
+            <li><a href='#'>User</a><ul><li><a href='~/User/Index?ActionType=1'>Manual</a></li>
             <li><a href='uploadSpreadSheet.aspx?type=User'>Spreadsheet</a></li>
             </ul></li>
             <li><a href='userRoleForm.aspx?actionType=1'>User Role</a></li>
@@ -447,6 +447,7 @@ if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side frame
             </ul></li>
             <li><a href='javascript: void(0)'>&nbsp;&nbsp;&nbsp;System</a><ul>
             <li><a href='systemInfoForm.aspx?actionType=0'>System Info</a></li>
+                 <li><a href='~/Enterprise/'>Enterprise</a></li>
             </ul></li>
 
             <li class="qmclear">&nbsp;</li>
@@ -598,8 +599,16 @@ if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side frame
             </div></span>
         </div></td><td style="display:none;width:4px;padding:0px;margin:0px;height:100%;vertical-align:middle;background-color:#ECE9D8;"><div id="ctl00_contentRightBottom_ReportViewer2_ctl08">
             <input type="image" name="ctl00$contentRightBottom$ReportViewer2$ctl08$img" id="ctl00_contentRightBottom_ReportViewer2_ctl08_img" title="Show / Hide Document Map" src="/Contents//intellegesHs3Intelleges/Reserved.ReportViewerWebControl.axd?OpType=Resource&amp;Version=10.0.30319.1&amp;Name=Microsoft.Reporting.WebForms.Icons.SplitterVertCollapse.png" alt="Show / Hide Document Map" align="top" onclick="void(0);" style="border-width:0px;cursor:pointer;" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl08$store" id="ctl00_contentRightBottom_ReportViewer2_ctl08_store" /><input type="hidden" name="ctl00$contentRightBottom$ReportViewer2$ctl08$collapse" id="ctl00_contentRightBottom_ReportViewer2_ctl08_collapse" value="false" />
-        </div></td><td style="height:100%;vertical-align:top;"><div id="ctl00_contentRightBottom_ReportViewer2_ctl10" style="height:100%;width:100%;overflow:auto;position:relative;">
-            <div id="VisibleReportContentctl00_contentRightBottom_ReportViewer2_ctl10" style="height:100%;display:none;">
+        </div></td><td style="height:100%;vertical-align:top;">
+            
+            <div id="ctl00_contentRightBottom_ReportViewer2_ctl10" style="height:100%;width:100%;overflow:auto;position:relative;">
+          
+                 @RenderSection("contentRightBottom", required: false)
+                
+                
+                
+                
+                  @*<div id="VisibleReportContentctl00_contentRightBottom_ReportViewer2_ctl10" style="height:100%;display:none;">
 
             </div><div id="ctl00_contentRightBottom_ReportViewer2_ctl10_ReportArea">
                 <div NewContentType="Microsoft.Reporting.WebFormsClient.ReportAreaContent.None" ForNonReportContentArea="false" id="ctl00_contentRightBottom_ReportViewer2_ctl10_VisibilityState" style="visibility:none;">
@@ -609,7 +618,7 @@ if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side frame
                 </div><div id="ctl00_contentRightBottom_ReportViewer2_ctl10_NonReportContent" style="height:100%;width:100%;">
 
                 </div>
-            </div>
+            </div>*@
         </div></td>
         </tr>
         </table>
@@ -733,7 +742,7 @@ $create(Microsoft.Reporting.WebFormsClient._ReportPage, {"HiddenZoomLevelId":"ct
 
 
 
-</form>
+
 </body>
 </html>
 

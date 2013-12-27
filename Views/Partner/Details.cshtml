@@ -1,0 +1,192 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.partner>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Partner";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>partner</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.enterprise1.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.enterprise1.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.internalID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.internalID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.address1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.address1)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.address2)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.address2)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.city)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.city)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.state)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.state)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.province)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.province)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.zipcode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.zipcode)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.country)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.country)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.phone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.phone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.fax)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.fax)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.firstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.firstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.lastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.lastName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dunsNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dunsNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.federalID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.federalID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.status)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.status)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.loadHistory)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.loadHistory)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.owner)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.owner)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.author)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.author)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dateApproved)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dateApproved)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.active)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.active)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.lastModified)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.lastModified)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

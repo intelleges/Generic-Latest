@@ -1,0 +1,111 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.group>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Group";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>group</legend>
+
+        @Html.HiddenFor(model => model.id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.enterprise, "enterprise1")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("enterprise", String.Empty)
+            @Html.ValidationMessageFor(model => model.enterprise)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.groupCollection, "groupCollection1")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("groupCollection", String.Empty)
+            @Html.ValidationMessageFor(model => model.groupCollection)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.author)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.author)
+            @Html.ValidationMessageFor(model => model.author)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.state)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.state)
+            @Html.ValidationMessageFor(model => model.state)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.dateCreated)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.dateCreated)
+            @Html.ValidationMessageFor(model => model.dateCreated)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.sortOrder)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.sortOrder)
+            @Html.ValidationMessageFor(model => model.sortOrder)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.active)
+            @Html.ValidationMessageFor(model => model.active)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

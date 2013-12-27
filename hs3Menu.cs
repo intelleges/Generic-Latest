@@ -25,5 +25,8 @@ namespace Generic
         public Nullable<int> menuGroup { get; set; }
         public Nullable<bool> isDynamicCreated { get; set; }
         public Nullable<int> device { get; set; }
+        public Nullable<int> enterprise { get; set; }
+    
+        public virtual enterprise enterprise1 { get; set; }
     }
 }

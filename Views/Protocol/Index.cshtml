@@ -1,0 +1,179 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.protocol>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Protocol";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.menuGroup)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.enterprise1.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.abbreviation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.background)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.purpose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.summary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.agency)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.person.internalId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.person1.internalId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.domain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.validationRequested)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.keyBenefits)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.keyWords)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.endDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bestPractice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.riskBenefits)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.checkList)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.removeWithoutTouchpointExpiry)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.removeWithoutNotice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isLimited)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sortOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.active)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.menuGroup)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.enterprise1.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.abbreviation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.background)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.purpose)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.summary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.agency)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.person.internalId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.person1.internalId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.domain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.validationRequested)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.keyBenefits)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.keyWords)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.endDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bestPractice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.riskBenefits)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.checkList)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.removeWithoutTouchpointExpiry)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.removeWithoutNotice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isLimited)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sortOrder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.active)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

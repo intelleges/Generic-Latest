@@ -16,8 +16,13 @@ namespace Generic
     {
         public person()
         {
-            this.personLoginAudits = new HashSet<personLoginAudit>();
-            this.personSearchCounts = new HashSet<personSearchCount>();
+            this.group = new HashSet<group>();
+            this.personLoginAudit = new HashSet<personLoginAudit>();
+            this.personSearchCount = new HashSet<personSearchCount>();
+            this.protocol = new HashSet<protocol>();
+            this.protocol1 = new HashSet<protocol>();
+            this.partner = new HashSet<partner>();
+            this.group1 = new HashSet<group>();
         }
     
         public int id { get; set; }
@@ -54,9 +59,14 @@ namespace Generic
         public Nullable<System.DateTime> archivedDate { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
-        public virtual personStatu personStatu { get; set; }
+        public virtual ICollection<group> group { get; set; }
+        public virtual personStatus personStatus1 { get; set; }
         public virtual role role1 { get; set; }
-        public virtual ICollection<personLoginAudit> personLoginAudits { get; set; }
-        public virtual ICollection<personSearchCount> personSearchCounts { get; set; }
+        public virtual ICollection<personLoginAudit> personLoginAudit { get; set; }
+        public virtual ICollection<personSearchCount> personSearchCount { get; set; }
+        public virtual ICollection<protocol> protocol { get; set; }
+        public virtual ICollection<protocol> protocol1 { get; set; }
+        public virtual ICollection<partner> partner { get; set; }
+        public virtual ICollection<group> group1 { get; set; }
     }
 }

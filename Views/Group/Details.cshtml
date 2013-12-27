@@ -1,0 +1,87 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.group>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Group";
+}
+
+<h2>Group Detail</h2>
+
+<fieldset>
+    <legend>group</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.enterprise1.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.enterprise1.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.groupCollection1.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.groupCollection1.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.author)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.author)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.state)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.state)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dateCreated)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dateCreated)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.sortOrder)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.sortOrder)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.active)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.active)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

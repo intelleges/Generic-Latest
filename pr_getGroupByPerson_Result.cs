@@ -11,7 +11,7 @@ namespace Generic
 {
     using System;
     
-    public partial class pr_getPersonByEmailForLoginAttemps_Result
+    public partial class pr_getGroupByPerson_Result
     {
         public int id { get; set; }
         public Nullable<int> enterprise { get; set; }
@@ -45,5 +45,16 @@ namespace Generic
         public Nullable<System.DateTime> resetDate { get; set; }
         public Nullable<bool> IsArchived { get; set; }
         public Nullable<System.DateTime> archivedDate { get; set; }
+        public int id1 { get; set; }
+        public Nullable<int> enterprise1 { get; set; }
+        public int groupCollection { get; set; }
+        public Nullable<int> author { get; set; }
+        public Nullable<int> state1 { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public string email1 { get; set; }
+        public Nullable<System.DateTime> dateCreated { get; set; }
+        public Nullable<int> sortOrder { get; set; }
+        public Nullable<int> active1 { get; set; }
     }
 }

@@ -1,152 +1,179 @@
-﻿@inherits System.Web.Mvc.WebViewPage
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable< Generic.partner>>
 @using System.Web.Mvc.Html
+@using Generic.Helpers
 @{
-    Layout = "~/tmp/Views/Shared/_LayoutMasterPartner.cshtml";   
-   // ViewBag.Title = "View1";
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Partner";
 }
 
-@section BottomFooter{
-    <div class="supplyfot">
-                <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td height="60">
-                            &nbsp;
-                        </td>
-                    </tr>
-                </table>
-            </div>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.enterprise1.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.internalID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.state)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.province)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.zipcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.firstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dunsNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.federalID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.loadHistory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.owner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateApproved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastModified)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.enterprise1.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.internalID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.state)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.province)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.zipcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.country)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.firstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dunsNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.federalID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.loadHistory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.owner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateApproved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastModified)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
 }
 
-@section Top{
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td height="77" valign="top">
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tr>
-                                    <td width="76%" align="right" valign="top" class="supplytitleblueone">
-                                        <span id="ctl00_lblSurvey"> Trial Registration for Conflict Minerals</span>
-                                    </td>
-                                    <td width="13%" height="106" valign="bottom">
-                                        <img src="~/Contents/images/tickmark.gif"  alt="" width="95" height="89" class="surveyban" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        
-                    </tr>
-                    <tr>
-                        <td height="119" valign="top">
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tr>
-                                    <td valign="top">
-                                        <table width="400" border="0" align="center" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td class="supplyleft">
-                                                    &nbsp;
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                              <!-- <td class="supplyleft">
-                                                    Honeywell Site Security Survey is designed to capture information about your site’s
-                                                    practices pertaining to safeguarding the supply chain.
-                                                </td>-->
-                                                <td class="supplyleft">
-                                              
-                                                <div id="ctl00_RegistrationPageText">Intelleges <b>3TG/Conflict Minerals Readiness Questionnaire</b> is designed to capture information about your company's readiness pertaining to compliance with SEC Dodd-Frank Section 1502 Conflict Minerals rule.</div>
-
-
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td valign="top">
-                                        
-                                        <table width="400" border="0" align="center" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td class="supplyright">
-                                                    &nbsp;
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="supplyright">
-
-                                                 <span style="color: #0096c9;">Instructions:</span> 
-                                                 <div id="ctl00_RegistrationPageInstruction">Enter your access code (found in your invitation email) below to complete the <b>3TG/Conflict Minerals Readiness Questionnaire</b>. </div>
-
-
-
-                                                   
-                                                    <!--<span style="color: #0096c9;">Instructions:</span> Enter your access code (found in your invitation email) below to complete Honeywell’s Site Security Survey.-->
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-}
-<table width="416" height="281" border="0" align="center" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td valign="top" class="infologin">
-                                     <table width="320" border="0" align="center" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td width="308" height="116">
-                                                &nbsp;
-                                            </td>
-                                            <td width="12" height="142" rowspan="2">
-                                                &nbsp;
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td height="28" class="infologintitle">
-                                                Please enter your access code:
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                &nbsp;
-                                            </td>
-                                            <td>
-                                                &nbsp;
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span id="ctl00_contentQuestionnaireBody_lblErrorMessage"></span>
-                                                <table width="300" border="0" align="center" cellpadding="0" cellspacing="0">
-                                                    <tr>
-                                                        <td width="94" class="infologintext">
-                                                            *Access Code:
-                                                        </td>
-                                                        <td width="136">
-                                                            <input name="ctl00$contentQuestionnaireBody$txtAccessCode" type="text" id="ctl00_contentQuestionnaireBody_txtAccessCode" class="infologinbox" />
-                                                        </td>
-                                                        <td width="70">
-                                                            <input type="image" name="ctl00$contentQuestionnaireBody$btnlogin" id="ctl00_contentQuestionnaireBody_btnlogin" src="/Contents/images/infosubmit.gif"  style="border-width:0px;" />
-                                                            <div id="ctl00_contentQuestionnaireBody_ValidationSummary1" style="color:Red;display:none;">
-
-</div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td>
-                                                &nbsp;
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="center">
-                                                <div class="retrieveAccessCode">
-                                                    <a id="ctl00_contentQuestionnaireBody_LkBtnRetrieveAccessCode" class="LkBtnRetrieveAccessCode" href="javascript:__doPostBack(&#39;ctl00$contentQuestionnaireBody$LkBtnRetrieveAccessCode&#39;,&#39;&#39;)">Retrieve access code</a></div>
-                                                <div class="retrieveAccessCodeMSg">
-                                                    </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                   
-                            </tr>
-                        </table>
- 
-      <span style="color: #8faebb;">*Required Fields</span>                         
+</table>

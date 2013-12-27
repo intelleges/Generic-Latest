@@ -16,10 +16,23 @@ namespace Generic
     {
         public enterprise()
         {
-            this.enterpriseObjectNames = new HashSet<enterpriseObjectName>();
-            this.enterpriseSystemInfoes = new HashSet<enterpriseSystemInfo>();
-            this.people = new HashSet<person>();
-            this.roles = new HashSet<role>();
+            this.agency = new HashSet<agency>();
+            this.country = new HashSet<country>();
+            this.enterpriseObjectName = new HashSet<enterpriseObjectName>();
+            this.enterpriseSystemInfo = new HashSet<enterpriseSystemInfo>();
+            this.group = new HashSet<group>();
+            this.hs3Menu = new HashSet<hs3Menu>();
+            this.language = new HashSet<language>();
+            this.languageInfo = new HashSet<languageInfo>();
+            this.partner = new HashSet<partner>();
+            this.partnerType = new HashSet<partnerType>();
+            this.person = new HashSet<person>();
+            this.protocol = new HashSet<protocol>();
+            this.role = new HashSet<role>();
+            this.rule = new HashSet<rule>();
+            this.ruleType = new HashSet<ruleType>();
+            this.state = new HashSet<state>();
+            this.groupCollection = new HashSet<groupCollection>();
         }
     
         public int id { get; set; }
@@ -32,9 +45,22 @@ namespace Generic
         public string instanceName { get; set; }
         public Nullable<System.DateTime> archivedDate { get; set; }
     
-        public virtual ICollection<enterpriseObjectName> enterpriseObjectNames { get; set; }
-        public virtual ICollection<enterpriseSystemInfo> enterpriseSystemInfoes { get; set; }
-        public virtual ICollection<person> people { get; set; }
-        public virtual ICollection<role> roles { get; set; }
+        public virtual ICollection<agency> agency { get; set; }
+        public virtual ICollection<country> country { get; set; }
+        public virtual ICollection<enterpriseObjectName> enterpriseObjectName { get; set; }
+        public virtual ICollection<enterpriseSystemInfo> enterpriseSystemInfo { get; set; }
+        public virtual ICollection<group> group { get; set; }
+        public virtual ICollection<hs3Menu> hs3Menu { get; set; }
+        public virtual ICollection<language> language { get; set; }
+        public virtual ICollection<languageInfo> languageInfo { get; set; }
+        public virtual ICollection<partner> partner { get; set; }
+        public virtual ICollection<partnerType> partnerType { get; set; }
+        public virtual ICollection<person> person { get; set; }
+        public virtual ICollection<protocol> protocol { get; set; }
+        public virtual ICollection<role> role { get; set; }
+        public virtual ICollection<rule> rule { get; set; }
+        public virtual ICollection<ruleType> ruleType { get; set; }
+        public virtual ICollection<state> state { get; set; }
+        public virtual ICollection<groupCollection> groupCollection { get; set; }
     }
 }
