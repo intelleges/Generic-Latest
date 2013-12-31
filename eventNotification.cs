@@ -12,12 +12,17 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class personRelationshipType
+    public partial class eventNotification
     {
         public int id { get; set; }
-        public string description { get; set; }
-        public Nullable<int> sortOrder { get; set; }
-        public Nullable<bool> active { get; set; }
-        public Nullable<int> enterprise { get; set; }
+        public string email { get; set; }
+        public Nullable<System.DateTime> timestamp { get; set; }
+        public string @event { get; set; }
+        public string reason { get; set; }
+        public string url { get; set; }
+        public string category { get; set; }
+        public string accesscode { get; set; }
+        public string protocolTouchpoint { get; set; }
+        public string applicationName { get; set; }
     }
 }

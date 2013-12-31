@@ -12,9 +12,14 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class groupType
+    public partial class emailTemplate
     {
         public int id { get; set; }
-        public string type { get; set; }
+        public int emailTemplateType { get; set; }
+        public int enterprise { get; set; }
+        public int author { get; set; }
+        public System.DateTime dateCreated { get; set; }
+        public string subject { get; set; }
+        public string body { get; set; }
     }
 }

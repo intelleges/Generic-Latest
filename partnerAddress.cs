@@ -12,12 +12,17 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class personRelationshipType
+    public partial class partnerAddress
     {
         public int id { get; set; }
-        public string description { get; set; }
-        public Nullable<int> sortOrder { get; set; }
-        public Nullable<bool> active { get; set; }
-        public Nullable<int> enterprise { get; set; }
+        public int partner { get; set; }
+        public int country { get; set; }
+        public int addressType { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string City { get; set; }
+        public Nullable<int> State { get; set; }
+        public string Province { get; set; }
+        public string zipCode { get; set; }
     }
 }

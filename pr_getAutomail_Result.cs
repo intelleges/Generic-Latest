@@ -10,14 +10,17 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class personRelationshipType
+    public partial class pr_getAutomail_Result
     {
         public int id { get; set; }
-        public string description { get; set; }
-        public Nullable<int> sortOrder { get; set; }
-        public Nullable<bool> active { get; set; }
-        public Nullable<int> enterprise { get; set; }
+        public int protocol { get; set; }
+        public int touchpoint { get; set; }
+        public int partnerType { get; set; }
+        public int mailType { get; set; }
+        public string subject { get; set; }
+        public string text { get; set; }
+        public string footer1 { get; set; }
+        public string footer2 { get; set; }
     }
 }

@@ -12,12 +12,17 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class personRelationshipType
+    public partial class protocolTouchpointPartnerRerouter
     {
-        public int id { get; set; }
-        public string description { get; set; }
-        public Nullable<int> sortOrder { get; set; }
-        public Nullable<bool> active { get; set; }
-        public Nullable<int> enterprise { get; set; }
+        public int protocol { get; set; }
+        public int touchpoint { get; set; }
+        public int partner { get; set; }
+        public string fromFirstName { get; set; }
+        public string fromLastName { get; set; }
+        public string fromTitle { get; set; }
+        public string from { get; set; }
+        public string to { get; set; }
+        public Nullable<bool> status { get; set; }
+        public System.DateTime timeStamp { get; set; }
     }
 }

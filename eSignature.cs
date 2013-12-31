@@ -12,12 +12,17 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class personRelationshipType
+    public partial class eSignature
     {
-        public int id { get; set; }
-        public string description { get; set; }
-        public Nullable<int> sortOrder { get; set; }
-        public Nullable<bool> active { get; set; }
-        public Nullable<int> enterprise { get; set; }
+        public int partner { get; set; }
+        public int questionnaire { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string title { get; set; }
+        public string email { get; set; }
+        public string affirmation { get; set; }
+        public string officer { get; set; }
+        public string phone { get; set; }
+        public Nullable<System.DateTime> completeDate { get; set; }
     }
 }

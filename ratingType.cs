@@ -12,9 +12,9 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class personRelationshipType
+    public partial class ratingType
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string description { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<bool> active { get; set; }

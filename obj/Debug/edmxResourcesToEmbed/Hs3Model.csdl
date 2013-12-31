@@ -10,7 +10,6 @@
     <EntitySet Name="group" EntityType="hs3MVCMTQa2Model.group" />
     <EntitySet Name="groupCollection" EntityType="hs3MVCMTQa2Model.groupCollection" />
     <EntitySet Name="groupOrgChart" EntityType="hs3MVCMTQa2Model.groupOrgChart" />
-    <EntitySet Name="groupType" EntityType="hs3MVCMTQa2Model.groupType" />
     <EntitySet Name="hs3Menu" EntityType="hs3MVCMTQa2Model.hs3Menu" />
     <EntitySet Name="language" EntityType="hs3MVCMTQa2Model.language" />
     <EntitySet Name="languageInfo" EntityType="hs3MVCMTQa2Model.languageInfo" />
@@ -518,9 +517,7 @@
       <Parameter Name="enterprise" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_addQuestionnairelevel" ReturnType="Collection(Decimal)">
-      <Parameter Name="description" Mode="In" Type="String" />
-      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-      <Parameter Name="active" Mode="In" Type="Int32" />
+      <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_addQuestionnairePage">
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
@@ -1738,6 +1735,372 @@
     <FunctionImport Name="pr_unArchiveGroupCollection">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="autoMail" EntityType="hs3MVCMTQa2Model.autoMail" />
+    <EntitySet Name="autoMailAttachment" EntityType="hs3MVCMTQa2Model.autoMailAttachment" />
+    <EntitySet Name="autoMailType" EntityType="hs3MVCMTQa2Model.autoMailType" />
+    <EntitySet Name="domain" EntityType="hs3MVCMTQa2Model.domain" />
+    <EntitySet Name="emailBounceType" EntityType="hs3MVCMTQa2Model.emailBounceType" />
+    <EntitySet Name="emailTag" EntityType="hs3MVCMTQa2Model.emailTag" />
+    <EntitySet Name="emailTemplate" EntityType="hs3MVCMTQa2Model.emailTemplate" />
+    <EntitySet Name="emailTemplateType" EntityType="hs3MVCMTQa2Model.emailTemplateType" />
+    <EntitySet Name="eSignature" EntityType="hs3MVCMTQa2Model.eSignature" />
+    <EntitySet Name="eventNotification" EntityType="hs3MVCMTQa2Model.eventNotification" />
+    <EntitySet Name="eventNotificationBounce" EntityType="hs3MVCMTQa2Model.eventNotificationBounce" />
+    <EntitySet Name="groupRiskGoal" EntityType="hs3MVCMTQa2Model.groupRiskGoal" />
+    <EntitySet Name="partnerAction" EntityType="hs3MVCMTQa2Model.partnerAction" />
+    <EntitySet Name="partnerActionLog" EntityType="hs3MVCMTQa2Model.partnerActionLog" />
+    <EntitySet Name="partnerAddress" EntityType="hs3MVCMTQa2Model.partnerAddress" />
+    <EntitySet Name="partnerContactValidationQuestion" EntityType="hs3MVCMTQa2Model.partnerContactValidationQuestion" />
+    <EntitySet Name="partnerLogDetail" EntityType="hs3MVCMTQa2Model.partnerLogDetail" />
+    <EntitySet Name="partnerLogin" EntityType="hs3MVCMTQa2Model.partnerLogin" />
+    <EntitySet Name="partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse" EntityType="hs3MVCMTQa2Model.partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse" />
+    <EntitySet Name="partnerQuestionnaireCompleteDate" EntityType="hs3MVCMTQa2Model.partnerQuestionnaireCompleteDate" />
+    <EntitySet Name="partnerReference" EntityType="hs3MVCMTQa2Model.partnerReference" />
+    <EntitySet Name="partnerReminder" EntityType="hs3MVCMTQa2Model.partnerReminder" />
+    <EntitySet Name="partnerReminderStatus" EntityType="hs3MVCMTQa2Model.partnerReminderStatus" />
+    <EntitySet Name="partnerReport" EntityType="hs3MVCMTQa2Model.partnerReport" />
+    <EntitySet Name="partnerShadow" EntityType="hs3MVCMTQa2Model.partnerShadow" />
+    <EntitySet Name="partnerSpendAmount" EntityType="hs3MVCMTQa2Model.partnerSpendAmount" />
+    <EntitySet Name="partnerStatus" EntityType="hs3MVCMTQa2Model.partnerStatus" />
+    <EntitySet Name="partnerTemp" EntityType="hs3MVCMTQa2Model.partnerTemp" />
+    <EntitySet Name="partnerTouchpointInvitedDate" EntityType="hs3MVCMTQa2Model.partnerTouchpointInvitedDate" />
+    <EntitySet Name="partnerTouchpointQuestionnaireLanguage" EntityType="hs3MVCMTQa2Model.partnerTouchpointQuestionnaireLanguage" />
+    <EntitySet Name="partnerTypeGroupGoal" EntityType="hs3MVCMTQa2Model.partnerTypeGroupGoal" />
+    <EntitySet Name="protocolTouchpointPartnerRerouter" EntityType="hs3MVCMTQa2Model.protocolTouchpointPartnerRerouter" />
+    <EntitySet Name="protocolTouchpointQuestionResponseValue" EntityType="hs3MVCMTQa2Model.protocolTouchpointQuestionResponseValue" />
+    <EntitySet Name="protocolTouchpointQuestionWeight" EntityType="hs3MVCMTQa2Model.protocolTouchpointQuestionWeight" />
+    <EntitySet Name="query" EntityType="hs3MVCMTQa2Model.query" />
+    <EntitySet Name="queryFieldQuestion" EntityType="hs3MVCMTQa2Model.queryFieldQuestion" />
+    <EntitySet Name="rating" EntityType="hs3MVCMTQa2Model.rating" />
+    <EntitySet Name="ratingType" EntityType="hs3MVCMTQa2Model.ratingType" />
+    <EntitySet Name="riskType" EntityType="hs3MVCMTQa2Model.riskType" />
+    <EntitySet Name="score" EntityType="hs3MVCMTQa2Model.score" />
+    <EntitySet Name="sizingStandard" EntityType="hs3MVCMTQa2Model.sizingStandard" />
+    <EntitySet Name="swap" EntityType="hs3MVCMTQa2Model.swap" />
+    <EntitySet Name="systemConfiguration" EntityType="hs3MVCMTQa2Model.systemConfiguration" />
+    <EntitySet Name="touchpointPartnerTypeScoreAutoMail" EntityType="hs3MVCMTQa2Model.touchpointPartnerTypeScoreAutoMail" />
+    <EntitySet Name="zCode" EntityType="hs3MVCMTQa2Model.zCode" />
+    <EntitySet Name="zCodeBatchUpdate" EntityType="hs3MVCMTQa2Model.zCodeBatchUpdate" />
+    <EntitySet Name="prReminder" EntityType="hs3MVCMTQa2Model.prReminder" />
+    <FunctionImport Name="pr_addAutomail" ReturnType="Collection(Decimal)">
+      <Parameter Name="protocol" Mode="In" Type="Int32" />
+      <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+      <Parameter Name="partnerType" Mode="In" Type="Int32" />
+      <Parameter Name="mailType" Mode="In" Type="Int32" />
+      <Parameter Name="subject" Mode="In" Type="String" />
+      <Parameter Name="text" Mode="In" Type="String" />
+      <Parameter Name="footer1" Mode="In" Type="String" />
+      <Parameter Name="footer2" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addAutoMailAttachment" ReturnType="Collection(Decimal)">
+      <Parameter Name="autoMail" Mode="In" Type="Int32" />
+      <Parameter Name="attachment" Mode="In" Type="String" />
+      <Parameter Name="note" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addAutoMailType" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addDomain" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addEmailBounceType" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="code" Mode="In" Type="Int32" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addEmailTag" ReturnType="Collection(Decimal)">
+      <Parameter Name="class" Mode="In" Type="String" />
+      <Parameter Name="method" Mode="In" Type="String" />
+      <Parameter Name="variable" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addEmailTemplate" ReturnType="Collection(Decimal)">
+      <Parameter Name="EmailTemplateType" Mode="In" Type="Int32" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+      <Parameter Name="author" Mode="In" Type="Int32" />
+      <Parameter Name="dateCreated" Mode="In" Type="DateTime" />
+      <Parameter Name="subject" Mode="In" Type="String" />
+      <Parameter Name="body" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addEmailTemplateType" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addEsignature" ReturnType="Collection(Decimal)">
+      <Parameter Name="partner" Mode="In" Type="Int32" />
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+      <Parameter Name="firstName" Mode="In" Type="String" />
+      <Parameter Name="lastName" Mode="In" Type="String" />
+      <Parameter Name="title" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="affirmation" Mode="In" Type="String" />
+      <Parameter Name="officer" Mode="In" Type="String" />
+      <Parameter Name="phone" Mode="In" Type="String" />
+      <Parameter Name="completeDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addGroupType" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addPartnerRelationshipOwner1">
+      <Parameter Name="partner" Mode="In" Type="Int32" />
+      <Parameter Name="person" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addPartnerRemitAddress1" ReturnType="Collection(Decimal)">
+      <Parameter Name="partner" Mode="In" Type="Int32" />
+      <Parameter Name="remitAddress1" Mode="In" Type="String" />
+      <Parameter Name="remitAddress2" Mode="In" Type="String" />
+      <Parameter Name="remitCity" Mode="In" Type="String" />
+      <Parameter Name="remitState" Mode="In" Type="Int32" />
+      <Parameter Name="remitProvince" Mode="In" Type="String" />
+      <Parameter Name="remitZipCode" Mode="In" Type="String" />
+      <Parameter Name="remitCountry" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addPersonRelationshipType" ReturnType="Collection(Decimal)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addQuestionnaireLevel1" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addRatingType" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveAutoMailType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveDomain">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveEmailBounceType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveEmailTemplateType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveGroupType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archivePersonRelationshipType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveRatingType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getAutomail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomail_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getAutoMailAttachment" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailAttachment_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getAutoMailType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailType_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getAutoMailTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailTypeAll_Result)" />
+    <FunctionImport Name="pr_getDomain" ReturnType="Collection(hs3MVCMTQa2Model.pr_getDomain_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getDomainAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getDomainAll_Result)" />
+    <FunctionImport Name="pr_getEmailBounceType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEmailBounceType_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getEmailBounceTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEmailBounceTypeAll_Result)" />
+    <FunctionImport Name="pr_getEmailTag" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEmailTag_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getEmailTagAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEmailTagAll_Result)" />
+    <FunctionImport Name="pr_getEmailTemplate" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEmailTemplate_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getEmailTemplateAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEmailTemplateAll_Result)" />
+    <FunctionImport Name="pr_getEmailTemplateType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEmailTemplateType_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getEmailTemplateTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEmailTemplateTypeAll_Result)" />
+    <FunctionImport Name="pr_getEsignature" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEsignature_Result)">
+      <Parameter Name="partner" Mode="In" Type="Int32" />
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getGroupType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGroupType_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getGroupTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGroupTypeAll_Result)" />
+    <FunctionImport Name="pr_getPersonRelationshipType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonRelationshipType_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPersonRelationshipTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonRelationshipTypeAll_Result)" />
+    <FunctionImport Name="pr_getRatingType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRatingType_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getRatingTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRatingTypeAll_Result)" />
+    <FunctionImport Name="pr_modifyAutomail">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="protocol" Mode="In" Type="Int32" />
+      <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+      <Parameter Name="partnerType" Mode="In" Type="Int32" />
+      <Parameter Name="mailType" Mode="In" Type="Int32" />
+      <Parameter Name="subject" Mode="In" Type="String" />
+      <Parameter Name="text" Mode="In" Type="String" />
+      <Parameter Name="footer1" Mode="In" Type="String" />
+      <Parameter Name="footer2" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyAutoMailAttachment">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="autoMail" Mode="In" Type="Int32" />
+      <Parameter Name="attachment" Mode="In" Type="String" />
+      <Parameter Name="note" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyAutoMailType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyDomain">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyEmailBounceType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="code" Mode="In" Type="Int32" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyEmailTag">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="class" Mode="In" Type="String" />
+      <Parameter Name="method" Mode="In" Type="String" />
+      <Parameter Name="variable" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyEmailTemplate">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="EmailTemplateType" Mode="In" Type="Int32" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+      <Parameter Name="author" Mode="In" Type="Int32" />
+      <Parameter Name="dateCreated" Mode="In" Type="DateTime" />
+      <Parameter Name="subject" Mode="In" Type="String" />
+      <Parameter Name="body" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyEmailTemplateType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyEsignature">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="partner" Mode="In" Type="Int32" />
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+      <Parameter Name="firstName" Mode="In" Type="String" />
+      <Parameter Name="lastName" Mode="In" Type="String" />
+      <Parameter Name="title" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="affirmation" Mode="In" Type="String" />
+      <Parameter Name="officer" Mode="In" Type="String" />
+      <Parameter Name="phone" Mode="In" Type="String" />
+      <Parameter Name="completeDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyGroupType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyPersonRelationshipType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyRatingType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeAutomail">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeAutoMailAttachment">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeAutoMailType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeDomain">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeEmailBounceType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeEmailTag">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeEmailTemplate">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeEmailTemplateType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeEsignature">
+      <Parameter Name="partner" Mode="In" Type="Int32" />
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeGroupType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removePartnerRelationshipOwner1">
+      <Parameter Name="partner" Mode="In" Type="Int32" />
+      <Parameter Name="person" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removePersonRelationshipType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeRatingType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveAutoMailType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveDomain">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveEmailBounceType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveEmailTemplateType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveGroupType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchivePersonRelationshipType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveRatingType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="accessLevel">
     <Key>
@@ -1874,13 +2237,6 @@
     </Key>
     <Property Name="group" Type="Int32" Nullable="false" />
     <Property Name="orgChartChild" Type="Int32" Nullable="false" />
-  </EntityType>
-  <EntityType Name="groupType">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="type" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
   </EntityType>
   <EntityType Name="hs3Menu">
     <Key>
@@ -2162,6 +2518,7 @@
     <Property Name="description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="sortOrder" Type="Int32" />
     <Property Name="active" Type="Boolean" />
+    <Property Type="Int32" Name="enterprise" />
   </EntityType>
   <EntityType Name="personSearchCount">
     <Key>
@@ -4530,6 +4887,771 @@
     <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
     <Property Type="Int32" Name="sortOrder" Nullable="true" />
     <Property Type="Int32" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="autoMail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="protocol" Nullable="false" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="partnerType" Nullable="false" />
+    <Property Type="Int32" Name="mailType" Nullable="false" />
+    <Property Type="String" Name="subject" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="text" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="footer1" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="footer2" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="autoMailAttachment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="autoMail" Nullable="false" />
+    <Property Type="String" Name="attachment" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="note" MaxLength="1000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="autoMailType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Int32" Name="active" />
+    <Property Type="Int32" Name="oldId" />
+  </EntityType>
+  <EntityType Name="domain">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Boolean" Name="active" />
+  </EntityType>
+  <EntityType Name="emailBounceType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="code" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Int32" Name="active" />
+  </EntityType>
+  <EntityType Name="emailTag">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="class" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="method" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="variable" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="emailTemplate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="emailTemplateType" Nullable="false" />
+    <Property Type="Int32" Name="enterprise" Nullable="false" />
+    <Property Type="Int32" Name="author" Nullable="false" />
+    <Property Type="DateTime" Name="dateCreated" Nullable="false" Precision="3" />
+    <Property Type="String" Name="subject" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="body" Nullable="false" MaxLength="5000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="emailTemplateType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Boolean" Name="active" />
+  </EntityType>
+  <EntityType Name="eSignature">
+    <Key>
+      <PropertyRef Name="partner" />
+      <PropertyRef Name="questionnaire" />
+    </Key>
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Int32" Name="questionnaire" Nullable="false" />
+    <Property Type="String" Name="firstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="lastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="title" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="affirmation" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="officer" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="phone" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="completeDate" Precision="0" />
+  </EntityType>
+  <EntityType Name="eventNotification">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="email" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="timestamp" Precision="3" />
+    <Property Type="String" Name="event" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="reason" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="url" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="category" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="accesscode" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="protocolTouchpoint" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="applicationName" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="eventNotificationBounce">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="error" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="groupRiskGoal">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="group" Nullable="false" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="C0to10th" />
+    <Property Type="Int32" Name="C10to25" />
+    <Property Type="Int32" Name="C25to50" />
+    <Property Type="Int32" Name="C50to75" />
+    <Property Type="Int32" Name="C75to90" />
+    <Property Type="Int32" Name="C90to100" />
+    <Property Type="String" Name="RangeTypeGroup" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="partnerAction">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="partnerActionLog">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="partner" />
+    <Property Type="Int32" Name="action" />
+    <Property Type="String" Name="email" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="timestamp" Precision="3" />
+    <Property Type="String" Name="comment" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="partnerAddress">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Int32" Name="country" Nullable="false" />
+    <Property Type="Int32" Name="addressType" Nullable="false" />
+    <Property Type="String" Name="Address1" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Address2" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="City" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="State" />
+    <Property Type="String" Name="Province" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="zipCode" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="partnerContactValidationQuestion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="question" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="partnerLogDetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Int32" Name="mailtype" Nullable="false" />
+    <Property Type="DateTime" Name="sendDate" Precision="3" />
+  </EntityType>
+  <EntityType Name="partnerLogin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Email" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="passWord" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="internalId" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="status" />
+  </EntityType>
+  <EntityType Name="partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse">
+    <Key>
+      <PropertyRef Name="partner" />
+      <PropertyRef Name="protocol" />
+      <PropertyRef Name="touchpoint" />
+      <PropertyRef Name="questionnaire" />
+      <PropertyRef Name="survey" />
+      <PropertyRef Name="question" />
+    </Key>
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Int32" Name="protocol" Nullable="false" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="questionnaire" Nullable="false" />
+    <Property Type="Int32" Name="survey" Nullable="false" />
+    <Property Type="Int32" Name="question" Nullable="false" />
+    <Property Type="Int32" Name="response" />
+    <Property Type="String" Name="comment" MaxLength="3000" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="uploadedFile" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="actualScore" />
+  </EntityType>
+  <EntityType Name="partnerQuestionnaireCompleteDate">
+    <Key>
+      <PropertyRef Name="partner" />
+    </Key>
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="DateTime" Name="completeDate" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="partnerReference">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Int32" Name="referenceNumber" />
+    <Property Type="String" Name="companyName" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="firstName" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="lastName" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="phone" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="email" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="checked" />
+    <Property Type="String" Name="checkedBy" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="dateChecked" Precision="3" />
+    <Property Type="String" Name="notes" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="partnerReminder">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Int32" Name="autoMail" Nullable="false" />
+    <Property Type="DateTime" Name="sendDate" Nullable="false" Precision="3" />
+    <Property Type="Boolean" Name="isSent" />
+  </EntityType>
+  <EntityType Name="partnerReminderStatus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Int32" Name="active" />
+  </EntityType>
+  <EntityType Name="partnerReport">
+    <Key>
+      <PropertyRef Name="partner_id" />
+    </Key>
+    <Property Type="Int32" Name="partner_id" Nullable="false" />
+    <Property Type="String" Name="partner" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="partnerType_id" Nullable="false" />
+    <Property Type="Int32" Name="partnerStatus_id" Nullable="false" />
+    <Property Type="Int32" Name="touchpoint_id" Nullable="false" />
+    <Property Type="Int32" Name="group_id" Nullable="false" />
+    <Property Type="Int32" Name="country_id" Nullable="false" />
+    <Property Type="String" Name="partnerType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="partnerStatus" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="touchpoint" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="group" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="country" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="partnerShadow">
+    <Key>
+      <PropertyRef Name="reference" />
+      <PropertyRef Name="shadow" />
+      <PropertyRef Name="group" />
+    </Key>
+    <Property Type="Int32" Name="reference" Nullable="false" />
+    <Property Type="Int32" Name="shadow" Nullable="false" />
+    <Property Type="Int32" Name="group" Nullable="false" />
+    <Property Type="Int32" Name="state" />
+    <Property Type="Int32" Name="country" />
+    <Property Type="Int32" Name="EPLSStatus" />
+    <Property Type="Int32" Name="loadHistory" />
+    <Property Type="Int32" Name="partnerType" />
+    <Property Type="String" Name="internalID" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="name" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="type" Nullable="false" />
+    <Property Type="String" Name="address1" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="address2" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="city" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="province" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="zipcode" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="phone" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="fax" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="firstName" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="lastName" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="title" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="email" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="dunsNumber" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="federalID" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="accessCode" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="HROFirstName" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="HROLastName" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="HROPhone" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="HROEmail" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="status" />
+    <Property Type="Int32" Name="owner" />
+    <Property Type="DateTime" Name="dateApproved" Precision="3" />
+    <Property Type="Int32" Name="isArchived" />
+    <Property Type="Int32" Name="EPLSCheckedBy" />
+    <Property Type="DateTime" Name="EPLSCheckedDate" Precision="3" />
+    <Property Type="String" Name="remitAddress1" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="remitAddress2" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="remitCity" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="remitState" />
+    <Property Type="String" Name="remitProvince" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="remitZipCode" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="remitCountry" />
+    <Property Type="String" Name="naicsCode" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="zcode" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="businessOwner" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="name2" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ssn" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="corp" />
+    <Property Type="Boolean" Name="taxExemptEntity" />
+    <Property Type="Boolean" Name="us" />
+    <Property Type="Boolean" Name="astate" />
+    <Property Type="Boolean" Name="foreignGovernment" />
+    <Property Type="String" Name="w9Person" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="w9Title" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="w9AuthorizedSignature" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="w9DateSigned" Precision="3" />
+    <Property Type="String" Name="w9Phone" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="w9Address" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="w9City" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="w9State" />
+    <Property Type="String" Name="w9ZipCode" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="businessDescription" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="zDec" />
+  </EntityType>
+  <EntityType Name="partnerSpendAmount">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Decimal" Name="spendAmount" Precision="19" Scale="4" />
+    <Property Type="DateTime" Name="ytd" Precision="3" />
+    <Property Type="DateTime" Name="dateTimeStmp" Precision="3" />
+  </EntityType>
+  <EntityType Name="partnerStatus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Int32" Name="active" />
+  </EntityType>
+  <EntityType Name="partnerTemp">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="internalID" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="name" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="address1" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="address2" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="city" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="state" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="province" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PostalCode" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="country" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="phone" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="fax" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="firstName" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="lastName" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="title" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="email" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="dunsNumber" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="federalID" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="HROFirstName" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="HROLastName" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="HROPhone" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="HROEmail" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="loadHistory" Nullable="false" />
+    <Property Type="Int32" Name="badRecordType" />
+  </EntityType>
+  <EntityType Name="partnerTouchpointInvitedDate">
+    <Key>
+      <PropertyRef Name="partner" />
+      <PropertyRef Name="touchpoint" />
+    </Key>
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="DateTime" Name="invitedDate" Precision="3" />
+  </EntityType>
+  <EntityType Name="partnerTouchpointQuestionnaireLanguage">
+    <Key>
+      <PropertyRef Name="partner" />
+      <PropertyRef Name="touchpoint" />
+      <PropertyRef Name="questionnaire" />
+      <PropertyRef Name="language" />
+    </Key>
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="questionnaire" Nullable="false" />
+    <Property Type="Int32" Name="language" Nullable="false" />
+  </EntityType>
+  <EntityType Name="partnerTypeGroupGoal">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="person" Nullable="false" />
+    <Property Type="Int32" Name="partnerType" Nullable="false" />
+    <Property Type="Int32" Name="group" Nullable="false" />
+    <Property Type="Int32" Name="goal" Nullable="false" />
+    <Property Type="DateTime" Name="timestamp" Precision="3" />
+    <Property Type="Int32" Name="touchpoint" />
+  </EntityType>
+  <EntityType Name="protocolTouchpointPartnerRerouter">
+    <Key>
+      <PropertyRef Name="protocol" />
+      <PropertyRef Name="touchpoint" />
+      <PropertyRef Name="partner" />
+      <PropertyRef Name="fromFirstName" />
+      <PropertyRef Name="fromLastName" />
+      <PropertyRef Name="fromTitle" />
+      <PropertyRef Name="from" />
+      <PropertyRef Name="to" />
+      <PropertyRef Name="timeStamp" />
+    </Key>
+    <Property Type="Int32" Name="protocol" Nullable="false" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="String" Name="fromFirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="fromLastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="fromTitle" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="from" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="to" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="status" />
+    <Property Type="DateTime" Name="timeStamp" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="protocolTouchpointQuestionResponseValue">
+    <Key>
+      <PropertyRef Name="protocol" />
+      <PropertyRef Name="touchpoint" />
+      <PropertyRef Name="question" />
+      <PropertyRef Name="response" />
+    </Key>
+    <Property Type="Int32" Name="protocol" Nullable="false" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="question" Nullable="false" />
+    <Property Type="Int32" Name="response" Nullable="false" />
+    <Property Type="Int32" Name="value" Nullable="false" />
+  </EntityType>
+  <EntityType Name="protocolTouchpointQuestionWeight">
+    <Key>
+      <PropertyRef Name="protocol" />
+      <PropertyRef Name="Touchpoint" />
+      <PropertyRef Name="Question" />
+    </Key>
+    <Property Type="Int32" Name="protocol" Nullable="false" />
+    <Property Type="Int32" Name="Touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="Question" Nullable="false" />
+    <Property Type="Int32" Name="weight" />
+  </EntityType>
+  <EntityType Name="query">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="sqlText" MaxLength="8000" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="author" Nullable="false" />
+    <Property Type="Int32" Name="questionnaire" Nullable="false" />
+    <Property Type="Int32" Name="status" />
+  </EntityType>
+  <EntityType Name="queryFieldQuestion">
+    <Key>
+      <PropertyRef Name="query" />
+      <PropertyRef Name="question" />
+    </Key>
+    <Property Type="Int32" Name="query" Nullable="false" />
+    <Property Type="Int32" Name="question" Nullable="false" />
+    <Property Type="String" Name="response" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="isText" />
+  </EntityType>
+  <EntityType Name="rating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="grade" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="less" Nullable="false" />
+    <Property Type="Int32" Name="greater" Nullable="false" />
+    <Property Type="Int32" Name="type" />
+  </EntityType>
+  <EntityType Name="ratingType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Boolean" Name="active" />
+    <Property Type="Int32" Name="enterprise" />
+  </EntityType>
+  <EntityType Name="riskType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Boolean" Name="active" />
+    <Property Type="Int32" Name="enterprise" />
+  </EntityType>
+  <EntityType Name="score">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="lowerBound" />
+    <Property Type="Int32" Name="upperBound" />
+  </EntityType>
+  <EntityType Name="sizingStandard">
+    <Key>
+      <PropertyRef Name="NAICS" />
+    </Key>
+    <Property Type="Int32" Name="NAICS" Nullable="false" />
+    <Property Type="String" Name="industryTitle" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="revenue" Precision="5" Scale="2" />
+    <Property Type="Int32" Name="numOfEmployees" />
+  </EntityType>
+  <EntityType Name="swap">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="person" Nullable="false" />
+    <Property Type="String" Name="oldInternalID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="newInternalID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="timestamp" Precision="3" />
+    <Property Type="Int32" Name="oldId" />
+  </EntityType>
+  <EntityType Name="systemConfiguration">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Boolean" Name="hasRemitAddress" />
+    <Property Type="Boolean" Name="hasFederalId" />
+    <Property Type="Boolean" Name="hasDunsNumber" />
+    <Property Type="Boolean" Name="hasNaics" />
+    <Property Type="Boolean" Name="hasBusinessDescription" />
+    <Property Type="Boolean" Name="hasSpendCategory" />
+    <Property Type="Boolean" Name="hasReference" />
+    <Property Type="Boolean" Name="hasRegion" />
+    <Property Type="Boolean" Name="hasw9Form" />
+  </EntityType>
+  <EntityType Name="touchpointPartnerTypeScoreAutoMail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="partnerType" Nullable="false" />
+    <Property Type="Int32" Name="score" Nullable="false" />
+    <Property Type="String" Name="subject" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="body" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="isSendToPartner" />
+    <Property Type="Boolean" Name="isSendToUser" />
+  </EntityType>
+  <EntityType Name="zCode">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="code" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="description" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="zCodeBatchUpdate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="internalId" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="federalId" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="zcode" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="dunsnumber" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="loadhistory" />
+  </EntityType>
+  <EntityType Name="prReminder">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="touchpoint" />
+      <PropertyRef Name="partner" />
+    </Key>
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Int64" Name="SeqNumber" />
+  </EntityType>
+  <ComplexType Name="pr_getAutomail_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="protocol" Nullable="false" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="partnerType" Nullable="false" />
+    <Property Type="Int32" Name="mailType" Nullable="false" />
+    <Property Type="String" Name="subject" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="text" Nullable="true" MaxLength="5000" />
+    <Property Type="String" Name="footer1" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="footer2" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="pr_getAutoMailAttachment_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="autoMail" Nullable="false" />
+    <Property Type="String" Name="attachment" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="note" Nullable="true" MaxLength="1000" />
+  </ComplexType>
+  <ComplexType Name="pr_getAutoMailType_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="oldId" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getAutoMailTypeAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="oldId" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getDomain_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="250" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getDomainAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="250" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getEmailBounceType_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="code" Nullable="true" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getEmailBounceTypeAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="code" Nullable="true" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getEmailTag_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="class" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="method" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="variable" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="pr_getEmailTagAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="class" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="method" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="variable" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="pr_getEmailTemplate_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="emailTemplateType" Nullable="false" />
+    <Property Type="Int32" Name="enterprise" Nullable="false" />
+    <Property Type="Int32" Name="author" Nullable="false" />
+    <Property Type="DateTime" Name="dateCreated" Nullable="false" Precision="23" />
+    <Property Type="String" Name="subject" Nullable="false" MaxLength="500" />
+    <Property Type="String" Name="body" Nullable="false" MaxLength="5000" />
+  </ComplexType>
+  <ComplexType Name="pr_getEmailTemplateAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="emailTemplateType" Nullable="false" />
+    <Property Type="Int32" Name="enterprise" Nullable="false" />
+    <Property Type="Int32" Name="author" Nullable="false" />
+    <Property Type="DateTime" Name="dateCreated" Nullable="false" Precision="23" />
+    <Property Type="String" Name="subject" Nullable="false" MaxLength="500" />
+    <Property Type="String" Name="body" Nullable="false" MaxLength="5000" />
+  </ComplexType>
+  <ComplexType Name="pr_getEmailTemplateType_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="250" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getEmailTemplateTypeAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="250" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getEsignature_Result">
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Int32" Name="questionnaire" Nullable="false" />
+    <Property Type="String" Name="firstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="lastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="affirmation" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="officer" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="completeDate" Nullable="true" Precision="16" />
+  </ComplexType>
+  <ComplexType Name="pr_getGroupType_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getGroupTypeAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getPersonRelationshipType_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getPersonRelationshipTypeAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getRatingType_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getRatingTypeAll_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
     <Property Type="Int32" Name="enterprise" Nullable="true" />
   </ComplexType>
 </Schema>

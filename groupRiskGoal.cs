@@ -12,12 +12,17 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class personRelationshipType
+    public partial class groupRiskGoal
     {
         public int id { get; set; }
-        public string description { get; set; }
-        public Nullable<int> sortOrder { get; set; }
-        public Nullable<bool> active { get; set; }
-        public Nullable<int> enterprise { get; set; }
+        public int group { get; set; }
+        public int touchpoint { get; set; }
+        public Nullable<int> C0to10th { get; set; }
+        public Nullable<int> C10to25 { get; set; }
+        public Nullable<int> C25to50 { get; set; }
+        public Nullable<int> C50to75 { get; set; }
+        public Nullable<int> C75to90 { get; set; }
+        public Nullable<int> C90to100 { get; set; }
+        public string RangeTypeGroup { get; set; }
     }
 }

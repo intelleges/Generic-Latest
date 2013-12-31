@@ -12,7 +12,7 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class personRelationshipType
+    public partial class riskType
     {
         public int id { get; set; }
         public string description { get; set; }

@@ -12,12 +12,13 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class personRelationshipType
+    public partial class query
     {
         public int id { get; set; }
         public string description { get; set; }
-        public Nullable<int> sortOrder { get; set; }
-        public Nullable<bool> active { get; set; }
-        public Nullable<int> enterprise { get; set; }
+        public string sqlText { get; set; }
+        public int author { get; set; }
+        public int questionnaire { get; set; }
+        public Nullable<int> status { get; set; }
     }
 }

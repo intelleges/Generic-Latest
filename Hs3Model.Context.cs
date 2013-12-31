@@ -37,7 +37,6 @@ namespace Generic
         public DbSet<group> group { get; set; }
         public DbSet<groupCollection> groupCollection { get; set; }
         public DbSet<groupOrgChart> groupOrgChart { get; set; }
-        public DbSet<groupType> groupType { get; set; }
         public DbSet<hs3Menu> hs3Menu { get; set; }
         public DbSet<language> language { get; set; }
         public DbSet<languageInfo> languageInfo { get; set; }
@@ -80,6 +79,53 @@ namespace Generic
         public DbSet<touchpoint> touchpoint { get; set; }
         public DbSet<touchpointGroup> touchpointGroup { get; set; }
         public DbSet<touchpointPartnerTypeQuestionnaire> touchpointPartnerTypeQuestionnaire { get; set; }
+        public DbSet<autoMail> autoMail { get; set; }
+        public DbSet<autoMailAttachment> autoMailAttachment { get; set; }
+        public DbSet<autoMailType> autoMailType { get; set; }
+        public DbSet<domain> domain { get; set; }
+        public DbSet<emailBounceType> emailBounceType { get; set; }
+        public DbSet<emailTag> emailTag { get; set; }
+        public DbSet<emailTemplate> emailTemplate { get; set; }
+        public DbSet<emailTemplateType> emailTemplateType { get; set; }
+        public DbSet<eSignature> eSignature { get; set; }
+        public DbSet<eventNotification> eventNotification { get; set; }
+        public DbSet<eventNotificationBounce> eventNotificationBounce { get; set; }
+        public DbSet<groupRiskGoal> groupRiskGoal { get; set; }
+        public DbSet<partnerAction> partnerAction { get; set; }
+        public DbSet<partnerActionLog> partnerActionLog { get; set; }
+        public DbSet<partnerAddress> partnerAddress { get; set; }
+        public DbSet<partnerContactValidationQuestion> partnerContactValidationQuestion { get; set; }
+        public DbSet<partnerLogDetail> partnerLogDetail { get; set; }
+        public DbSet<partnerLogin> partnerLogin { get; set; }
+        public DbSet<partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse> partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse { get; set; }
+        public DbSet<partnerQuestionnaireCompleteDate> partnerQuestionnaireCompleteDate { get; set; }
+        public DbSet<partnerReference> partnerReference { get; set; }
+        public DbSet<partnerReminder> partnerReminder { get; set; }
+        public DbSet<partnerReminderStatus> partnerReminderStatus { get; set; }
+        public DbSet<partnerReport> partnerReport { get; set; }
+        public DbSet<partnerShadow> partnerShadow { get; set; }
+        public DbSet<partnerSpendAmount> partnerSpendAmount { get; set; }
+        public DbSet<partnerStatus> partnerStatus { get; set; }
+        public DbSet<partnerTemp> partnerTemp { get; set; }
+        public DbSet<partnerTouchpointInvitedDate> partnerTouchpointInvitedDate { get; set; }
+        public DbSet<partnerTouchpointQuestionnaireLanguage> partnerTouchpointQuestionnaireLanguage { get; set; }
+        public DbSet<partnerTypeGroupGoal> partnerTypeGroupGoal { get; set; }
+        public DbSet<protocolTouchpointPartnerRerouter> protocolTouchpointPartnerRerouter { get; set; }
+        public DbSet<protocolTouchpointQuestionResponseValue> protocolTouchpointQuestionResponseValue { get; set; }
+        public DbSet<protocolTouchpointQuestionWeight> protocolTouchpointQuestionWeight { get; set; }
+        public DbSet<query> query { get; set; }
+        public DbSet<queryFieldQuestion> queryFieldQuestion { get; set; }
+        public DbSet<rating> rating { get; set; }
+        public DbSet<ratingType> ratingType { get; set; }
+        public DbSet<riskType> riskType { get; set; }
+        public DbSet<score> score { get; set; }
+        public DbSet<sizingStandard> sizingStandard { get; set; }
+        public DbSet<swap> swap { get; set; }
+        public DbSet<systemConfiguration> systemConfiguration { get; set; }
+        public DbSet<touchpointPartnerTypeScoreAutoMail> touchpointPartnerTypeScoreAutoMail { get; set; }
+        public DbSet<zCode> zCode { get; set; }
+        public DbSet<zCodeBatchUpdate> zCodeBatchUpdate { get; set; }
+        public DbSet<prReminder> prReminder { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -1081,21 +1127,13 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaire", personParameter, partnerTypeParameter, letterParameter, titleParameter, descriptionParameter, footerParameter, lockedParameter, sortOrderParameter, activeParameter, multiLanguageParameter, enterpriseParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnairelevel(string description, Nullable<int> sortOrder, Nullable<int> active)
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnairelevel(Nullable<int> id)
         {
-            var descriptionParameter = description != null ?
-                new ObjectParameter("description", description) :
-                new ObjectParameter("description", typeof(string));
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
     
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnairelevel", descriptionParameter, sortOrderParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnairelevel", idParameter);
         }
     
         public virtual int pr_addQuestionnairePage(Nullable<int> questionnaire, Nullable<int> page)
@@ -5225,6 +5263,1093 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveGroupCollection", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addAutomail(Nullable<int> protocol, Nullable<int> touchpoint, Nullable<int> partnerType, Nullable<int> mailType, string subject, string text, string footer1, string footer2)
+        {
+            var protocolParameter = protocol.HasValue ?
+                new ObjectParameter("protocol", protocol) :
+                new ObjectParameter("protocol", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var partnerTypeParameter = partnerType.HasValue ?
+                new ObjectParameter("partnerType", partnerType) :
+                new ObjectParameter("partnerType", typeof(int));
+    
+            var mailTypeParameter = mailType.HasValue ?
+                new ObjectParameter("mailType", mailType) :
+                new ObjectParameter("mailType", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var footer1Parameter = footer1 != null ?
+                new ObjectParameter("footer1", footer1) :
+                new ObjectParameter("footer1", typeof(string));
+    
+            var footer2Parameter = footer2 != null ?
+                new ObjectParameter("footer2", footer2) :
+                new ObjectParameter("footer2", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAutomail", protocolParameter, touchpointParameter, partnerTypeParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addAutoMailAttachment(Nullable<int> autoMail, string attachment, string note)
+        {
+            var autoMailParameter = autoMail.HasValue ?
+                new ObjectParameter("autoMail", autoMail) :
+                new ObjectParameter("autoMail", typeof(int));
+    
+            var attachmentParameter = attachment != null ?
+                new ObjectParameter("attachment", attachment) :
+                new ObjectParameter("attachment", typeof(string));
+    
+            var noteParameter = note != null ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAutoMailAttachment", autoMailParameter, attachmentParameter, noteParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addAutoMailType(string description, Nullable<int> sortOrder, Nullable<int> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAutoMailType", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addDomain(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addDomain", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEmailBounceType(string description, Nullable<int> code, Nullable<int> sortOrder, Nullable<int> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var codeParameter = code.HasValue ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEmailBounceType", descriptionParameter, codeParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEmailTag(string @class, string method, string variable)
+        {
+            var classParameter = @class != null ?
+                new ObjectParameter("class", @class) :
+                new ObjectParameter("class", typeof(string));
+    
+            var methodParameter = method != null ?
+                new ObjectParameter("method", method) :
+                new ObjectParameter("method", typeof(string));
+    
+            var variableParameter = variable != null ?
+                new ObjectParameter("variable", variable) :
+                new ObjectParameter("variable", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEmailTag", classParameter, methodParameter, variableParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEmailTemplate(Nullable<int> emailTemplateType, Nullable<int> enterprise, Nullable<int> author, Nullable<System.DateTime> dateCreated, string subject, string body)
+        {
+            var emailTemplateTypeParameter = emailTemplateType.HasValue ?
+                new ObjectParameter("EmailTemplateType", emailTemplateType) :
+                new ObjectParameter("EmailTemplateType", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var authorParameter = author.HasValue ?
+                new ObjectParameter("author", author) :
+                new ObjectParameter("author", typeof(int));
+    
+            var dateCreatedParameter = dateCreated.HasValue ?
+                new ObjectParameter("dateCreated", dateCreated) :
+                new ObjectParameter("dateCreated", typeof(System.DateTime));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var bodyParameter = body != null ?
+                new ObjectParameter("body", body) :
+                new ObjectParameter("body", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEmailTemplate", emailTemplateTypeParameter, enterpriseParameter, authorParameter, dateCreatedParameter, subjectParameter, bodyParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEmailTemplateType(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEmailTemplateType", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEsignature(Nullable<int> partner, Nullable<int> questionnaire, string firstName, string lastName, string title, string email, string affirmation, string officer, string phone, Nullable<System.DateTime> completeDate)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("firstName", firstName) :
+                new ObjectParameter("firstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("lastName", lastName) :
+                new ObjectParameter("lastName", typeof(string));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var affirmationParameter = affirmation != null ?
+                new ObjectParameter("affirmation", affirmation) :
+                new ObjectParameter("affirmation", typeof(string));
+    
+            var officerParameter = officer != null ?
+                new ObjectParameter("officer", officer) :
+                new ObjectParameter("officer", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("phone", phone) :
+                new ObjectParameter("phone", typeof(string));
+    
+            var completeDateParameter = completeDate.HasValue ?
+                new ObjectParameter("completeDate", completeDate) :
+                new ObjectParameter("completeDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEsignature", partnerParameter, questionnaireParameter, firstNameParameter, lastNameParameter, titleParameter, emailParameter, affirmationParameter, officerParameter, phoneParameter, completeDateParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addGroupType(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addGroupType", descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+        }
+    
+        public virtual int pr_addPartnerRelationshipOwner1(Nullable<int> partner, Nullable<int> person)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPartnerRelationshipOwner1", partnerParameter, personParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPartnerRemitAddress1(Nullable<int> partner, string remitAddress1, string remitAddress2, string remitCity, Nullable<int> remitState, string remitProvince, string remitZipCode, Nullable<int> remitCountry)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var remitAddress1Parameter = remitAddress1 != null ?
+                new ObjectParameter("remitAddress1", remitAddress1) :
+                new ObjectParameter("remitAddress1", typeof(string));
+    
+            var remitAddress2Parameter = remitAddress2 != null ?
+                new ObjectParameter("remitAddress2", remitAddress2) :
+                new ObjectParameter("remitAddress2", typeof(string));
+    
+            var remitCityParameter = remitCity != null ?
+                new ObjectParameter("remitCity", remitCity) :
+                new ObjectParameter("remitCity", typeof(string));
+    
+            var remitStateParameter = remitState.HasValue ?
+                new ObjectParameter("remitState", remitState) :
+                new ObjectParameter("remitState", typeof(int));
+    
+            var remitProvinceParameter = remitProvince != null ?
+                new ObjectParameter("remitProvince", remitProvince) :
+                new ObjectParameter("remitProvince", typeof(string));
+    
+            var remitZipCodeParameter = remitZipCode != null ?
+                new ObjectParameter("remitZipCode", remitZipCode) :
+                new ObjectParameter("remitZipCode", typeof(string));
+    
+            var remitCountryParameter = remitCountry.HasValue ?
+                new ObjectParameter("remitCountry", remitCountry) :
+                new ObjectParameter("remitCountry", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnerRemitAddress1", partnerParameter, remitAddress1Parameter, remitAddress2Parameter, remitCityParameter, remitStateParameter, remitProvinceParameter, remitZipCodeParameter, remitCountryParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPersonRelationshipType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonRelationshipType", idParameter, descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireLevel1(string description, Nullable<int> sortOrder, Nullable<int> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireLevel1", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addRatingType(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addRatingType", descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+        }
+    
+        public virtual int pr_archiveAutoMailType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveAutoMailType", idParameter);
+        }
+    
+        public virtual int pr_archiveDomain(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveDomain", idParameter);
+        }
+    
+        public virtual int pr_archiveEmailBounceType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveEmailBounceType", idParameter);
+        }
+    
+        public virtual int pr_archiveEmailTemplateType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveEmailTemplateType", idParameter);
+        }
+    
+        public virtual int pr_archiveGroupType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveGroupType", idParameter);
+        }
+    
+        public virtual int pr_archivePersonRelationshipType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePersonRelationshipType", idParameter);
+        }
+    
+        public virtual int pr_archiveRatingType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveRatingType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutomail_Result> pr_getAutomail(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomail_Result>("pr_getAutomail", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutoMailAttachment_Result> pr_getAutoMailAttachment(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutoMailAttachment_Result>("pr_getAutoMailAttachment", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutoMailType_Result> pr_getAutoMailType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutoMailType_Result>("pr_getAutoMailType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutoMailTypeAll_Result> pr_getAutoMailTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutoMailTypeAll_Result>("pr_getAutoMailTypeAll");
+        }
+    
+        public virtual ObjectResult<pr_getDomain_Result> pr_getDomain(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDomain_Result>("pr_getDomain", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getDomainAll_Result> pr_getDomainAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDomainAll_Result>("pr_getDomainAll");
+        }
+    
+        public virtual ObjectResult<pr_getEmailBounceType_Result> pr_getEmailBounceType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEmailBounceType_Result>("pr_getEmailBounceType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEmailBounceTypeAll_Result> pr_getEmailBounceTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEmailBounceTypeAll_Result>("pr_getEmailBounceTypeAll");
+        }
+    
+        public virtual ObjectResult<pr_getEmailTag_Result> pr_getEmailTag(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEmailTag_Result>("pr_getEmailTag", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEmailTagAll_Result> pr_getEmailTagAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEmailTagAll_Result>("pr_getEmailTagAll");
+        }
+    
+        public virtual ObjectResult<pr_getEmailTemplate_Result> pr_getEmailTemplate(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEmailTemplate_Result>("pr_getEmailTemplate", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEmailTemplateAll_Result> pr_getEmailTemplateAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEmailTemplateAll_Result>("pr_getEmailTemplateAll");
+        }
+    
+        public virtual ObjectResult<pr_getEmailTemplateType_Result> pr_getEmailTemplateType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEmailTemplateType_Result>("pr_getEmailTemplateType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEmailTemplateTypeAll_Result> pr_getEmailTemplateTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEmailTemplateTypeAll_Result>("pr_getEmailTemplateTypeAll");
+        }
+    
+        public virtual ObjectResult<pr_getEsignature_Result> pr_getEsignature(Nullable<int> partner, Nullable<int> questionnaire)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEsignature_Result>("pr_getEsignature", partnerParameter, questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getGroupType_Result> pr_getGroupType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupType_Result>("pr_getGroupType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getGroupTypeAll_Result> pr_getGroupTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupTypeAll_Result>("pr_getGroupTypeAll");
+        }
+    
+        public virtual ObjectResult<pr_getPersonRelationshipType_Result> pr_getPersonRelationshipType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonRelationshipType_Result>("pr_getPersonRelationshipType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonRelationshipTypeAll_Result> pr_getPersonRelationshipTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonRelationshipTypeAll_Result>("pr_getPersonRelationshipTypeAll");
+        }
+    
+        public virtual ObjectResult<pr_getRatingType_Result> pr_getRatingType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRatingType_Result>("pr_getRatingType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getRatingTypeAll_Result> pr_getRatingTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRatingTypeAll_Result>("pr_getRatingTypeAll");
+        }
+    
+        public virtual int pr_modifyAutomail(Nullable<int> id, Nullable<int> protocol, Nullable<int> touchpoint, Nullable<int> partnerType, Nullable<int> mailType, string subject, string text, string footer1, string footer2)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var protocolParameter = protocol.HasValue ?
+                new ObjectParameter("protocol", protocol) :
+                new ObjectParameter("protocol", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var partnerTypeParameter = partnerType.HasValue ?
+                new ObjectParameter("partnerType", partnerType) :
+                new ObjectParameter("partnerType", typeof(int));
+    
+            var mailTypeParameter = mailType.HasValue ?
+                new ObjectParameter("mailType", mailType) :
+                new ObjectParameter("mailType", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var footer1Parameter = footer1 != null ?
+                new ObjectParameter("footer1", footer1) :
+                new ObjectParameter("footer1", typeof(string));
+    
+            var footer2Parameter = footer2 != null ?
+                new ObjectParameter("footer2", footer2) :
+                new ObjectParameter("footer2", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutomail", idParameter, protocolParameter, touchpointParameter, partnerTypeParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
+        }
+    
+        public virtual int pr_modifyAutoMailAttachment(Nullable<int> id, Nullable<int> autoMail, string attachment, string note)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var autoMailParameter = autoMail.HasValue ?
+                new ObjectParameter("autoMail", autoMail) :
+                new ObjectParameter("autoMail", typeof(int));
+    
+            var attachmentParameter = attachment != null ?
+                new ObjectParameter("attachment", attachment) :
+                new ObjectParameter("attachment", typeof(string));
+    
+            var noteParameter = note != null ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutoMailAttachment", idParameter, autoMailParameter, attachmentParameter, noteParameter);
+        }
+    
+        public virtual int pr_modifyAutoMailType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<int> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutoMailType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyDomain(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyDomain", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyEmailBounceType(Nullable<int> id, string description, Nullable<int> code, Nullable<int> sortOrder, Nullable<int> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var codeParameter = code.HasValue ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEmailBounceType", idParameter, descriptionParameter, codeParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyEmailTag(Nullable<int> id, string @class, string method, string variable)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var classParameter = @class != null ?
+                new ObjectParameter("class", @class) :
+                new ObjectParameter("class", typeof(string));
+    
+            var methodParameter = method != null ?
+                new ObjectParameter("method", method) :
+                new ObjectParameter("method", typeof(string));
+    
+            var variableParameter = variable != null ?
+                new ObjectParameter("variable", variable) :
+                new ObjectParameter("variable", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEmailTag", idParameter, classParameter, methodParameter, variableParameter);
+        }
+    
+        public virtual int pr_modifyEmailTemplate(Nullable<int> id, Nullable<int> emailTemplateType, Nullable<int> enterprise, Nullable<int> author, Nullable<System.DateTime> dateCreated, string subject, string body)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var emailTemplateTypeParameter = emailTemplateType.HasValue ?
+                new ObjectParameter("EmailTemplateType", emailTemplateType) :
+                new ObjectParameter("EmailTemplateType", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var authorParameter = author.HasValue ?
+                new ObjectParameter("author", author) :
+                new ObjectParameter("author", typeof(int));
+    
+            var dateCreatedParameter = dateCreated.HasValue ?
+                new ObjectParameter("dateCreated", dateCreated) :
+                new ObjectParameter("dateCreated", typeof(System.DateTime));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var bodyParameter = body != null ?
+                new ObjectParameter("body", body) :
+                new ObjectParameter("body", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEmailTemplate", idParameter, emailTemplateTypeParameter, enterpriseParameter, authorParameter, dateCreatedParameter, subjectParameter, bodyParameter);
+        }
+    
+        public virtual int pr_modifyEmailTemplateType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEmailTemplateType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyEsignature(Nullable<int> id, Nullable<int> partner, Nullable<int> questionnaire, string firstName, string lastName, string title, string email, string affirmation, string officer, string phone, Nullable<System.DateTime> completeDate)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("firstName", firstName) :
+                new ObjectParameter("firstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("lastName", lastName) :
+                new ObjectParameter("lastName", typeof(string));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var affirmationParameter = affirmation != null ?
+                new ObjectParameter("affirmation", affirmation) :
+                new ObjectParameter("affirmation", typeof(string));
+    
+            var officerParameter = officer != null ?
+                new ObjectParameter("officer", officer) :
+                new ObjectParameter("officer", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("phone", phone) :
+                new ObjectParameter("phone", typeof(string));
+    
+            var completeDateParameter = completeDate.HasValue ?
+                new ObjectParameter("completeDate", completeDate) :
+                new ObjectParameter("completeDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEsignature", idParameter, partnerParameter, questionnaireParameter, firstNameParameter, lastNameParameter, titleParameter, emailParameter, affirmationParameter, officerParameter, phoneParameter, completeDateParameter);
+        }
+    
+        public virtual int pr_modifyGroupType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyGroupType", idParameter, descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+        }
+    
+        public virtual int pr_modifyPersonRelationshipType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonRelationshipType", idParameter, descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+        }
+    
+        public virtual int pr_modifyRatingType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyRatingType", idParameter, descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+        }
+    
+        public virtual int pr_removeAutomail(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutomail", idParameter);
+        }
+    
+        public virtual int pr_removeAutoMailAttachment(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutoMailAttachment", idParameter);
+        }
+    
+        public virtual int pr_removeAutoMailType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutoMailType", idParameter);
+        }
+    
+        public virtual int pr_removeDomain(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeDomain", idParameter);
+        }
+    
+        public virtual int pr_removeEmailBounceType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEmailBounceType", idParameter);
+        }
+    
+        public virtual int pr_removeEmailTag(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEmailTag", idParameter);
+        }
+    
+        public virtual int pr_removeEmailTemplate(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEmailTemplate", idParameter);
+        }
+    
+        public virtual int pr_removeEmailTemplateType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEmailTemplateType", idParameter);
+        }
+    
+        public virtual int pr_removeEsignature(Nullable<int> partner, Nullable<int> questionnaire)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEsignature", partnerParameter, questionnaireParameter);
+        }
+    
+        public virtual int pr_removeGroupType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeGroupType", idParameter);
+        }
+    
+        public virtual int pr_removePartnerRelationshipOwner1(Nullable<int> partner, Nullable<int> person)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnerRelationshipOwner1", partnerParameter, personParameter);
+        }
+    
+        public virtual int pr_removePersonRelationshipType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonRelationshipType", idParameter);
+        }
+    
+        public virtual int pr_removeRatingType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeRatingType", idParameter);
+        }
+    
+        public virtual int pr_unArchiveAutoMailType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveAutoMailType", idParameter);
+        }
+    
+        public virtual int pr_unArchiveDomain(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveDomain", idParameter);
+        }
+    
+        public virtual int pr_unArchiveEmailBounceType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveEmailBounceType", idParameter);
+        }
+    
+        public virtual int pr_unArchiveEmailTemplateType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveEmailTemplateType", idParameter);
+        }
+    
+        public virtual int pr_unArchiveGroupType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveGroupType", idParameter);
+        }
+    
+        public virtual int pr_unArchivePersonRelationshipType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePersonRelationshipType", idParameter);
+        }
+    
+        public virtual int pr_unArchiveRatingType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveRatingType", idParameter);
         }
     }
 }
