@@ -154,6 +154,8 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.zCode" Width="1.5" PointX="8.401140313782328" PointY="8.86672692413755" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.zCodeBatchUpdate" Width="1.5" PointX="0.64421243623095215" PointY="1.3014945840935663" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.prReminder" Width="1.5" PointX="10.539563850750945" PointY="25.940418702522489" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.key" Width="1.5" PointX="4.31697684913733" PointY="2.4764760893194357" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_key_enterprise" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -52,3 +52,4 @@ C:\Users\john\Desktop\MVCMT\Generic\bin\System.Web.WebPages.Deployment.xml
 C:\Users\john\Desktop\MVCMT\Generic\bin\System.Web.WebPages.Razor.xml
 C:\Users\john\Desktop\MVCMT\Generic\obj\Debug\Generic.dll
 C:\Users\john\Desktop\MVCMT\Generic\obj\Debug\Generic.pdb
+C:\Users\john\Desktop\MVCMT\Generic\bin\Telerik.Web.Mvc.dll

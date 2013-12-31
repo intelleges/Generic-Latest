@@ -8,6 +8,9 @@ using System.IO;
 using Generic.Helpers;
 using System.Web.Security;
 using System.Web.Routing;
+using Generic.Models;
+using Generic.Helpers;
+using Generic.Helpers.Utility;
 
 
 namespace Generic.Controllers
@@ -91,6 +94,21 @@ namespace Generic.Controllers
             ViewBag.Project = "Generic";
             return View();
         }
+
+
+        public virtual ActionResult SendGridTest()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public virtual ActionResult SendGridTest(Email email)
+        {
+            SendEmail objSendEmail = new SendEmail();
+            objSendEmail.sendEmail(email);
+            return View();
+        }
+
 
         protected override void Dispose(bool disposing)
         {

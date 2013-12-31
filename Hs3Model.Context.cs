@@ -126,6 +126,7 @@ namespace Generic
         public DbSet<zCode> zCode { get; set; }
         public DbSet<zCodeBatchUpdate> zCodeBatchUpdate { get; set; }
         public DbSet<prReminder> prReminder { get; set; }
+        public DbSet<key> key { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -2992,8 +2993,12 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterprise", idParameter, descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, archivedDateParameter);
         }
     
-        public virtual int pr_modifyEnterpriseSystemInfo(Nullable<System.DateTime> systemExpiry, Nullable<int> licenseLimit, string companyName, string contractCoordinator, string companyWebSite, string coordinatorEmail, Nullable<int> isCurrentDataBase, string logoImage, Nullable<bool> configured, Nullable<int> enterprise, Nullable<int> id)
+        public virtual int pr_modifyEnterpriseSystemInfo(Nullable<int> id, Nullable<System.DateTime> systemExpiry, Nullable<int> licenseLimit, string companyName, string contractCoordinator, string companyWebSite, string coordinatorEmail, Nullable<int> isCurrentDataBase, string logoImage, Nullable<bool> configured, Nullable<int> enterprise)
         {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
             var systemExpiryParameter = systemExpiry.HasValue ?
                 new ObjectParameter("systemExpiry", systemExpiry) :
                 new ObjectParameter("systemExpiry", typeof(System.DateTime));
@@ -3034,11 +3039,7 @@ namespace Generic
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterpriseSystemInfo", systemExpiryParameter, licenseLimitParameter, companyNameParameter, contractCoordinatorParameter, companyWebSiteParameter, coordinatorEmailParameter, isCurrentDataBaseParameter, logoImageParameter, configuredParameter, enterpriseParameter, idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterpriseSystemInfo", idParameter, systemExpiryParameter, licenseLimitParameter, companyNameParameter, contractCoordinatorParameter, companyWebSiteParameter, coordinatorEmailParameter, isCurrentDataBaseParameter, logoImageParameter, configuredParameter, enterpriseParameter);
         }
     
         public virtual int pr_modifyGroup(Nullable<int> id, Nullable<int> enterprise, Nullable<int> groupCollection, Nullable<int> author, Nullable<int> state, string name, string description, string email, Nullable<System.DateTime> dateCreated, Nullable<int> sortOrder, Nullable<int> active)
@@ -5482,27 +5483,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEsignature", partnerParameter, questionnaireParameter, firstNameParameter, lastNameParameter, titleParameter, emailParameter, affirmationParameter, officerParameter, phoneParameter, completeDateParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addGroupType(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
-        {
-            var descriptionParameter = description != null ?
-                new ObjectParameter("description", description) :
-                new ObjectParameter("description", typeof(string));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
-    
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addGroupType", descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
-        }
-    
         public virtual int pr_addPartnerRelationshipOwner1(Nullable<int> partner, Nullable<int> person)
         {
             var partnerParameter = partner.HasValue ?
@@ -5652,15 +5632,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveEmailTemplateType", idParameter);
         }
     
-        public virtual int pr_archiveGroupType(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveGroupType", idParameter);
-        }
-    
         public virtual int pr_archivePersonRelationshipType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -5792,20 +5763,6 @@ namespace Generic
                 new ObjectParameter("questionnaire", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEsignature_Result>("pr_getEsignature", partnerParameter, questionnaireParameter);
-        }
-    
-        public virtual ObjectResult<pr_getGroupType_Result> pr_getGroupType(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupType_Result>("pr_getGroupType", idParameter);
-        }
-    
-        public virtual ObjectResult<pr_getGroupTypeAll_Result> pr_getGroupTypeAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupTypeAll_Result>("pr_getGroupTypeAll");
         }
     
         public virtual ObjectResult<pr_getPersonRelationshipType_Result> pr_getPersonRelationshipType(Nullable<int> id)
@@ -6089,31 +6046,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEsignature", idParameter, partnerParameter, questionnaireParameter, firstNameParameter, lastNameParameter, titleParameter, emailParameter, affirmationParameter, officerParameter, phoneParameter, completeDateParameter);
         }
     
-        public virtual int pr_modifyGroupType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var descriptionParameter = description != null ?
-                new ObjectParameter("description", description) :
-                new ObjectParameter("description", typeof(string));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
-    
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyGroupType", idParameter, descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
-        }
-    
         public virtual int pr_modifyPersonRelationshipType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
@@ -6249,15 +6181,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEsignature", partnerParameter, questionnaireParameter);
         }
     
-        public virtual int pr_removeGroupType(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeGroupType", idParameter);
-        }
-    
         public virtual int pr_removePartnerRelationshipOwner1(Nullable<int> partner, Nullable<int> person)
         {
             var partnerParameter = partner.HasValue ?
@@ -6325,15 +6248,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveEmailTemplateType", idParameter);
         }
     
-        public virtual int pr_unArchiveGroupType(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveGroupType", idParameter);
-        }
-    
         public virtual int pr_unArchivePersonRelationshipType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -6350,6 +6264,409 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveRatingType", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEventNotification(string email, Nullable<System.DateTime> timestamp, string @event, string reason, string url, string category, string accesscode, string protocolTouchpoint, string applicationName, Nullable<int> enterprise)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var timestampParameter = timestamp.HasValue ?
+                new ObjectParameter("timestamp", timestamp) :
+                new ObjectParameter("timestamp", typeof(System.DateTime));
+    
+            var eventParameter = @event != null ?
+                new ObjectParameter("event", @event) :
+                new ObjectParameter("event", typeof(string));
+    
+            var reasonParameter = reason != null ?
+                new ObjectParameter("reason", reason) :
+                new ObjectParameter("reason", typeof(string));
+    
+            var urlParameter = url != null ?
+                new ObjectParameter("url", url) :
+                new ObjectParameter("url", typeof(string));
+    
+            var categoryParameter = category != null ?
+                new ObjectParameter("category", category) :
+                new ObjectParameter("category", typeof(string));
+    
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            var protocolTouchpointParameter = protocolTouchpoint != null ?
+                new ObjectParameter("protocolTouchpoint", protocolTouchpoint) :
+                new ObjectParameter("protocolTouchpoint", typeof(string));
+    
+            var applicationNameParameter = applicationName != null ?
+                new ObjectParameter("applicationName", applicationName) :
+                new ObjectParameter("applicationName", typeof(string));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEventNotification", emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEventNotificationBounce(string email, string error)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var errorParameter = error != null ?
+                new ObjectParameter("error", error) :
+                new ObjectParameter("error", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEventNotificationBounce", emailParameter, errorParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addKey(string @object, string username, string password, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        {
+            var objectParameter = @object != null ?
+                new ObjectParameter("object", @object) :
+                new ObjectParameter("object", typeof(string));
+    
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addKey", objectParameter, usernameParameter, passwordParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+        }
+    
+        public virtual int pr_archiveKey(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveKey", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEventNotification_Result> pr_getEventNotification(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotification_Result>("pr_getEventNotification", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEventNotificationAll_Result> pr_getEventNotificationAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationAll_Result>("pr_getEventNotificationAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEventNotificationBounce_Result> pr_getEventNotificationBounce(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationBounce_Result>("pr_getEventNotificationBounce", idParameter);
+        }
+    
+        public virtual ObjectResult<key> pr_getKey(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<key>("pr_getKey", idParameter);
+        }
+    
+        public virtual ObjectResult<key> pr_getKey(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<key>("pr_getKey", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<key> pr_getKeyAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<key>("pr_getKeyAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<key> pr_getKeyAll(Nullable<int> enterprise, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<key>("pr_getKeyAll", mergeOption, enterpriseParameter);
+        }
+    
+        public virtual int pr_modifyEventNotification(Nullable<int> id, string email, Nullable<System.DateTime> timestamp, string @event, string reason, string url, string category, string accesscode, string protocolTouchpoint, string applicationName, Nullable<int> enterprise)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var timestampParameter = timestamp.HasValue ?
+                new ObjectParameter("timestamp", timestamp) :
+                new ObjectParameter("timestamp", typeof(System.DateTime));
+    
+            var eventParameter = @event != null ?
+                new ObjectParameter("event", @event) :
+                new ObjectParameter("event", typeof(string));
+    
+            var reasonParameter = reason != null ?
+                new ObjectParameter("reason", reason) :
+                new ObjectParameter("reason", typeof(string));
+    
+            var urlParameter = url != null ?
+                new ObjectParameter("url", url) :
+                new ObjectParameter("url", typeof(string));
+    
+            var categoryParameter = category != null ?
+                new ObjectParameter("category", category) :
+                new ObjectParameter("category", typeof(string));
+    
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            var protocolTouchpointParameter = protocolTouchpoint != null ?
+                new ObjectParameter("protocolTouchpoint", protocolTouchpoint) :
+                new ObjectParameter("protocolTouchpoint", typeof(string));
+    
+            var applicationNameParameter = applicationName != null ?
+                new ObjectParameter("applicationName", applicationName) :
+                new ObjectParameter("applicationName", typeof(string));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEventNotification", idParameter, emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, enterpriseParameter);
+        }
+    
+        public virtual int pr_modifyEventNotificationBounce(Nullable<int> id, string email, string error)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var errorParameter = error != null ?
+                new ObjectParameter("error", error) :
+                new ObjectParameter("error", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEventNotificationBounce", idParameter, emailParameter, errorParameter);
+        }
+    
+        public virtual int pr_modifyKey(Nullable<int> id, string @object, string username, string password, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var objectParameter = @object != null ?
+                new ObjectParameter("object", @object) :
+                new ObjectParameter("object", typeof(string));
+    
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyKey", idParameter, objectParameter, usernameParameter, passwordParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+        }
+    
+        public virtual int pr_removeEventNotification(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEventNotification", idParameter);
+        }
+    
+        public virtual int pr_removeEventNotificationBounce(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEventNotificationBounce", idParameter);
+        }
+    
+        public virtual int pr_removeKey(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeKey", idParameter);
+        }
+    
+        public virtual int pr_unArchiveKey(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveKey", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEnterpriseObjectName(Nullable<int> enterprise, string objectName, string alias, Nullable<int> device)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var objectNameParameter = objectName != null ?
+                new ObjectParameter("objectName", objectName) :
+                new ObjectParameter("objectName", typeof(string));
+    
+            var aliasParameter = alias != null ?
+                new ObjectParameter("alias", alias) :
+                new ObjectParameter("alias", typeof(string));
+    
+            var deviceParameter = device.HasValue ?
+                new ObjectParameter("device", device) :
+                new ObjectParameter("device", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterpriseObjectName", enterpriseParameter, objectNameParameter, aliasParameter, deviceParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEnterpriseObjectName_Result> pr_getEnterpriseObjectName(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseObjectName_Result>("pr_getEnterpriseObjectName", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEnterpriseObjectNameAll_Result> pr_getEnterpriseObjectNameAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseObjectNameAll_Result>("pr_getEnterpriseObjectNameAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<enterpriseSystemInfo> pr_getEnterpriseSystemInfo(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfo", idParameter);
+        }
+    
+        public virtual ObjectResult<enterpriseSystemInfo> pr_getEnterpriseSystemInfo(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfo", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<enterpriseSystemInfo> pr_getEnterpriseSystemInfoAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfoAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<enterpriseSystemInfo> pr_getEnterpriseSystemInfoAll(Nullable<int> enterprise, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfoAll", mergeOption, enterpriseParameter);
+        }
+    
+        public virtual int pr_modifyEnterpriseObjectName(Nullable<int> id, Nullable<int> enterprise, string objectName, string alias, Nullable<int> device)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var objectNameParameter = objectName != null ?
+                new ObjectParameter("objectName", objectName) :
+                new ObjectParameter("objectName", typeof(string));
+    
+            var aliasParameter = alias != null ?
+                new ObjectParameter("alias", alias) :
+                new ObjectParameter("alias", typeof(string));
+    
+            var deviceParameter = device.HasValue ?
+                new ObjectParameter("device", device) :
+                new ObjectParameter("device", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterpriseObjectName", idParameter, enterpriseParameter, objectNameParameter, aliasParameter, deviceParameter);
+        }
+    
+        public virtual int pr_removeEnterpriseObjectName(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEnterpriseObjectName", idParameter);
         }
     }
 }

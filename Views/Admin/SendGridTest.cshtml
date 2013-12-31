@@ -1,0 +1,51 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.Models.Email>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Send Grid Test";
+}
+
+
+
+@{
+    ViewBag.Title = "Send Grid Test";
+}
+
+<h2>SendGridTest</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Send Email</legend>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.emailTo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.emailTo)
+            @Html.ValidationMessageFor(model => model.emailTo)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.subject)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.subject)
+            @Html.ValidationMessageFor(model => model.subject)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.body)
+        </div>
+        <div class="editor-field">
+          @Html.EditorFor(model => model.body)
+            @Html.ValidationMessageFor(model => model.body)
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+

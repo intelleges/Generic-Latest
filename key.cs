@@ -10,13 +10,18 @@
 namespace Generic
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class pr_getGroupTypeAll_Result
+    public partial class key
     {
         public int id { get; set; }
-        public string description { get; set; }
+        public string @object { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<bool> active { get; set; }
         public Nullable<int> enterprise { get; set; }
+    
+        public virtual enterprise enterprise1 { get; set; }
     }
 }

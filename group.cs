@@ -30,6 +30,7 @@ namespace Generic
         public Nullable<System.DateTime> dateCreated { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<int> active { get; set; }
+        public Nullable<int> groupType { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
         public virtual groupCollection groupCollection1 { get; set; }

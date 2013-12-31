@@ -33,6 +33,7 @@ namespace Generic
             this.ruleType = new HashSet<ruleType>();
             this.state = new HashSet<state>();
             this.groupCollection = new HashSet<groupCollection>();
+            this.key = new HashSet<key>();
         }
     
         public int id { get; set; }
@@ -62,5 +63,6 @@ namespace Generic
         public virtual ICollection<ruleType> ruleType { get; set; }
         public virtual ICollection<state> state { get; set; }
         public virtual ICollection<groupCollection> groupCollection { get; set; }
+        public virtual ICollection<key> key { get; set; }
     }
 }

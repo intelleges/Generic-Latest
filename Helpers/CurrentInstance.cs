@@ -8,6 +8,8 @@ namespace Generic.Helpers
 {
     public static class CurrentInstance
     {
-        public  static int EnterpriseID = 1;
+        public static int EnterpriseID = 1;
+
+
     }
 }

@@ -1085,6 +1085,7 @@
       <Parameter Name="archivedDate" Mode="In" Type="DateTime" />
     </FunctionImport>
     <FunctionImport Name="pr_modifyEnterpriseSystemInfo">
+      <Parameter Name="id" Mode="In" Type="Int32" />
       <Parameter Name="systemExpiry" Mode="In" Type="DateTime" />
       <Parameter Name="licenseLimit" Mode="In" Type="Int32" />
       <Parameter Name="companyName" Mode="In" Type="String" />
@@ -1095,7 +1096,6 @@
       <Parameter Name="logoImage" Mode="In" Type="String" />
       <Parameter Name="configured" Mode="In" Type="Boolean" />
       <Parameter Name="enterprise" Mode="In" Type="Int32" />
-      <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_modifyGroup">
       <Parameter Name="id" Mode="In" Type="Int32" />
@@ -1843,12 +1843,6 @@
       <Parameter Name="phone" Mode="In" Type="String" />
       <Parameter Name="completeDate" Mode="In" Type="DateTime" />
     </FunctionImport>
-    <FunctionImport Name="pr_addGroupType" ReturnType="Collection(Decimal)">
-      <Parameter Name="description" Mode="In" Type="String" />
-      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-      <Parameter Name="active" Mode="In" Type="Boolean" />
-      <Parameter Name="enterprise" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="pr_addPartnerRelationshipOwner1">
       <Parameter Name="partner" Mode="In" Type="Int32" />
       <Parameter Name="person" Mode="In" Type="Int32" />
@@ -1893,9 +1887,6 @@
     <FunctionImport Name="pr_archiveEmailTemplateType">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_archiveGroupType">
-      <Parameter Name="id" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="pr_archivePersonRelationshipType">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -1936,10 +1927,6 @@
       <Parameter Name="partner" Mode="In" Type="Int32" />
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_getGroupType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGroupType_Result)">
-      <Parameter Name="id" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="pr_getGroupTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGroupTypeAll_Result)" />
     <FunctionImport Name="pr_getPersonRelationshipType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonRelationshipType_Result)">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -2018,13 +2005,6 @@
       <Parameter Name="phone" Mode="In" Type="String" />
       <Parameter Name="completeDate" Mode="In" Type="DateTime" />
     </FunctionImport>
-    <FunctionImport Name="pr_modifyGroupType">
-      <Parameter Name="id" Mode="In" Type="Int32" />
-      <Parameter Name="description" Mode="In" Type="String" />
-      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-      <Parameter Name="active" Mode="In" Type="Boolean" />
-      <Parameter Name="enterprise" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="pr_modifyPersonRelationshipType">
       <Parameter Name="id" Mode="In" Type="Int32" />
       <Parameter Name="description" Mode="In" Type="String" />
@@ -2067,9 +2047,6 @@
       <Parameter Name="partner" Mode="In" Type="Int32" />
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_removeGroupType">
-      <Parameter Name="id" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="pr_removePartnerRelationshipOwner1">
       <Parameter Name="partner" Mode="In" Type="Int32" />
       <Parameter Name="person" Mode="In" Type="Int32" />
@@ -2092,13 +2069,124 @@
     <FunctionImport Name="pr_unArchiveEmailTemplateType">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_unArchiveGroupType">
-      <Parameter Name="id" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="pr_unArchivePersonRelationshipType">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_unArchiveRatingType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="key" EntityType="hs3MVCMTQa2Model.key" />
+    <AssociationSet Name="FK_key_enterprise" Association="hs3MVCMTQa2Model.FK_key_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="key" EntitySet="key" />
+    </AssociationSet>
+    <FunctionImport Name="pr_addEventNotification" ReturnType="Collection(Decimal)">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="timestamp" Mode="In" Type="DateTime" />
+      <Parameter Name="event" Mode="In" Type="String" />
+      <Parameter Name="reason" Mode="In" Type="String" />
+      <Parameter Name="url" Mode="In" Type="String" />
+      <Parameter Name="category" Mode="In" Type="String" />
+      <Parameter Name="accesscode" Mode="In" Type="String" />
+      <Parameter Name="protocolTouchpoint" Mode="In" Type="String" />
+      <Parameter Name="applicationName" Mode="In" Type="String" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addEventNotificationBounce" ReturnType="Collection(Decimal)">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="error" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addKey" ReturnType="Collection(Decimal)">
+      <Parameter Name="object" Mode="In" Type="String" />
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveKey">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getEventNotification" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotification_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getEventNotificationAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationAll_Result)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getEventNotificationBounce" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationBounce_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getKey" EntitySet="key" ReturnType="Collection(hs3MVCMTQa2Model.key)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getKeyAll" EntitySet="key" ReturnType="Collection(hs3MVCMTQa2Model.key)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyEventNotification">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="timestamp" Mode="In" Type="DateTime" />
+      <Parameter Name="event" Mode="In" Type="String" />
+      <Parameter Name="reason" Mode="In" Type="String" />
+      <Parameter Name="url" Mode="In" Type="String" />
+      <Parameter Name="category" Mode="In" Type="String" />
+      <Parameter Name="accesscode" Mode="In" Type="String" />
+      <Parameter Name="protocolTouchpoint" Mode="In" Type="String" />
+      <Parameter Name="applicationName" Mode="In" Type="String" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyEventNotificationBounce">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="error" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyKey">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="object" Mode="In" Type="String" />
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeEventNotification">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeEventNotificationBounce">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeKey">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveKey">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addEnterpriseObjectName" ReturnType="Collection(Decimal)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+      <Parameter Name="objectName" Mode="In" Type="String" />
+      <Parameter Name="alias" Mode="In" Type="String" />
+      <Parameter Name="device" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getEnterpriseObjectName" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseObjectName_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getEnterpriseObjectNameAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseObjectNameAll_Result)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getEnterpriseSystemInfo" EntitySet="enterpriseSystemInfo" ReturnType="Collection(hs3MVCMTQa2Model.enterpriseSystemInfo)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getEnterpriseSystemInfoAll" EntitySet="enterpriseSystemInfo" ReturnType="Collection(hs3MVCMTQa2Model.enterpriseSystemInfo)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyEnterpriseObjectName">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+      <Parameter Name="objectName" Mode="In" Type="String" />
+      <Parameter Name="alias" Mode="In" Type="String" />
+      <Parameter Name="device" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeEnterpriseObjectName">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
@@ -2168,6 +2256,7 @@
     <NavigationProperty Name="ruleType" Relationship="hs3MVCMTQa2Model.FK_ruleType_enterprise" FromRole="enterprise" ToRole="ruleType" />
     <NavigationProperty Name="state" Relationship="hs3MVCMTQa2Model.FK_state_enterprise" FromRole="enterprise" ToRole="state" />
     <NavigationProperty Name="groupCollection" Relationship="hs3MVCMTQa2Model.FK_groupCollection_enterprise" FromRole="enterprise" ToRole="groupCollection" />
+    <NavigationProperty Name="key" Relationship="hs3MVCMTQa2Model.FK_key_enterprise" FromRole="enterprise" ToRole="key" />
   </EntityType>
   <EntityType Name="enterpriseObjectName">
     <Key>
@@ -2216,6 +2305,7 @@
     <NavigationProperty Name="groupCollection1" Relationship="hs3MVCMTQa2Model.FK_group_groupCollection" FromRole="group" ToRole="groupCollection" />
     <NavigationProperty Name="person" Relationship="hs3MVCMTQa2Model.FK_group_person" FromRole="group" ToRole="person" />
     <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.personGroup" FromRole="group" ToRole="person" />
+    <Property Type="Int32" Name="groupType" />
   </EntityType>
   <EntityType Name="groupCollection">
     <Key>
@@ -5001,6 +5091,7 @@
     <Property Type="String" Name="accesscode" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="protocolTouchpoint" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="applicationName" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="enterprise" />
   </EntityType>
   <EntityType Name="eventNotificationBounce">
     <Key>
@@ -5612,20 +5703,6 @@
     <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
     <Property Type="DateTime" Name="completeDate" Nullable="true" Precision="16" />
   </ComplexType>
-  <ComplexType Name="pr_getGroupType_Result">
-    <Property Type="Int32" Name="id" Nullable="false" />
-    <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
-    <Property Type="Int32" Name="sortOrder" Nullable="true" />
-    <Property Type="Boolean" Name="active" Nullable="true" />
-    <Property Type="Int32" Name="enterprise" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="pr_getGroupTypeAll_Result">
-    <Property Type="Int32" Name="id" Nullable="false" />
-    <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
-    <Property Type="Int32" Name="sortOrder" Nullable="true" />
-    <Property Type="Boolean" Name="active" Nullable="true" />
-    <Property Type="Int32" Name="enterprise" Nullable="true" />
-  </ComplexType>
   <ComplexType Name="pr_getPersonRelationshipType_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
     <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
@@ -5652,6 +5729,120 @@
     <Property Type="String" Name="description" Nullable="true" MaxLength="250" />
     <Property Type="Int32" Name="sortOrder" Nullable="true" />
     <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="key">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="object" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="username" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="password" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Boolean" Name="active" />
+    <Property Type="Int32" Name="enterprise" />
+    <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_key_enterprise" FromRole="key" ToRole="enterprise" />
+  </EntityType>
+  <Association Name="FK_key_enterprise">
+    <End Type="hs3MVCMTQa2Model.enterprise" Role="enterprise" Multiplicity="0..1" />
+    <End Type="hs3MVCMTQa2Model.key" Role="key" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="key">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="pr_getEventNotification_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="timestamp" Nullable="true" Precision="23" />
+    <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="reason" Nullable="true" />
+    <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="category" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="accesscode" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="protocolTouchpoint" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="applicationName" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getEventNotificationAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="timestamp" Nullable="true" Precision="23" />
+    <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="reason" Nullable="true" />
+    <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="category" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="accesscode" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="protocolTouchpoint" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="applicationName" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getEventNotificationBounce_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="error" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getKey_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="object" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="password" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getKeyAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="object" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="password" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getEnterpriseObjectName_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="enterprise" Nullable="false" />
+    <Property Type="String" Name="objectName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="alias" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="device" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getEnterpriseObjectNameAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="enterprise" Nullable="false" />
+    <Property Type="String" Name="objectName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="alias" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="device" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getEnterpriseSystemInfo_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="DateTime" Name="systemExpiry" Nullable="true" Precision="16" />
+    <Property Type="Int32" Name="licenseLimit" Nullable="true" />
+    <Property Type="String" Name="companyName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="contractCoordinator" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="companyWebSite" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="coordinatorEmail" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="isCurrentDataBase" Nullable="true" />
+    <Property Type="String" Name="logoImage" Nullable="true" MaxLength="100" />
+    <Property Type="Boolean" Name="configured" Nullable="false" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getEnterpriseSystemInfoAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="DateTime" Name="systemExpiry" Nullable="true" Precision="16" />
+    <Property Type="Int32" Name="licenseLimit" Nullable="true" />
+    <Property Type="String" Name="companyName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="contractCoordinator" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="companyWebSite" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="coordinatorEmail" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="isCurrentDataBase" Nullable="true" />
+    <Property Type="String" Name="logoImage" Nullable="true" MaxLength="100" />
+    <Property Type="Boolean" Name="configured" Nullable="false" />
     <Property Type="Int32" Name="enterprise" Nullable="true" />
   </ComplexType>
 </Schema>

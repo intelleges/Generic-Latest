@@ -23,6 +23,7 @@
     <EntitySet Name="groupOrgChart" EntityType="hs3MVCMTQa2Model.Store.groupOrgChart" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="groupRiskGoal" EntityType="hs3MVCMTQa2Model.Store.groupRiskGoal" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="hs3Menu" EntityType="hs3MVCMTQa2Model.Store.hs3Menu" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="key" EntityType="hs3MVCMTQa2Model.Store.key" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="language" EntityType="hs3MVCMTQa2Model.Store.language" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="languageInfo" EntityType="hs3MVCMTQa2Model.Store.languageInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="letter" EntityType="hs3MVCMTQa2Model.Store.letter" store:Type="Tables" Schema="dbo" />
@@ -208,6 +209,10 @@
     <AssociationSet Name="FK_hs3Menu_enterprise" Association="hs3MVCMTQa2Model.Store.FK_hs3Menu_enterprise">
       <End Role="enterprise" EntitySet="enterprise" />
       <End Role="hs3Menu" EntitySet="hs3Menu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_key_enterprise" Association="hs3MVCMTQa2Model.Store.FK_key_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="key" EntitySet="key" />
     </AssociationSet>
     <AssociationSet Name="FK_language_enterprise" Association="hs3MVCMTQa2Model.Store.FK_language_enterprise">
       <End Role="enterprise" EntitySet="enterprise" />
@@ -588,6 +593,7 @@
     <Property Name="accesscode" Type="varchar" MaxLength="50" />
     <Property Name="protocolTouchpoint" Type="varchar" MaxLength="50" />
     <Property Name="applicationName" Type="varchar" MaxLength="50" />
+    <Property Name="enterprise" Type="int" />
   </EntityType>
   <EntityType Name="eventNotificationBounce">
     <Key>
@@ -604,6 +610,7 @@
     <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="enterprise" Type="int" />
     <Property Name="groupCollection" Type="int" Nullable="false" />
+    <Property Name="groupType" Type="int" />
     <Property Name="author" Type="int" />
     <Property Name="state" Type="int" />
     <Property Name="name" Type="varchar" MaxLength="50" />
@@ -662,6 +669,18 @@
     <Property Name="menuGroup" Type="int" />
     <Property Name="isDynamicCreated" Type="bit" />
     <Property Name="device" Type="int" />
+    <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="key">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="object" Type="varchar" MaxLength="100" />
+    <Property Name="username" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
     <Property Name="enterprise" Type="int" />
   </EntityType>
   <EntityType Name="language">
@@ -1837,6 +1856,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_key_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="key" Type="hs3MVCMTQa2Model.Store.key" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="key">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_language_enterprise">
     <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
     <End Role="language" Type="hs3MVCMTQa2Model.Store.language" Multiplicity="*" />
@@ -2488,6 +2519,12 @@
     <Parameter Name="instanceName" Type="varchar" Mode="In" />
     <Parameter Name="archivedDate" Type="date" Mode="In" />
   </Function>
+  <Function Name="pr_addEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="objectName" Type="varchar" Mode="In" />
+    <Parameter Name="alias" Type="varchar" Mode="In" />
+    <Parameter Name="device" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_addEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="systemExpiry" Type="smalldatetime" Mode="In" />
     <Parameter Name="licenseLimit" Type="int" Mode="In" />
@@ -2512,6 +2549,22 @@
     <Parameter Name="phone" Type="varchar" Mode="In" />
     <Parameter Name="completeDate" Type="smalldatetime" Mode="In" />
   </Function>
+  <Function Name="pr_addEventNotification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="timestamp" Type="datetime" Mode="In" />
+    <Parameter Name="event" Type="varchar" Mode="In" />
+    <Parameter Name="reason" Type="varchar(max)" Mode="In" />
+    <Parameter Name="url" Type="varchar" Mode="In" />
+    <Parameter Name="category" Type="varchar" Mode="In" />
+    <Parameter Name="accesscode" Type="varchar" Mode="In" />
+    <Parameter Name="protocolTouchpoint" Type="varchar" Mode="In" />
+    <Parameter Name="applicationName" Type="varchar" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addEventNotificationBounce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="error" Type="varchar(max)" Mode="In" />
+  </Function>
   <Function Name="pr_addGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
     <Parameter Name="groupCollection" Type="int" Mode="In" />
@@ -2531,8 +2584,10 @@
     <Parameter Name="active" Type="int" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_addGroupType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="description" Type="varchar" Mode="In" />
+  <Function Name="pr_addKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="object" Type="varchar" Mode="In" />
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="password" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -2906,7 +2961,7 @@
   <Function Name="pr_archiveGroupCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_archiveGroupType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_archiveKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_archivelanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3036,9 +3091,30 @@
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getEnterpriseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getEnterpriseObjectNameAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getEnterpriseSystemInfoAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getEsignature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="partner" Type="int" Mode="In" />
     <Parameter Name="questionnaire" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getEventNotification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getEventNotificationAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getEventNotificationBounce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -3056,10 +3132,12 @@
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getGroupCollectionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-  <Function Name="pr_getGroupType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_getKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_getGroupTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getKeyAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
@@ -3470,7 +3548,15 @@
     <Parameter Name="instanceName" Type="varchar" Mode="In" />
     <Parameter Name="archivedDate" Type="date" Mode="In" />
   </Function>
+  <Function Name="pr_modifyEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="objectName" Type="varchar" Mode="In" />
+    <Parameter Name="alias" Type="varchar" Mode="In" />
+    <Parameter Name="device" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_modifyEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="systemExpiry" Type="smalldatetime" Mode="In" />
     <Parameter Name="licenseLimit" Type="int" Mode="In" />
     <Parameter Name="companyName" Type="varchar" Mode="In" />
@@ -3481,7 +3567,6 @@
     <Parameter Name="logoImage" Type="varchar" Mode="In" />
     <Parameter Name="configured" Type="bit" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
-    <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_modifyEsignature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -3495,6 +3580,24 @@
     <Parameter Name="officer" Type="varchar" Mode="In" />
     <Parameter Name="phone" Type="varchar" Mode="In" />
     <Parameter Name="completeDate" Type="smalldatetime" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyEventNotification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="timestamp" Type="datetime" Mode="In" />
+    <Parameter Name="event" Type="varchar" Mode="In" />
+    <Parameter Name="reason" Type="varchar(max)" Mode="In" />
+    <Parameter Name="url" Type="varchar" Mode="In" />
+    <Parameter Name="category" Type="varchar" Mode="In" />
+    <Parameter Name="accesscode" Type="varchar" Mode="In" />
+    <Parameter Name="protocolTouchpoint" Type="varchar" Mode="In" />
+    <Parameter Name="applicationName" Type="varchar" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyEventNotificationBounce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="error" Type="varchar(max)" Mode="In" />
   </Function>
   <Function Name="pr_modifyGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -3517,9 +3620,11 @@
     <Parameter Name="active" Type="int" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_modifyGroupType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_modifyKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
-    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="object" Type="varchar" Mode="In" />
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="password" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -3870,6 +3975,9 @@
   <Function Name="pr_removeEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_removeEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_removeEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
@@ -3877,13 +3985,19 @@
     <Parameter Name="partner" Type="int" Mode="In" />
     <Parameter Name="questionnaire" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_removeEventNotification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeEventNotificationBounce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_removeGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_removeGroupCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_removeGroupType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_removeKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_removeLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -4046,7 +4160,7 @@
   <Function Name="pr_unArchiveGroupCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_unArchiveGroupType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_unArchiveKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_unArchiveLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">

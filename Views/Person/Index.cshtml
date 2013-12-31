@@ -1,8 +1,9 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.person>>
 @using System.Web.Mvc.Html
+@using Telerik.Web.Mvc.UI;
 @using Generic.Helpers
 @{
-    Layout = LayoutHelper.GetLayout();
+    Layout = Generic.Helpers.LayoutHelper.GetLayout();
     ViewBag.Title = ViewBag.Project + "Admin";
 }
 
@@ -10,7 +11,56 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
+
+
+
+@Html.Telerik().ScriptRegistrar() 
+
+@Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
+
+
+
+
+
+
+
+
+@( Html.Telerik().Grid(Model).Name("PersonGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.firstName);
+            columns.Bound(o => o.lastName);
+            columns.Bound(o => o.email);
+        })
+        .Pageable()
+        .Sortable()
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<table>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.enterprise1.description)
@@ -211,4 +261,4 @@
     </tr>
 }
 
-</table>
+</table>*@
