@@ -29,6 +29,7 @@
     <EntitySet Name="letter" EntityType="hs3MVCMTQa2Model.Store.letter" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="letterSeed" EntityType="hs3MVCMTQa2Model.Store.letterSeed" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="loadHistory" EntityType="hs3MVCMTQa2Model.Store.loadHistory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="menu" EntityType="hs3MVCMTQa2Model.Store.menu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="menuAccessLevel" EntityType="hs3MVCMTQa2Model.Store.menuAccessLevel" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="menuGroup" EntityType="hs3MVCMTQa2Model.Store.menuGroup" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="numberSeed" EntityType="hs3MVCMTQa2Model.Store.numberSeed" store:Type="Tables" Schema="dbo" />
@@ -221,6 +222,10 @@
     <AssociationSet Name="FK_languageInfo_enterprise" Association="hs3MVCMTQa2Model.Store.FK_languageInfo_enterprise">
       <End Role="enterprise" EntitySet="enterprise" />
       <End Role="languageInfo" EntitySet="languageInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_menu_enterprise" Association="hs3MVCMTQa2Model.Store.FK_menu_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="menu" EntitySet="menu" />
     </AssociationSet>
     <AssociationSet Name="FK_pageSurveyset_page" Association="hs3MVCMTQa2Model.Store.FK_pageSurveyset_page">
       <End Role="page" EntitySet="page" />
@@ -733,6 +738,19 @@
     <Property Name="recordcount" Type="int" />
     <Property Name="type" Type="int" />
     <Property Name="oldInt" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="menu">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="nvarchar" MaxLength="255" />
+    <Property Name="url" Type="nvarchar" MaxLength="255" />
+    <Property Name="parentid" Type="int" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="accesslevel" Type="int" />
+    <Property Name="enterprise" Type="int" />
   </EntityType>
   <EntityType Name="menuAccessLevel">
     <Key>
@@ -1892,6 +1910,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_menu_enterprise">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="menu" Type="hs3MVCMTQa2Model.Store.menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="menu">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_pageSurveyset_page">
     <End Role="page" Type="hs3MVCMTQa2Model.Store.page" Multiplicity="1" />
     <End Role="pageSurveyset" Type="hs3MVCMTQa2Model.Store.pageSurveyset" Multiplicity="*" />
@@ -2584,6 +2614,19 @@
     <Parameter Name="active" Type="int" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_addHs3Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="nvarchar" Mode="In" />
+    <Parameter Name="url" Type="nvarchar" Mode="In" />
+    <Parameter Name="parentid" Type="int" Mode="In" />
+    <Parameter Name="grand" Type="int" Mode="In" />
+    <Parameter Name="sort" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+    <Parameter Name="accesslevel" Type="int" Mode="In" />
+    <Parameter Name="menuGroup" Type="int" Mode="In" />
+    <Parameter Name="isDynamicCreated" Type="bit" Mode="In" />
+    <Parameter Name="device" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_addKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="object" Type="varchar" Mode="In" />
     <Parameter Name="username" Type="varchar" Mode="In" />
@@ -2604,6 +2647,15 @@
     <Parameter Name="languageFlag" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="nvarchar" Mode="In" />
+    <Parameter Name="url" Type="nvarchar" Mode="In" />
+    <Parameter Name="parentid" Type="int" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="accesslevel" Type="int" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_addPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -2961,6 +3013,9 @@
   <Function Name="pr_archiveGroupCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_archiveHs3Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_archiveKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
@@ -2968,6 +3023,9 @@
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_archiveLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_archivePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3132,6 +3190,12 @@
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getGroupCollectionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getHs3Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getHs3MenuAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
@@ -3154,6 +3218,12 @@
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getLanguageinfoAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getMenuAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getObjectNameByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3620,6 +3690,20 @@
     <Parameter Name="active" Type="int" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_modifyHs3Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="description" Type="nvarchar" Mode="In" />
+    <Parameter Name="url" Type="nvarchar" Mode="In" />
+    <Parameter Name="parentid" Type="int" Mode="In" />
+    <Parameter Name="grand" Type="int" Mode="In" />
+    <Parameter Name="sort" Type="int" Mode="In" />
+    <Parameter Name="active" Type="int" Mode="In" />
+    <Parameter Name="accesslevel" Type="int" Mode="In" />
+    <Parameter Name="menuGroup" Type="int" Mode="In" />
+    <Parameter Name="isDynamicCreated" Type="bit" Mode="In" />
+    <Parameter Name="device" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_modifyKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="object" Type="varchar" Mode="In" />
@@ -3642,6 +3726,16 @@
     <Parameter Name="languageFlag" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="description" Type="nvarchar" Mode="In" />
+    <Parameter Name="url" Type="nvarchar" Mode="In" />
+    <Parameter Name="parentid" Type="int" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="accesslevel" Type="int" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_modifyPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -3997,6 +4091,9 @@
   <Function Name="pr_removeGroupCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_removeHs3Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_removeKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
@@ -4004,6 +4101,9 @@
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_removeLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_removePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -4160,6 +4260,9 @@
   <Function Name="pr_unArchiveGroupCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_unArchiveHs3Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_unArchiveKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
@@ -4167,6 +4270,9 @@
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_unArchiveLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_unArchivePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">

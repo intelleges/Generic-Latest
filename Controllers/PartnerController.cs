@@ -17,8 +17,8 @@ namespace Generic.Controllers
 
         public ActionResult Index()
         {
-            var partners = db.pr_getPartnerAll(Generic.Helpers.CurrentInstance.EnterpriseID);
-            return View(partners.ToList());
+            var partner = db.pr_getPartnerAll(Generic.Helpers.CurrentInstance.EnterpriseID);
+            return View(partner.ToList());
         }
 
         //

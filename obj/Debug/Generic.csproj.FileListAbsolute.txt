@@ -24,7 +24,6 @@ E:\asp.net\intelleges\MVC\Generic\Generic\bin\System.Web.WebPages.Deployment.xml
 E:\asp.net\intelleges\MVC\Generic\Generic\bin\System.Web.WebPages.Razor.xml
 E:\asp.net\intelleges\MVC\Generic\Generic\obj\Debug\Generic.dll
 E:\asp.net\intelleges\MVC\Generic\Generic\obj\Debug\Generic.pdb
-C:\Users\john\Desktop\MVCMT\Generic\obj\Debug\Generic.csprojResolveAssemblyReference.cache
 C:\Users\john\Desktop\MVCMT\Generic\bin\Generic.dll
 C:\Users\john\Desktop\MVCMT\Generic\bin\Generic.pdb
 C:\Users\john\Desktop\MVCMT\Generic\bin\EntityFramework.dll
@@ -39,6 +38,7 @@ C:\Users\john\Desktop\MVCMT\Generic\bin\System.Web.Razor.dll
 C:\Users\john\Desktop\MVCMT\Generic\bin\System.Web.WebPages.Deployment.dll
 C:\Users\john\Desktop\MVCMT\Generic\bin\System.Web.WebPages.dll
 C:\Users\john\Desktop\MVCMT\Generic\bin\System.Web.WebPages.Razor.dll
+C:\Users\john\Desktop\MVCMT\Generic\bin\Telerik.Web.Mvc.dll
 C:\Users\john\Desktop\MVCMT\Generic\bin\EntityFramework.xml
 C:\Users\john\Desktop\MVCMT\Generic\bin\Newtonsoft.Json.xml
 C:\Users\john\Desktop\MVCMT\Generic\bin\System.Net.Http.Formatting.xml
@@ -52,4 +52,4 @@ C:\Users\john\Desktop\MVCMT\Generic\bin\System.Web.WebPages.Deployment.xml
 C:\Users\john\Desktop\MVCMT\Generic\bin\System.Web.WebPages.Razor.xml
 C:\Users\john\Desktop\MVCMT\Generic\obj\Debug\Generic.dll
 C:\Users\john\Desktop\MVCMT\Generic\obj\Debug\Generic.pdb
-C:\Users\john\Desktop\MVCMT\Generic\bin\Telerik.Web.Mvc.dll
+C:\Users\john\Desktop\MVCMT\Generic\obj\Debug\Generic.csprojResolveAssemblyReference.cache

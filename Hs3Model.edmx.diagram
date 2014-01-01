@@ -156,6 +156,8 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.prReminder" Width="1.5" PointX="10.539563850750945" PointY="25.940418702522489" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.key" Width="1.5" PointX="4.31697684913733" PointY="2.4764760893194357" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_key_enterprise" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.menu" Width="1.5" PointX="5.8010371298534036" PointY="28.749088345444338" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_menu_enterprise" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

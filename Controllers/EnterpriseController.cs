@@ -17,7 +17,8 @@ namespace Generic.Controllers
 
         public ActionResult Index()
         {
-            return View(db.pr_getEnterpriseAll1());
+            var EnterpriceGrid = db.pr_getEnterpriseAll1().ToList();
+            return View(EnterpriceGrid);
         }
 
         //

@@ -1,5 +1,6 @@
 ﻿@inherits System.Web.Mvc.WebViewPage < IEnumerable < Generic.enterprise >>
 @using System.Web.Mvc.Html
+@using Telerik.Web.Mvc.UI;
 @using Generic.Helpers
 @{
     Layout = LayoutHelper.GetLayout();
@@ -7,7 +8,43 @@
 }
 
 <h2>Index</h2>
+@Html.Telerik().ScriptRegistrar() 
 
+@Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
+
+
+
+
+
+
+
+
+@( Html.Telerik().Grid(Model).Name("EnterpriceGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.description);
+
+            columns.Bound(o => o.sortOrder);
+
+            columns.Bound(o => o.active);
+
+            columns.Bound(o => o.logo);
+
+            columns.Bound(o => o.applicationPath);
+
+            columns.Bound(o => o.companyName);
+
+            columns.Bound(o => o.instanceName);
+
+            columns.Bound(o => o.archivedDate);
+
+        })
+        .Pageable()
+        .Sortable()
+)
+
+
+@*
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -75,3 +112,4 @@
 }
 
 </table>
+*@

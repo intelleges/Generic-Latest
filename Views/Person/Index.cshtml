@@ -28,9 +28,45 @@
 @( Html.Telerik().Grid(Model).Name("PersonGrid")
         .Columns(columns =>
         {
+            columns.Bound(o => o.nmNumber);
+
+            columns.Bound(o => o.socialSecurity);
+
             columns.Bound(o => o.firstName);
+
             columns.Bound(o => o.lastName);
+
+            columns.Bound(o => o.title);
+
+            columns.Bound(o => o.suffix);
+
+            columns.Bound(o => o.nickName);
+
+            columns.Bound(o => o.passWord);
+
             columns.Bound(o => o.email);
+
+            columns.Bound(o => o.address1);
+
+            columns.Bound(o => o.address2);
+
+            columns.Bound(o => o.city);
+
+            columns.Bound(o => o.state);
+
+            columns.Bound(o => o.zipcode);
+
+            columns.Bound(o => o.country);
+
+            columns.Bound(o => o.phone);
+
+            columns.Bound(o => o.fax);
+            columns.Bound(o => o.active);
+            columns.Bound(o => o.ismanager);
+            columns.Bound(o => o.partnerPerPage);
+            columns.Bound(o => o.resetDate);
+            columns.Bound(o => o.IsArchived);
+            columns.Bound(o => o.archivedDate);
         })
         .Pageable()
         .Sortable()

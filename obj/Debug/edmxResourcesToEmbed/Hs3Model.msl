@@ -1637,56 +1637,10 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_getAccesscode" FunctionName="hs3MVCMTQa2Model.Store.pr_getAccesscode" />
-    <FunctionImportMapping FunctionImportName="pr_getAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_getAgency">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAgency_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getAgencyAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getAgencyAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAgencyAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getCountry" FunctionName="hs3MVCMTQa2Model.Store.pr_getCountry">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCountry_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="eplsCountryID" ColumnName="eplsCountryID" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="code" ColumnName="code" />
-          <ScalarProperty Name="governanceCode" ColumnName="governanceCode" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getCountryAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCountryAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCountryAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="eplsCountryID" ColumnName="eplsCountryID" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="code" ColumnName="code" />
-          <ScalarProperty Name="governanceCode" ColumnName="governanceCode" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_getAgency" />
+    <FunctionImportMapping FunctionImportName="pr_getAgencyAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getAgencyAll" />
+    <FunctionImportMapping FunctionImportName="pr_getCountry" FunctionName="hs3MVCMTQa2Model.Store.pr_getCountry" />
+    <FunctionImportMapping FunctionImportName="pr_getCountryAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCountryAll" />
     <FunctionImportMapping FunctionImportName="pr_getEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterprise">
       <ResultMapping>
         <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEnterprise_Result">
@@ -1702,23 +1656,25 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getEnterpriseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseAll">
+    <FunctionImportMapping FunctionImportName="pr_getEnterpriseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseAll" />
+    <FunctionImportMapping FunctionImportName="pr_getGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroup" />
+    <FunctionImportMapping FunctionImportName="pr_getGroupAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupAll">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEnterpriseAll_Result">
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGroupAll_Result">
           <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="groupCollection" ColumnName="groupCollection" />
+          <ScalarProperty Name="author" ColumnName="author" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
           <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
           <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="logo" ColumnName="logo" />
-          <ScalarProperty Name="applicationPath" ColumnName="applicationPath" />
-          <ScalarProperty Name="companyName" ColumnName="companyName" />
-          <ScalarProperty Name="instanceName" ColumnName="instanceName" />
-          <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroup" />
-    <FunctionImportMapping FunctionImportName="pr_getGroupAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupAll" />
     <FunctionImportMapping FunctionImportName="pr_getGroupByPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupByPerson">
       <ResultMapping>
         <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGroupByPerson_Result">
@@ -2009,7 +1965,38 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_getPartner" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartner" />
-    <FunctionImportMapping FunctionImportName="pr_getPartnerAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerAll" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnerAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="internalID" ColumnName="internalID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="dunsNumber" ColumnName="dunsNumber" />
+          <ScalarProperty Name="federalID" ColumnName="federalID" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+          <ScalarProperty Name="owner" ColumnName="owner" />
+          <ScalarProperty Name="author" ColumnName="author" />
+          <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_getPartnerByRelationshipowner" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerByRelationshipowner">
       <ResultMapping>
         <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerByRelationshipowner_Result">
@@ -3430,7 +3417,23 @@
     <FunctionImportMapping FunctionImportName="pr_getEnterprise1" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterprise" />
     <FunctionImportMapping FunctionImportName="pr_getEnterpriseAll1" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseAll" />
     <FunctionImportMapping FunctionImportName="pr_getGroup1" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroup" />
-    <FunctionImportMapping FunctionImportName="pr_getGroupAll1" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupAll" />
+    <FunctionImportMapping FunctionImportName="pr_getGroupAll1" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGroupAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="groupCollection" ColumnName="groupCollection" />
+          <ScalarProperty Name="author" ColumnName="author" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_getPartner1" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartner" />
     <FunctionImportMapping FunctionImportName="pr_getPersonAll1" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonAll" />
     <FunctionImportMapping FunctionImportName="pr_addGroupCollection" FunctionName="hs3MVCMTQa2Model.Store.pr_addGroupCollection" />
@@ -4114,177 +4117,21 @@
     <FunctionImportMapping FunctionImportName="pr_archiveEmailTemplateType" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveEmailTemplateType" />
     <FunctionImportMapping FunctionImportName="pr_archivePersonRelationshipType" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePersonRelationshipType" />
     <FunctionImportMapping FunctionImportName="pr_archiveRatingType" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveRatingType" />
-    <FunctionImportMapping FunctionImportName="pr_getAutomail" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomail">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomail_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="protocol" ColumnName="protocol" />
-          <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-          <ScalarProperty Name="partnerType" ColumnName="partnerType" />
-          <ScalarProperty Name="mailType" ColumnName="mailType" />
-          <ScalarProperty Name="subject" ColumnName="subject" />
-          <ScalarProperty Name="text" ColumnName="text" />
-          <ScalarProperty Name="footer1" ColumnName="footer1" />
-          <ScalarProperty Name="footer2" ColumnName="footer2" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailAttachment">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutoMailAttachment_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="autoMail" ColumnName="autoMail" />
-          <ScalarProperty Name="attachment" ColumnName="attachment" />
-          <ScalarProperty Name="note" ColumnName="note" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailType">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutoMailType_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="oldId" ColumnName="oldId" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getAutoMailTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailTypeAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutoMailTypeAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="oldId" ColumnName="oldId" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getDomain" FunctionName="hs3MVCMTQa2Model.Store.pr_getDomain">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getDomain_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getDomainAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getDomainAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getDomainAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getEmailBounceType" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailBounceType">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEmailBounceType_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="code" ColumnName="code" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getEmailBounceTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailBounceTypeAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEmailBounceTypeAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="code" ColumnName="code" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getEmailTag" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailTag">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEmailTag_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="class" ColumnName="class" />
-          <ScalarProperty Name="method" ColumnName="method" />
-          <ScalarProperty Name="variable" ColumnName="variable" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getEmailTagAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailTagAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEmailTagAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="class" ColumnName="class" />
-          <ScalarProperty Name="method" ColumnName="method" />
-          <ScalarProperty Name="variable" ColumnName="variable" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getEmailTemplate" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailTemplate">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEmailTemplate_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="emailTemplateType" ColumnName="emailTemplateType" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-          <ScalarProperty Name="author" ColumnName="author" />
-          <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
-          <ScalarProperty Name="subject" ColumnName="subject" />
-          <ScalarProperty Name="body" ColumnName="body" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getEmailTemplateAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailTemplateAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEmailTemplateAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="emailTemplateType" ColumnName="emailTemplateType" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-          <ScalarProperty Name="author" ColumnName="author" />
-          <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
-          <ScalarProperty Name="subject" ColumnName="subject" />
-          <ScalarProperty Name="body" ColumnName="body" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getEmailTemplateType" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailTemplateType">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEmailTemplateType_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getEmailTemplateTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailTemplateTypeAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEmailTemplateTypeAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getEsignature" FunctionName="hs3MVCMTQa2Model.Store.pr_getEsignature">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEsignature_Result">
-          <ScalarProperty Name="partner" ColumnName="partner" />
-          <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
-          <ScalarProperty Name="firstName" ColumnName="firstName" />
-          <ScalarProperty Name="lastName" ColumnName="lastName" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="affirmation" ColumnName="affirmation" />
-          <ScalarProperty Name="officer" ColumnName="officer" />
-          <ScalarProperty Name="phone" ColumnName="phone" />
-          <ScalarProperty Name="completeDate" ColumnName="completeDate" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getAutomail" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomail" />
+    <FunctionImportMapping FunctionImportName="pr_getAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailAttachment" />
+    <FunctionImportMapping FunctionImportName="pr_getAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailType" />
+    <FunctionImportMapping FunctionImportName="pr_getAutoMailTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailTypeAll" />
+    <FunctionImportMapping FunctionImportName="pr_getDomain" FunctionName="hs3MVCMTQa2Model.Store.pr_getDomain" />
+    <FunctionImportMapping FunctionImportName="pr_getDomainAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getDomainAll" />
+    <FunctionImportMapping FunctionImportName="pr_getEmailBounceType" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailBounceType" />
+    <FunctionImportMapping FunctionImportName="pr_getEmailBounceTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailBounceTypeAll" />
+    <FunctionImportMapping FunctionImportName="pr_getEmailTag" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailTag" />
+    <FunctionImportMapping FunctionImportName="pr_getEmailTagAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailTagAll" />
+    <FunctionImportMapping FunctionImportName="pr_getEmailTemplate" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailTemplate" />
+    <FunctionImportMapping FunctionImportName="pr_getEmailTemplateAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailTemplateAll" />
+    <FunctionImportMapping FunctionImportName="pr_getEmailTemplateType" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailTemplateType" />
+    <FunctionImportMapping FunctionImportName="pr_getEmailTemplateTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEmailTemplateTypeAll" />
+    <FunctionImportMapping FunctionImportName="pr_getEsignature" FunctionName="hs3MVCMTQa2Model.Store.pr_getEsignature" />
     <FunctionImportMapping FunctionImportName="pr_getPersonRelationshipType" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonRelationshipType">
       <ResultMapping>
         <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonRelationshipType_Result">
@@ -4379,40 +4226,8 @@
     <FunctionImportMapping FunctionImportName="pr_addEventNotificationBounce" FunctionName="hs3MVCMTQa2Model.Store.pr_addEventNotificationBounce" />
     <FunctionImportMapping FunctionImportName="pr_addKey" FunctionName="hs3MVCMTQa2Model.Store.pr_addKey" />
     <FunctionImportMapping FunctionImportName="pr_archiveKey" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveKey" />
-    <FunctionImportMapping FunctionImportName="pr_getEventNotification" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotification">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotification_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-          <ScalarProperty Name="event" ColumnName="event" />
-          <ScalarProperty Name="reason" ColumnName="reason" />
-          <ScalarProperty Name="url" ColumnName="url" />
-          <ScalarProperty Name="category" ColumnName="category" />
-          <ScalarProperty Name="accesscode" ColumnName="accesscode" />
-          <ScalarProperty Name="protocolTouchpoint" ColumnName="protocolTouchpoint" />
-          <ScalarProperty Name="applicationName" ColumnName="applicationName" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getEventNotificationAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-          <ScalarProperty Name="event" ColumnName="event" />
-          <ScalarProperty Name="reason" ColumnName="reason" />
-          <ScalarProperty Name="url" ColumnName="url" />
-          <ScalarProperty Name="category" ColumnName="category" />
-          <ScalarProperty Name="accesscode" ColumnName="accesscode" />
-          <ScalarProperty Name="protocolTouchpoint" ColumnName="protocolTouchpoint" />
-          <ScalarProperty Name="applicationName" ColumnName="applicationName" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getEventNotification" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotification" />
+    <FunctionImportMapping FunctionImportName="pr_getEventNotificationAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationAll" />
     <FunctionImportMapping FunctionImportName="pr_getEventNotificationBounce" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationBounce">
       <ResultMapping>
         <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationBounce_Result">
@@ -4432,31 +4247,100 @@
     <FunctionImportMapping FunctionImportName="pr_removeKey" FunctionName="hs3MVCMTQa2Model.Store.pr_removeKey" />
     <FunctionImportMapping FunctionImportName="pr_unArchiveKey" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveKey" />
     <FunctionImportMapping FunctionImportName="pr_addEnterpriseObjectName" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseObjectName" />
-    <FunctionImportMapping FunctionImportName="pr_getEnterpriseObjectName" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseObjectName">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEnterpriseObjectName_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-          <ScalarProperty Name="objectName" ColumnName="objectName" />
-          <ScalarProperty Name="alias" ColumnName="alias" />
-          <ScalarProperty Name="device" ColumnName="device" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getEnterpriseObjectNameAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseObjectNameAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEnterpriseObjectNameAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-          <ScalarProperty Name="objectName" ColumnName="objectName" />
-          <ScalarProperty Name="alias" ColumnName="alias" />
-          <ScalarProperty Name="device" ColumnName="device" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getEnterpriseObjectName" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseObjectName" />
+    <FunctionImportMapping FunctionImportName="pr_getEnterpriseObjectNameAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseObjectNameAll" />
     <FunctionImportMapping FunctionImportName="pr_getEnterpriseSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseSystemInfo" />
     <FunctionImportMapping FunctionImportName="pr_getEnterpriseSystemInfoAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseSystemInfoAll" />
     <FunctionImportMapping FunctionImportName="pr_modifyEnterpriseObjectName" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterpriseObjectName" />
     <FunctionImportMapping FunctionImportName="pr_removeEnterpriseObjectName" FunctionName="hs3MVCMTQa2Model.Store.pr_removeEnterpriseObjectName" />
+    <FunctionImportMapping FunctionImportName="pr_addAgency1" FunctionName="hs3MVCMTQa2Model.Store.pr_addAgency" />
+    <EntitySetMapping Name="menu">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.menu">
+        <MappingFragment StoreEntitySet="menu">
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="parentid" ColumnName="parentid" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="pr_addHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_addHs3Menu" />
+    <FunctionImportMapping FunctionImportName="pr_addMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_addMenu" />
+    <FunctionImportMapping FunctionImportName="pr_archiveHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveHs3Menu" />
+    <FunctionImportMapping FunctionImportName="pr_archiveMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveMenu" />
+    <FunctionImportMapping FunctionImportName="pr_getHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_getHs3Menu">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getHs3Menu_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="parentid" ColumnName="parentid" />
+          <ScalarProperty Name="grand" ColumnName="grand" />
+          <ScalarProperty Name="sort" ColumnName="sort" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+          <ScalarProperty Name="menuGroup" ColumnName="menuGroup" />
+          <ScalarProperty Name="isDynamicCreated" ColumnName="isDynamicCreated" />
+          <ScalarProperty Name="device" ColumnName="device" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getHs3MenuAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getHs3MenuAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getHs3MenuAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="parentid" ColumnName="parentid" />
+          <ScalarProperty Name="grand" ColumnName="grand" />
+          <ScalarProperty Name="sort" ColumnName="sort" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+          <ScalarProperty Name="menuGroup" ColumnName="menuGroup" />
+          <ScalarProperty Name="isDynamicCreated" ColumnName="isDynamicCreated" />
+          <ScalarProperty Name="device" ColumnName="device" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenu">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenu_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="parentid" ColumnName="parentid" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getMenuAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="parentid" ColumnName="parentid" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_modifyHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyHs3Menu" />
+    <FunctionImportMapping FunctionImportName="pr_modifyMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyMenu" />
+    <FunctionImportMapping FunctionImportName="pr_removeHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeHs3Menu" />
+    <FunctionImportMapping FunctionImportName="pr_removeMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeMenu" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveHs3Menu" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveMenu" />
   </EntityContainerMapping>
 </Mapping>

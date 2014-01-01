@@ -1,6 +1,7 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable< Generic.partner>>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
 @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Partner";
@@ -8,6 +9,78 @@
 
 <h2>Index</h2>
 
+
+
+@Html.Telerik().ScriptRegistrar() 
+
+@Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
+
+
+
+
+
+
+
+
+@( Html.Telerik().Grid(Model).Name("PartnerGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.enterprise);
+
+            columns.Bound(o => o.internalID);
+
+            columns.Bound(o => o.name);
+
+            columns.Bound(o => o.address1);
+
+            columns.Bound(o => o.address2);
+
+            columns.Bound(o => o.city);
+
+            columns.Bound(o => o.state);
+
+            columns.Bound(o => o.province);
+
+            columns.Bound(o => o.zipcode);
+
+            columns.Bound(o => o.country);
+
+            columns.Bound(o => o.phone);
+
+            columns.Bound(o => o.fax);
+
+            columns.Bound(o => o.firstName);
+
+            columns.Bound(o => o.lastName);
+
+            columns.Bound(o => o.title);
+
+            columns.Bound(o => o.email);
+
+            columns.Bound(o => o.dunsNumber);
+
+            columns.Bound(o => o.federalID);
+
+            columns.Bound(o => o.status);
+
+            columns.Bound(o => o.loadHistory);
+
+            columns.Bound(o => o.owner);
+
+            columns.Bound(o => o.author);
+
+            columns.Bound(o => o.dateApproved);
+
+            columns.Bound(o => o.active);
+
+            columns.Bound(o => o.lastModified);
+
+        })
+        .Pageable()
+        .Sortable()
+)
+
+@*
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -177,3 +250,4 @@
 }
 
 </table>
+*@

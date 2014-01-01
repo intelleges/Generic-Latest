@@ -34,6 +34,7 @@ namespace Generic
             this.state = new HashSet<state>();
             this.groupCollection = new HashSet<groupCollection>();
             this.key = new HashSet<key>();
+            this.menu = new HashSet<menu>();
         }
     
         public int id { get; set; }
@@ -64,5 +65,6 @@ namespace Generic
         public virtual ICollection<state> state { get; set; }
         public virtual ICollection<groupCollection> groupCollection { get; set; }
         public virtual ICollection<key> key { get; set; }
+        public virtual ICollection<menu> menu { get; set; }
     }
 }

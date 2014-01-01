@@ -1,6 +1,7 @@
-﻿@inherits System.Web.Mvc.WebViewPage < IEnumerable < Generic.group> >
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.group>>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
+@using Telerik.Web.Mvc.UI
 @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Group";
@@ -8,6 +9,46 @@
 
 <h2>Group</h2>
 
+@Html.Telerik().ScriptRegistrar() 
+
+@Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
+
+
+
+
+
+
+
+
+@( Html.Telerik().Grid(Model).Name("GroupGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.enterprise);
+
+            columns.Bound(o => o.groupCollection);
+
+            columns.Bound(o => o.groupType);
+
+            columns.Bound(o => o.author);
+
+            columns.Bound(o => o.state);
+
+            columns.Bound(o => o.name);
+
+            columns.Bound(o => o.description);
+
+            columns.Bound(o => o.email);
+
+            columns.Bound(o => o.dateCreated);
+
+            columns.Bound(o => o.sortOrder);
+
+            columns.Bound(o => o.active); 
+        })
+        .Pageable()
+        .Sortable()
+)
+@*
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -87,3 +128,4 @@
 }
 
 </table>
+*@
