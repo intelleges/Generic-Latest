@@ -10,7 +10,7 @@ namespace Generic.Helpers
     {
         #region Variables
 
-        private hs3MVCMTQa2Entities db;
+        private Entities db;
 
         #endregion
 
@@ -18,7 +18,7 @@ namespace Generic.Helpers
 
         public CustomRoleProvider()
         {
-            this.db = new hs3MVCMTQa2Entities();
+            this.db = new Entities();
         }
 
         #endregion

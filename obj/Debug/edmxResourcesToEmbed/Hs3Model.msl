@@ -1359,14 +1359,6 @@
         </ModificationFunctionMapping>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="surveyQuestion">
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.surveyQuestion">
-        <MappingFragment StoreEntitySet="surveyQuestion">
-          <ScalarProperty Name="survey" ColumnName="survey" />
-          <ScalarProperty Name="question" ColumnName="question" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="surveyset">
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.surveyset">
         <MappingFragment StoreEntitySet="surveyset">
@@ -1482,16 +1474,6 @@
             <ScalarProperty Name="touchpoint" ParameterName="touchpoint" />
           </DeleteFunction>
         </ModificationFunctionMapping>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="touchpointPartnerTypeQuestionnaire">
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpointPartnerTypeQuestionnaire">
-        <MappingFragment StoreEntitySet="touchpointPartnerTypeQuestionnaire">
-          <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-          <ScalarProperty Name="partnerType" ColumnName="partnerType" />
-          <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
-          <ScalarProperty Name="description" ColumnName="description" />
-        </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <AssociationSetMapping Name="pageSurveyset" TypeName="hs3MVCMTQa2Model.pageSurveyset" StoreEntitySet="pageSurveyset">
@@ -1658,23 +1640,7 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_getEnterpriseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseAll" />
     <FunctionImportMapping FunctionImportName="pr_getGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroup" />
-    <FunctionImportMapping FunctionImportName="pr_getGroupAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGroupAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-          <ScalarProperty Name="groupCollection" ColumnName="groupCollection" />
-          <ScalarProperty Name="author" ColumnName="author" />
-          <ScalarProperty Name="state" ColumnName="state" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getGroupAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupAll" />
     <FunctionImportMapping FunctionImportName="pr_getGroupByPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupByPerson">
       <ResultMapping>
         <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGroupByPerson_Result">
@@ -1965,38 +1931,7 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_getPartner" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartner" />
-    <FunctionImportMapping FunctionImportName="pr_getPartnerAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-          <ScalarProperty Name="internalID" ColumnName="internalID" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="address1" ColumnName="address1" />
-          <ScalarProperty Name="address2" ColumnName="address2" />
-          <ScalarProperty Name="city" ColumnName="city" />
-          <ScalarProperty Name="state" ColumnName="state" />
-          <ScalarProperty Name="province" ColumnName="province" />
-          <ScalarProperty Name="zipcode" ColumnName="zipcode" />
-          <ScalarProperty Name="country" ColumnName="country" />
-          <ScalarProperty Name="phone" ColumnName="phone" />
-          <ScalarProperty Name="fax" ColumnName="fax" />
-          <ScalarProperty Name="firstName" ColumnName="firstName" />
-          <ScalarProperty Name="lastName" ColumnName="lastName" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="dunsNumber" ColumnName="dunsNumber" />
-          <ScalarProperty Name="federalID" ColumnName="federalID" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
-          <ScalarProperty Name="owner" ColumnName="owner" />
-          <ScalarProperty Name="author" ColumnName="author" />
-          <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="lastModified" ColumnName="lastModified" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPartnerAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerAll" />
     <FunctionImportMapping FunctionImportName="pr_getPartnerByRelationshipowner" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerByRelationshipowner">
       <ResultMapping>
         <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerByRelationshipowner_Result">
@@ -2518,38 +2453,7 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_getProtocol" FunctionName="hs3MVCMTQa2Model.Store.pr_getProtocol" />
-    <FunctionImportMapping FunctionImportName="pr_getProtocolAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getProtocolAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getProtocolAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="menuGroup" ColumnName="menuGroup" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
-          <ScalarProperty Name="background" ColumnName="background" />
-          <ScalarProperty Name="purpose" ColumnName="purpose" />
-          <ScalarProperty Name="summary" ColumnName="summary" />
-          <ScalarProperty Name="agency" ColumnName="agency" />
-          <ScalarProperty Name="admin" ColumnName="admin" />
-          <ScalarProperty Name="sponsor" ColumnName="sponsor" />
-          <ScalarProperty Name="domain" ColumnName="domain" />
-          <ScalarProperty Name="validationRequested" ColumnName="validationRequested" />
-          <ScalarProperty Name="keyBenefits" ColumnName="keyBenefits" />
-          <ScalarProperty Name="keyWords" ColumnName="keyWords" />
-          <ScalarProperty Name="startDate" ColumnName="startDate" />
-          <ScalarProperty Name="endDate" ColumnName="endDate" />
-          <ScalarProperty Name="bestPractice" ColumnName="bestPractice" />
-          <ScalarProperty Name="riskBenefits" ColumnName="riskBenefits" />
-          <ScalarProperty Name="checkList" ColumnName="checkList" />
-          <ScalarProperty Name="removeWithoutTouchpointExpiry" ColumnName="removeWithoutTouchpointExpiry" />
-          <ScalarProperty Name="removeWithoutNotice" ColumnName="removeWithoutNotice" />
-          <ScalarProperty Name="isLimited" ColumnName="isLimited" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getProtocolAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getProtocolAll" />
     <FunctionImportMapping FunctionImportName="pr_getQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestion">
       <ResultMapping>
         <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestion_Result">
@@ -3193,25 +3097,7 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_getSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_getSystemInfo" />
     <FunctionImportMapping FunctionImportName="pr_getTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpoint" />
-    <FunctionImportMapping FunctionImportName="pr_getTouchpointAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTouchpointAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="protocol" ColumnName="protocol" />
-          <ScalarProperty Name="person" ColumnName="person" />
-          <ScalarProperty Name="sponsor" ColumnName="sponsor" />
-          <ScalarProperty Name="admin" ColumnName="admin" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
-          <ScalarProperty Name="startDate" ColumnName="startDate" />
-          <ScalarProperty Name="endDate" ColumnName="endDate" />
-          <ScalarProperty Name="automaticReminder" ColumnName="automaticReminder" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getTouchpointAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointAll" />
     <FunctionImportMapping FunctionImportName="pr_getTouchpointByGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointByGroup">
       <ResultMapping>
         <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTouchpointByGroup_Result">
@@ -3649,14 +3535,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="partnerContactValidationQuestion">
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerContactValidationQuestion">
-        <MappingFragment StoreEntitySet="partnerContactValidationQuestion">
-          <ScalarProperty Name="question" ColumnName="question" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="partnerLogDetail">
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerLogDetail">
         <MappingFragment StoreEntitySet="partnerLogDetail">
@@ -3676,30 +3554,6 @@
           <ScalarProperty Name="passWord" ColumnName="passWord" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse">
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse">
-        <MappingFragment StoreEntitySet="partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse">
-          <ScalarProperty Name="actualScore" ColumnName="actualScore" />
-          <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
-          <ScalarProperty Name="comment" ColumnName="comment" />
-          <ScalarProperty Name="response" ColumnName="response" />
-          <ScalarProperty Name="question" ColumnName="question" />
-          <ScalarProperty Name="survey" ColumnName="survey" />
-          <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
-          <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-          <ScalarProperty Name="protocol" ColumnName="protocol" />
-          <ScalarProperty Name="partner" ColumnName="partner" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="partnerQuestionnaireCompleteDate">
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerQuestionnaireCompleteDate">
-        <MappingFragment StoreEntitySet="partnerQuestionnaireCompleteDate">
-          <ScalarProperty Name="completeDate" ColumnName="completeDate" />
-          <ScalarProperty Name="partner" ColumnName="partner" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -3910,43 +3764,6 @@
           <ScalarProperty Name="partnerType" ColumnName="partnerType" />
           <ScalarProperty Name="person" ColumnName="person" />
           <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="protocolTouchpointPartnerRerouter">
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.protocolTouchpointPartnerRerouter">
-        <MappingFragment StoreEntitySet="protocolTouchpointPartnerRerouter">
-          <ScalarProperty Name="timeStamp" ColumnName="timeStamp" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="to" ColumnName="to" />
-          <ScalarProperty Name="from" ColumnName="from" />
-          <ScalarProperty Name="fromTitle" ColumnName="fromTitle" />
-          <ScalarProperty Name="fromLastName" ColumnName="fromLastName" />
-          <ScalarProperty Name="fromFirstName" ColumnName="fromFirstName" />
-          <ScalarProperty Name="partner" ColumnName="partner" />
-          <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-          <ScalarProperty Name="protocol" ColumnName="protocol" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="protocolTouchpointQuestionResponseValue">
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.protocolTouchpointQuestionResponseValue">
-        <MappingFragment StoreEntitySet="protocolTouchpointQuestionResponseValue">
-          <ScalarProperty Name="value" ColumnName="value" />
-          <ScalarProperty Name="response" ColumnName="response" />
-          <ScalarProperty Name="question" ColumnName="question" />
-          <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-          <ScalarProperty Name="protocol" ColumnName="protocol" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="protocolTouchpointQuestionWeight">
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.protocolTouchpointQuestionWeight">
-        <MappingFragment StoreEntitySet="protocolTouchpointQuestionWeight">
-          <ScalarProperty Name="weight" ColumnName="weight" />
-          <ScalarProperty Name="Question" ColumnName="Question" />
-          <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
-          <ScalarProperty Name="protocol" ColumnName="protocol" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -4322,9 +4139,16 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getMenuAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuAll">
+    <FunctionImportMapping FunctionImportName="pr_getMenuAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuAll" />
+    <FunctionImportMapping FunctionImportName="pr_modifyHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyHs3Menu" />
+    <FunctionImportMapping FunctionImportName="pr_modifyMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyMenu" />
+    <FunctionImportMapping FunctionImportName="pr_removeHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeHs3Menu" />
+    <FunctionImportMapping FunctionImportName="pr_removeMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeMenu" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveHs3Menu" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveMenu" />
+    <FunctionImportMapping FunctionImportName="pr_getMenuChildItem" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuChildItem">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuAll_Result">
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuChildItem_Result">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="url" ColumnName="url" />
@@ -4336,11 +4160,111 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_modifyHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyHs3Menu" />
-    <FunctionImportMapping FunctionImportName="pr_modifyMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyMenu" />
-    <FunctionImportMapping FunctionImportName="pr_removeHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeHs3Menu" />
-    <FunctionImportMapping FunctionImportName="pr_removeMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeMenu" />
-    <FunctionImportMapping FunctionImportName="pr_unArchiveHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveHs3Menu" />
-    <FunctionImportMapping FunctionImportName="pr_unArchiveMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveMenu" />
+    <FunctionImportMapping FunctionImportName="pr_getMenuItemTopLevel" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuItemTopLevel">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuItemTopLevel_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="parentid" ColumnName="parentid" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="partnerPartnerTypeTouchpoint">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerPartnerTypeTouchpoint">
+        <MappingFragment StoreEntitySet="partnerPartnerTypeTouchpoint">
+          <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+          <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+          <ScalarProperty Name="partner" ColumnName="partner" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="partnerTouchpointQuestionnaireQuestionResponse">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerTouchpointQuestionnaireQuestionResponse">
+        <MappingFragment StoreEntitySet="partnerTouchpointQuestionnaireQuestionResponse">
+          <ScalarProperty Name="actualScore" ColumnName="actualScore" />
+          <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="response" ColumnName="response" />
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+          <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+          <ScalarProperty Name="partner" ColumnName="partner" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="partnerTypeTouchpointQuestionnaire">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire">
+        <MappingFragment StoreEntitySet="partnerTypeTouchpointQuestionnaire">
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+          <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+          <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="touchpointPartnerRerouter">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpointPartnerRerouter">
+        <MappingFragment StoreEntitySet="touchpointPartnerRerouter">
+          <ScalarProperty Name="timeStamp" ColumnName="timeStamp" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="to" ColumnName="to" />
+          <ScalarProperty Name="from" ColumnName="from" />
+          <ScalarProperty Name="fromTitle" ColumnName="fromTitle" />
+          <ScalarProperty Name="fromLastName" ColumnName="fromLastName" />
+          <ScalarProperty Name="fromFirstName" ColumnName="fromFirstName" />
+          <ScalarProperty Name="partner" ColumnName="partner" />
+          <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="touchpointQuestionResponseValue">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpointQuestionResponseValue">
+        <MappingFragment StoreEntitySet="touchpointQuestionResponseValue">
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="response" ColumnName="response" />
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="touchpointQuestionWeight">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpointQuestionWeight">
+        <MappingFragment StoreEntitySet="touchpointQuestionWeight">
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="xxx_getRecordCountByTable" FunctionName="hs3MVCMTQa2Model.Store.xxx_getRecordCountByTable">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xxx_getRecordCountByTable_Result">
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="rowcnt" ColumnName="rowcnt" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="xxx_getTableSetByColumnName" FunctionName="hs3MVCMTQa2Model.Store.xxx_getTableSetByColumnName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xxx_getTableSetByColumnName_Result">
+          <ScalarProperty Name="COLUMN_NAME" ColumnName="COLUMN_NAME" />
+          <ScalarProperty Name="TABLE_NAME" ColumnName="TABLE_NAME" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="xxx_getTelerikBoundColumnSchema" FunctionName="hs3MVCMTQa2Model.Store.xxx_getTelerikBoundColumnSchema" />
+    <AssociationSetMapping Name="surveyQuestion" TypeName="hs3MVCMTQa2Model.surveyQuestion" StoreEntitySet="surveyQuestion">
+      <EndProperty Name="survey">
+        <ScalarProperty Name="id" ColumnName="survey" />
+      </EndProperty>
+      <EndProperty Name="question">
+        <ScalarProperty Name="id" ColumnName="question" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

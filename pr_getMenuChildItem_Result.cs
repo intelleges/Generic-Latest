@@ -10,19 +10,16 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class touchpointPartnerTypeScoreAutoMail
+    public partial class pr_getMenuChildItem_Result
     {
         public int id { get; set; }
-        public int touchpoint { get; set; }
-        public int partnerType { get; set; }
-        public int score { get; set; }
-        public string subject { get; set; }
-        public string body { get; set; }
-        public Nullable<bool> isSendToPartner { get; set; }
-        public Nullable<bool> isSendToUser { get; set; }
-    
-        public virtual touchpoint touchpoint1 { get; set; }
+        public string description { get; set; }
+        public string url { get; set; }
+        public Nullable<int> parentid { get; set; }
+        public Nullable<int> sortOrder { get; set; }
+        public Nullable<bool> active { get; set; }
+        public Nullable<int> accesslevel { get; set; }
+        public Nullable<int> enterprise { get; set; }
     }
 }

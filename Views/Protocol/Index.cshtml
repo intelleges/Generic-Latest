@@ -1,6 +1,7 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.protocol>>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
 @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Protocol";
@@ -11,6 +12,74 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+
+
+
+
+@( Html.Telerik().Grid(Model).Name("ProtocolGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.id);
+
+            columns.Bound(o => o.menuGroup);
+
+            columns.Bound(o => o.enterprise);
+
+            columns.Bound(o => o.name);
+
+            columns.Bound(o => o.description);
+
+            columns.Bound(o => o.abbreviation);
+
+            columns.Bound(o => o.background);
+
+            columns.Bound(o => o.purpose);
+
+            columns.Bound(o => o.summary);
+
+            columns.Bound(o => o.agency);
+
+            columns.Bound(o => o.admin);
+
+            columns.Bound(o => o.sponsor);
+
+            columns.Bound(o => o.domain);
+
+            columns.Bound(o => o.validationRequested);
+
+            columns.Bound(o => o.keyBenefits);
+
+            columns.Bound(o => o.keyWords);
+
+            columns.Bound(o => o.startDate);
+
+            columns.Bound(o => o.endDate);
+
+            columns.Bound(o => o.bestPractice);
+
+            columns.Bound(o => o.riskBenefits);
+
+            columns.Bound(o => o.checkList);
+
+            columns.Bound(o => o.removeWithoutTouchpointExpiry);
+
+            columns.Bound(o => o.removeWithoutNotice);
+
+            columns.Bound(o => o.isLimited);
+
+            columns.Bound(o => o.sortOrder);
+
+            columns.Bound(o => o.active);
+
+           
+
+        })
+        .Pageable()
+        .Sortable()
+)
+
+@*
 <table>
     <tr>
         <th>
@@ -176,4 +245,4 @@
     </tr>
 }
 
-</table>
+</table>*@

@@ -16,10 +16,10 @@ namespace Generic
     using System.Data.Objects.DataClasses;
     using System.Linq;
     
-    public partial class hs3MVCMTQa2Entities : DbContext
+    public partial class Entities : DbContext
     {
-        public hs3MVCMTQa2Entities()
-            : base("name=hs3MVCMTQa2Entities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -73,12 +73,10 @@ namespace Generic
         public DbSet<ruleType> ruleType { get; set; }
         public DbSet<state> state { get; set; }
         public DbSet<survey> survey { get; set; }
-        public DbSet<surveyQuestion> surveyQuestion { get; set; }
         public DbSet<surveyset> surveyset { get; set; }
         public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<touchpoint> touchpoint { get; set; }
         public DbSet<touchpointGroup> touchpointGroup { get; set; }
-        public DbSet<touchpointPartnerTypeQuestionnaire> touchpointPartnerTypeQuestionnaire { get; set; }
         public DbSet<autoMail> autoMail { get; set; }
         public DbSet<autoMailAttachment> autoMailAttachment { get; set; }
         public DbSet<autoMailType> autoMailType { get; set; }
@@ -94,11 +92,8 @@ namespace Generic
         public DbSet<partnerAction> partnerAction { get; set; }
         public DbSet<partnerActionLog> partnerActionLog { get; set; }
         public DbSet<partnerAddress> partnerAddress { get; set; }
-        public DbSet<partnerContactValidationQuestion> partnerContactValidationQuestion { get; set; }
         public DbSet<partnerLogDetail> partnerLogDetail { get; set; }
         public DbSet<partnerLogin> partnerLogin { get; set; }
-        public DbSet<partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse> partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse { get; set; }
-        public DbSet<partnerQuestionnaireCompleteDate> partnerQuestionnaireCompleteDate { get; set; }
         public DbSet<partnerReference> partnerReference { get; set; }
         public DbSet<partnerReminder> partnerReminder { get; set; }
         public DbSet<partnerReminderStatus> partnerReminderStatus { get; set; }
@@ -110,9 +105,6 @@ namespace Generic
         public DbSet<partnerTouchpointInvitedDate> partnerTouchpointInvitedDate { get; set; }
         public DbSet<partnerTouchpointQuestionnaireLanguage> partnerTouchpointQuestionnaireLanguage { get; set; }
         public DbSet<partnerTypeGroupGoal> partnerTypeGroupGoal { get; set; }
-        public DbSet<protocolTouchpointPartnerRerouter> protocolTouchpointPartnerRerouter { get; set; }
-        public DbSet<protocolTouchpointQuestionResponseValue> protocolTouchpointQuestionResponseValue { get; set; }
-        public DbSet<protocolTouchpointQuestionWeight> protocolTouchpointQuestionWeight { get; set; }
         public DbSet<query> query { get; set; }
         public DbSet<queryFieldQuestion> queryFieldQuestion { get; set; }
         public DbSet<rating> rating { get; set; }
@@ -128,6 +120,12 @@ namespace Generic
         public DbSet<prReminder> prReminder { get; set; }
         public DbSet<key> key { get; set; }
         public DbSet<menu> menu { get; set; }
+        public DbSet<partnerPartnerTypeTouchpoint> partnerPartnerTypeTouchpoint { get; set; }
+        public DbSet<partnerTouchpointQuestionnaireQuestionResponse> partnerTouchpointQuestionnaireQuestionResponse { get; set; }
+        public DbSet<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire { get; set; }
+        public DbSet<touchpointPartnerRerouter> touchpointPartnerRerouter { get; set; }
+        public DbSet<touchpointQuestionResponseValue> touchpointQuestionResponseValue { get; set; }
+        public DbSet<touchpointQuestionWeight> touchpointQuestionWeight { get; set; }
     
         public virtual ObjectResult<Nullable<int>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -1876,13 +1874,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getGroup", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<pr_getGroupAll_Result> pr_getGroupAll(Nullable<int> enterprise)
+        public virtual ObjectResult<group> pr_getGroupAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupAll_Result>("pr_getGroupAll", enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getGroupAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<group> pr_getGroupAll(Nullable<int> enterprise, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getGroupAll", mergeOption, enterpriseParameter);
         }
     
         public virtual ObjectResult<pr_getGroupByPerson_Result> pr_getGroupByPerson(Nullable<int> person)
@@ -2051,13 +2058,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartner", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<pr_getPartnerAll_Result> pr_getPartnerAll(Nullable<int> enterprise)
+        public virtual ObjectResult<partner> pr_getPartnerAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerAll_Result>("pr_getPartnerAll", enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<partner> pr_getPartnerAll(Nullable<int> enterprise, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerAll", mergeOption, enterpriseParameter);
         }
     
         public virtual ObjectResult<pr_getPartnerByRelationshipowner_Result> pr_getPartnerByRelationshipowner(Nullable<int> person)
@@ -2471,13 +2487,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<protocol>("pr_getProtocol", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<pr_getProtocolAll_Result> pr_getProtocolAll(Nullable<int> enterprise)
+        public virtual ObjectResult<protocol> pr_getProtocolAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getProtocolAll_Result>("pr_getProtocolAll", enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<protocol>("pr_getProtocolAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<protocol> pr_getProtocolAll(Nullable<int> enterprise, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<protocol>("pr_getProtocolAll", mergeOption, enterpriseParameter);
         }
     
         public virtual ObjectResult<pr_getQuestion_Result> pr_getQuestion(Nullable<int> id)
@@ -2890,9 +2915,14 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpoint", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<pr_getTouchpointAll_Result> pr_getTouchpointAll()
+        public virtual ObjectResult<touchpoint> pr_getTouchpointAll()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTouchpointAll_Result>("pr_getTouchpointAll");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointAll");
+        }
+    
+        public virtual ObjectResult<touchpoint> pr_getTouchpointAll(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointAll", mergeOption);
         }
     
         public virtual ObjectResult<pr_getTouchpointByGroup_Result> pr_getTouchpointByGroup(Nullable<int> group)
@@ -6983,13 +7013,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getMenu_Result>("pr_getMenu", idParameter);
         }
     
-        public virtual ObjectResult<pr_getMenuAll_Result> pr_getMenuAll(Nullable<int> enterprise)
+        public virtual ObjectResult<menu> pr_getMenuAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getMenuAll_Result>("pr_getMenuAll", enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenuAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<menu> pr_getMenuAll(Nullable<int> enterprise, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenuAll", mergeOption, enterpriseParameter);
         }
     
         public virtual int pr_modifyHs3Menu(Nullable<int> id, string description, string url, Nullable<int> parentid, Nullable<int> grand, Nullable<int> sort, Nullable<int> active, Nullable<int> accesslevel, Nullable<int> menuGroup, Nullable<bool> isDynamicCreated, Nullable<int> device, Nullable<int> enterprise)
@@ -7116,6 +7155,47 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveMenu", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getMenuChildItem_Result> pr_getMenuChildItem(Nullable<int> parentid)
+        {
+            var parentidParameter = parentid.HasValue ?
+                new ObjectParameter("parentid", parentid) :
+                new ObjectParameter("parentid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getMenuChildItem_Result>("pr_getMenuChildItem", parentidParameter);
+        }
+    
+        public virtual ObjectResult<pr_getMenuItemTopLevel_Result> pr_getMenuItemTopLevel(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getMenuItemTopLevel_Result>("pr_getMenuItemTopLevel", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<xxx_getRecordCountByTable_Result> xxx_getRecordCountByTable()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xxx_getRecordCountByTable_Result>("xxx_getRecordCountByTable");
+        }
+    
+        public virtual ObjectResult<xxx_getTableSetByColumnName_Result> xxx_getTableSetByColumnName(string tableName)
+        {
+            var tableNameParameter = tableName != null ?
+                new ObjectParameter("tableName", tableName) :
+                new ObjectParameter("tableName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xxx_getTableSetByColumnName_Result>("xxx_getTableSetByColumnName", tableNameParameter);
+        }
+    
+        public virtual ObjectResult<string> xxx_getTelerikBoundColumnSchema(string tablename)
+        {
+            var tablenameParameter = tablename != null ?
+                new ObjectParameter("tablename", tablename) :
+                new ObjectParameter("tablename", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("xxx_getTelerikBoundColumnSchema", tablenameParameter);
         }
     }
 }

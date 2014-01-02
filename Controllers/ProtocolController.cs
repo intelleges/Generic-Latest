@@ -10,7 +10,7 @@ namespace Generic.Controllers
 {
     public class ProtocolController : Controller
     {
-        private hs3MVCMTQa2Entities db = new hs3MVCMTQa2Entities();
+        private Entities db = new Entities();
 
         //
         // GET: /Protocol/
@@ -19,6 +19,7 @@ namespace Generic.Controllers
         {
             var protocols = db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID);
             return View(protocols.ToList());
+            
         }
 
         //

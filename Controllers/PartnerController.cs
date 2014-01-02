@@ -10,12 +10,12 @@ namespace Generic.Controllers
 {
     public class PartnerController : Controller
     {
-        private hs3MVCMTQa2Entities db = new hs3MVCMTQa2Entities();
+        private Entities db = new Entities();
 
         //
         // GET: /Partner/
 
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             var partner = db.pr_getPartnerAll(Generic.Helpers.CurrentInstance.EnterpriseID);
             return View(partner.ToList());
@@ -24,7 +24,7 @@ namespace Generic.Controllers
         //
         // GET: /Partner/Details/5
 
-        public ActionResult Details(int id = 0)
+        public virtual ActionResult Details(int id = 0)
         {
             partner partner = db.pr_getPartner1(id).FirstOrDefault();
             if (partner == null)

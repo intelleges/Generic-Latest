@@ -9,15 +9,10 @@
 
 <h2>Group</h2>
 
-@Html.Telerik().ScriptRegistrar() 
 
-@Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
-
-
-
-
-
-
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 
 
 @( Html.Telerik().Grid(Model).Name("GroupGrid")

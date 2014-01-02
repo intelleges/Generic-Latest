@@ -12,13 +12,21 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class partnerTouchpointQuestionnaireLanguage
+    public partial class partnerTouchpointQuestionnaireQuestionResponse
     {
         public int partner { get; set; }
         public int touchpoint { get; set; }
         public int questionnaire { get; set; }
-        public int language { get; set; }
+        public int question { get; set; }
+        public Nullable<int> response { get; set; }
+        public string comment { get; set; }
+        public string uploadedFile { get; set; }
+        public Nullable<int> actualScore { get; set; }
     
         public virtual partner partner1 { get; set; }
+        public virtual question question1 { get; set; }
+        public virtual questionnaire questionnaire1 { get; set; }
+        public virtual response response1 { get; set; }
+        public virtual touchpoint touchpoint1 { get; set; }
     }
 }

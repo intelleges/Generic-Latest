@@ -10,7 +10,7 @@ namespace Generic.Helpers
     public class CustomMembershipProvider : MembershipProvider
     {
 
-        private hs3MVCMTQa2Entities db;
+        private Entities db;
 
         public int MinPasswordLength
         {
@@ -30,7 +30,7 @@ namespace Generic.Helpers
 
         public CustomMembershipProvider()
         {
-            this.db = new hs3MVCMTQa2Entities();
+            this.db = new Entities();
         }
 
         public override bool ValidateUser(string username, string password)

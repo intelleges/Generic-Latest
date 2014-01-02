@@ -10,11 +10,10 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class partnerQuestionnaireCompleteDate
+    public partial class xxx_getTableSetByColumnName_Result
     {
-        public int partner { get; set; }
-        public System.DateTime completeDate { get; set; }
+        public string COLUMN_NAME { get; set; }
+        public string TABLE_NAME { get; set; }
     }
 }

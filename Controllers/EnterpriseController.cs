@@ -10,14 +10,14 @@ namespace Generic.Controllers
 {
     public class EnterpriseController : Controller
     {
-        private hs3MVCMTQa2Entities db = new hs3MVCMTQa2Entities();
+        private Entities db = new Entities();
 
         //
         // GET: /Enterprise/
 
         public ActionResult Index()
         {
-            var EnterpriceGrid = db.pr_getEnterpriseAll1().ToList();
+            var EnterpriceGrid = db.pr_getEnterpriseAll().ToList();
             return View(EnterpriceGrid);
         }
 

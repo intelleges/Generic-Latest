@@ -10,7 +10,7 @@ namespace Generic.Controllers
 {
     public class PersonController : Controller
     {
-        private hs3MVCMTQa2Entities db = new hs3MVCMTQa2Entities();
+        private Entities db = new Entities();
 
         //
         // GET: /Person/

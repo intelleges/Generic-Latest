@@ -10,11 +10,10 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class partnerContactValidationQuestion
+    public partial class xxx_getRecordCountByTable_Result
     {
-        public int id { get; set; }
-        public string question { get; set; }
+        public string NAME { get; set; }
+        public Nullable<long> rowcnt { get; set; }
     }
 }

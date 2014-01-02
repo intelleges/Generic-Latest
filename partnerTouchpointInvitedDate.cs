@@ -17,5 +17,7 @@ namespace Generic
         public int partner { get; set; }
         public int touchpoint { get; set; }
         public Nullable<System.DateTime> invitedDate { get; set; }
+    
+        public virtual partner partner1 { get; set; }
     }
 }

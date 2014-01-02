@@ -1,6 +1,7 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.touchpoint>>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
 @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Touch Point";
@@ -11,7 +12,40 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
+
+@( Html.Telerik().Grid(Model).Name("touchPointGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.id);
+
+            columns.Bound(o => o.protocol);
+
+            columns.Bound(o => o.person);
+
+            columns.Bound(o => o.sponsor);
+
+            columns.Bound(o => o.admin);
+
+            columns.Bound(o => o.title);
+
+            columns.Bound(o => o.description);
+
+            columns.Bound(o => o.abbreviation);
+
+            columns.Bound(o => o.startDate);
+
+            columns.Bound(o => o.endDate);
+
+            columns.Bound(o => o.automaticReminder);
+
+            columns.Bound(o => o.sortOrder);
+
+            columns.Bound(o => o.active); 
+         })
+        .Pageable()
+        .Sortable()
+        )
+@*<table>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.protocol)
@@ -98,4 +132,4 @@
     </tr>
 }
 
-</table>
+</table>*@

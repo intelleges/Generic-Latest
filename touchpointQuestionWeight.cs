@@ -12,9 +12,12 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class surveyQuestion
+    public partial class touchpointQuestionWeight
     {
-        public int survey { get; set; }
+        public int touchpoint { get; set; }
         public int question { get; set; }
+        public int weight { get; set; }
+    
+        public virtual touchpoint touchpoint1 { get; set; }
     }
 }

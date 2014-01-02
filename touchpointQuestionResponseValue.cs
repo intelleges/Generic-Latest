@@ -12,12 +12,15 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class protocolTouchpointQuestionResponseValue
+    public partial class touchpointQuestionResponseValue
     {
-        public int protocol { get; set; }
         public int touchpoint { get; set; }
         public int question { get; set; }
         public int response { get; set; }
         public int value { get; set; }
+    
+        public virtual question question1 { get; set; }
+        public virtual response response1 { get; set; }
+        public virtual touchpoint touchpoint1 { get; set; }
     }
 }

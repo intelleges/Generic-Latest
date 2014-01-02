@@ -16,7 +16,8 @@ namespace Generic
     {
         public partnerType()
         {
-            this.touchpointPartnerTypeQuestionnaire = new HashSet<touchpointPartnerTypeQuestionnaire>();
+            this.partnerPartnerTypeTouchpoint = new HashSet<partnerPartnerTypeTouchpoint>();
+            this.partnerTypeTouchpointQuestionnaire = new HashSet<partnerTypeTouchpointQuestionnaire>();
         }
     
         public int id { get; set; }
@@ -30,6 +31,7 @@ namespace Generic
     
         public virtual enterprise enterprise1 { get; set; }
         public virtual partnerClass partnerClass1 { get; set; }
-        public virtual ICollection<touchpointPartnerTypeQuestionnaire> touchpointPartnerTypeQuestionnaire { get; set; }
+        public virtual ICollection<partnerPartnerTypeTouchpoint> partnerPartnerTypeTouchpoint { get; set; }
+        public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire { get; set; }
     }
 }

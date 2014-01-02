@@ -17,7 +17,13 @@ namespace Generic
         public touchpoint()
         {
             this.partnerTouchpointStatus = new HashSet<partnerTouchpointStatus>();
-            this.touchpointPartnerTypeQuestionnaire = new HashSet<touchpointPartnerTypeQuestionnaire>();
+            this.partnerPartnerTypeTouchpoint = new HashSet<partnerPartnerTypeTouchpoint>();
+            this.partnerTouchpointQuestionnaireQuestionResponse = new HashSet<partnerTouchpointQuestionnaireQuestionResponse>();
+            this.partnerTypeTouchpointQuestionnaire = new HashSet<partnerTypeTouchpointQuestionnaire>();
+            this.touchpointPartnerRerouter = new HashSet<touchpointPartnerRerouter>();
+            this.touchpointPartnerTypeScoreAutoMail = new HashSet<touchpointPartnerTypeScoreAutoMail>();
+            this.touchpointQuestionResponseValue = new HashSet<touchpointQuestionResponseValue>();
+            this.touchpointQuestionWeight = new HashSet<touchpointQuestionWeight>();
         }
     
         public int id { get; set; }
@@ -36,6 +42,12 @@ namespace Generic
     
         public virtual ICollection<partnerTouchpointStatus> partnerTouchpointStatus { get; set; }
         public virtual protocol protocol1 { get; set; }
-        public virtual ICollection<touchpointPartnerTypeQuestionnaire> touchpointPartnerTypeQuestionnaire { get; set; }
+        public virtual ICollection<partnerPartnerTypeTouchpoint> partnerPartnerTypeTouchpoint { get; set; }
+        public virtual ICollection<partnerTouchpointQuestionnaireQuestionResponse> partnerTouchpointQuestionnaireQuestionResponse { get; set; }
+        public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire { get; set; }
+        public virtual ICollection<touchpointPartnerRerouter> touchpointPartnerRerouter { get; set; }
+        public virtual ICollection<touchpointPartnerTypeScoreAutoMail> touchpointPartnerTypeScoreAutoMail { get; set; }
+        public virtual ICollection<touchpointQuestionResponseValue> touchpointQuestionResponseValue { get; set; }
+        public virtual ICollection<touchpointQuestionWeight> touchpointQuestionWeight { get; set; }
     }
 }

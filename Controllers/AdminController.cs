@@ -17,7 +17,7 @@ namespace Generic.Controllers
 {
     public class AdminController : Controller
     {
-        private hs3MVCMTQa2Entities db = new hs3MVCMTQa2Entities();
+        private Entities db = new Entities();
         //
         // GET: /Admin/
 
@@ -79,7 +79,7 @@ namespace Generic.Controllers
                 }
             }
 
-          
+
 
             var enterprises = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID);
 
@@ -109,6 +109,11 @@ namespace Generic.Controllers
             return View();
         }
 
+        public virtual ActionResult Menu()
+        {
+            List<Generic.menu> menu = db.pr_getMenuAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            return PartialView("_MenuPartial", menu);
+        }
 
         protected override void Dispose(bool disposing)
         {

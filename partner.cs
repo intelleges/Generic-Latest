@@ -18,6 +18,10 @@ namespace Generic
         {
             this.partnerTouchpointStatus = new HashSet<partnerTouchpointStatus>();
             this.person = new HashSet<person>();
+            this.partnerPartnerTypeTouchpoint = new HashSet<partnerPartnerTypeTouchpoint>();
+            this.partnerTouchpointInvitedDate = new HashSet<partnerTouchpointInvitedDate>();
+            this.partnerTouchpointQuestionnaireLanguage = new HashSet<partnerTouchpointQuestionnaireLanguage>();
+            this.partnerTouchpointQuestionnaireQuestionResponse = new HashSet<partnerTouchpointQuestionnaireQuestionResponse>();
         }
     
         public int id { get; set; }
@@ -51,5 +55,9 @@ namespace Generic
         public virtual partnerRemitAddress partnerRemitAddress { get; set; }
         public virtual ICollection<partnerTouchpointStatus> partnerTouchpointStatus { get; set; }
         public virtual ICollection<person> person { get; set; }
+        public virtual ICollection<partnerPartnerTypeTouchpoint> partnerPartnerTypeTouchpoint { get; set; }
+        public virtual ICollection<partnerTouchpointInvitedDate> partnerTouchpointInvitedDate { get; set; }
+        public virtual ICollection<partnerTouchpointQuestionnaireLanguage> partnerTouchpointQuestionnaireLanguage { get; set; }
+        public virtual ICollection<partnerTouchpointQuestionnaireQuestionResponse> partnerTouchpointQuestionnaireQuestionResponse { get; set; }
     }
 }

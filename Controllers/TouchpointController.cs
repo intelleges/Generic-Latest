@@ -10,14 +10,17 @@ namespace Generic.Controllers
 {
     public class TouchpointController : Controller
     {
-        private hs3MVCMTQa2Entities db = new hs3MVCMTQa2Entities();
+        private Entities db = new Entities();
 
         //
         // GET: /Touchpoint/
 
         public ActionResult Index()
         {
-            return View(db.pr_getTouchpointAll());
+            var touchPoint = db.pr_getTouchpointAll();
+            return View(touchPoint.ToList());
+
+          
         }
 
         //

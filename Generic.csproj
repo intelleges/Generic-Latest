@@ -466,19 +466,13 @@
     <Compile Include="partnerClass.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="partnerContactValidationQuestion.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="partnerLogDetail.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnerLogin.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="partnerQuestionnaireCompleteDate.cs">
+    <Compile Include="partnerPartnerTypeTouchpoint.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnerReference.cs">
@@ -514,6 +508,9 @@
     <Compile Include="partnerTouchpointQuestionnaireLanguage.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="partnerTouchpointQuestionnaireQuestionResponse.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="partnerTouchpointStatus.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -521,6 +518,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnerTypeGroupGoal.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="partnerTypeTouchpointQuestionnaire.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="person.cs">
@@ -546,15 +546,6 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="protocolTouchpoint.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="protocolTouchpointPartnerRerouter.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="protocolTouchpointQuestionResponseValue.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="protocolTouchpointQuestionWeight.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="prReminder.cs">
@@ -699,6 +690,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getMenuAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getMenuChildItem_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getMenuItemTopLevel_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getMenu_Result.cs">
@@ -1026,9 +1023,6 @@
     <Compile Include="survey.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="surveyQuestion.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="surveyset.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1047,10 +1041,22 @@
     <Compile Include="touchpointGroup.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="touchpointPartnerTypeQuestionnaire.cs">
+    <Compile Include="touchpointPartnerRerouter.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="touchpointPartnerTypeScoreAutoMail.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="touchpointQuestionResponseValue.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="touchpointQuestionWeight.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="xxx_getRecordCountByTable_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="xxx_getTableSetByColumnName_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="xx_getLastDBModified_Result.cs">
@@ -2101,6 +2107,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Admin\SendGridTest.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Shared\_MenuPartial.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

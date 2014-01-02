@@ -45,24 +45,9 @@
           <EntitySet Name="partnerActionLog" EntityType="hs3MVCMTQa2Model.Store.partnerActionLog" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerAddress" EntityType="hs3MVCMTQa2Model.Store.partnerAddress" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerClass" EntityType="hs3MVCMTQa2Model.Store.partnerClass" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="partnerContactValidationQuestion" EntityType="hs3MVCMTQa2Model.Store.partnerContactValidationQuestion" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerLogDetail" EntityType="hs3MVCMTQa2Model.Store.partnerLogDetail" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerLogin" EntityType="hs3MVCMTQa2Model.Store.partnerLogin" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse" EntityType="hs3MVCMTQa2Model.Store.partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse" store:Type="Tables" store:Schema="dbo" store:Name="partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse">
-            <DefiningQuery>SELECT 
-      [partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse].[partner] AS [partner], 
-      [partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse].[protocol] AS [protocol], 
-      [partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse].[touchpoint] AS [touchpoint], 
-      [partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse].[questionnaire] AS [questionnaire], 
-      [partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse].[survey] AS [survey], 
-      [partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse].[question] AS [question], 
-      [partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse].[response] AS [response], 
-      [partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse].[comment] AS [comment], 
-      [partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse].[uploadedFile] AS [uploadedFile], 
-      [partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse].[actualScore] AS [actualScore]
-      FROM [dbo].[partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse] AS [partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="partnerQuestionnaireCompleteDate" EntityType="hs3MVCMTQa2Model.Store.partnerQuestionnaireCompleteDate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="partnerPartnerTypeTouchpoint" EntityType="hs3MVCMTQa2Model.Store.partnerPartnerTypeTouchpoint" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerReference" EntityType="hs3MVCMTQa2Model.Store.partnerReference" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerRelationshipOwner" EntityType="hs3MVCMTQa2Model.Store.partnerRelationshipOwner" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerReminder" EntityType="hs3MVCMTQa2Model.Store.partnerReminder" store:Type="Tables" Schema="dbo" />
@@ -75,6 +60,18 @@
           <EntitySet Name="partnerTemp" EntityType="hs3MVCMTQa2Model.Store.partnerTemp" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerTouchpointInvitedDate" EntityType="hs3MVCMTQa2Model.Store.partnerTouchpointInvitedDate" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerTouchpointQuestionnaireLanguage" EntityType="hs3MVCMTQa2Model.Store.partnerTouchpointQuestionnaireLanguage" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="partnerTouchpointQuestionnaireQuestionResponse" EntityType="hs3MVCMTQa2Model.Store.partnerTouchpointQuestionnaireQuestionResponse" store:Type="Tables" store:Schema="dbo" store:Name="partnerTouchpointQuestionnaireQuestionResponse">
+            <DefiningQuery>SELECT 
+      [partnerTouchpointQuestionnaireQuestionResponse].[partner] AS [partner], 
+      [partnerTouchpointQuestionnaireQuestionResponse].[touchpoint] AS [touchpoint], 
+      [partnerTouchpointQuestionnaireQuestionResponse].[questionnaire] AS [questionnaire], 
+      [partnerTouchpointQuestionnaireQuestionResponse].[question] AS [question], 
+      [partnerTouchpointQuestionnaireQuestionResponse].[response] AS [response], 
+      [partnerTouchpointQuestionnaireQuestionResponse].[comment] AS [comment], 
+      [partnerTouchpointQuestionnaireQuestionResponse].[uploadedFile] AS [uploadedFile], 
+      [partnerTouchpointQuestionnaireQuestionResponse].[actualScore] AS [actualScore]
+      FROM [dbo].[partnerTouchpointQuestionnaireQuestionResponse] AS [partnerTouchpointQuestionnaireQuestionResponse]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="partnerTouchpointStatus" EntityType="hs3MVCMTQa2Model.Store.partnerTouchpointStatus" store:Type="Tables" store:Schema="dbo" store:Name="partnerTouchpointStatus">
             <DefiningQuery>SELECT 
       [partnerTouchpointStatus].[partner] AS [partner], 
@@ -91,6 +88,14 @@
           </EntitySet>
           <EntitySet Name="partnerType" EntityType="hs3MVCMTQa2Model.Store.partnerType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerTypeGroupGoal" EntityType="hs3MVCMTQa2Model.Store.partnerTypeGroupGoal" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="partnerTypeTouchpointQuestionnaire" EntityType="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" store:Type="Tables" store:Schema="dbo" store:Name="partnerTypeTouchpointQuestionnaire">
+            <DefiningQuery>SELECT 
+      [partnerTypeTouchpointQuestionnaire].[touchpoint] AS [touchpoint], 
+      [partnerTypeTouchpointQuestionnaire].[partnerType] AS [partnerType], 
+      [partnerTypeTouchpointQuestionnaire].[questionnaire] AS [questionnaire], 
+      [partnerTypeTouchpointQuestionnaire].[description] AS [description]
+      FROM [dbo].[partnerTypeTouchpointQuestionnaire] AS [partnerTypeTouchpointQuestionnaire]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="person" EntityType="hs3MVCMTQa2Model.Store.person" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personGroup" EntityType="hs3MVCMTQa2Model.Store.personGroup" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personLoginAudit" EntityType="hs3MVCMTQa2Model.Store.personLoginAudit" store:Type="Tables" Schema="dbo" />
@@ -100,29 +105,6 @@
           <EntitySet Name="personStatus" EntityType="hs3MVCMTQa2Model.Store.personStatus" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="protocol" EntityType="hs3MVCMTQa2Model.Store.protocol" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="protocolTouchpoint" EntityType="hs3MVCMTQa2Model.Store.protocolTouchpoint" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="protocolTouchpointPartnerRerouter" EntityType="hs3MVCMTQa2Model.Store.protocolTouchpointPartnerRerouter" store:Type="Tables" store:Schema="dbo" store:Name="protocolTouchpointPartnerRerouter">
-            <DefiningQuery>SELECT 
-      [protocolTouchpointPartnerRerouter].[protocol] AS [protocol], 
-      [protocolTouchpointPartnerRerouter].[touchpoint] AS [touchpoint], 
-      [protocolTouchpointPartnerRerouter].[partner] AS [partner], 
-      [protocolTouchpointPartnerRerouter].[fromFirstName] AS [fromFirstName], 
-      [protocolTouchpointPartnerRerouter].[fromLastName] AS [fromLastName], 
-      [protocolTouchpointPartnerRerouter].[fromTitle] AS [fromTitle], 
-      [protocolTouchpointPartnerRerouter].[from] AS [from], 
-      [protocolTouchpointPartnerRerouter].[to] AS [to], 
-      [protocolTouchpointPartnerRerouter].[status] AS [status], 
-      [protocolTouchpointPartnerRerouter].[timeStamp] AS [timeStamp]
-      FROM [dbo].[protocolTouchpointPartnerRerouter] AS [protocolTouchpointPartnerRerouter]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="protocolTouchpointQuestionResponseValue" EntityType="hs3MVCMTQa2Model.Store.protocolTouchpointQuestionResponseValue" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="protocolTouchpointQuestionWeight" EntityType="hs3MVCMTQa2Model.Store.protocolTouchpointQuestionWeight" store:Type="Tables" store:Schema="dbo" store:Name="protocolTouchpointQuestionWeight">
-            <DefiningQuery>SELECT 
-      [protocolTouchpointQuestionWeight].[protocol] AS [protocol], 
-      [protocolTouchpointQuestionWeight].[Touchpoint] AS [Touchpoint], 
-      [protocolTouchpointQuestionWeight].[Question] AS [Question], 
-      [protocolTouchpointQuestionWeight].[weight] AS [weight]
-      FROM [dbo].[protocolTouchpointQuestionWeight] AS [protocolTouchpointQuestionWeight]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="query" EntityType="hs3MVCMTQa2Model.Store.query" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="queryFieldQuestion" EntityType="hs3MVCMTQa2Model.Store.queryFieldQuestion" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="question" EntityType="hs3MVCMTQa2Model.Store.question" store:Type="Tables" Schema="dbo" />
@@ -161,15 +143,22 @@
           <EntitySet Name="systemConfiguration" EntityType="hs3MVCMTQa2Model.Store.systemConfiguration" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="touchpoint" EntityType="hs3MVCMTQa2Model.Store.touchpoint" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="touchpointGroup" EntityType="hs3MVCMTQa2Model.Store.touchpointGroup" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="touchpointPartnerTypeQuestionnaire" EntityType="hs3MVCMTQa2Model.Store.touchpointPartnerTypeQuestionnaire" store:Type="Tables" store:Schema="dbo" store:Name="touchpointPartnerTypeQuestionnaire">
+          <EntitySet Name="touchpointPartnerRerouter" EntityType="hs3MVCMTQa2Model.Store.touchpointPartnerRerouter" store:Type="Tables" store:Schema="dbo" store:Name="touchpointPartnerRerouter">
             <DefiningQuery>SELECT 
-      [touchpointPartnerTypeQuestionnaire].[touchpoint] AS [touchpoint], 
-      [touchpointPartnerTypeQuestionnaire].[partnerType] AS [partnerType], 
-      [touchpointPartnerTypeQuestionnaire].[questionnaire] AS [questionnaire], 
-      [touchpointPartnerTypeQuestionnaire].[description] AS [description]
-      FROM [dbo].[touchpointPartnerTypeQuestionnaire] AS [touchpointPartnerTypeQuestionnaire]</DefiningQuery>
+      [touchpointPartnerRerouter].[touchpoint] AS [touchpoint], 
+      [touchpointPartnerRerouter].[partner] AS [partner], 
+      [touchpointPartnerRerouter].[fromFirstName] AS [fromFirstName], 
+      [touchpointPartnerRerouter].[fromLastName] AS [fromLastName], 
+      [touchpointPartnerRerouter].[fromTitle] AS [fromTitle], 
+      [touchpointPartnerRerouter].[from] AS [from], 
+      [touchpointPartnerRerouter].[to] AS [to], 
+      [touchpointPartnerRerouter].[status] AS [status], 
+      [touchpointPartnerRerouter].[timeStamp] AS [timeStamp]
+      FROM [dbo].[touchpointPartnerRerouter] AS [touchpointPartnerRerouter]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="touchpointPartnerTypeScoreAutoMail" EntityType="hs3MVCMTQa2Model.Store.touchpointPartnerTypeScoreAutoMail" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="touchpointQuestionResponseValue" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionResponseValue" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="touchpointQuestionWeight" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionWeight" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="zCode" EntityType="hs3MVCMTQa2Model.Store.zCode" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="zCodeBatchUpdate" EntityType="hs3MVCMTQa2Model.Store.zCodeBatchUpdate" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="prReminder" EntityType="hs3MVCMTQa2Model.Store.prReminder" store:Type="Views" store:Schema="dbo" store:Name="prReminder">
@@ -244,6 +233,18 @@
             <End Role="enterprise" EntitySet="enterprise" />
             <End Role="partner" EntitySet="partner" />
           </AssociationSet>
+          <AssociationSet Name="FK_partnerPartnerTypeTouchpoint_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerPartnerTypeTouchpoint_partner">
+            <End Role="partner" EntitySet="partner" />
+            <End Role="partnerPartnerTypeTouchpoint" EntitySet="partnerPartnerTypeTouchpoint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerPartnerTypeTouchpoint_partnerType" Association="hs3MVCMTQa2Model.Store.FK_partnerPartnerTypeTouchpoint_partnerType">
+            <End Role="partnerType" EntitySet="partnerType" />
+            <End Role="partnerPartnerTypeTouchpoint" EntitySet="partnerPartnerTypeTouchpoint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerPartnerTypeTouchpoint_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_partnerPartnerTypeTouchpoint_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="partnerPartnerTypeTouchpoint" EntitySet="partnerPartnerTypeTouchpoint" />
+          </AssociationSet>
           <AssociationSet Name="FK_partnerRelationshipOwner_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerRelationshipOwner_partner">
             <End Role="partner" EntitySet="partner" />
             <End Role="partnerRelationshipOwner" EntitySet="partnerRelationshipOwner" />
@@ -255,6 +256,30 @@
           <AssociationSet Name="FK_partnerRemitAddress_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerRemitAddress_partner">
             <End Role="partner" EntitySet="partner" />
             <End Role="partnerRemitAddress" EntitySet="partnerRemitAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointInvitedDate_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerTouchpointInvitedDate_partner">
+            <End Role="partner" EntitySet="partner" />
+            <End Role="partnerTouchpointInvitedDate" EntitySet="partnerTouchpointInvitedDate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireLanguage_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerTouchpointQuestionnaireLanguage_partner">
+            <End Role="partner" EntitySet="partner" />
+            <End Role="partnerTouchpointQuestionnaireLanguage" EntitySet="partnerTouchpointQuestionnaireLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerTouchpointQuestionnaireQuestionResponse_partner">
+            <End Role="partner" EntitySet="partner" />
+            <End Role="partnerTouchpointQuestionnaireQuestionResponse" EntitySet="partnerTouchpointQuestionnaireQuestionResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_questionnaire" Association="hs3MVCMTQa2Model.Store.FK_partnerTouchpointQuestionnaireQuestionResponse_questionnaire">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="partnerTouchpointQuestionnaireQuestionResponse" EntitySet="partnerTouchpointQuestionnaireQuestionResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response" Association="hs3MVCMTQa2Model.Store.FK_partnerTouchpointQuestionnaireQuestionResponse_response">
+            <End Role="response" EntitySet="response" />
+            <End Role="partnerTouchpointQuestionnaireQuestionResponse" EntitySet="partnerTouchpointQuestionnaireQuestionResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_partnerTouchpointQuestionnaireQuestionResponse_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="partnerTouchpointQuestionnaireQuestionResponse" EntitySet="partnerTouchpointQuestionnaireQuestionResponse" />
           </AssociationSet>
           <AssociationSet Name="FK_partnerTouchpointStatus_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerTouchpointStatus_partner">
             <End Role="partner" EntitySet="partner" />
@@ -316,16 +341,16 @@
             <End Role="person" EntitySet="person" />
             <End Role="protocol" EntitySet="protocol" />
           </AssociationSet>
+          <AssociationSet Name="FK_protocolTouchpointQuestionResponseValue_response" Association="hs3MVCMTQa2Model.Store.FK_protocolTouchpointQuestionResponseValue_response">
+            <End Role="response" EntitySet="response" />
+            <End Role="touchpointQuestionResponseValue" EntitySet="touchpointQuestionResponseValue" />
+          </AssociationSet>
           <AssociationSet Name="FK_question_responseType" Association="hs3MVCMTQa2Model.Store.FK_question_responseType">
             <End Role="responseType" EntitySet="responseType" />
             <End Role="question" EntitySet="question" />
           </AssociationSet>
           <AssociationSet Name="FK_questionLanguage_language" Association="hs3MVCMTQa2Model.Store.FK_questionLanguage_language">
             <End Role="language" EntitySet="language" />
-            <End Role="questionLanguage" EntitySet="questionLanguage" />
-          </AssociationSet>
-          <AssociationSet Name="FK_questionLanguage_question" Association="hs3MVCMTQa2Model.Store.FK_questionLanguage_question">
-            <End Role="question" EntitySet="question" />
             <End Role="questionLanguage" EntitySet="questionLanguage" />
           </AssociationSet>
           <AssociationSet Name="FK_questionnairePage_page" Association="hs3MVCMTQa2Model.Store.FK_questionnairePage_page">
@@ -392,6 +417,14 @@
             <End Role="enterprise" EntitySet="enterprise" />
             <End Role="state" EntitySet="state" />
           </AssociationSet>
+          <AssociationSet Name="FK_surveyQuestion_question" Association="hs3MVCMTQa2Model.Store.FK_surveyQuestion_question">
+            <End Role="question" EntitySet="question" />
+            <End Role="surveyQuestion" EntitySet="surveyQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_surveyQuestion_survey" Association="hs3MVCMTQa2Model.Store.FK_surveyQuestion_survey">
+            <End Role="survey" EntitySet="survey" />
+            <End Role="surveyQuestion" EntitySet="surveyQuestion" />
+          </AssociationSet>
           <AssociationSet Name="FK_surveySetSurvey_survey" Association="hs3MVCMTQa2Model.Store.FK_surveySetSurvey_survey">
             <End Role="survey" EntitySet="survey" />
             <End Role="surveySetSurvey" EntitySet="surveySetSurvey" />
@@ -404,17 +437,33 @@
             <End Role="protocol" EntitySet="protocol" />
             <End Role="touchpoint" EntitySet="touchpoint" />
           </AssociationSet>
+          <AssociationSet Name="FK_touchpointPartnerRerouter_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerRerouter_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="touchpointPartnerRerouter" EntitySet="touchpointPartnerRerouter" />
+          </AssociationSet>
           <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_partnerType" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerTypeQuestionnaire_partnerType">
             <End Role="partnerType" EntitySet="partnerType" />
-            <End Role="touchpointPartnerTypeQuestionnaire" EntitySet="touchpointPartnerTypeQuestionnaire" />
+            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
           </AssociationSet>
           <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerTypeQuestionnaire_questionnaire">
             <End Role="questionnaire" EntitySet="questionnaire" />
-            <End Role="touchpointPartnerTypeQuestionnaire" EntitySet="touchpointPartnerTypeQuestionnaire" />
+            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
           </AssociationSet>
           <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerTypeQuestionnaire_touchpoint">
             <End Role="touchpoint" EntitySet="touchpoint" />
-            <End Role="touchpointPartnerTypeQuestionnaire" EntitySet="touchpointPartnerTypeQuestionnaire" />
+            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="touchpointPartnerTypeScoreAutoMail" EntitySet="touchpointPartnerTypeScoreAutoMail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointQuestionResponseValue_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionResponseValue_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="touchpointQuestionResponseValue" EntitySet="touchpointQuestionResponseValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointQuestionWeight_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionWeight_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="touchpointQuestionWeight" EntitySet="touchpointQuestionWeight" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -869,13 +918,6 @@
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="bit" />
         </EntityType>
-        <EntityType Name="partnerContactValidationQuestion">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="question" Type="varchar" MaxLength="100" />
-        </EntityType>
         <EntityType Name="partnerLogDetail">
           <Key>
             <PropertyRef Name="id" />
@@ -896,35 +938,15 @@
           <Property Name="internalId" Type="varchar" MaxLength="255" />
           <Property Name="status" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'hs3MVCMTQa2.dbo.partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
-        <EntityType Name="partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse">
+        <EntityType Name="partnerPartnerTypeTouchpoint">
           <Key>
             <PropertyRef Name="partner" />
-            <PropertyRef Name="protocol" />
+            <PropertyRef Name="partnerType" />
             <PropertyRef Name="touchpoint" />
-            <PropertyRef Name="questionnaire" />
-            <PropertyRef Name="survey" />
-            <PropertyRef Name="question" />
           </Key>
           <Property Name="partner" Type="int" Nullable="false" />
-          <Property Name="protocol" Type="int" Nullable="false" />
+          <Property Name="partnerType" Type="int" Nullable="false" />
           <Property Name="touchpoint" Type="int" Nullable="false" />
-          <Property Name="questionnaire" Type="int" Nullable="false" />
-          <Property Name="survey" Type="int" Nullable="false" />
-          <Property Name="question" Type="int" Nullable="false" />
-          <Property Name="response" Type="int" />
-          <Property Name="comment" Type="varchar" MaxLength="3000" />
-          <Property Name="uploadedFile" Type="varchar" MaxLength="500" />
-          <Property Name="actualScore" Type="int" />
-        </EntityType>
-        <EntityType Name="partnerQuestionnaireCompleteDate">
-          <Key>
-            <PropertyRef Name="partner" />
-          </Key>
-          <Property Name="partner" Type="int" Nullable="false" />
-          <Property Name="completeDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="partnerReference">
           <Key>
@@ -1141,6 +1163,25 @@
           <Property Name="language" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.partnerTouchpointQuestionnaireQuestionResponse' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="partnerTouchpointQuestionnaireQuestionResponse">
+          <Key>
+            <PropertyRef Name="partner" />
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="questionnaire" />
+            <PropertyRef Name="question" />
+          </Key>
+          <Property Name="partner" Type="int" Nullable="false" />
+          <Property Name="touchpoint" Type="int" Nullable="false" />
+          <Property Name="questionnaire" Type="int" Nullable="false" />
+          <Property Name="question" Type="int" Nullable="false" />
+          <Property Name="response" Type="int" />
+          <Property Name="comment" Type="varchar" MaxLength="3000" />
+          <Property Name="uploadedFile" Type="varchar" MaxLength="500" />
+          <Property Name="actualScore" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.partnerTouchpointStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="partnerTouchpointStatus">
@@ -1185,6 +1226,20 @@
           <Property Name="goal" Type="int" Nullable="false" />
           <Property Name="timestamp" Type="datetime" />
           <Property Name="touchpoint" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.partnerTypeTouchpointQuestionnaire' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="partnerTypeTouchpointQuestionnaire">
+          <Key>
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="partnerType" />
+            <PropertyRef Name="questionnaire" />
+          </Key>
+          <Property Name="touchpoint" Type="int" Nullable="false" />
+          <Property Name="partnerType" Type="int" Nullable="false" />
+          <Property Name="questionnaire" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="1500" />
         </EntityType>
         <EntityType Name="person">
           <Key>
@@ -1316,59 +1371,6 @@
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="touchpointAnchor" Type="int" />
           <Property Name="touchpointId" Type="int" />
-        </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'hs3MVCMTQa2.dbo.protocolTouchpointPartnerRerouter' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
-        <EntityType Name="protocolTouchpointPartnerRerouter">
-          <Key>
-            <PropertyRef Name="protocol" />
-            <PropertyRef Name="touchpoint" />
-            <PropertyRef Name="partner" />
-            <PropertyRef Name="fromFirstName" />
-            <PropertyRef Name="fromLastName" />
-            <PropertyRef Name="fromTitle" />
-            <PropertyRef Name="from" />
-            <PropertyRef Name="to" />
-            <PropertyRef Name="timeStamp" />
-          </Key>
-          <Property Name="protocol" Type="int" Nullable="false" />
-          <Property Name="touchpoint" Type="int" Nullable="false" />
-          <Property Name="partner" Type="int" Nullable="false" />
-          <Property Name="fromFirstName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="fromLastName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="fromTitle" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="from" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="to" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="status" Type="bit" />
-          <Property Name="timeStamp" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="protocolTouchpointQuestionResponseValue">
-          <Key>
-            <PropertyRef Name="protocol" />
-            <PropertyRef Name="touchpoint" />
-            <PropertyRef Name="question" />
-            <PropertyRef Name="response" />
-          </Key>
-          <Property Name="protocol" Type="int" Nullable="false" />
-          <Property Name="touchpoint" Type="int" Nullable="false" />
-          <Property Name="question" Type="int" Nullable="false" />
-          <Property Name="response" Type="int" Nullable="false" />
-          <Property Name="value" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'hs3MVCMTQa2.dbo.protocolTouchpointQuestionWeight' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
-        <EntityType Name="protocolTouchpointQuestionWeight">
-          <Key>
-            <PropertyRef Name="protocol" />
-            <PropertyRef Name="Touchpoint" />
-            <PropertyRef Name="Question" />
-          </Key>
-          <Property Name="protocol" Type="int" Nullable="false" />
-          <Property Name="Touchpoint" Type="int" Nullable="false" />
-          <Property Name="Question" Type="int" Nullable="false" />
-          <Property Name="weight" Type="int" />
         </EntityType>
         <EntityType Name="query">
           <Key>
@@ -1712,18 +1714,28 @@
           <Property Name="touchpoint" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'hs3MVCMTQa2.dbo.touchpointPartnerTypeQuestionnaire' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.touchpointPartnerRerouter' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
-        <EntityType Name="touchpointPartnerTypeQuestionnaire">
+        <EntityType Name="touchpointPartnerRerouter">
           <Key>
             <PropertyRef Name="touchpoint" />
-            <PropertyRef Name="partnerType" />
-            <PropertyRef Name="questionnaire" />
+            <PropertyRef Name="partner" />
+            <PropertyRef Name="fromFirstName" />
+            <PropertyRef Name="fromLastName" />
+            <PropertyRef Name="fromTitle" />
+            <PropertyRef Name="from" />
+            <PropertyRef Name="to" />
+            <PropertyRef Name="timeStamp" />
           </Key>
           <Property Name="touchpoint" Type="int" Nullable="false" />
-          <Property Name="partnerType" Type="int" Nullable="false" />
-          <Property Name="questionnaire" Type="int" Nullable="false" />
-          <Property Name="description" Type="varchar" MaxLength="1500" />
+          <Property Name="partner" Type="int" Nullable="false" />
+          <Property Name="fromFirstName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="fromLastName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="fromTitle" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="from" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="to" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="status" Type="bit" />
+          <Property Name="timeStamp" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="touchpointPartnerTypeScoreAutoMail">
           <Key>
@@ -1737,6 +1749,27 @@
           <Property Name="body" Type="varchar" MaxLength="5000" />
           <Property Name="isSendToPartner" Type="bit" />
           <Property Name="isSendToUser" Type="bit" />
+        </EntityType>
+        <EntityType Name="touchpointQuestionResponseValue">
+          <Key>
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="question" />
+            <PropertyRef Name="response" />
+          </Key>
+          <Property Name="touchpoint" Type="int" Nullable="false" />
+          <Property Name="question" Type="int" Nullable="false" />
+          <Property Name="response" Type="int" Nullable="false" />
+          <Property Name="value" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="touchpointQuestionWeight">
+          <Key>
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="question" />
+            <PropertyRef Name="weight" />
+          </Key>
+          <Property Name="touchpoint" Type="int" Nullable="false" />
+          <Property Name="question" Type="int" Nullable="false" />
+          <Property Name="weight" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="zCode">
           <Key>
@@ -1963,6 +1996,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_partnerPartnerTypeTouchpoint_partner">
+          <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
+          <End Role="partnerPartnerTypeTouchpoint" Type="hs3MVCMTQa2Model.Store.partnerPartnerTypeTouchpoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerPartnerTypeTouchpoint">
+              <PropertyRef Name="partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerPartnerTypeTouchpoint_partnerType">
+          <End Role="partnerType" Type="hs3MVCMTQa2Model.Store.partnerType" Multiplicity="1" />
+          <End Role="partnerPartnerTypeTouchpoint" Type="hs3MVCMTQa2Model.Store.partnerPartnerTypeTouchpoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerPartnerTypeTouchpoint">
+              <PropertyRef Name="partnerType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerPartnerTypeTouchpoint_touchpoint">
+          <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
+          <End Role="partnerPartnerTypeTouchpoint" Type="hs3MVCMTQa2Model.Store.partnerPartnerTypeTouchpoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerPartnerTypeTouchpoint">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_partnerRelationshipOwner_partner">
           <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
           <End Role="partnerRelationshipOwner" Type="hs3MVCMTQa2Model.Store.partnerRelationshipOwner" Multiplicity="*" />
@@ -1996,6 +2065,78 @@
             </Principal>
             <Dependent Role="partnerRemitAddress">
               <PropertyRef Name="partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointInvitedDate_partner">
+          <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
+          <End Role="partnerTouchpointInvitedDate" Type="hs3MVCMTQa2Model.Store.partnerTouchpointInvitedDate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointInvitedDate">
+              <PropertyRef Name="partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointQuestionnaireLanguage_partner">
+          <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
+          <End Role="partnerTouchpointQuestionnaireLanguage" Type="hs3MVCMTQa2Model.Store.partnerTouchpointQuestionnaireLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointQuestionnaireLanguage">
+              <PropertyRef Name="partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_partner">
+          <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
+          <End Role="partnerTouchpointQuestionnaireQuestionResponse" Type="hs3MVCMTQa2Model.Store.partnerTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointQuestionnaireQuestionResponse">
+              <PropertyRef Name="partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_questionnaire">
+          <End Role="questionnaire" Type="hs3MVCMTQa2Model.Store.questionnaire" Multiplicity="1" />
+          <End Role="partnerTouchpointQuestionnaireQuestionResponse" Type="hs3MVCMTQa2Model.Store.partnerTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointQuestionnaireQuestionResponse">
+              <PropertyRef Name="questionnaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response">
+          <End Role="response" Type="hs3MVCMTQa2Model.Store.response" Multiplicity="0..1" />
+          <End Role="partnerTouchpointQuestionnaireQuestionResponse" Type="hs3MVCMTQa2Model.Store.partnerTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="response">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointQuestionnaireQuestionResponse">
+              <PropertyRef Name="response" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_touchpoint">
+          <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
+          <End Role="partnerTouchpointQuestionnaireQuestionResponse" Type="hs3MVCMTQa2Model.Store.partnerTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointQuestionnaireQuestionResponse">
+              <PropertyRef Name="touchpoint" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2179,6 +2320,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_protocolTouchpointQuestionResponseValue_response">
+          <End Role="response" Type="hs3MVCMTQa2Model.Store.response" Multiplicity="1" />
+          <End Role="touchpointQuestionResponseValue" Type="hs3MVCMTQa2Model.Store.touchpointQuestionResponseValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="response">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointQuestionResponseValue">
+              <PropertyRef Name="response" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_question_responseType">
           <End Role="responseType" Type="hs3MVCMTQa2Model.Store.responseType" Multiplicity="0..1" />
           <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="*" />
@@ -2200,18 +2353,6 @@
             </Principal>
             <Dependent Role="questionLanguage">
               <PropertyRef Name="language" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_questionLanguage_question">
-          <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="1" />
-          <End Role="questionLanguage" Type="hs3MVCMTQa2Model.Store.questionLanguage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="question">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="questionLanguage">
-              <PropertyRef Name="question" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2407,6 +2548,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_surveyQuestion_question">
+          <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="1" />
+          <End Role="surveyQuestion" Type="hs3MVCMTQa2Model.Store.surveyQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="surveyQuestion">
+              <PropertyRef Name="question" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_surveyQuestion_survey">
+          <End Role="survey" Type="hs3MVCMTQa2Model.Store.survey" Multiplicity="1" />
+          <End Role="surveyQuestion" Type="hs3MVCMTQa2Model.Store.surveyQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="survey">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="surveyQuestion">
+              <PropertyRef Name="survey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_surveySetSurvey_survey">
           <End Role="survey" Type="hs3MVCMTQa2Model.Store.survey" Multiplicity="1" />
           <End Role="surveySetSurvey" Type="hs3MVCMTQa2Model.Store.surveySetSurvey" Multiplicity="*" />
@@ -2443,38 +2608,86 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_touchpointPartnerRerouter_touchpoint">
+          <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
+          <End Role="touchpointPartnerRerouter" Type="hs3MVCMTQa2Model.Store.touchpointPartnerRerouter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointPartnerRerouter">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_touchpointPartnerTypeQuestionnaire_partnerType">
           <End Role="partnerType" Type="hs3MVCMTQa2Model.Store.partnerType" Multiplicity="1" />
-          <End Role="touchpointPartnerTypeQuestionnaire" Type="hs3MVCMTQa2Model.Store.touchpointPartnerTypeQuestionnaire" Multiplicity="*" />
+          <End Role="partnerTypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="partnerType">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="touchpointPartnerTypeQuestionnaire">
+            <Dependent Role="partnerTypeTouchpointQuestionnaire">
               <PropertyRef Name="partnerType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire">
           <End Role="questionnaire" Type="hs3MVCMTQa2Model.Store.questionnaire" Multiplicity="1" />
-          <End Role="touchpointPartnerTypeQuestionnaire" Type="hs3MVCMTQa2Model.Store.touchpointPartnerTypeQuestionnaire" Multiplicity="*" />
+          <End Role="partnerTypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="questionnaire">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="touchpointPartnerTypeQuestionnaire">
+            <Dependent Role="partnerTypeTouchpointQuestionnaire">
               <PropertyRef Name="questionnaire" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint">
           <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
-          <End Role="touchpointPartnerTypeQuestionnaire" Type="hs3MVCMTQa2Model.Store.touchpointPartnerTypeQuestionnaire" Multiplicity="*" />
+          <End Role="partnerTypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="touchpoint">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="touchpointPartnerTypeQuestionnaire">
+            <Dependent Role="partnerTypeTouchpointQuestionnaire">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
+          <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
+          <End Role="touchpointPartnerTypeScoreAutoMail" Type="hs3MVCMTQa2Model.Store.touchpointPartnerTypeScoreAutoMail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointPartnerTypeScoreAutoMail">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_touchpointQuestionResponseValue_touchpoint">
+          <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
+          <End Role="touchpointQuestionResponseValue" Type="hs3MVCMTQa2Model.Store.touchpointQuestionResponseValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointQuestionResponseValue">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_touchpointQuestionWeight_touchpoint">
+          <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
+          <End Role="touchpointQuestionWeight" Type="hs3MVCMTQa2Model.Store.touchpointQuestionWeight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointQuestionWeight">
               <PropertyRef Name="touchpoint" />
             </Dependent>
           </ReferentialConstraint>
@@ -3229,6 +3442,12 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getMenuAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getMenuChildItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parentid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getMenuItemTopLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getObjectNameByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -4407,6 +4626,13 @@
           <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
         </Function>
         <Function Name="xx_getLastDBModified" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="xxx_getRecordCountByTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="xxx_getTableSetByColumnName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tableName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="xxx_getTelerikBoundColumnSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tablename" Type="varchar" Mode="In" />
+        </Function>
         <!--Errors Found During Generation:
       warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerConfirm' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
       
@@ -4531,12 +4757,10 @@
           <EntitySet Name="ruleType" EntityType="hs3MVCMTQa2Model.ruleType" />
           <EntitySet Name="state" EntityType="hs3MVCMTQa2Model.state" />
           <EntitySet Name="survey" EntityType="hs3MVCMTQa2Model.survey" />
-          <EntitySet Name="surveyQuestion" EntityType="hs3MVCMTQa2Model.surveyQuestion" />
           <EntitySet Name="surveyset" EntityType="hs3MVCMTQa2Model.surveyset" />
           <EntitySet Name="sysdiagrams" EntityType="hs3MVCMTQa2Model.sysdiagrams" />
           <EntitySet Name="touchpoint" EntityType="hs3MVCMTQa2Model.touchpoint" />
           <EntitySet Name="touchpointGroup" EntityType="hs3MVCMTQa2Model.touchpointGroup" />
-          <EntitySet Name="touchpointPartnerTypeQuestionnaire" EntityType="hs3MVCMTQa2Model.touchpointPartnerTypeQuestionnaire" />
           <AssociationSet Name="FK_agency_enterprise" Association="hs3MVCMTQa2Model.FK_agency_enterprise">
             <End Role="enterprise" EntitySet="enterprise" />
             <End Role="agency" EntitySet="agency" />
@@ -4633,10 +4857,6 @@
             <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="partnerTouchpointStatus" EntitySet="partnerTouchpointStatus" />
           </AssociationSet>
-          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_partnerType" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType">
-            <End Role="partnerType" EntitySet="partnerType" />
-            <End Role="touchpointPartnerTypeQuestionnaire" EntitySet="touchpointPartnerTypeQuestionnaire" />
-          </AssociationSet>
           <AssociationSet Name="FK_person_personStatus" Association="hs3MVCMTQa2Model.FK_person_personStatus">
             <End Role="personStatus" EntitySet="personStatus" />
             <End Role="person" EntitySet="person" />
@@ -4685,10 +4905,6 @@
             <End Role="question" EntitySet="question" />
             <End Role="questionTranslation" EntitySet="questionTranslation" />
           </AssociationSet>
-          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire">
-            <End Role="questionnaire" EntitySet="questionnaire" />
-            <End Role="touchpointPartnerTypeQuestionnaire" EntitySet="touchpointPartnerTypeQuestionnaire" />
-          </AssociationSet>
           <AssociationSet Name="FK_questionResponse_response" Association="hs3MVCMTQa2Model.FK_questionResponse_response">
             <End Role="response" EntitySet="response" />
             <End Role="questionResponse" EntitySet="questionResponse" />
@@ -4700,10 +4916,6 @@
           <AssociationSet Name="FK_rule_ruleType" Association="hs3MVCMTQa2Model.FK_rule_ruleType">
             <End Role="ruleType" EntitySet="ruleType" />
             <End Role="rule" EntitySet="rule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_touchpoint">
-            <End Role="touchpoint" EntitySet="touchpoint" />
-            <End Role="touchpointPartnerTypeQuestionnaire" EntitySet="touchpointPartnerTypeQuestionnaire" />
           </AssociationSet>
           <AssociationSet Name="pageSurveyset" Association="hs3MVCMTQa2Model.pageSurveyset">
             <End Role="page" EntitySet="page" />
@@ -5215,7 +5427,7 @@
           <FunctionImport Name="pr_getGroup" EntitySet="group" ReturnType="Collection(hs3MVCMTQa2Model.group)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getGroupAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGroupAll_Result)">
+          <FunctionImport Name="pr_getGroupAll" EntitySet="group" ReturnType="Collection(hs3MVCMTQa2Model.group)">
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getGroupByPerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGroupByPerson_Result)">
@@ -5269,7 +5481,7 @@
           <FunctionImport Name="pr_getPartner" EntitySet="partner" ReturnType="Collection(hs3MVCMTQa2Model.partner)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getPartnerAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerAll_Result)">
+          <FunctionImport Name="pr_getPartnerAll" EntitySet="partner" ReturnType="Collection(hs3MVCMTQa2Model.partner)">
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerByRelationshipowner" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerByRelationshipowner_Result)">
@@ -5397,7 +5609,7 @@
           <FunctionImport Name="pr_getProtocol" EntitySet="protocol" ReturnType="Collection(hs3MVCMTQa2Model.protocol)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getProtocolAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getProtocolAll_Result)">
+          <FunctionImport Name="pr_getProtocolAll" EntitySet="protocol" ReturnType="Collection(hs3MVCMTQa2Model.protocol)">
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestion_Result)">
@@ -5533,7 +5745,7 @@
           <FunctionImport Name="pr_getTouchpoint" EntitySet="touchpoint" ReturnType="Collection(hs3MVCMTQa2Model.touchpoint)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getTouchpointAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTouchpointAll_Result)" />
+          <FunctionImport Name="pr_getTouchpointAll" EntitySet="touchpoint" ReturnType="Collection(hs3MVCMTQa2Model.touchpoint)" />
           <FunctionImport Name="pr_getTouchpointByGroup" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTouchpointByGroup_Result)">
           <Parameter Name="group" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -6235,11 +6447,8 @@
           <EntitySet Name="partnerAction" EntityType="hs3MVCMTQa2Model.partnerAction" />
           <EntitySet Name="partnerActionLog" EntityType="hs3MVCMTQa2Model.partnerActionLog" />
           <EntitySet Name="partnerAddress" EntityType="hs3MVCMTQa2Model.partnerAddress" />
-          <EntitySet Name="partnerContactValidationQuestion" EntityType="hs3MVCMTQa2Model.partnerContactValidationQuestion" />
           <EntitySet Name="partnerLogDetail" EntityType="hs3MVCMTQa2Model.partnerLogDetail" />
           <EntitySet Name="partnerLogin" EntityType="hs3MVCMTQa2Model.partnerLogin" />
-          <EntitySet Name="partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse" EntityType="hs3MVCMTQa2Model.partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse" />
-          <EntitySet Name="partnerQuestionnaireCompleteDate" EntityType="hs3MVCMTQa2Model.partnerQuestionnaireCompleteDate" />
           <EntitySet Name="partnerReference" EntityType="hs3MVCMTQa2Model.partnerReference" />
           <EntitySet Name="partnerReminder" EntityType="hs3MVCMTQa2Model.partnerReminder" />
           <EntitySet Name="partnerReminderStatus" EntityType="hs3MVCMTQa2Model.partnerReminderStatus" />
@@ -6251,9 +6460,6 @@
           <EntitySet Name="partnerTouchpointInvitedDate" EntityType="hs3MVCMTQa2Model.partnerTouchpointInvitedDate" />
           <EntitySet Name="partnerTouchpointQuestionnaireLanguage" EntityType="hs3MVCMTQa2Model.partnerTouchpointQuestionnaireLanguage" />
           <EntitySet Name="partnerTypeGroupGoal" EntityType="hs3MVCMTQa2Model.partnerTypeGroupGoal" />
-          <EntitySet Name="protocolTouchpointPartnerRerouter" EntityType="hs3MVCMTQa2Model.protocolTouchpointPartnerRerouter" />
-          <EntitySet Name="protocolTouchpointQuestionResponseValue" EntityType="hs3MVCMTQa2Model.protocolTouchpointQuestionResponseValue" />
-          <EntitySet Name="protocolTouchpointQuestionWeight" EntityType="hs3MVCMTQa2Model.protocolTouchpointQuestionWeight" />
           <EntitySet Name="query" EntityType="hs3MVCMTQa2Model.query" />
           <EntitySet Name="queryFieldQuestion" EntityType="hs3MVCMTQa2Model.queryFieldQuestion" />
           <EntitySet Name="rating" EntityType="hs3MVCMTQa2Model.rating" />
@@ -6708,22 +6914,22 @@
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveHs3Menu">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveMenu">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getHs3Menu" ReturnType="Collection(hs3MVCMTQa2Model.pr_getHs3Menu_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getHs3MenuAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getHs3MenuAll_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getMenu" ReturnType="Collection(hs3MVCMTQa2Model.pr_getMenu_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getMenuAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getMenuAll_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <FunctionImport Name="pr_getMenuAll" EntitySet="menu" ReturnType="Collection(hs3MVCMTQa2Model.menu)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyHs3Menu">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -6750,17 +6956,117 @@
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeHs3Menu">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeMenu">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveHs3Menu">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveMenu">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="pr_getMenuChildItem" ReturnType="Collection(hs3MVCMTQa2Model.pr_getMenuChildItem_Result)">
+          <Parameter Name="parentid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getMenuItemTopLevel" ReturnType="Collection(hs3MVCMTQa2Model.pr_getMenuItemTopLevel_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="partnerPartnerTypeTouchpoint" EntityType="hs3MVCMTQa2Model.partnerPartnerTypeTouchpoint" />
+          <EntitySet Name="partnerTouchpointQuestionnaireQuestionResponse" EntityType="hs3MVCMTQa2Model.partnerTouchpointQuestionnaireQuestionResponse" />
+          <EntitySet Name="partnerTypeTouchpointQuestionnaire" EntityType="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" />
+          <EntitySet Name="touchpointPartnerRerouter" EntityType="hs3MVCMTQa2Model.touchpointPartnerRerouter" />
+          <EntitySet Name="touchpointQuestionResponseValue" EntityType="hs3MVCMTQa2Model.touchpointQuestionResponseValue" />
+          <EntitySet Name="touchpointQuestionWeight" EntityType="hs3MVCMTQa2Model.touchpointQuestionWeight" />
+          <AssociationSet Name="FK_partnerPartnerTypeTouchpoint_partner" Association="hs3MVCMTQa2Model.FK_partnerPartnerTypeTouchpoint_partner">
+            <End Role="partner" EntitySet="partner" />
+            <End Role="partnerPartnerTypeTouchpoint" EntitySet="partnerPartnerTypeTouchpoint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointInvitedDate_partner" Association="hs3MVCMTQa2Model.FK_partnerTouchpointInvitedDate_partner">
+            <End Role="partner" EntitySet="partner" />
+            <End Role="partnerTouchpointInvitedDate" EntitySet="partnerTouchpointInvitedDate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireLanguage_partner" Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireLanguage_partner">
+            <End Role="partner" EntitySet="partner" />
+            <End Role="partnerTouchpointQuestionnaireLanguage" EntitySet="partnerTouchpointQuestionnaireLanguage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_partner" Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_partner">
+            <End Role="partner" EntitySet="partner" />
+            <End Role="partnerTouchpointQuestionnaireQuestionResponse" EntitySet="partnerTouchpointQuestionnaireQuestionResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerPartnerTypeTouchpoint_partnerType" Association="hs3MVCMTQa2Model.FK_partnerPartnerTypeTouchpoint_partnerType">
+            <End Role="partnerType" EntitySet="partnerType" />
+            <End Role="partnerPartnerTypeTouchpoint" EntitySet="partnerPartnerTypeTouchpoint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerPartnerTypeTouchpoint_touchpoint" Association="hs3MVCMTQa2Model.FK_partnerPartnerTypeTouchpoint_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="partnerPartnerTypeTouchpoint" EntitySet="partnerPartnerTypeTouchpoint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_question" Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_question">
+            <End Role="question" EntitySet="question" />
+            <End Role="partnerTouchpointQuestionnaireQuestionResponse" EntitySet="partnerTouchpointQuestionnaireQuestionResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_questionnaire" Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_questionnaire">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="partnerTouchpointQuestionnaireQuestionResponse" EntitySet="partnerTouchpointQuestionnaireQuestionResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response" Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response">
+            <End Role="response" EntitySet="response" />
+            <End Role="partnerTouchpointQuestionnaireQuestionResponse" EntitySet="partnerTouchpointQuestionnaireQuestionResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_touchpoint" Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="partnerTouchpointQuestionnaireQuestionResponse" EntitySet="partnerTouchpointQuestionnaireQuestionResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_partnerType1" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType1">
+            <End Role="partnerType" EntitySet="partnerType" />
+            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire1" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire1">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint1" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_touchpoint1">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_protocolTouchpointQuestionResponseValue_question" Association="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_question">
+            <End Role="question" EntitySet="question" />
+            <End Role="touchpointQuestionResponseValue" EntitySet="touchpointQuestionResponseValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_protocolTouchpointQuestionResponseValue_response" Association="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response">
+            <End Role="response" EntitySet="response" />
+            <End Role="touchpointQuestionResponseValue" EntitySet="touchpointQuestionResponseValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointPartnerRerouter_touchpoint" Association="hs3MVCMTQa2Model.FK_touchpointPartnerRerouter_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="touchpointPartnerRerouter" EntitySet="touchpointPartnerRerouter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="touchpointPartnerTypeScoreAutoMail" EntitySet="touchpointPartnerTypeScoreAutoMail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointQuestionResponseValue_touchpoint" Association="hs3MVCMTQa2Model.FK_touchpointQuestionResponseValue_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="touchpointQuestionResponseValue" EntitySet="touchpointQuestionResponseValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointQuestionWeight_touchpoint" Association="hs3MVCMTQa2Model.FK_touchpointQuestionWeight_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="touchpointQuestionWeight" EntitySet="touchpointQuestionWeight" />
+          </AssociationSet>
+         
+          <FunctionImport Name="xxx_getRecordCountByTable" ReturnType="Collection(hs3MVCMTQa2Model.xxx_getRecordCountByTable_Result)" />
+          <FunctionImport Name="xxx_getTableSetByColumnName" ReturnType="Collection(hs3MVCMTQa2Model.xxx_getTableSetByColumnName_Result)">
+          <Parameter Name="tableName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="xxx_getTelerikBoundColumnSchema" ReturnType="Collection(String)">
+          <Parameter Name="tablename" Mode="In" Type="String" />
+          </FunctionImport>
+          <AssociationSet Name="surveyQuestion" Association="hs3MVCMTQa2Model.surveyQuestion">
+            <End Role="question" EntitySet="question" />
+            <End Role="survey" EntitySet="survey" />
+          </AssociationSet>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -7045,6 +7351,10 @@
           <NavigationProperty Name="partnerRemitAddress" Relationship="hs3MVCMTQa2Model.FK_partnerRemitAddress_partner" FromRole="partner" ToRole="partnerRemitAddress" />
           <NavigationProperty Name="partnerTouchpointStatus" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointStatus_partner" FromRole="partner" ToRole="partnerTouchpointStatus" />
           <NavigationProperty Name="person" Relationship="hs3MVCMTQa2Model.partnerRelationshipOwner" FromRole="partner" ToRole="person" />
+          <NavigationProperty Name="partnerPartnerTypeTouchpoint" Relationship="hs3MVCMTQa2Model.FK_partnerPartnerTypeTouchpoint_partner" FromRole="partner" ToRole="partnerPartnerTypeTouchpoint" />
+          <NavigationProperty Name="partnerTouchpointInvitedDate" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointInvitedDate_partner" FromRole="partner" ToRole="partnerTouchpointInvitedDate" />
+          <NavigationProperty Name="partnerTouchpointQuestionnaireLanguage" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireLanguage_partner" FromRole="partner" ToRole="partnerTouchpointQuestionnaireLanguage" />
+          <NavigationProperty Name="partnerTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_partner" FromRole="partner" ToRole="partnerTouchpointQuestionnaireQuestionResponse" />
         </EntityType>
         <EntityType Name="partnerClass">
           <Key>
@@ -7104,7 +7414,8 @@
           <Property Name="active" Type="Int32" />
           <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_partnerType_enterprise" FromRole="partnerType" ToRole="enterprise" />
           <NavigationProperty Name="partnerClass1" Relationship="hs3MVCMTQa2Model.FK_partnerType_partnerClass" FromRole="partnerType" ToRole="partnerClass" />
-          <NavigationProperty Name="touchpointPartnerTypeQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType" FromRole="partnerType" ToRole="touchpointPartnerTypeQuestionnaire" />
+          <NavigationProperty Name="partnerPartnerTypeTouchpoint" Relationship="hs3MVCMTQa2Model.FK_partnerPartnerTypeTouchpoint_partnerType" FromRole="partnerType" ToRole="partnerPartnerTypeTouchpoint" />
+          <NavigationProperty Name="partnerTypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType1" FromRole="partnerType" ToRole="partnerTypeTouchpointQuestionnaire" />
         </EntityType>
         <EntityType Name="person">
           <Key>
@@ -7280,6 +7591,10 @@
           <NavigationProperty Name="questionResponse1" Relationship="hs3MVCMTQa2Model.FK_questionResponse_question1" FromRole="question" ToRole="questionResponse" />
           <NavigationProperty Name="questionTranslation" Relationship="hs3MVCMTQa2Model.FK_questionTranslation_question" FromRole="question" ToRole="questionTranslation" />
           <NavigationProperty Name="language" Relationship="hs3MVCMTQa2Model.questionLanguage" FromRole="question" ToRole="language" />
+          <NavigationProperty Name="partnerTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_question" FromRole="question" ToRole="partnerTouchpointQuestionnaireQuestionResponse" />
+          <NavigationProperty Name="touchpointQuestionResponseValue" Relationship="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_question" FromRole="question" ToRole="touchpointQuestionResponseValue" />
+          <NavigationProperty Name="survey" Relationship="hs3MVCMTQa2Model.surveyQuestion" FromRole="question" ToRole="survey" />
+         
         </EntityType>
         <EntityType Name="questionnaire">
           <Key>
@@ -7297,8 +7612,9 @@
           <Property Name="active" Type="Int32" />
           <Property Name="multiLanguage" Type="Int32" />
           <Property Name="enterprise" Type="Int32" />
-          <NavigationProperty Name="touchpointPartnerTypeQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire" FromRole="questionnaire" ToRole="touchpointPartnerTypeQuestionnaire" />
           <NavigationProperty Name="page" Relationship="hs3MVCMTQa2Model.questionnairePage" FromRole="questionnaire" ToRole="page" />
+          <NavigationProperty Name="partnerTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_questionnaire" FromRole="questionnaire" ToRole="partnerTouchpointQuestionnaireQuestionResponse" />
+          <NavigationProperty Name="partnerTypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire1" FromRole="questionnaire" ToRole="partnerTypeTouchpointQuestionnaire" />
         </EntityType>
         <EntityType Name="questionnaireLevel">
           <Key>
@@ -7345,6 +7661,8 @@
           <NavigationProperty Name="questionResponse" Relationship="hs3MVCMTQa2Model.FK_questionResponse_response" FromRole="response" ToRole="questionResponse" />
           <NavigationProperty Name="responseTranslation" Relationship="hs3MVCMTQa2Model.FK_responseTranslation_response" FromRole="response" ToRole="responseTranslation" />
           <NavigationProperty Name="language" Relationship="hs3MVCMTQa2Model.responseLanguage" FromRole="response" ToRole="language" />
+          <NavigationProperty Name="partnerTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="response" ToRole="partnerTouchpointQuestionnaireQuestionResponse" />
+          <NavigationProperty Name="touchpointQuestionResponseValue" Relationship="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" FromRole="response" ToRole="touchpointQuestionResponseValue" />
         </EntityType>
         <EntityType Name="responseTranslation">
           <Key>
@@ -7432,14 +7750,8 @@
           <Property Name="creationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="lastModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="surveyset" Relationship="hs3MVCMTQa2Model.surveySetSurvey" FromRole="survey" ToRole="surveyset" />
-        </EntityType>
-        <EntityType Name="surveyQuestion">
-          <Key>
-            <PropertyRef Name="survey" />
-            <PropertyRef Name="question" />
-          </Key>
-          <Property Name="survey" Type="Int32" Nullable="false" />
-          <Property Name="question" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="question" Relationship="hs3MVCMTQa2Model.surveyQuestion" FromRole="survey" ToRole="question" />
+          
         </EntityType>
         <EntityType Name="surveyset">
           <Key>
@@ -7482,7 +7794,13 @@
           <Property Name="active" Type="Int32" />
           <NavigationProperty Name="partnerTouchpointStatus" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointStatus_touchpoint" FromRole="touchpoint" ToRole="partnerTouchpointStatus" />
           <NavigationProperty Name="protocol1" Relationship="hs3MVCMTQa2Model.FK_touchpoint_protocol" FromRole="touchpoint" ToRole="protocol" />
-          <NavigationProperty Name="touchpointPartnerTypeQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_touchpoint" FromRole="touchpoint" ToRole="touchpointPartnerTypeQuestionnaire" />
+          <NavigationProperty Name="partnerPartnerTypeTouchpoint" Relationship="hs3MVCMTQa2Model.FK_partnerPartnerTypeTouchpoint_touchpoint" FromRole="touchpoint" ToRole="partnerPartnerTypeTouchpoint" />
+          <NavigationProperty Name="partnerTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_touchpoint" FromRole="touchpoint" ToRole="partnerTouchpointQuestionnaireQuestionResponse" />
+          <NavigationProperty Name="partnerTypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_touchpoint1" FromRole="touchpoint" ToRole="partnerTypeTouchpointQuestionnaire" />
+          <NavigationProperty Name="touchpointPartnerRerouter" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerRerouter_touchpoint" FromRole="touchpoint" ToRole="touchpointPartnerRerouter" />
+          <NavigationProperty Name="touchpointPartnerTypeScoreAutoMail" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeScoreAutoMail_touchpoint" FromRole="touchpoint" ToRole="touchpointPartnerTypeScoreAutoMail" />
+          <NavigationProperty Name="touchpointQuestionResponseValue" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionResponseValue_touchpoint" FromRole="touchpoint" ToRole="touchpointQuestionResponseValue" />
+          <NavigationProperty Name="touchpointQuestionWeight" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionWeight_touchpoint" FromRole="touchpoint" ToRole="touchpointQuestionWeight" />
         </EntityType>
         <EntityType Name="touchpointGroup">
           <Key>
@@ -7491,20 +7809,6 @@
           </Key>
           <Property Name="group" Type="Int32" Nullable="false" />
           <Property Name="touchpoint" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="touchpointPartnerTypeQuestionnaire">
-          <Key>
-            <PropertyRef Name="touchpoint" />
-            <PropertyRef Name="partnerType" />
-            <PropertyRef Name="questionnaire" />
-          </Key>
-          <Property Name="touchpoint" Type="Int32" Nullable="false" />
-          <Property Name="partnerType" Type="Int32" Nullable="false" />
-          <Property Name="questionnaire" Type="Int32" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="1500" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="partnerType1" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType" FromRole="touchpointPartnerTypeQuestionnaire" ToRole="partnerType" />
-          <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire" FromRole="touchpointPartnerTypeQuestionnaire" ToRole="questionnaire" />
-          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_touchpoint" FromRole="touchpointPartnerTypeQuestionnaire" ToRole="touchpoint" />
         </EntityType>
         <Association Name="FK_agency_enterprise">
           <End Role="enterprise" Type="hs3MVCMTQa2Model.enterprise" Multiplicity="0..1" />
@@ -7794,18 +8098,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_touchpointPartnerTypeQuestionnaire_partnerType">
-          <End Role="partnerType" Type="hs3MVCMTQa2Model.partnerType" Multiplicity="1" />
-          <End Role="touchpointPartnerTypeQuestionnaire" Type="hs3MVCMTQa2Model.touchpointPartnerTypeQuestionnaire" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="partnerType">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="touchpointPartnerTypeQuestionnaire">
-              <PropertyRef Name="partnerType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_person_personStatus">
           <End Role="personStatus" Type="hs3MVCMTQa2Model.personStatus" Multiplicity="0..1" />
           <End Role="person" Type="hs3MVCMTQa2Model.person" Multiplicity="*" />
@@ -7950,18 +8242,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire">
-          <End Role="questionnaire" Type="hs3MVCMTQa2Model.questionnaire" Multiplicity="1" />
-          <End Role="touchpointPartnerTypeQuestionnaire" Type="hs3MVCMTQa2Model.touchpointPartnerTypeQuestionnaire" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="questionnaire">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="touchpointPartnerTypeQuestionnaire">
-              <PropertyRef Name="questionnaire" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_questionResponse_response">
           <End Role="response" Type="hs3MVCMTQa2Model.response" Multiplicity="1" />
           <End Role="questionResponse" Type="hs3MVCMTQa2Model.questionResponse" Multiplicity="*" />
@@ -7995,18 +8275,6 @@
             </Principal>
             <Dependent Role="rule">
               <PropertyRef Name="ruleType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint">
-          <End Role="touchpoint" Type="hs3MVCMTQa2Model.touchpoint" Multiplicity="1" />
-          <End Role="touchpointPartnerTypeQuestionnaire" Type="hs3MVCMTQa2Model.touchpointPartnerTypeQuestionnaire" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="touchpoint">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="touchpointPartnerTypeQuestionnaire">
-              <PropertyRef Name="touchpoint" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9725,13 +9993,6 @@
           <Property Type="String" Name="Province" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="zipCode" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="partnerContactValidationQuestion">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="question" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="partnerLogDetail">
           <Key>
             <PropertyRef Name="id" />
@@ -9751,33 +10012,6 @@
           <Property Type="String" Name="passWord" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="internalId" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="status" />
-        </EntityType>
-        <EntityType Name="partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse">
-          <Key>
-            <PropertyRef Name="partner" />
-            <PropertyRef Name="protocol" />
-            <PropertyRef Name="touchpoint" />
-            <PropertyRef Name="questionnaire" />
-            <PropertyRef Name="survey" />
-            <PropertyRef Name="question" />
-          </Key>
-          <Property Type="Int32" Name="partner" Nullable="false" />
-          <Property Type="Int32" Name="protocol" Nullable="false" />
-          <Property Type="Int32" Name="touchpoint" Nullable="false" />
-          <Property Type="Int32" Name="questionnaire" Nullable="false" />
-          <Property Type="Int32" Name="survey" Nullable="false" />
-          <Property Type="Int32" Name="question" Nullable="false" />
-          <Property Type="Int32" Name="response" />
-          <Property Type="String" Name="comment" MaxLength="3000" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="uploadedFile" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="actualScore" />
-        </EntityType>
-        <EntityType Name="partnerQuestionnaireCompleteDate">
-          <Key>
-            <PropertyRef Name="partner" />
-          </Key>
-          <Property Type="Int32" Name="partner" Nullable="false" />
-          <Property Type="DateTime" Name="completeDate" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="partnerReference">
           <Key>
@@ -9959,6 +10193,7 @@
           <Property Type="Int32" Name="partner" Nullable="false" />
           <Property Type="Int32" Name="touchpoint" Nullable="false" />
           <Property Type="DateTime" Name="invitedDate" Precision="3" />
+          <NavigationProperty Name="partner1" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointInvitedDate_partner" FromRole="partnerTouchpointInvitedDate" ToRole="partner" />
         </EntityType>
         <EntityType Name="partnerTouchpointQuestionnaireLanguage">
           <Key>
@@ -9971,6 +10206,7 @@
           <Property Type="Int32" Name="touchpoint" Nullable="false" />
           <Property Type="Int32" Name="questionnaire" Nullable="false" />
           <Property Type="Int32" Name="language" Nullable="false" />
+          <NavigationProperty Name="partner1" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireLanguage_partner" FromRole="partnerTouchpointQuestionnaireLanguage" ToRole="partner" />
         </EntityType>
         <EntityType Name="partnerTypeGroupGoal">
           <Key>
@@ -9983,53 +10219,6 @@
           <Property Type="Int32" Name="goal" Nullable="false" />
           <Property Type="DateTime" Name="timestamp" Precision="3" />
           <Property Type="Int32" Name="touchpoint" />
-        </EntityType>
-        <EntityType Name="protocolTouchpointPartnerRerouter">
-          <Key>
-            <PropertyRef Name="protocol" />
-            <PropertyRef Name="touchpoint" />
-            <PropertyRef Name="partner" />
-            <PropertyRef Name="fromFirstName" />
-            <PropertyRef Name="fromLastName" />
-            <PropertyRef Name="fromTitle" />
-            <PropertyRef Name="from" />
-            <PropertyRef Name="to" />
-            <PropertyRef Name="timeStamp" />
-          </Key>
-          <Property Type="Int32" Name="protocol" Nullable="false" />
-          <Property Type="Int32" Name="touchpoint" Nullable="false" />
-          <Property Type="Int32" Name="partner" Nullable="false" />
-          <Property Type="String" Name="fromFirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="fromLastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="fromTitle" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="from" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="to" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Boolean" Name="status" />
-          <Property Type="DateTime" Name="timeStamp" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="protocolTouchpointQuestionResponseValue">
-          <Key>
-            <PropertyRef Name="protocol" />
-            <PropertyRef Name="touchpoint" />
-            <PropertyRef Name="question" />
-            <PropertyRef Name="response" />
-          </Key>
-          <Property Type="Int32" Name="protocol" Nullable="false" />
-          <Property Type="Int32" Name="touchpoint" Nullable="false" />
-          <Property Type="Int32" Name="question" Nullable="false" />
-          <Property Type="Int32" Name="response" Nullable="false" />
-          <Property Type="Int32" Name="value" Nullable="false" />
-        </EntityType>
-        <EntityType Name="protocolTouchpointQuestionWeight">
-          <Key>
-            <PropertyRef Name="protocol" />
-            <PropertyRef Name="Touchpoint" />
-            <PropertyRef Name="Question" />
-          </Key>
-          <Property Type="Int32" Name="protocol" Nullable="false" />
-          <Property Type="Int32" Name="Touchpoint" Nullable="false" />
-          <Property Type="Int32" Name="Question" Nullable="false" />
-          <Property Type="Int32" Name="weight" />
         </EntityType>
         <EntityType Name="query">
           <Key>
@@ -10137,6 +10326,7 @@
           <Property Type="String" Name="body" MaxLength="5000" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="isSendToPartner" />
           <Property Type="Boolean" Name="isSendToUser" />
+          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeScoreAutoMail_touchpoint" FromRole="touchpointPartnerTypeScoreAutoMail" ToRole="touchpoint" />
         </EntityType>
         <EntityType Name="zCode">
           <Key>
@@ -10495,6 +10685,362 @@
           <Property Type="Int32" Name="accesslevel" Nullable="true" />
           <Property Type="Int32" Name="enterprise" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getMenuChildItem_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="parentid" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="accesslevel" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getMenuItemTopLevel_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="parentid" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="accesslevel" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="partnerPartnerTypeTouchpoint">
+          <Key>
+            <PropertyRef Name="partner" />
+            <PropertyRef Name="partnerType" />
+            <PropertyRef Name="touchpoint" />
+          </Key>
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="Int32" Name="partnerType" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <NavigationProperty Name="partner1" Relationship="hs3MVCMTQa2Model.FK_partnerPartnerTypeTouchpoint_partner" FromRole="partnerPartnerTypeTouchpoint" ToRole="partner" />
+          <NavigationProperty Name="partnerType1" Relationship="hs3MVCMTQa2Model.FK_partnerPartnerTypeTouchpoint_partnerType" FromRole="partnerPartnerTypeTouchpoint" ToRole="partnerType" />
+          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK_partnerPartnerTypeTouchpoint_touchpoint" FromRole="partnerPartnerTypeTouchpoint" ToRole="touchpoint" />
+        </EntityType>
+        <EntityType Name="partnerTouchpointQuestionnaireQuestionResponse">
+          <Key>
+            <PropertyRef Name="partner" />
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="questionnaire" />
+            <PropertyRef Name="question" />
+          </Key>
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="response" />
+          <Property Type="String" Name="comment" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="uploadedFile" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="actualScore" />
+          <NavigationProperty Name="partner1" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_partner" FromRole="partnerTouchpointQuestionnaireQuestionResponse" ToRole="partner" />
+          <NavigationProperty Name="question1" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_question" FromRole="partnerTouchpointQuestionnaireQuestionResponse" ToRole="question" />
+          <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_questionnaire" FromRole="partnerTouchpointQuestionnaireQuestionResponse" ToRole="questionnaire" />
+          <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="partnerTouchpointQuestionnaireQuestionResponse" ToRole="response" />
+          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_touchpoint" FromRole="partnerTouchpointQuestionnaireQuestionResponse" ToRole="touchpoint" />
+        </EntityType>
+        <EntityType Name="partnerTypeTouchpointQuestionnaire">
+          <Key>
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="partnerType" />
+            <PropertyRef Name="questionnaire" />
+          </Key>
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="partnerType" Nullable="false" />
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="String" Name="description" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="partnerType1" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType1" FromRole="partnerTypeTouchpointQuestionnaire" ToRole="partnerType" />
+          <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire1" FromRole="partnerTypeTouchpointQuestionnaire" ToRole="questionnaire" />
+          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_touchpoint1" FromRole="partnerTypeTouchpointQuestionnaire" ToRole="touchpoint" />
+        </EntityType>
+        <EntityType Name="touchpointPartnerRerouter">
+          <Key>
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="partner" />
+            <PropertyRef Name="fromFirstName" />
+            <PropertyRef Name="fromLastName" />
+            <PropertyRef Name="fromTitle" />
+            <PropertyRef Name="from" />
+            <PropertyRef Name="to" />
+            <PropertyRef Name="timeStamp" />
+          </Key>
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="String" Name="fromFirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="fromLastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="fromTitle" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="from" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="to" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="status" />
+          <Property Type="DateTime" Name="timeStamp" Nullable="false" Precision="3" />
+          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerRerouter_touchpoint" FromRole="touchpointPartnerRerouter" ToRole="touchpoint" />
+        </EntityType>
+        <EntityType Name="touchpointQuestionResponseValue">
+          <Key>
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="question" />
+            <PropertyRef Name="response" />
+          </Key>
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="response" Nullable="false" />
+          <Property Type="Int32" Name="value" Nullable="false" />
+          <NavigationProperty Name="question1" Relationship="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_question" FromRole="touchpointQuestionResponseValue" ToRole="question" />
+          <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" FromRole="touchpointQuestionResponseValue" ToRole="response" />
+          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionResponseValue_touchpoint" FromRole="touchpointQuestionResponseValue" ToRole="touchpoint" />
+        </EntityType>
+        <EntityType Name="touchpointQuestionWeight">
+          <Key>
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="question" />
+            <PropertyRef Name="weight" />
+          </Key>
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="weight" Nullable="false" />
+          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionWeight_touchpoint" FromRole="touchpointQuestionWeight" ToRole="touchpoint" />
+        </EntityType>
+        <Association Name="FK_partnerPartnerTypeTouchpoint_partner">
+          <End Type="hs3MVCMTQa2Model.partner" Role="partner" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerPartnerTypeTouchpoint" Role="partnerPartnerTypeTouchpoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerPartnerTypeTouchpoint">
+              <PropertyRef Name="partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointInvitedDate_partner">
+          <End Type="hs3MVCMTQa2Model.partner" Role="partner" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerTouchpointInvitedDate" Role="partnerTouchpointInvitedDate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointInvitedDate">
+              <PropertyRef Name="partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointQuestionnaireLanguage_partner">
+          <End Type="hs3MVCMTQa2Model.partner" Role="partner" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerTouchpointQuestionnaireLanguage" Role="partnerTouchpointQuestionnaireLanguage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointQuestionnaireLanguage">
+              <PropertyRef Name="partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_partner">
+          <End Type="hs3MVCMTQa2Model.partner" Role="partner" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerTouchpointQuestionnaireQuestionResponse" Role="partnerTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointQuestionnaireQuestionResponse">
+              <PropertyRef Name="partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerPartnerTypeTouchpoint_partnerType">
+          <End Type="hs3MVCMTQa2Model.partnerType" Role="partnerType" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerPartnerTypeTouchpoint" Role="partnerPartnerTypeTouchpoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerPartnerTypeTouchpoint">
+              <PropertyRef Name="partnerType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerPartnerTypeTouchpoint_touchpoint">
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerPartnerTypeTouchpoint" Role="partnerPartnerTypeTouchpoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerPartnerTypeTouchpoint">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_question">
+          <End Type="hs3MVCMTQa2Model.question" Role="question" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerTouchpointQuestionnaireQuestionResponse" Role="partnerTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointQuestionnaireQuestionResponse">
+              <PropertyRef Name="question" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_questionnaire">
+          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerTouchpointQuestionnaireQuestionResponse" Role="partnerTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointQuestionnaireQuestionResponse">
+              <PropertyRef Name="questionnaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response">
+          <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="0..1" />
+          <End Type="hs3MVCMTQa2Model.partnerTouchpointQuestionnaireQuestionResponse" Role="partnerTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="response">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointQuestionnaireQuestionResponse">
+              <PropertyRef Name="response" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_touchpoint">
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerTouchpointQuestionnaireQuestionResponse" Role="partnerTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTouchpointQuestionnaireQuestionResponse">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_touchpointPartnerTypeQuestionnaire_partnerType1">
+          <End Type="hs3MVCMTQa2Model.partnerType" Role="partnerType" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" Role="partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTypeTouchpointQuestionnaire">
+              <PropertyRef Name="partnerType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire1">
+          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" Role="partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTypeTouchpointQuestionnaire">
+              <PropertyRef Name="questionnaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint1">
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" Role="partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTypeTouchpointQuestionnaire">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_protocolTouchpointQuestionResponseValue_question">
+          <End Type="hs3MVCMTQa2Model.question" Role="question" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.touchpointQuestionResponseValue" Role="touchpointQuestionResponseValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointQuestionResponseValue">
+              <PropertyRef Name="question" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_protocolTouchpointQuestionResponseValue_response">
+          <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.touchpointQuestionResponseValue" Role="touchpointQuestionResponseValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="response">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointQuestionResponseValue">
+              <PropertyRef Name="response" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_touchpointPartnerRerouter_touchpoint">
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.touchpointPartnerRerouter" Role="touchpointPartnerRerouter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointPartnerRerouter">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.touchpointPartnerTypeScoreAutoMail" Role="touchpointPartnerTypeScoreAutoMail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointPartnerTypeScoreAutoMail">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_touchpointQuestionResponseValue_touchpoint">
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.touchpointQuestionResponseValue" Role="touchpointQuestionResponseValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointQuestionResponseValue">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_touchpointQuestionWeight_touchpoint">
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.touchpointQuestionWeight" Role="touchpointQuestionWeight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointQuestionWeight">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+       
+        <ComplexType Name="xxx_getRecordCountByTable_Result">
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="128" />
+          <Property Type="Int64" Name="rowcnt" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="xxx_getTableSetByColumnName_Result">
+          <Property Type="String" Name="COLUMN_NAME" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="TABLE_NAME" Nullable="false" MaxLength="128" />
+        </ComplexType>
+        <Association Name="surveyQuestion">
+          <End Type="hs3MVCMTQa2Model.question" Role="question" Multiplicity="*" />
+          <End Type="hs3MVCMTQa2Model.survey" Role="survey" Multiplicity="*" />
+        </Association>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -11860,14 +12406,6 @@
               </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="surveyQuestion">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.surveyQuestion">
-              <MappingFragment StoreEntitySet="surveyQuestion">
-                <ScalarProperty Name="survey" ColumnName="survey" />
-                <ScalarProperty Name="question" ColumnName="question" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="surveyset">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.surveyset">
               <MappingFragment StoreEntitySet="surveyset">
@@ -11983,16 +12521,6 @@
                   <ScalarProperty Name="touchpoint" ParameterName="touchpoint" />
                 </DeleteFunction>
               </ModificationFunctionMapping>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="touchpointPartnerTypeQuestionnaire">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpointPartnerTypeQuestionnaire">
-              <MappingFragment StoreEntitySet="touchpointPartnerTypeQuestionnaire">
-                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-                <ScalarProperty Name="partnerType" ColumnName="partnerType" />
-                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
-                <ScalarProperty Name="description" ColumnName="description" />
-              </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="pageSurveyset" TypeName="hs3MVCMTQa2Model.pageSurveyset" StoreEntitySet="pageSurveyset">
@@ -12166,21 +12694,6 @@
           <FunctionImportMapping FunctionImportName="pr_getGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroup">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getGroupAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGroupAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="groupCollection" ColumnName="groupCollection" />
-                <ScalarProperty Name="author" ColumnName="author" />
-                <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getGroupByPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupByPerson">
             <ResultMapping>
@@ -12474,36 +12987,6 @@
           <FunctionImportMapping FunctionImportName="pr_getPartner" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartner">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnerAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="internalID" ColumnName="internalID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="address1" ColumnName="address1" />
-                <ScalarProperty Name="address2" ColumnName="address2" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="province" ColumnName="province" />
-                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="fax" ColumnName="fax" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="dunsNumber" ColumnName="dunsNumber" />
-                <ScalarProperty Name="federalID" ColumnName="federalID" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
-                <ScalarProperty Name="owner" ColumnName="owner" />
-                <ScalarProperty Name="author" ColumnName="author" />
-                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnerByRelationshipowner" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerByRelationshipowner">
             <ResultMapping>
@@ -13030,36 +13513,6 @@
           <FunctionImportMapping FunctionImportName="pr_getProtocol" FunctionName="hs3MVCMTQa2Model.Store.pr_getProtocol">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getProtocolAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getProtocolAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getProtocolAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="menuGroup" ColumnName="menuGroup" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
-                <ScalarProperty Name="background" ColumnName="background" />
-                <ScalarProperty Name="purpose" ColumnName="purpose" />
-                <ScalarProperty Name="summary" ColumnName="summary" />
-                <ScalarProperty Name="agency" ColumnName="agency" />
-                <ScalarProperty Name="admin" ColumnName="admin" />
-                <ScalarProperty Name="sponsor" ColumnName="sponsor" />
-                <ScalarProperty Name="domain" ColumnName="domain" />
-                <ScalarProperty Name="validationRequested" ColumnName="validationRequested" />
-                <ScalarProperty Name="keyBenefits" ColumnName="keyBenefits" />
-                <ScalarProperty Name="keyWords" ColumnName="keyWords" />
-                <ScalarProperty Name="startDate" ColumnName="startDate" />
-                <ScalarProperty Name="endDate" ColumnName="endDate" />
-                <ScalarProperty Name="bestPractice" ColumnName="bestPractice" />
-                <ScalarProperty Name="riskBenefits" ColumnName="riskBenefits" />
-                <ScalarProperty Name="checkList" ColumnName="checkList" />
-                <ScalarProperty Name="removeWithoutTouchpointExpiry" ColumnName="removeWithoutTouchpointExpiry" />
-                <ScalarProperty Name="removeWithoutNotice" ColumnName="removeWithoutNotice" />
-                <ScalarProperty Name="isLimited" ColumnName="isLimited" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestion">
             <ResultMapping>
@@ -13706,23 +14159,6 @@
           <FunctionImportMapping FunctionImportName="pr_getTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpoint">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getTouchpointAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTouchpointAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="protocol" ColumnName="protocol" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="sponsor" ColumnName="sponsor" />
-                <ScalarProperty Name="admin" ColumnName="admin" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
-                <ScalarProperty Name="startDate" ColumnName="startDate" />
-                <ScalarProperty Name="endDate" ColumnName="endDate" />
-                <ScalarProperty Name="automaticReminder" ColumnName="automaticReminder" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getTouchpointByGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointByGroup">
             <ResultMapping>
@@ -14161,14 +14597,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="partnerContactValidationQuestion">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerContactValidationQuestion">
-              <MappingFragment StoreEntitySet="partnerContactValidationQuestion">
-                <ScalarProperty Name="question" ColumnName="question" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="partnerLogDetail">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerLogDetail">
               <MappingFragment StoreEntitySet="partnerLogDetail">
@@ -14188,30 +14616,6 @@
                 <ScalarProperty Name="passWord" ColumnName="passWord" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse">
-              <MappingFragment StoreEntitySet="partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse">
-                <ScalarProperty Name="actualScore" ColumnName="actualScore" />
-                <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="response" ColumnName="response" />
-                <ScalarProperty Name="question" ColumnName="question" />
-                <ScalarProperty Name="survey" ColumnName="survey" />
-                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
-                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-                <ScalarProperty Name="protocol" ColumnName="protocol" />
-                <ScalarProperty Name="partner" ColumnName="partner" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="partnerQuestionnaireCompleteDate">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerQuestionnaireCompleteDate">
-              <MappingFragment StoreEntitySet="partnerQuestionnaireCompleteDate">
-                <ScalarProperty Name="completeDate" ColumnName="completeDate" />
-                <ScalarProperty Name="partner" ColumnName="partner" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -14422,43 +14826,6 @@
                 <ScalarProperty Name="partnerType" ColumnName="partnerType" />
                 <ScalarProperty Name="person" ColumnName="person" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="protocolTouchpointPartnerRerouter">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.protocolTouchpointPartnerRerouter">
-              <MappingFragment StoreEntitySet="protocolTouchpointPartnerRerouter">
-                <ScalarProperty Name="timeStamp" ColumnName="timeStamp" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="to" ColumnName="to" />
-                <ScalarProperty Name="from" ColumnName="from" />
-                <ScalarProperty Name="fromTitle" ColumnName="fromTitle" />
-                <ScalarProperty Name="fromLastName" ColumnName="fromLastName" />
-                <ScalarProperty Name="fromFirstName" ColumnName="fromFirstName" />
-                <ScalarProperty Name="partner" ColumnName="partner" />
-                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-                <ScalarProperty Name="protocol" ColumnName="protocol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="protocolTouchpointQuestionResponseValue">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.protocolTouchpointQuestionResponseValue">
-              <MappingFragment StoreEntitySet="protocolTouchpointQuestionResponseValue">
-                <ScalarProperty Name="value" ColumnName="value" />
-                <ScalarProperty Name="response" ColumnName="response" />
-                <ScalarProperty Name="question" ColumnName="question" />
-                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-                <ScalarProperty Name="protocol" ColumnName="protocol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="protocolTouchpointQuestionWeight">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.protocolTouchpointQuestionWeight">
-              <MappingFragment StoreEntitySet="protocolTouchpointQuestionWeight">
-                <ScalarProperty Name="weight" ColumnName="weight" />
-                <ScalarProperty Name="Question" ColumnName="Question" />
-                <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
-                <ScalarProperty Name="protocol" ColumnName="protocol" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -14858,8 +15225,16 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getMenuAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuAll">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyHs3Menu" />
+          <FunctionImportMapping FunctionImportName="pr_modifyMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyMenu" />
+          <FunctionImportMapping FunctionImportName="pr_removeHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeHs3Menu" />
+          <FunctionImportMapping FunctionImportName="pr_removeMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeMenu" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveHs3Menu" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveMenu" />
+          <FunctionImportMapping FunctionImportName="pr_getMenuChildItem" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuChildItem">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuAll_Result">
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuChildItem_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="url" ColumnName="url" />
@@ -14871,12 +15246,112 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_modifyHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyHs3Menu" />
-          <FunctionImportMapping FunctionImportName="pr_modifyMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyMenu" />
-          <FunctionImportMapping FunctionImportName="pr_removeHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeHs3Menu" />
-          <FunctionImportMapping FunctionImportName="pr_removeMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeMenu" />
-          <FunctionImportMapping FunctionImportName="pr_unArchiveHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveHs3Menu" />
-          <FunctionImportMapping FunctionImportName="pr_unArchiveMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveMenu" />
+          <FunctionImportMapping FunctionImportName="pr_getMenuItemTopLevel" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuItemTopLevel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuItemTopLevel_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="parentid" ColumnName="parentid" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="partnerPartnerTypeTouchpoint">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerPartnerTypeTouchpoint">
+              <MappingFragment StoreEntitySet="partnerPartnerTypeTouchpoint">
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="partnerTouchpointQuestionnaireQuestionResponse">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerTouchpointQuestionnaireQuestionResponse">
+              <MappingFragment StoreEntitySet="partnerTouchpointQuestionnaireQuestionResponse">
+                <ScalarProperty Name="actualScore" ColumnName="actualScore" />
+                <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="partnerTypeTouchpointQuestionnaire">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire">
+              <MappingFragment StoreEntitySet="partnerTypeTouchpointQuestionnaire">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="touchpointPartnerRerouter">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpointPartnerRerouter">
+              <MappingFragment StoreEntitySet="touchpointPartnerRerouter">
+                <ScalarProperty Name="timeStamp" ColumnName="timeStamp" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="to" ColumnName="to" />
+                <ScalarProperty Name="from" ColumnName="from" />
+                <ScalarProperty Name="fromTitle" ColumnName="fromTitle" />
+                <ScalarProperty Name="fromLastName" ColumnName="fromLastName" />
+                <ScalarProperty Name="fromFirstName" ColumnName="fromFirstName" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="touchpointQuestionResponseValue">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpointQuestionResponseValue">
+              <MappingFragment StoreEntitySet="touchpointQuestionResponseValue">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="touchpointQuestionWeight">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpointQuestionWeight">
+              <MappingFragment StoreEntitySet="touchpointQuestionWeight">
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="xxx_getRecordCountByTable" FunctionName="hs3MVCMTQa2Model.Store.xxx_getRecordCountByTable">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xxx_getRecordCountByTable_Result">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="rowcnt" ColumnName="rowcnt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="xxx_getTableSetByColumnName" FunctionName="hs3MVCMTQa2Model.Store.xxx_getTableSetByColumnName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xxx_getTableSetByColumnName_Result">
+                <ScalarProperty Name="COLUMN_NAME" ColumnName="COLUMN_NAME" />
+                <ScalarProperty Name="TABLE_NAME" ColumnName="TABLE_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="xxx_getTelerikBoundColumnSchema" FunctionName="hs3MVCMTQa2Model.Store.xxx_getTelerikBoundColumnSchema" />
+          <AssociationSetMapping Name="surveyQuestion" TypeName="hs3MVCMTQa2Model.surveyQuestion" StoreEntitySet="surveyQuestion">
+            <EndProperty Name="survey">
+              <ScalarProperty Name="id" ColumnName="survey" />
+            </EndProperty>
+            <EndProperty Name="question">
+              <ScalarProperty Name="id" ColumnName="question" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

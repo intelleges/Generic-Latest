@@ -17,6 +17,7 @@ namespace Generic
         public survey()
         {
             this.surveyset = new HashSet<surveyset>();
+            this.question = new HashSet<question>();
         }
     
         public int id { get; set; }
@@ -29,5 +30,6 @@ namespace Generic
         public System.DateTime lastModifiedDate { get; set; }
     
         public virtual ICollection<surveyset> surveyset { get; set; }
+        public virtual ICollection<question> question { get; set; }
     }
 }

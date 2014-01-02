@@ -10,14 +10,14 @@ namespace Generic.Controllers
 {
     public class GroupController : Controller
     {
-        private hs3MVCMTQa2Entities db = new hs3MVCMTQa2Entities();
+        private Entities db = new Entities();
 
         //
         // GET: /Group/
 
         public ActionResult Index()
         {
-            var groups = db.pr_getGroupAll1(Generic.Helpers.CurrentInstance.EnterpriseID);
+            var groups = db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID);
             return View(groups.ToList());
         }
 

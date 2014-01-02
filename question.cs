@@ -20,6 +20,9 @@ namespace Generic
             this.questionResponse1 = new HashSet<questionResponse>();
             this.questionTranslation = new HashSet<questionTranslation>();
             this.language = new HashSet<language>();
+            this.partnerTouchpointQuestionnaireQuestionResponse = new HashSet<partnerTouchpointQuestionnaireQuestionResponse>();
+            this.touchpointQuestionResponseValue = new HashSet<touchpointQuestionResponseValue>();
+            this.survey = new HashSet<survey>();
         }
     
         public int id { get; set; }
@@ -50,5 +53,8 @@ namespace Generic
         public virtual ICollection<questionResponse> questionResponse1 { get; set; }
         public virtual ICollection<questionTranslation> questionTranslation { get; set; }
         public virtual ICollection<language> language { get; set; }
+        public virtual ICollection<partnerTouchpointQuestionnaireQuestionResponse> partnerTouchpointQuestionnaireQuestionResponse { get; set; }
+        public virtual ICollection<touchpointQuestionResponseValue> touchpointQuestionResponseValue { get; set; }
+        public virtual ICollection<survey> survey { get; set; }
     }
 }

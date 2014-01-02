@@ -12,17 +12,14 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class partnerProtocolTouchpointQuestionnaireSurveyQuestionResponse
+    public partial class partnerPartnerTypeTouchpoint
     {
         public int partner { get; set; }
-        public int protocol { get; set; }
+        public int partnerType { get; set; }
         public int touchpoint { get; set; }
-        public int questionnaire { get; set; }
-        public int survey { get; set; }
-        public int question { get; set; }
-        public Nullable<int> response { get; set; }
-        public string comment { get; set; }
-        public string uploadedFile { get; set; }
-        public Nullable<int> actualScore { get; set; }
+    
+        public virtual partner partner1 { get; set; }
+        public virtual partnerType partnerType1 { get; set; }
+        public virtual touchpoint touchpoint1 { get; set; }
     }
 }

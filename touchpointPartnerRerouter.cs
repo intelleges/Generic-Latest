@@ -12,15 +12,18 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class touchpointPartnerTypeQuestionnaire
+    public partial class touchpointPartnerRerouter
     {
         public int touchpoint { get; set; }
-        public int partnerType { get; set; }
-        public int questionnaire { get; set; }
-        public string description { get; set; }
+        public int partner { get; set; }
+        public string fromFirstName { get; set; }
+        public string fromLastName { get; set; }
+        public string fromTitle { get; set; }
+        public string from { get; set; }
+        public string to { get; set; }
+        public Nullable<bool> status { get; set; }
+        public System.DateTime timeStamp { get; set; }
     
-        public virtual partnerType partnerType1 { get; set; }
-        public virtual questionnaire questionnaire1 { get; set; }
         public virtual touchpoint touchpoint1 { get; set; }
     }
 }

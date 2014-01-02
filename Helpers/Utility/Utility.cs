@@ -24,7 +24,7 @@ namespace Generic.Helpers.Utility
 
         public string sendEmail(Email email)
         {
-            hs3MVCMTQa2Entities db = new hs3MVCMTQa2Entities();
+            Entities db = new Entities();
             string returnValue = "";
             string receiver = "";
 

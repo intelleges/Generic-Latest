@@ -10,13 +10,16 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class protocolTouchpointQuestionWeight
+    public partial class pr_getMenuItemTopLevel_Result
     {
-        public int protocol { get; set; }
-        public int Touchpoint { get; set; }
-        public int Question { get; set; }
-        public Nullable<int> weight { get; set; }
+        public int id { get; set; }
+        public string description { get; set; }
+        public string url { get; set; }
+        public Nullable<int> parentid { get; set; }
+        public Nullable<int> sortOrder { get; set; }
+        public Nullable<bool> active { get; set; }
+        public Nullable<int> accesslevel { get; set; }
+        public Nullable<int> enterprise { get; set; }
     }
 }
