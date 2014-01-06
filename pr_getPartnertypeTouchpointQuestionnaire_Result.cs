@@ -10,21 +10,12 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class personRelationshipType
+    public partial class pr_getPartnertypeTouchpointQuestionnaire_Result
     {
-        public personRelationshipType()
-        {
-            this.personRelationship = new HashSet<personRelationship>();
-        }
-    
-        public int id { get; set; }
+        public int touchpoint { get; set; }
+        public int partnerType { get; set; }
+        public int questionnaire { get; set; }
         public string description { get; set; }
-        public Nullable<int> sortOrder { get; set; }
-        public Nullable<bool> active { get; set; }
-        public Nullable<int> enterprise { get; set; }
-    
-        public virtual ICollection<personRelationship> personRelationship { get; set; }
     }
 }

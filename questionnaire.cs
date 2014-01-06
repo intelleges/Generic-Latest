@@ -19,6 +19,7 @@ namespace Generic
             this.page = new HashSet<page>();
             this.partnerTouchpointQuestionnaireQuestionResponse = new HashSet<partnerTouchpointQuestionnaireQuestionResponse>();
             this.partnerTypeTouchpointQuestionnaire = new HashSet<partnerTypeTouchpointQuestionnaire>();
+            this.touchpoint = new HashSet<touchpoint>();
         }
     
         public int id { get; set; }
@@ -37,5 +38,6 @@ namespace Generic
         public virtual ICollection<page> page { get; set; }
         public virtual ICollection<partnerTouchpointQuestionnaireQuestionResponse> partnerTouchpointQuestionnaireQuestionResponse { get; set; }
         public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire { get; set; }
+        public virtual ICollection<touchpoint> touchpoint { get; set; }
     }
 }

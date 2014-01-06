@@ -12,19 +12,24 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class personRelationshipType
+    public partial class UM_M_Menu
     {
-        public personRelationshipType()
+        public UM_M_Menu()
         {
-            this.personRelationship = new HashSet<personRelationship>();
+            this.UM_M_Menu1 = new HashSet<UM_M_Menu>();
         }
     
         public int id { get; set; }
         public string description { get; set; }
+        public string url { get; set; }
+        public Nullable<int> parentid { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<bool> active { get; set; }
-        public Nullable<int> enterprise { get; set; }
+        public Nullable<int> accesslevel { get; set; }
+        public Nullable<int> enterprice { get; set; }
     
-        public virtual ICollection<personRelationship> personRelationship { get; set; }
+        public virtual enterprise enterprise { get; set; }
+        public virtual ICollection<UM_M_Menu> UM_M_Menu1 { get; set; }
+        public virtual UM_M_Menu UM_M_Menu2 { get; set; }
     }
 }

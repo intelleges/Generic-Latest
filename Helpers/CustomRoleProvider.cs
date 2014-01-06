@@ -10,7 +10,7 @@ namespace Generic.Helpers
     {
         #region Variables
 
-        private Entities db;
+        private EntitiesDBContext db;
 
         #endregion
 
@@ -18,7 +18,7 @@ namespace Generic.Helpers
 
         public CustomRoleProvider()
         {
-            this.db = new Entities();
+            this.db = new EntitiesDBContext();
         }
 
         #endregion
@@ -27,23 +27,23 @@ namespace Generic.Helpers
 
         public override bool IsUserInRole(string userName, string roleName)
         {
-            pr_getRoleByName_Result role = db.pr_getRoleByName(roleName, Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-            pr_getPersonByEmail_Result user = db.pr_getPersonByEmail(userName, Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            role role = db.pr_getRoleByName(roleName, Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            person user = db.pr_getPersonByEmail( Generic.Helpers.CurrentInstance.EnterpriseID, userName).FirstOrDefault();
             
             if (user == null)
                 return false;
             if (role == null)
                 return false;
 
-            return user.Role == role.description;
+            return user.role == role.id;
 
         }
 
         public override string[] GetRolesForUser(string userName)
         {
-            pr_getPersonByEmail_Result user = db.pr_getPersonByEmail(userName, Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            person user = db.pr_getPersonByEmail( Generic.Helpers.CurrentInstance.EnterpriseID,userName).FirstOrDefault();
             
-            return new string[] { user.Role };
+            return new string[] { user.role.ToString() };
         }
 
         #endregion

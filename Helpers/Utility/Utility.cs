@@ -24,7 +24,7 @@ namespace Generic.Helpers.Utility
 
         public string sendEmail(Email email)
         {
-            Entities db = new Entities();
+            EntitiesDBContext db = new EntitiesDBContext();
             string returnValue = "";
             string receiver = "";
 

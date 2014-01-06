@@ -23,6 +23,9 @@ namespace Generic
             this.protocol1 = new HashSet<protocol>();
             this.partner = new HashSet<partner>();
             this.group1 = new HashSet<group>();
+            this.personRelationship = new HashSet<personRelationship>();
+            this.personRelationship1 = new HashSet<personRelationship>();
+            this.personRelationship2 = new HashSet<personRelationship>();
         }
     
         public int id { get; set; }
@@ -68,5 +71,8 @@ namespace Generic
         public virtual ICollection<protocol> protocol1 { get; set; }
         public virtual ICollection<partner> partner { get; set; }
         public virtual ICollection<group> group1 { get; set; }
+        public virtual ICollection<personRelationship> personRelationship { get; set; }
+        public virtual ICollection<personRelationship> personRelationship1 { get; set; }
+        public virtual ICollection<personRelationship> personRelationship2 { get; set; }
     }
 }

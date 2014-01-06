@@ -1,0 +1,66 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.partnerType>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Partner Type";
+}
+<h2>Details</h2>
+
+<fieldset>
+    <legend>partnerType</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.alias)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.alias)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.partnerClass1.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.partnerClass1.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.enterprise1.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.enterprise1.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.sortOrder)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.sortOrder)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.active)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.active)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -59,5 +59,6 @@ namespace Generic
         public virtual ICollection<partnerTouchpointInvitedDate> partnerTouchpointInvitedDate { get; set; }
         public virtual ICollection<partnerTouchpointQuestionnaireLanguage> partnerTouchpointQuestionnaireLanguage { get; set; }
         public virtual ICollection<partnerTouchpointQuestionnaireQuestionResponse> partnerTouchpointQuestionnaireQuestionResponse { get; set; }
+        public virtual partnerCorpInfo partnerCorpInfo { get; set; }
     }
 }

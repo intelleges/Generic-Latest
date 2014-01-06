@@ -45,6 +45,7 @@
           <EntitySet Name="partnerActionLog" EntityType="hs3MVCMTQa2Model.Store.partnerActionLog" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerAddress" EntityType="hs3MVCMTQa2Model.Store.partnerAddress" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerClass" EntityType="hs3MVCMTQa2Model.Store.partnerClass" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="partnerCorpInfo" EntityType="hs3MVCMTQa2Model.Store.partnerCorpInfo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerLogDetail" EntityType="hs3MVCMTQa2Model.Store.partnerLogDetail" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerLogin" EntityType="hs3MVCMTQa2Model.Store.partnerLogin" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerPartnerTypeTouchpoint" EntityType="hs3MVCMTQa2Model.Store.partnerPartnerTypeTouchpoint" store:Type="Tables" Schema="dbo" />
@@ -100,6 +101,7 @@
           <EntitySet Name="personGroup" EntityType="hs3MVCMTQa2Model.Store.personGroup" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personLoginAudit" EntityType="hs3MVCMTQa2Model.Store.personLoginAudit" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personLoginAuditEvent" EntityType="hs3MVCMTQa2Model.Store.personLoginAuditEvent" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="personRelationship" EntityType="hs3MVCMTQa2Model.Store.personRelationship" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personRelationshipType" EntityType="hs3MVCMTQa2Model.Store.personRelationshipType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personSearchCount" EntityType="hs3MVCMTQa2Model.Store.personSearchCount" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personStatus" EntityType="hs3MVCMTQa2Model.Store.personStatus" store:Type="Tables" Schema="dbo" />
@@ -157,8 +159,10 @@
       FROM [dbo].[touchpointPartnerRerouter] AS [touchpointPartnerRerouter]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="touchpointPartnerTypeScoreAutoMail" EntityType="hs3MVCMTQa2Model.Store.touchpointPartnerTypeScoreAutoMail" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="touchpointQuestionnaire" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionnaire" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="touchpointQuestionResponseValue" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionResponseValue" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="touchpointQuestionWeight" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionWeight" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UM_M_Menu" EntityType="hs3MVCMTQa2Model.Store.UM_M_Menu" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="zCode" EntityType="hs3MVCMTQa2Model.Store.zCode" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="zCodeBatchUpdate" EntityType="hs3MVCMTQa2Model.Store.zCodeBatchUpdate" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="prReminder" EntityType="hs3MVCMTQa2Model.Store.prReminder" store:Type="Views" store:Schema="dbo" store:Name="prReminder">
@@ -217,6 +221,10 @@
             <End Role="enterprise" EntitySet="enterprise" />
             <End Role="languageInfo" EntitySet="languageInfo" />
           </AssociationSet>
+          <AssociationSet Name="FK_menu_enterprice" Association="hs3MVCMTQa2Model.Store.FK_menu_enterprice">
+            <End Role="enterprise" EntitySet="enterprise" />
+            <End Role="UM_M_Menu" EntitySet="UM_M_Menu" />
+          </AssociationSet>
           <AssociationSet Name="FK_menu_enterprise" Association="hs3MVCMTQa2Model.Store.FK_menu_enterprise">
             <End Role="enterprise" EntitySet="enterprise" />
             <End Role="menu" EntitySet="menu" />
@@ -232,6 +240,10 @@
           <AssociationSet Name="FK_partner_enterprise" Association="hs3MVCMTQa2Model.Store.FK_partner_enterprise">
             <End Role="enterprise" EntitySet="enterprise" />
             <End Role="partner" EntitySet="partner" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerCorpInfo_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerCorpInfo_partner">
+            <End Role="partner" EntitySet="partner" />
+            <End Role="partnerCorpInfo" EntitySet="partnerCorpInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_partnerPartnerTypeTouchpoint_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerPartnerTypeTouchpoint_partner">
             <End Role="partner" EntitySet="partner" />
@@ -324,6 +336,22 @@
           <AssociationSet Name="FK_personLoginAudit_personLoginAuditEvent" Association="hs3MVCMTQa2Model.Store.FK_personLoginAudit_personLoginAuditEvent">
             <End Role="personLoginAuditEvent" EntitySet="personLoginAuditEvent" />
             <End Role="personLoginAudit" EntitySet="personLoginAudit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personRelationship_person" Association="hs3MVCMTQa2Model.Store.FK_personRelationship_person">
+            <End Role="person" EntitySet="person" />
+            <End Role="personRelationship" EntitySet="personRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personRelationship_person1" Association="hs3MVCMTQa2Model.Store.FK_personRelationship_person1">
+            <End Role="person" EntitySet="person" />
+            <End Role="personRelationship" EntitySet="personRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personRelationship_person2" Association="hs3MVCMTQa2Model.Store.FK_personRelationship_person2">
+            <End Role="person" EntitySet="person" />
+            <End Role="personRelationship" EntitySet="personRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personRelationship_personRelationshipType" Association="hs3MVCMTQa2Model.Store.FK_personRelationship_personRelationshipType">
+            <End Role="personRelationshipType" EntitySet="personRelationshipType" />
+            <End Role="personRelationship" EntitySet="personRelationship" />
           </AssociationSet>
           <AssociationSet Name="FK_personSearchCount_person" Association="hs3MVCMTQa2Model.Store.FK_personSearchCount_person">
             <End Role="person" EntitySet="person" />
@@ -457,6 +485,14 @@
             <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="touchpointPartnerTypeScoreAutoMail" EntitySet="touchpointPartnerTypeScoreAutoMail" />
           </AssociationSet>
+          <AssociationSet Name="FK_touchpointQuestionnaire_questionnaire" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionnaire_questionnaire">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="touchpointQuestionnaire" EntitySet="touchpointQuestionnaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointQuestionnaire_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionnaire_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="touchpointQuestionnaire" EntitySet="touchpointQuestionnaire" />
+          </AssociationSet>
           <AssociationSet Name="FK_touchpointQuestionResponseValue_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionResponseValue_touchpoint">
             <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="touchpointQuestionResponseValue" EntitySet="touchpointQuestionResponseValue" />
@@ -464,6 +500,10 @@
           <AssociationSet Name="FK_touchpointQuestionWeight_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionWeight_touchpoint">
             <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="touchpointQuestionWeight" EntitySet="touchpointQuestionWeight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UM_M_Menu_UM_M_Menu" Association="hs3MVCMTQa2Model.Store.FK_UM_M_Menu_UM_M_Menu">
+            <End Role="UM_M_Menu" EntitySet="UM_M_Menu" />
+            <End Role="UM_M_Menu1" EntitySet="UM_M_Menu" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -918,6 +958,22 @@
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="bit" />
         </EntityType>
+        <EntityType Name="partnerCorpInfo">
+          <Key>
+            <PropertyRef Name="partner" />
+          </Key>
+          <Property Name="partner" Type="int" Nullable="false" />
+          <Property Name="businessDescription" Type="varchar" MaxLength="1000" />
+          <Property Name="taxExemptId" Type="nchar" MaxLength="10" />
+          <Property Name="alias" Type="varchar" MaxLength="255" />
+          <Property Name="ssn" Type="varchar" MaxLength="15" />
+          <Property Name="corp" Type="bit" />
+          <Property Name="taxExemptEntity" Type="bit" />
+          <Property Name="us" Type="bit" />
+          <Property Name="astate" Type="bit" />
+          <Property Name="foreignGovernment" Type="bit" />
+          <Property Name="naicsCode" Type="varchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="partnerLogDetail">
           <Key>
             <PropertyRef Name="id" />
@@ -1304,6 +1360,16 @@
           <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="personRelationship">
+          <Key>
+            <PropertyRef Name="personIsThe" />
+            <PropertyRef Name="personHasThe" />
+            <PropertyRef Name="RelationshipTypeID" />
+          </Key>
+          <Property Name="personIsThe" Type="int" Nullable="false" />
+          <Property Name="personHasThe" Type="int" Nullable="false" />
+          <Property Name="RelationshipTypeID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="personRelationshipType">
           <Key>
@@ -1750,6 +1816,14 @@
           <Property Name="isSendToPartner" Type="bit" />
           <Property Name="isSendToUser" Type="bit" />
         </EntityType>
+        <EntityType Name="touchpointQuestionnaire">
+          <Key>
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="questionnaire" />
+          </Key>
+          <Property Name="touchpoint" Type="int" Nullable="false" />
+          <Property Name="questionnaire" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="touchpointQuestionResponseValue">
           <Key>
             <PropertyRef Name="touchpoint" />
@@ -1770,6 +1844,19 @@
           <Property Name="touchpoint" Type="int" Nullable="false" />
           <Property Name="question" Type="int" Nullable="false" />
           <Property Name="weight" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UM_M_Menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="url" Type="nvarchar" MaxLength="255" />
+          <Property Name="parentid" Type="int" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" />
+          <Property Name="accesslevel" Type="int" />
+          <Property Name="enterprice" Type="int" />
         </EntityType>
         <EntityType Name="zCode">
           <Key>
@@ -1948,6 +2035,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_menu_enterprice">
+          <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+          <End Role="UM_M_Menu" Type="hs3MVCMTQa2Model.Store.UM_M_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UM_M_Menu">
+              <PropertyRef Name="enterprice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_menu_enterprise">
           <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
           <End Role="menu" Type="hs3MVCMTQa2Model.Store.menu" Multiplicity="*" />
@@ -1993,6 +2092,18 @@
             </Principal>
             <Dependent Role="partner">
               <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerCorpInfo_partner">
+          <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
+          <End Role="partnerCorpInfo" Type="hs3MVCMTQa2Model.Store.partnerCorpInfo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="partner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerCorpInfo">
+              <PropertyRef Name="partner" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2269,6 +2380,54 @@
             </Principal>
             <Dependent Role="personLoginAudit">
               <PropertyRef Name="auditLoginEvent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personRelationship_person">
+          <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+          <End Role="personRelationship" Type="hs3MVCMTQa2Model.Store.personRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personRelationship">
+              <PropertyRef Name="personIsThe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personRelationship_person1">
+          <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+          <End Role="personRelationship" Type="hs3MVCMTQa2Model.Store.personRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personRelationship">
+              <PropertyRef Name="personHasThe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personRelationship_person2">
+          <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+          <End Role="personRelationship" Type="hs3MVCMTQa2Model.Store.personRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personRelationship">
+              <PropertyRef Name="personHasThe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personRelationship_personRelationshipType">
+          <End Role="personRelationshipType" Type="hs3MVCMTQa2Model.Store.personRelationshipType" Multiplicity="1" />
+          <End Role="personRelationship" Type="hs3MVCMTQa2Model.Store.personRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personRelationshipType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personRelationship">
+              <PropertyRef Name="RelationshipTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2668,6 +2827,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_touchpointQuestionnaire_questionnaire">
+          <End Role="questionnaire" Type="hs3MVCMTQa2Model.Store.questionnaire" Multiplicity="1" />
+          <End Role="touchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.touchpointQuestionnaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointQuestionnaire">
+              <PropertyRef Name="questionnaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_touchpointQuestionnaire_touchpoint">
+          <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
+          <End Role="touchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.touchpointQuestionnaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointQuestionnaire">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_touchpointQuestionResponseValue_touchpoint">
           <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
           <End Role="touchpointQuestionResponseValue" Type="hs3MVCMTQa2Model.Store.touchpointQuestionResponseValue" Multiplicity="*" />
@@ -2689,6 +2872,18 @@
             </Principal>
             <Dependent Role="touchpointQuestionWeight">
               <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UM_M_Menu_UM_M_Menu">
+          <End Role="UM_M_Menu" Type="hs3MVCMTQa2Model.Store.UM_M_Menu" Multiplicity="0..1" />
+          <End Role="UM_M_Menu1" Type="hs3MVCMTQa2Model.Store.UM_M_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UM_M_Menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UM_M_Menu1">
+              <PropertyRef Name="parentid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2925,25 +3120,6 @@
           <Parameter Name="foreignGovernment" Type="bit" Mode="In" />
           <Parameter Name="naicsCode" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="pr_addPartnerCorpW9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="partner" Type="int" Mode="In" />
-          <Parameter Name="w9Person" Type="varchar" Mode="In" />
-          <Parameter Name="w9Title" Type="varchar" Mode="In" />
-          <Parameter Name="w9AuthorizedSignature" Type="varchar" Mode="In" />
-          <Parameter Name="w9DateSigned" Type="datetime" Mode="In" />
-          <Parameter Name="w9Phone" Type="varchar" Mode="In" />
-          <Parameter Name="w9Address" Type="varchar" Mode="In" />
-          <Parameter Name="w9City" Type="varchar" Mode="In" />
-          <Parameter Name="w9State" Type="int" Mode="In" />
-          <Parameter Name="w9ZipCode" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="pr_addPartnerEPLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="partner" Type="int" Mode="In" />
-          <Parameter Name="EPLSCheckedBy" Type="int" Mode="In" />
-          <Parameter Name="EPLSCheckedDate" Type="datetime" Mode="In" />
-          <Parameter Name="EPLSStatus" Type="int" Mode="In" />
-          <Parameter Name="epls" Type="int" Mode="In" />
-        </Function>
         <Function Name="pr_addPartnerRelationshipOwner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
@@ -2966,6 +3142,12 @@
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addPartnertypeTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="partnerType" Type="int" Mode="In" />
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_addPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -3176,6 +3358,10 @@
           <Parameter Name="creationDate" Type="datetime" Mode="In" />
           <Parameter Name="lastModifiedDate" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="pr_addSurveyQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="survey" Type="int" Mode="In" />
+          <Parameter Name="question" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addSurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -3203,6 +3389,21 @@
         <Function Name="pr_addTouchpointGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="touchpoint" Type="int" Mode="In" />
           <Parameter Name="group" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addTouchpointQuestionResponseValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="question" Type="int" Mode="In" />
+          <Parameter Name="response" Type="int" Mode="In" />
+          <Parameter Name="value" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addtouchpointQuestionWeight" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="question" Type="int" Mode="In" />
+          <Parameter Name="weight" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -3486,12 +3687,6 @@
         <Function Name="pr_getPartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getPartnerCorpW9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="partner" Type="int" Mode="In" />
-        </Function>
-        <Function Name="pr_getPartnerEPLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="partner" Type="int" Mode="In" />
-        </Function>
         <Function Name="pr_getPartnerrRemitAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
@@ -3500,6 +3695,11 @@
         </Function>
         <Function Name="pr_getPartnerTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPartnertypeTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="partnerType" Type="int" Mode="In" />
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
@@ -3511,8 +3711,8 @@
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPersonByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_getPersonByEmailForLoginAttempts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
@@ -3752,6 +3952,11 @@
         <Function Name="pr_getTouchpointAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getTouchpointByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="group" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getTouchpointQuestionResponseValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="question" Type="int" Mode="In" />
+          <Parameter Name="response" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getTranslationByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
@@ -4008,25 +4213,6 @@
           <Parameter Name="foreignGovernment" Type="bit" Mode="In" />
           <Parameter Name="naicsCode" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="pr_modifyPartnerCorpW9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="partner" Type="int" Mode="In" />
-          <Parameter Name="w9Person" Type="varchar" Mode="In" />
-          <Parameter Name="w9Title" Type="varchar" Mode="In" />
-          <Parameter Name="w9AuthorizedSignature" Type="varchar" Mode="In" />
-          <Parameter Name="w9DateSigned" Type="datetime" Mode="In" />
-          <Parameter Name="w9Phone" Type="varchar" Mode="In" />
-          <Parameter Name="w9Address" Type="varchar" Mode="In" />
-          <Parameter Name="w9City" Type="varchar" Mode="In" />
-          <Parameter Name="w9State" Type="int" Mode="In" />
-          <Parameter Name="w9ZipCode" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="pr_modifyPartnerEPLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="partner" Type="int" Mode="In" />
-          <Parameter Name="EPLSCheckedBy" Type="int" Mode="In" />
-          <Parameter Name="EPLSCheckedDate" Type="datetime" Mode="In" />
-          <Parameter Name="EPLSStatus" Type="int" Mode="In" />
-          <Parameter Name="epls" Type="int" Mode="In" />
-        </Function>
         <Function Name="pr_modifyPartnerremitaddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="partner" Type="int" Mode="In" />
@@ -4170,6 +4356,15 @@
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyQuestionSkipLogicJump" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="question" Type="int" Mode="In" />
+          <Parameter Name="jumpTo" Type="int" Mode="In" />
+          <Parameter Name="skipLogicAnswer" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyQuestionSkipLogicJumpLogic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="question" Type="int" Mode="In" />
+          <Parameter Name="jumpTo" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_modifyRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -4253,6 +4448,12 @@
           <Parameter Name="automaticReminder" Type="bit" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyTouchpointQuestionResponseValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="question" Type="int" Mode="In" />
+          <Parameter Name="response" Type="int" Mode="In" />
+          <Parameter Name="value" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_modifyUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -4341,12 +4542,6 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removePartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="partner" Type="int" Mode="In" />
-        </Function>
-        <Function Name="pr_removePartnerCorpW9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="partner" Type="int" Mode="In" />
-        </Function>
-        <Function Name="pr_removePartnerEPLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removePartnerRelationshipOwner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -4453,6 +4648,15 @@
         <Function Name="pr_removeTouchpointGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="touchpoint" Type="int" Mode="In" />
           <Parameter Name="group" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeTouchpointQuestionResponseValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="question" Type="int" Mode="In" />
+          <Parameter Name="response" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -4626,11 +4830,11 @@
           <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
         </Function>
         <Function Name="xx_getLastDBModified" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="xxx_getRecordCountByTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="xxx_getTableSetByColumnName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="xx_getRecordCountByTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="xx_getTableSetByColumnName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tableName" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="xxx_getTelerikBoundColumnSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="xx_getTelerikBoundColumnSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tablename" Type="varchar" Mode="In" />
         </Function>
         <!--Errors Found During Generation:
@@ -4640,63 +4844,6 @@
         <Property Name="loadhistory" Type="int" />
         <Property Name="partner" Type="int" />
         <Property Name="group" Type="int" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerContactValidationQuestionResponse' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="partnerContactValidationQuestionResponse">
-        <Property Name="partner" Type="int" />
-        <Property Name="question" Type="int" />
-        <Property Name="response" Type="varchar" MaxLength="50" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerCorpInfo' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="partnerCorpInfo">
-        <Property Name="partner" Type="int" />
-        <Property Name="businessDescription" Type="varchar" MaxLength="1000" />
-        <Property Name="taxExemptId" Type="nchar" MaxLength="10" />
-        <Property Name="alias" Type="varchar" MaxLength="255" />
-        <Property Name="ssn" Type="varchar" MaxLength="15" />
-        <Property Name="corp" Type="bit" />
-        <Property Name="taxExemptEntity" Type="bit" />
-        <Property Name="us" Type="bit" />
-        <Property Name="astate" Type="bit" />
-        <Property Name="foreignGovernment" Type="bit" />
-        <Property Name="naicsCode" Type="varchar" MaxLength="20" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerCorpW9' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="partnerCorpW9">
-        <Property Name="partner" Type="int" />
-        <Property Name="w9Person" Type="varchar" MaxLength="50" />
-        <Property Name="w9Title" Type="varchar" MaxLength="50" />
-        <Property Name="w9AuthorizedSignature" Type="varchar" MaxLength="50" />
-        <Property Name="w9DateSigned" Type="datetime" />
-        <Property Name="w9Phone" Type="varchar" MaxLength="20" />
-        <Property Name="w9Address" Type="varchar" MaxLength="200" />
-        <Property Name="w9City" Type="varchar" MaxLength="20" />
-        <Property Name="w9State" Type="int" />
-        <Property Name="w9ZipCode" Type="varchar" MaxLength="20" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerEPLS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="partnerEPLS">
-        <Property Name="partner" Type="int" />
-        <Property Name="EPLSCheckedBy" Type="int" />
-        <Property Name="EPLSCheckedDate" Type="datetime" />
-        <Property Name="EPLSStatus" Type="int" />
-        <Property Name="epls" Type="int" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.personRelationship' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="personRelationship">
-        <Property Name="personIsThe" Type="int" />
-        <Property Name="personHasThe" Type="int" />
-        <Property Name="RelationshipTypeID" Type="int" />
       </EntityType>
       Errors Found During Generation:
       warning 6013: The table/view 'hs3MVCMTQa2.dbo.queryField' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
@@ -5499,10 +5646,10 @@
           <FunctionImport Name="pr_getPartnerrRemitAddress" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerrRemitAddress_Result)">
           <Parameter Name="partner" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getPartnerType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerType_Result)">
+          <FunctionImport Name="pr_getPartnerType" EntitySet="partnerType" ReturnType="Collection(hs3MVCMTQa2Model.partnerType)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getPartnerTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerTypeAll_Result)">
+          <FunctionImport Name="pr_getPartnerTypeAll" EntitySet="partnerType" ReturnType="Collection(hs3MVCMTQa2Model.partnerType)">
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPerson" EntitySet="person" ReturnType="Collection(hs3MVCMTQa2Model.person)">
@@ -5514,9 +5661,9 @@
           <FunctionImport Name="pr_getPersonAllConfirmed" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonAllConfirmed_Result)">
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getPersonByEmail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonByEmail_Result)">
-            <Parameter Name="email" Mode="In" Type="String" />
+          <FunctionImport Name="pr_getPersonByEmail" EntitySet="person" ReturnType="Collection(hs3MVCMTQa2Model.person)">
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getPersonByEmailForLoginAttempts" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonByEmailForLoginAttempts_Result)">
           <Parameter Name="email" Mode="In" Type="String" />
@@ -5684,7 +5831,7 @@
           <FunctionImport Name="pr_getRoleByID" ReturnType="Collection(String)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getRoleByName" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleByName_Result)">
+          <FunctionImport Name="pr_getRoleByName" EntitySet="role" ReturnType="Collection(hs3MVCMTQa2Model.role)">
             <Parameter Name="roleName" Mode="In" Type="String" />
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -7067,6 +7214,107 @@
             <End Role="question" EntitySet="question" />
             <End Role="survey" EntitySet="survey" />
           </AssociationSet>
+          <EntitySet Name="partnerCorpInfo" EntityType="hs3MVCMTQa2Model.partnerCorpInfo" />
+          <EntitySet Name="personRelationship" EntityType="hs3MVCMTQa2Model.personRelationship" />
+          <EntitySet Name="UM_M_Menu" EntityType="hs3MVCMTQa2Model.UM_M_Menu" />
+          <AssociationSet Name="FK_menu_enterprice" Association="hs3MVCMTQa2Model.FK_menu_enterprice">
+            <End Role="enterprise" EntitySet="enterprise" />
+            <End Role="UM_M_Menu" EntitySet="UM_M_Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerCorpInfo_partner" Association="hs3MVCMTQa2Model.FK_partnerCorpInfo_partner">
+            <End Role="partner" EntitySet="partner" />
+            <End Role="partnerCorpInfo" EntitySet="partnerCorpInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personRelationship_person" Association="hs3MVCMTQa2Model.FK_personRelationship_person">
+            <End Role="person" EntitySet="person" />
+            <End Role="personRelationship" EntitySet="personRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personRelationship_person1" Association="hs3MVCMTQa2Model.FK_personRelationship_person1">
+            <End Role="person" EntitySet="person" />
+            <End Role="personRelationship" EntitySet="personRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personRelationship_person2" Association="hs3MVCMTQa2Model.FK_personRelationship_person2">
+            <End Role="person" EntitySet="person" />
+            <End Role="personRelationship" EntitySet="personRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personRelationship_personRelationshipType" Association="hs3MVCMTQa2Model.FK_personRelationship_personRelationshipType">
+            <End Role="personRelationshipType" EntitySet="personRelationshipType" />
+            <End Role="personRelationship" EntitySet="personRelationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UM_M_Menu_UM_M_Menu" Association="hs3MVCMTQa2Model.FK_UM_M_Menu_UM_M_Menu">
+            <End Role="UM_M_Menu" EntitySet="UM_M_Menu" />
+            <End Role="UM_M_Menu1" EntitySet="UM_M_Menu" />
+          </AssociationSet>
+          <AssociationSet Name="touchpointQuestionnaire" Association="hs3MVCMTQa2Model.touchpointQuestionnaire">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="touchpoint" EntitySet="touchpoint" />
+          </AssociationSet>
+          <FunctionImport Name="pr_addPartnertypeTouchpointQuestionnaire">
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="partnerType" Mode="In" Type="Int32" />
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addTouchpointQuestionnaire">
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addTouchpointQuestionResponseValue">
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="question" Mode="In" Type="Int32" />
+            <Parameter Name="response" Mode="In" Type="Int32" />
+            <Parameter Name="value" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnertypeTouchpointQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnertypeTouchpointQuestionnaire_Result)">
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="partnerType" Mode="In" Type="Int32" />
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTouchpointQuestionResponseValue" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTouchpointQuestionResponseValue_Result)">
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="question" Mode="In" Type="Int32" />
+            <Parameter Name="response" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyTouchpointQuestionResponseValue">
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="question" Mode="In" Type="Int32" />
+            <Parameter Name="response" Mode="In" Type="Int32" />
+            <Parameter Name="value" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeTouchpointQuestionnaire">
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeTouchpointQuestionResponseValue">
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="question" Mode="In" Type="Int32" />
+            <Parameter Name="response" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="xx_getRecordCountByTable" ReturnType="Collection(hs3MVCMTQa2Model.xx_getRecordCountByTable_Result)" />
+          <FunctionImport Name="xx_getTableSetByColumnName" ReturnType="Collection(hs3MVCMTQa2Model.xx_getTableSetByColumnName_Result)">
+          <Parameter Name="tableName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="xx_getTelerikBoundColumnSchema" ReturnType="Collection(String)">
+          <Parameter Name="tablename" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyQuestionSkipLogicJump">
+            <Parameter Name="question" Mode="In" Type="Int32" />
+            <Parameter Name="jumpTo" Mode="In" Type="Int32" />
+            <Parameter Name="skipLogicAnswer" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyQuestionSkipLogicJumpLogic">
+            <Parameter Name="question" Mode="In" Type="Int32" />
+            <Parameter Name="jumpTo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addSurveyQuestion">
+            <Parameter Name="survey" Mode="In" Type="Int32" />
+            <Parameter Name="question" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addtouchpointQuestionWeight">
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="question" Mode="In" Type="Int32" />
+            <Parameter Name="weight" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -7137,6 +7385,7 @@
           <NavigationProperty Name="groupCollection" Relationship="hs3MVCMTQa2Model.FK_groupCollection_enterprise" FromRole="enterprise" ToRole="groupCollection" />
           <NavigationProperty Name="key" Relationship="hs3MVCMTQa2Model.FK_key_enterprise" FromRole="enterprise" ToRole="key" />
           <NavigationProperty Name="menu" Relationship="hs3MVCMTQa2Model.FK_menu_enterprise" FromRole="enterprise" ToRole="menu" />
+          <NavigationProperty Name="UM_M_Menu" Relationship="hs3MVCMTQa2Model.FK_menu_enterprice" FromRole="enterprise" ToRole="UM_M_Menu" />
         </EntityType>
         <EntityType Name="enterpriseObjectName">
           <Key>
@@ -7355,6 +7604,7 @@
           <NavigationProperty Name="partnerTouchpointInvitedDate" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointInvitedDate_partner" FromRole="partner" ToRole="partnerTouchpointInvitedDate" />
           <NavigationProperty Name="partnerTouchpointQuestionnaireLanguage" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireLanguage_partner" FromRole="partner" ToRole="partnerTouchpointQuestionnaireLanguage" />
           <NavigationProperty Name="partnerTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_partner" FromRole="partner" ToRole="partnerTouchpointQuestionnaireQuestionResponse" />
+          <NavigationProperty Name="partnerCorpInfo" Relationship="hs3MVCMTQa2Model.FK_partnerCorpInfo_partner" FromRole="partner" ToRole="partnerCorpInfo" />
         </EntityType>
         <EntityType Name="partnerClass">
           <Key>
@@ -7463,6 +7713,9 @@
           <NavigationProperty Name="protocol1" Relationship="hs3MVCMTQa2Model.FK_protocol_person1" FromRole="person" ToRole="protocol" />
           <NavigationProperty Name="partner" Relationship="hs3MVCMTQa2Model.partnerRelationshipOwner" FromRole="person" ToRole="partner" />
           <NavigationProperty Name="group1" Relationship="hs3MVCMTQa2Model.personGroup" FromRole="person" ToRole="group" />
+          <NavigationProperty Name="personRelationship" Relationship="hs3MVCMTQa2Model.FK_personRelationship_person" FromRole="person" ToRole="personRelationship" />
+          <NavigationProperty Name="personRelationship1" Relationship="hs3MVCMTQa2Model.FK_personRelationship_person1" FromRole="person" ToRole="personRelationship" />
+          <NavigationProperty Name="personRelationship2" Relationship="hs3MVCMTQa2Model.FK_personRelationship_person2" FromRole="person" ToRole="personRelationship" />
        
         </EntityType>
         <EntityType Name="personLoginAudit">
@@ -7496,6 +7749,7 @@
           <Property Name="sortOrder" Type="Int32" />
           <Property Name="active" Type="Boolean" />
           <Property Type="Int32" Name="enterprise" />
+          <NavigationProperty Name="personRelationship" Relationship="hs3MVCMTQa2Model.FK_personRelationship_personRelationshipType" FromRole="personRelationshipType" ToRole="personRelationship" />
         </EntityType>
         <EntityType Name="personSearchCount">
           <Key>
@@ -7615,6 +7869,7 @@
           <NavigationProperty Name="page" Relationship="hs3MVCMTQa2Model.questionnairePage" FromRole="questionnaire" ToRole="page" />
           <NavigationProperty Name="partnerTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_questionnaire" FromRole="questionnaire" ToRole="partnerTouchpointQuestionnaireQuestionResponse" />
           <NavigationProperty Name="partnerTypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire1" FromRole="questionnaire" ToRole="partnerTypeTouchpointQuestionnaire" />
+          <NavigationProperty Name="touchpoint" Relationship="hs3MVCMTQa2Model.touchpointQuestionnaire" FromRole="questionnaire" ToRole="touchpoint" />
         </EntityType>
         <EntityType Name="questionnaireLevel">
           <Key>
@@ -7801,6 +8056,7 @@
           <NavigationProperty Name="touchpointPartnerTypeScoreAutoMail" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeScoreAutoMail_touchpoint" FromRole="touchpoint" ToRole="touchpointPartnerTypeScoreAutoMail" />
           <NavigationProperty Name="touchpointQuestionResponseValue" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionResponseValue_touchpoint" FromRole="touchpoint" ToRole="touchpointQuestionResponseValue" />
           <NavigationProperty Name="touchpointQuestionWeight" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionWeight_touchpoint" FromRole="touchpoint" ToRole="touchpointQuestionWeight" />
+          <NavigationProperty Name="questionnaire" Relationship="hs3MVCMTQa2Model.touchpointQuestionnaire" FromRole="touchpoint" ToRole="questionnaire" />
         </EntityType>
         <EntityType Name="touchpointGroup">
           <Key>
@@ -11041,6 +11297,161 @@
           <End Type="hs3MVCMTQa2Model.question" Role="question" Multiplicity="*" />
           <End Type="hs3MVCMTQa2Model.survey" Role="survey" Multiplicity="*" />
         </Association>
+        <EntityType Name="partnerCorpInfo">
+          <Key>
+            <PropertyRef Name="partner" />
+          </Key>
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="String" Name="businessDescription" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="taxExemptId" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="alias" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ssn" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="corp" />
+          <Property Type="Boolean" Name="taxExemptEntity" />
+          <Property Type="Boolean" Name="us" />
+          <Property Type="Boolean" Name="astate" />
+          <Property Type="Boolean" Name="foreignGovernment" />
+          <Property Type="String" Name="naicsCode" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="partner1" Relationship="hs3MVCMTQa2Model.FK_partnerCorpInfo_partner" FromRole="partnerCorpInfo" ToRole="partner" />
+        </EntityType>
+        <EntityType Name="personRelationship">
+          <Key>
+            <PropertyRef Name="personIsThe" />
+            <PropertyRef Name="personHasThe" />
+            <PropertyRef Name="RelationshipTypeID" />
+          </Key>
+          <Property Type="Int32" Name="personIsThe" Nullable="false" />
+          <Property Type="Int32" Name="personHasThe" Nullable="false" />
+          <Property Type="Int32" Name="RelationshipTypeID" Nullable="false" />
+          <NavigationProperty Name="person" Relationship="hs3MVCMTQa2Model.FK_personRelationship_person" FromRole="personRelationship" ToRole="person" />
+          <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK_personRelationship_person1" FromRole="personRelationship" ToRole="person" />
+          <NavigationProperty Name="person2" Relationship="hs3MVCMTQa2Model.FK_personRelationship_person2" FromRole="personRelationship" ToRole="person" />
+          <NavigationProperty Name="personRelationshipType" Relationship="hs3MVCMTQa2Model.FK_personRelationship_personRelationshipType" FromRole="personRelationship" ToRole="personRelationshipType" />
+        </EntityType>
+        <EntityType Name="UM_M_Menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="url" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="parentid" />
+          <Property Type="Int32" Name="sortOrder" />
+          <Property Type="Boolean" Name="active" />
+          <Property Type="Int32" Name="accesslevel" />
+          <Property Type="Int32" Name="enterprice" />
+          <NavigationProperty Name="enterprise" Relationship="hs3MVCMTQa2Model.FK_menu_enterprice" FromRole="UM_M_Menu" ToRole="enterprise" />
+          <NavigationProperty Name="UM_M_Menu1" Relationship="hs3MVCMTQa2Model.FK_UM_M_Menu_UM_M_Menu" FromRole="UM_M_Menu" ToRole="UM_M_Menu1" />
+          <NavigationProperty Name="UM_M_Menu2" Relationship="hs3MVCMTQa2Model.FK_UM_M_Menu_UM_M_Menu" FromRole="UM_M_Menu1" ToRole="UM_M_Menu" />
+        </EntityType>
+        <Association Name="FK_menu_enterprice">
+          <End Type="hs3MVCMTQa2Model.enterprise" Role="enterprise" Multiplicity="0..1" />
+          <End Type="hs3MVCMTQa2Model.UM_M_Menu" Role="UM_M_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UM_M_Menu">
+              <PropertyRef Name="enterprice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerCorpInfo_partner">
+          <End Type="hs3MVCMTQa2Model.partner" Role="partner" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerCorpInfo" Role="partnerCorpInfo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="partner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerCorpInfo">
+              <PropertyRef Name="partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personRelationship_person">
+          <End Type="hs3MVCMTQa2Model.person" Role="person" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.personRelationship" Role="personRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personRelationship">
+              <PropertyRef Name="personIsThe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personRelationship_person1">
+          <End Type="hs3MVCMTQa2Model.person" Role="person" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.personRelationship" Role="personRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personRelationship">
+              <PropertyRef Name="personHasThe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personRelationship_person2">
+          <End Type="hs3MVCMTQa2Model.person" Role="person" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.personRelationship" Role="personRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personRelationship">
+              <PropertyRef Name="personHasThe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personRelationship_personRelationshipType">
+          <End Type="hs3MVCMTQa2Model.personRelationshipType" Role="personRelationshipType" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.personRelationship" Role="personRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personRelationshipType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personRelationship">
+              <PropertyRef Name="RelationshipTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UM_M_Menu_UM_M_Menu">
+          <End Type="hs3MVCMTQa2Model.UM_M_Menu" Role="UM_M_Menu" Multiplicity="0..1" />
+          <End Type="hs3MVCMTQa2Model.UM_M_Menu" Role="UM_M_Menu1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UM_M_Menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UM_M_Menu1">
+              <PropertyRef Name="parentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="touchpointQuestionnaire">
+          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="*" />
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="pr_getPartnertypeTouchpointQuestionnaire_Result">
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="partnerType" Nullable="false" />
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="1500" />
+        </ComplexType>
+        <ComplexType Name="pr_getTouchpointQuestionResponseValue_Result">
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="response" Nullable="false" />
+          <Property Type="Int32" Name="value" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="xx_getRecordCountByTable_Result">
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="128" />
+          <Property Type="Int64" Name="rowcnt" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="xx_getTableSetByColumnName_Result">
+          <Property Type="String" Name="COLUMN_NAME" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="TABLE_NAME" Nullable="false" MaxLength="128" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -11479,6 +11890,7 @@
                   <ScalarProperty Name="active" ParameterName="active" />
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
                   <ScalarProperty Name="description" ParameterName="description" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPage">
                   <ScalarProperty Name="active" ParameterName="active" Version="Current" />
@@ -11995,6 +12407,7 @@
                   <ScalarProperty Name="tag" ParameterName="tag" />
                   <ScalarProperty Name="title" ParameterName="title" />
                   <ScalarProperty Name="name" ParameterName="name" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestion">
                   <ScalarProperty Name="question1" ParameterName="question" Version="Current" />
@@ -12056,6 +12469,7 @@
                   <ScalarProperty Name="letter" ParameterName="letter" />
                   <ScalarProperty Name="partnerType" ParameterName="partnerType" />
                   <ScalarProperty Name="person" ParameterName="person" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaire">
                   <ScalarProperty Name="multiLanguage" ParameterName="multiLanguage" Version="Current" />
@@ -12167,6 +12581,7 @@
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
                   <ScalarProperty Name="title" ParameterName="title" />
                   <ScalarProperty Name="description" ParameterName="description" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyResponse">
                   <ScalarProperty Name="active" ParameterName="active" Version="Current" />
@@ -12389,6 +12804,7 @@
                   <ScalarProperty Name="display" ParameterName="display" />
                   <ScalarProperty Name="name" ParameterName="name" />
                   <ScalarProperty Name="description" ParameterName="description" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifySurvey">
                   <ScalarProperty Name="lastModifiedDate" ParameterName="lastModifiedDate" Version="Current" />
@@ -12423,6 +12839,7 @@
                   <ScalarProperty Name="active" ParameterName="active" />
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
                   <ScalarProperty Name="description" ParameterName="description" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifySurveyset">
                   <ScalarProperty Name="accessLevel" ParameterName="accessLevel" Version="Current" />
@@ -12590,8 +13007,6 @@
           <FunctionImportMapping FunctionImportName="pr_addPageSurveyset" FunctionName="hs3MVCMTQa2Model.Store.pr_addPageSurveyset" />
           <FunctionImportMapping FunctionImportName="pr_addPartner" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartner" />
           <FunctionImportMapping FunctionImportName="pr_addPartnerCorpInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerCorpInfo" />
-          <FunctionImportMapping FunctionImportName="pr_addPartnerCorpW9" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerCorpW9" />
-          <FunctionImportMapping FunctionImportName="pr_addPartnerEPLS" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerEPLS" />
           <FunctionImportMapping FunctionImportName="pr_addPartnerType" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerType" />
           <FunctionImportMapping FunctionImportName="pr_addPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_addPerson" />
           <FunctionImportMapping FunctionImportName="pr_addPersonGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonGroup" />
@@ -13069,33 +13484,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getPartnerCorpW9" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerCorpW9">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerCorpW9_Result">
-                <ScalarProperty Name="partner" ColumnName="partner" />
-                <ScalarProperty Name="w9Person" ColumnName="w9Person" />
-                <ScalarProperty Name="w9Title" ColumnName="w9Title" />
-                <ScalarProperty Name="w9AuthorizedSignature" ColumnName="w9AuthorizedSignature" />
-                <ScalarProperty Name="w9DateSigned" ColumnName="w9DateSigned" />
-                <ScalarProperty Name="w9Phone" ColumnName="w9Phone" />
-                <ScalarProperty Name="w9Address" ColumnName="w9Address" />
-                <ScalarProperty Name="w9City" ColumnName="w9City" />
-                <ScalarProperty Name="w9State" ColumnName="w9State" />
-                <ScalarProperty Name="w9ZipCode" ColumnName="w9ZipCode" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getPartnerEPLS" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerEPLS">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerEPLS_Result">
-                <ScalarProperty Name="partner" ColumnName="partner" />
-                <ScalarProperty Name="EPLSCheckedBy" ColumnName="EPLSCheckedBy" />
-                <ScalarProperty Name="EPLSCheckedDate" ColumnName="EPLSCheckedDate" />
-                <ScalarProperty Name="EPLSStatus" ColumnName="EPLSStatus" />
-                <ScalarProperty Name="epls" ColumnName="epls" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnerrRemitAddress" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerrRemitAddress">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerrRemitAddress_Result">
@@ -13111,32 +13499,8 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnerType" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerType">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerType_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="alias" ColumnName="alias" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="partnerClass" ColumnName="partnerClass" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnerTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerTypeAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerTypeAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="alias" ColumnName="alias" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="partnerClass" ColumnName="partnerClass" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getPerson">
           </FunctionImportMapping>
@@ -13156,17 +13520,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPersonByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByEmail">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByEmail_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="InternalID" ColumnName="InternalID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPersonByEmailForLoginAttempts" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByEmailForLoginAttempts">
             <ResultMapping>
@@ -13919,17 +14272,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getRoleByID" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleByID" />
           <FunctionImportMapping FunctionImportName="pr_getRoleByName" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleByName">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRoleByName_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="access" ColumnName="access" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getRule" FunctionName="hs3MVCMTQa2Model.Store.pr_getRule">
             <ResultMapping>
@@ -14220,8 +14562,6 @@
           <FunctionImportMapping FunctionImportName="pr_modifyPage" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPage" />
           <FunctionImportMapping FunctionImportName="pr_modifyPartner" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartner" />
           <FunctionImportMapping FunctionImportName="pr_modifyPartnerCorpInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerCorpInfo" />
-          <FunctionImportMapping FunctionImportName="pr_modifyPartnerCorpW9" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerCorpW9" />
-          <FunctionImportMapping FunctionImportName="pr_modifyPartnerEPLS" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerEPLS" />
           <FunctionImportMapping FunctionImportName="pr_modifyPartnerremitaddress" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerremitaddress" />
           <FunctionImportMapping FunctionImportName="pr_modifyPartnerType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerType" />
           <FunctionImportMapping FunctionImportName="pr_modifyPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPerson" />
@@ -14258,8 +14598,6 @@
           <FunctionImportMapping FunctionImportName="pr_removePageSurveyset" FunctionName="hs3MVCMTQa2Model.Store.pr_removePageSurveyset" />
           <FunctionImportMapping FunctionImportName="pr_removePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartner" />
           <FunctionImportMapping FunctionImportName="pr_removePartnerCorpInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnerCorpInfo" />
-          <FunctionImportMapping FunctionImportName="pr_removePartnerCorpW9" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnerCorpW9" />
-          <FunctionImportMapping FunctionImportName="pr_removePartnerEPLS" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnerEPLS" />
           <FunctionImportMapping FunctionImportName="pr_removePartnerRemitAddress" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnerRemitAddress" />
           <FunctionImportMapping FunctionImportName="pr_removePartnerType" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnerType" />
           <FunctionImportMapping FunctionImportName="pr_removePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_removePerson" />
@@ -15292,6 +15630,16 @@
                 <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
               </MappingFragment>
             </EntityTypeMapping>
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnertypeTouchpointQuestionnaire">
+                  <ScalarProperty Name="description" ParameterName="description" />
+                  <ScalarProperty Name="questionnaire" ParameterName="questionnaire" />
+                  <ScalarProperty Name="partnerType" ParameterName="partnerType" />
+                  <ScalarProperty Name="touchpoint" ParameterName="touchpoint" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="touchpointPartnerRerouter">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpointPartnerRerouter">
@@ -15327,23 +15675,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="xxx_getRecordCountByTable" FunctionName="hs3MVCMTQa2Model.Store.xxx_getRecordCountByTable">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xxx_getRecordCountByTable_Result">
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="rowcnt" ColumnName="rowcnt" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="xxx_getTableSetByColumnName" FunctionName="hs3MVCMTQa2Model.Store.xxx_getTableSetByColumnName">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xxx_getTableSetByColumnName_Result">
-                <ScalarProperty Name="COLUMN_NAME" ColumnName="COLUMN_NAME" />
-                <ScalarProperty Name="TABLE_NAME" ColumnName="TABLE_NAME" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="xxx_getTelerikBoundColumnSchema" FunctionName="hs3MVCMTQa2Model.Store.xxx_getTelerikBoundColumnSchema" />
           <AssociationSetMapping Name="surveyQuestion" TypeName="hs3MVCMTQa2Model.surveyQuestion" StoreEntitySet="surveyQuestion">
             <EndProperty Name="survey">
               <ScalarProperty Name="id" ColumnName="survey" />
@@ -15352,6 +15683,101 @@
               <ScalarProperty Name="id" ColumnName="question" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="partnerCorpInfo">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerCorpInfo">
+              <MappingFragment StoreEntitySet="partnerCorpInfo">
+                <ScalarProperty Name="naicsCode" ColumnName="naicsCode" />
+                <ScalarProperty Name="foreignGovernment" ColumnName="foreignGovernment" />
+                <ScalarProperty Name="astate" ColumnName="astate" />
+                <ScalarProperty Name="us" ColumnName="us" />
+                <ScalarProperty Name="taxExemptEntity" ColumnName="taxExemptEntity" />
+                <ScalarProperty Name="corp" ColumnName="corp" />
+                <ScalarProperty Name="ssn" ColumnName="ssn" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
+                <ScalarProperty Name="taxExemptId" ColumnName="taxExemptId" />
+                <ScalarProperty Name="businessDescription" ColumnName="businessDescription" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personRelationship">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personRelationship">
+              <MappingFragment StoreEntitySet="personRelationship">
+                <ScalarProperty Name="RelationshipTypeID" ColumnName="RelationshipTypeID" />
+                <ScalarProperty Name="personHasThe" ColumnName="personHasThe" />
+                <ScalarProperty Name="personIsThe" ColumnName="personIsThe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UM_M_Menu">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.UM_M_Menu">
+              <MappingFragment StoreEntitySet="UM_M_Menu">
+                <ScalarProperty Name="enterprice" ColumnName="enterprice" />
+                <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="parentid" ColumnName="parentid" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="touchpointQuestionnaire" TypeName="hs3MVCMTQa2Model.touchpointQuestionnaire" StoreEntitySet="touchpointQuestionnaire">
+            <EndProperty Name="touchpoint">
+              <ScalarProperty Name="id" ColumnName="touchpoint" />
+            </EndProperty>
+            <EndProperty Name="questionnaire">
+              <ScalarProperty Name="id" ColumnName="questionnaire" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPartnertypeTouchpointQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnertypeTouchpointQuestionnaire" />
+          <FunctionImportMapping FunctionImportName="pr_addTouchpointQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_addTouchpointQuestionnaire" />
+          <FunctionImportMapping FunctionImportName="pr_addTouchpointQuestionResponseValue" FunctionName="hs3MVCMTQa2Model.Store.pr_addTouchpointQuestionResponseValue" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnertypeTouchpointQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnertypeTouchpointQuestionnaire">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnertypeTouchpointQuestionnaire_Result">
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getTouchpointQuestionResponseValue" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointQuestionResponseValue">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTouchpointQuestionResponseValue_Result">
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="value" ColumnName="value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyTouchpointQuestionResponseValue" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyTouchpointQuestionResponseValue" />
+          <FunctionImportMapping FunctionImportName="pr_removeTouchpointQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_removeTouchpointQuestionnaire" />
+          <FunctionImportMapping FunctionImportName="pr_removeTouchpointQuestionResponseValue" FunctionName="hs3MVCMTQa2Model.Store.pr_removeTouchpointQuestionResponseValue" />
+          <FunctionImportMapping FunctionImportName="xx_getRecordCountByTable" FunctionName="hs3MVCMTQa2Model.Store.xx_getRecordCountByTable">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xx_getRecordCountByTable_Result">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="rowcnt" ColumnName="rowcnt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="xx_getTableSetByColumnName" FunctionName="hs3MVCMTQa2Model.Store.xx_getTableSetByColumnName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xx_getTableSetByColumnName_Result">
+                <ScalarProperty Name="COLUMN_NAME" ColumnName="COLUMN_NAME" />
+                <ScalarProperty Name="TABLE_NAME" ColumnName="TABLE_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="xx_getTelerikBoundColumnSchema" FunctionName="hs3MVCMTQa2Model.Store.xx_getTelerikBoundColumnSchema" />
+          <FunctionImportMapping FunctionImportName="pr_modifyQuestionSkipLogicJump" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionSkipLogicJump" />
+          <FunctionImportMapping FunctionImportName="pr_modifyQuestionSkipLogicJumpLogic" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionSkipLogicJumpLogic" />
+          <FunctionImportMapping FunctionImportName="pr_addSurveyQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_addSurveyQuestion" />
+          <FunctionImportMapping FunctionImportName="pr_addtouchpointQuestionWeight" FunctionName="hs3MVCMTQa2Model.Store.pr_addtouchpointQuestionWeight" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

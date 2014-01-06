@@ -1,0 +1,89 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.protocol>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "UploadQuestionnaire";
+}
+
+<script>
+    jQuery.noConflict();
+    jQuery(document).ready(function () {
+        $('#UploadQuestionnaireForm').submit(function (e) {
+            e.preventDefault();
+            var objProtocolID = $('#protocol').val();
+            var objProtocolName = $('#protocol option[value="' + $('#protocol').val() + '"]').text();
+
+            var objtouchpointID = $('#touchpoint').val();
+            var objtouchpointName = $('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text();
+
+            var objpartnertypeID = $('#partnertype').val();
+            var objpartnertypeName = $('#partnertype option[value="' + $('#partnertype').val() + '"]').text();
+
+            var formData = { protocolId: objProtocolID, protocolName: objProtocolName, touchpointId: objtouchpointID, touchpointName: objtouchpointName, partnertypeID: objpartnertypeID, partnertypeName: objpartnertypeName };
+        $.ajax({
+            url: "UploadQuestionnaire",
+            type: "post",
+            data: formData,
+            success: function (data) {
+            },
+            error: function (data) {
+            }
+        });
+    });
+    });
+</script>
+
+
+<h2>Upload Questionnaire</h2>
+
+
+<form id="UploadQuestionnaireForm" action="/honeywell_cr1/Questionnaire/uploadQuestionnaire" method="post">
+    @Html.ValidationSummary(true)
+
+<div class="editor-label">
+           1. Please select a protocol
+        </div>
+        <div class="editor-field">
+           @Html.DropDownList("protocol", String.Empty)           
+        </div>
+
+<div class="editor-label">
+           2. Please select a Touchpoint
+        </div>
+        <div class="editor-field">
+           @Html.DropDownList("touchpoint", String.Empty)  
+        </div>
+
+<div class="editor-label">
+           3. Please select a partnertype
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("partnertype", String.Empty)
+        </div>
+
+<div class="editor-label">
+          4. Please select an Excel file containing the questionnaire information. Click here if you need to download the template.
+        </div>
+        <div class="editor-field">
+         @(Html.Telerik().Upload()
+        .Name("attachments")
+        .Multiple(false)
+        .Async(async => async
+            .Save("Save", "Questionnaire")
+            .Remove("Remove", "Questionnaire")
+            .AutoUpload(true)
+        )
+)
+
+<p class="note">
+    Maximum allowed file size: 10 MB
+</p>
+
+
+        </div>
+<p>
+            <input type="submit" id="btnUpload" value="Upload" />
+        </p>
+</form>

@@ -12,19 +12,15 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class personRelationshipType
+    public partial class personRelationship
     {
-        public personRelationshipType()
-        {
-            this.personRelationship = new HashSet<personRelationship>();
-        }
+        public int personIsThe { get; set; }
+        public int personHasThe { get; set; }
+        public int RelationshipTypeID { get; set; }
     
-        public int id { get; set; }
-        public string description { get; set; }
-        public Nullable<int> sortOrder { get; set; }
-        public Nullable<bool> active { get; set; }
-        public Nullable<int> enterprise { get; set; }
-    
-        public virtual ICollection<personRelationship> personRelationship { get; set; }
+        public virtual person person { get; set; }
+        public virtual person person1 { get; set; }
+        public virtual person person2 { get; set; }
+        public virtual personRelationshipType personRelationshipType { get; set; }
     }
 }

@@ -16,9 +16,9 @@ namespace Generic
     using System.Data.Objects.DataClasses;
     using System.Linq;
     
-    public partial class Entities : DbContext
+    public partial class EntitiesDBContext : DbContext
     {
-        public Entities()
+        public EntitiesDBContext()
             : base("name=Entities")
         {
         }
@@ -126,6 +126,9 @@ namespace Generic
         public DbSet<touchpointPartnerRerouter> touchpointPartnerRerouter { get; set; }
         public DbSet<touchpointQuestionResponseValue> touchpointQuestionResponseValue { get; set; }
         public DbSet<touchpointQuestionWeight> touchpointQuestionWeight { get; set; }
+        public DbSet<partnerCorpInfo> partnerCorpInfo { get; set; }
+        public DbSet<personRelationship> personRelationship { get; set; }
+        public DbSet<UM_M_Menu> UM_M_Menu { get; set; }
     
         public virtual ObjectResult<Nullable<int>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -2121,22 +2124,40 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerrRemitAddress_Result>("pr_getPartnerrRemitAddress", partnerParameter);
         }
     
-        public virtual ObjectResult<pr_getPartnerType_Result> pr_getPartnerType(Nullable<int> id)
+        public virtual ObjectResult<partnerType> pr_getPartnerType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerType_Result>("pr_getPartnerType", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerType>("pr_getPartnerType", idParameter);
         }
     
-        public virtual ObjectResult<pr_getPartnerTypeAll_Result> pr_getPartnerTypeAll(Nullable<int> enterprise)
+        public virtual ObjectResult<partnerType> pr_getPartnerType(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerType>("pr_getPartnerType", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<partnerType> pr_getPartnerTypeAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerTypeAll_Result>("pr_getPartnerTypeAll", enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerType>("pr_getPartnerTypeAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<partnerType> pr_getPartnerTypeAll(Nullable<int> enterprise, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerType>("pr_getPartnerTypeAll", mergeOption, enterpriseParameter);
         }
     
         public virtual ObjectResult<person> pr_getPerson(Nullable<int> person)
@@ -2184,17 +2205,30 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonAllConfirmed_Result>("pr_getPersonAllConfirmed", enterpriseParameter);
         }
     
-        public virtual ObjectResult<pr_getPersonByEmail_Result> pr_getPersonByEmail(string email, Nullable<int> enterprise)
+        public virtual ObjectResult<person> pr_getPersonByEmail(Nullable<int> enterprise, string email)
         {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonByEmail_Result>("pr_getPersonByEmail", emailParameter, enterpriseParameter);
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByEmail", enterpriseParameter, emailParameter);
+        }
+    
+        public virtual ObjectResult<person> pr_getPersonByEmail(Nullable<int> enterprise, string email, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByEmail", mergeOption, enterpriseParameter, emailParameter);
         }
     
         public virtual ObjectResult<pr_getPersonByEmailForLoginAttempts_Result> pr_getPersonByEmailForLoginAttempts(string email)
@@ -2721,7 +2755,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getRoleByID", idParameter);
         }
     
-        public virtual ObjectResult<pr_getRoleByName_Result> pr_getRoleByName(string roleName, Nullable<int> enterprise)
+        public virtual ObjectResult<role> pr_getRoleByName(string roleName, Nullable<int> enterprise)
         {
             var roleNameParameter = roleName != null ?
                 new ObjectParameter("roleName", roleName) :
@@ -2731,7 +2765,20 @@ namespace Generic
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRoleByName_Result>("pr_getRoleByName", roleNameParameter, enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleByName", roleNameParameter, enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<role> pr_getRoleByName(string roleName, Nullable<int> enterprise, MergeOption mergeOption)
+        {
+            var roleNameParameter = roleName != null ?
+                new ObjectParameter("roleName", roleName) :
+                new ObjectParameter("roleName", typeof(string));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleByName", mergeOption, roleNameParameter, enterpriseParameter);
         }
     
         public virtual ObjectResult<pr_getRule_Result> pr_getRule(Nullable<int> id)
@@ -7196,6 +7243,229 @@ namespace Generic
                 new ObjectParameter("tablename", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("xxx_getTelerikBoundColumnSchema", tablenameParameter);
+        }
+    
+        public virtual int pr_addPartnertypeTouchpointQuestionnaire(Nullable<int> touchpoint, Nullable<int> partnerType, Nullable<int> questionnaire, string description)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var partnerTypeParameter = partnerType.HasValue ?
+                new ObjectParameter("partnerType", partnerType) :
+                new ObjectParameter("partnerType", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPartnertypeTouchpointQuestionnaire", touchpointParameter, partnerTypeParameter, questionnaireParameter, descriptionParameter);
+        }
+    
+        public virtual int pr_addTouchpointQuestionnaire(Nullable<int> touchpoint, Nullable<int> questionnaire)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addTouchpointQuestionnaire", touchpointParameter, questionnaireParameter);
+        }
+    
+        public virtual int pr_addTouchpointQuestionResponseValue(Nullable<int> touchpoint, Nullable<int> question, Nullable<int> response, Nullable<int> value)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var responseParameter = response.HasValue ?
+                new ObjectParameter("response", response) :
+                new ObjectParameter("response", typeof(int));
+    
+            var valueParameter = value.HasValue ?
+                new ObjectParameter("value", value) :
+                new ObjectParameter("value", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addTouchpointQuestionResponseValue", touchpointParameter, questionParameter, responseParameter, valueParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnertypeTouchpointQuestionnaire_Result> pr_getPartnertypeTouchpointQuestionnaire(Nullable<int> touchpoint, Nullable<int> partnerType, Nullable<int> questionnaire)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var partnerTypeParameter = partnerType.HasValue ?
+                new ObjectParameter("partnerType", partnerType) :
+                new ObjectParameter("partnerType", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnertypeTouchpointQuestionnaire_Result>("pr_getPartnertypeTouchpointQuestionnaire", touchpointParameter, partnerTypeParameter, questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getTouchpointQuestionResponseValue_Result> pr_getTouchpointQuestionResponseValue(Nullable<int> touchpoint, Nullable<int> question, Nullable<int> response)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var responseParameter = response.HasValue ?
+                new ObjectParameter("response", response) :
+                new ObjectParameter("response", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTouchpointQuestionResponseValue_Result>("pr_getTouchpointQuestionResponseValue", touchpointParameter, questionParameter, responseParameter);
+        }
+    
+        public virtual int pr_modifyTouchpointQuestionResponseValue(Nullable<int> touchpoint, Nullable<int> question, Nullable<int> response, Nullable<int> value)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var responseParameter = response.HasValue ?
+                new ObjectParameter("response", response) :
+                new ObjectParameter("response", typeof(int));
+    
+            var valueParameter = value.HasValue ?
+                new ObjectParameter("value", value) :
+                new ObjectParameter("value", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyTouchpointQuestionResponseValue", touchpointParameter, questionParameter, responseParameter, valueParameter);
+        }
+    
+        public virtual int pr_removeTouchpointQuestionnaire(Nullable<int> touchpoint, Nullable<int> questionnaire)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeTouchpointQuestionnaire", touchpointParameter, questionnaireParameter);
+        }
+    
+        public virtual int pr_removeTouchpointQuestionResponseValue(Nullable<int> touchpoint, Nullable<int> question, Nullable<int> response)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var responseParameter = response.HasValue ?
+                new ObjectParameter("response", response) :
+                new ObjectParameter("response", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeTouchpointQuestionResponseValue", touchpointParameter, questionParameter, responseParameter);
+        }
+    
+        public virtual ObjectResult<xx_getRecordCountByTable_Result> xx_getRecordCountByTable()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_getRecordCountByTable_Result>("xx_getRecordCountByTable");
+        }
+    
+        public virtual ObjectResult<xx_getTableSetByColumnName_Result> xx_getTableSetByColumnName(string tableName)
+        {
+            var tableNameParameter = tableName != null ?
+                new ObjectParameter("tableName", tableName) :
+                new ObjectParameter("tableName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_getTableSetByColumnName_Result>("xx_getTableSetByColumnName", tableNameParameter);
+        }
+    
+        public virtual ObjectResult<string> xx_getTelerikBoundColumnSchema(string tablename)
+        {
+            var tablenameParameter = tablename != null ?
+                new ObjectParameter("tablename", tablename) :
+                new ObjectParameter("tablename", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("xx_getTelerikBoundColumnSchema", tablenameParameter);
+        }
+    
+        public virtual int pr_modifyQuestionSkipLogicJump(Nullable<int> question, Nullable<int> jumpTo, Nullable<int> skipLogicAnswer)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var jumpToParameter = jumpTo.HasValue ?
+                new ObjectParameter("jumpTo", jumpTo) :
+                new ObjectParameter("jumpTo", typeof(int));
+    
+            var skipLogicAnswerParameter = skipLogicAnswer.HasValue ?
+                new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
+                new ObjectParameter("skipLogicAnswer", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionSkipLogicJump", questionParameter, jumpToParameter, skipLogicAnswerParameter);
+        }
+    
+        public virtual int pr_modifyQuestionSkipLogicJumpLogic(Nullable<int> question, string jumpTo)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var jumpToParameter = jumpTo != null ?
+                new ObjectParameter("jumpTo", jumpTo) :
+                new ObjectParameter("jumpTo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionSkipLogicJumpLogic", questionParameter, jumpToParameter);
+        }
+    
+        public virtual int pr_addSurveyQuestion(Nullable<int> survey, Nullable<int> question)
+        {
+            var surveyParameter = survey.HasValue ?
+                new ObjectParameter("survey", survey) :
+                new ObjectParameter("survey", typeof(int));
+    
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addSurveyQuestion", surveyParameter, questionParameter);
+        }
+    
+        public virtual int pr_addtouchpointQuestionWeight(Nullable<int> touchpoint, Nullable<int> question, Nullable<int> weight)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var weightParameter = weight.HasValue ?
+                new ObjectParameter("weight", weight) :
+                new ObjectParameter("weight", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addtouchpointQuestionWeight", touchpointParameter, questionParameter, weightParameter);
         }
     }
 }

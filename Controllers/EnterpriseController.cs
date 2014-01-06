@@ -10,7 +10,7 @@ namespace Generic.Controllers
 {
     public class EnterpriseController : Controller
     {
-        private Entities db = new Entities();
+        private EntitiesDBContext db = new EntitiesDBContext();
 
         //
         // GET: /Enterprise/

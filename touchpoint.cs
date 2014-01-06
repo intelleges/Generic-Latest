@@ -24,6 +24,7 @@ namespace Generic
             this.touchpointPartnerTypeScoreAutoMail = new HashSet<touchpointPartnerTypeScoreAutoMail>();
             this.touchpointQuestionResponseValue = new HashSet<touchpointQuestionResponseValue>();
             this.touchpointQuestionWeight = new HashSet<touchpointQuestionWeight>();
+            this.questionnaire = new HashSet<questionnaire>();
         }
     
         public int id { get; set; }
@@ -49,5 +50,6 @@ namespace Generic
         public virtual ICollection<touchpointPartnerTypeScoreAutoMail> touchpointPartnerTypeScoreAutoMail { get; set; }
         public virtual ICollection<touchpointQuestionResponseValue> touchpointQuestionResponseValue { get; set; }
         public virtual ICollection<touchpointQuestionWeight> touchpointQuestionWeight { get; set; }
+        public virtual ICollection<questionnaire> questionnaire { get; set; }
     }
 }

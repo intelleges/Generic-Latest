@@ -1,0 +1,40 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.partnerType>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Partner Type";
+}
+
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+@( Html.Telerik().Grid(Model).Name("PartnerGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.id);
+
+            columns.Bound(o => o.name);
+
+            columns.Bound(o => o.alias);
+
+            columns.Bound(o => o.description);
+
+            columns.Bound(o => o.partnerClass);
+
+            columns.Bound(o => o.enterprise);
+
+            columns.Bound(o => o.sortOrder);
+
+            columns.Bound(o => o.active);
+        })
+        .Pageable()
+        .Sortable()
+)
+

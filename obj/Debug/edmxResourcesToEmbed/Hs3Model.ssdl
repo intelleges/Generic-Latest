@@ -40,6 +40,7 @@
     <EntitySet Name="partnerActionLog" EntityType="hs3MVCMTQa2Model.Store.partnerActionLog" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="partnerAddress" EntityType="hs3MVCMTQa2Model.Store.partnerAddress" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="partnerClass" EntityType="hs3MVCMTQa2Model.Store.partnerClass" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="partnerCorpInfo" EntityType="hs3MVCMTQa2Model.Store.partnerCorpInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="partnerLogDetail" EntityType="hs3MVCMTQa2Model.Store.partnerLogDetail" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="partnerLogin" EntityType="hs3MVCMTQa2Model.Store.partnerLogin" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="partnerPartnerTypeTouchpoint" EntityType="hs3MVCMTQa2Model.Store.partnerPartnerTypeTouchpoint" store:Type="Tables" Schema="dbo" />
@@ -95,6 +96,7 @@
     <EntitySet Name="personGroup" EntityType="hs3MVCMTQa2Model.Store.personGroup" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="personLoginAudit" EntityType="hs3MVCMTQa2Model.Store.personLoginAudit" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="personLoginAuditEvent" EntityType="hs3MVCMTQa2Model.Store.personLoginAuditEvent" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="personRelationship" EntityType="hs3MVCMTQa2Model.Store.personRelationship" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="personRelationshipType" EntityType="hs3MVCMTQa2Model.Store.personRelationshipType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="personSearchCount" EntityType="hs3MVCMTQa2Model.Store.personSearchCount" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="personStatus" EntityType="hs3MVCMTQa2Model.Store.personStatus" store:Type="Tables" Schema="dbo" />
@@ -152,8 +154,10 @@
       FROM [dbo].[touchpointPartnerRerouter] AS [touchpointPartnerRerouter]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="touchpointPartnerTypeScoreAutoMail" EntityType="hs3MVCMTQa2Model.Store.touchpointPartnerTypeScoreAutoMail" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="touchpointQuestionnaire" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionnaire" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="touchpointQuestionResponseValue" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionResponseValue" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="touchpointQuestionWeight" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionWeight" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UM_M_Menu" EntityType="hs3MVCMTQa2Model.Store.UM_M_Menu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="zCode" EntityType="hs3MVCMTQa2Model.Store.zCode" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="zCodeBatchUpdate" EntityType="hs3MVCMTQa2Model.Store.zCodeBatchUpdate" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="prReminder" EntityType="hs3MVCMTQa2Model.Store.prReminder" store:Type="Views" store:Schema="dbo" store:Name="prReminder">
@@ -212,6 +216,10 @@
       <End Role="enterprise" EntitySet="enterprise" />
       <End Role="languageInfo" EntitySet="languageInfo" />
     </AssociationSet>
+    <AssociationSet Name="FK_menu_enterprice" Association="hs3MVCMTQa2Model.Store.FK_menu_enterprice">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="UM_M_Menu" EntitySet="UM_M_Menu" />
+    </AssociationSet>
     <AssociationSet Name="FK_menu_enterprise" Association="hs3MVCMTQa2Model.Store.FK_menu_enterprise">
       <End Role="enterprise" EntitySet="enterprise" />
       <End Role="menu" EntitySet="menu" />
@@ -227,6 +235,10 @@
     <AssociationSet Name="FK_partner_enterprise" Association="hs3MVCMTQa2Model.Store.FK_partner_enterprise">
       <End Role="enterprise" EntitySet="enterprise" />
       <End Role="partner" EntitySet="partner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerCorpInfo_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerCorpInfo_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="partnerCorpInfo" EntitySet="partnerCorpInfo" />
     </AssociationSet>
     <AssociationSet Name="FK_partnerPartnerTypeTouchpoint_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerPartnerTypeTouchpoint_partner">
       <End Role="partner" EntitySet="partner" />
@@ -319,6 +331,22 @@
     <AssociationSet Name="FK_personLoginAudit_personLoginAuditEvent" Association="hs3MVCMTQa2Model.Store.FK_personLoginAudit_personLoginAuditEvent">
       <End Role="personLoginAuditEvent" EntitySet="personLoginAuditEvent" />
       <End Role="personLoginAudit" EntitySet="personLoginAudit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personRelationship_person" Association="hs3MVCMTQa2Model.Store.FK_personRelationship_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="personRelationship" EntitySet="personRelationship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personRelationship_person1" Association="hs3MVCMTQa2Model.Store.FK_personRelationship_person1">
+      <End Role="person" EntitySet="person" />
+      <End Role="personRelationship" EntitySet="personRelationship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personRelationship_person2" Association="hs3MVCMTQa2Model.Store.FK_personRelationship_person2">
+      <End Role="person" EntitySet="person" />
+      <End Role="personRelationship" EntitySet="personRelationship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personRelationship_personRelationshipType" Association="hs3MVCMTQa2Model.Store.FK_personRelationship_personRelationshipType">
+      <End Role="personRelationshipType" EntitySet="personRelationshipType" />
+      <End Role="personRelationship" EntitySet="personRelationship" />
     </AssociationSet>
     <AssociationSet Name="FK_personSearchCount_person" Association="hs3MVCMTQa2Model.Store.FK_personSearchCount_person">
       <End Role="person" EntitySet="person" />
@@ -452,6 +480,14 @@
       <End Role="touchpoint" EntitySet="touchpoint" />
       <End Role="touchpointPartnerTypeScoreAutoMail" EntitySet="touchpointPartnerTypeScoreAutoMail" />
     </AssociationSet>
+    <AssociationSet Name="FK_touchpointQuestionnaire_questionnaire" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionnaire_questionnaire">
+      <End Role="questionnaire" EntitySet="questionnaire" />
+      <End Role="touchpointQuestionnaire" EntitySet="touchpointQuestionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointQuestionnaire_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionnaire_touchpoint">
+      <End Role="touchpoint" EntitySet="touchpoint" />
+      <End Role="touchpointQuestionnaire" EntitySet="touchpointQuestionnaire" />
+    </AssociationSet>
     <AssociationSet Name="FK_touchpointQuestionResponseValue_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionResponseValue_touchpoint">
       <End Role="touchpoint" EntitySet="touchpoint" />
       <End Role="touchpointQuestionResponseValue" EntitySet="touchpointQuestionResponseValue" />
@@ -459,6 +495,10 @@
     <AssociationSet Name="FK_touchpointQuestionWeight_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionWeight_touchpoint">
       <End Role="touchpoint" EntitySet="touchpoint" />
       <End Role="touchpointQuestionWeight" EntitySet="touchpointQuestionWeight" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UM_M_Menu_UM_M_Menu" Association="hs3MVCMTQa2Model.Store.FK_UM_M_Menu_UM_M_Menu">
+      <End Role="UM_M_Menu" EntitySet="UM_M_Menu" />
+      <End Role="UM_M_Menu1" EntitySet="UM_M_Menu" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="accessLevel">
@@ -913,6 +953,22 @@
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
   </EntityType>
+  <EntityType Name="partnerCorpInfo">
+    <Key>
+      <PropertyRef Name="partner" />
+    </Key>
+    <Property Name="partner" Type="int" Nullable="false" />
+    <Property Name="businessDescription" Type="varchar" MaxLength="1000" />
+    <Property Name="taxExemptId" Type="nchar" MaxLength="10" />
+    <Property Name="alias" Type="varchar" MaxLength="255" />
+    <Property Name="ssn" Type="varchar" MaxLength="15" />
+    <Property Name="corp" Type="bit" />
+    <Property Name="taxExemptEntity" Type="bit" />
+    <Property Name="us" Type="bit" />
+    <Property Name="astate" Type="bit" />
+    <Property Name="foreignGovernment" Type="bit" />
+    <Property Name="naicsCode" Type="varchar" MaxLength="20" />
+  </EntityType>
   <EntityType Name="partnerLogDetail">
     <Key>
       <PropertyRef Name="id" />
@@ -1299,6 +1355,16 @@
     <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
+  </EntityType>
+  <EntityType Name="personRelationship">
+    <Key>
+      <PropertyRef Name="personIsThe" />
+      <PropertyRef Name="personHasThe" />
+      <PropertyRef Name="RelationshipTypeID" />
+    </Key>
+    <Property Name="personIsThe" Type="int" Nullable="false" />
+    <Property Name="personHasThe" Type="int" Nullable="false" />
+    <Property Name="RelationshipTypeID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="personRelationshipType">
     <Key>
@@ -1745,6 +1811,14 @@
     <Property Name="isSendToPartner" Type="bit" />
     <Property Name="isSendToUser" Type="bit" />
   </EntityType>
+  <EntityType Name="touchpointQuestionnaire">
+    <Key>
+      <PropertyRef Name="touchpoint" />
+      <PropertyRef Name="questionnaire" />
+    </Key>
+    <Property Name="touchpoint" Type="int" Nullable="false" />
+    <Property Name="questionnaire" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="touchpointQuestionResponseValue">
     <Key>
       <PropertyRef Name="touchpoint" />
@@ -1765,6 +1839,19 @@
     <Property Name="touchpoint" Type="int" Nullable="false" />
     <Property Name="question" Type="int" Nullable="false" />
     <Property Name="weight" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UM_M_Menu">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="nvarchar" MaxLength="255" />
+    <Property Name="url" Type="nvarchar" MaxLength="255" />
+    <Property Name="parentid" Type="int" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" />
+    <Property Name="accesslevel" Type="int" />
+    <Property Name="enterprice" Type="int" />
   </EntityType>
   <EntityType Name="zCode">
     <Key>
@@ -1943,6 +2030,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_menu_enterprice">
+    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
+    <End Role="UM_M_Menu" Type="hs3MVCMTQa2Model.Store.UM_M_Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="UM_M_Menu">
+        <PropertyRef Name="enterprice" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_menu_enterprise">
     <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
     <End Role="menu" Type="hs3MVCMTQa2Model.Store.menu" Multiplicity="*" />
@@ -1988,6 +2087,18 @@
       </Principal>
       <Dependent Role="partner">
         <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnerCorpInfo_partner">
+    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
+    <End Role="partnerCorpInfo" Type="hs3MVCMTQa2Model.Store.partnerCorpInfo" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="partner">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnerCorpInfo">
+        <PropertyRef Name="partner" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2264,6 +2375,54 @@
       </Principal>
       <Dependent Role="personLoginAudit">
         <PropertyRef Name="auditLoginEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_personRelationship_person">
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+    <End Role="personRelationship" Type="hs3MVCMTQa2Model.Store.personRelationship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="personRelationship">
+        <PropertyRef Name="personIsThe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_personRelationship_person1">
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+    <End Role="personRelationship" Type="hs3MVCMTQa2Model.Store.personRelationship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="personRelationship">
+        <PropertyRef Name="personHasThe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_personRelationship_person2">
+    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+    <End Role="personRelationship" Type="hs3MVCMTQa2Model.Store.personRelationship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="personRelationship">
+        <PropertyRef Name="personHasThe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_personRelationship_personRelationshipType">
+    <End Role="personRelationshipType" Type="hs3MVCMTQa2Model.Store.personRelationshipType" Multiplicity="1" />
+    <End Role="personRelationship" Type="hs3MVCMTQa2Model.Store.personRelationship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="personRelationshipType">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="personRelationship">
+        <PropertyRef Name="RelationshipTypeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2663,6 +2822,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_touchpointQuestionnaire_questionnaire">
+    <End Role="questionnaire" Type="hs3MVCMTQa2Model.Store.questionnaire" Multiplicity="1" />
+    <End Role="touchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.touchpointQuestionnaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="questionnaire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="touchpointQuestionnaire">
+        <PropertyRef Name="questionnaire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_touchpointQuestionnaire_touchpoint">
+    <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
+    <End Role="touchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.touchpointQuestionnaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="touchpoint">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="touchpointQuestionnaire">
+        <PropertyRef Name="touchpoint" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_touchpointQuestionResponseValue_touchpoint">
     <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
     <End Role="touchpointQuestionResponseValue" Type="hs3MVCMTQa2Model.Store.touchpointQuestionResponseValue" Multiplicity="*" />
@@ -2684,6 +2867,18 @@
       </Principal>
       <Dependent Role="touchpointQuestionWeight">
         <PropertyRef Name="touchpoint" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UM_M_Menu_UM_M_Menu">
+    <End Role="UM_M_Menu" Type="hs3MVCMTQa2Model.Store.UM_M_Menu" Multiplicity="0..1" />
+    <End Role="UM_M_Menu1" Type="hs3MVCMTQa2Model.Store.UM_M_Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UM_M_Menu">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="UM_M_Menu1">
+        <PropertyRef Name="parentid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2920,25 +3115,6 @@
     <Parameter Name="foreignGovernment" Type="bit" Mode="In" />
     <Parameter Name="naicsCode" Type="varchar" Mode="In" />
   </Function>
-  <Function Name="pr_addPartnerCorpW9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="partner" Type="int" Mode="In" />
-    <Parameter Name="w9Person" Type="varchar" Mode="In" />
-    <Parameter Name="w9Title" Type="varchar" Mode="In" />
-    <Parameter Name="w9AuthorizedSignature" Type="varchar" Mode="In" />
-    <Parameter Name="w9DateSigned" Type="datetime" Mode="In" />
-    <Parameter Name="w9Phone" Type="varchar" Mode="In" />
-    <Parameter Name="w9Address" Type="varchar" Mode="In" />
-    <Parameter Name="w9City" Type="varchar" Mode="In" />
-    <Parameter Name="w9State" Type="int" Mode="In" />
-    <Parameter Name="w9ZipCode" Type="varchar" Mode="In" />
-  </Function>
-  <Function Name="pr_addPartnerEPLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="partner" Type="int" Mode="In" />
-    <Parameter Name="EPLSCheckedBy" Type="int" Mode="In" />
-    <Parameter Name="EPLSCheckedDate" Type="datetime" Mode="In" />
-    <Parameter Name="EPLSStatus" Type="int" Mode="In" />
-    <Parameter Name="epls" Type="int" Mode="In" />
-  </Function>
   <Function Name="pr_addPartnerRelationshipOwner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="partner" Type="int" Mode="In" />
     <Parameter Name="person" Type="int" Mode="In" />
@@ -2961,6 +3137,12 @@
     <Parameter Name="enterprise" Type="int" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addPartnertypeTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="touchpoint" Type="int" Mode="In" />
+    <Parameter Name="partnerType" Type="int" Mode="In" />
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
   </Function>
   <Function Name="pr_addPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -3171,6 +3353,10 @@
     <Parameter Name="creationDate" Type="datetime" Mode="In" />
     <Parameter Name="lastModifiedDate" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="pr_addSurveyQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="survey" Type="int" Mode="In" />
+    <Parameter Name="question" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_addSurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="description" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -3198,6 +3384,21 @@
   <Function Name="pr_addTouchpointGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="touchpoint" Type="int" Mode="In" />
     <Parameter Name="group" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="touchpoint" Type="int" Mode="In" />
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addTouchpointQuestionResponseValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="touchpoint" Type="int" Mode="In" />
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="response" Type="int" Mode="In" />
+    <Parameter Name="value" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_addtouchpointQuestionWeight" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="touchpoint" Type="int" Mode="In" />
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="weight" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_archiveAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -3481,12 +3682,6 @@
   <Function Name="pr_getPartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="partner" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_getPartnerCorpW9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="partner" Type="int" Mode="In" />
-  </Function>
-  <Function Name="pr_getPartnerEPLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="partner" Type="int" Mode="In" />
-  </Function>
   <Function Name="pr_getPartnerrRemitAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="partner" Type="int" Mode="In" />
   </Function>
@@ -3495,6 +3690,11 @@
   </Function>
   <Function Name="pr_getPartnerTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnertypeTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="touchpoint" Type="int" Mode="In" />
+    <Parameter Name="partnerType" Type="int" Mode="In" />
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="person" Type="int" Mode="In" />
@@ -3506,8 +3706,8 @@
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getPersonByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="email" Type="varchar" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
   </Function>
   <Function Name="pr_getPersonByEmailForLoginAttempts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="email" Type="varchar" Mode="In" />
@@ -3747,6 +3947,11 @@
   <Function Name="pr_getTouchpointAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="pr_getTouchpointByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="group" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getTouchpointQuestionResponseValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="touchpoint" Type="int" Mode="In" />
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="response" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getTranslationByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="question" Type="int" Mode="In" />
@@ -4003,25 +4208,6 @@
     <Parameter Name="foreignGovernment" Type="bit" Mode="In" />
     <Parameter Name="naicsCode" Type="varchar" Mode="In" />
   </Function>
-  <Function Name="pr_modifyPartnerCorpW9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="partner" Type="int" Mode="In" />
-    <Parameter Name="w9Person" Type="varchar" Mode="In" />
-    <Parameter Name="w9Title" Type="varchar" Mode="In" />
-    <Parameter Name="w9AuthorizedSignature" Type="varchar" Mode="In" />
-    <Parameter Name="w9DateSigned" Type="datetime" Mode="In" />
-    <Parameter Name="w9Phone" Type="varchar" Mode="In" />
-    <Parameter Name="w9Address" Type="varchar" Mode="In" />
-    <Parameter Name="w9City" Type="varchar" Mode="In" />
-    <Parameter Name="w9State" Type="int" Mode="In" />
-    <Parameter Name="w9ZipCode" Type="varchar" Mode="In" />
-  </Function>
-  <Function Name="pr_modifyPartnerEPLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="partner" Type="int" Mode="In" />
-    <Parameter Name="EPLSCheckedBy" Type="int" Mode="In" />
-    <Parameter Name="EPLSCheckedDate" Type="datetime" Mode="In" />
-    <Parameter Name="EPLSStatus" Type="int" Mode="In" />
-    <Parameter Name="epls" Type="int" Mode="In" />
-  </Function>
   <Function Name="pr_modifyPartnerremitaddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="partner" Type="int" Mode="In" />
@@ -4165,6 +4351,15 @@
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_modifyQuestionSkipLogicJump" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="jumpTo" Type="int" Mode="In" />
+    <Parameter Name="skipLogicAnswer" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyQuestionSkipLogicJumpLogic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="jumpTo" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="pr_modifyRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="description" Type="varchar" Mode="In" />
@@ -4248,6 +4443,12 @@
     <Parameter Name="automaticReminder" Type="bit" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyTouchpointQuestionResponseValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="touchpoint" Type="int" Mode="In" />
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="response" Type="int" Mode="In" />
+    <Parameter Name="value" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_modifyUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -4336,12 +4537,6 @@
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_removePartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="partner" Type="int" Mode="In" />
-  </Function>
-  <Function Name="pr_removePartnerCorpW9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="partner" Type="int" Mode="In" />
-  </Function>
-  <Function Name="pr_removePartnerEPLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="partner" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_removePartnerRelationshipOwner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -4448,6 +4643,15 @@
   <Function Name="pr_removeTouchpointGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="touchpoint" Type="int" Mode="In" />
     <Parameter Name="group" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="touchpoint" Type="int" Mode="In" />
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeTouchpointQuestionResponseValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="touchpoint" Type="int" Mode="In" />
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="response" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_removeUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -4621,11 +4825,11 @@
     <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
   </Function>
   <Function Name="xx_getLastDBModified" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-  <Function Name="xxx_getRecordCountByTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-  <Function Name="xxx_getTableSetByColumnName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="xx_getRecordCountByTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="xx_getTableSetByColumnName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="tableName" Type="varchar" Mode="In" />
   </Function>
-  <Function Name="xxx_getTelerikBoundColumnSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="xx_getTelerikBoundColumnSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="tablename" Type="varchar" Mode="In" />
   </Function>
   <!--Errors Found During Generation:
@@ -4635,63 +4839,6 @@
         <Property Name="loadhistory" Type="int" />
         <Property Name="partner" Type="int" />
         <Property Name="group" Type="int" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerContactValidationQuestionResponse' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="partnerContactValidationQuestionResponse">
-        <Property Name="partner" Type="int" />
-        <Property Name="question" Type="int" />
-        <Property Name="response" Type="varchar" MaxLength="50" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerCorpInfo' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="partnerCorpInfo">
-        <Property Name="partner" Type="int" />
-        <Property Name="businessDescription" Type="varchar" MaxLength="1000" />
-        <Property Name="taxExemptId" Type="nchar" MaxLength="10" />
-        <Property Name="alias" Type="varchar" MaxLength="255" />
-        <Property Name="ssn" Type="varchar" MaxLength="15" />
-        <Property Name="corp" Type="bit" />
-        <Property Name="taxExemptEntity" Type="bit" />
-        <Property Name="us" Type="bit" />
-        <Property Name="astate" Type="bit" />
-        <Property Name="foreignGovernment" Type="bit" />
-        <Property Name="naicsCode" Type="varchar" MaxLength="20" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerCorpW9' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="partnerCorpW9">
-        <Property Name="partner" Type="int" />
-        <Property Name="w9Person" Type="varchar" MaxLength="50" />
-        <Property Name="w9Title" Type="varchar" MaxLength="50" />
-        <Property Name="w9AuthorizedSignature" Type="varchar" MaxLength="50" />
-        <Property Name="w9DateSigned" Type="datetime" />
-        <Property Name="w9Phone" Type="varchar" MaxLength="20" />
-        <Property Name="w9Address" Type="varchar" MaxLength="200" />
-        <Property Name="w9City" Type="varchar" MaxLength="20" />
-        <Property Name="w9State" Type="int" />
-        <Property Name="w9ZipCode" Type="varchar" MaxLength="20" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerEPLS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="partnerEPLS">
-        <Property Name="partner" Type="int" />
-        <Property Name="EPLSCheckedBy" Type="int" />
-        <Property Name="EPLSCheckedDate" Type="datetime" />
-        <Property Name="EPLSStatus" Type="int" />
-        <Property Name="epls" Type="int" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.personRelationship' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="personRelationship">
-        <Property Name="personIsThe" Type="int" />
-        <Property Name="personHasThe" Type="int" />
-        <Property Name="RelationshipTypeID" Type="int" />
       </EntityType>
       Errors Found During Generation:
       warning 6013: The table/view 'hs3MVCMTQa2.dbo.queryField' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
