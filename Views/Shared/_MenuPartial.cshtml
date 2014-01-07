@@ -67,7 +67,7 @@ Html.Telerik().Menu()
                                     {
                                         if (firstChild.id != firstChild.parentid) // 9 != 1
                                         {
-                                            foreach (var SecondChild in menuOperation.GetMenus(firstChild.parentid, firstChild.id)) // 9,1 will  give for e 67,68.
+                                            foreach (var SecondChild in menuOperation.GetMenus(firstChild.id, firstChild.id)) // 9,1 will  give for e 67,68.
                                             {
                                                 childItem.Add().Url(SecondChild.url).Text(SecondChild.description);
                                             }

@@ -59,3 +59,38 @@ C:\Users\john\Desktop\MVCMT\Generic\bin\System.Web.WebPages.Razor.xml
 C:\Users\john\Desktop\MVCMT\Generic\obj\Debug\Generic.dll
 C:\Users\john\Desktop\MVCMT\Generic\obj\Debug\Generic.pdb
 C:\Users\john\Desktop\MVCMT\Generic\obj\Debug\Generic.csprojResolveAssemblyReference.cache
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\Generic.dll.config
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\Generic.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\Generic.pdb
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\EntityFramework.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\LinqToExcel.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\log4net.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\Newtonsoft.Json.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\Remotion.Data.Linq.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\Remotion.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\Remotion.Interfaces.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Net.Http.Formatting.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.Helpers.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.Http.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.Http.WebHost.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.Mvc.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.Razor.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.WebPages.Deployment.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.WebPages.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.WebPages.Razor.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\Telerik.Web.Mvc.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\EntityFramework.xml
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\LinqToExcel.xml
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\Newtonsoft.Json.xml
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Net.Http.Formatting.xml
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.Helpers.xml
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.Http.xml
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.Http.WebHost.xml
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.Mvc.xml
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.Razor.xml
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.WebPages.xml
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.WebPages.Deployment.xml
+C:\Users\costco majors\Desktop\MVCMT\Generic\bin\System.Web.WebPages.Razor.xml
+C:\Users\costco majors\Desktop\MVCMT\Generic\obj\Debug\Generic.dll
+C:\Users\costco majors\Desktop\MVCMT\Generic\obj\Debug\Generic.pdb
