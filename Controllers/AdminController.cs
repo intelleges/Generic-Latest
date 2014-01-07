@@ -109,10 +109,18 @@ namespace Generic.Controllers
             return View();
         }
 
-        public virtual ActionResult Menu()
+        public virtual ActionResult Menu(string animation,bool? enableOpacityAnimation,int? openDuration,int? closeDuration)
         {
-            List<Generic.menu> menu = db.pr_getMenuAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            return PartialView("_MenuPartial", menu);
+            //List<Generic.menu> menu = db.pr_getMenuAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            //return PartialView("_MenuPartial", menu);
+
+            ViewData["animation"] = animation ?? "slide";
+            ViewData["enableOpacityAnimation"]= enableOpacityAnimation ?? true;
+            ViewData["openDuration"] = openDuration ?? 200;
+            ViewData["closeDuration"] = openDuration ?? 200;
+            Generic.DataLayer.MenuOperation menuOperation = new DataLayer.MenuOperation();
+            IEnumerable<MenuModel> menuModel = menuOperation.GetAllParentMenu();
+            return PartialView("_MenuPartial", menuModel);
         }
 
         protected override void Dispose(bool disposing)
@@ -121,6 +129,9 @@ namespace Generic.Controllers
 
             base.Dispose(disposing);
         }
+
+
+       
 
     }
 }

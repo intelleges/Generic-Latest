@@ -360,6 +360,7 @@
     <Compile Include="country.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataLayer\MenuOperation.cs" />
     <Compile Include="domain.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -460,6 +461,7 @@
     <Compile Include="menuGroup.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\StringContainer.cs" />
     <Compile Include="numberSeed.cs">

@@ -1,12 +1,14 @@
-﻿@inherits System.Web.Mvc.WebViewPage<List<Generic.menu>>
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.Models.MenuModel>>
 @using Telerik.Web.Mvc.UI;
 @using Telerik.Web.Mvc.UI.Html;
 @using System.Web.Mvc.Html;
 @using Generic;
+@using Generic.Controllers;
 @{
-    Layout = null;   
-   // ViewBag.Title = "View1";
+    Layout = null;
+    // ViewBag.Title = "View1";
 }
+
 
 
 
@@ -23,3 +25,58 @@ Html.Telerik().Menu()
        })
     
  )*@
+
+@*@model IEnumerable<Generic.Models.MenuModel>*@
+@{
+    Generic.DataLayer.MenuOperation menuOperation = new Generic.DataLayer.MenuOperation();   
+}
+@(Html.Telerik().Menu()
+.Name("Menu")
+.Effects(fx =>
+    {
+        if (ViewData["animation"].ToString() == "slide")
+        {
+            fx.Slide();
+        }
+        else if (ViewData["animatio"].ToString() == "expande")
+        {
+            fx.Expand();
+        }
+        else
+        {
+            fx.Toggle();
+        }
+
+        if ((bool)ViewData["enableOpacityAnimation"])
+        {
+            fx.Opacity();
+        }
+        fx.OpenDuration((int)ViewData["openDuration"]).CloseDuration((int)ViewData["closeDuration"]);
+    })
+    .Items(menu1 =>
+        {
+            foreach (var root in menuOperation.GetAllParentMenu())
+            {
+                menu1.Add().Url(root.url).Text(root.description).Items(item =>
+                    {
+                        if (root.id == root.parentid) // 1 = 1
+                        {
+                            foreach (var firstChild in menuOperation.GetMenus(root.parentid, root.id)) // 1,1 will give for ex 9 ,10,11,etc
+                            {
+                                item.Add().Url(firstChild.url).Text(firstChild.description).Items(childItem =>
+                                    {
+                                        if (firstChild.id != firstChild.parentid) // 9 != 1
+                                        {
+                                            foreach (var SecondChild in menuOperation.GetMenus(firstChild.parentid, firstChild.id)) // 9,1 will  give for e 67,68.
+                                            {
+                                                childItem.Add().Url(SecondChild.url).Text(SecondChild.description);
+                                            }
+                                        }
+                                    });
+                            }
+                        }
+                    });
+            }
+
+        }))
+    
