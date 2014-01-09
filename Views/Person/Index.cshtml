@@ -21,48 +21,50 @@
 @( Html.Telerik().Grid(Model).Name("PersonGrid")
         .Columns(columns =>
         {
-            columns.Bound(o => o.nmNumber);
+            columns.Bound(o => o.nmNumber).Width(100);
 
-            columns.Bound(o => o.socialSecurity);
+            columns.Bound(o => o.socialSecurity).Width(100);
 
-            columns.Bound(o => o.firstName);
+            columns.Bound(o => o.firstName).Width(100);
 
-            columns.Bound(o => o.lastName);
+            columns.Bound(o => o.lastName).Width(100);
 
-            columns.Bound(o => o.title);
+            columns.Bound(o => o.title).Width(100);
 
-            columns.Bound(o => o.suffix);
+            columns.Bound(o => o.suffix).Width(100);
 
-            columns.Bound(o => o.nickName);
+            columns.Bound(o => o.nickName).Width(100);
 
-            columns.Bound(o => o.passWord);
+            columns.Bound(o => o.passWord).Width(100);
 
-            columns.Bound(o => o.email);
+            columns.Bound(o => o.email).Width(100);
 
-            columns.Bound(o => o.address1);
+            columns.Bound(o => o.address1).Width(100);
 
-            columns.Bound(o => o.address2);
+            columns.Bound(o => o.address2).Width(100);
 
-            columns.Bound(o => o.city);
+            columns.Bound(o => o.city).Width(100);
 
-            columns.Bound(o => o.state);
+            columns.Bound(o => o.state).Width(100);
 
-            columns.Bound(o => o.zipcode);
+            columns.Bound(o => o.zipcode).Width(100);
 
-            columns.Bound(o => o.country);
+            columns.Bound(o => o.country).Width(100);
 
-            columns.Bound(o => o.phone);
+            columns.Bound(o => o.phone).Width(100);
 
-            columns.Bound(o => o.fax);
-            columns.Bound(o => o.active);
-            columns.Bound(o => o.ismanager);
-            columns.Bound(o => o.partnerPerPage);
-            columns.Bound(o => o.resetDate);
-            columns.Bound(o => o.IsArchived);
-            columns.Bound(o => o.archivedDate);
+            columns.Bound(o => o.fax).Width(100);
+            columns.Bound(o => o.active).Width(100);
+            columns.Bound(o => o.ismanager).Width(100);
+            columns.Bound(o => o.partnerPerPage).Width(100);
+            columns.Bound(o => o.resetDate).Width(100).Format("{0:MM/dd/yy}");
+            columns.Bound(o => o.IsArchived).Width(100);
+            columns.Bound(o => o.archivedDate).Width(100);
         })
         .Pageable()
-        .Sortable()
+        .Sortable().Scrollable(scrolling => scrolling
+           .Enabled(true)
+           .Height("auto"))
 )
 
 

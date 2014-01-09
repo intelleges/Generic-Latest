@@ -118,17 +118,17 @@ namespace Generic.Controllers
 
                     if (excelQuestionnaire.Response.ToLower().Contains("list:"))
                     {
-                        responses = excelQuestionnaire.Response.Substring(5, responseType.Length - 5).Trim();
+                        responses = excelQuestionnaire.Response.Substring(5, excelQuestionnaire.Response.Length - 5).Trim();
                         responseType = "List";
                     }
                     else if (excelQuestionnaire.Response.ToLower().Contains("dropdown:"))
                     {
-                        responses = excelQuestionnaire.Response.Substring(9, responseType.Length - 9).Trim();
+                        responses = excelQuestionnaire.Response.Substring(9, excelQuestionnaire.Response.Length - 9).Trim();
                         responseType = "DropDown";
                     }
                     else if (excelQuestionnaire.Response.ToLower().Contains("checkbox:"))
                     {
-                        responses = excelQuestionnaire.Response.Substring(9, responseType.Length - 9).Trim();
+                        responses = excelQuestionnaire.Response.Substring(9, excelQuestionnaire.Response.Length - 9).Trim();
                         responseType = "CheckBox";
                     }
 
@@ -198,6 +198,7 @@ namespace Generic.Controllers
                     }
 
                     question objQuestion = new question();
+                    
                     objQuestion.question1 = excelQuestionnaire.Question;
                     objQuestion.name = excelQuestionnaire.Question;
                     objQuestion.title = excelQuestionnaire.Title;
@@ -211,10 +212,17 @@ namespace Generic.Controllers
                     objQuestion.commentBoxTxt = excelQuestionnaire.CommentBoxMessageText;
                     //objQuestion.commentUploadTxt
                     objQuestion.commentType = excelQuestionnaire.CommentType;
-
-                    objQuestion.spinOffQuestionnaire = excelQuestionnaire.snipOffQuestionnaire;
+                    try
+                    {
+                        objQuestion.spinOffQuestionnaire = excelQuestionnaire.snipOffQuestionnaire.Substring(0, 1);
+                    }
+                    catch { }
                     objQuestion.spinOffQID = excelQuestionnaire.spinoffid;
-                    objQuestion.emailAlert = excelQuestionnaire.emailalert;
+                    try
+                    {
+                        objQuestion.emailAlert = excelQuestionnaire.emailalert.Substring(0, 1);
+                    }
+                    catch { }
                     objQuestion.emailAlertList = excelQuestionnaire.emailalertlist;
                     objQuestion.sortOrder = 1;
                     objQuestion.active = true;

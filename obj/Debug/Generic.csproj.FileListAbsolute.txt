@@ -27,13 +27,8 @@ E:\asp.net\intelleges\MVC\Generic\Generic\obj\Debug\Generic.pdb
 C:\Users\john\Desktop\MVCMT\Generic\bin\Generic.dll
 C:\Users\john\Desktop\MVCMT\Generic\bin\Generic.pdb
 C:\Users\john\Desktop\MVCMT\Generic\bin\EntityFramework.dll
-C:\Users\john\Desktop\MVCMT\Generic\bin\LinqToExcel.dll
-C:\Users\john\Desktop\MVCMT\Generic\bin\log4net.dll
 C:\Users\john\Desktop\MVCMT\Generic\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\john\Desktop\MVCMT\Generic\bin\Newtonsoft.Json.dll
-C:\Users\john\Desktop\MVCMT\Generic\bin\Remotion.Data.Linq.dll
-C:\Users\john\Desktop\MVCMT\Generic\bin\Remotion.dll
-C:\Users\john\Desktop\MVCMT\Generic\bin\Remotion.Interfaces.dll
 C:\Users\john\Desktop\MVCMT\Generic\bin\System.Net.Http.Formatting.dll
 C:\Users\john\Desktop\MVCMT\Generic\bin\System.Web.Helpers.dll
 C:\Users\john\Desktop\MVCMT\Generic\bin\System.Web.Http.dll

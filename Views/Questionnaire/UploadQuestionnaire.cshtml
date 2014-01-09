@@ -7,7 +7,8 @@
     ViewBag.Title = "UploadQuestionnaire";
 }
 
-<script>
+@section Scripts {
+    <script>
     jQuery.noConflict();
     jQuery(document).ready(function () {
         $('#UploadQuestionnaireForm').submit(function (e) {
@@ -27,13 +28,17 @@
             type: "post",
             data: formData,
             success: function (data) {
+                alertify.alert('Questionnaire Uploaded Successfully!');
             },
             error: function (data) {
+                alertify.alert('Error occured while Questionnaire Uploaded!');
             }
         });
     });
     });
 </script>
+}
+
 
 
 <h2>Upload Questionnaire</h2>

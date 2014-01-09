@@ -95,6 +95,14 @@ namespace Generic.Controllers
             return View();
         }
 
+        [Authorize]
+        public virtual ActionResult HomePage()
+        {
+            ViewBag.Project = "Generic";
+            return View();
+        }
+
+
 
         public virtual ActionResult SendGridTest()
         {
@@ -122,6 +130,29 @@ namespace Generic.Controllers
             IEnumerable<MenuModel> menuModel = menuOperation.GetAllParentMenu();
             return PartialView("_MenuPartial", menuModel);
         }
+
+
+
+        public ActionResult TouchpointCombobox(TouchpointComboModel model)
+        {
+            model.AutoCompleteAttributes.Width = model.AutoCompleteAttributes.Width ?? 200;
+            model.AutoCompleteAttributes.HighlightFirst = model.AutoCompleteAttributes.HighlightFirst ?? true;
+            model.AutoCompleteAttributes.AutoFill = model.AutoCompleteAttributes.AutoFill ?? false;
+            model.AutoCompleteAttributes.AllowMultipleValues = model.AutoCompleteAttributes.AllowMultipleValues ?? true;
+            model.AutoCompleteAttributes.MultipleSeparator = model.AutoCompleteAttributes.MultipleSeparator ?? ", ";
+            model.ComboBoxAttributes.Width = model.ComboBoxAttributes.Width ?? 200;
+            model.ComboBoxAttributes.SelectedIndex = model.ComboBoxAttributes.SelectedIndex ?? 0;
+            model.ComboBoxAttributes.HighlightFirst = model.ComboBoxAttributes.HighlightFirst ?? true;
+            model.ComboBoxAttributes.AutoFill = model.ComboBoxAttributes.AutoFill ?? true;
+            model.ComboBoxAttributes.OpenOnFocus = model.ComboBoxAttributes.OpenOnFocus ?? false;
+            model.DropDownListAttributes.Width = model.DropDownListAttributes.Width ?? 200;
+            model.DropDownListAttributes.SelectedIndex = model.DropDownListAttributes.SelectedIndex ?? 0;
+
+            model.Touchpoints = db.pr_getTouchpointAll().ToList();
+            return PartialView("_TouchpointPartial",model);
+            
+        }
+
 
         protected override void Dispose(bool disposing)
         {

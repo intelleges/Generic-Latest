@@ -1,0 +1,82 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+
+@{
+   // ViewBag.Title = "HomePage";
+   //Layout = "~/Views/Shared/_adminLayout.cshtml";
+    Layout = null;
+}
+
+<h2>HomePage</h2>
+
+@{Html.Telerik().Splitter().Name("Splitter1")
+      .HtmlAttributes(new { style = "height: 300px;" })
+      .Orientation(SplitterOrientation.Vertical)
+      .Panes(vPanes =>
+      {
+          vPanes.Add()
+              .Size("100px")
+              .Collapsible(true)
+              .Content(@<p>Outer splitter : top pane</p>);
+    
+          vPanes.Add()
+              .Scrollable(false)
+              .Content(Html.Telerik().Splitter().Name("Splitter2")
+                      .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; overflow: hidden;" })
+                      .Orientation(SplitterOrientation.Horizontal)
+                      .Panes(hPanes =>
+                      {
+                          hPanes.Add()
+                              .Size("150px")
+                              .Collapsible(true)
+                              .Content(@<p>PANEL 1</p>).ToString();
+
+                          hPanes.Add()
+                              .Scrollable(false)
+                              .Content(Html.Telerik().Splitter().Name("Splitter3")
+                              .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; overflow: hidden;" })
+                              .Orientation(SplitterOrientation.Horizontal)
+                              .Panes(vPanes1 =>
+                                {
+                                    vPanes.Add()
+                                   .Size("80%")
+                                   .Collapsible(true)
+                                   .Content(@<p>Panel 2</p>);
+
+
+                                    vPanes.Add()
+                                    .Size("20%")
+                                    .Collapsible(true)
+                                    .Content(@<p>PANEL 5</p>);
+                                }).ToString());
+    
+                           hPanes.Add()
+                              .Scrollable(false)
+                              .Content(Html.Telerik().Splitter().Name("Splitter4")
+                              .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; overflow: hidden;" })
+                              .Orientation(SplitterOrientation.Horizontal)
+                              .Panes(vPanes1 =>
+                                {
+                                    vPanes.Add()
+                                   .Size("40%")
+                                   .Collapsible(true)
+                                   .Content(@<p>Panel 3</p>);
+
+
+                                    vPanes.Add()
+                                    .Size("60%")
+                                    .Collapsible(true)
+                                    .Content(@<p>PANEL 4</p>);
+                                }).ToString());
+    
+                      }).ToString());
+    
+          vPanes.Add()
+              .Size("20%")
+              .Collapsible(true)
+              .Content(@<p>PANEL 6</p>);
+      })
+      .Render();
+} 
