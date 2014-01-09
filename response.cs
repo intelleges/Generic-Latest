@@ -16,11 +16,11 @@ namespace Generic
     {
         public response()
         {
+            this.partnerPartnertypeTouchpointQuestionnaireQuestionResponse = new HashSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>();
             this.questionResponse = new HashSet<questionResponse>();
+            this.touchpointQuestionResponseValue_deprecated = new HashSet<touchpointQuestionResponseValue_deprecated>();
             this.responseTranslation = new HashSet<responseTranslation>();
             this.language = new HashSet<language>();
-            this.partnerTouchpointQuestionnaireQuestionResponse = new HashSet<partnerTouchpointQuestionnaireQuestionResponse>();
-            this.touchpointQuestionResponseValue = new HashSet<touchpointQuestionResponseValue>();
         }
     
         public int id { get; set; }
@@ -30,10 +30,10 @@ namespace Generic
         public Nullable<bool> active { get; set; }
         public Nullable<int> enterprise { get; set; }
     
+        public virtual ICollection<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponse { get; set; }
         public virtual ICollection<questionResponse> questionResponse { get; set; }
+        public virtual ICollection<touchpointQuestionResponseValue_deprecated> touchpointQuestionResponseValue_deprecated { get; set; }
         public virtual ICollection<responseTranslation> responseTranslation { get; set; }
         public virtual ICollection<language> language { get; set; }
-        public virtual ICollection<partnerTouchpointQuestionnaireQuestionResponse> partnerTouchpointQuestionnaireQuestionResponse { get; set; }
-        public virtual ICollection<touchpointQuestionResponseValue> touchpointQuestionResponseValue { get; set; }
     }
 }

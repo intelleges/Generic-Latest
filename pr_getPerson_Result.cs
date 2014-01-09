@@ -15,7 +15,6 @@ namespace Generic
     {
         public int id { get; set; }
         public Nullable<int> enterprise { get; set; }
-        public Nullable<int> role { get; set; }
         public Nullable<int> manager { get; set; }
         public Nullable<int> personStatus { get; set; }
         public Nullable<int> riskType { get; set; }

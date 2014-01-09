@@ -14,6 +14,11 @@ namespace Generic
     
     public partial class menu
     {
+        public menu()
+        {
+            this.roleMenu = new HashSet<roleMenu>();
+        }
+    
         public int id { get; set; }
         public string description { get; set; }
         public string url { get; set; }
@@ -24,5 +29,6 @@ namespace Generic
         public Nullable<int> enterprise { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
+        public virtual ICollection<roleMenu> roleMenu { get; set; }
     }
 }

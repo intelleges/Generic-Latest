@@ -19,9 +19,6 @@ namespace Generic
             this.questionResponse = new HashSet<questionResponse>();
             this.questionResponse1 = new HashSet<questionResponse>();
             this.questionTranslation = new HashSet<questionTranslation>();
-            this.language = new HashSet<language>();
-            this.partnerTouchpointQuestionnaireQuestionResponse = new HashSet<partnerTouchpointQuestionnaireQuestionResponse>();
-            this.touchpointQuestionResponseValue = new HashSet<touchpointQuestionResponseValue>();
             this.survey = new HashSet<survey>();
         }
     
@@ -32,6 +29,7 @@ namespace Generic
         public string tag { get; set; }
         public Nullable<int> responseType { get; set; }
         public Nullable<int> required { get; set; }
+        public Nullable<int> weight { get; set; }
         public Nullable<bool> skipLogicAnswer { get; set; }
         public string skipLogicJump { get; set; }
         public Nullable<int> accessLevel { get; set; }
@@ -52,9 +50,6 @@ namespace Generic
         public virtual ICollection<questionResponse> questionResponse { get; set; }
         public virtual ICollection<questionResponse> questionResponse1 { get; set; }
         public virtual ICollection<questionTranslation> questionTranslation { get; set; }
-        public virtual ICollection<language> language { get; set; }
-        public virtual ICollection<partnerTouchpointQuestionnaireQuestionResponse> partnerTouchpointQuestionnaireQuestionResponse { get; set; }
-        public virtual ICollection<touchpointQuestionResponseValue> touchpointQuestionResponseValue { get; set; }
         public virtual ICollection<survey> survey { get; set; }
     }
 }

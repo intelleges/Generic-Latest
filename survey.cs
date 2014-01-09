@@ -16,8 +16,8 @@ namespace Generic
     {
         public survey()
         {
-            this.surveyset = new HashSet<surveyset>();
             this.question = new HashSet<question>();
+            this.surveyset = new HashSet<surveyset>();
         }
     
         public int id { get; set; }
@@ -29,7 +29,7 @@ namespace Generic
         public System.DateTime creationDate { get; set; }
         public System.DateTime lastModifiedDate { get; set; }
     
-        public virtual ICollection<surveyset> surveyset { get; set; }
         public virtual ICollection<question> question { get; set; }
+        public virtual ICollection<surveyset> surveyset { get; set; }
     }
 }

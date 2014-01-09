@@ -15,7 +15,6 @@ namespace Generic
     {
         public int id { get; set; }
         public Nullable<int> enterprise { get; set; }
-        public Nullable<int> role { get; set; }
         public Nullable<int> manager { get; set; }
         public Nullable<int> personStatus { get; set; }
         public Nullable<int> riskType { get; set; }
@@ -48,6 +47,7 @@ namespace Generic
         public int id1 { get; set; }
         public Nullable<int> enterprise1 { get; set; }
         public int groupCollection { get; set; }
+        public Nullable<int> groupType { get; set; }
         public Nullable<int> author { get; set; }
         public Nullable<int> state1 { get; set; }
         public string name { get; set; }

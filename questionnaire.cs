@@ -16,9 +16,9 @@ namespace Generic
     {
         public questionnaire()
         {
-            this.page = new HashSet<page>();
-            this.partnerTouchpointQuestionnaireQuestionResponse = new HashSet<partnerTouchpointQuestionnaireQuestionResponse>();
             this.partnerTypeTouchpointQuestionnaire = new HashSet<partnerTypeTouchpointQuestionnaire>();
+            this.partnerTypeTouchpointQuestionnaire1 = new HashSet<partnerTypeTouchpointQuestionnaire>();
+            this.page = new HashSet<page>();
             this.touchpoint = new HashSet<touchpoint>();
         }
     
@@ -35,9 +35,9 @@ namespace Generic
         public Nullable<int> multiLanguage { get; set; }
         public Nullable<int> enterprise { get; set; }
     
-        public virtual ICollection<page> page { get; set; }
-        public virtual ICollection<partnerTouchpointQuestionnaireQuestionResponse> partnerTouchpointQuestionnaireQuestionResponse { get; set; }
         public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire { get; set; }
+        public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire1 { get; set; }
+        public virtual ICollection<page> page { get; set; }
         public virtual ICollection<touchpoint> touchpoint { get; set; }
     }
 }

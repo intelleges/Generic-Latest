@@ -27,6 +27,8 @@ namespace Generic.Controllers
 
         protected override void Initialize(RequestContext requestContext)
         {
+            
+
             if (MembershipService == null)
                 MembershipService = new CustomMembershipProvider();
             if (AuthorizationService == null)

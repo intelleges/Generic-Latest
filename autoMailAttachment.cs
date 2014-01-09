@@ -18,5 +18,7 @@ namespace Generic
         public int autoMail { get; set; }
         public string attachment { get; set; }
         public string note { get; set; }
+    
+        public virtual autoMailMessage autoMailMessage { get; set; }
     }
 }

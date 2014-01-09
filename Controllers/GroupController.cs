@@ -26,7 +26,7 @@ namespace Generic.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            group group = db.pr_getGroup1(id).FirstOrDefault();
+            group group = db.pr_getGroup(id).FirstOrDefault();
             if (group == null)
             {
                 return HttpNotFound();
@@ -67,7 +67,7 @@ namespace Generic.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            group group = db.pr_getGroup1(id).FirstOrDefault();
+            group group = db.pr_getGroup(id).FirstOrDefault();
             if (group == null)
             {
                 return HttpNotFound();
@@ -99,7 +99,7 @@ namespace Generic.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            group group = db.pr_getGroup1(id).FirstOrDefault();
+            group group = db.pr_getGroup(id).FirstOrDefault();
             if (group == null)
             {
                 return HttpNotFound();
@@ -113,7 +113,7 @@ namespace Generic.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            group group = db.pr_getGroup1(id).FirstOrDefault();
+            group group = db.pr_getGroup(id).FirstOrDefault();
             db.group.Remove(group);
             db.SaveChanges();
             return RedirectToAction("Index");

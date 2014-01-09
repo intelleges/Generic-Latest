@@ -13,7 +13,7 @@ namespace Generic
     
     public partial class pr_getPartnerCorpInfo_Result
     {
-        public Nullable<int> partner { get; set; }
+        public int partner { get; set; }
         public string businessDescription { get; set; }
         public string taxExemptId { get; set; }
         public string alias { get; set; }

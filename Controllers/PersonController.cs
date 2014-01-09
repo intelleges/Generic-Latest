@@ -67,7 +67,7 @@ namespace Generic.Controllers
 
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", person.enterprise);
             ViewBag.personStatus = new SelectList(db.personStatus, "id", "description", person.personStatus);
-            ViewBag.role = new SelectList(db.role, "id", "description", person.role);
+        
             return View(person);
         }
 
@@ -84,7 +84,7 @@ namespace Generic.Controllers
             }
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", person.enterprise);
             ViewBag.personStatus = new SelectList(db.personStatus, "id", "description", person.personStatus);
-            ViewBag.role = new SelectList(db.role, "id", "description", person.role);
+           
             return View(person);
         }
 
@@ -102,7 +102,7 @@ namespace Generic.Controllers
             }
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", person.enterprise);
             ViewBag.personStatus = new SelectList(db.personStatus, "id", "description", person.personStatus);
-            ViewBag.role = new SelectList(db.role, "id", "description", person.role);
+          
             return View(person);
         }
 

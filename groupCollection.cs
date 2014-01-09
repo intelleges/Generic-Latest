@@ -26,7 +26,7 @@ namespace Generic
         public Nullable<int> active { get; set; }
         public Nullable<int> enterprise { get; set; }
     
-        public virtual ICollection<group> group { get; set; }
         public virtual enterprise enterprise1 { get; set; }
+        public virtual ICollection<group> group { get; set; }
     }
 }

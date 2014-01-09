@@ -35,7 +35,7 @@ namespace Generic.Helpers
             if (role == null)
                 return false;
 
-            return user.role == role.id;
+            return user.role.FirstOrDefault().id == role.id;
 
         }
 

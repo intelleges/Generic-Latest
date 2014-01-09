@@ -26,7 +26,7 @@ namespace Generic.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            enterprise enterprise = db.pr_getEnterprise1(id).FirstOrDefault();
+            enterprise enterprise = db.pr_getEnterprise(id).FirstOrDefault();
             if (enterprise == null)
             {
                 return HttpNotFound();
@@ -63,7 +63,7 @@ namespace Generic.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            enterprise enterprise = db.pr_getEnterprise1(id).FirstOrDefault();
+            enterprise enterprise = db.pr_getEnterprise(id).FirstOrDefault();
             if (enterprise == null)
             {
                 return HttpNotFound();
@@ -91,7 +91,7 @@ namespace Generic.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            enterprise enterprise = db.pr_getEnterprise1(id).FirstOrDefault();
+            enterprise enterprise = db.pr_getEnterprise(id).FirstOrDefault();
             if (enterprise == null)
             {
                 return HttpNotFound();
@@ -105,7 +105,7 @@ namespace Generic.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            enterprise enterprise = db.pr_getEnterprise1(id).FirstOrDefault();
+            enterprise enterprise = db.pr_getEnterprise(id).FirstOrDefault();
             db.enterprise.Remove(enterprise);
             db.SaveChanges();
             return RedirectToAction("Index");

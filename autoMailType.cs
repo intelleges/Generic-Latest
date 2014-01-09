@@ -14,10 +14,17 @@ namespace Generic
     
     public partial class autoMailType
     {
+        public autoMailType()
+        {
+            this.autoMailMessage = new HashSet<autoMailMessage>();
+        }
+    
         public int id { get; set; }
         public string description { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<int> active { get; set; }
         public Nullable<int> oldId { get; set; }
+    
+        public virtual ICollection<autoMailMessage> autoMailMessage { get; set; }
     }
 }

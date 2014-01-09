@@ -14,8 +14,7 @@ namespace Generic
     
     public partial class eSignature
     {
-        public int partner { get; set; }
-        public int questionnaire { get; set; }
+        public int id { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string title { get; set; }
@@ -24,5 +23,8 @@ namespace Generic
         public string officer { get; set; }
         public string phone { get; set; }
         public Nullable<System.DateTime> completeDate { get; set; }
+        public int partnerPartnerTypeTouchpointQuestionnaire { get; set; }
+    
+        public virtual partnerPartnertypeTouchpointQuestionnaire partnerPartnertypeTouchpointQuestionnaire1 { get; set; }
     }
 }

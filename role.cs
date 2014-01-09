@@ -16,6 +16,7 @@ namespace Generic
     {
         public role()
         {
+            this.roleMenu = new HashSet<roleMenu>();
             this.person = new HashSet<person>();
         }
     
@@ -28,6 +29,7 @@ namespace Generic
         public Nullable<int> access { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
+        public virtual ICollection<roleMenu> roleMenu { get; set; }
         public virtual ICollection<person> person { get; set; }
     }
 }

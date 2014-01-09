@@ -29,6 +29,7 @@ namespace Generic
         public int id1 { get; set; }
         public Nullable<int> enterprise { get; set; }
         public int groupCollection { get; set; }
+        public Nullable<int> groupType { get; set; }
         public Nullable<int> author { get; set; }
         public Nullable<int> state { get; set; }
         public string name { get; set; }

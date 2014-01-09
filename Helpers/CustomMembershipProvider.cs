@@ -38,7 +38,7 @@ namespace Generic.Helpers
             if (string.IsNullOrEmpty(password.Trim()) || string.IsNullOrEmpty(username.Trim()))
                 return false;
 
-            pr_doLogin_Result login = db.pr_doLogin(username, password).FirstOrDefault();
+            person login = db.pr_doLogin(username, password).FirstOrDefault();
             
             if (login == null)
             {

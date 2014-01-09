@@ -41,7 +41,6 @@ namespace Generic
         public Nullable<System.DateTime> lastModified { get; set; }
         public int id1 { get; set; }
         public Nullable<int> enterprise1 { get; set; }
-        public Nullable<int> role { get; set; }
         public Nullable<int> manager { get; set; }
         public Nullable<int> personStatus { get; set; }
         public Nullable<int> riskType { get; set; }

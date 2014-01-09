@@ -20,6 +20,7 @@ namespace Generic
         public string tag { get; set; }
         public Nullable<int> responseType { get; set; }
         public Nullable<int> required { get; set; }
+        public Nullable<int> weight { get; set; }
         public Nullable<bool> skipLogicAnswer { get; set; }
         public string skipLogicJump { get; set; }
         public Nullable<int> accessLevel { get; set; }

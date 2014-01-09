@@ -16,12 +16,11 @@ namespace Generic
     {
         public partner()
         {
-            this.partnerTouchpointStatus = new HashSet<partnerTouchpointStatus>();
-            this.person = new HashSet<person>();
-            this.partnerPartnerTypeTouchpoint = new HashSet<partnerPartnerTypeTouchpoint>();
-            this.partnerTouchpointInvitedDate = new HashSet<partnerTouchpointInvitedDate>();
+            this.partnerPartnertypeTouchpointQuestionnaire = new HashSet<partnerPartnertypeTouchpointQuestionnaire>();
+            this.partnerTouchpointInvitedDate_deprecated = new HashSet<partnerTouchpointInvitedDate_deprecated>();
             this.partnerTouchpointQuestionnaireLanguage = new HashSet<partnerTouchpointQuestionnaireLanguage>();
-            this.partnerTouchpointQuestionnaireQuestionResponse = new HashSet<partnerTouchpointQuestionnaireQuestionResponse>();
+            this.group = new HashSet<group>();
+            this.person = new HashSet<person>();
         }
     
         public int id { get; set; }
@@ -52,13 +51,12 @@ namespace Generic
         public Nullable<System.DateTime> lastModified { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
-        public virtual partnerRemitAddress partnerRemitAddress { get; set; }
-        public virtual ICollection<partnerTouchpointStatus> partnerTouchpointStatus { get; set; }
-        public virtual ICollection<person> person { get; set; }
-        public virtual ICollection<partnerPartnerTypeTouchpoint> partnerPartnerTypeTouchpoint { get; set; }
-        public virtual ICollection<partnerTouchpointInvitedDate> partnerTouchpointInvitedDate { get; set; }
-        public virtual ICollection<partnerTouchpointQuestionnaireLanguage> partnerTouchpointQuestionnaireLanguage { get; set; }
-        public virtual ICollection<partnerTouchpointQuestionnaireQuestionResponse> partnerTouchpointQuestionnaireQuestionResponse { get; set; }
         public virtual partnerCorpInfo partnerCorpInfo { get; set; }
+        public virtual ICollection<partnerPartnertypeTouchpointQuestionnaire> partnerPartnertypeTouchpointQuestionnaire { get; set; }
+        public virtual partnerRemitAddress partnerRemitAddress { get; set; }
+        public virtual ICollection<partnerTouchpointInvitedDate_deprecated> partnerTouchpointInvitedDate_deprecated { get; set; }
+        public virtual ICollection<partnerTouchpointQuestionnaireLanguage> partnerTouchpointQuestionnaireLanguage { get; set; }
+        public virtual ICollection<group> group { get; set; }
+        public virtual ICollection<person> person { get; set; }
     }
 }

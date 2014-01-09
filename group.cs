@@ -16,12 +16,14 @@ namespace Generic
     {
         public group()
         {
+            this.partner = new HashSet<partner>();
             this.person1 = new HashSet<person>();
         }
     
         public int id { get; set; }
         public Nullable<int> enterprise { get; set; }
         public int groupCollection { get; set; }
+        public Nullable<int> groupType { get; set; }
         public Nullable<int> author { get; set; }
         public Nullable<int> state { get; set; }
         public string name { get; set; }
@@ -30,11 +32,11 @@ namespace Generic
         public Nullable<System.DateTime> dateCreated { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<int> active { get; set; }
-        public Nullable<int> groupType { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
         public virtual groupCollection groupCollection1 { get; set; }
         public virtual person person { get; set; }
+        public virtual ICollection<partner> partner { get; set; }
         public virtual ICollection<person> person1 { get; set; }
     }
 }

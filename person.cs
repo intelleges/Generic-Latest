@@ -17,20 +17,21 @@ namespace Generic
         public person()
         {
             this.group = new HashSet<group>();
+            this.partnerPartnertypeTouchpointQuestionnaire = new HashSet<partnerPartnertypeTouchpointQuestionnaire>();
             this.personLoginAudit = new HashSet<personLoginAudit>();
+            this.personRelationship = new HashSet<personRelationship>();
+            this.personRelationship1 = new HashSet<personRelationship>();
+            this.personRelationship2 = new HashSet<personRelationship>();
             this.personSearchCount = new HashSet<personSearchCount>();
             this.protocol = new HashSet<protocol>();
             this.protocol1 = new HashSet<protocol>();
             this.partner = new HashSet<partner>();
             this.group1 = new HashSet<group>();
-            this.personRelationship = new HashSet<personRelationship>();
-            this.personRelationship1 = new HashSet<personRelationship>();
-            this.personRelationship2 = new HashSet<personRelationship>();
+            this.role = new HashSet<role>();
         }
     
         public int id { get; set; }
         public Nullable<int> enterprise { get; set; }
-        public Nullable<int> role { get; set; }
         public Nullable<int> manager { get; set; }
         public Nullable<int> personStatus { get; set; }
         public Nullable<int> riskType { get; set; }
@@ -63,16 +64,17 @@ namespace Generic
     
         public virtual enterprise enterprise1 { get; set; }
         public virtual ICollection<group> group { get; set; }
+        public virtual ICollection<partnerPartnertypeTouchpointQuestionnaire> partnerPartnertypeTouchpointQuestionnaire { get; set; }
         public virtual personStatus personStatus1 { get; set; }
-        public virtual role role1 { get; set; }
         public virtual ICollection<personLoginAudit> personLoginAudit { get; set; }
+        public virtual ICollection<personRelationship> personRelationship { get; set; }
+        public virtual ICollection<personRelationship> personRelationship1 { get; set; }
+        public virtual ICollection<personRelationship> personRelationship2 { get; set; }
         public virtual ICollection<personSearchCount> personSearchCount { get; set; }
         public virtual ICollection<protocol> protocol { get; set; }
         public virtual ICollection<protocol> protocol1 { get; set; }
         public virtual ICollection<partner> partner { get; set; }
         public virtual ICollection<group> group1 { get; set; }
-        public virtual ICollection<personRelationship> personRelationship { get; set; }
-        public virtual ICollection<personRelationship> personRelationship1 { get; set; }
-        public virtual ICollection<personRelationship> personRelationship2 { get; set; }
+        public virtual ICollection<role> role { get; set; }
     }
 }

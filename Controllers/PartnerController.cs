@@ -26,7 +26,7 @@ namespace Generic.Controllers
 
         public virtual ActionResult Details(int id = 0)
         {
-            partner partner = db.pr_getPartner1(id).FirstOrDefault();
+            partner partner = db.pr_getPartner(id).FirstOrDefault();
             if (partner == null)
             {
                 return HttpNotFound();

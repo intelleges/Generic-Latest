@@ -13,9 +13,11 @@ namespace Generic
     
     public partial class pr_getPartnertypeTouchpointQuestionnaire_Result
     {
-        public int touchpoint { get; set; }
+        public int id { get; set; }
         public int partnerType { get; set; }
+        public int touchpoint { get; set; }
         public int questionnaire { get; set; }
-        public string description { get; set; }
+        public Nullable<int> sortOrder { get; set; }
+        public Nullable<bool> active { get; set; }
     }
 }

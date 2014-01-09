@@ -16,9 +16,9 @@ namespace Generic
     {
         public language()
         {
+            this.questionLanguage = new HashSet<questionLanguage>();
             this.questionTranslation = new HashSet<questionTranslation>();
             this.responseTranslation = new HashSet<responseTranslation>();
-            this.question = new HashSet<question>();
             this.response = new HashSet<response>();
         }
     
@@ -31,9 +31,9 @@ namespace Generic
         public Nullable<int> enterprise { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
+        public virtual ICollection<questionLanguage> questionLanguage { get; set; }
         public virtual ICollection<questionTranslation> questionTranslation { get; set; }
         public virtual ICollection<responseTranslation> responseTranslation { get; set; }
-        public virtual ICollection<question> question { get; set; }
         public virtual ICollection<response> response { get; set; }
     }
 }

@@ -21,9 +21,13 @@ namespace Generic
             this.enterpriseObjectName = new HashSet<enterpriseObjectName>();
             this.enterpriseSystemInfo = new HashSet<enterpriseSystemInfo>();
             this.group = new HashSet<group>();
-            this.hs3Menu = new HashSet<hs3Menu>();
+            this.groupCollection = new HashSet<groupCollection>();
+            this.hs3Menu_deprecated = new HashSet<hs3Menu_deprecated>();
+            this.key = new HashSet<key>();
             this.language = new HashSet<language>();
             this.languageInfo = new HashSet<languageInfo>();
+            this.UM_M_Menu_deprecated = new HashSet<UM_M_Menu_deprecated>();
+            this.menu = new HashSet<menu>();
             this.partner = new HashSet<partner>();
             this.partnerType = new HashSet<partnerType>();
             this.person = new HashSet<person>();
@@ -32,10 +36,6 @@ namespace Generic
             this.rule = new HashSet<rule>();
             this.ruleType = new HashSet<ruleType>();
             this.state = new HashSet<state>();
-            this.groupCollection = new HashSet<groupCollection>();
-            this.key = new HashSet<key>();
-            this.menu = new HashSet<menu>();
-            this.UM_M_Menu = new HashSet<UM_M_Menu>();
         }
     
         public int id { get; set; }
@@ -53,9 +53,13 @@ namespace Generic
         public virtual ICollection<enterpriseObjectName> enterpriseObjectName { get; set; }
         public virtual ICollection<enterpriseSystemInfo> enterpriseSystemInfo { get; set; }
         public virtual ICollection<group> group { get; set; }
-        public virtual ICollection<hs3Menu> hs3Menu { get; set; }
+        public virtual ICollection<groupCollection> groupCollection { get; set; }
+        public virtual ICollection<hs3Menu_deprecated> hs3Menu_deprecated { get; set; }
+        public virtual ICollection<key> key { get; set; }
         public virtual ICollection<language> language { get; set; }
         public virtual ICollection<languageInfo> languageInfo { get; set; }
+        public virtual ICollection<UM_M_Menu_deprecated> UM_M_Menu_deprecated { get; set; }
+        public virtual ICollection<menu> menu { get; set; }
         public virtual ICollection<partner> partner { get; set; }
         public virtual ICollection<partnerType> partnerType { get; set; }
         public virtual ICollection<person> person { get; set; }
@@ -64,9 +68,5 @@ namespace Generic
         public virtual ICollection<rule> rule { get; set; }
         public virtual ICollection<ruleType> ruleType { get; set; }
         public virtual ICollection<state> state { get; set; }
-        public virtual ICollection<groupCollection> groupCollection { get; set; }
-        public virtual ICollection<key> key { get; set; }
-        public virtual ICollection<menu> menu { get; set; }
-        public virtual ICollection<UM_M_Menu> UM_M_Menu { get; set; }
     }
 }

@@ -16,14 +16,12 @@ namespace Generic
     {
         public touchpoint()
         {
-            this.partnerTouchpointStatus = new HashSet<partnerTouchpointStatus>();
-            this.partnerPartnerTypeTouchpoint = new HashSet<partnerPartnerTypeTouchpoint>();
-            this.partnerTouchpointQuestionnaireQuestionResponse = new HashSet<partnerTouchpointQuestionnaireQuestionResponse>();
             this.partnerTypeTouchpointQuestionnaire = new HashSet<partnerTypeTouchpointQuestionnaire>();
+            this.partnerTypeTouchpointQuestionnaire1 = new HashSet<partnerTypeTouchpointQuestionnaire>();
             this.touchpointPartnerRerouter = new HashSet<touchpointPartnerRerouter>();
             this.touchpointPartnerTypeScoreAutoMail = new HashSet<touchpointPartnerTypeScoreAutoMail>();
-            this.touchpointQuestionResponseValue = new HashSet<touchpointQuestionResponseValue>();
-            this.touchpointQuestionWeight = new HashSet<touchpointQuestionWeight>();
+            this.touchpointQuestionResponseValue_deprecated = new HashSet<touchpointQuestionResponseValue_deprecated>();
+            this.touchpointQuestionWeight_deprecated = new HashSet<touchpointQuestionWeight_deprecated>();
             this.questionnaire = new HashSet<questionnaire>();
         }
     
@@ -41,15 +39,13 @@ namespace Generic
         public Nullable<int> sortOrder { get; set; }
         public Nullable<int> active { get; set; }
     
-        public virtual ICollection<partnerTouchpointStatus> partnerTouchpointStatus { get; set; }
-        public virtual protocol protocol1 { get; set; }
-        public virtual ICollection<partnerPartnerTypeTouchpoint> partnerPartnerTypeTouchpoint { get; set; }
-        public virtual ICollection<partnerTouchpointQuestionnaireQuestionResponse> partnerTouchpointQuestionnaireQuestionResponse { get; set; }
         public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire { get; set; }
+        public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire1 { get; set; }
+        public virtual protocol protocol1 { get; set; }
         public virtual ICollection<touchpointPartnerRerouter> touchpointPartnerRerouter { get; set; }
         public virtual ICollection<touchpointPartnerTypeScoreAutoMail> touchpointPartnerTypeScoreAutoMail { get; set; }
-        public virtual ICollection<touchpointQuestionResponseValue> touchpointQuestionResponseValue { get; set; }
-        public virtual ICollection<touchpointQuestionWeight> touchpointQuestionWeight { get; set; }
+        public virtual ICollection<touchpointQuestionResponseValue_deprecated> touchpointQuestionResponseValue_deprecated { get; set; }
+        public virtual ICollection<touchpointQuestionWeight_deprecated> touchpointQuestionWeight_deprecated { get; set; }
         public virtual ICollection<questionnaire> questionnaire { get; set; }
     }
 }

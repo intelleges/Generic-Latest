@@ -13,7 +13,7 @@ namespace Generic
     
     public partial class pr_getPersonRoleAll_Result
     {
-        public int id { get; set; }
-        public string description { get; set; }
+        public int person { get; set; }
+        public int role { get; set; }
     }
 }

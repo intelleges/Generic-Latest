@@ -354,10 +354,10 @@
       <DependentUpon>UploadLocalization.zh-CN.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="autoMail.cs">
+    <Compile Include="autoMailAttachment.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="autoMailAttachment.cs">
+    <Compile Include="autoMailMessage.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="autoMailType.cs">
@@ -385,13 +385,13 @@
     <Compile Include="emailBounceType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="emailTag.cs">
+    <Compile Include="emailTag_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="emailTemplate.cs">
+    <Compile Include="emailTemplateType_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="emailTemplateType.cs">
+    <Compile Include="emailTemplate_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EmbeddedResourceViewEngine.cs" />
@@ -434,7 +434,7 @@
     <Compile Include="Helpers\CustomRoleProvider.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
     <Compile Include="Helpers\Utility\Utility.cs" />
-    <Compile Include="hs3Menu.cs">
+    <Compile Include="hs3Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Hs3Model.Context.cs">
@@ -514,7 +514,10 @@
     <Compile Include="partnerLogin.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="partnerPartnerTypeTouchpoint.cs">
+    <Compile Include="partnerPartnertypeTouchpointQuestionnaire.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="partnerPartnertypeTouchpointQuestionnaireQuestionResponse.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnerReference.cs">
@@ -544,16 +547,10 @@
     <Compile Include="partnerTemp.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="partnerTouchpointInvitedDate.cs">
+    <Compile Include="partnerTouchpointInvitedDate_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnerTouchpointQuestionnaireLanguage.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="partnerTouchpointQuestionnaireQuestionResponse.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="partnerTouchpointStatus.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnerType.cs">
@@ -596,9 +593,6 @@
     <Compile Include="prReminder.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="pr_doLogin_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="pr_findUserRole_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -615,9 +609,6 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAutoMailType_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getAutomail_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCountryAll_Result.cs">
@@ -638,24 +629,6 @@
     <Compile Include="pr_getEmailBounceType_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="pr_getEmailTagAll_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getEmailTag_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getEmailTemplateAll_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getEmailTemplateTypeAll_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getEmailTemplateType_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getEmailTemplate_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="pr_getEnterpriseAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -672,6 +645,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getEnterprise_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getEsignature_Result.cs">
@@ -702,12 +678,6 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getGroup_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getHs3MenuAll_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getHs3Menu_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getKeyAll_Result.cs">
@@ -779,16 +749,46 @@
     <Compile Include="pr_getPartnerCorpInfo_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="pr_getPartnerCorpW9_Result.cs">
+    <Compile Include="pr_getPartnerGroupByGroup_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="pr_getPartnerEPLS_Result.cs">
+    <Compile Include="pr_getPartnerGroupByPartner_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireByInvitedByPerson_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnerrRemitAddress_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnerTypeAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnertypeTouchpointQuestionnaireByPartnerType_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnertypeTouchpointQuestionnaireByQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnertypeTouchpointQuestionnaireByTouchpoint_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnertypeTouchpointQuestionnaire_Result.cs">
@@ -798,9 +798,6 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartner_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getPersonAllConfirmed_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPersonAll_Result.cs">
@@ -818,46 +815,16 @@
     <Compile Include="pr_getPersonByInternalIDEmail_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="pr_getPersonByInternalID_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getPersonByLoadHistory_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getPersonByStatus_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getPersonColumnHeader_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getPersonColumnNameByID_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getPersonCountAllByRole_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getPersonCountByAllRole_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="pr_getPersonDupByEmail_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPersonDupByInternalID_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="pr_getPersonExcelByEmail_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getPersonExcelByInternalID_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="pr_getPersonExcelDupByEmail_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPersonExcelDupByInternalID_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getPersonExcel_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPersonPreviousNext_Result.cs">
@@ -875,10 +842,19 @@
     <Compile Include="pr_getPersonRoleAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPersonRoleByPerson_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonRoleByRole_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPerson_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getProtocolAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getProtocolByTouchpoint_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getProtocol_Result.cs">
@@ -947,6 +923,12 @@
     <Compile Include="pr_getRoleByName_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getRoleMenuByMenu_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getRoleMenuByRole_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getRuleAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -998,9 +980,6 @@
     <Compile Include="pr_getTouchpointByGroup_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="pr_getTouchpointQuestionResponseValue_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="pr_getTouchpoint_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1014,6 +993,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="question.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="questionLanguage.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="questionnaire.cs">
@@ -1047,6 +1029,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="role.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="roleMenu.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="rule.cs">
@@ -1098,23 +1083,17 @@
     <Compile Include="touchpointPartnerTypeScoreAutoMail.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="touchpointQuestionResponseValue.cs">
+    <Compile Include="touchpointQuestionResponseValue_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="touchpointQuestionWeight.cs">
+    <Compile Include="touchpointQuestionWeight_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="UM_M_Menu.cs">
+    <Compile Include="UM_M_Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ExcelQuestionnaire.cs" />
     <Compile Include="ViewModel\QuestionnaireViewModel.cs" />
-    <Compile Include="xxx_getRecordCountByTable_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="xxx_getTableSetByColumnName_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="xx_getLastDBModified_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2210,27 +2189,6 @@
     <EmbeddedResource Include="Views\Partner\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Hs3Model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Hs3Model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Hs3Model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Hs3Model.edmx</DependentUpon>
-      <LastGenOutput>Hs3Model.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Hs3Model.edmx.diagram">
-      <DependentUpon>Hs3Model.edmx</DependentUpon>
-    </Content>
-    <Content Include="Hs3Model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Hs3Model.edmx</DependentUpon>
-      <LastGenOutput>Hs3Model.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Views\Person\AssignGroupToPerson.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -2271,6 +2229,27 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Shared\_TouchpointPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Hs3Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Hs3Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Hs3Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Hs3Model.edmx</DependentUpon>
+      <LastGenOutput>Hs3Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Hs3Model.edmx.diagram">
+      <DependentUpon>Hs3Model.edmx</DependentUpon>
+    </Content>
+    <Content Include="Hs3Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Hs3Model.edmx</DependentUpon>
+      <LastGenOutput>Hs3Model.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

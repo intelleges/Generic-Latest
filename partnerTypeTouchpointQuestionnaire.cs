@@ -14,13 +14,25 @@ namespace Generic
     
     public partial class partnerTypeTouchpointQuestionnaire
     {
-        public int touchpoint { get; set; }
-        public int partnerType { get; set; }
-        public int questionnaire { get; set; }
-        public string description { get; set; }
+        public partnerTypeTouchpointQuestionnaire()
+        {
+            this.autoMailMessage = new HashSet<autoMailMessage>();
+            this.partnerPartnertypeTouchpointQuestionnaire = new HashSet<partnerPartnertypeTouchpointQuestionnaire>();
+        }
     
+        public int id { get; set; }
+        public int partnerType { get; set; }
+        public int touchpoint { get; set; }
+        public int questionnaire { get; set; }
+        public Nullable<int> sortOrder { get; set; }
+        public Nullable<bool> active { get; set; }
+    
+        public virtual ICollection<autoMailMessage> autoMailMessage { get; set; }
+        public virtual ICollection<partnerPartnertypeTouchpointQuestionnaire> partnerPartnertypeTouchpointQuestionnaire { get; set; }
         public virtual partnerType partnerType1 { get; set; }
         public virtual questionnaire questionnaire1 { get; set; }
         public virtual touchpoint touchpoint1 { get; set; }
+        public virtual questionnaire questionnaire2 { get; set; }
+        public virtual touchpoint touchpoint2 { get; set; }
     }
 }
