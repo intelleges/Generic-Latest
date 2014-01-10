@@ -12,7 +12,9 @@
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryui")
     @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
                 .Add("telerik.common.css")
                 .Add("telerik.rtl.css")
@@ -94,15 +96,25 @@
       .Render();
 } 
 
+<div id="popup">
+<iframe id="modal" style="height:550px;border:none;width:100%"></iframe>
+</div>
 
+    <script type="text/javascript">
+       
+        function OpenManualAddModal(url) {
+            jQuery.noConflict();
+            $("#popup").dialog({
+                autoOpen: true,
+                modal: true,
+                height: 650,
+                open: function () {
+                    $("#modal").attr("src", url);
+                }
+            });
+        }
+    </script>
 
-
-
-    
-   
-    
-
-    @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
    @* @Html.Telerik().ScriptRegistrar()*@
 

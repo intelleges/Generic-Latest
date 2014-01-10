@@ -2,7 +2,7 @@
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @{
-    Layout = LayoutHelper.GetLayout();
+    Layout = null;
     ViewBag.Title = "Create Enterprise";
 }
 
@@ -84,9 +84,9 @@
     </fieldset>
 }
 
-<div>
+@*<div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
 
 @*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
