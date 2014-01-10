@@ -30,28 +30,8 @@
       {
           vPanes.Add()
               .Size("100px")
-              .Collapsible(true).Collapsed(true)
-              .Content(@<header>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title">@Html.ActionLink("your logo here", "Index", "Admin")</p>
-            </div>
-            <div class="float-right">
-                 <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-               
-                       
-                   
-            </div>
-             @Html.Action("Menu", "Admin")
-            Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
-        </div>
-    </header>);
+              .Collapsible(true).Collapsed(false)
+              .Content(@<div>Nothing In Top Panel For Now</div>);
     
           vPanes.Add()
               .Scrollable(false)
@@ -62,12 +42,33 @@
                       {
                           hPanes.Add()
                               .Size("150px")
-                              .Collapsible(true).Collapsed(true)
+                              .Collapsible(true).Collapsed(false)
                               .Content(@<p>Inner splitter :: left pane</p>);
 
                           hPanes.Add()
                               .Content(@<div id="body">
         @RenderSection("featured", required: false)
+                                  <header>
+        <div class="content-wrapper main-content clear-fix">
+            <div class="admin-logo">
+                <p class="site-title">@Html.ActionLink("your logo here", "Index", "Admin")</p>
+            </div>
+            <div class="admin-touchpoints">             
+            Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
+            </div>
+            <div class="admin-nav-about">
+                 <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </nav>
+            </div>     
+            <div class="clear-fix"></div> 
+            @Html.Action("Menu", "Admin")      
+        </div>
+    </header>
         <section class="content-wrapper main-content clear-fix">
             @RenderBody()
         </section>
@@ -75,13 +76,13 @@
     
                           hPanes.Add()
                               .Size("20%")
-                              .Collapsible(true).Collapsed(true)
+                              .Collapsible(true).Collapsed(false)
                               .Content(@<p>Inner splitter :: right pane</p>);
                       }).ToString());
     
           vPanes.Add()
               .Size("20%")
-              .Collapsible(true).Collapsed(true)
+              .Collapsible(true).Collapsed(false)
               .Content(@<footer>
         <div class="content-wrapper">
             <div class="float-left">

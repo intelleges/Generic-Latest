@@ -754,3 +754,18 @@ tr.pager td {
             margin: 0;
         }
 }
+
+.admin-logo {
+    float:left;
+    width:30%;
+}
+
+.admin-touchpoints {
+    float:left;
+    width:40%;
+}
+
+.admin-nab-about {
+    float:left;
+    width:30%;
+}
