@@ -61,6 +61,7 @@ namespace Generic.Controllers
             objQuestionnaire.person = objPerson.id;
             objQuestionnaire.partnerType = partnertypeId;
             objQuestionnaire.multiLanguage = 0;
+            objQuestionnaire.active = 1;
             db.Entry(objQuestionnaire).State = System.Data.EntityState.Added;
             db.SaveChanges();
             int questionnaireId = objQuestionnaire.id;
@@ -79,6 +80,7 @@ namespace Generic.Controllers
                 isRequiredComment = 0, jumpToQID = 0, hasSkipLogicQuestionId = 0, isSkipLogicAnwerYes = 0,
                 k = 0, responseId = 0, questionValue = 0;
 
+        
 
             foreach (var excelQuestionnaire in questionnaireinExcel)
             {
@@ -96,7 +98,9 @@ namespace Generic.Controllers
                         objPage.active = true;
                         objPage.sortOrder = 1;
                         db.page.Add(objPage);
+
                         db.SaveChanges();
+
                         pageId = objPage.id;
                         db.pr_addQuestionnairePage(questionnaireId, pageId);
                         previousPage = objPage.description;
@@ -454,7 +458,9 @@ namespace Generic.Controllers
             objsurveyset.sortOrder = 1;
             objsurveyset.accessLevel = 1;
             db.surveyset.Add(objsurveyset);
+           
             db.SaveChanges();
+            
             surveySetId = objsurveyset.id;
             db.pr_addPageSurveyset(pageId, surveySetId);
             db.SaveChanges();

@@ -2977,20 +2977,18 @@
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_addAutomail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="protocol" Type="int" Mode="In" />
-          <Parameter Name="touchpoint" Type="int" Mode="In" />
-          <Parameter Name="partnerType" Type="int" Mode="In" />
+        <Function Name="pr_addAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="autoMail" Type="int" Mode="In" />
+          <Parameter Name="attachment" Type="varchar" Mode="In" />
+          <Parameter Name="note" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_addAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
           <Parameter Name="mailType" Type="int" Mode="In" />
           <Parameter Name="subject" Type="varchar" Mode="In" />
           <Parameter Name="text" Type="varchar" Mode="In" />
           <Parameter Name="footer1" Type="varchar" Mode="In" />
           <Parameter Name="footer2" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="pr_addAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="autoMail" Type="int" Mode="In" />
-          <Parameter Name="attachment" Type="varchar" Mode="In" />
-          <Parameter Name="note" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_addAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -3648,10 +3646,10 @@
         <Function Name="pr_getAgencyAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getAutomail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="pr_getAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="pr_getAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3992,7 +3990,10 @@
         </Function>
         <Function Name="pr_getQuestionBySurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="survey" Type="int" Mode="In" />
-          <Parameter Name="question" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getQuestionBySurveySkipLogic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="survey" Type="int" Mode="In" />
+          <Parameter Name="jumpToQuestion" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getQuestionByTranslation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="translation" Type="int" Mode="In" />
@@ -4122,6 +4123,9 @@
         <Function Name="pr_getTouchpointByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="group" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getTouchpointByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="protocol" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getTouchpointQuestionResponseValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="touchpoint" Type="int" Mode="In" />
           <Parameter Name="question" Type="int" Mode="In" />
@@ -4139,22 +4143,20 @@
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
-        <Function Name="pr_modifyAutomail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id" Type="int" Mode="In" />
-          <Parameter Name="protocol" Type="int" Mode="In" />
-          <Parameter Name="touchpoint" Type="int" Mode="In" />
-          <Parameter Name="partnerType" Type="int" Mode="In" />
-          <Parameter Name="mailType" Type="int" Mode="In" />
-          <Parameter Name="subject" Type="varchar" Mode="In" />
-          <Parameter Name="text" Type="varchar" Mode="In" />
-          <Parameter Name="footer1" Type="varchar" Mode="In" />
-          <Parameter Name="footer2" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="pr_modifyAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="autoMail" Type="int" Mode="In" />
           <Parameter Name="attachment" Type="varchar" Mode="In" />
           <Parameter Name="note" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+          <Parameter Name="mailType" Type="int" Mode="In" />
+          <Parameter Name="subject" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="footer1" Type="varchar" Mode="In" />
+          <Parameter Name="footer2" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_modifyAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -4694,10 +4696,10 @@
         <Function Name="pr_removeAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_removeAutomail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="pr_removeAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_removeAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="pr_removeAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -6559,7 +6561,6 @@
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionBySurvey" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)">
             <Parameter Name="survey" Mode="In" Type="Int32" />
-            <Parameter Name="question" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionByTranslation" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)">
           <Parameter Name="translation" Mode="In" Type="Int32" />
@@ -7669,6 +7670,36 @@
             <End Role="person" EntitySet="person" />
             <End Role="role" EntitySet="role" />
           </AssociationSet>
+          <FunctionImport Name="pr_addAutomailMessage" ReturnType="Collection(Decimal)">
+            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="mailType" Mode="In" Type="Int32" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="footer1" Mode="In" Type="String" />
+            <Parameter Name="footer2" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutomailMessage" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessage_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyAutomailMessage">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="mailType" Mode="In" Type="Int32" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="footer1" Mode="In" Type="String" />
+            <Parameter Name="footer2" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeAutomailMessage">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTouchpointByProtocol" EntitySet="touchpoint" ReturnType="Collection(hs3MVCMTQa2Model.touchpoint)">
+          <Parameter Name="protocol" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionBySurveySkipLogic" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)">
+            <Parameter Name="survey" Mode="In" Type="Int32" />
+            <Parameter Name="jumpToQuestion" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -11850,6 +11881,66 @@
           <End Type="hs3MVCMTQa2Model.person" Role="person" Multiplicity="*" />
           <End Type="hs3MVCMTQa2Model.role" Role="role" Multiplicity="*" />
         </Association>
+        <ComplexType Name="pr_getAutomailMessage_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="text" Nullable="true" />
+          <Property Type="String" Name="footer1" Nullable="true" />
+          <Property Type="String" Name="footer2" Nullable="true" />
+          <Property Type="Int32" Name="mailType" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getTouchpointByProtocol_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="protocol" Nullable="true" />
+          <Property Type="Int32" Name="person" Nullable="true" />
+          <Property Type="Int32" Name="sponsor" Nullable="true" />
+          <Property Type="Int32" Name="admin" Nullable="true" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="abbreviation" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="startDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="endDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="automaticReminder" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="id1" Nullable="false" />
+          <Property Type="Int32" Name="menuGroup" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="abbreviation1" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="background" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="purpose" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="summary" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="agency" Nullable="true" />
+          <Property Type="Int32" Name="admin1" Nullable="true" />
+          <Property Type="Int32" Name="sponsor1" Nullable="true" />
+          <Property Type="Int32" Name="domain" Nullable="true" />
+          <Property Type="String" Name="validationRequested" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="keyBenefits" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="keyWords" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="startDate1" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="endDate1" Nullable="true" Precision="23" />
+          <Property Type="String" Name="bestPractice" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="riskBenefits" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="checkList" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="removeWithoutTouchpointExpiry" Nullable="true" />
+          <Property Type="Boolean" Name="removeWithoutNotice" Nullable="true" />
+          <Property Type="Boolean" Name="isLimited" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder1" Nullable="true" />
+          <Property Type="Int32" Name="active1" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionBySurveySkipLogic_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="question" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" />
+          <Property Type="Int32" Name="required" Nullable="true" />
+          <Property Type="Boolean" Name="skipLogicAnswer" Nullable="true" />
+          <Property Type="String" Name="skipLogicJump" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="responseType_id" Nullable="false" />
+          <Property Type="String" Name="responseType" Nullable="false" MaxLength="50" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -11940,6 +12031,31 @@
                 <ScalarProperty Name="mailType" ColumnName="mailType" />
                 <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
               </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.autoMailMessage">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomailMessage">
+                  <ScalarProperty Name="footer2" ParameterName="footer2" />
+                  <ScalarProperty Name="footer1" ParameterName="footer1" />
+                  <ScalarProperty Name="text" ParameterName="text" />
+                  <ScalarProperty Name="subject" ParameterName="subject" />
+                  <ScalarProperty Name="mailType" ParameterName="mailType" />
+                  <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ParameterName="partnerTypeTouchpointQuestionnaire" />
+                  <ResultBinding Name="id" ColumnName="id" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutomailMessage">
+                  <ScalarProperty Name="footer2" ParameterName="footer2" Version="Current" />
+                  <ScalarProperty Name="footer1" ParameterName="footer1" Version="Current" />
+                  <ScalarProperty Name="text" ParameterName="text" Version="Current" />
+                  <ScalarProperty Name="subject" ParameterName="subject" Version="Current" />
+                  <ScalarProperty Name="mailType" ParameterName="mailType" Version="Current" />
+                  <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ParameterName="partnerTypeTouchpointQuestionnaire" Version="Current" />
+                  <ScalarProperty Name="id" ParameterName="id" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessage">
+                  <ScalarProperty Name="id" ParameterName="id" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="autoMailType">
@@ -13303,11 +13419,19 @@
                   <ScalarProperty Name="questionnaire" ParameterName="questionnaire" />
                   <ScalarProperty Name="touchpoint" ParameterName="touchpoint" />
                   <ScalarProperty Name="partnerType" ParameterName="partnerType" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnertypeTouchpointQuestionnaire">
                   <ScalarProperty Name="id" ParameterName="id" />
                 </DeleteFunction>
+                <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnertypeTouchpointQuestionnaire">
+                  <ScalarProperty Name="active" ParameterName="active" Version="Current" />
+                  <ScalarProperty Name="sortOrder" ParameterName="sortOrder" Version="Current" />
+                  <ScalarProperty Name="questionnaire" ParameterName="questionnaire" Version="Current" />
+                  <ScalarProperty Name="touchpoint" ParameterName="touchpoint" Version="Current" />
+                  <ScalarProperty Name="partnerType" ParameterName="partnerType" Version="Current" />
+                  <ScalarProperty Name="id" ParameterName="id" Version="Current" />
+                </UpdateFunction>
               </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -14484,7 +14608,6 @@
             </EndProperty>
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="pr_addAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_addAgency" />
-          <FunctionImportMapping FunctionImportName="pr_addAutomail" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomail" />
           <FunctionImportMapping FunctionImportName="pr_addAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutoMailAttachment" />
           <FunctionImportMapping FunctionImportName="pr_addAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutoMailType" />
           <FunctionImportMapping FunctionImportName="pr_addCountry" FunctionName="hs3MVCMTQa2Model.Store.pr_addCountry" />
@@ -14601,7 +14724,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getAgencyAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getAgencyAll">
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getAutomail" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomail" />
           <FunctionImportMapping FunctionImportName="pr_getAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailAttachment">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailType">
@@ -14969,7 +15091,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAgency" />
-          <FunctionImportMapping FunctionImportName="pr_modifyAutomail" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutomail" />
           <FunctionImportMapping FunctionImportName="pr_modifyAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutoMailAttachment" />
           <FunctionImportMapping FunctionImportName="pr_modifyAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutoMailType" />
           <FunctionImportMapping FunctionImportName="pr_modifyCountry" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyCountry" />
@@ -15029,7 +15150,6 @@
           <FunctionImportMapping FunctionImportName="pr_modifyTouchpointQuestionResponseValue" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyTouchpointQuestionResponseValue" />
           <FunctionImportMapping FunctionImportName="pr_modifyUserRole" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyUserRole" />
           <FunctionImportMapping FunctionImportName="pr_removeAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAgency" />
-          <FunctionImportMapping FunctionImportName="pr_removeAutomail" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomail" />
           <FunctionImportMapping FunctionImportName="pr_removeAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutoMailAttachment" />
           <FunctionImportMapping FunctionImportName="pr_removeAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutoMailType" />
           <FunctionImportMapping FunctionImportName="pr_removeCountry" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCountry" />
@@ -15207,6 +15327,26 @@
               <ScalarProperty Name="id" ColumnName="person" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomailMessage" />
+          <FunctionImportMapping FunctionImportName="pr_getAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessage_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="footer1" ColumnName="footer1" />
+                <ScalarProperty Name="footer2" ColumnName="footer2" />
+                <ScalarProperty Name="mailType" ColumnName="mailType" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutomailMessage" />
+          <FunctionImportMapping FunctionImportName="pr_removeAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessage" />
+          <FunctionImportMapping FunctionImportName="pr_getTouchpointByProtocol" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointByProtocol">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionBySurveySkipLogic" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionBySurveySkipLogic">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -117,7 +117,18 @@ namespace Generic.Controllers
             db.partner.Remove(partner);
             db.SaveChanges();
             return RedirectToAction("Index");
+
         }
+
+        public ActionResult AddPartnerPartnertypeTouchpointQuestionnaire()
+        {
+            // partnerPartnertypeTouchpointQuestionnaire 
+
+            //   db.pr_addPartnerPartnertypeTouchpointQuestionnaire(
+
+            return View();
+        }
+
 
         protected override void Dispose(bool disposing)
         {

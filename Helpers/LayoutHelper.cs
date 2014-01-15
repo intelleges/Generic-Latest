@@ -19,5 +19,9 @@ namespace Generic.Helpers
             //}
             return layoutName;
         }
+        public static string GetRegistrationLayout()
+        {
+            return "~/tmp/Views/Shared/_LayoutMasterPartner.cshtml";
+        }
     }
 }

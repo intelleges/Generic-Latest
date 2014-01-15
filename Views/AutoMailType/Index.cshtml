@@ -1,0 +1,75 @@
+﻿
+@inherits System.Web.Mvc.WebViewPage<IEnumerable< Generic.autoMailType>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Automail Type";
+}
+
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@(Html.Telerik().Grid(Model).Name("Grid")
+        .Columns(columns =>
+        {
+
+            
+
+            columns.Bound(o => o.description);
+
+            columns.Bound(o => o.sortOrder);
+
+            columns.Bound(o => o.active);       
+            
+
+        })
+        .Pageable()
+        .Sortable()
+)
+
+@*<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sortOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.oldId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sortOrder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.oldId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>*@

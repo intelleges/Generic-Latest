@@ -1439,7 +1439,6 @@
     </FunctionImport>
     <FunctionImport Name="pr_getQuestionBySurvey" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)">
       <Parameter Name="survey" Mode="In" Type="Int32" />
-      <Parameter Name="question" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_getQuestionByTranslation" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)">
       <Parameter Name="translation" Mode="In" Type="Int32" />
@@ -2549,6 +2548,36 @@
       <End Role="person" EntitySet="person" />
       <End Role="role" EntitySet="role" />
     </AssociationSet>
+    <FunctionImport Name="pr_addAutomailMessage" ReturnType="Collection(Decimal)">
+      <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+      <Parameter Name="mailType" Mode="In" Type="Int32" />
+      <Parameter Name="subject" Mode="In" Type="String" />
+      <Parameter Name="text" Mode="In" Type="String" />
+      <Parameter Name="footer1" Mode="In" Type="String" />
+      <Parameter Name="footer2" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getAutomailMessage" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessage_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyAutomailMessage">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+      <Parameter Name="mailType" Mode="In" Type="Int32" />
+      <Parameter Name="subject" Mode="In" Type="String" />
+      <Parameter Name="text" Mode="In" Type="String" />
+      <Parameter Name="footer1" Mode="In" Type="String" />
+      <Parameter Name="footer2" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeAutomailMessage">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getTouchpointByProtocol" EntitySet="touchpoint" ReturnType="Collection(hs3MVCMTQa2Model.touchpoint)">
+      <Parameter Name="protocol" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getQuestionBySurveySkipLogic" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)">
+      <Parameter Name="survey" Mode="In" Type="Int32" />
+      <Parameter Name="jumpToQuestion" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="accessLevel">
     <Key>
@@ -6726,4 +6755,64 @@
     <End Type="hs3MVCMTQa2Model.person" Role="person" Multiplicity="*" />
     <End Type="hs3MVCMTQa2Model.role" Role="role" Multiplicity="*" />
   </Association>
+  <ComplexType Name="pr_getAutomailMessage_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="subject" Nullable="true" />
+    <Property Type="String" Name="text" Nullable="true" />
+    <Property Type="String" Name="footer1" Nullable="true" />
+    <Property Type="String" Name="footer2" Nullable="true" />
+    <Property Type="Int32" Name="mailType" Nullable="false" />
+    <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getTouchpointByProtocol_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="protocol" Nullable="true" />
+    <Property Type="Int32" Name="person" Nullable="true" />
+    <Property Type="Int32" Name="sponsor" Nullable="true" />
+    <Property Type="Int32" Name="admin" Nullable="true" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="abbreviation" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="startDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="endDate" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="automaticReminder" Nullable="true" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="id1" Nullable="false" />
+    <Property Type="Int32" Name="menuGroup" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+    <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="description1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="abbreviation1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="background" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="purpose" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="summary" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="agency" Nullable="true" />
+    <Property Type="Int32" Name="admin1" Nullable="true" />
+    <Property Type="Int32" Name="sponsor1" Nullable="true" />
+    <Property Type="Int32" Name="domain" Nullable="true" />
+    <Property Type="String" Name="validationRequested" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="keyBenefits" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="keyWords" Nullable="true" MaxLength="500" />
+    <Property Type="DateTime" Name="startDate1" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="endDate1" Nullable="true" Precision="23" />
+    <Property Type="String" Name="bestPractice" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="riskBenefits" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="checkList" Nullable="true" MaxLength="250" />
+    <Property Type="Boolean" Name="removeWithoutTouchpointExpiry" Nullable="true" />
+    <Property Type="Boolean" Name="removeWithoutNotice" Nullable="true" />
+    <Property Type="Boolean" Name="isLimited" Nullable="true" />
+    <Property Type="Int32" Name="sortOrder1" Nullable="true" />
+    <Property Type="Int32" Name="active1" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getQuestionBySurveySkipLogic_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="question" Nullable="false" />
+    <Property Type="String" Name="title" Nullable="true" />
+    <Property Type="Int32" Name="required" Nullable="true" />
+    <Property Type="Boolean" Name="skipLogicAnswer" Nullable="true" />
+    <Property Type="String" Name="skipLogicJump" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="responseType_id" Nullable="false" />
+    <Property Type="String" Name="responseType" Nullable="false" MaxLength="50" />
+  </ComplexType>
 </Schema>

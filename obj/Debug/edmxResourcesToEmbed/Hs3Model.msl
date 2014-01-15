@@ -85,6 +85,31 @@
           <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
         </MappingFragment>
       </EntityTypeMapping>
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.autoMailMessage">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomailMessage">
+            <ScalarProperty Name="footer2" ParameterName="footer2" />
+            <ScalarProperty Name="footer1" ParameterName="footer1" />
+            <ScalarProperty Name="text" ParameterName="text" />
+            <ScalarProperty Name="subject" ParameterName="subject" />
+            <ScalarProperty Name="mailType" ParameterName="mailType" />
+            <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ParameterName="partnerTypeTouchpointQuestionnaire" />
+            <ResultBinding Name="id" ColumnName="id" />
+          </InsertFunction>
+          <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutomailMessage">
+            <ScalarProperty Name="footer2" ParameterName="footer2" Version="Current" />
+            <ScalarProperty Name="footer1" ParameterName="footer1" Version="Current" />
+            <ScalarProperty Name="text" ParameterName="text" Version="Current" />
+            <ScalarProperty Name="subject" ParameterName="subject" Version="Current" />
+            <ScalarProperty Name="mailType" ParameterName="mailType" Version="Current" />
+            <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ParameterName="partnerTypeTouchpointQuestionnaire" Version="Current" />
+            <ScalarProperty Name="id" ParameterName="id" Version="Current" />
+          </UpdateFunction>
+          <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessage">
+            <ScalarProperty Name="id" ParameterName="id" />
+          </DeleteFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="autoMailType">
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.autoMailType">
@@ -1447,11 +1472,19 @@
             <ScalarProperty Name="questionnaire" ParameterName="questionnaire" />
             <ScalarProperty Name="touchpoint" ParameterName="touchpoint" />
             <ScalarProperty Name="partnerType" ParameterName="partnerType" />
-            <ResultBinding Name="id" ColumnName="int" />
+            <ResultBinding Name="id" ColumnName="id" />
           </InsertFunction>
           <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnertypeTouchpointQuestionnaire">
             <ScalarProperty Name="id" ParameterName="id" />
           </DeleteFunction>
+          <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnertypeTouchpointQuestionnaire">
+            <ScalarProperty Name="active" ParameterName="active" Version="Current" />
+            <ScalarProperty Name="sortOrder" ParameterName="sortOrder" Version="Current" />
+            <ScalarProperty Name="questionnaire" ParameterName="questionnaire" Version="Current" />
+            <ScalarProperty Name="touchpoint" ParameterName="touchpoint" Version="Current" />
+            <ScalarProperty Name="partnerType" ParameterName="partnerType" Version="Current" />
+            <ScalarProperty Name="id" ParameterName="id" Version="Current" />
+          </UpdateFunction>
         </ModificationFunctionMapping>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -2627,7 +2660,6 @@
       </EndProperty>
     </AssociationSetMapping>
     <FunctionImportMapping FunctionImportName="pr_addAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_addAgency" />
-    <FunctionImportMapping FunctionImportName="pr_addAutomail" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomail" />
     <FunctionImportMapping FunctionImportName="pr_addAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutoMailAttachment" />
     <FunctionImportMapping FunctionImportName="pr_addAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutoMailType" />
     <FunctionImportMapping FunctionImportName="pr_addCountry" FunctionName="hs3MVCMTQa2Model.Store.pr_addCountry" />
@@ -2742,7 +2774,6 @@
     <FunctionImportMapping FunctionImportName="pr_getAccesscode" FunctionName="hs3MVCMTQa2Model.Store.pr_getAccesscode" />
     <FunctionImportMapping FunctionImportName="pr_getAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_getAgency" />
     <FunctionImportMapping FunctionImportName="pr_getAgencyAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getAgencyAll" />
-    <FunctionImportMapping FunctionImportName="pr_getAutomail" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomail" />
     <FunctionImportMapping FunctionImportName="pr_getAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailAttachment" />
     <FunctionImportMapping FunctionImportName="pr_getAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailType" />
     <FunctionImportMapping FunctionImportName="pr_getAutoMailTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailTypeAll" />
@@ -2987,7 +3018,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_modifyAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAgency" />
-    <FunctionImportMapping FunctionImportName="pr_modifyAutomail" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutomail" />
     <FunctionImportMapping FunctionImportName="pr_modifyAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutoMailAttachment" />
     <FunctionImportMapping FunctionImportName="pr_modifyAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutoMailType" />
     <FunctionImportMapping FunctionImportName="pr_modifyCountry" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyCountry" />
@@ -3047,7 +3077,6 @@
     <FunctionImportMapping FunctionImportName="pr_modifyTouchpointQuestionResponseValue" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyTouchpointQuestionResponseValue" />
     <FunctionImportMapping FunctionImportName="pr_modifyUserRole" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyUserRole" />
     <FunctionImportMapping FunctionImportName="pr_removeAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAgency" />
-    <FunctionImportMapping FunctionImportName="pr_removeAutomail" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomail" />
     <FunctionImportMapping FunctionImportName="pr_removeAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutoMailAttachment" />
     <FunctionImportMapping FunctionImportName="pr_removeAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutoMailType" />
     <FunctionImportMapping FunctionImportName="pr_removeCountry" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCountry" />
@@ -3225,5 +3254,23 @@
         <ScalarProperty Name="id" ColumnName="person" />
       </EndProperty>
     </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="pr_addAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomailMessage" />
+    <FunctionImportMapping FunctionImportName="pr_getAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessage_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="footer1" ColumnName="footer1" />
+          <ScalarProperty Name="footer2" ColumnName="footer2" />
+          <ScalarProperty Name="mailType" ColumnName="mailType" />
+          <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_modifyAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutomailMessage" />
+    <FunctionImportMapping FunctionImportName="pr_removeAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessage" />
+    <FunctionImportMapping FunctionImportName="pr_getTouchpointByProtocol" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointByProtocol" />
+    <FunctionImportMapping FunctionImportName="pr_getQuestionBySurveySkipLogic" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionBySurveySkipLogic" />
   </EntityContainerMapping>
 </Mapping>

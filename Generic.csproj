@@ -354,6 +354,8 @@
       <DependentUpon>UploadLocalization.zh-CN.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Areas\RegistrationArea\Controllers\HomeController.cs" />
+    <Compile Include="Areas\RegistrationArea\RegistrationAreaRegistration.cs" />
     <Compile Include="autoMailAttachment.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -364,13 +366,15 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AutoMailMessageController.cs" />
+    <Compile Include="Controllers\AutoMailTypeController.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PartnerController.cs" />
     <Compile Include="Controllers\PartnerTypeController.cs" />
     <Compile Include="Controllers\QuestionnaireController.cs" />
-    <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\Registration1Controller.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\ProtocolController.cs" />
     <Compile Include="Controllers\TestPageController.cs" />
@@ -379,6 +383,7 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\MenuOperation.cs" />
+    <Compile Include="DataLayer\surveyForm.cs" />
     <Compile Include="domain.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -603,6 +608,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAutoMailAttachment_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getAutomailMessage_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAutoMailTypeAll_Result.cs">
@@ -869,6 +877,9 @@
     <Compile Include="pr_getQuestionByResponse_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getQuestionBySurveySkipLogic_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getQuestionnaireAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -978,6 +989,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getTouchpointByGroup_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getTouchpointByProtocol_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getTouchpoint_Result.cs">
@@ -1092,6 +1106,7 @@
     <Compile Include="UM_M_Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ExcelAutoMailMessage.cs" />
     <Compile Include="ViewModel\ExcelQuestionnaire.cs" />
     <Compile Include="ViewModel\QuestionnaireViewModel.cs" />
     <Compile Include="xx_getLastDBModified_Result.cs">
@@ -2023,6 +2038,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\RegistrationArea\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -2055,15 +2071,15 @@
     <Content Include="Contents\images\Thumbs.db" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\Registration\CompanyInfomation.cshtml" />
-    <EmbeddedResource Include="Views\Registration\ContactInformation.cshtml" />
-    <EmbeddedResource Include="Views\Registration\EditCompanyInformation.cshtml" />
-    <EmbeddedResource Include="Views\Registration\EditContactInformation.cshtml" />
-    <EmbeddedResource Include="Views\Registration\ESignature.cshtml" />
-    <EmbeddedResource Include="Views\Registration\eSignatureEnd.cshtml" />
+    <EmbeddedResource Include="Views\Registration1\CompanyInfomation.cshtml" />
+    <EmbeddedResource Include="Views\Registration1\ContactInformation.cshtml" />
+    <EmbeddedResource Include="Views\Registration1\EditCompanyInformation.cshtml" />
+    <EmbeddedResource Include="Views\Registration1\EditContactInformation.cshtml" />
+    <EmbeddedResource Include="Views\Registration1\ESignature.cshtml" />
+    <EmbeddedResource Include="Views\Registration1\eSignatureEnd.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\Registration\Questionnaire.cshtml" />
+    <EmbeddedResource Include="Views\Registration1\Questionnaire.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Shared\_LayoutMaster.cshtml" />
@@ -2073,10 +2089,10 @@
     <EmbeddedResource Include="Views\Shared\_LayoutMasterPartner.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Registration\Index.cshtml" />
+    <Content Include="Views\Registration1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Registration\AccessCode.cshtml" />
+    <Content Include="Views\Registration1\AccessCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Admin\Home.cshtml" />
@@ -2250,6 +2266,41 @@
       <DependentUpon>Hs3Model.edmx</DependentUpon>
       <LastGenOutput>Hs3Model.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AutoMailType\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AutoMailType\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AutoMailType\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AutoMailType\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AutoMailType\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AutoMailMessage\UploadAutoMailMessage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\Index.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Shared\_TestPartialArea.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\Test.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\CompanyInformation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\ContactInformation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\QuestionnaireResponse.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

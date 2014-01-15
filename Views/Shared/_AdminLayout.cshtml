@@ -116,7 +116,11 @@
     </script>
 
     @RenderSection("scripts", required: false)
-   @* @Html.Telerik().ScriptRegistrar()*@
+  
+    <script type="text/javascript">
+        jQuery.noConflict();
+        jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
+    </script>
 
     
 @(Html.Telerik().ScriptRegistrar()

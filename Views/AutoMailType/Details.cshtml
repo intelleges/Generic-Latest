@@ -1,0 +1,46 @@
+﻿@inherits System.Web.Mvc.WebViewPage< Generic.autoMailType>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Automail Type";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>autoMailType</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.sortOrder)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.sortOrder)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.active)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.active)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.oldId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.oldId)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -2972,20 +2972,18 @@
     <Parameter Name="active" Type="bit" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_addAutomail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="protocol" Type="int" Mode="In" />
-    <Parameter Name="touchpoint" Type="int" Mode="In" />
-    <Parameter Name="partnerType" Type="int" Mode="In" />
+  <Function Name="pr_addAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="autoMail" Type="int" Mode="In" />
+    <Parameter Name="attachment" Type="varchar" Mode="In" />
+    <Parameter Name="note" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_addAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
     <Parameter Name="mailType" Type="int" Mode="In" />
     <Parameter Name="subject" Type="varchar" Mode="In" />
     <Parameter Name="text" Type="varchar" Mode="In" />
     <Parameter Name="footer1" Type="varchar" Mode="In" />
     <Parameter Name="footer2" Type="varchar" Mode="In" />
-  </Function>
-  <Function Name="pr_addAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="autoMail" Type="int" Mode="In" />
-    <Parameter Name="attachment" Type="varchar" Mode="In" />
-    <Parameter Name="note" Type="varchar" Mode="In" />
   </Function>
   <Function Name="pr_addAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="description" Type="varchar" Mode="In" />
@@ -3643,10 +3641,10 @@
   <Function Name="pr_getAgencyAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_getAutomail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_getAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_getAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_getAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3987,7 +3985,10 @@
   </Function>
   <Function Name="pr_getQuestionBySurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="survey" Type="int" Mode="In" />
-    <Parameter Name="question" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionBySurveySkipLogic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="survey" Type="int" Mode="In" />
+    <Parameter Name="jumpToQuestion" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getQuestionByTranslation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="translation" Type="int" Mode="In" />
@@ -4117,6 +4118,9 @@
   <Function Name="pr_getTouchpointByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="group" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_getTouchpointByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="protocol" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getTouchpointQuestionResponseValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="touchpoint" Type="int" Mode="In" />
     <Parameter Name="question" Type="int" Mode="In" />
@@ -4134,22 +4138,20 @@
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
   </Function>
-  <Function Name="pr_modifyAutomail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="id" Type="int" Mode="In" />
-    <Parameter Name="protocol" Type="int" Mode="In" />
-    <Parameter Name="touchpoint" Type="int" Mode="In" />
-    <Parameter Name="partnerType" Type="int" Mode="In" />
-    <Parameter Name="mailType" Type="int" Mode="In" />
-    <Parameter Name="subject" Type="varchar" Mode="In" />
-    <Parameter Name="text" Type="varchar" Mode="In" />
-    <Parameter Name="footer1" Type="varchar" Mode="In" />
-    <Parameter Name="footer2" Type="varchar" Mode="In" />
-  </Function>
   <Function Name="pr_modifyAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="autoMail" Type="int" Mode="In" />
     <Parameter Name="attachment" Type="varchar" Mode="In" />
     <Parameter Name="note" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_modifyAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+    <Parameter Name="mailType" Type="int" Mode="In" />
+    <Parameter Name="subject" Type="varchar" Mode="In" />
+    <Parameter Name="text" Type="varchar" Mode="In" />
+    <Parameter Name="footer1" Type="varchar" Mode="In" />
+    <Parameter Name="footer2" Type="varchar" Mode="In" />
   </Function>
   <Function Name="pr_modifyAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -4689,10 +4691,10 @@
   <Function Name="pr_removeAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_removeAutomail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_removeAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_removeAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_removeAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_removeAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">

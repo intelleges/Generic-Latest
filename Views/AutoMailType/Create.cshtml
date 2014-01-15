@@ -1,0 +1,63 @@
+﻿@inherits System.Web.Mvc.WebViewPage< Generic.autoMailType>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Create Automail Type";
+}
+
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>autoMailType</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.sortOrder)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.sortOrder)
+            @Html.ValidationMessageFor(model => model.sortOrder)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.active)
+            @Html.ValidationMessageFor(model => model.active)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.oldId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.oldId)
+            @Html.ValidationMessageFor(model => model.oldId)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+}

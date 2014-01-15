@@ -4437,30 +4437,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionByRule", mergeOption, ruleParameter);
         }
     
-        public virtual ObjectResult<question> pr_getQuestionBySurvey(Nullable<int> survey, Nullable<int> question)
+        public virtual ObjectResult<question> pr_getQuestionBySurvey(Nullable<int> survey)
         {
             var surveyParameter = survey.HasValue ?
                 new ObjectParameter("survey", survey) :
                 new ObjectParameter("survey", typeof(int));
     
-            var questionParameter = question.HasValue ?
-                new ObjectParameter("question", question) :
-                new ObjectParameter("question", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionBySurvey", surveyParameter, questionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionBySurvey", surveyParameter);
         }
     
-        public virtual ObjectResult<question> pr_getQuestionBySurvey(Nullable<int> survey, Nullable<int> question, MergeOption mergeOption)
+        public virtual ObjectResult<question> pr_getQuestionBySurvey(Nullable<int> survey, MergeOption mergeOption)
         {
             var surveyParameter = survey.HasValue ?
                 new ObjectParameter("survey", survey) :
                 new ObjectParameter("survey", typeof(int));
     
-            var questionParameter = question.HasValue ?
-                new ObjectParameter("question", question) :
-                new ObjectParameter("question", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionBySurvey", mergeOption, surveyParameter, questionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionBySurvey", mergeOption, surveyParameter);
         }
     
         public virtual ObjectResult<question> pr_getQuestionByTranslation(Nullable<int> translation)
@@ -8624,6 +8616,130 @@ namespace Generic
                 new ObjectParameter("selected_sql", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_findPerson1", mergeOption, enterpriseParameter, selected_sqlParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addAutomailMessage(Nullable<int> partnerTypeTouchpointQuestionnaire, Nullable<int> mailType, string subject, string text, string footer1, string footer2)
+        {
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            var mailTypeParameter = mailType.HasValue ?
+                new ObjectParameter("mailType", mailType) :
+                new ObjectParameter("mailType", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var footer1Parameter = footer1 != null ?
+                new ObjectParameter("footer1", footer1) :
+                new ObjectParameter("footer1", typeof(string));
+    
+            var footer2Parameter = footer2 != null ?
+                new ObjectParameter("footer2", footer2) :
+                new ObjectParameter("footer2", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAutomailMessage", partnerTypeTouchpointQuestionnaireParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutomailMessage_Result> pr_getAutomailMessage(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessage_Result>("pr_getAutomailMessage", idParameter);
+        }
+    
+        public virtual int pr_modifyAutomailMessage(Nullable<int> id, Nullable<int> partnerTypeTouchpointQuestionnaire, Nullable<int> mailType, string subject, string text, string footer1, string footer2)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            var mailTypeParameter = mailType.HasValue ?
+                new ObjectParameter("mailType", mailType) :
+                new ObjectParameter("mailType", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var footer1Parameter = footer1 != null ?
+                new ObjectParameter("footer1", footer1) :
+                new ObjectParameter("footer1", typeof(string));
+    
+            var footer2Parameter = footer2 != null ?
+                new ObjectParameter("footer2", footer2) :
+                new ObjectParameter("footer2", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutomailMessage", idParameter, partnerTypeTouchpointQuestionnaireParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
+        }
+    
+        public virtual int pr_removeAutomailMessage(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutomailMessage", idParameter);
+        }
+    
+        public virtual ObjectResult<touchpoint> pr_getTouchpointByProtocol(Nullable<int> protocol)
+        {
+            var protocolParameter = protocol.HasValue ?
+                new ObjectParameter("protocol", protocol) :
+                new ObjectParameter("protocol", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointByProtocol", protocolParameter);
+        }
+    
+        public virtual ObjectResult<touchpoint> pr_getTouchpointByProtocol(Nullable<int> protocol, MergeOption mergeOption)
+        {
+            var protocolParameter = protocol.HasValue ?
+                new ObjectParameter("protocol", protocol) :
+                new ObjectParameter("protocol", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointByProtocol", mergeOption, protocolParameter);
+        }
+    
+        public virtual ObjectResult<question> pr_getQuestionBySurveySkipLogic(Nullable<int> survey, Nullable<int> jumpToQuestion)
+        {
+            var surveyParameter = survey.HasValue ?
+                new ObjectParameter("survey", survey) :
+                new ObjectParameter("survey", typeof(int));
+    
+            var jumpToQuestionParameter = jumpToQuestion.HasValue ?
+                new ObjectParameter("jumpToQuestion", jumpToQuestion) :
+                new ObjectParameter("jumpToQuestion", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionBySurveySkipLogic", surveyParameter, jumpToQuestionParameter);
+        }
+    
+        public virtual ObjectResult<question> pr_getQuestionBySurveySkipLogic(Nullable<int> survey, Nullable<int> jumpToQuestion, MergeOption mergeOption)
+        {
+            var surveyParameter = survey.HasValue ?
+                new ObjectParameter("survey", survey) :
+                new ObjectParameter("survey", typeof(int));
+    
+            var jumpToQuestionParameter = jumpToQuestion.HasValue ?
+                new ObjectParameter("jumpToQuestion", jumpToQuestion) :
+                new ObjectParameter("jumpToQuestion", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionBySurveySkipLogic", mergeOption, surveyParameter, jumpToQuestionParameter);
         }
     }
 }

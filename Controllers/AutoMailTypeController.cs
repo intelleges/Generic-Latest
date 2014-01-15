@@ -8,36 +8,33 @@ using System.Web.Mvc;
 
 namespace Generic.Controllers
 {
-    public class TouchpointController : Controller
+    public class AutoMailTypeController : Controller
     {
         private EntitiesDBContext db = new EntitiesDBContext();
 
         //
-        // GET: /Touchpoint/
+        // GET: /AutoMailType/
 
         public ActionResult Index()
         {
-            var touchPoint = db.pr_getTouchpointAll();
-            return View(touchPoint.ToList());
-
-          
+            return View(db.pr_getAutoMailTypeAll().ToList());
         }
 
         //
-        // GET: /Touchpoint/Details/5
+        // GET: /AutoMailType/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            touchpoint touchpoint = db.pr_getTouchpoint(id).FirstOrDefault();
-            if (touchpoint == null)
+            autoMailType automailtype = db.pr_getAutoMailType(id).FirstOrDefault();
+            if (automailtype == null)
             {
                 return HttpNotFound();
             }
-            return View(touchpoint);
+            return View(automailtype);
         }
 
         //
-        // GET: /Touchpoint/Create
+        // GET: /AutoMailType/Create
 
         public ActionResult Create()
         {
@@ -45,79 +42,72 @@ namespace Generic.Controllers
         }
 
         //
-        // POST: /Touchpoint/Create
+        // POST: /AutoMailType/Create
 
         [HttpPost]
-        public ActionResult Create(touchpoint touchpoint)
+        public ActionResult Create(autoMailType automailtype)
         {
             if (ModelState.IsValid)
             {
-                db.touchpoint.Add(touchpoint);
+                db.autoMailType.Add(automailtype);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(touchpoint);
+            return View(automailtype);
         }
 
         //
-        // GET: /Touchpoint/Edit/5
+        // GET: /AutoMailType/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            touchpoint touchpoint = db.pr_getTouchpoint(id).FirstOrDefault();
-            if (touchpoint == null)
+            autoMailType automailtype = db.pr_getAutoMailType(id).FirstOrDefault();
+            if (automailtype == null)
             {
                 return HttpNotFound();
             }
-            return View(touchpoint);
+            return View(automailtype);
         }
 
         //
-        // POST: /Touchpoint/Edit/5
+        // POST: /AutoMailType/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(touchpoint touchpoint)
+        public ActionResult Edit(autoMailType automailtype)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(touchpoint).State = EntityState.Modified;
+                db.Entry(automailtype).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(touchpoint);
+            return View(automailtype);
         }
 
         //
-        // GET: /Touchpoint/Delete/5
+        // GET: /AutoMailType/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            touchpoint touchpoint = db.pr_getTouchpoint(id).FirstOrDefault();
-            if (touchpoint == null)
+            autoMailType automailtype = db.pr_getAutoMailType(id).FirstOrDefault();
+            if (automailtype == null)
             {
                 return HttpNotFound();
             }
-            return View(touchpoint);
+            return View(automailtype);
         }
 
         //
-        // POST: /Touchpoint/Delete/5
+        // POST: /AutoMailType/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            touchpoint touchpoint = db.pr_getTouchpoint(id).FirstOrDefault();
-            db.touchpoint.Remove(touchpoint);
+            autoMailType automailtype = db.pr_getAutoMailType(id).FirstOrDefault();
+            db.autoMailType.Remove(automailtype);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-
-        public ActionResult GetTouchPointByprotocolId(int protocolId)
-        {
-            var touchpoint = db.pr_getTouchpointByProtocol(protocolId).Select(x => new { x.id, x.description}).ToList();
-            return Json(new { Data = touchpoint }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

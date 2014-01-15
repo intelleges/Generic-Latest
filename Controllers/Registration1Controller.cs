@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Generic.Controllers
 {
-    public class RegistrationController : Controller
+    public class Registration1Controller : Controller
     {
         //
         // GET: /Partner/

@@ -39,7 +39,7 @@ namespace Generic
                   //Client first not tested in demo 
                  "~/tmp/Views/Shared/{0}.cshtml",
                  //Improved method. 
-            };
+            };                                          
 
             // HANDLES ALL AREAS - Generically! 
             AreaViewLocationFormats =new[] 
