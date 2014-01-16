@@ -377,6 +377,7 @@
     <Compile Include="Controllers\Registration1Controller.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\ProtocolController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TestPageController.cs" />
     <Compile Include="Controllers\TouchpointController.cs" />
     <Compile Include="country.cs">
@@ -2301,6 +2302,21 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\QuestionnaireResponse.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Role\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Role\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Role\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Role\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Role\Delete.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

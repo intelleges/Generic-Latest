@@ -1,0 +1,76 @@
+﻿@inherits System.Web.Mvc.WebViewPage<generic.role>
+    @using System.Web.Mvc.Html
+    @using Generic.Helpers
+
+    @{
+    ViewBag.Title = "Create Role";
+    Layout = null;
+    }
+
+    <h2>Create</h2>
+
+    @using (Html.BeginForm("Create","Role")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Hidden("Id",null,new{@id="hdId"})
+
+    <fieldset>
+        <legend>role</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.sortOrder)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.sortOrder)
+            @Html.ValidationMessageFor(model => model.sortOrder)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.active)
+            @Html.ValidationMessageFor(model => model.active)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.accessLevel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.accessLevel)
+            @Html.ValidationMessageFor(model => model.accessLevel)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.access)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.access)
+            @Html.ValidationMessageFor(model => model.access)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" id="btnCreate" />
+        </p>
+    </fieldset>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    <script>
+        $("#btnCreate").click(function () {
+            alert("Hi");
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+
