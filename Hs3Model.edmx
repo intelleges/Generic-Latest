@@ -13369,7 +13369,7 @@
                   <ScalarProperty Name="description" ParameterName="description" />
                   <ScalarProperty Name="alias" ParameterName="alias" />
                   <ScalarProperty Name="name" ParameterName="name" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerType">
                   <ScalarProperty Name="active" ParameterName="active" Version="Current" />
@@ -13504,7 +13504,7 @@
                   <ScalarProperty Name="riskType" ParameterName="riskType" />
                   <ScalarProperty Name="manager" ParameterName="manager" />
                   <ScalarProperty Name="enterprise" ParameterName="enterprise" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPerson">
                   <ScalarProperty Name="personStatus" ParameterName="PersonStatus" Version="Current" />
@@ -13634,7 +13634,7 @@
                   <ScalarProperty Name="active" ParameterName="active" />
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
                   <ScalarProperty Name="description" ParameterName="description" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonStatus">
                   <ScalarProperty Name="id" ParameterName="id" Version="Current" />
@@ -13707,7 +13707,7 @@
                   <ScalarProperty Name="name" ParameterName="name" />
                   <ScalarProperty Name="enterprise" ParameterName="enterprise" />
                   <ScalarProperty Name="menuGroup" ParameterName="menuGroup" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyProtocol">
                   <ScalarProperty Name="active" ParameterName="active" Version="Current" />
@@ -13899,7 +13899,7 @@
                   <ScalarProperty Name="letter" ParameterName="letter" />
                   <ScalarProperty Name="partnerType" ParameterName="partnerType" />
                   <ScalarProperty Name="person" ParameterName="person" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaire">
                   <ScalarProperty Name="multiLanguage" ParameterName="multiLanguage" Version="Current" />
@@ -14001,7 +14001,7 @@
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
                   <ScalarProperty Name="title" ParameterName="title" />
                   <ScalarProperty Name="description" ParameterName="description" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyResponse">
                   <ScalarProperty Name="active" ParameterName="active" Version="Current" />
@@ -14042,7 +14042,7 @@
                   <ScalarProperty Name="active" ParameterName="active" />
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
                   <ScalarProperty Name="description" ParameterName="description" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyResponseType">
                   <ScalarProperty Name="active" ParameterName="active" Version="Current" />
@@ -14088,7 +14088,7 @@
                   <ScalarProperty Name="active" ParameterName="active" />
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
                   <ScalarProperty Name="description" ParameterName="description" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyRole">
                   <ScalarProperty Name="id" ParameterName="id" Version="Current" />
@@ -14155,7 +14155,7 @@
                   <ScalarProperty Name="active" ParameterName="active" />
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
                   <ScalarProperty Name="description" ParameterName="description" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyRule">
                   <ScalarProperty Name="ruleType" ParameterName="ruleType" Version="Current" />
@@ -14187,7 +14187,7 @@
                   <ScalarProperty Name="active" ParameterName="active" />
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
                   <ScalarProperty Name="description" ParameterName="description" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyRuleType">
                   <ScalarProperty Name="active" ParameterName="active" Version="Current" />
@@ -14277,7 +14277,7 @@
                   <ScalarProperty Name="display" ParameterName="display" />
                   <ScalarProperty Name="name" ParameterName="name" />
                   <ScalarProperty Name="description" ParameterName="description" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifySurvey">
                   <ScalarProperty Name="lastModifiedDate" ParameterName="lastModifiedDate" Version="Current" />
@@ -14312,7 +14312,7 @@
                   <ScalarProperty Name="active" ParameterName="active" />
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
                   <ScalarProperty Name="description" ParameterName="description" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifySurveyset">
                   <ScalarProperty Name="accessLevel" ParameterName="accessLevel" Version="Current" />
@@ -14399,7 +14399,7 @@
                   <ScalarProperty Name="sponsor" ParameterName="sponsor" />
                   <ScalarProperty Name="person" ParameterName="person" />
                   <ScalarProperty Name="protocol" ParameterName="protocol" />
-                  <ResultBinding Name="id" ColumnName="int" />
+                  <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyTouchpoint">
                   <ScalarProperty Name="active" ParameterName="active" Version="Current" />

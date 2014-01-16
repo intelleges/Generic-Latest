@@ -226,8 +226,7 @@ namespace Generic.DataLayer
         //    private void showquestionCollectionBysurvey(survey survey, int jumpToquestion, Table table)
         private void showquestionCollectionBysurvey(surveyset surveyset, survey survey, int jumpToquestion, Table table)
         {
-            //sp_getQuestionBySurveySkipLogic
-            //db.pr_getQuestionBySurvey
+           
             List<question> questionCollection = db.pr_getQuestionBySurveySkipLogic(survey.id,jumpToquestion).ToList();
             question question = null;
 
@@ -279,8 +278,8 @@ namespace Generic.DataLayer
             //    }
             //    //return translated;
             //}
-            //return srtto;
-            return "en";
+            return srtto;
+            
         }
         public string convertLanguageToEnglish(string strfrom)
         {
@@ -300,8 +299,8 @@ namespace Generic.DataLayer
             //        }
             //        return translated;     
             //        //return translated;     
-            ////        return strfrom;
-            return "en";
+                   return strfrom;
+            
         }
         string currentsurvey = "";
         string previoussurvey = "";
@@ -1067,436 +1066,436 @@ namespace Generic.DataLayer
 
         public TableRow getAnswerRow(int surveyId, int questionId, string responseType, string cssClass, Table table)
         {
-            //        question question = new question(new Id(questionId));
-            //        List<Response> responseCollection = new List<Response>();
-            //        TextBox textBox = new TextBox();
-            //        RadioButton radioButton = new RadioButton();
-            //        RadioButtonList radioButtonList = new RadioButtonList();
-            //        DropDownList dropDownList = new DropDownList();
-            //        FileUpload fileUpload = new FileUpload();
-            //        CheckBox checkBox = new CheckBox();
+                    question question = new question();
+                    List<response> responseCollection = new List<response>();
+                    TextBox textBox = new TextBox();
+                    RadioButton radioButton = new RadioButton();
+                    RadioButtonList radioButtonList = new RadioButtonList();
+                    DropDownList dropDownList = new DropDownList();
+                    FileUpload fileUpload = new FileUpload();
+                    CheckBox checkBox = new CheckBox();
             TableRow tableRow = new TableRow();
             TableCell tableCell = new TableCell();
-            //        survey survey = new survey(new Id(surveyId));
-            //        Response response = new Response();
-            //        surveyForm surveyfrm = new surveyForm();
+                    survey survey = new survey();
+                    response response = new response();
+                    surveyForm surveyfrm = new surveyForm();
 
-            //        if (this.showContentOnly)
-            //        {
-            //            response = new Response(new Id(0));
-            //        }
-            //        else
-            //        {
-            //            //get responses
-            //            response = partner.getResponseBypartnerprotocoltouchpointquestionnairesurveyquestion(
-            //                protocol, touchpoint, questionnaire, survey, question);
-            //        }
+                    if (this.showContentOnly)
+                    {
+                        response = new response();
+                    }
+                    else
+                    {
+                        //get responses
 
-            //        responseCollection = question.getResponseCollectionByquestion();
+                        response = db.pr_getResponseByQuestion(questionId).FirstOrDefault();
+                    }
 
-            //        switch (responseType)
-            //        {
-            //            case "textComment":
-            //                textBox = new TextBox();
-            //                textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-            //                textBox.Width = 600;
+                    responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
 
-            //                if (response.description != null && response.description.Length > 0)
-            //                {
-            //                    //textBox.Text = response.description;
-            //                    textBox.Text = convertLanguageApi(response.description);
-            //                }
+                    switch (responseType)
+                    {
+                        case "textComment":
+                            textBox = new TextBox();
+                            textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                            textBox.Width = 600;
 
-            //                //add empty cell
-            //                tableCell = new TableCell();
-            //                tableCell.Text = "&nbsp;";
-            //                tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-            //                tableCell.Style.Add("border-spacing", "0");
-            //                tableCell.Style.Add("padding-right", "5px");
-            //                tableRow.Controls.Add(tableCell);
+                            if (response != null)
+                            {
+                                //textBox.Text = response.description;
+                                textBox.Text = convertLanguageApi(response.description);
+                            }
 
-            //                tableCell = new TableCell();
-            //                tableCell.ColumnSpan = 2;
-            //                tableCell.Controls.Add(textBox);
-            //                tableRow.Controls.Add(tableCell);
-            //                break;
-            //            case "textInteger":
-            //                textBox = new TextBox();
-            //                textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-            //                textBox.Width = 600;
+                            //add empty cell
+                            tableCell = new TableCell();
+                            tableCell.Text = "&nbsp;";
+                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                            tableCell.Style.Add("border-spacing", "0");
+                            tableCell.Style.Add("padding-right", "5px");
+                            tableRow.Controls.Add(tableCell);
 
-            //                if (response.description != null && response.description.Length > 0)
-            //                {
-            //                    //textBox.Text = response.description;
-            //                    textBox.Text = convertLanguageApi(response.description);
-            //                }
+                            tableCell = new TableCell();
+                            tableCell.ColumnSpan = 2;
+                            tableCell.Controls.Add(textBox);
+                            tableRow.Controls.Add(tableCell);
+                            break;
+                        case "textInteger":
+                            textBox = new TextBox();
+                            textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                            textBox.Width = 600;
 
-            //                //add empty cell
-            //                tableCell = new TableCell();
-            //                tableCell.Text = "&nbsp;";
-            //                tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-            //                tableCell.Style.Add("border-spacing", "0");
-            //                tableCell.Style.Add("padding-right", "5px");
-            //                tableRow.Controls.Add(tableCell);
+                            if (response.description != null && response.description.Length > 0)
+                            {
+                                //textBox.Text = response.description;
+                                textBox.Text = convertLanguageApi(response.description);
+                            }
 
-            //                tableCell = new TableCell();
-            //                tableCell.ColumnSpan = 2;
-            //                tableCell.Controls.Add(textBox);
-            //                tableRow.Controls.Add(tableCell);
-            //                break;
-            //            case "textNumber":
-            //                textBox = new TextBox();
-            //                textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-            //                textBox.Width = 600;
+                            //add empty cell
+                            tableCell = new TableCell();
+                            tableCell.Text = "&nbsp;";
+                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                            tableCell.Style.Add("border-spacing", "0");
+                            tableCell.Style.Add("padding-right", "5px");
+                            tableRow.Controls.Add(tableCell);
 
-            //                if (response.description != null && response.description.Length > 0)
-            //                {
-            //                    //textBox.Text = response.description;
-            //                    textBox.Text = convertLanguageApi(response.description);
-            //                }
+                            tableCell = new TableCell();
+                            tableCell.ColumnSpan = 2;
+                            tableCell.Controls.Add(textBox);
+                            tableRow.Controls.Add(tableCell);
+                            break;
+                        case "textNumber":
+                            textBox = new TextBox();
+                            textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                            textBox.Width = 600;
 
-            //                //add empty cell
-            //                tableCell = new TableCell();
-            //                tableCell.Text = "&nbsp;";
-            //                tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-            //                tableCell.Style.Add("border-spacing", "0");
-            //                tableCell.Style.Add("padding-right", "5px");
-            //                tableRow.Controls.Add(tableCell);
+                            if (response.description != null && response.description.Length > 0)
+                            {
+                                //textBox.Text = response.description;
+                                textBox.Text = convertLanguageApi(response.description);
+                            }
 
-            //                tableCell = new TableCell();
-            //                tableCell.ColumnSpan = 2;
-            //                tableCell.Controls.Add(textBox);
-            //                tableRow.Controls.Add(tableCell);
-            //                break;
-            //            case "textarea":
-            //                textBox = new TextBox();
+                            //add empty cell
+                            tableCell = new TableCell();
+                            tableCell.Text = "&nbsp;";
+                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                            tableCell.Style.Add("border-spacing", "0");
+                            tableCell.Style.Add("padding-right", "5px");
+                            tableRow.Controls.Add(tableCell);
 
-            //                textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-            //                textBox.Width = 600;
-            //                textBox.TextMode = TextBoxMode.MultiLine;
-            //                textBox.Rows = 3;
+                            tableCell = new TableCell();
+                            tableCell.ColumnSpan = 2;
+                            tableCell.Controls.Add(textBox);
+                            tableRow.Controls.Add(tableCell);
+                            break;
+                        case "textarea":
+                            textBox = new TextBox();
 
-            //                //add empty cell
-            //                tableCell = new TableCell();
-            //                tableCell.Text = "&nbsp;";
-            //                tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-            //                tableCell.Style.Add("border-spacing", "0");
-            //                tableCell.Style.Add("padding-right", "5px");
-            //                tableRow.Controls.Add(tableCell);
+                            textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                            textBox.Width = 600;
+                            textBox.TextMode = TextBoxMode.MultiLine;
+                            textBox.Rows = 3;
 
-            //                if (response.description != null && response.description.Length > 0)
-            //                {
-            //                    //textBox.Text = response.description;
-            //                    textBox.Text = convertLanguageApi(response.description);
-            //                }
+                            //add empty cell
+                            tableCell = new TableCell();
+                            tableCell.Text = "&nbsp;";
+                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                            tableCell.Style.Add("border-spacing", "0");
+                            tableCell.Style.Add("padding-right", "5px");
+                            tableRow.Controls.Add(tableCell);
 
-            //                tableCell = new TableCell();
-            //                tableCell.Controls.Add(textBox);
-            //                tableCell.ColumnSpan = 2;
-            //                tableRow.Controls.Add(tableCell);
-            //                break;
-            //            case "dropdown":
-            //                tableRow = new TableRow();
-            //                table.Controls.Add(tableRow);
+                            if (response.description != null && response.description.Length > 0)
+                            {
+                                //textBox.Text = response.description;
+                                textBox.Text = convertLanguageApi(response.description);
+                            }
 
-            //                //add empty cell
-            //                tableCell = new TableCell();
-            //                tableCell.Text = "&nbsp;";
-            //                tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-            //                tableCell.Style.Add("border-spacing", "0");
-            //                tableCell.Style.Add("padding-right", "5px");
-            //                tableRow.Controls.Add(tableCell);
+                            tableCell = new TableCell();
+                            tableCell.Controls.Add(textBox);
+                            tableCell.ColumnSpan = 2;
+                            tableRow.Controls.Add(tableCell);
+                            break;
+                        case "dropdown":
+                            tableRow = new TableRow();
+                            table.Controls.Add(tableRow);
 
-            //                tableCell = new TableCell();
-            //                dropDownList = new DropDownList();
-            //                dropDownList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
-            //                dropDownList.Width = 250;
-            //                tableCell = new TableCell();
-            //                tableCell.HorizontalAlign = HorizontalAlign.Left;
-            //                string selectval = convertLanguageApi("Please select one");
-            //                dropDownList.Items.Add(new ListItem(selectval, "0"));
+                            //add empty cell
+                            tableCell = new TableCell();
+                            tableCell.Text = "&nbsp;";
+                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                            tableCell.Style.Add("border-spacing", "0");
+                            tableCell.Style.Add("padding-right", "5px");
+                            tableRow.Controls.Add(tableCell);
 
-            //                for (int i = 0; i < responseCollection.Count; i++)
-            //                {
-            //                    //dropDownList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.id.ToString()));
-            //                    dropDownList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.id.ToString()));
-            //                    if (response.id != null && responseCollection[i].id.id == response.id.id)
-            //                    {
-            //                        dropDownList.Items[i + 1].Selected = true;
-            //                    }
-            //                    tableCell.Controls.Add(dropDownList);
-            //                }
+                            tableCell = new TableCell();
+                            dropDownList = new DropDownList();
+                            dropDownList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
+                            dropDownList.Width = 250;
+                            tableCell = new TableCell();
+                            tableCell.HorizontalAlign = HorizontalAlign.Left;
+                            string selectval = convertLanguageApi("Please select one");
+                            dropDownList.Items.Add(new ListItem(selectval, "0"));
 
-            //                tableCell.Controls.Add(dropDownList);
-            //                tableCell.ColumnSpan = 2;
-            //                tableRow.Controls.Add(tableCell);
-            //                break;
-            //            case "verticalRadioButton":
-            //                tableRow = new TableRow();
-            //                table.Controls.Add(tableRow);
+                            for (int i = 0; i < responseCollection.Count; i++)
+                            {
+                                //dropDownList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
+                                dropDownList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
+                                if (response.id != null && responseCollection[i].id == response.id)
+                                {
+                         // -- to be checked           dropDownList.Items[i + 1].Selected = true;
+                                }
+                                tableCell.Controls.Add(dropDownList);
+                            }
 
-            //                //add empty cell
-            //                tableCell = new TableCell();
-            //                tableCell.Text = "&nbsp;";
-            //                tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-            //                tableCell.Style.Add("border-spacing", "0");
-            //                tableCell.Style.Add("padding-right", "5px");
-            //                tableCell.Style.Add("font-size", "medium");
-            //                tableRow.Controls.Add(tableCell);
+                            tableCell.Controls.Add(dropDownList);
+                            tableCell.ColumnSpan = 2;
+                            tableRow.Controls.Add(tableCell);
+                            break;
+                        case "verticalRadioButton":
+                            tableRow = new TableRow();
+                            table.Controls.Add(tableRow);
 
-            //                tableCell = new TableCell();
-            //                radioButtonList = new RadioButtonList();
-            //                radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
-            //radioButtonList.Font.Size=10;
-            //                //radioButtonList.Attributes.Add("onchange", "javascript:showdiv();");
-            //                radioButtonList.Attributes.Add("onClick", "showdivRadioList(this);removevalidation(this.id) ");
-            //                radioButtonList.RepeatDirection = RepeatDirection.Vertical;
-            //                tableCell = new TableCell();
-            //                tableCell.HorizontalAlign = HorizontalAlign.Left;
-            //                for (int i = 0; i < responseCollection.Count; i++)
-            //                {
-            //                    //radioButtonList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.id.ToString()));
-            //                    radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.id.ToString()));
-            //                    if (response.id != null && responseCollection[i].id.id == response.id.id)
-            //                    {
-            //                        radioButtonList.Items[i].Selected = true;
-            //                    }
-            //                    tableCell.Controls.Add(radioButtonList);
-            //                }
-            //                tableCell.Controls.Add(radioButtonList);
-            //                tableCell.ColumnSpan = 2;
-            //                tableRow.Controls.Add(tableCell);
-            //                break;
-            //            case "upload":
-            //                if (showContentOnly == false)
-            //                {
-            //                    string uploadedFile = question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
+                            //add empty cell
+                            tableCell = new TableCell();
+                            tableCell.Text = "&nbsp;";
+                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                            tableCell.Style.Add("border-spacing", "0");
+                            tableCell.Style.Add("padding-right", "5px");
+                            tableCell.Style.Add("font-size", "medium");
+                            tableRow.Controls.Add(tableCell);
 
-            //                    if (!string.IsNullOrEmpty(uploadedFile))
-            //                    {
-            //                        //add empty cell
-            //                        tableCell = new TableCell();
-            //                        tableCell.Text = "&nbsp;";
-            //                        tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-            //                        tableCell.Style.Add("border-spacing", "0");
-            //                        tableCell.Style.Add("padding-right", "5px");
-            //                        tableRow.Controls.Add(tableCell);
+                            tableCell = new TableCell();
+                            radioButtonList = new RadioButtonList();
+                            radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
+            radioButtonList.Font.Size=10;
+                            //radioButtonList.Attributes.Add("onchange", "javascript:showdiv();");
+                            radioButtonList.Attributes.Add("onClick", "showdivRadioList(this);removevalidation(this.id) ");
+                            radioButtonList.RepeatDirection = RepeatDirection.Vertical;
+                            tableCell = new TableCell();
+                            tableCell.HorizontalAlign = HorizontalAlign.Left;
+                            for (int i = 0; i < responseCollection.Count; i++)
+                            {
+                                //radioButtonList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
+                                radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
+                                if (response.id != null && responseCollection[i].id == response.id)
+                                {
+                                    radioButtonList.Items[i].Selected = true;
+                                }
+                                tableCell.Controls.Add(radioButtonList);
+                            }
+                            tableCell.Controls.Add(radioButtonList);
+                            tableCell.ColumnSpan = 2;
+                            tableRow.Controls.Add(tableCell);
+                            break;
+                        case "upload":
+                            if (showContentOnly == false)
+                            {
+                                
+                                //db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(1);
+                                string uploadedFile = "";// question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
 
-
-            //                        tableCell = new TableCell();
-            //                        tableCell.ColumnSpan = 2;
-            //                        tableCell.Text = surveyfrm.convertLanguageApi("File uploaded") + ": " + Path.GetFileName(uploadedFile);
-            //                        tableRow.Controls.Add(tableCell);
-            //                        table.Controls.Add(tableRow);
-
-            //                        tableRow = new TableRow();
-            //                        table.Controls.Add(tableRow);
-            //                    }
-            //                }
-
-            //                fileUpload = new FileUpload();
-            //                fileUpload.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_upload";
-
-            //                fileUpload.Width = 650;
-            //                fileUpload.Attributes.Add("size", "40");
-
-            //                //add empty cell
-            //                tableCell = new TableCell();
-            //                tableCell.Text = "&nbsp;";
-            //                tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-            //                tableCell.Style.Add("border-spacing", "0");
-            //                tableCell.Style.Add("padding-right", "5px");
-            //                tableRow.Controls.Add(tableCell);
-
-            //                tableCell = new TableCell();
-            //                tableCell.ColumnSpan = 2;
-            //                tableCell.Controls.Add(fileUpload);
-            //                //tableCell = new TableCell();
-            //                Label labelErrormsg = new Label();
-            //                //labelErrormsg.Text = surveyfrm.convertLanguageApi("File size exceeded than limit 4 MB, Please upload smaller file.");
-            //                labelErrormsg.Style.Add("color", "red");
-            //                labelErrormsg.Style.Add("font-size", "12px");
-            //                tableCell.Controls.Add(labelErrormsg);
-            //                tableRow.Controls.Add(tableCell);
+                                if (!string.IsNullOrEmpty(uploadedFile))
+                                {
+                                    //add empty cell
+                                    tableCell = new TableCell();
+                                    tableCell.Text = "&nbsp;";
+                                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                                    tableCell.Style.Add("border-spacing", "0");
+                                    tableCell.Style.Add("padding-right", "5px");
+                                    tableRow.Controls.Add(tableCell);
 
 
-            //                //labelErrormsg.ForeColor = System.Drawing.Color.Red;
-            //                // tableCell = new TableCell();
+                                    tableCell = new TableCell();
+                                    tableCell.ColumnSpan = 2;
+                                    tableCell.Text = surveyfrm.convertLanguageApi("File uploaded") + ": " + Path.GetFileName(uploadedFile);
+                                    tableRow.Controls.Add(tableCell);
+                                    table.Controls.Add(tableRow);
 
-            //                // tableRow.Controls.Add(tableCell);
-            //                break;
-            //            case "checkBox":
-            //                tableRow = new TableRow();
-            //                table.Controls.Add(tableRow);
+                                    tableRow = new TableRow();
+                                    table.Controls.Add(tableRow);
+                                }
+                            }
 
-            //                //add empty cell
-            //                tableCell = new TableCell();
-            //                tableCell.Text = "&nbsp;";
-            //                tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-            //                tableCell.Style.Add("border-spacing", "0");
-            //                tableCell.Style.Add("padding-right", "5px");
-            //                tableRow.Controls.Add(tableCell);
+                            fileUpload = new FileUpload();
+                            fileUpload.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_upload";
 
-            //                tableCell = new TableCell();
-            //                tableCell.HorizontalAlign = HorizontalAlign.Left;
+                            fileUpload.Width = 650;
+                            fileUpload.Attributes.Add("size", "40");
 
-            //                List<Response> responses = null;
-            //                if (showContentOnly == false)
-            //                {
-            //                    //get the list of reponses
-            //                    responses = partner.getResponseCollectionBypartnerprotocoltouchpointquestionnairesurveyquestion(
-            //                        protocol, touchpoint, questionnaire, survey, question);
-            //                }
-            //                //hidden field
-            //                HiddenField hiddenField = new HiddenField();
+                            //add empty cell
+                            tableCell = new TableCell();
+                            tableCell.Text = "&nbsp;";
+                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                            tableCell.Style.Add("border-spacing", "0");
+                            tableCell.Style.Add("padding-right", "5px");
+                            tableRow.Controls.Add(tableCell);
 
-            //                for (int i = 0; i < responseCollection.Count; i++)
-            //                {
-            //                    checkBox = new CheckBox();
-            //                    checkBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_" + responseCollection[i].id.id.ToString() + "_checkBox";
-            //                    checkBox.Text = convertLanguageApi(responseCollection[i].description);
-
-            //                    if (showContentOnly == false)
-            //                    {
-            //                        foreach (Response item in responses)
-            //                        {
-            //                            if (item.id.id == responseCollection[i].id.id)
-            //                            {
-            //                                checkBox.Checked = true;
-            //                            }
-            //                        }
-            //                    }
-
-            //                    tableCell.Controls.Add(checkBox);
+                            tableCell = new TableCell();
+                            tableCell.ColumnSpan = 2;
+                            tableCell.Controls.Add(fileUpload);
+                            //tableCell = new TableCell();
+                            Label labelErrormsg = new Label();
+                            //labelErrormsg.Text = surveyfrm.convertLanguageApi("File size exceeded than limit 4 MB, Please upload smaller file.");
+                            labelErrormsg.Style.Add("color", "red");
+                            labelErrormsg.Style.Add("font-size", "12px");
+                            tableCell.Controls.Add(labelErrormsg);
+                            tableRow.Controls.Add(tableCell);
 
 
-            //                }
-            //                //render a new hiddenField
-            //                hiddenField = new HiddenField();
-            //                hiddenField.ID = "questionHiddenField_" + questionId.ToString() + "_" + surveyId.ToString();
-            //                hiddenField.Value = questionId.ToString();
-            //                tableCell.Controls.Add(hiddenField);
+                            //labelErrormsg.ForeColor = System.Drawing.Color.Red;
+                            // tableCell = new TableCell();
 
-            //                tableCell.ColumnSpan = 2;
-            //                tableRow.Controls.Add(tableCell);
-            //                break;
-            //            case "text/upload":
-            //                textBox = new TextBox();
-            //                textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-            //                textBox.Width = 600;
+                            // tableRow.Controls.Add(tableCell);
+                            break;
+                        case "checkBox":
+                            tableRow = new TableRow();
+                            table.Controls.Add(tableRow);
 
-            //                if (response.description != null && response.description.Length > 0)
-            //                {
-            //                    textBox.Text = convertLanguageApi(response.description);
-            //                }
+                            //add empty cell
+                            tableCell = new TableCell();
+                            tableCell.Text = "&nbsp;";
+                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                            tableCell.Style.Add("border-spacing", "0");
+                            tableCell.Style.Add("padding-right", "5px");
+                            tableRow.Controls.Add(tableCell);
 
-            //                fileUpload = new FileUpload();
-            //                fileUpload.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_uploadText";
-            //                fileUpload.Width = 650;
-            //                fileUpload.Attributes.Add("size", "40");
+                            tableCell = new TableCell();
+                            tableCell.HorizontalAlign = HorizontalAlign.Left;
 
-            //                //add empty cell
-            //                tableCell = new TableCell();
-            //                tableCell.Text = "&nbsp;";
-            //                tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-            //                tableCell.Style.Add("border-spacing", "0");
-            //                tableCell.Style.Add("padding-right", "5px");
-            //                tableRow.Controls.Add(tableCell);
+                            List<response> responses = null;
+                            if (showContentOnly == false)
+                            {
+                                //get the list of reponses
+                                responses = db.pr_getResponseByQuestion(questionId).ToList();
+                            }
+                            //hidden field
+                            HiddenField hiddenField = new HiddenField();
 
-            //                tableCell = new TableCell();
-            //                tableCell.ColumnSpan = 2;
-            //                tableCell.Controls.Add(textBox);
+                            for (int i = 0; i < responseCollection.Count; i++)
+                            {
+                                checkBox = new CheckBox();
+                                checkBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_" + responseCollection[i].id.ToString() + "_checkBox";
+                                checkBox.Text = convertLanguageApi(responseCollection[i].description);
 
-            //                Literal literal = new Literal();
-            //                literal.Text = "<p>" + surveyfrm.convertLanguageApi("Please upload the file here") + "</p>";
-            //                if (showContentOnly == false)
-            //                {
-            //                    string uploadedFile = question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
+                                if (showContentOnly == false)
+                                {
+                                    foreach (response item in responses)
+                                    {
+                                        if (item.id == responseCollection[i].id)
+                                        {
+                                            checkBox.Checked = true;
+                                        }
+                                    }
+                                }
 
-            //                    if (!string.IsNullOrEmpty(uploadedFile))
-            //                    {
-
-            //                        literal.Text = "<p>" + surveyfrm.convertLanguageApi("File uploaded") + ": " + Path.GetFileName(uploadedFile) + "</p>";
-            //                    }
+                                tableCell.Controls.Add(checkBox);
 
 
-            //                }
-            //                tableCell.Controls.Add(literal);
-            //                tableCell.Controls.Add(fileUpload);
-            //                tableRow.Controls.Add(tableCell);
-            //                break;
-            //            default:
-            //                break;
-            //        }
+                            }
+                            //render a new hiddenField
+                            hiddenField = new HiddenField();
+                            hiddenField.ID = "questionHiddenField_" + questionId.ToString() + "_" + surveyId.ToString();
+                            hiddenField.Value = questionId.ToString();
+                            tableCell.Controls.Add(hiddenField);
+
+                            tableCell.ColumnSpan = 2;
+                            tableRow.Controls.Add(tableCell);
+                            break;
+                        case "text/upload":
+                            textBox = new TextBox();
+                            textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                            textBox.Width = 600;
+
+                            if (response.description != null && response.description.Length > 0)
+                            {
+                                textBox.Text = convertLanguageApi(response.description);
+                            }
+
+                            fileUpload = new FileUpload();
+                            fileUpload.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_uploadText";
+                            fileUpload.Width = 650;
+                            fileUpload.Attributes.Add("size", "40");
+
+                            //add empty cell
+                            tableCell = new TableCell();
+                            tableCell.Text = "&nbsp;";
+                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                            tableCell.Style.Add("border-spacing", "0");
+                            tableCell.Style.Add("padding-right", "5px");
+                            tableRow.Controls.Add(tableCell);
+
+                            tableCell = new TableCell();
+                            tableCell.ColumnSpan = 2;
+                            tableCell.Controls.Add(textBox);
+
+                            Literal literal = new Literal();
+                            literal.Text = "<p>" + surveyfrm.convertLanguageApi("Please upload the file here") + "</p>";
+                            if (showContentOnly == false)
+                            {
+                                string uploadedFile = "";// question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
+
+                                if (!string.IsNullOrEmpty(uploadedFile))
+                                {
+
+                                    literal.Text = "<p>" + surveyfrm.convertLanguageApi("File uploaded") + ": " + Path.GetFileName(uploadedFile) + "</p>";
+                                }
+
+
+                            }
+                            tableCell.Controls.Add(literal);
+                            tableCell.Controls.Add(fileUpload);
+                            tableRow.Controls.Add(tableCell);
+                            break;
+                        default:
+                            break;
+                    }
 
             return tableRow;
         }
         private TableCell getAnswerCell(int surveyId, int questionId, string responseType, string cssClass, Table table)
         {
-            //question question = new question(new Id(questionId));
-            //List<Response> responseCollection = new List<Response>();
-            //TextBox textBox = new TextBox();
-            //RadioButton radioButton = new RadioButton();
-            //RadioButtonList radioButtonList = new RadioButtonList();
-            //DropDownList dropDownList = new DropDownList();
+            question question = new question();
+            List<response> responseCollection = new List<response>();
+            TextBox textBox = new TextBox();
+            RadioButton radioButton = new RadioButton();
+            RadioButtonList radioButtonList = new RadioButtonList();
+            DropDownList dropDownList = new DropDownList();
             TableCell tableCell = new TableCell();
 
-            //Response response = new Response();
-            //survey survey = new survey(new Id(surveyId));
+            response response = new response();
+            survey survey = new survey();
 
-            //if (this.showContentOnly)
-            //{
-            //    response = new Response(new Id(0));
-            //}
-            //else
-            //{
-            //    response = partner.getResponseBypartnerprotocoltouchpointquestionnairesurveyquestion(
-            //        this.protocol, this.touchpoint, this.questionnaire, survey, question);
-            //}
-            //responseCollection = question.getResponseCollectionByquestion();
+            if (this.showContentOnly)
+            {
+                response = new response();
+            }
+            else
+            {
+                response = db.pr_getResponseByQuestion(questionId).FirstOrDefault();
+            }
+            responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
 
-            //switch (responseType)
-            //{
-            //    case "radioButton":
-            //        radioButtonList = new RadioButtonList();
-            //        radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
-            //        radioButtonList.Attributes.Add("onClick", "showdivnew(this);removevalidation(this.id) ");
-            //        radioButtonList.RepeatDirection = RepeatDirection.Horizontal;
-            //        tableCell = new TableCell();
-            //        tableCell.HorizontalAlign = HorizontalAlign.Right;
-            //        tableCell.CssClass = cssClass;
-            //        tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(15);
-            //        for (int i = 0; i < responseCollection.Count; i++)
-            //        {
-            //            radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.id.ToString()));
+            switch (responseType)
+            {
+                case "radioButton":
+                    radioButtonList = new RadioButtonList();
+                    radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
+                    radioButtonList.Attributes.Add("onClick", "showdivnew(this);removevalidation(this.id) ");
+                    radioButtonList.RepeatDirection = RepeatDirection.Horizontal;
+                    tableCell = new TableCell();
+                    tableCell.HorizontalAlign = HorizontalAlign.Right;
+                    tableCell.CssClass = cssClass;
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(15);
+                    for (int i = 0; i < responseCollection.Count; i++)
+                    {
+                        radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
 
-            //            if (response.id != null && responseCollection[i].id.id == response.id.id)
-            //            {
-            //                if (response.id.id == 74)
-            //                {
-            //                    divShowHideFlag = 1;
-            //                }
-            //                else if (response.id.id == 75)
-            //                {
-            //                    divShowHideFlag = 0;
-            //                }
-            //                else
-            //                {
-            //                    divShowHideFlag = -1;
-            //                }
-            //                radioButtonList.Items[i].Selected = true;
-            //            }
+                        if (response.id != null && responseCollection[i].id == response.id)
+                        {
+                            if (response.id == 74)
+                            {
+                                divShowHideFlag = 1;
+                            }
+                            else if (response.id == 75)
+                            {
+                                divShowHideFlag = 0;
+                            }
+                            else
+                            {
+                                divShowHideFlag = -1;
+                            }
+                            radioButtonList.Items[i].Selected = true;
+                        }
 
-            //            tableCell.Controls.Add(radioButtonList);
-            //        }
-            //        if (divShowHideFlag == 3)
-            //        {
-            //            divShowHideFlag = 2;
-            //        }
-            //        break;
-            //    default:
-            //        break;
-            //}
+                        tableCell.Controls.Add(radioButtonList);
+                    }
+                    if (divShowHideFlag == 3)
+                    {
+                        divShowHideFlag = 2;
+                    }
+                    break;
+                default:
+                    break;
+            }
 
             return tableCell;
         }
@@ -1882,7 +1881,7 @@ namespace Generic.DataLayer
             //{
             //    foreach (questionRule rule in questionRuleCollection)
             //    {
-            //        id = rule.id.id;
+            //        id = rule.id;
             //        description = rule.description;
 
             //        listBox.Items.Add(new ListItem(description, id.ToString()));

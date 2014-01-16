@@ -119,6 +119,30 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
 
 
+
+        [HttpPost]
+        public virtual ActionResult QuestionnaireResponse(FormCollection formCollection ,int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
+        {
+            if (Session["hs3Registration"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            foreach (var key in formCollection.Keys)
+            {
+                var value = formCollection[key.ToString()];
+            }
+
+
+
+            int questionnaireId = (int)Session["questionnaire"];          
+
+            return View();
+        }
+
+
+
+
         /// <summary> 
         ///This is the method for trialling overrides 
         /// </summary> 

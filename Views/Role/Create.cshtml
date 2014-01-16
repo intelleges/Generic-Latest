@@ -1,18 +1,19 @@
-﻿@inherits System.Web.Mvc.WebViewPage<generic.role>
-    @using System.Web.Mvc.Html
-    @using Generic.Helpers
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.role>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
 
-    @{
+@{
     ViewBag.Title = "Create Role";
     Layout = null;
-    }
+}
 
-    <h2>Create</h2>
+<h2>Create</h2>
 
-    @using (Html.BeginForm("Create","Role")) {
+@using (Html.BeginForm("Create", "Role"))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    @Html.Hidden("Id",null,new{@id="hdId"})
+    @Html.Hidden("Id", null, new { @id = "hdId" })
 
     <fieldset>
         <legend>role</legend>
@@ -61,16 +62,16 @@
             <input type="submit" value="Create" id="btnCreate" />
         </p>
     </fieldset>
-    }
+}
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
 
-    <script>
-        $("#btnCreate").click(function () {
-            alert("Hi");
-        });
-    </script>
-    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $("#btnCreate").click(function () {
+        alert("Hi");
+    });
+</script>
+@Scripts.Render("~/bundles/jqueryval")
 

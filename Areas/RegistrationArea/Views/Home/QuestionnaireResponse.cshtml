@@ -139,111 +139,18 @@
 
                                         <div style="width: 800px;" align="left">
 
-
+@using (Html.BeginForm())
+{
                                         @Html.Raw(ViewBag.questions)
-
-
-                                            ///////////////////////////////////////////
-                                            <table border="0" style="width: 100%;">
-                                                <tr>
-                                                    <td class="brownbgtop" align="center" valign="top" colspan="3" style="width: 80%;"><span><b>Section 1</b></span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="brownbg  brownbgarrow" align="right" valign="top" style="width: 5%; border-spacing: 0; padding-right: 5px;">1</td>
-                                                    <td class="brownbg  brownbgarrow" align="left" valign="top" style="width: 80%;"><span>Does ABC currently collect data and documents from its supply base for Conflict Minerals (3TG) compliance?</span><span id="ctl00_contentQuestionnaireBody_ctl03" style="color: Red; display: none;"> Required</span></td>
-                                                    <td class="brownbg" align="right" style="width: 15%;">
-                                                        <table id="ctl00_contentQuestionnaireBody_question_4723_1841" onclick="showdivnew(this);removevalidation(this.id) " border="0">
-                                                            <tr>
-                                                                <td>
-                                                                    <input id="ctl00_contentQuestionnaireBody_question_4723_1841_0" type="radio" name="ctl00$contentQuestionnaireBody$question_4723_1841" value="74" /><label for="ctl00_contentQuestionnaireBody_question_4723_1841_0">Yes</label></td>
-                                                                <td>
-                                                                    <input id="ctl00_contentQuestionnaireBody_question_4723_1841_1" type="radio" name="ctl00$contentQuestionnaireBody$question_4723_1841" value="75" /><label for="ctl00_contentQuestionnaireBody_question_4723_1841_1">No</label></td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="brownbgtop" align="center" valign="top" colspan="3" style="width: 80%;"><span><b>Section 2</b></span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="bluebg bluebgarrow" align="right" valign="top" style="width: 5%; border-spacing: 0; padding-right: 5px;">2</td>
-                                                    <td class="bluebg bluebgarrow" align="left" valign="top" style="width: 80%;"><span>Does ABC manufacture products?</span><span id="ctl00_contentQuestionnaireBody_ctl06" style="color: Red; display: none;"> Required</span></td>
-                                                    <td class="bluebg" align="right" style="width: 15%;">
-                                                        <table id="ctl00_contentQuestionnaireBody_question_4726_1842" onclick="showdivnew(this);removevalidation(this.id) " border="0">
-                                                            <tr>
-                                                                <td>
-                                                                    <input id="ctl00_contentQuestionnaireBody_question_4726_1842_0" type="radio" name="ctl00$contentQuestionnaireBody$question_4726_1842" value="74" /><label for="ctl00_contentQuestionnaireBody_question_4726_1842_0">Yes</label></td>
-                                                                <td>
-                                                                    <input id="ctl00_contentQuestionnaireBody_question_4726_1842_1" type="radio" name="ctl00$contentQuestionnaireBody$question_4726_1842" value="75" /><label for="ctl00_contentQuestionnaireBody_question_4726_1842_1">No</label></td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="brownbg  brownbgarrow" align="right" valign="top" style="width: 5%; border-spacing: 0; padding-right: 5px;">3</td>
-                                                    <td class="brownbg  brownbgarrow" align="left" valign="top" style="width: 80%;"><span>Does ABC have an electronic list (spreadsheet) of all products manufactured by ABC?</span><span id="ctl00_contentQuestionnaireBody_ctl08" style="color: Red; display: none;"> Required</span></td>
-                                                    <td class="brownbg" align="right" style="width: 15%;">
-                                                        <table id="ctl00_contentQuestionnaireBody_question_4727_1842" onclick="showdivnew(this);removevalidation(this.id) " border="0">
-                                                            <tr>
-                                                                <td>
-                                                                    <input id="ctl00_contentQuestionnaireBody_question_4727_1842_0" type="radio" name="ctl00$contentQuestionnaireBody$question_4727_1842" value="74" /><label for="ctl00_contentQuestionnaireBody_question_4727_1842_0">Yes</label></td>
-                                                                <td>
-                                                                    <input id="ctl00_contentQuestionnaireBody_question_4727_1842_1" type="radio" name="ctl00$contentQuestionnaireBody$question_4727_1842" value="75" /><label for="ctl00_contentQuestionnaireBody_question_4727_1842_1">No</label></td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="bluebg bluebgarrow" align="right" valign="top" style="width: 5%; border-spacing: 0; padding-right: 5px;">4</td>
-                                                    <td class="bluebg bluebgarrow" align="left" valign="top" style="width: 80%;"><span>Does ABC “contract to manufacture” products?</span><span id="ctl00_contentQuestionnaireBody_ctl10" style="color: Red; display: none;"> Required</span></td>
-                                                    <td class="bluebg" align="right" style="width: 15%;">
-                                                        <table id="ctl00_contentQuestionnaireBody_question_4728_1842" onclick="showdivnew(this);removevalidation(this.id) " border="0">
-                                                            <tr>
-                                                                <td>
-                                                                    <input id="ctl00_contentQuestionnaireBody_question_4728_1842_0" type="radio" name="ctl00$contentQuestionnaireBody$question_4728_1842" value="74" /><label for="ctl00_contentQuestionnaireBody_question_4728_1842_0">Yes</label></td>
-                                                                <td>
-                                                                    <input id="ctl00_contentQuestionnaireBody_question_4728_1842_1" type="radio" name="ctl00$contentQuestionnaireBody$question_4728_1842" value="75" /><label for="ctl00_contentQuestionnaireBody_question_4728_1842_1">No</label></td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="brownbg  brownbgarrow" align="right" valign="top" style="width: 5%; border-spacing: 0; padding-right: 5px;">5</td>
-                                                    <td class="brownbg  brownbgarrow" align="left" valign="top" style="width: 80%;"><span>Does ABC have an electronic list (spreadsheet) of all products "contracted to be manufactured" by ABC?</span><span id="ctl00_contentQuestionnaireBody_ctl12" style="color: Red; display: none;"> Required</span></td>
-                                                    <td class="brownbg" align="right" style="width: 15%;">
-                                                        <table id="ctl00_contentQuestionnaireBody_question_4729_1842" onclick="showdivnew(this);removevalidation(this.id) " border="0">
-                                                            <tr>
-                                                                <td>
-                                                                    <input id="ctl00_contentQuestionnaireBody_question_4729_1842_0" type="radio" name="ctl00$contentQuestionnaireBody$question_4729_1842" value="74" /><label for="ctl00_contentQuestionnaireBody_question_4729_1842_0">Yes</label></td>
-                                                                <td>
-                                                                    <input id="ctl00_contentQuestionnaireBody_question_4729_1842_1" type="radio" name="ctl00$contentQuestionnaireBody$question_4729_1842" value="75" /><label for="ctl00_contentQuestionnaireBody_question_4729_1842_1">No</label></td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3"></td>
-                                                </tr>
-                                            </table>
+                                              
+                                           
                                             <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
                                                 <tr>
                                                     <td align="right"></td>
-                                                    <td>&nbsp;ss
+                                                    <td>&nbsp;
                                                     </td>
                                                     <td align="right">
-                                                        <span id="ctl00_contentQuestionnaireBody_lblErrormsg" class="redheader"></span>
+                                                        <span id="lblErrormsg" class="redheader"></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -251,19 +158,21 @@
                                                     <td>&nbsp;
                                                     </td>
                                                     <td align="right">
-                                                        <input type="image" name="btnBack" id="ctl00_contentQuestionnaireBody_btnBack"  src="/Contents/RegistrationStyle/images/previous.gif"  onclick="javascript: history.go(-1); return false;WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$contentQuestionnaireBody$btnBack&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" style="border-width: 0px;" />
-                                                        <input type="image" name="btnSubmit" id="ctl00_contentQuestionnaireBody_btnSubmit"  src="/Contents/RegistrationStyle/images/button.jpg" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$contentQuestionnaireBody$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" style="border-width: 0px;" />
+                                                        <input type="image" name="btnBack" id="btnBack"  src="/Contents/RegistrationStyle/images/previous.gif"  onclick="javascript: history.go(-1); return false;" style="border-width: 0px;" />
+                                                        <input type="image" name="btnSubmit" id="btnSubmit"  src="/Contents/RegistrationStyle/images/button.jpg"  style="border-width: 0px;" />
                                                     </td>
                                                 </tr>
                                                 
                                             </table>
                                             
-                                            <div align="right" style="padding-top: 25px;">s
-                                                <input type="hidden" name="ctl00$contentQuestionnaireBody$hiddenPreviousSkipLogicQuestion" id="ctl00_contentQuestionnaireBody_hiddenPreviousSkipLogicQuestion" value="0" />
-                                                <input type="hidden" name="ctl00$contentQuestionnaireBody$hiddenSkipLogicJump" id="ctl00_contentQuestionnaireBody_hiddenSkipLogicJump" value="0" />
-                                                <input type="hidden" name="ctl00$contentQuestionnaireBody$hiddenPage" id="ctl00_contentQuestionnaireBody_hiddenPage" value="0" />
+                                            <div align="right" style="padding-top: 25px;">
+                                                <input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
+                                                <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
+                                                <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
                                             </div>
-                                        </div>
+                                    
+}
+                                                </div>
                                     </div>
 
                                     

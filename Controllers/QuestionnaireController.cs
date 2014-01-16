@@ -84,6 +84,7 @@ namespace Generic.Controllers
 
             foreach (var excelQuestionnaire in questionnaireinExcel)
             {
+                responses = null; responseType = string.Empty;
                 if (excelQuestionnaire.Page < 1 || excelQuestionnaire.Surveyset.Length < 1 || excelQuestionnaire.Survey.Length < 1 || excelQuestionnaire.Question.Length < 1 || excelQuestionnaire.Response.Length < 1 || excelQuestionnaire.Title.Length < 1 || excelQuestionnaire.Required.Length < 1 || excelQuestionnaire.Comment.Length < 1)
                 {
                     //skip this row.
@@ -253,7 +254,7 @@ namespace Generic.Controllers
                             objResponse.active = true;
                             objResponse.description = sArray[i];
                             objResponse.enterprise = EnterpriseID;
-                            objResponse.title = sArray[i];
+                            objResponse.title = string.Empty;
                             objResponse.sortOrder = 1;
                             db.response.Add(objResponse);
                             db.SaveChanges();
@@ -313,7 +314,7 @@ namespace Generic.Controllers
                     if (excelQuestionnaire.Response.ToLower() == "y/n" || excelQuestionnaire.Response.ToLower() == "y/n/na")
                     {
                         //sp_addProtocolCampaignQuestionWeight
-                        db.pr_addtouchpointQuestionWeight(touchpointId, questionId, excelQuestionnaire.qWeight);
+                     //   db.pr_addtouchpointQuestionWeight(touchpointId, questionId, excelQuestionnaire.qWeight);
 
                         //add questionResponse
                         if (excelQuestionnaire.Response.ToLower() == "y/n")
@@ -354,7 +355,7 @@ namespace Generic.Controllers
                             }
 
                             //add questionResponseValues
-                            db.pr_addTouchpointQuestionResponseValue(touchpointId, questionId, responseId, questionValue);
+                          //  db.pr_addTouchpointQuestionResponseValue(touchpointId, questionId, responseId, questionValue);
 
                         }
                     }
