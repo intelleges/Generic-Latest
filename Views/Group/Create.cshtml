@@ -2,7 +2,7 @@
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @{
-    Layout = LayoutHelper.GetLayout();
+    Layout = null;
     ViewBag.Title = "Group";
 }
 
@@ -14,14 +14,6 @@
 
     <fieldset>
         <legend>group</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.enterprise, "enterprise1")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("enterprise", String.Empty)
-            @Html.ValidationMessageFor(model => model.enterprise)
-        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.groupCollection, "groupCollection1")
@@ -101,9 +93,9 @@
     </fieldset>
 }
 
-<div>
+@*<div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
 
 @*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

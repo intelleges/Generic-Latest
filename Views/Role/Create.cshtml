@@ -13,7 +13,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    @Html.Hidden("Id", null, new { @id = "hdId" })
+    @Html.Hidden("id", -1 , new { @id = "hdId" })
 
     <fieldset>
         <legend>role</legend>

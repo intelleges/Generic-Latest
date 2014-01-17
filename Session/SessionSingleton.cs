@@ -39,5 +39,17 @@ namespace Generic.Session
             }
         }
 
+        public static int? LoggedInUserId
+        {
+            get
+            {
+                return Convert.ToInt16(System.Web.HttpContext.Current.Session["LoggedInUserId"]);
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["LoggedInUserId"] = value;
+            }
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Generic.Session;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -52,9 +53,11 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
+                group.author = SessionSingleton.LoggedInUserId;
+                group.enterprise = SessionSingleton.EnterPriseId;
                 db.group.Add(group);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create","Person");
             }
 
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", group.enterprise);

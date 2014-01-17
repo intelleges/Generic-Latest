@@ -51,9 +51,10 @@ namespace Generic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(role role)
         {
+            role.enterprise = SessionSingleton.EnterPriseId;
+
             if (ModelState.IsValid)
             {
-                role.enterprise = SessionSingleton.EnterPriseId;
                 db.role.Add(role);
                 db.SaveChanges();
                 return RedirectToAction("Create", "Group");

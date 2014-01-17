@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Generic.Session;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -56,12 +57,9 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
-
-
+                person.enterprise = SessionSingleton.EnterPriseId;
                 db.person.Add(person);
                 db.SaveChanges();
-                
-
                 return RedirectToAction("Index");
             }
 

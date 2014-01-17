@@ -33,6 +33,7 @@ namespace Generic.Helpers
             this.db = new EntitiesDBContext();
         }
 
+       
         public override bool ValidateUser(string username, string password)
         {
             if (string.IsNullOrEmpty(password.Trim()) || string.IsNullOrEmpty(username.Trim()))

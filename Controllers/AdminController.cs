@@ -11,6 +11,8 @@ using System.Web.Routing;
 using Generic.Models;
 //using Generic.Helpers;
 using Generic.Helpers.Utility;
+using System.Net;
+using Generic.Session;
 
 
 namespace Generic.Controllers
@@ -69,8 +71,8 @@ namespace Generic.Controllers
                     //}
                     //else
                     //{
-
-
+                    person person = db.pr_getPersonByEmailForLoginAttempts(userName).FirstOrDefault();
+                    SessionSingleton.LoggedInUserId = person.id;
                     // return Redirect("~/mvcmt/scs/admin/home");
                     return RedirectToAction("Home", "Admin");
                     //}
