@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Generic.Session;
 
 namespace Generic.Controllers
 {
@@ -52,7 +53,8 @@ namespace Generic.Controllers
             {
                 db.enterprise.Add(enterprise);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                SessionSingleton.EnterPriseId = enterprise.id;
+                return RedirectToAction("Create", "Role");
             }
 
             return View(enterprise);

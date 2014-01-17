@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Generic.Session;
 
 namespace Generic.Controllers
 {
@@ -37,7 +38,7 @@ namespace Generic.Controllers
         //
         // GET: /Role/Create
 
-        public ActionResult Create(long Id)
+        public ActionResult Create()
         {
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description");
             return View();
@@ -52,9 +53,10 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
+                role.enterprise = SessionSingleton.EnterPriseId;
                 db.role.Add(role);
                 db.SaveChanges();
-                return RedirectToAction("Create", "Group", new {Id=role.id });
+                return RedirectToAction("Create", "Group");
             }
 
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", role.enterprise);

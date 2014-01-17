@@ -26,5 +26,18 @@ namespace Generic.Session
                 System.Web.HttpContext.Current.Session["IsSetFromClient"] =value; 
             }
         }
+
+        public static int EnterPriseId
+        {
+            get
+            {
+                return Convert.ToInt16(System.Web.HttpContext.Current.Session["EnterpriseId"]);
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["EnterpriseId"] = value;
+            }
+        }
+
     }
 }
