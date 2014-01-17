@@ -419,6 +419,12 @@
     <Compile Include="eventNotificationBounce.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestion_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -439,6 +445,7 @@
     <Compile Include="Helpers\CustomMembershipProvider.cs" />
     <Compile Include="Helpers\CustomRoleProvider.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
+    <Compile Include="Helpers\QuestionnaireHelper.cs" />
     <Compile Include="Helpers\Utility\Utility.cs" />
     <Compile Include="hs3Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
@@ -783,6 +790,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse_Result.cs">

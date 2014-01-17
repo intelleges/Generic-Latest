@@ -2966,6 +2966,10 @@
     </ReferentialConstraint>
   </Association>
   <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_addAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="description" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -3837,6 +3841,10 @@
   </Function>
   <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="PartnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getPartnerrRemitAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="partner" Type="int" Mode="In" />

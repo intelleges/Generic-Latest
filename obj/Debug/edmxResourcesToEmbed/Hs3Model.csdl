@@ -2590,6 +2590,10 @@
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
       <Parameter Name="previousPage" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" ReturnType="Collection(hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse)">
+      <Parameter Name="question" Mode="In" Type="Int32" />
+      <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="accessLevel">
     <Key>
@@ -6861,5 +6865,35 @@
     <Property Type="Int32" Name="questionnaire" Nullable="false" />
     <Property Type="Int32" Name="page" Nullable="false" />
     <Property Type="String" Name="pageTitle" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestion_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="question" Nullable="false" />
+    <Property Type="Int32" Name="response" Nullable="true" />
+    <Property Type="String" Name="comment" Nullable="true" />
+    <Property Type="Binary" Name="uploadedFile" Nullable="true" />
+    <Property Type="Int32" Name="value" Nullable="true" />
+    <Property Type="Int32" Name="score" Nullable="true" />
+    <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="question" Nullable="false" />
+    <Property Type="Int32" Name="response" Nullable="true" />
+    <Property Type="String" Name="comment" Nullable="true" />
+    <Property Type="Binary" Name="uploadedFile" Nullable="true" />
+    <Property Type="Int32" Name="value" Nullable="true" />
+    <Property Type="Int32" Name="score" Nullable="true" />
+    <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="question" Nullable="false" />
+    <Property Type="Int32" Name="response" Nullable="true" />
+    <Property Type="String" Name="comment" Nullable="true" />
+    <Property Type="Binary" Name="uploadedFile" Nullable="true" />
+    <Property Type="Int32" Name="value" Nullable="true" />
+    <Property Type="Int32" Name="score" Nullable="true" />
+    <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
   </ComplexType>
 </Schema>

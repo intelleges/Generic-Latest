@@ -15,7 +15,7 @@ namespace Generic
     using System.Data.Objects;
     using System.Data.Objects.DataClasses;
     using System.Linq;
-
+    
     public partial class EntitiesDBContext : DbContext
     {
         public EntitiesDBContext()
@@ -8809,6 +8809,32 @@ namespace Generic
                 new ObjectParameter("previousPage", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getNextPageByQuestionnairePreviousPage", mergeOption, questionnaireParameter, previousPageParameter);
+        }
+    
+        public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(Nullable<int> question, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>("pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ", questionParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(Nullable<int> question, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire, MergeOption mergeOption)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>("pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ", mergeOption, questionParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
         }
     }
 }

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Google.API.Translate;
 using Generic;
+using Generic.Helpers.Questionnaire;
 
 namespace Generic.DataLayer
 {
@@ -171,7 +172,7 @@ namespace Generic.DataLayer
 
         private void showPageCollectionByquestionnaire(questionnaire questionnaire, int pageNumber, int pageId, int jumpToquestion, Table table)
         {
-            List<page> pageCollection = db.pr_getPageByQuestionnaire(questionnaire.id).ToList() ;
+            List<page> pageCollection = db.pr_getPageByQuestionnaire(questionnaire.id).ToList();
             page page = null;
 
             if (pageCollection.Count > 0)
@@ -226,8 +227,8 @@ namespace Generic.DataLayer
         //    private void showquestionCollectionBysurvey(survey survey, int jumpToquestion, Table table)
         private void showquestionCollectionBysurvey(surveyset surveyset, survey survey, int jumpToquestion, Table table)
         {
-           
-            List<question> questionCollection = db.pr_getQuestionBySurveySkipLogic(survey.id,jumpToquestion).ToList();
+
+            List<question> questionCollection = db.pr_getQuestionBySurveySkipLogic(survey.id, jumpToquestion).ToList();
             question question = null;
 
             if (questionCollection.Count > 0)
@@ -236,7 +237,7 @@ namespace Generic.DataLayer
 
                 for (int i = 0; i < questionCollection.Count; i++)
                 {
-                    
+
                     question = questionCollection[i];
                     this.questionIndex += 1;
                     showquestion(surveyset, survey, question, this.questionIndex, table);
@@ -279,7 +280,7 @@ namespace Generic.DataLayer
             //    //return translated;
             //}
             return srtto;
-            
+
         }
         public string convertLanguageToEnglish(string strfrom)
         {
@@ -299,8 +300,8 @@ namespace Generic.DataLayer
             //        }
             //        return translated;     
             //        //return translated;     
-                   return strfrom;
-            
+            return strfrom;
+
         }
         string currentsurvey = "";
         string previoussurvey = "";
@@ -311,6 +312,7 @@ namespace Generic.DataLayer
             TableCell tableCell = new TableCell();
             TableRow tableRowsurvey = new TableRow();
             TableCell tableCellsurvey = new TableCell();
+                        partnerPartnertypeTouchpointQuestionnaire objpptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(HttpContext.Current.Session["accessCode"].ToString()).FirstOrDefault();
 
             Label label = new Label();
             Label labelsurvey = new Label();
@@ -396,7 +398,7 @@ namespace Generic.DataLayer
             //Add required validation control
             if (question.required == 1 && this.showContentOnly == false)
             {
-               
+
                 if (responseTypeDescription == "dropdown")
                 {
                     controlId = "question_" + question.id.ToString() + "_" + survey.id.ToString();
@@ -545,12 +547,11 @@ namespace Generic.DataLayer
             TextBox txtbox = new TextBox();
             FileUpload fileupload = new FileUpload();
             response response = new response();
-
+            partnerPartnertypeTouchpointQuestionnaireQuestionResponse pptqResponse = new partnerPartnertypeTouchpointQuestionnaireQuestionResponse();
             if (this.protocol != null)
             {
-               
-                //response = partner.getResponseBypartnerprotocoltouchpointquestionnairesurveyquestion(
-                //       this.protocol, this.touchpoint, this.questionnaire, survey, question);
+                pptqResponse = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(question.id, objpptq.id).FirstOrDefault();
+                
             }
             surveyForm surveyfrm = new surveyForm();
             string incldComment = "";
@@ -571,7 +572,7 @@ namespace Generic.DataLayer
             {
                 incldFileUpload = convertLanguageApi("<span style='font-size:13px'>" + question.commentUploadTxt + "</span>");
             }
-            if (question.commentRequired == 1)
+            if (question.commentRequired == CommentType.YN_COMMENT_REQUIRED_Y)
             {
                 if (divflag == 1 && divShowHideFlag == 1)
                 {
@@ -581,7 +582,7 @@ namespace Generic.DataLayer
                     div.Style.Add("display", "block");
                     txtbox = new TextBox();
                     txtbox.Width = 600;
-                    txtbox.Text = convertLanguageApi(response.description.ToString());
+                    txtbox.Text = convertLanguageApi(pptqResponse.comment.ToString());
                     fileupload = new FileUpload(); // textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text"; for referance
                     string uploadedFile = "";// question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
 
@@ -637,7 +638,7 @@ namespace Generic.DataLayer
                     div.Controls.AddAt(1, innerdivUpload);
 
                     innerdivUpload.Controls.Add(fileupload);
-                    if (question.commentType == 1)
+                    if (question.commentType == CommentType.YN_WARNING_Y || question.commentType == CommentType.YN_WARNING_N)
                     {
                         controlId = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                         RequiredFieldValidator validator = new RequiredFieldValidator();
@@ -648,7 +649,7 @@ namespace Generic.DataLayer
                         innerdiv.Controls.Add(validator);
                         div.Controls.AddAt(0, innerdiv);
                     }
-                    else if (question.commentType == 4)
+                    else if (question.commentType == CommentType.YN_UPLOAD_Y || question.commentType == CommentType.YN_UPLOAD_N)
                     {
                         controlId = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                         RequiredFieldValidator validator = new RequiredFieldValidator();
@@ -660,10 +661,10 @@ namespace Generic.DataLayer
                         div.Controls.AddAt(0, innerdiv);
                         div.Controls.AddAt(1, innerdivUpload);
                     }
-                    else if (question.commentType == 2)
-                    {
-                        div.Controls.AddAt(0, innerdivUpload);
-                    }
+                    //else if (question.commentType == 2)
+                    //{
+                    //    div.Controls.AddAt(0, innerdivUpload);
+                    //}
 
                     else
                     {
@@ -682,7 +683,8 @@ namespace Generic.DataLayer
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                     divn.InnerHtml = incldComment + " "; //"Include comments here: ";
                     divn.Controls.Add(txtbox);
-                    if (question.commentType != 1 && question.commentType != 3 && question.commentType != 4)
+                    if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
+                        question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y )
                         tableCell.Controls.AddAt(1, divn);
                 }
                 else if (divflag == 1 && divShowHideFlag == 0)
@@ -730,7 +732,7 @@ namespace Generic.DataLayer
 
                     //div.Controls.AddAt(0, innerdiv);
                     //div.Controls.AddAt(1, innerdivUpload);
-                    if (question.commentType == 1)
+                    if (question.commentType == CommentType.YN_WARNING_N || question.commentType == CommentType.YN_WARNING_Y)
                     {
                         controlId = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                         RequiredFieldValidator validator = new RequiredFieldValidator();
@@ -741,7 +743,7 @@ namespace Generic.DataLayer
                         innerdiv.Controls.Add(validator);
                         div.Controls.AddAt(0, innerdiv);
                     }
-                    else if (question.commentType == 4)
+                    else if (question.commentType == CommentType.YN_UPLOAD_N || question.commentType == CommentType.YN_UPLOAD_Y)
                     {
                         controlId = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                         RequiredFieldValidator validator = new RequiredFieldValidator();
@@ -753,11 +755,10 @@ namespace Generic.DataLayer
                         div.Controls.AddAt(0, innerdiv);
                         div.Controls.AddAt(1, innerdivUpload);
                     }
-                    else if (question.commentType == 2)
-                    {
-                        div.Controls.AddAt(0, innerdivUpload);
-                    }
-
+                    //else if (question.commentType == 2)
+                    //{
+                    //    div.Controls.AddAt(0, innerdivUpload);
+                    //}
                     else
                     {
                         div.Controls.AddAt(0, innerdiv);
@@ -772,12 +773,13 @@ namespace Generic.DataLayer
                     divn.Style.Add("display", "block");
                     txtbox = new TextBox();
                     txtbox.Width = 600;
-                    txtbox.Text = convertLanguageApi(response.description.ToString());
+                    txtbox.Text = convertLanguageApi(pptqResponse.comment.ToString());
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                     divn.InnerHtml = incldComment + " ";//"Include comments here: ";
                     divn.Controls.Add(txtbox);
-                    if (question.commentType != 1 && question.commentType != 3 && question.commentType != 4)
-                        tableCell.Controls.AddAt(1, divn);
+                    if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
+                       question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
+                                           tableCell.Controls.AddAt(1, divn);
                 }
                 else if (divflag == 1 && divShowHideFlag == -1)
                 {
@@ -823,7 +825,7 @@ namespace Generic.DataLayer
 
                     //div.Controls.AddAt(0, innerdiv);
                     //div.Controls.AddAt(1, innerdivUpload);
-                    if (question.commentType == 1)
+                    if (question.commentType == CommentType.YN_WARNING_N || question.commentType == CommentType.YN_WARNING_Y)
                     {
                         controlId = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                         RequiredFieldValidator validator = new RequiredFieldValidator();
@@ -834,7 +836,7 @@ namespace Generic.DataLayer
                         innerdiv.Controls.Add(validator);
                         div.Controls.AddAt(0, innerdiv);
                     }
-                    else if (question.commentType == 4)
+                    else if (question.commentType == CommentType.YN_UPLOAD_N || question.commentType == CommentType.YN_UPLOAD_Y)
                     {
                         controlId = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                         RequiredFieldValidator validator = new RequiredFieldValidator();
@@ -846,10 +848,10 @@ namespace Generic.DataLayer
                         div.Controls.AddAt(0, innerdiv);
                         div.Controls.AddAt(1, innerdivUpload);
                     }
-                    else if (question.commentType == 2)
-                    {
-                        div.Controls.AddAt(0, innerdivUpload);
-                    }
+                    //else if (question.commentType == 2)
+                    //{
+                    //    div.Controls.AddAt(0, innerdivUpload);
+                    //}
 
                     else
                     {
@@ -867,7 +869,8 @@ namespace Generic.DataLayer
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                     divn.InnerHtml = incldComment + " ";  //"Include comments here: ";
                     divn.Controls.Add(txtbox);
-                    if (question.commentType != 1 && question.commentType != 3 && question.commentType != 4)
+                    if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
+                        question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
                         tableCell.Controls.AddAt(1, divn);
                 }
                 else if (divflag == 1 && divShowHideFlag == 2)
@@ -903,7 +906,7 @@ namespace Generic.DataLayer
 
                     //div.Controls.AddAt(0, innerdiv);
                     //div.Controls.AddAt(1, innerdivUpload);
-                    if (question.commentType == 1)
+                    if (question.commentType == CommentType.YN_WARNING_N || question.commentType == CommentType.YN_WARNING_Y)
                     {
                         controlId = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                         RequiredFieldValidator validator = new RequiredFieldValidator();
@@ -915,7 +918,7 @@ namespace Generic.DataLayer
                         // addControlValidator(controlId, "requiredFieldValidator", tableCell);
                         div.Controls.AddAt(0, innerdiv);
                     }
-                    else if (question.commentType == 4)
+                    else if (question.commentType == CommentType.YN_UPLOAD_N || question.commentType == CommentType.YN_UPLOAD_Y)
                     {
                         controlId = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                         RequiredFieldValidator validator = new RequiredFieldValidator();
@@ -927,10 +930,10 @@ namespace Generic.DataLayer
                         div.Controls.AddAt(0, innerdiv);
                         div.Controls.AddAt(1, innerdivUpload);
                     }
-                    else if (question.commentType == 2)
-                    {
-                        div.Controls.AddAt(0, innerdivUpload);
-                    }
+                    //else if (question.commentType == 2)
+                    //{
+                    //    div.Controls.AddAt(0, innerdivUpload);
+                    //}
 
                     else
                     {
@@ -952,8 +955,9 @@ namespace Generic.DataLayer
                     divn.InnerHtml = incldComment + " ";//"Include comments here: ";
                     divn.Controls.Add(txtbox);
                     //divn.Controls.Add(fileupload);
-                    if (question.commentType != 1 && question.commentType != 3 && question.commentType != 4)
-                        tableCell.Controls.AddAt(1, divn);
+                    if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
+                    question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
+                                     tableCell.Controls.AddAt(1, divn);
 
                     //tableCell.Text = "<div Id='yDiv_" + question.id + "' style='display:none' runat='server' >Test Text <br/><br/>Test Text One</div><div Id='nDiv_" + question.id + "' style='display:none'>Test Two <br/><br/>Test Text One</div>";
                 }
@@ -963,10 +967,10 @@ namespace Generic.DataLayer
                     tableCell.Text = "&nbsp";
                 }
             }
-            else if (question.commentRequired == 0)
+            else if (question.commentRequired == CommentType.YN_COMMENT_REQUIRED_N)
             {
 
-                if (question.commentType == 2)
+                if (question.commentType == CommentType.YN_WARNING_Y)
                 {
                     HtmlGenericControl div = new HtmlGenericControl();
                     div.ID = "yDiv_" + question.id.ToString();
@@ -975,7 +979,7 @@ namespace Generic.DataLayer
                     div.InnerHtml = incldComment + " ";//"Include comments here: ";
                     tableCell.Controls.AddAt(0, div);
                 }
-                else if (question.commentType == 1)
+                else if (question.commentType == CommentType.YN_WARNING_N)
                 {
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "nDiv_" + question.id.ToString();
@@ -985,7 +989,7 @@ namespace Generic.DataLayer
                     tableCell.Controls.AddAt(0, divn);
 
                 }
-                else if (question.commentType == 3)
+                else if (question.commentType == CommentType.YN_COMMENT_N)
                 {
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "nDiv_" + question.id.ToString();
@@ -1002,7 +1006,7 @@ namespace Generic.DataLayer
                     tableCell.Controls.AddAt(0, divn);
 
                 }
-                else if (question.commentType == 4)
+                else if (question.commentType == CommentType.YN_UPLOAD_Y)
                 {
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "yDiv_" + question.id.ToString();
@@ -1035,7 +1039,7 @@ namespace Generic.DataLayer
                     tableCell.Controls.AddAt(0, divn);
 
                 }
-                else if (question.commentType == 5)
+                else if (question.commentType == CommentType.YN_COMMENT_Y)
                 {
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "yDiv_" + question.id.ToString();
@@ -1066,46 +1070,226 @@ namespace Generic.DataLayer
 
         public TableRow getAnswerRow(int surveyId, int questionId, string responseType, string cssClass, Table table)
         {
-                    question question = new question();
-                    List<response> responseCollection = new List<response>();
-                    TextBox textBox = new TextBox();
-                    RadioButton radioButton = new RadioButton();
-                    RadioButtonList radioButtonList = new RadioButtonList();
-                    DropDownList dropDownList = new DropDownList();
-                    FileUpload fileUpload = new FileUpload();
-                    CheckBox checkBox = new CheckBox();
+
+
+            partnerPartnertypeTouchpointQuestionnaire objpptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(HttpContext.Current.Session["accessCode"].ToString()).FirstOrDefault();
+
+            question question = new question();
+            List<response> responseCollection = new List<response>();
+            TextBox textBox = new TextBox();
+            RadioButton radioButton = new RadioButton();
+            RadioButtonList radioButtonList = new RadioButtonList();
+            DropDownList dropDownList = new DropDownList();
+            FileUpload fileUpload = new FileUpload();
+            CheckBox checkBox = new CheckBox();
             TableRow tableRow = new TableRow();
             TableCell tableCell = new TableCell();
-                    survey survey = new survey();
-                    response response = new response();
-                    surveyForm surveyfrm = new surveyForm();
+            survey survey = new survey();
+            response response = new response();
+            partnerPartnertypeTouchpointQuestionnaireQuestionResponse pptqResponse = new partnerPartnertypeTouchpointQuestionnaireQuestionResponse();
 
-                    if (this.showContentOnly)
+            surveyForm surveyfrm = new surveyForm();
+
+            if (this.showContentOnly)
+            {
+                response = new response();
+            }
+            else
+            {
+                //get responses
+
+                pptqResponse = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, objpptq.id).LastOrDefault();
+                //   db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ
+                // response = db.pr_getResponseByQuestion(questionId).FirstOrDefault();
+            }
+
+            responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
+
+            switch (responseType)
+            {
+                case "textComment":
+                    textBox = new TextBox();
+                    textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                    textBox.Width = 600;
+
+                    if (pptqResponse != null)
                     {
-                        response = new response();
+                        //textBox.Text = response.description;
+                        textBox.Text = convertLanguageApi(pptqResponse.comment);
                     }
-                    else
-                    {
-                        //get responses
 
-                        response = db.pr_getResponseByQuestion(questionId).FirstOrDefault();
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableRow.Controls.Add(tableCell);
+
+                    tableCell = new TableCell();
+                    tableCell.ColumnSpan = 2;
+                    tableCell.Controls.Add(textBox);
+                    tableRow.Controls.Add(tableCell);
+                    break;
+                case "textInteger":
+                    textBox = new TextBox();
+                    textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                    textBox.Width = 600;
+
+                    if (pptqResponse.comment != null && pptqResponse.comment.Length > 0)
+                    {
+                        //textBox.Text = response.description;
+                        textBox.Text = convertLanguageApi(pptqResponse.comment);
                     }
 
-                    responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableRow.Controls.Add(tableCell);
 
-                    switch (responseType)
+                    tableCell = new TableCell();
+                    tableCell.ColumnSpan = 2;
+                    tableCell.Controls.Add(textBox);
+                    tableRow.Controls.Add(tableCell);
+                    break;
+                case "textNumber":
+                    textBox = new TextBox();
+                    textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                    textBox.Width = 600;
+
+                    if (pptqResponse.comment != null && pptqResponse.comment.Length > 0)
                     {
-                        case "textComment":
-                            textBox = new TextBox();
-                            textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-                            textBox.Width = 600;
 
-                            if (response != null)
-                            {
-                                //textBox.Text = response.description;
-                                textBox.Text = convertLanguageApi(response.description);
-                            }
+                        textBox.Text = convertLanguageApi(pptqResponse.comment);
+                    }
 
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableRow.Controls.Add(tableCell);
+
+                    tableCell = new TableCell();
+                    tableCell.ColumnSpan = 2;
+                    tableCell.Controls.Add(textBox);
+                    tableRow.Controls.Add(tableCell);
+                    break;
+                case "textarea":
+                    textBox = new TextBox();
+
+                    textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                    textBox.Width = 600;
+                    textBox.TextMode = TextBoxMode.MultiLine;
+                    textBox.Rows = 3;
+
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableRow.Controls.Add(tableCell);
+
+                    if (pptqResponse.comment != null && pptqResponse.comment.Length > 0)
+                    {
+                        //textBox.Text = response.description;
+                        textBox.Text = convertLanguageApi(pptqResponse.comment);
+                    }
+
+                    tableCell = new TableCell();
+                    tableCell.Controls.Add(textBox);
+                    tableCell.ColumnSpan = 2;
+                    tableRow.Controls.Add(tableCell);
+                    break;
+                case "dropdown":
+                    tableRow = new TableRow();
+                    table.Controls.Add(tableRow);
+
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableRow.Controls.Add(tableCell);
+
+                    tableCell = new TableCell();
+                    dropDownList = new DropDownList();
+                    dropDownList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
+                    dropDownList.Width = 250;
+                    tableCell = new TableCell();
+                    tableCell.HorizontalAlign = HorizontalAlign.Left;
+                    string selectval = convertLanguageApi("Please select one");
+                    dropDownList.Items.Add(new ListItem(selectval, "0"));
+
+                    for (int i = 0; i < responseCollection.Count; i++)
+                    {
+                        //dropDownList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
+                        dropDownList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
+                        if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
+                        {
+                            dropDownList.ClearSelection();
+                            dropDownList.Items[i + 1].Selected = true;
+
+                        }
+                        tableCell.Controls.Add(dropDownList);
+                    }
+
+                    tableCell.Controls.Add(dropDownList);
+                    tableCell.ColumnSpan = 2;
+                    tableRow.Controls.Add(tableCell);
+                    break;
+                case "verticalRadioButton":
+                    tableRow = new TableRow();
+                    table.Controls.Add(tableRow);
+
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableCell.Style.Add("font-size", "medium");
+                    tableRow.Controls.Add(tableCell);
+
+                    tableCell = new TableCell();
+                    radioButtonList = new RadioButtonList();
+                    radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
+                    radioButtonList.Font.Size = 10;
+                    //radioButtonList.Attributes.Add("onchange", "javascript:showdiv();");
+                    radioButtonList.Attributes.Add("onClick", "showdivRadioList(this);removevalidation(this.id) ");
+                    radioButtonList.RepeatDirection = RepeatDirection.Vertical;
+                    tableCell = new TableCell();
+                    tableCell.HorizontalAlign = HorizontalAlign.Left;
+                    for (int i = 0; i < responseCollection.Count; i++)
+                    {
+                        //radioButtonList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
+                        radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
+                        if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
+                        {
+                            radioButtonList.ClearSelection();
+                            radioButtonList.Items[i].Selected = true;
+                        }
+                        tableCell.Controls.Add(radioButtonList);
+                    }
+                    tableCell.Controls.Add(radioButtonList);
+                    tableCell.ColumnSpan = 2;
+                    tableRow.Controls.Add(tableCell);
+                    break;
+                case "upload":
+                    if (showContentOnly == false)
+                    {
+
+                        //db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(1);
+                        string uploadedFile = "";// question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
+
+                        if (!string.IsNullOrEmpty(uploadedFile))
+                        {
                             //add empty cell
                             tableCell = new TableCell();
                             tableCell.Text = "&nbsp;";
@@ -1114,320 +1298,157 @@ namespace Generic.DataLayer
                             tableCell.Style.Add("padding-right", "5px");
                             tableRow.Controls.Add(tableCell);
 
-                            tableCell = new TableCell();
-                            tableCell.ColumnSpan = 2;
-                            tableCell.Controls.Add(textBox);
-                            tableRow.Controls.Add(tableCell);
-                            break;
-                        case "textInteger":
-                            textBox = new TextBox();
-                            textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-                            textBox.Width = 600;
-
-                            if (response.description != null && response.description.Length > 0)
-                            {
-                                //textBox.Text = response.description;
-                                textBox.Text = convertLanguageApi(response.description);
-                            }
-
-                            //add empty cell
-                            tableCell = new TableCell();
-                            tableCell.Text = "&nbsp;";
-                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-                            tableCell.Style.Add("border-spacing", "0");
-                            tableCell.Style.Add("padding-right", "5px");
-                            tableRow.Controls.Add(tableCell);
 
                             tableCell = new TableCell();
                             tableCell.ColumnSpan = 2;
-                            tableCell.Controls.Add(textBox);
+                            tableCell.Text = surveyfrm.convertLanguageApi("File uploaded") + ": " + Path.GetFileName(uploadedFile);
                             tableRow.Controls.Add(tableCell);
-                            break;
-                        case "textNumber":
-                            textBox = new TextBox();
-                            textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-                            textBox.Width = 600;
-
-                            if (response.description != null && response.description.Length > 0)
-                            {
-                                //textBox.Text = response.description;
-                                textBox.Text = convertLanguageApi(response.description);
-                            }
-
-                            //add empty cell
-                            tableCell = new TableCell();
-                            tableCell.Text = "&nbsp;";
-                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-                            tableCell.Style.Add("border-spacing", "0");
-                            tableCell.Style.Add("padding-right", "5px");
-                            tableRow.Controls.Add(tableCell);
-
-                            tableCell = new TableCell();
-                            tableCell.ColumnSpan = 2;
-                            tableCell.Controls.Add(textBox);
-                            tableRow.Controls.Add(tableCell);
-                            break;
-                        case "textarea":
-                            textBox = new TextBox();
-
-                            textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-                            textBox.Width = 600;
-                            textBox.TextMode = TextBoxMode.MultiLine;
-                            textBox.Rows = 3;
-
-                            //add empty cell
-                            tableCell = new TableCell();
-                            tableCell.Text = "&nbsp;";
-                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-                            tableCell.Style.Add("border-spacing", "0");
-                            tableCell.Style.Add("padding-right", "5px");
-                            tableRow.Controls.Add(tableCell);
-
-                            if (response.description != null && response.description.Length > 0)
-                            {
-                                //textBox.Text = response.description;
-                                textBox.Text = convertLanguageApi(response.description);
-                            }
-
-                            tableCell = new TableCell();
-                            tableCell.Controls.Add(textBox);
-                            tableCell.ColumnSpan = 2;
-                            tableRow.Controls.Add(tableCell);
-                            break;
-                        case "dropdown":
-                            tableRow = new TableRow();
                             table.Controls.Add(tableRow);
 
-                            //add empty cell
-                            tableCell = new TableCell();
-                            tableCell.Text = "&nbsp;";
-                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-                            tableCell.Style.Add("border-spacing", "0");
-                            tableCell.Style.Add("padding-right", "5px");
-                            tableRow.Controls.Add(tableCell);
-
-                            tableCell = new TableCell();
-                            dropDownList = new DropDownList();
-                            dropDownList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
-                            dropDownList.Width = 250;
-                            tableCell = new TableCell();
-                            tableCell.HorizontalAlign = HorizontalAlign.Left;
-                            string selectval = convertLanguageApi("Please select one");
-                            dropDownList.Items.Add(new ListItem(selectval, "0"));
-
-                            for (int i = 0; i < responseCollection.Count; i++)
-                            {
-                                //dropDownList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
-                                dropDownList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
-                                if (response.id != null && responseCollection[i].id == response.id)
-                                {
-                         // -- to be checked           dropDownList.Items[i + 1].Selected = true;
-                                }
-                                tableCell.Controls.Add(dropDownList);
-                            }
-
-                            tableCell.Controls.Add(dropDownList);
-                            tableCell.ColumnSpan = 2;
-                            tableRow.Controls.Add(tableCell);
-                            break;
-                        case "verticalRadioButton":
                             tableRow = new TableRow();
                             table.Controls.Add(tableRow);
-
-                            //add empty cell
-                            tableCell = new TableCell();
-                            tableCell.Text = "&nbsp;";
-                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-                            tableCell.Style.Add("border-spacing", "0");
-                            tableCell.Style.Add("padding-right", "5px");
-                            tableCell.Style.Add("font-size", "medium");
-                            tableRow.Controls.Add(tableCell);
-
-                            tableCell = new TableCell();
-                            radioButtonList = new RadioButtonList();
-                            radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
-            radioButtonList.Font.Size=10;
-                            //radioButtonList.Attributes.Add("onchange", "javascript:showdiv();");
-                            radioButtonList.Attributes.Add("onClick", "showdivRadioList(this);removevalidation(this.id) ");
-                            radioButtonList.RepeatDirection = RepeatDirection.Vertical;
-                            tableCell = new TableCell();
-                            tableCell.HorizontalAlign = HorizontalAlign.Left;
-                            for (int i = 0; i < responseCollection.Count; i++)
-                            {
-                                //radioButtonList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
-                                radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
-                                if (response.id != null && responseCollection[i].id == response.id)
-                                {
-                                    radioButtonList.Items[i].Selected = true;
-                                }
-                                tableCell.Controls.Add(radioButtonList);
-                            }
-                            tableCell.Controls.Add(radioButtonList);
-                            tableCell.ColumnSpan = 2;
-                            tableRow.Controls.Add(tableCell);
-                            break;
-                        case "upload":
-                            if (showContentOnly == false)
-                            {
-                                
-                                //db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(1);
-                                string uploadedFile = "";// question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
-
-                                if (!string.IsNullOrEmpty(uploadedFile))
-                                {
-                                    //add empty cell
-                                    tableCell = new TableCell();
-                                    tableCell.Text = "&nbsp;";
-                                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-                                    tableCell.Style.Add("border-spacing", "0");
-                                    tableCell.Style.Add("padding-right", "5px");
-                                    tableRow.Controls.Add(tableCell);
-
-
-                                    tableCell = new TableCell();
-                                    tableCell.ColumnSpan = 2;
-                                    tableCell.Text = surveyfrm.convertLanguageApi("File uploaded") + ": " + Path.GetFileName(uploadedFile);
-                                    tableRow.Controls.Add(tableCell);
-                                    table.Controls.Add(tableRow);
-
-                                    tableRow = new TableRow();
-                                    table.Controls.Add(tableRow);
-                                }
-                            }
-
-                            fileUpload = new FileUpload();
-                            fileUpload.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_upload";
-
-                            fileUpload.Width = 650;
-                            fileUpload.Attributes.Add("size", "40");
-
-                            //add empty cell
-                            tableCell = new TableCell();
-                            tableCell.Text = "&nbsp;";
-                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-                            tableCell.Style.Add("border-spacing", "0");
-                            tableCell.Style.Add("padding-right", "5px");
-                            tableRow.Controls.Add(tableCell);
-
-                            tableCell = new TableCell();
-                            tableCell.ColumnSpan = 2;
-                            tableCell.Controls.Add(fileUpload);
-                            //tableCell = new TableCell();
-                            Label labelErrormsg = new Label();
-                            //labelErrormsg.Text = surveyfrm.convertLanguageApi("File size exceeded than limit 4 MB, Please upload smaller file.");
-                            labelErrormsg.Style.Add("color", "red");
-                            labelErrormsg.Style.Add("font-size", "12px");
-                            tableCell.Controls.Add(labelErrormsg);
-                            tableRow.Controls.Add(tableCell);
-
-
-                            //labelErrormsg.ForeColor = System.Drawing.Color.Red;
-                            // tableCell = new TableCell();
-
-                            // tableRow.Controls.Add(tableCell);
-                            break;
-                        case "checkBox":
-                            tableRow = new TableRow();
-                            table.Controls.Add(tableRow);
-
-                            //add empty cell
-                            tableCell = new TableCell();
-                            tableCell.Text = "&nbsp;";
-                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-                            tableCell.Style.Add("border-spacing", "0");
-                            tableCell.Style.Add("padding-right", "5px");
-                            tableRow.Controls.Add(tableCell);
-
-                            tableCell = new TableCell();
-                            tableCell.HorizontalAlign = HorizontalAlign.Left;
-
-                            List<response> responses = null;
-                            if (showContentOnly == false)
-                            {
-                                //get the list of reponses
-                                responses = db.pr_getResponseByQuestion(questionId).ToList();
-                            }
-                            //hidden field
-                            HiddenField hiddenField = new HiddenField();
-
-                            for (int i = 0; i < responseCollection.Count; i++)
-                            {
-                                checkBox = new CheckBox();
-                                checkBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_" + responseCollection[i].id.ToString() + "_checkBox";
-                                checkBox.Text = convertLanguageApi(responseCollection[i].description);
-
-                                if (showContentOnly == false)
-                                {
-                                    foreach (response item in responses)
-                                    {
-                                        if (item.id == responseCollection[i].id)
-                                        {
-                                            checkBox.Checked = true;
-                                        }
-                                    }
-                                }
-
-                                tableCell.Controls.Add(checkBox);
-
-
-                            }
-                            //render a new hiddenField
-                            hiddenField = new HiddenField();
-                            hiddenField.ID = "questionHiddenField_" + questionId.ToString() + "_" + surveyId.ToString();
-                            hiddenField.Value = questionId.ToString();
-                            tableCell.Controls.Add(hiddenField);
-
-                            tableCell.ColumnSpan = 2;
-                            tableRow.Controls.Add(tableCell);
-                            break;
-                        case "text/upload":
-                            textBox = new TextBox();
-                            textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-                            textBox.Width = 600;
-
-                            if (response.description != null && response.description.Length > 0)
-                            {
-                                textBox.Text = convertLanguageApi(response.description);
-                            }
-
-                            fileUpload = new FileUpload();
-                            fileUpload.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_uploadText";
-                            fileUpload.Width = 650;
-                            fileUpload.Attributes.Add("size", "40");
-
-                            //add empty cell
-                            tableCell = new TableCell();
-                            tableCell.Text = "&nbsp;";
-                            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
-                            tableCell.Style.Add("border-spacing", "0");
-                            tableCell.Style.Add("padding-right", "5px");
-                            tableRow.Controls.Add(tableCell);
-
-                            tableCell = new TableCell();
-                            tableCell.ColumnSpan = 2;
-                            tableCell.Controls.Add(textBox);
-
-                            Literal literal = new Literal();
-                            literal.Text = "<p>" + surveyfrm.convertLanguageApi("Please upload the file here") + "</p>";
-                            if (showContentOnly == false)
-                            {
-                                string uploadedFile = "";// question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
-
-                                if (!string.IsNullOrEmpty(uploadedFile))
-                                {
-
-                                    literal.Text = "<p>" + surveyfrm.convertLanguageApi("File uploaded") + ": " + Path.GetFileName(uploadedFile) + "</p>";
-                                }
-
-
-                            }
-                            tableCell.Controls.Add(literal);
-                            tableCell.Controls.Add(fileUpload);
-                            tableRow.Controls.Add(tableCell);
-                            break;
-                        default:
-                            break;
+                        }
                     }
+
+                    fileUpload = new FileUpload();
+                    fileUpload.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_upload";
+
+                    fileUpload.Width = 650;
+                    fileUpload.Attributes.Add("size", "40");
+
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableRow.Controls.Add(tableCell);
+
+                    tableCell = new TableCell();
+                    tableCell.ColumnSpan = 2;
+                    tableCell.Controls.Add(fileUpload);
+                    //tableCell = new TableCell();
+                    Label labelErrormsg = new Label();
+                    //labelErrormsg.Text = surveyfrm.convertLanguageApi("File size exceeded than limit 4 MB, Please upload smaller file.");
+                    labelErrormsg.Style.Add("color", "red");
+                    labelErrormsg.Style.Add("font-size", "12px");
+                    tableCell.Controls.Add(labelErrormsg);
+                    tableRow.Controls.Add(tableCell);
+
+
+                    //labelErrormsg.ForeColor = System.Drawing.Color.Red;
+                    // tableCell = new TableCell();
+
+                    // tableRow.Controls.Add(tableCell);
+                    break;
+                case "checkBox":
+                    tableRow = new TableRow();
+                    table.Controls.Add(tableRow);
+
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableRow.Controls.Add(tableCell);
+
+                    tableCell = new TableCell();
+                    tableCell.HorizontalAlign = HorizontalAlign.Left;
+
+
+
+                    List<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pptqResponses = null;
+
+                  //  List<response> responses = null;
+                    if (showContentOnly == false)
+                    {
+                        //get the list of reponses
+
+                        pptqResponses = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, objpptq.id).ToList();
+                       // responses = db.pr_getResponseByQuestion(questionId).ToList();
+                    }
+                    //hidden field
+                    HiddenField hiddenField = new HiddenField();
+
+                    for (int i = 0; i < responseCollection.Count; i++)
+                    {
+                        checkBox = new CheckBox();
+                        checkBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_" + responseCollection[i].id.ToString() + "_checkBox";
+                        checkBox.Text = convertLanguageApi(responseCollection[i].description);
+
+                        if (showContentOnly == false)
+                        {
+                            foreach (var item in pptqResponses)
+                            {
+                                if (item.response == responseCollection[i].id)
+                                {
+                                    checkBox.Checked = true;
+                                }
+                            }
+                        }
+
+                        tableCell.Controls.Add(checkBox);
+
+
+                    }
+                    //render a new hiddenField
+                    hiddenField = new HiddenField();
+                    hiddenField.ID = "questionHiddenField_" + questionId.ToString() + "_" + surveyId.ToString();
+                    hiddenField.Value = questionId.ToString();
+                    tableCell.Controls.Add(hiddenField);
+
+                    tableCell.ColumnSpan = 2;
+                    tableRow.Controls.Add(tableCell);
+                    break;
+                case "text/upload":
+                    textBox = new TextBox();
+                    textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                    textBox.Width = 600;
+
+                    if (response.description != null && response.description.Length > 0)
+                    {
+                        textBox.Text = convertLanguageApi(response.description);
+                    }
+
+                    fileUpload = new FileUpload();
+                    fileUpload.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_uploadText";
+                    fileUpload.Width = 650;
+                    fileUpload.Attributes.Add("size", "40");
+
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableRow.Controls.Add(tableCell);
+
+                    tableCell = new TableCell();
+                    tableCell.ColumnSpan = 2;
+                    tableCell.Controls.Add(textBox);
+
+                    Literal literal = new Literal();
+                    literal.Text = "<p>" + surveyfrm.convertLanguageApi("Please upload the file here") + "</p>";
+                    if (showContentOnly == false)
+                    {
+                        string uploadedFile = "";// question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
+
+                        if (!string.IsNullOrEmpty(uploadedFile))
+                        {
+
+                            literal.Text = "<p>" + surveyfrm.convertLanguageApi("File uploaded") + ": " + Path.GetFileName(uploadedFile) + "</p>";
+                        }
+
+
+                    }
+                    tableCell.Controls.Add(literal);
+                    tableCell.Controls.Add(fileUpload);
+                    tableRow.Controls.Add(tableCell);
+                    break;
+                default:
+                    break;
+            }
 
             return tableRow;
         }
@@ -1443,14 +1464,17 @@ namespace Generic.DataLayer
 
             response response = new response();
             survey survey = new survey();
-
+            partnerPartnertypeTouchpointQuestionnaire objpptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(HttpContext.Current.Session["accessCode"].ToString()).FirstOrDefault();
+            partnerPartnertypeTouchpointQuestionnaireQuestionResponse pptqResponse = new partnerPartnertypeTouchpointQuestionnaireQuestionResponse();
+           
             if (this.showContentOnly)
             {
                 response = new response();
             }
             else
             {
-                response = db.pr_getResponseByQuestion(questionId).FirstOrDefault();
+                //response = db.pr_getResponseByQuestion(questionId).FirstOrDefault();
+                pptqResponse = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(question.id, objpptq.id).FirstOrDefault();
             }
             responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
 
@@ -1469,13 +1493,13 @@ namespace Generic.DataLayer
                     {
                         radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
 
-                        if (response.id != null && responseCollection[i].id == response.id)
+                        if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                         {
-                            if (response.id == 74)
+                            if (pptqResponse.response == 74)
                             {
                                 divShowHideFlag = 1;
                             }
-                            else if (response.id == 75)
+                            else if (pptqResponse.response == 75)
                             {
                                 divShowHideFlag = 0;
                             }
@@ -1485,6 +1509,7 @@ namespace Generic.DataLayer
                             }
                             radioButtonList.Items[i].Selected = true;
                         }
+
 
                         tableCell.Controls.Add(radioButtonList);
                     }
@@ -1917,9 +1942,9 @@ namespace Generic.DataLayer
         }
 
         private string getRuleByquestion(int questionId)
-        {            
+        {
             string ruleTypes = "";
-                        
+
             rule rule = null;
             List<rule> ruleCollection = db.pr_getRuleByQuestion(questionId).ToList();
 
@@ -1938,7 +1963,7 @@ namespace Generic.DataLayer
             }
 
             return ruleTypes;
-            
+
         }
 
         public string generateZCode(partner partner, questionnaire questionnaire)

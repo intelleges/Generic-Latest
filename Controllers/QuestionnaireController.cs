@@ -213,7 +213,7 @@ namespace Generic.Controllers
                     //objQuestion.skipLogicAnswer = false; Pending
                     //objQuestion.skipLogicJump Pending
                     objQuestion.accessLevel = 1;
-                    objQuestion.required = isRequiredComment;
+                    objQuestion.commentRequired = isRequiredComment;
                     objQuestion.commentBoxTxt = excelQuestionnaire.CommentBoxMessageText;
                     //objQuestion.commentUploadTxt
                     objQuestion.commentType = excelQuestionnaire.CommentType;
