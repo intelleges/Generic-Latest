@@ -3766,6 +3766,15 @@
   <Function Name="pr_getMenuItemTopLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_getNextPageByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+    <Parameter Name="previousPage" Type="int" Mode="In" />
+    <Parameter Name="jumpToQuestion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getNextPageByQuestionnairePreviousPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+    <Parameter Name="previousPage" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getObjectNameByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
@@ -5087,6 +5096,9 @@
     <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
   </Function>
   <Function Name="xx_getLastDBModified" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="xx_getQuestionByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+  </Function>
   <Function Name="xx_getRecordCountByTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="xx_getTableSetByColumnName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="tableName" Type="varchar" Mode="In" />
@@ -5094,21 +5106,4 @@
   <Function Name="xx_getTelerikBoundColumnSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="tablename" Type="varchar" Mode="In" />
   </Function>
-  <!--Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerConfirm' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="partnerConfirm">
-        <Property Name="loadhistory" Type="int" />
-        <Property Name="partner" Type="int" />
-        <Property Name="group" Type="int" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.queryField' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="queryField">
-        <Property Name="query" Type="int" />
-        <Property Name="field" Type="varchar" MaxLength="100" />
-        <Property Name="criteria" Type="varchar" MaxLength="100" />
-        <Property Name="isText" Type="int" />
-      </EntityType>-->
 </Schema>

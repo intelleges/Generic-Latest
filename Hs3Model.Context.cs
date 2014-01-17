@@ -15,7 +15,7 @@ namespace Generic
     using System.Data.Objects;
     using System.Data.Objects.DataClasses;
     using System.Linq;
-    
+
     public partial class EntitiesDBContext : DbContext
     {
         public EntitiesDBContext()
@@ -8740,6 +8740,75 @@ namespace Generic
                 new ObjectParameter("jumpToQuestion", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionBySurveySkipLogic", mergeOption, surveyParameter, jumpToQuestionParameter);
+        }
+    
+        public virtual ObjectResult<page> pr_getNextPageByQuestionnaire(Nullable<int> questionnaire, Nullable<int> previousPage, Nullable<int> jumpToQuestion)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var previousPageParameter = previousPage.HasValue ?
+                new ObjectParameter("previousPage", previousPage) :
+                new ObjectParameter("previousPage", typeof(int));
+    
+            var jumpToQuestionParameter = jumpToQuestion.HasValue ?
+                new ObjectParameter("jumpToQuestion", jumpToQuestion) :
+                new ObjectParameter("jumpToQuestion", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getNextPageByQuestionnaire", questionnaireParameter, previousPageParameter, jumpToQuestionParameter);
+        }
+    
+        public virtual ObjectResult<page> pr_getNextPageByQuestionnaire(Nullable<int> questionnaire, Nullable<int> previousPage, Nullable<int> jumpToQuestion, MergeOption mergeOption)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var previousPageParameter = previousPage.HasValue ?
+                new ObjectParameter("previousPage", previousPage) :
+                new ObjectParameter("previousPage", typeof(int));
+    
+            var jumpToQuestionParameter = jumpToQuestion.HasValue ?
+                new ObjectParameter("jumpToQuestion", jumpToQuestion) :
+                new ObjectParameter("jumpToQuestion", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getNextPageByQuestionnaire", mergeOption, questionnaireParameter, previousPageParameter, jumpToQuestionParameter);
+        }
+    
+        public virtual ObjectResult<xx_getQuestionByQuestionnaire_Result> xx_getQuestionByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_getQuestionByQuestionnaire_Result>("xx_getQuestionByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<page> pr_getNextPageByQuestionnairePreviousPage(Nullable<int> questionnaire, Nullable<int> previousPage)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var previousPageParameter = previousPage.HasValue ?
+                new ObjectParameter("previousPage", previousPage) :
+                new ObjectParameter("previousPage", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getNextPageByQuestionnairePreviousPage", questionnaireParameter, previousPageParameter);
+        }
+    
+        public virtual ObjectResult<page> pr_getNextPageByQuestionnairePreviousPage(Nullable<int> questionnaire, Nullable<int> previousPage, MergeOption mergeOption)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var previousPageParameter = previousPage.HasValue ?
+                new ObjectParameter("previousPage", previousPage) :
+                new ObjectParameter("previousPage", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getNextPageByQuestionnairePreviousPage", mergeOption, questionnaireParameter, previousPageParameter);
         }
     }
 }

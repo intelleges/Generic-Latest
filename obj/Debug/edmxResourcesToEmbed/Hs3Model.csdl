@@ -2578,6 +2578,18 @@
       <Parameter Name="survey" Mode="In" Type="Int32" />
       <Parameter Name="jumpToQuestion" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="pr_getNextPageByQuestionnaire" EntitySet="page" ReturnType="Collection(hs3MVCMTQa2Model.page)">
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+      <Parameter Name="previousPage" Mode="In" Type="Int32" />
+      <Parameter Name="jumpToQuestion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="xx_getQuestionByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.xx_getQuestionByQuestionnaire_Result)">
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getNextPageByQuestionnairePreviousPage" EntitySet="page" ReturnType="Collection(hs3MVCMTQa2Model.page)">
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+      <Parameter Name="previousPage" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="accessLevel">
     <Key>
@@ -6814,5 +6826,40 @@
     <Property Type="String" Name="skipLogicJump" Nullable="true" MaxLength="500" />
     <Property Type="Int32" Name="responseType_id" Nullable="false" />
     <Property Type="String" Name="responseType" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="pr_getNextPageByQuestionnaire_Result">
+    <Property Type="Int32" Name="questionnaire" Nullable="false" />
+    <Property Type="Int32" Name="page" Nullable="false" />
+    <Property Type="String" Name="pageTitle" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="xx_getQuestionByQuestionnaire_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="question" Nullable="true" />
+    <Property Type="String" Name="name" Nullable="true" />
+    <Property Type="String" Name="title" Nullable="false" />
+    <Property Type="String" Name="tag" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="responseType" Nullable="true" />
+    <Property Type="Int32" Name="required" Nullable="true" />
+    <Property Type="Int32" Name="weight" Nullable="true" />
+    <Property Type="Boolean" Name="skipLogicAnswer" Nullable="true" />
+    <Property Type="String" Name="skipLogicJump" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="accessLevel" Nullable="true" />
+    <Property Type="Int32" Name="commentRequired" Nullable="true" />
+    <Property Type="String" Name="commentBoxTxt" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="commentUploadTxt" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="commentType" Nullable="true" />
+    <Property Type="String" Name="spinOffQuestionnaire" Nullable="true" MaxLength="1" />
+    <Property Type="Int32" Name="spinOffQID" Nullable="true" />
+    <Property Type="String" Name="emailAlert" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="emailAlertList" Nullable="true" />
+    <Property Type="Int32" Name="updated" Nullable="true" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getNextPageByQuestionnairePreviousPage_Result">
+    <Property Type="Int32" Name="questionnaire" Nullable="false" />
+    <Property Type="Int32" Name="page" Nullable="false" />
+    <Property Type="String" Name="pageTitle" Nullable="true" MaxLength="50" />
   </ComplexType>
 </Schema>

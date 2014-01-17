@@ -3272,5 +3272,36 @@
     <FunctionImportMapping FunctionImportName="pr_removeAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessage" />
     <FunctionImportMapping FunctionImportName="pr_getTouchpointByProtocol" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointByProtocol" />
     <FunctionImportMapping FunctionImportName="pr_getQuestionBySurveySkipLogic" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionBySurveySkipLogic" />
+    <FunctionImportMapping FunctionImportName="pr_getNextPageByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getNextPageByQuestionnaire" />
+    <FunctionImportMapping FunctionImportName="xx_getQuestionByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.xx_getQuestionByQuestionnaire">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xx_getQuestionByQuestionnaire_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="responseType" ColumnName="responseType" />
+          <ScalarProperty Name="required" ColumnName="required" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="skipLogicAnswer" ColumnName="skipLogicAnswer" />
+          <ScalarProperty Name="skipLogicJump" ColumnName="skipLogicJump" />
+          <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+          <ScalarProperty Name="commentRequired" ColumnName="commentRequired" />
+          <ScalarProperty Name="commentBoxTxt" ColumnName="commentBoxTxt" />
+          <ScalarProperty Name="commentUploadTxt" ColumnName="commentUploadTxt" />
+          <ScalarProperty Name="commentType" ColumnName="commentType" />
+          <ScalarProperty Name="spinOffQuestionnaire" ColumnName="spinOffQuestionnaire" />
+          <ScalarProperty Name="spinOffQID" ColumnName="spinOffQID" />
+          <ScalarProperty Name="emailAlert" ColumnName="emailAlert" />
+          <ScalarProperty Name="emailAlertList" ColumnName="emailAlertList" />
+          <ScalarProperty Name="updated" ColumnName="updated" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getNextPageByQuestionnairePreviousPage" FunctionName="hs3MVCMTQa2Model.Store.pr_getNextPageByQuestionnairePreviousPage" />
   </EntityContainerMapping>
 </Mapping>

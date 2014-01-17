@@ -725,6 +725,12 @@
     <Compile Include="pr_getMenu_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getNextPageByQuestionnairePreviousPage_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getNextPageByQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getObjectNameByEnterpriseForMobile_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1111,6 +1117,9 @@
     <Compile Include="ViewModel\ExcelQuestionnaire.cs" />
     <Compile Include="ViewModel\QuestionnaireViewModel.cs" />
     <Compile Include="xx_getLastDBModified_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="xx_getQuestionByQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="xx_getRecordCountByTable_Result.cs">

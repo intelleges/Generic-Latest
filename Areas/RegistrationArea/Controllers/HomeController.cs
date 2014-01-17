@@ -89,7 +89,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             int questionnaireId = (int)Session["questionnaire"];
 
             questionnaire objQuestionnaire = db.pr_getQuestionnaire(questionnaireId).FirstOrDefault();
-            
+
             touchpoint objtouchpoint = new touchpoint();
             partner objpartner = new partner();
             protocol objprotocol = new protocol();
@@ -100,12 +100,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objSurveyForm.answerClass = "brownbg";
             objSurveyForm.alternativeAnswerClass = "bluebg";
             objSurveyForm.alternativequestionClass = "bluebg bluebgarrow";
-            
+
             objSurveyForm.errorquestion = errorQuestion;
             objSurveyForm.errorMessage = errorMessage;
             Table table = objSurveyForm.tGetsurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion);
-           // Table table = objSurveyForm.tGetSurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion);
-           // panel.Controls.Add(table);
+            // Table table = objSurveyForm.tGetSurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion);
+            // panel.Controls.Add(table);
 
             StringWriter objhtml = new StringWriter();
             using (var htmlWriter = new HtmlTextWriter(objhtml))
@@ -121,25 +121,662 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
         [HttpPost]
-        public virtual ActionResult QuestionnaireResponse(FormCollection formCollection ,int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
+        public virtual ActionResult QuestionnaireResponse(FormCollection formCollection, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
             if (Session["hs3Registration"] == null)
             {
                 return RedirectToAction("Index");
             }
 
-            foreach (var key in formCollection.Keys)
+
+            int questionnaireId = 0;
+            int partnerId = 0;
+            int touchpointId = 0;
+            int protocolId = 0;
+            // int jumpToQuestion = 0;
+            //  int questionIndex = 0;
+
+            questionnaireId = (int)Session["questionnaire"];
+            partnerId = (int)Session["partner"];
+            touchpointId = (int)Session["touchpoint"];
+            protocolId = (int)Session["protocol"];
+
+            int count = 0;
+            int questionId = 0;
+            int surveyId = 0;
+            string key = "";
+            string[] array = new string[5];
+            char[] splitter = { '_' };
+            string answer = "";
+            question objQuestion = new question();
+            Boolean saveForLaterButton = false;
+            string skip = "";
+            string noSkip = "";
+            // int errorQuestion = 0;
+            //  string errorMessage = "";
+            string goEsignature = "";
+
+            int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+
+            ////save uploaded files
+            //jumpToQuestion = saveUploadedFile(protocol, campaign, provider, questionnaire);
+            //jumpToQuestion = 0;
+
+            foreach (var keyName in formCollection.Keys)
             {
-                var value = formCollection[key.ToString()];
+                answer = formCollection[keyName.ToString()];
+                if (!keyName.ToString().Contains("uploadText") && keyName.ToString().Contains("question_"))
+                {
+                    ++questionIndex;
+                }
+
+                if (keyName.ToString().Contains("questionHiddenField_"))
+                {
+
+                    array = keyName.ToString().Split(splitter);
+
+                    questionId = int.Parse(array[1]);
+                    surveyId = int.Parse(array[2]);
+
+
+                    //question = new Question(new Id(questionId));
+                    //response = new Response(int.Parse(answer));
+                    //survey = new Survey(new Id(surveyId));
+                    //question.response = response;
+                    //survey.question = question;
+
+                    ////to be confirmed
+                    //provider.removeProviderProtocolCampaignQuestionnaireSurveyQuestion(protocol, campaign,
+                    //    questionnaire, survey, question);
+                }
+                //if (Request.Form.Keys[i].Contains("_languageBtn"))
+                //{
+                //    string str = Request.Form.Keys[i].ToString();
+                //    int indexdol = str.IndexOf('$');
+                //    int indexunder = str.IndexOf('_');
+                //    indexunder = indexunder - indexdol;
+                //    indexdol += 1;
+                //    indexunder = indexunder - 1;
+                //    string langName = str.Substring(indexdol, indexunder);
+                //    Session["languageused"] = langName;
+                //    Response.Redirect(Request.Url.ToString());
+                //}
+
+
+
+
+                if (keyName.ToString().Contains("btnSaveForLater"))
+                {
+                    saveForLaterButton = true;
+                }
+
+                if (keyName.ToString().Contains("question_"))
+                {
+                    //    ++questionIndex;
+
+                    if (keyName.ToString().Contains("_text"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+
+                        int? responseId = null;
+                        string responseComment = string.Empty;
+                        try
+                        {
+                            responseId = int.Parse(answer);
+                        }
+                        catch
+                        {
+                            responseComment = answer;
+                        }
+
+
+                        db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, pptq);
+                    }
+                    else if (keyName.ToString().Contains("_checkBox"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+                        answer = array[3];
+
+
+
+
+                        if (formCollection[keyName.ToString()].ToLower() == "on")
+                        {
+                            int? responseId = null;
+                            string responseComment = string.Empty;
+                            try
+                            {
+                                responseId = int.Parse(answer);
+                            }
+                            catch
+                            {
+                                responseComment = answer;
+                            }
+
+
+                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, pptq);
+
+                        }
+                    }
+                    else if (keyName.ToString().Contains("_Commenttext"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+
+                        //provider.addProviderProtocolCampaignQuestionnaireSurveyQuestionResponse(
+                        //    protocol, campaign, questionnaire, survey, question, response);
+                    }
+                    else if (keyName.ToString().Contains("_onlyTextComment"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+
+                        //provider.addProviderProtocolCampaignQuestionnaireSurveyQuestionResponse(
+                        //protocol, campaign, questionnaire, survey, question, response);
+                    }
+                    else
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+                        int? responseId = null;
+                        string responseComment = string.Empty;
+                        if (answer == "74")
+                        {
+
+                            string strvl = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_Commenttext"];
+                            if (strvl != null)
+                            {
+                                responseComment = strvl;
+                                //response.description = surveyfrm.convertLanguageToEnglish(strvl);
+                            }
+
+                        }
+                        else if (answer == "75")
+                        {
+
+
+                            string strvl = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_onlyTextComment"];
+                            if (strvl != null)
+                            {
+                                responseComment = strvl;
+                            }
+                        }
+                        else
+                        {
+                            responseComment = null;
+                        }
+
+                        db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, pptq);
+
+                    }
+
+                    objQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
+
+
+
+
+
+                    if (answer == "74" || answer == "75" || answer == "76" || answer != "")
+                    {
+                        if (objQuestion.skipLogicJump != null)
+                        {
+                            if (objQuestion.skipLogicAnswer == true)
+                            {
+                                if (answer == "74")
+                                {
+
+
+                                    if (objQuestion.skipLogicJump.Contains("&"))
+                                    {
+                                    }
+                                    else
+                                    {
+                                        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                                    }
+                                }
+                                else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer == true) && answer != "" && answer != "75")
+
+                                    jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                                else
+                                {
+                                    jumpToQuestion = 0;
+                                }
+                            }
+                            else
+                            {
+                                if (answer == "74" && (objQuestion.commentType == 5 || objQuestion.commentType == 3))
+                                {
+                                    if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer == true))
+
+                                        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                                    else
+                                        jumpToQuestion = 0;
+
+                                }
+                                else if (objQuestion.skipLogicJump.Contains("&"))
+                                {
+                                    string[] strQuestionLogic = objQuestion.skipLogicJump.Split(';');
+                                    for (int k = 0; k < strQuestionLogic.Length - 1; k++)
+                                    {
+                                        string[] subStrQuestionlogic = strQuestionLogic[k].Split('&');
+                                        Boolean logicOneStatus = false;
+                                        Boolean logicTwoStatus = false;
+                                        int gotoQuestionId = 0;
+                                        for (int j = 0; j < subStrQuestionlogic.Length; j++)
+                                        {
+                                            string[] strquestionid = subStrQuestionlogic[j].Split('=');
+                                            int questionidLogic = Convert.ToInt32(strquestionid[0]);
+                                            string[] strNewQuestionAns = strquestionid[1].Split(':');
+                                            int ansLogicStatus = 0;
+                                            if (strNewQuestionAns.Length > 0)
+                                            {
+                                                ansLogicStatus = Convert.ToInt32(strNewQuestionAns[0]);
+                                            }
+                                            if (strNewQuestionAns.Length > 1)
+                                            {
+                                                gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
+                                            }
+                                            string answerStatus = "";
+                                            if (ansLogicStatus == 1)
+                                            {
+                                                answerStatus = "74";
+                                            }
+                                            else
+                                            {
+                                                answerStatus = "1";
+                                            }
+                                            Boolean foundFlage = false;
+
+                                            for (int l = 0; l < count; ++l)
+                                            {
+                                                key = formCollection.Keys[l];
+                                                if (key.Contains("question_"))
+                                                {
+                                                    array = keyName.ToString().Split(splitter);
+                                                    questionId = int.Parse(array[1]);
+                                                    surveyId = int.Parse(array[2]);
+                                                    answer = formCollection[l];
+
+                                                    if (questionId == gotoQuestionId)
+                                                    {
+                                                        // return view    Response.Redirect("eSignature.aspx");
+                                                    }
+                                                    if (questionId == questionidLogic)
+                                                    {
+                                                        if (answer == "74" || answer == "75" || answer == "76")
+                                                        {
+                                                            foundFlage = true;
+                                                            if (answer == answerStatus)
+                                                            {
+                                                                if (j == 0)
+                                                                {
+                                                                    logicOneStatus = true;
+                                                                }
+                                                                else if (j == 1)
+                                                                {
+                                                                    logicTwoStatus = true;
+                                                                }
+                                                            }
+                                                            else if (answerStatus == "1")
+                                                            {
+                                                                if (answer == "75" || answer == "76")
+                                                                {
+                                                                    if (j == 0)
+                                                                    {
+                                                                        logicOneStatus = true;
+                                                                    }
+                                                                    else if (j == 1)
+                                                                    {
+                                                                        logicTwoStatus = true;
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        }
+
+                                                    }
+                                                }
+                                            }
+
+                                            if (!foundFlage)
+                                            {
+                                                question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
+                                                response responsenew = db.pr_getResponseByQuestion(questionidLogic).FirstOrDefault();
+
+                                                if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no")
+                                                {
+                                                    foundFlage = true;
+                                                    string tempstr = "";
+                                                    if (answerStatus == "74")
+                                                    {
+                                                        tempstr = "yes";
+                                                    }
+                                                    else if (answerStatus == "75")
+                                                    {
+                                                        tempstr = "no";
+                                                    }
+                                                    else if (answerStatus == "76")
+                                                    {
+                                                        tempstr = "n/a";
+                                                    }
+                                                    if (responsenew.description.ToLower() == tempstr)
+                                                    {
+                                                        if (j == 0)
+                                                        {
+                                                            logicOneStatus = true;
+                                                        }
+                                                        else if (j == 1)
+                                                        {
+                                                            logicTwoStatus = true;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (answerStatus == "1")
+                                                        {
+                                                            if (responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no")
+                                                            {
+                                                                if (j == 0)
+                                                                {
+                                                                    logicOneStatus = true;
+                                                                }
+                                                                else if (j == 1)
+                                                                {
+                                                                    logicTwoStatus = true;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            //int ansLogicStatus =Convert.ToInt32(
+                                        }
+                                        if (logicOneStatus == true && logicTwoStatus == true)
+                                        {
+                                            objQuestion.skipLogicJump = gotoQuestionId.ToString();
+                                            jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                                            break;
+                                        }
+                                    }
+                                }
+                                else if (answer != "74")
+                                {
+
+
+                                    if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer == true))
+                                    {
+                                        if (answer != "75")
+                                            jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                                        else
+                                            jumpToQuestion = 0;
+                                    }
+                                    else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer == false))
+                                    {
+                                        if (answer == "75")
+                                            jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                                        else
+                                            jumpToQuestion = 0;
+                                    }
+                                    else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump == null))
+                                    {
+                                        jumpToQuestion = 0;
+                                    }
+
+                                    else
+                                    {
+                                        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+
+                                        if (Request.QueryString["skip"] != null)
+                                        {
+
+                                            string strJumToQuestion = db.pr_getQuestion(objQuestion.id + 1).FirstOrDefault().skipLogicJump;
+                                            if (strJumToQuestion.Contains("&"))
+                                            {
+                                            }
+                                            else
+                                            {
+                                                jumpToQuestion = int.Parse(strJumToQuestion);
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    jumpToQuestion = 0;
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
 
+            //for (int i = 0; i < Request.Form.Keys.Count; i++)
+            //{
 
-            int questionnaireId = (int)Session["questionnaire"];          
+
+            //    if (Request.Form.Keys[i].Contains("_languageBtn"))
+            //    {
+
+            //        string str = Request.Form.Keys[i].ToString();
+            //        int indexdol = str.IndexOf('$');
+            //        int indexunder = str.IndexOf('_');
+
+            //        indexunder = indexunder - indexdol;
+            //        indexdol += 1;
+            //        indexunder = indexunder - 1;
+            //        string langName = str.Substring(indexdol, indexunder);
+            //        Session["languageused"] = langName;
+            //        Response.Redirect(Request.Url.ToString());
+            //    }
+            //}
+
+
+            //foreach (var keyName in formCollection.Keys)
+            //{
+            //    var value = formCollection[keyName.ToString()];
+            //}
+
+
+            if (goEsignature == "true")
+            {
+                //if (menuGroup.id.id == 2)
+                //{
+                //    Response.Redirect("spendCategoryForm.aspx");
+                //}
+                //else
+                //{
+                //    //int providerId = 0;
+                //    int quetionnaireId = 0;
+                //    partnerId = (int)Session["partnerId"];
+                //    quetionnaireId = (int)Session["questionnaire"];
+
+                Response.Redirect("eSignature.aspx");
+                // }
+            }
+
+            if (saveForLaterButton == true)
+            {
+
+
+                //#region 20130222 new code
+                //SaveLater(questionnaire, question);
+                //#endregion
+
+                //saveForLater();
+            }
+
+            else
+            {
+
+                goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage);
+            }
+
 
             return View();
         }
 
+
+        private void goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage)
+        {
+            int pageId = 0;
+            int pageNumber = 0;
+            int pgno = 0;
+            int questionnaireId = (int)Session["questionnaire"];
+            string errorQueryString = "";
+
+            if (errorQuestion > 0)
+            {
+                errorQueryString = "&errorQuestion=" + errorQuestion.ToString() + "&errorMessage=" + errorMessage;
+            }
+            surveyForm surveyForm = new surveyForm();
+            int partnerId = (int)Session["partner"];
+            partner provider1 = new partner();
+            questionnaire questionnaire = new questionnaire();
+            string zode = surveyForm.generateZCode(provider1, questionnaire);
+            page page = null;
+            // menuGroup = (MenuGroup)Session["menuGroup"];
+
+            if (Request.QueryString["pageNumber"] != null)
+            {
+                pageNumber = int.Parse(Request.QueryString["pageNumber"].ToString());
+                pageNumber = pageNumber + 1;
+
+            }
+            else
+            {
+                pageNumber = 2;
+            }
+
+            if (Request.QueryString["page"] != null)
+            {
+                pageId = int.Parse(Request.QueryString["page"].ToString());
+
+                page = db.pr_getNextPageByQuestionnaire(questionnaireId, pageId, jumpToQuestion).FirstOrDefault();
+            }
+            else
+            {
+                page = db.pr_getNextPageByQuestionnaire(questionnaireId, 0, 0).FirstOrDefault();
+                page = db.pr_getNextPageByQuestionnaire(questionnaireId, page.id, jumpToQuestion).FirstOrDefault();
+            }
+            // update progressbare logic
+
+            int providerId = 0;
+            int quetionnaireId = 0;
+         //   providerId = (int)Session["provider"];
+            quetionnaireId = (int)Session["questionnaire"];
+            //    Provider provider = new Provider(new Id(providerId));
+            //  Campaign campaign = new Campaign(new Id(Convert.ToInt32(Session["campaign"])));
+            //int totalpage = questionnaire.getPageQuestionnaireCount(questionnaire);
+            //pgno = pageNumber - 1;
+            //for (int i = 0; i < totalpage; i++)
+            //{
+            //    if (pgno == i)
+            //    {
+            //        int totalperage = 0;
+            //        int totper = 80 / totalpage;
+            //        if (pgno == 0)
+            //        {
+            //            pgno = 1;
+            //            totalperage = (totper * 1) + 10;
+            //        }
+            //        else
+            //        {
+            //            totalperage = (totper * i) + 10;
+            //        }
+            //        provider.updateSurveyProgressBar(provider, campaign, totalperage);
+            //        break;
+            //    }
+            //}
+            //
+            if (Request.QueryString["questionIndex"] != null)
+            {
+                questionIndex += int.Parse(Request.QueryString["questionIndex"].ToString());
+            }
+
+            if (Request.QueryString["skip"] != null)
+            {
+                skip = "&skip=true";
+            }
+
+            if (jumpToQuestion == 0)
+            {
+                if (page != null)
+                {
+                    if (string.IsNullOrEmpty(errorQueryString))
+                    {
+                        Response.Redirect("QuestionnaireResponse?pageNumber=" + pageNumber.ToString() +
+                                "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
+                                + "&questionIndex=" + questionIndex.ToString() + skip);
+                    }
+                    else if (Request.QueryString["errorQuestion"] == null)
+                    {
+                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
+                    }
+                    else
+                    {
+                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
+                    }
+                }
+                else
+                {
+                    //if (menuGroup.id.id == 2)
+                    //{
+                    //    Response.Redirect("spendCategoryForm.aspx");
+                    //}
+                    //else
+                    //{
+                    //int providerId = 0;
+                    //int quetionnaireId = 0;
+                    //providerId = (int)Session["providerId"];
+                    //quetionnaireId = (int)Session["questionnaire"];
+                    //Provider provider = new Provider(new Id(providerId));
+                    //Campaign campaign = new Campaign(new Id(Convert.ToInt32(Session["campaign"])));
+                    //provider.updateSurveyProgressBar(provider, campaign, 80);
+                    Response.Redirect("eSignature.aspx");
+                    // }
+                }
+            }
+            else
+            {
+                if (page != null)
+                {
+                    if (string.IsNullOrEmpty(errorQueryString))
+                    {
+                        Response.Redirect("responseQuestionnaire.aspx?pageNumber=" + pageNumber.ToString() +
+                           "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
+                           + "&questionIndex=" + questionIndex.ToString() + skip);
+                    }
+                    else if (Request.QueryString["errorQuestion"] == null)
+                    {
+                        Response.Redirect("responseQuestionnaire.aspx?" + Request.QueryString.ToString() + errorQueryString);
+                    }
+                    else
+                    {
+                        Response.Redirect("responseQuestionnaire.aspx?" + Request.QueryString.ToString());
+                    }
+                }
+                else
+                {
+                    //if (menuGroup.id.id == 2)
+                    //{
+                    //    Response.Redirect("spendCategoryForm.aspx");
+                    //}
+                    //else
+                    //{
+
+                    Response.Redirect("eSignature.aspx");
+                    //}
+                }
+            }
+        }
 
 
 
