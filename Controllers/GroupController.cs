@@ -40,7 +40,7 @@ namespace Generic.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.enterprise = new SelectList(db.enterprise, "id", "description");
+            //ViewBag.enterprise = new SelectList(db.enterprise, "id", "description");
             ViewBag.groupCollection = new SelectList(db.groupCollection, "id", "name");
             return View();
         }

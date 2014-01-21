@@ -1,0 +1,25 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.Models.PersonComboModel>
+@using Telerik.Web.Mvc.UI;
+@using Telerik.Web.Mvc.UI.Html;
+@using System.Web.Mvc;
+@using Generic;
+@using Generic.Controllers;
+@{
+    Layout = null;
+}
+
+@(Html.Telerik().ComboBox()
+            .Name("ComboBox")
+            .AutoFill(Model.ComboBoxAttributes.AutoFill.Value)
+            .SelectedIndex(Model.ComboBoxAttributes.SelectedIndex.Value)
+            .BindTo(new SelectList(Model.Persons, "id", "firstName"))
+            .HtmlAttributes(new { style = string.Format("width:{0}px", Model.ComboBoxAttributes.Width) })
+            .Filterable(filtering =>
+            {
+                if (Model.ComboBoxAttributes.FilterMode != 0)
+                {
+                    filtering.FilterMode(AutoCompleteFilterMode.StartsWith);
+                }
+            })
+            .HighlightFirstMatch(Model.ComboBoxAttributes.HighlightFirst.Value)
+)

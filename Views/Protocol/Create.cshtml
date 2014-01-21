@@ -2,7 +2,7 @@
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @{
-    Layout = LayoutHelper.GetLayout();
+    Layout = null;
     ViewBag.Title = "Protocol";
 }
 
@@ -20,14 +20,6 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.menuGroup)
             @Html.ValidationMessageFor(model => model.menuGroup)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.enterprise, "enterprise1")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("enterprise", String.Empty)
-            @Html.ValidationMessageFor(model => model.enterprise)
         </div>
 
         <div class="editor-label">
@@ -84,22 +76,6 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.agency)
             @Html.ValidationMessageFor(model => model.agency)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.admin, "person")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("admin", String.Empty)
-            @Html.ValidationMessageFor(model => model.admin)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.sponsor, "person1")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("sponsor", String.Empty)
-            @Html.ValidationMessageFor(model => model.sponsor)
         </div>
 
         <div class="editor-label">

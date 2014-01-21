@@ -1,10 +1,22 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<Generic.touchpoint>
 @using System.Web.Mvc.Html
+@using Generic
 @using Generic.Helpers
+
+@using Telerik.Web.Mvc.UI
 @{
-    Layout = LayoutHelper.GetLayout();
+    Layout =null;
     ViewBag.Title = "Touch Point";
 }
+
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+@(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
+                .Add("telerik.common.css")
+                .Add("telerik.rtl.css")
+                .Combined(true)
+                .Compress(true)))
+<script src="~/Scripts/2013.2.611/telerik.combobox.min.js"></script>
+<script src="~/Scripts/2013.2.611/telerik.list.min.js"></script>
 
 <h2>Create</h2>
 
@@ -15,18 +27,10 @@
         <legend>touchpoint</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.protocol)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.protocol)
-            @Html.ValidationMessageFor(model => model.protocol)
-        </div>
-
-        <div class="editor-label">
             @Html.LabelFor(model => model.person)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.person)
+            @Html.Action("PersonCombobox", "Touchpoint")
             @Html.ValidationMessageFor(model => model.person)
         </div>
 
@@ -34,7 +38,7 @@
             @Html.LabelFor(model => model.sponsor)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.sponsor)
+            @Html.Action("PersonCombobox", "Touchpoint")
             @Html.ValidationMessageFor(model => model.sponsor)
         </div>
 
@@ -42,7 +46,7 @@
             @Html.LabelFor(model => model.admin)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.admin)
+            @Html.Action("PersonCombobox", "Touchpoint")
             @Html.ValidationMessageFor(model => model.admin)
         </div>
 
@@ -119,6 +123,8 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
 
 @*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

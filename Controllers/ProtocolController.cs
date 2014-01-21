@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Generic.Session;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -40,9 +41,9 @@ namespace Generic.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.enterprise = new SelectList(db.enterprise, "id", "description");
-            ViewBag.admin = new SelectList(db.person, "id", "internalId");
-            ViewBag.sponsor = new SelectList(db.person, "id", "internalId");
+            //ViewBag.enterprise = new SelectList(db.enterprise, "id", "description");
+            //ViewBag.admin = new SelectList(db.person, "id", "internalId");
+            //ViewBag.sponsor = new SelectList(db.person, "id", "internalId");
             return View();
         }
 
@@ -54,9 +55,12 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
+                protocol.sponsor = SessionSingleton.PersonId;
+                protocol.admin = SessionSingleton.PersonId;
                 db.protocol.Add(protocol);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                SessionSingleton.ProtocolId = protocol.id;
+                return RedirectToAction("Create","Touchpoint");
             }
 
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", protocol.enterprise);

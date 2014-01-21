@@ -39,6 +39,30 @@ namespace Generic.Session
             }
         }
 
+        public static int ProtocolId
+        {
+            get
+            {
+                return Convert.ToInt16(System.Web.HttpContext.Current.Session["ProtocolId"]);
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["ProtocolId"] = value;
+            }
+        }
+
+        public static int PersonId
+        {
+            get
+            {
+                return Convert.ToInt16(System.Web.HttpContext.Current.Session["PersonId"]);
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["PersonId"] = value;
+            }
+        }
+
         public static int? LoggedInUserId
         {
             get

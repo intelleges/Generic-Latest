@@ -59,8 +59,9 @@ namespace Generic.Controllers
             {
                 person.enterprise = SessionSingleton.EnterPriseId;
                 db.person.Add(person);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    db.SaveChanges();
+                SessionSingleton.PersonId = person.id;
+                return RedirectToAction("Create","Protocol");
             }
 
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", person.enterprise);

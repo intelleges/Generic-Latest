@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Generic.Models;
+using Generic.Session;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -36,6 +38,26 @@ namespace Generic.Controllers
             return View(touchpoint);
         }
 
+        public ActionResult PersonCombobox(PersonComboModel model)
+        {
+            model.AutoCompleteAttributes.Width = model.AutoCompleteAttributes.Width ?? 200;
+            model.AutoCompleteAttributes.HighlightFirst = model.AutoCompleteAttributes.HighlightFirst ?? true;
+            model.AutoCompleteAttributes.AutoFill = model.AutoCompleteAttributes.AutoFill ?? false;
+            model.AutoCompleteAttributes.AllowMultipleValues = model.AutoCompleteAttributes.AllowMultipleValues ?? true;
+            model.AutoCompleteAttributes.MultipleSeparator = model.AutoCompleteAttributes.MultipleSeparator ?? ", ";
+            model.ComboBoxAttributes.Width = model.ComboBoxAttributes.Width ?? 200;
+            model.ComboBoxAttributes.SelectedIndex = model.ComboBoxAttributes.SelectedIndex ?? 0;
+            model.ComboBoxAttributes.HighlightFirst = model.ComboBoxAttributes.HighlightFirst ?? true;
+            model.ComboBoxAttributes.AutoFill = model.ComboBoxAttributes.AutoFill ?? true;
+            model.ComboBoxAttributes.OpenOnFocus = model.ComboBoxAttributes.OpenOnFocus ?? false;
+            model.DropDownListAttributes.Width = model.DropDownListAttributes.Width ?? 200;
+            model.DropDownListAttributes.SelectedIndex = model.DropDownListAttributes.SelectedIndex ?? 0;
+
+            model.Persons = db.pr_getPersonByEnterprise1(39).ToList();
+            return PartialView("_PersonPartial", model);
+
+        }
+
         //
         // GET: /Touchpoint/Create
 
@@ -52,6 +74,7 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
+                touchpoint.protocol = SessionSingleton.ProtocolId;
                 db.touchpoint.Add(touchpoint);
                 db.SaveChanges();
                 return RedirectToAction("Index");
