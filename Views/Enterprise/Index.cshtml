@@ -37,6 +37,11 @@
 
             columns.Bound(o => o.archivedDate);
 
+            columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit");
+            columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details");
+            columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete");
+             
+            
         })
         .Pageable()
         .Sortable()
@@ -44,8 +49,14 @@
 
 
 @*
-<p>
+
+
+
+<p>@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
     @Html.ActionLink("Create New", "Create")
+.ClientTemplate("<a href=\"" + Url.Action("EditView", "MyController") + "/<#= Id#>\">Edit</a>")
 </p>
 <table>
     <tr>
