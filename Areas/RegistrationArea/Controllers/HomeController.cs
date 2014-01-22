@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -290,6 +291,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         surveyId = int.Parse(array[2]);
                         int? responseId = null;
                         string responseComment = string.Empty;
+                        try { responseId = int.Parse(answer); }
+                        catch { }
                         if (answer == "74")
                         {
 
@@ -874,6 +877,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         byte[] uploadedFile = new byte[Request.Files[i].InputStream.Length];
                         Request.Files[i].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
 
+                        Binary linqBinary = new Binary(uploadedFile); 
+                       
                         db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(pptqq.id, questionId, pptqq.response, pptqq.comment, uploadedFile, null, pptq);
 
                         //int length = uploadFile.ContentLength;
@@ -882,6 +887,20 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                         //uploadFile.InputStream.Read(tempImage, 0, length);
                         //myDBObject.ActualImage = tempImage;
+
+                        ////create byte array of size equal to file input stream
+                        //byte[] fileData = new byte[Request.Files[upload].InputStream.Length];
+                        ////add file input stream into byte array
+                        //Request.Files[upload].InputStream.Read(fileData, 0, Convert.ToInt32(Request.Files[upload].InputStream.Length));
+                        ////create system.data.linq object using byte array
+                        //System.Data.Linq.Binary binaryFile = new System.Data.Linq.Binary(fileData);
+                        ////initialise object of FileDump LINQ to sql class passing values to be inserted
+                        //FileDump record = new FileDump { FileData = binaryFile, FileName = System.IO.Path.GetFileName(Request.Files[upload].FileName) };
+                        ////call InsertOnsubmit method to pass new object to entity
+                        //dataContext.FileDumps.InsertOnSubmit(record);
+                        ////call submitChanges method to execute implement changes into database
+                        //dataContext.SubmitChanges();
+
                     }
                     else
                     {
@@ -901,6 +920,24 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return jumpToQuestion;
         }
 
+        public FileContentResult FileDownload()
+        {
+            //declare byte array to get file content from database and string to store file name
+            byte[] fileData;
+            string fileName;
+           
+            //using LINQ expression to get record from database for given id value
+            var record = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(454, 3).FirstOrDefault();
+            //var record = from p in dataContext.FileDumps
+            //             where p.ID == id
+            //             select p;
+            //only one record will be returned from database as expression uses condtion on primary field
+            //so get first record from returned values and retrive file content (binary) and filename 
+            fileData = (byte[])record.uploadedFile.ToArray();
+            fileName = "abc";
+            //return file and provide byte file content and file name --application/pdf
+            return File(fileData, "application/pdf", fileName);
+        }
 
 
         /// <summary> 
