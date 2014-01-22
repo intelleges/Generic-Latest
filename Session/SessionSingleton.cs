@@ -27,7 +27,7 @@ namespace Generic.Session
             }
         }
 
-        public static int EnterPriseId
+        public static int? EnterPriseId
         {
             get
             {
@@ -36,6 +36,18 @@ namespace Generic.Session
             set
             {
                 System.Web.HttpContext.Current.Session["EnterpriseId"] = value;
+            }
+        }
+
+        public static int? MyEnterPriseId
+        {
+            get
+            {
+                return Convert.ToInt16(System.Web.HttpContext.Current.Session["MyEnterPriseId"]);
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["MyEnterPriseId"] = value;
             }
         }
 

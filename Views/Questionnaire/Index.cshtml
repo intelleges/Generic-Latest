@@ -1,0 +1,50 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.questionnaire>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Protocol";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@( Html.Telerik().Grid(Model).Name("QuestionnaireGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.id);
+
+            columns.Bound(o => o.person);
+
+            columns.Bound(o => o.partnerType);
+
+            columns.Bound(o => o.letter);
+
+            columns.Bound(o => o.title);
+
+            columns.Bound(o => o.description);
+
+            columns.Bound(o => o.footer);
+
+            columns.Bound(o => o.locked);
+
+            columns.Bound(o => o.sortOrder);
+
+            columns.Bound(o => o.active);
+
+            columns.Bound(o => o.multiLanguage);
+
+            columns.Bound(o => o.enterprise);
+
+            columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit");
+            columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details");
+            columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete");
+
+        })
+        .Pageable()
+        .Sortable()
+)

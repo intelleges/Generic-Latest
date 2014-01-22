@@ -68,8 +68,11 @@
 
             columns.Bound(o => o.active);
 
-            columns.Bound(o => o.lastModified);
+            columns.Bound(o => o.lastModified);
 
+            columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit");
+            columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details");
+            columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete");
         })
         .Pageable()
         .Sortable()

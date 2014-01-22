@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Generic.Session;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,7 +18,7 @@ namespace Generic.Controllers
 
         public virtual ActionResult Index()
         {
-            var partner = db.pr_getPartnerAll(Generic.Helpers.CurrentInstance.EnterpriseID);
+            var partner = db.pr_getPartnerAll(SessionSingleton.MyEnterPriseId);
             return View(partner.ToList());
         }
 

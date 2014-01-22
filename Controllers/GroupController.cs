@@ -18,7 +18,7 @@ namespace Generic.Controllers
 
         public ActionResult Index()
         {
-            var groups = db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID);
+            var groups = db.pr_getGroupAll(SessionSingleton.MyEnterPriseId);
             return View(groups.ToList());
         }
 

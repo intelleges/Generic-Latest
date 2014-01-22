@@ -21,7 +21,7 @@ namespace Generic.Controllers
            
             //var personGroup =db.p
             //var person = db.person.Include(p => p.enterprise1).Include(p => p.personStatu).Include(p => p.role1);
-            var person = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID);
+            var person = db.pr_getPersonAll(SessionSingleton.MyEnterPriseId);
             return View(person.ToList());
         }
 

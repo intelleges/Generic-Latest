@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Generic.ViewModel;
 using LinqToExcel;
+using Generic.Session;
 
 namespace Generic.Controllers
 {
@@ -18,7 +19,8 @@ namespace Generic.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var questionnaire = db.pr_getQuestionnaireAll(SessionSingleton.MyEnterPriseId);
+            return View(questionnaire.ToList());
         }
 
         public ActionResult UploadQuestionnaire()

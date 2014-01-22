@@ -38,11 +38,35 @@
 
             columns.Bound(o => o.sortOrder);
 
-            columns.Bound(o => o.active); 
+            columns.Bound(o => o.active);
+
+            columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit");
+            columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details");
+            columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete");
         })
         .Pageable()
         .Sortable()
 )
+
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+<script type="text/javascript">
+
+    function OpenManualAddModal() {
+        jQuery.noConflict();
+        $("#popup").dialog({
+            autoOpen: true,
+            modal: true,
+            height: 650,
+            width: 500,
+            open: function () {
+
+                $("#modal").attr("src", url);
+            }
+        });
+    }
+</script>
+
 @*
 <p>
     @Html.ActionLink("Create New", "Create")

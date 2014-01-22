@@ -53,7 +53,7 @@ namespace Generic.Controllers
             model.DropDownListAttributes.Width = model.DropDownListAttributes.Width ?? 200;
             model.DropDownListAttributes.SelectedIndex = model.DropDownListAttributes.SelectedIndex ?? 0;
 
-            model.Persons = db.pr_getPersonByEnterprise1(39).ToList();
+            model.Persons = db.pr_getPersonByEnterprise1(SessionSingleton.EnterPriseId).ToList();
             return PartialView("_PersonPartial", model);
 
         }

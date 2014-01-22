@@ -73,6 +73,7 @@ namespace Generic.Controllers
                     //{
                     person person = db.pr_getPersonByEmailForLoginAttempts(userName).FirstOrDefault();
                     SessionSingleton.LoggedInUserId = person.id;
+                    SessionSingleton.MyEnterPriseId = person.enterprise;
                     // return Redirect("~/mvcmt/scs/admin/home");
                     return RedirectToAction("Home", "Admin");
                     //}

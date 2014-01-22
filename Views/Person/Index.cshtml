@@ -60,6 +60,10 @@
             columns.Bound(o => o.resetDate).Width(100).Format("{0:MM/dd/yy}");
             columns.Bound(o => o.IsArchived).Width(100);
             columns.Bound(o => o.archivedDate).Width(100);
+
+            columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit");
+            columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details");
+            columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete");
         })
         .Pageable()
         .Sortable().Scrollable(scrolling => scrolling
