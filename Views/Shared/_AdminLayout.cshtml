@@ -32,7 +32,7 @@
       {
           vPanes.Add()
               .Size("100px")
-              .Collapsible(true).Collapsed(false)
+              .Collapsible(true).Collapsed(true)
               .Content(@<div>Nothing In Top Panel For Now</div>);
     
           vPanes.Add()
@@ -44,7 +44,7 @@
                       {
                           hPanes.Add()
                               .Size("150px")
-                              .Collapsible(true).Collapsed(false)
+                              .Collapsible(true).Collapsed(true)
                               .Content(@<p>Inner splitter :: left pane</p>);
 
                           hPanes.Add()
@@ -78,13 +78,13 @@
     
                           hPanes.Add()
                               .Size("20%")
-                              .Collapsible(true).Collapsed(false)
+                              .Collapsible(true).Collapsed(true)
                               .Content(@<p>Inner splitter :: right pane</p>);
                       }).ToString());
     
           vPanes.Add()
               .Size("20%")
-              .Collapsible(true).Collapsed(false)
+              .Collapsible(true).Collapsed(true)
               .Content(@<footer>
         <div class="content-wrapper">
             <div class="float-left">

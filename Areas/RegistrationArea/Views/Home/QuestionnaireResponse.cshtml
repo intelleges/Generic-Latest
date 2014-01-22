@@ -1,5 +1,6 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
 @using System.Web.Mvc.Html
+@using System.Web.Mvc
 @using Generic.Helpers
 @{
     Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
@@ -370,7 +371,7 @@
 
                                         <div style="width: 800px;" align="left">
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("QuestionnaireResponse", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
                                         @Html.Raw(ViewBag.questions)
                                               

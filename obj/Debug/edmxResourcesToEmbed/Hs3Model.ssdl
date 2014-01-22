@@ -1,511 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="hs3MVCMTQa2Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="hs3MVCMTQa2ModelStoreContainer">
-    <EntitySet Name="accessLevel" EntityType="hs3MVCMTQa2Model.Store.accessLevel" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="agency" EntityType="hs3MVCMTQa2Model.Store.agency" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="autoMailAttachment" EntityType="hs3MVCMTQa2Model.Store.autoMailAttachment" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="autoMailMessage" EntityType="hs3MVCMTQa2Model.Store.autoMailMessage" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="autoMailType" EntityType="hs3MVCMTQa2Model.Store.autoMailType" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="country" EntityType="hs3MVCMTQa2Model.Store.country" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="domain" EntityType="hs3MVCMTQa2Model.Store.domain" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="emailBounceType" EntityType="hs3MVCMTQa2Model.Store.emailBounceType" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="emailTag_deprecated" EntityType="hs3MVCMTQa2Model.Store.emailTag_deprecated" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="emailTemplate_deprecated" EntityType="hs3MVCMTQa2Model.Store.emailTemplate_deprecated" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="emailTemplateType_deprecated" EntityType="hs3MVCMTQa2Model.Store.emailTemplateType_deprecated" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="enterprise" EntityType="hs3MVCMTQa2Model.Store.enterprise" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="enterpriseObjectName" EntityType="hs3MVCMTQa2Model.Store.enterpriseObjectName" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="enterpriseSystemInfo" EntityType="hs3MVCMTQa2Model.Store.enterpriseSystemInfo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="eSignature" EntityType="hs3MVCMTQa2Model.Store.eSignature" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="eventNotification" EntityType="hs3MVCMTQa2Model.Store.eventNotification" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="eventNotificationBounce" EntityType="hs3MVCMTQa2Model.Store.eventNotificationBounce" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="group" EntityType="hs3MVCMTQa2Model.Store.group" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="groupCollection" EntityType="hs3MVCMTQa2Model.Store.groupCollection" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="groupOrgChart" EntityType="hs3MVCMTQa2Model.Store.groupOrgChart" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="groupRiskGoal" EntityType="hs3MVCMTQa2Model.Store.groupRiskGoal" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="hs3Menu_deprecated" EntityType="hs3MVCMTQa2Model.Store.hs3Menu_deprecated" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="key" EntityType="hs3MVCMTQa2Model.Store.key" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="language" EntityType="hs3MVCMTQa2Model.Store.language" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="languageInfo" EntityType="hs3MVCMTQa2Model.Store.languageInfo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="letter" EntityType="hs3MVCMTQa2Model.Store.letter" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="letterSeed" EntityType="hs3MVCMTQa2Model.Store.letterSeed" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="loadHistory" EntityType="hs3MVCMTQa2Model.Store.loadHistory" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="menu" EntityType="hs3MVCMTQa2Model.Store.menu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="menuAccessLevel" EntityType="hs3MVCMTQa2Model.Store.menuAccessLevel" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="menuGroup" EntityType="hs3MVCMTQa2Model.Store.menuGroup" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="numberSeed" EntityType="hs3MVCMTQa2Model.Store.numberSeed" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="page" EntityType="hs3MVCMTQa2Model.Store.page" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="pageSurveyset" EntityType="hs3MVCMTQa2Model.Store.pageSurveyset" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partner" EntityType="hs3MVCMTQa2Model.Store.partner" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerAction" EntityType="hs3MVCMTQa2Model.Store.partnerAction" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerActionLog" EntityType="hs3MVCMTQa2Model.Store.partnerActionLog" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerAddress" EntityType="hs3MVCMTQa2Model.Store.partnerAddress" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerClass" EntityType="hs3MVCMTQa2Model.Store.partnerClass" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerCorpInfo" EntityType="hs3MVCMTQa2Model.Store.partnerCorpInfo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerGroup" EntityType="hs3MVCMTQa2Model.Store.partnerGroup" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerLogDetail" EntityType="hs3MVCMTQa2Model.Store.partnerLogDetail" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerLogin" EntityType="hs3MVCMTQa2Model.Store.partnerLogin" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerPartnertypeTouchpointQuestionnaire" EntityType="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaire" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntityType="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerReference" EntityType="hs3MVCMTQa2Model.Store.partnerReference" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerRelationshipOwner" EntityType="hs3MVCMTQa2Model.Store.partnerRelationshipOwner" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerReminder" EntityType="hs3MVCMTQa2Model.Store.partnerReminder" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerReminderStatus" EntityType="hs3MVCMTQa2Model.Store.partnerReminderStatus" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerRemitAddress" EntityType="hs3MVCMTQa2Model.Store.partnerRemitAddress" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerReport" EntityType="hs3MVCMTQa2Model.Store.partnerReport" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerShadow" EntityType="hs3MVCMTQa2Model.Store.partnerShadow" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerSpendAmount" EntityType="hs3MVCMTQa2Model.Store.partnerSpendAmount" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerStatus" EntityType="hs3MVCMTQa2Model.Store.partnerStatus" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerTemp" EntityType="hs3MVCMTQa2Model.Store.partnerTemp" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerTouchpointInvitedDate_deprecated" EntityType="hs3MVCMTQa2Model.Store.partnerTouchpointInvitedDate_deprecated" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerTouchpointQuestionnaireLanguage" EntityType="hs3MVCMTQa2Model.Store.partnerTouchpointQuestionnaireLanguage" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerType" EntityType="hs3MVCMTQa2Model.Store.partnerType" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerTypeGroupGoal" EntityType="hs3MVCMTQa2Model.Store.partnerTypeGroupGoal" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partnerTypeTouchpointQuestionnaire" EntityType="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="person" EntityType="hs3MVCMTQa2Model.Store.person" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="personGroup" EntityType="hs3MVCMTQa2Model.Store.personGroup" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="personLoginAudit" EntityType="hs3MVCMTQa2Model.Store.personLoginAudit" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="personLoginAuditEvent" EntityType="hs3MVCMTQa2Model.Store.personLoginAuditEvent" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="personRelationship" EntityType="hs3MVCMTQa2Model.Store.personRelationship" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="personRelationshipType" EntityType="hs3MVCMTQa2Model.Store.personRelationshipType" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="personRole" EntityType="hs3MVCMTQa2Model.Store.personRole" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="personSearchCount" EntityType="hs3MVCMTQa2Model.Store.personSearchCount" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="personStatus" EntityType="hs3MVCMTQa2Model.Store.personStatus" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="protocol" EntityType="hs3MVCMTQa2Model.Store.protocol" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="protocolTouchpoint" EntityType="hs3MVCMTQa2Model.Store.protocolTouchpoint" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="query" EntityType="hs3MVCMTQa2Model.Store.query" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="queryFieldQuestion" EntityType="hs3MVCMTQa2Model.Store.queryFieldQuestion" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="question" EntityType="hs3MVCMTQa2Model.Store.question" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="questionLanguage" EntityType="hs3MVCMTQa2Model.Store.questionLanguage" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="questionnaire" EntityType="hs3MVCMTQa2Model.Store.questionnaire" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="questionnaireLevel" EntityType="hs3MVCMTQa2Model.Store.questionnaireLevel" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="questionnairePage" EntityType="hs3MVCMTQa2Model.Store.questionnairePage" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="questionResponse" EntityType="hs3MVCMTQa2Model.Store.questionResponse" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="questionTranslation" EntityType="hs3MVCMTQa2Model.Store.questionTranslation" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="rating" EntityType="hs3MVCMTQa2Model.Store.rating" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ratingType" EntityType="hs3MVCMTQa2Model.Store.ratingType" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="response" EntityType="hs3MVCMTQa2Model.Store.response" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="responseLanguage" EntityType="hs3MVCMTQa2Model.Store.responseLanguage" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="responseTranslation" EntityType="hs3MVCMTQa2Model.Store.responseTranslation" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="responseType" EntityType="hs3MVCMTQa2Model.Store.responseType" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="riskType" EntityType="hs3MVCMTQa2Model.Store.riskType" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="role" EntityType="hs3MVCMTQa2Model.Store.role" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="roleMenu" EntityType="hs3MVCMTQa2Model.Store.roleMenu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="rule" EntityType="hs3MVCMTQa2Model.Store.rule" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ruleType" EntityType="hs3MVCMTQa2Model.Store.ruleType" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="score" EntityType="hs3MVCMTQa2Model.Store.score" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="sizingStandard" EntityType="hs3MVCMTQa2Model.Store.sizingStandard" store:Type="Tables" store:Schema="dbo" store:Name="sizingStandard">
-      <DefiningQuery>SELECT 
-      [sizingStandard].[NAICS] AS [NAICS], 
-      [sizingStandard].[industryTitle] AS [industryTitle], 
-      [sizingStandard].[revenue] AS [revenue], 
-      [sizingStandard].[numOfEmployees] AS [numOfEmployees]
-      FROM [dbo].[sizingStandard] AS [sizingStandard]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="state" EntityType="hs3MVCMTQa2Model.Store.state" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="survey" EntityType="hs3MVCMTQa2Model.Store.survey" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="surveyQuestion" EntityType="hs3MVCMTQa2Model.Store.surveyQuestion" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="surveyset" EntityType="hs3MVCMTQa2Model.Store.surveyset" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="surveySetSurvey" EntityType="hs3MVCMTQa2Model.Store.surveySetSurvey" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="swap" EntityType="hs3MVCMTQa2Model.Store.swap" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="sysdiagrams" EntityType="hs3MVCMTQa2Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="systemConfiguration" EntityType="hs3MVCMTQa2Model.Store.systemConfiguration" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="touchpoint" EntityType="hs3MVCMTQa2Model.Store.touchpoint" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="touchpointGroup" EntityType="hs3MVCMTQa2Model.Store.touchpointGroup" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="touchpointPartnerRerouter" EntityType="hs3MVCMTQa2Model.Store.touchpointPartnerRerouter" store:Type="Tables" store:Schema="dbo" store:Name="touchpointPartnerRerouter">
-      <DefiningQuery>SELECT 
-      [touchpointPartnerRerouter].[touchpoint] AS [touchpoint], 
-      [touchpointPartnerRerouter].[partner] AS [partner], 
-      [touchpointPartnerRerouter].[fromFirstName] AS [fromFirstName], 
-      [touchpointPartnerRerouter].[fromLastName] AS [fromLastName], 
-      [touchpointPartnerRerouter].[fromTitle] AS [fromTitle], 
-      [touchpointPartnerRerouter].[from] AS [from], 
-      [touchpointPartnerRerouter].[to] AS [to], 
-      [touchpointPartnerRerouter].[status] AS [status], 
-      [touchpointPartnerRerouter].[timeStamp] AS [timeStamp]
-      FROM [dbo].[touchpointPartnerRerouter] AS [touchpointPartnerRerouter]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="touchpointPartnerTypeScoreAutoMail" EntityType="hs3MVCMTQa2Model.Store.touchpointPartnerTypeScoreAutoMail" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="touchpointQuestionnaire_deprecated" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionnaire_deprecated" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="touchpointQuestionResponseValue_deprecated" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionResponseValue_deprecated" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="touchpointQuestionWeight_deprecated" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionWeight_deprecated" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UM_M_Menu_deprecated" EntityType="hs3MVCMTQa2Model.Store.UM_M_Menu_deprecated" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="zCode" EntityType="hs3MVCMTQa2Model.Store.zCode" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="zCodeBatchUpdate" EntityType="hs3MVCMTQa2Model.Store.zCodeBatchUpdate" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="prReminder" EntityType="hs3MVCMTQa2Model.Store.prReminder" store:Type="Views" store:Schema="dbo" store:Name="prReminder">
-      <DefiningQuery>SELECT 
-      [prReminder].[ID] AS [ID], 
-      [prReminder].[touchpoint] AS [touchpoint], 
-      [prReminder].[partner] AS [partner], 
-      [prReminder].[SeqNumber] AS [SeqNumber]
-      FROM [dbo].[prReminder] AS [prReminder]</DefiningQuery>
-    </EntitySet>
-    <AssociationSet Name="FK_agency_enterprise" Association="hs3MVCMTQa2Model.Store.FK_agency_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="agency" EntitySet="agency" />
-    </AssociationSet>
-    <AssociationSet Name="FK_autoMailAttachment_autoMailMessage" Association="hs3MVCMTQa2Model.Store.FK_autoMailAttachment_autoMailMessage">
-      <End Role="autoMailMessage" EntitySet="autoMailMessage" />
-      <End Role="autoMailAttachment" EntitySet="autoMailAttachment" />
-    </AssociationSet>
-    <AssociationSet Name="FK_autoMailMessage_autoMailType" Association="hs3MVCMTQa2Model.Store.FK_autoMailMessage_autoMailType">
-      <End Role="autoMailType" EntitySet="autoMailType" />
-      <End Role="autoMailMessage" EntitySet="autoMailMessage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_autoMailMessage_partnerTypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.Store.FK_autoMailMessage_partnerTypeTouchpointQuestionnaire">
-      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
-      <End Role="autoMailMessage" EntitySet="autoMailMessage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_country_enterprise" Association="hs3MVCMTQa2Model.Store.FK_country_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="country" EntitySet="country" />
-    </AssociationSet>
-    <AssociationSet Name="FK_enterpriseObjectName_enterprise" Association="hs3MVCMTQa2Model.Store.FK_enterpriseObjectName_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="enterpriseObjectName" EntitySet="enterpriseObjectName" />
-    </AssociationSet>
-    <AssociationSet Name="FK_enterpriseSystemInfo_enterprise" Association="hs3MVCMTQa2Model.Store.FK_enterpriseSystemInfo_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="enterpriseSystemInfo" EntitySet="enterpriseSystemInfo" />
-    </AssociationSet>
-    <AssociationSet Name="FK_eSignature_partnerPartnertypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.Store.FK_eSignature_partnerPartnertypeTouchpointQuestionnaire">
-      <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
-      <End Role="eSignature" EntitySet="eSignature" />
-    </AssociationSet>
-    <AssociationSet Name="FK_group_enterprise" Association="hs3MVCMTQa2Model.Store.FK_group_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="group" EntitySet="group" />
-    </AssociationSet>
-    <AssociationSet Name="FK_group_groupCollection" Association="hs3MVCMTQa2Model.Store.FK_group_groupCollection">
-      <End Role="groupCollection" EntitySet="groupCollection" />
-      <End Role="group" EntitySet="group" />
-    </AssociationSet>
-    <AssociationSet Name="FK_group_person" Association="hs3MVCMTQa2Model.Store.FK_group_person">
-      <End Role="person" EntitySet="person" />
-      <End Role="group" EntitySet="group" />
-    </AssociationSet>
-    <AssociationSet Name="FK_groupCollection_enterprise" Association="hs3MVCMTQa2Model.Store.FK_groupCollection_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="groupCollection" EntitySet="groupCollection" />
-    </AssociationSet>
-    <AssociationSet Name="FK_hs3Menu_enterprise" Association="hs3MVCMTQa2Model.Store.FK_hs3Menu_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="hs3Menu_deprecated" EntitySet="hs3Menu_deprecated" />
-    </AssociationSet>
-    <AssociationSet Name="FK_key_enterprise" Association="hs3MVCMTQa2Model.Store.FK_key_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="key" EntitySet="key" />
-    </AssociationSet>
-    <AssociationSet Name="FK_language_enterprise" Association="hs3MVCMTQa2Model.Store.FK_language_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="language" EntitySet="language" />
-    </AssociationSet>
-    <AssociationSet Name="FK_languageInfo_enterprise" Association="hs3MVCMTQa2Model.Store.FK_languageInfo_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="languageInfo" EntitySet="languageInfo" />
-    </AssociationSet>
-    <AssociationSet Name="FK_menu_enterprice" Association="hs3MVCMTQa2Model.Store.FK_menu_enterprice">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="UM_M_Menu_deprecated" EntitySet="UM_M_Menu_deprecated" />
-    </AssociationSet>
-    <AssociationSet Name="FK_menu_enterprise" Association="hs3MVCMTQa2Model.Store.FK_menu_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="menu" EntitySet="menu" />
-    </AssociationSet>
-    <AssociationSet Name="FK_pageSurveyset_page" Association="hs3MVCMTQa2Model.Store.FK_pageSurveyset_page">
-      <End Role="page" EntitySet="page" />
-      <End Role="pageSurveyset" EntitySet="pageSurveyset" />
-    </AssociationSet>
-    <AssociationSet Name="FK_pageSurveyset_surveyset" Association="hs3MVCMTQa2Model.Store.FK_pageSurveyset_surveyset">
-      <End Role="surveyset" EntitySet="surveyset" />
-      <End Role="pageSurveyset" EntitySet="pageSurveyset" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partner_enterprise" Association="hs3MVCMTQa2Model.Store.FK_partner_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="partner" EntitySet="partner" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerCorpInfo_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerCorpInfo_partner">
-      <End Role="partner" EntitySet="partner" />
-      <End Role="partnerCorpInfo" EntitySet="partnerCorpInfo" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerGroup_group" Association="hs3MVCMTQa2Model.Store.FK_partnerGroup_group">
-      <End Role="group" EntitySet="group" />
-      <End Role="partnerGroup" EntitySet="partnerGroup" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerGroup_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerGroup_partner">
-      <End Role="partner" EntitySet="partner" />
-      <End Role="partnerGroup" EntitySet="partnerGroup" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaire_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerPartnertypeTouchpointQuestionnaire_partner">
-      <End Role="partner" EntitySet="partner" />
-      <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaire_partnerTypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.Store.FK_partnerPartnertypeTouchpointQuestionnaire_partnerTypeTouchpointQuestionnaire">
-      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
-      <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaire_person" Association="hs3MVCMTQa2Model.Store.FK_partnerPartnertypeTouchpointQuestionnaire_person">
-      <End Role="person" EntitySet="person" />
-      <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.Store.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire">
-      <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
-      <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerRelationshipOwner_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerRelationshipOwner_partner">
-      <End Role="partner" EntitySet="partner" />
-      <End Role="partnerRelationshipOwner" EntitySet="partnerRelationshipOwner" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerRelationshipOwner_person" Association="hs3MVCMTQa2Model.Store.FK_partnerRelationshipOwner_person">
-      <End Role="person" EntitySet="person" />
-      <End Role="partnerRelationshipOwner" EntitySet="partnerRelationshipOwner" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerRemitAddress_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerRemitAddress_partner">
-      <End Role="partner" EntitySet="partner" />
-      <End Role="partnerRemitAddress" EntitySet="partnerRemitAddress" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerTouchpointInvitedDate_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerTouchpointInvitedDate_partner">
-      <End Role="partner" EntitySet="partner" />
-      <End Role="partnerTouchpointInvitedDate_deprecated" EntitySet="partnerTouchpointInvitedDate_deprecated" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerTouchpointQuestionnaireLanguage_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerTouchpointQuestionnaireLanguage_partner">
-      <End Role="partner" EntitySet="partner" />
-      <End Role="partnerTouchpointQuestionnaireLanguage" EntitySet="partnerTouchpointQuestionnaireLanguage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response" Association="hs3MVCMTQa2Model.Store.FK_partnerTouchpointQuestionnaireQuestionResponse_response">
-      <End Role="response" EntitySet="response" />
-      <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerType_enterprise" Association="hs3MVCMTQa2Model.Store.FK_partnerType_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="partnerType" EntitySet="partnerType" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerType_partnerClass" Association="hs3MVCMTQa2Model.Store.FK_partnerType_partnerClass">
-      <End Role="partnerClass" EntitySet="partnerClass" />
-      <End Role="partnerType" EntitySet="partnerType" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerTypeTouchpointQuestionnaire_questionnaire" Association="hs3MVCMTQa2Model.Store.FK_partnerTypeTouchpointQuestionnaire_questionnaire">
-      <End Role="questionnaire" EntitySet="questionnaire" />
-      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
-    </AssociationSet>
-    <AssociationSet Name="FK_partnerTypeTouchpointQuestionnaire_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_partnerTypeTouchpointQuestionnaire_touchpoint">
-      <End Role="touchpoint" EntitySet="touchpoint" />
-      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
-    </AssociationSet>
-    <AssociationSet Name="FK_person_enterprise" Association="hs3MVCMTQa2Model.Store.FK_person_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="person" EntitySet="person" />
-    </AssociationSet>
-    <AssociationSet Name="FK_person_personStatus" Association="hs3MVCMTQa2Model.Store.FK_person_personStatus">
-      <End Role="personStatus" EntitySet="personStatus" />
-      <End Role="person" EntitySet="person" />
-    </AssociationSet>
-    <AssociationSet Name="FK_personGroup_group" Association="hs3MVCMTQa2Model.Store.FK_personGroup_group">
-      <End Role="group" EntitySet="group" />
-      <End Role="personGroup" EntitySet="personGroup" />
-    </AssociationSet>
-    <AssociationSet Name="FK_personGroup_person" Association="hs3MVCMTQa2Model.Store.FK_personGroup_person">
-      <End Role="person" EntitySet="person" />
-      <End Role="personGroup" EntitySet="personGroup" />
-    </AssociationSet>
-    <AssociationSet Name="FK_personLoginAudit_person" Association="hs3MVCMTQa2Model.Store.FK_personLoginAudit_person">
-      <End Role="person" EntitySet="person" />
-      <End Role="personLoginAudit" EntitySet="personLoginAudit" />
-    </AssociationSet>
-    <AssociationSet Name="FK_personLoginAudit_personLoginAuditEvent" Association="hs3MVCMTQa2Model.Store.FK_personLoginAudit_personLoginAuditEvent">
-      <End Role="personLoginAuditEvent" EntitySet="personLoginAuditEvent" />
-      <End Role="personLoginAudit" EntitySet="personLoginAudit" />
-    </AssociationSet>
-    <AssociationSet Name="FK_personRelationship_person" Association="hs3MVCMTQa2Model.Store.FK_personRelationship_person">
-      <End Role="person" EntitySet="person" />
-      <End Role="personRelationship" EntitySet="personRelationship" />
-    </AssociationSet>
-    <AssociationSet Name="FK_personRelationship_person1" Association="hs3MVCMTQa2Model.Store.FK_personRelationship_person1">
-      <End Role="person" EntitySet="person" />
-      <End Role="personRelationship" EntitySet="personRelationship" />
-    </AssociationSet>
-    <AssociationSet Name="FK_personRelationship_person2" Association="hs3MVCMTQa2Model.Store.FK_personRelationship_person2">
-      <End Role="person" EntitySet="person" />
-      <End Role="personRelationship" EntitySet="personRelationship" />
-    </AssociationSet>
-    <AssociationSet Name="FK_personRelationship_personRelationshipType" Association="hs3MVCMTQa2Model.Store.FK_personRelationship_personRelationshipType">
-      <End Role="personRelationshipType" EntitySet="personRelationshipType" />
-      <End Role="personRelationship" EntitySet="personRelationship" />
-    </AssociationSet>
-    <AssociationSet Name="FK_personRole_person" Association="hs3MVCMTQa2Model.Store.FK_personRole_person">
-      <End Role="person" EntitySet="person" />
-      <End Role="personRole" EntitySet="personRole" />
-    </AssociationSet>
-    <AssociationSet Name="FK_personRole_role" Association="hs3MVCMTQa2Model.Store.FK_personRole_role">
-      <End Role="role" EntitySet="role" />
-      <End Role="personRole" EntitySet="personRole" />
-    </AssociationSet>
-    <AssociationSet Name="FK_personSearchCount_person" Association="hs3MVCMTQa2Model.Store.FK_personSearchCount_person">
-      <End Role="person" EntitySet="person" />
-      <End Role="personSearchCount" EntitySet="personSearchCount" />
-    </AssociationSet>
-    <AssociationSet Name="FK_protocol_enterprise" Association="hs3MVCMTQa2Model.Store.FK_protocol_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="protocol" EntitySet="protocol" />
-    </AssociationSet>
-    <AssociationSet Name="FK_protocol_person" Association="hs3MVCMTQa2Model.Store.FK_protocol_person">
-      <End Role="person" EntitySet="person" />
-      <End Role="protocol" EntitySet="protocol" />
-    </AssociationSet>
-    <AssociationSet Name="FK_protocol_person1" Association="hs3MVCMTQa2Model.Store.FK_protocol_person1">
-      <End Role="person" EntitySet="person" />
-      <End Role="protocol" EntitySet="protocol" />
-    </AssociationSet>
-    <AssociationSet Name="FK_protocolTouchpointQuestionResponseValue_response" Association="hs3MVCMTQa2Model.Store.FK_protocolTouchpointQuestionResponseValue_response">
-      <End Role="response" EntitySet="response" />
-      <End Role="touchpointQuestionResponseValue_deprecated" EntitySet="touchpointQuestionResponseValue_deprecated" />
-    </AssociationSet>
-    <AssociationSet Name="FK_question_responseType" Association="hs3MVCMTQa2Model.Store.FK_question_responseType">
-      <End Role="responseType" EntitySet="responseType" />
-      <End Role="question" EntitySet="question" />
-    </AssociationSet>
-    <AssociationSet Name="FK_questionLanguage_language" Association="hs3MVCMTQa2Model.Store.FK_questionLanguage_language">
-      <End Role="language" EntitySet="language" />
-      <End Role="questionLanguage" EntitySet="questionLanguage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_questionnairePage_page" Association="hs3MVCMTQa2Model.Store.FK_questionnairePage_page">
-      <End Role="page" EntitySet="page" />
-      <End Role="questionnairePage" EntitySet="questionnairePage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_questionnairePage_questionnaire" Association="hs3MVCMTQa2Model.Store.FK_questionnairePage_questionnaire">
-      <End Role="questionnaire" EntitySet="questionnaire" />
-      <End Role="questionnairePage" EntitySet="questionnairePage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_questionResponse_question" Association="hs3MVCMTQa2Model.Store.FK_questionResponse_question">
-      <End Role="question" EntitySet="question" />
-      <End Role="questionResponse" EntitySet="questionResponse" />
-    </AssociationSet>
-    <AssociationSet Name="FK_questionResponse_question1" Association="hs3MVCMTQa2Model.Store.FK_questionResponse_question1">
-      <End Role="question" EntitySet="question" />
-      <End Role="questionResponse" EntitySet="questionResponse" />
-    </AssociationSet>
-    <AssociationSet Name="FK_questionResponse_response" Association="hs3MVCMTQa2Model.Store.FK_questionResponse_response">
-      <End Role="response" EntitySet="response" />
-      <End Role="questionResponse" EntitySet="questionResponse" />
-    </AssociationSet>
-    <AssociationSet Name="FK_questionTranslation_language" Association="hs3MVCMTQa2Model.Store.FK_questionTranslation_language">
-      <End Role="language" EntitySet="language" />
-      <End Role="questionTranslation" EntitySet="questionTranslation" />
-    </AssociationSet>
-    <AssociationSet Name="FK_questionTranslation_question" Association="hs3MVCMTQa2Model.Store.FK_questionTranslation_question">
-      <End Role="question" EntitySet="question" />
-      <End Role="questionTranslation" EntitySet="questionTranslation" />
-    </AssociationSet>
-    <AssociationSet Name="FK_responseLanguage_language" Association="hs3MVCMTQa2Model.Store.FK_responseLanguage_language">
-      <End Role="language" EntitySet="language" />
-      <End Role="responseLanguage" EntitySet="responseLanguage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_responseLanguage_response" Association="hs3MVCMTQa2Model.Store.FK_responseLanguage_response">
-      <End Role="response" EntitySet="response" />
-      <End Role="responseLanguage" EntitySet="responseLanguage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_responseTranslation_language" Association="hs3MVCMTQa2Model.Store.FK_responseTranslation_language">
-      <End Role="language" EntitySet="language" />
-      <End Role="responseTranslation" EntitySet="responseTranslation" />
-    </AssociationSet>
-    <AssociationSet Name="FK_responseTranslation_response" Association="hs3MVCMTQa2Model.Store.FK_responseTranslation_response">
-      <End Role="response" EntitySet="response" />
-      <End Role="responseTranslation" EntitySet="responseTranslation" />
-    </AssociationSet>
-    <AssociationSet Name="FK_role_enterprise" Association="hs3MVCMTQa2Model.Store.FK_role_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="role" EntitySet="role" />
-    </AssociationSet>
-    <AssociationSet Name="FK_roleMenu_menu" Association="hs3MVCMTQa2Model.Store.FK_roleMenu_menu">
-      <End Role="menu" EntitySet="menu" />
-      <End Role="roleMenu" EntitySet="roleMenu" />
-    </AssociationSet>
-    <AssociationSet Name="FK_roleMenu_role" Association="hs3MVCMTQa2Model.Store.FK_roleMenu_role">
-      <End Role="role" EntitySet="role" />
-      <End Role="roleMenu" EntitySet="roleMenu" />
-    </AssociationSet>
-    <AssociationSet Name="FK_rule_enterprise" Association="hs3MVCMTQa2Model.Store.FK_rule_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="rule" EntitySet="rule" />
-    </AssociationSet>
-    <AssociationSet Name="FK_rule_ruleType" Association="hs3MVCMTQa2Model.Store.FK_rule_ruleType">
-      <End Role="ruleType" EntitySet="ruleType" />
-      <End Role="rule" EntitySet="rule" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ruleType_enterprise" Association="hs3MVCMTQa2Model.Store.FK_ruleType_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="ruleType" EntitySet="ruleType" />
-    </AssociationSet>
-    <AssociationSet Name="FK_state_enterprise" Association="hs3MVCMTQa2Model.Store.FK_state_enterprise">
-      <End Role="enterprise" EntitySet="enterprise" />
-      <End Role="state" EntitySet="state" />
-    </AssociationSet>
-    <AssociationSet Name="FK_surveyQuestion_question" Association="hs3MVCMTQa2Model.Store.FK_surveyQuestion_question">
-      <End Role="question" EntitySet="question" />
-      <End Role="surveyQuestion" EntitySet="surveyQuestion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_surveyQuestion_survey" Association="hs3MVCMTQa2Model.Store.FK_surveyQuestion_survey">
-      <End Role="survey" EntitySet="survey" />
-      <End Role="surveyQuestion" EntitySet="surveyQuestion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_surveySetSurvey_survey" Association="hs3MVCMTQa2Model.Store.FK_surveySetSurvey_survey">
-      <End Role="survey" EntitySet="survey" />
-      <End Role="surveySetSurvey" EntitySet="surveySetSurvey" />
-    </AssociationSet>
-    <AssociationSet Name="FK_surveySetSurvey_surveyset" Association="hs3MVCMTQa2Model.Store.FK_surveySetSurvey_surveyset">
-      <End Role="surveyset" EntitySet="surveyset" />
-      <End Role="surveySetSurvey" EntitySet="surveySetSurvey" />
-    </AssociationSet>
-    <AssociationSet Name="FK_touchpoint_protocol" Association="hs3MVCMTQa2Model.Store.FK_touchpoint_protocol">
-      <End Role="protocol" EntitySet="protocol" />
-      <End Role="touchpoint" EntitySet="touchpoint" />
-    </AssociationSet>
-    <AssociationSet Name="FK_touchpointPartnerRerouter_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerRerouter_touchpoint">
-      <End Role="touchpoint" EntitySet="touchpoint" />
-      <End Role="touchpointPartnerRerouter" EntitySet="touchpointPartnerRerouter" />
-    </AssociationSet>
-    <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_partnerType" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerTypeQuestionnaire_partnerType">
-      <End Role="partnerType" EntitySet="partnerType" />
-      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
-    </AssociationSet>
-    <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerTypeQuestionnaire_questionnaire">
-      <End Role="questionnaire" EntitySet="questionnaire" />
-      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
-    </AssociationSet>
-    <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerTypeQuestionnaire_touchpoint">
-      <End Role="touchpoint" EntitySet="touchpoint" />
-      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
-    </AssociationSet>
-    <AssociationSet Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
-      <End Role="touchpoint" EntitySet="touchpoint" />
-      <End Role="touchpointPartnerTypeScoreAutoMail" EntitySet="touchpointPartnerTypeScoreAutoMail" />
-    </AssociationSet>
-    <AssociationSet Name="FK_touchpointQuestionnaire_questionnaire" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionnaire_questionnaire">
-      <End Role="questionnaire" EntitySet="questionnaire" />
-      <End Role="touchpointQuestionnaire_deprecated" EntitySet="touchpointQuestionnaire_deprecated" />
-    </AssociationSet>
-    <AssociationSet Name="FK_touchpointQuestionnaire_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionnaire_touchpoint">
-      <End Role="touchpoint" EntitySet="touchpoint" />
-      <End Role="touchpointQuestionnaire_deprecated" EntitySet="touchpointQuestionnaire_deprecated" />
-    </AssociationSet>
-    <AssociationSet Name="FK_touchpointQuestionResponseValue_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionResponseValue_touchpoint">
-      <End Role="touchpoint" EntitySet="touchpoint" />
-      <End Role="touchpointQuestionResponseValue_deprecated" EntitySet="touchpointQuestionResponseValue_deprecated" />
-    </AssociationSet>
-    <AssociationSet Name="FK_touchpointQuestionWeight_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointQuestionWeight_touchpoint">
-      <End Role="touchpoint" EntitySet="touchpoint" />
-      <End Role="touchpointQuestionWeight_deprecated" EntitySet="touchpointQuestionWeight_deprecated" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UM_M_Menu_UM_M_Menu" Association="hs3MVCMTQa2Model.Store.FK_UM_M_Menu_UM_M_Menu">
-      <End Role="UM_M_Menu_deprecated" EntitySet="UM_M_Menu_deprecated" />
-      <End Role="UM_M_Menu_deprecated1" EntitySet="UM_M_Menu_deprecated" />
-    </AssociationSet>
-  </EntityContainer>
+<Schema Namespace="hs3MVCMTQa2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="accessLevel">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
     <Property Name="index" Type="int" />
@@ -515,8 +15,8 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="250" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="250" Nullable="false" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
     <Property Name="enterprise" Type="int" />
@@ -525,16 +25,16 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="autoMail" Type="int" Nullable="false" />
-    <Property Name="attachment" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="attachment" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="note" Type="varchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="autoMailMessage">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="subject" Type="varchar(max)" />
     <Property Name="text" Type="varchar(max)" />
     <Property Name="footer1" Type="varchar(max)" />
@@ -546,7 +46,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="50" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="int" />
@@ -556,9 +56,9 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="eplsCountryID" Type="int" />
-    <Property Name="name" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="name" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="code" Type="varchar" MaxLength="50" />
     <Property Name="governanceCode" Type="varchar" MaxLength="50" />
     <Property Name="sortOrder" Type="int" />
@@ -569,8 +69,8 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="250" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="250" Nullable="false" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
   </EntityType>
@@ -578,7 +78,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="100" />
     <Property Name="code" Type="int" />
     <Property Name="sortOrder" Type="int" />
@@ -588,7 +88,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="class" Type="varchar" MaxLength="50" />
     <Property Name="method" Type="varchar" MaxLength="50" />
     <Property Name="variable" Type="varchar" MaxLength="100" />
@@ -597,20 +97,20 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="emailTemplateType" Type="int" Nullable="false" />
     <Property Name="enterprise" Type="int" Nullable="false" />
     <Property Name="author" Type="int" Nullable="false" />
     <Property Name="dateCreated" Type="datetime" Nullable="false" />
-    <Property Name="subject" Type="varchar" Nullable="false" MaxLength="500" />
-    <Property Name="body" Type="varchar" Nullable="false" MaxLength="5000" />
+    <Property Name="subject" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="body" Type="varchar" MaxLength="5000" Nullable="false" />
   </EntityType>
   <EntityType Name="emailTemplateType_deprecated">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="250" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="250" Nullable="false" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
   </EntityType>
@@ -618,8 +118,8 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
     <Property Name="logo" Type="varchar" MaxLength="500" />
@@ -632,17 +132,17 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="enterprise" Type="int" Nullable="false" />
-    <Property Name="objectName" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="alias" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="objectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="alias" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="device" Type="int" />
   </EntityType>
   <EntityType Name="enterpriseSystemInfo">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="systemExpiry" Type="smalldatetime" />
     <Property Name="licenseLimit" Type="int" />
     <Property Name="companyName" Type="varchar" MaxLength="100" />
@@ -658,11 +158,11 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="firstName" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="lastName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="lastName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="title" Type="varchar" MaxLength="50" />
-    <Property Name="email" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="affirmation" Type="varchar" MaxLength="10" />
     <Property Name="officer" Type="varchar" MaxLength="50" />
     <Property Name="phone" Type="varchar" MaxLength="50" />
@@ -673,7 +173,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="email" Type="varchar" MaxLength="255" />
     <Property Name="timestamp" Type="datetime" />
     <Property Name="event" Type="varchar" MaxLength="50" />
@@ -689,15 +189,15 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="email" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="error" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="group">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="enterprise" Type="int" />
     <Property Name="groupCollection" Type="int" Nullable="false" />
     <Property Name="groupType" Type="int" />
@@ -714,7 +214,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="varchar" MaxLength="100" />
     <Property Name="description" Type="varchar" MaxLength="100" />
     <Property Name="sortOrder" Type="int" />
@@ -733,7 +233,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="group" Type="int" Nullable="false" />
     <Property Name="touchpoint" Type="int" Nullable="false" />
     <Property Name="0to10th" Type="int" />
@@ -748,7 +248,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="nvarchar" MaxLength="255" />
     <Property Name="url" Type="nvarchar" MaxLength="255" />
     <Property Name="parentid" Type="int" />
@@ -765,7 +265,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="object" Type="varchar" MaxLength="100" />
     <Property Name="username" Type="varchar" MaxLength="50" />
     <Property Name="password" Type="varchar" MaxLength="50" />
@@ -777,8 +277,8 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="originalName" Type="varchar" MaxLength="100" />
     <Property Name="flagImage" Type="varbinary" MaxLength="100" />
     <Property Name="sortOrder" Type="int" />
@@ -789,7 +289,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="languageCode" Type="varchar" MaxLength="50" />
     <Property Name="languageName" Type="varchar" MaxLength="50" />
     <Property Name="languageFlag" Type="varchar" MaxLength="50" />
@@ -801,7 +301,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="50" />
     <Property Name="body" Type="varchar" MaxLength="3000" />
     <Property Name="sortOrder" Type="int" />
@@ -810,14 +310,14 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="code" Type="varchar" Nullable="false" MaxLength="2" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="2" Nullable="false" />
   </EntityType>
   <EntityType Name="loadHistory">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="person" Type="int" Nullable="false" />
     <Property Name="uploadDate" Type="datetime" Nullable="false" />
     <Property Name="recordcount" Type="int" />
@@ -828,7 +328,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="nvarchar" MaxLength="255" />
     <Property Name="url" Type="nvarchar" MaxLength="255" />
     <Property Name="parentid" Type="int" />
@@ -849,7 +349,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="numberSeed">
@@ -863,7 +363,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="50" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
@@ -880,7 +380,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="enterprise" Type="int" />
     <Property Name="internalID" Type="varchar" MaxLength="255" />
     <Property Name="name" Type="varchar" MaxLength="255" />
@@ -911,14 +411,14 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="partnerActionLog">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="partner" Type="int" />
     <Property Name="action" Type="int" />
     <Property Name="email" Type="varchar" MaxLength="200" />
@@ -929,13 +429,13 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="partner" Type="int" Nullable="false" />
     <Property Name="country" Type="int" Nullable="false" />
     <Property Name="addressType" Type="int" Nullable="false" />
-    <Property Name="Address1" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="Address1" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="Address2" Type="varchar" MaxLength="255" />
-    <Property Name="City" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="City" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="State" Type="int" />
     <Property Name="Province" Type="varchar" MaxLength="50" />
     <Property Name="zipCode" Type="varchar" MaxLength="20" />
@@ -944,8 +444,8 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="250" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="250" Nullable="false" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
   </EntityType>
@@ -977,7 +477,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="touchpoint" Type="int" Nullable="false" />
     <Property Name="partner" Type="int" Nullable="false" />
     <Property Name="mailtype" Type="int" Nullable="false" />
@@ -987,7 +487,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Email" Type="varchar" MaxLength="255" />
     <Property Name="passWord" Type="varchar" MaxLength="255" />
     <Property Name="internalId" Type="varchar" MaxLength="255" />
@@ -997,10 +497,10 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="partner" Type="int" Nullable="false" />
     <Property Name="partnerTypeTouchpointQuestionnaire" Type="int" Nullable="false" />
-    <Property Name="accesscode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="accesscode" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="invitedBy" Type="int" Nullable="false" />
     <Property Name="invitedDate" Type="date" Nullable="false" />
     <Property Name="completedDate" Type="date" />
@@ -1008,13 +508,13 @@
     <Property Name="zcode" Type="varchar" MaxLength="500" />
     <Property Name="pdf" Type="varbinary(max)" />
     <Property Name="docFolderAddress" Type="varchar" MaxLength="500" />
-    <Property Name="score" Type="decimal" />
+    <Property Name="score" Type="decimal" Precision="18" Scale="0" />
   </EntityType>
   <EntityType Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="question" Type="int" Nullable="false" />
     <Property Name="response" Type="int" />
     <Property Name="comment" Type="varchar(max)" />
@@ -1027,7 +527,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="partner" Type="int" Nullable="false" />
     <Property Name="referenceNumber" Type="int" />
     <Property Name="companyName" Type="varchar" MaxLength="255" />
@@ -1052,7 +552,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="touchpoint" Type="int" Nullable="false" />
     <Property Name="partner" Type="int" Nullable="false" />
     <Property Name="autoMail" Type="int" Nullable="false" />
@@ -1063,7 +563,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="50" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="int" />
@@ -1086,17 +586,17 @@
       <PropertyRef Name="partner_id" />
     </Key>
     <Property Name="partner_id" Type="int" Nullable="false" />
-    <Property Name="partner" Type="varchar" Nullable="false" MaxLength="250" />
+    <Property Name="partner" Type="varchar" MaxLength="250" Nullable="false" />
     <Property Name="partnerType_id" Type="int" Nullable="false" />
     <Property Name="partnerStatus_id" Type="int" Nullable="false" />
     <Property Name="touchpoint_id" Type="int" Nullable="false" />
     <Property Name="group_id" Type="int" Nullable="false" />
     <Property Name="country_id" Type="int" Nullable="false" />
-    <Property Name="partnerType" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="partnerStatus" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="touchpoint" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="group" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="country" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="partnerType" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="partnerStatus" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="touchpoint" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="group" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="country" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="partnerShadow">
     <Key>
@@ -1172,7 +672,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="partner" Type="int" Nullable="false" />
     <Property Name="spendAmount" Type="money" />
     <Property Name="ytd" Type="datetime" />
@@ -1183,7 +683,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="int" />
   </EntityType>
@@ -1191,7 +691,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="internalID" Type="varchar" MaxLength="255" />
     <Property Name="name" Type="varchar" MaxLength="255" />
     <Property Name="address1" Type="varchar" MaxLength="255" />
@@ -1241,10 +741,10 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="varchar" MaxLength="50" />
     <Property Name="alias" Type="varchar" MaxLength="50" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="partnerClass" Type="int" />
     <Property Name="enterprise" Type="int" />
     <Property Name="sortOrder" Type="int" />
@@ -1254,7 +754,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="person" Type="int" Nullable="false" />
     <Property Name="partnerType" Type="int" Nullable="false" />
     <Property Name="group" Type="int" Nullable="false" />
@@ -1266,7 +766,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="partnerType" Type="int" Nullable="false" />
     <Property Name="touchpoint" Type="int" Nullable="false" />
     <Property Name="questionnaire" Type="int" Nullable="false" />
@@ -1277,7 +777,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="enterprise" Type="int" />
     <Property Name="manager" Type="int" />
     <Property Name="personStatus" Type="int" />
@@ -1287,20 +787,20 @@
     <Property Name="internalId" Type="varchar" MaxLength="20" />
     <Property Name="nmNumber" Type="varchar" MaxLength="20" />
     <Property Name="socialSecurity" Type="varchar" MaxLength="20" />
-    <Property Name="firstName" Type="varchar" Nullable="false" MaxLength="200" />
-    <Property Name="lastName" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="firstName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="lastName" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="title" Type="varchar" MaxLength="50" />
     <Property Name="suffix" Type="varchar" MaxLength="200" />
     <Property Name="nickName" Type="varchar" MaxLength="200" />
     <Property Name="passWord" Type="varchar" MaxLength="50" />
-    <Property Name="email" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="email" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="address1" Type="varchar" MaxLength="200" />
     <Property Name="address2" Type="varchar" MaxLength="200" />
     <Property Name="city" Type="varchar" MaxLength="50" />
     <Property Name="state" Type="int" />
     <Property Name="zipcode" Type="varchar" MaxLength="50" />
     <Property Name="country" Type="int" />
-    <Property Name="phone" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="fax" Type="varchar" MaxLength="50" />
     <Property Name="active" Type="int" />
     <Property Name="ismanager" Type="int" />
@@ -1321,7 +821,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="person" Type="int" Nullable="false" />
     <Property Name="auditLoginEvent" Type="int" Nullable="false" />
     <Property Name="timestamp" Type="datetime" Nullable="false" />
@@ -1331,8 +831,8 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
   </EntityType>
@@ -1368,7 +868,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="person" Type="int" Nullable="false" />
     <Property Name="queryDateTime" Type="datetime" Nullable="false" />
     <Property Name="countSearch" Type="bigint" />
@@ -1377,7 +877,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="50" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
@@ -1386,7 +886,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="menuGroup" Type="int" />
     <Property Name="enterprise" Type="int" />
     <Property Name="name" Type="varchar" MaxLength="50" />
@@ -1417,7 +917,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="touchpointAnchor" Type="int" />
     <Property Name="touchpointId" Type="int" />
   </EntityType>
@@ -1425,9 +925,9 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="50" />
-    <Property Name="sqlText" Type="varchar" />
+    <Property Name="sqlText" Type="varchar" MaxLength="8000" />
     <Property Name="author" Type="int" Nullable="false" />
     <Property Name="questionnaire" Type="int" Nullable="false" />
     <Property Name="status" Type="int" />
@@ -1446,7 +946,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="question" Type="varchar(max)" />
     <Property Name="name" Type="varchar(max)" />
     <Property Name="title" Type="varchar(max)" Nullable="false" />
@@ -1482,7 +982,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="person" Type="int" Nullable="false" />
     <Property Name="partnerType" Type="int" Nullable="false" />
     <Property Name="letter" Type="int" />
@@ -1499,7 +999,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="50" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="int" />
@@ -1527,15 +1027,15 @@
     </Key>
     <Property Name="question" Type="int" Nullable="false" />
     <Property Name="language" Type="int" Nullable="false" />
-    <Property Name="title" Type="varchar" Nullable="false" MaxLength="2000" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="2000" />
+    <Property Name="title" Type="varchar" MaxLength="2000" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="2000" Nullable="false" />
   </EntityType>
   <EntityType Name="rating">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="grade" Type="varchar" Nullable="false" MaxLength="5" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="grade" Type="varchar" MaxLength="5" Nullable="false" />
     <Property Name="less" Type="int" Nullable="false" />
     <Property Name="greater" Type="int" Nullable="false" />
     <Property Name="type" Type="int" />
@@ -1544,7 +1044,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="250" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
@@ -1554,8 +1054,8 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="2000" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="2000" Nullable="false" />
     <Property Name="title" Type="varchar" MaxLength="80" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
@@ -1582,8 +1082,8 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
     <Property Name="enterprise" Type="int" />
@@ -1592,8 +1092,8 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
     <Property Name="enterprise" Type="int" />
@@ -1602,7 +1102,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="50" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="int" />
@@ -1624,7 +1124,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="100" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
@@ -1635,7 +1135,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="100" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
@@ -1645,13 +1145,12 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="lowerBound" Type="int" />
     <Property Name="upperBound" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-      warning 6002: The table/view 'hs3MVCMTQa2.dbo.sizingStandard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
+warning 6002: The table/view 'hs3MVCMTQa2.dbo.sizingStandard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="sizingStandard">
     <Key>
       <PropertyRef Name="NAICS" />
@@ -1665,9 +1164,9 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="stateCode" Type="varchar" Nullable="false" MaxLength="10" />
-    <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="stateCode" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
     <Property Name="enterprise" Type="int" />
@@ -1676,8 +1175,8 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="2000" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="2000" Nullable="false" />
     <Property Name="name" Type="varchar" MaxLength="500" />
     <Property Name="display" Type="int" Nullable="false" />
     <Property Name="sortOrder" Type="int" Nullable="false" />
@@ -1697,8 +1196,8 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="varchar" Nullable="false" MaxLength="2000" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="2000" Nullable="false" />
     <Property Name="sortOrder" Type="int" Nullable="false" />
     <Property Name="active" Type="bit" />
     <Property Name="accessLevel" Type="int" Nullable="false" />
@@ -1715,10 +1214,10 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="person" Type="int" Nullable="false" />
-    <Property Name="oldInternalID" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="newInternalID" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="oldInternalID" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="newInternalID" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="timestamp" Type="datetime" />
     <Property Name="oldId" Type="int" />
   </EntityType>
@@ -1726,9 +1225,9 @@
     <Key>
       <PropertyRef Name="diagram_id" />
     </Key>
-    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
@@ -1736,7 +1235,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="hasRemitAddress" Type="bit" />
     <Property Name="hasFederalId" Type="bit" />
     <Property Name="hasDunsNumber" Type="bit" />
@@ -1751,7 +1250,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="protocol" Type="int" />
     <Property Name="person" Type="int" />
     <Property Name="sponsor" Type="int" />
@@ -1774,8 +1273,7 @@
     <Property Name="touchpoint" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-      warning 6002: The table/view 'hs3MVCMTQa2.dbo.touchpointPartnerRerouter' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
+warning 6002: The table/view 'hs3MVCMTQa2.dbo.touchpointPartnerRerouter' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="touchpointPartnerRerouter">
     <Key>
       <PropertyRef Name="touchpoint" />
@@ -1789,11 +1287,11 @@
     </Key>
     <Property Name="touchpoint" Type="int" Nullable="false" />
     <Property Name="partner" Type="int" Nullable="false" />
-    <Property Name="fromFirstName" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="fromLastName" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="fromTitle" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="from" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="to" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="fromFirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fromLastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fromTitle" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="from" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="to" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="status" Type="bit" />
     <Property Name="timeStamp" Type="datetime" Nullable="false" />
   </EntityType>
@@ -1801,11 +1299,11 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="touchpoint" Type="int" Nullable="false" />
     <Property Name="partnerType" Type="int" Nullable="false" />
     <Property Name="score" Type="int" Nullable="false" />
-    <Property Name="subject" Type="varchar" Nullable="false" MaxLength="500" />
+    <Property Name="subject" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="body" Type="varchar" MaxLength="5000" />
     <Property Name="isSendToPartner" Type="bit" />
     <Property Name="isSendToUser" Type="bit" />
@@ -1843,7 +1341,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="nvarchar" MaxLength="255" />
     <Property Name="url" Type="nvarchar" MaxLength="255" />
     <Property Name="parentid" Type="int" />
@@ -1856,15 +1354,15 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="code" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="zCodeBatchUpdate">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="internalId" Type="varchar" MaxLength="20" />
     <Property Name="federalId" Type="varchar" MaxLength="20" />
     <Property Name="zcode" Type="varchar" MaxLength="20" />
@@ -1872,8 +1370,7 @@
     <Property Name="loadhistory" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-      warning 6002: The table/view 'hs3MVCMTQa2.dbo.prReminder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
+warning 6002: The table/view 'hs3MVCMTQa2.dbo.prReminder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="prReminder">
     <Key>
       <PropertyRef Name="ID" />
@@ -1886,8 +1383,8 @@
     <Property Name="SeqNumber" Type="bigint" />
   </EntityType>
   <Association Name="FK_agency_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="agency" Type="hs3MVCMTQa2Model.Store.agency" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="agency" Type="Self.agency" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -1898,8 +1395,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_autoMailAttachment_autoMailMessage">
-    <End Role="autoMailMessage" Type="hs3MVCMTQa2Model.Store.autoMailMessage" Multiplicity="1" />
-    <End Role="autoMailAttachment" Type="hs3MVCMTQa2Model.Store.autoMailAttachment" Multiplicity="*" />
+    <End Role="autoMailMessage" Type="Self.autoMailMessage" Multiplicity="1" />
+    <End Role="autoMailAttachment" Type="Self.autoMailAttachment" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="autoMailMessage">
         <PropertyRef Name="id" />
@@ -1910,8 +1407,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_autoMailMessage_autoMailType">
-    <End Role="autoMailType" Type="hs3MVCMTQa2Model.Store.autoMailType" Multiplicity="1" />
-    <End Role="autoMailMessage" Type="hs3MVCMTQa2Model.Store.autoMailMessage" Multiplicity="*" />
+    <End Role="autoMailType" Type="Self.autoMailType" Multiplicity="1" />
+    <End Role="autoMailMessage" Type="Self.autoMailMessage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="autoMailType">
         <PropertyRef Name="id" />
@@ -1922,8 +1419,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_autoMailMessage_partnerTypeTouchpointQuestionnaire">
-    <End Role="partnerTypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" Multiplicity="1" />
-    <End Role="autoMailMessage" Type="hs3MVCMTQa2Model.Store.autoMailMessage" Multiplicity="*" />
+    <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="1" />
+    <End Role="autoMailMessage" Type="Self.autoMailMessage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partnerTypeTouchpointQuestionnaire">
         <PropertyRef Name="id" />
@@ -1934,8 +1431,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_country_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="country" Type="hs3MVCMTQa2Model.Store.country" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="country" Type="Self.country" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -1946,8 +1443,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_enterpriseObjectName_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="1" />
-    <End Role="enterpriseObjectName" Type="hs3MVCMTQa2Model.Store.enterpriseObjectName" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="1" />
+    <End Role="enterpriseObjectName" Type="Self.enterpriseObjectName" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -1958,8 +1455,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_enterpriseSystemInfo_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="enterpriseSystemInfo" Type="hs3MVCMTQa2Model.Store.enterpriseSystemInfo" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="enterpriseSystemInfo" Type="Self.enterpriseSystemInfo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -1970,8 +1467,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_eSignature_partnerPartnertypeTouchpointQuestionnaire">
-    <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="1" />
-    <End Role="eSignature" Type="hs3MVCMTQa2Model.Store.eSignature" Multiplicity="*" />
+    <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="Self.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="1" />
+    <End Role="eSignature" Type="Self.eSignature" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partnerPartnertypeTouchpointQuestionnaire">
         <PropertyRef Name="id" />
@@ -1982,8 +1479,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_group_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="group" Type="hs3MVCMTQa2Model.Store.group" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="group" Type="Self.group" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -1994,8 +1491,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_group_groupCollection">
-    <End Role="groupCollection" Type="hs3MVCMTQa2Model.Store.groupCollection" Multiplicity="1" />
-    <End Role="group" Type="hs3MVCMTQa2Model.Store.group" Multiplicity="*" />
+    <End Role="groupCollection" Type="Self.groupCollection" Multiplicity="1" />
+    <End Role="group" Type="Self.group" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="groupCollection">
         <PropertyRef Name="id" />
@@ -2006,8 +1503,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_group_person">
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="0..1" />
-    <End Role="group" Type="hs3MVCMTQa2Model.Store.group" Multiplicity="*" />
+    <End Role="person" Type="Self.person" Multiplicity="0..1" />
+    <End Role="group" Type="Self.group" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
         <PropertyRef Name="id" />
@@ -2018,8 +1515,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_groupCollection_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="groupCollection" Type="hs3MVCMTQa2Model.Store.groupCollection" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="groupCollection" Type="Self.groupCollection" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2030,8 +1527,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_hs3Menu_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="hs3Menu_deprecated" Type="hs3MVCMTQa2Model.Store.hs3Menu_deprecated" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="hs3Menu_deprecated" Type="Self.hs3Menu_deprecated" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2042,8 +1539,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_key_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="key" Type="hs3MVCMTQa2Model.Store.key" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="key" Type="Self.key" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2054,8 +1551,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_language_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="language" Type="hs3MVCMTQa2Model.Store.language" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="language" Type="Self.language" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2066,8 +1563,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_languageInfo_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="languageInfo" Type="hs3MVCMTQa2Model.Store.languageInfo" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="languageInfo" Type="Self.languageInfo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2078,8 +1575,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_menu_enterprice">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="UM_M_Menu_deprecated" Type="hs3MVCMTQa2Model.Store.UM_M_Menu_deprecated" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="UM_M_Menu_deprecated" Type="Self.UM_M_Menu_deprecated" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2090,8 +1587,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_menu_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="menu" Type="hs3MVCMTQa2Model.Store.menu" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="menu" Type="Self.menu" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2102,8 +1599,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_pageSurveyset_page">
-    <End Role="page" Type="hs3MVCMTQa2Model.Store.page" Multiplicity="1" />
-    <End Role="pageSurveyset" Type="hs3MVCMTQa2Model.Store.pageSurveyset" Multiplicity="*" />
+    <End Role="page" Type="Self.page" Multiplicity="1" />
+    <End Role="pageSurveyset" Type="Self.pageSurveyset" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="page">
         <PropertyRef Name="id" />
@@ -2114,8 +1611,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_pageSurveyset_surveyset">
-    <End Role="surveyset" Type="hs3MVCMTQa2Model.Store.surveyset" Multiplicity="1" />
-    <End Role="pageSurveyset" Type="hs3MVCMTQa2Model.Store.pageSurveyset" Multiplicity="*" />
+    <End Role="surveyset" Type="Self.surveyset" Multiplicity="1" />
+    <End Role="pageSurveyset" Type="Self.pageSurveyset" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="surveyset">
         <PropertyRef Name="id" />
@@ -2126,8 +1623,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partner_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="partner" Type="Self.partner" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2138,8 +1635,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerCorpInfo_partner">
-    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
-    <End Role="partnerCorpInfo" Type="hs3MVCMTQa2Model.Store.partnerCorpInfo" Multiplicity="0..1" />
+    <End Role="partner" Type="Self.partner" Multiplicity="1" />
+    <End Role="partnerCorpInfo" Type="Self.partnerCorpInfo" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="partner">
         <PropertyRef Name="id" />
@@ -2150,8 +1647,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerGroup_group">
-    <End Role="group" Type="hs3MVCMTQa2Model.Store.group" Multiplicity="1" />
-    <End Role="partnerGroup" Type="hs3MVCMTQa2Model.Store.partnerGroup" Multiplicity="*" />
+    <End Role="group" Type="Self.group" Multiplicity="1" />
+    <End Role="partnerGroup" Type="Self.partnerGroup" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="group">
         <PropertyRef Name="id" />
@@ -2162,8 +1659,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerGroup_partner">
-    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
-    <End Role="partnerGroup" Type="hs3MVCMTQa2Model.Store.partnerGroup" Multiplicity="*" />
+    <End Role="partner" Type="Self.partner" Multiplicity="1" />
+    <End Role="partnerGroup" Type="Self.partnerGroup" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partner">
         <PropertyRef Name="id" />
@@ -2174,8 +1671,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerPartnertypeTouchpointQuestionnaire_partner">
-    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
-    <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="*" />
+    <End Role="partner" Type="Self.partner" Multiplicity="1" />
+    <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="Self.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partner">
         <PropertyRef Name="id" />
@@ -2186,8 +1683,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerPartnertypeTouchpointQuestionnaire_partnerTypeTouchpointQuestionnaire">
-    <End Role="partnerTypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" Multiplicity="1" />
-    <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="*" />
+    <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="1" />
+    <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="Self.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partnerTypeTouchpointQuestionnaire">
         <PropertyRef Name="id" />
@@ -2198,8 +1695,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerPartnertypeTouchpointQuestionnaire_person">
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
-    <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="*" />
+    <End Role="person" Type="Self.person" Multiplicity="1" />
+    <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="Self.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
         <PropertyRef Name="id" />
@@ -2210,8 +1707,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire">
-    <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="0..1" />
-    <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Type="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+    <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="Self.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="0..1" />
+    <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Type="Self.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partnerPartnertypeTouchpointQuestionnaire">
         <PropertyRef Name="id" />
@@ -2222,8 +1719,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerRelationshipOwner_partner">
-    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
-    <End Role="partnerRelationshipOwner" Type="hs3MVCMTQa2Model.Store.partnerRelationshipOwner" Multiplicity="*" />
+    <End Role="partner" Type="Self.partner" Multiplicity="1" />
+    <End Role="partnerRelationshipOwner" Type="Self.partnerRelationshipOwner" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partner">
         <PropertyRef Name="id" />
@@ -2234,8 +1731,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerRelationshipOwner_person">
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
-    <End Role="partnerRelationshipOwner" Type="hs3MVCMTQa2Model.Store.partnerRelationshipOwner" Multiplicity="*" />
+    <End Role="person" Type="Self.person" Multiplicity="1" />
+    <End Role="partnerRelationshipOwner" Type="Self.partnerRelationshipOwner" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
         <PropertyRef Name="id" />
@@ -2246,8 +1743,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerRemitAddress_partner">
-    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
-    <End Role="partnerRemitAddress" Type="hs3MVCMTQa2Model.Store.partnerRemitAddress" Multiplicity="0..1" />
+    <End Role="partner" Type="Self.partner" Multiplicity="1" />
+    <End Role="partnerRemitAddress" Type="Self.partnerRemitAddress" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="partner">
         <PropertyRef Name="id" />
@@ -2258,8 +1755,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerTouchpointInvitedDate_partner">
-    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
-    <End Role="partnerTouchpointInvitedDate_deprecated" Type="hs3MVCMTQa2Model.Store.partnerTouchpointInvitedDate_deprecated" Multiplicity="*" />
+    <End Role="partner" Type="Self.partner" Multiplicity="1" />
+    <End Role="partnerTouchpointInvitedDate_deprecated" Type="Self.partnerTouchpointInvitedDate_deprecated" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partner">
         <PropertyRef Name="id" />
@@ -2270,8 +1767,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerTouchpointQuestionnaireLanguage_partner">
-    <End Role="partner" Type="hs3MVCMTQa2Model.Store.partner" Multiplicity="1" />
-    <End Role="partnerTouchpointQuestionnaireLanguage" Type="hs3MVCMTQa2Model.Store.partnerTouchpointQuestionnaireLanguage" Multiplicity="*" />
+    <End Role="partner" Type="Self.partner" Multiplicity="1" />
+    <End Role="partnerTouchpointQuestionnaireLanguage" Type="Self.partnerTouchpointQuestionnaireLanguage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partner">
         <PropertyRef Name="id" />
@@ -2282,8 +1779,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response">
-    <End Role="response" Type="hs3MVCMTQa2Model.Store.response" Multiplicity="0..1" />
-    <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Type="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+    <End Role="response" Type="Self.response" Multiplicity="0..1" />
+    <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Type="Self.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="response">
         <PropertyRef Name="id" />
@@ -2294,8 +1791,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerType_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="partnerType" Type="hs3MVCMTQa2Model.Store.partnerType" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="partnerType" Type="Self.partnerType" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2306,8 +1803,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerType_partnerClass">
-    <End Role="partnerClass" Type="hs3MVCMTQa2Model.Store.partnerClass" Multiplicity="0..1" />
-    <End Role="partnerType" Type="hs3MVCMTQa2Model.Store.partnerType" Multiplicity="*" />
+    <End Role="partnerClass" Type="Self.partnerClass" Multiplicity="0..1" />
+    <End Role="partnerType" Type="Self.partnerType" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partnerClass">
         <PropertyRef Name="id" />
@@ -2318,8 +1815,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerTypeTouchpointQuestionnaire_questionnaire">
-    <End Role="questionnaire" Type="hs3MVCMTQa2Model.Store.questionnaire" Multiplicity="1" />
-    <End Role="partnerTypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
+    <End Role="questionnaire" Type="Self.questionnaire" Multiplicity="1" />
+    <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="questionnaire">
         <PropertyRef Name="id" />
@@ -2330,8 +1827,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnerTypeTouchpointQuestionnaire_touchpoint">
-    <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
-    <End Role="partnerTypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
+    <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
+    <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="touchpoint">
         <PropertyRef Name="id" />
@@ -2342,8 +1839,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_person_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="person" Type="Self.person" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2354,8 +1851,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_person_personStatus">
-    <End Role="personStatus" Type="hs3MVCMTQa2Model.Store.personStatus" Multiplicity="0..1" />
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="*" />
+    <End Role="personStatus" Type="Self.personStatus" Multiplicity="0..1" />
+    <End Role="person" Type="Self.person" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="personStatus">
         <PropertyRef Name="id" />
@@ -2366,8 +1863,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_personGroup_group">
-    <End Role="group" Type="hs3MVCMTQa2Model.Store.group" Multiplicity="1" />
-    <End Role="personGroup" Type="hs3MVCMTQa2Model.Store.personGroup" Multiplicity="*" />
+    <End Role="group" Type="Self.group" Multiplicity="1" />
+    <End Role="personGroup" Type="Self.personGroup" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="group">
         <PropertyRef Name="id" />
@@ -2378,8 +1875,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_personGroup_person">
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
-    <End Role="personGroup" Type="hs3MVCMTQa2Model.Store.personGroup" Multiplicity="*" />
+    <End Role="person" Type="Self.person" Multiplicity="1" />
+    <End Role="personGroup" Type="Self.personGroup" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
         <PropertyRef Name="id" />
@@ -2390,8 +1887,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_personLoginAudit_person">
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
-    <End Role="personLoginAudit" Type="hs3MVCMTQa2Model.Store.personLoginAudit" Multiplicity="*" />
+    <End Role="person" Type="Self.person" Multiplicity="1" />
+    <End Role="personLoginAudit" Type="Self.personLoginAudit" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
         <PropertyRef Name="id" />
@@ -2402,8 +1899,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_personLoginAudit_personLoginAuditEvent">
-    <End Role="personLoginAuditEvent" Type="hs3MVCMTQa2Model.Store.personLoginAuditEvent" Multiplicity="1" />
-    <End Role="personLoginAudit" Type="hs3MVCMTQa2Model.Store.personLoginAudit" Multiplicity="*" />
+    <End Role="personLoginAuditEvent" Type="Self.personLoginAuditEvent" Multiplicity="1" />
+    <End Role="personLoginAudit" Type="Self.personLoginAudit" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="personLoginAuditEvent">
         <PropertyRef Name="id" />
@@ -2414,8 +1911,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_personRelationship_person">
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
-    <End Role="personRelationship" Type="hs3MVCMTQa2Model.Store.personRelationship" Multiplicity="*" />
+    <End Role="person" Type="Self.person" Multiplicity="1" />
+    <End Role="personRelationship" Type="Self.personRelationship" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
         <PropertyRef Name="id" />
@@ -2426,8 +1923,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_personRelationship_person1">
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
-    <End Role="personRelationship" Type="hs3MVCMTQa2Model.Store.personRelationship" Multiplicity="*" />
+    <End Role="person" Type="Self.person" Multiplicity="1" />
+    <End Role="personRelationship" Type="Self.personRelationship" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
         <PropertyRef Name="id" />
@@ -2438,8 +1935,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_personRelationship_person2">
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
-    <End Role="personRelationship" Type="hs3MVCMTQa2Model.Store.personRelationship" Multiplicity="*" />
+    <End Role="person" Type="Self.person" Multiplicity="1" />
+    <End Role="personRelationship" Type="Self.personRelationship" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
         <PropertyRef Name="id" />
@@ -2450,8 +1947,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_personRelationship_personRelationshipType">
-    <End Role="personRelationshipType" Type="hs3MVCMTQa2Model.Store.personRelationshipType" Multiplicity="1" />
-    <End Role="personRelationship" Type="hs3MVCMTQa2Model.Store.personRelationship" Multiplicity="*" />
+    <End Role="personRelationshipType" Type="Self.personRelationshipType" Multiplicity="1" />
+    <End Role="personRelationship" Type="Self.personRelationship" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="personRelationshipType">
         <PropertyRef Name="id" />
@@ -2462,8 +1959,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_personRole_person">
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
-    <End Role="personRole" Type="hs3MVCMTQa2Model.Store.personRole" Multiplicity="*" />
+    <End Role="person" Type="Self.person" Multiplicity="1" />
+    <End Role="personRole" Type="Self.personRole" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
         <PropertyRef Name="id" />
@@ -2474,8 +1971,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_personRole_role">
-    <End Role="role" Type="hs3MVCMTQa2Model.Store.role" Multiplicity="1" />
-    <End Role="personRole" Type="hs3MVCMTQa2Model.Store.personRole" Multiplicity="*" />
+    <End Role="role" Type="Self.role" Multiplicity="1" />
+    <End Role="personRole" Type="Self.personRole" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="role">
         <PropertyRef Name="id" />
@@ -2486,8 +1983,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_personSearchCount_person">
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
-    <End Role="personSearchCount" Type="hs3MVCMTQa2Model.Store.personSearchCount" Multiplicity="*" />
+    <End Role="person" Type="Self.person" Multiplicity="1" />
+    <End Role="personSearchCount" Type="Self.personSearchCount" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
         <PropertyRef Name="id" />
@@ -2498,8 +1995,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_protocol_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="protocol" Type="hs3MVCMTQa2Model.Store.protocol" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="protocol" Type="Self.protocol" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2510,8 +2007,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_protocol_person">
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="0..1" />
-    <End Role="protocol" Type="hs3MVCMTQa2Model.Store.protocol" Multiplicity="*" />
+    <End Role="person" Type="Self.person" Multiplicity="0..1" />
+    <End Role="protocol" Type="Self.protocol" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
         <PropertyRef Name="id" />
@@ -2522,8 +2019,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_protocol_person1">
-    <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="0..1" />
-    <End Role="protocol" Type="hs3MVCMTQa2Model.Store.protocol" Multiplicity="*" />
+    <End Role="person" Type="Self.person" Multiplicity="0..1" />
+    <End Role="protocol" Type="Self.protocol" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="person">
         <PropertyRef Name="id" />
@@ -2534,8 +2031,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_protocolTouchpointQuestionResponseValue_response">
-    <End Role="response" Type="hs3MVCMTQa2Model.Store.response" Multiplicity="1" />
-    <End Role="touchpointQuestionResponseValue_deprecated" Type="hs3MVCMTQa2Model.Store.touchpointQuestionResponseValue_deprecated" Multiplicity="*" />
+    <End Role="response" Type="Self.response" Multiplicity="1" />
+    <End Role="touchpointQuestionResponseValue_deprecated" Type="Self.touchpointQuestionResponseValue_deprecated" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="response">
         <PropertyRef Name="id" />
@@ -2546,8 +2043,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_question_responseType">
-    <End Role="responseType" Type="hs3MVCMTQa2Model.Store.responseType" Multiplicity="0..1" />
-    <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="*" />
+    <End Role="responseType" Type="Self.responseType" Multiplicity="0..1" />
+    <End Role="question" Type="Self.question" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="responseType">
         <PropertyRef Name="id" />
@@ -2558,8 +2055,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_questionLanguage_language">
-    <End Role="language" Type="hs3MVCMTQa2Model.Store.language" Multiplicity="1" />
-    <End Role="questionLanguage" Type="hs3MVCMTQa2Model.Store.questionLanguage" Multiplicity="*" />
+    <End Role="language" Type="Self.language" Multiplicity="1" />
+    <End Role="questionLanguage" Type="Self.questionLanguage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="language">
         <PropertyRef Name="id" />
@@ -2570,8 +2067,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_questionnairePage_page">
-    <End Role="page" Type="hs3MVCMTQa2Model.Store.page" Multiplicity="1" />
-    <End Role="questionnairePage" Type="hs3MVCMTQa2Model.Store.questionnairePage" Multiplicity="*" />
+    <End Role="page" Type="Self.page" Multiplicity="1" />
+    <End Role="questionnairePage" Type="Self.questionnairePage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="page">
         <PropertyRef Name="id" />
@@ -2582,8 +2079,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_questionnairePage_questionnaire">
-    <End Role="questionnaire" Type="hs3MVCMTQa2Model.Store.questionnaire" Multiplicity="1" />
-    <End Role="questionnairePage" Type="hs3MVCMTQa2Model.Store.questionnairePage" Multiplicity="*" />
+    <End Role="questionnaire" Type="Self.questionnaire" Multiplicity="1" />
+    <End Role="questionnairePage" Type="Self.questionnairePage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="questionnaire">
         <PropertyRef Name="id" />
@@ -2594,8 +2091,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_questionResponse_question">
-    <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="1" />
-    <End Role="questionResponse" Type="hs3MVCMTQa2Model.Store.questionResponse" Multiplicity="*" />
+    <End Role="question" Type="Self.question" Multiplicity="1" />
+    <End Role="questionResponse" Type="Self.questionResponse" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="question">
         <PropertyRef Name="id" />
@@ -2606,8 +2103,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_questionResponse_question1">
-    <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="1" />
-    <End Role="questionResponse" Type="hs3MVCMTQa2Model.Store.questionResponse" Multiplicity="*" />
+    <End Role="question" Type="Self.question" Multiplicity="1" />
+    <End Role="questionResponse" Type="Self.questionResponse" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="question">
         <PropertyRef Name="id" />
@@ -2618,8 +2115,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_questionResponse_response">
-    <End Role="response" Type="hs3MVCMTQa2Model.Store.response" Multiplicity="1" />
-    <End Role="questionResponse" Type="hs3MVCMTQa2Model.Store.questionResponse" Multiplicity="*" />
+    <End Role="response" Type="Self.response" Multiplicity="1" />
+    <End Role="questionResponse" Type="Self.questionResponse" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="response">
         <PropertyRef Name="id" />
@@ -2630,8 +2127,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_questionTranslation_language">
-    <End Role="language" Type="hs3MVCMTQa2Model.Store.language" Multiplicity="1" />
-    <End Role="questionTranslation" Type="hs3MVCMTQa2Model.Store.questionTranslation" Multiplicity="*" />
+    <End Role="language" Type="Self.language" Multiplicity="1" />
+    <End Role="questionTranslation" Type="Self.questionTranslation" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="language">
         <PropertyRef Name="id" />
@@ -2642,8 +2139,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_questionTranslation_question">
-    <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="1" />
-    <End Role="questionTranslation" Type="hs3MVCMTQa2Model.Store.questionTranslation" Multiplicity="*" />
+    <End Role="question" Type="Self.question" Multiplicity="1" />
+    <End Role="questionTranslation" Type="Self.questionTranslation" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="question">
         <PropertyRef Name="id" />
@@ -2654,8 +2151,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_responseLanguage_language">
-    <End Role="language" Type="hs3MVCMTQa2Model.Store.language" Multiplicity="1" />
-    <End Role="responseLanguage" Type="hs3MVCMTQa2Model.Store.responseLanguage" Multiplicity="*" />
+    <End Role="language" Type="Self.language" Multiplicity="1" />
+    <End Role="responseLanguage" Type="Self.responseLanguage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="language">
         <PropertyRef Name="id" />
@@ -2666,8 +2163,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_responseLanguage_response">
-    <End Role="response" Type="hs3MVCMTQa2Model.Store.response" Multiplicity="1" />
-    <End Role="responseLanguage" Type="hs3MVCMTQa2Model.Store.responseLanguage" Multiplicity="*" />
+    <End Role="response" Type="Self.response" Multiplicity="1" />
+    <End Role="responseLanguage" Type="Self.responseLanguage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="response">
         <PropertyRef Name="id" />
@@ -2678,8 +2175,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_responseTranslation_language">
-    <End Role="language" Type="hs3MVCMTQa2Model.Store.language" Multiplicity="1" />
-    <End Role="responseTranslation" Type="hs3MVCMTQa2Model.Store.responseTranslation" Multiplicity="*" />
+    <End Role="language" Type="Self.language" Multiplicity="1" />
+    <End Role="responseTranslation" Type="Self.responseTranslation" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="language">
         <PropertyRef Name="id" />
@@ -2690,8 +2187,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_responseTranslation_response">
-    <End Role="response" Type="hs3MVCMTQa2Model.Store.response" Multiplicity="1" />
-    <End Role="responseTranslation" Type="hs3MVCMTQa2Model.Store.responseTranslation" Multiplicity="*" />
+    <End Role="response" Type="Self.response" Multiplicity="1" />
+    <End Role="responseTranslation" Type="Self.responseTranslation" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="response">
         <PropertyRef Name="id" />
@@ -2702,8 +2199,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_role_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="role" Type="hs3MVCMTQa2Model.Store.role" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="role" Type="Self.role" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2714,8 +2211,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_roleMenu_menu">
-    <End Role="menu" Type="hs3MVCMTQa2Model.Store.menu" Multiplicity="1" />
-    <End Role="roleMenu" Type="hs3MVCMTQa2Model.Store.roleMenu" Multiplicity="*" />
+    <End Role="menu" Type="Self.menu" Multiplicity="1" />
+    <End Role="roleMenu" Type="Self.roleMenu" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="menu">
         <PropertyRef Name="id" />
@@ -2726,8 +2223,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_roleMenu_role">
-    <End Role="role" Type="hs3MVCMTQa2Model.Store.role" Multiplicity="1" />
-    <End Role="roleMenu" Type="hs3MVCMTQa2Model.Store.roleMenu" Multiplicity="*" />
+    <End Role="role" Type="Self.role" Multiplicity="1" />
+    <End Role="roleMenu" Type="Self.roleMenu" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="role">
         <PropertyRef Name="id" />
@@ -2738,8 +2235,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_rule_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="rule" Type="hs3MVCMTQa2Model.Store.rule" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="rule" Type="Self.rule" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2750,8 +2247,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_rule_ruleType">
-    <End Role="ruleType" Type="hs3MVCMTQa2Model.Store.ruleType" Multiplicity="0..1" />
-    <End Role="rule" Type="hs3MVCMTQa2Model.Store.rule" Multiplicity="*" />
+    <End Role="ruleType" Type="Self.ruleType" Multiplicity="0..1" />
+    <End Role="rule" Type="Self.rule" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ruleType">
         <PropertyRef Name="id" />
@@ -2762,8 +2259,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_ruleType_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="ruleType" Type="hs3MVCMTQa2Model.Store.ruleType" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="ruleType" Type="Self.ruleType" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2774,8 +2271,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_state_enterprise">
-    <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
-    <End Role="state" Type="hs3MVCMTQa2Model.Store.state" Multiplicity="*" />
+    <End Role="enterprise" Type="Self.enterprise" Multiplicity="0..1" />
+    <End Role="state" Type="Self.state" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="enterprise">
         <PropertyRef Name="id" />
@@ -2786,8 +2283,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_surveyQuestion_question">
-    <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="1" />
-    <End Role="surveyQuestion" Type="hs3MVCMTQa2Model.Store.surveyQuestion" Multiplicity="*" />
+    <End Role="question" Type="Self.question" Multiplicity="1" />
+    <End Role="surveyQuestion" Type="Self.surveyQuestion" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="question">
         <PropertyRef Name="id" />
@@ -2798,8 +2295,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_surveyQuestion_survey">
-    <End Role="survey" Type="hs3MVCMTQa2Model.Store.survey" Multiplicity="1" />
-    <End Role="surveyQuestion" Type="hs3MVCMTQa2Model.Store.surveyQuestion" Multiplicity="*" />
+    <End Role="survey" Type="Self.survey" Multiplicity="1" />
+    <End Role="surveyQuestion" Type="Self.surveyQuestion" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="survey">
         <PropertyRef Name="id" />
@@ -2810,8 +2307,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_surveySetSurvey_survey">
-    <End Role="survey" Type="hs3MVCMTQa2Model.Store.survey" Multiplicity="1" />
-    <End Role="surveySetSurvey" Type="hs3MVCMTQa2Model.Store.surveySetSurvey" Multiplicity="*" />
+    <End Role="survey" Type="Self.survey" Multiplicity="1" />
+    <End Role="surveySetSurvey" Type="Self.surveySetSurvey" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="survey">
         <PropertyRef Name="id" />
@@ -2822,8 +2319,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_surveySetSurvey_surveyset">
-    <End Role="surveyset" Type="hs3MVCMTQa2Model.Store.surveyset" Multiplicity="1" />
-    <End Role="surveySetSurvey" Type="hs3MVCMTQa2Model.Store.surveySetSurvey" Multiplicity="*" />
+    <End Role="surveyset" Type="Self.surveyset" Multiplicity="1" />
+    <End Role="surveySetSurvey" Type="Self.surveySetSurvey" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="surveyset">
         <PropertyRef Name="id" />
@@ -2834,8 +2331,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_touchpoint_protocol">
-    <End Role="protocol" Type="hs3MVCMTQa2Model.Store.protocol" Multiplicity="0..1" />
-    <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="*" />
+    <End Role="protocol" Type="Self.protocol" Multiplicity="0..1" />
+    <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="protocol">
         <PropertyRef Name="id" />
@@ -2846,8 +2343,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_touchpointPartnerRerouter_touchpoint">
-    <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
-    <End Role="touchpointPartnerRerouter" Type="hs3MVCMTQa2Model.Store.touchpointPartnerRerouter" Multiplicity="*" />
+    <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
+    <End Role="touchpointPartnerRerouter" Type="Self.touchpointPartnerRerouter" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="touchpoint">
         <PropertyRef Name="id" />
@@ -2858,8 +2355,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_touchpointPartnerTypeQuestionnaire_partnerType">
-    <End Role="partnerType" Type="hs3MVCMTQa2Model.Store.partnerType" Multiplicity="1" />
-    <End Role="partnerTypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
+    <End Role="partnerType" Type="Self.partnerType" Multiplicity="1" />
+    <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partnerType">
         <PropertyRef Name="id" />
@@ -2870,8 +2367,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire">
-    <End Role="questionnaire" Type="hs3MVCMTQa2Model.Store.questionnaire" Multiplicity="1" />
-    <End Role="partnerTypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
+    <End Role="questionnaire" Type="Self.questionnaire" Multiplicity="1" />
+    <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="questionnaire">
         <PropertyRef Name="id" />
@@ -2882,8 +2379,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint">
-    <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
-    <End Role="partnerTypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
+    <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
+    <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="touchpoint">
         <PropertyRef Name="id" />
@@ -2894,8 +2391,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
-    <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
-    <End Role="touchpointPartnerTypeScoreAutoMail" Type="hs3MVCMTQa2Model.Store.touchpointPartnerTypeScoreAutoMail" Multiplicity="*" />
+    <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
+    <End Role="touchpointPartnerTypeScoreAutoMail" Type="Self.touchpointPartnerTypeScoreAutoMail" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="touchpoint">
         <PropertyRef Name="id" />
@@ -2906,8 +2403,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_touchpointQuestionnaire_questionnaire">
-    <End Role="questionnaire" Type="hs3MVCMTQa2Model.Store.questionnaire" Multiplicity="1" />
-    <End Role="touchpointQuestionnaire_deprecated" Type="hs3MVCMTQa2Model.Store.touchpointQuestionnaire_deprecated" Multiplicity="*" />
+    <End Role="questionnaire" Type="Self.questionnaire" Multiplicity="1" />
+    <End Role="touchpointQuestionnaire_deprecated" Type="Self.touchpointQuestionnaire_deprecated" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="questionnaire">
         <PropertyRef Name="id" />
@@ -2918,8 +2415,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_touchpointQuestionnaire_touchpoint">
-    <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
-    <End Role="touchpointQuestionnaire_deprecated" Type="hs3MVCMTQa2Model.Store.touchpointQuestionnaire_deprecated" Multiplicity="*" />
+    <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
+    <End Role="touchpointQuestionnaire_deprecated" Type="Self.touchpointQuestionnaire_deprecated" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="touchpoint">
         <PropertyRef Name="id" />
@@ -2930,8 +2427,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_touchpointQuestionResponseValue_touchpoint">
-    <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
-    <End Role="touchpointQuestionResponseValue_deprecated" Type="hs3MVCMTQa2Model.Store.touchpointQuestionResponseValue_deprecated" Multiplicity="*" />
+    <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
+    <End Role="touchpointQuestionResponseValue_deprecated" Type="Self.touchpointQuestionResponseValue_deprecated" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="touchpoint">
         <PropertyRef Name="id" />
@@ -2942,8 +2439,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_touchpointQuestionWeight_touchpoint">
-    <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
-    <End Role="touchpointQuestionWeight_deprecated" Type="hs3MVCMTQa2Model.Store.touchpointQuestionWeight_deprecated" Multiplicity="*" />
+    <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
+    <End Role="touchpointQuestionWeight_deprecated" Type="Self.touchpointQuestionWeight_deprecated" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="touchpoint">
         <PropertyRef Name="id" />
@@ -2954,8 +2451,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_UM_M_Menu_UM_M_Menu">
-    <End Role="UM_M_Menu_deprecated" Type="hs3MVCMTQa2Model.Store.UM_M_Menu_deprecated" Multiplicity="0..1" />
-    <End Role="UM_M_Menu_deprecated1" Type="hs3MVCMTQa2Model.Store.UM_M_Menu_deprecated" Multiplicity="*" />
+    <End Role="UM_M_Menu_deprecated" Type="Self.UM_M_Menu_deprecated" Multiplicity="0..1" />
+    <End Role="UM_M_Menu_deprecated1" Type="Self.UM_M_Menu_deprecated" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UM_M_Menu_deprecated">
         <PropertyRef Name="id" />
@@ -2965,7 +2462,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
   <Function Name="getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="question" Type="int" Mode="In" />
     <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
@@ -3882,6 +3379,9 @@
   </Function>
   <Function Name="pr_getPersonByEmailForLoginAttempts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="email" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="pr_getPersonByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getPersonByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="group" Type="int" Mode="In" />
@@ -5034,7 +4534,7 @@
   <Function Name="pr_unArchiveTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="ProperCase" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="ProperCase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
     <Parameter Name="Text" Type="varchar" Mode="In" />
   </Function>
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5114,4 +4614,504 @@
   <Function Name="xx_getTelerikBoundColumnSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="tablename" Type="varchar" Mode="In" />
   </Function>
+  <EntityContainer Name="hs3MVCMTQa2ModelStoreContainer">
+    <EntitySet Name="accessLevel" EntityType="Self.accessLevel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="agency" EntityType="Self.agency" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="autoMailAttachment" EntityType="Self.autoMailAttachment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="autoMailMessage" EntityType="Self.autoMailMessage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="autoMailType" EntityType="Self.autoMailType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="country" EntityType="Self.country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="domain" EntityType="Self.domain" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="emailBounceType" EntityType="Self.emailBounceType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="emailTag_deprecated" EntityType="Self.emailTag_deprecated" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="emailTemplate_deprecated" EntityType="Self.emailTemplate_deprecated" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="emailTemplateType_deprecated" EntityType="Self.emailTemplateType_deprecated" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="enterprise" EntityType="Self.enterprise" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="enterpriseObjectName" EntityType="Self.enterpriseObjectName" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="enterpriseSystemInfo" EntityType="Self.enterpriseSystemInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="eSignature" EntityType="Self.eSignature" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="eventNotification" EntityType="Self.eventNotification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="eventNotificationBounce" EntityType="Self.eventNotificationBounce" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="group" EntityType="Self.group" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="groupCollection" EntityType="Self.groupCollection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="groupOrgChart" EntityType="Self.groupOrgChart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="groupRiskGoal" EntityType="Self.groupRiskGoal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hs3Menu_deprecated" EntityType="Self.hs3Menu_deprecated" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="key" EntityType="Self.key" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="language" EntityType="Self.language" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="languageInfo" EntityType="Self.languageInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="letter" EntityType="Self.letter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="letterSeed" EntityType="Self.letterSeed" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="loadHistory" EntityType="Self.loadHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="menu" EntityType="Self.menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="menuAccessLevel" EntityType="Self.menuAccessLevel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="menuGroup" EntityType="Self.menuGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="numberSeed" EntityType="Self.numberSeed" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="page" EntityType="Self.page" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pageSurveyset" EntityType="Self.pageSurveyset" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partner" EntityType="Self.partner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerAction" EntityType="Self.partnerAction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerActionLog" EntityType="Self.partnerActionLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerAddress" EntityType="Self.partnerAddress" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerClass" EntityType="Self.partnerClass" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerCorpInfo" EntityType="Self.partnerCorpInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerGroup" EntityType="Self.partnerGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerLogDetail" EntityType="Self.partnerLogDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerLogin" EntityType="Self.partnerLogin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerPartnertypeTouchpointQuestionnaire" EntityType="Self.partnerPartnertypeTouchpointQuestionnaire" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntityType="Self.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerReference" EntityType="Self.partnerReference" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerRelationshipOwner" EntityType="Self.partnerRelationshipOwner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerReminder" EntityType="Self.partnerReminder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerReminderStatus" EntityType="Self.partnerReminderStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerRemitAddress" EntityType="Self.partnerRemitAddress" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerReport" EntityType="Self.partnerReport" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerShadow" EntityType="Self.partnerShadow" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerSpendAmount" EntityType="Self.partnerSpendAmount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerStatus" EntityType="Self.partnerStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerTemp" EntityType="Self.partnerTemp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerTouchpointInvitedDate_deprecated" EntityType="Self.partnerTouchpointInvitedDate_deprecated" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerTouchpointQuestionnaireLanguage" EntityType="Self.partnerTouchpointQuestionnaireLanguage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerType" EntityType="Self.partnerType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerTypeGroupGoal" EntityType="Self.partnerTypeGroupGoal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="partnerTypeTouchpointQuestionnaire" EntityType="Self.partnerTypeTouchpointQuestionnaire" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="person" EntityType="Self.person" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="personGroup" EntityType="Self.personGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="personLoginAudit" EntityType="Self.personLoginAudit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="personLoginAuditEvent" EntityType="Self.personLoginAuditEvent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="personRelationship" EntityType="Self.personRelationship" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="personRelationshipType" EntityType="Self.personRelationshipType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="personRole" EntityType="Self.personRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="personSearchCount" EntityType="Self.personSearchCount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="personStatus" EntityType="Self.personStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="protocol" EntityType="Self.protocol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="protocolTouchpoint" EntityType="Self.protocolTouchpoint" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="query" EntityType="Self.query" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="queryFieldQuestion" EntityType="Self.queryFieldQuestion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="question" EntityType="Self.question" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="questionLanguage" EntityType="Self.questionLanguage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="questionnaire" EntityType="Self.questionnaire" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="questionnaireLevel" EntityType="Self.questionnaireLevel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="questionnairePage" EntityType="Self.questionnairePage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="questionResponse" EntityType="Self.questionResponse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="questionTranslation" EntityType="Self.questionTranslation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rating" EntityType="Self.rating" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ratingType" EntityType="Self.ratingType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="response" EntityType="Self.response" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="responseLanguage" EntityType="Self.responseLanguage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="responseTranslation" EntityType="Self.responseTranslation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="responseType" EntityType="Self.responseType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="riskType" EntityType="Self.riskType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="roleMenu" EntityType="Self.roleMenu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rule" EntityType="Self.rule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ruleType" EntityType="Self.ruleType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="score" EntityType="Self.score" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="state" EntityType="Self.state" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="survey" EntityType="Self.survey" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="surveyQuestion" EntityType="Self.surveyQuestion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="surveyset" EntityType="Self.surveyset" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="surveySetSurvey" EntityType="Self.surveySetSurvey" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="swap" EntityType="Self.swap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="systemConfiguration" EntityType="Self.systemConfiguration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="touchpoint" EntityType="Self.touchpoint" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="touchpointGroup" EntityType="Self.touchpointGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="touchpointPartnerTypeScoreAutoMail" EntityType="Self.touchpointPartnerTypeScoreAutoMail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="touchpointQuestionnaire_deprecated" EntityType="Self.touchpointQuestionnaire_deprecated" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="touchpointQuestionResponseValue_deprecated" EntityType="Self.touchpointQuestionResponseValue_deprecated" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="touchpointQuestionWeight_deprecated" EntityType="Self.touchpointQuestionWeight_deprecated" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UM_M_Menu_deprecated" EntityType="Self.UM_M_Menu_deprecated" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="zCode" EntityType="Self.zCode" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="zCodeBatchUpdate" EntityType="Self.zCodeBatchUpdate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sizingStandard" EntityType="Self.sizingStandard" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[sizingStandard].[NAICS] AS [NAICS], 
+[sizingStandard].[industryTitle] AS [industryTitle], 
+[sizingStandard].[revenue] AS [revenue], 
+[sizingStandard].[numOfEmployees] AS [numOfEmployees]
+FROM [dbo].[sizingStandard] AS [sizingStandard]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="touchpointPartnerRerouter" EntityType="Self.touchpointPartnerRerouter" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[touchpointPartnerRerouter].[touchpoint] AS [touchpoint], 
+[touchpointPartnerRerouter].[partner] AS [partner], 
+[touchpointPartnerRerouter].[fromFirstName] AS [fromFirstName], 
+[touchpointPartnerRerouter].[fromLastName] AS [fromLastName], 
+[touchpointPartnerRerouter].[fromTitle] AS [fromTitle], 
+[touchpointPartnerRerouter].[from] AS [from], 
+[touchpointPartnerRerouter].[to] AS [to], 
+[touchpointPartnerRerouter].[status] AS [status], 
+[touchpointPartnerRerouter].[timeStamp] AS [timeStamp]
+FROM [dbo].[touchpointPartnerRerouter] AS [touchpointPartnerRerouter]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="prReminder" EntityType="Self.prReminder" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[prReminder].[ID] AS [ID], 
+[prReminder].[touchpoint] AS [touchpoint], 
+[prReminder].[partner] AS [partner], 
+[prReminder].[SeqNumber] AS [SeqNumber]
+FROM [dbo].[prReminder] AS [prReminder]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_agency_enterprise" Association="Self.FK_agency_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="agency" EntitySet="agency" />
+    </AssociationSet>
+    <AssociationSet Name="FK_autoMailAttachment_autoMailMessage" Association="Self.FK_autoMailAttachment_autoMailMessage">
+      <End Role="autoMailMessage" EntitySet="autoMailMessage" />
+      <End Role="autoMailAttachment" EntitySet="autoMailAttachment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_autoMailMessage_autoMailType" Association="Self.FK_autoMailMessage_autoMailType">
+      <End Role="autoMailType" EntitySet="autoMailType" />
+      <End Role="autoMailMessage" EntitySet="autoMailMessage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_autoMailMessage_partnerTypeTouchpointQuestionnaire" Association="Self.FK_autoMailMessage_partnerTypeTouchpointQuestionnaire">
+      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+      <End Role="autoMailMessage" EntitySet="autoMailMessage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_country_enterprise" Association="Self.FK_country_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="country" EntitySet="country" />
+    </AssociationSet>
+    <AssociationSet Name="FK_enterpriseObjectName_enterprise" Association="Self.FK_enterpriseObjectName_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="enterpriseObjectName" EntitySet="enterpriseObjectName" />
+    </AssociationSet>
+    <AssociationSet Name="FK_enterpriseSystemInfo_enterprise" Association="Self.FK_enterpriseSystemInfo_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="enterpriseSystemInfo" EntitySet="enterpriseSystemInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_eSignature_partnerPartnertypeTouchpointQuestionnaire" Association="Self.FK_eSignature_partnerPartnertypeTouchpointQuestionnaire">
+      <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
+      <End Role="eSignature" EntitySet="eSignature" />
+    </AssociationSet>
+    <AssociationSet Name="FK_group_enterprise" Association="Self.FK_group_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="group" EntitySet="group" />
+    </AssociationSet>
+    <AssociationSet Name="FK_group_groupCollection" Association="Self.FK_group_groupCollection">
+      <End Role="groupCollection" EntitySet="groupCollection" />
+      <End Role="group" EntitySet="group" />
+    </AssociationSet>
+    <AssociationSet Name="FK_group_person" Association="Self.FK_group_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="group" EntitySet="group" />
+    </AssociationSet>
+    <AssociationSet Name="FK_groupCollection_enterprise" Association="Self.FK_groupCollection_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="groupCollection" EntitySet="groupCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hs3Menu_enterprise" Association="Self.FK_hs3Menu_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="hs3Menu_deprecated" EntitySet="hs3Menu_deprecated" />
+    </AssociationSet>
+    <AssociationSet Name="FK_key_enterprise" Association="Self.FK_key_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="key" EntitySet="key" />
+    </AssociationSet>
+    <AssociationSet Name="FK_language_enterprise" Association="Self.FK_language_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="language" EntitySet="language" />
+    </AssociationSet>
+    <AssociationSet Name="FK_languageInfo_enterprise" Association="Self.FK_languageInfo_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="languageInfo" EntitySet="languageInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_menu_enterprice" Association="Self.FK_menu_enterprice">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="UM_M_Menu_deprecated" EntitySet="UM_M_Menu_deprecated" />
+    </AssociationSet>
+    <AssociationSet Name="FK_menu_enterprise" Association="Self.FK_menu_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="menu" EntitySet="menu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pageSurveyset_page" Association="Self.FK_pageSurveyset_page">
+      <End Role="page" EntitySet="page" />
+      <End Role="pageSurveyset" EntitySet="pageSurveyset" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pageSurveyset_surveyset" Association="Self.FK_pageSurveyset_surveyset">
+      <End Role="surveyset" EntitySet="surveyset" />
+      <End Role="pageSurveyset" EntitySet="pageSurveyset" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partner_enterprise" Association="Self.FK_partner_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="partner" EntitySet="partner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerCorpInfo_partner" Association="Self.FK_partnerCorpInfo_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="partnerCorpInfo" EntitySet="partnerCorpInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerGroup_group" Association="Self.FK_partnerGroup_group">
+      <End Role="group" EntitySet="group" />
+      <End Role="partnerGroup" EntitySet="partnerGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerGroup_partner" Association="Self.FK_partnerGroup_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="partnerGroup" EntitySet="partnerGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaire_partner" Association="Self.FK_partnerPartnertypeTouchpointQuestionnaire_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaire_partnerTypeTouchpointQuestionnaire" Association="Self.FK_partnerPartnertypeTouchpointQuestionnaire_partnerTypeTouchpointQuestionnaire">
+      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+      <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaire_person" Association="Self.FK_partnerPartnertypeTouchpointQuestionnaire_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" Association="Self.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire">
+      <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
+      <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerRelationshipOwner_partner" Association="Self.FK_partnerRelationshipOwner_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="partnerRelationshipOwner" EntitySet="partnerRelationshipOwner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerRelationshipOwner_person" Association="Self.FK_partnerRelationshipOwner_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="partnerRelationshipOwner" EntitySet="partnerRelationshipOwner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerRemitAddress_partner" Association="Self.FK_partnerRemitAddress_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="partnerRemitAddress" EntitySet="partnerRemitAddress" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerTouchpointInvitedDate_partner" Association="Self.FK_partnerTouchpointInvitedDate_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="partnerTouchpointInvitedDate_deprecated" EntitySet="partnerTouchpointInvitedDate_deprecated" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerTouchpointQuestionnaireLanguage_partner" Association="Self.FK_partnerTouchpointQuestionnaireLanguage_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="partnerTouchpointQuestionnaireLanguage" EntitySet="partnerTouchpointQuestionnaireLanguage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response" Association="Self.FK_partnerTouchpointQuestionnaireQuestionResponse_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerType_enterprise" Association="Self.FK_partnerType_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="partnerType" EntitySet="partnerType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerType_partnerClass" Association="Self.FK_partnerType_partnerClass">
+      <End Role="partnerClass" EntitySet="partnerClass" />
+      <End Role="partnerType" EntitySet="partnerType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerTypeTouchpointQuestionnaire_questionnaire" Association="Self.FK_partnerTypeTouchpointQuestionnaire_questionnaire">
+      <End Role="questionnaire" EntitySet="questionnaire" />
+      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnerTypeTouchpointQuestionnaire_touchpoint" Association="Self.FK_partnerTypeTouchpointQuestionnaire_touchpoint">
+      <End Role="touchpoint" EntitySet="touchpoint" />
+      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_person_enterprise" Association="Self.FK_person_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="person" EntitySet="person" />
+    </AssociationSet>
+    <AssociationSet Name="FK_person_personStatus" Association="Self.FK_person_personStatus">
+      <End Role="personStatus" EntitySet="personStatus" />
+      <End Role="person" EntitySet="person" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personGroup_group" Association="Self.FK_personGroup_group">
+      <End Role="group" EntitySet="group" />
+      <End Role="personGroup" EntitySet="personGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personGroup_person" Association="Self.FK_personGroup_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="personGroup" EntitySet="personGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personLoginAudit_person" Association="Self.FK_personLoginAudit_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="personLoginAudit" EntitySet="personLoginAudit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personLoginAudit_personLoginAuditEvent" Association="Self.FK_personLoginAudit_personLoginAuditEvent">
+      <End Role="personLoginAuditEvent" EntitySet="personLoginAuditEvent" />
+      <End Role="personLoginAudit" EntitySet="personLoginAudit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personRelationship_person" Association="Self.FK_personRelationship_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="personRelationship" EntitySet="personRelationship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personRelationship_person1" Association="Self.FK_personRelationship_person1">
+      <End Role="person" EntitySet="person" />
+      <End Role="personRelationship" EntitySet="personRelationship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personRelationship_person2" Association="Self.FK_personRelationship_person2">
+      <End Role="person" EntitySet="person" />
+      <End Role="personRelationship" EntitySet="personRelationship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personRelationship_personRelationshipType" Association="Self.FK_personRelationship_personRelationshipType">
+      <End Role="personRelationshipType" EntitySet="personRelationshipType" />
+      <End Role="personRelationship" EntitySet="personRelationship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personRole_person" Association="Self.FK_personRole_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="personRole" EntitySet="personRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personRole_role" Association="Self.FK_personRole_role">
+      <End Role="role" EntitySet="role" />
+      <End Role="personRole" EntitySet="personRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personSearchCount_person" Association="Self.FK_personSearchCount_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="personSearchCount" EntitySet="personSearchCount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_protocol_enterprise" Association="Self.FK_protocol_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="protocol" EntitySet="protocol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_protocol_person" Association="Self.FK_protocol_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="protocol" EntitySet="protocol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_protocol_person1" Association="Self.FK_protocol_person1">
+      <End Role="person" EntitySet="person" />
+      <End Role="protocol" EntitySet="protocol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_protocolTouchpointQuestionResponseValue_response" Association="Self.FK_protocolTouchpointQuestionResponseValue_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="touchpointQuestionResponseValue_deprecated" EntitySet="touchpointQuestionResponseValue_deprecated" />
+    </AssociationSet>
+    <AssociationSet Name="FK_question_responseType" Association="Self.FK_question_responseType">
+      <End Role="responseType" EntitySet="responseType" />
+      <End Role="question" EntitySet="question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionLanguage_language" Association="Self.FK_questionLanguage_language">
+      <End Role="language" EntitySet="language" />
+      <End Role="questionLanguage" EntitySet="questionLanguage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionnairePage_page" Association="Self.FK_questionnairePage_page">
+      <End Role="page" EntitySet="page" />
+      <End Role="questionnairePage" EntitySet="questionnairePage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionnairePage_questionnaire" Association="Self.FK_questionnairePage_questionnaire">
+      <End Role="questionnaire" EntitySet="questionnaire" />
+      <End Role="questionnairePage" EntitySet="questionnairePage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionResponse_question" Association="Self.FK_questionResponse_question">
+      <End Role="question" EntitySet="question" />
+      <End Role="questionResponse" EntitySet="questionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionResponse_question1" Association="Self.FK_questionResponse_question1">
+      <End Role="question" EntitySet="question" />
+      <End Role="questionResponse" EntitySet="questionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionResponse_response" Association="Self.FK_questionResponse_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="questionResponse" EntitySet="questionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionTranslation_language" Association="Self.FK_questionTranslation_language">
+      <End Role="language" EntitySet="language" />
+      <End Role="questionTranslation" EntitySet="questionTranslation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionTranslation_question" Association="Self.FK_questionTranslation_question">
+      <End Role="question" EntitySet="question" />
+      <End Role="questionTranslation" EntitySet="questionTranslation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_responseLanguage_language" Association="Self.FK_responseLanguage_language">
+      <End Role="language" EntitySet="language" />
+      <End Role="responseLanguage" EntitySet="responseLanguage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_responseLanguage_response" Association="Self.FK_responseLanguage_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="responseLanguage" EntitySet="responseLanguage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_responseTranslation_language" Association="Self.FK_responseTranslation_language">
+      <End Role="language" EntitySet="language" />
+      <End Role="responseTranslation" EntitySet="responseTranslation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_responseTranslation_response" Association="Self.FK_responseTranslation_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="responseTranslation" EntitySet="responseTranslation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_role_enterprise" Association="Self.FK_role_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="role" EntitySet="role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_roleMenu_menu" Association="Self.FK_roleMenu_menu">
+      <End Role="menu" EntitySet="menu" />
+      <End Role="roleMenu" EntitySet="roleMenu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_roleMenu_role" Association="Self.FK_roleMenu_role">
+      <End Role="role" EntitySet="role" />
+      <End Role="roleMenu" EntitySet="roleMenu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rule_enterprise" Association="Self.FK_rule_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="rule" EntitySet="rule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rule_ruleType" Association="Self.FK_rule_ruleType">
+      <End Role="ruleType" EntitySet="ruleType" />
+      <End Role="rule" EntitySet="rule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ruleType_enterprise" Association="Self.FK_ruleType_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="ruleType" EntitySet="ruleType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_state_enterprise" Association="Self.FK_state_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="state" EntitySet="state" />
+    </AssociationSet>
+    <AssociationSet Name="FK_surveyQuestion_question" Association="Self.FK_surveyQuestion_question">
+      <End Role="question" EntitySet="question" />
+      <End Role="surveyQuestion" EntitySet="surveyQuestion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_surveyQuestion_survey" Association="Self.FK_surveyQuestion_survey">
+      <End Role="survey" EntitySet="survey" />
+      <End Role="surveyQuestion" EntitySet="surveyQuestion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_surveySetSurvey_survey" Association="Self.FK_surveySetSurvey_survey">
+      <End Role="survey" EntitySet="survey" />
+      <End Role="surveySetSurvey" EntitySet="surveySetSurvey" />
+    </AssociationSet>
+    <AssociationSet Name="FK_surveySetSurvey_surveyset" Association="Self.FK_surveySetSurvey_surveyset">
+      <End Role="surveyset" EntitySet="surveyset" />
+      <End Role="surveySetSurvey" EntitySet="surveySetSurvey" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpoint_protocol" Association="Self.FK_touchpoint_protocol">
+      <End Role="protocol" EntitySet="protocol" />
+      <End Role="touchpoint" EntitySet="touchpoint" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointPartnerRerouter_touchpoint" Association="Self.FK_touchpointPartnerRerouter_touchpoint">
+      <End Role="touchpoint" EntitySet="touchpoint" />
+      <End Role="touchpointPartnerRerouter" EntitySet="touchpointPartnerRerouter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_partnerType" Association="Self.FK_touchpointPartnerTypeQuestionnaire_partnerType">
+      <End Role="partnerType" EntitySet="partnerType" />
+      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire" Association="Self.FK_touchpointPartnerTypeQuestionnaire_questionnaire">
+      <End Role="questionnaire" EntitySet="questionnaire" />
+      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint" Association="Self.FK_touchpointPartnerTypeQuestionnaire_touchpoint">
+      <End Role="touchpoint" EntitySet="touchpoint" />
+      <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint" Association="Self.FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
+      <End Role="touchpoint" EntitySet="touchpoint" />
+      <End Role="touchpointPartnerTypeScoreAutoMail" EntitySet="touchpointPartnerTypeScoreAutoMail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointQuestionnaire_questionnaire" Association="Self.FK_touchpointQuestionnaire_questionnaire">
+      <End Role="questionnaire" EntitySet="questionnaire" />
+      <End Role="touchpointQuestionnaire_deprecated" EntitySet="touchpointQuestionnaire_deprecated" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointQuestionnaire_touchpoint" Association="Self.FK_touchpointQuestionnaire_touchpoint">
+      <End Role="touchpoint" EntitySet="touchpoint" />
+      <End Role="touchpointQuestionnaire_deprecated" EntitySet="touchpointQuestionnaire_deprecated" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointQuestionResponseValue_touchpoint" Association="Self.FK_touchpointQuestionResponseValue_touchpoint">
+      <End Role="touchpoint" EntitySet="touchpoint" />
+      <End Role="touchpointQuestionResponseValue_deprecated" EntitySet="touchpointQuestionResponseValue_deprecated" />
+    </AssociationSet>
+    <AssociationSet Name="FK_touchpointQuestionWeight_touchpoint" Association="Self.FK_touchpointQuestionWeight_touchpoint">
+      <End Role="touchpoint" EntitySet="touchpoint" />
+      <End Role="touchpointQuestionWeight_deprecated" EntitySet="touchpointQuestionWeight_deprecated" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UM_M_Menu_UM_M_Menu" Association="Self.FK_UM_M_Menu_UM_M_Menu">
+      <End Role="UM_M_Menu_deprecated" EntitySet="UM_M_Menu_deprecated" />
+      <End Role="UM_M_Menu_deprecated1" EntitySet="UM_M_Menu_deprecated" />
+    </AssociationSet>
+  </EntityContainer>
 </Schema>

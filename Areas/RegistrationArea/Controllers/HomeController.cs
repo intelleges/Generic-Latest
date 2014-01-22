@@ -120,7 +120,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
 
-        [HttpPost]
+        
+        [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult QuestionnaireResponse(FormCollection formCollection, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
             if (Session["hs3Registration"] == null)
@@ -128,6 +129,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 return RedirectToAction("Index");
             }
 
+            //[2] = "question_454_1171_fileUploadComment"
+            //
 
             int questionnaireId = 0;
             int partnerId = 0;
@@ -158,9 +161,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
 
-            ////save uploaded files
-            //jumpToQuestion = saveUploadedFile(protocol, campaign, provider, questionnaire);
-            //jumpToQuestion = 0;
+            
+            jumpToQuestion = 0;
+           
 
             foreach (var keyName in formCollection.Keys)
             {
@@ -231,7 +234,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             responseComment = answer;
                         }
 
-
+                        
                         db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, pptq);
                     }
                     else if (keyName.ToString().Contains("_checkBox"))
@@ -557,6 +560,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
             }
 
+           // save uploaded files
+                jumpToQuestion = saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
+
 
             //for (int i = 0; i < Request.Form.Keys.Count; i++)
             //{
@@ -776,6 +782,123 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     //}
                 }
             }
+        }
+
+        private int saveUploadedFile(int protocolId, int touchpointId, int partnerId, int questionnaireId, int pptq)
+        {
+            Random random = new Random();
+            int number = random.Next(1000000, 9999999);
+            string fileName = "";
+            int questionId = 0;
+            int surveyId = 0;
+            string key = "";
+            string[] array = new string[4];
+            char[] splitter = { '_' };
+            question question = null;
+            survey survey = null;
+            int jumpToQuestion = 0;
+            string errorMessage = "";
+
+            for (int i = 0; i < Request.Files.Keys.Count; i++)
+            {
+
+                key = Request.Files.Keys[i];
+
+                //get question and survey id
+                array = key.Split(splitter);
+                questionId = int.Parse(array[1]);
+                surveyId = int.Parse(array[2]);
+
+                //question = new question(new Id(questionId)).getQuestionDetail();
+                //survey = new survey(new Id(surveyId));
+                //provider = provider.getProviderById();
+
+                //get jump to question
+                //if (question.skipLogicAnswer == true)
+                //{
+                //    if (question.skipLogicJump.Contains("&"))
+                //    {
+                //    }
+                //    else
+                //    {
+                //        jumpToQuestion = int.Parse(question.skipLogicJump);
+                //    }
+                //}
+
+                if (Request.Files[i].FileName.Length > 0)
+                {
+                    string Extension = Request.Files[i].FileName.Substring(Request.Files[i].FileName.LastIndexOf('.') + 1).ToLower();
+                    //    if (Request.Files[i].FileName.Substring()
+                    //    {
+
+
+                    if (Request.Files[i].ContentLength <= 4194304)
+                    {
+                        //if the directory already exists
+                        //create a new directory name
+                        //string dirname = "/Hs3/Honeywell/CertsAndReps/2013/UploadFiles";
+                        //if (!Directory.Exists(Server.MapPath(dirname)))
+                        //{
+                        //    Directory.CreateDirectory(Server.MapPath(dirname));
+                        //}
+                        //if (Directory.Exists(Server.MapPath("uploadedFile/" + number.ToString())))
+                        //{
+                        //    number = random.Next(1000000, 9999999);
+                        //}
+
+                        //create the new directory and save the file in it
+                        //Directory.CreateDirectory(Server.MapPath("uploadedFile/" + number.ToString()));
+                        //if (question.id.id == 5132)
+                        //if (question.question == "SAM")
+                        //    fileName = dirname + "/" + provider.accessCode.accessCode + "_SAM." + Extension;
+                        //// else if (question.id.id == 5171)
+                        //else if (question.question == "HUB")
+
+                        //    fileName = dirname + "/" + provider.accessCode.accessCode + "_Hubzone." + Extension;
+                        /*if (File.Exists(fileName))
+                                //	File.Delete(fileName );
+                        //FileStream file = new FileStream(Server.MapPath(fileName) , FileMode.Create, System.IO.FileAccess.Write);
+
+                                //Request.Files[i].SaveAs(Server.MapPath(fileName));
+
+                        file.Close(); //for File saving update Nitoo 1Nov*/
+                        //save the file path in the database
+                        //provider.addProviderProtocolCampaignQuestionnaireSurveyQuestionUploadedFile(
+                        //    protocol, campaign, questionnaire, survey, question, fileName);
+
+
+                        var pptqq = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
+                      
+                        
+                        
+                        byte[] uploadedFile = new byte[Request.Files[i].InputStream.Length];
+                        Request.Files[i].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+
+                        db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(pptqq.id, questionId, pptqq.response, pptqq.comment, uploadedFile, null, pptq);
+
+                        //int length = uploadFile.ContentLength;
+                        //byte[] tempImage = new byte[length];
+                        //myDBObject.ContentType = uploadFile.ContentType;
+
+                        //uploadFile.InputStream.Read(tempImage, 0, length);
+                        //myDBObject.ActualImage = tempImage;
+                    }
+                    else
+                    {
+
+
+                    }
+
+                }
+
+                //if (question.title == "Upload Certification letter if applicable.")
+                //{
+                //    jumpToQuestion = 1;
+                //}
+            }
+
+
+            return jumpToQuestion;
         }
 
 

@@ -18,34 +18,37 @@
 @( Html.Telerik().Grid(Model).Name("GroupGrid")
         .Columns(columns =>
         {
-            columns.Bound(o => o.enterprise);
+            columns.Bound(o => o.enterprise).Width(100);
 
-            columns.Bound(o => o.groupCollection);
+            columns.Bound(o => o.groupCollection).Width(100);
 
-            columns.Bound(o => o.groupType);
+            columns.Bound(o => o.groupType).Width(100);
 
-            columns.Bound(o => o.author);
+            columns.Bound(o => o.author).Width(100);
 
-            columns.Bound(o => o.state);
+            columns.Bound(o => o.state).Width(100);
 
-            columns.Bound(o => o.name);
+            columns.Bound(o => o.name).Width(100);
 
-            columns.Bound(o => o.description);
+            columns.Bound(o => o.description).Width(100);
 
-            columns.Bound(o => o.email);
+            columns.Bound(o => o.email).Width(100);
 
-            columns.Bound(o => o.dateCreated);
+            columns.Bound(o => o.dateCreated).Width(100);
 
-            columns.Bound(o => o.sortOrder);
+            columns.Bound(o => o.sortOrder).Width(100);
 
-            columns.Bound(o => o.active);
+            columns.Bound(o => o.active).Width(100);
 
-            columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit");
-            columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details");
-            columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete");
+            columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit").Width(100);
+            columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details").Width(100);
+            columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete").Width(100);
         })
         .Pageable()
         .Sortable()
+        .Scrollable(scrolling => scrolling
+           .Enabled(true)
+           .Height("auto"))
 )
 
 <script src="~/Scripts/jquery-1.8.2.js"></script>

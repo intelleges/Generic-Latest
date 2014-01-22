@@ -96,7 +96,11 @@ namespace Generic.Controllers
         [Authorize]
         public virtual ActionResult Home()
         {
-            ViewBag.Project = "Generic";
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+
+            //db.pr_getrol
+
+            ViewBag.enterpriseName = enterprise.description;
             return View();
         }
 

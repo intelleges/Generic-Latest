@@ -2590,6 +2590,15 @@
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
       <Parameter Name="previousPage" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="pr_getPersonByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonByEnterprise_Result)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPersonByEnterprise1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonByEnterprise1_Result)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPersonByEnterprise2" EntitySet="person" ReturnType="Collection(hs3MVCMTQa2Model.person)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" ReturnType="Collection(hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse)">
       <Parameter Name="question" Mode="In" Type="Int32" />
       <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
@@ -6895,5 +6904,71 @@
     <Property Type="Int32" Name="value" Nullable="true" />
     <Property Type="Int32" Name="score" Nullable="true" />
     <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getPersonByEnterprise_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+    <Property Type="Int32" Name="manager" Nullable="true" />
+    <Property Type="Int32" Name="personStatus" Nullable="true" />
+    <Property Type="Int32" Name="riskType" Nullable="true" />
+    <Property Type="Int32" Name="loadHistory" Nullable="true" />
+    <Property Type="Int32" Name="campaign" Nullable="true" />
+    <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="suffix" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="nickName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="state" Nullable="true" />
+    <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="country" Nullable="true" />
+    <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="ismanager" Nullable="true" />
+    <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+    <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+    <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="pr_getPersonByEnterprise1_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+    <Property Type="Int32" Name="manager" Nullable="true" />
+    <Property Type="Int32" Name="personStatus" Nullable="true" />
+    <Property Type="Int32" Name="riskType" Nullable="true" />
+    <Property Type="Int32" Name="loadHistory" Nullable="true" />
+    <Property Type="Int32" Name="campaign" Nullable="true" />
+    <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="suffix" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="nickName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="state" Nullable="true" />
+    <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="country" Nullable="true" />
+    <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="ismanager" Nullable="true" />
+    <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+    <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+    <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
   </ComplexType>
 </Schema>

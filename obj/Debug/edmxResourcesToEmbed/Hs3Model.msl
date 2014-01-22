@@ -1559,42 +1559,12 @@
             <ScalarProperty Name="enterprise" ParameterName="enterprise" />
             <ResultBinding Name="id" ColumnName="id" />
           </InsertFunction>
-          <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPerson">
-            <ScalarProperty Name="personStatus" ParameterName="PersonStatus" Version="Current" />
-            <ScalarProperty Name="archivedDate" ParameterName="archivedDate" Version="Current" />
-            <ScalarProperty Name="IsArchived" ParameterName="IsArchived" Version="Current" />
-            <ScalarProperty Name="resetDate" ParameterName="resetDate" Version="Current" />
-            <ScalarProperty Name="partnerPerPage" ParameterName="partnerPerPage" Version="Current" />
-            <ScalarProperty Name="ismanager" ParameterName="ismanager" Version="Current" />
-            <ScalarProperty Name="active" ParameterName="active" Version="Current" />
-            <ScalarProperty Name="fax" ParameterName="fax" Version="Current" />
-            <ScalarProperty Name="phone" ParameterName="phone" Version="Current" />
-            <ScalarProperty Name="country" ParameterName="country" Version="Current" />
-            <ScalarProperty Name="zipcode" ParameterName="zipcode" Version="Current" />
-            <ScalarProperty Name="state" ParameterName="state" Version="Current" />
-            <ScalarProperty Name="city" ParameterName="city" Version="Current" />
-            <ScalarProperty Name="address2" ParameterName="address2" Version="Current" />
-            <ScalarProperty Name="address1" ParameterName="address1" Version="Current" />
-            <ScalarProperty Name="email" ParameterName="email" Version="Current" />
-            <ScalarProperty Name="passWord" ParameterName="passWord" Version="Current" />
-            <ScalarProperty Name="nickName" ParameterName="nickName" Version="Current" />
-            <ScalarProperty Name="suffix" ParameterName="suffix" Version="Current" />
-            <ScalarProperty Name="title" ParameterName="title" Version="Current" />
-            <ScalarProperty Name="lastName" ParameterName="lastName" Version="Current" />
-            <ScalarProperty Name="firstName" ParameterName="firstName" Version="Current" />
-            <ScalarProperty Name="socialSecurity" ParameterName="socialSecurity" Version="Current" />
-            <ScalarProperty Name="nmNumber" ParameterName="nmNumber" Version="Current" />
-            <ScalarProperty Name="internalId" ParameterName="internalId" Version="Current" />
-            <ScalarProperty Name="campaign" ParameterName="campaign" Version="Current" />
-            <ScalarProperty Name="loadHistory" ParameterName="loadHistory" Version="Current" />
-            <ScalarProperty Name="riskType" ParameterName="riskType" Version="Current" />
-            <ScalarProperty Name="manager" ParameterName="manager" Version="Current" />
-            <ScalarProperty Name="enterprise" ParameterName="enterprise" Version="Current" />
-            <ScalarProperty Name="id" ParameterName="id" Version="Current" />
-          </UpdateFunction>
           <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removePerson">
             <ScalarProperty Name="id" ParameterName="id" />
           </DeleteFunction>
+          <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByEnterprise">
+            <ScalarProperty Name="enterprise" ParameterName="enterprise" Version="Current" />
+          </UpdateFunction>
         </ModificationFunctionMapping>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -3304,5 +3274,43 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_getNextPageByQuestionnairePreviousPage" FunctionName="hs3MVCMTQa2Model.Store.pr_getNextPageByQuestionnairePreviousPage" />
     <FunctionImportMapping FunctionImportName="pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ" />
+    <FunctionImportMapping FunctionImportName="pr_getPersonByEnterprise1" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByEnterprise">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByEnterprise1_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="manager" ColumnName="manager" />
+          <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+          <ScalarProperty Name="riskType" ColumnName="riskType" />
+          <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+          <ScalarProperty Name="campaign" ColumnName="campaign" />
+          <ScalarProperty Name="internalId" ColumnName="internalId" />
+          <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+          <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="suffix" ColumnName="suffix" />
+          <ScalarProperty Name="nickName" ColumnName="nickName" />
+          <ScalarProperty Name="passWord" ColumnName="passWord" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+          <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+          <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+          <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+          <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPersonByEnterprise2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByEnterprise" />
   </EntityContainerMapping>
 </Mapping>
