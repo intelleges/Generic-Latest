@@ -158,6 +158,7 @@ namespace Generic.Controllers
             model.DropDownListAttributes.SelectedIndex = model.DropDownListAttributes.SelectedIndex ?? 0;
 
             model.Touchpoints = db.pr_getTouchpointAll().ToList();
+
             return PartialView("_TouchpointPartial",model);
             
         }

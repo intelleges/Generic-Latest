@@ -494,6 +494,7 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ComboBox.cs" />
+    <Compile Include="Models\ComboBoxModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\PersonComboModel.cs" />
@@ -2350,6 +2351,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Questionnaire\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\EditCompanyInformation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\EditContactInformation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\ESignature.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\Finish.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

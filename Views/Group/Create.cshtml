@@ -54,6 +54,15 @@
             @Html.EditorFor(model => model.description)
             @Html.ValidationMessageFor(model => model.description)
         </div>
+        <div class="editor-label">
+           Test
+             </div>
+        <div class="editor-field">
+            <input class="text-box single-line" id="description2" data-val="true" data-val-required="The description2 field is required." name="description2" type="text" value="">
+            <span class="field-validation-valid" data-valmsg-for="description2" data-valmsg-replace="true"></span>
+
+              </div>
+
 
         <div class="editor-label">
             @Html.LabelFor(model => model.email)

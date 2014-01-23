@@ -148,7 +148,7 @@
                                                                                 <span id="ctl00_contentQuestionnaireBody_lblCompanyName"><p><b>@Model.name</b><p>&nbsp;</p></p></span>
                                                                                 <!-- end show company name -->
                                                                                 <!-- show physical address -->
-                                                                                <span id="ctl00_contentQuestionnaireBody_lblAddress">@Model.address1<br />@Model.address2<br />@Model.city , @Model.zipcode<br />@ViewBag.country</p></span>
+                                                                                <span id="ctl00_contentQuestionnaireBody_lblAddress">@Model.address1<br />@Model.address2<br />@Model.city, @ViewBag.state , @Model.zipcode<br />@ViewBag.country</p></span>
                                                                                 <!-- end show physical address -->
                                                                                 <!-- show remit address -->
                                                                                 <span id="ctl00_contentQuestionnaireBody_lblRemitAddress"></span>
@@ -178,7 +178,8 @@
                                                     <table width="230" border="0" cellspacing="0" cellpadding="0">
                                                         <tr>
                                                             <td width="103" align="right">
-                                                                <input type="image" name="btnEdit" id="btnEdit" src="/Contents/RegistrationStyle/images/edit.gif" style="border-width:0px;" />
+                                                              
+                                                                <input type="image"  name="btnEdit" id="btnEdit" onclick="window.location = 'EditCompanyInformation';" src="/Contents/RegistrationStyle/images/edit.gif" style="border-width:0px;" />
                                                             </td>
                                                             
                                                             <td width="112" align="right">

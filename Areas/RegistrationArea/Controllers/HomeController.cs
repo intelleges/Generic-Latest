@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Linq;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Generic.DataLayer;
+using Generic.Models;
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class HomeController : Controller
@@ -56,6 +58,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
             ViewBag.country = db.pr_getCountry(objPartner.country).FirstOrDefault().name;
+            try
+            {
+                ViewBag.state = db.pr_getState(objPartner.state).FirstOrDefault().stateCode;
+            }
+            catch { }
             return View(objPartner);
         }
 
@@ -937,6 +944,163 @@ namespace Generic.Areas.RegistrationArea.Controllers
             fileName = "abc";
             //return file and provide byte file content and file name --application/pdf
             return File(fileData, "application/pdf", fileName);
+        }
+
+
+        public ActionResult EditCompanyInformation()
+        {
+            if (Session["hs3Registration"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            partner partner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
+            if (partner == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().AsEnumerable(), "id", "stateCode", partner.state);
+            ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", partner.country);
+            //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
+
+            ComboBoxModel objCombobox = new ComboBoxModel();
+            
+            objCombobox.ComboBoxAttributes.SelectedIndex = partner.state;
+            ViewBag.combobox = objCombobox;
+            IEnumerable<state> states = new List<state>();
+            states = db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            ViewBag.states = states;
+
+
+
+            ComboBoxModel objComboboxCountry = new ComboBoxModel();
+            objComboboxCountry.ComboBoxAttributes.SelectedIndex = partner.country;
+            ViewBag.comboboxCountry = objComboboxCountry;
+            ViewBag.countries = db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID);
+
+            return View(partner);
+        }
+        [HttpPost]
+        public ActionResult EditCompanyInformation(partner partner)
+        {
+            if (Session["hs3Registration"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            partner objpartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
+            objpartner.name = partner.name;
+            objpartner.address1 = partner.address1;
+            objpartner.address2 = partner.address2;
+            objpartner.city = partner.city;
+            objpartner.state = partner.state;
+            objpartner.zipcode = partner.zipcode;
+            objpartner.province = partner.province;
+            objpartner.country = partner.country;
+            if (ModelState.IsValid)
+            {
+                db.Entry(objpartner).State = EntityState.Modified;
+                db.SaveChanges(); 
+                return RedirectToAction("CompanyInformation");
+            }
+           
+            return View(partner);
+        }
+
+
+        public ActionResult EditContactInformation()
+        {
+            if (Session["hs3Registration"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            partner partner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
+            if (partner == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(partner);
+        }
+
+        [HttpPost]
+        public ActionResult EditContactInformation(partner partner)
+        {
+            if (Session["hs3Registration"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            partner objpartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
+            objpartner.firstName = partner.firstName;
+            objpartner.lastName = partner.lastName;
+            objpartner.title = partner.title;
+            objpartner.email = partner.email;
+            objpartner.phone = partner.phone;
+            objpartner.fax = partner.fax;
+         
+            if (ModelState.IsValid)
+            {
+                db.Entry(objpartner).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ContactInformation");
+            }
+           
+            return View(partner);
+        }
+
+        public ActionResult ESignature()
+        {
+            if (Session["hs3Registration"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+            eSignature objeSignature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id).FirstOrDefault();
+            return View(objeSignature);
+        }
+
+        [HttpPost]
+        public ActionResult ESignature(eSignature objeSignatureNew)
+        {
+            if (Session["hs3Registration"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+            partnerPartnertypeTouchpointQuestionnaire pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+            eSignature objeSignature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq.id).FirstOrDefault();
+            if (objeSignature == null)
+            {
+                
+                objeSignatureNew.affirmation = "Yes";
+                objeSignatureNew.partnerPartnerTypeTouchpointQuestionnaire = pptq.id;
+                db.Entry(objeSignatureNew).State = EntityState.Added;
+                db.SaveChanges();
+            }
+            else
+            {
+                objeSignature.firstName = objeSignatureNew.firstName;
+                objeSignature.lastName = objeSignatureNew.lastName;
+                objeSignature.email = objeSignatureNew.email;             
+                objeSignature.affirmation = "Yes";
+                db.Entry(objeSignature).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            pptq.completedDate = DateTime.Now;            
+            db.Entry(pptq).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Finish");
+        }
+
+        public ActionResult Finish()
+        {
+            if (Session["hs3Registration"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
 

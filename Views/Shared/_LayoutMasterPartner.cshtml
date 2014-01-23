@@ -1,4 +1,6 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
+@using Telerik.Web.Mvc.UI;
+@using System.Web.Optimization;
 @{
     Layout = "~/tmp/Views/Shared/_LayoutMaster.cshtml";    
 }
@@ -19,13 +21,6 @@
     <link rel="stylesheet" href="@Url.Content("~/Contents/RegistrationStyle/divwindow/css/dhtmlwindow.css")" type="text/css" />
 
 
- @*   
-<link rel="stylesheet" href="/Contents/Partner/modal.css" type="text/css" />*@
-
-@*<link href="~/Generic/Contents/Partner/dhtmlwindow.css" rel="stylesheet" />
-<link href="~/Generic/Contents/Partner/menu.css" rel="stylesheet" />
-<link href="~/Generic/Contents/Partner/modal.css" rel="stylesheet" />
-<link href="~/Generic/Contents/Partner/styles.css" rel="stylesheet" />*@
 
 
     
@@ -34,35 +29,18 @@
 <link href="@Url.Content("~/Contents/css/gfdynamicfeedcontroller.css")" type="text/css" rel="stylesheet" />
 
 
+ @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryui")
+    @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
+                .Add("telerik.common.css")
+                .Add("telerik.rtl.css")
+                .Combined(true)
+                .Compress(true)))
+
 <body>
     
-@*<div>
-<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
-<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
-<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTc4Njk4ODE5MA9kFgJmD2QWAgIBD2QWCAIBDw8WAh4EVGV4dAUtRnJlZSBUcmlhbCBSZWdpc3RyYXRpb24gZm9yIENvbmZsaWN0IE1pbmVyYWxzZGQCAw8WAh4JaW5uZXJodG1sBdMBSW50ZWxsZWdlcyA8Yj4zVEcvQ29uZmxpY3QgTWluZXJhbHMgUmVhZGluZXNzIFF1ZXN0aW9ubmFpcmU8L2I+IGlzIGRlc2lnbmVkIHRvIGNhcHR1cmUgaW5mb3JtYXRpb24gYWJvdXQgeW91ciBjb21wYW55J3MgcmVhZGluZXNzIHBlcnRhaW5pbmcgdG8gY29tcGxpYW5jZSB3aXRoIFNFQyBEb2RkLUZyYW5rIFNlY3Rpb24gMTUwMiBDb25mbGljdCBNaW5lcmFscyBydWxlLmQCBQ8WAh8BBYQBRW50ZXIgeW91ciBhY2Nlc3MgY29kZSAoZm91bmQgaW4geW91ciBpbnZpdGF0aW9uIGVtYWlsKSBiZWxvdyB0byBjb21wbGV0ZSB0aGUgPGI+M1RHL0NvbmZsaWN0IE1pbmVyYWxzIFJlYWRpbmVzcyBRdWVzdGlvbm5haXJlPC9iPi4gZAIJDw8WAh8ABQQyMDEzZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFJ2N0bDAwJGNvbnRlbnRRdWVzdGlvbm5haXJlQm9keSRidG5sb2dpbojZ1JMLX2sy/yOsrSUw9uKtH6yo7NqwChbDqbXsyh5j" />
-</div>
 
-<script type="text/javascript">
-//<![CDATA[
-var theForm = document.forms['aspnetForm'];
-if (!theForm) {
-    theForm = document.aspnetForm;
-}
-function __doPostBack(eventTarget, eventArgument) {
-    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
-        theForm.__EVENTTARGET.value = eventTarget;
-        theForm.__EVENTARGUMENT.value = eventArgument;
-        theForm.submit();
-    }
-}
-//]]>
-</script>
-
-
-<div>
-
-	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAQLfov54whVQg5nMK5WEHTaFBlB47vb2EzujU37xwO3kDCOy1DB+wZYys1JnQ94bycFwCLejyMbw2dg4NbzQrjOM4xqCdeFd0bLH92RZZUZvT88SKQPvtx4rZx/s8HDfck=" />
-</div>*@
     <!-- Contact us : -->
 
     <script type="text/javascript">
@@ -144,6 +122,25 @@ function __doPostBack(eventTarget, eventArgument) {
         <div class="bluebg">
         </div>
     </div>
+
+ @RenderSection("scripts", required: false)
+  <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+    <script type="text/javascript">
+        jQuery.noConflict();
+        jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
+    </script>
+
+    
+@(Html.Telerik().ScriptRegistrar()
+    .DefaultGroup(group => group
+        .Combined(true)
+        .Compress(true)
+    )    
+)
+
+
+    @Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
     
 
 </body>
