@@ -41,7 +41,12 @@ namespace Generic.Models
         {
 
         }
+        public Email(autoMailMessage amm)
+        {
+            this.body = amm.text + "<br>" + amm.footer1 + "<br>" + amm.footer2;
+            this.subject = amm.subject;
 
+        }
        
         private int _id;
    //     private User _sender;

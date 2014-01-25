@@ -122,6 +122,12 @@ namespace Generic.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult GetGroupByTouchpoint(int touchpointId)
+        {
+            var group = db.pr_getGroupByTouchpoint(touchpointId).Select(x => new { x.id, x.description }).ToList();
+            return Json(new { Data = group }, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

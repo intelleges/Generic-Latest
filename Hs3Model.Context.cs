@@ -15,19 +15,19 @@ namespace Generic
     using System.Data.Objects;
     using System.Data.Objects.DataClasses;
     using System.Linq;
-
+    
     public partial class EntitiesDBContext : DbContext
     {
         public EntitiesDBContext()
             : base("name=Entities")
         {
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-
+    
         public DbSet<accessLevel> accessLevel { get; set; }
         public DbSet<agency> agency { get; set; }
         public DbSet<autoMailAttachment> autoMailAttachment { get; set; }
@@ -130,8748 +130,8921 @@ namespace Generic
         public DbSet<zCode> zCode { get; set; }
         public DbSet<zCodeBatchUpdate> zCodeBatchUpdate { get; set; }
         public DbSet<prReminder> prReminder { get; set; }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAgency", descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_addAutomail(Nullable<int> protocol, Nullable<int> touchpoint, Nullable<int> partnerType, Nullable<int> mailType, string subject, string text, string footer1, string footer2)
         {
             var protocolParameter = protocol.HasValue ?
                 new ObjectParameter("protocol", protocol) :
                 new ObjectParameter("protocol", typeof(int));
-
+    
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var partnerTypeParameter = partnerType.HasValue ?
                 new ObjectParameter("partnerType", partnerType) :
                 new ObjectParameter("partnerType", typeof(int));
-
+    
             var mailTypeParameter = mailType.HasValue ?
                 new ObjectParameter("mailType", mailType) :
                 new ObjectParameter("mailType", typeof(int));
-
+    
             var subjectParameter = subject != null ?
                 new ObjectParameter("subject", subject) :
                 new ObjectParameter("subject", typeof(string));
-
+    
             var textParameter = text != null ?
                 new ObjectParameter("text", text) :
                 new ObjectParameter("text", typeof(string));
-
+    
             var footer1Parameter = footer1 != null ?
                 new ObjectParameter("footer1", footer1) :
                 new ObjectParameter("footer1", typeof(string));
-
+    
             var footer2Parameter = footer2 != null ?
                 new ObjectParameter("footer2", footer2) :
                 new ObjectParameter("footer2", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addAutomail", protocolParameter, touchpointParameter, partnerTypeParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addAutoMailAttachment(Nullable<int> autoMail, string attachment, string note)
         {
             var autoMailParameter = autoMail.HasValue ?
                 new ObjectParameter("autoMail", autoMail) :
                 new ObjectParameter("autoMail", typeof(int));
-
+    
             var attachmentParameter = attachment != null ?
                 new ObjectParameter("attachment", attachment) :
                 new ObjectParameter("attachment", typeof(string));
-
+    
             var noteParameter = note != null ?
                 new ObjectParameter("note", note) :
                 new ObjectParameter("note", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAutoMailAttachment", autoMailParameter, attachmentParameter, noteParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addAutoMailType(string description, Nullable<int> sortOrder, Nullable<int> active)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAutoMailType", descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addCountry(Nullable<int> eplsCountryID, string name, string code, string governanceCode, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var eplsCountryIDParameter = eplsCountryID.HasValue ?
                 new ObjectParameter("eplsCountryID", eplsCountryID) :
                 new ObjectParameter("eplsCountryID", typeof(int));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var codeParameter = code != null ?
                 new ObjectParameter("code", code) :
                 new ObjectParameter("code", typeof(string));
-
+    
             var governanceCodeParameter = governanceCode != null ?
                 new ObjectParameter("governanceCode", governanceCode) :
                 new ObjectParameter("governanceCode", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCountry", eplsCountryIDParameter, nameParameter, codeParameter, governanceCodeParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addDomain(string description, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addDomain", descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addEmailBounceType(string description, Nullable<int> code, Nullable<int> sortOrder, Nullable<int> active)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var codeParameter = code.HasValue ?
                 new ObjectParameter("code", code) :
                 new ObjectParameter("code", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEmailBounceType", descriptionParameter, codeParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_addEmailTag(string @class, string method, string variable)
         {
             var classParameter = @class != null ?
                 new ObjectParameter("class", @class) :
                 new ObjectParameter("class", typeof(string));
-
+    
             var methodParameter = method != null ?
                 new ObjectParameter("method", method) :
                 new ObjectParameter("method", typeof(string));
-
+    
             var variableParameter = variable != null ?
                 new ObjectParameter("variable", variable) :
                 new ObjectParameter("variable", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addEmailTag", classParameter, methodParameter, variableParameter);
         }
-
+    
         public virtual int pr_addEmailTemplate(Nullable<int> emailTemplateType, Nullable<int> enterprise, Nullable<int> author, Nullable<System.DateTime> dateCreated, string subject, string body)
         {
             var emailTemplateTypeParameter = emailTemplateType.HasValue ?
                 new ObjectParameter("EmailTemplateType", emailTemplateType) :
                 new ObjectParameter("EmailTemplateType", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var authorParameter = author.HasValue ?
                 new ObjectParameter("author", author) :
                 new ObjectParameter("author", typeof(int));
-
+    
             var dateCreatedParameter = dateCreated.HasValue ?
                 new ObjectParameter("dateCreated", dateCreated) :
                 new ObjectParameter("dateCreated", typeof(System.DateTime));
-
+    
             var subjectParameter = subject != null ?
                 new ObjectParameter("subject", subject) :
                 new ObjectParameter("subject", typeof(string));
-
+    
             var bodyParameter = body != null ?
                 new ObjectParameter("body", body) :
                 new ObjectParameter("body", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addEmailTemplate", emailTemplateTypeParameter, enterpriseParameter, authorParameter, dateCreatedParameter, subjectParameter, bodyParameter);
         }
-
+    
         public virtual int pr_addEmailTemplateType(string description, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addEmailTemplateType", descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addEnterprise(string description, Nullable<int> sortOrder, Nullable<bool> active, string logo, string applicationPath, string companyName, string instanceName, Nullable<System.DateTime> archivedDate)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var logoParameter = logo != null ?
                 new ObjectParameter("logo", logo) :
                 new ObjectParameter("logo", typeof(string));
-
+    
             var applicationPathParameter = applicationPath != null ?
                 new ObjectParameter("applicationPath", applicationPath) :
                 new ObjectParameter("applicationPath", typeof(string));
-
+    
             var companyNameParameter = companyName != null ?
                 new ObjectParameter("companyName", companyName) :
                 new ObjectParameter("companyName", typeof(string));
-
+    
             var instanceNameParameter = instanceName != null ?
                 new ObjectParameter("instanceName", instanceName) :
                 new ObjectParameter("instanceName", typeof(string));
-
+    
             var archivedDateParameter = archivedDate.HasValue ?
                 new ObjectParameter("archivedDate", archivedDate) :
                 new ObjectParameter("archivedDate", typeof(System.DateTime));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterprise", descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, archivedDateParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addEnterpriseObjectName(Nullable<int> enterprise, string objectName, string alias, Nullable<int> device)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var objectNameParameter = objectName != null ?
                 new ObjectParameter("objectName", objectName) :
                 new ObjectParameter("objectName", typeof(string));
-
+    
             var aliasParameter = alias != null ?
                 new ObjectParameter("alias", alias) :
                 new ObjectParameter("alias", typeof(string));
-
+    
             var deviceParameter = device.HasValue ?
                 new ObjectParameter("device", device) :
                 new ObjectParameter("device", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterpriseObjectName", enterpriseParameter, objectNameParameter, aliasParameter, deviceParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addEnterpriseSystemInfo(Nullable<System.DateTime> systemExpiry, Nullable<int> licenseLimit, string companyName, string contractCoordinator, string companyWebSite, string coordinatorEmail, Nullable<int> isCurrentDataBase, string logoImage, Nullable<bool> configured, Nullable<int> enterprise)
         {
             var systemExpiryParameter = systemExpiry.HasValue ?
                 new ObjectParameter("systemExpiry", systemExpiry) :
                 new ObjectParameter("systemExpiry", typeof(System.DateTime));
-
+    
             var licenseLimitParameter = licenseLimit.HasValue ?
                 new ObjectParameter("licenseLimit", licenseLimit) :
                 new ObjectParameter("licenseLimit", typeof(int));
-
+    
             var companyNameParameter = companyName != null ?
                 new ObjectParameter("companyName", companyName) :
                 new ObjectParameter("companyName", typeof(string));
-
+    
             var contractCoordinatorParameter = contractCoordinator != null ?
                 new ObjectParameter("contractCoordinator", contractCoordinator) :
                 new ObjectParameter("contractCoordinator", typeof(string));
-
+    
             var companyWebSiteParameter = companyWebSite != null ?
                 new ObjectParameter("companyWebSite", companyWebSite) :
                 new ObjectParameter("companyWebSite", typeof(string));
-
+    
             var coordinatorEmailParameter = coordinatorEmail != null ?
                 new ObjectParameter("coordinatorEmail", coordinatorEmail) :
                 new ObjectParameter("coordinatorEmail", typeof(string));
-
+    
             var isCurrentDataBaseParameter = isCurrentDataBase.HasValue ?
                 new ObjectParameter("isCurrentDataBase", isCurrentDataBase) :
                 new ObjectParameter("isCurrentDataBase", typeof(int));
-
+    
             var logoImageParameter = logoImage != null ?
                 new ObjectParameter("logoImage", logoImage) :
                 new ObjectParameter("logoImage", typeof(string));
-
+    
             var configuredParameter = configured.HasValue ?
                 new ObjectParameter("configured", configured) :
                 new ObjectParameter("configured", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterpriseSystemInfo", systemExpiryParameter, licenseLimitParameter, companyNameParameter, contractCoordinatorParameter, companyWebSiteParameter, coordinatorEmailParameter, isCurrentDataBaseParameter, logoImageParameter, configuredParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addEsignature(string firstName, string lastName, string title, string email, string affirmation, string officer, string phone, Nullable<System.DateTime> completeDate, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
         {
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("firstName", firstName) :
                 new ObjectParameter("firstName", typeof(string));
-
+    
             var lastNameParameter = lastName != null ?
                 new ObjectParameter("lastName", lastName) :
                 new ObjectParameter("lastName", typeof(string));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var affirmationParameter = affirmation != null ?
                 new ObjectParameter("affirmation", affirmation) :
                 new ObjectParameter("affirmation", typeof(string));
-
+    
             var officerParameter = officer != null ?
                 new ObjectParameter("officer", officer) :
                 new ObjectParameter("officer", typeof(string));
-
+    
             var phoneParameter = phone != null ?
                 new ObjectParameter("phone", phone) :
                 new ObjectParameter("phone", typeof(string));
-
+    
             var completeDateParameter = completeDate.HasValue ?
                 new ObjectParameter("completeDate", completeDate) :
                 new ObjectParameter("completeDate", typeof(System.DateTime));
-
+    
             var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEsignature", firstNameParameter, lastNameParameter, titleParameter, emailParameter, affirmationParameter, officerParameter, phoneParameter, completeDateParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addEventNotification(string email, Nullable<System.DateTime> timestamp, string @event, string reason, string url, string category, string accesscode, string protocolTouchpoint, string applicationName, Nullable<int> enterprise)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var timestampParameter = timestamp.HasValue ?
                 new ObjectParameter("timestamp", timestamp) :
                 new ObjectParameter("timestamp", typeof(System.DateTime));
-
+    
             var eventParameter = @event != null ?
                 new ObjectParameter("event", @event) :
                 new ObjectParameter("event", typeof(string));
-
+    
             var reasonParameter = reason != null ?
                 new ObjectParameter("reason", reason) :
                 new ObjectParameter("reason", typeof(string));
-
+    
             var urlParameter = url != null ?
                 new ObjectParameter("url", url) :
                 new ObjectParameter("url", typeof(string));
-
+    
             var categoryParameter = category != null ?
                 new ObjectParameter("category", category) :
                 new ObjectParameter("category", typeof(string));
-
+    
             var accesscodeParameter = accesscode != null ?
                 new ObjectParameter("accesscode", accesscode) :
                 new ObjectParameter("accesscode", typeof(string));
-
+    
             var protocolTouchpointParameter = protocolTouchpoint != null ?
                 new ObjectParameter("protocolTouchpoint", protocolTouchpoint) :
                 new ObjectParameter("protocolTouchpoint", typeof(string));
-
+    
             var applicationNameParameter = applicationName != null ?
                 new ObjectParameter("applicationName", applicationName) :
                 new ObjectParameter("applicationName", typeof(string));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEventNotification", emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addEventNotificationBounce(string email, string error)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var errorParameter = error != null ?
                 new ObjectParameter("error", error) :
                 new ObjectParameter("error", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEventNotificationBounce", emailParameter, errorParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addGroup(Nullable<int> enterprise, Nullable<int> groupCollection, Nullable<int> author, Nullable<int> state, string name, string description, string email, Nullable<System.DateTime> dateCreated, Nullable<int> sortOrder, Nullable<int> active)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var groupCollectionParameter = groupCollection.HasValue ?
                 new ObjectParameter("groupCollection", groupCollection) :
                 new ObjectParameter("groupCollection", typeof(int));
-
+    
             var authorParameter = author.HasValue ?
                 new ObjectParameter("author", author) :
                 new ObjectParameter("author", typeof(int));
-
+    
             var stateParameter = state.HasValue ?
                 new ObjectParameter("state", state) :
                 new ObjectParameter("state", typeof(int));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var dateCreatedParameter = dateCreated.HasValue ?
                 new ObjectParameter("dateCreated", dateCreated) :
                 new ObjectParameter("dateCreated", typeof(System.DateTime));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addGroup", enterpriseParameter, groupCollectionParameter, authorParameter, stateParameter, nameParameter, descriptionParameter, emailParameter, dateCreatedParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addGroupCollection(string name, string description, Nullable<int> sortOrder, Nullable<int> active, Nullable<int> enterprise)
         {
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addGroupCollection", nameParameter, descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_addHs3Menu(string description, string url, Nullable<int> parentid, Nullable<int> grand, Nullable<int> sort, Nullable<int> active, Nullable<int> accesslevel, Nullable<int> menuGroup, Nullable<bool> isDynamicCreated, Nullable<int> device, Nullable<int> enterprise)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var urlParameter = url != null ?
                 new ObjectParameter("url", url) :
                 new ObjectParameter("url", typeof(string));
-
+    
             var parentidParameter = parentid.HasValue ?
                 new ObjectParameter("parentid", parentid) :
                 new ObjectParameter("parentid", typeof(int));
-
+    
             var grandParameter = grand.HasValue ?
                 new ObjectParameter("grand", grand) :
                 new ObjectParameter("grand", typeof(int));
-
+    
             var sortParameter = sort.HasValue ?
                 new ObjectParameter("sort", sort) :
                 new ObjectParameter("sort", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             var accesslevelParameter = accesslevel.HasValue ?
                 new ObjectParameter("accesslevel", accesslevel) :
                 new ObjectParameter("accesslevel", typeof(int));
-
+    
             var menuGroupParameter = menuGroup.HasValue ?
                 new ObjectParameter("menuGroup", menuGroup) :
                 new ObjectParameter("menuGroup", typeof(int));
-
+    
             var isDynamicCreatedParameter = isDynamicCreated.HasValue ?
                 new ObjectParameter("isDynamicCreated", isDynamicCreated) :
                 new ObjectParameter("isDynamicCreated", typeof(bool));
-
+    
             var deviceParameter = device.HasValue ?
                 new ObjectParameter("device", device) :
                 new ObjectParameter("device", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addHs3Menu", descriptionParameter, urlParameter, parentidParameter, grandParameter, sortParameter, activeParameter, accesslevelParameter, menuGroupParameter, isDynamicCreatedParameter, deviceParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addKey(string @object, string username, string password, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var objectParameter = @object != null ?
                 new ObjectParameter("object", @object) :
                 new ObjectParameter("object", typeof(string));
-
+    
             var usernameParameter = username != null ?
                 new ObjectParameter("username", username) :
                 new ObjectParameter("username", typeof(string));
-
+    
             var passwordParameter = password != null ?
                 new ObjectParameter("password", password) :
                 new ObjectParameter("password", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addKey", objectParameter, usernameParameter, passwordParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addLanguage(string name, string originalName, byte[] flagImage, Nullable<int> enterprise)
         {
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var originalNameParameter = originalName != null ?
                 new ObjectParameter("originalName", originalName) :
                 new ObjectParameter("originalName", typeof(string));
-
+    
             var flagImageParameter = flagImage != null ?
                 new ObjectParameter("flagImage", flagImage) :
                 new ObjectParameter("flagImage", typeof(byte[]));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addLanguage", nameParameter, originalNameParameter, flagImageParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addLanguageinfo(string languageCode, string languageName, string languageFlag, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var languageCodeParameter = languageCode != null ?
                 new ObjectParameter("languageCode", languageCode) :
                 new ObjectParameter("languageCode", typeof(string));
-
+    
             var languageNameParameter = languageName != null ?
                 new ObjectParameter("languageName", languageName) :
                 new ObjectParameter("languageName", typeof(string));
-
+    
             var languageFlagParameter = languageFlag != null ?
                 new ObjectParameter("languageFlag", languageFlag) :
                 new ObjectParameter("languageFlag", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addLanguageinfo", languageCodeParameter, languageNameParameter, languageFlagParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addMenu(string description, string url, Nullable<int> parentid, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> accesslevel, Nullable<int> enterprise)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var urlParameter = url != null ?
                 new ObjectParameter("url", url) :
                 new ObjectParameter("url", typeof(string));
-
+    
             var parentidParameter = parentid.HasValue ?
                 new ObjectParameter("parentid", parentid) :
                 new ObjectParameter("parentid", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var accesslevelParameter = accesslevel.HasValue ?
                 new ObjectParameter("accesslevel", accesslevel) :
                 new ObjectParameter("accesslevel", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addMenu", descriptionParameter, urlParameter, parentidParameter, sortOrderParameter, activeParameter, accesslevelParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addPage(string description, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPage", descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_addPageSurveyset(Nullable<int> page, Nullable<int> surveyset)
         {
             var pageParameter = page.HasValue ?
                 new ObjectParameter("page", page) :
                 new ObjectParameter("page", typeof(int));
-
+    
             var surveysetParameter = surveyset.HasValue ?
                 new ObjectParameter("surveyset", surveyset) :
                 new ObjectParameter("surveyset", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPageSurveyset", pageParameter, surveysetParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addPartner(Nullable<int> enterprise, string internalID, string name, string address1, string address2, string city, Nullable<int> state, string province, string zipcode, Nullable<int> country, string phone, string fax, string firstName, string lastName, string title, string email, string dunsNumber, string federalID, Nullable<int> status, Nullable<int> loadHistory, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> lastModified)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var internalIDParameter = internalID != null ?
                 new ObjectParameter("internalID", internalID) :
                 new ObjectParameter("internalID", typeof(string));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var address1Parameter = address1 != null ?
                 new ObjectParameter("address1", address1) :
                 new ObjectParameter("address1", typeof(string));
-
+    
             var address2Parameter = address2 != null ?
                 new ObjectParameter("address2", address2) :
                 new ObjectParameter("address2", typeof(string));
-
+    
             var cityParameter = city != null ?
                 new ObjectParameter("city", city) :
                 new ObjectParameter("city", typeof(string));
-
+    
             var stateParameter = state.HasValue ?
                 new ObjectParameter("state", state) :
                 new ObjectParameter("state", typeof(int));
-
+    
             var provinceParameter = province != null ?
                 new ObjectParameter("province", province) :
                 new ObjectParameter("province", typeof(string));
-
+    
             var zipcodeParameter = zipcode != null ?
                 new ObjectParameter("zipcode", zipcode) :
                 new ObjectParameter("zipcode", typeof(string));
-
+    
             var countryParameter = country.HasValue ?
                 new ObjectParameter("country", country) :
                 new ObjectParameter("country", typeof(int));
-
+    
             var phoneParameter = phone != null ?
                 new ObjectParameter("phone", phone) :
                 new ObjectParameter("phone", typeof(string));
-
+    
             var faxParameter = fax != null ?
                 new ObjectParameter("fax", fax) :
                 new ObjectParameter("fax", typeof(string));
-
+    
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("firstName", firstName) :
                 new ObjectParameter("firstName", typeof(string));
-
+    
             var lastNameParameter = lastName != null ?
                 new ObjectParameter("lastName", lastName) :
                 new ObjectParameter("lastName", typeof(string));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var dunsNumberParameter = dunsNumber != null ?
                 new ObjectParameter("dunsNumber", dunsNumber) :
                 new ObjectParameter("dunsNumber", typeof(string));
-
+    
             var federalIDParameter = federalID != null ?
                 new ObjectParameter("federalID", federalID) :
                 new ObjectParameter("federalID", typeof(string));
-
+    
             var statusParameter = status.HasValue ?
                 new ObjectParameter("status", status) :
                 new ObjectParameter("status", typeof(int));
-
+    
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             var ownerParameter = owner.HasValue ?
                 new ObjectParameter("owner", owner) :
                 new ObjectParameter("owner", typeof(int));
-
+    
             var authorParameter = author.HasValue ?
                 new ObjectParameter("author", author) :
                 new ObjectParameter("author", typeof(int));
-
+    
             var dateApprovedParameter = dateApproved.HasValue ?
                 new ObjectParameter("dateApproved", dateApproved) :
                 new ObjectParameter("dateApproved", typeof(System.DateTime));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var lastModifiedParameter = lastModified.HasValue ?
                 new ObjectParameter("lastModified", lastModified) :
                 new ObjectParameter("lastModified", typeof(System.DateTime));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartner", enterpriseParameter, internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, provinceParameter, zipcodeParameter, countryParameter, phoneParameter, faxParameter, firstNameParameter, lastNameParameter, titleParameter, emailParameter, dunsNumberParameter, federalIDParameter, statusParameter, loadHistoryParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, lastModifiedParameter);
         }
-
+    
         public virtual int pr_addPartnerCorpInfo(Nullable<int> partner, string businessDescription, string taxExemptId, string alias, string ssn, Nullable<bool> corp, Nullable<bool> taxExemptEntity, Nullable<bool> us, Nullable<bool> astate, Nullable<bool> foreignGovernment, string naicsCode)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             var businessDescriptionParameter = businessDescription != null ?
                 new ObjectParameter("businessDescription", businessDescription) :
                 new ObjectParameter("businessDescription", typeof(string));
-
+    
             var taxExemptIdParameter = taxExemptId != null ?
                 new ObjectParameter("taxExemptId", taxExemptId) :
                 new ObjectParameter("taxExemptId", typeof(string));
-
+    
             var aliasParameter = alias != null ?
                 new ObjectParameter("alias", alias) :
                 new ObjectParameter("alias", typeof(string));
-
+    
             var ssnParameter = ssn != null ?
                 new ObjectParameter("ssn", ssn) :
                 new ObjectParameter("ssn", typeof(string));
-
+    
             var corpParameter = corp.HasValue ?
                 new ObjectParameter("corp", corp) :
                 new ObjectParameter("corp", typeof(bool));
-
+    
             var taxExemptEntityParameter = taxExemptEntity.HasValue ?
                 new ObjectParameter("taxExemptEntity", taxExemptEntity) :
                 new ObjectParameter("taxExemptEntity", typeof(bool));
-
+    
             var usParameter = us.HasValue ?
                 new ObjectParameter("us", us) :
                 new ObjectParameter("us", typeof(bool));
-
+    
             var astateParameter = astate.HasValue ?
                 new ObjectParameter("astate", astate) :
                 new ObjectParameter("astate", typeof(bool));
-
+    
             var foreignGovernmentParameter = foreignGovernment.HasValue ?
                 new ObjectParameter("foreignGovernment", foreignGovernment) :
                 new ObjectParameter("foreignGovernment", typeof(bool));
-
+    
             var naicsCodeParameter = naicsCode != null ?
                 new ObjectParameter("naicsCode", naicsCode) :
                 new ObjectParameter("naicsCode", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPartnerCorpInfo", partnerParameter, businessDescriptionParameter, taxExemptIdParameter, aliasParameter, ssnParameter, corpParameter, taxExemptEntityParameter, usParameter, astateParameter, foreignGovernmentParameter, naicsCodeParameter);
         }
-
+    
         public virtual int pr_addPartnerGroup(Nullable<int> partner, Nullable<int> group)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             var groupParameter = group.HasValue ?
                 new ObjectParameter("group", group) :
                 new ObjectParameter("group", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPartnerGroup", partnerParameter, groupParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addPartnerPartnertypeTouchpointQuestionnaire(Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire, string accesscode, Nullable<int> invitedBy, Nullable<System.DateTime> invitedDate, Nullable<System.DateTime> completedDate, Nullable<int> progress, string zcode, byte[] pdf, string docFolderAddress, Nullable<decimal> score)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
-
+    
             var accesscodeParameter = accesscode != null ?
                 new ObjectParameter("accesscode", accesscode) :
                 new ObjectParameter("accesscode", typeof(string));
-
+    
             var invitedByParameter = invitedBy.HasValue ?
                 new ObjectParameter("invitedBy", invitedBy) :
                 new ObjectParameter("invitedBy", typeof(int));
-
+    
             var invitedDateParameter = invitedDate.HasValue ?
                 new ObjectParameter("invitedDate", invitedDate) :
                 new ObjectParameter("invitedDate", typeof(System.DateTime));
-
+    
             var completedDateParameter = completedDate.HasValue ?
                 new ObjectParameter("completedDate", completedDate) :
                 new ObjectParameter("completedDate", typeof(System.DateTime));
-
+    
             var progressParameter = progress.HasValue ?
                 new ObjectParameter("progress", progress) :
                 new ObjectParameter("progress", typeof(int));
-
+    
             var zcodeParameter = zcode != null ?
                 new ObjectParameter("zcode", zcode) :
                 new ObjectParameter("zcode", typeof(string));
-
+    
             var pdfParameter = pdf != null ?
                 new ObjectParameter("pdf", pdf) :
                 new ObjectParameter("pdf", typeof(byte[]));
-
+    
             var docFolderAddressParameter = docFolderAddress != null ?
                 new ObjectParameter("docFolderAddress", docFolderAddress) :
                 new ObjectParameter("docFolderAddress", typeof(string));
-
+    
             var scoreParameter = score.HasValue ?
                 new ObjectParameter("score", score) :
                 new ObjectParameter("score", typeof(decimal));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnerPartnertypeTouchpointQuestionnaire", partnerParameter, partnerTypeTouchpointQuestionnaireParameter, accesscodeParameter, invitedByParameter, invitedDateParameter, completedDateParameter, progressParameter, zcodeParameter, pdfParameter, docFolderAddressParameter, scoreParameter);
         }
-
-        public virtual ObjectResult<Nullable<decimal>> pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, Nullable<int> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<int> value, Nullable<int> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             var commentParameter = comment != null ?
                 new ObjectParameter("comment", comment) :
                 new ObjectParameter("comment", typeof(string));
-
+    
             var uploadedFileParameter = uploadedFile != null ?
                 new ObjectParameter("uploadedFile", uploadedFile) :
                 new ObjectParameter("uploadedFile", typeof(byte[]));
-
+    
+            var uploadedFileTypeParameter = uploadedFileType != null ?
+                new ObjectParameter("uploadedFileType", uploadedFileType) :
+                new ObjectParameter("uploadedFileType", typeof(string));
+    
+            var valueParameter = value.HasValue ?
+                new ObjectParameter("value", value) :
+                new ObjectParameter("value", typeof(int));
+    
             var scoreParameter = score.HasValue ?
                 new ObjectParameter("score", score) :
                 new ObjectParameter("score", typeof(int));
-
+    
             var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
-
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse", questionParameter, responseParameter, commentParameter, uploadedFileParameter, scoreParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse", questionParameter, responseParameter, commentParameter, uploadedFileParameter, uploadedFileTypeParameter, valueParameter, scoreParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
         }
-
+    
         public virtual int pr_addPartnerRelationshipOwner(Nullable<int> partner, Nullable<int> person)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPartnerRelationshipOwner", partnerParameter, personParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addPartnerRemitAddress(Nullable<int> partner, string remitAddress1, string remitAddress2, string remitCity, Nullable<int> remitState, string remitProvince, string remitZipCode, Nullable<int> remitCountry)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             var remitAddress1Parameter = remitAddress1 != null ?
                 new ObjectParameter("remitAddress1", remitAddress1) :
                 new ObjectParameter("remitAddress1", typeof(string));
-
+    
             var remitAddress2Parameter = remitAddress2 != null ?
                 new ObjectParameter("remitAddress2", remitAddress2) :
                 new ObjectParameter("remitAddress2", typeof(string));
-
+    
             var remitCityParameter = remitCity != null ?
                 new ObjectParameter("remitCity", remitCity) :
                 new ObjectParameter("remitCity", typeof(string));
-
+    
             var remitStateParameter = remitState.HasValue ?
                 new ObjectParameter("remitState", remitState) :
                 new ObjectParameter("remitState", typeof(int));
-
+    
             var remitProvinceParameter = remitProvince != null ?
                 new ObjectParameter("remitProvince", remitProvince) :
                 new ObjectParameter("remitProvince", typeof(string));
-
+    
             var remitZipCodeParameter = remitZipCode != null ?
                 new ObjectParameter("remitZipCode", remitZipCode) :
                 new ObjectParameter("remitZipCode", typeof(string));
-
+    
             var remitCountryParameter = remitCountry.HasValue ?
                 new ObjectParameter("remitCountry", remitCountry) :
                 new ObjectParameter("remitCountry", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnerRemitAddress", partnerParameter, remitAddress1Parameter, remitAddress2Parameter, remitCityParameter, remitStateParameter, remitProvinceParameter, remitZipCodeParameter, remitCountryParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addPartnerType(string name, string alias, string description, Nullable<int> partnerClass, Nullable<int> enterprise, Nullable<int> sortOrder, Nullable<int> active)
         {
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var aliasParameter = alias != null ?
                 new ObjectParameter("alias", alias) :
                 new ObjectParameter("alias", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var partnerClassParameter = partnerClass.HasValue ?
                 new ObjectParameter("partnerClass", partnerClass) :
                 new ObjectParameter("partnerClass", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnerType", nameParameter, aliasParameter, descriptionParameter, partnerClassParameter, enterpriseParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addPartnertypeTouchpointQuestionnaire(Nullable<int> partnerType, Nullable<int> touchpoint, Nullable<int> questionnaire, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var partnerTypeParameter = partnerType.HasValue ?
                 new ObjectParameter("partnerType", partnerType) :
                 new ObjectParameter("partnerType", typeof(int));
-
+    
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnertypeTouchpointQuestionnaire", partnerTypeParameter, touchpointParameter, questionnaireParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addPerson(Nullable<int> enterprise, Nullable<int> manager, Nullable<int> personStatus, Nullable<int> riskType, Nullable<int> loadHistory, Nullable<int> campaign, string internalId, string nmNumber, string socialSecurity, string firstName, string lastName, string title, string suffix, string nickName, string passWord, string email, string address1, string address2, string city, Nullable<int> state, string zipcode, Nullable<int> country, string phone, string fax, Nullable<int> active, Nullable<int> ismanager, Nullable<int> partnerPerPage, Nullable<System.DateTime> resetDate, Nullable<bool> isArchived, Nullable<System.DateTime> archivedDate)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var managerParameter = manager.HasValue ?
                 new ObjectParameter("manager", manager) :
                 new ObjectParameter("manager", typeof(int));
-
+    
             var personStatusParameter = personStatus.HasValue ?
                 new ObjectParameter("PersonStatus", personStatus) :
                 new ObjectParameter("PersonStatus", typeof(int));
-
+    
             var riskTypeParameter = riskType.HasValue ?
                 new ObjectParameter("riskType", riskType) :
                 new ObjectParameter("riskType", typeof(int));
-
+    
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             var campaignParameter = campaign.HasValue ?
                 new ObjectParameter("campaign", campaign) :
                 new ObjectParameter("campaign", typeof(int));
-
+    
             var internalIdParameter = internalId != null ?
                 new ObjectParameter("internalId", internalId) :
                 new ObjectParameter("internalId", typeof(string));
-
+    
             var nmNumberParameter = nmNumber != null ?
                 new ObjectParameter("nmNumber", nmNumber) :
                 new ObjectParameter("nmNumber", typeof(string));
-
+    
             var socialSecurityParameter = socialSecurity != null ?
                 new ObjectParameter("socialSecurity", socialSecurity) :
                 new ObjectParameter("socialSecurity", typeof(string));
-
+    
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("firstName", firstName) :
                 new ObjectParameter("firstName", typeof(string));
-
+    
             var lastNameParameter = lastName != null ?
                 new ObjectParameter("lastName", lastName) :
                 new ObjectParameter("lastName", typeof(string));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var suffixParameter = suffix != null ?
                 new ObjectParameter("suffix", suffix) :
                 new ObjectParameter("suffix", typeof(string));
-
+    
             var nickNameParameter = nickName != null ?
                 new ObjectParameter("nickName", nickName) :
                 new ObjectParameter("nickName", typeof(string));
-
+    
             var passWordParameter = passWord != null ?
                 new ObjectParameter("passWord", passWord) :
                 new ObjectParameter("passWord", typeof(string));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var address1Parameter = address1 != null ?
                 new ObjectParameter("address1", address1) :
                 new ObjectParameter("address1", typeof(string));
-
+    
             var address2Parameter = address2 != null ?
                 new ObjectParameter("address2", address2) :
                 new ObjectParameter("address2", typeof(string));
-
+    
             var cityParameter = city != null ?
                 new ObjectParameter("city", city) :
                 new ObjectParameter("city", typeof(string));
-
+    
             var stateParameter = state.HasValue ?
                 new ObjectParameter("state", state) :
                 new ObjectParameter("state", typeof(int));
-
+    
             var zipcodeParameter = zipcode != null ?
                 new ObjectParameter("zipcode", zipcode) :
                 new ObjectParameter("zipcode", typeof(string));
-
+    
             var countryParameter = country.HasValue ?
                 new ObjectParameter("country", country) :
                 new ObjectParameter("country", typeof(int));
-
+    
             var phoneParameter = phone != null ?
                 new ObjectParameter("phone", phone) :
                 new ObjectParameter("phone", typeof(string));
-
+    
             var faxParameter = fax != null ?
                 new ObjectParameter("fax", fax) :
                 new ObjectParameter("fax", typeof(string));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             var ismanagerParameter = ismanager.HasValue ?
                 new ObjectParameter("ismanager", ismanager) :
                 new ObjectParameter("ismanager", typeof(int));
-
+    
             var partnerPerPageParameter = partnerPerPage.HasValue ?
                 new ObjectParameter("partnerPerPage", partnerPerPage) :
                 new ObjectParameter("partnerPerPage", typeof(int));
-
+    
             var resetDateParameter = resetDate.HasValue ?
                 new ObjectParameter("resetDate", resetDate) :
                 new ObjectParameter("resetDate", typeof(System.DateTime));
-
+    
             var isArchivedParameter = isArchived.HasValue ?
                 new ObjectParameter("IsArchived", isArchived) :
                 new ObjectParameter("IsArchived", typeof(bool));
-
+    
             var archivedDateParameter = archivedDate.HasValue ?
                 new ObjectParameter("archivedDate", archivedDate) :
                 new ObjectParameter("archivedDate", typeof(System.DateTime));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPerson", enterpriseParameter, managerParameter, personStatusParameter, riskTypeParameter, loadHistoryParameter, campaignParameter, internalIdParameter, nmNumberParameter, socialSecurityParameter, firstNameParameter, lastNameParameter, titleParameter, suffixParameter, nickNameParameter, passWordParameter, emailParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, phoneParameter, faxParameter, activeParameter, ismanagerParameter, partnerPerPageParameter, resetDateParameter, isArchivedParameter, archivedDateParameter);
         }
-
+    
         public virtual int pr_addPersonGroup(Nullable<int> group, Nullable<int> person)
         {
             var groupParameter = group.HasValue ?
                 new ObjectParameter("group", group) :
                 new ObjectParameter("group", typeof(int));
-
+    
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPersonGroup", groupParameter, personParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<int>> pr_addPersonRelationshipType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPersonRelationshipType", idParameter, descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_addPersonRole(Nullable<int> person, Nullable<int> role)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPersonRole", personParameter, roleParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addPersonStatus(string description, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonStatus", descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addProtocol(Nullable<int> menuGroup, Nullable<int> enterprise, string name, string description, string abbreviation, string background, string purpose, string summary, Nullable<int> agency, Nullable<int> admin, Nullable<int> sponsor, Nullable<int> domain, string validationRequested, string keyBenefits, string keyWords, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string bestPractice, string riskBenefits, string checkList, Nullable<bool> removeWithoutTouchpointExpiry, Nullable<bool> removeWithoutNotice, Nullable<bool> isLimited, Nullable<int> sortOrder, Nullable<int> active)
         {
             var menuGroupParameter = menuGroup.HasValue ?
                 new ObjectParameter("menuGroup", menuGroup) :
                 new ObjectParameter("menuGroup", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var abbreviationParameter = abbreviation != null ?
                 new ObjectParameter("abbreviation", abbreviation) :
                 new ObjectParameter("abbreviation", typeof(string));
-
+    
             var backgroundParameter = background != null ?
                 new ObjectParameter("background", background) :
                 new ObjectParameter("background", typeof(string));
-
+    
             var purposeParameter = purpose != null ?
                 new ObjectParameter("purpose", purpose) :
                 new ObjectParameter("purpose", typeof(string));
-
+    
             var summaryParameter = summary != null ?
                 new ObjectParameter("summary", summary) :
                 new ObjectParameter("summary", typeof(string));
-
+    
             var agencyParameter = agency.HasValue ?
                 new ObjectParameter("agency", agency) :
                 new ObjectParameter("agency", typeof(int));
-
+    
             var adminParameter = admin.HasValue ?
                 new ObjectParameter("admin", admin) :
                 new ObjectParameter("admin", typeof(int));
-
+    
             var sponsorParameter = sponsor.HasValue ?
                 new ObjectParameter("sponsor", sponsor) :
                 new ObjectParameter("sponsor", typeof(int));
-
+    
             var domainParameter = domain.HasValue ?
                 new ObjectParameter("domain", domain) :
                 new ObjectParameter("domain", typeof(int));
-
+    
             var validationRequestedParameter = validationRequested != null ?
                 new ObjectParameter("validationRequested", validationRequested) :
                 new ObjectParameter("validationRequested", typeof(string));
-
+    
             var keyBenefitsParameter = keyBenefits != null ?
                 new ObjectParameter("keyBenefits", keyBenefits) :
                 new ObjectParameter("keyBenefits", typeof(string));
-
+    
             var keyWordsParameter = keyWords != null ?
                 new ObjectParameter("keyWords", keyWords) :
                 new ObjectParameter("keyWords", typeof(string));
-
+    
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("startDate", startDate) :
                 new ObjectParameter("startDate", typeof(System.DateTime));
-
+    
             var endDateParameter = endDate.HasValue ?
                 new ObjectParameter("endDate", endDate) :
                 new ObjectParameter("endDate", typeof(System.DateTime));
-
+    
             var bestPracticeParameter = bestPractice != null ?
                 new ObjectParameter("bestPractice", bestPractice) :
                 new ObjectParameter("bestPractice", typeof(string));
-
+    
             var riskBenefitsParameter = riskBenefits != null ?
                 new ObjectParameter("riskBenefits", riskBenefits) :
                 new ObjectParameter("riskBenefits", typeof(string));
-
+    
             var checkListParameter = checkList != null ?
                 new ObjectParameter("checkList", checkList) :
                 new ObjectParameter("checkList", typeof(string));
-
+    
             var removeWithoutTouchpointExpiryParameter = removeWithoutTouchpointExpiry.HasValue ?
                 new ObjectParameter("removeWithoutTouchpointExpiry", removeWithoutTouchpointExpiry) :
                 new ObjectParameter("removeWithoutTouchpointExpiry", typeof(bool));
-
+    
             var removeWithoutNoticeParameter = removeWithoutNotice.HasValue ?
                 new ObjectParameter("removeWithoutNotice", removeWithoutNotice) :
                 new ObjectParameter("removeWithoutNotice", typeof(bool));
-
+    
             var isLimitedParameter = isLimited.HasValue ?
                 new ObjectParameter("isLimited", isLimited) :
                 new ObjectParameter("isLimited", typeof(bool));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addProtocol", menuGroupParameter, enterpriseParameter, nameParameter, descriptionParameter, abbreviationParameter, backgroundParameter, purposeParameter, summaryParameter, agencyParameter, adminParameter, sponsorParameter, domainParameter, validationRequestedParameter, keyBenefitsParameter, keyWordsParameter, startDateParameter, endDateParameter, bestPracticeParameter, riskBenefitsParameter, checkListParameter, removeWithoutTouchpointExpiryParameter, removeWithoutNoticeParameter, isLimitedParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addQuestion(string question, string name, string title, string tag, Nullable<int> responseType, Nullable<int> required, Nullable<int> weight, Nullable<bool> skipLogicAnswer, string skipLogicJump, Nullable<int> accessLevel, Nullable<int> commentRequired, string commentBoxTxt, string commentUploadTxt, Nullable<int> commentType, string spinOffQuestionnaire, Nullable<int> spinOffQID, string emailAlert, string emailAlertList, Nullable<int> updated, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var questionParameter = question != null ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(string));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var tagParameter = tag != null ?
                 new ObjectParameter("tag", tag) :
                 new ObjectParameter("tag", typeof(string));
-
+    
             var responseTypeParameter = responseType.HasValue ?
                 new ObjectParameter("responseType", responseType) :
                 new ObjectParameter("responseType", typeof(int));
-
+    
             var requiredParameter = required.HasValue ?
                 new ObjectParameter("required", required) :
                 new ObjectParameter("required", typeof(int));
-
+    
             var weightParameter = weight.HasValue ?
                 new ObjectParameter("weight", weight) :
                 new ObjectParameter("weight", typeof(int));
-
+    
             var skipLogicAnswerParameter = skipLogicAnswer.HasValue ?
                 new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
                 new ObjectParameter("skipLogicAnswer", typeof(bool));
-
+    
             var skipLogicJumpParameter = skipLogicJump != null ?
                 new ObjectParameter("skipLogicJump", skipLogicJump) :
                 new ObjectParameter("skipLogicJump", typeof(string));
-
+    
             var accessLevelParameter = accessLevel.HasValue ?
                 new ObjectParameter("accessLevel", accessLevel) :
                 new ObjectParameter("accessLevel", typeof(int));
-
+    
             var commentRequiredParameter = commentRequired.HasValue ?
                 new ObjectParameter("commentRequired", commentRequired) :
                 new ObjectParameter("commentRequired", typeof(int));
-
+    
             var commentBoxTxtParameter = commentBoxTxt != null ?
                 new ObjectParameter("commentBoxTxt", commentBoxTxt) :
                 new ObjectParameter("commentBoxTxt", typeof(string));
-
+    
             var commentUploadTxtParameter = commentUploadTxt != null ?
                 new ObjectParameter("commentUploadTxt", commentUploadTxt) :
                 new ObjectParameter("commentUploadTxt", typeof(string));
-
+    
             var commentTypeParameter = commentType.HasValue ?
                 new ObjectParameter("commentType", commentType) :
                 new ObjectParameter("commentType", typeof(int));
-
+    
             var spinOffQuestionnaireParameter = spinOffQuestionnaire != null ?
                 new ObjectParameter("spinOffQuestionnaire", spinOffQuestionnaire) :
                 new ObjectParameter("spinOffQuestionnaire", typeof(string));
-
+    
             var spinOffQIDParameter = spinOffQID.HasValue ?
                 new ObjectParameter("spinOffQID", spinOffQID) :
                 new ObjectParameter("spinOffQID", typeof(int));
-
+    
             var emailAlertParameter = emailAlert != null ?
                 new ObjectParameter("emailAlert", emailAlert) :
                 new ObjectParameter("emailAlert", typeof(string));
-
+    
             var emailAlertListParameter = emailAlertList != null ?
                 new ObjectParameter("emailAlertList", emailAlertList) :
                 new ObjectParameter("emailAlertList", typeof(string));
-
+    
             var updatedParameter = updated.HasValue ?
                 new ObjectParameter("updated", updated) :
                 new ObjectParameter("updated", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestion", questionParameter, nameParameter, titleParameter, tagParameter, responseTypeParameter, requiredParameter, weightParameter, skipLogicAnswerParameter, skipLogicJumpParameter, accessLevelParameter, commentRequiredParameter, commentBoxTxtParameter, commentUploadTxtParameter, commentTypeParameter, spinOffQuestionnaireParameter, spinOffQIDParameter, emailAlertParameter, emailAlertListParameter, updatedParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_addQuestionLanguage(Nullable<int> question, Nullable<int> language)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addQuestionLanguage", questionParameter, languageParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaire(Nullable<int> person, Nullable<int> partnerType, Nullable<int> letter, string title, string description, string footer, Nullable<int> locked, Nullable<int> sortOrder, Nullable<int> active, Nullable<int> multiLanguage, Nullable<int> enterprise)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             var partnerTypeParameter = partnerType.HasValue ?
                 new ObjectParameter("partnerType", partnerType) :
                 new ObjectParameter("partnerType", typeof(int));
-
+    
             var letterParameter = letter.HasValue ?
                 new ObjectParameter("letter", letter) :
                 new ObjectParameter("letter", typeof(int));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var footerParameter = footer != null ?
                 new ObjectParameter("footer", footer) :
                 new ObjectParameter("footer", typeof(string));
-
+    
             var lockedParameter = locked.HasValue ?
                 new ObjectParameter("locked", locked) :
                 new ObjectParameter("locked", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             var multiLanguageParameter = multiLanguage.HasValue ?
                 new ObjectParameter("multiLanguage", multiLanguage) :
                 new ObjectParameter("multiLanguage", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaire", personParameter, partnerTypeParameter, letterParameter, titleParameter, descriptionParameter, footerParameter, lockedParameter, sortOrderParameter, activeParameter, multiLanguageParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireLevel(string description, Nullable<int> sortOrder, Nullable<int> active)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireLevel", descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_addQuestionnairePage(Nullable<int> questionnaire, Nullable<int> page)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             var pageParameter = page.HasValue ?
                 new ObjectParameter("page", page) :
                 new ObjectParameter("page", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addQuestionnairePage", questionnaireParameter, pageParameter);
         }
-
+    
         public virtual int pr_addQuestionResponse(Nullable<int> question, Nullable<int> response)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addQuestionResponse", questionParameter, responseParameter);
         }
-
+    
         public virtual int pr_addQuestionRule(Nullable<int> question, Nullable<int> rule)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var ruleParameter = rule.HasValue ?
                 new ObjectParameter("rule", rule) :
                 new ObjectParameter("rule", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addQuestionRule", questionParameter, ruleParameter);
         }
-
+    
         public virtual int pr_addQuestionTranslation(Nullable<int> question, Nullable<int> language, string title, string description)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addQuestionTranslation", questionParameter, languageParameter, titleParameter, descriptionParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addRatingType(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addRatingType", descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addResponse(string description, string title, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addResponse", descriptionParameter, titleParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_addResponseLanguage(Nullable<int> response, Nullable<int> language)
         {
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addResponseLanguage", responseParameter, languageParameter);
         }
-
+    
         public virtual int pr_addResponseTranslation(Nullable<int> response, Nullable<int> language, string description)
         {
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addResponseTranslation", responseParameter, languageParameter, descriptionParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addResponseType(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addResponseType", descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addRole(string description, Nullable<int> sortOrder, Nullable<int> active, Nullable<int> accessLevel, Nullable<int> enterprise, Nullable<int> access)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             var accessLevelParameter = accessLevel.HasValue ?
                 new ObjectParameter("accessLevel", accessLevel) :
                 new ObjectParameter("accessLevel", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var accessParameter = access.HasValue ?
                 new ObjectParameter("access", access) :
                 new ObjectParameter("access", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addRole", descriptionParameter, sortOrderParameter, activeParameter, accessLevelParameter, enterpriseParameter, accessParameter);
         }
-
+    
         public virtual int pr_addRoleMenu(Nullable<int> role, Nullable<int> menu, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             var menuParameter = menu.HasValue ?
                 new ObjectParameter("menu", menu) :
                 new ObjectParameter("menu", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addRoleMenu", roleParameter, menuParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addRule(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> ruleType, Nullable<int> enterprise)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var ruleTypeParameter = ruleType.HasValue ?
                 new ObjectParameter("ruleType", ruleType) :
                 new ObjectParameter("ruleType", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addRule", descriptionParameter, sortOrderParameter, activeParameter, ruleTypeParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addRuleType(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addRuleType", descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addState(string stateCode, string name, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var stateCodeParameter = stateCode != null ?
                 new ObjectParameter("StateCode", stateCode) :
                 new ObjectParameter("StateCode", typeof(string));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addState", stateCodeParameter, nameParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addSurvey(string description, string name, Nullable<int> display, Nullable<int> sortOrder, Nullable<bool> active, Nullable<System.DateTime> creationDate, Nullable<System.DateTime> lastModifiedDate)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var displayParameter = display.HasValue ?
                 new ObjectParameter("display", display) :
                 new ObjectParameter("display", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var creationDateParameter = creationDate.HasValue ?
                 new ObjectParameter("creationDate", creationDate) :
                 new ObjectParameter("creationDate", typeof(System.DateTime));
-
+    
             var lastModifiedDateParameter = lastModifiedDate.HasValue ?
                 new ObjectParameter("lastModifiedDate", lastModifiedDate) :
                 new ObjectParameter("lastModifiedDate", typeof(System.DateTime));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addSurvey", descriptionParameter, nameParameter, displayParameter, sortOrderParameter, activeParameter, creationDateParameter, lastModifiedDateParameter);
         }
-
+    
         public virtual int pr_addSurveyQuestion(Nullable<int> survey, Nullable<int> question)
         {
             var surveyParameter = survey.HasValue ?
                 new ObjectParameter("survey", survey) :
                 new ObjectParameter("survey", typeof(int));
-
+    
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addSurveyQuestion", surveyParameter, questionParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addSurveyset(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> accessLevel)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var accessLevelParameter = accessLevel.HasValue ?
                 new ObjectParameter("accessLevel", accessLevel) :
                 new ObjectParameter("accessLevel", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addSurveyset", descriptionParameter, sortOrderParameter, activeParameter, accessLevelParameter);
         }
-
+    
         public virtual int pr_addSurveysetSurvey(Nullable<int> surveySet, Nullable<int> survey)
         {
             var surveySetParameter = surveySet.HasValue ?
                 new ObjectParameter("surveySet", surveySet) :
                 new ObjectParameter("surveySet", typeof(int));
-
+    
             var surveyParameter = survey.HasValue ?
                 new ObjectParameter("survey", survey) :
                 new ObjectParameter("survey", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addSurveysetSurvey", surveySetParameter, surveyParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addTouchpoint(Nullable<int> protocol, Nullable<int> person, Nullable<int> sponsor, Nullable<int> admin, string title, string description, string abbreviation, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<bool> automaticReminder, Nullable<int> sortOrder, Nullable<int> active)
         {
             var protocolParameter = protocol.HasValue ?
                 new ObjectParameter("protocol", protocol) :
                 new ObjectParameter("protocol", typeof(int));
-
+    
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             var sponsorParameter = sponsor.HasValue ?
                 new ObjectParameter("sponsor", sponsor) :
                 new ObjectParameter("sponsor", typeof(int));
-
+    
             var adminParameter = admin.HasValue ?
                 new ObjectParameter("admin", admin) :
                 new ObjectParameter("admin", typeof(int));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var abbreviationParameter = abbreviation != null ?
                 new ObjectParameter("abbreviation", abbreviation) :
                 new ObjectParameter("abbreviation", typeof(string));
-
+    
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("startDate", startDate) :
                 new ObjectParameter("startDate", typeof(System.DateTime));
-
+    
             var endDateParameter = endDate.HasValue ?
                 new ObjectParameter("endDate", endDate) :
                 new ObjectParameter("endDate", typeof(System.DateTime));
-
+    
             var automaticReminderParameter = automaticReminder.HasValue ?
                 new ObjectParameter("automaticReminder", automaticReminder) :
                 new ObjectParameter("automaticReminder", typeof(bool));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addTouchpoint", protocolParameter, personParameter, sponsorParameter, adminParameter, titleParameter, descriptionParameter, abbreviationParameter, startDateParameter, endDateParameter, automaticReminderParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_addTouchpointGroup(Nullable<int> touchpoint, Nullable<int> group)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var groupParameter = group.HasValue ?
                 new ObjectParameter("group", group) :
                 new ObjectParameter("group", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addTouchpointGroup", touchpointParameter, groupParameter);
         }
-
+    
         public virtual int pr_addTouchpointQuestionnaire(Nullable<int> touchpoint, Nullable<int> questionnaire)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addTouchpointQuestionnaire", touchpointParameter, questionnaireParameter);
         }
-
+    
         public virtual int pr_addTouchpointQuestionResponseValue(Nullable<int> touchpoint, Nullable<int> question, Nullable<int> response, Nullable<int> value)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             var valueParameter = value.HasValue ?
                 new ObjectParameter("value", value) :
                 new ObjectParameter("value", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addTouchpointQuestionResponseValue", touchpointParameter, questionParameter, responseParameter, valueParameter);
         }
-
+    
         public virtual int pr_addtouchpointQuestionWeight(Nullable<int> touchpoint, Nullable<int> question, Nullable<int> weight)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var weightParameter = weight.HasValue ?
                 new ObjectParameter("weight", weight) :
                 new ObjectParameter("weight", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addtouchpointQuestionWeight", touchpointParameter, questionParameter, weightParameter);
         }
-
+    
         public virtual int pr_archiveAgency(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveAgency", idParameter);
         }
-
+    
         public virtual int pr_archiveAutoMailType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveAutoMailType", idParameter);
         }
-
+    
         public virtual int pr_archiveCountry(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveCountry", idParameter);
         }
-
+    
         public virtual int pr_archiveDomain(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveDomain", idParameter);
         }
-
+    
         public virtual int pr_archiveEmailBounceType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveEmailBounceType", idParameter);
         }
-
+    
         public virtual int pr_archiveEmailTemplateType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveEmailTemplateType", idParameter);
         }
-
+    
         public virtual int pr_archiveEnterprise(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveEnterprise", idParameter);
         }
-
+    
         public virtual int pr_archiveGroup(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveGroup", idParameter);
         }
-
+    
         public virtual int pr_archiveGroupCollection(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveGroupCollection", idParameter);
         }
-
+    
         public virtual int pr_archiveHs3Menu(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveHs3Menu", idParameter);
         }
-
+    
         public virtual int pr_archiveKey(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveKey", idParameter);
         }
-
+    
         public virtual int pr_archivelanguage(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivelanguage", idParameter);
         }
-
+    
         public virtual int pr_archiveLanguageinfo(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveLanguageinfo", idParameter);
         }
-
+    
         public virtual int pr_archiveMenu(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveMenu", idParameter);
         }
-
+    
         public virtual int pr_archivePage(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePage", idParameter);
         }
-
+    
         public virtual int pr_archivePartner(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePartner", idParameter);
         }
-
+    
         public virtual int pr_archivePartnerType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePartnerType", idParameter);
         }
-
+    
         public virtual int pr_archivePartnertypeTouchpointQuestionnaire(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePartnertypeTouchpointQuestionnaire", idParameter);
         }
-
+    
         public virtual int pr_archivePerson(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePerson", idParameter);
         }
-
+    
         public virtual int pr_archivePersonRelationshipType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePersonRelationshipType", idParameter);
         }
-
+    
         public virtual int pr_archivePersonStatus(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePersonStatus", idParameter);
         }
-
+    
         public virtual int pr_archiveProtocol(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveProtocol", idParameter);
         }
-
+    
         public virtual int pr_archiveQuestion(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveQuestion", idParameter);
         }
-
+    
         public virtual int pr_archiveQuestionnaire(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveQuestionnaire", idParameter);
         }
-
+    
         public virtual int pr_archiveQuestionnaireLevel(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveQuestionnaireLevel", idParameter);
         }
-
+    
         public virtual int pr_archiveRatingType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveRatingType", idParameter);
         }
-
+    
         public virtual int pr_archiveResponse(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveResponse", idParameter);
         }
-
+    
         public virtual int pr_archiveResponseType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveResponseType", idParameter);
         }
-
+    
         public virtual int pr_archiveRole(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveRole", idParameter);
         }
-
+    
         public virtual int pr_archiveRoleMenu(Nullable<int> role, Nullable<int> menu)
         {
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             var menuParameter = menu.HasValue ?
                 new ObjectParameter("menu", menu) :
                 new ObjectParameter("menu", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveRoleMenu", roleParameter, menuParameter);
         }
-
+    
         public virtual int pr_archiveRule(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveRule", idParameter);
         }
-
+    
         public virtual int pr_archiveRuleType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveRuleType", idParameter);
         }
-
+    
         public virtual int pr_archiveState(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveState", idParameter);
         }
-
+    
         public virtual int pr_archiveSurvey(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveSurvey", idParameter);
         }
-
+    
         public virtual int pr_archiveSurveyset(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveSurveyset", idParameter);
         }
-
+    
         public virtual int pr_archiveTouchpoint(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveTouchpoint", idParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_doLogin(string username, string password)
         {
             var usernameParameter = username != null ?
                 new ObjectParameter("username", username) :
                 new ObjectParameter("username", typeof(string));
-
+    
             var passwordParameter = password != null ?
                 new ObjectParameter("password", password) :
                 new ObjectParameter("password", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_doLogin", usernameParameter, passwordParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_doLogin(string username, string password, MergeOption mergeOption)
         {
             var usernameParameter = username != null ?
                 new ObjectParameter("username", username) :
                 new ObjectParameter("username", typeof(string));
-
+    
             var passwordParameter = password != null ?
                 new ObjectParameter("password", password) :
                 new ObjectParameter("password", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_doLogin", mergeOption, usernameParameter, passwordParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_findPerson(Nullable<int> enterprise, string selected_sql)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var selected_sqlParameter = selected_sql != null ?
                 new ObjectParameter("selected_sql", selected_sql) :
                 new ObjectParameter("selected_sql", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_findPerson", enterpriseParameter, selected_sqlParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_findPerson(Nullable<int> enterprise, string selected_sql, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var selected_sqlParameter = selected_sql != null ?
                 new ObjectParameter("selected_sql", selected_sql) :
                 new ObjectParameter("selected_sql", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_findPerson", mergeOption, enterpriseParameter, selected_sqlParameter);
         }
-
+    
         public virtual ObjectResult<pr_findUserRole_Result> pr_findUserRole(Nullable<int> enterprise, string userRole)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var userRoleParameter = userRole != null ?
                 new ObjectParameter("userRole", userRole) :
                 new ObjectParameter("userRole", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_findUserRole_Result>("pr_findUserRole", enterpriseParameter, userRoleParameter);
         }
-
-        public virtual ObjectResult<string> pr_getAccesscode(ObjectParameter access)
+    
+        public virtual ObjectResult<string> pr_getAccesscode()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getAccesscode", access);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getAccesscode");
         }
-
+    
         public virtual ObjectResult<agency> pr_getAgency(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<agency>("pr_getAgency", idParameter);
         }
-
+    
         public virtual ObjectResult<agency> pr_getAgency(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<agency>("pr_getAgency", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<agency> pr_getAgencyAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<agency>("pr_getAgencyAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<agency> pr_getAgencyAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<agency>("pr_getAgencyAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<autoMailMessage> pr_getAutomail(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailMessage>("pr_getAutomail", idParameter);
         }
-
+    
         public virtual ObjectResult<autoMailMessage> pr_getAutomail(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailMessage>("pr_getAutomail", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<autoMailAttachment> pr_getAutoMailAttachment(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailAttachment>("pr_getAutoMailAttachment", idParameter);
         }
-
+    
         public virtual ObjectResult<autoMailAttachment> pr_getAutoMailAttachment(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailAttachment>("pr_getAutoMailAttachment", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<autoMailType> pr_getAutoMailType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailType>("pr_getAutoMailType", idParameter);
         }
-
+    
         public virtual ObjectResult<autoMailType> pr_getAutoMailType(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailType>("pr_getAutoMailType", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<autoMailType> pr_getAutoMailTypeAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailType>("pr_getAutoMailTypeAll");
         }
-
+    
         public virtual ObjectResult<autoMailType> pr_getAutoMailTypeAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailType>("pr_getAutoMailTypeAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<country> pr_getCountry(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<country>("pr_getCountry", idParameter);
         }
-
+    
         public virtual ObjectResult<country> pr_getCountry(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<country>("pr_getCountry", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<country> pr_getCountryAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<country>("pr_getCountryAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<country> pr_getCountryAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<country>("pr_getCountryAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<domain> pr_getDomain(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<domain>("pr_getDomain", idParameter);
         }
-
+    
         public virtual ObjectResult<domain> pr_getDomain(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<domain>("pr_getDomain", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<domain> pr_getDomainAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<domain>("pr_getDomainAll");
         }
-
+    
         public virtual ObjectResult<domain> pr_getDomainAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<domain>("pr_getDomainAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<emailBounceType> pr_getEmailBounceType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailBounceType>("pr_getEmailBounceType", idParameter);
         }
-
+    
         public virtual ObjectResult<emailBounceType> pr_getEmailBounceType(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailBounceType>("pr_getEmailBounceType", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<emailBounceType> pr_getEmailBounceTypeAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailBounceType>("pr_getEmailBounceTypeAll");
         }
-
+    
         public virtual ObjectResult<emailBounceType> pr_getEmailBounceTypeAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailBounceType>("pr_getEmailBounceTypeAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<emailTag_deprecated> pr_getEmailTag(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailTag_deprecated>("pr_getEmailTag", idParameter);
         }
-
+    
         public virtual ObjectResult<emailTag_deprecated> pr_getEmailTag(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailTag_deprecated>("pr_getEmailTag", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<emailTag_deprecated> pr_getEmailTagAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailTag_deprecated>("pr_getEmailTagAll");
         }
-
+    
         public virtual ObjectResult<emailTag_deprecated> pr_getEmailTagAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailTag_deprecated>("pr_getEmailTagAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<emailTemplate_deprecated> pr_getEmailTemplate(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailTemplate_deprecated>("pr_getEmailTemplate", idParameter);
         }
-
+    
         public virtual ObjectResult<emailTemplate_deprecated> pr_getEmailTemplate(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailTemplate_deprecated>("pr_getEmailTemplate", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<emailTemplate_deprecated> pr_getEmailTemplateAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailTemplate_deprecated>("pr_getEmailTemplateAll");
         }
-
+    
         public virtual ObjectResult<emailTemplate_deprecated> pr_getEmailTemplateAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailTemplate_deprecated>("pr_getEmailTemplateAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<emailTemplateType_deprecated> pr_getEmailTemplateType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailTemplateType_deprecated>("pr_getEmailTemplateType", idParameter);
         }
-
+    
         public virtual ObjectResult<emailTemplateType_deprecated> pr_getEmailTemplateType(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailTemplateType_deprecated>("pr_getEmailTemplateType", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<emailTemplateType_deprecated> pr_getEmailTemplateTypeAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailTemplateType_deprecated>("pr_getEmailTemplateTypeAll");
         }
-
+    
         public virtual ObjectResult<emailTemplateType_deprecated> pr_getEmailTemplateTypeAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<emailTemplateType_deprecated>("pr_getEmailTemplateTypeAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<enterprise> pr_getEnterprise(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterprise>("pr_getEnterprise", idParameter);
         }
-
+    
         public virtual ObjectResult<enterprise> pr_getEnterprise(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterprise>("pr_getEnterprise", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<enterprise> pr_getEnterpriseAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterprise>("pr_getEnterpriseAll");
         }
-
+    
         public virtual ObjectResult<enterprise> pr_getEnterpriseAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterprise>("pr_getEnterpriseAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<enterpriseObjectName> pr_getEnterpriseObjectName(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseObjectName>("pr_getEnterpriseObjectName", idParameter);
         }
-
+    
         public virtual ObjectResult<enterpriseObjectName> pr_getEnterpriseObjectName(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseObjectName>("pr_getEnterpriseObjectName", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<enterpriseObjectName> pr_getEnterpriseObjectNameAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseObjectName>("pr_getEnterpriseObjectNameAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<enterpriseObjectName> pr_getEnterpriseObjectNameAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseObjectName>("pr_getEnterpriseObjectNameAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<enterpriseSystemInfo> pr_getEnterpriseSystemInfo(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfo", idParameter);
         }
-
+    
         public virtual ObjectResult<enterpriseSystemInfo> pr_getEnterpriseSystemInfo(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfo", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<enterpriseSystemInfo> pr_getEnterpriseSystemInfoAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfoAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<enterpriseSystemInfo> pr_getEnterpriseSystemInfoAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfoAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<eSignature> pr_getEsignature(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eSignature>("pr_getEsignature", idParameter);
         }
-
+    
         public virtual ObjectResult<eSignature> pr_getEsignature(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eSignature>("pr_getEsignature", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<eSignature> pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
         {
             var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eSignature>("pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaireParameter);
         }
-
+    
         public virtual ObjectResult<eSignature> pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(Nullable<int> partnerPartnerTypeTouchpointQuestionnaire, MergeOption mergeOption)
         {
             var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eSignature>("pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire", mergeOption, partnerPartnerTypeTouchpointQuestionnaireParameter);
         }
-
+    
         public virtual ObjectResult<eventNotification> pr_getEventNotification(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotification>("pr_getEventNotification", idParameter);
         }
-
+    
         public virtual ObjectResult<eventNotification> pr_getEventNotification(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotification>("pr_getEventNotification", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<eventNotification> pr_getEventNotificationAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotification>("pr_getEventNotificationAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<eventNotification> pr_getEventNotificationAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotification>("pr_getEventNotificationAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<eventNotificationBounce> pr_getEventNotificationBounce(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotificationBounce>("pr_getEventNotificationBounce", idParameter);
         }
-
+    
         public virtual ObjectResult<eventNotificationBounce> pr_getEventNotificationBounce(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotificationBounce>("pr_getEventNotificationBounce", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<group> pr_getGroup(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getGroup", idParameter);
         }
-
+    
         public virtual ObjectResult<group> pr_getGroup(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getGroup", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<group> pr_getGroupAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getGroupAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<group> pr_getGroupAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getGroupAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<group> pr_getGroupByPerson(Nullable<int> person)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getGroupByPerson", personParameter);
         }
-
+    
         public virtual ObjectResult<group> pr_getGroupByPerson(Nullable<int> person, MergeOption mergeOption)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getGroupByPerson", mergeOption, personParameter);
         }
-
+    
         public virtual ObjectResult<group> pr_getGroupByTouchpoint(Nullable<int> touchpoint)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getGroupByTouchpoint", touchpointParameter);
         }
-
+    
         public virtual ObjectResult<group> pr_getGroupByTouchpoint(Nullable<int> touchpoint, MergeOption mergeOption)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getGroupByTouchpoint", mergeOption, touchpointParameter);
         }
-
+    
         public virtual ObjectResult<groupCollection> pr_getGroupCollection(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<groupCollection>("pr_getGroupCollection", idParameter);
         }
-
+    
         public virtual ObjectResult<groupCollection> pr_getGroupCollection(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<groupCollection>("pr_getGroupCollection", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<groupCollection> pr_getGroupCollectionAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<groupCollection>("pr_getGroupCollectionAll");
         }
-
+    
         public virtual ObjectResult<groupCollection> pr_getGroupCollectionAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<groupCollection>("pr_getGroupCollectionAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<hs3Menu_deprecated> pr_getHs3Menu(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<hs3Menu_deprecated>("pr_getHs3Menu", idParameter);
         }
-
+    
         public virtual ObjectResult<hs3Menu_deprecated> pr_getHs3Menu(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<hs3Menu_deprecated>("pr_getHs3Menu", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<hs3Menu_deprecated> pr_getHs3MenuAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<hs3Menu_deprecated>("pr_getHs3MenuAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<hs3Menu_deprecated> pr_getHs3MenuAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<hs3Menu_deprecated>("pr_getHs3MenuAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<key> pr_getKey(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<key>("pr_getKey", idParameter);
         }
-
+    
         public virtual ObjectResult<key> pr_getKey(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<key>("pr_getKey", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<key> pr_getKeyAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<key>("pr_getKeyAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<key> pr_getKeyAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<key>("pr_getKeyAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<language> pr_getLanguage(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<language>("pr_getLanguage", idParameter);
         }
-
+    
         public virtual ObjectResult<language> pr_getLanguage(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<language>("pr_getLanguage", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<language> pr_getLanguageAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<language>("pr_getLanguageAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<language> pr_getLanguageAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<language>("pr_getLanguageAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<language> pr_getLanguageByQuestion(Nullable<int> question)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<language>("pr_getLanguageByQuestion", questionParameter);
         }
-
+    
         public virtual ObjectResult<language> pr_getLanguageByQuestion(Nullable<int> question, MergeOption mergeOption)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<language>("pr_getLanguageByQuestion", mergeOption, questionParameter);
         }
-
+    
         public virtual ObjectResult<language> pr_getLanguageByResponse(Nullable<int> response)
         {
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<language>("pr_getLanguageByResponse", responseParameter);
         }
-
+    
         public virtual ObjectResult<language> pr_getLanguageByResponse(Nullable<int> response, MergeOption mergeOption)
         {
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<language>("pr_getLanguageByResponse", mergeOption, responseParameter);
         }
-
+    
         public virtual ObjectResult<languageInfo> pr_getLanguageinfo(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<languageInfo>("pr_getLanguageinfo", idParameter);
         }
-
+    
         public virtual ObjectResult<languageInfo> pr_getLanguageinfo(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<languageInfo>("pr_getLanguageinfo", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<languageInfo> pr_getLanguageinfoAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<languageInfo>("pr_getLanguageinfoAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<languageInfo> pr_getLanguageinfoAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<languageInfo>("pr_getLanguageinfoAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<menu> pr_getMenu(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenu", idParameter);
         }
-
+    
         public virtual ObjectResult<menu> pr_getMenu(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenu", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<menu> pr_getMenuAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenuAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<menu> pr_getMenuAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenuAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<menu> pr_getMenuChildItem(Nullable<int> parentid)
         {
             var parentidParameter = parentid.HasValue ?
                 new ObjectParameter("parentid", parentid) :
                 new ObjectParameter("parentid", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenuChildItem", parentidParameter);
         }
-
+    
         public virtual ObjectResult<menu> pr_getMenuChildItem(Nullable<int> parentid, MergeOption mergeOption)
         {
             var parentidParameter = parentid.HasValue ?
                 new ObjectParameter("parentid", parentid) :
                 new ObjectParameter("parentid", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenuChildItem", mergeOption, parentidParameter);
         }
-
+    
         public virtual ObjectResult<menu> pr_getMenuItemTopLevel(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenuItemTopLevel", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<menu> pr_getMenuItemTopLevel(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenuItemTopLevel", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<string> pr_getObjectNameByEnterprise(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getObjectNameByEnterprise", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<string> pr_getObjectNameByEnterpriseForMobile(Nullable<int> enterprise, Nullable<int> device)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var deviceParameter = device.HasValue ?
                 new ObjectParameter("Device", device) :
                 new ObjectParameter("Device", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getObjectNameByEnterpriseForMobile", enterpriseParameter, deviceParameter);
         }
-
+    
         public virtual ObjectResult<string> pr_getObjectNameByEnterpriseObjectName(Nullable<int> enterprise, string objectName)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var objectNameParameter = objectName != null ?
                 new ObjectParameter("objectName", objectName) :
                 new ObjectParameter("objectName", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getObjectNameByEnterpriseObjectName", enterpriseParameter, objectNameParameter);
         }
-
+    
         public virtual ObjectResult<page> pr_getPage(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getPage", idParameter);
         }
-
+    
         public virtual ObjectResult<page> pr_getPage(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getPage", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<page> pr_getPageAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getPageAll");
         }
-
+    
         public virtual ObjectResult<page> pr_getPageAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getPageAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<page> pr_getPageByQuestionnaire(Nullable<int> questionnaire)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getPageByQuestionnaire", questionnaireParameter);
         }
-
+    
         public virtual ObjectResult<page> pr_getPageByQuestionnaire(Nullable<int> questionnaire, MergeOption mergeOption)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getPageByQuestionnaire", mergeOption, questionnaireParameter);
         }
-
+    
         public virtual ObjectResult<page> pr_getPageBySurveyset(Nullable<int> surveyset)
         {
             var surveysetParameter = surveyset.HasValue ?
                 new ObjectParameter("surveyset", surveyset) :
                 new ObjectParameter("surveyset", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getPageBySurveyset", surveysetParameter);
         }
-
+    
         public virtual ObjectResult<page> pr_getPageBySurveyset(Nullable<int> surveyset, MergeOption mergeOption)
         {
             var surveysetParameter = surveyset.HasValue ?
                 new ObjectParameter("surveyset", surveyset) :
                 new ObjectParameter("surveyset", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getPageBySurveyset", mergeOption, surveysetParameter);
         }
-
+    
         public virtual ObjectResult<partnerType> pr_getParnterType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerType>("pr_getParnterType", idParameter);
         }
-
+    
         public virtual ObjectResult<partnerType> pr_getParnterType(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerType>("pr_getParnterType", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<partner> pr_getPartner(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartner", idParameter);
         }
-
+    
         public virtual ObjectResult<partner> pr_getPartner(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartner", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<partner> pr_getPartnerAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<partner> pr_getPartnerAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<partner> pr_getPartnerByRelationshipowner(Nullable<int> person)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerByRelationshipowner", personParameter);
         }
-
+    
         public virtual ObjectResult<partner> pr_getPartnerByRelationshipowner(Nullable<int> person, MergeOption mergeOption)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerByRelationshipowner", mergeOption, personParameter);
         }
-
+    
         public virtual ObjectResult<partnerCorpInfo> pr_getPartnerCorpInfo(Nullable<int> partner)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerCorpInfo>("pr_getPartnerCorpInfo", partnerParameter);
         }
-
+    
         public virtual ObjectResult<partnerCorpInfo> pr_getPartnerCorpInfo(Nullable<int> partner, MergeOption mergeOption)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerCorpInfo>("pr_getPartnerCorpInfo", mergeOption, partnerParameter);
         }
-
+    
         public virtual ObjectResult<group> pr_getPartnerGroupByGroup(Nullable<int> group)
         {
             var groupParameter = group.HasValue ?
                 new ObjectParameter("group", group) :
                 new ObjectParameter("group", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getPartnerGroupByGroup", groupParameter);
         }
-
+    
         public virtual ObjectResult<group> pr_getPartnerGroupByGroup(Nullable<int> group, MergeOption mergeOption)
         {
             var groupParameter = group.HasValue ?
                 new ObjectParameter("group", group) :
                 new ObjectParameter("group", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getPartnerGroupByGroup", mergeOption, groupParameter);
         }
-
+    
         public virtual ObjectResult<group> pr_getPartnerGroupByPartner(Nullable<int> partner)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getPartnerGroupByPartner", partnerParameter);
         }
-
+    
         public virtual ObjectResult<group> pr_getPartnerGroupByPartner(Nullable<int> partner, MergeOption mergeOption)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getPartnerGroupByPartner", mergeOption, partnerParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaire(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaire", idParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaire(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaire", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(string accesscode)
         {
             var accesscodeParameter = accesscode != null ?
                 new ObjectParameter("accesscode", accesscode) :
                 new ObjectParameter("accesscode", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode", accesscodeParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(string accesscode, MergeOption mergeOption)
         {
             var accesscodeParameter = accesscode != null ?
                 new ObjectParameter("accesscode", accesscode) :
                 new ObjectParameter("accesscode", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode", mergeOption, accesscodeParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaireByInvitedByPerson(Nullable<int> person)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByInvitedByPerson", personParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaireByInvitedByPerson(Nullable<int> person, MergeOption mergeOption)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByInvitedByPerson", mergeOption, personParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(Nullable<int> partner)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner", partnerParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(Nullable<int> partner, MergeOption mergeOption)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner", mergeOption, partnerParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire(Nullable<int> partnertypeTouchpointQuestionnaire)
         {
             var partnertypeTouchpointQuestionnaireParameter = partnertypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnertypeTouchpointQuestionnaire", partnertypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnertypeTouchpointQuestionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire", partnertypeTouchpointQuestionnaireParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire(Nullable<int> partnertypeTouchpointQuestionnaire, MergeOption mergeOption)
         {
             var partnertypeTouchpointQuestionnaireParameter = partnertypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnertypeTouchpointQuestionnaire", partnertypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnertypeTouchpointQuestionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire", mergeOption, partnertypeTouchpointQuestionnaireParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse", idParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
         {
             var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("PartnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
                 new ObjectParameter("PartnerPartnertypeTouchpointQuestionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
         }
-
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, MergeOption mergeOption)
         {
             var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("PartnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
                 new ObjectParameter("PartnerPartnertypeTouchpointQuestionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ", mergeOption, partnerPartnertypeTouchpointQuestionnaireParameter);
         }
-
+    
         public virtual ObjectResult<partnerRemitAddress> pr_getPartnerrRemitAddress(Nullable<int> partner)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerRemitAddress>("pr_getPartnerrRemitAddress", partnerParameter);
         }
-
+    
         public virtual ObjectResult<partnerRemitAddress> pr_getPartnerrRemitAddress(Nullable<int> partner, MergeOption mergeOption)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerRemitAddress>("pr_getPartnerrRemitAddress", mergeOption, partnerParameter);
         }
-
+    
         public virtual ObjectResult<partnerType> pr_getPartnerType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerType>("pr_getPartnerType", idParameter);
         }
-
+    
         public virtual ObjectResult<partnerType> pr_getPartnerType(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerType>("pr_getPartnerType", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<partnerType> pr_getPartnerTypeAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerType>("pr_getPartnerTypeAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<partnerType> pr_getPartnerTypeAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerType>("pr_getPartnerTypeAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<partnerTypeTouchpointQuestionnaire> pr_getPartnertypeTouchpointQuestionnaire(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerTypeTouchpointQuestionnaire>("pr_getPartnertypeTouchpointQuestionnaire", idParameter);
         }
-
+    
         public virtual ObjectResult<partnerTypeTouchpointQuestionnaire> pr_getPartnertypeTouchpointQuestionnaire(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerTypeTouchpointQuestionnaire>("pr_getPartnertypeTouchpointQuestionnaire", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<partnerTypeTouchpointQuestionnaire> pr_getPartnertypeTouchpointQuestionnaireByPartnerType(Nullable<int> partnertype)
         {
             var partnertypeParameter = partnertype.HasValue ?
                 new ObjectParameter("partnertype", partnertype) :
                 new ObjectParameter("partnertype", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerTypeTouchpointQuestionnaire>("pr_getPartnertypeTouchpointQuestionnaireByPartnerType", partnertypeParameter);
         }
-
+    
         public virtual ObjectResult<partnerTypeTouchpointQuestionnaire> pr_getPartnertypeTouchpointQuestionnaireByPartnerType(Nullable<int> partnertype, MergeOption mergeOption)
         {
             var partnertypeParameter = partnertype.HasValue ?
                 new ObjectParameter("partnertype", partnertype) :
                 new ObjectParameter("partnertype", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerTypeTouchpointQuestionnaire>("pr_getPartnertypeTouchpointQuestionnaireByPartnerType", mergeOption, partnertypeParameter);
         }
-
+    
         public virtual ObjectResult<partnerTypeTouchpointQuestionnaire> pr_getPartnertypeTouchpointQuestionnaireByQuestionnaire(Nullable<int> questionnaire)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerTypeTouchpointQuestionnaire>("pr_getPartnertypeTouchpointQuestionnaireByQuestionnaire", questionnaireParameter);
         }
-
+    
         public virtual ObjectResult<partnerTypeTouchpointQuestionnaire> pr_getPartnertypeTouchpointQuestionnaireByQuestionnaire(Nullable<int> questionnaire, MergeOption mergeOption)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerTypeTouchpointQuestionnaire>("pr_getPartnertypeTouchpointQuestionnaireByQuestionnaire", mergeOption, questionnaireParameter);
         }
-
+    
         public virtual ObjectResult<partnerTypeTouchpointQuestionnaire> pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(Nullable<int> touchpoint)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerTypeTouchpointQuestionnaire>("pr_getPartnertypeTouchpointQuestionnaireByTouchpoint", touchpointParameter);
         }
-
+    
         public virtual ObjectResult<partnerTypeTouchpointQuestionnaire> pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(Nullable<int> touchpoint, MergeOption mergeOption)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerTypeTouchpointQuestionnaire>("pr_getPartnertypeTouchpointQuestionnaireByTouchpoint", mergeOption, touchpointParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPerson(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPerson", idParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPerson(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPerson", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonAllConfirmed(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonAllConfirmed", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonAllConfirmed(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonAllConfirmed", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByEmail(Nullable<int> enterprise, string email)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByEmail", enterpriseParameter, emailParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByEmail(Nullable<int> enterprise, string email, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByEmail", mergeOption, enterpriseParameter, emailParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByEmailForLoginAttempts(string email)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByEmailForLoginAttempts", emailParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByEmailForLoginAttempts(string email, MergeOption mergeOption)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByEmailForLoginAttempts", mergeOption, emailParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByGroup(Nullable<int> group)
         {
             var groupParameter = group.HasValue ?
                 new ObjectParameter("group", group) :
                 new ObjectParameter("group", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByGroup", groupParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByGroup(Nullable<int> group, MergeOption mergeOption)
         {
             var groupParameter = group.HasValue ?
                 new ObjectParameter("group", group) :
                 new ObjectParameter("group", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByGroup", mergeOption, groupParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByInternalID(string internalID)
         {
             var internalIDParameter = internalID != null ?
                 new ObjectParameter("internalID", internalID) :
                 new ObjectParameter("internalID", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByInternalID", internalIDParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByInternalID(string internalID, MergeOption mergeOption)
         {
             var internalIDParameter = internalID != null ?
                 new ObjectParameter("internalID", internalID) :
                 new ObjectParameter("internalID", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByInternalID", mergeOption, internalIDParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByInternalIDEmail(string internalID, string email)
         {
             var internalIDParameter = internalID != null ?
                 new ObjectParameter("internalID", internalID) :
                 new ObjectParameter("internalID", typeof(string));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByInternalIDEmail", internalIDParameter, emailParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByInternalIDEmail(string internalID, string email, MergeOption mergeOption)
         {
             var internalIDParameter = internalID != null ?
                 new ObjectParameter("internalID", internalID) :
                 new ObjectParameter("internalID", typeof(string));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByInternalIDEmail", mergeOption, internalIDParameter, emailParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByLoadHistory(Nullable<int> loadHistory)
         {
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByLoadHistory", loadHistoryParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByLoadHistory(Nullable<int> loadHistory, MergeOption mergeOption)
         {
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByLoadHistory", mergeOption, loadHistoryParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByStatus(Nullable<int> status, Nullable<int> loadHistory, Nullable<int> enterprise)
         {
             var statusParameter = status.HasValue ?
                 new ObjectParameter("status", status) :
                 new ObjectParameter("status", typeof(int));
-
+    
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByStatus", statusParameter, loadHistoryParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByStatus(Nullable<int> status, Nullable<int> loadHistory, Nullable<int> enterprise, MergeOption mergeOption)
         {
             var statusParameter = status.HasValue ?
                 new ObjectParameter("status", status) :
                 new ObjectParameter("status", typeof(int));
-
+    
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByStatus", mergeOption, statusParameter, loadHistoryParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_getPersonColumnHeader()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPersonColumnHeader");
         }
-
+    
         public virtual int pr_getPersonColumnNameByID(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPersonColumnNameByID", idParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<int>> pr_getPersonCountAllByRole(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getPersonCountAllByRole", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<int>> pr_getPersonCountByAllRole(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getPersonCountByAllRole", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<int>> pr_getPersonCountByRole(Nullable<int> enterprise, Nullable<int> role)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getPersonCountByRole", enterpriseParameter, roleParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<int>> pr_getPersonDupByEmail(Nullable<int> loadHistory)
         {
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getPersonDupByEmail", loadHistoryParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonDupByInternalID(Nullable<int> loadHistory)
         {
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonDupByInternalID", loadHistoryParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonDupByInternalID(Nullable<int> loadHistory, MergeOption mergeOption)
         {
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonDupByInternalID", mergeOption, loadHistoryParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<int>> pr_getPersonEmailCount(string email)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getPersonEmailCount", emailParameter);
         }
-
+    
         public virtual int pr_getPersonExcel(Nullable<int> loadHistory)
         {
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPersonExcel", loadHistoryParameter);
         }
-
+    
         public virtual int pr_getPersonExcelByAuthor(Nullable<int> person)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPersonExcelByAuthor", personParameter);
         }
-
+    
         public virtual int pr_getPersonExcelByEmail(string email, Nullable<int> loadHistory)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPersonExcelByEmail", emailParameter, loadHistoryParameter);
         }
-
+    
         public virtual int pr_getPersonExcelByInternalID(string internalID, Nullable<int> loadHistory)
         {
             var internalIDParameter = internalID != null ?
                 new ObjectParameter("internalID", internalID) :
                 new ObjectParameter("internalID", typeof(string));
-
+    
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPersonExcelByInternalID", internalIDParameter, loadHistoryParameter);
         }
-
+    
         public virtual ObjectResult<pr_getPersonExcelDupByEmail_Result> pr_getPersonExcelDupByEmail(Nullable<int> loadHistory)
         {
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonExcelDupByEmail_Result>("pr_getPersonExcelDupByEmail", loadHistoryParameter);
         }
-
+    
         public virtual ObjectResult<pr_getPersonExcelDupByInternalID_Result> pr_getPersonExcelDupByInternalID(Nullable<int> loadHistory)
         {
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonExcelDupByInternalID_Result>("pr_getPersonExcelDupByInternalID", loadHistoryParameter);
         }
-
+    
         public virtual int pr_getPersonInfoByID(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPersonInfoByID", idParameter);
         }
-
+    
         public virtual int pr_getPersonInternalIDCount(string internalID)
         {
             var internalIDParameter = internalID != null ?
                 new ObjectParameter("internalID", internalID) :
                 new ObjectParameter("internalID", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPersonInternalIDCount", internalIDParameter);
         }
-
+    
         public virtual ObjectResult<string> pr_getPersonNameById(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getPersonNameById", idParameter);
         }
-
+    
         public virtual int pr_getPersonPartnerCount(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPersonPartnerCount", enterpriseParameter);
         }
-
+    
         public virtual int pr_getPersonPartnerCountByID(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPersonPartnerCountByID", idParameter);
         }
-
+    
         public virtual ObjectResult<pr_getPersonPreviousNext_Result> pr_getPersonPreviousNext(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonPreviousNext_Result>("pr_getPersonPreviousNext", idParameter);
         }
-
+    
         public virtual ObjectResult<pr_getPersonPwdByEmail_Result> pr_getPersonPwdByEmail(string email)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonPwdByEmail_Result>("pr_getPersonPwdByEmail", emailParameter);
         }
-
+    
         public virtual ObjectResult<personRelationshipType> pr_getPersonRelationshipType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<personRelationshipType>("pr_getPersonRelationshipType", idParameter);
         }
-
+    
         public virtual ObjectResult<personRelationshipType> pr_getPersonRelationshipType(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<personRelationshipType>("pr_getPersonRelationshipType", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<personRelationshipType> pr_getPersonRelationshipTypeAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<personRelationshipType>("pr_getPersonRelationshipTypeAll");
         }
-
+    
         public virtual ObjectResult<personRelationshipType> pr_getPersonRelationshipTypeAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<personRelationshipType>("pr_getPersonRelationshipTypeAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<role> pr_getPersonRoleByPerson(Nullable<int> person)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getPersonRoleByPerson", personParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getPersonRoleByPerson(Nullable<int> person, MergeOption mergeOption)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getPersonRoleByPerson", mergeOption, personParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getPersonRoleByRole(Nullable<int> role)
         {
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getPersonRoleByRole", roleParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getPersonRoleByRole(Nullable<int> role, MergeOption mergeOption)
         {
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getPersonRoleByRole", mergeOption, roleParameter);
         }
-
+    
         public virtual ObjectResult<protocol> pr_getProtocol(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<protocol>("pr_getProtocol", idParameter);
         }
-
+    
         public virtual ObjectResult<protocol> pr_getProtocol(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<protocol>("pr_getProtocol", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<protocol> pr_getProtocolAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<protocol>("pr_getProtocolAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<protocol> pr_getProtocolAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<protocol>("pr_getProtocolAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<protocol> pr_getProtocolByTouchpoint(Nullable<int> touchpoint)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<protocol>("pr_getProtocolByTouchpoint", touchpointParameter);
         }
-
+    
         public virtual ObjectResult<protocol> pr_getProtocolByTouchpoint(Nullable<int> touchpoint, MergeOption mergeOption)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<protocol>("pr_getProtocolByTouchpoint", mergeOption, touchpointParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestion(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestion", idParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestion(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestion", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionByLanguage(Nullable<int> language)
         {
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionByLanguage", languageParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionByLanguage(Nullable<int> language, MergeOption mergeOption)
         {
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionByLanguage", mergeOption, languageParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionByResponse(Nullable<int> response)
         {
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionByResponse", responseParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionByResponse(Nullable<int> response, MergeOption mergeOption)
         {
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionByResponse", mergeOption, responseParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionByRule(Nullable<int> rule)
         {
             var ruleParameter = rule.HasValue ?
                 new ObjectParameter("rule", rule) :
                 new ObjectParameter("rule", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionByRule", ruleParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionByRule(Nullable<int> rule, MergeOption mergeOption)
         {
             var ruleParameter = rule.HasValue ?
                 new ObjectParameter("rule", rule) :
                 new ObjectParameter("rule", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionByRule", mergeOption, ruleParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionBySurvey(Nullable<int> survey)
         {
             var surveyParameter = survey.HasValue ?
                 new ObjectParameter("survey", survey) :
                 new ObjectParameter("survey", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionBySurvey", surveyParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionBySurvey(Nullable<int> survey, MergeOption mergeOption)
         {
             var surveyParameter = survey.HasValue ?
                 new ObjectParameter("survey", survey) :
                 new ObjectParameter("survey", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionBySurvey", mergeOption, surveyParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionByTranslation(Nullable<int> translation)
         {
             var translationParameter = translation.HasValue ?
                 new ObjectParameter("translation", translation) :
                 new ObjectParameter("translation", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionByTranslation", translationParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionByTranslation(Nullable<int> translation, MergeOption mergeOption)
         {
             var translationParameter = translation.HasValue ?
                 new ObjectParameter("translation", translation) :
                 new ObjectParameter("translation", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionByTranslation", mergeOption, translationParameter);
         }
-
+    
         public virtual ObjectResult<questionnaire> pr_getQuestionnaire(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaire>("pr_getQuestionnaire", idParameter);
         }
-
+    
         public virtual ObjectResult<questionnaire> pr_getQuestionnaire(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaire>("pr_getQuestionnaire", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<questionnaire> pr_getQuestionnaireAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaire>("pr_getQuestionnaireAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<questionnaire> pr_getQuestionnaireAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaire>("pr_getQuestionnaireAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<questionnaire> pr_getQuestionnaireByPage(Nullable<int> page)
         {
             var pageParameter = page.HasValue ?
                 new ObjectParameter("page", page) :
                 new ObjectParameter("page", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaire>("pr_getQuestionnaireByPage", pageParameter);
         }
-
+    
         public virtual ObjectResult<questionnaire> pr_getQuestionnaireByPage(Nullable<int> page, MergeOption mergeOption)
         {
             var pageParameter = page.HasValue ?
                 new ObjectParameter("page", page) :
                 new ObjectParameter("page", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaire>("pr_getQuestionnaireByPage", mergeOption, pageParameter);
         }
-
+    
         public virtual ObjectResult<questionnaireLevel> pr_getQuestionnaireLevel(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireLevel>("pr_getQuestionnaireLevel", idParameter);
         }
-
+    
         public virtual ObjectResult<questionnaireLevel> pr_getQuestionnaireLevel(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireLevel>("pr_getQuestionnaireLevel", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<questionnaireLevel> pr_getQuestionnaireLevelAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireLevel>("pr_getQuestionnaireLevelAll");
         }
-
+    
         public virtual ObjectResult<questionnaireLevel> pr_getQuestionnaireLevelAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireLevel>("pr_getQuestionnaireLevelAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<ratingType> pr_getRatingType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ratingType>("pr_getRatingType", idParameter);
         }
-
+    
         public virtual ObjectResult<ratingType> pr_getRatingType(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ratingType>("pr_getRatingType", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<ratingType> pr_getRatingTypeAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ratingType>("pr_getRatingTypeAll");
         }
-
+    
         public virtual ObjectResult<ratingType> pr_getRatingTypeAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ratingType>("pr_getRatingTypeAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<person> pr_getRelationshipownerByPartner(Nullable<int> partner)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getRelationshipownerByPartner", partnerParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getRelationshipownerByPartner(Nullable<int> partner, MergeOption mergeOption)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getRelationshipownerByPartner", mergeOption, partnerParameter);
         }
-
+    
         public virtual ObjectResult<response> pr_getResponse(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponse", idParameter);
         }
-
+    
         public virtual ObjectResult<response> pr_getResponse(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponse", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<response> pr_getResponseAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<response> pr_getResponseAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<response> pr_getResponseByLanguage(Nullable<int> language)
         {
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseByLanguage", languageParameter);
         }
-
+    
         public virtual ObjectResult<response> pr_getResponseByLanguage(Nullable<int> language, MergeOption mergeOption)
         {
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseByLanguage", mergeOption, languageParameter);
         }
-
+    
         public virtual ObjectResult<response> pr_getResponseByQuestion(Nullable<int> question)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseByQuestion", questionParameter);
         }
-
+    
         public virtual ObjectResult<response> pr_getResponseByQuestion(Nullable<int> question, MergeOption mergeOption)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseByQuestion", mergeOption, questionParameter);
         }
-
+    
         public virtual ObjectResult<response> pr_getResponseByTranslation(Nullable<int> translation)
         {
             var translationParameter = translation.HasValue ?
                 new ObjectParameter("translation", translation) :
                 new ObjectParameter("translation", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseByTranslation", translationParameter);
         }
-
+    
         public virtual ObjectResult<response> pr_getResponseByTranslation(Nullable<int> translation, MergeOption mergeOption)
         {
             var translationParameter = translation.HasValue ?
                 new ObjectParameter("translation", translation) :
                 new ObjectParameter("translation", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseByTranslation", mergeOption, translationParameter);
         }
-
+    
         public virtual ObjectResult<responseType> pr_getResponseType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<responseType>("pr_getResponseType", idParameter);
         }
-
+    
         public virtual ObjectResult<responseType> pr_getResponseType(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<responseType>("pr_getResponseType", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<responseType> pr_getResponseTypeAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<responseType>("pr_getResponseTypeAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<responseType> pr_getResponseTypeAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<responseType>("pr_getResponseTypeAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getRole(string roleName, ObjectParameter id)
         {
             var roleNameParameter = roleName != null ?
                 new ObjectParameter("roleName", roleName) :
                 new ObjectParameter("roleName", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRole", roleNameParameter, id);
         }
-
+    
         public virtual ObjectResult<role> pr_getRole(string roleName, ObjectParameter id, MergeOption mergeOption)
         {
             var roleNameParameter = roleName != null ?
                 new ObjectParameter("roleName", roleName) :
                 new ObjectParameter("roleName", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRole", mergeOption, roleNameParameter, id);
         }
-
+    
         public virtual ObjectResult<role> pr_getRoleAccessByID(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleAccessByID", idParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getRoleAccessByID(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleAccessByID", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getRoleAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getRoleAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getRoleByID(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleByID", idParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getRoleByID(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleByID", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getRoleByName(string roleName, Nullable<int> enterprise)
         {
             var roleNameParameter = roleName != null ?
                 new ObjectParameter("roleName", roleName) :
                 new ObjectParameter("roleName", typeof(string));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleByName", roleNameParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getRoleByName(string roleName, Nullable<int> enterprise, MergeOption mergeOption)
         {
             var roleNameParameter = roleName != null ?
                 new ObjectParameter("roleName", roleName) :
                 new ObjectParameter("roleName", typeof(string));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleByName", mergeOption, roleNameParameter, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getRoleMenuByMenu(Nullable<int> menu)
         {
             var menuParameter = menu.HasValue ?
                 new ObjectParameter("menu", menu) :
                 new ObjectParameter("menu", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleMenuByMenu", menuParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getRoleMenuByMenu(Nullable<int> menu, MergeOption mergeOption)
         {
             var menuParameter = menu.HasValue ?
                 new ObjectParameter("menu", menu) :
                 new ObjectParameter("menu", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleMenuByMenu", mergeOption, menuParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getRoleMenuByRole(Nullable<int> role)
         {
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleMenuByRole", roleParameter);
         }
-
+    
         public virtual ObjectResult<role> pr_getRoleMenuByRole(Nullable<int> role, MergeOption mergeOption)
         {
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getRoleMenuByRole", mergeOption, roleParameter);
         }
-
+    
         public virtual ObjectResult<rule> pr_getRule(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rule>("pr_getRule", idParameter);
         }
-
+    
         public virtual ObjectResult<rule> pr_getRule(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rule>("pr_getRule", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<rule> pr_getRuleAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rule>("pr_getRuleAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<rule> pr_getRuleAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rule>("pr_getRuleAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<rule> pr_getRuleByQuestion(Nullable<int> question)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rule>("pr_getRuleByQuestion", questionParameter);
         }
-
+    
         public virtual ObjectResult<rule> pr_getRuleByQuestion(Nullable<int> question, MergeOption mergeOption)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rule>("pr_getRuleByQuestion", mergeOption, questionParameter);
         }
-
+    
         public virtual ObjectResult<ruleType> pr_getRuleType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ruleType>("pr_getRuleType", idParameter);
         }
-
+    
         public virtual ObjectResult<ruleType> pr_getRuleType(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ruleType>("pr_getRuleType", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<ruleType> pr_getRuletypeAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ruleType>("pr_getRuletypeAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<ruleType> pr_getRuletypeAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ruleType>("pr_getRuletypeAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<state> pr_getState(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<state>("pr_getState", idParameter);
         }
-
+    
         public virtual ObjectResult<state> pr_getState(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<state>("pr_getState", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<state> pr_getStateAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<state>("pr_getStateAll", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<state> pr_getStateAll(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<state>("pr_getStateAll", mergeOption, enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<state> pr_getStateByID(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<state>("pr_getStateByID", idParameter);
         }
-
+    
         public virtual ObjectResult<state> pr_getStateByID(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<state>("pr_getStateByID", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<state> pr_getStateByName(string stateName)
         {
             var stateNameParameter = stateName != null ?
                 new ObjectParameter("stateName", stateName) :
                 new ObjectParameter("stateName", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<state>("pr_getStateByName", stateNameParameter);
         }
-
+    
         public virtual ObjectResult<state> pr_getStateByName(string stateName, MergeOption mergeOption)
         {
             var stateNameParameter = stateName != null ?
                 new ObjectParameter("stateName", stateName) :
                 new ObjectParameter("stateName", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<state>("pr_getStateByName", mergeOption, stateNameParameter);
         }
-
+    
         public virtual ObjectResult<string> pr_getStateName(Nullable<int> id, ObjectParameter stateName)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getStateName", idParameter, stateName);
         }
-
+    
         public virtual ObjectResult<survey> pr_getSurvey(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<survey>("pr_getSurvey", idParameter);
         }
-
+    
         public virtual ObjectResult<survey> pr_getSurvey(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<survey>("pr_getSurvey", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<survey> pr_getSurveyAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<survey>("pr_getSurveyAll");
         }
-
+    
         public virtual ObjectResult<survey> pr_getSurveyAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<survey>("pr_getSurveyAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<survey> pr_getSurveyByQuestion(Nullable<int> question)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<survey>("pr_getSurveyByQuestion", questionParameter);
         }
-
+    
         public virtual ObjectResult<survey> pr_getSurveyByQuestion(Nullable<int> question, MergeOption mergeOption)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<survey>("pr_getSurveyByQuestion", mergeOption, questionParameter);
         }
-
+    
         public virtual ObjectResult<survey> pr_getSurveyBySurveyset(Nullable<int> surveyset)
         {
             var surveysetParameter = surveyset.HasValue ?
                 new ObjectParameter("surveyset", surveyset) :
                 new ObjectParameter("surveyset", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<survey>("pr_getSurveyBySurveyset", surveysetParameter);
         }
-
+    
         public virtual ObjectResult<survey> pr_getSurveyBySurveyset(Nullable<int> surveyset, MergeOption mergeOption)
         {
             var surveysetParameter = surveyset.HasValue ?
                 new ObjectParameter("surveyset", surveyset) :
                 new ObjectParameter("surveyset", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<survey>("pr_getSurveyBySurveyset", mergeOption, surveysetParameter);
         }
-
+    
         public virtual ObjectResult<surveyset> pr_getSurveyset(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<surveyset>("pr_getSurveyset", idParameter);
         }
-
+    
         public virtual ObjectResult<surveyset> pr_getSurveyset(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<surveyset>("pr_getSurveyset", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<surveyset> pr_getSurveysetAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<surveyset>("pr_getSurveysetAll");
         }
-
+    
         public virtual ObjectResult<surveyset> pr_getSurveysetAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<surveyset>("pr_getSurveysetAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<surveyset> pr_getSurveysetByPage(Nullable<int> page)
         {
             var pageParameter = page.HasValue ?
                 new ObjectParameter("page", page) :
                 new ObjectParameter("page", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<surveyset>("pr_getSurveysetByPage", pageParameter);
         }
-
+    
         public virtual ObjectResult<surveyset> pr_getSurveysetByPage(Nullable<int> page, MergeOption mergeOption)
         {
             var pageParameter = page.HasValue ?
                 new ObjectParameter("page", page) :
                 new ObjectParameter("page", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<surveyset>("pr_getSurveysetByPage", mergeOption, pageParameter);
         }
-
+    
         public virtual ObjectResult<surveyset> pr_getSurveysetBySurvey(Nullable<int> survey)
         {
             var surveyParameter = survey.HasValue ?
                 new ObjectParameter("survey", survey) :
                 new ObjectParameter("survey", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<surveyset>("pr_getSurveysetBySurvey", surveyParameter);
         }
-
+    
         public virtual ObjectResult<surveyset> pr_getSurveysetBySurvey(Nullable<int> survey, MergeOption mergeOption)
         {
             var surveyParameter = survey.HasValue ?
                 new ObjectParameter("survey", survey) :
                 new ObjectParameter("survey", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<surveyset>("pr_getSurveysetBySurvey", mergeOption, surveyParameter);
         }
-
+    
         public virtual ObjectResult<string> pr_getSystemInfo(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getSystemInfo", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<touchpoint> pr_getTouchpoint(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpoint", idParameter);
         }
-
+    
         public virtual ObjectResult<touchpoint> pr_getTouchpoint(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpoint", mergeOption, idParameter);
         }
-
+    
         public virtual ObjectResult<touchpoint> pr_getTouchpointAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointAll");
         }
-
+    
         public virtual ObjectResult<touchpoint> pr_getTouchpointAll(MergeOption mergeOption)
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointAll", mergeOption);
         }
-
+    
         public virtual ObjectResult<touchpoint> pr_getTouchpointByGroup(Nullable<int> group)
         {
             var groupParameter = group.HasValue ?
                 new ObjectParameter("group", group) :
                 new ObjectParameter("group", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointByGroup", groupParameter);
         }
-
+    
         public virtual ObjectResult<touchpoint> pr_getTouchpointByGroup(Nullable<int> group, MergeOption mergeOption)
         {
             var groupParameter = group.HasValue ?
                 new ObjectParameter("group", group) :
                 new ObjectParameter("group", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointByGroup", mergeOption, groupParameter);
         }
-
+    
         public virtual ObjectResult<touchpointQuestionResponseValue_deprecated> pr_getTouchpointQuestionResponseValue(Nullable<int> touchpoint, Nullable<int> question, Nullable<int> response)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpointQuestionResponseValue_deprecated>("pr_getTouchpointQuestionResponseValue", touchpointParameter, questionParameter, responseParameter);
         }
-
+    
         public virtual ObjectResult<touchpointQuestionResponseValue_deprecated> pr_getTouchpointQuestionResponseValue(Nullable<int> touchpoint, Nullable<int> question, Nullable<int> response, MergeOption mergeOption)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpointQuestionResponseValue_deprecated>("pr_getTouchpointQuestionResponseValue", mergeOption, touchpointParameter, questionParameter, responseParameter);
         }
-
+    
         public virtual ObjectResult<questionTranslation> pr_getTranslationByQuestion(Nullable<int> question)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionTranslation>("pr_getTranslationByQuestion", questionParameter);
         }
-
+    
         public virtual ObjectResult<questionTranslation> pr_getTranslationByQuestion(Nullable<int> question, MergeOption mergeOption)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionTranslation>("pr_getTranslationByQuestion", mergeOption, questionParameter);
         }
-
+    
         public virtual ObjectResult<pr_getTranslationByResponse_Result> pr_getTranslationByResponse(Nullable<int> response)
         {
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTranslationByResponse_Result>("pr_getTranslationByResponse", responseParameter);
         }
-
+    
         public virtual int pr_modifyAgency(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAgency", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyAutomail(Nullable<int> id, Nullable<int> protocol, Nullable<int> touchpoint, Nullable<int> partnerType, Nullable<int> mailType, string subject, string text, string footer1, string footer2)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var protocolParameter = protocol.HasValue ?
                 new ObjectParameter("protocol", protocol) :
                 new ObjectParameter("protocol", typeof(int));
-
+    
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var partnerTypeParameter = partnerType.HasValue ?
                 new ObjectParameter("partnerType", partnerType) :
                 new ObjectParameter("partnerType", typeof(int));
-
+    
             var mailTypeParameter = mailType.HasValue ?
                 new ObjectParameter("mailType", mailType) :
                 new ObjectParameter("mailType", typeof(int));
-
+    
             var subjectParameter = subject != null ?
                 new ObjectParameter("subject", subject) :
                 new ObjectParameter("subject", typeof(string));
-
+    
             var textParameter = text != null ?
                 new ObjectParameter("text", text) :
                 new ObjectParameter("text", typeof(string));
-
+    
             var footer1Parameter = footer1 != null ?
                 new ObjectParameter("footer1", footer1) :
                 new ObjectParameter("footer1", typeof(string));
-
+    
             var footer2Parameter = footer2 != null ?
                 new ObjectParameter("footer2", footer2) :
                 new ObjectParameter("footer2", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutomail", idParameter, protocolParameter, touchpointParameter, partnerTypeParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
         }
-
+    
         public virtual int pr_modifyAutoMailAttachment(Nullable<int> id, Nullable<int> autoMail, string attachment, string note)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var autoMailParameter = autoMail.HasValue ?
                 new ObjectParameter("autoMail", autoMail) :
                 new ObjectParameter("autoMail", typeof(int));
-
+    
             var attachmentParameter = attachment != null ?
                 new ObjectParameter("attachment", attachment) :
                 new ObjectParameter("attachment", typeof(string));
-
+    
             var noteParameter = note != null ?
                 new ObjectParameter("note", note) :
                 new ObjectParameter("note", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutoMailAttachment", idParameter, autoMailParameter, attachmentParameter, noteParameter);
         }
-
+    
         public virtual int pr_modifyAutoMailType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<int> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutoMailType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyCountry(Nullable<int> id, Nullable<int> eplsCountryID, string name, string code, string governanceCode, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var eplsCountryIDParameter = eplsCountryID.HasValue ?
                 new ObjectParameter("eplsCountryID", eplsCountryID) :
                 new ObjectParameter("eplsCountryID", typeof(int));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var codeParameter = code != null ?
                 new ObjectParameter("code", code) :
                 new ObjectParameter("code", typeof(string));
-
+    
             var governanceCodeParameter = governanceCode != null ?
                 new ObjectParameter("governanceCode", governanceCode) :
                 new ObjectParameter("governanceCode", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCountry", idParameter, eplsCountryIDParameter, nameParameter, codeParameter, governanceCodeParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyDomain(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyDomain", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyEmailBounceType(Nullable<int> id, string description, Nullable<int> code, Nullable<int> sortOrder, Nullable<int> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var codeParameter = code.HasValue ?
                 new ObjectParameter("code", code) :
                 new ObjectParameter("code", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEmailBounceType", idParameter, descriptionParameter, codeParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyEmailTag(Nullable<int> id, string @class, string method, string variable)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var classParameter = @class != null ?
                 new ObjectParameter("class", @class) :
                 new ObjectParameter("class", typeof(string));
-
+    
             var methodParameter = method != null ?
                 new ObjectParameter("method", method) :
                 new ObjectParameter("method", typeof(string));
-
+    
             var variableParameter = variable != null ?
                 new ObjectParameter("variable", variable) :
                 new ObjectParameter("variable", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEmailTag", idParameter, classParameter, methodParameter, variableParameter);
         }
-
+    
         public virtual int pr_modifyEmailTemplate(Nullable<int> id, Nullable<int> emailTemplateType, Nullable<int> enterprise, Nullable<int> author, Nullable<System.DateTime> dateCreated, string subject, string body)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var emailTemplateTypeParameter = emailTemplateType.HasValue ?
                 new ObjectParameter("EmailTemplateType", emailTemplateType) :
                 new ObjectParameter("EmailTemplateType", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var authorParameter = author.HasValue ?
                 new ObjectParameter("author", author) :
                 new ObjectParameter("author", typeof(int));
-
+    
             var dateCreatedParameter = dateCreated.HasValue ?
                 new ObjectParameter("dateCreated", dateCreated) :
                 new ObjectParameter("dateCreated", typeof(System.DateTime));
-
+    
             var subjectParameter = subject != null ?
                 new ObjectParameter("subject", subject) :
                 new ObjectParameter("subject", typeof(string));
-
+    
             var bodyParameter = body != null ?
                 new ObjectParameter("body", body) :
                 new ObjectParameter("body", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEmailTemplate", idParameter, emailTemplateTypeParameter, enterpriseParameter, authorParameter, dateCreatedParameter, subjectParameter, bodyParameter);
         }
-
+    
         public virtual int pr_modifyEmailTemplateType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEmailTemplateType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyEnterprise(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, string logo, string applicationPath, string companyName, string instanceName, Nullable<System.DateTime> archivedDate)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var logoParameter = logo != null ?
                 new ObjectParameter("logo", logo) :
                 new ObjectParameter("logo", typeof(string));
-
+    
             var applicationPathParameter = applicationPath != null ?
                 new ObjectParameter("applicationPath", applicationPath) :
                 new ObjectParameter("applicationPath", typeof(string));
-
+    
             var companyNameParameter = companyName != null ?
                 new ObjectParameter("companyName", companyName) :
                 new ObjectParameter("companyName", typeof(string));
-
+    
             var instanceNameParameter = instanceName != null ?
                 new ObjectParameter("instanceName", instanceName) :
                 new ObjectParameter("instanceName", typeof(string));
-
+    
             var archivedDateParameter = archivedDate.HasValue ?
                 new ObjectParameter("archivedDate", archivedDate) :
                 new ObjectParameter("archivedDate", typeof(System.DateTime));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterprise", idParameter, descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, archivedDateParameter);
         }
-
+    
         public virtual int pr_modifyEnterpriseObjectName(Nullable<int> id, Nullable<int> enterprise, string objectName, string alias, Nullable<int> device)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var objectNameParameter = objectName != null ?
                 new ObjectParameter("objectName", objectName) :
                 new ObjectParameter("objectName", typeof(string));
-
+    
             var aliasParameter = alias != null ?
                 new ObjectParameter("alias", alias) :
                 new ObjectParameter("alias", typeof(string));
-
+    
             var deviceParameter = device.HasValue ?
                 new ObjectParameter("device", device) :
                 new ObjectParameter("device", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterpriseObjectName", idParameter, enterpriseParameter, objectNameParameter, aliasParameter, deviceParameter);
         }
-
+    
         public virtual int pr_modifyEnterpriseSystemInfo(Nullable<int> id, Nullable<System.DateTime> systemExpiry, Nullable<int> licenseLimit, string companyName, string contractCoordinator, string companyWebSite, string coordinatorEmail, Nullable<int> isCurrentDataBase, string logoImage, Nullable<bool> configured, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var systemExpiryParameter = systemExpiry.HasValue ?
                 new ObjectParameter("systemExpiry", systemExpiry) :
                 new ObjectParameter("systemExpiry", typeof(System.DateTime));
-
+    
             var licenseLimitParameter = licenseLimit.HasValue ?
                 new ObjectParameter("licenseLimit", licenseLimit) :
                 new ObjectParameter("licenseLimit", typeof(int));
-
+    
             var companyNameParameter = companyName != null ?
                 new ObjectParameter("companyName", companyName) :
                 new ObjectParameter("companyName", typeof(string));
-
+    
             var contractCoordinatorParameter = contractCoordinator != null ?
                 new ObjectParameter("contractCoordinator", contractCoordinator) :
                 new ObjectParameter("contractCoordinator", typeof(string));
-
+    
             var companyWebSiteParameter = companyWebSite != null ?
                 new ObjectParameter("companyWebSite", companyWebSite) :
                 new ObjectParameter("companyWebSite", typeof(string));
-
+    
             var coordinatorEmailParameter = coordinatorEmail != null ?
                 new ObjectParameter("coordinatorEmail", coordinatorEmail) :
                 new ObjectParameter("coordinatorEmail", typeof(string));
-
+    
             var isCurrentDataBaseParameter = isCurrentDataBase.HasValue ?
                 new ObjectParameter("isCurrentDataBase", isCurrentDataBase) :
                 new ObjectParameter("isCurrentDataBase", typeof(int));
-
+    
             var logoImageParameter = logoImage != null ?
                 new ObjectParameter("logoImage", logoImage) :
                 new ObjectParameter("logoImage", typeof(string));
-
+    
             var configuredParameter = configured.HasValue ?
                 new ObjectParameter("configured", configured) :
                 new ObjectParameter("configured", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterpriseSystemInfo", idParameter, systemExpiryParameter, licenseLimitParameter, companyNameParameter, contractCoordinatorParameter, companyWebSiteParameter, coordinatorEmailParameter, isCurrentDataBaseParameter, logoImageParameter, configuredParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_modifyEsignature(Nullable<int> id, string firstName, string lastName, string title, string email, string affirmation, string officer, string phone, Nullable<System.DateTime> completeDate, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("firstName", firstName) :
                 new ObjectParameter("firstName", typeof(string));
-
+    
             var lastNameParameter = lastName != null ?
                 new ObjectParameter("lastName", lastName) :
                 new ObjectParameter("lastName", typeof(string));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var affirmationParameter = affirmation != null ?
                 new ObjectParameter("affirmation", affirmation) :
                 new ObjectParameter("affirmation", typeof(string));
-
+    
             var officerParameter = officer != null ?
                 new ObjectParameter("officer", officer) :
                 new ObjectParameter("officer", typeof(string));
-
+    
             var phoneParameter = phone != null ?
                 new ObjectParameter("phone", phone) :
                 new ObjectParameter("phone", typeof(string));
-
+    
             var completeDateParameter = completeDate.HasValue ?
                 new ObjectParameter("completeDate", completeDate) :
                 new ObjectParameter("completeDate", typeof(System.DateTime));
-
+    
             var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEsignature", idParameter, firstNameParameter, lastNameParameter, titleParameter, emailParameter, affirmationParameter, officerParameter, phoneParameter, completeDateParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
         }
-
+    
         public virtual int pr_modifyEventNotification(Nullable<int> id, string email, Nullable<System.DateTime> timestamp, string @event, string reason, string url, string category, string accesscode, string protocolTouchpoint, string applicationName, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var timestampParameter = timestamp.HasValue ?
                 new ObjectParameter("timestamp", timestamp) :
                 new ObjectParameter("timestamp", typeof(System.DateTime));
-
+    
             var eventParameter = @event != null ?
                 new ObjectParameter("event", @event) :
                 new ObjectParameter("event", typeof(string));
-
+    
             var reasonParameter = reason != null ?
                 new ObjectParameter("reason", reason) :
                 new ObjectParameter("reason", typeof(string));
-
+    
             var urlParameter = url != null ?
                 new ObjectParameter("url", url) :
                 new ObjectParameter("url", typeof(string));
-
+    
             var categoryParameter = category != null ?
                 new ObjectParameter("category", category) :
                 new ObjectParameter("category", typeof(string));
-
+    
             var accesscodeParameter = accesscode != null ?
                 new ObjectParameter("accesscode", accesscode) :
                 new ObjectParameter("accesscode", typeof(string));
-
+    
             var protocolTouchpointParameter = protocolTouchpoint != null ?
                 new ObjectParameter("protocolTouchpoint", protocolTouchpoint) :
                 new ObjectParameter("protocolTouchpoint", typeof(string));
-
+    
             var applicationNameParameter = applicationName != null ?
                 new ObjectParameter("applicationName", applicationName) :
                 new ObjectParameter("applicationName", typeof(string));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEventNotification", idParameter, emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_modifyEventNotificationBounce(Nullable<int> id, string email, string error)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var errorParameter = error != null ?
                 new ObjectParameter("error", error) :
                 new ObjectParameter("error", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEventNotificationBounce", idParameter, emailParameter, errorParameter);
         }
-
+    
         public virtual int pr_modifyGroup(Nullable<int> id, Nullable<int> enterprise, Nullable<int> groupCollection, Nullable<int> author, Nullable<int> state, string name, string description, string email, Nullable<System.DateTime> dateCreated, Nullable<int> sortOrder, Nullable<int> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var groupCollectionParameter = groupCollection.HasValue ?
                 new ObjectParameter("groupCollection", groupCollection) :
                 new ObjectParameter("groupCollection", typeof(int));
-
+    
             var authorParameter = author.HasValue ?
                 new ObjectParameter("author", author) :
                 new ObjectParameter("author", typeof(int));
-
+    
             var stateParameter = state.HasValue ?
                 new ObjectParameter("state", state) :
                 new ObjectParameter("state", typeof(int));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var dateCreatedParameter = dateCreated.HasValue ?
                 new ObjectParameter("dateCreated", dateCreated) :
                 new ObjectParameter("dateCreated", typeof(System.DateTime));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyGroup", idParameter, enterpriseParameter, groupCollectionParameter, authorParameter, stateParameter, nameParameter, descriptionParameter, emailParameter, dateCreatedParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyGroupCollection(Nullable<int> id, string name, string description, Nullable<int> sortOrder, Nullable<int> active, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyGroupCollection", idParameter, nameParameter, descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_modifyHs3Menu(Nullable<int> id, string description, string url, Nullable<int> parentid, Nullable<int> grand, Nullable<int> sort, Nullable<int> active, Nullable<int> accesslevel, Nullable<int> menuGroup, Nullable<bool> isDynamicCreated, Nullable<int> device, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var urlParameter = url != null ?
                 new ObjectParameter("url", url) :
                 new ObjectParameter("url", typeof(string));
-
+    
             var parentidParameter = parentid.HasValue ?
                 new ObjectParameter("parentid", parentid) :
                 new ObjectParameter("parentid", typeof(int));
-
+    
             var grandParameter = grand.HasValue ?
                 new ObjectParameter("grand", grand) :
                 new ObjectParameter("grand", typeof(int));
-
+    
             var sortParameter = sort.HasValue ?
                 new ObjectParameter("sort", sort) :
                 new ObjectParameter("sort", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             var accesslevelParameter = accesslevel.HasValue ?
                 new ObjectParameter("accesslevel", accesslevel) :
                 new ObjectParameter("accesslevel", typeof(int));
-
+    
             var menuGroupParameter = menuGroup.HasValue ?
                 new ObjectParameter("menuGroup", menuGroup) :
                 new ObjectParameter("menuGroup", typeof(int));
-
+    
             var isDynamicCreatedParameter = isDynamicCreated.HasValue ?
                 new ObjectParameter("isDynamicCreated", isDynamicCreated) :
                 new ObjectParameter("isDynamicCreated", typeof(bool));
-
+    
             var deviceParameter = device.HasValue ?
                 new ObjectParameter("device", device) :
                 new ObjectParameter("device", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyHs3Menu", idParameter, descriptionParameter, urlParameter, parentidParameter, grandParameter, sortParameter, activeParameter, accesslevelParameter, menuGroupParameter, isDynamicCreatedParameter, deviceParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_modifyKey(Nullable<int> id, string @object, string username, string password, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var objectParameter = @object != null ?
                 new ObjectParameter("object", @object) :
                 new ObjectParameter("object", typeof(string));
-
+    
             var usernameParameter = username != null ?
                 new ObjectParameter("username", username) :
                 new ObjectParameter("username", typeof(string));
-
+    
             var passwordParameter = password != null ?
                 new ObjectParameter("password", password) :
                 new ObjectParameter("password", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyKey", idParameter, objectParameter, usernameParameter, passwordParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_modifyLanguage(Nullable<int> id, string name, string originalName, byte[] flagImage)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var originalNameParameter = originalName != null ?
                 new ObjectParameter("originalName", originalName) :
                 new ObjectParameter("originalName", typeof(string));
-
+    
             var flagImageParameter = flagImage != null ?
                 new ObjectParameter("flagImage", flagImage) :
                 new ObjectParameter("flagImage", typeof(byte[]));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyLanguage", idParameter, nameParameter, originalNameParameter, flagImageParameter);
         }
-
+    
         public virtual int pr_modifyLanguageinfo(Nullable<int> id, string languageCode, string languageName, string languageFlag, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var languageCodeParameter = languageCode != null ?
                 new ObjectParameter("languageCode", languageCode) :
                 new ObjectParameter("languageCode", typeof(string));
-
+    
             var languageNameParameter = languageName != null ?
                 new ObjectParameter("languageName", languageName) :
                 new ObjectParameter("languageName", typeof(string));
-
+    
             var languageFlagParameter = languageFlag != null ?
                 new ObjectParameter("languageFlag", languageFlag) :
                 new ObjectParameter("languageFlag", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyLanguageinfo", idParameter, languageCodeParameter, languageNameParameter, languageFlagParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyMenu(Nullable<int> id, string description, string url, Nullable<int> parentid, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> accesslevel, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var urlParameter = url != null ?
                 new ObjectParameter("url", url) :
                 new ObjectParameter("url", typeof(string));
-
+    
             var parentidParameter = parentid.HasValue ?
                 new ObjectParameter("parentid", parentid) :
                 new ObjectParameter("parentid", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var accesslevelParameter = accesslevel.HasValue ?
                 new ObjectParameter("accesslevel", accesslevel) :
                 new ObjectParameter("accesslevel", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyMenu", idParameter, descriptionParameter, urlParameter, parentidParameter, sortOrderParameter, activeParameter, accesslevelParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_modifyPage(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPage", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyPartner(Nullable<int> id, Nullable<int> enterprise, string internalID, string name, string address1, string address2, string city, Nullable<int> state, string province, string zipcode, Nullable<int> country, string phone, string fax, string firstName, string lastName, string title, string email, string dunsNumber, string federalID, Nullable<int> status, Nullable<int> loadHistory, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> lastModified)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var internalIDParameter = internalID != null ?
                 new ObjectParameter("internalID", internalID) :
                 new ObjectParameter("internalID", typeof(string));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var address1Parameter = address1 != null ?
                 new ObjectParameter("address1", address1) :
                 new ObjectParameter("address1", typeof(string));
-
+    
             var address2Parameter = address2 != null ?
                 new ObjectParameter("address2", address2) :
                 new ObjectParameter("address2", typeof(string));
-
+    
             var cityParameter = city != null ?
                 new ObjectParameter("city", city) :
                 new ObjectParameter("city", typeof(string));
-
+    
             var stateParameter = state.HasValue ?
                 new ObjectParameter("state", state) :
                 new ObjectParameter("state", typeof(int));
-
+    
             var provinceParameter = province != null ?
                 new ObjectParameter("province", province) :
                 new ObjectParameter("province", typeof(string));
-
+    
             var zipcodeParameter = zipcode != null ?
                 new ObjectParameter("zipcode", zipcode) :
                 new ObjectParameter("zipcode", typeof(string));
-
+    
             var countryParameter = country.HasValue ?
                 new ObjectParameter("country", country) :
                 new ObjectParameter("country", typeof(int));
-
+    
             var phoneParameter = phone != null ?
                 new ObjectParameter("phone", phone) :
                 new ObjectParameter("phone", typeof(string));
-
+    
             var faxParameter = fax != null ?
                 new ObjectParameter("fax", fax) :
                 new ObjectParameter("fax", typeof(string));
-
+    
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("firstName", firstName) :
                 new ObjectParameter("firstName", typeof(string));
-
+    
             var lastNameParameter = lastName != null ?
                 new ObjectParameter("lastName", lastName) :
                 new ObjectParameter("lastName", typeof(string));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var dunsNumberParameter = dunsNumber != null ?
                 new ObjectParameter("dunsNumber", dunsNumber) :
                 new ObjectParameter("dunsNumber", typeof(string));
-
+    
             var federalIDParameter = federalID != null ?
                 new ObjectParameter("federalID", federalID) :
                 new ObjectParameter("federalID", typeof(string));
-
+    
             var statusParameter = status.HasValue ?
                 new ObjectParameter("status", status) :
                 new ObjectParameter("status", typeof(int));
-
+    
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             var ownerParameter = owner.HasValue ?
                 new ObjectParameter("owner", owner) :
                 new ObjectParameter("owner", typeof(int));
-
+    
             var authorParameter = author.HasValue ?
                 new ObjectParameter("author", author) :
                 new ObjectParameter("author", typeof(int));
-
+    
             var dateApprovedParameter = dateApproved.HasValue ?
                 new ObjectParameter("dateApproved", dateApproved) :
                 new ObjectParameter("dateApproved", typeof(System.DateTime));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var lastModifiedParameter = lastModified.HasValue ?
                 new ObjectParameter("lastModified", lastModified) :
                 new ObjectParameter("lastModified", typeof(System.DateTime));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartner", idParameter, enterpriseParameter, internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, provinceParameter, zipcodeParameter, countryParameter, phoneParameter, faxParameter, firstNameParameter, lastNameParameter, titleParameter, emailParameter, dunsNumberParameter, federalIDParameter, statusParameter, loadHistoryParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, lastModifiedParameter);
         }
-
+    
         public virtual int pr_modifyPartnerCorpInfo(Nullable<int> partner, string businessDescription, string taxExemptId, string alias, string ssn, Nullable<bool> corp, Nullable<bool> taxExemptEntity, Nullable<bool> us, Nullable<bool> astate, Nullable<bool> foreignGovernment, string naicsCode)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             var businessDescriptionParameter = businessDescription != null ?
                 new ObjectParameter("businessDescription", businessDescription) :
                 new ObjectParameter("businessDescription", typeof(string));
-
+    
             var taxExemptIdParameter = taxExemptId != null ?
                 new ObjectParameter("taxExemptId", taxExemptId) :
                 new ObjectParameter("taxExemptId", typeof(string));
-
+    
             var aliasParameter = alias != null ?
                 new ObjectParameter("alias", alias) :
                 new ObjectParameter("alias", typeof(string));
-
+    
             var ssnParameter = ssn != null ?
                 new ObjectParameter("ssn", ssn) :
                 new ObjectParameter("ssn", typeof(string));
-
+    
             var corpParameter = corp.HasValue ?
                 new ObjectParameter("corp", corp) :
                 new ObjectParameter("corp", typeof(bool));
-
+    
             var taxExemptEntityParameter = taxExemptEntity.HasValue ?
                 new ObjectParameter("taxExemptEntity", taxExemptEntity) :
                 new ObjectParameter("taxExemptEntity", typeof(bool));
-
+    
             var usParameter = us.HasValue ?
                 new ObjectParameter("us", us) :
                 new ObjectParameter("us", typeof(bool));
-
+    
             var astateParameter = astate.HasValue ?
                 new ObjectParameter("astate", astate) :
                 new ObjectParameter("astate", typeof(bool));
-
+    
             var foreignGovernmentParameter = foreignGovernment.HasValue ?
                 new ObjectParameter("foreignGovernment", foreignGovernment) :
                 new ObjectParameter("foreignGovernment", typeof(bool));
-
+    
             var naicsCodeParameter = naicsCode != null ?
                 new ObjectParameter("naicsCode", naicsCode) :
                 new ObjectParameter("naicsCode", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerCorpInfo", partnerParameter, businessDescriptionParameter, taxExemptIdParameter, aliasParameter, ssnParameter, corpParameter, taxExemptEntityParameter, usParameter, astateParameter, foreignGovernmentParameter, naicsCodeParameter);
         }
-
+    
         public virtual int pr_modifyPartnerPartnertypeTouchpointQuestionnaire(Nullable<int> id, Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire, string accesscode, Nullable<int> invitedBy, Nullable<System.DateTime> invitedDate, Nullable<System.DateTime> completedDate, Nullable<int> progress, string zcode, byte[] pdf, string docFolderAddress, Nullable<decimal> score)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
-
+    
             var accesscodeParameter = accesscode != null ?
                 new ObjectParameter("accesscode", accesscode) :
                 new ObjectParameter("accesscode", typeof(string));
-
+    
             var invitedByParameter = invitedBy.HasValue ?
                 new ObjectParameter("invitedBy", invitedBy) :
                 new ObjectParameter("invitedBy", typeof(int));
-
+    
             var invitedDateParameter = invitedDate.HasValue ?
                 new ObjectParameter("invitedDate", invitedDate) :
                 new ObjectParameter("invitedDate", typeof(System.DateTime));
-
+    
             var completedDateParameter = completedDate.HasValue ?
                 new ObjectParameter("completedDate", completedDate) :
                 new ObjectParameter("completedDate", typeof(System.DateTime));
-
+    
             var progressParameter = progress.HasValue ?
                 new ObjectParameter("progress", progress) :
                 new ObjectParameter("progress", typeof(int));
-
+    
             var zcodeParameter = zcode != null ?
                 new ObjectParameter("zcode", zcode) :
                 new ObjectParameter("zcode", typeof(string));
-
+    
             var pdfParameter = pdf != null ?
                 new ObjectParameter("pdf", pdf) :
                 new ObjectParameter("pdf", typeof(byte[]));
-
+    
             var docFolderAddressParameter = docFolderAddress != null ?
                 new ObjectParameter("docFolderAddress", docFolderAddress) :
                 new ObjectParameter("docFolderAddress", typeof(string));
-
+    
             var scoreParameter = score.HasValue ?
                 new ObjectParameter("score", score) :
                 new ObjectParameter("score", typeof(decimal));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerPartnertypeTouchpointQuestionnaire", idParameter, partnerParameter, partnerTypeTouchpointQuestionnaireParameter, accesscodeParameter, invitedByParameter, invitedDateParameter, completedDateParameter, progressParameter, zcodeParameter, pdfParameter, docFolderAddressParameter, scoreParameter);
         }
-
-        public virtual int pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> id, Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, Nullable<int> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
+    
+        public virtual int pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> id, Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<int> value, Nullable<int> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             var commentParameter = comment != null ?
                 new ObjectParameter("comment", comment) :
                 new ObjectParameter("comment", typeof(string));
-
+    
             var uploadedFileParameter = uploadedFile != null ?
                 new ObjectParameter("uploadedFile", uploadedFile) :
                 new ObjectParameter("uploadedFile", typeof(byte[]));
-
+    
+            var uploadedFileTypeParameter = uploadedFileType != null ?
+                new ObjectParameter("uploadedFileType", uploadedFileType) :
+                new ObjectParameter("uploadedFileType", typeof(string));
+    
+            var valueParameter = value.HasValue ?
+                new ObjectParameter("value", value) :
+                new ObjectParameter("value", typeof(int));
+    
             var scoreParameter = score.HasValue ?
                 new ObjectParameter("score", score) :
                 new ObjectParameter("score", typeof(int));
-
+    
             var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
-
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse", idParameter, questionParameter, responseParameter, commentParameter, uploadedFileParameter, scoreParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse", idParameter, questionParameter, responseParameter, commentParameter, uploadedFileParameter, uploadedFileTypeParameter, valueParameter, scoreParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
         }
-
+    
         public virtual int pr_modifyPartnerremitaddress(Nullable<int> id, Nullable<int> partner, string remitAddress1, string remitAddress2, string remitCity, Nullable<int> remitState, string remitProvince, string remitZipCode, Nullable<int> remitCountry)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             var remitAddress1Parameter = remitAddress1 != null ?
                 new ObjectParameter("remitAddress1", remitAddress1) :
                 new ObjectParameter("remitAddress1", typeof(string));
-
+    
             var remitAddress2Parameter = remitAddress2 != null ?
                 new ObjectParameter("remitAddress2", remitAddress2) :
                 new ObjectParameter("remitAddress2", typeof(string));
-
+    
             var remitCityParameter = remitCity != null ?
                 new ObjectParameter("remitCity", remitCity) :
                 new ObjectParameter("remitCity", typeof(string));
-
+    
             var remitStateParameter = remitState.HasValue ?
                 new ObjectParameter("remitState", remitState) :
                 new ObjectParameter("remitState", typeof(int));
-
+    
             var remitProvinceParameter = remitProvince != null ?
                 new ObjectParameter("remitProvince", remitProvince) :
                 new ObjectParameter("remitProvince", typeof(string));
-
+    
             var remitZipCodeParameter = remitZipCode != null ?
                 new ObjectParameter("remitZipCode", remitZipCode) :
                 new ObjectParameter("remitZipCode", typeof(string));
-
+    
             var remitCountryParameter = remitCountry.HasValue ?
                 new ObjectParameter("remitCountry", remitCountry) :
                 new ObjectParameter("remitCountry", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerremitaddress", idParameter, partnerParameter, remitAddress1Parameter, remitAddress2Parameter, remitCityParameter, remitStateParameter, remitProvinceParameter, remitZipCodeParameter, remitCountryParameter);
         }
-
+    
         public virtual int pr_modifyPartnerType(Nullable<int> id, string name, string alias, string description, Nullable<int> partnerClass, Nullable<int> enterprise, Nullable<int> sortOrder, Nullable<int> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var aliasParameter = alias != null ?
                 new ObjectParameter("alias", alias) :
                 new ObjectParameter("alias", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var partnerClassParameter = partnerClass.HasValue ?
                 new ObjectParameter("partnerClass", partnerClass) :
                 new ObjectParameter("partnerClass", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerType", idParameter, nameParameter, aliasParameter, descriptionParameter, partnerClassParameter, enterpriseParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyPartnertypeTouchpointQuestionnaire(Nullable<int> id, Nullable<int> partnerType, Nullable<int> touchpoint, Nullable<int> questionnaire, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var partnerTypeParameter = partnerType.HasValue ?
                 new ObjectParameter("partnerType", partnerType) :
                 new ObjectParameter("partnerType", typeof(int));
-
+    
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnertypeTouchpointQuestionnaire", idParameter, partnerTypeParameter, touchpointParameter, questionnaireParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyPerson(Nullable<int> id, Nullable<int> enterprise, Nullable<int> manager, Nullable<int> personStatus, Nullable<int> riskType, Nullable<int> loadHistory, Nullable<int> campaign, string internalId, string nmNumber, string socialSecurity, string firstName, string lastName, string title, string suffix, string nickName, string passWord, string email, string address1, string address2, string city, Nullable<int> state, string zipcode, Nullable<int> country, string phone, string fax, Nullable<int> active, Nullable<int> ismanager, Nullable<int> partnerPerPage, Nullable<System.DateTime> resetDate, Nullable<bool> isArchived, Nullable<System.DateTime> archivedDate)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var managerParameter = manager.HasValue ?
                 new ObjectParameter("manager", manager) :
                 new ObjectParameter("manager", typeof(int));
-
+    
             var personStatusParameter = personStatus.HasValue ?
                 new ObjectParameter("PersonStatus", personStatus) :
                 new ObjectParameter("PersonStatus", typeof(int));
-
+    
             var riskTypeParameter = riskType.HasValue ?
                 new ObjectParameter("riskType", riskType) :
                 new ObjectParameter("riskType", typeof(int));
-
+    
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             var campaignParameter = campaign.HasValue ?
                 new ObjectParameter("campaign", campaign) :
                 new ObjectParameter("campaign", typeof(int));
-
+    
             var internalIdParameter = internalId != null ?
                 new ObjectParameter("internalId", internalId) :
                 new ObjectParameter("internalId", typeof(string));
-
+    
             var nmNumberParameter = nmNumber != null ?
                 new ObjectParameter("nmNumber", nmNumber) :
                 new ObjectParameter("nmNumber", typeof(string));
-
+    
             var socialSecurityParameter = socialSecurity != null ?
                 new ObjectParameter("socialSecurity", socialSecurity) :
                 new ObjectParameter("socialSecurity", typeof(string));
-
+    
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("firstName", firstName) :
                 new ObjectParameter("firstName", typeof(string));
-
+    
             var lastNameParameter = lastName != null ?
                 new ObjectParameter("lastName", lastName) :
                 new ObjectParameter("lastName", typeof(string));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var suffixParameter = suffix != null ?
                 new ObjectParameter("suffix", suffix) :
                 new ObjectParameter("suffix", typeof(string));
-
+    
             var nickNameParameter = nickName != null ?
                 new ObjectParameter("nickName", nickName) :
                 new ObjectParameter("nickName", typeof(string));
-
+    
             var passWordParameter = passWord != null ?
                 new ObjectParameter("passWord", passWord) :
                 new ObjectParameter("passWord", typeof(string));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             var address1Parameter = address1 != null ?
                 new ObjectParameter("address1", address1) :
                 new ObjectParameter("address1", typeof(string));
-
+    
             var address2Parameter = address2 != null ?
                 new ObjectParameter("address2", address2) :
                 new ObjectParameter("address2", typeof(string));
-
+    
             var cityParameter = city != null ?
                 new ObjectParameter("city", city) :
                 new ObjectParameter("city", typeof(string));
-
+    
             var stateParameter = state.HasValue ?
                 new ObjectParameter("state", state) :
                 new ObjectParameter("state", typeof(int));
-
+    
             var zipcodeParameter = zipcode != null ?
                 new ObjectParameter("zipcode", zipcode) :
                 new ObjectParameter("zipcode", typeof(string));
-
+    
             var countryParameter = country.HasValue ?
                 new ObjectParameter("country", country) :
                 new ObjectParameter("country", typeof(int));
-
+    
             var phoneParameter = phone != null ?
                 new ObjectParameter("phone", phone) :
                 new ObjectParameter("phone", typeof(string));
-
+    
             var faxParameter = fax != null ?
                 new ObjectParameter("fax", fax) :
                 new ObjectParameter("fax", typeof(string));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             var ismanagerParameter = ismanager.HasValue ?
                 new ObjectParameter("ismanager", ismanager) :
                 new ObjectParameter("ismanager", typeof(int));
-
+    
             var partnerPerPageParameter = partnerPerPage.HasValue ?
                 new ObjectParameter("partnerPerPage", partnerPerPage) :
                 new ObjectParameter("partnerPerPage", typeof(int));
-
+    
             var resetDateParameter = resetDate.HasValue ?
                 new ObjectParameter("resetDate", resetDate) :
                 new ObjectParameter("resetDate", typeof(System.DateTime));
-
+    
             var isArchivedParameter = isArchived.HasValue ?
                 new ObjectParameter("IsArchived", isArchived) :
                 new ObjectParameter("IsArchived", typeof(bool));
-
+    
             var archivedDateParameter = archivedDate.HasValue ?
                 new ObjectParameter("archivedDate", archivedDate) :
                 new ObjectParameter("archivedDate", typeof(System.DateTime));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPerson", idParameter, enterpriseParameter, managerParameter, personStatusParameter, riskTypeParameter, loadHistoryParameter, campaignParameter, internalIdParameter, nmNumberParameter, socialSecurityParameter, firstNameParameter, lastNameParameter, titleParameter, suffixParameter, nickNameParameter, passWordParameter, emailParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, phoneParameter, faxParameter, activeParameter, ismanagerParameter, partnerPerPageParameter, resetDateParameter, isArchivedParameter, archivedDateParameter);
         }
-
+    
         public virtual int pr_modifyPersonInfoByID(Nullable<int> id, string firstName, string lastName, string title, Nullable<int> role, string phone, string email)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("firstName", firstName) :
                 new ObjectParameter("firstName", typeof(string));
-
+    
             var lastNameParameter = lastName != null ?
                 new ObjectParameter("lastName", lastName) :
                 new ObjectParameter("lastName", typeof(string));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             var phoneParameter = phone != null ?
                 new ObjectParameter("phone", phone) :
                 new ObjectParameter("phone", typeof(string));
-
+    
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonInfoByID", idParameter, firstNameParameter, lastNameParameter, titleParameter, roleParameter, phoneParameter, emailParameter);
         }
-
+    
         public virtual int pr_modifyPersonIsArchivedByID(Nullable<int> id, Nullable<int> isArchived)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var isArchivedParameter = isArchived.HasValue ?
                 new ObjectParameter("isArchived", isArchived) :
                 new ObjectParameter("isArchived", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonIsArchivedByID", idParameter, isArchivedParameter);
         }
-
+    
         public virtual int pr_modifyPersonManager(Nullable<int> id, Nullable<int> manager)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var managerParameter = manager.HasValue ?
                 new ObjectParameter("manager", manager) :
                 new ObjectParameter("manager", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonManager", idParameter, managerParameter);
         }
-
+    
         public virtual int pr_modifyPersonPasswordByID(Nullable<int> id, string pwd)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var pwdParameter = pwd != null ?
                 new ObjectParameter("pwd", pwd) :
                 new ObjectParameter("pwd", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonPasswordByID", idParameter, pwdParameter);
         }
-
+    
         public virtual int pr_modifyPersonRelationshipType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonRelationshipType", idParameter, descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_modifyPersonStatus(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> id)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonStatus", descriptionParameter, sortOrderParameter, activeParameter, idParameter);
         }
-
+    
         public virtual int pr_modifyPersonStatusByID(Nullable<int> id, Nullable<int> status)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var statusParameter = status.HasValue ?
                 new ObjectParameter("status", status) :
                 new ObjectParameter("status", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonStatusByID", idParameter, statusParameter);
         }
-
+    
         public virtual int pr_modifyPersonStatusByLoadHistory(Nullable<int> loadHistory, Nullable<int> status)
         {
             var loadHistoryParameter = loadHistory.HasValue ?
                 new ObjectParameter("loadHistory", loadHistory) :
                 new ObjectParameter("loadHistory", typeof(int));
-
+    
             var statusParameter = status.HasValue ?
                 new ObjectParameter("status", status) :
                 new ObjectParameter("status", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonStatusByLoadHistory", loadHistoryParameter, statusParameter);
         }
-
+    
         public virtual int pr_modifyProtocol(Nullable<int> id, Nullable<int> menuGroup, Nullable<int> enterprise, string name, string description, string abbreviation, string background, string purpose, string summary, Nullable<int> agency, Nullable<int> admin, Nullable<int> sponsor, Nullable<int> domain, string validationRequested, string keyBenefits, string keyWords, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string bestPractice, string riskBenefits, string checkList, Nullable<bool> removeWithoutTouchpointExpiry, Nullable<bool> removeWithoutNotice, Nullable<bool> isLimited, Nullable<int> sortOrder, Nullable<int> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var menuGroupParameter = menuGroup.HasValue ?
                 new ObjectParameter("menuGroup", menuGroup) :
                 new ObjectParameter("menuGroup", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var abbreviationParameter = abbreviation != null ?
                 new ObjectParameter("abbreviation", abbreviation) :
                 new ObjectParameter("abbreviation", typeof(string));
-
+    
             var backgroundParameter = background != null ?
                 new ObjectParameter("background", background) :
                 new ObjectParameter("background", typeof(string));
-
+    
             var purposeParameter = purpose != null ?
                 new ObjectParameter("purpose", purpose) :
                 new ObjectParameter("purpose", typeof(string));
-
+    
             var summaryParameter = summary != null ?
                 new ObjectParameter("summary", summary) :
                 new ObjectParameter("summary", typeof(string));
-
+    
             var agencyParameter = agency.HasValue ?
                 new ObjectParameter("agency", agency) :
                 new ObjectParameter("agency", typeof(int));
-
+    
             var adminParameter = admin.HasValue ?
                 new ObjectParameter("admin", admin) :
                 new ObjectParameter("admin", typeof(int));
-
+    
             var sponsorParameter = sponsor.HasValue ?
                 new ObjectParameter("sponsor", sponsor) :
                 new ObjectParameter("sponsor", typeof(int));
-
+    
             var domainParameter = domain.HasValue ?
                 new ObjectParameter("domain", domain) :
                 new ObjectParameter("domain", typeof(int));
-
+    
             var validationRequestedParameter = validationRequested != null ?
                 new ObjectParameter("validationRequested", validationRequested) :
                 new ObjectParameter("validationRequested", typeof(string));
-
+    
             var keyBenefitsParameter = keyBenefits != null ?
                 new ObjectParameter("keyBenefits", keyBenefits) :
                 new ObjectParameter("keyBenefits", typeof(string));
-
+    
             var keyWordsParameter = keyWords != null ?
                 new ObjectParameter("keyWords", keyWords) :
                 new ObjectParameter("keyWords", typeof(string));
-
+    
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("startDate", startDate) :
                 new ObjectParameter("startDate", typeof(System.DateTime));
-
+    
             var endDateParameter = endDate.HasValue ?
                 new ObjectParameter("endDate", endDate) :
                 new ObjectParameter("endDate", typeof(System.DateTime));
-
+    
             var bestPracticeParameter = bestPractice != null ?
                 new ObjectParameter("bestPractice", bestPractice) :
                 new ObjectParameter("bestPractice", typeof(string));
-
+    
             var riskBenefitsParameter = riskBenefits != null ?
                 new ObjectParameter("riskBenefits", riskBenefits) :
                 new ObjectParameter("riskBenefits", typeof(string));
-
+    
             var checkListParameter = checkList != null ?
                 new ObjectParameter("checkList", checkList) :
                 new ObjectParameter("checkList", typeof(string));
-
+    
             var removeWithoutTouchpointExpiryParameter = removeWithoutTouchpointExpiry.HasValue ?
                 new ObjectParameter("removeWithoutTouchpointExpiry", removeWithoutTouchpointExpiry) :
                 new ObjectParameter("removeWithoutTouchpointExpiry", typeof(bool));
-
+    
             var removeWithoutNoticeParameter = removeWithoutNotice.HasValue ?
                 new ObjectParameter("removeWithoutNotice", removeWithoutNotice) :
                 new ObjectParameter("removeWithoutNotice", typeof(bool));
-
+    
             var isLimitedParameter = isLimited.HasValue ?
                 new ObjectParameter("isLimited", isLimited) :
                 new ObjectParameter("isLimited", typeof(bool));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyProtocol", idParameter, menuGroupParameter, enterpriseParameter, nameParameter, descriptionParameter, abbreviationParameter, backgroundParameter, purposeParameter, summaryParameter, agencyParameter, adminParameter, sponsorParameter, domainParameter, validationRequestedParameter, keyBenefitsParameter, keyWordsParameter, startDateParameter, endDateParameter, bestPracticeParameter, riskBenefitsParameter, checkListParameter, removeWithoutTouchpointExpiryParameter, removeWithoutNoticeParameter, isLimitedParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyQuestion(Nullable<int> id, string question, string name, string title, string tag, Nullable<int> responseType, Nullable<int> required, Nullable<int> weight, Nullable<bool> skipLogicAnswer, string skipLogicJump, Nullable<int> accessLevel, Nullable<int> commentRequired, string commentBoxTxt, string commentUploadTxt, Nullable<int> commentType, string spinOffQuestionnaire, Nullable<int> spinOffQID, string emailAlert, string emailAlertList, Nullable<int> updated, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var questionParameter = question != null ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(string));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var tagParameter = tag != null ?
                 new ObjectParameter("tag", tag) :
                 new ObjectParameter("tag", typeof(string));
-
+    
             var responseTypeParameter = responseType.HasValue ?
                 new ObjectParameter("responseType", responseType) :
                 new ObjectParameter("responseType", typeof(int));
-
+    
             var requiredParameter = required.HasValue ?
                 new ObjectParameter("required", required) :
                 new ObjectParameter("required", typeof(int));
-
+    
             var weightParameter = weight.HasValue ?
                 new ObjectParameter("weight", weight) :
                 new ObjectParameter("weight", typeof(int));
-
+    
             var skipLogicAnswerParameter = skipLogicAnswer.HasValue ?
                 new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
                 new ObjectParameter("skipLogicAnswer", typeof(bool));
-
+    
             var skipLogicJumpParameter = skipLogicJump != null ?
                 new ObjectParameter("skipLogicJump", skipLogicJump) :
                 new ObjectParameter("skipLogicJump", typeof(string));
-
+    
             var accessLevelParameter = accessLevel.HasValue ?
                 new ObjectParameter("accessLevel", accessLevel) :
                 new ObjectParameter("accessLevel", typeof(int));
-
+    
             var commentRequiredParameter = commentRequired.HasValue ?
                 new ObjectParameter("commentRequired", commentRequired) :
                 new ObjectParameter("commentRequired", typeof(int));
-
+    
             var commentBoxTxtParameter = commentBoxTxt != null ?
                 new ObjectParameter("commentBoxTxt", commentBoxTxt) :
                 new ObjectParameter("commentBoxTxt", typeof(string));
-
+    
             var commentUploadTxtParameter = commentUploadTxt != null ?
                 new ObjectParameter("commentUploadTxt", commentUploadTxt) :
                 new ObjectParameter("commentUploadTxt", typeof(string));
-
+    
             var commentTypeParameter = commentType.HasValue ?
                 new ObjectParameter("commentType", commentType) :
                 new ObjectParameter("commentType", typeof(int));
-
+    
             var spinOffQuestionnaireParameter = spinOffQuestionnaire != null ?
                 new ObjectParameter("spinOffQuestionnaire", spinOffQuestionnaire) :
                 new ObjectParameter("spinOffQuestionnaire", typeof(string));
-
+    
             var spinOffQIDParameter = spinOffQID.HasValue ?
                 new ObjectParameter("spinOffQID", spinOffQID) :
                 new ObjectParameter("spinOffQID", typeof(int));
-
+    
             var emailAlertParameter = emailAlert != null ?
                 new ObjectParameter("emailAlert", emailAlert) :
                 new ObjectParameter("emailAlert", typeof(string));
-
+    
             var emailAlertListParameter = emailAlertList != null ?
                 new ObjectParameter("emailAlertList", emailAlertList) :
                 new ObjectParameter("emailAlertList", typeof(string));
-
+    
             var updatedParameter = updated.HasValue ?
                 new ObjectParameter("updated", updated) :
                 new ObjectParameter("updated", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestion", idParameter, questionParameter, nameParameter, titleParameter, tagParameter, responseTypeParameter, requiredParameter, weightParameter, skipLogicAnswerParameter, skipLogicJumpParameter, accessLevelParameter, commentRequiredParameter, commentBoxTxtParameter, commentUploadTxtParameter, commentTypeParameter, spinOffQuestionnaireParameter, spinOffQIDParameter, emailAlertParameter, emailAlertListParameter, updatedParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_modifyQuestionnaire(Nullable<int> id, Nullable<int> person, Nullable<int> partnerType, Nullable<int> letter, string title, string description, string footer, Nullable<int> locked, Nullable<int> sortOrder, Nullable<int> active, Nullable<int> multiLanguage)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             var partnerTypeParameter = partnerType.HasValue ?
                 new ObjectParameter("partnerType", partnerType) :
                 new ObjectParameter("partnerType", typeof(int));
-
+    
             var letterParameter = letter.HasValue ?
                 new ObjectParameter("letter", letter) :
                 new ObjectParameter("letter", typeof(int));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var footerParameter = footer != null ?
                 new ObjectParameter("footer", footer) :
                 new ObjectParameter("footer", typeof(string));
-
+    
             var lockedParameter = locked.HasValue ?
                 new ObjectParameter("locked", locked) :
                 new ObjectParameter("locked", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             var multiLanguageParameter = multiLanguage.HasValue ?
                 new ObjectParameter("multiLanguage", multiLanguage) :
                 new ObjectParameter("multiLanguage", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaire", idParameter, personParameter, partnerTypeParameter, letterParameter, titleParameter, descriptionParameter, footerParameter, lockedParameter, sortOrderParameter, activeParameter, multiLanguageParameter);
         }
-
+    
         public virtual int pr_modifyQuestionnaireLevel(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<int> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireLevel", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyQuestionSkipLogicJump(Nullable<int> question, Nullable<int> jumpTo, Nullable<int> skipLogicAnswer)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var jumpToParameter = jumpTo.HasValue ?
                 new ObjectParameter("jumpTo", jumpTo) :
                 new ObjectParameter("jumpTo", typeof(int));
-
+    
             var skipLogicAnswerParameter = skipLogicAnswer.HasValue ?
                 new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
                 new ObjectParameter("skipLogicAnswer", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionSkipLogicJump", questionParameter, jumpToParameter, skipLogicAnswerParameter);
         }
-
+    
         public virtual int pr_modifyQuestionSkipLogicJumpLogic(Nullable<int> question, string jumpTo)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var jumpToParameter = jumpTo != null ?
                 new ObjectParameter("jumpTo", jumpTo) :
                 new ObjectParameter("jumpTo", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionSkipLogicJumpLogic", questionParameter, jumpToParameter);
         }
-
+    
         public virtual int pr_modifyRatingType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyRatingType", idParameter, descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
-
+    
         public virtual int pr_modifyResponse(Nullable<int> id, string description, string title, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyResponse", idParameter, descriptionParameter, titleParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyResponseType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyResponseType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyRole(string description, Nullable<int> sortOrder, Nullable<int> active, Nullable<int> accessLevel, Nullable<int> enterprise, Nullable<int> access, Nullable<int> id)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             var accessLevelParameter = accessLevel.HasValue ?
                 new ObjectParameter("accessLevel", accessLevel) :
                 new ObjectParameter("accessLevel", typeof(int));
-
+    
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var accessParameter = access.HasValue ?
                 new ObjectParameter("access", access) :
                 new ObjectParameter("access", typeof(int));
-
+    
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyRole", descriptionParameter, sortOrderParameter, activeParameter, accessLevelParameter, enterpriseParameter, accessParameter, idParameter);
         }
-
+    
         public virtual int pr_modifyRoleMenu(Nullable<int> role, Nullable<int> menu, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             var menuParameter = menu.HasValue ?
                 new ObjectParameter("menu", menu) :
                 new ObjectParameter("menu", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyRoleMenu", roleParameter, menuParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyRule(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> ruleType)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var ruleTypeParameter = ruleType.HasValue ?
                 new ObjectParameter("ruleType", ruleType) :
                 new ObjectParameter("ruleType", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyRule", idParameter, descriptionParameter, sortOrderParameter, activeParameter, ruleTypeParameter);
         }
-
+    
         public virtual int pr_modifyRuleType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyRuleType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyState(Nullable<int> id, string stateCode, string name, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var stateCodeParameter = stateCode != null ?
                 new ObjectParameter("StateCode", stateCode) :
                 new ObjectParameter("StateCode", typeof(string));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyState", idParameter, stateCodeParameter, nameParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifySurvey(Nullable<int> id, string description, string name, Nullable<int> display, Nullable<int> sortOrder, Nullable<bool> active, Nullable<System.DateTime> creationDate, Nullable<System.DateTime> lastModifiedDate)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
-
+    
             var displayParameter = display.HasValue ?
                 new ObjectParameter("display", display) :
                 new ObjectParameter("display", typeof(int));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var creationDateParameter = creationDate.HasValue ?
                 new ObjectParameter("creationDate", creationDate) :
                 new ObjectParameter("creationDate", typeof(System.DateTime));
-
+    
             var lastModifiedDateParameter = lastModifiedDate.HasValue ?
                 new ObjectParameter("lastModifiedDate", lastModifiedDate) :
                 new ObjectParameter("lastModifiedDate", typeof(System.DateTime));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifySurvey", idParameter, descriptionParameter, nameParameter, displayParameter, sortOrderParameter, activeParameter, creationDateParameter, lastModifiedDateParameter);
         }
-
+    
         public virtual int pr_modifySurveyset(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> accessLevel)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
-
+    
             var accessLevelParameter = accessLevel.HasValue ?
                 new ObjectParameter("accessLevel", accessLevel) :
                 new ObjectParameter("accessLevel", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifySurveyset", idParameter, descriptionParameter, sortOrderParameter, activeParameter, accessLevelParameter);
         }
-
+    
         public virtual int pr_modifySystemExpiry(Nullable<System.DateTime> systemExpiry)
         {
             var systemExpiryParameter = systemExpiry.HasValue ?
                 new ObjectParameter("systemExpiry", systemExpiry) :
                 new ObjectParameter("systemExpiry", typeof(System.DateTime));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifySystemExpiry", systemExpiryParameter);
         }
-
+    
         public virtual int pr_modifyTouchpoint(Nullable<int> id, Nullable<int> protocol, Nullable<int> person, Nullable<int> sponsor, Nullable<int> admin, string title, string description, string abbreviation, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<bool> automaticReminder, Nullable<int> sortOrder, Nullable<int> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var protocolParameter = protocol.HasValue ?
                 new ObjectParameter("protocol", protocol) :
                 new ObjectParameter("protocol", typeof(int));
-
+    
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             var sponsorParameter = sponsor.HasValue ?
                 new ObjectParameter("sponsor", sponsor) :
                 new ObjectParameter("sponsor", typeof(int));
-
+    
             var adminParameter = admin.HasValue ?
                 new ObjectParameter("admin", admin) :
                 new ObjectParameter("admin", typeof(int));
-
+    
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
-
+    
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-
+    
             var abbreviationParameter = abbreviation != null ?
                 new ObjectParameter("abbreviation", abbreviation) :
                 new ObjectParameter("abbreviation", typeof(string));
-
+    
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("startDate", startDate) :
                 new ObjectParameter("startDate", typeof(System.DateTime));
-
+    
             var endDateParameter = endDate.HasValue ?
                 new ObjectParameter("endDate", endDate) :
                 new ObjectParameter("endDate", typeof(System.DateTime));
-
+    
             var automaticReminderParameter = automaticReminder.HasValue ?
                 new ObjectParameter("automaticReminder", automaticReminder) :
                 new ObjectParameter("automaticReminder", typeof(bool));
-
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
-
+    
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyTouchpoint", idParameter, protocolParameter, personParameter, sponsorParameter, adminParameter, titleParameter, descriptionParameter, abbreviationParameter, startDateParameter, endDateParameter, automaticReminderParameter, sortOrderParameter, activeParameter);
         }
-
+    
         public virtual int pr_modifyTouchpointQuestionResponseValue(Nullable<int> touchpoint, Nullable<int> question, Nullable<int> response, Nullable<int> value)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             var valueParameter = value.HasValue ?
                 new ObjectParameter("value", value) :
                 new ObjectParameter("value", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyTouchpointQuestionResponseValue", touchpointParameter, questionParameter, responseParameter, valueParameter);
         }
-
+    
         public virtual int pr_modifyUserRole(Nullable<int> id, string userRole, Nullable<int> access, Nullable<int> accessLevel)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var userRoleParameter = userRole != null ?
                 new ObjectParameter("userRole", userRole) :
                 new ObjectParameter("userRole", typeof(string));
-
+    
             var accessParameter = access.HasValue ?
                 new ObjectParameter("access", access) :
                 new ObjectParameter("access", typeof(int));
-
+    
             var accessLevelParameter = accessLevel.HasValue ?
                 new ObjectParameter("accessLevel", accessLevel) :
                 new ObjectParameter("accessLevel", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyUserRole", idParameter, userRoleParameter, accessParameter, accessLevelParameter);
         }
-
+    
         public virtual int pr_removeAgency(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAgency", idParameter);
         }
-
+    
         public virtual int pr_removeAutomail(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutomail", idParameter);
         }
-
+    
         public virtual int pr_removeAutoMailAttachment(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutoMailAttachment", idParameter);
         }
-
+    
         public virtual int pr_removeAutoMailType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutoMailType", idParameter);
         }
-
+    
         public virtual int pr_removeCountry(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeCountry", idParameter);
         }
-
+    
         public virtual int pr_removeDomain(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeDomain", idParameter);
         }
-
+    
         public virtual int pr_removeEmailBounceType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEmailBounceType", idParameter);
         }
-
+    
         public virtual int pr_removeEmailTag(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEmailTag", idParameter);
         }
-
+    
         public virtual int pr_removeEmailTemplate(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEmailTemplate", idParameter);
         }
-
+    
         public virtual int pr_removeEmailTemplateType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEmailTemplateType", idParameter);
         }
-
+    
         public virtual int pr_removeEnterprise(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEnterprise", idParameter);
         }
-
+    
         public virtual int pr_removeEnterpriseObjectName(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEnterpriseObjectName", idParameter);
         }
-
+    
         public virtual int pr_removeEnterpriseSystemInfo(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEnterpriseSystemInfo", idParameter);
         }
-
+    
         public virtual int pr_removeEsignature(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEsignature", idParameter);
         }
-
+    
         public virtual int pr_removeEventNotification(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEventNotification", idParameter);
         }
-
+    
         public virtual int pr_removeEventNotificationBounce(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEventNotificationBounce", idParameter);
         }
-
+    
         public virtual int pr_removeGroup(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeGroup", idParameter);
         }
-
+    
         public virtual int pr_removeGroupCollection(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeGroupCollection", idParameter);
         }
-
+    
         public virtual int pr_removeHs3Menu(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeHs3Menu", idParameter);
         }
-
+    
         public virtual int pr_removeKey(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeKey", idParameter);
         }
-
+    
         public virtual int pr_removeLanguage(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeLanguage", idParameter);
         }
-
+    
         public virtual int pr_removeLanguageinfo(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeLanguageinfo", idParameter);
         }
-
+    
         public virtual int pr_removeMenu(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeMenu", idParameter);
         }
-
+    
         public virtual int pr_removePage(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePage", idParameter);
         }
-
+    
         public virtual int pr_removePageSurveyset(Nullable<int> page, Nullable<int> surveyset)
         {
             var pageParameter = page.HasValue ?
                 new ObjectParameter("page", page) :
                 new ObjectParameter("page", typeof(int));
-
+    
             var surveysetParameter = surveyset.HasValue ?
                 new ObjectParameter("surveyset", surveyset) :
                 new ObjectParameter("surveyset", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePageSurveyset", pageParameter, surveysetParameter);
         }
-
+    
         public virtual int pr_removePartner(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartner", idParameter);
         }
-
+    
         public virtual int pr_removePartnerCorpInfo(Nullable<int> partner)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnerCorpInfo", partnerParameter);
         }
-
+    
         public virtual int pr_removePartnerGroup(Nullable<int> partner, Nullable<int> group)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             var groupParameter = group.HasValue ?
                 new ObjectParameter("group", group) :
                 new ObjectParameter("group", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnerGroup", partnerParameter, groupParameter);
         }
-
+    
         public virtual int pr_removePartnerPartnertypeTouchpointQuestionnaire(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnerPartnertypeTouchpointQuestionnaire", idParameter);
         }
-
+    
         public virtual int pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponse", idParameter);
         }
-
+    
         public virtual int pr_removePartnerRelationshipOwner(Nullable<int> partner, Nullable<int> person)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnerRelationshipOwner", partnerParameter, personParameter);
         }
-
+    
         public virtual int pr_removePartnerRemitAddress(Nullable<int> partner)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
                 new ObjectParameter("partner", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnerRemitAddress", partnerParameter);
         }
-
+    
         public virtual int pr_removePartnerType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnerType", idParameter);
         }
-
+    
         public virtual int pr_removePartnertypeTouchpointQuestionnaire(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnertypeTouchpointQuestionnaire", idParameter);
         }
-
+    
         public virtual int pr_removePerson(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePerson", idParameter);
         }
-
+    
         public virtual int pr_removePersonGroup(Nullable<int> person, Nullable<int> group)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             var groupParameter = group.HasValue ?
                 new ObjectParameter("group", group) :
                 new ObjectParameter("group", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonGroup", personParameter, groupParameter);
         }
-
+    
         public virtual int pr_removePersonRelationshipType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonRelationshipType", idParameter);
         }
-
+    
         public virtual int pr_removePersonRole(Nullable<int> person, Nullable<int> role)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
-
+    
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonRole", personParameter, roleParameter);
         }
-
+    
         public virtual int pr_removePersonStatus(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonStatus", idParameter);
         }
-
+    
         public virtual int pr_removeProtocol(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeProtocol", idParameter);
         }
-
+    
         public virtual int pr_removeQuestion(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestion", idParameter);
         }
-
+    
         public virtual int pr_removeQuestionLanguage(Nullable<int> question, Nullable<int> language)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionLanguage", questionParameter, languageParameter);
         }
-
+    
         public virtual int pr_removeQuestionnaire(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaire", idParameter);
         }
-
+    
         public virtual int pr_removeQuestionnaireLevel(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaireLevel", idParameter);
         }
-
+    
         public virtual int pr_removeQuestionnairePage(Nullable<int> questionnaire, Nullable<int> page)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             var pageParameter = page.HasValue ?
                 new ObjectParameter("page", page) :
                 new ObjectParameter("page", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnairePage", questionnaireParameter, pageParameter);
         }
-
+    
         public virtual int pr_removeQuestionResponse(Nullable<int> question, Nullable<int> response)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionResponse", questionParameter, responseParameter);
         }
-
+    
         public virtual int pr_removeQuestionRule(Nullable<int> question, Nullable<int> rule)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var ruleParameter = rule.HasValue ?
                 new ObjectParameter("rule", rule) :
                 new ObjectParameter("rule", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionRule", questionParameter, ruleParameter);
         }
-
+    
         public virtual int pr_removeQuestionTranslation(Nullable<int> question, Nullable<int> language)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionTranslation", questionParameter, languageParameter);
         }
-
+    
         public virtual int pr_removeRatingType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeRatingType", idParameter);
         }
-
+    
         public virtual int pr_removeResponse(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeResponse", idParameter);
         }
-
+    
         public virtual int pr_removeResponseLanguage(Nullable<int> response, Nullable<int> language)
         {
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeResponseLanguage", responseParameter, languageParameter);
         }
-
+    
         public virtual int pr_removeResponseTranslation(Nullable<int> response, Nullable<int> language)
         {
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeResponseTranslation", responseParameter, languageParameter);
         }
-
+    
         public virtual int pr_removeResponseType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeResponseType", idParameter);
         }
-
+    
         public virtual int pr_removeRole(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeRole", idParameter);
         }
-
+    
         public virtual int pr_removeRoleMenu(Nullable<int> role, Nullable<int> menu)
         {
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             var menuParameter = menu.HasValue ?
                 new ObjectParameter("menu", menu) :
                 new ObjectParameter("menu", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeRoleMenu", roleParameter, menuParameter);
         }
-
+    
         public virtual int pr_removeRule(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeRule", idParameter);
         }
-
+    
         public virtual int pr_removeRuleType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeRuleType", idParameter);
         }
-
+    
         public virtual int pr_removeState(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeState", idParameter);
         }
-
+    
         public virtual int pr_removeSurvey(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeSurvey", idParameter);
         }
-
+    
         public virtual int pr_removeSurveyQuestion(Nullable<int> survey, Nullable<int> question)
         {
             var surveyParameter = survey.HasValue ?
                 new ObjectParameter("survey", survey) :
                 new ObjectParameter("survey", typeof(int));
-
+    
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeSurveyQuestion", surveyParameter, questionParameter);
         }
-
+    
         public virtual int pr_removeSurveyset(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeSurveyset", idParameter);
         }
-
+    
         public virtual int pr_removeSurveysetSurvey(Nullable<int> surveySet, Nullable<int> survey)
         {
             var surveySetParameter = surveySet.HasValue ?
                 new ObjectParameter("surveySet", surveySet) :
                 new ObjectParameter("surveySet", typeof(int));
-
+    
             var surveyParameter = survey.HasValue ?
                 new ObjectParameter("survey", survey) :
                 new ObjectParameter("survey", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeSurveysetSurvey", surveySetParameter, surveyParameter);
         }
-
+    
         public virtual int pr_removeTouchpoint(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeTouchpoint", idParameter);
         }
-
+    
         public virtual int pr_removeTouchpointGroup(Nullable<int> touchpoint, Nullable<int> group)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var groupParameter = group.HasValue ?
                 new ObjectParameter("group", group) :
                 new ObjectParameter("group", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeTouchpointGroup", touchpointParameter, groupParameter);
         }
-
+    
         public virtual int pr_removeTouchpointQuestionnaire(Nullable<int> touchpoint, Nullable<int> questionnaire)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeTouchpointQuestionnaire", touchpointParameter, questionnaireParameter);
         }
-
+    
         public virtual int pr_removeTouchpointQuestionResponseValue(Nullable<int> touchpoint, Nullable<int> question, Nullable<int> response)
         {
             var touchpointParameter = touchpoint.HasValue ?
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
-
+    
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeTouchpointQuestionResponseValue", touchpointParameter, questionParameter, responseParameter);
         }
-
+    
         public virtual int pr_removeUserRole(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeUserRole", idParameter);
         }
-
+    
         public virtual int pr_unArchiveAgency(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveAgency", idParameter);
         }
-
+    
         public virtual int pr_unArchiveAutoMailType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveAutoMailType", idParameter);
         }
-
+    
         public virtual int pr_unArchiveCountry(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveCountry", idParameter);
         }
-
+    
         public virtual int pr_unArchiveDomain(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveDomain", idParameter);
         }
-
+    
         public virtual int pr_unArchiveEmailBounceType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveEmailBounceType", idParameter);
         }
-
+    
         public virtual int pr_unArchiveEmailTemplateType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveEmailTemplateType", idParameter);
         }
-
+    
         public virtual int pr_unArchiveEnterprise(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveEnterprise", idParameter);
         }
-
+    
         public virtual int pr_unArchiveGroup(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveGroup", idParameter);
         }
-
+    
         public virtual int pr_unArchiveGroupCollection(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveGroupCollection", idParameter);
         }
-
+    
         public virtual int pr_unArchiveHs3Menu(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveHs3Menu", idParameter);
         }
-
+    
         public virtual int pr_unArchiveKey(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveKey", idParameter);
         }
-
+    
         public virtual int pr_unArchiveLanguage(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveLanguage", idParameter);
         }
-
+    
         public virtual int pr_unArchiveLanguageinfo(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveLanguageinfo", idParameter);
         }
-
+    
         public virtual int pr_unArchiveMenu(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveMenu", idParameter);
         }
-
+    
         public virtual int pr_unArchivePage(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePage", idParameter);
         }
-
+    
         public virtual int pr_unArchivePartner(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePartner", idParameter);
         }
-
+    
         public virtual int pr_unArchivePartnerType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePartnerType", idParameter);
         }
-
+    
         public virtual int pr_unArchivePartnertypeTouchpointQuestionnaire(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePartnertypeTouchpointQuestionnaire", idParameter);
         }
-
+    
         public virtual int pr_unArchivePerson(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePerson", idParameter);
         }
-
+    
         public virtual int pr_unArchivePersonRelationshipType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePersonRelationshipType", idParameter);
         }
-
+    
         public virtual int pr_unArchivePersonStatus(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePersonStatus", idParameter);
         }
-
+    
         public virtual int pr_unArchiveProtocol(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveProtocol", idParameter);
         }
-
+    
         public virtual int pr_unArchiveQuestion(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestion", idParameter);
         }
-
+    
         public virtual int pr_unArchiveQuestionnaire(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestionnaire", idParameter);
         }
-
+    
         public virtual int pr_unArchiveQuestionnaireLevel(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestionnaireLevel", idParameter);
         }
-
+    
         public virtual int pr_unArchiveRatingType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveRatingType", idParameter);
         }
-
+    
         public virtual int pr_unArchiveResponse(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveResponse", idParameter);
         }
-
+    
         public virtual int pr_unArchiveResponseType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveResponseType", idParameter);
         }
-
+    
         public virtual int pr_unArchiveRole(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveRole", idParameter);
         }
-
+    
         public virtual int pr_unArchiveRoleMenu(Nullable<int> role, Nullable<int> menu)
         {
             var roleParameter = role.HasValue ?
                 new ObjectParameter("role", role) :
                 new ObjectParameter("role", typeof(int));
-
+    
             var menuParameter = menu.HasValue ?
                 new ObjectParameter("menu", menu) :
                 new ObjectParameter("menu", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveRoleMenu", roleParameter, menuParameter);
         }
-
+    
         public virtual int pr_unArchiveRule(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveRule", idParameter);
         }
-
+    
         public virtual int pr_unArchiveRuleType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveRuleType", idParameter);
         }
-
+    
         public virtual int pr_unArchiveState(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveState", idParameter);
         }
-
+    
         public virtual int pr_unArchiveSurvey(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveSurvey", idParameter);
         }
-
+    
         public virtual int pr_unArchiveSurveyset(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveSurveyset", idParameter);
         }
-
+    
         public virtual int pr_unArchiveTouchpoint(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveTouchpoint", idParameter);
         }
-
+    
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
             var diagramnameParameter = diagramname != null ?
                 new ObjectParameter("diagramname", diagramname) :
                 new ObjectParameter("diagramname", typeof(string));
-
+    
             var owner_idParameter = owner_id.HasValue ?
                 new ObjectParameter("owner_id", owner_id) :
                 new ObjectParameter("owner_id", typeof(int));
-
+    
             var versionParameter = version.HasValue ?
                 new ObjectParameter("version", version) :
                 new ObjectParameter("version", typeof(int));
-
+    
             var definitionParameter = definition != null ?
                 new ObjectParameter("definition", definition) :
                 new ObjectParameter("definition", typeof(byte[]));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
         }
-
+    
         public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
             var diagramnameParameter = diagramname != null ?
                 new ObjectParameter("diagramname", diagramname) :
                 new ObjectParameter("diagramname", typeof(string));
-
+    
             var owner_idParameter = owner_id.HasValue ?
                 new ObjectParameter("owner_id", owner_id) :
                 new ObjectParameter("owner_id", typeof(int));
-
+    
             var versionParameter = version.HasValue ?
                 new ObjectParameter("version", version) :
                 new ObjectParameter("version", typeof(int));
-
+    
             var definitionParameter = definition != null ?
                 new ObjectParameter("definition", definition) :
                 new ObjectParameter("definition", typeof(byte[]));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
         }
-
+    
         public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
         {
             var diagramnameParameter = diagramname != null ?
                 new ObjectParameter("diagramname", diagramname) :
                 new ObjectParameter("diagramname", typeof(string));
-
+    
             var owner_idParameter = owner_id.HasValue ?
                 new ObjectParameter("owner_id", owner_id) :
                 new ObjectParameter("owner_id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
         }
-
+    
         public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
         {
             var diagramnameParameter = diagramname != null ?
                 new ObjectParameter("diagramname", diagramname) :
                 new ObjectParameter("diagramname", typeof(string));
-
+    
             var owner_idParameter = owner_id.HasValue ?
                 new ObjectParameter("owner_id", owner_id) :
                 new ObjectParameter("owner_id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
         }
-
+    
         public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
         {
             var diagramnameParameter = diagramname != null ?
                 new ObjectParameter("diagramname", diagramname) :
                 new ObjectParameter("diagramname", typeof(string));
-
+    
             var owner_idParameter = owner_id.HasValue ?
                 new ObjectParameter("owner_id", owner_id) :
                 new ObjectParameter("owner_id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
         }
-
+    
         public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
         {
             var diagramnameParameter = diagramname != null ?
                 new ObjectParameter("diagramname", diagramname) :
                 new ObjectParameter("diagramname", typeof(string));
-
+    
             var owner_idParameter = owner_id.HasValue ?
                 new ObjectParameter("owner_id", owner_id) :
                 new ObjectParameter("owner_id", typeof(int));
-
+    
             var new_diagramnameParameter = new_diagramname != null ?
                 new ObjectParameter("new_diagramname", new_diagramname) :
                 new ObjectParameter("new_diagramname", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
         }
-
+    
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
-
+    
         public virtual int xx__GenerateSPforInsertUpdateDelete25(string schemaname, string tablename, string procName, Nullable<bool> identityInsert)
         {
             var schemanameParameter = schemaname != null ?
                 new ObjectParameter("Schemaname", schemaname) :
                 new ObjectParameter("Schemaname", typeof(string));
-
+    
             var tablenameParameter = tablename != null ?
                 new ObjectParameter("Tablename", tablename) :
                 new ObjectParameter("Tablename", typeof(string));
-
+    
             var procNameParameter = procName != null ?
                 new ObjectParameter("ProcName", procName) :
                 new ObjectParameter("ProcName", typeof(string));
-
+    
             var identityInsertParameter = identityInsert.HasValue ?
                 new ObjectParameter("IdentityInsert", identityInsert) :
                 new ObjectParameter("IdentityInsert", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("xx__GenerateSPforInsertUpdateDelete25", schemanameParameter, tablenameParameter, procNameParameter, identityInsertParameter);
         }
-
+    
         public virtual int xx_generateSPforInsertUpdateDelete_MM(string schemaname, string tablename, string procName, Nullable<bool> identityInsert)
         {
             var schemanameParameter = schemaname != null ?
                 new ObjectParameter("Schemaname", schemaname) :
                 new ObjectParameter("Schemaname", typeof(string));
-
+    
             var tablenameParameter = tablename != null ?
                 new ObjectParameter("Tablename", tablename) :
                 new ObjectParameter("Tablename", typeof(string));
-
+    
             var procNameParameter = procName != null ?
                 new ObjectParameter("ProcName", procName) :
                 new ObjectParameter("ProcName", typeof(string));
-
+    
             var identityInsertParameter = identityInsert.HasValue ?
                 new ObjectParameter("IdentityInsert", identityInsert) :
                 new ObjectParameter("IdentityInsert", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("xx_generateSPforInsertUpdateDelete_MM", schemanameParameter, tablenameParameter, procNameParameter, identityInsertParameter);
         }
-
+    
         public virtual int xx_generateSPforInsertUpdateDelete2(string schemaname, string tablename, string procName, Nullable<bool> identityInsert)
         {
             var schemanameParameter = schemaname != null ?
                 new ObjectParameter("Schemaname", schemaname) :
                 new ObjectParameter("Schemaname", typeof(string));
-
+    
             var tablenameParameter = tablename != null ?
                 new ObjectParameter("Tablename", tablename) :
                 new ObjectParameter("Tablename", typeof(string));
-
+    
             var procNameParameter = procName != null ?
                 new ObjectParameter("ProcName", procName) :
                 new ObjectParameter("ProcName", typeof(string));
-
+    
             var identityInsertParameter = identityInsert.HasValue ?
                 new ObjectParameter("IdentityInsert", identityInsert) :
                 new ObjectParameter("IdentityInsert", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("xx_generateSPforInsertUpdateDelete2", schemanameParameter, tablenameParameter, procNameParameter, identityInsertParameter);
         }
-
+    
         public virtual int xx_generateSPforInsertUpdateDeleteNew(string schemaname, string tablename, string procName, Nullable<bool> identityInsert)
         {
             var schemanameParameter = schemaname != null ?
                 new ObjectParameter("Schemaname", schemaname) :
                 new ObjectParameter("Schemaname", typeof(string));
-
+    
             var tablenameParameter = tablename != null ?
                 new ObjectParameter("Tablename", tablename) :
                 new ObjectParameter("Tablename", typeof(string));
-
+    
             var procNameParameter = procName != null ?
                 new ObjectParameter("ProcName", procName) :
                 new ObjectParameter("ProcName", typeof(string));
-
+    
             var identityInsertParameter = identityInsert.HasValue ?
                 new ObjectParameter("IdentityInsert", identityInsert) :
                 new ObjectParameter("IdentityInsert", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("xx_generateSPforInsertUpdateDeleteNew", schemanameParameter, tablenameParameter, procNameParameter, identityInsertParameter);
         }
-
+    
         public virtual int xx_generateSPforInsertUpdateDeleteTest(string schemaname, string tablename, string procName, Nullable<bool> identityInsert)
         {
             var schemanameParameter = schemaname != null ?
                 new ObjectParameter("Schemaname", schemaname) :
                 new ObjectParameter("Schemaname", typeof(string));
-
+    
             var tablenameParameter = tablename != null ?
                 new ObjectParameter("Tablename", tablename) :
                 new ObjectParameter("Tablename", typeof(string));
-
+    
             var procNameParameter = procName != null ?
                 new ObjectParameter("ProcName", procName) :
                 new ObjectParameter("ProcName", typeof(string));
-
+    
             var identityInsertParameter = identityInsert.HasValue ?
                 new ObjectParameter("IdentityInsert", identityInsert) :
                 new ObjectParameter("IdentityInsert", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("xx_generateSPforInsertUpdateDeleteTest", schemanameParameter, tablenameParameter, procNameParameter, identityInsertParameter);
         }
-
+    
         public virtual int xx_generateSPforInsertUpdateDeleteTest2(string schemaname, string tablename, string procName, Nullable<bool> identityInsert)
         {
             var schemanameParameter = schemaname != null ?
                 new ObjectParameter("Schemaname", schemaname) :
                 new ObjectParameter("Schemaname", typeof(string));
-
+    
             var tablenameParameter = tablename != null ?
                 new ObjectParameter("Tablename", tablename) :
                 new ObjectParameter("Tablename", typeof(string));
-
+    
             var procNameParameter = procName != null ?
                 new ObjectParameter("ProcName", procName) :
                 new ObjectParameter("ProcName", typeof(string));
-
+    
             var identityInsertParameter = identityInsert.HasValue ?
                 new ObjectParameter("IdentityInsert", identityInsert) :
                 new ObjectParameter("IdentityInsert", typeof(bool));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("xx_generateSPforInsertUpdateDeleteTest2", schemanameParameter, tablenameParameter, procNameParameter, identityInsertParameter);
         }
-
+    
         public virtual ObjectResult<xx_getLastDBModified_Result> xx_getLastDBModified()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_getLastDBModified_Result>("xx_getLastDBModified");
         }
-
+    
         public virtual ObjectResult<xx_getRecordCountByTable_Result> xx_getRecordCountByTable()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_getRecordCountByTable_Result>("xx_getRecordCountByTable");
         }
-
+    
         public virtual ObjectResult<xx_getTableSetByColumnName_Result> xx_getTableSetByColumnName(string tableName)
         {
             var tableNameParameter = tableName != null ?
                 new ObjectParameter("tableName", tableName) :
                 new ObjectParameter("tableName", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_getTableSetByColumnName_Result>("xx_getTableSetByColumnName", tableNameParameter);
         }
-
+    
         public virtual ObjectResult<string> xx_getTelerikBoundColumnSchema(string tablename)
         {
             var tablenameParameter = tablename != null ?
                 new ObjectParameter("tablename", tablename) :
                 new ObjectParameter("tablename", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("xx_getTelerikBoundColumnSchema", tablenameParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_findPerson1(Nullable<int> enterprise, string selected_sql)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var selected_sqlParameter = selected_sql != null ?
                 new ObjectParameter("selected_sql", selected_sql) :
                 new ObjectParameter("selected_sql", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_findPerson1", enterpriseParameter, selected_sqlParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_findPerson1(Nullable<int> enterprise, string selected_sql, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             var selected_sqlParameter = selected_sql != null ?
                 new ObjectParameter("selected_sql", selected_sql) :
                 new ObjectParameter("selected_sql", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_findPerson1", mergeOption, enterpriseParameter, selected_sqlParameter);
         }
-
+    
         public virtual ObjectResult<Nullable<decimal>> pr_addAutomailMessage(Nullable<int> partnerTypeTouchpointQuestionnaire, Nullable<int> mailType, string subject, string text, string footer1, string footer2)
         {
             var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
-
+    
             var mailTypeParameter = mailType.HasValue ?
                 new ObjectParameter("mailType", mailType) :
                 new ObjectParameter("mailType", typeof(int));
-
+    
             var subjectParameter = subject != null ?
                 new ObjectParameter("subject", subject) :
                 new ObjectParameter("subject", typeof(string));
-
+    
             var textParameter = text != null ?
                 new ObjectParameter("text", text) :
                 new ObjectParameter("text", typeof(string));
-
+    
             var footer1Parameter = footer1 != null ?
                 new ObjectParameter("footer1", footer1) :
                 new ObjectParameter("footer1", typeof(string));
-
+    
             var footer2Parameter = footer2 != null ?
                 new ObjectParameter("footer2", footer2) :
                 new ObjectParameter("footer2", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAutomailMessage", partnerTypeTouchpointQuestionnaireParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
         }
-
+    
         public virtual ObjectResult<pr_getAutomailMessage_Result> pr_getAutomailMessage(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessage_Result>("pr_getAutomailMessage", idParameter);
         }
-
+    
         public virtual int pr_modifyAutomailMessage(Nullable<int> id, Nullable<int> partnerTypeTouchpointQuestionnaire, Nullable<int> mailType, string subject, string text, string footer1, string footer2)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
-
+    
             var mailTypeParameter = mailType.HasValue ?
                 new ObjectParameter("mailType", mailType) :
                 new ObjectParameter("mailType", typeof(int));
-
+    
             var subjectParameter = subject != null ?
                 new ObjectParameter("subject", subject) :
                 new ObjectParameter("subject", typeof(string));
-
+    
             var textParameter = text != null ?
                 new ObjectParameter("text", text) :
                 new ObjectParameter("text", typeof(string));
-
+    
             var footer1Parameter = footer1 != null ?
                 new ObjectParameter("footer1", footer1) :
                 new ObjectParameter("footer1", typeof(string));
-
+    
             var footer2Parameter = footer2 != null ?
                 new ObjectParameter("footer2", footer2) :
                 new ObjectParameter("footer2", typeof(string));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutomailMessage", idParameter, partnerTypeTouchpointQuestionnaireParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
         }
-
+    
         public virtual int pr_removeAutomailMessage(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutomailMessage", idParameter);
         }
-
+    
         public virtual ObjectResult<touchpoint> pr_getTouchpointByProtocol(Nullable<int> protocol)
         {
             var protocolParameter = protocol.HasValue ?
                 new ObjectParameter("protocol", protocol) :
                 new ObjectParameter("protocol", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointByProtocol", protocolParameter);
         }
-
+    
         public virtual ObjectResult<touchpoint> pr_getTouchpointByProtocol(Nullable<int> protocol, MergeOption mergeOption)
         {
             var protocolParameter = protocol.HasValue ?
                 new ObjectParameter("protocol", protocol) :
                 new ObjectParameter("protocol", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointByProtocol", mergeOption, protocolParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionBySurveySkipLogic(Nullable<int> survey, Nullable<int> jumpToQuestion)
         {
             var surveyParameter = survey.HasValue ?
                 new ObjectParameter("survey", survey) :
                 new ObjectParameter("survey", typeof(int));
-
+    
             var jumpToQuestionParameter = jumpToQuestion.HasValue ?
                 new ObjectParameter("jumpToQuestion", jumpToQuestion) :
                 new ObjectParameter("jumpToQuestion", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionBySurveySkipLogic", surveyParameter, jumpToQuestionParameter);
         }
-
+    
         public virtual ObjectResult<question> pr_getQuestionBySurveySkipLogic(Nullable<int> survey, Nullable<int> jumpToQuestion, MergeOption mergeOption)
         {
             var surveyParameter = survey.HasValue ?
                 new ObjectParameter("survey", survey) :
                 new ObjectParameter("survey", typeof(int));
-
+    
             var jumpToQuestionParameter = jumpToQuestion.HasValue ?
                 new ObjectParameter("jumpToQuestion", jumpToQuestion) :
                 new ObjectParameter("jumpToQuestion", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionBySurveySkipLogic", mergeOption, surveyParameter, jumpToQuestionParameter);
         }
-
+    
         public virtual ObjectResult<page> pr_getNextPageByQuestionnaire(Nullable<int> questionnaire, Nullable<int> previousPage, Nullable<int> jumpToQuestion)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             var previousPageParameter = previousPage.HasValue ?
                 new ObjectParameter("previousPage", previousPage) :
                 new ObjectParameter("previousPage", typeof(int));
-
+    
             var jumpToQuestionParameter = jumpToQuestion.HasValue ?
                 new ObjectParameter("jumpToQuestion", jumpToQuestion) :
                 new ObjectParameter("jumpToQuestion", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getNextPageByQuestionnaire", questionnaireParameter, previousPageParameter, jumpToQuestionParameter);
         }
-
+    
         public virtual ObjectResult<page> pr_getNextPageByQuestionnaire(Nullable<int> questionnaire, Nullable<int> previousPage, Nullable<int> jumpToQuestion, MergeOption mergeOption)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             var previousPageParameter = previousPage.HasValue ?
                 new ObjectParameter("previousPage", previousPage) :
                 new ObjectParameter("previousPage", typeof(int));
-
+    
             var jumpToQuestionParameter = jumpToQuestion.HasValue ?
                 new ObjectParameter("jumpToQuestion", jumpToQuestion) :
                 new ObjectParameter("jumpToQuestion", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getNextPageByQuestionnaire", mergeOption, questionnaireParameter, previousPageParameter, jumpToQuestionParameter);
         }
-
+    
         public virtual ObjectResult<xx_getQuestionByQuestionnaire_Result> xx_getQuestionByQuestionnaire(Nullable<int> questionnaire)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_getQuestionByQuestionnaire_Result>("xx_getQuestionByQuestionnaire", questionnaireParameter);
         }
-
+    
         public virtual ObjectResult<page> pr_getNextPageByQuestionnairePreviousPage(Nullable<int> questionnaire, Nullable<int> previousPage)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             var previousPageParameter = previousPage.HasValue ?
                 new ObjectParameter("previousPage", previousPage) :
                 new ObjectParameter("previousPage", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getNextPageByQuestionnairePreviousPage", questionnaireParameter, previousPageParameter);
         }
-
+    
         public virtual ObjectResult<page> pr_getNextPageByQuestionnairePreviousPage(Nullable<int> questionnaire, Nullable<int> previousPage, MergeOption mergeOption)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
-
+    
             var previousPageParameter = previousPage.HasValue ?
                 new ObjectParameter("previousPage", previousPage) :
                 new ObjectParameter("previousPage", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<page>("pr_getNextPageByQuestionnairePreviousPage", mergeOption, questionnaireParameter, previousPageParameter);
         }
-
+    
         public virtual ObjectResult<pr_getPersonByEnterprise_Result> pr_getPersonByEnterprise(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonByEnterprise_Result>("pr_getPersonByEnterprise", enterpriseParameter);
         }
-
-        public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(Nullable<int> question, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
-        {
-            var questionParameter = question.HasValue ?
-                new ObjectParameter("question", question) :
-                new ObjectParameter("question", typeof(int));
-
-            var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
-                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
-                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
-
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>("pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ", questionParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
-        }
-
+    
         public virtual ObjectResult<pr_getPersonByEnterprise1_Result> pr_getPersonByEnterprise1(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonByEnterprise1_Result>("pr_getPersonByEnterprise1", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByEnterprise2(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByEnterprise2", enterpriseParameter);
         }
-
+    
         public virtual ObjectResult<person> pr_getPersonByEnterprise2(Nullable<int> enterprise, MergeOption mergeOption)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPersonByEnterprise2", mergeOption, enterpriseParameter);
         }
-
+    
+        public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(Nullable<int> question, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>("pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ", questionParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
+        }
+    
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(Nullable<int> question, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire, MergeOption mergeOption)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
                 new ObjectParameter("question", typeof(int));
-
+    
             var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>("pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ", mergeOption, questionParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEnterpriseByAccessCode_Result> pr_getEnterpriseByAccessCode(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseByAccessCode_Result>("pr_getEnterpriseByAccessCode", accesscodeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getRoleByPerson_Result> pr_getRoleByPerson(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRoleByPerson_Result>("pr_getRoleByPerson", personParameter);
+        }
+    
+        public virtual ObjectResult<country> pr_getCountryByName(string countryName)
+        {
+            var countryNameParameter = countryName != null ?
+                new ObjectParameter("countryName", countryName) :
+                new ObjectParameter("countryName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<country>("pr_getCountryByName", countryNameParameter);
+        }
+    
+        public virtual ObjectResult<country> pr_getCountryByName(string countryName, MergeOption mergeOption)
+        {
+            var countryNameParameter = countryName != null ?
+                new ObjectParameter("countryName", countryName) :
+                new ObjectParameter("countryName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<country>("pr_getCountryByName", mergeOption, countryNameParameter);
+        }
+    
+        public virtual ObjectResult<state> pr_getStateByStateCode(string stateCode)
+        {
+            var stateCodeParameter = stateCode != null ?
+                new ObjectParameter("stateCode", stateCode) :
+                new ObjectParameter("stateCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<state>("pr_getStateByStateCode", stateCodeParameter);
+        }
+    
+        public virtual ObjectResult<state> pr_getStateByStateCode(string stateCode, MergeOption mergeOption)
+        {
+            var stateCodeParameter = stateCode != null ?
+                new ObjectParameter("stateCode", stateCode) :
+                new ObjectParameter("stateCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<state>("pr_getStateByStateCode", mergeOption, stateCodeParameter);
+        }
+    
+        public virtual ObjectResult<partnerTypeTouchpointQuestionnaire> pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(Nullable<int> partnerType, Nullable<int> touchpoint)
+        {
+            var partnerTypeParameter = partnerType.HasValue ?
+                new ObjectParameter("partnerType", partnerType) :
+                new ObjectParameter("partnerType", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerTypeTouchpointQuestionnaire>("pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint", partnerTypeParameter, touchpointParameter);
+        }
+    
+        public virtual ObjectResult<partnerTypeTouchpointQuestionnaire> pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(Nullable<int> partnerType, Nullable<int> touchpoint, MergeOption mergeOption)
+        {
+            var partnerTypeParameter = partnerType.HasValue ?
+                new ObjectParameter("partnerType", partnerType) :
+                new ObjectParameter("partnerType", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerTypeTouchpointQuestionnaire>("pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint", mergeOption, partnerTypeParameter, touchpointParameter);
+        }
+    
+        public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ", partnerParameter, partnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire, MergeOption mergeOption)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ", mergeOption, partnerParameter, partnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<autoMailMessage> pr_getAutoMailmessageByMailtypeandPTQ(Nullable<int> mailtype, Nullable<int> partnertypeTouchpointQuestionnaire)
+        {
+            var mailtypeParameter = mailtype.HasValue ?
+                new ObjectParameter("mailtype", mailtype) :
+                new ObjectParameter("mailtype", typeof(int));
+    
+            var partnertypeTouchpointQuestionnaireParameter = partnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnertypeTouchpointQuestionnaire", partnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailMessage>("pr_getAutoMailmessageByMailtypeandPTQ", mailtypeParameter, partnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<autoMailMessage> pr_getAutoMailmessageByMailtypeandPTQ(Nullable<int> mailtype, Nullable<int> partnertypeTouchpointQuestionnaire, MergeOption mergeOption)
+        {
+            var mailtypeParameter = mailtype.HasValue ?
+                new ObjectParameter("mailtype", mailtype) :
+                new ObjectParameter("mailtype", typeof(int));
+    
+            var partnertypeTouchpointQuestionnaireParameter = partnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnertypeTouchpointQuestionnaire", partnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailMessage>("pr_getAutoMailmessageByMailtypeandPTQ", mergeOption, mailtypeParameter, partnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ1_Result> pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ1(Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ1_Result>("pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ1", partnerParameter, partnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutomailMessageByMailtypeandPTQ1_Result> pr_getAutomailMessageByMailtypeandPTQ1(Nullable<int> mailtype, Nullable<int> partnertypeTouchpointQuestionnaire)
+        {
+            var mailtypeParameter = mailtype.HasValue ?
+                new ObjectParameter("mailtype", mailtype) :
+                new ObjectParameter("mailtype", typeof(int));
+    
+            var partnertypeTouchpointQuestionnaireParameter = partnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnertypeTouchpointQuestionnaire", partnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessageByMailtypeandPTQ1_Result>("pr_getAutomailMessageByMailtypeandPTQ1", mailtypeParameter, partnertypeTouchpointQuestionnaireParameter);
         }
     }
 }
-

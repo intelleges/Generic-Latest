@@ -243,7 +243,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
 
                         
-                        db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, pptq);
+                        db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null,null, null,null, pptq);
                     }
                     else if (keyName.ToString().Contains("_checkBox"))
                     {
@@ -269,7 +269,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
 
 
-                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, pptq);
+                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
 
                         }
                     }
@@ -326,7 +326,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             responseComment = null;
                         }
 
-                        db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, pptq);
+                        db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
 
                     }
 
@@ -884,9 +884,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         byte[] uploadedFile = new byte[Request.Files[i].InputStream.Length];
                         Request.Files[i].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
 
-                        Binary linqBinary = new Binary(uploadedFile); 
-                       
-                        db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(pptqq.id, questionId, pptqq.response, pptqq.comment, uploadedFile, null, pptq);
+                       // Binary linqBinary = new Binary(uploadedFile);
+
+                        db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(pptqq.id, questionId, pptqq.response, pptqq.comment, uploadedFile, Request.Files[i].ContentType, pptqq.value, pptqq.score, pptq);
 
                         //int length = uploadFile.ContentLength;
                         //byte[] tempImage = new byte[length];

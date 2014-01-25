@@ -11,7 +11,6 @@ namespace Generic
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class group
     {
@@ -27,7 +26,6 @@ namespace Generic
         public Nullable<int> groupType { get; set; }
         public Nullable<int> author { get; set; }
         public Nullable<int> state { get; set; }
-        [Required]
         public string name { get; set; }
         public string description { get; set; }
         public string email { get; set; }

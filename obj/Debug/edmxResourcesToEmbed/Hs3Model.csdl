@@ -672,6 +672,8 @@
       <Parameter Name="response" Mode="In" Type="Int32" />
       <Parameter Name="comment" Mode="In" Type="String" />
       <Parameter Name="uploadedFile" Mode="In" Type="Binary" />
+      <Parameter Name="uploadedFileType" Mode="In" Type="String" />
+      <Parameter Name="value" Mode="In" Type="Int32" />
       <Parameter Name="score" Mode="In" Type="Int32" />
       <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -1087,9 +1089,7 @@
       <Parameter Name="enterprise" Mode="In" Type="Int32" />
       <Parameter Name="userRole" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="pr_getAccesscode" ReturnType="Collection(String)">
-      <Parameter Name="access" Mode="InOut" Type="String" />
-    </FunctionImport>
+    <FunctionImport Name="pr_getAccesscode" ReturnType="Collection(String)" />
     <FunctionImport Name="pr_getAgency" EntitySet="agency" ReturnType="Collection(hs3MVCMTQa2Model.agency)">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -1847,6 +1847,8 @@
       <Parameter Name="response" Mode="In" Type="Int32" />
       <Parameter Name="comment" Mode="In" Type="String" />
       <Parameter Name="uploadedFile" Mode="In" Type="Binary" />
+      <Parameter Name="uploadedFileType" Mode="In" Type="String" />
+      <Parameter Name="value" Mode="In" Type="Int32" />
       <Parameter Name="score" Mode="In" Type="Int32" />
       <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -2603,6 +2605,38 @@
       <Parameter Name="question" Mode="In" Type="Int32" />
       <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="pr_getEnterpriseByAccessCode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseByAccessCode_Result)">
+      <Parameter Name="accesscode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getRoleByPerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleByPerson_Result)">
+      <Parameter Name="person" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getCountryByName" EntitySet="country" ReturnType="Collection(hs3MVCMTQa2Model.country)">
+      <Parameter Name="countryName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getStateByStateCode" EntitySet="state" ReturnType="Collection(hs3MVCMTQa2Model.state)">
+      <Parameter Name="stateCode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint" EntitySet="partnerTypeTouchpointQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire)">
+      <Parameter Name="partnerType" Mode="In" Type="Int32" />
+      <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ" EntitySet="partnerPartnertypeTouchpointQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire)">
+      <Parameter Name="partner" Mode="In" Type="Int32" />
+      <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getAutoMailmessageByMailtypeandPTQ" EntitySet="autoMailMessage" ReturnType="Collection(hs3MVCMTQa2Model.autoMailMessage)">
+      <Parameter Name="mailtype" Mode="In" Type="Int32" />
+      <Parameter Name="partnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ1_Result)">
+      <Parameter Name="partner" Mode="In" Type="Int32" />
+      <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getAutomailMessageByMailtypeandPTQ1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageByMailtypeandPTQ1_Result)">
+      <Parameter Name="mailtype" Mode="In" Type="Int32" />
+      <Parameter Name="partnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="accessLevel">
     <Key>
@@ -3176,6 +3210,7 @@
     <Property Name="partnerPartnerTypeTouchpointQuestionnaire" Type="Int32" />
     <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaire1" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" FromRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" ToRole="partnerPartnertypeTouchpointQuestionnaire" />
     <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" ToRole="response" />
+    <Property Type="String" Name="uploadedFileType" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="partnerReference">
     <Key>
@@ -6970,5 +7005,97 @@
     <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
     <Property Type="Boolean" Name="IsArchived" Nullable="true" />
     <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="pr_getEnterpriseByAccessCode_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="String" Name="logo" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="applicationPath" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="companyName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="instanceName" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="archivedDate" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getRoleByPerson_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="accessLevel" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+    <Property Type="Int32" Name="access" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getCountryByName_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="eplsCountryID" Nullable="true" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="code" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="governanceCode" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getStateByStateCode_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="stateCode" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="255" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="partnerType" Nullable="false" />
+    <Property Type="Int32" Name="touchpoint" Nullable="false" />
+    <Property Type="Int32" Name="questionnaire" Nullable="false" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+    <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="invitedBy" Nullable="false" />
+    <Property Type="DateTime" Name="invitedDate" Nullable="false" />
+    <Property Type="DateTime" Name="completedDate" Nullable="true" />
+    <Property Type="Int32" Name="progress" Nullable="true" />
+    <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+    <Property Type="Binary" Name="pdf" Nullable="true" />
+    <Property Type="String" Name="docFolderAddress" Nullable="true" MaxLength="500" />
+    <Property Type="Decimal" Name="score" Nullable="true" Precision="18" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="pr_getAutoMailmessageByMailtypeandPTQ_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="subject" Nullable="true" />
+    <Property Type="String" Name="text" Nullable="true" />
+    <Property Type="String" Name="footer1" Nullable="true" />
+    <Property Type="String" Name="footer2" Nullable="true" />
+    <Property Type="Int32" Name="mailType" Nullable="false" />
+    <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ1_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+    <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="invitedBy" Nullable="false" />
+    <Property Type="DateTime" Name="invitedDate" Nullable="false" />
+    <Property Type="DateTime" Name="completedDate" Nullable="true" />
+    <Property Type="Int32" Name="progress" Nullable="true" />
+    <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+    <Property Type="Binary" Name="pdf" Nullable="true" />
+    <Property Type="String" Name="docFolderAddress" Nullable="true" MaxLength="500" />
+    <Property Type="Decimal" Name="score" Nullable="true" Precision="18" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="pr_getAutomailMessageByMailtypeandPTQ1_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="subject" Nullable="true" />
+    <Property Type="String" Name="text" Nullable="true" />
+    <Property Type="String" Name="footer1" Nullable="true" />
+    <Property Type="String" Name="footer2" Nullable="true" />
+    <Property Type="Int32" Name="mailType" Nullable="false" />
+    <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
   </ComplexType>
 </Schema>

@@ -543,8 +543,21 @@ namespace Generic.Helpers.Utility
         //    }
     }
 
+    public static class partnerStatusTypes
+    {
+        public const int PARTNER_INVITED_NO_RESPONSE = 1;
+        public const int PARTNER_RESPONSE_INCOMPLETE = 2;
+        public const int PARTNER_RESPONSE_COMPLETE = 3;
+    }
 
-
+    public static class autoMailTypes
+    {
+        public const int Invitation = 1;
+        public const int Incomplete = 2;
+        public const int Complete_Confirmation = 3;
+        public const int Reminder = 4;
+        public const int Alert = 5;
+    }
 
     public static class GlobalVariable
     {
