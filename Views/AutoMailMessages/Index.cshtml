@@ -1,0 +1,65 @@
+﻿@inherits System.Web.Mvc.WebViewPage< IEnumerable<Generic.autoMailMessage>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.subject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.footer1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.footer2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.autoMailType.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.partnerTypeTouchpointQuestionnaire1.id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.footer1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.footer2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.autoMailType.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.partnerTypeTouchpointQuestionnaire1.id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

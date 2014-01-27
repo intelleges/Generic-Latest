@@ -7714,7 +7714,7 @@
             <Parameter Name="footer1" Mode="In" Type="String" />
             <Parameter Name="footer2" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="pr_getAutomailMessage" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessage_Result)">
+          <FunctionImport Name="pr_getAutomailMessage" EntitySet="autoMailMessage" ReturnType="Collection(hs3MVCMTQa2Model.autoMailMessage)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyAutomailMessage">
@@ -15622,17 +15622,6 @@
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="pr_addAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomailMessage" />
           <FunctionImportMapping FunctionImportName="pr_getAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessage">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessage_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="subject" ColumnName="subject" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="footer1" ColumnName="footer1" />
-                <ScalarProperty Name="footer2" ColumnName="footer2" />
-                <ScalarProperty Name="mailType" ColumnName="mailType" />
-                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutomailMessage" />
           <FunctionImportMapping FunctionImportName="pr_removeAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessage" />

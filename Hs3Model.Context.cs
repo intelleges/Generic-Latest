@@ -8663,13 +8663,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAutomailMessage", partnerTypeTouchpointQuestionnaireParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
         }
     
-        public virtual ObjectResult<pr_getAutomailMessage_Result> pr_getAutomailMessage(Nullable<int> id)
+        public virtual ObjectResult<autoMailMessage> pr_getAutomailMessage(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessage_Result>("pr_getAutomailMessage", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailMessage>("pr_getAutomailMessage", idParameter);
+        }
+    
+        public virtual ObjectResult<autoMailMessage> pr_getAutomailMessage(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailMessage>("pr_getAutomailMessage", mergeOption, idParameter);
         }
     
         public virtual int pr_modifyAutomailMessage(Nullable<int> id, Nullable<int> partnerTypeTouchpointQuestionnaire, Nullable<int> mailType, string subject, string text, string footer1, string footer2)

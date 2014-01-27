@@ -1,0 +1,77 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.autoMailMessage>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>autoMailMessage</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.subject)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.subject)
+            @Html.ValidationMessageFor(model => model.subject)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.text)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.text)
+            @Html.ValidationMessageFor(model => model.text)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.footer1)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.footer1)
+            @Html.ValidationMessageFor(model => model.footer1)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.footer2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.footer2)
+            @Html.ValidationMessageFor(model => model.footer2)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.mailType, "autoMailType")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("mailType", String.Empty)
+            @Html.ValidationMessageFor(model => model.mailType)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.partnerTypeTouchpointQuestionnaire, "partnerTypeTouchpointQuestionnaire1")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("partnerTypeTouchpointQuestionnaire", String.Empty)
+            @Html.ValidationMessageFor(model => model.partnerTypeTouchpointQuestionnaire)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+   
+}

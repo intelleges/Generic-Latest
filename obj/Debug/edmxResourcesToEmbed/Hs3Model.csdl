@@ -2558,7 +2558,7 @@
       <Parameter Name="footer1" Mode="In" Type="String" />
       <Parameter Name="footer2" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="pr_getAutomailMessage" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessage_Result)">
+    <FunctionImport Name="pr_getAutomailMessage" EntitySet="autoMailMessage" ReturnType="Collection(hs3MVCMTQa2Model.autoMailMessage)">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_modifyAutomailMessage">

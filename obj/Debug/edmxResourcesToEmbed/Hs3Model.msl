@@ -3230,19 +3230,7 @@
       </EndProperty>
     </AssociationSetMapping>
     <FunctionImportMapping FunctionImportName="pr_addAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomailMessage" />
-    <FunctionImportMapping FunctionImportName="pr_getAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessage">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessage_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="subject" ColumnName="subject" />
-          <ScalarProperty Name="text" ColumnName="text" />
-          <ScalarProperty Name="footer1" ColumnName="footer1" />
-          <ScalarProperty Name="footer2" ColumnName="footer2" />
-          <ScalarProperty Name="mailType" ColumnName="mailType" />
-          <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessage" />
     <FunctionImportMapping FunctionImportName="pr_modifyAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutomailMessage" />
     <FunctionImportMapping FunctionImportName="pr_removeAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessage" />
     <FunctionImportMapping FunctionImportName="pr_getTouchpointByProtocol" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointByProtocol" />

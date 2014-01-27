@@ -320,7 +320,44 @@ namespace Generic.Controllers
             return Json(new { Data = new { message = message } }, JsonRequestBehavior.AllowGet);
         }
 
+        public string Invite(int partnerId)
+        {
 
+
+            int ptq = 1;// db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
+                // db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire
+                // db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire()
+                
+                    var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerId, ptq).FirstOrDefault();
+                    pptq.invitedDate = DateTime.Now;
+                    var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+                    pptq.invitedBy = person.id;
+                    db.Entry(pptq).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    var objpartner = db.pr_getPartner(partnerId).FirstOrDefault();
+                    objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
+                    db.Entry(objpartner).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
+
+                    var objptq = db.pr_getPartnertypeTouchpointQuestionnaire(ptq).FirstOrDefault();
+
+                    var objtouchpoint = db.pr_getTouchpoint(objptq.touchpoint).FirstOrDefault();
+                    Email email = new Email(amm);
+                    EmailFormat emailFormat = new EmailFormat();
+                    email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint);
+                    email.emailTo = objpartner.email;
+                    SendEmail objSendEmail = new SendEmail();
+                    objSendEmail.sendEmail(email);
+    
+
+               string message = "Invite Sent";
+                ViewBag.Message = "2";
+
+                return "Sent";
+        }
 
         protected override void Dispose(bool disposing)
         {
