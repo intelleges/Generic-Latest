@@ -516,8 +516,12 @@ namespace Generic.Helpers.Utility
         }
         private string sGetpartnerAccessCode(partner partner, touchpoint touchpoint)
         {
-           // return partner.getAccessCodeBytouchpointpartner(touchpoint).accessCode;
-            return "";
+            EntitiesDBContext db = new EntitiesDBContext();
+            var accesscode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partner.id).FirstOrDefault().accesscode;
+            db.Dispose();
+            //return partner.getAccessCodeBytouchpointpartner(touchpoint).accessCode;
+            return accesscode;
+
         }
 
         private string sGetpartnerType(partner partner)
