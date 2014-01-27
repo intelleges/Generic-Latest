@@ -134,11 +134,11 @@ Html.RenderPartial("_TestPartialArea",null);
                                     <td width="94" class="infologintext">*Access Code:
                                     </td>
                                     <td width="136">
-                                        <input name="AccessCode" type="text" id="AccessCode" class="infologinbox" />
+                                        <input name="AccessCode" type="text" id="AccessCode" value="@ViewBag.accesscode" class="infologinbox" />
                                     </td>
                                     <td width="70">
 
-                                        <input type="image" name="btnlogin" id="btnlogin" src="/Contents/images/infosubmit.gif" style="border-width: 0px;" />
+                                        <input type="submit" name="btnlogin" id="btnlogin" value="Login"  style="border-width: 0px;" />
                                         <div id="ctl00_contentQuestionnaireBody_ValidationSummary1" style="color: Red; display: none;">
                                         </div>
                                     </td>

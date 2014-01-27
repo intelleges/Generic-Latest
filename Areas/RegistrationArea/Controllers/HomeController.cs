@@ -18,8 +18,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
         //
         // GET: /RegistrationArea/Home/
 
-        public virtual ActionResult Index()
+        public virtual ActionResult Index(string id = "", string accessCode = null)
         {
+            ViewBag.accesscode = accessCode;
             return View();
         }
         [HttpPost]
@@ -128,7 +129,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
 
-        
+
         [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult QuestionnaireResponse(FormCollection formCollection, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
@@ -169,9 +170,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
 
-            
+
             jumpToQuestion = 0;
-           
+
 
             foreach (var keyName in formCollection.Keys)
             {
@@ -242,8 +243,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             responseComment = answer;
                         }
 
-                        
-                        db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null,null, null,null, pptq);
+
+                        db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
                     }
                     else if (keyName.ToString().Contains("_checkBox"))
                     {
@@ -419,7 +420,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                                                     if (questionId == gotoQuestionId)
                                                     {
-                                                        // return view    Response.Redirect("eSignature.aspx");
+                                                            Response.Redirect("eSignature");
                                                     }
                                                     if (questionId == questionidLogic)
                                                     {
@@ -570,8 +571,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
             }
 
-           // save uploaded files
-                jumpToQuestion = saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
+            // save uploaded files
+            jumpToQuestion = saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
 
 
             //for (int i = 0; i < Request.Form.Keys.Count; i++)
@@ -686,7 +687,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             int providerId = 0;
             int quetionnaireId = 0;
-         //   providerId = (int)Session["provider"];
+            //   providerId = (int)Session["provider"];
             quetionnaireId = (int)Session["questionnaire"];
             //    Provider provider = new Provider(new Id(providerId));
             //  Campaign campaign = new Campaign(new Id(Convert.ToInt32(Session["campaign"])));
@@ -878,13 +879,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
                         var pptqq = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
-                      
-                        
-                        
+
+
+
                         byte[] uploadedFile = new byte[Request.Files[i].InputStream.Length];
                         Request.Files[i].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
 
-                       // Binary linqBinary = new Binary(uploadedFile);
+                        // Binary linqBinary = new Binary(uploadedFile);
 
                         db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(pptqq.id, questionId, pptqq.response, pptqq.comment, uploadedFile, Request.Files[i].ContentType, pptqq.value, pptqq.score, pptq);
 
@@ -932,7 +933,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //declare byte array to get file content from database and string to store file name
             byte[] fileData;
             string fileName;
-           
+
             //using LINQ expression to get record from database for given id value
             var record = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(454, 3).FirstOrDefault();
             //var record = from p in dataContext.FileDumps
@@ -965,7 +966,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
 
             ComboBoxModel objCombobox = new ComboBoxModel();
-            
+
             objCombobox.ComboBoxAttributes.SelectedIndex = partner.state;
             ViewBag.combobox = objCombobox;
             IEnumerable<state> states = new List<state>();
@@ -1001,10 +1002,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(objpartner).State = EntityState.Modified;
-                db.SaveChanges(); 
+                db.SaveChanges();
                 return RedirectToAction("CompanyInformation");
             }
-           
+
             return View(partner);
         }
 
@@ -1021,7 +1022,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 return HttpNotFound();
             }
-            
+
             return View(partner);
         }
 
@@ -1040,14 +1041,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objpartner.email = partner.email;
             objpartner.phone = partner.phone;
             objpartner.fax = partner.fax;
-         
+
             if (ModelState.IsValid)
             {
                 db.Entry(objpartner).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("ContactInformation");
             }
-           
+
             return View(partner);
         }
 
@@ -1072,7 +1073,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             eSignature objeSignature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq.id).FirstOrDefault();
             if (objeSignature == null)
             {
-                
+
                 objeSignatureNew.affirmation = "Yes";
                 objeSignatureNew.partnerPartnerTypeTouchpointQuestionnaire = pptq.id;
                 db.Entry(objeSignatureNew).State = EntityState.Added;
@@ -1082,13 +1083,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 objeSignature.firstName = objeSignatureNew.firstName;
                 objeSignature.lastName = objeSignatureNew.lastName;
-                objeSignature.email = objeSignatureNew.email;             
+                objeSignature.email = objeSignatureNew.email;
                 objeSignature.affirmation = "Yes";
                 db.Entry(objeSignature).State = EntityState.Modified;
                 db.SaveChanges();
             }
 
-            pptq.completedDate = DateTime.Now;            
+            pptq.completedDate = DateTime.Now;
             db.Entry(pptq).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Finish");
