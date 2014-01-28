@@ -77,7 +77,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.question" Width="1.5" PointX="6" PointY="99.75" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionLanguage" Width="1.5" PointX="5.25" PointY="65.25" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaire" Width="1.5" PointX="26.25" PointY="54" IsExpanded="true" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireLevel" Width="1.5" PointX="14.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionResponse" Width="1.5" PointX="7.5" PointY="71" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionTranslation" Width="1.5" PointX="8.25" PointY="66.875" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.rating" Width="1.5" PointX="8.75" PointY="15.75" IsExpanded="true" />
@@ -189,6 +188,15 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" ManuallyRouted="false" />
         <AssociationConnector Association="hs3MVCMTQa2Model.personRole1" />
         <AssociationConnector Association="hs3MVCMTQa2Model.personRole" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumber" Width="1.5" PointX="12.75" PointY="59.5" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumberSiteZcodePPTQ" Width="1.5" PointX="3.375" PointY="14.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Width="1.5" PointX="9.375" PointY="18.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireLevelType" Width="1.5" PointX="3" PointY="78.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.site" Width="1.5" PointX="3" PointY="50.5" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_site_enterprise" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumber_partner" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.questionnaireLevel1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

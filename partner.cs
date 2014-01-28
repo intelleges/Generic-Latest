@@ -21,6 +21,7 @@ namespace Generic
             this.partnerTouchpointQuestionnaireLanguage = new HashSet<partnerTouchpointQuestionnaireLanguage>();
             this.group = new HashSet<group>();
             this.person = new HashSet<person>();
+            this.partnumber = new HashSet<partnumber>();
         }
     
         public int id { get; set; }
@@ -58,5 +59,6 @@ namespace Generic
         public virtual ICollection<partnerTouchpointQuestionnaireLanguage> partnerTouchpointQuestionnaireLanguage { get; set; }
         public virtual ICollection<group> group { get; set; }
         public virtual ICollection<person> person { get; set; }
+        public virtual ICollection<partnumber> partnumber { get; set; }
     }
 }

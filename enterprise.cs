@@ -36,6 +36,8 @@ namespace Generic
             this.rule = new HashSet<rule>();
             this.ruleType = new HashSet<ruleType>();
             this.state = new HashSet<state>();
+            this.site = new HashSet<site>();
+            this.questionnaireLevelType = new HashSet<questionnaireLevelType>();
         }
     
         public int id { get; set; }
@@ -68,5 +70,7 @@ namespace Generic
         public virtual ICollection<rule> rule { get; set; }
         public virtual ICollection<ruleType> ruleType { get; set; }
         public virtual ICollection<state> state { get; set; }
+        public virtual ICollection<site> site { get; set; }
+        public virtual ICollection<questionnaireLevelType> questionnaireLevelType { get; set; }
     }
 }

@@ -10,13 +10,17 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class questionnaireLevel
+    public partial class pr_getPartnumberSiteZcodePPTQQuestionResponse_Result
     {
         public int id { get; set; }
-        public string description { get; set; }
-        public Nullable<int> sortOrder { get; set; }
-        public Nullable<int> active { get; set; }
+        public int question { get; set; }
+        public int response { get; set; }
+        public string comment { get; set; }
+        public byte[] uploadedFile { get; set; }
+        public string uploadedFileType { get; set; }
+        public Nullable<int> value { get; set; }
+        public string score { get; set; }
+        public int partNumberSiteZcodePPTQ { get; set; }
     }
 }

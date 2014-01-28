@@ -1898,6 +1898,7 @@
     <EntitySetMapping Name="questionnaire">
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaire">
         <MappingFragment StoreEntitySet="questionnaire">
+          <ScalarProperty Name="levelType" ColumnName="levelType" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="person" ColumnName="person" />
           <ScalarProperty Name="partnerType" ColumnName="partnerType" />
@@ -1915,6 +1916,7 @@
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaire">
         <ModificationFunctionMapping>
           <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaire">
+            <ScalarProperty Name="levelType" ParameterName="levelType" />
             <ScalarProperty Name="enterprise" ParameterName="enterprise" />
             <ScalarProperty Name="multiLanguage" ParameterName="multiLanguage" />
             <ScalarProperty Name="active" ParameterName="active" />
@@ -1929,6 +1931,8 @@
             <ResultBinding Name="id" ColumnName="id" />
           </InsertFunction>
           <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaire">
+            <ScalarProperty Name="levelType" ParameterName="levelType" Version="Current" />
+            <ScalarProperty Name="enterprise" ParameterName="enterprise" Version="Current" />
             <ScalarProperty Name="multiLanguage" ParameterName="multiLanguage" Version="Current" />
             <ScalarProperty Name="active" ParameterName="active" Version="Current" />
             <ScalarProperty Name="sortOrder" ParameterName="sortOrder" Version="Current" />
@@ -1945,16 +1949,6 @@
             <ScalarProperty Name="id" ParameterName="id" />
           </DeleteFunction>
         </ModificationFunctionMapping>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="questionnaireLevel">
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireLevel">
-        <MappingFragment StoreEntitySet="questionnaireLevel">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-        </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="questionResponse">
@@ -2930,8 +2924,6 @@
     <FunctionImportMapping FunctionImportName="pr_getQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaire" />
     <FunctionImportMapping FunctionImportName="pr_getQuestionnaireAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireAll" />
     <FunctionImportMapping FunctionImportName="pr_getQuestionnaireByPage" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireByPage" />
-    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireLevel" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireLevel" />
-    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireLevelAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireLevelAll" />
     <FunctionImportMapping FunctionImportName="pr_getRatingType" FunctionName="hs3MVCMTQa2Model.Store.pr_getRatingType" />
     <FunctionImportMapping FunctionImportName="pr_getRatingTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getRatingTypeAll" />
     <FunctionImportMapping FunctionImportName="pr_getRelationshipownerByPartner" FunctionName="hs3MVCMTQa2Model.Store.pr_getRelationshipownerByPartner" />
@@ -3369,5 +3361,238 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ" />
     <FunctionImportMapping FunctionImportName="pr_getAutoMailmessageByMailtypeandPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessageByMailtypeandPTQ" />
+    <EntitySetMapping Name="partnumber">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumber">
+        <MappingFragment StoreEntitySet="partnumber">
+          <ScalarProperty Name="partner" ColumnName="partner" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="sapID" ColumnName="sapID" />
+          <ScalarProperty Name="nationalStockingNumber" ColumnName="nationalStockingNumber" />
+          <ScalarProperty Name="internalId" ColumnName="internalId" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="partnumberSiteZcodePPTQ">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSiteZcodePPTQ">
+        <MappingFragment StoreEntitySet="partnumberSiteZcodePPTQ">
+          <ScalarProperty Name="partnerPartnertypeTouchpointQuestionnaire" ColumnName="partnerPartnertypeTouchpointQuestionnaire" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="site" ColumnName="site" />
+          <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="partnumberSiteZcodePPTQQuestionResponse">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse">
+        <MappingFragment StoreEntitySet="partnumberSiteZcodePPTQQuestionResponse">
+          <ScalarProperty Name="partNumberSiteZcodePPTQ" ColumnName="partNumberSiteZcodePPTQ" />
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
+          <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="response" ColumnName="response" />
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="questionnaireLevelType">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireLevelType">
+        <MappingFragment StoreEntitySet="questionnaireLevelType">
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="site">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.site">
+        <MappingFragment StoreEntitySet="site">
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="sapID" ColumnName="sapID" />
+          <ScalarProperty Name="internalID" ColumnName="internalID" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="questionnaireLevel1" TypeName="hs3MVCMTQa2Model.questionnaireLevel1" StoreEntitySet="questionnaireLevel">
+      <EndProperty Name="questionnaireLevelType">
+        <ScalarProperty Name="id" ColumnName="questionnaireLevel" />
+      </EndProperty>
+      <EndProperty Name="enterprise">
+        <ScalarProperty Name="id" ColumnName="enterprise" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="pr_addPartnumber" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumber" />
+    <FunctionImportMapping FunctionImportName="pr_addPartnumberSiteZcodePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberSiteZcodePPTQ" />
+    <FunctionImportMapping FunctionImportName="pr_addPartnumberSiteZcodePPTQQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberSiteZcodePPTQQuestionResponse" />
+    <FunctionImportMapping FunctionImportName="pr_addQuestionnaireLevelType" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireLevelType" />
+    <FunctionImportMapping FunctionImportName="pr_addSite" FunctionName="hs3MVCMTQa2Model.Store.pr_addSite" />
+    <FunctionImportMapping FunctionImportName="pr_archivePartnumber" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePartnumber" />
+    <FunctionImportMapping FunctionImportName="pr_archiveQuestionnaireLevelType" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveQuestionnaireLevelType" />
+    <FunctionImportMapping FunctionImportName="pr_archiveSite" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveSite" />
+    <FunctionImportMapping FunctionImportName="pr_getEnterpriseByQuestionnaireLevelType" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseByQuestionnaireLevelType">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEnterpriseByQuestionnaireLevelType_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="logo" ColumnName="logo" />
+          <ScalarProperty Name="applicationPath" ColumnName="applicationPath" />
+          <ScalarProperty Name="companyName" ColumnName="companyName" />
+          <ScalarProperty Name="instanceName" ColumnName="instanceName" />
+          <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPartnumber" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumber">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumber_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="internalId" ColumnName="internalId" />
+          <ScalarProperty Name="nationalStockingNumber" ColumnName="nationalStockingNumber" />
+          <ScalarProperty Name="sapID" ColumnName="sapID" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="partner" ColumnName="partner" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="internalId" ColumnName="internalId" />
+          <ScalarProperty Name="nationalStockingNumber" ColumnName="nationalStockingNumber" />
+          <ScalarProperty Name="sapID" ColumnName="sapID" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="partner" ColumnName="partner" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodeByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodeByPPTQ">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberSiteZcodeByPPTQ_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+          <ScalarProperty Name="site" ColumnName="site" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="partnerPartnertypeTouchpointQuestionnaire" ColumnName="partnerPartnertypeTouchpointQuestionnaire" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQ">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberSiteZcodePPTQ_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+          <ScalarProperty Name="site" ColumnName="site" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="partnerPartnertypeTouchpointQuestionnaire" ColumnName="partnerPartnertypeTouchpointQuestionnaire" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQQuestionResponse">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberSiteZcodePPTQQuestionResponse_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="response" ColumnName="response" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
+          <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="partNumberSiteZcodePPTQ" ColumnName="partNumberSiteZcodePPTQ" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="response" ColumnName="response" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
+          <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="partNumberSiteZcodePPTQ" ColumnName="partNumberSiteZcodePPTQ" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireLevelType" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireLevelType">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireLevelType_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireLevelTypeByEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireLevelTypeByEnterprise">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireLevelTypeByEnterprise_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getSite" FunctionName="hs3MVCMTQa2Model.Store.pr_getSite">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSite_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="internalID" ColumnName="internalID" />
+          <ScalarProperty Name="sapID" ColumnName="sapID" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getSiteAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getSiteAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSiteAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="internalID" ColumnName="internalID" />
+          <ScalarProperty Name="sapID" ColumnName="sapID" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_modifyPartnumber" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnumber" />
+    <FunctionImportMapping FunctionImportName="pr_modifyPartnumberSiteZcodePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnumberSiteZcodePPTQ" />
+    <FunctionImportMapping FunctionImportName="pr_modifyPartnumberSiteZcodePPTQQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnumberSiteZcodePPTQQuestionResponse" />
+    <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireLevelType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireLevelType" />
+    <FunctionImportMapping FunctionImportName="pr_modifySite" FunctionName="hs3MVCMTQa2Model.Store.pr_modifySite" />
+    <FunctionImportMapping FunctionImportName="pr_removePartnumber" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnumber" />
+    <FunctionImportMapping FunctionImportName="pr_removePartnumberSiteZcodePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnumberSiteZcodePPTQ" />
+    <FunctionImportMapping FunctionImportName="pr_removePartnumberSiteZcodePPTQQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnumberSiteZcodePPTQQuestionResponse" />
+    <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireLevelType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireLevelType" />
+    <FunctionImportMapping FunctionImportName="pr_removeSite" FunctionName="hs3MVCMTQa2Model.Store.pr_removeSite" />
+    <FunctionImportMapping FunctionImportName="pr_unArchivePartnumber" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePartnumber" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionnaireLevelType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionnaireLevelType" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveSite" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveSite" />
   </EntityContainerMapping>
 </Mapping>

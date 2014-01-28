@@ -34,10 +34,12 @@ namespace Generic
         public Nullable<int> active { get; set; }
         public Nullable<int> multiLanguage { get; set; }
         public Nullable<int> enterprise { get; set; }
+        public Nullable<int> levelType { get; set; }
     
         public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire { get; set; }
         public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire1 { get; set; }
         public virtual ICollection<page> page { get; set; }
         public virtual ICollection<touchpoint> touchpoint { get; set; }
+        public virtual questionnaireLevelType questionnaireLevelType { get; set; }
     }
 }
