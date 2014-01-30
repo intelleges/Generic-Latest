@@ -203,6 +203,10 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" />
         <AssociationConnector Association="hs3MVCMTQa2Model.questionnaireLevel1" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireCMS" Width="1.5" PointX="29.25" PointY="51.375" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS" Width="1.5" PointX="31.5" PointY="55.375" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaireCMS" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
