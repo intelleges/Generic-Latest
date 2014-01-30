@@ -1,6 +1,7 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<Generic.enterprise>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
 @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Modify Enterprise";
@@ -8,13 +9,25 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>enterprise</legend>
 
         @Html.HiddenFor(model => model.id)
+        <div class="editor-field">
+            @{
+    if (Model.logo != null)
+      {
+         string imageBase64 = Convert.ToBase64String(Model.logo);
+         string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+         <img src="@imageSrc"  height="50" />
+      }
+  }
+            @*<img src='<%= Url.Action( "show", "image", new { id = @ViewData["imageID"] } ) %>' />*@
+        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.description)
@@ -44,8 +57,22 @@
             @Html.LabelFor(model => model.logo)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.logo)
-            @Html.ValidationMessageFor(model => model.logo)
+            @*   @Html.EditorFor(model => model.logo)*@
+
+            <div class="editor-field">
+                @(Html.Telerik().Upload()
+        .Name("uploadlogo")
+        .Multiple(false)
+
+)
+
+                <p class="note">
+                    Maximum allowed file size: 10 MB
+                </p>
+
+            </div>
+
+            @* @Html.ValidationMessageFor(model => model.logo)*@
         </div>
 
         <div class="editor-label">

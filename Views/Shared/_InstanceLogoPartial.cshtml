@@ -1,0 +1,18 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.enterprise>
+@using Telerik.Web.Mvc.UI;
+@using Telerik.Web.Mvc.UI.Html;
+@using System.Web.Mvc;
+@using Generic;
+@using Generic.Controllers;
+@{
+    Layout = null;
+}
+
+@{
+    if (Model.logo != null)
+    {
+        string imageBase64 = Convert.ToBase64String(Model.logo);
+        string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+    <img src="@imageSrc"  height="50" />
+    }
+}

@@ -188,13 +188,19 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" ManuallyRouted="false" />
         <AssociationConnector Association="hs3MVCMTQa2Model.personRole1" />
         <AssociationConnector Association="hs3MVCMTQa2Model.personRole" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumber" Width="1.5" PointX="12.75" PointY="59.5" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumberSiteZcodePPTQ" Width="1.5" PointX="3.375" PointY="14.75" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Width="1.5" PointX="9.375" PointY="18.75" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireLevelType" Width="1.5" PointX="3" PointY="78.75" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.site" Width="1.5" PointX="3" PointY="50.5" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumber" Width="1.5" PointX="0.4888265414577101" PointY="26.328223583441332" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumberSiteZcodePPTQ" Width="1.5" PointX="3.4856250525850925" PointY="26.596878228055722" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Width="1.5" PointX="9.6574106633930512" PointY="30.570844277074023" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireLevelType" Width="1.5" PointX="11.659242655923238" PointY="3.8611631262400947" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.site" Width="1.5" PointX="11.775329556211517" PointY="7.0972659918932548" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_site_enterprise" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumber_partner" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_partnerPartnertypeTouchpointQuestionnaire" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_partnumber" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_site" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_question" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" />
         <AssociationConnector Association="hs3MVCMTQa2Model.questionnaireLevel1" />
       </Diagram>

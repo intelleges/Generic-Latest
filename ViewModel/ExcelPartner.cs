@@ -24,7 +24,25 @@ namespace Generic.ViewModel
         //public string  Fax { get; set; }
         //public string  POCEmail { get; set; }
         //public string  POCFirstName { get; set; }
-        							 	 		//	POC LastName	POC Title	POC DUNS	POC EID	RO FirstName	RO LastName	RO Phone	RO Email
+        //	POC LastName	POC Title	POC DUNS	POC EID	RO FirstName	RO LastName	RO Phone	RO Email
+
+    }
+
+    public class ExcelPartnumber : ExcelPartner
+    {
+        public string INTERNAL_SITE_ID { get; set; }
+        public string SAP_SITE { get; set; }
+        public string SAP_PLANT_CODE { get; set; }
+        public string SITE_NAME { get; set; }
+
+        public string PART_NUMBER_SAP { get; set; }
+        public string PART_NUMBER_INTERNAL { get; set; }
+        public string SUB_COMMODITY_OWNER { get; set; }
+        public string CENTER_OF_EXCELLENCE { get; set; }
+
+        public string RO_FIRST_NAME { get; set; }
+        public string RO_LAST_NAME { get; set; }
+        public string RO_EMAIL { get; set; }
 
     }
 }

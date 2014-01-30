@@ -53,7 +53,13 @@
                                   <header>
         <div class="content-wrapper main-content clear-fix">
             <div class="admin-logo">
-                <p class="site-title">@Html.ActionLink("your logo here", "Index", "Admin")</p>
+                <p class="site-title">
+                    
+             <a href="@Url.Content("~/Admin/Home")" >        @Html.Action("InstanceLogo", "Admin")   </a>
+                  
+
+
+                </p>
             </div>
             <div class="admin-touchpoints">             
             Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")

@@ -21,30 +21,32 @@
 @( Html.Telerik().Grid(Model).Name("EnterpriceGrid")
         .Columns(columns =>
         {
-            columns.Bound(o => o.description);
+            columns.Bound(o => o.description).Width(100);
 
-            columns.Bound(o => o.sortOrder);
+            columns.Bound(o => o.sortOrder).Width(100);
 
-            columns.Bound(o => o.active);
+            columns.Bound(o => o.active).Width(100);
 
-            columns.Bound(o => o.logo);
+            columns.Bound(o => o.logo).Width(100);
 
-            columns.Bound(o => o.applicationPath);
+            columns.Bound(o => o.applicationPath).Width(100);
 
-            columns.Bound(o => o.companyName);
+            columns.Bound(o => o.companyName).Width(100);
 
-            columns.Bound(o => o.instanceName);
+            columns.Bound(o => o.instanceName).Width(100);
 
-            columns.Bound(o => o.archivedDate);
+            columns.Bound(o => o.archivedDate).Width(100);
 
-            columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit");
-            columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details");
-            columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete");
+            columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit").Width(100);
+            columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details").Width(100); ;
+            columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete").Width(100);
              
             
         })
-        .Pageable()
-        .Sortable()
+         .Pageable()
+        .Sortable().Scrollable(scrolling => scrolling
+           .Enabled(true)
+           .Height("auto"))
 )
 
 

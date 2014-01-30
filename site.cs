@@ -14,6 +14,11 @@ namespace Generic
     
     public partial class site
     {
+        public site()
+        {
+            this.partnumberSiteZcodePPTQ = new HashSet<partnumberSiteZcodePPTQ>();
+        }
+    
         public int id { get; set; }
         public string description { get; set; }
         public string internalID { get; set; }
@@ -23,5 +28,6 @@ namespace Generic
         public int enterprise { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
+        public virtual ICollection<partnumberSiteZcodePPTQ> partnumberSiteZcodePPTQ { get; set; }
     }
 }

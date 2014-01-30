@@ -19,10 +19,19 @@ namespace Generic.Helpers.Questionnaire
         public const int YN_COMMENT_REQUIRED_N = 0;
 
         // old system
-//        commentType 4 = File  Upload
-//commentType 1 = Warning
-//commentType 3 = Comment
-//commentType 0 = Nothing
+        //        commentType 4 = File  Upload
+        //commentType 1 = Warning
+        //commentType 3 = Comment
+        //commentType 0 = Nothing
 
     }
+
+    public static class LevelType
+    {
+        public const int COMPANY_LEVEL = 1;
+        public const int PARTNUMBER_LEVEL = 2;
+        public const int PURCHASE_ORDER_LEVEL = 3;
+        public const int FMF_COST_BREAKDOWN = 4;
+    }
+
 }

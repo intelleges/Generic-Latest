@@ -1,10 +1,10 @@
-﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.protocol>>
+﻿@inherits System.Web.Mvc.WebViewPage
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 @{
     Layout = LayoutHelper.GetLayout();
-    ViewBag.Title = "UploadQuestionnaire";
+    ViewBag.Title = "Upload Part Number";
 }
 
 @section Scripts {
@@ -50,49 +50,45 @@
             });
 
             $('#partnertype').change(function () {
-                $('#levelDiv').show();
-            });
-
-            $('#level').change(function () {
                 $('#uploadDiv').show();
                 $('#uploadButtonDiv').show();
             });
 
 
-            $('#UploadQuestionnaireForm').submit(function (e) {
-                e.preventDefault();
-                var objProtocolID = $('#protocol').val();
-                var objProtocolName = $('#protocol option[value="' + $('#protocol').val() + '"]').text();
+            //$('#UploadPartNumberForm').submit(function (e) {
+            //    e.preventDefault();
+            //    var objProtocolID = $('#protocol').val();
+            //    var objProtocolName = $('#protocol option[value="' + $('#protocol').val() + '"]').text();
 
-                var objtouchpointID = $('#touchpoint').val();
-                var objtouchpointName = $('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text();
+            //    var objtouchpointID = $('#touchpoint').val();
+            //    var objtouchpointName = $('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text();
 
-                var objpartnertypeID = $('#partnertype').val();
-                var objpartnertypeName = $('#partnertype option[value="' + $('#partnertype').val() + '"]').text();
+            //    var objpartnertypeID = $('#partnertype').val();
+            //    var objpartnertypeName = $('#partnertype option[value="' + $('#partnertype').val() + '"]').text();
 
-                var formData = { protocolId: objProtocolID, protocolName: objProtocolName, touchpointId: objtouchpointID, touchpointName: objtouchpointName, partnertypeID: objpartnertypeID, partnertypeName: objpartnertypeName };
-                $.ajax({
-                    url: "UploadQuestionnaire",
-                    type: "post",
-                    data: formData,
-                    success: function (data) {
-                        alertify.alert('Questionnaire Uploaded Successfully!');
-                    },
-                    error: function (data) {
-                        alertify.alert('Error occured while Questionnaire Uploaded!');
-                    }
-                });
-            });
+            //    var formData = { protocolId: objProtocolID, protocolName: objProtocolName, touchpointId: objtouchpointID, touchpointName: objtouchpointName, partnertypeID: objpartnertypeID, partnertypeName: objpartnertypeName };
+            //    $.ajax({
+            //        url: "UploadPartNumber",
+            //        type: "post",
+            //        data: formData,
+            //        success: function (data) {
+            //            alertify.alert('Part Number Uploaded Successfully!');
+            //        },
+            //        error: function (data) {
+            //            alertify.alert('Error occured while Part Number Uploaded!');
+            //        }
+            //    });
+            //});
         });
     </script>
 }
 
 
 
-<h2>Upload Questionnaire</h2>
+<h2>Upload Part Number</h2>
 
 
-<form id="UploadQuestionnaireForm" method="post">
+<form id="UploadPartNumberForm" method="post">
     @Html.ValidationSummary(true)
     <div id="protocolDiv">
         <div class="editor-label">
@@ -118,27 +114,15 @@
             @Html.DropDownList("partnertype", String.Empty)
         </div>
     </div>
-    <div id="levelDiv" style="display: none">
-        <div class="editor-label">
-            4. Please select a level
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("level", String.Empty)
-        </div>
-    </div>
+   
     <div id="uploadDiv" style="display: none">
         <div class="editor-label">
             5. Please select an Excel file containing the questionnaire information. Click here if you need to download the template.
         </div>
         <div class="editor-field">
             @(Html.Telerik().Upload()
-        .Name("attachments")
-        .Multiple(false)
-        .Async(async => async
-            .Save("Save", "Questionnaire")
-            .Remove("Remove", "Questionnaire")
-            .AutoUpload(true)
-        )
+        .Name("uploadPartNumber")
+        .Multiple(false)        
 )
 
             <p class="note">

@@ -44,7 +44,7 @@ namespace Generic
         public string description { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<bool> active { get; set; }
-        public string logo { get; set; }
+        public byte[] logo { get; set; }
         public string applicationPath { get; set; }
         public string companyName { get; set; }
         public string instanceName { get; set; }

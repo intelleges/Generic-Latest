@@ -1,0 +1,35 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.group>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Assign Questionnaire Level To Enterprise";
+}
+
+
+
+
+<h2>Assign Questionnaire Level To Enterprise</h2>
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+<table>
+    <tr>
+            <td>Enterprise:</td>
+            <td>  @Html.DropDownList("enterprise", String.Empty)
+           </td>
+        </tr>
+        <tr>
+            <td>Questionnaire Level:</td>
+            <td>  @Html.DropDownList("questionnaireLevel", String.Empty)
+           </td>
+        </tr>
+       <tr>
+            <td></td>
+            <td>     <input type="submit" value="Save" />
+           </td>
+        </tr>
+
+</table>
+}

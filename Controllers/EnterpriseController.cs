@@ -47,10 +47,17 @@ namespace Generic.Controllers
         // POST: /Enterprise/Create
 
         [HttpPost]
-        public ActionResult Create(enterprise enterprise)
+        public ActionResult Create(enterprise enterprise, HttpPostedFileBase uploadLogo)
         {
             if (ModelState.IsValid)
             {
+                if (uploadLogo != null)
+                {
+                    byte[] uploadedFile = new byte[uploadLogo.InputStream.Length];
+                    uploadLogo.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+                    enterprise.logo = uploadedFile;
+                }    
+
                 db.enterprise.Add(enterprise);
                 db.SaveChanges();
                 SessionSingleton.EnterPriseId = enterprise.id;
@@ -77,10 +84,30 @@ namespace Generic.Controllers
         // POST: /Enterprise/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(enterprise enterprise)
+        public ActionResult Edit(enterprise enterprise, HttpPostedFileBase uploadLogo)
         {
             if (ModelState.IsValid)
             {
+                //if (enterprise.logo == null)
+                //{
+
+                //}
+
+                if (uploadLogo != null)
+                {
+                    byte[] uploadedFile = new byte[uploadLogo.InputStream.Length];
+                    uploadLogo.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+                    enterprise.logo = uploadedFile;
+                }
+                else
+                {
+                    using (var context = new EntitiesDBContext())
+                    {
+                        var enterpriseExisting = context.pr_getEnterprise(enterprise.id).FirstOrDefault();
+                        enterprise.logo = enterpriseExisting.logo;
+                    }
+                }
+
                 db.Entry(enterprise).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -112,6 +139,30 @@ namespace Generic.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+        public ActionResult AssignQuestionnaireLevel()
+        {
+       //  var a =   db.pr_getQuestionnaireLevelType();
+            ViewBag.enterprise = new SelectList(db.pr_getEnterpriseAll().ToList(), "id", "description");
+            ViewBag.questionnaireLevel = new SelectList(db.pr_getQuestionnaireLevelTypeAll(), "id", "description");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AssignQuestionnaireLevel(int enterprise, int questionnaireLevel)
+        {
+            db.pr_addQuestionnaireLevel(enterprise, questionnaireLevel);
+
+            ViewBag.enterprise = new SelectList(db.pr_getEnterpriseAll().ToList(), "id", "description");
+            ViewBag.questionnaireLevel = new SelectList(db.pr_getQuestionnaireLevelTypeAll(), "id", "description");
+
+            return View();
+
+        }
+
+
+
+
 
         protected override void Dispose(bool disposing)
         {

@@ -72,7 +72,6 @@
     <EntitySet Name="question" EntityType="hs3MVCMTQa2Model.question" />
     <EntitySet Name="questionLanguage" EntityType="hs3MVCMTQa2Model.questionLanguage" />
     <EntitySet Name="questionnaire" EntityType="hs3MVCMTQa2Model.questionnaire" />
-    <EntitySet Name="questionnaireLevel" EntityType="hs3MVCMTQa2Model.questionnaireLevel" />
     <EntitySet Name="questionResponse" EntityType="hs3MVCMTQa2Model.questionResponse" />
     <EntitySet Name="questionTranslation" EntityType="hs3MVCMTQa2Model.questionTranslation" />
     <EntitySet Name="rating" EntityType="hs3MVCMTQa2Model.rating" />
@@ -487,7 +486,7 @@
       <Parameter Name="description" Mode="In" Type="String" />
       <Parameter Name="sortOrder" Mode="In" Type="Int32" />
       <Parameter Name="active" Mode="In" Type="Boolean" />
-      <Parameter Name="logo" Mode="In" Type="String" />
+      <Parameter Name="logo" Mode="In" Type="Binary" />
       <Parameter Name="applicationPath" Mode="In" Type="String" />
       <Parameter Name="companyName" Mode="In" Type="String" />
       <Parameter Name="instanceName" Mode="In" Type="String" />
@@ -815,9 +814,6 @@
       <Parameter Name="language" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_addQuestionnaire" ReturnType="Collection(Decimal)">
-      <Parameter Name="person" Mode="In" Type="Int32" />
-      <Parameter Name="partnerType" Mode="In" Type="Int32" />
-      <Parameter Name="letter" Mode="In" Type="Int32" />
       <Parameter Name="title" Mode="In" Type="String" />
       <Parameter Name="description" Mode="In" Type="String" />
       <Parameter Name="footer" Mode="In" Type="String" />
@@ -826,11 +822,14 @@
       <Parameter Name="active" Mode="In" Type="Int32" />
       <Parameter Name="multiLanguage" Mode="In" Type="Int32" />
       <Parameter Name="enterprise" Mode="In" Type="Int32" />
+      <Parameter Name="person" Mode="In" Type="Int32" />
+      <Parameter Name="partnerType" Mode="In" Type="Int32" />
+      <Parameter Name="letter" Mode="In" Type="Int32" />
+      <Parameter Name="levelType" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_addQuestionnaireLevel" ReturnType="Collection(Decimal)">
-      <Parameter Name="description" Mode="In" Type="String" />
-      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-      <Parameter Name="active" Mode="In" Type="Int32" />
+    <FunctionImport Name="pr_addQuestionnaireLevel">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+      <Parameter Name="questionnaireLevel" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_addQuestionnairePage">
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
@@ -1452,10 +1451,10 @@
     <FunctionImport Name="pr_getQuestionnaireByPage" EntitySet="questionnaire" ReturnType="Collection(hs3MVCMTQa2Model.questionnaire)">
       <Parameter Name="page" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_getQuestionnaireLevel" EntitySet="questionnaireLevel" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireLevel)">
+    <FunctionImport Name="pr_getQuestionnaireLevel">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_getQuestionnaireLevelAll" EntitySet="questionnaireLevel" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireLevel)" />
+    <FunctionImport Name="pr_getQuestionnaireLevelAll" />
     <FunctionImport Name="pr_getRatingType" EntitySet="ratingType" ReturnType="Collection(hs3MVCMTQa2Model.ratingType)">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -1656,7 +1655,7 @@
       <Parameter Name="description" Mode="In" Type="String" />
       <Parameter Name="sortOrder" Mode="In" Type="Int32" />
       <Parameter Name="active" Mode="In" Type="Boolean" />
-      <Parameter Name="logo" Mode="In" Type="String" />
+      <Parameter Name="logo" Mode="In" Type="Binary" />
       <Parameter Name="applicationPath" Mode="In" Type="String" />
       <Parameter Name="companyName" Mode="In" Type="String" />
       <Parameter Name="instanceName" Mode="In" Type="String" />
@@ -2011,9 +2010,6 @@
     </FunctionImport>
     <FunctionImport Name="pr_modifyQuestionnaire">
       <Parameter Name="id" Mode="In" Type="Int32" />
-      <Parameter Name="person" Mode="In" Type="Int32" />
-      <Parameter Name="partnerType" Mode="In" Type="Int32" />
-      <Parameter Name="letter" Mode="In" Type="Int32" />
       <Parameter Name="title" Mode="In" Type="String" />
       <Parameter Name="description" Mode="In" Type="String" />
       <Parameter Name="footer" Mode="In" Type="String" />
@@ -2021,6 +2017,11 @@
       <Parameter Name="sortOrder" Mode="In" Type="Int32" />
       <Parameter Name="active" Mode="In" Type="Int32" />
       <Parameter Name="multiLanguage" Mode="In" Type="Int32" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+      <Parameter Name="person" Mode="In" Type="Int32" />
+      <Parameter Name="partnerType" Mode="In" Type="Int32" />
+      <Parameter Name="letter" Mode="In" Type="Int32" />
+      <Parameter Name="levelType" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_modifyQuestionnaireLevel">
       <Parameter Name="id" Mode="In" Type="Int32" />
@@ -2275,7 +2276,8 @@
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_removeQuestionnaireLevel">
-      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+      <Parameter Name="questionnaireLevel" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_removeQuestionnairePage">
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
@@ -2637,6 +2639,209 @@
       <Parameter Name="mailtype" Mode="In" Type="Int32" />
       <Parameter Name="partnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="partnumber" EntityType="hs3MVCMTQa2Model.partnumber" />
+    <EntitySet Name="partnumberSiteZcodePPTQ" EntityType="hs3MVCMTQa2Model.partnumberSiteZcodePPTQ" />
+    <EntitySet Name="partnumberSiteZcodePPTQQuestionResponse" EntityType="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" />
+    <EntitySet Name="questionnaireLevelType" EntityType="hs3MVCMTQa2Model.questionnaireLevelType" />
+    <EntitySet Name="site" EntityType="hs3MVCMTQa2Model.site" />
+    <AssociationSet Name="FK_site_enterprise" Association="hs3MVCMTQa2Model.FK_site_enterprise">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="site" EntitySet="site" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnumber_partner" Association="hs3MVCMTQa2Model.FK_partnumber_partner">
+      <End Role="partner" EntitySet="partner" />
+      <End Role="partnumber" EntitySet="partnumber" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partNumberSiteZcodePPTQ_partnerPartnertypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_partnerPartnertypeTouchpointQuestionnaire">
+      <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
+      <End Role="partnumberSiteZcodePPTQ" EntitySet="partnumberSiteZcodePPTQ" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partNumberSiteZcodePPTQ_partnumber" Association="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_partnumber">
+      <End Role="partnumber" EntitySet="partnumber" />
+      <End Role="partnumberSiteZcodePPTQ" EntitySet="partnumberSiteZcodePPTQ" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partNumberSiteZcodePPTQ_site" Association="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_site">
+      <End Role="site" EntitySet="site" />
+      <End Role="partnumberSiteZcodePPTQ" EntitySet="partnumberSiteZcodePPTQ" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ" Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ">
+      <End Role="partnumberSiteZcodePPTQ" EntitySet="partnumberSiteZcodePPTQ" />
+      <End Role="partnumberSiteZcodePPTQQuestionResponse" EntitySet="partnumberSiteZcodePPTQQuestionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnumberSiteZcodePPTQQuestionResponse_question" Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_question">
+      <End Role="question" EntitySet="question" />
+      <End Role="partnumberSiteZcodePPTQQuestionResponse" EntitySet="partnumberSiteZcodePPTQQuestionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnumberSiteZcodePPTQQuestionResponse_response" Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="partnumberSiteZcodePPTQQuestionResponse" EntitySet="partnumberSiteZcodePPTQQuestionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionnaire_questionnaireLevelType" Association="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType">
+      <End Role="questionnaireLevelType" EntitySet="questionnaireLevelType" />
+      <End Role="questionnaire" EntitySet="questionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="questionnaireLevel1" Association="hs3MVCMTQa2Model.questionnaireLevel1">
+      <End Role="enterprise" EntitySet="enterprise" />
+      <End Role="questionnaireLevelType" EntitySet="questionnaireLevelType" />
+    </AssociationSet>
+    <FunctionImport Name="pr_addPartnumber" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="internalId" Mode="In" Type="String" />
+      <Parameter Name="nationalStockingNumber" Mode="In" Type="String" />
+      <Parameter Name="sapID" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="partner" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addPartnumberSiteZcodePPTQ" ReturnType="Collection(Decimal)">
+      <Parameter Name="partnumber" Mode="In" Type="Int32" />
+      <Parameter Name="site" Mode="In" Type="Int32" />
+      <Parameter Name="zcode" Mode="In" Type="String" />
+      <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addPartnumberSiteZcodePPTQQuestionResponse" ReturnType="Collection(Decimal)">
+      <Parameter Name="question" Mode="In" Type="Int32" />
+      <Parameter Name="response" Mode="In" Type="Int32" />
+      <Parameter Name="comment" Mode="In" Type="String" />
+      <Parameter Name="uploadedFile" Mode="In" Type="Binary" />
+      <Parameter Name="uploadedFileType" Mode="In" Type="String" />
+      <Parameter Name="value" Mode="In" Type="Int32" />
+      <Parameter Name="score" Mode="In" Type="String" />
+      <Parameter Name="partNumberSiteZcodePPTQ" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addQuestionnaireLevelType" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addSite" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="internalID" Mode="In" Type="String" />
+      <Parameter Name="sapID" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archivePartnumber">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveQuestionnaireLevelType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveSite">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getEnterpriseByQuestionnaireLevelType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseByQuestionnaireLevelType_Result)">
+      <Parameter Name="questionnaireLevel" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPartnumber" EntitySet="partnumber" ReturnType="Collection(hs3MVCMTQa2Model.partnumber)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPartnumberAll" EntitySet="partnumber" ReturnType="Collection(hs3MVCMTQa2Model.partnumber)" />
+    <FunctionImport Name="pr_getPartnumberSiteZcodeByPPTQ" EntitySet="partnumberSiteZcodePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSiteZcodePPTQ)">
+      <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPartnumberSiteZcodePPTQ" EntitySet="partnumberSiteZcodePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSiteZcodePPTQ)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPartnumberSiteZcodePPTQQuestionResponse" EntitySet="partnumberSiteZcodePPTQQuestionResponse" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ" EntitySet="partnumberSiteZcodePPTQQuestionResponse" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse)">
+      <Parameter Name="PartnumberSiteZcodePPTQ" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getQuestionnaireLevelType" EntitySet="questionnaireLevelType" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireLevelType)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getQuestionnaireLevelTypeByEnterprise" EntitySet="questionnaireLevelType" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireLevelType)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getSite" EntitySet="site" ReturnType="Collection(hs3MVCMTQa2Model.site)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getSiteAll" EntitySet="site" ReturnType="Collection(hs3MVCMTQa2Model.site)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyPartnumber">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="internalId" Mode="In" Type="String" />
+      <Parameter Name="nationalStockingNumber" Mode="In" Type="String" />
+      <Parameter Name="sapID" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="partner" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyPartnumberSiteZcodePPTQ">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="partnumber" Mode="In" Type="Int32" />
+      <Parameter Name="site" Mode="In" Type="Int32" />
+      <Parameter Name="zcode" Mode="In" Type="String" />
+      <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyPartnumberSiteZcodePPTQQuestionResponse">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="question" Mode="In" Type="Int32" />
+      <Parameter Name="response" Mode="In" Type="Int32" />
+      <Parameter Name="comment" Mode="In" Type="String" />
+      <Parameter Name="uploadedFile" Mode="In" Type="Binary" />
+      <Parameter Name="uploadedFileType" Mode="In" Type="String" />
+      <Parameter Name="value" Mode="In" Type="Int32" />
+      <Parameter Name="score" Mode="In" Type="String" />
+      <Parameter Name="partNumberSiteZcodePPTQ" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifyQuestionnaireLevelType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifySite">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="internalID" Mode="In" Type="String" />
+      <Parameter Name="sapID" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removePartnumber">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removePartnumberSiteZcodePPTQ">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removePartnumberSiteZcodePPTQQuestionResponse">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeQuestionnaireLevelType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeSite">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchivePartnumber">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveQuestionnaireLevelType">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveSite">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getQuestionnaireLevelTypeAll" EntitySet="questionnaireLevelType" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireLevelType)" />
+    <FunctionImport Name="pr_getPartnerByEmail" EntitySet="partner" ReturnType="Collection(hs3MVCMTQa2Model.partner)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+      <Parameter Name="email" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getSiteByInternalID" EntitySet="site" ReturnType="Collection(hs3MVCMTQa2Model.site)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+      <Parameter Name="internalId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPartnumberByInternalID" EntitySet="partnumber" ReturnType="Collection(hs3MVCMTQa2Model.partnumber)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+      <Parameter Name="internalId" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="accessLevel">
     <Key>
@@ -2767,7 +2972,7 @@
     <Property Name="description" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
     <Property Name="sortOrder" Type="Int32" />
     <Property Name="active" Type="Boolean" />
-    <Property Name="logo" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="logo" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="applicationPath" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
     <Property Name="companyName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="instanceName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
@@ -2792,6 +2997,8 @@
     <NavigationProperty Name="rule" Relationship="hs3MVCMTQa2Model.FK_rule_enterprise" FromRole="enterprise" ToRole="rule" />
     <NavigationProperty Name="ruleType" Relationship="hs3MVCMTQa2Model.FK_ruleType_enterprise" FromRole="enterprise" ToRole="ruleType" />
     <NavigationProperty Name="state" Relationship="hs3MVCMTQa2Model.FK_state_enterprise" FromRole="enterprise" ToRole="state" />
+    <NavigationProperty Name="site" Relationship="hs3MVCMTQa2Model.FK_site_enterprise" FromRole="enterprise" ToRole="site" />
+    <NavigationProperty Name="questionnaireLevelType" Relationship="hs3MVCMTQa2Model.questionnaireLevel1" FromRole="enterprise" ToRole="questionnaireLevelType" />
   </EntityType>
   <EntityType Name="enterpriseObjectName">
     <Key>
@@ -3093,6 +3300,7 @@
     <NavigationProperty Name="partnerTouchpointQuestionnaireLanguage" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireLanguage_partner" FromRole="partner" ToRole="partnerTouchpointQuestionnaireLanguage" />
     <NavigationProperty Name="group" Relationship="hs3MVCMTQa2Model.partnerGroup" FromRole="partner" ToRole="group" />
     <NavigationProperty Name="person" Relationship="hs3MVCMTQa2Model.partnerRelationshipOwner" FromRole="partner" ToRole="person" />
+    <NavigationProperty Name="partnumber" Relationship="hs3MVCMTQa2Model.FK_partnumber_partner" FromRole="partner" ToRole="partnumber" />
   </EntityType>
   <EntityType Name="partnerAction">
     <Key>
@@ -3195,6 +3403,7 @@
     <NavigationProperty Name="partnerTypeTouchpointQuestionnaire1" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_partnerTypeTouchpointQuestionnaire" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="partnerTypeTouchpointQuestionnaire" />
     <NavigationProperty Name="person" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_person" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="person" />
     <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
+    <NavigationProperty Name="partnumberSiteZcodePPTQ" Relationship="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_partnerPartnertypeTouchpointQuestionnaire" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="partnumberSiteZcodePPTQ" />
   </EntityType>
   <EntityType Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
     <Key>
@@ -3680,6 +3889,7 @@
     <NavigationProperty Name="questionResponse1" Relationship="hs3MVCMTQa2Model.FK_questionResponse_question1" FromRole="question" ToRole="questionResponse" />
     <NavigationProperty Name="questionTranslation" Relationship="hs3MVCMTQa2Model.FK_questionTranslation_question" FromRole="question" ToRole="questionTranslation" />
     <NavigationProperty Name="survey" Relationship="hs3MVCMTQa2Model.surveyQuestion" FromRole="question" ToRole="survey" />
+    <NavigationProperty Name="partnumberSiteZcodePPTQQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_question" FromRole="question" ToRole="partnumberSiteZcodePPTQQuestionResponse" />
   </EntityType>
   <EntityType Name="questionLanguage">
     <Key>
@@ -3710,15 +3920,8 @@
     <NavigationProperty Name="partnerTypeTouchpointQuestionnaire1" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire" FromRole="questionnaire" ToRole="partnerTypeTouchpointQuestionnaire" />
     <NavigationProperty Name="page" Relationship="hs3MVCMTQa2Model.questionnairePage" FromRole="questionnaire" ToRole="page" />
     <NavigationProperty Name="touchpoint" Relationship="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" FromRole="questionnaire" ToRole="touchpoint" />
-  </EntityType>
-  <EntityType Name="questionnaireLevel">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-    <Property Name="sortOrder" Type="Int32" />
-    <Property Name="active" Type="Int32" />
+    <Property Type="Int32" Name="levelType" />
+    <NavigationProperty Name="questionnaireLevelType" Relationship="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" FromRole="questionnaire" ToRole="questionnaireLevelType" />
   </EntityType>
   <EntityType Name="questionResponse">
     <Key>
@@ -3778,6 +3981,7 @@
     <NavigationProperty Name="touchpointQuestionResponseValue_deprecated" Relationship="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" FromRole="response" ToRole="touchpointQuestionResponseValue_deprecated" />
     <NavigationProperty Name="responseTranslation" Relationship="hs3MVCMTQa2Model.FK_responseTranslation_response" FromRole="response" ToRole="responseTranslation" />
     <NavigationProperty Name="language" Relationship="hs3MVCMTQa2Model.responseLanguage" FromRole="response" ToRole="language" />
+    <NavigationProperty Name="partnumberSiteZcodePPTQQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" FromRole="response" ToRole="partnumberSiteZcodePPTQQuestionResponse" />
   </EntityType>
   <EntityType Name="responseTranslation">
     <Key>
@@ -7097,5 +7301,338 @@
     <Property Type="String" Name="footer2" Nullable="true" />
     <Property Type="Int32" Name="mailType" Nullable="false" />
     <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="partnumber">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="internalId" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="nationalStockingNumber" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="sapID" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
+    <NavigationProperty Name="partner1" Relationship="hs3MVCMTQa2Model.FK_partnumber_partner" FromRole="partnumber" ToRole="partner" />
+    <NavigationProperty Name="partnumberSiteZcodePPTQ" Relationship="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_partnumber" FromRole="partnumber" ToRole="partnumberSiteZcodePPTQ" />
+  </EntityType>
+  <EntityType Name="partnumberSiteZcodePPTQ">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="partnumber" Nullable="false" />
+    <Property Type="Int32" Name="site" Nullable="false" />
+    <Property Type="String" Name="zcode" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="partnerPartnertypeTouchpointQuestionnaire" Nullable="false" />
+    <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaire1" Relationship="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_partnerPartnertypeTouchpointQuestionnaire" FromRole="partnumberSiteZcodePPTQ" ToRole="partnerPartnertypeTouchpointQuestionnaire" />
+    <NavigationProperty Name="partnumber1" Relationship="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_partnumber" FromRole="partnumberSiteZcodePPTQ" ToRole="partnumber" />
+    <NavigationProperty Name="site1" Relationship="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_site" FromRole="partnumberSiteZcodePPTQ" ToRole="site" />
+    <NavigationProperty Name="partnumberSiteZcodePPTQQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ" FromRole="partnumberSiteZcodePPTQ" ToRole="partnumberSiteZcodePPTQQuestionResponse" />
+  </EntityType>
+  <EntityType Name="partnumberSiteZcodePPTQQuestionResponse">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="question" Nullable="false" />
+    <Property Type="Int32" Name="response" Nullable="false" />
+    <Property Type="String" Name="comment" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="Binary" Name="uploadedFile" MaxLength="Max" FixedLength="false" />
+    <Property Type="String" Name="uploadedFileType" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="value" />
+    <Property Type="String" Name="score" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Type="Int32" Name="partNumberSiteZcodePPTQ" Nullable="false" />
+    <NavigationProperty Name="partnumberSiteZcodePPTQ1" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ" FromRole="partnumberSiteZcodePPTQQuestionResponse" ToRole="partnumberSiteZcodePPTQ" />
+    <NavigationProperty Name="question1" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_question" FromRole="partnumberSiteZcodePPTQQuestionResponse" ToRole="question" />
+    <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" FromRole="partnumberSiteZcodePPTQQuestionResponse" ToRole="response" />
+  </EntityType>
+  <EntityType Name="questionnaireLevelType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Int32" Name="active" />
+    <NavigationProperty Name="questionnaire" Relationship="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" FromRole="questionnaireLevelType" ToRole="questionnaire" />
+    <NavigationProperty Name="enterprise" Relationship="hs3MVCMTQa2Model.questionnaireLevel1" FromRole="questionnaireLevelType" ToRole="enterprise" />
+  </EntityType>
+  <EntityType Name="site">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="internalID" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="sapID" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Boolean" Name="active" />
+    <Property Type="Int32" Name="enterprise" Nullable="false" />
+    <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_site_enterprise" FromRole="site" ToRole="enterprise" />
+    <NavigationProperty Name="partnumberSiteZcodePPTQ" Relationship="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_site" FromRole="site" ToRole="partnumberSiteZcodePPTQ" />
+  </EntityType>
+  <Association Name="FK_site_enterprise">
+    <End Type="hs3MVCMTQa2Model.enterprise" Role="enterprise" Multiplicity="1" />
+    <End Type="hs3MVCMTQa2Model.site" Role="site" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="enterprise">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="site">
+        <PropertyRef Name="enterprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnumber_partner">
+    <End Type="hs3MVCMTQa2Model.partner" Role="partner" Multiplicity="1" />
+    <End Type="hs3MVCMTQa2Model.partnumber" Role="partnumber" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="partner">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnumber">
+        <PropertyRef Name="partner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partNumberSiteZcodePPTQ_partnerPartnertypeTouchpointQuestionnaire">
+    <End Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire" Role="partnerPartnertypeTouchpointQuestionnaire" Multiplicity="1" />
+    <End Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQ" Role="partnumberSiteZcodePPTQ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="partnerPartnertypeTouchpointQuestionnaire">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnumberSiteZcodePPTQ">
+        <PropertyRef Name="partnerPartnertypeTouchpointQuestionnaire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partNumberSiteZcodePPTQ_partnumber">
+    <End Type="hs3MVCMTQa2Model.partnumber" Role="partnumber" Multiplicity="1" />
+    <End Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQ" Role="partnumberSiteZcodePPTQ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="partnumber">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnumberSiteZcodePPTQ">
+        <PropertyRef Name="partnumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partNumberSiteZcodePPTQ_site">
+    <End Type="hs3MVCMTQa2Model.site" Role="site" Multiplicity="1" />
+    <End Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQ" Role="partnumberSiteZcodePPTQ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="site">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnumberSiteZcodePPTQ">
+        <PropertyRef Name="site" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ">
+    <End Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQ" Role="partnumberSiteZcodePPTQ" Multiplicity="1" />
+    <End Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Role="partnumberSiteZcodePPTQQuestionResponse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="partnumberSiteZcodePPTQ">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnumberSiteZcodePPTQQuestionResponse">
+        <PropertyRef Name="partNumberSiteZcodePPTQ" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnumberSiteZcodePPTQQuestionResponse_question">
+    <End Type="hs3MVCMTQa2Model.question" Role="question" Multiplicity="1" />
+    <End Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Role="partnumberSiteZcodePPTQQuestionResponse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="question">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnumberSiteZcodePPTQQuestionResponse">
+        <PropertyRef Name="question" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnumberSiteZcodePPTQQuestionResponse_response">
+    <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="1" />
+    <End Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Role="partnumberSiteZcodePPTQQuestionResponse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="response">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnumberSiteZcodePPTQQuestionResponse">
+        <PropertyRef Name="response" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questionnaire_questionnaireLevelType">
+    <End Type="hs3MVCMTQa2Model.questionnaireLevelType" Role="questionnaireLevelType" Multiplicity="0..1" />
+    <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="questionnaireLevelType">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questionnaire">
+        <PropertyRef Name="levelType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="questionnaireLevel1">
+    <End Type="hs3MVCMTQa2Model.enterprise" Role="enterprise" Multiplicity="*" />
+    <End Type="hs3MVCMTQa2Model.questionnaireLevelType" Role="questionnaireLevelType" Multiplicity="*" />
+  </Association>
+  <ComplexType Name="pr_getEnterpriseByQuestionnaireLevelType_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Binary" Name="logo" Nullable="true" MaxLength="Max" />
+    <Property Type="String" Name="applicationPath" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="companyName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="instanceName" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="archivedDate" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnumber_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="internalId" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="nationalStockingNumber" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="sapID" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnumberAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="internalId" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="nationalStockingNumber" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="sapID" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnumberSiteZcodeByPPTQ_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="partnumber" Nullable="false" />
+    <Property Type="Int32" Name="site" Nullable="false" />
+    <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="partnerPartnertypeTouchpointQuestionnaire" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnumberSiteZcodePPTQ_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="partnumber" Nullable="false" />
+    <Property Type="Int32" Name="site" Nullable="false" />
+    <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="partnerPartnertypeTouchpointQuestionnaire" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnumberSiteZcodePPTQQuestionResponse_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="question" Nullable="false" />
+    <Property Type="Int32" Name="response" Nullable="false" />
+    <Property Type="String" Name="comment" Nullable="true" />
+    <Property Type="Binary" Name="uploadedFile" Nullable="true" />
+    <Property Type="String" Name="uploadedFileType" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="value" Nullable="true" />
+    <Property Type="String" Name="score" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="partNumberSiteZcodePPTQ" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="question" Nullable="false" />
+    <Property Type="Int32" Name="response" Nullable="false" />
+    <Property Type="String" Name="comment" Nullable="true" />
+    <Property Type="Binary" Name="uploadedFile" Nullable="true" />
+    <Property Type="String" Name="uploadedFileType" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="value" Nullable="true" />
+    <Property Type="String" Name="score" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="partNumberSiteZcodePPTQ" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getQuestionnaireLevelType_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getQuestionnaireLevelTypeByEnterprise_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getSite_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="internalID" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="sapID" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getSiteAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="internalID" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="sapID" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getQuestionnaireLevelTypeAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnerByEmail_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+    <Property Type="String" Name="internalID" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="address1" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="address2" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="city" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="state" Nullable="true" />
+    <Property Type="String" Name="province" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="zipcode" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="country" Nullable="true" />
+    <Property Type="String" Name="phone" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="fax" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="firstName" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="lastName" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="dunsNumber" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="federalID" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="status" Nullable="true" />
+    <Property Type="Int32" Name="loadHistory" Nullable="true" />
+    <Property Type="Int32" Name="owner" Nullable="true" />
+    <Property Type="Int32" Name="author" Nullable="true" />
+    <Property Type="DateTime" Name="dateApproved" Nullable="true" Precision="16" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="pr_getSiteByInternalID_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="internalID" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="sapID" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnumberByInternalID_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="internalId" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="nationalStockingNumber" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="sapID" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+    <Property Type="Int32" Name="partner" Nullable="false" />
   </ComplexType>
 </Schema>

@@ -140,7 +140,12 @@ namespace Generic.Controllers
             return PartialView("_MenuPartial", menuModel);
         }
 
+        public virtual ActionResult InstanceLogo()
+        {
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
 
+            return PartialView("_InstanceLogoPartial", enterprise);
+        }
 
         public ActionResult TouchpointCombobox(TouchpointComboModel model)
         {

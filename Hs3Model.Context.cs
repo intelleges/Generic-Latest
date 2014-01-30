@@ -361,7 +361,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addEmailTemplateType", descriptionParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addEnterprise(string description, Nullable<int> sortOrder, Nullable<bool> active, string logo, string applicationPath, string companyName, string instanceName, Nullable<System.DateTime> archivedDate)
+        public virtual ObjectResult<Nullable<decimal>> pr_addEnterprise(string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<System.DateTime> archivedDate)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
@@ -377,7 +377,7 @@ namespace Generic
     
             var logoParameter = logo != null ?
                 new ObjectParameter("logo", logo) :
-                new ObjectParameter("logo", typeof(string));
+                new ObjectParameter("logo", typeof(byte[]));
     
             var applicationPathParameter = applicationPath != null ?
                 new ObjectParameter("applicationPath", applicationPath) :
@@ -1642,7 +1642,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaire", titleParameter, descriptionParameter, footerParameter, lockedParameter, sortOrderParameter, activeParameter, multiLanguageParameter, enterpriseParameter, personParameter, partnerTypeParameter, letterParameter, levelTypeParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireLevel(Nullable<int> enterprise, Nullable<int> questionnaireLevel)
+        public virtual int pr_addQuestionnaireLevel(Nullable<int> enterprise, Nullable<int> questionnaireLevel)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
@@ -1652,7 +1652,7 @@ namespace Generic
                 new ObjectParameter("questionnaireLevel", questionnaireLevel) :
                 new ObjectParameter("questionnaireLevel", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireLevel", enterpriseParameter, questionnaireLevelParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addQuestionnaireLevel", enterpriseParameter, questionnaireLevelParameter);
         }
     
         public virtual int pr_addQuestionnairePage(Nullable<int> questionnaire, Nullable<int> page)
@@ -5532,7 +5532,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEmailTemplateType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual int pr_modifyEnterprise(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, string logo, string applicationPath, string companyName, string instanceName, Nullable<System.DateTime> archivedDate)
+        public virtual int pr_modifyEnterprise(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<System.DateTime> archivedDate)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -5552,7 +5552,7 @@ namespace Generic
     
             var logoParameter = logo != null ?
                 new ObjectParameter("logo", logo) :
-                new ObjectParameter("logo", typeof(string));
+                new ObjectParameter("logo", typeof(byte[]));
     
             var applicationPathParameter = applicationPath != null ?
                 new ObjectParameter("applicationPath", applicationPath) :
@@ -9231,90 +9231,176 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseByQuestionnaireLevelType_Result>("pr_getEnterpriseByQuestionnaireLevelType", questionnaireLevelParameter);
         }
     
-        public virtual ObjectResult<pr_getPartnumber_Result> pr_getPartnumber(Nullable<int> id)
+        public virtual ObjectResult<partnumber> pr_getPartnumber(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumber_Result>("pr_getPartnumber", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumber", idParameter);
         }
     
-        public virtual ObjectResult<pr_getPartnumberAll_Result> pr_getPartnumberAll()
+        public virtual ObjectResult<partnumber> pr_getPartnumber(Nullable<int> id, MergeOption mergeOption)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberAll_Result>("pr_getPartnumberAll");
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumber", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<pr_getPartnumberSiteZcodeByPPTQ_Result> pr_getPartnumberSiteZcodeByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        public virtual ObjectResult<partnumber> pr_getPartnumberAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberAll");
+        }
+    
+        public virtual ObjectResult<partnumber> pr_getPartnumberAll(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberAll", mergeOption);
+        }
+    
+        public virtual ObjectResult<partnumberSiteZcodePPTQ> pr_getPartnumberSiteZcodeByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
         {
             var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodeByPPTQ_Result>("pr_getPartnumberSiteZcodeByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodeByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
         }
     
-        public virtual ObjectResult<pr_getPartnumberSiteZcodePPTQ_Result> pr_getPartnumberSiteZcodePPTQ(Nullable<int> id)
+        public virtual ObjectResult<partnumberSiteZcodePPTQ> pr_getPartnumberSiteZcodeByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, MergeOption mergeOption)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodeByPPTQ", mergeOption, partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<partnumberSiteZcodePPTQ> pr_getPartnumberSiteZcodePPTQ(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodePPTQ_Result>("pr_getPartnumberSiteZcodePPTQ", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodePPTQ", idParameter);
         }
     
-        public virtual ObjectResult<pr_getPartnumberSiteZcodePPTQQuestionResponse_Result> pr_getPartnumberSiteZcodePPTQQuestionResponse(Nullable<int> id)
+        public virtual ObjectResult<partnumberSiteZcodePPTQ> pr_getPartnumberSiteZcodePPTQ(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodePPTQQuestionResponse_Result>("pr_getPartnumberSiteZcodePPTQQuestionResponse", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodePPTQ", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ_Result> pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ(Nullable<int> partnumberSiteZcodePPTQ)
+        public virtual ObjectResult<partnumberSiteZcodePPTQQuestionResponse> pr_getPartnumberSiteZcodePPTQQuestionResponse(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQQuestionResponse>("pr_getPartnumberSiteZcodePPTQQuestionResponse", idParameter);
+        }
+    
+        public virtual ObjectResult<partnumberSiteZcodePPTQQuestionResponse> pr_getPartnumberSiteZcodePPTQQuestionResponse(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQQuestionResponse>("pr_getPartnumberSiteZcodePPTQQuestionResponse", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<partnumberSiteZcodePPTQQuestionResponse> pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ(Nullable<int> partnumberSiteZcodePPTQ)
         {
             var partnumberSiteZcodePPTQParameter = partnumberSiteZcodePPTQ.HasValue ?
                 new ObjectParameter("PartnumberSiteZcodePPTQ", partnumberSiteZcodePPTQ) :
                 new ObjectParameter("PartnumberSiteZcodePPTQ", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ_Result>("pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ", partnumberSiteZcodePPTQParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQQuestionResponse>("pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ", partnumberSiteZcodePPTQParameter);
         }
     
-        public virtual ObjectResult<pr_getQuestionnaireLevelType_Result> pr_getQuestionnaireLevelType(Nullable<int> id)
+        public virtual ObjectResult<partnumberSiteZcodePPTQQuestionResponse> pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ(Nullable<int> partnumberSiteZcodePPTQ, MergeOption mergeOption)
+        {
+            var partnumberSiteZcodePPTQParameter = partnumberSiteZcodePPTQ.HasValue ?
+                new ObjectParameter("PartnumberSiteZcodePPTQ", partnumberSiteZcodePPTQ) :
+                new ObjectParameter("PartnumberSiteZcodePPTQ", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQQuestionResponse>("pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ", mergeOption, partnumberSiteZcodePPTQParameter);
+        }
+    
+        public virtual ObjectResult<questionnaireLevelType> pr_getQuestionnaireLevelType(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireLevelType_Result>("pr_getQuestionnaireLevelType", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireLevelType>("pr_getQuestionnaireLevelType", idParameter);
         }
     
-        public virtual ObjectResult<pr_getQuestionnaireLevelTypeByEnterprise_Result> pr_getQuestionnaireLevelTypeByEnterprise(Nullable<int> enterprise)
-        {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireLevelTypeByEnterprise_Result>("pr_getQuestionnaireLevelTypeByEnterprise", enterpriseParameter);
-        }
-    
-        public virtual ObjectResult<pr_getSite_Result> pr_getSite(Nullable<int> id)
+        public virtual ObjectResult<questionnaireLevelType> pr_getQuestionnaireLevelType(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSite_Result>("pr_getSite", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireLevelType>("pr_getQuestionnaireLevelType", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<pr_getSiteAll_Result> pr_getSiteAll(Nullable<int> enterprise)
+        public virtual ObjectResult<questionnaireLevelType> pr_getQuestionnaireLevelTypeByEnterprise(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSiteAll_Result>("pr_getSiteAll", enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireLevelType>("pr_getQuestionnaireLevelTypeByEnterprise", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<questionnaireLevelType> pr_getQuestionnaireLevelTypeByEnterprise(Nullable<int> enterprise, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireLevelType>("pr_getQuestionnaireLevelTypeByEnterprise", mergeOption, enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<site> pr_getSite(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<site>("pr_getSite", idParameter);
+        }
+    
+        public virtual ObjectResult<site> pr_getSite(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<site>("pr_getSite", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<site> pr_getSiteAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<site>("pr_getSiteAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<site> pr_getSiteAll(Nullable<int> enterprise, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<site>("pr_getSiteAll", mergeOption, enterpriseParameter);
         }
     
         public virtual int pr_modifyPartnumber(Nullable<int> id, string description, string internalId, string nationalStockingNumber, string sapID, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> partner)
@@ -9544,6 +9630,94 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveSite", idParameter);
+        }
+    
+        public virtual ObjectResult<questionnaireLevelType> pr_getQuestionnaireLevelTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireLevelType>("pr_getQuestionnaireLevelTypeAll");
+        }
+    
+        public virtual ObjectResult<questionnaireLevelType> pr_getQuestionnaireLevelTypeAll(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireLevelType>("pr_getQuestionnaireLevelTypeAll", mergeOption);
+        }
+    
+        public virtual ObjectResult<partner> pr_getPartnerByEmail(Nullable<int> enterprise, string email)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerByEmail", enterpriseParameter, emailParameter);
+        }
+    
+        public virtual ObjectResult<partner> pr_getPartnerByEmail(Nullable<int> enterprise, string email, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerByEmail", mergeOption, enterpriseParameter, emailParameter);
+        }
+    
+        public virtual ObjectResult<site> pr_getSiteByInternalID(Nullable<int> enterprise, string internalId)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var internalIdParameter = internalId != null ?
+                new ObjectParameter("internalId", internalId) :
+                new ObjectParameter("internalId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<site>("pr_getSiteByInternalID", enterpriseParameter, internalIdParameter);
+        }
+    
+        public virtual ObjectResult<site> pr_getSiteByInternalID(Nullable<int> enterprise, string internalId, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var internalIdParameter = internalId != null ?
+                new ObjectParameter("internalId", internalId) :
+                new ObjectParameter("internalId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<site>("pr_getSiteByInternalID", mergeOption, enterpriseParameter, internalIdParameter);
+        }
+    
+        public virtual ObjectResult<partnumber> pr_getPartnumberByInternalID(Nullable<int> enterprise, string internalId)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var internalIdParameter = internalId != null ?
+                new ObjectParameter("internalId", internalId) :
+                new ObjectParameter("internalId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberByInternalID", enterpriseParameter, internalIdParameter);
+        }
+    
+        public virtual ObjectResult<partnumber> pr_getPartnumberByInternalID(Nullable<int> enterprise, string internalId, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var internalIdParameter = internalId != null ?
+                new ObjectParameter("internalId", internalId) :
+                new ObjectParameter("internalId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberByInternalID", mergeOption, enterpriseParameter, internalIdParameter);
         }
     }
 }
