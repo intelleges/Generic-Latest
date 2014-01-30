@@ -10,24 +10,14 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class partnumberSiteZcodePPTQ
+    public partial class pr_getPartnumberSiteZcodePPTQByPPTQ_Result
     {
-        public partnumberSiteZcodePPTQ()
-        {
-            this.partnumberSiteZcodePPTQQuestionResponse = new HashSet<partnumberSiteZcodePPTQQuestionResponse>();
-        }
-    
         public int id { get; set; }
         public int partnumber { get; set; }
         public int site { get; set; }
         public string zcode { get; set; }
+        public int status { get; set; }
         public int partnerPartnertypeTouchpointQuestionnaire { get; set; }
-    
-        public virtual partnerPartnertypeTouchpointQuestionnaire partnerPartnertypeTouchpointQuestionnaire1 { get; set; }
-        public virtual partnumber partnumber1 { get; set; }
-        public virtual site site1 { get; set; }
-        public virtual ICollection<partnumberSiteZcodePPTQQuestionResponse> partnumberSiteZcodePPTQQuestionResponse { get; set; }
     }
 }

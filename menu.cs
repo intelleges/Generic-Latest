@@ -17,6 +17,7 @@ namespace Generic
         public menu()
         {
             this.roleMenu = new HashSet<roleMenu>();
+            this.enterprise11 = new HashSet<enterprise>();
         }
     
         public int id { get; set; }
@@ -30,5 +31,6 @@ namespace Generic
     
         public virtual enterprise enterprise1 { get; set; }
         public virtual ICollection<roleMenu> roleMenu { get; set; }
+        public virtual ICollection<enterprise> enterprise11 { get; set; }
     }
 }

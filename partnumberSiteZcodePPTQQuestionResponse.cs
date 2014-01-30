@@ -24,8 +24,8 @@ namespace Generic
         public string score { get; set; }
         public int partNumberSiteZcodePPTQ { get; set; }
     
-        public virtual partnumberSiteZcodePPTQ partnumberSiteZcodePPTQ1 { get; set; }
         public virtual question question1 { get; set; }
         public virtual response response1 { get; set; }
+        public virtual partNumberSiteZcodePPTQ partNumberSiteZcodePPTQ1 { get; set; }
     }
 }

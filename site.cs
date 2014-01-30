@@ -16,7 +16,7 @@ namespace Generic
     {
         public site()
         {
-            this.partnumberSiteZcodePPTQ = new HashSet<partnumberSiteZcodePPTQ>();
+            this.partNumberSiteZcodePPTQ = new HashSet<partNumberSiteZcodePPTQ>();
         }
     
         public int id { get; set; }
@@ -28,6 +28,6 @@ namespace Generic
         public int enterprise { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
-        public virtual ICollection<partnumberSiteZcodePPTQ> partnumberSiteZcodePPTQ { get; set; }
+        public virtual ICollection<partNumberSiteZcodePPTQ> partNumberSiteZcodePPTQ { get; set; }
     }
 }

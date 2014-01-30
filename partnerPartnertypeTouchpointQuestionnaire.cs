@@ -18,7 +18,7 @@ namespace Generic
         {
             this.eSignature = new HashSet<eSignature>();
             this.partnerPartnertypeTouchpointQuestionnaireQuestionResponse = new HashSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>();
-            this.partnumberSiteZcodePPTQ = new HashSet<partnumberSiteZcodePPTQ>();
+            this.partNumberSiteZcodePPTQ = new HashSet<partNumberSiteZcodePPTQ>();
         }
     
         public int id { get; set; }
@@ -39,6 +39,6 @@ namespace Generic
         public virtual partnerTypeTouchpointQuestionnaire partnerTypeTouchpointQuestionnaire1 { get; set; }
         public virtual person person { get; set; }
         public virtual ICollection<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponse { get; set; }
-        public virtual ICollection<partnumberSiteZcodePPTQ> partnumberSiteZcodePPTQ { get; set; }
+        public virtual ICollection<partNumberSiteZcodePPTQ> partNumberSiteZcodePPTQ { get; set; }
     }
 }

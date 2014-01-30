@@ -12,23 +12,18 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class partnumber
+    public partial class partnumberStatus
     {
-        public partnumber()
+        public partnumberStatus()
         {
             this.partNumberSiteZcodePPTQ = new HashSet<partNumberSiteZcodePPTQ>();
         }
     
         public int id { get; set; }
         public string description { get; set; }
-        public string internalId { get; set; }
-        public string nationalStockingNumber { get; set; }
-        public string sapID { get; set; }
-        public Nullable<int> sortOrder { get; set; }
+        public int sortOrder { get; set; }
         public bool active { get; set; }
-        public int partner { get; set; }
     
-        public virtual partner partner1 { get; set; }
         public virtual ICollection<partNumberSiteZcodePPTQ> partNumberSiteZcodePPTQ { get; set; }
     }
 }

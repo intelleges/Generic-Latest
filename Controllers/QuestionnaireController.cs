@@ -35,7 +35,7 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult UploadQuestionnaire(int protocolId, string protocolName
             , int touchpointId, string touchpointName
-            , int partnertypeId, string partnertypeName
+            , int partnertypeId, string partnertypeName, int level
             )
         {
             int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
@@ -64,6 +64,7 @@ namespace Generic.Controllers
             objQuestionnaire.partnerType = partnertypeId;
             objQuestionnaire.multiLanguage = 0;
             objQuestionnaire.active = 1;
+            objQuestionnaire.levelType = level;
             db.Entry(objQuestionnaire).State = System.Data.EntityState.Added;
             db.SaveChanges();
             int questionnaireId = objQuestionnaire.id;

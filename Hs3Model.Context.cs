@@ -130,12 +130,13 @@ namespace Generic
         public DbSet<zCodeBatchUpdate> zCodeBatchUpdate { get; set; }
         public DbSet<prReminder> prReminder { get; set; }
         public DbSet<partnumber> partnumber { get; set; }
-        public DbSet<partnumberSiteZcodePPTQ> partnumberSiteZcodePPTQ { get; set; }
         public DbSet<partnumberSiteZcodePPTQQuestionResponse> partnumberSiteZcodePPTQQuestionResponse { get; set; }
         public DbSet<questionnaireLevelType> questionnaireLevelType { get; set; }
         public DbSet<site> site { get; set; }
         public DbSet<questionnaireCMS> questionnaireCMS { get; set; }
         public DbSet<questionnaireQuestionnaireCMS> questionnaireQuestionnaireCMS { get; set; }
+        public DbSet<partNumberSiteZcodePPTQ> partNumberSiteZcodePPTQSet { get; set; }
+        public DbSet<partnumberStatus> partnumberStatus { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -9093,7 +9094,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnumber", descriptionParameter, internalIdParameter, nationalStockingNumberParameter, sapIDParameter, sortOrderParameter, activeParameter, partnerParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addPartnumberSiteZcodePPTQ(Nullable<int> partnumber, Nullable<int> site, string zcode, Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        public virtual ObjectResult<Nullable<decimal>> pr_addPartnumberSiteZcodePPTQ(Nullable<int> partnumber, Nullable<int> site, string zcode, Nullable<int> status, Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
         {
             var partnumberParameter = partnumber.HasValue ?
                 new ObjectParameter("partnumber", partnumber) :
@@ -9107,11 +9108,15 @@ namespace Generic
                 new ObjectParameter("zcode", zcode) :
                 new ObjectParameter("zcode", typeof(string));
     
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
             var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnumberSiteZcodePPTQ", partnumberParameter, siteParameter, zcodeParameter, partnerPartnertypeTouchpointQuestionnaireParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnumberSiteZcodePPTQ", partnumberParameter, siteParameter, zcodeParameter, statusParameter, partnerPartnertypeTouchpointQuestionnaireParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addPartnumberSiteZcodePPTQQuestionResponse(Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<int> value, string score, Nullable<int> partNumberSiteZcodePPTQ)
@@ -9261,40 +9266,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberAll", mergeOption);
         }
     
-        public virtual ObjectResult<partnumberSiteZcodePPTQ> pr_getPartnumberSiteZcodeByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        public virtual int pr_getPartnumberSiteZcodeByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
         {
             var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodeByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnumberSiteZcodeByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
         }
     
-        public virtual ObjectResult<partnumberSiteZcodePPTQ> pr_getPartnumberSiteZcodeByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, MergeOption mergeOption)
-        {
-            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
-                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
-                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodeByPPTQ", mergeOption, partnerPartnertypeTouchpointQuestionnaireParameter);
-        }
-    
-        public virtual ObjectResult<partnumberSiteZcodePPTQ> pr_getPartnumberSiteZcodePPTQ(Nullable<int> id)
+        public virtual int pr_getPartnumberSiteZcodePPTQ(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodePPTQ", idParameter);
-        }
-    
-        public virtual ObjectResult<partnumberSiteZcodePPTQ> pr_getPartnumberSiteZcodePPTQ(Nullable<int> id, MergeOption mergeOption)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodePPTQ", mergeOption, idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnumberSiteZcodePPTQ", idParameter);
         }
     
         public virtual ObjectResult<partnumberSiteZcodePPTQQuestionResponse> pr_getPartnumberSiteZcodePPTQQuestionResponse(Nullable<int> id)
@@ -9442,7 +9429,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnumber", idParameter, descriptionParameter, internalIdParameter, nationalStockingNumberParameter, sapIDParameter, sortOrderParameter, activeParameter, partnerParameter);
         }
     
-        public virtual int pr_modifyPartnumberSiteZcodePPTQ(Nullable<int> id, Nullable<int> partnumber, Nullable<int> site, string zcode, Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        public virtual int pr_modifyPartnumberSiteZcodePPTQ(Nullable<int> id, Nullable<int> partnumber, Nullable<int> site, string zcode, Nullable<int> status, Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -9460,11 +9447,15 @@ namespace Generic
                 new ObjectParameter("zcode", zcode) :
                 new ObjectParameter("zcode", typeof(string));
     
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
             var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnumberSiteZcodePPTQ", idParameter, partnumberParameter, siteParameter, zcodeParameter, partnerPartnertypeTouchpointQuestionnaireParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnumberSiteZcodePPTQ", idParameter, partnumberParameter, siteParameter, zcodeParameter, statusParameter, partnerPartnertypeTouchpointQuestionnaireParameter);
         }
     
         public virtual int pr_modifyPartnumberSiteZcodePPTQQuestionResponse(Nullable<int> id, Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<int> value, string score, Nullable<int> partNumberSiteZcodePPTQ)
@@ -9868,6 +9859,230 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestionnaireCMS", idParameter);
+        }
+    
+        public virtual ObjectResult<partnumber> pr_getPartnumberByPPTQandSite(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, Nullable<int> site)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            var siteParameter = site.HasValue ?
+                new ObjectParameter("site", site) :
+                new ObjectParameter("site", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberByPPTQandSite", partnerPartnertypeTouchpointQuestionnaireParameter, siteParameter);
+        }
+    
+        public virtual ObjectResult<partnumber> pr_getPartnumberByPPTQandSite(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, Nullable<int> site, MergeOption mergeOption)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            var siteParameter = site.HasValue ?
+                new ObjectParameter("site", site) :
+                new ObjectParameter("site", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberByPPTQandSite", mergeOption, partnerPartnertypeTouchpointQuestionnaireParameter, siteParameter);
+        }
+    
+        public virtual ObjectResult<partnumber> pr_getPartnumberByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<partnumber> pr_getPartnumberByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, MergeOption mergeOption)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberByPPTQ", mergeOption, partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<partnumber> pr_getPartnumberByPPTQandStatus(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, Nullable<int> status)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberByPPTQandStatus", partnerPartnertypeTouchpointQuestionnaireParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<partnumber> pr_getPartnumberByPPTQandStatus(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, Nullable<int> status, MergeOption mergeOption)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberByPPTQandStatus", mergeOption, partnerPartnertypeTouchpointQuestionnaireParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnumberSiteZcodePPTQByPPTQ_Result> pr_getPartnumberSiteZcodePPTQByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodePPTQByPPTQ_Result>("pr_getPartnumberSiteZcodePPTQByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<site> pr_getSiteByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<site>("pr_getSiteByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<site> pr_getSiteByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, MergeOption mergeOption)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<site>("pr_getSiteByPPTQ", mergeOption, partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPartnumberStatus(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnumberStatus", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archivePartnumberStatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePartnumberStatus", idParameter);
+        }
+    
+        public virtual ObjectResult<partnumberStatus> pr_getPartnumberStatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberStatus>("pr_getPartnumberStatus", idParameter);
+        }
+    
+        public virtual ObjectResult<partnumberStatus> pr_getPartnumberStatus(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberStatus>("pr_getPartnumberStatus", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<partnumberStatus> pr_getPartnumberStatusAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberStatus>("pr_getPartnumberStatusAll");
+        }
+    
+        public virtual ObjectResult<partnumberStatus> pr_getPartnumberStatusAll(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberStatus>("pr_getPartnumberStatusAll", mergeOption);
+        }
+    
+        public virtual int pr_modifyPartnumberStatus(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnumberStatus", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removePartnumberStatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnumberStatus", idParameter);
+        }
+    
+        public virtual int pr_unArchivePartnumberStatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePartnumberStatus", idParameter);
+        }
+    
+        public virtual ObjectResult<partnumber> pr_getPartnumberByPPTQSiteAndStatus(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, Nullable<int> site, Nullable<int> status)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            var siteParameter = site.HasValue ?
+                new ObjectParameter("site", site) :
+                new ObjectParameter("site", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberByPPTQSiteAndStatus", partnerPartnertypeTouchpointQuestionnaireParameter, siteParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<partnumber> pr_getPartnumberByPPTQSiteAndStatus(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, Nullable<int> site, Nullable<int> status, MergeOption mergeOption)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            var siteParameter = site.HasValue ?
+                new ObjectParameter("site", site) :
+                new ObjectParameter("site", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberByPPTQSiteAndStatus", mergeOption, partnerPartnertypeTouchpointQuestionnaireParameter, siteParameter, statusParameter);
         }
     }
 }

@@ -38,6 +38,7 @@ namespace Generic
             this.state = new HashSet<state>();
             this.site = new HashSet<site>();
             this.questionnaireLevelType = new HashSet<questionnaireLevelType>();
+            this.menu1 = new HashSet<menu>();
         }
     
         public int id { get; set; }
@@ -72,5 +73,6 @@ namespace Generic
         public virtual ICollection<state> state { get; set; }
         public virtual ICollection<site> site { get; set; }
         public virtual ICollection<questionnaireLevelType> questionnaireLevelType { get; set; }
+        public virtual ICollection<menu> menu1 { get; set; }
     }
 }

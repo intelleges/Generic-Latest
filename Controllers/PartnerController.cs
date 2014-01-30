@@ -333,7 +333,7 @@ namespace Generic.Controllers
         {
 
 
-            int ptq = 1;// db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
+            int ptq = 30;// db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
             // db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire
             // db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire()
 
@@ -563,7 +563,7 @@ namespace Generic.Controllers
                     }
                     using (var context = new EntitiesDBContext())
                     {
-                        context.pr_addPartnumberSiteZcodePPTQ(partNumberID, siteID, string.Empty, pptqID);
+                        context.pr_addPartnumberSiteZcodePPTQ(partNumberID, siteID, string.Empty, Helpers.PartNumberHelper.Status.NOT_STARTED , pptqID);
                     }
 
 

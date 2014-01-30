@@ -356,6 +356,7 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Areas\RegistrationArea\Controllers\HomeController.cs" />
+    <Compile Include="Areas\RegistrationArea\Controllers\PartNumberController.cs" />
     <Compile Include="Areas\RegistrationArea\RegistrationAreaRegistration.cs" />
     <Compile Include="autoMailAttachment.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
@@ -448,6 +449,7 @@
     <Compile Include="Helpers\CustomRoleProvider.cs" />
     <Compile Include="Helpers\hs3ModelExtender.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
+    <Compile Include="Helpers\PartNumberHelper.cs" />
     <Compile Include="Helpers\QuestionnaireHelper.cs" />
     <Compile Include="Helpers\Utility\EmailFormat.cs" />
     <Compile Include="Helpers\Utility\Utility.cs" />
@@ -584,10 +586,13 @@
     <Compile Include="partnumber.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="partnumberSiteZcodePPTQ.cs">
+    <Compile Include="partNumberSiteZcodePPTQ.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnumberSiteZcodePPTQQuestionResponse.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="partnumberStatus.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="person.cs">
@@ -873,7 +878,22 @@
     <Compile Include="pr_getPartnumberByInternalID_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnumberByPPTQandSite_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnumberByPPTQandStatus_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnumberByPPTQSiteAndStatus_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnumberByPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnumberSiteZcodeByPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnumberSiteZcodePPTQByPPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ_Result.cs">
@@ -883,6 +903,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnumberSiteZcodePPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnumberStatusAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnumberStatus_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnumber_Result.cs">
@@ -1066,6 +1092,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getSiteByInternalID_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getSiteByPPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getSite_Result.cs">

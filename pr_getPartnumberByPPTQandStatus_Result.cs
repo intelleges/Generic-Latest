@@ -10,15 +10,9 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class partnumber
+    public partial class pr_getPartnumberByPPTQandStatus_Result
     {
-        public partnumber()
-        {
-            this.partNumberSiteZcodePPTQ = new HashSet<partNumberSiteZcodePPTQ>();
-        }
-    
         public int id { get; set; }
         public string description { get; set; }
         public string internalId { get; set; }
@@ -27,8 +21,5 @@ namespace Generic
         public Nullable<int> sortOrder { get; set; }
         public bool active { get; set; }
         public int partner { get; set; }
-    
-        public virtual partner partner1 { get; set; }
-        public virtual ICollection<partNumberSiteZcodePPTQ> partNumberSiteZcodePPTQ { get; set; }
     }
 }

@@ -3376,17 +3376,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="partnumberSiteZcodePPTQ">
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSiteZcodePPTQ">
-        <MappingFragment StoreEntitySet="partnumberSiteZcodePPTQ">
-          <ScalarProperty Name="partnerPartnertypeTouchpointQuestionnaire" ColumnName="partnerPartnertypeTouchpointQuestionnaire" />
-          <ScalarProperty Name="zcode" ColumnName="zcode" />
-          <ScalarProperty Name="site" ColumnName="site" />
-          <ScalarProperty Name="partnumber" ColumnName="partnumber" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="partnumberSiteZcodePPTQQuestionResponse">
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse">
         <MappingFragment StoreEntitySet="partnumberSiteZcodePPTQQuestionResponse">
@@ -3483,5 +3472,124 @@
     <FunctionImportMapping FunctionImportName="pr_getPartnerByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerByEmail" />
     <FunctionImportMapping FunctionImportName="pr_getSiteByInternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_getSiteByInternalID" />
     <FunctionImportMapping FunctionImportName="pr_getPartnumberByInternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberByInternalID" />
+    <EntitySetMapping Name="questionnaireCMS">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireCMS">
+        <MappingFragment StoreEntitySet="questionnaireCMS">
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="questionnaireQuestionnaireCMS">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS">
+        <MappingFragment StoreEntitySet="questionnaireQuestionnaireCMS">
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+          <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="pr_addQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireCMS" />
+    <FunctionImportMapping FunctionImportName="pr_addQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireQuestionnaireCMS" />
+    <FunctionImportMapping FunctionImportName="pr_archiveQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveQuestionnaireCMS" />
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireCMS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireCMS_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireCMSAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireCMSAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireCMSAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMS_Result">
+          <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+          <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+          <ScalarProperty Name="text" ColumnName="text" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire_Result">
+          <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+          <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+          <ScalarProperty Name="text" ColumnName="text" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireCMS" />
+    <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireQuestionnaireCMS" />
+    <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireCMS" />
+    <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireQuestionnaireCMS" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionnaireCMS" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberByPPTQandSite" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberByPPTQandSite" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberByPPTQ" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberByPPTQandStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberByPPTQandStatus" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQByPPTQ">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberSiteZcodePPTQByPPTQ_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+          <ScalarProperty Name="site" ColumnName="site" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="partnerPartnertypeTouchpointQuestionnaire" ColumnName="partnerPartnertypeTouchpointQuestionnaire" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getSiteByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getSiteByPPTQ" />
+    <EntitySetMapping Name="partNumberSiteZcodePPTQSet">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partNumberSiteZcodePPTQ">
+        <MappingFragment StoreEntitySet="partNumberSiteZcodePPTQ">
+          <ScalarProperty Name="partnerPartnertypeTouchpointQuestionnaire" ColumnName="partnerPartnertypeTouchpointQuestionnaire" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="site" ColumnName="site" />
+          <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="partnumberStatus">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberStatus">
+        <MappingFragment StoreEntitySet="partnumberStatus">
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="enterpriseMenu" TypeName="hs3MVCMTQa2Model.enterpriseMenu" StoreEntitySet="enterpriseMenu">
+      <EndProperty Name="menu">
+        <ScalarProperty Name="id" ColumnName="menu" />
+      </EndProperty>
+      <EndProperty Name="enterprise">
+        <ScalarProperty Name="id" ColumnName="enterprise" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="pr_addPartnumberStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberStatus" />
+    <FunctionImportMapping FunctionImportName="pr_archivePartnumberStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePartnumberStatus" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberStatus" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberStatusAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberStatusAll" />
+    <FunctionImportMapping FunctionImportName="pr_modifyPartnumberStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnumberStatus" />
+    <FunctionImportMapping FunctionImportName="pr_removePartnumberStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnumberStatus" />
+    <FunctionImportMapping FunctionImportName="pr_unArchivePartnumberStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePartnumberStatus" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberByPPTQSiteAndStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberByPPTQSiteAndStatus" />
   </EntityContainerMapping>
 </Mapping>

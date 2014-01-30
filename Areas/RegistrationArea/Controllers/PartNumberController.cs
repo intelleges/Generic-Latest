@@ -10,111 +10,16 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Generic.DataLayer;
 using Generic.Models;
+
 namespace Generic.Areas.RegistrationArea.Controllers
 {
-    public class HomeController : Controller
+    public class PartNumberController : Controller
     {
         private EntitiesDBContext db = new EntitiesDBContext();
         //
-        // GET: /RegistrationArea/Home/
+        // GET: /RegistrationArea/PartNumber/
 
-        public virtual ActionResult Index(string id = "", string accessCode = null)
-        {
-            ViewBag.accesscode = accessCode;
-            return View();
-        }
-        [HttpPost]
-        public virtual ActionResult Index(string accessCode)
-        {
-            var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-            if (ppptq.accesscode != null)
-            {
-                var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
-                var touchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
-                if (touchpoint.endDate >= DateTime.Now)
-                {
-                    Session["accessCode"] = accessCode;
-                    Session["hs3Registration"] = 1;
-                    Session["languageused"] = "en";
-                    Session["accessAttemp"] = 0;
-                    Session["partner"] = ppptq.partner;
-                    Session["touchpoint"] = touchpoint.id;
-                    Session["partnerType"] = ptq.partnerType;
-                    Session["questionnaire"] = ptq.questionnaire;
-                    Session["protocol"] = touchpoint.protocol;
-
-                    return RedirectToAction("companyInformation");
-                }
-            }
-
-            return View();
-        }
-
-
-        public virtual ActionResult CompanyInformation()
-        {
-            if (Session["hs3Registration"] == null)
-            {
-                return RedirectToAction("Index");
-            }
-            partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
-            ViewBag.country = db.pr_getCountry(objPartner.country).FirstOrDefault().name;
-            try
-            {
-                ViewBag.state = db.pr_getState(objPartner.state).FirstOrDefault().stateCode;
-            }
-            catch { }
-            return View(objPartner);
-        }
-
-        public virtual ActionResult ContactInformation()
-        {
-            if (Session["hs3Registration"] == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
-            ViewBag.country = db.pr_getCountry(objPartner.country).FirstOrDefault().name;
-            return View(objPartner);
-        }
-        public virtual ActionResult CorrectCompanyInformation()
-        {
-
-
-            return RedirectToAction("ContactInformation");
-
-
-        }
-        public virtual ActionResult CorrectContactInformation()
-        {
-            Session["partnumber"] = null;
-            Session["site"] = null;
-            Session["partnumberstatus"] = null;
-
-            int id = (int)Session["questionnaire"];
-
-            var objQuestionnaire = db.pr_getQuestionnaire(id).FirstOrDefault();
-
-
-
-            if (objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
-            {
-                return RedirectToAction("QuestionnaireResponsePartNumberLevel", "PartNumber");
-            }
-            else if (objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL)
-            {
-                return RedirectToAction("QuestionnaireResponse");
-            }
-            else
-            {
-                return Json(new { Questionnaire = "Questionnaire Not Found" },JsonRequestBehavior.AllowGet);
-            }
-
-        }
-
-
-        public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
+        public virtual ActionResult QuestionnaireResponse(int drpPartNumber = 0, int drpSite = 0,int drpPartNumberStatus=0, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
             if (Session["hs3Registration"] == null)
             {
@@ -124,6 +29,196 @@ namespace Generic.Areas.RegistrationArea.Controllers
             int questionnaireId = (int)Session["questionnaire"];
 
             questionnaire objQuestionnaire = db.pr_getQuestionnaire(questionnaireId).FirstOrDefault();
+
+            int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+
+            if (Session["partnumber"] != null)
+            {
+                int partNumberID = Int32.Parse(Session["partnumber"].ToString());
+                if (Session["site"] != null && Session["site"] != "0")
+                {
+                    int site = Convert.ToInt32(Session["site"]);
+                    fillPartnumberBySite(site, pptq, partNumberID);
+                }
+                else
+                {
+                    getPartnumber(pptq, partNumberID);
+                }
+                nextpartnumber();
+            }
+            else
+            {
+                getPartnumber(pptq);
+                Session["partnumber"] = drpPartNumber;
+            }
+            if (Session["site"] != null && Session["site"] != "0")
+            {
+
+                int siteId = Int32.Parse(Session["site"].ToString());
+                getSitepoint(pptq, siteId);
+
+            }
+            else
+            {
+                getSitepoint(pptq);
+                Session["site"] = drpSite;
+            }
+            if (Session["partnumberstatus"] != null)
+            {
+                int partnumberstatusID = Convert.ToInt32(Session["partnumberstatus"]);
+                //if (index == 6)
+                //{
+                //    getPartnumberstatus(index);
+                //    getPartnumberByPartnumberStatus(index);
+                //}
+                //else 
+                if (partnumberstatusID == Generic.Helpers.PartNumberHelper.Status.COMPLETED)
+                {
+                    getPartnumberstatus(partnumberstatusID);
+                    getPartnumberByPartnumberStatusNotstarted(pptq);
+                }
+                else if (partnumberstatusID == Generic.Helpers.PartNumberHelper.Status.INCOMPLETE)
+                {
+                    getPartnumberstatus(partnumberstatusID);
+                    getPartnumberByPartnumberStatusNotstarted(pptq);
+                }
+                else if (partnumberstatusID == Generic.Helpers.PartNumberHelper.Status.NOT_STARTED)
+                {
+                    //if (ddlSitepoint.SelectedIndex > -1)
+                    //{
+                        int site = drpSite;
+                        if (Session["partnumber"] != null)
+                        {
+                            int partindex = Convert.ToInt32(Session["partnumber"]);
+                            if (partindex > 0)
+                            {
+                                fillPartnumberBySite(site,pptq, partindex);
+                            }
+                        }
+                        else
+                        {
+                            fillPartnumberBySite(site,pptq);
+                        }
+                        getPartnumberstatus(partnumberstatusID);
+                   // }
+                    // else
+                    //{
+                    //  getPartnumberstatus(index);
+                    //}
+                }
+                //else
+                //{
+                //  getPartnumberstatus();
+                //}
+            }
+            else
+            {
+                getPartnumberstatus();
+                Session["partnumberstatus"] = drpPartNumberStatus;
+            }
+
+
+
+
+
+           
+            
+           
+
+            int id = (int)Session["protocol"];
+            
+            id = (int)Session["campaign"];
+            
+            id = (int)Session["providerId"];
+          
+       
+            //SaveForLater save = new SaveForLater();
+            //var list = save.GetSaveForLater(provider);
+            //int partid = 0;
+            //int siteid = 0;
+            //int partstatusid = 0;
+            //int saveid = 0;
+            //if (list.Count > 0)
+            //{
+            //    if (list[0].id != 0)
+            //    {
+            //        saveid = list[0].id;
+            //    }
+            //    if (list[0].part.id != 0)
+            //    {
+            //        int index = list[0].part.id;
+            //        if (list[0].site.id != 0)
+            //        {
+            //            int site = list[0].site.id;
+            //            fillPartnumberBySite(site, index);
+            //        }
+            //        else
+            //        {
+            //            getPartnumber(index);
+            //        }
+            //        Session["partnumber"] = index;
+            //        nextpartnumber();
+            //    }
+            //    if (list[0].site.id != 0)
+            //    {
+            //        int index = list[0].site.id;
+            //        Session["site"] = index;
+            //        getSitepoint(index);
+            //    }
+            //    if (list[0].partnumberstatus.id != 0)
+            //    {
+            //        int index = list[0].partnumberstatus.id;
+            //        Session["partnumberstatus"] = index;
+            //        getPartnumberstatus(index);
+            //    }
+            //    if (list[0].questionindex > 0)
+            //    {
+            //        questionIndex = list[0].questionindex;
+            //    }
+            //    if (list[0].pagenumber > 0)
+            //    {
+            //        pageNumber = list[0].pagenumber;
+            //    }
+            //    else
+            //    {
+            //        pageNumber = 1;
+            //    }
+            //    if (list[0].pageid > 0)
+            //    {
+            //        page = list[0].pageid;
+            //    }
+            //    if (list[0].jumptoquestion > 0)
+            //    {
+            //        jumpToQuestion = list[0].jumptoquestion;
+            //    }
+            //    Session["saveforlater"] = saveid;
+            //}
+            //else
+            //{
+            //    if (Request.QueryString["questionIndex"] != null)
+            //    {
+            //        questionIndex = int.Parse(Request.QueryString["questionIndex"].ToString());
+            //    }
+
+            //    if (Request.QueryString["pageNumber"] != null)
+            //    {
+            //        pageNumber = int.Parse(Request.QueryString["pageNumber"].ToString());
+            //    }
+            //    else
+            //    {
+            //        pageNumber = 1;
+            //    }
+
+            //    if (Request.QueryString["page"] != null)
+            //    {
+            //        page = int.Parse(Request.QueryString["page"].ToString());
+            //    }
+
+            //    if (Request.QueryString["jumpToQuestion"] != null)
+            //    {
+            //        jumpToQuestion = int.Parse(Request.QueryString["jumpToQuestion"].ToString());
+            //    }
+            //}
 
             touchpoint objtouchpoint = new touchpoint();
             partner objpartner = new partner();
@@ -149,6 +244,35 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
 
             ViewBag.questions = objhtml.ToString();
+           
+            
+
+
+
+
+
+            
+                //User user = new User(new Id(userId)).getUserDetail();
+                //Provider provider = new Provider();
+                //Campaign campaign = new Campaign();
+                ////Campaign campaign = user.defaultCampaign;
+                //provider = new Provider(new Id(Convert.ToInt32(Session["providerId"])));
+                //campaign = new Campaign(new Id(Convert.ToInt32(Session["campaign"])));
+                //int number = provider.updateSurveyProgressBar(provider, campaign, 0);
+                getZcodeByProviderProtocolCampaignQuestionnaire();
+            
+
+            //this.btnBack.Attributes.Add("onClick", "javascript: history.go(-1); return false;");
+
+
+
+
+
+
+
+
+
+           
 
             return View();
         }
@@ -954,203 +1078,133 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return jumpToQuestion;
         }
 
-        public FileContentResult FileDownload()
-        {
-            //declare byte array to get file content from database and string to store file name
-            byte[] fileData;
-            string fileName;
 
-            //using LINQ expression to get record from database for given id value
-            var record = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(454, 3).FirstOrDefault();
-            //var record = from p in dataContext.FileDumps
-            //             where p.ID == id
-            //             select p;
-            //only one record will be returned from database as expression uses condtion on primary field
-            //so get first record from returned values and retrive file content (binary) and filename 
-            fileData = (byte[])record.uploadedFile.ToArray();
-            fileName = "abc";
-            //return file and provide byte file content and file name --application/pdf
-            return File(fileData, "application/pdf", fileName);
+        public void fillPartnumberBySite(int siteID, int pptqID, int partNumberID)
+        {
+            ViewBag.partNumberSelectList = new SelectList(db.pr_getPartnumberByPPTQandSite(pptqID, siteID), "id", "description", partNumberID);
         }
-
-
-        public ActionResult EditCompanyInformation()
+        public void fillPartnumberBySite(int siteID, int pptqID)
         {
-            if (Session["hs3Registration"] == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            partner partner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
-            if (partner == null)
-            {
-                return HttpNotFound();
-            }
-
-            ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().AsEnumerable(), "id", "stateCode", partner.state);
-            ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", partner.country);
-            //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
-
-            ComboBoxModel objCombobox = new ComboBoxModel();
-
-            objCombobox.ComboBoxAttributes.SelectedIndex = partner.state;
-            ViewBag.combobox = objCombobox;
-            IEnumerable<state> states = new List<state>();
-            states = db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            ViewBag.states = states;
-
-
-
-            ComboBoxModel objComboboxCountry = new ComboBoxModel();
-            objComboboxCountry.ComboBoxAttributes.SelectedIndex = partner.country;
-            ViewBag.comboboxCountry = objComboboxCountry;
-            ViewBag.countries = db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID);
-
-            return View(partner);
+            ViewBag.partNumberSelectList = new SelectList(db.pr_getPartnumberByPPTQandSite(pptqID, siteID), "id", "description");
         }
-        [HttpPost]
-        public ActionResult EditCompanyInformation(partner partner)
+        public void getPartnumber(int pptqID, int partNumberID)
         {
-            if (Session["hs3Registration"] == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            partner objpartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
-            objpartner.name = partner.name;
-            objpartner.address1 = partner.address1;
-            objpartner.address2 = partner.address2;
-            objpartner.city = partner.city;
-            objpartner.state = partner.state;
-            objpartner.zipcode = partner.zipcode;
-            objpartner.province = partner.province;
-            objpartner.country = partner.country;
-            if (ModelState.IsValid)
-            {
-                db.Entry(objpartner).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("CompanyInformation");
-            }
-
-            return View(partner);
+            var items = new SelectList(db.pr_getPartnumberByPPTQ(pptqID), "id", "description", partNumberID).ToList();
+            items.Insert(0, (new SelectListItem { Text = "All", Value = "0" }));
+            ViewBag.partNumberSelectList = items;
         }
-
-
-        public ActionResult EditContactInformation()
+        public void getPartnumber(int pptqID)
         {
-            if (Session["hs3Registration"] == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            partner partner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
-            if (partner == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(partner);
+            var items = new SelectList(db.pr_getPartnumberByPPTQ(pptqID), "id", "description").ToList();
+            items.Insert(0, (new SelectListItem { Text = "All", Value = "0" }));
+            ViewBag.partNumberSelectList = items;
         }
-
-        [HttpPost]
-        public ActionResult EditContactInformation(partner partner)
+        public void nextpartnumber()
         {
-            if (Session["hs3Registration"] == null)
+            int previouspartnumber = Convert.ToInt32(Session["partnumber"]);
+            int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+
+            List<partnumber> objPartNumberList;
+
+            if (Session["site"] != null && Session["site"] != "0")
             {
-                return RedirectToAction("Index");
-            }
-
-            partner objpartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
-            objpartner.firstName = partner.firstName;
-            objpartner.lastName = partner.lastName;
-            objpartner.title = partner.title;
-            objpartner.email = partner.email;
-            objpartner.phone = partner.phone;
-            objpartner.fax = partner.fax;
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(objpartner).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("ContactInformation");
-            }
-
-            return View(partner);
-        }
-
-        public ActionResult ESignature()
-        {
-            if (Session["hs3Registration"] == null)
-            {
-                return RedirectToAction("Index");
-            }
-            eSignature objeSignature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id).FirstOrDefault();
-            return View(objeSignature);
-        }
-
-        [HttpPost]
-        public ActionResult ESignature(eSignature objeSignatureNew)
-        {
-            if (Session["hs3Registration"] == null)
-            {
-                return RedirectToAction("Index");
-            }
-            partnerPartnertypeTouchpointQuestionnaire pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
-            eSignature objeSignature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq.id).FirstOrDefault();
-            if (objeSignature == null)
-            {
-
-                objeSignatureNew.affirmation = "Yes";
-                objeSignatureNew.partnerPartnerTypeTouchpointQuestionnaire = pptq.id;
-                db.Entry(objeSignatureNew).State = EntityState.Added;
-                db.SaveChanges();
+                int site = Convert.ToInt32(Session["site"]);
+                objPartNumberList = db.pr_getPartnumberByPPTQandSite(pptq, site).ToList();
             }
             else
             {
-                objeSignature.firstName = objeSignatureNew.firstName;
-                objeSignature.lastName = objeSignatureNew.lastName;
-                objeSignature.email = objeSignatureNew.email;
-                objeSignature.affirmation = "Yes";
-                db.Entry(objeSignature).State = EntityState.Modified;
-                db.SaveChanges();
+                objPartNumberList = db.pr_getPartnumberByPPTQ(pptq).ToList();
             }
 
-            pptq.completedDate = DateTime.Now;
-            db.Entry(pptq).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Finish");
-        }
 
-        public ActionResult Finish()
-        {
-            if (Session["hs3Registration"] == null)
+            Session["NextPartnumber"] = null;
+            int checkNext = 0;
+            foreach (var item in objPartNumberList)
             {
-                return RedirectToAction("Index");
+                if (checkNext == 1)
+                {
+                    Session["NextPartnumber"] = item.id;
+                    break;
+                }
+                if (item.id == previouspartnumber)
+                {
+                    checkNext = 1;
+                }
             }
-            return View();
         }
 
-
-        /// <summary> 
-        ///This is the method for trialling overrides 
-        /// </summary> 
-        /// <returns></returns> 
-        public ActionResult Submit()
+        public void getSitepoint(int pptqID, int siteId)
         {
-            string response = BreakHereIfYoureInTheArea();
-            return RedirectToAction("Index", "Home", new { Area = "RegistrationArea" });
+            var items = new SelectList(db.pr_getSiteByPPTQ(pptqID), "id", "description", siteId).ToList();
+            items.Insert(0, (new SelectListItem { Text = "All", Value = "0" }));
+            ViewBag.siteSelectList = items;
         }
-
-
-        /// <summary> 
-        ///Note - this is virtual, as we are going to override it in the client
-        ///project. 
-        /// </summary> 
-        /// <returns></returns> 
-        public virtual string BreakHereIfYoureInTheArea()
+        public void getSitepoint(int pptqID)
         {
-            string test = "break here - i am generic.";
-            return test;
+            var items = new SelectList(db.pr_getSiteByPPTQ(pptqID), "id", "description").ToList();
+            items.Insert(0, (new SelectListItem { Text = "All", Value = "0" }));
+            ViewBag.siteSelectList = items;
         }
+
+        public void getPartnumberstatus(int partNumberStatusId)
+        {
+            var items = new SelectList(db.pr_getPartnumberStatusAll(), "id", "description", partNumberStatusId).ToList();
+            items.Insert(0, (new SelectListItem { Text = "All", Value = "0" }));
+            ViewBag.siteSelectList = items;
+        }
+        public void getPartnumberstatus()
+        {
+            var items = new SelectList(db.pr_getPartnumberStatusAll(), "id", "description").ToList();
+            items.Insert(0, (new SelectListItem { Text = "All", Value = "0" }));
+            ViewBag.siteSelectList = items;
+        }
+
+
+        protected void getPartnumberByPartnumberStatusNotstarted(int pptq)
+        {
+            int site = 0;
+            site = Convert.ToInt32(Session["site"]);
+            ViewBag.partNumberSelectList = new SelectList(db.pr_getPartnumberByPPTQSiteAndStatus(pptq,site, Helpers.PartNumberHelper.Status.NOT_STARTED).ToList(), "id", "description");
+            
+        }
+
+        public void getZcodeByProviderProtocolCampaignQuestionnaire()
+        {
+            //int site = Convert.ToInt32(ddlSitepoint.SelectedValue.ToString());
+
+            //int id = (int)Session["questionnaire"];
+           
+            //id = (int)Session["protocol"];
+           
+            //id = (int)Session["campaign"];
+            
+            //id = (int)Session["providerId"];
+           
+           // //db.pr_getPartnumberSiteZcodeByPPTQ
+            //partnumber part = new partnumber();
+
+            //DataTable datatable = new DataTable();
+            //datatable = part.getZcodeByProviderProtocolCampaignQuestionnaire(provider, protocol, campaign, questionnaire);
+            //string labeltext = "";
+            //if (datatable.Rows.Count > 0)
+            //{
+            //    labeltext += "<table cellpadding='2' cellspacing='0' border='1'>";
+            //    labeltext += "<tr><td>Part Number</td><td>Site</td><td>Zcode</td></tr>";
+            //    foreach (DataRow dr in datatable.Rows)
+            //    {
+            //        labeltext += "<tr>";
+            //        labeltext += "<td>" + (dr["partname"].ToString() + "</td><td>" + dr["sitename"].ToString() + "</td><td>" + dr["zcode"].ToString()) + "</td>";
+            //        labeltext += "</tr>";
+            //    }
+            //    labeltext += "</table>";
+            //}
+
+            //lblzcode.Visible = true;
+            //lblzcode.Text = labeltext;
+
+
+        }
+
+       
     }
 }
