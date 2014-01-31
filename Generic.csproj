@@ -2526,6 +2526,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Views\Partner\UploadPartNumber.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\PartNumber\QuestionnaireResponse.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

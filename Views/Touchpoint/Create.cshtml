@@ -26,11 +26,22 @@
     <fieldset>
         <legend>touchpoint</legend>
 
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.protocol)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.protocol)
+            @Html.ValidationMessageFor(model => model.protocol)
+        </div>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.person)
         </div>
         <div class="editor-field">
-            @Html.Action("PersonCombobox", "Touchpoint")
+        @*    @Html.Action("PersonCombobox", "Touchpoint")*@
+
+             @Html.EditorFor(model => model.person)
             @Html.ValidationMessageFor(model => model.person)
         </div>
 
@@ -38,7 +49,7 @@
             @Html.LabelFor(model => model.sponsor)
         </div>
         <div class="editor-field">
-            @Html.Action("PersonCombobox", "Touchpoint")
+          @Html.EditorFor(model => model.sponsor)
             @Html.ValidationMessageFor(model => model.sponsor)
         </div>
 
@@ -46,7 +57,7 @@
             @Html.LabelFor(model => model.admin)
         </div>
         <div class="editor-field">
-            @Html.Action("PersonCombobox", "Touchpoint")
+            @Html.EditorFor(model => model.admin)
             @Html.ValidationMessageFor(model => model.admin)
         </div>
 

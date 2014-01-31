@@ -40,11 +40,11 @@ namespace Generic.Helpers.Utility
             return this.sGetResult(sEmailBody, sender, null, partner, null, null);
         }
 
-        public string sGetEmailBody(string sEmailBody, person sender, partner partner, touchpoint touchpoint)
+        public string sGetEmailBody(string sEmailBody, person sender, partner partner, touchpoint touchpoint, int ptq)
         {
-            return this.sGetResult(sEmailBody, sender, null, partner, null, touchpoint);
+            return this.sGetResult(sEmailBody, sender, null, partner, null, touchpoint, ptq);
         }
-        private string sGetResult(string sEmailBody, person sender, person receiver, partner partner, enterprise enterprise, touchpoint touchpoint)
+        private string sGetResult(string sEmailBody, person sender, person receiver, partner partner, enterprise enterprise, touchpoint touchpoint, int ptq = 0)
         {
             Regex regex = new Regex(@"\[(.*?)\]");
             //comment add sebody
@@ -160,10 +160,10 @@ namespace Generic.Helpers.Utility
                         sValue = this.sGetpartnerHROFax(partner);
                         break;
                     case "[partner Access Code]":
-                        sValue = this.sGetpartnerAccessCode(partner, touchpoint);
+                        sValue = this.sGetpartnerAccessCode(partner, touchpoint,ptq);
                         break;
                     case "[partner Code]":
-                        sValue = this.sGetpartnerAccessCode(partner, touchpoint);
+                        sValue = this.sGetpartnerAccessCode(partner, touchpoint,ptq);
                         sValue = sValue.Substring(1, 4);
                         break;
                     case "[partner Type]":
@@ -514,10 +514,10 @@ namespace Generic.Helpers.Utility
                 return "";
             }
         }
-        private string sGetpartnerAccessCode(partner partner, touchpoint touchpoint)
+        private string sGetpartnerAccessCode(partner partner, touchpoint touchpoint, int ptq)
         {
             EntitiesDBContext db = new EntitiesDBContext();
-            var accesscode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partner.id).FirstOrDefault().accesscode;
+            var accesscode = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partner.id,ptq).FirstOrDefault().accesscode;
             db.Dispose();
             //return partner.getAccessCodeBytouchpointpartner(touchpoint).accessCode;
             return accesscode;

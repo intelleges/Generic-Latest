@@ -23,7 +23,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             int questionnaireId = (int)Session["questionnaire"];
@@ -125,11 +125,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             
            
 
-            int id = (int)Session["protocol"];
+            //int id = (int)Session["protocol"];
             
-            id = (int)Session["campaign"];
+            //id = (int)Session["campaign"];
             
-            id = (int)Session["providerId"];
+            //id = (int)Session["providerId"];
           
        
             //SaveForLater save = new SaveForLater();
@@ -1150,13 +1150,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             var items = new SelectList(db.pr_getPartnumberStatusAll(), "id", "description", partNumberStatusId).ToList();
             items.Insert(0, (new SelectListItem { Text = "All", Value = "0" }));
-            ViewBag.siteSelectList = items;
+            ViewBag.partnumberStatusSelectList = items;
         }
         public void getPartnumberstatus()
         {
             var items = new SelectList(db.pr_getPartnumberStatusAll(), "id", "description").ToList();
             items.Insert(0, (new SelectListItem { Text = "All", Value = "0" }));
-            ViewBag.siteSelectList = items;
+            ViewBag.partnumberStatusSelectList = items;
         }
 
 

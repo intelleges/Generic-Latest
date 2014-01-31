@@ -309,7 +309,7 @@ namespace Generic.Controllers
                     var objtouchpoint = db.pr_getTouchpoint(touchpoint).FirstOrDefault();
                     Email email = new Email(amm);
                     EmailFormat emailFormat = new EmailFormat();
-                    email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint);
+                    email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint,ptq);
                     email.emailTo = objpartner.email;
                     SendEmail objSendEmail = new SendEmail();
                     objSendEmail.sendEmail(email);
@@ -356,7 +356,7 @@ namespace Generic.Controllers
             var objtouchpoint = db.pr_getTouchpoint(objptq.touchpoint).FirstOrDefault();
             Email email = new Email(amm);
             EmailFormat emailFormat = new EmailFormat();
-            email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint);
+            email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint,ptq);
             email.emailTo = objpartner.email;
             SendEmail objSendEmail = new SendEmail();
             objSendEmail.sendEmail(email);

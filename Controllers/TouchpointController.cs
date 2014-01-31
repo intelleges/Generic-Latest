@@ -74,7 +74,7 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
-                touchpoint.protocol = SessionSingleton.ProtocolId;
+            //    touchpoint.protocol = SessionSingleton.ProtocolId;
                 db.touchpoint.Add(touchpoint);
                 db.SaveChanges();
                 return RedirectToAction("Index");

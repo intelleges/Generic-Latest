@@ -100,7 +100,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
             {
-                return RedirectToAction("QuestionnaireResponsePartNumberLevel", "PartNumber");
+                return RedirectToAction("QuestionnaireResponse", "PartNumber");
             }
             else if (objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL)
             {
