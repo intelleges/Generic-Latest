@@ -10,9 +10,8 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class partnumberSiteZcodePPTQQuestionResponse
+    public partial class pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ_Result
     {
         public int id { get; set; }
         public int question { get; set; }
@@ -23,9 +22,11 @@ namespace Generic
         public Nullable<int> value { get; set; }
         public string score { get; set; }
         public int partNumberSiteZcodePPTQ { get; set; }
-    
-        public virtual question question1 { get; set; }
-        public virtual partNumberSiteZcodePPTQ partNumberSiteZcodePPTQ1 { get; set; }
-        public virtual response response1 { get; set; }
+        public int id1 { get; set; }
+        public int partnumber { get; set; }
+        public int site { get; set; }
+        public string zcode { get; set; }
+        public int status { get; set; }
+        public int partnerPartnertypeTouchpointQuestionnaire { get; set; }
     }
 }

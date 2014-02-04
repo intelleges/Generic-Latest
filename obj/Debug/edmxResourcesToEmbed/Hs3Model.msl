@@ -2004,40 +2004,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="response">
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.response">
-        <MappingFragment StoreEntitySet="response">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.response">
-        <ModificationFunctionMapping>
-          <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addResponse">
-            <ScalarProperty Name="enterprise" ParameterName="enterprise" />
-            <ScalarProperty Name="active" ParameterName="active" />
-            <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
-            <ScalarProperty Name="title" ParameterName="title" />
-            <ScalarProperty Name="description" ParameterName="description" />
-            <ResultBinding Name="id" ColumnName="id" />
-          </InsertFunction>
-          <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyResponse">
-            <ScalarProperty Name="active" ParameterName="active" Version="Current" />
-            <ScalarProperty Name="sortOrder" ParameterName="sortOrder" Version="Current" />
-            <ScalarProperty Name="title" ParameterName="title" Version="Current" />
-            <ScalarProperty Name="description" ParameterName="description" Version="Current" />
-            <ScalarProperty Name="id" ParameterName="id" Version="Current" />
-          </UpdateFunction>
-          <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removeResponse">
-            <ScalarProperty Name="id" ParameterName="id" />
-          </DeleteFunction>
-        </ModificationFunctionMapping>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="responseTranslation">
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.responseTranslation">
         <MappingFragment StoreEntitySet="responseTranslation">
@@ -2595,14 +2561,6 @@
       </EndProperty>
       <EndProperty Name="questionnaire">
         <ScalarProperty Name="id" ColumnName="questionnaire" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="responseLanguage" TypeName="hs3MVCMTQa2Model.responseLanguage" StoreEntitySet="responseLanguage">
-      <EndProperty Name="language">
-        <ScalarProperty Name="id" ColumnName="language" />
-      </EndProperty>
-      <EndProperty Name="response">
-        <ScalarProperty Name="id" ColumnName="response" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="surveyQuestion" TypeName="hs3MVCMTQa2Model.surveyQuestion" StoreEntitySet="surveyQuestion">
@@ -3591,5 +3549,28 @@
     <FunctionImportMapping FunctionImportName="pr_removePartnumberStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnumberStatus" />
     <FunctionImportMapping FunctionImportName="pr_unArchivePartnumberStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePartnumberStatus" />
     <FunctionImportMapping FunctionImportName="pr_getPartnumberByPPTQSiteAndStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberByPPTQSiteAndStatus" />
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireInitZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireInitZcode" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ" />
+    <EntitySetMapping Name="response">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.response">
+        <MappingFragment StoreEntitySet="response">
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="responseLanguage" TypeName="hs3MVCMTQa2Model.responseLanguage" StoreEntitySet="responseLanguage">
+      <EndProperty Name="response">
+        <ScalarProperty Name="id" ColumnName="response" />
+      </EndProperty>
+      <EndProperty Name="language">
+        <ScalarProperty Name="id" ColumnName="language" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

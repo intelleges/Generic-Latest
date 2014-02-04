@@ -17,25 +17,25 @@ namespace Generic
         public response()
         {
             this.partnerPartnertypeTouchpointQuestionnaireQuestionResponse = new HashSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>();
+            this.partnumberSiteZcodePPTQQuestionResponse = new HashSet<partnumberSiteZcodePPTQQuestionResponse>();
             this.questionResponse = new HashSet<questionResponse>();
             this.touchpointQuestionResponseValue_deprecated = new HashSet<touchpointQuestionResponseValue_deprecated>();
             this.responseTranslation = new HashSet<responseTranslation>();
             this.language = new HashSet<language>();
-            this.partnumberSiteZcodePPTQQuestionResponse = new HashSet<partnumberSiteZcodePPTQQuestionResponse>();
         }
     
         public int id { get; set; }
         public string description { get; set; }
-        public string title { get; set; }
+        public string zcode { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<bool> active { get; set; }
         public Nullable<int> enterprise { get; set; }
     
         public virtual ICollection<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponse { get; set; }
+        public virtual ICollection<partnumberSiteZcodePPTQQuestionResponse> partnumberSiteZcodePPTQQuestionResponse { get; set; }
         public virtual ICollection<questionResponse> questionResponse { get; set; }
         public virtual ICollection<touchpointQuestionResponseValue_deprecated> touchpointQuestionResponseValue_deprecated { get; set; }
         public virtual ICollection<responseTranslation> responseTranslation { get; set; }
         public virtual ICollection<language> language { get; set; }
-        public virtual ICollection<partnumberSiteZcodePPTQQuestionResponse> partnumberSiteZcodePPTQQuestionResponse { get; set; }
     }
 }

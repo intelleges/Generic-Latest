@@ -27,7 +27,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public virtual ActionResult Index(string accessCode)
         {
             var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-            if (ppptq.accesscode != null)
+            if (ppptq != null)
             {
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 var touchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();

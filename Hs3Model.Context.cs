@@ -103,7 +103,6 @@ namespace Generic
         public DbSet<questionTranslation> questionTranslation { get; set; }
         public DbSet<rating> rating { get; set; }
         public DbSet<ratingType> ratingType { get; set; }
-        public DbSet<response> response { get; set; }
         public DbSet<responseTranslation> responseTranslation { get; set; }
         public DbSet<responseType> responseType { get; set; }
         public DbSet<riskType> riskType { get; set; }
@@ -137,6 +136,7 @@ namespace Generic
         public DbSet<questionnaireQuestionnaireCMS> questionnaireQuestionnaireCMS { get; set; }
         public DbSet<partNumberSiteZcodePPTQ> partNumberSiteZcodePPTQSet { get; set; }
         public DbSet<partnumberStatus> partnumberStatus { get; set; }
+        public DbSet<response> response { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -1739,15 +1739,15 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addRatingType", descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addResponse(string description, string title, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        public virtual ObjectResult<Nullable<decimal>> pr_addResponse(string description, string zcode, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
     
-            var titleParameter = title != null ?
-                new ObjectParameter("title", title) :
-                new ObjectParameter("title", typeof(string));
+            var zcodeParameter = zcode != null ?
+                new ObjectParameter("zcode", zcode) :
+                new ObjectParameter("zcode", typeof(string));
     
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
@@ -1761,7 +1761,7 @@ namespace Generic
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addResponse", descriptionParameter, titleParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addResponse", descriptionParameter, zcodeParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
     
         public virtual int pr_addResponseLanguage(Nullable<int> response, Nullable<int> language)
@@ -4620,22 +4620,14 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponse", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<response> pr_getResponseAll(Nullable<int> enterprise)
+        public virtual ObjectResult<response> pr_getResponseAll()
         {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseAll", enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseAll");
         }
     
-        public virtual ObjectResult<response> pr_getResponseAll(Nullable<int> enterprise, MergeOption mergeOption)
+        public virtual ObjectResult<response> pr_getResponseAll(MergeOption mergeOption)
         {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseAll", mergeOption, enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseAll", mergeOption);
         }
     
         public virtual ObjectResult<response> pr_getResponseByLanguage(Nullable<int> language)
@@ -7004,7 +6996,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyRatingType", idParameter, descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
     
-        public virtual int pr_modifyResponse(Nullable<int> id, string description, string title, Nullable<int> sortOrder, Nullable<bool> active)
+        public virtual int pr_modifyResponse(Nullable<int> id, string description, string zcode, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -7014,9 +7006,9 @@ namespace Generic
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
     
-            var titleParameter = title != null ?
-                new ObjectParameter("title", title) :
-                new ObjectParameter("title", typeof(string));
+            var zcodeParameter = zcode != null ?
+                new ObjectParameter("zcode", zcode) :
+                new ObjectParameter("zcode", typeof(string));
     
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
@@ -7026,7 +7018,11 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyResponse", idParameter, descriptionParameter, titleParameter, sortOrderParameter, activeParameter);
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyResponse", idParameter, descriptionParameter, zcodeParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
     
         public virtual int pr_modifyResponseType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
@@ -10083,6 +10079,75 @@ namespace Generic
                 new ObjectParameter("status", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberByPPTQSiteAndStatus", mergeOption, partnerPartnertypeTouchpointQuestionnaireParameter, siteParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<string> pr_getQuestionnaireInitZcode(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getQuestionnaireInitZcode", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<partnumberSiteZcodePPTQQuestionResponse> pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ(Nullable<int> question, Nullable<int> pptq)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQQuestionResponse>("pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ", questionParameter, pptqParameter);
+        }
+    
+        public virtual ObjectResult<partnumberSiteZcodePPTQQuestionResponse> pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ(Nullable<int> question, Nullable<int> pptq, MergeOption mergeOption)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQQuestionResponse>("pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ", mergeOption, questionParameter, pptqParameter);
+        }
+    
+        public virtual ObjectResult<partNumberSiteZcodePPTQ> pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(Nullable<int> partnumber, Nullable<int> site, Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        {
+            var partnumberParameter = partnumber.HasValue ?
+                new ObjectParameter("partnumber", partnumber) :
+                new ObjectParameter("partnumber", typeof(int));
+    
+            var siteParameter = site.HasValue ?
+                new ObjectParameter("site", site) :
+                new ObjectParameter("site", typeof(int));
+    
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partNumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ", partnumberParameter, siteParameter, partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<partNumberSiteZcodePPTQ> pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(Nullable<int> partnumber, Nullable<int> site, Nullable<int> partnerPartnertypeTouchpointQuestionnaire, MergeOption mergeOption)
+        {
+            var partnumberParameter = partnumber.HasValue ?
+                new ObjectParameter("partnumber", partnumber) :
+                new ObjectParameter("partnumber", typeof(int));
+    
+            var siteParameter = site.HasValue ?
+                new ObjectParameter("site", site) :
+                new ObjectParameter("site", typeof(int));
+    
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partNumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ", mergeOption, partnumberParameter, siteParameter, partnerPartnertypeTouchpointQuestionnaireParameter);
         }
     }
 }

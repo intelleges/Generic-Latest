@@ -1708,7 +1708,7 @@
     </Key>
     <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="description" Type="varchar" Nullable="false" MaxLength="2000" />
-    <Property Name="title" Type="varchar" MaxLength="80" />
+    <Property Name="zcode" Type="varchar" MaxLength="2" />
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
     <Property Name="enterprise" Type="int" />
@@ -3793,7 +3793,7 @@
   </Function>
   <Function Name="pr_addResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="description" Type="varchar" Mode="In" />
-    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="zcode" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -4331,6 +4331,11 @@
   <Function Name="pr_getPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partnumber" Type="int" Mode="In" />
+    <Parameter Name="site" Type="int" Mode="In" />
+    <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getPartnumberSiteZcodePPTQByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
   </Function>
@@ -4339,6 +4344,10 @@
   </Function>
   <Function Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="PartnumberSiteZcodePPTQ" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="pptq" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getPartnumberStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -4507,6 +4516,9 @@
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getQuestionnaireCMSAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getQuestionnaireInitZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getQuestionnaireLevelType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
@@ -4531,9 +4543,7 @@
   <Function Name="pr_getResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_getResponseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="enterprise" Type="int" Mode="In" />
-  </Function>
+  <Function Name="pr_getResponseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="pr_getResponseByLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="language" Type="int" Mode="In" />
   </Function>
@@ -5186,9 +5196,10 @@
   <Function Name="pr_modifyResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="description" Type="varchar" Mode="In" />
-    <Parameter Name="title" Type="varchar" Mode="In" />
+    <Parameter Name="zcode" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
+    <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_modifyResponseType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
@@ -5737,4 +5748,21 @@
   <Function Name="xx_getTelerikBoundColumnSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="tablename" Type="varchar" Mode="In" />
   </Function>
+  <!--Errors Found During Generation:
+      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerConfirm' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="partnerConfirm">
+        <Property Name="loadhistory" Type="int" />
+        <Property Name="partner" Type="int" />
+        <Property Name="group" Type="int" />
+      </EntityType>
+      Errors Found During Generation:
+      warning 6013: The table/view 'hs3MVCMTQa2.dbo.queryField' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="queryField">
+        <Property Name="query" Type="int" />
+        <Property Name="field" Type="varchar" MaxLength="100" />
+        <Property Name="criteria" Type="varchar" MaxLength="100" />
+        <Property Name="isText" Type="int" />
+      </EntityType>-->
 </Schema>

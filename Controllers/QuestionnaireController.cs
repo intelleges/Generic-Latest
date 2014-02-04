@@ -257,7 +257,7 @@ namespace Generic.Controllers
                             objResponse.active = true;
                             objResponse.description = sArray[i];
                             objResponse.enterprise = EnterpriseID;
-                            objResponse.title = string.Empty;
+                          
                             objResponse.sortOrder = 1;
                             db.response.Add(objResponse);
                             db.SaveChanges();

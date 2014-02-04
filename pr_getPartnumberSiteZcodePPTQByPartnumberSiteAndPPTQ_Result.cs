@@ -10,16 +10,14 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class touchpointQuestionResponseValue_deprecated
+    public partial class pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ_Result
     {
-        public int touchpoint { get; set; }
-        public int question { get; set; }
-        public int response { get; set; }
-        public int value { get; set; }
-    
-        public virtual touchpoint touchpoint1 { get; set; }
-        public virtual response response1 { get; set; }
+        public int id { get; set; }
+        public int partnumber { get; set; }
+        public int site { get; set; }
+        public string zcode { get; set; }
+        public int status { get; set; }
+        public int partnerPartnertypeTouchpointQuestionnaire { get; set; }
     }
 }

@@ -2,10 +2,18 @@
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
+@using System.Web.Optimization;
 @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Upload Part Number";
 }
+
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/themes/base/css")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryui")
+
 
 @section Scripts {
     <script>
@@ -53,6 +61,39 @@
                 $('#uploadDiv').show();
                 $('#uploadButtonDiv').show();
             });
+
+
+            if ("@ViewBag.Message" == "1") {
+
+                $('#btnInvite').show();
+                $('#btnInvitelater').show();
+
+                alertify.alert('Partner uploaded successfully');
+            }
+
+            if ("@ViewBag.Message" == "2") {
+                alertify.alert('Invitation Sent');
+            }
+
+            $('#btnInvite').click(function (e) {
+                e.preventDefault();
+
+
+                $.ajax({
+                    url: "@Url.Content("~/partner/InvitePartners")",
+                    type: "post",
+                    success: function (data) {
+
+
+                    },
+                    error: function (data) {
+
+                    }
+                });
+
+
+            });
+
 
 
             //$('#UploadPartNumberForm').submit(function (e) {
@@ -114,7 +155,7 @@
             @Html.DropDownList("partnertype", String.Empty)
         </div>
     </div>
-   
+
     <div id="uploadDiv" style="display: none">
         <div class="editor-label">
             5. Please select an Excel file containing the questionnaire information. Click here if you need to download the template.
@@ -122,7 +163,7 @@
         <div class="editor-field">
             @(Html.Telerik().Upload()
         .Name("uploadPartNumber")
-        .Multiple(false)        
+        .Multiple(false)
 )
 
             <p class="note">
@@ -134,5 +175,9 @@
     </div>
     <p id="uploadButtonDiv" style="display: none">
         <input type="submit" id="btnUpload" value="Upload" />
+    </p>
+    <p>
+        <input type="submit" name="button" id="btnInvite" style="display: none" value="Send invites now" />
+        <input type="submit" name="button" id="btnInvitelater" style="display: none" onclick="return false;" value="Invite Later" />
     </p>
 </form>

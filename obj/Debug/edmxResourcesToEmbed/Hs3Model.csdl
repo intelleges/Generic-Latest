@@ -76,7 +76,6 @@
     <EntitySet Name="questionTranslation" EntityType="hs3MVCMTQa2Model.questionTranslation" />
     <EntitySet Name="rating" EntityType="hs3MVCMTQa2Model.rating" />
     <EntitySet Name="ratingType" EntityType="hs3MVCMTQa2Model.ratingType" />
-    <EntitySet Name="response" EntityType="hs3MVCMTQa2Model.response" />
     <EntitySet Name="responseTranslation" EntityType="hs3MVCMTQa2Model.responseTranslation" />
     <EntitySet Name="responseType" EntityType="hs3MVCMTQa2Model.responseType" />
     <EntitySet Name="riskType" EntityType="hs3MVCMTQa2Model.riskType" />
@@ -258,10 +257,6 @@
       <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
       <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
     </AssociationSet>
-    <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response" Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response">
-      <End Role="response" EntitySet="response" />
-      <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
-    </AssociationSet>
     <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_partnerType" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType">
       <End Role="partnerType" EntitySet="partnerType" />
       <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
@@ -342,18 +337,6 @@
       <End Role="question" EntitySet="question" />
       <End Role="questionTranslation" EntitySet="questionTranslation" />
     </AssociationSet>
-    <AssociationSet Name="FK_questionResponse_response" Association="hs3MVCMTQa2Model.FK_questionResponse_response">
-      <End Role="response" EntitySet="response" />
-      <End Role="questionResponse" EntitySet="questionResponse" />
-    </AssociationSet>
-    <AssociationSet Name="FK_protocolTouchpointQuestionResponseValue_response" Association="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response">
-      <End Role="response" EntitySet="response" />
-      <End Role="touchpointQuestionResponseValue_deprecated" EntitySet="touchpointQuestionResponseValue_deprecated" />
-    </AssociationSet>
-    <AssociationSet Name="FK_responseTranslation_response" Association="hs3MVCMTQa2Model.FK_responseTranslation_response">
-      <End Role="response" EntitySet="response" />
-      <End Role="responseTranslation" EntitySet="responseTranslation" />
-    </AssociationSet>
     <AssociationSet Name="FK_roleMenu_role" Association="hs3MVCMTQa2Model.FK_roleMenu_role">
       <End Role="role" EntitySet="role" />
       <End Role="roleMenu" EntitySet="roleMenu" />
@@ -401,10 +384,6 @@
     <AssociationSet Name="questionnairePage" Association="hs3MVCMTQa2Model.questionnairePage">
       <End Role="page" EntitySet="page" />
       <End Role="questionnaire" EntitySet="questionnaire" />
-    </AssociationSet>
-    <AssociationSet Name="responseLanguage" Association="hs3MVCMTQa2Model.responseLanguage">
-      <End Role="language" EntitySet="language" />
-      <End Role="response" EntitySet="response" />
     </AssociationSet>
     <AssociationSet Name="surveyQuestion" Association="hs3MVCMTQa2Model.surveyQuestion">
       <End Role="question" EntitySet="question" />
@@ -857,7 +836,7 @@
     </FunctionImport>
     <FunctionImport Name="pr_addResponse" ReturnType="Collection(Decimal)">
       <Parameter Name="description" Mode="In" Type="String" />
-      <Parameter Name="title" Mode="In" Type="String" />
+      <Parameter Name="zcode" Mode="In" Type="String" />
       <Parameter Name="sortOrder" Mode="In" Type="Int32" />
       <Parameter Name="active" Mode="In" Type="Boolean" />
       <Parameter Name="enterprise" Mode="In" Type="Int32" />
@@ -1465,9 +1444,7 @@
     <FunctionImport Name="pr_getResponse" EntitySet="response" ReturnType="Collection(hs3MVCMTQa2Model.response)">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_getResponseAll" EntitySet="response" ReturnType="Collection(hs3MVCMTQa2Model.response)">
-      <Parameter Name="enterprise" Mode="In" Type="Int32" />
-    </FunctionImport>
+    <FunctionImport Name="pr_getResponseAll" EntitySet="response" ReturnType="Collection(hs3MVCMTQa2Model.response)" />
     <FunctionImport Name="pr_getResponseByLanguage" EntitySet="response" ReturnType="Collection(hs3MVCMTQa2Model.response)">
       <Parameter Name="language" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -2048,9 +2025,10 @@
     <FunctionImport Name="pr_modifyResponse">
       <Parameter Name="id" Mode="In" Type="Int32" />
       <Parameter Name="description" Mode="In" Type="String" />
-      <Parameter Name="title" Mode="In" Type="String" />
+      <Parameter Name="zcode" Mode="In" Type="String" />
       <Parameter Name="sortOrder" Mode="In" Type="Int32" />
       <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_modifyResponseType">
       <Parameter Name="id" Mode="In" Type="Int32" />
@@ -2655,10 +2633,6 @@
       <End Role="question" EntitySet="question" />
       <End Role="partnumberSiteZcodePPTQQuestionResponse" EntitySet="partnumberSiteZcodePPTQQuestionResponse" />
     </AssociationSet>
-    <AssociationSet Name="FK_partnumberSiteZcodePPTQQuestionResponse_response" Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response">
-      <End Role="response" EntitySet="response" />
-      <End Role="partnumberSiteZcodePPTQQuestionResponse" EntitySet="partnumberSiteZcodePPTQQuestionResponse" />
-    </AssociationSet>
     <AssociationSet Name="FK_questionnaire_questionnaireLevelType" Association="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType">
       <End Role="questionnaireLevelType" EntitySet="questionnaireLevelType" />
       <End Role="questionnaire" EntitySet="questionnaire" />
@@ -2954,6 +2928,43 @@
       <Parameter Name="site" Mode="In" Type="Int32" />
       <Parameter Name="status" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="pr_getQuestionnaireInitZcode" ReturnType="Collection(String)">
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ" EntitySet="partnumberSiteZcodePPTQQuestionResponse" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse)">
+      <Parameter Name="question" Mode="In" Type="Int32" />
+      <Parameter Name="pptq" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ" EntitySet="partNumberSiteZcodePPTQSet" ReturnType="Collection(hs3MVCMTQa2Model.partNumberSiteZcodePPTQ)">
+      <Parameter Name="partnumber" Mode="In" Type="Int32" />
+      <Parameter Name="site" Mode="In" Type="Int32" />
+      <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="response" EntityType="hs3MVCMTQa2Model.response" />
+    <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response" Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_partnumberSiteZcodePPTQQuestionResponse_response" Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="partnumberSiteZcodePPTQQuestionResponse" EntitySet="partnumberSiteZcodePPTQQuestionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_questionResponse_response" Association="hs3MVCMTQa2Model.FK_questionResponse_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="questionResponse" EntitySet="questionResponse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_protocolTouchpointQuestionResponseValue_response" Association="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="touchpointQuestionResponseValue_deprecated" EntitySet="touchpointQuestionResponseValue_deprecated" />
+    </AssociationSet>
+    <AssociationSet Name="FK_responseTranslation_response" Association="hs3MVCMTQa2Model.FK_responseTranslation_response">
+      <End Role="response" EntitySet="response" />
+      <End Role="responseTranslation" EntitySet="responseTranslation" />
+    </AssociationSet>
+    <AssociationSet Name="responseLanguage" Association="hs3MVCMTQa2Model.responseLanguage">
+      <End Role="language" EntitySet="language" />
+      <End Role="response" EntitySet="response" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="accessLevel">
     <Key>
@@ -3532,8 +3543,8 @@
     <Property Name="score" Type="Int32" />
     <Property Name="partnerPartnerTypeTouchpointQuestionnaire" Type="Int32" />
     <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaire1" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" FromRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" ToRole="partnerPartnertypeTouchpointQuestionnaire" />
-    <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" ToRole="response" />
     <Property Type="String" Name="uploadedFileType" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" ToRole="response" />
   </EntityType>
   <EntityType Name="partnerReference">
     <Key>
@@ -4081,23 +4092,6 @@
     <Property Name="active" Type="Boolean" />
     <Property Name="enterprise" Type="Int32" />
   </EntityType>
-  <EntityType Name="response">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="String" Nullable="false" MaxLength="2000" Unicode="false" FixedLength="false" />
-    <Property Name="title" Type="String" MaxLength="80" Unicode="false" FixedLength="false" />
-    <Property Name="sortOrder" Type="Int32" />
-    <Property Name="active" Type="Boolean" />
-    <Property Name="enterprise" Type="Int32" />
-    <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="response" ToRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
-    <NavigationProperty Name="questionResponse" Relationship="hs3MVCMTQa2Model.FK_questionResponse_response" FromRole="response" ToRole="questionResponse" />
-    <NavigationProperty Name="touchpointQuestionResponseValue_deprecated" Relationship="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" FromRole="response" ToRole="touchpointQuestionResponseValue_deprecated" />
-    <NavigationProperty Name="responseTranslation" Relationship="hs3MVCMTQa2Model.FK_responseTranslation_response" FromRole="response" ToRole="responseTranslation" />
-    <NavigationProperty Name="language" Relationship="hs3MVCMTQa2Model.responseLanguage" FromRole="response" ToRole="language" />
-    <NavigationProperty Name="partnumberSiteZcodePPTQQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" FromRole="response" ToRole="partnumberSiteZcodePPTQQuestionResponse" />
-  </EntityType>
   <EntityType Name="responseTranslation">
     <Key>
       <PropertyRef Name="response" />
@@ -4354,8 +4348,8 @@
     <Property Name="question" Type="Int32" Nullable="false" />
     <Property Name="response" Type="Int32" Nullable="false" />
     <Property Name="value" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" FromRole="touchpointQuestionResponseValue_deprecated" ToRole="response" />
     <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionResponseValue_touchpoint" FromRole="touchpointQuestionResponseValue_deprecated" ToRole="touchpoint" />
+    <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" FromRole="touchpointQuestionResponseValue_deprecated" ToRole="response" />
   </EntityType>
   <EntityType Name="touchpointQuestionWeight_deprecated">
     <Key>
@@ -4882,18 +4876,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response">
-    <End Role="response" Type="hs3MVCMTQa2Model.response" Multiplicity="0..1" />
-    <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="response">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
-        <PropertyRef Name="response" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_touchpointPartnerTypeQuestionnaire_partnerType">
     <End Role="partnerType" Type="hs3MVCMTQa2Model.partnerType" Multiplicity="1" />
     <End Role="partnerTypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
@@ -5134,42 +5116,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_questionResponse_response">
-    <End Role="response" Type="hs3MVCMTQa2Model.response" Multiplicity="1" />
-    <End Role="questionResponse" Type="hs3MVCMTQa2Model.questionResponse" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="response">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="questionResponse">
-        <PropertyRef Name="response" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_protocolTouchpointQuestionResponseValue_response">
-    <End Role="response" Type="hs3MVCMTQa2Model.response" Multiplicity="1" />
-    <End Role="touchpointQuestionResponseValue_deprecated" Type="hs3MVCMTQa2Model.touchpointQuestionResponseValue_deprecated" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="response">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="touchpointQuestionResponseValue_deprecated">
-        <PropertyRef Name="response" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_responseTranslation_response">
-    <End Role="response" Type="hs3MVCMTQa2Model.response" Multiplicity="1" />
-    <End Role="responseTranslation" Type="hs3MVCMTQa2Model.responseTranslation" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="response">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="responseTranslation">
-        <PropertyRef Name="response" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_roleMenu_role">
     <End Role="role" Type="hs3MVCMTQa2Model.role" Multiplicity="1" />
     <End Role="roleMenu" Type="hs3MVCMTQa2Model.roleMenu" Multiplicity="*" />
@@ -5273,10 +5219,6 @@
   <Association Name="questionnairePage">
     <End Role="page" Type="hs3MVCMTQa2Model.page" Multiplicity="*" />
     <End Role="questionnaire" Type="hs3MVCMTQa2Model.questionnaire" Multiplicity="*" />
-  </Association>
-  <Association Name="responseLanguage">
-    <End Role="language" Type="hs3MVCMTQa2Model.language" Multiplicity="*" />
-    <End Role="response" Type="hs3MVCMTQa2Model.response" Multiplicity="*" />
   </Association>
   <Association Name="surveyQuestion">
     <End Role="question" Type="hs3MVCMTQa2Model.question" Multiplicity="*" />
@@ -7446,8 +7388,8 @@
     <Property Type="String" Name="score" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Type="Int32" Name="partNumberSiteZcodePPTQ" Nullable="false" />
     <NavigationProperty Name="question1" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_question" FromRole="partnumberSiteZcodePPTQQuestionResponse" ToRole="question" />
-    <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" FromRole="partnumberSiteZcodePPTQQuestionResponse" ToRole="response" />
     <NavigationProperty Name="partNumberSiteZcodePPTQ1" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ1" FromRole="partnumberSiteZcodePPTQQuestionResponse" ToRole="partNumberSiteZcodePPTQ1" />
+    <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" FromRole="partnumberSiteZcodePPTQQuestionResponse" ToRole="response" />
   </EntityType>
   <EntityType Name="questionnaireLevelType">
     <Key>
@@ -7507,18 +7449,6 @@
       </Principal>
       <Dependent Role="partnumberSiteZcodePPTQQuestionResponse">
         <PropertyRef Name="question" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_partnumberSiteZcodePPTQQuestionResponse_response">
-    <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="1" />
-    <End Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Role="partnumberSiteZcodePPTQQuestionResponse" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="response">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="partnumberSiteZcodePPTQQuestionResponse">
-        <PropertyRef Name="response" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -7914,4 +7844,110 @@
     <Property Type="Boolean" Name="active" Nullable="false" />
     <Property Type="Int32" Name="partner" Nullable="false" />
   </ComplexType>
+  <ComplexType Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="question" Nullable="false" />
+    <Property Type="Int32" Name="response" Nullable="false" />
+    <Property Type="String" Name="comment" Nullable="true" />
+    <Property Type="Binary" Name="uploadedFile" Nullable="true" />
+    <Property Type="String" Name="uploadedFileType" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="value" Nullable="true" />
+    <Property Type="String" Name="score" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="partNumberSiteZcodePPTQ" Nullable="false" />
+    <Property Type="Int32" Name="id1" Nullable="false" />
+    <Property Type="Int32" Name="partnumber" Nullable="false" />
+    <Property Type="Int32" Name="site" Nullable="false" />
+    <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="status" Nullable="false" />
+    <Property Type="Int32" Name="partnerPartnertypeTouchpointQuestionnaire" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="partnumber" Nullable="false" />
+    <Property Type="Int32" Name="site" Nullable="false" />
+    <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="status" Nullable="false" />
+    <Property Type="Int32" Name="partnerPartnertypeTouchpointQuestionnaire" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="response">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="zcode" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Boolean" Name="active" />
+    <Property Type="Int32" Name="enterprise" />
+    <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="response" ToRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
+    <NavigationProperty Name="partnumberSiteZcodePPTQQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" FromRole="response" ToRole="partnumberSiteZcodePPTQQuestionResponse" />
+    <NavigationProperty Name="questionResponse" Relationship="hs3MVCMTQa2Model.FK_questionResponse_response" FromRole="response" ToRole="questionResponse" />
+    <NavigationProperty Name="touchpointQuestionResponseValue_deprecated" Relationship="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" FromRole="response" ToRole="touchpointQuestionResponseValue_deprecated" />
+    <NavigationProperty Name="responseTranslation" Relationship="hs3MVCMTQa2Model.FK_responseTranslation_response" FromRole="response" ToRole="responseTranslation" />
+    <NavigationProperty Name="language" Relationship="hs3MVCMTQa2Model.responseLanguage" FromRole="response" ToRole="language" />
+  </EntityType>
+  <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response">
+    <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="0..1" />
+    <End Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="response">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
+        <PropertyRef Name="response" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_partnumberSiteZcodePPTQQuestionResponse_response">
+    <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="1" />
+    <End Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Role="partnumberSiteZcodePPTQQuestionResponse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="response">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="partnumberSiteZcodePPTQQuestionResponse">
+        <PropertyRef Name="response" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_questionResponse_response">
+    <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="1" />
+    <End Type="hs3MVCMTQa2Model.questionResponse" Role="questionResponse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="response">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="questionResponse">
+        <PropertyRef Name="response" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_protocolTouchpointQuestionResponseValue_response">
+    <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="1" />
+    <End Type="hs3MVCMTQa2Model.touchpointQuestionResponseValue_deprecated" Role="touchpointQuestionResponseValue_deprecated" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="response">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="touchpointQuestionResponseValue_deprecated">
+        <PropertyRef Name="response" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_responseTranslation_response">
+    <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="1" />
+    <End Type="hs3MVCMTQa2Model.responseTranslation" Role="responseTranslation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="response">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="responseTranslation">
+        <PropertyRef Name="response" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="responseLanguage">
+    <End Type="hs3MVCMTQa2Model.language" Role="language" Multiplicity="*" />
+    <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="*" />
+  </Association>
 </Schema>

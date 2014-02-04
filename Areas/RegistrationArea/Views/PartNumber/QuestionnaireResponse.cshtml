@@ -8,6 +8,125 @@
 }
 
 <script type="text/javascript" src="@Url.Content("~/contents/js/animatedcollapse.js")"></script>
+
+
+
+
+<script>
+    jQuery.noConflict();
+    jQuery(document).ready(function () {
+
+       
+        $('.dropdownchange').change(function () {
+            var objpartNumberID = $('#partNumberSelectList').val();
+            var objsiteID = $('#siteSelectList').val();
+            var objpartnumberStatusID = $('#partnumberStatusSelectList').val();
+            var formData = { partNumberID: objpartNumberID, siteID: objsiteID, partnumberStatusID: objpartnumberStatusID };
+
+            if (objpartnumberStatusID == "") {
+                var partNumberSelectList = "<option value=''></option>";
+                $('#partNumberSelectList').html(partNumberSelectList);
+                return;
+            }
+
+            $.ajax({
+                url: "@Url.Content("~/Registration/PartNumber/GetPartNumberByDropdown")",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    var len = data.Data.length;
+                    var i = 0;
+                    var partNumberSelectList = "<option value=''></option>";
+                    for (i = 0; i < len; i++) {
+                        partNumberSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
+                    }
+
+                    $('#partNumberSelectList').html(partNumberSelectList);
+
+
+                },
+                error: function (data) {
+                    var partNumberSelectList = "<option value=''></option>";
+                    $('#partNumberSelectList').html(partNumberSelectList);
+                }
+            });
+
+
+        });
+
+
+
+
+        $('#partNumberSelectList').change(function () {
+
+            var objsiteID = $('#siteSelectList').val();
+            var objpartnumberStatusID = $('#partnumberStatusSelectList').val();
+            var objpartNumberID = $('#partNumberSelectList').val();
+           // var formData = { partNumberSelectList: objpartNumberID, siteSelectList: objsiteID, partnumberStatusSelectList: objpartnumberStatusID };
+
+            if (objpartnumberStatusID == "") {
+                var partNumberSelectList1 = "<option value=''></option>";
+                $('#partNumberSelectList').html(partNumberSelectList1);
+                return;
+            }
+            var form = $('<form method="post" action="@Url.Content("~/Registration/PartNumber/GetQuestionnaire")">' +
+             '<input type="hidden" name="partNumberSelectList" value="' + objpartNumberID + '"><input type="hidden" name="siteSelectList" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusSelectList" value="' + objpartnumberStatusID + '"></form>');
+            $(form).submit();
+
+            @*$.post({
+                url: "@Url.Content("~/Registration/PartNumber/GetQuestionnaire")",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    //var len = data.Data.length;
+                    //var i = 0;
+                    //var partNumberSelectList = "<option value=''></option>";
+                    //for (i = 0; i < len; i++) {
+                    //    partNumberSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
+                    //}
+
+                    //$('#partNumberSelectList').html(partNumberSelectList);
+
+
+                },
+                error: function (data) {
+                    // var partNumberSelectList = "<option value=''></option>";
+                    //  $('#partNumberSelectList').html(partNumberSelectList);
+                }
+            });*@
+
+            @*$.ajax({
+                url: "@Url.Content("~/Registration/PartNumber/GetQuestionnaire")",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    //var len = data.Data.length;
+                    //var i = 0;
+                    //var partNumberSelectList = "<option value=''></option>";
+                    //for (i = 0; i < len; i++) {
+                    //    partNumberSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
+                    //}
+
+                    //$('#partNumberSelectList').html(partNumberSelectList);
+
+
+                },
+                error: function (data) {
+                    // var partNumberSelectList = "<option value=''></option>";
+                    //  $('#partNumberSelectList').html(partNumberSelectList);
+                }
+            });*@
+
+
+         });
+
+      
+
+    });
+</script>
+
+
+
 <script type="text/javascript">
 
     function showdiv(sender) {
@@ -237,250 +356,247 @@
 </script>
 
 @section Bottom{
- <div class="banner1">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="float:left;margin-top:-44px">
-                <tr>
-                    <td width="20%" align="right">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tr>                                
-                                <td width="22%" valign="top">
-                                    <ul id="qm0" class="qmmc">
-                                        <li><a class="qmparent" href=""></a></li>
-                                        <li><a class="qmparent" id="contactUS">Contact Us</a></li>
-                                        <!--<li><a class="qmparent" href="Partner faq.pdf" target="_blank">FAQ</a></li> -->
-                                        <li><a class="qmparent" href="BAA_Frequently Asked Questions.pdf" target="_blank">FAQ</a></li>
-                                        <li><a class="qmparent" href="baaQuestionnaire.pdf" target="_blank">Questionnaire
+    <div class="banner1">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="float: left; margin-top: -44px">
+            <tr>
+                <td width="20%" align="right">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="22%" valign="top">
+                                <ul id="qm0" class="qmmc">
+                                    <li><a class="qmparent" href=""></a></li>
+                                    <li><a class="qmparent" id="contactUS">Contact Us</a></li>
+                                    <!--<li><a class="qmparent" href="Partner faq.pdf" target="_blank">FAQ</a></li> -->
+                                    <li><a class="qmparent" href="BAA_Frequently Asked Questions.pdf" target="_blank">FAQ</a></li>
+                                    <li><a class="qmparent" href="baaQuestionnaire.pdf" target="_blank">Questionnaire
                                             (PDF)</a> </li>
-                                        <li class="qmclear">&nbsp;</li>
-                                    </ul>
-                                    <!-- Create Menu Settings: (Menu ID, Is Vertical, Show Timer, Hide Timer, On Click (options: 'all' * 'all-always-open' * 'main' * 'lev2'), Right to Left, Horizontal Subs, Flush Left, Flush Top) -->
+                                    <li class="qmclear">&nbsp;</li>
+                                </ul>
+                                <!-- Create Menu Settings: (Menu ID, Is Vertical, Show Timer, Hide Timer, On Click (options: 'all' * 'all-always-open' * 'main' * 'lev2'), Right to Left, Horizontal Subs, Flush Left, Flush Top) -->
 
-                                    <script type="text/javascript">                                        qm_create(0, false, 0, 500, false, false, false, false, false);</script>
+                                <script type="text/javascript">                                        qm_create(0, false, 0, 500, false, false, false, false, false);</script>
 
-                                </td>
-                                <td width="20%" align="right" valign="top">
-                                    
-                                    
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </div>    
-}   
+                            </td>
+                            <td width="20%" align="right" valign="top"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+}
 
 @section Top{
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td height="77" valign="top">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                        <td height="77" valign="top">
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <td width="76%" align="right" valign="top" class="supplytitleblueone">
+                            <span id="ctl00_lblSurvey">Trial Registration for Conflict Minerals</span>
+                        </td>
+                        <td width="13%" height="106" valign="bottom">
+                            <img src="~/Contents/images/tickmark.gif" alt="" width="95" height="89" class="surveyban" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+        </tr>
+        <tr>
+            <td height="119" valign="top">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td valign="top">
+                            <table width="400" border="0" align="center" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <td width="76%" align="right" valign="top" class="supplytitleblueone">
-                                        <span id="ctl00_lblSurvey"> Trial Registration for Conflict Minerals</span>
+                                    <td class="supplyleft">&nbsp;
                                     </td>
-                                    <td width="13%" height="106" valign="bottom">
-                                        <img src="~/Contents/images/tickmark.gif"  alt="" width="95" height="89" class="surveyban" />
+                                </tr>
+                                <tr>
+                                    <!-- <td class="supplyleft">
+                                                    Honeywell Site Security Survey is designed to capture information about your site’s
+                                                    practices pertaining to safeguarding the supply chain.
+                                                </td>-->
+                                    <td class="supplyleft">
+
+                                        <div id="ctl00_RegistrationPageText">Intelleges <b>3TG/Conflict Minerals Readiness Questionnaire</b> is designed to capture information about your company's readiness pertaining to compliance with SEC Dodd-Frank Section 1502 Conflict Minerals rule.</div>
+
+
                                     </td>
                                 </tr>
                             </table>
                         </td>
-                        
-                    </tr>
-                    <tr>
-                        <td height="119" valign="top">
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <td valign="top">
+
+                            <table width="400" border="0" align="center" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <td valign="top">
-                                        <table width="400" border="0" align="center" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td class="supplyleft">
-                                                    &nbsp;
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                              <!-- <td class="supplyleft">
-                                                    Honeywell Site Security Survey is designed to capture information about your site’s
-                                                    practices pertaining to safeguarding the supply chain.
-                                                </td>-->
-                                                <td class="supplyleft">
-                                              
-                                                <div id="ctl00_RegistrationPageText">Intelleges <b>3TG/Conflict Minerals Readiness Questionnaire</b> is designed to capture information about your company's readiness pertaining to compliance with SEC Dodd-Frank Section 1502 Conflict Minerals rule.</div>
-
-
-                                                </td>
-                                            </tr>
-                                        </table>
+                                    <td class="supplyright">&nbsp;
                                     </td>
-                                    <td valign="top">
-                                        
-                                        <table width="400" border="0" align="center" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td class="supplyright">
-                                                    &nbsp;
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="supplyright">
+                                </tr>
+                                <tr>
+                                    <td class="supplyright">
 
-                                                 <span style="color: #0096c9;">Instructions:</span> 
-                                                 <div id="ctl00_RegistrationPageInstruction">Enter your access code (found in your invitation email) below to complete the <b>3TG/Conflict Minerals Readiness Questionnaire</b>. </div>
+                                        <span style="color: #0096c9;">Instructions:</span>
+                                        <div id="ctl00_RegistrationPageInstruction">Enter your access code (found in your invitation email) below to complete the <b>3TG/Conflict Minerals Readiness Questionnaire</b>. </div>
 
 
 
-                                                   
-                                                    <!--<span style="color: #0096c9;">Instructions:</span> Enter your access code (found in your invitation email) below to complete Honeywell’s Site Security Survey.-->
-                                                </td>
-                                            </tr>
-                                        </table>
+
+                                        <!--<span style="color: #0096c9;">Instructions:</span> Enter your access code (found in your invitation email) below to complete Honeywell’s Site Security Survey.-->
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                 </table>
+            </td>
+        </tr>
+    </table>
 }
+@using (Html.BeginForm("QuestionnaireResponse", "PartNumber", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="supplycon">
+        <div align="center" class="redheader">
 
- <div class="supplycon">
-                    <div align="center" class="redheader">
+            <div class="dropdowns">
 
-                        <div class="dropdowns">
-       
-        <table width="100%" valign="top" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-                
-                <td valign="top">
-                    <div class="descriptionheightDropdown">
-                        <table cellpadding="2" cellspacing="0" border="0" valign="center">
-                            <tr>
-                                <td>
-                                    <span style="font-size: 12px;">Status</span>&nbsp;
+                <table width="100%" valign="top" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+
+                        <td valign="top">
+                            <div class="descriptionheightDropdown">
+                                <table cellpadding="2" cellspacing="0" border="0" valign="center">
+                                    <tr>
+                                        <td>
+                                            <span style="font-size: 12px;">Status</span>&nbsp;
                               
 
                                  
                                     
-                                      @Html.DropDownList("partnumberStatusSelectList","")
-                                               
-                                                                 
-                                </td>
-                                <td>
-                                    &nbsp;
-                                </td>
-                                <td>
-                                  
-                                    <span style="font-size: 12px;">Partnumber</span>&nbsp;
-                                    @Html.DropDownList("partNumberSelectList","")
-                                                                      
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-                <td valign="top">
-                    <div class="descriptionheightDropdown">
-                        <table cellpadding="2" cellspacing="0" border="0">
-                            <tr>
-                                <td>
-                                    <span style="font-size: 12px;">Honeywell Site</span>&nbsp;
-                                     @Html.DropDownList("siteSelectList","")
-                                       </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    <table cellpadding="0" cellspacing="0" border="0">
-                                        <tr>
-                                            <td>
-                                                
-                                               
-                                                 <input ID="imgBtnPrevious" type="image" alt="Previous" src="@Url.Content("~/Contents/images/buttonPrevious.jpg")"
+                                      @Html.DropDownList("partnumberStatusSelectList", null, "", new { @class = "dropdownchange" })
+
+
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>
+
+                                            <span style="font-size: 12px;">Partnumber</span>&nbsp;
+                                    @Html.DropDownList("partNumberSelectList", "")
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td valign="top">
+                            <div class="descriptionheightDropdown">
+                                <table cellpadding="2" cellspacing="0" border="0">
+                                    <tr>
+                                        <td>
+                                            <span style="font-size: 12px;">Honeywell Site</span>&nbsp;
+                                   @*  @Html.DropDownList("siteSelectList","")*@
+                                            @Html.DropDownList("siteSelectList", null, "", new { @class = "dropdownchange" })
+                                        </td>
+                                        <td>&nbsp;&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            <table cellpadding="0" cellspacing="0" border="0">
+                                                <tr>
+                                                    <td>
+
+
+                                                        <input ID="imgBtnPrevious" type="image" alt="Previous" src="@Url.Content("~/Contents/images/buttonPrevious.jpg")"
                                                       />
-                                            </td>
-                                            <td>
-                                                &nbsp;&nbsp;
-                                            </td>
-                                            <td>
-                                                 <input runat="server" type="image" ID="imgBtnNext" alt="Next" src="@Url.Content("~/Contents/images/button.jpg")"
+                                                    </td>
+                                                    <td>&nbsp;&nbsp;
+                                                    </td>
+                                                    <td>
+                                                        <input runat="server" type="image" ID="imgBtnNext" alt="Next" src="@Url.Content("~/Contents/images/button.jpg")"
                                                      />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-                        <table width="100%">
-                            <tr>
-                                <td></td>
-                                <td align="left" style="width: 356px">
-                                    <p>
-                                        <span id="lblQuestionnaireTitle" class="redheader"></span>
-                                    </p>
-                                </td>
-                            </tr>
-
-                        </table>
-
-                    </div>
-                    <div>
-                        <table width="100%">
-                            <tr>
-                                <td>
-
-                                    <div align="center">
-
-
-                                        <div style="width: 800px;" align="left">
-
-@using (Html.BeginForm("QuestionnaireResponse", "PartNumber", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    
-    
-    
-    
-                                        @Html.Raw(ViewBag.questions)
-                                              
-                                           
-                                            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-                                                <tr>
-                                                    <td align="right"></td>
-                                                    <td>&nbsp;
-                                                    </td>
-                                                    <td align="right">
-                                                        <span id="lblErrormsg" class="redheader"></span>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td align="right"></td>
-                                                    <td>&nbsp;
-                                                    </td>
-                                                    <td align="right">
-                                                        <input type="submit" name="btnBack" id="btnBack"  value="Previous"   onclick="javascript: history.go(-1); return false;" style="border-width: 0px;" />
-                                                        <input type="submit" name="btnSubmit" id="btnSubmit"  value="Next"   style="border-width: 0px;" />
-                                                    </td>
-                                                </tr>
-                                                
                                             </table>
-                                            
-                                            <div align="right" style="padding-top: 25px;">
-                                                <input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
-                                                <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
-                                                <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
-                                            </div>
-                                    
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <table width="100%">
+                <tr>
+                    <td></td>
+                    <td align="left" style="width: 356px">
+                        <p>
+                            <span id="lblQuestionnaireTitle" class="redheader"></span>
+                        </p>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+        <div>
+            <table width="100%">
+                <tr>
+                    <td>
+
+                        <div align="center">
+
+
+                            <div style="width: 800px;" align="left">
+
+
+
+
+
+
+                                @Html.Raw(ViewBag.questions)
+
+
+                                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="right"></td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td align="right">
+                                            <span id="lblErrormsg" class="redheader"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right"></td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td align="right">
+                                            <input type="submit" name="btnBack" id="btnBack" value="Previous" onclick="javascript: history.go(-1); return false;" style="border-width: 0px;" />
+                                            <input type="submit" name="btnSubmit" id="btnSubmit" value="Next" style="border-width: 0px;" />
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                                <div align="right" style="padding-top: 25px;">
+                                    <input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
+                                    <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
+                                    <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    
 }
-                                                </div>
-                                    </div>
 
-                                    
-
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-  </div>

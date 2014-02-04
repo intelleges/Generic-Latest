@@ -504,6 +504,7 @@ namespace Generic.Controllers
                     int pptqID = 0;
                     using (var context = new EntitiesDBContext())
                     {
+                        context.Configuration.ValidateOnSaveEnabled = true;
                         var pptq = new partnerPartnertypeTouchpointQuestionnaire();
                         pptq.partner = partnerID;
                         pptq.partnerTypeTouchpointQuestionnaire = pqt;
@@ -512,6 +513,16 @@ namespace Generic.Controllers
                         pptq.invitedDate = DateTime.Now;
                         context.partnerPartnertypeTouchpointQuestionnaire.Add(pptq);
                         context.SaveChanges();
+                        //try
+                        //{
+                        //    context.SaveChanges();
+                        //}
+                        //catch (OptimisticConcurrencyException)
+                        //{
+                        
+                        //   // context.Refresh(RefreshMode.ClientWins, db.Articles);
+                        //    context.SaveChanges();
+                        //}
                         pptqID = pptq.id;
                        // context.pr_addPartnerPartnertypeTouchpointQuestionnaire(partnerID, pqt, accessCode, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, DateTime.Now, null, null, null, null, null, null);
                     }
@@ -561,9 +572,10 @@ namespace Generic.Controllers
                     {
                         partNumberID = checkPartNumber.id;
                     }
-                    using (var context = new EntitiesDBContext())
+                    using (var context2 = new EntitiesDBContext())
                     {
-                        context.pr_addPartnumberSiteZcodePPTQ(partNumberID, siteID, string.Empty, Helpers.PartNumberHelper.Status.NOT_STARTED , pptqID);
+                      //  context2.Configuration.ValidateOnSaveEnabled = true;
+                        context2.pr_addPartnumberSiteZcodePPTQ(partNumberID, siteID, string.Empty, Helpers.PartNumberHelper.Status.NOT_STARTED , pptqID);
                     }
 
 
