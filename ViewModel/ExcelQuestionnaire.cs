@@ -37,4 +37,11 @@ namespace Generic.ViewModel
         public string Response { get; set; }
 
     }
+
+    public class ExcelQuestionnaireCMS
+    {
+        public string ITEM { get; set; }
+        public string TEXT { get; set; }
+    }
+
 }

@@ -10,6 +10,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Generic.DataLayer;
 using Generic.Models;
+using Generic.Helpers.Questionnaire;
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class HomeController : Controller
@@ -21,6 +22,26 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public virtual ActionResult Index(string id = "", string accessCode = null)
         {
             ViewBag.accesscode = accessCode;
+            var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            if (ppptq != null)
+            {
+                var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
+                var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
+                try
+                {
+
+                    ViewBag.ACCESS_CODE_TITLE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_TITLE).FirstOrDefault().id).FirstOrDefault().text;
+                    ViewBag.ACCESS_CODE_SUBTITLE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_SUBTITLE).FirstOrDefault().id).FirstOrDefault().text;
+                    ViewBag.ACCESS_CODE_PANEL_ONE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_PANEL_ONE).FirstOrDefault().id).FirstOrDefault().text;
+                    ViewBag.ACCESS_CODE_PANEL_TWO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_PANEL_TWO).FirstOrDefault().id).FirstOrDefault().text;
+                    ViewBag.ACCESS_CODE_FOOTER_ONE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_FOOTER_ONE).FirstOrDefault().id).FirstOrDefault().text;
+                    ViewBag.ACCESS_CODE_FOOTER_TWO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_FOOTER_TWO).FirstOrDefault().id).FirstOrDefault().text;
+                    ViewBag.ACCESS_CODE_SUBMIT_TEXT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_SUBMIT_TEXT).FirstOrDefault().id).FirstOrDefault().text;
+                }
+                catch { }
+            }
+
             return View();
         }
         [HttpPost]

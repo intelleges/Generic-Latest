@@ -1,0 +1,52 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using Generic.Helpers
+@using System.Web.Mvc.Html
+@using Telerik.Web.Mvc.UI;
+@using System.Web.Optimization;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+     
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryui")
+    @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
+                .Add("telerik.common.css")
+                .Add("telerik.rtl.css")
+                .Combined(true)
+                .Compress(true)))
+</head>
+<body>
+    <div>
+       @RenderBody()   
+    </div>
+    @RenderSection("scripts", required: false)
+
+       
+@(Html.Telerik().ScriptRegistrar()
+    .DefaultGroup(group => group
+        .Combined(true)
+        .Compress(true)
+    )
+    .OnDocumentReady(@<text>
+        var splitter = $('#FullScreen').data('tSplitter');
+ 
+        $(window).bind('resize', function() {
+            splitter.resize();
+        });
+    </text>)
+)
+
+
+    @Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
+
+</body>
+</html>

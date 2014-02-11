@@ -13,7 +13,7 @@ namespace Generic.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.IsSetFromClient = Generic.Session.SessionSingleton.Instance.IsSetFromClient;
+            ViewBag.IsSetFromClient = Generic.SessionClass.SessionSingleton.Instance.IsSetFromClient;
             return View();
         }
         /// <summary> 

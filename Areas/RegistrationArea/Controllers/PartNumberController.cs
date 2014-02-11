@@ -390,14 +390,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                         int? responseId = null;
                         string responseComment = string.Empty;
-                        try
-                        {
-                            responseId = int.Parse(answer);
-                        }
-                        catch
-                        {
-                            responseComment = answer;
-                        }
+
+                        responseId = null;
+
+                        responseComment = answer;
+
 
                         var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
 
@@ -799,8 +796,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 //    int quetionnaireId = 0;
                 //    partnerId = (int)Session["partnerId"];
                 //    quetionnaireId = (int)Session["questionnaire"];
-
-                Response.Redirect("eSignature.aspx");
+                //Session["partnumber"] = null;
+                //Session["site"] = null;
+                //Session["partnumberstatus"] = null;
+                Response.Redirect("../Home/eSignature");
+                // return RedirectToAction("QuestionnaireResponse", "PartNumber");
                 // }
             }
 
@@ -817,7 +817,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             else
             {
-                goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, partNumberSelectList, siteSelectList, partnumberStatusSelectList);
+                goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, partNumberSelectList, siteSelectList, partnumberStatusSelectList, page, pageNumber);
             }
 
 
@@ -825,7 +825,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
 
 
-        private void goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 0)
+        private void goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 0, int pageQ = 0, int pageNumberQ = 0)
         {
             int pageId = 0;
             int pageNumber = 0;
@@ -845,9 +845,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
             page page = null;
             // menuGroup = (MenuGroup)Session["menuGroup"];
 
-            if (Request.QueryString["pageNumber"] != null && Int32.Parse(Session["pageNumber"].ToString()) != 0)
+
+            if (pageNumberQ != 0)
             {
-                pageNumber = int.Parse(Request.QueryString["pageNumber"].ToString());
+                pageNumber = pageNumberQ;
                 pageNumber = pageNumber + 1;
 
             }
@@ -856,9 +857,288 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 pageNumber = 2;
             }
 
-            if (Request.QueryString["page"] != null && Int32.Parse(Session["page"].ToString()) != 0)
+            if (pageQ != 0)
             {
-                pageId = int.Parse(Request.QueryString["page"].ToString());
+                pageId = pageQ;
+
+                page = db.pr_getNextPageByQuestionnaire(questionnaireId, pageId, jumpToQuestion).FirstOrDefault();
+            }
+            else
+            {
+                page = db.pr_getNextPageByQuestionnaire(questionnaireId, 0, 0).FirstOrDefault();
+                page = db.pr_getNextPageByQuestionnaire(questionnaireId, page.id, jumpToQuestion).FirstOrDefault();
+            }
+
+
+            int providerId = 0;
+            int quetionnaireId = 0;
+            //   providerId = (int)Session["provider"];
+            quetionnaireId = (int)Session["questionnaire"];
+            //    Provider provider = new Provider(new Id(providerId));
+            //  Campaign campaign = new Campaign(new Id(Convert.ToInt32(Session["campaign"])));
+            //int totalpage = questionnaire.getPageQuestionnaireCount(questionnaire);
+            //pgno = pageNumber - 1;
+            //for (int i = 0; i < totalpage; i++)
+            //{
+            //    if (pgno == i)
+            //    {
+            //        int totalperage = 0;
+            //        int totper = 80 / totalpage;
+            //        if (pgno == 0)
+            //        {
+            //            pgno = 1;
+            //            totalperage = (totper * 1) + 10;
+            //        }
+            //        else
+            //        {
+            //            totalperage = (totper * i) + 10;
+            //        }
+            //        provider.updateSurveyProgressBar(provider, campaign, totalperage);
+            //        break;
+            //    }
+            //}
+            //
+            if (Request.QueryString["questionIndex"] != null)
+            {
+                questionIndex += int.Parse(Request.QueryString["questionIndex"].ToString());
+            }
+
+            if (Request.QueryString["skip"] != null)
+            {
+                skip = "&skip=true";
+            }
+
+            if (jumpToQuestion == 0)
+            {
+                if (page != null)
+                {
+                    if (string.IsNullOrEmpty(errorQueryString))
+                    {
+                        Response.Redirect("QuestionnaireResponse?partNumberSelectList=" + partNumberSelectList +
+ "&siteSelectList=" + siteSelectList + "&partnumberStatusSelectList=" + partnumberStatusSelectList + "&pageNumber=" + pageNumber.ToString() +
+                                "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
+                                + "&questionIndex=" + questionIndex.ToString() + skip);
+                    }
+                    else if (Request.QueryString["errorQuestion"] == null)
+                    {
+                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
+                    }
+                    else
+                    {
+                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
+                    }
+                }
+                else
+                {
+                    //int providerId = 0;
+                    //int quetionnaireId = 0;
+                    //providerId = (int)Session["providerId"];
+                    //quetionnaireId = (int)Session["questionnaire"];
+                    //Provider provider = new Provider(new Id(providerId));
+                    //Campaign campaign = new Campaign(new Id(Convert.ToInt32(Session["campaign"])));
+                    //provider.updateSurveyProgressBar(provider, campaign, 80);
+                    int previouspartnumber = Convert.ToInt32(Session["partnumber"]);
+                    int count1 = 0;
+                    string key1 = "";
+                    string[] array1 = new string[5];
+                    char[] splitter1 = { '_' };
+                    string answer1 = "";
+                    bool finalAnswer = false;
+                    int questionId1 = 0;
+                    int surveyId1 = 0;
+                    count1 = Request.Form.Count;
+                    for (int r = 0; r < count1; r++)
+                    {
+                        key1 = Request.Form.Keys[r];
+                        if (key1.Contains("question_"))
+                        {
+                            array1 = key1.Split(splitter1);
+                            questionId1 = int.Parse(array1[1]);
+                            surveyId1 = int.Parse(array1[2]);
+                            answer1 = Request.Form[r];
+                            //-- question = new Question(new Id(questionId1));
+
+                            answer1 = Request.Form[r];
+                            if (answer1 == "74")
+                            {
+                                finalAnswer = true;
+                            }
+                        }
+                    }
+                    if (finalAnswer)
+                    {
+                        int flag = 0;
+                        previouspartnumber = Convert.ToInt32(Session["partnumber"]);
+                        int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+
+                        List<partnumber> objPartNumberList;
+
+                        //if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+                        //{
+                        int site = Convert.ToInt32(Session["site"]);
+                        objPartNumberList = db.pr_getPartnumberByPPTQandSite(pptq, site).ToList();
+                        //}
+                        //else
+                        //{
+                        //    objPartNumberList = db.pr_getPartnumberByPPTQ(pptq).ToList();
+                        //}
+
+
+
+                        Session["NextPartnumber"] = null;
+                        int checkNext = 0;
+                        foreach (var item in objPartNumberList)
+                        {
+                            if (checkNext == 1)
+                            {
+                                Session["NextPartnumber"] = item.id;
+
+                                break;
+                            }
+                            if (item.id == previouspartnumber)
+                            {
+                                checkNext = 1;
+                            }
+                        }
+
+
+                        if (checkNext == 0)
+                        {
+                            var sites = db.pr_getSiteByPPTQ(pptq);
+                            int checkNextSite = 0;
+                            foreach (var item in sites)
+                            {
+                                if (checkNextSite == 1)
+                                {
+                                    Session["site"] = item.id;
+
+                                    break;
+                                }
+                                if (item.id == site)
+                                {
+                                    checkNextSite = 1;
+                                }
+                            }
+                            if (checkNextSite == 1)
+                            {
+                                Session["NextPartnumber"] = db.pr_getPartnumberByPPTQandSite(pptq, site).FirstOrDefault().id;
+
+                                
+                            }
+                            else
+                            {
+                                flag = 1;
+                            }
+                        }
+
+                        if (Session["NextPartnumber"] == null)
+                        {
+                            flag = 1;
+                        }
+
+
+
+                        if (flag == 0)
+                        {
+
+                            Response.Redirect("QuestionnaireResponse?partNumberSelectList=" + Session["NextPartnumber"] +
+"&siteSelectList=" + Session["site"] + "&partnumberStatusSelectList=" + Session["partnumberstatus"]);
+
+                        }
+                        else
+                        {
+                            //Reset all session of partnumber
+                            Session["partnumber"] = null;
+                            Session["site"] = null;
+                            Session["partnumberstatus"] = null;
+                            Response.Redirect("~/Registration/Home/eSignature");
+                        }
+                    }
+                    else
+                    {
+
+                        //Reset all session of partnumber
+                        Session["partnumber"] = null;
+                        Session["site"] = null;
+                        Session["partnumberstatus"] = null;
+                        Response.Redirect("~/Registration/Home/eSignature");
+                    }
+                }
+
+            }
+            else
+            {
+                if (page != null)
+                {
+                    if (string.IsNullOrEmpty(errorQueryString))
+                    {
+                        Response.Redirect("responseQuestionnaire?pageNumber=" + pageNumber.ToString() +
+                           "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
+                           + "&questionIndex=" + questionIndex.ToString() + skip);
+                    }
+                    else if (Request.QueryString["errorQuestion"] == null)
+                    {
+                        Response.Redirect("responseQuestionnaire?" + Request.QueryString.ToString() + errorQueryString);
+                    }
+                    else
+                    {
+                        Response.Redirect("responseQuestionnaire?" + Request.QueryString.ToString());
+                    }
+                }
+                else
+                {
+                    //if (menuGroup.id.id == 2)
+                    //{
+                    //    Response.Redirect("spendCategoryForm.aspx");
+                    //}
+                    //else
+                    //{
+
+                    Response.Redirect("~/Registration/Home/eSignature");
+                    //}
+                }
+            }
+
+
+
+        }
+
+
+
+        private void goToNextPage1(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 0, int pageQ = 0, int pageNumberQ = 0)
+        {
+            int pageId = 0;
+            int pageNumber = 0;
+            int pgno = 0;
+            int questionnaireId = (int)Session["questionnaire"];
+            string errorQueryString = "";
+
+            if (errorQuestion > 0)
+            {
+                errorQueryString = "&errorQuestion=" + errorQuestion.ToString() + "&errorMessage=" + errorMessage;
+            }
+            surveyForm surveyForm = new surveyForm();
+            int partnerId = (int)Session["partner"];
+            partner provider1 = new partner();
+            questionnaire questionnaire = new questionnaire();
+            string zode = surveyForm.generateZCode(provider1, questionnaire);
+            page page = null;
+            // menuGroup = (MenuGroup)Session["menuGroup"];
+
+            if (pageNumberQ != 0)
+            {
+                pageNumber = pageNumberQ;
+                pageNumber = pageNumber + 1;
+
+            }
+            else
+            {
+                pageNumber = 2;
+            }
+
+            if (pageQ != 0)
+            {
+                pageId = pageQ;
 
                 page = db.pr_getNextPageByQuestionnaire(questionnaireId, pageId, jumpToQuestion).FirstOrDefault();
             }
@@ -952,17 +1232,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     if (string.IsNullOrEmpty(errorQueryString))
                     {
-                        Response.Redirect("responseQuestionnaire.aspx?pageNumber=" + pageNumber.ToString() +
+                        Response.Redirect("responseQuestionnaire?pageNumber=" + pageNumber.ToString() +
                            "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
                            + "&questionIndex=" + questionIndex.ToString() + skip);
                     }
                     else if (Request.QueryString["errorQuestion"] == null)
                     {
-                        Response.Redirect("responseQuestionnaire.aspx?" + Request.QueryString.ToString() + errorQueryString);
+                        Response.Redirect("responseQuestionnaire?" + Request.QueryString.ToString() + errorQueryString);
                     }
                     else
                     {
-                        Response.Redirect("responseQuestionnaire.aspx?" + Request.QueryString.ToString());
+                        Response.Redirect("responseQuestionnaire?" + Request.QueryString.ToString());
                     }
                 }
                 else
@@ -974,7 +1254,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     //else
                     //{
 
-                    Response.Redirect("eSignature.aspx");
+                    Response.Redirect("~/Registration/Home/eSignature");
                     //}
                 }
             }
@@ -1277,7 +1557,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             Session["site"] = siteID;
             Session["partnumberstatus"] = partnumberStatusID;
-                //Session["partnumber"]
+            //Session["partnumber"]
             return Json(new { Data = objpartnumber.Select(x => new { x.id, x.description }) }, JsonRequestBehavior.AllowGet);
         }
 

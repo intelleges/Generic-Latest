@@ -1,4 +1,4 @@
-﻿using Generic.Session;
+﻿using Generic.SessionClass;
 using System;
 using System.Collections.Generic;
 using System.Data;

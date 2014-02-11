@@ -12,7 +12,7 @@ using Generic.Models;
 //using Generic.Helpers;
 using Generic.Helpers.Utility;
 using System.Net;
-using Generic.Session;
+using Generic.SessionClass;
 
 
 namespace Generic.Controllers

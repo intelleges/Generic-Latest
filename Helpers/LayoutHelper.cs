@@ -23,5 +23,9 @@ namespace Generic.Helpers
         {
             return "~/tmp/Views/Shared/_LayoutMasterPartner.cshtml";
         }
+        public static string GetPopupLayout()
+        {
+            return "~/tmp/Views/Shared/_PopupLayout.cshtml";
+        }
     }
 }

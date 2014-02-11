@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Generic.Session;
+using Generic.SessionClass;
 
 namespace Generic.Controllers
 {

@@ -3,16 +3,20 @@
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 @{
-    Layout = LayoutHelper.GetLayout();
+    Layout = Generic.Helpers.LayoutHelper.GetPopupLayout();
     ViewBag.Title = "UploadQuestionnaire";
 }
 
 @section Scripts {
     <script>
-        jQuery.noConflict();
-        jQuery(document).ready(function () {
-
+        //jQuery.noConflict();
+        $(document).ready(function () {
+            //jQuery.noConflict();
             $('#protocol').change(function () {
+
+                $('#protocolName').val($('#protocol option[value="' + $('#protocol').val() + '"]').text());
+
+
                 var objProtocolID = $('#protocol').val();
                 var formData = { protocolId: objProtocolID };
                 if (objProtocolID == "") {
@@ -47,10 +51,13 @@
 
             $('#touchpoint').change(function () {
                 $('#partnertypeDiv').show();
+                $('#touchpointName').val($('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text());
+
             });
 
             $('#partnertype').change(function () {
                 $('#levelDiv').show();
+                $('#partnertypeName').val($('#partnertype option[value="' + $('#partnertype').val() + '"]').text());
             });
 
             $('#level').change(function () {
@@ -59,30 +66,33 @@
             });
 
 
-            $('#UploadQuestionnaireForm').submit(function (e) {
-                e.preventDefault();
-                var objProtocolID = $('#protocol').val();
-                var objProtocolName = $('#protocol option[value="' + $('#protocol').val() + '"]').text();
+            //$('#UploadQuestionnaireForm').submit(function (e) {
+            //    e.preventDefault();
+            //    var objProtocolID = $('#protocol').val();
+            //    var objProtocolName = $('#protocol option[value="' + $('#protocol').val() + '"]').text();
 
-                var objtouchpointID = $('#touchpoint').val();
-                var objtouchpointName = $('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text();
+            //    var objtouchpointID = $('#touchpoint').val();
+            //    var objtouchpointName = $('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text();
 
-                var objpartnertypeID = $('#partnertype').val();
-                var objpartnertypeName = $('#partnertype option[value="' + $('#partnertype').val() + '"]').text();
+            //    var objpartnertypeID = $('#partnertype').val();
+            //    var objpartnertypeName = $('#partnertype option[value="' + $('#partnertype').val() + '"]').text();
 
-                var formData = { protocolId: objProtocolID, protocolName: objProtocolName, touchpointId: objtouchpointID, touchpointName: objtouchpointName, partnertypeID: objpartnertypeID, partnertypeName: objpartnertypeName };
-                $.ajax({
-                    url: "UploadQuestionnaire",
-                    type: "post",
-                    data: formData,
-                    success: function (data) {
-                        alertify.alert('Questionnaire Uploaded Successfully!');
-                    },
-                    error: function (data) {
-                        alertify.alert('Error occured while Questionnaire Uploaded!');
-                    }
-                });
-            });
+            //    var objlevelID = $('#level').val();
+            //   // var objlevelName = $('#level option[value="' + $('#level').val() + '"]').text();
+
+            //    var formData = { protocolId: objProtocolID, protocolName: objProtocolName, touchpointId: objtouchpointID, touchpointName: objtouchpointName, partnertypeID: objpartnertypeID, partnertypeName: objpartnertypeName, level: objlevelID };
+            //    $.ajax({
+            //        url: "UploadQuestionnaire",
+            //        type: "post",
+            //        data: formData,
+            //        success: function (data) {
+            //            alertify.alert('Questionnaire Uploaded Successfully!');
+            //        },
+            //        error: function (data) {
+            //            alertify.alert('Error occured while Questionnaire Uploaded!');
+            //        }
+            //    });
+            //});
         });
     </script>
 }
@@ -151,4 +161,9 @@
     <p id="uploadButtonDiv" style="display: none">
         <input type="submit" id="btnUpload" value="Upload" />
     </p>
+
+    <input type="hidden" name="protocolName" id="protocolName" />
+    <input type="hidden" name="touchpointName" id="touchpointName" />
+    <input type="hidden" name="partnertypeName" id="partnertypeName" />
+    
 </form>

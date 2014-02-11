@@ -1,0 +1,48 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.protocol>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = Generic.Helpers.LayoutHelper.GetPopupLayout();
+    ViewBag.Title = "Upload CMS";
+}
+
+@section Scripts {
+    <script>
+      
+        $(document).ready(function () {
+          
+        });
+
+    </script>
+}
+
+
+
+<h2>Upload Questionnaire CMS</h2>
+
+
+<form id="UploadCMSForm" method="post">
+    @Html.ValidationSummary(true)
+  
+    <div id="uploadDiv" >
+        <div class="editor-label">
+           Please select an Excel file containing the questionnaire CMS information. Click here if you need to download the template.
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("uploadCMSFile")
+        .Multiple(false)        
+)
+
+            <p class="note">
+                Maximum allowed file size: 10 MB
+            </p>
+
+
+        </div>
+    </div>
+    <p id="uploadButtonDiv" >
+        <input type="submit" id="btnUpload" value="Upload" />
+    </p>
+</form>

@@ -122,6 +122,10 @@
                 }
             });
         }
+
+        jQuery.noConflict();
+        $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
     </script>
 
     @RenderSection("scripts", required: false)

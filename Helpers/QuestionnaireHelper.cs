@@ -34,4 +34,57 @@ namespace Generic.Helpers.Questionnaire
         public const int FMF_COST_BREAKDOWN = 4;
     }
 
+    public static class CMS
+    {
+        public const string ACCESS_CODE_SUBTITLE = "ACCESS_CODE_SUBTITLE";
+        public const string ACCESS_CODE_PANEL_ONE = "ACCESS_CODE_PANEL_ONE";
+        public const string ACCESS_CODE_PANEL_TWO = "ACCESS_CODE_PANEL_TWO";
+        public const string ACCESS_CODE_SUBMIT_TEXT = "ACCESS_CODE_SUBMIT_TEXT";
+        public const string ACCESS_CODE_FOOTER_ONE = "ACCESS_CODE_FOOTER_ONE";
+        public const string ACCESS_CODE_FOOTER_TWO = "ACCESS_CODE_FOOTER_TWO";
+        public const string COMPANY_PAGE_TITLE = "COMPANY_PAGE_TITLE";
+        public const string COMPANY_PAGE_SUBTITLE = "COMPANY_PAGE_SUBTITLE";
+        public const string COMPANY_PAGE_PANEL_ONE = "COMPANY_PAGE_PANEL_ONE";
+        public const string COMPANY_PAGE_PANEL_TWO = "COMPANY_PAGE_PANEL_TWO";
+        public const string COMPANY_PAGE_PREVIOUS_TEXT = "COMPANY_PAGE_PREVIOUS_TEXT";
+        public const string COMPANY_PAGE_NEXT_TEXT = "COMPANY_PAGE_NEXT_TEXT";
+        public const string COMPANY_EDIT_PAGE_TITLE = "COMPANY_EDIT_PAGE_TITLE";
+        public const string COMPANY_EDIT_PAGE_SUBTITLE = "COMPANY_EDIT_PAGE_SUBTITLE";
+        public const string COMPANY_EDIT_PAGE_PANEL_ONE = "COMPANY_EDIT_PAGE_PANEL_ONE";
+        public const string COMPANY_EDIT_PAGE_PANEL_TWO = "COMPANY_EDIT_PAGE_PANEL_TWO";
+        public const string COMPANY_EDIT_PAGE_PREVIOUS_TEXT = "COMPANY_EDIT_PAGE_PREVIOUS_TEXT";
+        public const string COMPANY_EDIT_PAGE_NEXT_TEXT = "COMPANY_EDIT_PAGE_NEXT_TEXT";
+        public const string CONTACT_PAGE_TITLE = "CONTACT_PAGE_TITLE";
+        public const string CONTACT_PAGE_SUBTITLE = "CONTACT_PAGE_SUBTITLE";
+        public const string CONTACT_PAGE_PANEL_ONE = "CONTACT_PAGE_PANEL_ONE";
+        public const string CONTACT_PAGE_PANEL_TWO = "CONTACT_PAGE_PANEL_TWO";
+        public const string CONTACT_PAGE_PREVIOUS_TEXT = "CONTACT_PAGE_PREVIOUS_TEXT";
+        public const string CONTACT_PAGE_NEXT_TEXT = "CONTACT_PAGE_NEXT_TEXT";
+        public const string CONTACT_EDIT_PAGE_TITLE = "CONTACT_EDIT_PAGE_TITLE";
+        public const string CONTACT_EDIT_PAGE_SUBTITLE = "CONTACT_EDIT_PAGE_SUBTITLE";
+        public const string CONTACT_EDIT_PAGE_PANEL_ONE = "CONTACT_EDIT_PAGE_PANEL_ONE";
+        public const string CONTACT_EDIT_PAGE_PANEL_TWO = "CONTACT_EDIT_PAGE_PANEL_TWO";
+        public const string CONTACT_EDIT_PAGE_PREVIOUS_TEXT = "CONTACT_EDIT_PAGE_PREVIOUS_TEXT";
+        public const string CONTACT_EDIT_PAGE_NEXT_TEXT = "CONTACT_EDIT_PAGE_NEXT_TEXT";
+        public const string QUESTIONNAIRE_PAGE_TITLE = "QUESTIONNAIRE_PAGE_TITLE";
+        public const string QUESTIONNAIRE_PAGE_SUBTITLE = "QUESTIONNAIRE_PAGE_SUBTITLE";
+        public const string QUESTIONNAIRE_PAGE_PANEL_ONE = "QUESTIONNAIRE_PAGE_PANEL_ONE";
+        public const string QUESTIONNAIRE_PAGE_PANEL_TWO = "QUESTIONNAIRE_PAGE_PANEL_TWO";
+        public const string QUESTIONNAIRE_PAGE_PREVIOUS_TEXT = "QUESTIONNAIRE_PAGE_PREVIOUS_TEXT";
+        public const string QUESTIONNAIRE_PAGE_NEXT_TEXT = "QUESTIONNAIRE_PAGE_NEXT_TEXT";
+        public const string ESIGNATURE_PAGE_TITLE = "ESIGNATURE_PAGE_TITLE";
+        public const string ESIGNATURE_PAGE_SUBTITLE = "ESIGNATURE_PAGE_SUBTITLE";
+        public const string ESIGNATURE_PAGE_PANEL_ONE = "ESIGNATURE_PAGE_PANEL_ONE";
+        public const string ESIGNATURE_PAGE_PANEL_TWO = "ESIGNATURE_PAGE_PANEL_TWO";
+        public const string ESIGNATURE_PAGE_PREVIOUS_TEXT = "ESIGNATURE_PAGE_PREVIOUS_TEXT";
+        public const string ESIGNATURE_PAGE_NEXT_TEXT = "ESIGNATURE_PAGE_NEXT_TEXT";
+        public const string CONFIRMATION_PAGE_TITLE = "CONFIRMATION_PAGE_TITLE";
+        public const string CONFIRMATION_PAGE_SUBTITLE = "CONFIRMATION_PAGE_SUBTITLE";
+        public const string CONFIRMATION_PAGE_PANEL_ONE = "CONFIRMATION_PAGE_PANEL_ONE";
+        public const string CONFIRMATION_PAGE_PANEL_TWO = "CONFIRMATION_PAGE_PANEL_TWO";
+        public const string CONFIRMATION_PAGE_PREVIOUS_TEXT = "CONFIRMATION_PAGE_PREVIOUS_TEXT";
+        public const string CONFIRMATION_PAGE_NEXT_TEXT = "CONFIRMATION_PAGE_NEXT_TEXT";
+        public const string CONFIRMATION_PAGE_EXIT_LINK = "CONFIRMATION_PAGE_EXIT_LINK";
+        public const string ACCESS_CODE_TITLE = "ACCESS_CODE_TITLE";
+    }
 }

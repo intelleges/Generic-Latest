@@ -312,12 +312,47 @@ namespace Generic.DataLayer
             TableCell tableCell = new TableCell();
             TableRow tableRowsurvey = new TableRow();
             TableCell tableCellsurvey = new TableCell();
-                        partnerPartnertypeTouchpointQuestionnaire objpptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(HttpContext.Current.Session["accessCode"].ToString()).FirstOrDefault();
+            partnerPartnertypeTouchpointQuestionnaire objpptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(HttpContext.Current.Session["accessCode"].ToString()).FirstOrDefault();
 
             Label label = new Label();
             Label labelsurvey = new Label();
             int divflag = 0;
             //question.question = convertLanguageApi(question.question);
+
+
+            //abs21022012
+            string strQuestion = question.question1;
+            if (strQuestion != null)
+            {
+                if (strQuestion.Contains("[partnumber]"))
+                {
+
+
+                    if (HttpContext.Current.Session["partnumber"] != null && HttpContext.Current.Session["partnumber"] != "0" && HttpContext.Current.Session["partnumber"] != "")
+                    {
+                        int partid = Convert.ToInt32(HttpContext.Current.Session["partnumber"].ToString());
+                        if (partid != 0)
+                        {
+                            string partName = db.pr_getPartnumber(partid).FirstOrDefault().description;
+                            question.question1 = strQuestion.Replace("[partnumber]", partName);
+                        }
+                    }
+                }
+                string strQuestionAgain = question.question1;
+                if (strQuestionAgain.Contains("[next partnumber]"))
+                {
+                    if (HttpContext.Current.Session["NextPartnumber"] != null)
+                    {
+                        int partid = Convert.ToInt32(HttpContext.Current.Session["NextPartnumber"].ToString());
+                        if (partid != 0)
+                        {
+                            string partName = db.pr_getPartnumber(partid).FirstOrDefault().description;
+                            question.question1 = strQuestionAgain.Replace("[next partnumber]", partName);
+                        }
+                    }
+                }
+            }
+
 
             if (this.showContentOnly)
             {
@@ -551,7 +586,7 @@ namespace Generic.DataLayer
             if (this.protocol != null)
             {
                 pptqResponse = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(question.id, objpptq.id).FirstOrDefault();
-                
+
             }
             surveyForm surveyfrm = new surveyForm();
             string incldComment = "";
@@ -684,7 +719,7 @@ namespace Generic.DataLayer
                     divn.InnerHtml = incldComment + " "; //"Include comments here: ";
                     divn.Controls.Add(txtbox);
                     if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
-                        question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y )
+                        question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
                         tableCell.Controls.AddAt(1, divn);
                 }
                 else if (divflag == 1 && divShowHideFlag == 0)
@@ -779,7 +814,7 @@ namespace Generic.DataLayer
                     divn.Controls.Add(txtbox);
                     if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
                        question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
-                                           tableCell.Controls.AddAt(1, divn);
+                        tableCell.Controls.AddAt(1, divn);
                 }
                 else if (divflag == 1 && divShowHideFlag == -1)
                 {
@@ -957,7 +992,7 @@ namespace Generic.DataLayer
                     //divn.Controls.Add(fileupload);
                     if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
                     question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
-                                     tableCell.Controls.AddAt(1, divn);
+                        tableCell.Controls.AddAt(1, divn);
 
                     //tableCell.Text = "<div Id='yDiv_" + question.id + "' style='display:none' runat='server' >Test Text <br/><br/>Test Text One</div><div Id='nDiv_" + question.id + "' style='display:none'>Test Two <br/><br/>Test Text One</div>";
                 }
@@ -1360,13 +1395,13 @@ namespace Generic.DataLayer
 
                     List<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pptqResponses = null;
 
-                  //  List<response> responses = null;
+                    //  List<response> responses = null;
                     if (showContentOnly == false)
                     {
                         //get the list of reponses
 
                         pptqResponses = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, objpptq.id).ToList();
-                       // responses = db.pr_getResponseByQuestion(questionId).ToList();
+                        // responses = db.pr_getResponseByQuestion(questionId).ToList();
                     }
                     //hidden field
                     HiddenField hiddenField = new HiddenField();
@@ -1466,7 +1501,7 @@ namespace Generic.DataLayer
             survey survey = new survey();
             partnerPartnertypeTouchpointQuestionnaire objpptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(HttpContext.Current.Session["accessCode"].ToString()).FirstOrDefault();
             partnerPartnertypeTouchpointQuestionnaireQuestionResponse pptqResponse = new partnerPartnertypeTouchpointQuestionnaireQuestionResponse();
-           
+
             if (this.showContentOnly)
             {
                 response = new response();
