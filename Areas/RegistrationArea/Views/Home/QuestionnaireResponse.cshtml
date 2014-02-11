@@ -238,19 +238,19 @@
 
 @section Bottom{
  <div class="banner1">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="float:left;margin-top:-44px">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="float:left;">
                 <tr>
                     <td width="20%" align="right">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>                                
-                                <td width="22%" valign="top">
+                                <td  valign="top">
                                     <ul id="qm0" class="qmmc">
                                         <li><a class="qmparent" href=""></a></li>
-                                        <li><a class="qmparent" id="contactUS">Contact Us</a></li>
-                                        <!--<li><a class="qmparent" href="Partner faq.pdf" target="_blank">FAQ</a></li> -->
-                                        <li><a class="qmparent" href="BAA_Frequently Asked Questions.pdf" target="_blank">FAQ</a></li>
-                                        <li><a class="qmparent" href="baaQuestionnaire.pdf" target="_blank">Questionnaire
-                                            (PDF)</a> </li>
+                                        <li><a class="qmparent" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>    
+                                       <li><a class="qmparent" href="#" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>
+                                    <li><a class="qmparent" href="#" target="_blank">@ViewBag.QUESTIONNAIRE_FAQ</a> </li>
+                                    <li><a class="qmparent" href="#" target="_blank">@ViewBag.QUESTIONNAIRE_DOC_OTHER</a> </li>
+                                    <li><a class="qmparent" href="#" target="_blank">@ViewBag.QUESTIONNAIRE_VIDEO</a> </li>
                                         <li class="qmclear">&nbsp;</li>
                                     </ul>
                                     <!-- Create Menu Settings: (Menu ID, Is Vertical, Show Timer, Hide Timer, On Click (options: 'all' * 'all-always-open' * 'main' * 'lev2'), Right to Left, Horizontal Subs, Flush Left, Flush Top) -->
@@ -258,7 +258,7 @@
                                     <script type="text/javascript">                                        qm_create(0, false, 0, 500, false, false, false, false, false);</script>
 
                                 </td>
-                                <td width="20%" align="right" valign="top">
+                                <td  align="right" valign="top">
                                     
                                     
                                 </td>
@@ -271,13 +271,30 @@
 }   
 
 @section Top{
+    
+
+
+
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td height="77" valign="top">
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="76%" align="right" valign="top" class="supplytitleblueone">
-                                        <span id="ctl00_lblSurvey"> Trial Registration for Conflict Minerals</span>
+                                        <span id="ctl00_lblSurvey"> 
+
+                                               @{
+                                    
+                                    @Html.Raw(ViewBag.CMS_PAGE_TITLE);
+                                    
+                                    <span style="font-size: 12px">
+                                        @Html.Raw(ViewBag.CMS_PAGE_SUBTITLE);
+                                    </span>
+                                    
+                                
+                                }
+
+                                        </span>
                                     </td>
                                     <td width="13%" height="106" valign="bottom">
                                         <img src="~/Contents/images/tickmark.gif"  alt="" width="95" height="89" class="surveyban" />
@@ -304,9 +321,9 @@
                                                     practices pertaining to safeguarding the supply chain.
                                                 </td>-->
                                                 <td class="supplyleft">
-                                              
-                                                <div id="ctl00_RegistrationPageText">Intelleges <b>3TG/Conflict Minerals Readiness Questionnaire</b> is designed to capture information about your company's readiness pertaining to compliance with SEC Dodd-Frank Section 1502 Conflict Minerals rule.</div>
-
+                                            
+                                                @Html.Raw(ViewBag.CMS_PAGE_PANEL_ONE);
+                                            
 
                                                 </td>
                                             </tr>
@@ -323,10 +340,9 @@
                                             <tr>
                                                 <td class="supplyright">
 
-                                                 <span style="color: #0096c9;">Instructions:</span> 
-                                                 <div id="ctl00_RegistrationPageInstruction">Enter your access code (found in your invitation email) below to complete the <b>3TG/Conflict Minerals Readiness Questionnaire</b>. </div>
-
-
+                                         
+                                                @Html.Raw(ViewBag.CMS_PAGE_PANEL_TWO);
+                                            
 
                                                    
                                                     <!--<span style="color: #0096c9;">Instructions:</span> Enter your access code (found in your invitation email) below to complete Honeywell’s Site Security Survey.-->
@@ -347,7 +363,8 @@
                         <table width="100%">
                             <tr>
                                 <td></td>
-                                <td align="left" style="width: 356px">
+                                <td align="left" style="width: 425px">
+                                    <input type="submit" value="@ViewBag.SAVE_FOR_LATER_TEXT" />
                                     <p>
                                         <span id="ctl00_contentQuestionnaireTitle_lblQuestionnaireTitle" class="redheader"></span>
                                     </p>
@@ -386,8 +403,8 @@
                                                     <td>&nbsp;
                                                     </td>
                                                     <td align="right">
-                                                        <input type="submit" name="btnBack" id="btnBack"  value="Previous"   onclick="javascript: history.go(-1); return false;" style="border-width: 0px;" />
-                                                        <input type="submit" name="btnSubmit" id="btnSubmit"  value="Next"   style="border-width: 0px;" />
+                                                        <input type="submit" name="btnBack" id="btnBack"  value="@ViewBag.CMS_PAGE_PREVIOUS_TEXT"   onclick="javascript: history.go(-1); return false;" style="border-width: 0px;" />
+                                                        <input type="submit" name="btnSubmit" id="btnSubmit"  value="@ViewBag.CMS_PAGE_NEXT_TEXT"   style="border-width: 0px;" />
                                                     </td>
                                                 </tr>
                                                 

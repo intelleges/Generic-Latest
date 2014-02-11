@@ -43,7 +43,18 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td width="76%" align="right" valign="top" class="supplytitleblueone">
-                            <span id="ctl00_lblSurvey">Trial Registration for Conflict Minerals</span>
+                            <span id="ctl00_lblSurvey">   @{
+                                   
+                                    @Html.Raw(ViewBag.CMS_PAGE_TITLE);
+                                    
+
+                                   
+                                    <span style="font-size: 12px">
+                                        @Html.Raw(ViewBag.CMS_PAGE_SUBTITLE);
+                                    </span>
+                                    
+                                
+                                }</span>
                         </td>
                         <td width="13%" height="106" valign="bottom">
                             <img src="~/Contents/images/tickmark.gif" alt="" width="95" height="89" class="surveyban" />
@@ -70,8 +81,9 @@
                                                 </td>-->
                                     <td class="supplyleft">
 
-                                        <div id="ctl00_RegistrationPageText">Intelleges <b>3TG/Conflict Minerals Readiness Questionnaire</b> is designed to capture information about your company's readiness pertaining to compliance with SEC Dodd-Frank Section 1502 Conflict Minerals rule.</div>
-
+                                        
+                                                @Html.Raw(ViewBag.CMS_PAGE_PANEL_ONE);
+                                            
 
                                     </td>
                                 </tr>
@@ -86,10 +98,9 @@
                                 </tr>
                                 <tr>
                                     <td class="supplyright">
-
-                                        <span style="color: #0096c9;">Instructions:</span>
-                                        <div id="ctl00_RegistrationPageInstruction">Enter your access code (found in your invitation email) below to complete the <b>3TG/Conflict Minerals Readiness Questionnaire</b>. </div>
-
+  
+                                                @Html.Raw(ViewBag.CMS_PAGE_PANEL_TWO);
+                                            
 
 
 
@@ -122,7 +133,14 @@
 
             <div class="supplycon">
 <div class="commonh"></div>
-<div class="redheader" align="center">  <table width="100%"><tbody><tr><td align="center"><span id="ctl00_contentQuestionnaireBody_lblCompanyName" style="font-size:xx-large">Honeywell</span>
+<div class="redheader" align="center">  <table width="100%"><tbody><tr><td align="center"><span id="ctl00_contentQuestionnaireBody_lblCompanyName" style="font-size:xx-large">
+    
+    @ViewBag.CONFIRMATION_PAGE_HEADLINE
+
+
+
+
+                                                                                          </span>
     </td></tr><tr>
     <td align="center">
      
@@ -133,7 +151,11 @@
 <table style="padding-top: 25px; padding-left: 50px; padding-right: 50px; padding-bottom: 25px;" width="100%">
     <tbody><tr height="25" valign="top">
         <td colspan="2" style="font-size: 18px; font-weight: bold;" align="center">
-            <span id="ctl00_contentQuestionnaireBody_lblThankYou">Thanks you for completing the 2013 Honeywell Supply Chain Security Survey.</span></td>
+            <span id="ctl00_contentQuestionnaireBody_lblThankYou">
+
+                @ViewBag.CONFIRMATION_PAGE_SIGNOFF_STATEMENT
+
+            </span></td>
     </tr>
     <tr>
     <td colspan="2">&nbsp;</td>
@@ -145,8 +167,8 @@
     <tr>
         <td style="font-size: 12px;" align="left" width="70%"></td>
         <td style="font-size: 12px;" align="left" width="30%">
-        <a href="http://www.intelleges.com">
-        <input name="ctl00$contentQuestionnaireBody$btnNext" id="ctl00_contentQuestionnaireBody_btnNext" src="@Url.Content("~/Contents/RegistrationStyle/images/button.jpg")" style="border-width:0px;" type="image">
+        <a href="@ViewBag.CONFIRMATION_PAGE_EXIT_LINK">
+        <input name="ctl00$contentQuestionnaireBody$btnNext" id="ctl00_contentQuestionnaireBody_btnNext" value="@ViewBag.CMS_PAGE_NEXT_TEXT" style="border-width:0px;" type="submit">
         </a>
         </td>
     </tr>

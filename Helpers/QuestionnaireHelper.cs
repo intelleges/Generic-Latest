@@ -84,7 +84,23 @@ namespace Generic.Helpers.Questionnaire
         public const string CONFIRMATION_PAGE_PANEL_TWO = "CONFIRMATION_PAGE_PANEL_TWO";
         public const string CONFIRMATION_PAGE_PREVIOUS_TEXT = "CONFIRMATION_PAGE_PREVIOUS_TEXT";
         public const string CONFIRMATION_PAGE_NEXT_TEXT = "CONFIRMATION_PAGE_NEXT_TEXT";
+
         public const string CONFIRMATION_PAGE_EXIT_LINK = "CONFIRMATION_PAGE_EXIT_LINK";
         public const string ACCESS_CODE_TITLE = "ACCESS_CODE_TITLE";
+
+        public const string ESIGNATURE_PAGE_TEXT = "ESIGNATURE_PAGE_TEXT";
+        public const string CONFIRMATION_PAGE_SIGNOFF_STATEMENT = "CONFIRMATION_PAGE_SIGNOFF_STATEMENT";
+        public const string CONFIRMATION_PAGE_HEADLINE = "CONFIRMATION_PAGE_HEADLINE";
+        
+        public const string CONTACT_US_EMAIL = "CONTACT_US_EMAIL";
+
+        public const string RETRIEVE_ACCESS_CODE_TEXT = "RETRIEVE_ACCESS_CODE_TEXT";
+        public const string SAVE_FOR_LATER_TEXT = "SAVE_FOR_LATER_TEXT";
+        
+    public const string     QUESTIONNAIRE_PDF ="QUESTIONNAIRE_PDF";
+    public const string QUESTIONNAIRE_FAQ = "QUESTIONNAIRE_FAQ";
+    public const string QUESTIONNAIRE_DOC_OTHER = "QUESTIONNAIRE_DOC_OTHER";
+    public const string QUESTIONNAIRE_VIDEO = "QUESTIONNAIRE_VIDEO";
+        
     }
 }

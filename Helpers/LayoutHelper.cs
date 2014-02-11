@@ -21,7 +21,7 @@ namespace Generic.Helpers
         }
         public static string GetRegistrationLayout()
         {
-            return "~/tmp/Views/Shared/_LayoutMasterPartner.cshtml";
+            return "~/tmp/Views/Shared/_LayoutMasterPartner.cshtml"; 
         }
         public static string GetPopupLayout()
         {

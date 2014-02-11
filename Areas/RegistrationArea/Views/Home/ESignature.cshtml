@@ -43,7 +43,22 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td width="76%" align="right" valign="top" class="supplytitleblueone">
-                            <span id="ctl00_lblSurvey">Trial Registration for Conflict Minerals</span>
+                            <span id="ctl00_lblSurvey">
+
+                                @{
+                                   
+                                    @Html.Raw(ViewBag.CMS_PAGE_TITLE);
+                                    
+
+                                    
+                                    <span style="font-size: 12px">
+                                        @Html.Raw(ViewBag.CMS_PAGE_SUBTITLE);
+                                    </span>
+                                    
+                                
+                                }
+
+                            </span>
                         </td>
                         <td width="13%" height="106" valign="bottom">
                             <img src="~/Contents/images/tickmark.gif" alt="" width="95" height="89" class="surveyban" />
@@ -70,7 +85,10 @@
                                                 </td>-->
                                     <td class="supplyleft">
 
-                                        <div id="ctl00_RegistrationPageText">Intelleges <b>3TG/Conflict Minerals Readiness Questionnaire</b> is designed to capture information about your company's readiness pertaining to compliance with SEC Dodd-Frank Section 1502 Conflict Minerals rule.</div>
+
+                                       
+                                            @Html.Raw(ViewBag.CMS_PAGE_PANEL_ONE);
+                                        
 
 
                                     </td>
@@ -87,10 +105,10 @@
                                 <tr>
                                     <td class="supplyright">
 
-                                        <span style="color: #0096c9;">Instructions:</span>
-                                        <div id="ctl00_RegistrationPageInstruction">Enter your access code (found in your invitation email) below to complete the <b>3TG/Conflict Minerals Readiness Questionnaire</b>. </div>
-
-
+                                       
+                                        
+                                            @Html.Raw(ViewBag.CMS_PAGE_PANEL_TWO);
+                                        
 
 
                                         <!--<span style="color: #0096c9;">Instructions:</span> Enter your access code (found in your invitation email) below to complete Honeywell’s Site Security Survey.-->
@@ -128,7 +146,11 @@
 
                             <div id="ctl00_contentQuestionnaireBody_pnlOthers">
                                 <tr>
-                                    <td height="25" class="infotitlebg" colspan="2"><span class="infotitlenormal">Thank you for completing your online <span id="ctl00_contentQuestionnaireBody_lblprovidertype">Conflict Minerals (3TG)</span> Certification questionnaire.  Please provide your email below. By providing your email below, you hereby certify that the information submitted in response to questions in this online questionnaire are accurate and true and this completes the registration process
+                                    <td height="25" class="infotitlebg" colspan="2"><span class="infotitlenormal">
+                                        
+                                        @ViewBag.ESIGNATURE_PAGE_TEXT
+                                       @* Thank you for completing your online <span id="ctl00_contentQuestionnaireBody_lblprovidertype">Conflict Minerals (3TG)</span> Certification questionnaire.  Please provide your email below. By providing your email below, you hereby certify that the information submitted in response to questions in this online questionnaire are accurate and true and this completes the registration process*@
+                                    
                                     </span></td>
 
                                 </tr>
@@ -168,8 +190,8 @@
                                                 <td>&nbsp;
                                                 </td>
                                                 <td>
-                                                      @Html.EditorFor(model => model.lastName)
-                                                        @Html.ValidationMessageFor(model => model.lastName)
+                                                    @Html.EditorFor(model => model.lastName)
+                                                    @Html.ValidationMessageFor(model => model.lastName)
                                                 </td>
                                             </tr>
                                             <tr>
@@ -177,13 +199,13 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <tr id="ctl00_contentQuestionnaireBody_title" style="display:none">
+                                            <tr id="ctl00_contentQuestionnaireBody_title" style="display: none">
                                                 <td align="right" class="esigncont">Title*:
                                                 </td>
                                                 <td>&nbsp;
                                                 </td>
                                                 <td>
-                                                    <input name="ctl00$contentQuestionnaireBody$txtTitle" type="text" id="ctl00_contentQuestionnaireBody_txtTitle"  class="txtBox" />
+                                                    <input name="ctl00$contentQuestionnaireBody$txtTitle" type="text" id="ctl00_contentQuestionnaireBody_txtTitle" class="txtBox" />
                                                     <span id="ctl00_contentQuestionnaireBody_requiredTitle" style="color: Red; display: none;">Required</span>
                                                 </td>
                                             </tr>
@@ -199,8 +221,8 @@
                                                 <td class="tCenterColumn">&nbsp;
                                                 </td>
                                                 <td class="tRightColumn">
-                                                      @Html.EditorFor(model => model.email)
-                                                        @Html.ValidationMessageFor(model => model.email)
+                                                    @Html.EditorFor(model => model.email)
+                                                    @Html.ValidationMessageFor(model => model.email)
                                                 </td>
                                             </tr>
                                             <tr>
@@ -208,7 +230,7 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <tr id="ctl00_contentQuestionnaireBody_phone" style="display:none">
+                                            <tr id="ctl00_contentQuestionnaireBody_phone" style="display: none">
                                                 <td align="right" class="esigncont">Phone*:
                                                 </td>
                                                 <td>&nbsp;
@@ -241,11 +263,11 @@
                                         <table width="230" border="0" cellspacing="0" cellpadding="0">
                                             <tr>
                                                 <td width="103" align="right" valign="bottom">
-                                                    <input type="image" name="btnPrevious" id="btnPrevious" src="@Url.Content("~/Contents/RegistrationStyle/images/cancel.gif")" onclick="history.go(-1); return false;" style="border-width: 0px;" />
+                                                    <input type="submit" name="btnPrevious" id="btnPrevious" value="@ViewBag.CMS_PAGE_PREVIOUS_TEXT" onclick="history.go(-1); return false;" style="border-width: 0px;" />
                                                 </td>
 
                                                 <td width="112" align="right" valign="bottom">
-                                                    <input type="image" name="btnNext" id="btnNext" src="@Url.Content("~/Contents/images/confirm.gif")" style="border-width: 0px;" />
+                                                    <input type="submit" name="btnNext" id="btnNext" value="@ViewBag.CMS_PAGE_NEXT_TEXT" style="border-width: 0px;" />
                                                 </td>
                                             </tr>
 
