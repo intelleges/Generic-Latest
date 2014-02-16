@@ -2,11 +2,38 @@
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @{
-    Layout = null;
+    Layout = Generic.Helpers.LayoutHelper.GetPopupLayout();
     ViewBag.Title = "Group";
+    //Html.EnableUnobtrusiveJavaScript(true);
+    //Html.EnableClientValidation(true);
 }
 
+
+<script type="text/javascript">
+    
+    $("frmCreateGroup").submit(function (e) {
+        
+        if ($(this).valid()) {
+            
+            $.post('<%= Url.Action("~/Group/Create")%>', $(this).serialize(), function (data) {
+                
+                $("#dynamicData").html(data);
+                
+                $.validator.unobtrusive.parse($("#dynamicData"));
+                
+            });
+            
+        }
+        
+        e.preventDefault();
+       
+    });
+   
+</script>
+
+
 <h2>Create Group</h2>
+
 
 
 @using (Html.BeginForm("Create", "Group", new { @id="frmCreateGroup"}))
@@ -63,7 +90,15 @@
             <span class="field-validation-valid" data-valmsg-for="description2" data-valmsg-replace="true"></span>
 
               </div>
+     @*   <div class="editor-label">
+           Test2
+             </div>
+        <div class="editor-field">
+            <input class="text-box single-line" id="description22_0" data-val="true" data-val-required="The description22 field is required." name="description22" type="radio" >
+            <input class="text-box single-line" id="description22_1" data-val="true" data-val-required="The description22 field is required." name="description22" type="radio" >
+            <span class="field-validation-valid" data-valmsg-for="description22" data-valmsg-replace="true"></span>
 
+              </div>*@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.email)
@@ -108,10 +143,10 @@
 </div>*@
 
 @section Scripts {
-    <script src="~/Scripts/jquery.validate.js"></script>
+   @* <script src="~/Scripts/jquery.validate.js"></script>
     <script>
         $("#frmCreateGroup").validate({
            
         });
-    </script>
+    </script>*@
 }

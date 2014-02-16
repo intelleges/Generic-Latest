@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Google.API.Translate;
 using Generic;
+using System.Text;
 using Generic.Helpers.Questionnaire;
 
 namespace Generic.DataLayer
@@ -169,7 +170,7 @@ namespace Generic.DataLayer
             showquestionCollectionByquestionnaire(questionnaire, table);
             return table;
         }
-
+         
         private void showPageCollectionByquestionnaire(questionnaire questionnaire, int pageNumber, int pageId, int jumpToquestion, Table table)
         {
             List<page> pageCollection = db.pr_getPageByQuestionnaire(questionnaire.id).ToList();
@@ -1256,11 +1257,15 @@ namespace Generic.DataLayer
                     tableCell = new TableCell();
                     dropDownList = new DropDownList();
                     dropDownList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
+                   
+                    dropDownList.Attributes.Add("data-val", "true");
+                    dropDownList.Attributes.Add("data-val-required", "Required");
+
                     dropDownList.Width = 250;
                     tableCell = new TableCell();
                     tableCell.HorizontalAlign = HorizontalAlign.Left;
                     string selectval = convertLanguageApi("Please select one");
-                    dropDownList.Items.Add(new ListItem(selectval, "0"));
+                    dropDownList.Items.Add(new ListItem(selectval, ""));
 
                     for (int i = 0; i < responseCollection.Count; i++)
                     {
@@ -1293,11 +1298,14 @@ namespace Generic.DataLayer
                     tableRow.Controls.Add(tableCell);
 
                     tableCell = new TableCell();
-                    radioButtonList = new RadioButtonList();
+                    radioButtonList = new Generic.Helpers.UIControl.MyRadioButtonList();
                     radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
                     radioButtonList.Font.Size = 10;
                     //radioButtonList.Attributes.Add("onchange", "javascript:showdiv();");
                     radioButtonList.Attributes.Add("onClick", "showdivRadioList(this);removevalidation(this.id) ");
+
+                    
+
                     radioButtonList.RepeatDirection = RepeatDirection.Vertical;
                     tableCell = new TableCell();
                     tableCell.HorizontalAlign = HorizontalAlign.Left;
@@ -1305,6 +1313,10 @@ namespace Generic.DataLayer
                     {
                         //radioButtonList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
                         radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
+
+                       radioButtonList.Items[i].Attributes.Add("data-val", "true");
+                       radioButtonList.Items[i].Attributes.Add("data-val-required", "Required");
+                     //   radioButtonList.Items[i].Attributes["data-val"] = "true";
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                         {
                             radioButtonList.ClearSelection();
@@ -1312,6 +1324,14 @@ namespace Generic.DataLayer
                         }
                         tableCell.Controls.Add(radioButtonList);
                     }
+
+                    //foreach (ListItem option in radioButtonList.Items)
+                    //{
+                    //    option.Attributes["data-val"] = "true";
+                    //    option.Attributes["data-val-required"] = "Required";
+                    //    ((IAttributeAccessor)option).SetAttribute("data-val", "true");
+                    //}
+
                     tableCell.Controls.Add(radioButtonList);
                     tableCell.ColumnSpan = 2;
                     tableRow.Controls.Add(tableCell);
@@ -1469,6 +1489,7 @@ namespace Generic.DataLayer
                     {
                         string uploadedFile = "";// question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
 
+
                         if (!string.IsNullOrEmpty(uploadedFile))
                         {
 
@@ -1487,6 +1508,7 @@ namespace Generic.DataLayer
 
             return tableRow;
         }
+       
         private TableCell getAnswerCell(int surveyId, int questionId, string responseType, string cssClass, Table table)
         {
             question question = new question();
@@ -1516,18 +1538,28 @@ namespace Generic.DataLayer
             switch (responseType)
             {
                 case "radioButton":
-                    radioButtonList = new RadioButtonList();
+                    radioButtonList = new Generic.Helpers.UIControl.MyRadioButtonList();
                     radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
                     radioButtonList.Attributes.Add("onClick", "showdivnew(this);removevalidation(this.id) ");
+                   // radioButtonList.t
+                    //Generic.Helpers.UIControl.MyRadioButtonList();
+                    //radioButtonList.Attributes.Add("data-val", "true");
+                    //radioButtonList.Attributes.Add("data-val-required", "Required");
+                    //System.Web.UI.HtmlControls.R
+
                     radioButtonList.RepeatDirection = RepeatDirection.Horizontal;
                     tableCell = new TableCell();
+                    
                     tableCell.HorizontalAlign = HorizontalAlign.Right;
                     tableCell.CssClass = cssClass;
                     tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(15);
                     for (int i = 0; i < responseCollection.Count; i++)
                     {
                         radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
-
+                      
+                        radioButtonList.Items[i].Attributes.Add("data-val", "true");
+                        radioButtonList.Items[i].Attributes.Add("data-val-required", "Required");
+                        //radioButtonList.Items[i].Attributes["data-val"] = "true";
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                         {
                             if (pptqResponse.response == 74)
@@ -1544,7 +1576,18 @@ namespace Generic.DataLayer
                             }
                             radioButtonList.Items[i].Selected = true;
                         }
+                        //radioButtonList.Items[i].
+                        //foreach (ListItem option in radioButtonList.Items)
+                        //{
+                        //    option.Attributes["data-val"] = "true";
+                        //    option.Attributes["data-val-required"] = "Required";
+                        //    ((IAttributeAccessor)option).SetAttribute("data-val", "true");
+                        //}
 
+
+                     //   RadioButton rb = new RadioButton(); 
+                        //radioButtonList.Items.Add(rb.
+                      //  rb.InputAttributes.Add
 
                         tableCell.Controls.Add(radioButtonList);
                     }
@@ -1562,7 +1605,8 @@ namespace Generic.DataLayer
 
         private void addControlValidator(string controlId, string validatorType, TableCell tableCell)
         {
-            string requiredtext = " " + convertLanguageApi("Required");
+            string requiredtext = " <span class=\"field-validation-valid\" data-valmsg-for=\"" + controlId + "\" data-valmsg-replace=\"true\"></span>";
+          //  string requiredtext = " " + convertLanguageApi("Required");
             if (validatorType == "requiredFieldValidator")
             {
                 RequiredFieldValidator validator = new RequiredFieldValidator();
@@ -1570,6 +1614,7 @@ namespace Generic.DataLayer
                 validator.ErrorMessage = requiredtext;//" Required";
                 validator.Display = ValidatorDisplay.Dynamic;
                 tableCell.Controls.Add(validator);
+        //        tableCell.FindControl("controlId")
             }
             else if (validatorType == "rangeValidator")
             {

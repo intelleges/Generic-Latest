@@ -61,9 +61,7 @@
 
                 </p>
             </div>
-            <div class="admin-touchpoints">             
-            Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
-            </div>
+           
             <div class="admin-nav-about">
                  <nav>
                         <ul id="menu">
@@ -93,7 +91,16 @@
               .Collapsible(true).Collapsed(true)
               .Content(@<footer>
         <div class="content-wrapper">
-            <div class="float-left">
+
+              <div class="float-left">
+                <p>
+                     <div class="admin-touchpoints">             
+            Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
+            </div>
+                </p>
+            </div>
+
+            <div class="float-right">
                 <p>&copy; @DateTime.Now.Year - Intelleges</p>
             </div>
         </div>

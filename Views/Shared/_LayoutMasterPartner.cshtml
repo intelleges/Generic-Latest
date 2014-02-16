@@ -4,7 +4,16 @@
 @{
     Layout = "~/tmp/Views/Shared/_LayoutMaster.cshtml";    
 }
+<style>
 
+    .footer {
+
+background-color: white!important;
+border-top:2px #a9c2c9 solid!important;
+
+}
+
+</style>
  <script type="text/javascript">
      try {
          var pageTracker = _gat._getTracker("UA-7827202-1");
@@ -112,9 +121,15 @@
                     </td>
                     <td width="34%" align="right" class="texttwo">
                         <div style="margin-right: 18px;">
-                            Copyright ©
-                            <span id="ctl00_lblCurrentDate">2013</span>, Intelleges®. All rights
-                            reserved.</div>
+                             
+                            Copyright &copy; @DateTime.Now.Year, Intelleges @Html.Raw("&#174;"). All rights reserved.</div>
+                   
+                        
+                     
+                        
+
+                        
+
                     </td>
                 </tr>
             </table>

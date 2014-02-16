@@ -14,39 +14,67 @@ namespace Generic.DataLayer
 
         public IEnumerable<MenuModel> GetAllParentMenu()
         {
-            IEnumerable<MenuModel> menuModel = (from t in db.menu
-                                                   where t.parentid == t.id
-                                                   select new MenuModel
-                                                   {
-                                                       id = t.id,
-                                                       parentid = t.parentid,
-                                                       url = t.url,
-                                                       sortOrder = t.sortOrder,
-                                                       description = t.description,
-                                                       accesslevel = t.accesslevel,
-                                                       active = t.active,
-                                                       enterprise = t.enterprise
+            IEnumerable<MenuModel> menuModel = db.pr_getMenuItemTopLevel(Generic.Helpers.CurrentInstance.EnterpriseID).Select(t => new MenuModel
+            {
+                id = t.id,
+                parentid = t.parentid,
+                url = t.url,
+                sortOrder = t.sortOrder,
+                description = t.description,
+                accesslevel = t.accesslevel,
+                active = t.active,
+                enterprise = t.enterprise
 
-                                                   }).AsEnumerable<MenuModel>();
+            }).AsEnumerable<MenuModel>();
+
+
+            //IEnumerable<MenuModel> menuModel = (from t in db.menu
+            //                                       where t.parentid == t.id
+            //                                       select new MenuModel
+            //                                       {
+            //                                           id = t.id,
+            //                                           parentid = t.parentid,
+            //                                           url = t.url,
+            //                                           sortOrder = t.sortOrder,
+            //                                           description = t.description,
+            //                                           accesslevel = t.accesslevel,
+            //                                           active = t.active,
+            //                                           enterprise = t.enterprise
+
+            //                                       }).AsEnumerable<MenuModel>();
             return menuModel;
         }
 
         public List<MenuModel> GetMenus(int? parentId, int menuId)
         {
-            List<MenuModel> menuModel = (from t in db.menu
-                                            where t.parentid != t.id && t.parentid == parentId
-                                            select new MenuModel
-                                            {
-                                                id = t.id,
-                                                parentid = t.parentid,
-                                                url = t.url,
-                                                sortOrder = t.sortOrder,
-                                                description = t.description,
-                                                accesslevel = t.accesslevel,
-                                                active = t.active,
-                                                enterprise = t.enterprise
 
-                                            }).ToList();
+            List<MenuModel> menuModel = db.pr_getMenuChildItem(parentId).Select(t=> new MenuModel
+                                         {
+                                             id = t.id,
+                                             parentid = t.parentid,
+                                             url = t.url,
+                                             sortOrder = t.sortOrder,
+                                             description = t.description,
+                                             accesslevel = t.accesslevel,
+                                             active = t.active,
+                                             enterprise = t.enterprise
+
+                                         }).ToList();
+
+            //List<MenuModel> menuModel = (from t in db.menu
+            //                             where t.parentid != t.id && t.parentid == parentId
+            //                             select new MenuModel
+            //                             {
+            //                                 id = t.id,
+            //                                 parentid = t.parentid,
+            //                                 url = t.url,
+            //                                 sortOrder = t.sortOrder,
+            //                                 description = t.description,
+            //                                 accesslevel = t.accesslevel,
+            //                                 active = t.active,
+            //                                 enterprise = t.enterprise
+
+            //                             }).ToList();
             return menuModel;
         }
 
