@@ -18,7 +18,7 @@ namespace Generic.Controllers
 
         public ActionResult Index()
         {
-            var groups = db.pr_getGroupAll(SessionSingleton.MyEnterPriseId);
+            var groups = db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID);
             return View(groups.ToList());
         }
 
@@ -54,7 +54,7 @@ namespace Generic.Controllers
             if (ModelState.IsValid)
             {
                 group.author = SessionSingleton.LoggedInUserId;
-                group.enterprise = SessionSingleton.EnterPriseId;
+                group.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
                 db.group.Add(group);
                 db.SaveChanges();
                 return RedirectToAction("Create","Person");

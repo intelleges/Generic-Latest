@@ -10,17 +10,13 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class questionnaireQuestionnaireCMS
+    public partial class pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result
     {
         public int questionnaire { get; set; }
         public int questionnaireCMS { get; set; }
         public string text { get; set; }
         public string link { get; set; }
         public byte[] doc { get; set; }
-    
-        public virtual questionnaire questionnaire1 { get; set; }
-        public virtual questionnaireCMS questionnaireCMS1 { get; set; }
     }
 }

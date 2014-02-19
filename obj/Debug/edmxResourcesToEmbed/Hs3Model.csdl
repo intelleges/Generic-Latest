@@ -2588,7 +2588,7 @@
     <FunctionImport Name="pr_getEnterpriseByAccessCode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseByAccessCode_Result)">
       <Parameter Name="accesscode" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="pr_getRoleByPerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleByPerson_Result)">
+    <FunctionImport Name="pr_getRoleByPerson" EntitySet="role" ReturnType="Collection(hs3MVCMTQa2Model.role)">
       <Parameter Name="person" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_getCountryByName" EntitySet="country" ReturnType="Collection(hs3MVCMTQa2Model.country)">
@@ -2820,6 +2820,8 @@
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
       <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
       <Parameter Name="text" Mode="In" Type="String" />
+      <Parameter Name="link" Mode="In" Type="String" />
+      <Parameter Name="doc" Mode="In" Type="Binary" />
     </FunctionImport>
     <FunctionImport Name="pr_archiveQuestionnaireCMS">
       <Parameter Name="id" Mode="In" Type="Int32" />
@@ -2845,6 +2847,8 @@
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
       <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
       <Parameter Name="text" Mode="In" Type="String" />
+      <Parameter Name="link" Mode="In" Type="String" />
+      <Parameter Name="doc" Mode="In" Type="Binary" />
     </FunctionImport>
     <FunctionImport Name="pr_removeQuestionnaireCMS">
       <Parameter Name="id" Mode="In" Type="Int32" />
@@ -2965,6 +2969,28 @@
       <End Role="language" EntitySet="language" />
       <End Role="response" EntitySet="response" />
     </AssociationSet>
+    <FunctionImport Name="pr_getMenuForRole" ReturnType="Collection(hs3MVCMTQa2Model.pr_getMenuForRole_Result)">
+      <Parameter Name="enterprise" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="responseZcode" EntityType="hs3MVCMTQa2Model.responseZcode" />
+    <FunctionImport Name="pr_getPartnumberCompletedCountByPPTQ" ReturnType="Collection(Int32)">
+      <Parameter Name="pptq" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPartnumberCountByPPTQ" ReturnType="Collection(Int32)">
+      <Parameter Name="pptq" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getQuestionByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionByQuestionnaire_Result)">
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getQuestionnaireByPartnumberSiteZcodePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByPartnumberSiteZcodePPTQ_Result)">
+      <Parameter Name="partnumberSiteZcodePPTQ" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result)">
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="xx_getQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.xx_getQuestionnaire_Result)">
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="accessLevel">
     <Key>
@@ -7380,7 +7406,7 @@
     </Key>
     <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="Int32" Name="question" Nullable="false" />
-    <Property Type="Int32" Name="response" Nullable="false" />
+    <Property Type="Int32" Name="response" />
     <Property Type="String" Name="comment" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Type="Binary" Name="uploadedFile" MaxLength="Max" FixedLength="false" />
     <Property Type="String" Name="uploadedFileType" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -7638,6 +7664,8 @@
     <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" FromRole="questionnaireQuestionnaireCMS" ToRole="questionnaire" />
     <NavigationProperty Name="questionnaireCMS1" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaireCMS" FromRole="questionnaireQuestionnaireCMS" ToRole="questionnaireCMS" />
+    <Property Type="String" Name="link" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Type="Binary" Name="doc" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <Association Name="FK_questionnaireQuestionnaireCMS_questionnaire">
     <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="1" />
@@ -7899,8 +7927,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnumberSiteZcodePPTQQuestionResponse_response">
-    <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="1" />
-    <End Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Role="partnumberSiteZcodePPTQQuestionResponse" Multiplicity="*" />
+    <End Role="response" Type="hs3MVCMTQa2Model.response" Multiplicity="0..1" />
+    <End Role="partnumberSiteZcodePPTQQuestionResponse" Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="response">
         <PropertyRef Name="id" />
@@ -7950,4 +7978,88 @@
     <End Type="hs3MVCMTQa2Model.language" Role="language" Multiplicity="*" />
     <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="*" />
   </Association>
+  <ComplexType Name="pr_getMenuForRole_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="parentid" Nullable="true" />
+    <Property Type="String" Name="description1" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="id1" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="responseZcode">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="zcode" />
+      <PropertyRef Name="group" />
+      <PropertyRef Name="sortOrder" />
+      <PropertyRef Name="active" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="zcode" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Type="Int32" Name="group" Nullable="false" />
+    <Property Type="Int32" Name="sortOrder" Nullable="false" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+  </EntityType>
+  <ComplexType Name="pr_getQuestionByQuestionnaire_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="question" Nullable="true" />
+    <Property Type="String" Name="name" Nullable="true" />
+    <Property Type="String" Name="title" Nullable="false" />
+    <Property Type="String" Name="tag" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="responseType" Nullable="true" />
+    <Property Type="Int32" Name="required" Nullable="true" />
+    <Property Type="Int32" Name="weight" Nullable="true" />
+    <Property Type="Boolean" Name="skipLogicAnswer" Nullable="true" />
+    <Property Type="String" Name="skipLogicJump" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="accessLevel" Nullable="true" />
+    <Property Type="Int32" Name="commentRequired" Nullable="true" />
+    <Property Type="String" Name="commentBoxTxt" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="commentUploadTxt" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="commentType" Nullable="true" />
+    <Property Type="String" Name="spinOffQuestionnaire" Nullable="true" MaxLength="1" />
+    <Property Type="Int32" Name="spinOffQID" Nullable="true" />
+    <Property Type="String" Name="emailAlert" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="emailAlertList" Nullable="true" />
+    <Property Type="Int32" Name="updated" Nullable="true" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getQuestionnaireByPartnumberSiteZcodePPTQ_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="footer" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="locked" Nullable="true" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="multiLanguage" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+    <Property Type="Int32" Name="person" Nullable="false" />
+    <Property Type="Int32" Name="partnerType" Nullable="false" />
+    <Property Type="Int32" Name="letter" Nullable="true" />
+    <Property Type="Int32" Name="levelType" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result">
+    <Property Type="Int32" Name="questionnaire" Nullable="false" />
+    <Property Type="Int32" Name="questionnaireCMS" Nullable="false" />
+    <Property Type="String" Name="text" Nullable="false" />
+    <Property Type="String" Name="link" Nullable="true" MaxLength="Max" />
+    <Property Type="Binary" Name="doc" Nullable="true" MaxLength="Max" />
+  </ComplexType>
+  <ComplexType Name="xx_getQuestionnaire_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="surveySet" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="survey" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="question" Nullable="false" />
+    <Property Type="String" Name="responseType" Nullable="true" />
+    <Property Type="Int32" Name="commentRequired" Nullable="true" />
+    <Property Type="String" Name="title" Nullable="true" />
+    <Property Type="Int32" Name="required" Nullable="true" />
+    <Property Type="Boolean" Name="skipLogicAnswer" Nullable="true" />
+    <Property Type="String" Name="skipLogicJump" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="commentBoxTxt" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="commentUploadTxt" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="commentType" Nullable="true" />
+  </ComplexType>
 </Schema>

@@ -3271,19 +3271,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getRoleByPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleByPerson">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRoleByPerson_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
-          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-          <ScalarProperty Name="access" ColumnName="access" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getRoleByPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleByPerson" />
     <FunctionImportMapping FunctionImportName="pr_getCountryByName" FunctionName="hs3MVCMTQa2Model.Store.pr_getCountryByName" />
     <FunctionImportMapping FunctionImportName="pr_getStateByStateCode" FunctionName="hs3MVCMTQa2Model.Store.pr_getStateByStateCode" />
     <FunctionImportMapping FunctionImportName="pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint" />
@@ -3443,6 +3431,8 @@
     <EntitySetMapping Name="questionnaireQuestionnaireCMS">
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS">
         <MappingFragment StoreEntitySet="questionnaireQuestionnaireCMS">
+          <ScalarProperty Name="doc" ColumnName="doc" />
+          <ScalarProperty Name="link" ColumnName="link" />
           <ScalarProperty Name="text" ColumnName="text" />
           <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
           <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
@@ -3511,18 +3501,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_getSiteByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getSiteByPPTQ" />
-    <EntitySetMapping Name="partNumberSiteZcodePPTQSet">
-      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partNumberSiteZcodePPTQ">
-        <MappingFragment StoreEntitySet="partNumberSiteZcodePPTQ">
-          <ScalarProperty Name="partnerPartnertypeTouchpointQuestionnaire" ColumnName="partnerPartnertypeTouchpointQuestionnaire" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="zcode" ColumnName="zcode" />
-          <ScalarProperty Name="site" ColumnName="site" />
-          <ScalarProperty Name="partnumber" ColumnName="partnumber" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="partnumberStatus">
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberStatus">
         <MappingFragment StoreEntitySet="partnumberStatus">
@@ -3572,5 +3550,120 @@
         <ScalarProperty Name="id" ColumnName="language" />
       </EndProperty>
     </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="pr_getMenuForRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuForRole">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuForRole_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="parentid" ColumnName="parentid" />
+          <ScalarProperty Name="description1" ColumnName="description1" />
+          <ScalarProperty Name="id1" ColumnName="id1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="responseZcode">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.responseZcode">
+        <MappingFragment StoreEntitySet="responseZcode">
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="group" ColumnName="group" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberCompletedCountByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberCompletedCountByPPTQ" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberCountByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberCountByPPTQ" />
+    <FunctionImportMapping FunctionImportName="pr_getQuestionByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionByQuestionnaire">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionByQuestionnaire_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="tag" ColumnName="tag" />
+          <ScalarProperty Name="responseType" ColumnName="responseType" />
+          <ScalarProperty Name="required" ColumnName="required" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="skipLogicAnswer" ColumnName="skipLogicAnswer" />
+          <ScalarProperty Name="skipLogicJump" ColumnName="skipLogicJump" />
+          <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+          <ScalarProperty Name="commentRequired" ColumnName="commentRequired" />
+          <ScalarProperty Name="commentBoxTxt" ColumnName="commentBoxTxt" />
+          <ScalarProperty Name="commentUploadTxt" ColumnName="commentUploadTxt" />
+          <ScalarProperty Name="commentType" ColumnName="commentType" />
+          <ScalarProperty Name="spinOffQuestionnaire" ColumnName="spinOffQuestionnaire" />
+          <ScalarProperty Name="spinOffQID" ColumnName="spinOffQID" />
+          <ScalarProperty Name="emailAlert" ColumnName="emailAlert" />
+          <ScalarProperty Name="emailAlertList" ColumnName="emailAlertList" />
+          <ScalarProperty Name="updated" ColumnName="updated" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireByPartnumberSiteZcodePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireByPartnumberSiteZcodePPTQ">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireByPartnumberSiteZcodePPTQ_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="footer" ColumnName="footer" />
+          <ScalarProperty Name="locked" ColumnName="locked" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="multiLanguage" ColumnName="multiLanguage" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="person" ColumnName="person" />
+          <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+          <ScalarProperty Name="letter" ColumnName="letter" />
+          <ScalarProperty Name="levelType" ColumnName="levelType" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result">
+          <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+          <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="link" ColumnName="link" />
+          <ScalarProperty Name="doc" ColumnName="doc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="xx_getQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.xx_getQuestionnaire">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xx_getQuestionnaire_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="surveySet" ColumnName="surveySet" />
+          <ScalarProperty Name="survey" ColumnName="survey" />
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="responseType" ColumnName="responseType" />
+          <ScalarProperty Name="commentRequired" ColumnName="commentRequired" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="required" ColumnName="required" />
+          <ScalarProperty Name="skipLogicAnswer" ColumnName="skipLogicAnswer" />
+          <ScalarProperty Name="skipLogicJump" ColumnName="skipLogicJump" />
+          <ScalarProperty Name="commentBoxTxt" ColumnName="commentBoxTxt" />
+          <ScalarProperty Name="commentUploadTxt" ColumnName="commentUploadTxt" />
+          <ScalarProperty Name="commentType" ColumnName="commentType" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="partNumberSiteZcodePPTQSet">
+      <EntityTypeMapping TypeName="IsTypeOf(hs3MVCMTQa2Model.partNumberSiteZcodePPTQ)">
+        <MappingFragment StoreEntitySet="partnumberSiteZcodePPTQ">
+          <ScalarProperty Name="partnerPartnertypeTouchpointQuestionnaire" ColumnName="partnerPartnertypeTouchpointQuestionnaire" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="site" ColumnName="site" />
+          <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

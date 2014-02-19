@@ -10,17 +10,13 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class questionnaireQuestionnaireCMS
+    public partial class pr_getMenuForRole_Result
     {
-        public int questionnaire { get; set; }
-        public int questionnaireCMS { get; set; }
-        public string text { get; set; }
-        public string link { get; set; }
-        public byte[] doc { get; set; }
-    
-        public virtual questionnaire questionnaire1 { get; set; }
-        public virtual questionnaireCMS questionnaireCMS1 { get; set; }
+        public int id { get; set; }
+        public string description { get; set; }
+        public Nullable<int> parentid { get; set; }
+        public string description1 { get; set; }
+        public int id1 { get; set; }
     }
 }

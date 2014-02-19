@@ -1,0 +1,125 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.group>>
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetPopupLayout();
+    ViewBag.Title = "Assign Group To Person";
+}
+<style>
+    #groups, #assignedGroups {
+        width: 100px;
+    }
+
+    .btn {
+        width: 100px;
+    }
+</style>
+<script>
+    jQuery(document).ready(function () {
+
+        $('#person').change(function () {
+
+            var person = $('#person').val();
+
+            if (person == "") {
+
+                return;
+            }
+            var form = $('<form method="get" action="@Url.Content("~/Person/AssignGroup")">' +
+                 '<input type="hidden" name="person" value="' + person + '"></form>');
+            $(form).submit();
+        });
+
+
+
+        
+
+
+        $("#btnAddAll,#btnRemoveAll").click(function (event) {
+            var ID = $(event.target).attr("ID");
+            var ChooseFrom = ID == "btnAddAll" ? "#groups" : "#assignedGroups";
+            var moveTo = ID == "btnAddAll" ? "#assignedGroups" : "#groups";
+
+            var SelectData = $(ChooseFrom + " > option").toArray();
+            $(moveTo).append(SelectData);
+            SelectData.remove;
+        });
+
+
+        $("#btnAdd,#btnRemove").click(function (event) {
+            var ID = $(event.target).attr("ID");
+            var ChooseFrom = ID == "btnAdd" ? "#groups" : "#assignedGroups";
+            var moveTo = ID == "btnAdd" ? "#assignedGroups" : "#groups";
+
+            var SelectData = $(ChooseFrom + " :selected").toArray();
+            $(moveTo).append(SelectData);
+            SelectData.remove;
+        });
+
+        $('#btnSubmit').click(function () {
+
+            var person = $('#person').val();
+
+            var foo = [];
+            $('#assignedGroups >option').each(function (i, selected) {
+                foo[i] = $(selected).val();
+            });
+
+            var form = $('<form method="post" action="@Url.Content("~/Person/AssignGroup")">' +
+                 '<input type="hidden" name="person" value="' + person + '"><input type="hidden" name="assignedGroups" value="' + foo + '"></form>');
+            $(form).submit();
+         });
+        
+
+    });
+</script>
+
+
+<h2>Assign Group To Person</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <table>
+        <tr>
+            <td>Person :</td>
+            <td>@Html.DropDownList("person", "Please select one")
+            </td>
+            <td></td>
+            
+        </tr>
+        <tr>
+            <td>Unassigned Group :</td>
+            <td>
+            </td>
+            <td>Assigned Group :</td>
+           
+        </tr>
+       
+        <tr>
+           
+            <td>@Html.ListBox("groups", (MultiSelectList)ViewData["grouplist"], new { @size = "10" })
+            </td>
+            <td>
+                <input type="button" id="btnAdd" value="Add" class="btn" /><br />
+                <input type="button" id="btnAddAll" value="Add All" class="btn" /><br />
+                <input type="button" id="btnRemove" value="Remove" class="btn" /><br />
+                <input type="button" id="btnRemoveAll" value="Remove All" class="btn" /><br />
+                <input type="button" id="btnSubmit" value="Done" class="btn" />
+
+            </td>
+          
+            <td>@Html.ListBox("assignedGroups", (MultiSelectList)ViewData["assignedGroups"], new { @size = "10" })
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </table>
+}

@@ -16,7 +16,7 @@ namespace Generic
     {
         public int id { get; set; }
         public int question { get; set; }
-        public int response { get; set; }
+        public Nullable<int> response { get; set; }
         public string comment { get; set; }
         public byte[] uploadedFile { get; set; }
         public string uploadedFileType { get; set; }

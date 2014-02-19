@@ -63,7 +63,7 @@
     <EntitySet Name="partnerTypeGroupGoal" EntityType="hs3MVCMTQa2Model.Store.partnerTypeGroupGoal" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="partnerTypeTouchpointQuestionnaire" EntityType="hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="partnumber" EntityType="hs3MVCMTQa2Model.Store.partnumber" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="partNumberSiteZcodePPTQ" EntityType="hs3MVCMTQa2Model.Store.partNumberSiteZcodePPTQ" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="partnumberSiteZcodePPTQ" EntityType="hs3MVCMTQa2Model.Store.partnumberSiteZcodePPTQ" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="partnumberSiteZcodePPTQQuestionResponse" EntityType="hs3MVCMTQa2Model.Store.partnumberSiteZcodePPTQQuestionResponse" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="partnumberStatus" EntityType="hs3MVCMTQa2Model.Store.partnumberStatus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="person" EntityType="hs3MVCMTQa2Model.Store.person" store:Type="Tables" Schema="dbo" />
@@ -95,6 +95,15 @@
     <EntitySet Name="responseLanguage" EntityType="hs3MVCMTQa2Model.Store.responseLanguage" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="responseTranslation" EntityType="hs3MVCMTQa2Model.Store.responseTranslation" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="responseType" EntityType="hs3MVCMTQa2Model.Store.responseType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="responseZcode" EntityType="hs3MVCMTQa2Model.Store.responseZcode" store:Type="Tables" store:Schema="dbo" store:Name="responseZcode">
+      <DefiningQuery>SELECT 
+      [responseZcode].[id] AS [id], 
+      [responseZcode].[zcode] AS [zcode], 
+      [responseZcode].[group] AS [group], 
+      [responseZcode].[sortOrder] AS [sortOrder], 
+      [responseZcode].[active] AS [active]
+      FROM [dbo].[responseZcode] AS [responseZcode]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="riskType" EntityType="hs3MVCMTQa2Model.Store.riskType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="role" EntityType="hs3MVCMTQa2Model.Store.role" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="roleMenu" EntityType="hs3MVCMTQa2Model.Store.roleMenu" store:Type="Tables" Schema="dbo" />
@@ -310,22 +319,22 @@
     </AssociationSet>
     <AssociationSet Name="FK_partNumberSiteZcodePPTQ_partnerPartnertypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.Store.FK_partNumberSiteZcodePPTQ_partnerPartnertypeTouchpointQuestionnaire">
       <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
-      <End Role="partNumberSiteZcodePPTQ" EntitySet="partNumberSiteZcodePPTQ" />
+      <End Role="partnumberSiteZcodePPTQ" EntitySet="partnumberSiteZcodePPTQ" />
     </AssociationSet>
     <AssociationSet Name="FK_partNumberSiteZcodePPTQ_partnumber" Association="hs3MVCMTQa2Model.Store.FK_partNumberSiteZcodePPTQ_partnumber">
       <End Role="partnumber" EntitySet="partnumber" />
-      <End Role="partNumberSiteZcodePPTQ" EntitySet="partNumberSiteZcodePPTQ" />
+      <End Role="partnumberSiteZcodePPTQ" EntitySet="partnumberSiteZcodePPTQ" />
     </AssociationSet>
     <AssociationSet Name="FK_partNumberSiteZcodePPTQ_partnumberStatus" Association="hs3MVCMTQa2Model.Store.FK_partNumberSiteZcodePPTQ_partnumberStatus">
       <End Role="partnumberStatus" EntitySet="partnumberStatus" />
-      <End Role="partNumberSiteZcodePPTQ" EntitySet="partNumberSiteZcodePPTQ" />
+      <End Role="partnumberSiteZcodePPTQ" EntitySet="partnumberSiteZcodePPTQ" />
     </AssociationSet>
     <AssociationSet Name="FK_partNumberSiteZcodePPTQ_site" Association="hs3MVCMTQa2Model.Store.FK_partNumberSiteZcodePPTQ_site">
       <End Role="site" EntitySet="site" />
-      <End Role="partNumberSiteZcodePPTQ" EntitySet="partNumberSiteZcodePPTQ" />
+      <End Role="partnumberSiteZcodePPTQ" EntitySet="partnumberSiteZcodePPTQ" />
     </AssociationSet>
     <AssociationSet Name="FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ" Association="hs3MVCMTQa2Model.Store.FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ">
-      <End Role="partNumberSiteZcodePPTQ" EntitySet="partNumberSiteZcodePPTQ" />
+      <End Role="partnumberSiteZcodePPTQ" EntitySet="partnumberSiteZcodePPTQ" />
       <End Role="partnumberSiteZcodePPTQQuestionResponse" EntitySet="partnumberSiteZcodePPTQQuestionResponse" />
     </AssociationSet>
     <AssociationSet Name="FK_partnumberSiteZcodePPTQQuestionResponse_question" Association="hs3MVCMTQa2Model.Store.FK_partnumberSiteZcodePPTQQuestionResponse_question">
@@ -1364,7 +1373,7 @@
     <Property Name="active" Type="bit" Nullable="false" />
     <Property Name="partner" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="partNumberSiteZcodePPTQ">
+  <EntityType Name="partnumberSiteZcodePPTQ">
     <Key>
       <PropertyRef Name="id" />
     </Key>
@@ -1381,7 +1390,7 @@
     </Key>
     <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="question" Type="int" Nullable="false" />
-    <Property Name="response" Type="int" Nullable="false" />
+    <Property Name="response" Type="int" />
     <Property Name="comment" Type="varchar(max)" />
     <Property Name="uploadedFile" Type="varbinary(max)" />
     <Property Name="uploadedFileType" Type="varchar" MaxLength="50" />
@@ -1663,6 +1672,8 @@
     <Property Name="questionnaire" Type="int" Nullable="false" />
     <Property Name="questionnaireCMS" Type="int" Nullable="false" />
     <Property Name="text" Type="varchar(max)" Nullable="false" />
+    <Property Name="link" Type="text" />
+    <Property Name="doc" Type="image" />
   </EntityType>
   <EntityType Name="questionResponse">
     <Key>
@@ -1739,6 +1750,23 @@
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
     <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.responseZcode' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="responseZcode">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="zcode" />
+      <PropertyRef Name="group" />
+      <PropertyRef Name="sortOrder" />
+      <PropertyRef Name="active" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="zcode" Type="char" Nullable="false" MaxLength="2" />
+    <Property Name="group" Type="int" Nullable="false" />
+    <Property Name="sortOrder" Type="int" Nullable="false" />
+    <Property Name="active" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="riskType">
     <Key>
@@ -2531,57 +2559,57 @@
   </Association>
   <Association Name="FK_partNumberSiteZcodePPTQ_partnerPartnertypeTouchpointQuestionnaire">
     <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="1" />
-    <End Role="partNumberSiteZcodePPTQ" Type="hs3MVCMTQa2Model.Store.partNumberSiteZcodePPTQ" Multiplicity="*" />
+    <End Role="partnumberSiteZcodePPTQ" Type="hs3MVCMTQa2Model.Store.partnumberSiteZcodePPTQ" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partnerPartnertypeTouchpointQuestionnaire">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="partNumberSiteZcodePPTQ">
+      <Dependent Role="partnumberSiteZcodePPTQ">
         <PropertyRef Name="partnerPartnertypeTouchpointQuestionnaire" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partNumberSiteZcodePPTQ_partnumber">
     <End Role="partnumber" Type="hs3MVCMTQa2Model.Store.partnumber" Multiplicity="1" />
-    <End Role="partNumberSiteZcodePPTQ" Type="hs3MVCMTQa2Model.Store.partNumberSiteZcodePPTQ" Multiplicity="*" />
+    <End Role="partnumberSiteZcodePPTQ" Type="hs3MVCMTQa2Model.Store.partnumberSiteZcodePPTQ" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partnumber">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="partNumberSiteZcodePPTQ">
+      <Dependent Role="partnumberSiteZcodePPTQ">
         <PropertyRef Name="partnumber" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partNumberSiteZcodePPTQ_partnumberStatus">
     <End Role="partnumberStatus" Type="hs3MVCMTQa2Model.Store.partnumberStatus" Multiplicity="1" />
-    <End Role="partNumberSiteZcodePPTQ" Type="hs3MVCMTQa2Model.Store.partNumberSiteZcodePPTQ" Multiplicity="*" />
+    <End Role="partnumberSiteZcodePPTQ" Type="hs3MVCMTQa2Model.Store.partnumberSiteZcodePPTQ" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="partnumberStatus">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="partNumberSiteZcodePPTQ">
+      <Dependent Role="partnumberSiteZcodePPTQ">
         <PropertyRef Name="status" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partNumberSiteZcodePPTQ_site">
     <End Role="site" Type="hs3MVCMTQa2Model.Store.site" Multiplicity="1" />
-    <End Role="partNumberSiteZcodePPTQ" Type="hs3MVCMTQa2Model.Store.partNumberSiteZcodePPTQ" Multiplicity="*" />
+    <End Role="partnumberSiteZcodePPTQ" Type="hs3MVCMTQa2Model.Store.partnumberSiteZcodePPTQ" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="site">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="partNumberSiteZcodePPTQ">
+      <Dependent Role="partnumberSiteZcodePPTQ">
         <PropertyRef Name="site" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ">
-    <End Role="partNumberSiteZcodePPTQ" Type="hs3MVCMTQa2Model.Store.partNumberSiteZcodePPTQ" Multiplicity="1" />
+    <End Role="partnumberSiteZcodePPTQ" Type="hs3MVCMTQa2Model.Store.partnumberSiteZcodePPTQ" Multiplicity="1" />
     <End Role="partnumberSiteZcodePPTQQuestionResponse" Type="hs3MVCMTQa2Model.Store.partnumberSiteZcodePPTQQuestionResponse" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="partNumberSiteZcodePPTQ">
+      <Principal Role="partnumberSiteZcodePPTQ">
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="partnumberSiteZcodePPTQQuestionResponse">
@@ -2602,7 +2630,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_partnumberSiteZcodePPTQQuestionResponse_response">
-    <End Role="response" Type="hs3MVCMTQa2Model.Store.response" Multiplicity="1" />
+    <End Role="response" Type="hs3MVCMTQa2Model.Store.response" Multiplicity="0..1" />
     <End Role="partnumberSiteZcodePPTQQuestionResponse" Type="hs3MVCMTQa2Model.Store.partnumberSiteZcodePPTQQuestionResponse" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="response">
@@ -3310,6 +3338,11 @@
     </ReferentialConstraint>
   </Association>
   <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="fnReplaceCharAtPos" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Str" Type="varchar" Mode="In" />
+    <Parameter Name="Pos" Type="int" Mode="In" />
+    <Parameter Name="Chr" Type="char" Mode="In" />
+  </Function>
   <Function Name="pr_addAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="description" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -3770,6 +3803,8 @@
     <Parameter Name="questionnaire" Type="int" Mode="In" />
     <Parameter Name="questionnaireCMS" Type="int" Mode="In" />
     <Parameter Name="text" Type="varchar(max)" Mode="In" />
+    <Parameter Name="link" Type="text" Mode="In" />
+    <Parameter Name="doc" Type="image" Mode="In" />
   </Function>
   <Function Name="pr_addQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="question" Type="int" Mode="In" />
@@ -4189,6 +4224,9 @@
   <Function Name="pr_getMenuChildItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="parentid" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_getMenuForRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="enterprise" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getMenuItemTopLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
@@ -4324,6 +4362,12 @@
     <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
     <Parameter Name="site" Type="int" Mode="In" />
     <Parameter Name="status" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnumberCompletedCountByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pptq" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getPartnumberCountByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pptq" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getPartnumberSiteZcodeByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
@@ -4483,6 +4527,9 @@
   <Function Name="pr_getQuestionByLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="language" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_getQuestionByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getQuestionByResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="response" Type="int" Mode="In" />
   </Function>
@@ -4512,6 +4559,9 @@
     <Parameter Name="partnerType" Type="int" Mode="In" />
     <Parameter Name="touchpoint" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_getQuestionnaireByPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partnumberSiteZcodePPTQ" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getQuestionnaireCMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
@@ -4531,6 +4581,9 @@
     <Parameter Name="questionnaireCMS" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="questionnaire" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5176,6 +5229,8 @@
     <Parameter Name="questionnaire" Type="int" Mode="In" />
     <Parameter Name="questionnaireCMS" Type="int" Mode="In" />
     <Parameter Name="text" Type="varchar(max)" Mode="In" />
+    <Parameter Name="link" Type="text" Mode="In" />
+    <Parameter Name="doc" Type="image" Mode="In" />
   </Function>
   <Function Name="pr_modifyQuestionSkipLogicJump" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="question" Type="int" Mode="In" />
@@ -5739,6 +5794,9 @@
   </Function>
   <Function Name="xx_getLastDBModified" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="xx_getQuestionByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
+  </Function>
+  <Function Name="xx_getQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="questionnaire" Type="int" Mode="In" />
   </Function>
   <Function Name="xx_getRecordCountByTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />

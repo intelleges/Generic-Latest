@@ -71,7 +71,7 @@ namespace Generic.Controllers
                 {
                      using (var context = new EntitiesDBContext())
                     {
-                        context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId,questionnaireCMSID.id,cms.TEXT);
+                        context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId,questionnaireCMSID.id,cms.TEXT,null,null);
                     }                    
                 }
             }

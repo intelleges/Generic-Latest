@@ -3,13 +3,13 @@
 @using Generic.Helpers
 @{
     Layout = LayoutHelper.GetPopupLayout();
-    ViewBag.Title = "Assign Group To Person";
+    ViewBag.Title = "Assign Role To Person";
 }
 
 
 
 
-<h2>Assign Group To Person</h2>
+<h2>Assign Role To Person</h2>
 
 
 @using (Html.BeginForm()) {
@@ -21,8 +21,8 @@
            </td>
         </tr>
         <tr>
-            <td>Group :</td>
-            <td>  @Html.DropDownList("groups", String.Empty)
+            <td>Role :</td>
+            <td>  @Html.DropDownList("roles", String.Empty)
            </td>
         </tr>
        <tr>
