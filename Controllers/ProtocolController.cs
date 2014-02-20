@@ -18,7 +18,7 @@ namespace Generic.Controllers
 
         public ActionResult Index()
         {
-            var protocols = db.pr_getProtocolAll(SessionSingleton.MyEnterPriseId);
+            var protocols = db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID);
             return View(protocols.ToList());
             
         }
