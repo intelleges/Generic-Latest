@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Generic.Helpers;
 
 namespace Generic.Controllers
 {
@@ -56,8 +57,8 @@ namespace Generic.Controllers
             if (ModelState.IsValid)
             {
                 protocol.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
-                protocol.sponsor = SessionSingleton.PersonId;
-                protocol.admin = SessionSingleton.PersonId;
+                protocol.sponsor = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
+                protocol.admin = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
                 db.protocol.Add(protocol);
                 db.SaveChanges();
                 SessionSingleton.ProtocolId = protocol.id;

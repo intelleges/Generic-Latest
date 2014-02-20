@@ -5,7 +5,7 @@
 
 @using Telerik.Web.Mvc.UI
 @{
-    Layout =null;
+    Layout = null;
     ViewBag.Title = "Touch Point";
 }
 
@@ -20,18 +20,17 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>touchpoint</legend>
-
-
         <div class="editor-label">
             @Html.LabelFor(model => model.protocol)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.protocol)
+          @Html.DropDownList("protocol", String.Empty)
             @Html.ValidationMessageFor(model => model.protocol)
         </div>
 
@@ -39,9 +38,7 @@
             @Html.LabelFor(model => model.person)
         </div>
         <div class="editor-field">
-        @*    @Html.Action("PersonCombobox", "Touchpoint")*@
-
-             @Html.EditorFor(model => model.person)
+            @Html.EditorFor(model => model.person)
             @Html.ValidationMessageFor(model => model.person)
         </div>
 
@@ -49,7 +46,7 @@
             @Html.LabelFor(model => model.sponsor)
         </div>
         <div class="editor-field">
-          @Html.EditorFor(model => model.sponsor)
+            @Html.EditorFor(model => model.sponsor)
             @Html.ValidationMessageFor(model => model.sponsor)
         </div>
 

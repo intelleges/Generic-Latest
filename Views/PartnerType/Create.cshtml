@@ -3,7 +3,7 @@
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 @{
-    Layout = LayoutHelper.GetLayout();
+    Layout = LayoutHelper.GetPopupLayout();
     ViewBag.Title = "Partner Type";
 }
 
@@ -78,6 +78,7 @@
 }
 
 <div>
+     @Html.ActionLink("Back to Upload Part#", "Partnumber","Partner")
     @Html.ActionLink("Back to List", "Index")
 </div>
 

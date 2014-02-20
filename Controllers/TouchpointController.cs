@@ -63,6 +63,14 @@ namespace Generic.Controllers
 
         public ActionResult Create()
         {
+            if (SessionSingleton.ProtocolId != 0)
+            {
+                ViewBag.protocol = new SelectList( db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", SessionSingleton.ProtocolId);
+            }
+            else
+            {
+                ViewBag.protocol = new SelectList( db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+            }
             return View();
         }
 
@@ -74,7 +82,8 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
-            //    touchpoint.protocol = SessionSingleton.ProtocolId;
+                
+            //    touchpoint.protocol = ;
                 db.touchpoint.Add(touchpoint);
                 db.SaveChanges();
                 return RedirectToAction("Index");
