@@ -447,6 +447,28 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         {
                             db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpsz.FirstOrDefault().id, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
                         }
+                        string zcode = PartNumberSiteZcodepptq.zcode;
+                        var allQuestions = db.pr_getQuestionByQuestionnaire(questionnaireId).ToList();
+                        int questionNo = 0;
+                        foreach (var item in allQuestions)
+                        {
+                            questionNo++;
+
+                            if (questionId == item.id)
+                            {
+                                break;
+                            }
+                        }
+                        string NewZcodePart1 = zcode.Substring(0, (questionNo * 2) - 2);
+                        string NewZcodePart2_CurrectQuestion = "AA";
+                        string NewZcodePart3 = zcode.Substring((questionNo * 2), zcode.Length - (questionNo * 2));
+                        //3    45
+                        //zzzz zz zz
+                        //0 4
+                        //6 L-6
+                        PartNumberSiteZcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrectQuestion + NewZcodePart3;
+                        db.Entry(PartNumberSiteZcodepptq).State = EntityState.Modified;
+                        db.SaveChanges();
                     }
                     else if (keyName.ToString().Contains("_checkBox"))
                     {
@@ -484,6 +506,33 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             {
                                 db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpsz.FirstOrDefault().id, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
                             }
+
+
+
+                            string zcode = PartNumberSiteZcodepptq.zcode;
+                            var allQuestions = db.pr_getQuestionByQuestionnaire(questionnaireId).ToList();
+                            int questionNo = 0;
+                            foreach (var item in allQuestions)
+                            {
+                                questionNo++;
+
+                                if (questionId == item.id)
+                                {
+                                    break;
+                                }
+                            }
+                            string NewZcodePart1 = zcode.Substring(0,(questionNo * 2)-2);
+                            string NewZcodePart2_CurrectQuestion = "AA";
+                            string NewZcodePart3 = zcode.Substring((questionNo * 2), zcode.Length-(questionNo * 2));
+//3    45
+//zzzz zz zz
+//0 4
+//6 L-6
+                            PartNumberSiteZcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrectQuestion + NewZcodePart3;
+                            db.Entry(PartNumberSiteZcodepptq).State = EntityState.Modified;
+                            db.SaveChanges();
+
+
                         }
                     }
                     else if (keyName.ToString().Contains("_Commenttext"))
@@ -551,6 +600,32 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         {
                             db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpsz.FirstOrDefault().id, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
                         }
+                        var context = new EntitiesDBContext();
+                       
+                            string zcode = PartNumberSiteZcodepptq.zcode;
+                            var allQuestions = db.pr_getQuestionByQuestionnaire(questionnaireId).ToList();
+                            int questionNo = 0;
+                            foreach (var item in allQuestions)
+                            {
+                                questionNo++;
+
+                                if (questionId == item.id)
+                                {
+                                    break;
+                                }
+                            }
+                            string NewZcodePart1 = zcode.Substring(0, (questionNo * 2) - 2);
+                            string NewZcodePart2_CurrectQuestion = "AA";
+                            string NewZcodePart3 = zcode.Substring((questionNo * 2), zcode.Length - (questionNo * 2));
+                            //3    45
+                            //zzzz zz zz
+                            //0 4
+                            //6 L-6
+                            PartNumberSiteZcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrectQuestion + NewZcodePart3;
+                            context.Entry(PartNumberSiteZcodepptq).State = EntityState.Modified;
+                            context.SaveChanges();
+                        
+
                     }
 
                     objQuestion = db.pr_getQuestion(questionId).FirstOrDefault();

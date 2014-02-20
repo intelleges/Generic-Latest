@@ -146,7 +146,12 @@ namespace Generic.Controllers
 
             return PartialView("_InstanceLogoPartial", enterprise);
         }
+        public virtual ActionResult IntellegesLogo()
+        {
+            var enterprise = db.pr_getEnterprise(1).FirstOrDefault();
 
+            return PartialView("_InstanceLogoPartial", enterprise);
+        }
         public ActionResult TouchpointCombobox(TouchpointComboModel model)
         {
             model.AutoCompleteAttributes.Width = model.AutoCompleteAttributes.Width ?? 200;

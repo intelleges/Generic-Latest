@@ -91,16 +91,25 @@ namespace Generic.Helpers.Questionnaire
         public const string ESIGNATURE_PAGE_TEXT = "ESIGNATURE_PAGE_TEXT";
         public const string CONFIRMATION_PAGE_SIGNOFF_STATEMENT = "CONFIRMATION_PAGE_SIGNOFF_STATEMENT";
         public const string CONFIRMATION_PAGE_HEADLINE = "CONFIRMATION_PAGE_HEADLINE";
-        
+
         public const string CONTACT_US_EMAIL = "CONTACT_US_EMAIL";
 
         public const string RETRIEVE_ACCESS_CODE_TEXT = "RETRIEVE_ACCESS_CODE_TEXT";
         public const string SAVE_FOR_LATER_TEXT = "SAVE_FOR_LATER_TEXT";
-        
-    public const string     QUESTIONNAIRE_PDF ="QUESTIONNAIRE_PDF";
-    public const string QUESTIONNAIRE_FAQ = "QUESTIONNAIRE_FAQ";
-    public const string QUESTIONNAIRE_DOC_OTHER = "QUESTIONNAIRE_DOC_OTHER";
-    public const string QUESTIONNAIRE_VIDEO = "QUESTIONNAIRE_VIDEO";
-        
+
+        public const string QUESTIONNAIRE_PDF = "QUESTIONNAIRE_PDF";
+        public const string QUESTIONNAIRE_FAQ = "QUESTIONNAIRE_FAQ";
+        public const string QUESTIONNAIRE_DOC_OTHER = "QUESTIONNAIRE_DOC_OTHER";
+        public const string QUESTIONNAIRE_VIDEO = "QUESTIONNAIRE_VIDEO";
+
     }
+
+    public static class ZCode
+    {
+        public const string XX_Comment_Only_Question = "XX";
+        public const string YY_Skipped = "YY";
+        public const string ZZ_Not_Answered = "ZZ";
+      
+    }
+
 }
