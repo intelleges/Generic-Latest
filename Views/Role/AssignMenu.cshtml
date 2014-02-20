@@ -1,0 +1,125 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.menu>>
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetPopupLayout();
+    ViewBag.Title = "Assign Menu To Role";
+}
+<style>
+    #Menus, #assignedMenus {
+        width: 200px;
+    }
+
+    .btn {
+        width: 100px;
+    }
+</style>
+<script>
+    jQuery(document).ready(function () {
+
+        $('#Role').change(function () {
+
+            var Role = $('#Role').val();
+
+            if (Role == "") {
+
+                return;
+            }
+            var form = $('<form method="get" action="@Url.Content("~/Role/AssignMenu")">' +
+                 '<input type="hidden" name="Role" value="' + Role + '"></form>');
+            $(form).submit();
+        });
+
+
+
+        
+
+
+        $("#btnAddAll,#btnRemoveAll").click(function (event) {
+            var ID = $(event.target).attr("ID");
+            var ChooseFrom = ID == "btnAddAll" ? "#Menus" : "#assignedMenus";
+            var moveTo = ID == "btnAddAll" ? "#assignedMenus" : "#Menus";
+
+            var SelectData = $(ChooseFrom + " > option").toArray();
+            $(moveTo).append(SelectData);
+            SelectData.remove;
+        });
+
+
+        $("#btnAdd,#btnRemove").click(function (event) {
+            var ID = $(event.target).attr("ID");
+            var ChooseFrom = ID == "btnAdd" ? "#Menus" : "#assignedMenus";
+            var moveTo = ID == "btnAdd" ? "#assignedMenus" : "#Menus";
+
+            var SelectData = $(ChooseFrom + " :selected").toArray();
+            $(moveTo).append(SelectData);
+            SelectData.remove;
+        });
+
+        $('#btnSubmit').click(function () {
+
+            var Role = $('#Role').val();
+
+            var foo = [];
+            $('#assignedMenus >option').each(function (i, selected) {
+                foo[i] = $(selected).val();
+            });
+
+            var form = $('<form method="post" action="@Url.Content("~/Role/AssignMenu")">' +
+                 '<input type="hidden" name="Role" value="' + Role + '"><input type="hidden" name="assignedMenus" value="' + foo + '"></form>');
+            $(form).submit();
+         });
+        
+
+    });
+</script>
+
+
+<h2>Assign Menu To Role</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <table>
+        <tr>
+            <td>Role :</td>
+            <td>@Html.DropDownList("Role", "Please select one")
+            </td>
+            <td></td>
+            
+        </tr>
+        <tr>
+            <td>Unassigned Menu :</td>
+            <td>
+            </td>
+            <td>Assigned Menu :</td>
+           
+        </tr>
+       
+        <tr>
+           
+            <td>@Html.ListBox("Menus", (MultiSelectList)ViewData["Menulist"], new { @size = "10" })
+            </td>
+            <td>
+                <input type="button" id="btnAdd" value="Add" class="btn" /><br />
+                <input type="button" id="btnAddAll" value="Add All" class="btn" /><br />
+                <input type="button" id="btnRemove" value="Remove" class="btn" /><br />
+                <input type="button" id="btnRemoveAll" value="Remove All" class="btn" /><br />
+                <input type="button" id="btnSubmit" value="Done" class="btn" />
+
+            </td>
+          
+            <td>@Html.ListBox("assignedMenus", (MultiSelectList)ViewData["assignedMenus"], new { @size = "10" })
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </table>
+}

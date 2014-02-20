@@ -76,6 +76,8 @@
     <EntitySetMapping Name="autoMailMessage">
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.autoMailMessage">
         <MappingFragment StoreEntitySet="autoMailMessage">
+          <ScalarProperty Name="sendDateSet" ColumnName="sendDateSet" />
+          <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="subject" ColumnName="subject" />
           <ScalarProperty Name="text" ColumnName="text" />
@@ -88,6 +90,8 @@
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.autoMailMessage">
         <ModificationFunctionMapping>
           <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomailMessage">
+            <ScalarProperty Name="sendDateSet" ParameterName="sendDateSet" />
+            <ScalarProperty Name="sendDateCalcFactor" ParameterName="sendDateCalcFactor" />
             <ScalarProperty Name="footer2" ParameterName="footer2" />
             <ScalarProperty Name="footer1" ParameterName="footer1" />
             <ScalarProperty Name="text" ParameterName="text" />
@@ -97,6 +101,8 @@
             <ResultBinding Name="id" ColumnName="id" />
           </InsertFunction>
           <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutomailMessage">
+            <ScalarProperty Name="sendDateSet" ParameterName="sendDateSet" Version="Current" />
+            <ScalarProperty Name="sendDateCalcFactor" ParameterName="sendDateCalcFactor" Version="Current" />
             <ScalarProperty Name="footer2" ParameterName="footer2" Version="Current" />
             <ScalarProperty Name="footer1" ParameterName="footer1" Version="Current" />
             <ScalarProperty Name="text" ParameterName="text" Version="Current" />
@@ -1101,6 +1107,7 @@
     <EntitySetMapping Name="partnerPartnertypeTouchpointQuestionnaire">
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire">
         <MappingFragment StoreEntitySet="partnerPartnertypeTouchpointQuestionnaire">
+          <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="partner" ColumnName="partner" />
           <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
@@ -1118,6 +1125,7 @@
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire">
         <ModificationFunctionMapping>
           <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerPartnertypeTouchpointQuestionnaire">
+            <ScalarProperty Name="status" ParameterName="status" />
             <ScalarProperty Name="score" ParameterName="score" />
             <ScalarProperty Name="docFolderAddress" ParameterName="docFolderAddress" />
             <ScalarProperty Name="pdf" ParameterName="pdf" />
@@ -1132,6 +1140,7 @@
             <ResultBinding Name="id" ColumnName="id" />
           </InsertFunction>
           <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerPartnertypeTouchpointQuestionnaire">
+            <ScalarProperty Name="status" ParameterName="status" Version="Current" />
             <ScalarProperty Name="score" ParameterName="score" Version="Current" />
             <ScalarProperty Name="docFolderAddress" ParameterName="docFolderAddress" Version="Current" />
             <ScalarProperty Name="pdf" ParameterName="pdf" Version="Current" />
@@ -3550,17 +3559,6 @@
         <ScalarProperty Name="id" ColumnName="language" />
       </EndProperty>
     </AssociationSetMapping>
-    <FunctionImportMapping FunctionImportName="pr_getMenuForRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuForRole">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuForRole_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="parentid" ColumnName="parentid" />
-          <ScalarProperty Name="description1" ColumnName="description1" />
-          <ScalarProperty Name="id1" ColumnName="id1" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <EntitySetMapping Name="responseZcode">
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.responseZcode">
         <MappingFragment StoreEntitySet="responseZcode">
@@ -3665,5 +3663,154 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="pr_getMenuByRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuByRole">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuByRole_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="parentid" ColumnName="parentid" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getMenuForRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuForRole">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuForRole_Result">
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="ParentDescription" ColumnName="ParentDescription" />
+          <ScalarProperty Name="ParentParentID" ColumnName="ParentParentID" />
+          <ScalarProperty Name="MenuDescription" ColumnName="MenuDescription" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="automailMessagePPTQ">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.automailMessagePPTQ">
+        <MappingFragment StoreEntitySet="automailMessagePPTQ">
+          <ScalarProperty Name="sendGridStatus" ColumnName="sendGridStatus" />
+          <ScalarProperty Name="sentDate" ColumnName="sentDate" />
+          <ScalarProperty Name="pptq" ColumnName="pptq" />
+          <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="pr_addAutomailMessagePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomailMessagePPTQ" />
+    <FunctionImportMapping FunctionImportName="pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="footer1" ColumnName="footer1" />
+          <ScalarProperty Name="footer2" ColumnName="footer2" />
+          <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+          <ScalarProperty Name="sendDateSet" ColumnName="sendDateSet" />
+          <ScalarProperty Name="mailType" ColumnName="mailType" />
+          <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getAutomailMessageByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessageByPPTQ">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessageByPPTQ_Result">
+          <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
+          <ScalarProperty Name="pptq" ColumnName="pptq" />
+          <ScalarProperty Name="sentDate" ColumnName="sentDate" />
+          <ScalarProperty Name="sendGridStatus" ColumnName="sendGridStatus" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getAutomailMessagePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessagePPTQ">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessagePPTQ_Result">
+          <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
+          <ScalarProperty Name="pptq" ColumnName="pptq" />
+          <ScalarProperty Name="sentDate" ColumnName="sentDate" />
+          <ScalarProperty Name="sendGridStatus" ColumnName="sendGridStatus" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="partner" ColumnName="partner" />
+          <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+          <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+          <ScalarProperty Name="invitedBy" ColumnName="invitedBy" />
+          <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+          <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="progress" ColumnName="progress" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="pdf" ColumnName="pdf" />
+          <ScalarProperty Name="docFolderAddress" ColumnName="docFolderAddress" />
+          <ScalarProperty Name="score" ColumnName="score" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPPTQByPartner" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQByPartner">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQByPartner_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="partner" ColumnName="partner" />
+          <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+          <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+          <ScalarProperty Name="invitedBy" ColumnName="invitedBy" />
+          <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+          <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="progress" ColumnName="progress" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="pdf" ColumnName="pdf" />
+          <ScalarProperty Name="docFolderAddress" ColumnName="docFolderAddress" />
+          <ScalarProperty Name="score" ColumnName="score" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPPTQByPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQByPTQ">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQByPTQ_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="partner" ColumnName="partner" />
+          <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+          <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+          <ScalarProperty Name="invitedBy" ColumnName="invitedBy" />
+          <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+          <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="progress" ColumnName="progress" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="pdf" ColumnName="pdf" />
+          <ScalarProperty Name="docFolderAddress" ColumnName="docFolderAddress" />
+          <ScalarProperty Name="score" ColumnName="score" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPPTQByStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQByStatus">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQByStatus_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="partner" ColumnName="partner" />
+          <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+          <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+          <ScalarProperty Name="invitedBy" ColumnName="invitedBy" />
+          <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+          <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="progress" ColumnName="progress" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="pdf" ColumnName="pdf" />
+          <ScalarProperty Name="docFolderAddress" ColumnName="docFolderAddress" />
+          <ScalarProperty Name="score" ColumnName="score" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_modifyPPTQStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPPTQStatus" />
+    <FunctionImportMapping FunctionImportName="pr_removeAutomailMessagePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessagePPTQ" />
   </EntityContainerMapping>
 </Mapping>

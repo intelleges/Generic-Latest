@@ -11,12 +11,11 @@ namespace Generic
 {
     using System;
     
-    public partial class pr_getMenuForRole_Result
+    public partial class pr_getAutomailMessageByPPTQ_Result
     {
-        public int ParentId { get; set; }
-        public string ParentDescription { get; set; }
-        public Nullable<int> ParentParentID { get; set; }
-        public string MenuDescription { get; set; }
-        public int MenuID { get; set; }
+        public int automailMessage { get; set; }
+        public int pptq { get; set; }
+        public System.DateTime sentDate { get; set; }
+        public int sendGridStatus { get; set; }
     }
 }

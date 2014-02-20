@@ -10,6 +10,7 @@
           <EntitySet Name="agency" EntityType="hs3MVCMTQa2Model.Store.agency" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="autoMailAttachment" EntityType="hs3MVCMTQa2Model.Store.autoMailAttachment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="autoMailMessage" EntityType="hs3MVCMTQa2Model.Store.autoMailMessage" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="automailMessagePPTQ" EntityType="hs3MVCMTQa2Model.Store.automailMessagePPTQ" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="autoMailType" EntityType="hs3MVCMTQa2Model.Store.autoMailType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="country" EntityType="hs3MVCMTQa2Model.Store.country" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="domain" EntityType="hs3MVCMTQa2Model.Store.domain" store:Type="Tables" Schema="dbo" />
@@ -178,6 +179,14 @@
             <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
             <End Role="autoMailMessage" EntitySet="autoMailMessage" />
           </AssociationSet>
+          <AssociationSet Name="FK_automailMessagePPTQ_autoMailMessage" Association="hs3MVCMTQa2Model.Store.FK_automailMessagePPTQ_autoMailMessage">
+            <End Role="autoMailMessage" EntitySet="autoMailMessage" />
+            <End Role="automailMessagePPTQ" EntitySet="automailMessagePPTQ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_automailMessagePPTQ_partnerPartnertypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.Store.FK_automailMessagePPTQ_partnerPartnertypeTouchpointQuestionnaire">
+            <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
+            <End Role="automailMessagePPTQ" EntitySet="automailMessagePPTQ" />
+          </AssociationSet>
           <AssociationSet Name="FK_country_enterprise" Association="hs3MVCMTQa2Model.Store.FK_country_enterprise">
             <End Role="enterprise" EntitySet="enterprise" />
             <End Role="country" EntitySet="country" />
@@ -264,6 +273,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaire_partner" Association="hs3MVCMTQa2Model.Store.FK_partnerPartnertypeTouchpointQuestionnaire_partner">
             <End Role="partner" EntitySet="partner" />
+            <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaire_partnerStatus" Association="hs3MVCMTQa2Model.Store.FK_partnerPartnertypeTouchpointQuestionnaire_partnerStatus">
+            <End Role="partnerStatus" EntitySet="partnerStatus" />
             <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
           </AssociationSet>
           <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaire_partnerTypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.Store.FK_partnerPartnertypeTouchpointQuestionnaire_partnerTypeTouchpointQuestionnaire">
@@ -622,8 +635,20 @@
           <Property Name="text" Type="varchar(max)" />
           <Property Name="footer1" Type="varchar(max)" />
           <Property Name="footer2" Type="varchar(max)" />
+          <Property Name="sendDateCalcFactor" Type="int" Nullable="false" />
+          <Property Name="sendDateSet" Type="date" />
           <Property Name="mailType" Type="int" Nullable="false" />
           <Property Name="partnerTypeTouchpointQuestionnaire" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="automailMessagePPTQ">
+          <Key>
+            <PropertyRef Name="automailMessage" />
+            <PropertyRef Name="pptq" />
+          </Key>
+          <Property Name="automailMessage" Type="int" Nullable="false" />
+          <Property Name="pptq" Type="int" Nullable="false" />
+          <Property Name="sentDate" Type="date" Nullable="false" />
+          <Property Name="sendGridStatus" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="autoMailType">
           <Key>
@@ -1095,6 +1120,7 @@
           <Property Name="invitedBy" Type="int" Nullable="false" />
           <Property Name="invitedDate" Type="date" Nullable="false" />
           <Property Name="completedDate" Type="date" />
+          <Property Name="status" Type="int" Nullable="false" />
           <Property Name="progress" Type="int" />
           <Property Name="zcode" Type="varchar" MaxLength="500" />
           <Property Name="pdf" Type="varbinary(max)" />
@@ -1274,7 +1300,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="int" />
@@ -2130,6 +2156,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_automailMessagePPTQ_autoMailMessage">
+          <End Role="autoMailMessage" Type="hs3MVCMTQa2Model.Store.autoMailMessage" Multiplicity="1" />
+          <End Role="automailMessagePPTQ" Type="hs3MVCMTQa2Model.Store.automailMessagePPTQ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="autoMailMessage">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="automailMessagePPTQ">
+              <PropertyRef Name="automailMessage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_automailMessagePPTQ_partnerPartnertypeTouchpointQuestionnaire">
+          <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="1" />
+          <End Role="automailMessagePPTQ" Type="hs3MVCMTQa2Model.Store.automailMessagePPTQ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerPartnertypeTouchpointQuestionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="automailMessagePPTQ">
+              <PropertyRef Name="pptq" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_country_enterprise">
           <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
           <End Role="country" Type="hs3MVCMTQa2Model.Store.country" Multiplicity="*" />
@@ -2391,6 +2441,18 @@
             </Principal>
             <Dependent Role="partnerPartnertypeTouchpointQuestionnaire">
               <PropertyRef Name="partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerPartnertypeTouchpointQuestionnaire_partnerStatus">
+          <End Role="partnerStatus" Type="hs3MVCMTQa2Model.Store.partnerStatus" Multiplicity="1" />
+          <End Role="partnerPartnertypeTouchpointQuestionnaire" Type="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerPartnertypeTouchpointQuestionnaire">
+              <PropertyRef Name="status" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3360,12 +3422,20 @@
           <Parameter Name="note" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_addAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+          <Parameter Name="subject" Type="varchar(max)" Mode="In" />
+          <Parameter Name="text" Type="varchar(max)" Mode="In" />
+          <Parameter Name="footer1" Type="varchar(max)" Mode="In" />
+          <Parameter Name="footer2" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sendDateCalcFactor" Type="int" Mode="In" />
+          <Parameter Name="sendDateSet" Type="date" Mode="In" />
           <Parameter Name="mailType" Type="int" Mode="In" />
-          <Parameter Name="subject" Type="varchar" Mode="In" />
-          <Parameter Name="text" Type="varchar" Mode="In" />
-          <Parameter Name="footer1" Type="varchar" Mode="In" />
-          <Parameter Name="footer2" Type="varchar" Mode="In" />
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addAutomailMessagePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="automailMessage" Type="int" Mode="In" />
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="sentDate" Type="date" Mode="In" />
+          <Parameter Name="sendGridStatus" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -3588,6 +3658,7 @@
           <Parameter Name="invitedBy" Type="int" Mode="In" />
           <Parameter Name="invitedDate" Type="date" Mode="In" />
           <Parameter Name="completedDate" Type="date" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
           <Parameter Name="progress" Type="int" Mode="In" />
           <Parameter Name="zcode" Type="varchar" Mode="In" />
           <Parameter Name="pdf" Type="varbinary" Mode="In" />
@@ -4104,6 +4175,16 @@
           <Parameter Name="mailtype" Type="int" Mode="In" />
           <Parameter Name="partnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getAutomailMessageByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getAutomailMessagePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="automailMessage" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -4226,6 +4307,9 @@
         <Function Name="pr_getMenuAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getMenuByRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="role" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getMenuChildItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="parentid" Type="int" Mode="In" />
         </Function>
@@ -4308,6 +4392,9 @@
         </Function>
         <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -4513,6 +4600,15 @@
         </Function>
         <Function Name="pr_getPersonRoleByRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="role" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPPTQByPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partner" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPPTQByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPPTQByStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="status" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -4748,12 +4844,14 @@
         </Function>
         <Function Name="pr_modifyAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
-          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+          <Parameter Name="subject" Type="varchar(max)" Mode="In" />
+          <Parameter Name="text" Type="varchar(max)" Mode="In" />
+          <Parameter Name="footer1" Type="varchar(max)" Mode="In" />
+          <Parameter Name="footer2" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sendDateCalcFactor" Type="int" Mode="In" />
+          <Parameter Name="sendDateSet" Type="date" Mode="In" />
           <Parameter Name="mailType" Type="int" Mode="In" />
-          <Parameter Name="subject" Type="varchar" Mode="In" />
-          <Parameter Name="text" Type="varchar" Mode="In" />
-          <Parameter Name="footer1" Type="varchar" Mode="In" />
-          <Parameter Name="footer2" Type="varchar" Mode="In" />
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_modifyAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -4988,6 +5086,7 @@
           <Parameter Name="invitedBy" Type="int" Mode="In" />
           <Parameter Name="invitedDate" Type="date" Mode="In" />
           <Parameter Name="completedDate" Type="date" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
           <Parameter Name="progress" Type="int" Mode="In" />
           <Parameter Name="zcode" Type="varchar" Mode="In" />
           <Parameter Name="pdf" Type="varbinary" Mode="In" />
@@ -5142,6 +5241,11 @@
         </Function>
         <Function Name="pr_modifyPersonStatusByLoadHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="loadHistory" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPPTQStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partner" Type="int" Mode="In" />
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_modifyProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5365,6 +5469,9 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeAutomailMessagePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5811,23 +5918,6 @@
         <Function Name="xx_getTelerikBoundColumnSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tablename" Type="varchar" Mode="In" />
         </Function>
-        <!--Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerConfirm' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="partnerConfirm">
-        <Property Name="loadhistory" Type="int" />
-        <Property Name="partner" Type="int" />
-        <Property Name="group" Type="int" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.queryField' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="queryField">
-        <Property Name="query" Type="int" />
-        <Property Name="field" Type="varchar" MaxLength="100" />
-        <Property Name="criteria" Type="varchar" MaxLength="100" />
-        <Property Name="isText" Type="int" />
-      </EntityType>-->
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -6472,6 +6562,7 @@
             <Parameter Name="invitedBy" Mode="In" Type="Int32" />
             <Parameter Name="invitedDate" Mode="In" Type="DateTime" />
             <Parameter Name="completedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
             <Parameter Name="progress" Mode="In" Type="Int32" />
             <Parameter Name="zcode" Mode="In" Type="String" />
             <Parameter Name="pdf" Mode="In" Type="Binary" />
@@ -7647,6 +7738,7 @@
             <Parameter Name="invitedBy" Mode="In" Type="Int32" />
             <Parameter Name="invitedDate" Mode="In" Type="DateTime" />
             <Parameter Name="completedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
             <Parameter Name="progress" Mode="In" Type="Int32" />
             <Parameter Name="zcode" Mode="In" Type="String" />
             <Parameter Name="pdf" Mode="In" Type="Binary" />
@@ -8367,24 +8459,28 @@
             <End Role="role" EntitySet="role" />
           </AssociationSet>
           <FunctionImport Name="pr_addAutomailMessage" ReturnType="Collection(Decimal)">
-            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
-            <Parameter Name="mailType" Mode="In" Type="Int32" />
             <Parameter Name="subject" Mode="In" Type="String" />
             <Parameter Name="text" Mode="In" Type="String" />
             <Parameter Name="footer1" Mode="In" Type="String" />
             <Parameter Name="footer2" Mode="In" Type="String" />
+            <Parameter Name="sendDateCalcFactor" Mode="In" Type="Int32" />
+            <Parameter Name="sendDateSet" Mode="In" Type="DateTime" />
+            <Parameter Name="mailType" Mode="In" Type="Int32" />
+            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getAutomailMessage" EntitySet="autoMailMessage" ReturnType="Collection(hs3MVCMTQa2Model.autoMailMessage)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyAutomailMessage">
             <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
-            <Parameter Name="mailType" Mode="In" Type="Int32" />
             <Parameter Name="subject" Mode="In" Type="String" />
             <Parameter Name="text" Mode="In" Type="String" />
             <Parameter Name="footer1" Mode="In" Type="String" />
             <Parameter Name="footer2" Mode="In" Type="String" />
+            <Parameter Name="sendDateCalcFactor" Mode="In" Type="Int32" />
+            <Parameter Name="sendDateSet" Mode="In" Type="DateTime" />
+            <Parameter Name="mailType" Mode="In" Type="Int32" />
+            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeAutomailMessage">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -8806,9 +8902,6 @@
             <End Role="language" EntitySet="language" />
             <End Role="response" EntitySet="response" />
           </AssociationSet>
-          <FunctionImport Name="pr_getMenuForRole" ReturnType="Collection(hs3MVCMTQa2Model.pr_getMenuForRole_Result)">
-          <Parameter Name="enterprise" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="responseZcode" EntityType="hs3MVCMTQa2Model.responseZcode" />
           <FunctionImport Name="pr_getPartnumberCompletedCountByPPTQ" ReturnType="Collection(Int32)">
           <Parameter Name="pptq" Mode="In" Type="Int32" />
@@ -8827,6 +8920,61 @@
           </FunctionImport>
           <FunctionImport Name="xx_getQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.xx_getQuestionnaire_Result)">
           <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getMenuByRole" ReturnType="Collection(hs3MVCMTQa2Model.pr_getMenuByRole_Result)">
+          <Parameter Name="role" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getMenuForRole" ReturnType="Collection(hs3MVCMTQa2Model.pr_getMenuForRole_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="automailMessagePPTQ" EntityType="hs3MVCMTQa2Model.automailMessagePPTQ" />
+          <AssociationSet Name="FK_automailMessagePPTQ_autoMailMessage" Association="hs3MVCMTQa2Model.FK_automailMessagePPTQ_autoMailMessage">
+            <End Role="autoMailMessage" EntitySet="autoMailMessage" />
+            <End Role="automailMessagePPTQ" EntitySet="automailMessagePPTQ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_automailMessagePPTQ_partnerPartnertypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.FK_automailMessagePPTQ_partnerPartnertypeTouchpointQuestionnaire">
+            <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
+            <End Role="automailMessagePPTQ" EntitySet="automailMessagePPTQ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaire_partnerStatus" Association="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_partnerStatus">
+            <End Role="partnerStatus" EntitySet="partnerStatus" />
+            <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
+          </AssociationSet>
+          <FunctionImport Name="pr_addAutomailMessagePPTQ">
+            <Parameter Name="automailMessage" Mode="In" Type="Int32" />
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="sentDate" Mode="In" Type="DateTime" />
+            <Parameter Name="sendGridStatus" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire_Result)">
+            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutomailMessageByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageByPPTQ_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutomailMessagePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessagePPTQ_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="automailMessage" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ_Result)">
+            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQByPartner" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQByPartner_Result)">
+            <Parameter Name="partner" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQByPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQByPTQ_Result)">
+            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQByStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQByStatus_Result)">
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPPTQStatus">
+            <Parameter Name="partner" Mode="In" Type="Int32" />
+            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeAutomailMessagePPTQ">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -8876,6 +9024,9 @@
           <NavigationProperty Name="autoMailAttachment" Relationship="hs3MVCMTQa2Model.FK_autoMailAttachment_autoMailMessage" FromRole="autoMailMessage" ToRole="autoMailAttachment" />
           <NavigationProperty Name="autoMailType" Relationship="hs3MVCMTQa2Model.FK_autoMailMessage_autoMailType" FromRole="autoMailMessage" ToRole="autoMailType" />
           <NavigationProperty Name="partnerTypeTouchpointQuestionnaire1" Relationship="hs3MVCMTQa2Model.FK_autoMailMessage_partnerTypeTouchpointQuestionnaire" FromRole="autoMailMessage" ToRole="partnerTypeTouchpointQuestionnaire" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="false" />
+          <Property Type="DateTime" Name="sendDateSet" Precision="0" />
+          <NavigationProperty Name="automailMessagePPTQ" Relationship="hs3MVCMTQa2Model.FK_automailMessagePPTQ_autoMailMessage" FromRole="autoMailMessage" ToRole="automailMessagePPTQ" />
         </EntityType>
         <EntityType Name="autoMailType">
           <Key>
@@ -9393,6 +9544,9 @@
           <NavigationProperty Name="person" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_person" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="person" />
           <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
           <NavigationProperty Name="partNumberSiteZcodePPTQ" Relationship="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_partnerPartnertypeTouchpointQuestionnaire1" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="partNumberSiteZcodePPTQ1" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <NavigationProperty Name="automailMessagePPTQ" Relationship="hs3MVCMTQa2Model.FK_automailMessagePPTQ_partnerPartnertypeTouchpointQuestionnaire" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="automailMessagePPTQ" />
+          <NavigationProperty Name="partnerStatus" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_partnerStatus" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="partnerStatus" />
         </EntityType>
         <EntityType Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
           <Key>
@@ -9566,6 +9720,7 @@
           <Property Name="description" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="sortOrder" Type="Int32" />
           <Property Name="active" Type="Int32" />
+          <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_partnerStatus" FromRole="partnerStatus" ToRole="partnerPartnertypeTouchpointQuestionnaire" />
         </EntityType>
         <EntityType Name="partnerTemp">
           <Key>
@@ -13819,13 +13974,6 @@
           <End Type="hs3MVCMTQa2Model.language" Role="language" Multiplicity="*" />
           <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="*" />
         </Association>
-        <ComplexType Name="pr_getMenuForRole_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
-          <Property Type="Int32" Name="parentid" Nullable="true" />
-          <Property Type="String" Name="description1" Nullable="true" MaxLength="255" />
-          <Property Type="Int32" Name="id1" Nullable="false" />
-        </ComplexType>
         <EntityType Name="responseZcode">
           <Key>
             <PropertyRef Name="id" />
@@ -13902,6 +14050,154 @@
           <Property Type="String" Name="commentBoxTxt" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="commentUploadTxt" Nullable="true" MaxLength="500" />
           <Property Type="Int32" Name="commentType" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getMenuByRole_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="parentid" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="accesslevel" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getMenuForRole_Result">
+          <Property Type="Int32" Name="ParentId" Nullable="false" />
+          <Property Type="String" Name="ParentDescription" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="ParentParentID" Nullable="true" />
+          <Property Type="String" Name="MenuDescription" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="MenuID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="automailMessagePPTQ">
+          <Key>
+            <PropertyRef Name="automailMessage" />
+            <PropertyRef Name="pptq" />
+          </Key>
+          <Property Type="Int32" Name="automailMessage" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="DateTime" Name="sentDate" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="sendGridStatus" Nullable="false" />
+          <NavigationProperty Name="autoMailMessage1" Relationship="hs3MVCMTQa2Model.FK_automailMessagePPTQ_autoMailMessage" FromRole="automailMessagePPTQ" ToRole="autoMailMessage" />
+          <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_automailMessagePPTQ_partnerPartnertypeTouchpointQuestionnaire" FromRole="automailMessagePPTQ" ToRole="partnerPartnertypeTouchpointQuestionnaire" />
+        </EntityType>
+        <Association Name="FK_automailMessagePPTQ_autoMailMessage">
+          <End Type="hs3MVCMTQa2Model.autoMailMessage" Role="autoMailMessage" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.automailMessagePPTQ" Role="automailMessagePPTQ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="autoMailMessage">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="automailMessagePPTQ">
+              <PropertyRef Name="automailMessage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_automailMessagePPTQ_partnerPartnertypeTouchpointQuestionnaire">
+          <End Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire" Role="partnerPartnertypeTouchpointQuestionnaire" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.automailMessagePPTQ" Role="automailMessagePPTQ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerPartnertypeTouchpointQuestionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="automailMessagePPTQ">
+              <PropertyRef Name="pptq" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerPartnertypeTouchpointQuestionnaire_partnerStatus">
+          <End Type="hs3MVCMTQa2Model.partnerStatus" Role="partnerStatus" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire" Role="partnerPartnertypeTouchpointQuestionnaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerPartnertypeTouchpointQuestionnaire">
+              <PropertyRef Name="status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="text" Nullable="true" />
+          <Property Type="String" Name="footer1" Nullable="true" />
+          <Property Type="String" Name="footer2" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="false" />
+          <Property Type="DateTime" Name="sendDateSet" Nullable="true" />
+          <Property Type="Int32" Name="mailType" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getAutomailMessageByPPTQ_Result">
+          <Property Type="Int32" Name="automailMessage" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="DateTime" Name="sentDate" Nullable="false" />
+          <Property Type="Int32" Name="sendGridStatus" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getAutomailMessagePPTQ_Result">
+          <Property Type="Int32" Name="automailMessage" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="DateTime" Name="sentDate" Nullable="false" />
+          <Property Type="Int32" Name="sendGridStatus" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="invitedBy" Nullable="false" />
+          <Property Type="DateTime" Name="invitedDate" Nullable="false" />
+          <Property Type="DateTime" Name="completedDate" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="Int32" Name="progress" Nullable="true" />
+          <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="pdf" Nullable="true" />
+          <Property Type="String" Name="docFolderAddress" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="score" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="pr_getPPTQByPartner_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="invitedBy" Nullable="false" />
+          <Property Type="DateTime" Name="invitedDate" Nullable="false" />
+          <Property Type="DateTime" Name="completedDate" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="Int32" Name="progress" Nullable="true" />
+          <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="pdf" Nullable="true" />
+          <Property Type="String" Name="docFolderAddress" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="score" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="pr_getPPTQByPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="invitedBy" Nullable="false" />
+          <Property Type="DateTime" Name="invitedDate" Nullable="false" />
+          <Property Type="DateTime" Name="completedDate" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="Int32" Name="progress" Nullable="true" />
+          <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="pdf" Nullable="true" />
+          <Property Type="String" Name="docFolderAddress" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="score" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="pr_getPPTQByStatus_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="invitedBy" Nullable="false" />
+          <Property Type="DateTime" Name="invitedDate" Nullable="false" />
+          <Property Type="DateTime" Name="completedDate" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="Int32" Name="progress" Nullable="true" />
+          <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="pdf" Nullable="true" />
+          <Property Type="String" Name="docFolderAddress" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="score" Nullable="true" Precision="18" Scale="0" />
         </ComplexType>
         
       </Schema>
@@ -13985,6 +14281,8 @@
           <EntitySetMapping Name="autoMailMessage">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.autoMailMessage">
               <MappingFragment StoreEntitySet="autoMailMessage">
+                <ScalarProperty Name="sendDateSet" ColumnName="sendDateSet" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="subject" ColumnName="subject" />
                 <ScalarProperty Name="text" ColumnName="text" />
@@ -13997,6 +14295,8 @@
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.autoMailMessage">
               <ModificationFunctionMapping>
                 <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomailMessage">
+                  <ScalarProperty Name="sendDateSet" ParameterName="sendDateSet" />
+                  <ScalarProperty Name="sendDateCalcFactor" ParameterName="sendDateCalcFactor" />
                   <ScalarProperty Name="footer2" ParameterName="footer2" />
                   <ScalarProperty Name="footer1" ParameterName="footer1" />
                   <ScalarProperty Name="text" ParameterName="text" />
@@ -14006,6 +14306,8 @@
                   <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutomailMessage">
+                  <ScalarProperty Name="sendDateSet" ParameterName="sendDateSet" Version="Current" />
+                  <ScalarProperty Name="sendDateCalcFactor" ParameterName="sendDateCalcFactor" Version="Current" />
                   <ScalarProperty Name="footer2" ParameterName="footer2" Version="Current" />
                   <ScalarProperty Name="footer1" ParameterName="footer1" Version="Current" />
                   <ScalarProperty Name="text" ParameterName="text" Version="Current" />
@@ -15010,6 +15312,7 @@
           <EntitySetMapping Name="partnerPartnertypeTouchpointQuestionnaire">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire">
               <MappingFragment StoreEntitySet="partnerPartnertypeTouchpointQuestionnaire">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="partner" ColumnName="partner" />
                 <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
@@ -15027,6 +15330,7 @@
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire">
               <ModificationFunctionMapping>
                 <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerPartnertypeTouchpointQuestionnaire">
+                  <ScalarProperty Name="status" ParameterName="status" />
                   <ScalarProperty Name="score" ParameterName="score" />
                   <ScalarProperty Name="docFolderAddress" ParameterName="docFolderAddress" />
                   <ScalarProperty Name="pdf" ParameterName="pdf" />
@@ -15041,6 +15345,7 @@
                   <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerPartnertypeTouchpointQuestionnaire">
+                  <ScalarProperty Name="status" ParameterName="status" Version="Current" />
                   <ScalarProperty Name="score" ParameterName="score" Version="Current" />
                   <ScalarProperty Name="docFolderAddress" ParameterName="docFolderAddress" Version="Current" />
                   <ScalarProperty Name="pdf" ParameterName="pdf" Version="Current" />
@@ -17616,17 +17921,6 @@
               <ScalarProperty Name="id" ColumnName="language" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="pr_getMenuForRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuForRole">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuForRole_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="parentid" ColumnName="parentid" />
-                <ScalarProperty Name="description1" ColumnName="description1" />
-                <ScalarProperty Name="id1" ColumnName="id1" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="responseZcode">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.responseZcode">
               <MappingFragment StoreEntitySet="responseZcode">
@@ -17731,6 +18025,155 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_getMenuByRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuByRole">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuByRole_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="parentid" ColumnName="parentid" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getMenuForRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuForRole">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuForRole_Result">
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ParentDescription" ColumnName="ParentDescription" />
+                <ScalarProperty Name="ParentParentID" ColumnName="ParentParentID" />
+                <ScalarProperty Name="MenuDescription" ColumnName="MenuDescription" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="automailMessagePPTQ">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.automailMessagePPTQ">
+              <MappingFragment StoreEntitySet="automailMessagePPTQ">
+                <ScalarProperty Name="sendGridStatus" ColumnName="sendGridStatus" />
+                <ScalarProperty Name="sentDate" ColumnName="sentDate" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addAutomailMessagePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomailMessagePPTQ" />
+          <FunctionImportMapping FunctionImportName="pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="footer1" ColumnName="footer1" />
+                <ScalarProperty Name="footer2" ColumnName="footer2" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="sendDateSet" ColumnName="sendDateSet" />
+                <ScalarProperty Name="mailType" ColumnName="mailType" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAutomailMessageByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessageByPPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessageByPPTQ_Result">
+                <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="sentDate" ColumnName="sentDate" />
+                <ScalarProperty Name="sendGridStatus" ColumnName="sendGridStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAutomailMessagePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessagePPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessagePPTQ_Result">
+                <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="sentDate" ColumnName="sentDate" />
+                <ScalarProperty Name="sendGridStatus" ColumnName="sendGridStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="invitedBy" ColumnName="invitedBy" />
+                <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="progress" ColumnName="progress" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="pdf" ColumnName="pdf" />
+                <ScalarProperty Name="docFolderAddress" ColumnName="docFolderAddress" />
+                <ScalarProperty Name="score" ColumnName="score" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPPTQByPartner" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQByPartner">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQByPartner_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="invitedBy" ColumnName="invitedBy" />
+                <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="progress" ColumnName="progress" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="pdf" ColumnName="pdf" />
+                <ScalarProperty Name="docFolderAddress" ColumnName="docFolderAddress" />
+                <ScalarProperty Name="score" ColumnName="score" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPPTQByPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQByPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQByPTQ_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="invitedBy" ColumnName="invitedBy" />
+                <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="progress" ColumnName="progress" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="pdf" ColumnName="pdf" />
+                <ScalarProperty Name="docFolderAddress" ColumnName="docFolderAddress" />
+                <ScalarProperty Name="score" ColumnName="score" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPPTQByStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQByStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQByStatus_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="invitedBy" ColumnName="invitedBy" />
+                <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="progress" ColumnName="progress" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="pdf" ColumnName="pdf" />
+                <ScalarProperty Name="docFolderAddress" ColumnName="docFolderAddress" />
+                <ScalarProperty Name="score" ColumnName="score" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyPPTQStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPPTQStatus" />
+          <FunctionImportMapping FunctionImportName="pr_removeAutomailMessagePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessagePPTQ" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -19,6 +19,7 @@ namespace Generic
             this.eSignature = new HashSet<eSignature>();
             this.partnerPartnertypeTouchpointQuestionnaireQuestionResponse = new HashSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>();
             this.partNumberSiteZcodePPTQ = new HashSet<partNumberSiteZcodePPTQ>();
+            this.automailMessagePPTQ = new HashSet<automailMessagePPTQ>();
         }
     
         public int id { get; set; }
@@ -33,6 +34,7 @@ namespace Generic
         public byte[] pdf { get; set; }
         public string docFolderAddress { get; set; }
         public Nullable<decimal> score { get; set; }
+        public int status { get; set; }
     
         public virtual ICollection<eSignature> eSignature { get; set; }
         public virtual partner partner1 { get; set; }
@@ -40,5 +42,7 @@ namespace Generic
         public virtual person person { get; set; }
         public virtual ICollection<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponse { get; set; }
         public virtual ICollection<partNumberSiteZcodePPTQ> partNumberSiteZcodePPTQ { get; set; }
+        public virtual ICollection<automailMessagePPTQ> automailMessagePPTQ { get; set; }
+        public virtual partnerStatus partnerStatus { get; set; }
     }
 }

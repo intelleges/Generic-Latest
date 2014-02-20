@@ -10,29 +10,17 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class autoMailMessage
+    public partial class pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire_Result
     {
-        public autoMailMessage()
-        {
-            this.autoMailAttachment = new HashSet<autoMailAttachment>();
-            this.automailMessagePPTQ = new HashSet<automailMessagePPTQ>();
-        }
-    
         public int id { get; set; }
         public string subject { get; set; }
         public string text { get; set; }
         public string footer1 { get; set; }
         public string footer2 { get; set; }
-        public int mailType { get; set; }
-        public int partnerTypeTouchpointQuestionnaire { get; set; }
         public int sendDateCalcFactor { get; set; }
         public Nullable<System.DateTime> sendDateSet { get; set; }
-    
-        public virtual ICollection<autoMailAttachment> autoMailAttachment { get; set; }
-        public virtual autoMailType autoMailType { get; set; }
-        public virtual partnerTypeTouchpointQuestionnaire partnerTypeTouchpointQuestionnaire1 { get; set; }
-        public virtual ICollection<automailMessagePPTQ> automailMessagePPTQ { get; set; }
+        public int mailType { get; set; }
+        public int partnerTypeTouchpointQuestionnaire { get; set; }
     }
 }

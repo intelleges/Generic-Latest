@@ -14,9 +14,16 @@ namespace Generic
     
     public partial class partnerStatus
     {
+        public partnerStatus()
+        {
+            this.partnerPartnertypeTouchpointQuestionnaire = new HashSet<partnerPartnertypeTouchpointQuestionnaire>();
+        }
+    
         public int id { get; set; }
         public string description { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<int> active { get; set; }
+    
+        public virtual ICollection<partnerPartnertypeTouchpointQuestionnaire> partnerPartnertypeTouchpointQuestionnaire { get; set; }
     }
 }

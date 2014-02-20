@@ -11,12 +11,15 @@ namespace Generic
 {
     using System;
     
-    public partial class pr_getMenuForRole_Result
+    public partial class pr_getMenuByRole_Result
     {
-        public int ParentId { get; set; }
-        public string ParentDescription { get; set; }
-        public Nullable<int> ParentParentID { get; set; }
-        public string MenuDescription { get; set; }
-        public int MenuID { get; set; }
+        public int id { get; set; }
+        public string description { get; set; }
+        public string url { get; set; }
+        public Nullable<int> parentid { get; set; }
+        public Nullable<int> sortOrder { get; set; }
+        public Nullable<bool> active { get; set; }
+        public Nullable<int> accesslevel { get; set; }
+        public Nullable<int> enterprise { get; set; }
     }
 }

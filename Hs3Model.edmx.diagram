@@ -207,6 +207,10 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_responseTranslation_response" />
         <AssociationConnector Association="hs3MVCMTQa2Model.responseLanguage" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.responseZcode" Width="1.5" PointX="11.062760626460779" PointY="3.5224937514972376" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.automailMessagePPTQ" Width="1.5" PointX="4.2069429122875182" PointY="31.364254712762431" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_automailMessagePPTQ_autoMailMessage" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_automailMessagePPTQ_partnerPartnertypeTouchpointQuestionnaire" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_partnerStatus" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -121,6 +121,81 @@ namespace Generic.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+
+        public ActionResult AssignMenu(int role = 0)
+        {
+
+            if (role == 0)
+            {
+                ViewBag.Role = new SelectList(db.pr_getRoleAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+            }
+            else
+            {
+                ViewBag.Role = new SelectList(db.pr_getRoleAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", role);
+            }
+
+
+
+
+            var assignedMenus = db.pr_getMenuByRole(role).ToList()
+                .Select(s => new
+                {
+                    ID = s.id,
+                    Description = db.pr_getMenu(s.parentid).FirstOrDefault().description + " >> " + s.description
+                }).ToList();
+
+            var allMenus = db.pr_getMenuForRole(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+
+            var unassignedMenus = allMenus.ToList().Where(x => !assignedMenus.Select(s => s.ID).ToList().Contains(x.MenuID)).ToList();
+            ViewData["Menulist"] = new MultiSelectList(unassignedMenus, "MenuID", "Description");
+            ViewData["assignedMenus"] = new MultiSelectList(assignedMenus, "ID", "Description");
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult AssignMenu(int role, FormCollection collection)
+        {
+            try
+            {
+                string assignedMenus = collection["assignedMenus"];
+                var assignedMenuList = assignedMenus.Split(',');
+
+
+                var assignedMenusOld = db.pr_getMenuByRole(role).ToList();
+
+                foreach (var items in assignedMenusOld)
+                {
+                    db.pr_removeRoleMenu(role, items.id);
+                }
+
+
+                foreach (var item in assignedMenuList)
+                {
+                    db.pr_addRoleMenu(role, int.Parse(item), 1, true);
+                }
+
+                //  return RedirectToAction("AssignMenu", "Role");
+            }
+            catch { }
+
+
+            ViewBag.Role = new SelectList(db.pr_getRoleAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "email");
+
+            var assignedMenus2 = db.pr_getMenuByRole(role).ToList();
+
+            var allMenus = db.pr_getMenuForRole(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+
+            var unassignedMenus = allMenus.ToList().Where(x => !assignedMenus2.Select(s => s.id).ToList().Contains(x.MenuID)).ToList();
+            ViewData["Menulist"] = new MultiSelectList(unassignedMenus, "MenuID", "Description");
+            ViewData["assignedMenus"] = new MultiSelectList(assignedMenus2, "ID", "Description");
+            return View();
+        }
+
+
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

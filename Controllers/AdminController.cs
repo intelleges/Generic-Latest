@@ -45,7 +45,7 @@ namespace Generic.Controllers
         /// <returns></returns>
         public virtual ActionResult Index()
         {
-         
+        
 
             var enterprises = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID);
 

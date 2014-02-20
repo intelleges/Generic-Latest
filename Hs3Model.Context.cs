@@ -138,6 +138,7 @@ namespace Generic
         public DbSet<partnumberStatus> partnumberStatus { get; set; }
         public DbSet<response> response { get; set; }
         public DbSet<responseZcode> responseZcode { get; set; }
+        public DbSet<automailMessagePPTQ> automailMessagePPTQ { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -995,7 +996,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPartnerGroup", partnerParameter, groupParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addPartnerPartnertypeTouchpointQuestionnaire(Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire, string accesscode, Nullable<int> invitedBy, Nullable<System.DateTime> invitedDate, Nullable<System.DateTime> completedDate, Nullable<int> progress, string zcode, byte[] pdf, string docFolderAddress, Nullable<decimal> score)
+        public virtual ObjectResult<Nullable<decimal>> pr_addPartnerPartnertypeTouchpointQuestionnaire(Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire, string accesscode, Nullable<int> invitedBy, Nullable<System.DateTime> invitedDate, Nullable<System.DateTime> completedDate, Nullable<int> status, Nullable<int> progress, string zcode, byte[] pdf, string docFolderAddress, Nullable<decimal> score)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
@@ -1021,6 +1022,10 @@ namespace Generic
                 new ObjectParameter("completedDate", completedDate) :
                 new ObjectParameter("completedDate", typeof(System.DateTime));
     
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
             var progressParameter = progress.HasValue ?
                 new ObjectParameter("progress", progress) :
                 new ObjectParameter("progress", typeof(int));
@@ -1041,7 +1046,7 @@ namespace Generic
                 new ObjectParameter("score", score) :
                 new ObjectParameter("score", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnerPartnertypeTouchpointQuestionnaire", partnerParameter, partnerTypeTouchpointQuestionnaireParameter, accesscodeParameter, invitedByParameter, invitedDateParameter, completedDateParameter, progressParameter, zcodeParameter, pdfParameter, docFolderAddressParameter, scoreParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnerPartnertypeTouchpointQuestionnaire", partnerParameter, partnerTypeTouchpointQuestionnaireParameter, accesscodeParameter, invitedByParameter, invitedDateParameter, completedDateParameter, statusParameter, progressParameter, zcodeParameter, pdfParameter, docFolderAddressParameter, scoreParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<int> value, Nullable<int> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
@@ -6184,7 +6189,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerCorpInfo", partnerParameter, businessDescriptionParameter, taxExemptIdParameter, aliasParameter, ssnParameter, corpParameter, taxExemptEntityParameter, usParameter, astateParameter, foreignGovernmentParameter, naicsCodeParameter);
         }
     
-        public virtual int pr_modifyPartnerPartnertypeTouchpointQuestionnaire(Nullable<int> id, Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire, string accesscode, Nullable<int> invitedBy, Nullable<System.DateTime> invitedDate, Nullable<System.DateTime> completedDate, Nullable<int> progress, string zcode, byte[] pdf, string docFolderAddress, Nullable<decimal> score)
+        public virtual int pr_modifyPartnerPartnertypeTouchpointQuestionnaire(Nullable<int> id, Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire, string accesscode, Nullable<int> invitedBy, Nullable<System.DateTime> invitedDate, Nullable<System.DateTime> completedDate, Nullable<int> status, Nullable<int> progress, string zcode, byte[] pdf, string docFolderAddress, Nullable<decimal> score)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -6214,6 +6219,10 @@ namespace Generic
                 new ObjectParameter("completedDate", completedDate) :
                 new ObjectParameter("completedDate", typeof(System.DateTime));
     
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
             var progressParameter = progress.HasValue ?
                 new ObjectParameter("progress", progress) :
                 new ObjectParameter("progress", typeof(int));
@@ -6234,7 +6243,7 @@ namespace Generic
                 new ObjectParameter("score", score) :
                 new ObjectParameter("score", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerPartnertypeTouchpointQuestionnaire", idParameter, partnerParameter, partnerTypeTouchpointQuestionnaireParameter, accesscodeParameter, invitedByParameter, invitedDateParameter, completedDateParameter, progressParameter, zcodeParameter, pdfParameter, docFolderAddressParameter, scoreParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerPartnertypeTouchpointQuestionnaire", idParameter, partnerParameter, partnerTypeTouchpointQuestionnaireParameter, accesscodeParameter, invitedByParameter, invitedDateParameter, completedDateParameter, statusParameter, progressParameter, zcodeParameter, pdfParameter, docFolderAddressParameter, scoreParameter);
         }
     
         public virtual int pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> id, Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<int> value, Nullable<int> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
@@ -8636,16 +8645,8 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_findPerson1", mergeOption, enterpriseParameter, selected_sqlParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addAutomailMessage(Nullable<int> partnerTypeTouchpointQuestionnaire, Nullable<int> mailType, string subject, string text, string footer1, string footer2)
+        public virtual ObjectResult<Nullable<decimal>> pr_addAutomailMessage(string subject, string text, string footer1, string footer2, Nullable<int> sendDateCalcFactor, Nullable<System.DateTime> sendDateSet, Nullable<int> mailType, Nullable<int> partnerTypeTouchpointQuestionnaire)
         {
-            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
-                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
-                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
-    
-            var mailTypeParameter = mailType.HasValue ?
-                new ObjectParameter("mailType", mailType) :
-                new ObjectParameter("mailType", typeof(int));
-    
             var subjectParameter = subject != null ?
                 new ObjectParameter("subject", subject) :
                 new ObjectParameter("subject", typeof(string));
@@ -8662,7 +8663,23 @@ namespace Generic
                 new ObjectParameter("footer2", footer2) :
                 new ObjectParameter("footer2", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAutomailMessage", partnerTypeTouchpointQuestionnaireParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
+            var sendDateCalcFactorParameter = sendDateCalcFactor.HasValue ?
+                new ObjectParameter("sendDateCalcFactor", sendDateCalcFactor) :
+                new ObjectParameter("sendDateCalcFactor", typeof(int));
+    
+            var sendDateSetParameter = sendDateSet.HasValue ?
+                new ObjectParameter("sendDateSet", sendDateSet) :
+                new ObjectParameter("sendDateSet", typeof(System.DateTime));
+    
+            var mailTypeParameter = mailType.HasValue ?
+                new ObjectParameter("mailType", mailType) :
+                new ObjectParameter("mailType", typeof(int));
+    
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAutomailMessage", subjectParameter, textParameter, footer1Parameter, footer2Parameter, sendDateCalcFactorParameter, sendDateSetParameter, mailTypeParameter, partnerTypeTouchpointQuestionnaireParameter);
         }
     
         public virtual ObjectResult<autoMailMessage> pr_getAutomailMessage(Nullable<int> id)
@@ -8683,19 +8700,11 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailMessage>("pr_getAutomailMessage", mergeOption, idParameter);
         }
     
-        public virtual int pr_modifyAutomailMessage(Nullable<int> id, Nullable<int> partnerTypeTouchpointQuestionnaire, Nullable<int> mailType, string subject, string text, string footer1, string footer2)
+        public virtual int pr_modifyAutomailMessage(Nullable<int> id, string subject, string text, string footer1, string footer2, Nullable<int> sendDateCalcFactor, Nullable<System.DateTime> sendDateSet, Nullable<int> mailType, Nullable<int> partnerTypeTouchpointQuestionnaire)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
-    
-            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
-                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
-                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
-    
-            var mailTypeParameter = mailType.HasValue ?
-                new ObjectParameter("mailType", mailType) :
-                new ObjectParameter("mailType", typeof(int));
     
             var subjectParameter = subject != null ?
                 new ObjectParameter("subject", subject) :
@@ -8713,7 +8722,23 @@ namespace Generic
                 new ObjectParameter("footer2", footer2) :
                 new ObjectParameter("footer2", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutomailMessage", idParameter, partnerTypeTouchpointQuestionnaireParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
+            var sendDateCalcFactorParameter = sendDateCalcFactor.HasValue ?
+                new ObjectParameter("sendDateCalcFactor", sendDateCalcFactor) :
+                new ObjectParameter("sendDateCalcFactor", typeof(int));
+    
+            var sendDateSetParameter = sendDateSet.HasValue ?
+                new ObjectParameter("sendDateSet", sendDateSet) :
+                new ObjectParameter("sendDateSet", typeof(System.DateTime));
+    
+            var mailTypeParameter = mailType.HasValue ?
+                new ObjectParameter("mailType", mailType) :
+                new ObjectParameter("mailType", typeof(int));
+    
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutomailMessage", idParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter, sendDateCalcFactorParameter, sendDateSetParameter, mailTypeParameter, partnerTypeTouchpointQuestionnaireParameter);
         }
     
         public virtual int pr_removeAutomailMessage(Nullable<int> id)
@@ -10176,15 +10201,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partNumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ", mergeOption, partnumberParameter, siteParameter, partnerPartnertypeTouchpointQuestionnaireParameter);
         }
     
-        public virtual ObjectResult<pr_getMenuForRole_Result> pr_getMenuForRole(Nullable<int> enterprise)
-        {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getMenuForRole_Result>("pr_getMenuForRole", enterpriseParameter);
-        }
-    
         public virtual ObjectResult<Nullable<int>> pr_getPartnumberCompletedCountByPPTQ(Nullable<int> pptq)
         {
             var pptqParameter = pptq.HasValue ?
@@ -10237,6 +10253,138 @@ namespace Generic
                 new ObjectParameter("questionnaire", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_getQuestionnaire_Result>("xx_getQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getMenuByRole_Result> pr_getMenuByRole(Nullable<int> role)
+        {
+            var roleParameter = role.HasValue ?
+                new ObjectParameter("role", role) :
+                new ObjectParameter("role", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getMenuByRole_Result>("pr_getMenuByRole", roleParameter);
+        }
+    
+        public virtual ObjectResult<pr_getMenuForRole_Result> pr_getMenuForRole(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getMenuForRole_Result>("pr_getMenuForRole", enterpriseParameter);
+        }
+    
+        public virtual int pr_addAutomailMessagePPTQ(Nullable<int> automailMessage, Nullable<int> pptq, Nullable<System.DateTime> sentDate, Nullable<int> sendGridStatus)
+        {
+            var automailMessageParameter = automailMessage.HasValue ?
+                new ObjectParameter("automailMessage", automailMessage) :
+                new ObjectParameter("automailMessage", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var sentDateParameter = sentDate.HasValue ?
+                new ObjectParameter("sentDate", sentDate) :
+                new ObjectParameter("sentDate", typeof(System.DateTime));
+    
+            var sendGridStatusParameter = sendGridStatus.HasValue ?
+                new ObjectParameter("sendGridStatus", sendGridStatus) :
+                new ObjectParameter("sendGridStatus", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addAutomailMessagePPTQ", automailMessageParameter, pptqParameter, sentDateParameter, sendGridStatusParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire_Result> pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire(Nullable<int> partnerTypeTouchpointQuestionnaire)
+        {
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire_Result>("pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutomailMessageByPPTQ_Result> pr_getAutomailMessageByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessageByPPTQ_Result>("pr_getAutomailMessageByPPTQ", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutomailMessagePPTQ_Result> pr_getAutomailMessagePPTQ(Nullable<int> pptq, Nullable<int> automailMessage)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var automailMessageParameter = automailMessage.HasValue ?
+                new ObjectParameter("automailMessage", automailMessage) :
+                new ObjectParameter("automailMessage", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessagePPTQ_Result>("pr_getAutomailMessagePPTQ", pptqParameter, automailMessageParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ_Result> pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ(Nullable<int> partnerTypeTouchpointQuestionnaire)
+        {
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ_Result>("pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ", partnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQByPartner_Result> pr_getPPTQByPartner(Nullable<int> partner)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQByPartner_Result>("pr_getPPTQByPartner", partnerParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQByPTQ_Result> pr_getPPTQByPTQ(Nullable<int> partnerTypeTouchpointQuestionnaire)
+        {
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQByPTQ_Result>("pr_getPPTQByPTQ", partnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQByStatus_Result> pr_getPPTQByStatus(Nullable<int> status)
+        {
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQByStatus_Result>("pr_getPPTQByStatus", statusParameter);
+        }
+    
+        public virtual int pr_modifyPPTQStatus(Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire, Nullable<int> status)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPPTQStatus", partnerParameter, partnerTypeTouchpointQuestionnaireParameter, statusParameter);
+        }
+    
+        public virtual int pr_removeAutomailMessagePPTQ(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutomailMessagePPTQ", idParameter);
         }
     }
 }

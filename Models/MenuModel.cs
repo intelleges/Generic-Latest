@@ -16,4 +16,18 @@ namespace Generic.Models
         public Nullable<int> accesslevel { get; set; }
         public Nullable<int> enterprise { get; set; }        
     }
+
+    
+}
+namespace Generic
+{
+    public partial class pr_getMenuForRole_Result
+    {
+
+        public string Description
+        {
+            get { return ParentDescription + " >> " + MenuDescription; }
+
+        }
+    }
 }

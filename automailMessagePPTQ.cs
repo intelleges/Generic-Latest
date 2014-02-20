@@ -10,13 +10,16 @@
 namespace Generic
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class pr_getMenuForRole_Result
+    public partial class automailMessagePPTQ
     {
-        public int ParentId { get; set; }
-        public string ParentDescription { get; set; }
-        public Nullable<int> ParentParentID { get; set; }
-        public string MenuDescription { get; set; }
-        public int MenuID { get; set; }
+        public int automailMessage { get; set; }
+        public int pptq { get; set; }
+        public System.DateTime sentDate { get; set; }
+        public int sendGridStatus { get; set; }
+    
+        public virtual autoMailMessage autoMailMessage1 { get; set; }
+        public virtual partnerPartnertypeTouchpointQuestionnaire partnerPartnertypeTouchpointQuestionnaire { get; set; }
     }
 }
