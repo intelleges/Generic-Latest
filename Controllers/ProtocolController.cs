@@ -55,6 +55,7 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
+                protocol.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
                 protocol.sponsor = SessionSingleton.PersonId;
                 protocol.admin = SessionSingleton.PersonId;
                 db.protocol.Add(protocol);
