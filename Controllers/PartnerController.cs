@@ -244,6 +244,7 @@ namespace Generic.Controllers
                         objPartner.title = partners.title;
                         objPartner.dunsNumber = partners.dunsNumber;
                         objPartner.federalID = partners.federalID;
+                       
                         db.partner.Add(objPartner);
                         db.SaveChanges();
 
@@ -511,6 +512,7 @@ namespace Generic.Controllers
                         pptq.invitedBy = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
                         pptq.accesscode = accessCode;
                         pptq.invitedDate = DateTime.Now;
+                        pptq.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
                         context.partnerPartnertypeTouchpointQuestionnaire.Add(pptq);
                         context.SaveChanges();
                         //try
