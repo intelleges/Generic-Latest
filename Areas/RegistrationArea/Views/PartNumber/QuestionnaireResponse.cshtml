@@ -116,9 +116,31 @@ top: -50px;
                 $('#partNumberSelectList').html(partNumberSelectList1);
                 return;
             }
-            var form = $('<form method="post" action="@Url.Content("~/Registration/PartNumber/GetQuestionnaire")">' +
+         @*   var form = $('<form method="post" action="@Url.Content("~/Registration/PartNumber/GetQuestionnaire")">' +
              '<input type="hidden" name="partNumberSelectList" value="' + objpartNumberID + '"><input type="hidden" name="siteSelectList" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusSelectList" value="' + objpartnumberStatusID + '"></form>');
-            $(form).submit();
+            $(form).submit();*@
+
+            var fData =  '<input type="hidden" name="partNumberSelectList" value="' + objpartNumberID + '"><input type="hidden" name="siteSelectList" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusSelectList" value="' + objpartnumberStatusID + '">';
+
+            var f = document.createElement("form");
+
+            f.setAttribute('method', "post");
+            f.setAttribute('action', "@Url.Content("~/Registration/PartNumber/GetQuestionnaire")");
+            f.setAttribute('name', "initiateForm");
+            f.acceptCharset = "UTF-8";
+
+            var newDiv = document.createElement("div");
+            newDiv.innerHTML = fData;
+            //var name = document.createElement("input");
+            //name.setAttribute('type', "text");
+            //name.setAttribute('name', "projectname");
+            //name.setAttribute('value', "saket");
+
+            f.appendChild(newDiv);
+            document.body.appendChild(f); // added this
+            f.submit();
+
+
 
             @*$.post({
                 url: "@Url.Content("~/Registration/PartNumber/GetQuestionnaire")",
