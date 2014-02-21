@@ -99,7 +99,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 return RedirectToAction("Index");
             }
             partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
-            ViewBag.country = db.pr_getCountry(objPartner.country).FirstOrDefault().name;
+            try
+            {
+                ViewBag.country = db.pr_getCountry(objPartner.country).FirstOrDefault().name;
+            }
+            catch { }
             try
             {
                 ViewBag.state = db.pr_getState(objPartner.state).FirstOrDefault().stateCode;
@@ -146,7 +150,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
 
             partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
-            ViewBag.country = db.pr_getCountry(objPartner.country).FirstOrDefault().name;
+            try
+            {
+
+                ViewBag.country = db.pr_getCountry(objPartner.country).FirstOrDefault().name;
+            }
+            catch { }
 
             ViewBag.CMS_PAGE_TITLE = CMS.CONTACT_PAGE_TITLE;
             ViewBag.CMS_PAGE_SUBTITLE = CMS.CONTACT_PAGE_SUBTITLE;
