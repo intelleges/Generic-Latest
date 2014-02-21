@@ -507,14 +507,24 @@ namespace Generic.Controllers
                     {
                         context.Configuration.ValidateOnSaveEnabled = true;
                         var pptq = new partnerPartnertypeTouchpointQuestionnaire();
-                        pptq.partner = partnerID;
-                        pptq.partnerTypeTouchpointQuestionnaire = pqt;
-                        pptq.invitedBy = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
-                        pptq.accesscode = accessCode;
-                        pptq.invitedDate = DateTime.Now;
-                        pptq.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
-                        context.partnerPartnertypeTouchpointQuestionnaire.Add(pptq);
-                        context.SaveChanges();
+                        var objCheckpptq = context.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerID, pqt).FirstOrDefault();
+                        if (objCheckpptq == null)
+                        {
+
+                            pptq.partner = partnerID;
+                            pptq.partnerTypeTouchpointQuestionnaire = pqt;
+                            pptq.invitedBy = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
+                            pptq.accesscode = accessCode;
+                            pptq.invitedDate = DateTime.Now;
+                            pptq.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
+                            context.partnerPartnertypeTouchpointQuestionnaire.Add(pptq);
+                            context.SaveChanges();
+                            pptqID = pptq.id;
+                        }
+                        else
+                        {
+                            pptqID = objCheckpptq.id;
+                        }
                         //try
                         //{
                         //    context.SaveChanges();
@@ -525,7 +535,7 @@ namespace Generic.Controllers
                         //   // context.Refresh(RefreshMode.ClientWins, db.Articles);
                         //    context.SaveChanges();
                         //}
-                        pptqID = pptq.id;
+                       
                        // context.pr_addPartnerPartnertypeTouchpointQuestionnaire(partnerID, pqt, accessCode, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, DateTime.Now, null, null, null, null, null, null);
                     }
 
