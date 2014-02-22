@@ -42,6 +42,7 @@ namespace Generic.ViewModel
     {
         public string ITEM { get; set; }
         public string TEXT { get; set; }
+        public string LINK { get; set; }
     }
 
 }

@@ -30,7 +30,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadCMS(HttpPostedFileBase uploadCMSFile)
+        public ActionResult UploadCMS(HttpPostedFileBase uploadCMSFile, HttpPostedFileBase uploadCMSFilePDF,HttpPostedFileBase uploadCMSFileFAQ, HttpPostedFileBase uploadCMSFileOther)
         {
          int questionnaireId =  (int) Session["QuestionnaireId"]  ;
 
@@ -58,7 +58,7 @@ namespace Generic.Controllers
 
             string sheetname = "questionnaireCMS";
             var excelRead = new ExcelQueryFactory(physicalPath.ToString());
-           // ITEM TEXT
+            // ITEM TEXT LINK
 
             var cmsinExcel = from a in excelRead.Worksheet<ExcelQuestionnaireCMS>(sheetname) select a;
 
@@ -71,7 +71,9 @@ namespace Generic.Controllers
                 {
                      using (var context = new EntitiesDBContext())
                     {
-                        context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId,questionnaireCMSID.id,cms.TEXT,null,null);
+
+
+                        context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId,questionnaireCMSID.id,cms.TEXT,cms.LINK,null);
                     }                    
                 }
             }
@@ -116,6 +118,9 @@ namespace Generic.Controllers
                 var physicalPath = TempData["physicalPath"];
                 string sheetname = "surveyQuestion";
                 var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+
+              //  excelRead.AddMapping<ExcelPartner>(x => x.internalID, "Internal ID");
+
                 var questionnaireinExcel = from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a;
 
                 //validateQuestionnaire

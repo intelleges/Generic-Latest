@@ -33,7 +33,7 @@
             @(Html.Telerik().Upload()
         .Name("uploadCMSFile")
         .Multiple(false)        
-)
+             )
 
             <p class="note">
                 Maximum allowed file size: 10 MB
@@ -41,6 +41,55 @@
 
 
         </div>
+
+        <div class="editor-label">
+           Please select PDF file.
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("uploadCMSFilePDF")
+        .Multiple(false)        
+             )
+
+            <p class="note">
+                Maximum allowed file size: 10 MB
+            </p>
+
+
+        </div>
+
+        <div class="editor-label">
+           Please select FAQ file.
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("uploadCMSFileFAQ")
+        .Multiple(false)        
+             )
+
+            <p class="note">
+                Maximum allowed file size: 10 MB
+            </p>
+        </div>
+
+        <div class="editor-label">
+           Please select other document.
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("uploadCMSFileOther")
+        .Multiple(false)        
+             )
+
+            <p class="note">
+                Maximum allowed file size: 10 MB
+            </p>
+
+
+        </div>
+
+
+
     </div>
     <p id="uploadButtonDiv" >
         <input type="submit" id="btnUpload" value="Upload" />

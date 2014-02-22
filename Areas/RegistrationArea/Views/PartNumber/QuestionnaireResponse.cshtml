@@ -35,7 +35,14 @@
 
 </script>
 <style>
-    
+    .dropdownchange {
+    width:100px;
+    }
+
+    #siteSelectList {
+     width:300px;
+    }
+
      .field-validation-error {
 font-size: 14PX;
 color: #e46f38;
@@ -463,7 +470,7 @@ top: -50px;
                                 </ul>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                        <td width="76%" align="right" valign="top" class="supplytitleblueone">
+                        <td width="76%" align="center" valign="top" class="supplytitleblueone">
                             <span id="ctl00_lblSurvey">
 
                                      @{
@@ -546,7 +553,7 @@ top: -50px;
 
             <div class="dropdowns">
 
-                <table width="100%" valign="top" border="0" cellspacing="0" cellpadding="0">
+                <table width="800px" valign="top" border="0" cellspacing="0" cellpadding="0">
                     <tr>
 
                         <td valign="top">
@@ -559,7 +566,7 @@ top: -50px;
 
                                  
                                     
-                                      @Html.DropDownList("partnumberStatusSelectList", null, "", new { @class = "dropdownchange", @data_val = "true", @data_val_required="Status is required." })
+                                      @Html.DropDownList("partnumberStatusSelectList", null, null, new { @class = "dropdownchange", @data_val = "true", @data_val_required="Status is required." })
                                         <br />    <span class="field-validation-valid" data-valmsg-for="partnumberStatusSelectList" data-valmsg-replace="true"></span>
 
                                         </td>
@@ -567,7 +574,7 @@ top: -50px;
                                         </td>
                                         <td>
           <span style="font-size: 12px;">Part #</span>&nbsp;
-                                    @Html.DropDownList("partNumberSelectList", null, "", new { @class = "dropdownchange", @data_val = "true", @data_val_required="Part # is required." })
+                                    @Html.DropDownList("partNumberSelectList", null, null, new { @class = "dropdownchange", @data_val = "true", @data_val_required="Part # is required." })
                                             <br />     <span class="field-validation-valid" data-valmsg-for="partNumberSelectList" data-valmsg-replace="true"></span>
 
                                         </td>
@@ -577,11 +584,11 @@ top: -50px;
                         </td>
                         <td valign="top">
                             <div class="descriptionheightDropdown">
-                                <table cellpadding="2" cellspacing="0" border="0">
+                                <table cellpadding="2" cellspacing="0" border="0" width="476px;">
                                     <tr>
                                         <td>
                                             <span style="font-size: 12px;">Site</span>&nbsp;
-                                             @Html.DropDownList("siteSelectList", null, "", new { @class = "dropdownchange", @data_val = "true", @data_val_required="Site is required." })
+                                             @Html.DropDownList("siteSelectList", null,null, new { @class = "dropdownchange ", @data_val = "true", @data_val_required="Site is required." })
                                                  <br />     <span class="field-validation-valid" data-valmsg-for="siteSelectList" data-valmsg-replace="true"></span>
                                        </td>
                                         <td>&nbsp;&nbsp;&nbsp;
@@ -612,10 +619,10 @@ top: -50px;
                 </table>
             </div>
 
-            <table width="100%">
+            <table width="800px">
                 <tr>
                     <td></td>
-                    <td align="left" style="width: 425px">
+                    <td align="right">
                         <input type="submit" value="@ViewBag.SAVE_FOR_LATER_TEXT" />
                         <p>
                             <span id="lblQuestionnaireTitle" class="redheader"></span>
