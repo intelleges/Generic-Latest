@@ -92,7 +92,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             else
             {
                 getPartnumber(pptq);
-                Session["partnumber"] = partNumberSelectList;
+              //  Session["partnumber"] = partNumberSelectList;
             }
             if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
             {
@@ -1492,7 +1492,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
         public void fillPartnumberBySite(int siteID, int pptqID)
         {
-            ViewBag.partNumberSelectList = new SelectList(db.pr_getPartnumberByPPTQandSite(pptqID, siteID), "id", "description");
+            var partNumberList= db.pr_getPartnumberByPPTQandSite(pptqID, siteID).ToList();
+            if(partNumberList.Count>0)
+            {
+                Session["partnumber"] = partNumberList.First().id;
+            ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description", partNumberList.First().id);
+            }else{
+                 ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description" );
+            }
         }
         public void getPartnumber(int pptqID, int partNumberID)
         {
@@ -1502,9 +1509,23 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
         public void getPartnumber(int pptqID)
         {
-            var items = new SelectList(db.pr_getPartnumberByPPTQ(pptqID), "id", "description").ToList();
+             var partNumberList= db.pr_getPartnumberByPPTQ(pptqID).ToList();
+            if(partNumberList.Count>0)
+            {
+             var items = new SelectList(partNumberList, "id", "description", partNumberList.First().id);
+             Session["partnumber"] = partNumberList.First().id;
             // items.Insert(0, (new SelectListItem { Text = "All", Value = "" }));
             ViewBag.partNumberSelectList = items;
+            }
+            else
+            {
+                 var items = new SelectList(partNumberList, "id", "description" );
+                 
+            // items.Insert(0, (new SelectListItem { Text = "All", Value = "" }));
+            ViewBag.partNumberSelectList = items;
+            }
+
+           
         }
         public void nextpartnumber()
         {
@@ -1571,8 +1592,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             int site = 0;
             site = Convert.ToInt32(Session["site"]);
-            ViewBag.partNumberSelectList = new SelectList(db.pr_getPartnumberByPPTQSiteAndStatus(pptq, site, Helpers.PartNumberHelper.Status.NOT_STARTED).ToList(), "id", "description");
-
+            var partNumberList = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, site, Helpers.PartNumberHelper.Status.NOT_STARTED).ToList();
+            ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
+            try{
+            Session["partnumber"] = partNumberList.First().id;
+            }catch{}
         }
 
         public void getZcodeByProviderProtocolCampaignQuestionnaire()
