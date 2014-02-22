@@ -1494,13 +1494,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public void getPartnumber(int pptqID, int partNumberID)
         {
             var items = new SelectList(db.pr_getPartnumberByPPTQ(pptqID), "id", "description", partNumberID).ToList();
-            items.Insert(0, (new SelectListItem { Text = "All", Value = "0" }));
+            items.Insert(0, (new SelectListItem { Text = "All", Value = "" }));
             ViewBag.partNumberSelectList = items;
         }
         public void getPartnumber(int pptqID)
         {
             var items = new SelectList(db.pr_getPartnumberByPPTQ(pptqID), "id", "description").ToList();
-            items.Insert(0, (new SelectListItem { Text = "All", Value = "0" }));
+            items.Insert(0, (new SelectListItem { Text = "All", Value = "" }));
             ViewBag.partNumberSelectList = items;
         }
         public void nextpartnumber()
@@ -1540,13 +1540,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public void getSitepoint(int pptqID, int siteId)
         {
             var items = new SelectList(db.pr_getSiteByPPTQ(pptqID), "id", "description", siteId).ToList();
-            items.Insert(0, (new SelectListItem { Text = "All", Value = "0" }));
+            items.Insert(0, (new SelectListItem { Text = "All", Value = "" }));
             ViewBag.siteSelectList = items;
         }
         public void getSitepoint(int pptqID)
         {
             var items = new SelectList(db.pr_getSiteByPPTQ(pptqID), "id", "description").ToList();
-            items.Insert(0, (new SelectListItem { Text = "All", Value = "0" }));
+            items.Insert(0, (new SelectListItem { Text = "All", Value = "" }));
             ViewBag.siteSelectList = items;
         }
 

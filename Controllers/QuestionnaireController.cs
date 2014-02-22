@@ -71,8 +71,8 @@ namespace Generic.Controllers
                 {
                      using (var context = new EntitiesDBContext())
                     {
-
-
+                       //  if(
+                        //uploadCMSFilePDF
                         context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId,questionnaireCMSID.id,cms.TEXT,cms.LINK,null);
                     }                    
                 }
