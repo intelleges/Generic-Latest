@@ -2877,7 +2877,7 @@
       <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
       <Parameter Name="status" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_getPartnumberSiteZcodePPTQByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberSiteZcodePPTQByPPTQ_Result)">
+    <FunctionImport Name="pr_getPartnumberSiteZcodePPTQByPPTQ" EntitySet="partNumberSiteZcodePPTQSet" ReturnType="Collection(hs3MVCMTQa2Model.partNumberSiteZcodePPTQ)">
       <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_getSiteByPPTQ" EntitySet="site" ReturnType="Collection(hs3MVCMTQa2Model.site)">

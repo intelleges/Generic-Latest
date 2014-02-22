@@ -9978,13 +9978,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumber>("pr_getPartnumberByPPTQandStatus", mergeOption, partnerPartnertypeTouchpointQuestionnaireParameter, statusParameter);
         }
     
-        public virtual ObjectResult<pr_getPartnumberSiteZcodePPTQByPPTQ_Result> pr_getPartnumberSiteZcodePPTQByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        public virtual ObjectResult<partNumberSiteZcodePPTQ> pr_getPartnumberSiteZcodePPTQByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
         {
             var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
                 new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodePPTQByPPTQ_Result>("pr_getPartnumberSiteZcodePPTQByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partNumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodePPTQByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<partNumberSiteZcodePPTQ> pr_getPartnumberSiteZcodePPTQByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, MergeOption mergeOption)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partNumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodePPTQByPPTQ", mergeOption, partnerPartnertypeTouchpointQuestionnaireParameter);
         }
     
         public virtual ObjectResult<site> pr_getSiteByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)

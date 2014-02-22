@@ -756,7 +756,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
 
             // save uploaded files
-            jumpToQuestion = saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
+           // jumpToQuestion = 
+                saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
 
 
             //for (int i = 0; i < Request.Form.Keys.Count; i++)
@@ -941,7 +942,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     //Provider provider = new Provider(new Id(providerId));
                     //Campaign campaign = new Campaign(new Id(Convert.ToInt32(Session["campaign"])));
                     //provider.updateSurveyProgressBar(provider, campaign, 80);
-                    Response.Redirect("eSignature.aspx");
+                    Response.Redirect("~/Registration/Home/eSignature");
                     // }
                 }
             }
@@ -951,17 +952,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     if (string.IsNullOrEmpty(errorQueryString))
                     {
-                        Response.Redirect("responseQuestionnaire.aspx?pageNumber=" + pageNumber.ToString() +
+                        Response.Redirect("QuestionnaireResponse?pageNumber=" + pageNumber.ToString() +
                            "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
                            + "&questionIndex=" + questionIndex.ToString() + skip);
                     }
                     else if (Request.QueryString["errorQuestion"] == null)
                     {
-                        Response.Redirect("responseQuestionnaire.aspx?" + Request.QueryString.ToString() + errorQueryString);
+                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
                     }
                     else
                     {
-                        Response.Redirect("responseQuestionnaire.aspx?" + Request.QueryString.ToString());
+                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
                     }
                 }
                 else
@@ -973,7 +974,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     //else
                     //{
 
-                    Response.Redirect("eSignature.aspx");
+                    Response.Redirect("~/Registration/Home/eSignature");
                     //}
                 }
             }

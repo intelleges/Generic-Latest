@@ -8804,7 +8804,7 @@
             <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
             <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getPartnumberSiteZcodePPTQByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberSiteZcodePPTQByPPTQ_Result)">
+          <FunctionImport Name="pr_getPartnumberSiteZcodePPTQByPPTQ" EntitySet="partNumberSiteZcodePPTQSet" ReturnType="Collection(hs3MVCMTQa2Model.partNumberSiteZcodePPTQ)">
           <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSiteByPPTQ" EntitySet="site" ReturnType="Collection(hs3MVCMTQa2Model.site)">
@@ -17854,16 +17854,6 @@
           <FunctionImportMapping FunctionImportName="pr_getPartnumberByPPTQandStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberByPPTQandStatus">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQByPPTQ">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberSiteZcodePPTQByPPTQ_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="partnumber" ColumnName="partnumber" />
-                <ScalarProperty Name="site" ColumnName="site" />
-                <ScalarProperty Name="zcode" ColumnName="zcode" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="partnerPartnertypeTouchpointQuestionnaire" ColumnName="partnerPartnertypeTouchpointQuestionnaire" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getSiteByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getSiteByPPTQ">
           </FunctionImportMapping>
