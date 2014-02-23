@@ -140,7 +140,6 @@ namespace Generic.Controllers
             return RedirectToAction("Index");
         }
 
-
         public ActionResult AssignQuestionnaireLevel()
         {
        //  var a =   db.pr_getQuestionnaireLevelType();
@@ -148,6 +147,7 @@ namespace Generic.Controllers
             ViewBag.questionnaireLevel = new SelectList(db.pr_getQuestionnaireLevelTypeAll(), "id", "description");
             return View();
         }
+
         [HttpPost]
         public ActionResult AssignQuestionnaireLevel(int enterprise, int questionnaireLevel)
         {
@@ -159,10 +159,6 @@ namespace Generic.Controllers
             return View();
 
         }
-
-
-
-
 
         protected override void Dispose(bool disposing)
         {

@@ -2510,9 +2510,6 @@
     <Content Include="Areas\RegistrationArea\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\Test.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\CompanyInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -8763,11 +8763,11 @@
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireCMSAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireCMSAll_Result)" />
-          <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMS_Result)">
+          <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMS" EntitySet="questionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireQuestionnaireCMS)">
             <Parameter Name="questionnaire" Mode="In" Type="Int32" />
             <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire_Result)">
+          <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" EntitySet="questionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireQuestionnaireCMS)">
           <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyQuestionnaireCMS">
@@ -8915,7 +8915,7 @@
           <FunctionImport Name="pr_getQuestionnaireByPartnumberSiteZcodePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByPartnumberSiteZcodePPTQ_Result)">
           <Parameter Name="partnumberSiteZcodePPTQ" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result)">
+          <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" EntitySet="questionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireQuestionnaireCMS)">
           <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="xx_getQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.xx_getQuestionnaire_Result)">
@@ -8947,26 +8947,26 @@
             <Parameter Name="sendGridStatus" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire_Result)">
-            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getAutomailMessageByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageByPPTQ_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getAutomailMessagePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessagePPTQ_Result)">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
             <Parameter Name="automailMessage" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ_Result)">
-            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPPTQByPartner" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQByPartner_Result)">
-            <Parameter Name="partner" Mode="In" Type="Int32" />
+          <Parameter Name="partner" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPPTQByPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQByPTQ_Result)">
-            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPPTQByStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQByStatus_Result)">
-            <Parameter Name="status" Mode="In" Type="Int32" />
+          <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyPPTQStatus">
             <Parameter Name="partner" Mode="In" Type="Int32" />
@@ -8974,7 +8974,7 @@
             <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeAutomailMessagePPTQ">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -17825,22 +17825,8 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMS">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMS_Result">
-                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
-                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
-                <ScalarProperty Name="text" ColumnName="text" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire_Result">
-                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
-                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
-                <ScalarProperty Name="text" ColumnName="text" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireCMS" />
           <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireQuestionnaireCMS" />
@@ -17973,15 +17959,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result">
-                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
-                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="link" ColumnName="link" />
-                <ScalarProperty Name="doc" ColumnName="doc" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="xx_getQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.xx_getQuestionnaire">
             <ResultMapping>

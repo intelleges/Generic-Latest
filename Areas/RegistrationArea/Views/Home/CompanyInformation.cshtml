@@ -15,19 +15,15 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td width="22%" valign="top">
-                                <ul id="qm0" class="qmmc">
+                               <ul id="qm0" class="qmmc" style="width: 775px;">
                                     <li><a class="qmparent" href=""></a></li>
-                                    <li><a class="qmparent" id="contactUS">Contact Us</a></li>
-                                    <!--<li><a class="qmparent" href="Partner faq.pdf" target="_blank">FAQ</a></li> -->
-                                    <li><a class="qmparent" href="BAA_Frequently Asked Questions.pdf" target="_blank">FAQ</a></li>
-                                    <li><a class="qmparent" href="baaQuestionnaire.pdf" target="_blank">Questionnaire
-                                            (PDF)</a> </li>
+                                    <li><a class="qmparent" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>                                    
+                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>
+                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@ViewBag.QUESTIONNAIRE_FAQ</a> </li>
+                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@ViewBag.QUESTIONNAIRE_DOC_OTHER</a> </li>
+                                    <li><a class="qmparent" href="@ViewBag.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@ViewBag.QUESTIONNAIRE_VIDEO</a> </li>
                                     <li class="qmclear">&nbsp;</li>
-                                </ul>
-                                <!-- Create Menu Settings: (Menu ID, Is Vertical, Show Timer, Hide Timer, On Click (options: 'all' * 'all-always-open' * 'main' * 'lev2'), Right to Left, Horizontal Subs, Flush Left, Flush Top) -->
-
-                                <script type="text/javascript">                                        qm_create(0, false, 0, 500, false, false, false, false, false);</script>
-
+                                </ul>                              
                             </td>
                             <td width="20%" align="right" valign="top"></td>
                         </tr>

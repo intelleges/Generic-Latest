@@ -12,19 +12,15 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td width="22%" valign="top">
-                                <ul id="qm0" class="qmmc">
+                               <ul id="qm0" class="qmmc" style="width: 775px;">
                                     <li><a class="qmparent" href=""></a></li>
-                                    <li><a class="qmparent" id="contactUS">Contact Us</a></li>
-                                    <!--<li><a class="qmparent" href="Partner faq.pdf" target="_blank">FAQ</a></li> -->
-                                    <li><a class="qmparent" href="BAA_Frequently Asked Questions.pdf" target="_blank">FAQ</a></li>
-                                    <li><a class="qmparent" href="baaQuestionnaire.pdf" target="_blank">Questionnaire
-                                            (PDF)</a> </li>
+                                    <li><a class="qmparent" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>                                    
+                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>
+                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@ViewBag.QUESTIONNAIRE_FAQ</a> </li>
+                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@ViewBag.QUESTIONNAIRE_DOC_OTHER</a> </li>
+                                    <li><a class="qmparent" href="@ViewBag.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@ViewBag.QUESTIONNAIRE_VIDEO</a> </li>
                                     <li class="qmclear">&nbsp;</li>
-                                </ul>
-                                <!-- Create Menu Settings: (Menu ID, Is Vertical, Show Timer, Hide Timer, On Click (options: 'all' * 'all-always-open' * 'main' * 'lev2'), Right to Left, Horizontal Subs, Flush Left, Flush Top) -->
-
-                                <script type="text/javascript">                                        qm_create(0, false, 0, 500, false, false, false, false, false);</script>
-
+                                </ul> 
                             </td>
                             <td width="20%" align="right" valign="top"></td>
                         </tr>
@@ -75,10 +71,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <!-- <td class="supplyleft">
-                                                    Honeywell Site Security Survey is designed to capture information about your site’s
-                                                    practices pertaining to safeguarding the supply chain.
-                                                </td>-->
+                                  
                                     <td class="supplyleft">
 
                                         
@@ -100,11 +93,7 @@
                                     <td class="supplyright">
   
                                                 @Html.Raw(ViewBag.CMS_PAGE_PANEL_TWO)
-                                            
-
-
-
-                                        <!--<span style="color: #0096c9;">Instructions:</span> Enter your access code (found in your invitation email) below to complete Honeywell’s Site Security Survey.-->
+                                        
                                     </td>
                                 </tr>
                             </table>
@@ -133,7 +122,7 @@
 
             <div class="supplycon">
 <div class="commonh"></div>
-<div class="redheader" align="center">  <table width="100%"><tbody><tr><td align="center"><span id="ctl00_contentQuestionnaireBody_lblCompanyName" style="font-size:xx-large">
+<div class="redheader" align="center">  <table width="100%"><tbody><tr><td align="center"><span id="lblCompanyName" style="font-size:xx-large">
     
     @ViewBag.CONFIRMATION_PAGE_HEADLINE
 
@@ -151,7 +140,7 @@
 <table style="padding-top: 25px; padding-left: 50px; padding-right: 50px; padding-bottom: 25px;" width="100%">
     <tbody><tr height="25" valign="top">
         <td colspan="2" style="font-size: 18px; font-weight: bold;" align="center">
-            <span id="ctl00_contentQuestionnaireBody_lblThankYou">
+            <span id="lblThankYou">
 
                 @ViewBag.CONFIRMATION_PAGE_SIGNOFF_STATEMENT
 
@@ -162,13 +151,13 @@
     </tr>
     <tr>
         <td colspan="2" style="font-size: 16px; padding-bottom: 75px;" align="center" width="30%">
-            <span id="ctl00_contentQuestionnaireBody_lblPrintAnswer">Click <a href="printResponse.aspx" target="_blank">here</a> to print your survey answers</span>  </td>
+            <span id="lblPrintAnswer">Click <a href="#" target="_blank">here</a> to print your survey answers</span>  </td>
     </tr>
     <tr>
         <td style="font-size: 12px;" align="left" width="70%"></td>
         <td style="font-size: 12px;" align="left" width="30%">
         <a href="@ViewBag.CONFIRMATION_PAGE_EXIT_LINK">
-        <input name="ctl00$contentQuestionnaireBody$btnNext" id="ctl00_contentQuestionnaireBody_btnNext" value="@ViewBag.CMS_PAGE_NEXT_TEXT" style="border-width:0px;" type="submit">
+        <input name="btnNext" id="btnNext" value="@ViewBag.CMS_PAGE_NEXT_TEXT" style="border-width:0px;" type="submit">
         </a>
         </td>
     </tr>

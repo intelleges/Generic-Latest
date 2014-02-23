@@ -2836,11 +2836,11 @@
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_getQuestionnaireCMSAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireCMSAll_Result)" />
-    <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMS_Result)">
+    <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMS" EntitySet="questionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireQuestionnaireCMS)">
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
       <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire_Result)">
+    <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" EntitySet="questionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireQuestionnaireCMS)">
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_modifyQuestionnaireCMS">
@@ -2988,7 +2988,7 @@
     <FunctionImport Name="pr_getQuestionnaireByPartnumberSiteZcodePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByPartnumberSiteZcodePPTQ_Result)">
       <Parameter Name="partnumberSiteZcodePPTQ" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result)">
+    <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" EntitySet="questionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireQuestionnaireCMS)">
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="xx_getQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.xx_getQuestionnaire_Result)">

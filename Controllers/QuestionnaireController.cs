@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Generic.ViewModel;
 using LinqToExcel;
 using Generic.SessionClass;
+using Generic.Helpers.Questionnaire;
 
 namespace Generic.Controllers
 {
@@ -30,9 +31,9 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadCMS(HttpPostedFileBase uploadCMSFile, HttpPostedFileBase uploadCMSFilePDF,HttpPostedFileBase uploadCMSFileFAQ, HttpPostedFileBase uploadCMSFileOther)
+        public ActionResult UploadCMS(HttpPostedFileBase uploadCMSFile, HttpPostedFileBase uploadCMSFilePDF, HttpPostedFileBase uploadCMSFileFAQ, HttpPostedFileBase uploadCMSFileOther)
         {
-         int questionnaireId =  (int) Session["QuestionnaireId"]  ;
+            int questionnaireId = (int)Session["QuestionnaireId"];
 
             if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
             {
@@ -69,12 +70,52 @@ namespace Generic.Controllers
                 var questionnaireCMSID = objQuestionnareCMS.Where(x => x.description == cms.ITEM).FirstOrDefault();
                 if (questionnaireCMSID != null)
                 {
-                     using (var context = new EntitiesDBContext())
+                    using (var context = new EntitiesDBContext())
                     {
-                       //  if(
-                        //uploadCMSFilePDF
-                        context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId,questionnaireCMSID.id,cms.TEXT,cms.LINK,null);
-                    }                    
+                        if (cms.ITEM == CMS.QUESTIONNAIRE_PDF)
+                        {
+                            if (uploadCMSFilePDF == null)
+                            {
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
+                            }
+                            else
+                            {
+                                byte[] uploadedFile = new byte[uploadCMSFilePDF.InputStream.Length];
+                                uploadCMSFilePDF.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, uploadedFile);
+                            }
+                        }
+                        else if (cms.ITEM == CMS.QUESTIONNAIRE_FAQ)
+                        {
+                            if (uploadCMSFileFAQ == null)
+                            {
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
+                            }
+                            else
+                            {
+                                byte[] uploadedFile = new byte[uploadCMSFileFAQ.InputStream.Length];
+                                uploadCMSFileFAQ.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, uploadedFile);
+                            }
+                        }
+                        else if (cms.ITEM == CMS.QUESTIONNAIRE_DOC_OTHER)
+                        {
+                            if (uploadCMSFileOther == null)
+                            {
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
+                            }
+                            else
+                            {
+                                byte[] uploadedFile = new byte[uploadCMSFileOther.InputStream.Length];
+                                uploadCMSFileOther.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, uploadedFile);
+                            }
+                        }
+                        else
+                        {
+                            context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
+                        }
+                    }
                 }
             }
 
@@ -105,7 +146,7 @@ namespace Generic.Controllers
             if (ModelState.IsValid)
             {
 
-                
+
                 person objPerson = db.pr_getPersonByEmail(EnterpriseID, User.Identity.Name).FirstOrDefault();
 
                 string protocolTitle = protocolName;
@@ -119,7 +160,7 @@ namespace Generic.Controllers
                 string sheetname = "surveyQuestion";
                 var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
-              //  excelRead.AddMapping<ExcelPartner>(x => x.internalID, "Internal ID");
+                //  excelRead.AddMapping<ExcelPartner>(x => x.internalID, "Internal ID");
 
                 var questionnaireinExcel = from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a;
 

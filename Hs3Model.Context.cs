@@ -9809,7 +9809,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireCMSAll_Result>("pr_getQuestionnaireCMSAll");
         }
     
-        public virtual ObjectResult<pr_getQuestionnaireQuestionnaireCMS_Result> pr_getQuestionnaireQuestionnaireCMS(Nullable<int> questionnaire, Nullable<int> questionnaireCMS)
+        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMS(Nullable<int> questionnaire, Nullable<int> questionnaireCMS)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
@@ -9819,16 +9819,38 @@ namespace Generic
                 new ObjectParameter("questionnaireCMS", questionnaireCMS) :
                 new ObjectParameter("questionnaireCMS", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireQuestionnaireCMS_Result>("pr_getQuestionnaireQuestionnaireCMS", questionnaireParameter, questionnaireCMSParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMS", questionnaireParameter, questionnaireCMSParameter);
         }
     
-        public virtual ObjectResult<pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire_Result> pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(Nullable<int> questionnaire)
+        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMS(Nullable<int> questionnaire, Nullable<int> questionnaireCMS, MergeOption mergeOption)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire_Result>("pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire", questionnaireParameter);
+            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
+                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
+                new ObjectParameter("questionnaireCMS", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMS", mergeOption, questionnaireParameter, questionnaireCMSParameter);
+        }
+    
+        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(Nullable<int> questionnaire, MergeOption mergeOption)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire", mergeOption, questionnaireParameter);
         }
     
         public virtual int pr_modifyQuestionnaireCMS(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
@@ -10246,13 +10268,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireByPartnumberSiteZcodePPTQ_Result>("pr_getQuestionnaireByPartnumberSiteZcodePPTQ", partnumberSiteZcodePPTQParameter);
         }
     
-        public virtual ObjectResult<pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result> pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(Nullable<int> questionnaire)
+        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(Nullable<int> questionnaire)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result>("pr_getQuestionnaireQuestionnaireCMSByQuestionnaire", questionnaireParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMSByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(Nullable<int> questionnaire, MergeOption mergeOption)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMSByQuestionnaire", mergeOption, questionnaireParameter);
         }
     
         public virtual ObjectResult<xx_getQuestionnaire_Result> xx_getQuestionnaire(Nullable<int> questionnaire)

@@ -3471,24 +3471,8 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMS">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMS_Result">
-          <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
-          <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
-          <ScalarProperty Name="text" ColumnName="text" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire_Result">
-          <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
-          <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
-          <ScalarProperty Name="text" ColumnName="text" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMS" />
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" />
     <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireCMS" />
     <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireQuestionnaireCMS" />
     <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireCMS" />
@@ -3609,17 +3593,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result">
-          <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
-          <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
-          <ScalarProperty Name="text" ColumnName="text" />
-          <ScalarProperty Name="link" ColumnName="link" />
-          <ScalarProperty Name="doc" ColumnName="doc" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" />
     <FunctionImportMapping FunctionImportName="xx_getQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.xx_getQuestionnaire">
       <ResultMapping>
         <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xx_getQuestionnaire_Result">
