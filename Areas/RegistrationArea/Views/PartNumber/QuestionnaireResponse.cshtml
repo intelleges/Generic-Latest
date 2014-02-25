@@ -78,15 +78,15 @@ top: -50px;
             var objpartNumberID = $('#partNumberSelectList').val();
             var objsiteID = $('#siteSelectList').val();
             var objpartnumberStatusID = $('#partnumberStatusSelectList').val();
-            var formData = { partNumberID: objpartNumberID, siteID: objsiteID, partnumberStatusID: objpartnumberStatusID };
+            //var formData = { partNumberID: objpartNumberID, siteID: objsiteID, partnumberStatusID: objpartnumberStatusID };
 
-            if (objpartnumberStatusID == "") {
-                var partNumberSelectList = "<option value=''></option>";
-                $('#partNumberSelectList').html(partNumberSelectList);
-                return;
-            }
+            //if (objpartnumberStatusID == "") {
+            //    var partNumberSelectList = "<option value=''></option>";
+            //    $('#partNumberSelectList').html(partNumberSelectList);
+            //    return;
+            //}
 
-            $.ajax({
+           @* $.ajax({
                 url: "@Url.Content("~/Registration/PartNumber/GetPartNumberByDropdown")",
                 type: "post",
                 data: formData,
@@ -106,7 +106,27 @@ top: -50px;
                     var partNumberSelectList = "<option value=''></option>";
                     $('#partNumberSelectList').html(partNumberSelectList);
                 }
-            });
+            });*@
+
+            var fData = '<input type="hidden" name="siteID" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusID" value="' + objpartnumberStatusID + '">';
+
+            var f = document.createElement("form");
+
+            f.setAttribute('method', "post");
+            f.setAttribute('action', "@Url.Content("~/Registration/PartNumber/GetPartNumberByDropdown")");
+            f.setAttribute('name', "initiateForm2");
+            f.acceptCharset = "UTF-8";
+
+            var newDiv = document.createElement("div");
+            newDiv.innerHTML = fData;
+            //var name = document.createElement("input");
+            //name.setAttribute('type', "text");
+            //name.setAttribute('name', "projectname");
+            //name.setAttribute('value', "saket");
+
+            f.appendChild(newDiv);
+            document.body.appendChild(f); // added this
+            f.submit();
 
 
         });
