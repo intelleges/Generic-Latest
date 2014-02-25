@@ -136,12 +136,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 if (partnumberstatusID == Generic.Helpers.PartNumberHelper.Status.COMPLETED)
                 {
                     getPartnumberstatus(partnumberstatusID);
-                    getPartnumberByPartnumberStatusNotstarted(pptq);
+                    getPartnumberByPartnumberStatus(pptq, partnumberstatusID);
                 }
                 else if (partnumberstatusID == Generic.Helpers.PartNumberHelper.Status.INCOMPLETE)
                 {
                     getPartnumberstatus(partnumberstatusID);
-                    getPartnumberByPartnumberStatusNotstarted(pptq);
+                    getPartnumberByPartnumberStatus(pptq, partnumberstatusID);
                 }
                 else if (partnumberstatusID == Generic.Helpers.PartNumberHelper.Status.NOT_STARTED)
                 {
@@ -1578,7 +1578,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         public void fillPartnumberBySite(int siteID, int pptqID, int partNumberID)
         {
-            ViewBag.partNumberSelectList = new SelectList(db.pr_getPartnumberByPPTQandSite(pptqID, siteID), "id", "description", partNumberID);
+            if (Session["partnumberstatus"] != null && Int32.Parse(Session["partnumberstatus"].ToString()) != 0)
+            {
+                ViewBag.partNumberSelectList = new SelectList(db.pr_getPartnumberByPPTQSiteAndStatus(pptqID, siteID, Int32.Parse(Session["partnumberstatus"].ToString())), "id", "description", partNumberID); 
+                
+            }
+            else
+            {
+                ViewBag.partNumberSelectList = new SelectList(db.pr_getPartnumberByPPTQandSite(pptqID, siteID), "id", "description", partNumberID);
+            }
+            Session["partnumber"] = partNumberID;
         }
         public void fillPartnumberBySite(int siteID, int pptqID)
         {
@@ -1692,7 +1701,25 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             catch { }
         }
-
+        protected void getPartnumberByPartnumberStatus(int pptq,int status)
+        {
+            int site = 0;
+            site = Convert.ToInt32(Session["site"]);
+            var partNumberList = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, site, status).ToList();
+            ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
+            try
+            {
+                if (Session["partnumber"] != null && Int32.Parse(Session["partnumber"].ToString()) != 0)
+                {
+                    
+                }
+                else
+                {
+                    Session["partnumber"] = partNumberList.First().id;
+                }
+            }
+            catch { }
+        }
         public void getZcodeByProviderProtocolCampaignQuestionnaire()
         {
             //int site = Convert.ToInt32(ddlSitepoint.SelectedValue.ToString());
