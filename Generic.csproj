@@ -1104,6 +1104,9 @@
     <Compile Include="pr_getResponseTypeAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getResponseTypeByQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getResponseType_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

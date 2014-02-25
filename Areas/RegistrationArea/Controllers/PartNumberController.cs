@@ -810,6 +810,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
             }
 
+            if (jumpToQuestion != 0)
+            {
+                // Skip ZCode update            
+                var context = new EntitiesDBContext();
+                var PartNumberSiteZcodepptq = context.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
+                
+                ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion, context, PartNumberSiteZcodepptq);
+
+            }
+
+
             // save uploaded files
             //jumpToQuestion = 
             saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
@@ -884,6 +895,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         private void ZcodeModify(int questionnaireId, int questionId, int? responseId, EntitiesDBContext context, partNumberSiteZcodePPTQ PartNumberSiteZcodepptq)
         {
+         var responseTypesQuestionnaire =   (List<responseType>)Session["responseTypesQuestionnaire"];
+
             string zcode = PartNumberSiteZcodepptq.zcode;
             var allQuestions = db.pr_getQuestionByQuestionnaire(questionnaireId).ToList();
             int questionNo = 0;
@@ -908,9 +921,54 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     NewZcodePart2_CurrentQuestion = responseZcode.zcode;
                 }
             }
+
+            if (responseTypesQuestionnaire.Where(r => r.id == questionId).FirstOrDefault().description == "text")
+            {
+                NewZcodePart2_CurrentQuestion = ZCode.XX_Comment_Only_Question;
+            }
+
             string NewZcodePart3 = zcode.Substring((questionNo * 2), zcode.Length - (questionNo * 2));
             //3    45
             //zzzz zz zz
+            //0 4
+            //6 L-6
+            PartNumberSiteZcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
+            context.Entry(PartNumberSiteZcodepptq).State = EntityState.Modified;
+            context.SaveChanges();
+        }
+
+
+
+        private void ZcodeModifyForSkip(int questionnaireId, int questionId, int jumpToQuestion, EntitiesDBContext context, partNumberSiteZcodePPTQ PartNumberSiteZcodepptq)
+        {
+            string zcode = PartNumberSiteZcodepptq.zcode;
+            var allQuestions = db.pr_getQuestionByQuestionnaire(questionnaireId).ToList();
+            int questionNo = 1;
+            foreach (var item in allQuestions)
+            {
+                questionNo++;
+
+                if (questionId == item.id)
+                {
+                    break;
+                }
+            }
+            string NewZcodePart1 = zcode.Substring(0, (questionNo * 2) - 2);
+
+            //get zcode according to answer
+          
+            string NewZcodePart2_CurrentQuestion = "";
+            for (int i = 0; i < jumpToQuestion-questionId-1; i++)
+            {
+                NewZcodePart2_CurrentQuestion += ZCode.YY_Skipped;
+
+            }
+            
+            //2    6 -> 3 4 5
+
+            string NewZcodePart3 = zcode.Substring((questionNo * 2) + (jumpToQuestion - questionId - 2) * 2, zcode.Length - ((questionNo * 2) + (jumpToQuestion - questionId - 2) * 2));
+            //3    45
+            //zzzz zzzzzz zzzzzz
             //0 4
             //6 L-6
             PartNumberSiteZcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;

@@ -10426,5 +10426,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutomailMessagePPTQ", idParameter);
         }
+    
+        public virtual ObjectResult<responseType> pr_getResponseTypeByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<responseType>("pr_getResponseTypeByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<responseType> pr_getResponseTypeByQuestionnaire(Nullable<int> questionnaire, MergeOption mergeOption)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<responseType>("pr_getResponseTypeByQuestionnaire", mergeOption, questionnaireParameter);
+        }
     }
 }
