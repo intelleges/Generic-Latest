@@ -23,8 +23,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             ViewBag.accesscode = accessCode;
 
-
-
             ViewBag.CMS_TITLE = CMS.ACCESS_CODE_TITLE;
             ViewBag.CMS_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;
             ViewBag.CMS_PANEL_ONE = CMS.ACCESS_CODE_PANEL_ONE;
