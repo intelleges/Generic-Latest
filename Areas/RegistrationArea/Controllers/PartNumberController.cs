@@ -590,6 +590,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
                         else
                         {
+                            //db.pr_removePartnumberSiteZcodePPTQQuestionResponse(
                             db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpsz.FirstOrDefault().id, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
                         }
 
@@ -732,7 +733,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                 question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
                                                 //   responsenew = db.pr_getResponseByQuestion(questionidLogic).FirstOrDefault();
                                                 var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
-                                                int? rId = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
+                                                var context = new EntitiesDBContext();
+                                                int? rId = context.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
                                                 response responsenew = db.pr_getResponse(rId).FirstOrDefault();
                                                 if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no")
                                                 {

@@ -386,6 +386,20 @@ namespace Generic.Controllers
 
                         db.pr_addSurveyQuestion(surveyId, questionId);
 
+                        if (excelQuestionnaire.skipLogicAnswer == "NULL")
+                        {
+                            excelQuestionnaire.skipLogicAnswer = null;
+                        }
+
+                        if (excelQuestionnaire.skipLogic == "NULL")
+                        {
+                            excelQuestionnaire.skipLogic = null;
+                        }
+
+                        if (excelQuestionnaire.skipLogicJump == "NULL")
+                        {
+                            excelQuestionnaire.skipLogicJump = null;
+                        }
                         //check if this question is a skipLogicJump question
                         //update skipLogicJump and skipLogicAnswer
                         if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicAnswer) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
