@@ -389,6 +389,7 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TestPageController.cs" />
     <Compile Include="Controllers\TouchpointController.cs" />
+    <Compile Include="Controllers\UserHomeController.cs" />
     <Compile Include="country.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -510,6 +511,7 @@
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\PersonComboModel.cs" />
+    <Compile Include="Models\ProductTypeModel.cs" />
     <Compile Include="Models\StringContainer.cs" />
     <Compile Include="Models\TouchpointComboModel.cs" />
     <Compile Include="numberSeed.cs">
@@ -925,6 +927,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ_Result.cs">
@@ -2601,6 +2606,15 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Role\AssignMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UserHome\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UserHome\Partials\SelectProduct.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UserHome\SelectProduct.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

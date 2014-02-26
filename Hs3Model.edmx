@@ -4481,6 +4481,10 @@
         <Function Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PartnumberSiteZcodePPTQ" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="question" Type="int" Mode="In" />
+          <Parameter Name="partNumberSiteZcodePPTQ" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="pptq" Type="int" Mode="In" />
@@ -8980,7 +8984,11 @@
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getResponseTypeByQuestionnaire" EntitySet="responseType" ReturnType="Collection(hs3MVCMTQa2Model.responseType)">
-            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite" EntitySet="partnumberSiteZcodePPTQQuestionResponse" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse)">
+            <Parameter Name="question" Mode="In" Type="Int32" />
+            <Parameter Name="partNumberSiteZcodePPTQ" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -14211,6 +14219,17 @@
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Int32" Name="active" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="response" Nullable="true" />
+          <Property Type="String" Name="comment" Nullable="true" />
+          <Property Type="Binary" Name="uploadedFile" Nullable="true" />
+          <Property Type="String" Name="uploadedFileType" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="value" Nullable="true" />
+          <Property Type="String" Name="score" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="partNumberSiteZcodePPTQ" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -18154,6 +18173,8 @@
           <FunctionImportMapping FunctionImportName="pr_modifyPPTQStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPPTQStatus" />
           <FunctionImportMapping FunctionImportName="pr_removeAutomailMessagePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessagePPTQ" />
           <FunctionImportMapping FunctionImportName="pr_getResponseTypeByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponseTypeByQuestionnaire">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite">
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>

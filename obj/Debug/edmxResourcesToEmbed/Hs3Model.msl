@@ -3776,5 +3776,6 @@
     <FunctionImportMapping FunctionImportName="pr_modifyPPTQStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPPTQStatus" />
     <FunctionImportMapping FunctionImportName="pr_removeAutomailMessagePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessagePPTQ" />
     <FunctionImportMapping FunctionImportName="pr_getResponseTypeByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponseTypeByQuestionnaire" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite" />
   </EntityContainerMapping>
 </Mapping>

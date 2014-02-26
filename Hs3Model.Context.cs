@@ -10444,5 +10444,31 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<responseType>("pr_getResponseTypeByQuestionnaire", mergeOption, questionnaireParameter);
         }
+    
+        public virtual ObjectResult<partnumberSiteZcodePPTQQuestionResponse> pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(Nullable<int> question, Nullable<int> partNumberSiteZcodePPTQ)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var partNumberSiteZcodePPTQParameter = partNumberSiteZcodePPTQ.HasValue ?
+                new ObjectParameter("partNumberSiteZcodePPTQ", partNumberSiteZcodePPTQ) :
+                new ObjectParameter("partNumberSiteZcodePPTQ", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQQuestionResponse>("pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite", questionParameter, partNumberSiteZcodePPTQParameter);
+        }
+    
+        public virtual ObjectResult<partnumberSiteZcodePPTQQuestionResponse> pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(Nullable<int> question, Nullable<int> partNumberSiteZcodePPTQ, MergeOption mergeOption)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var partNumberSiteZcodePPTQParameter = partNumberSiteZcodePPTQ.HasValue ?
+                new ObjectParameter("partNumberSiteZcodePPTQ", partNumberSiteZcodePPTQ) :
+                new ObjectParameter("partNumberSiteZcodePPTQ", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQQuestionResponse>("pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite", mergeOption, questionParameter, partNumberSiteZcodePPTQParameter);
+        }
     }
 }

@@ -472,7 +472,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                         var PartNumberSiteZcodepptq = context.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
 
-                        var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ(questionId, PartNumberSiteZcodepptq.id).ToList();
+                        var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
                         if (checkpsz.Count == 0)
                         {
                             db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
@@ -510,7 +510,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                             var PartNumberSiteZcodepptq = context.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
 
-                            var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ(questionId, PartNumberSiteZcodepptq.id).ToList();
+                            var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
                             if (checkpsz.Count == 0)
                             {
                                 db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
@@ -583,7 +583,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var context = new EntitiesDBContext();
                         var PartNumberSiteZcodepptq = context.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
 
-                        var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ(questionId, PartNumberSiteZcodepptq.id).ToList();
+                        var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
                         if (checkpsz.Count == 0)
                         {
                             db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
@@ -730,8 +730,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                             if (!foundFlage)
                                             {
                                                 question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
-                                                response responsenew = db.pr_getResponseByQuestion(questionidLogic).FirstOrDefault();
-
+                                                //   responsenew = db.pr_getResponseByQuestion(questionidLogic).FirstOrDefault();
+                                                var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
+                                                int? rId = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
+                                                response responsenew = db.pr_getResponse(rId).FirstOrDefault();
                                                 if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no")
                                                 {
                                                     foundFlage = true;

@@ -4476,6 +4476,10 @@
   <Function Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="PartnumberSiteZcodePPTQ" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+    <Parameter Name="partNumberSiteZcodePPTQ" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="question" Type="int" Mode="In" />
     <Parameter Name="pptq" Type="int" Mode="In" />
