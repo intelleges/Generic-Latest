@@ -333,7 +333,7 @@ namespace Generic.Controllers
                         objQuestion.tag = string.Empty;
                         objQuestion.responseType = responseTypeId;
                         objQuestion.required = isRequired;
-                        //objQuestion.skipLogicAnswer = false; Pending
+                        //objQuestion.skipLogicAnswer = excelQuestionnaire.skipLogicAnswer; Pending
                         //objQuestion.skipLogicJump Pending
                         objQuestion.accessLevel = 1;
                         objQuestion.commentRequired = isRequiredComment;
@@ -600,6 +600,7 @@ namespace Generic.Controllers
                     if (tempStr.Length > 0)
                     {
                         questionStr[1] = tempStr[0];
+                        yesnoValue = int.Parse( tempStr[0]);
                     }
                     if (questionStr[1].ToLower() == "y" || questionStr[1].ToLower() == "yes")
                     {

@@ -1842,7 +1842,7 @@
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.question">
         <ModificationFunctionMapping>
           <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestion">
-            <ScalarProperty Name="question1" ParameterName="question" />
+            <ScalarProperty Name="question1" ParameterName="Question" />
             <ScalarProperty Name="enterprise" ParameterName="enterprise" />
             <ScalarProperty Name="active" ParameterName="active" />
             <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
@@ -1867,7 +1867,7 @@
             <ResultBinding Name="id" ColumnName="id" />
           </InsertFunction>
           <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestion">
-            <ScalarProperty Name="question1" ParameterName="question" Version="Current" />
+            <ScalarProperty Name="question1" ParameterName="Question" Version="Current" />
             <ScalarProperty Name="enterprise" ParameterName="enterprise" Version="Current" />
             <ScalarProperty Name="active" ParameterName="active" Version="Current" />
             <ScalarProperty Name="sortOrder" ParameterName="sortOrder" Version="Current" />

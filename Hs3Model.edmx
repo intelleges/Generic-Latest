@@ -1619,7 +1619,7 @@
           <Property Name="responseType" Type="int" />
           <Property Name="required" Type="int" />
           <Property Name="weight" Type="int" />
-          <Property Name="skipLogicAnswer" Type="bit" />
+          <Property Name="skipLogicAnswer" Type="int" />
           <Property Name="skipLogicJump" Type="varchar" MaxLength="500" />
           <Property Name="accessLevel" Type="int" />
           <Property Name="commentRequired" Type="int" />
@@ -3816,14 +3816,14 @@
           <Parameter Name="active" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="question" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Question" Type="varchar(max)" Mode="In" />
           <Parameter Name="name" Type="varchar(max)" Mode="In" />
           <Parameter Name="title" Type="varchar(max)" Mode="In" />
           <Parameter Name="tag" Type="varchar" Mode="In" />
           <Parameter Name="responseType" Type="int" Mode="In" />
           <Parameter Name="required" Type="int" Mode="In" />
           <Parameter Name="weight" Type="int" Mode="In" />
-          <Parameter Name="skipLogicAnswer" Type="bit" Mode="In" />
+          <Parameter Name="skipLogicAnswer" Type="int" Mode="In" />
           <Parameter Name="skipLogicJump" Type="varchar" Mode="In" />
           <Parameter Name="accessLevel" Type="int" Mode="In" />
           <Parameter Name="commentRequired" Type="int" Mode="In" />
@@ -4626,9 +4626,7 @@
         <Function Name="pr_getQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getQuestionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="enterprise" Type="int" Mode="In" />
-        </Function>
+        <Function Name="pr_getQuestionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getQuestionByLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="language" Type="int" Mode="In" />
         </Function>
@@ -5285,14 +5283,14 @@
         </Function>
         <Function Name="pr_modifyQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
-          <Parameter Name="question" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Question" Type="varchar(max)" Mode="In" />
           <Parameter Name="name" Type="varchar(max)" Mode="In" />
           <Parameter Name="title" Type="varchar(max)" Mode="In" />
           <Parameter Name="tag" Type="varchar" Mode="In" />
           <Parameter Name="responseType" Type="int" Mode="In" />
           <Parameter Name="required" Type="int" Mode="In" />
           <Parameter Name="weight" Type="int" Mode="In" />
-          <Parameter Name="skipLogicAnswer" Type="bit" Mode="In" />
+          <Parameter Name="skipLogicAnswer" Type="int" Mode="In" />
           <Parameter Name="skipLogicJump" Type="varchar" Mode="In" />
           <Parameter Name="accessLevel" Type="int" Mode="In" />
           <Parameter Name="commentRequired" Type="int" Mode="In" />
@@ -6696,14 +6694,14 @@
             <Parameter Name="active" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_addQuestion" ReturnType="Collection(Decimal)">
-            <Parameter Name="question" Mode="In" Type="String" />
+            <Parameter Name="Question" Mode="In" Type="String" />
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="title" Mode="In" Type="String" />
             <Parameter Name="tag" Mode="In" Type="String" />
             <Parameter Name="responseType" Mode="In" Type="Int32" />
             <Parameter Name="required" Mode="In" Type="Int32" />
             <Parameter Name="weight" Mode="In" Type="Int32" />
-            <Parameter Name="skipLogicAnswer" Mode="In" Type="Boolean" />
+            <Parameter Name="skipLogicAnswer" Mode="In" Type="Int32" />
             <Parameter Name="skipLogicJump" Mode="In" Type="String" />
             <Parameter Name="accessLevel" Mode="In" Type="Int32" />
             <Parameter Name="commentRequired" Mode="In" Type="Int32" />
@@ -7337,7 +7335,6 @@
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionAll" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)">
-          <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionByLanguage" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)">
           <Parameter Name="language" Mode="In" Type="Int32" />
@@ -7897,14 +7894,14 @@
           </FunctionImport>
           <FunctionImport Name="pr_modifyQuestion">
             <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="question" Mode="In" Type="String" />
+            <Parameter Name="Question" Mode="In" Type="String" />
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="title" Mode="In" Type="String" />
             <Parameter Name="tag" Mode="In" Type="String" />
             <Parameter Name="responseType" Mode="In" Type="Int32" />
             <Parameter Name="required" Mode="In" Type="Int32" />
             <Parameter Name="weight" Mode="In" Type="Int32" />
-            <Parameter Name="skipLogicAnswer" Mode="In" Type="Boolean" />
+            <Parameter Name="skipLogicAnswer" Mode="In" Type="Int32" />
             <Parameter Name="skipLogicJump" Mode="In" Type="String" />
             <Parameter Name="accessLevel" Mode="In" Type="Int32" />
             <Parameter Name="commentRequired" Mode="In" Type="Int32" />
@@ -10029,7 +10026,7 @@
           <Property Name="responseType" Type="Int32" />
           <Property Name="required" Type="Int32" />
           <Property Name="weight" Type="Int32" />
-          <Property Name="skipLogicAnswer" Type="Boolean" />
+          <Property Name="skipLogicAnswer" Type="Int32" />
           <Property Name="skipLogicJump" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
           <Property Name="accessLevel" Type="Int32" />
           <Property Name="commentRequired" Type="Int32" />
@@ -16079,7 +16076,7 @@
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.question">
               <ModificationFunctionMapping>
                 <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestion">
-                  <ScalarProperty Name="question1" ParameterName="question" />
+                  <ScalarProperty Name="question1" ParameterName="Question" />
                   <ScalarProperty Name="enterprise" ParameterName="enterprise" />
                   <ScalarProperty Name="active" ParameterName="active" />
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
@@ -16104,7 +16101,7 @@
                   <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestion">
-                  <ScalarProperty Name="question1" ParameterName="question" Version="Current" />
+                  <ScalarProperty Name="question1" ParameterName="Question" Version="Current" />
                   <ScalarProperty Name="enterprise" ParameterName="enterprise" Version="Current" />
                   <ScalarProperty Name="active" ParameterName="active" Version="Current" />
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" Version="Current" />

@@ -1614,7 +1614,7 @@
     <Property Name="responseType" Type="int" />
     <Property Name="required" Type="int" />
     <Property Name="weight" Type="int" />
-    <Property Name="skipLogicAnswer" Type="bit" />
+    <Property Name="skipLogicAnswer" Type="int" />
     <Property Name="skipLogicJump" Type="varchar" MaxLength="500" />
     <Property Name="accessLevel" Type="int" />
     <Property Name="commentRequired" Type="int" />
@@ -3811,14 +3811,14 @@
     <Parameter Name="active" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_addQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="question" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Question" Type="varchar(max)" Mode="In" />
     <Parameter Name="name" Type="varchar(max)" Mode="In" />
     <Parameter Name="title" Type="varchar(max)" Mode="In" />
     <Parameter Name="tag" Type="varchar" Mode="In" />
     <Parameter Name="responseType" Type="int" Mode="In" />
     <Parameter Name="required" Type="int" Mode="In" />
     <Parameter Name="weight" Type="int" Mode="In" />
-    <Parameter Name="skipLogicAnswer" Type="bit" Mode="In" />
+    <Parameter Name="skipLogicAnswer" Type="int" Mode="In" />
     <Parameter Name="skipLogicJump" Type="varchar" Mode="In" />
     <Parameter Name="accessLevel" Type="int" Mode="In" />
     <Parameter Name="commentRequired" Type="int" Mode="In" />
@@ -4621,9 +4621,7 @@
   <Function Name="pr_getQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_getQuestionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="enterprise" Type="int" Mode="In" />
-  </Function>
+  <Function Name="pr_getQuestionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="pr_getQuestionByLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="language" Type="int" Mode="In" />
   </Function>
@@ -5280,14 +5278,14 @@
   </Function>
   <Function Name="pr_modifyQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
-    <Parameter Name="question" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Question" Type="varchar(max)" Mode="In" />
     <Parameter Name="name" Type="varchar(max)" Mode="In" />
     <Parameter Name="title" Type="varchar(max)" Mode="In" />
     <Parameter Name="tag" Type="varchar" Mode="In" />
     <Parameter Name="responseType" Type="int" Mode="In" />
     <Parameter Name="required" Type="int" Mode="In" />
     <Parameter Name="weight" Type="int" Mode="In" />
-    <Parameter Name="skipLogicAnswer" Type="bit" Mode="In" />
+    <Parameter Name="skipLogicAnswer" Type="int" Mode="In" />
     <Parameter Name="skipLogicJump" Type="varchar" Mode="In" />
     <Parameter Name="accessLevel" Type="int" Mode="In" />
     <Parameter Name="commentRequired" Type="int" Mode="In" />

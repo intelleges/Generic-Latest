@@ -1492,11 +1492,11 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addProtocol", menuGroupParameter, enterpriseParameter, nameParameter, descriptionParameter, abbreviationParameter, backgroundParameter, purposeParameter, summaryParameter, agencyParameter, adminParameter, sponsorParameter, domainParameter, validationRequestedParameter, keyBenefitsParameter, keyWordsParameter, startDateParameter, endDateParameter, bestPracticeParameter, riskBenefitsParameter, checkListParameter, removeWithoutTouchpointExpiryParameter, removeWithoutNoticeParameter, isLimitedParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addQuestion(string question, string name, string title, string tag, Nullable<int> responseType, Nullable<int> required, Nullable<int> weight, Nullable<bool> skipLogicAnswer, string skipLogicJump, Nullable<int> accessLevel, Nullable<int> commentRequired, string commentBoxTxt, string commentUploadTxt, Nullable<int> commentType, string spinOffQuestionnaire, Nullable<int> spinOffQID, string emailAlert, string emailAlertList, Nullable<int> updated, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestion(string question, string name, string title, string tag, Nullable<int> responseType, Nullable<int> required, Nullable<int> weight, Nullable<int> skipLogicAnswer, string skipLogicJump, Nullable<int> accessLevel, Nullable<int> commentRequired, string commentBoxTxt, string commentUploadTxt, Nullable<int> commentType, string spinOffQuestionnaire, Nullable<int> spinOffQID, string emailAlert, string emailAlertList, Nullable<int> updated, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var questionParameter = question != null ?
-                new ObjectParameter("question", question) :
-                new ObjectParameter("question", typeof(string));
+                new ObjectParameter("Question", question) :
+                new ObjectParameter("Question", typeof(string));
     
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
@@ -1524,7 +1524,7 @@ namespace Generic
     
             var skipLogicAnswerParameter = skipLogicAnswer.HasValue ?
                 new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
-                new ObjectParameter("skipLogicAnswer", typeof(bool));
+                new ObjectParameter("skipLogicAnswer", typeof(int));
     
             var skipLogicJumpParameter = skipLogicJump != null ?
                 new ObjectParameter("skipLogicJump", skipLogicJump) :
@@ -4386,22 +4386,14 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestion", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<question> pr_getQuestionAll(Nullable<int> enterprise)
+        public virtual ObjectResult<question> pr_getQuestionAll()
         {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionAll", enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionAll");
         }
     
-        public virtual ObjectResult<question> pr_getQuestionAll(Nullable<int> enterprise, MergeOption mergeOption)
+        public virtual ObjectResult<question> pr_getQuestionAll(MergeOption mergeOption)
         {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionAll", mergeOption, enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionAll", mergeOption);
         }
     
         public virtual ObjectResult<question> pr_getQuestionByLanguage(Nullable<int> language)
@@ -6776,15 +6768,15 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyProtocol", idParameter, menuGroupParameter, enterpriseParameter, nameParameter, descriptionParameter, abbreviationParameter, backgroundParameter, purposeParameter, summaryParameter, agencyParameter, adminParameter, sponsorParameter, domainParameter, validationRequestedParameter, keyBenefitsParameter, keyWordsParameter, startDateParameter, endDateParameter, bestPracticeParameter, riskBenefitsParameter, checkListParameter, removeWithoutTouchpointExpiryParameter, removeWithoutNoticeParameter, isLimitedParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual int pr_modifyQuestion(Nullable<int> id, string question, string name, string title, string tag, Nullable<int> responseType, Nullable<int> required, Nullable<int> weight, Nullable<bool> skipLogicAnswer, string skipLogicJump, Nullable<int> accessLevel, Nullable<int> commentRequired, string commentBoxTxt, string commentUploadTxt, Nullable<int> commentType, string spinOffQuestionnaire, Nullable<int> spinOffQID, string emailAlert, string emailAlertList, Nullable<int> updated, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        public virtual int pr_modifyQuestion(Nullable<int> id, string question, string name, string title, string tag, Nullable<int> responseType, Nullable<int> required, Nullable<int> weight, Nullable<int> skipLogicAnswer, string skipLogicJump, Nullable<int> accessLevel, Nullable<int> commentRequired, string commentBoxTxt, string commentUploadTxt, Nullable<int> commentType, string spinOffQuestionnaire, Nullable<int> spinOffQID, string emailAlert, string emailAlertList, Nullable<int> updated, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
             var questionParameter = question != null ?
-                new ObjectParameter("question", question) :
-                new ObjectParameter("question", typeof(string));
+                new ObjectParameter("Question", question) :
+                new ObjectParameter("Question", typeof(string));
     
             var nameParameter = name != null ?
                 new ObjectParameter("name", name) :
@@ -6812,7 +6804,7 @@ namespace Generic
     
             var skipLogicAnswerParameter = skipLogicAnswer.HasValue ?
                 new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
-                new ObjectParameter("skipLogicAnswer", typeof(bool));
+                new ObjectParameter("skipLogicAnswer", typeof(int));
     
             var skipLogicJumpParameter = skipLogicJump != null ?
                 new ObjectParameter("skipLogicJump", skipLogicJump) :

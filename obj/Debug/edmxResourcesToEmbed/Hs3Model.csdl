@@ -766,14 +766,14 @@
       <Parameter Name="active" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_addQuestion" ReturnType="Collection(Decimal)">
-      <Parameter Name="question" Mode="In" Type="String" />
+      <Parameter Name="Question" Mode="In" Type="String" />
       <Parameter Name="name" Mode="In" Type="String" />
       <Parameter Name="title" Mode="In" Type="String" />
       <Parameter Name="tag" Mode="In" Type="String" />
       <Parameter Name="responseType" Mode="In" Type="Int32" />
       <Parameter Name="required" Mode="In" Type="Int32" />
       <Parameter Name="weight" Mode="In" Type="Int32" />
-      <Parameter Name="skipLogicAnswer" Mode="In" Type="Boolean" />
+      <Parameter Name="skipLogicAnswer" Mode="In" Type="Int32" />
       <Parameter Name="skipLogicJump" Mode="In" Type="String" />
       <Parameter Name="accessLevel" Mode="In" Type="Int32" />
       <Parameter Name="commentRequired" Mode="In" Type="Int32" />
@@ -1404,9 +1404,7 @@
     <FunctionImport Name="pr_getQuestion" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_getQuestionAll" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)">
-      <Parameter Name="enterprise" Mode="In" Type="Int32" />
-    </FunctionImport>
+    <FunctionImport Name="pr_getQuestionAll" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)" />
     <FunctionImport Name="pr_getQuestionByLanguage" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)">
       <Parameter Name="language" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -1964,14 +1962,14 @@
     </FunctionImport>
     <FunctionImport Name="pr_modifyQuestion">
       <Parameter Name="id" Mode="In" Type="Int32" />
-      <Parameter Name="question" Mode="In" Type="String" />
+      <Parameter Name="Question" Mode="In" Type="String" />
       <Parameter Name="name" Mode="In" Type="String" />
       <Parameter Name="title" Mode="In" Type="String" />
       <Parameter Name="tag" Mode="In" Type="String" />
       <Parameter Name="responseType" Mode="In" Type="Int32" />
       <Parameter Name="required" Mode="In" Type="Int32" />
       <Parameter Name="weight" Mode="In" Type="Int32" />
-      <Parameter Name="skipLogicAnswer" Mode="In" Type="Boolean" />
+      <Parameter Name="skipLogicAnswer" Mode="In" Type="Int32" />
       <Parameter Name="skipLogicJump" Mode="In" Type="String" />
       <Parameter Name="accessLevel" Mode="In" Type="Int32" />
       <Parameter Name="commentRequired" Mode="In" Type="Int32" />
@@ -4092,7 +4090,7 @@
     <Property Name="responseType" Type="Int32" />
     <Property Name="required" Type="Int32" />
     <Property Name="weight" Type="Int32" />
-    <Property Name="skipLogicAnswer" Type="Boolean" />
+    <Property Name="skipLogicAnswer" Type="Int32" />
     <Property Name="skipLogicJump" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
     <Property Name="accessLevel" Type="Int32" />
     <Property Name="commentRequired" Type="Int32" />
