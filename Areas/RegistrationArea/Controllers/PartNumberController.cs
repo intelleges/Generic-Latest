@@ -614,8 +614,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             {
                                 if (answer == "74")
                                 {
-
-
                                     if (objQuestion.skipLogicJump.Contains("&"))
                                     {
                                     }
@@ -624,20 +622,48 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                         jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
                                     }
                                 }
-                                else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer == true) && answer != "" && answer != "75")
-
+                                else if (answer == "75")
+                                {
                                     jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                                }
+                                else if (answer == "76")
+                                {
+                                    jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                                }
+                                else if (Convert.ToInt32(answer.ToString()) > 76)
+                                {
+                                    jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                                }
                                 else
                                 {
                                     jumpToQuestion = 0;
                                 }
+                                //if (answer == "74")
+                                //{
+
+
+                                //    if (objQuestion.skipLogicJump.Contains("&"))
+                                //    {
+                                //    }
+                                //    else
+                                //    {
+                                //        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                                //    }
+                                //}
+                                //else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer == true) && answer != "" && answer != "75")
+                                //{
+                                //    jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                                //}
+                                //else
+                                //{
+                                //    jumpToQuestion = 0;
+                                //}
                             }
                             else
                             {
                                 if (answer == "74" && (objQuestion.commentType == 5 || objQuestion.commentType == 3))
                                 {
                                     if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer == true))
-
                                         jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
                                     else
                                         jumpToQuestion = 0;

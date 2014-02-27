@@ -7,7 +7,7 @@ namespace Generic.Helpers.Questionnaire
 {
     public static class CommentType
     {
-        public const int YN_WARNING_N = 1;
+        public const int YN_WARNING_N = 1;  
         public const int YN_WARNING_Y = 2;
         public const int YN_COMMENT_Y = 3;
         public const int YN_COMMENT_N = 4;
@@ -24,6 +24,16 @@ namespace Generic.Helpers.Questionnaire
         //commentType 3 = Comment
         //commentType 0 = Nothing
 
+    }
+
+    public static class SkipLogic
+    {
+        public const int YES = 1;
+        public const int NO = 0;
+        public const int NA = -1;
+        public const int COTS = 2;
+        public const int ANY_RESPONSE = 4;
+        public const int RESERVED_FOR_FUTURE = 3;
     }
 
     public static class LevelType

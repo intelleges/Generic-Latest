@@ -266,6 +266,9 @@ namespace Generic.Controllers
                             case "y/n":
                                 responseTypeId = 3;
                                 break;
+                            case "y/n/cots":
+                                responseTypeId = 3;
+                                break;
                             case "text":
                                 responseTypeId = 4;
                                 break;
@@ -336,7 +339,40 @@ namespace Generic.Controllers
                         objQuestion.commentRequired = isRequiredComment;
                         objQuestion.commentBoxTxt = excelQuestionnaire.CommentBoxMessageText;
                         //objQuestion.commentUploadTxt
-                        objQuestion.commentType = excelQuestionnaire.CommentType;
+
+                        if (excelQuestionnaire.CommentType == "YN_WARNING_N")
+                        {
+                            objQuestion.commentType = CommentType.YN_WARNING_N;
+                        }
+                        else if (excelQuestionnaire.CommentType == "YN_WARNING_Y")
+                        {
+                            objQuestion.commentType = CommentType.YN_WARNING_Y;
+                        }
+                        else if (excelQuestionnaire.CommentType == "YN_COMMENT_Y")
+                        {
+                            objQuestion.commentType = CommentType.YN_COMMENT_Y;
+                        }
+                        else if (excelQuestionnaire.CommentType == "YN_COMMENT_N")
+                        {
+                            objQuestion.commentType = CommentType.YN_COMMENT_N;
+                        }
+                        else if (excelQuestionnaire.CommentType == "YN_UPLOAD_Y")
+                        {
+                            objQuestion.commentType = CommentType.YN_UPLOAD_Y;
+                        }
+                        else if (excelQuestionnaire.CommentType == "YN_UPLOAD_N")
+                        {
+                            objQuestion.commentType = CommentType.YN_UPLOAD_N;
+                        }
+                        else if (excelQuestionnaire.CommentType == "YN_NO_COMMENT")
+                        {
+                            objQuestion.commentType = CommentType.YN_NO_COMMENT;
+                        }
+                        else
+                        {
+                            objQuestion.commentType = 0;
+                        }
+
                         try
                         {
                             objQuestion.spinOffQuestionnaire = excelQuestionnaire.snipOffQuestionnaire.Substring(0, 1);
@@ -402,32 +438,33 @@ namespace Generic.Controllers
                         }
                         //check if this question is a skipLogicJump question
                         //update skipLogicJump and skipLogicAnswer
-                        if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicAnswer) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
-                        {
-                            //try getting skipLogicJump Qid
-                            jumpToQID = getskipLogicJumpQuestionId(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicAnswer, excelQuestionnaire.skipLogicJump);
+                        //if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicAnswer) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
+                        //{
+                        //    //try getting skipLogicJump Qid
+                        //    jumpToQID = getskipLogicJumpQuestionId(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicAnswer, excelQuestionnaire.skipLogicJump);
 
-                            if (jumpToQID > 0)
-                            {
-                                hasSkipLogicQuestionId = questionId;
+                        //    if (jumpToQID > 0)
+                        //    {
+                        //        hasSkipLogicQuestionId = questionId;
 
-                                if (excelQuestionnaire.skipLogicAnswer.ToLower() == "y" || excelQuestionnaire.skipLogicAnswer.ToLower() == "yes")
-                                {
-                                    isSkipLogicAnwerYes = 1;
-                                }
-                                else
-                                {
-                                    isSkipLogicAnwerYes = 0;
-                                }
+                        //        if (excelQuestionnaire.skipLogicAnswer.ToLower() == "y" || excelQuestionnaire.skipLogicAnswer.ToLower() == "yes")
+                        //        {
+                        //            isSkipLogicAnwerYes = 1;
+                        //        }
+                        //        else
+                        //        {
+                        //            isSkipLogicAnwerYes = 0;
+                        //        }
 
-                                db.pr_modifyQuestionSkipLogicJump(questionId, isSkipLogicAnwerYes, jumpToQID);
-                            }
-                            else
-                            {
-                                hasSkipLogicQuestionId = 0;
-                            }
-                        }
-                        else if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
+                        //        db.pr_modifyQuestionSkipLogicJump(questionId, isSkipLogicAnwerYes, jumpToQID);
+                        //    }
+                        //    else
+                        //    {
+                        //        hasSkipLogicQuestionId = 0;
+                        //    }
+                        //}
+                        //else 
+                        if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
                         {
                             //try getting skipLogicJump Qid
                             jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump);
@@ -443,7 +480,12 @@ namespace Generic.Controllers
                                 hasSkipLogicQuestionId = 0;
                             }
                         }
-
+                        if (excelQuestionnaire.Response.ToLower() == "y/n/cots")
+                        {
+                            db.pr_addQuestionResponse(questionId, 74);
+                            db.pr_addQuestionResponse(questionId, 75);
+                            db.pr_addQuestionResponse(questionId, 77);
+                        }
                         //if the responseType is "Y/N" then add question weight and responseValue for the question
                         if (excelQuestionnaire.Response.ToLower() == "y/n" || excelQuestionnaire.Response.ToLower() == "y/n/na")
                         {
