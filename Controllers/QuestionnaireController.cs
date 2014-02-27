@@ -333,7 +333,25 @@ namespace Generic.Controllers
                         objQuestion.tag = string.Empty;
                         objQuestion.responseType = responseTypeId;
                         objQuestion.required = isRequired;
-                        //objQuestion.skipLogicAnswer = excelQuestionnaire.skipLogicAnswer; Pending
+
+                        if (excelQuestionnaire.skipLogicAnswer == "N")
+                        {
+                            objQuestion.skipLogicAnswer = SkipLogicAnswer.N;
+                        }
+                        else if (excelQuestionnaire.skipLogicAnswer == "Y")
+                        {
+                            objQuestion.skipLogicAnswer = SkipLogicAnswer.Y;
+                        }
+                        else if (excelQuestionnaire.skipLogicAnswer == "M")
+                        {
+                            objQuestion.skipLogicAnswer = SkipLogicAnswer.M;
+                        }
+                        else if (excelQuestionnaire.skipLogicAnswer == "A")
+                        {
+                            objQuestion.skipLogicAnswer = SkipLogicAnswer.A;
+                        }
+
+
                         //objQuestion.skipLogicJump Pending
                         objQuestion.accessLevel = 1;
                         objQuestion.commentRequired = isRequiredComment;

@@ -729,7 +729,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                         else
                                             jumpToQuestion = 0;
                                     }
-                                    else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer != null))
+                                    else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer == null))
                                     {
                                         if (answer == "75")
                                             jumpToQuestion = int.Parse(objQuestion.skipLogicJump);

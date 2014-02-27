@@ -10242,13 +10242,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getPartnumberCountByPPTQ", pptqParameter);
         }
     
-        public virtual ObjectResult<pr_getQuestionByQuestionnaire_Result> pr_getQuestionByQuestionnaire(Nullable<int> questionnaire)
+        public virtual ObjectResult<question> pr_getQuestionByQuestionnaire(Nullable<int> questionnaire)
         {
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionByQuestionnaire_Result>("pr_getQuestionByQuestionnaire", questionnaireParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<question> pr_getQuestionByQuestionnaire(Nullable<int> questionnaire, MergeOption mergeOption)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionByQuestionnaire", mergeOption, questionnaireParameter);
         }
     
         public virtual ObjectResult<pr_getQuestionnaireByPartnumberSiteZcodePPTQ_Result> pr_getQuestionnaireByPartnumberSiteZcodePPTQ(Nullable<int> partnumberSiteZcodePPTQ)

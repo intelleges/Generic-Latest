@@ -2980,7 +2980,7 @@
     <FunctionImport Name="pr_getPartnumberCountByPPTQ" ReturnType="Collection(Int32)">
       <Parameter Name="pptq" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="pr_getQuestionByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionByQuestionnaire_Result)">
+    <FunctionImport Name="pr_getQuestionByQuestionnaire" EntitySet="question" ReturnType="Collection(hs3MVCMTQa2Model.question)">
       <Parameter Name="questionnaire" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_getQuestionnaireByPartnumberSiteZcodePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByPartnumberSiteZcodePPTQ_Result)">

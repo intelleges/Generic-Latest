@@ -32,8 +32,24 @@ namespace Generic.Helpers.Questionnaire
         public const int NO = 0;
         public const int NA = -1;
         public const int COTS = 2;
-        public const int ANY_RESPONSE = 4;
-        public const int RESERVED_FOR_FUTURE = 3;
+        public const int ANY_RESPONSE = 3;
+        public const int RESERVED_FOR_FUTURE = 4;
+
+//74	Yes
+//75	No
+//76	N/A
+//77	COTS
+
+    }
+  
+    
+
+    public static class SkipLogicAnswer
+    {        
+        public const int Y = 1;
+        public const int N = 0;
+        public const int M = 2;
+        public const int A = 3;
     }
 
     public static class LevelType
