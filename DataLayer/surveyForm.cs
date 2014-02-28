@@ -1111,6 +1111,9 @@ namespace Generic.DataLayer
             partnerPartnertypeTouchpointQuestionnaire objpptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(HttpContext.Current.Session["accessCode"].ToString()).FirstOrDefault();
 
             question question = new question();
+
+            question = db.pr_getQuestion(questionId).FirstOrDefault();
+
             List<response> responseCollection = new List<response>();
             TextBox textBox = new TextBox();
             RadioButton radioButton = new RadioButton();
@@ -1257,9 +1260,11 @@ namespace Generic.DataLayer
                     tableCell = new TableCell();
                     dropDownList = new DropDownList();
                     dropDownList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
-                   
-                    dropDownList.Attributes.Add("data-val", "true");
-                    dropDownList.Attributes.Add("data-val-required", "Required");
+                    if (question.required == 1)
+                    {
+                        dropDownList.Attributes.Add("data-val", "true");
+                        dropDownList.Attributes.Add("data-val-required", "Required");
+                    }
 
                     dropDownList.Width = 250;
                     tableCell = new TableCell();
@@ -1313,10 +1318,12 @@ namespace Generic.DataLayer
                     {
                         //radioButtonList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
                         radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
-
-                       radioButtonList.Items[i].Attributes.Add("data-val", "true");
-                       radioButtonList.Items[i].Attributes.Add("data-val-required", "Required");
-                     //   radioButtonList.Items[i].Attributes["data-val"] = "true";
+                        if (question.required == 1)
+                        {
+                            radioButtonList.Items[i].Attributes.Add("data-val", "true");
+                            radioButtonList.Items[i].Attributes.Add("data-val-required", "Required");
+                        }
+                    
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                         {
                             radioButtonList.ClearSelection();
@@ -1325,12 +1332,7 @@ namespace Generic.DataLayer
                         tableCell.Controls.Add(radioButtonList);
                     }
 
-                    //foreach (ListItem option in radioButtonList.Items)
-                    //{
-                    //    option.Attributes["data-val"] = "true";
-                    //    option.Attributes["data-val-required"] = "Required";
-                    //    ((IAttributeAccessor)option).SetAttribute("data-val", "true");
-                    //}
+                    
 
                     tableCell.Controls.Add(radioButtonList);
                     tableCell.ColumnSpan = 2;
@@ -1512,6 +1514,7 @@ namespace Generic.DataLayer
         private TableCell getAnswerCell(int surveyId, int questionId, string responseType, string cssClass, Table table)
         {
             question question = new question();
+            question = db.pr_getQuestion(questionId).FirstOrDefault();
             List<response> responseCollection = new List<response>();
             TextBox textBox = new TextBox();
             RadioButton radioButton = new RadioButton();
@@ -1556,9 +1559,11 @@ namespace Generic.DataLayer
                     for (int i = 0; i < responseCollection.Count; i++)
                     {
                         radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
-                      
-                        radioButtonList.Items[i].Attributes.Add("data-val", "true");
-                        radioButtonList.Items[i].Attributes.Add("data-val-required", "Required");
+                        if (question.required == 1)
+                        {
+                            radioButtonList.Items[i].Attributes.Add("data-val", "true");
+                            radioButtonList.Items[i].Attributes.Add("data-val-required", "Required");
+                        }
                         //radioButtonList.Items[i].Attributes["data-val"] = "true";
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                         {

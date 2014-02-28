@@ -308,7 +308,7 @@ namespace Generic.Controllers
                                 }
                                 break;
                         }
-                        if (excelQuestionnaire.Required.ToLower() == "y" || excelQuestionnaire.Required.ToLower() == "yes")
+                        if (excelQuestionnaire.Required.ToLower() == "y" || excelQuestionnaire.Required.ToLower() == "yes" || excelQuestionnaire.Required.ToLower() == "1")
                         {
                             isRequired = 1;
                         }
@@ -316,7 +316,7 @@ namespace Generic.Controllers
                         {
                             isRequired = 0;
                         }
-                        if (excelQuestionnaire.Comment.ToLower() == "y" || excelQuestionnaire.Comment.ToLower() == "yes")
+                        if (excelQuestionnaire.Comment.ToLower() == "y" || excelQuestionnaire.Comment.ToLower() == "yes" || excelQuestionnaire.Comment.ToLower() == "1")
                         {
                             isRequiredComment = 1;
                         }

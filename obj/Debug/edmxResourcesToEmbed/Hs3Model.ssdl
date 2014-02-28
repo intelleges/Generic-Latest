@@ -4459,6 +4459,9 @@
   <Function Name="pr_getPartnumberSiteZcodeByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_getPartnumberSiteZcodeByPPTQForUI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>

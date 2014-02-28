@@ -4464,6 +4464,9 @@
         <Function Name="pr_getPartnumberSiteZcodeByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnumberSiteZcodeByPPTQForUI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8986,6 +8989,9 @@
           <FunctionImport Name="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite" EntitySet="partnumberSiteZcodePPTQQuestionResponse" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse)">
             <Parameter Name="question" Mode="In" Type="Int32" />
             <Parameter Name="partNumberSiteZcodePPTQ" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnumberSiteZcodeByPPTQForUI" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberSiteZcodeByPPTQForUI_Result)">
+            <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -14227,6 +14233,13 @@
           <Property Type="String" Name="score" Nullable="true" MaxLength="10" />
           <Property Type="Int32" Name="partNumberSiteZcodePPTQ" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnumberSiteZcodeByPPTQForUI_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="partnumber" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="site" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -18193,6 +18206,17 @@
           <FunctionImportMapping FunctionImportName="pr_getResponseTypeByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponseTypeByQuestionnaire">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodeByPPTQForUI" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodeByPPTQForUI">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberSiteZcodeByPPTQForUI_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>

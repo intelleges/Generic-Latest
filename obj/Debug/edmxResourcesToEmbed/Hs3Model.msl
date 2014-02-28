@@ -3803,5 +3803,16 @@
     <FunctionImportMapping FunctionImportName="pr_removeAutomailMessagePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessagePPTQ" />
     <FunctionImportMapping FunctionImportName="pr_getResponseTypeByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponseTypeByQuestionnaire" />
     <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite" />
+    <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodeByPPTQForUI" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodeByPPTQForUI">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberSiteZcodeByPPTQForUI_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+          <ScalarProperty Name="site" ColumnName="site" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

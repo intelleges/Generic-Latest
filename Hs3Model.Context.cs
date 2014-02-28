@@ -10471,5 +10471,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSiteZcodePPTQQuestionResponse>("pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite", mergeOption, questionParameter, partNumberSiteZcodePPTQParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnumberSiteZcodeByPPTQForUI_Result> pr_getPartnumberSiteZcodeByPPTQForUI(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodeByPPTQForUI_Result>("pr_getPartnumberSiteZcodeByPPTQForUI", partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
     }
 }

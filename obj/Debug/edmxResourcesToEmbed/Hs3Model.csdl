@@ -3054,6 +3054,9 @@
       <Parameter Name="question" Mode="In" Type="Int32" />
       <Parameter Name="partNumberSiteZcodePPTQ" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="pr_getPartnumberSiteZcodeByPPTQForUI" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberSiteZcodeByPPTQForUI_Result)">
+      <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="accessLevel">
     <Key>
@@ -8289,5 +8292,12 @@
     <Property Type="Int32" Name="value" Nullable="true" />
     <Property Type="String" Name="score" Nullable="true" MaxLength="10" />
     <Property Type="Int32" Name="partNumberSiteZcodePPTQ" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnumberSiteZcodeByPPTQForUI_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="partnumber" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="site" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
   </ComplexType>
 </Schema>
