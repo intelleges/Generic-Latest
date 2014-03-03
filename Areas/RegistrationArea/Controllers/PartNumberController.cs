@@ -73,138 +73,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
             Session["site"] = siteSelectList;
             Session["partnumberstatus"] = partnumberStatusSelectList;
             int questionnaireId = (int)Session["questionnaire"];
-            updateZcodesAll();
+            //            updateZcodesAll();
             questionnaire objQuestionnaire = db.pr_getQuestionnaire(questionnaireId).FirstOrDefault();
 
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
 
-            if (Session["partnumber"] != null && Int32.Parse(Session["partnumber"].ToString()) != 0)
-            {
-                int partNumberID = Int32.Parse(Session["partnumber"].ToString());
-                if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
-                {
-                    int site = Convert.ToInt32(Session["site"]);
-                    fillPartnumberBySite(site, pptq, partNumberID);
-                }
-                else
-                {
-                    getPartnumber(pptq, partNumberID);
-                }
-                nextpartnumber();
-            }
-            else
-            {
-                if (Session["partnumberstatus"] != null && Int32.Parse(Session["partnumberstatus"].ToString()) != 0)
-                {
-
-                    int siteId = Int32.Parse(Session["site"].ToString());
-
-                    var partNumberList = db.pr_getPartnumberByPPTQandStatus(pptq, Int32.Parse(Session["partnumberstatus"].ToString())).Distinct().ToList();
-                    try
-                    {
-                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description", partNumberList.First().id);
-                    }
-                    catch
-                    {
-                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
-                    }
-                    // Session["partnumber"] = partNumberList.First().id;
-                    // items.Insert(0, (new SelectListItem { Text = "All", Value = "" }));
-                  
-                }
-                else
-                {
-                    getPartnumber(pptq);
-                }
-
-                //  Session["partnumber"] = partNumberSelectList;
-            }
-            if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
-            {
-
-                int siteId = Int32.Parse(Session["site"].ToString());
-                getSitepoint(pptq, siteId);
-
-            }
-            else
-            {
-                getSitepoint(pptq);
-                Session["site"] = siteSelectList;
-            }
-            if (Session["partnumberstatus"] != null && Int32.Parse(Session["partnumberstatus"].ToString()) != 0)
-            {
-                int partnumberstatusID = Convert.ToInt32(Session["partnumberstatus"]);
-                //if (index == 6)
-                //{
-                //    getPartnumberstatus(index);
-                //    getPartnumberByPartnumberStatus(index);
-                //}
-                //else 
-                if (partnumberstatusID == Generic.Helpers.PartNumberHelper.Status.COMPLETED)
-                {
-                    getPartnumberstatus(partnumberstatusID);
-                    getPartnumberByPartnumberStatus(pptq, partnumberstatusID);
-                }
-                else if (partnumberstatusID == Generic.Helpers.PartNumberHelper.Status.INCOMPLETE)
-                {
-                    getPartnumberstatus(partnumberstatusID);
-                    getPartnumberByPartnumberStatus(pptq, partnumberstatusID);
-                }
-                else if (partnumberstatusID == Generic.Helpers.PartNumberHelper.Status.NOT_STARTED)
-                {
-                    //if (ddlSitepoint.SelectedIndex > -1)
-                    //{
-                    int site = siteSelectList;
-                    if (Session["partnumber"] != null && Int32.Parse(Session["partnumber"].ToString()) != 0)
-                    {
-                        int partindex = Convert.ToInt32(Session["partnumber"]);
-                        if (partindex > 0)
-                        {
-                            fillPartnumberBySite(site, pptq, partindex);
-                        }
-                    }
-                    else
-                    {
-                        if (Session["partnumberstatus"] != null && Int32.Parse(Session["partnumberstatus"].ToString()) != 0)
-                        {
-
-                            int siteId = Int32.Parse(Session["site"].ToString());
-
-                            var partNumberList = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, siteId, Int32.Parse(Session["partnumberstatus"].ToString())).Distinct().ToList();
-                            try
-                            {
-                                ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description", partNumberList.First().id);
-                                Session["partnumber"] = partNumberList.First().id;
-                            }
-                            catch {
-                                ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
-                            }
-                            // items.Insert(0, (new SelectListItem { Text = "All", Value = "" }));
-                            
-                        }
-                        else
-                        {
-                            fillPartnumberBySite(site, pptq);
-                        }
-                    }
-                    getPartnumberstatus(partnumberstatusID);
-                    // }
-                    // else
-                    //{
-                    //  getPartnumberstatus(index);
-                    //}
-                }
-                //else
-                //{
-                //  getPartnumberstatus();
-                //}
-            }
-            else
-            {
-                getPartnumberstatus();
-                Session["partnumberstatus"] = partnumberStatusSelectList;
-            }
-
+            dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);
 
 
 
@@ -364,9 +238,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             return View();
         }
-
-
-
 
         [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult QuestionnaireResponse(FormCollection formCollection, int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 0, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
@@ -674,7 +545,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                     //}
 
 
-                                                  //  break;
+                                                    //  break;
                                                 }
 
                                                 if (foundFlage)
@@ -742,273 +613,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                     }
                                 }
 
-                               
+
 
                             }
                         }
                     }
 
 
-                    //if (answer == "74" || answer == "75" || answer == "76" || answer != "")
-                    //{
-                    //    if (objQuestion.skipLogicJump != null)
-                    //    {
-                    //        if (objQuestion.skipLogicAnswer != null) 
-                    //        {
-                    //            if (answer == "74")
-                    //            {
-                    //                if (objQuestion.skipLogicJump.Contains("&"))
-                    //                {
-                    //                }
-                    //                else
-                    //                {
-                    //                    jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                    //                }
-                    //            }
-                    //            else if (answer == "75")
-                    //            {
-                    //                jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                    //            }
-                    //            else if (answer == "76")
-                    //            {
-                    //                jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                    //            }
-                    //            else if (Convert.ToInt32(answer.ToString()) > 76)
-                    //            {
-                    //                jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                    //            }
-                    //            else
-                    //            {
-                    //                jumpToQuestion = 0;
-                    //            }
-                    //            //if (answer == "74")
-                    //            //{
 
-
-                    //            //    if (objQuestion.skipLogicJump.Contains("&"))
-                    //            //    {
-                    //            //    }
-                    //            //    else
-                    //            //    {
-                    //            //        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                    //            //    }
-                    //            //}
-                    //            //else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer == true) && answer != "" && answer != "75")
-                    //            //{
-                    //            //    jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                    //            //}
-                    //            //else
-                    //            //{
-                    //            //    jumpToQuestion = 0;
-                    //            //}
-                    //        }
-                    //        else
-                    //        {
-                    //            if (answer == "74" && (objQuestion.commentType == 5 || objQuestion.commentType == 3))
-                    //            {
-                    //                if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer != null))
-                    //                    jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                    //                else
-                    //                    jumpToQuestion = 0;
-
-                    //            }
-                    //            else if (objQuestion.skipLogicJump.Contains("&"))
-                    //            {
-                    //                string[] strQuestionLogic = objQuestion.skipLogicJump.Split(';');
-                    //                for (int k = 0; k < strQuestionLogic.Length - 1; k++)
-                    //                {
-                    //                    string[] subStrQuestionlogic = strQuestionLogic[k].Split('&');
-                    //                    Boolean logicOneStatus = false;
-                    //                    Boolean logicTwoStatus = false;
-                    //                    int gotoQuestionId = 0;
-                    //                    for (int j = 0; j < subStrQuestionlogic.Length; j++)
-                    //                    {
-                    //                        string[] strquestionid = subStrQuestionlogic[j].Split('=');
-                    //                        int questionidLogic = Convert.ToInt32(strquestionid[0]);
-                    //                        string[] strNewQuestionAns = strquestionid[1].Split(':');
-                    //                        int ansLogicStatus = 0;
-                    //                        if (strNewQuestionAns.Length > 0)
-                    //                        {
-                    //                            ansLogicStatus = Convert.ToInt32(strNewQuestionAns[0]);
-                    //                        }
-                    //                        if (strNewQuestionAns.Length > 1)
-                    //                        {
-                    //                            gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
-                    //                        }
-                    //                        string answerStatus = "";
-                    //                        if (ansLogicStatus == 1)
-                    //                        {
-                    //                            answerStatus = "74";
-                    //                        }
-                    //                        else
-                    //                        {
-                    //                            answerStatus = "1";
-                    //                        }
-                    //                        Boolean foundFlage = false;
-
-                    //                        for (int l = 0; l < count; ++l)
-                    //                        {
-                    //                            key = formCollection.Keys[l];
-                    //                            if (key.Contains("question_"))
-                    //                            {
-                    //                                array = keyName.ToString().Split(splitter);
-                    //                                questionId = int.Parse(array[1]);
-                    //                                surveyId = int.Parse(array[2]);
-                    //                                answer = formCollection[l];
-
-                    //                                if (questionId == gotoQuestionId)
-                    //                                {
-                    //                                    Response.Redirect("eSignature");
-                    //                                }
-                    //                                if (questionId == questionidLogic)
-                    //                                {
-                    //                                    if (answer == "74" || answer == "75" || answer == "76")
-                    //                                    {
-                    //                                        foundFlage = true;
-                    //                                        if (answer == answerStatus)
-                    //                                        {
-                    //                                            if (j == 0)
-                    //                                            {
-                    //                                                logicOneStatus = true;
-                    //                                            }
-                    //                                            else if (j == 1)
-                    //                                            {
-                    //                                                logicTwoStatus = true;
-                    //                                            }
-                    //                                        }
-                    //                                        else if (answerStatus == "1")
-                    //                                        {
-                    //                                            if (answer == "75" || answer == "76")
-                    //                                            {
-                    //                                                if (j == 0)
-                    //                                                {
-                    //                                                    logicOneStatus = true;
-                    //                                                }
-                    //                                                else if (j == 1)
-                    //                                                {
-                    //                                                    logicTwoStatus = true;
-                    //                                                }
-                    //                                            }
-                    //                                        }
-                    //                                        break;
-                    //                                    }
-
-                    //                                }
-                    //                            }
-                    //                        }
-
-                    //                        if (!foundFlage)
-                    //                        {
-                    //                            question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
-                    //                            //   responsenew = db.pr_getResponseByQuestion(questionidLogic).FirstOrDefault();
-                    //                            var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
-                    //                            var context = new EntitiesDBContext();
-                    //                            int? rId = context.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
-                    //                            response responsenew = db.pr_getResponse(rId).FirstOrDefault();
-                    //                            if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no")
-                    //                            {
-                    //                                foundFlage = true;
-                    //                                string tempstr = "";
-                    //                                if (answerStatus == "74")
-                    //                                {
-                    //                                    tempstr = "yes";
-                    //                                }
-                    //                                else if (answerStatus == "75")
-                    //                                {
-                    //                                    tempstr = "no";
-                    //                                }
-                    //                                else if (answerStatus == "76")
-                    //                                {
-                    //                                    tempstr = "n/a";
-                    //                                }
-                    //                                if (responsenew.description.ToLower() == tempstr)
-                    //                                {
-                    //                                    if (j == 0)
-                    //                                    {
-                    //                                        logicOneStatus = true;
-                    //                                    }
-                    //                                    else if (j == 1)
-                    //                                    {
-                    //                                        logicTwoStatus = true;
-                    //                                    }
-                    //                                }
-                    //                                else
-                    //                                {
-                    //                                    if (answerStatus == "1")
-                    //                                    {
-                    //                                        if (responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no")
-                    //                                        {
-                    //                                            if (j == 0)
-                    //                                            {
-                    //                                                logicOneStatus = true;
-                    //                                            }
-                    //                                            else if (j == 1)
-                    //                                            {
-                    //                                                logicTwoStatus = true;
-                    //                                            }
-                    //                                        }
-                    //                                    }
-                    //                                }
-                    //                            }
-                    //                        }
-                    //                        //int ansLogicStatus =Convert.ToInt32(
-                    //                    }
-                    //                    if (logicOneStatus == true && logicTwoStatus == true)
-                    //                    {
-                    //                        objQuestion.skipLogicJump = gotoQuestionId.ToString();
-                    //                        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                    //                        break;
-                    //                    }
-                    //                }
-                    //            }
-                    //            else if (answer != "74")
-                    //            {
-
-
-                    //                if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer != null))
-                    //                {
-                    //                    if (answer != "75")
-                    //                        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                    //                    else
-                    //                        jumpToQuestion = 0;
-                    //                }
-                    //                else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer == null))
-                    //                {
-                    //                    if (answer == "75")
-                    //                        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                    //                    else
-                    //                        jumpToQuestion = 0;
-                    //                }
-                    //                else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump == null))
-                    //                {
-                    //                    jumpToQuestion = 0;
-                    //                }
-
-                    //                else
-                    //                {
-                    //                    jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-
-                    //                    if (Request.QueryString["skip"] != null)
-                    //                    {
-
-                    //                        string strJumToQuestion = db.pr_getQuestion(objQuestion.id + 1).FirstOrDefault().skipLogicJump;
-                    //                        if (strJumToQuestion.Contains("&"))
-                    //                        {
-                    //                        }
-                    //                        else
-                    //                        {
-                    //                            jumpToQuestion = int.Parse(strJumToQuestion);
-                    //                        }
-                    //                    }
-                    //                }
-                    //            }
-                    //            else
-                    //            {
-                    //                jumpToQuestion = 0;
-                    //            }
-                    //        }
-                    //    }
-                    //}
                 }
             }
 
@@ -1135,11 +747,25 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //0 4
             //6 L-6
             PartNumberSiteZcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
+
+            //if (PartNumberSiteZcodepptq.zcode.Count(x => x == 'Z') == PartNumberSiteZcodepptq.zcode.Length)
+            //{
+            //    PartNumberSiteZcodepptq.status = Status.NOT_STARTED;
+
+            //}
+            //else if (PartNumberSiteZcodepptq.zcode.Count(x => x == 'Z') == 0)
+            //{
+            //    PartNumberSiteZcodepptq.status = Status.COMPLETED;
+            //}
+            //else
+            //{
+            //    PartNumberSiteZcodepptq.status = Status.INCOMPLETE;
+            //}
+
+
             context.Entry(PartNumberSiteZcodepptq).State = EntityState.Modified;
             context.SaveChanges();
         }
-
-
 
         private void ZcodeModifyForSkip(int questionnaireId, int questionId, int jumpToQuestion, EntitiesDBContext context, partNumberSiteZcodePPTQ PartNumberSiteZcodepptq)
         {
@@ -1174,10 +800,24 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //0 4
             //6 L-6
             PartNumberSiteZcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
+
+            //if (PartNumberSiteZcodepptq.zcode.Count(x => x == 'Z') == PartNumberSiteZcodepptq.zcode.Length)
+            //{
+            //    PartNumberSiteZcodepptq.status = Status.NOT_STARTED;
+
+            //}
+            //else if (PartNumberSiteZcodepptq.zcode.Count(x => x == 'Z') == 0)
+            //{
+            //    PartNumberSiteZcodepptq.status = Status.COMPLETED;
+            //}
+            //else
+            //{
+            //    PartNumberSiteZcodepptq.status = Status.INCOMPLETE;
+            //}
+
             context.Entry(PartNumberSiteZcodepptq).State = EntityState.Modified;
             context.SaveChanges();
         }
-
 
         private void goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 0, int pageQ = 0, int pageNumberQ = 0)
         {
@@ -1322,68 +962,73 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     if (finalAnswer)
                     {
                         int flag = 0;
-                        previouspartnumber = Convert.ToInt32(Session["partnumber"]);
-                        int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+                        //previouspartnumber = Convert.ToInt32(Session["partnumber"]);
+                        //int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
 
-                        List<partnumber> objPartNumberList;
+                        //List<partnumber> objPartNumberList;
 
-                        //if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+                        ////if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+                        ////{
+                        //int site = Convert.ToInt32(Session["site"]);
+                        //objPartNumberList = db.pr_getPartnumberByPPTQandSite(pptq, site).Distinct().ToList();
+                        ////}
+                        ////else
+                        ////{
+                        ////    objPartNumberList = db.pr_getPartnumberByPPTQ(pptq).ToList();
+                        ////}
+
+
+
+                        //Session["NextPartnumber"] = null;
+                        //int checkNext = 0;
+                        //foreach (var item in objPartNumberList)
                         //{
-                        int site = Convert.ToInt32(Session["site"]);
-                        objPartNumberList = db.pr_getPartnumberByPPTQandSite(pptq, site).Distinct().ToList();
+                        //    if (checkNext == 1)
+                        //    {
+                        //        Session["NextPartnumber"] = item.id;
+
+                        //        break;
+                        //    }
+                        //    if (item.id == previouspartnumber)
+                        //    {
+                        //        checkNext = 1;
+                        //    }
                         //}
-                        //else
+
+
+                        //if (checkNext == 0)
                         //{
-                        //    objPartNumberList = db.pr_getPartnumberByPPTQ(pptq).ToList();
+                        //    var sites = db.pr_getSiteByPPTQ(pptq);
+                        //    int checkNextSite = 0;
+                        //    foreach (var item in sites)
+                        //    {
+                        //        if (checkNextSite == 1)
+                        //        {
+                        //            Session["site"] = item.id;
+
+                        //            break;
+                        //        }
+                        //        if (item.id == site)
+                        //        {
+                        //            checkNextSite = 1;
+                        //        }
+                        //    }
+                        //    if (checkNextSite == 1)
+                        //    {
+                        //        Session["NextPartnumber"] = db.pr_getPartnumberByPPTQandSite(pptq, site).Distinct().FirstOrDefault().id;
+
+
+                        //    }
+                        //    else
+                        //    {
+                        //        flag = 1;
+                        //    }
                         //}
 
+                        
+                        nextpartnumber();
+                        updateZcodesAll();
 
-
-                        Session["NextPartnumber"] = null;
-                        int checkNext = 0;
-                        foreach (var item in objPartNumberList)
-                        {
-                            if (checkNext == 1)
-                            {
-                                Session["NextPartnumber"] = item.id;
-
-                                break;
-                            }
-                            if (item.id == previouspartnumber)
-                            {
-                                checkNext = 1;
-                            }
-                        }
-
-
-                        if (checkNext == 0)
-                        {
-                            var sites = db.pr_getSiteByPPTQ(pptq);
-                            int checkNextSite = 0;
-                            foreach (var item in sites)
-                            {
-                                if (checkNextSite == 1)
-                                {
-                                    Session["site"] = item.id;
-
-                                    break;
-                                }
-                                if (item.id == site)
-                                {
-                                    checkNextSite = 1;
-                                }
-                            }
-                            if (checkNextSite == 1)
-                            {
-                                Session["NextPartnumber"] = db.pr_getPartnumberByPPTQandSite(pptq, site).Distinct().FirstOrDefault().id;
-
-
-                            }
-                            else
-                            {
-                                flag = 1;
-                            }
-                        }
 
                         if (Session["NextPartnumber"] == null)
                         {
@@ -1457,163 +1102,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
         }
-
-
-
-        //       private void goToNextPage1(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 0, int pageQ = 0, int pageNumberQ = 0)
-        //       {
-        //           int pageId = 0;
-        //           int pageNumber = 0;
-        //           int pgno = 0;
-        //           int questionnaireId = (int)Session["questionnaire"];
-        //           string errorQueryString = "";
-
-        //           if (errorQuestion > 0)
-        //           {
-        //               errorQueryString = "&errorQuestion=" + errorQuestion.ToString() + "&errorMessage=" + errorMessage;
-        //           }
-        //           surveyForm surveyForm = new surveyForm();
-        //           int partnerId = (int)Session["partner"];
-        //           partner provider1 = new partner();
-        //           questionnaire questionnaire = new questionnaire();
-        //           string zode = surveyForm.generateZCode(provider1, questionnaire);
-        //           page page = null;
-        //           // menuGroup = (MenuGroup)Session["menuGroup"];
-
-        //           if (pageNumberQ != 0)
-        //           {
-        //               pageNumber = pageNumberQ;
-        //               pageNumber = pageNumber + 1;
-
-        //           }
-        //           else
-        //           {
-        //               pageNumber = 2;
-        //           }
-
-        //           if (pageQ != 0)
-        //           {
-        //               pageId = pageQ;
-
-        //               page = db.pr_getNextPageByQuestionnaire(questionnaireId, pageId, jumpToQuestion).FirstOrDefault();
-        //           }
-        //           else
-        //           {
-        //               page = db.pr_getNextPageByQuestionnaire(questionnaireId, 0, 0).FirstOrDefault();
-        //               page = db.pr_getNextPageByQuestionnaire(questionnaireId, page.id, jumpToQuestion).FirstOrDefault();
-        //           }
-        //           // update progressbare logic
-
-        //           int providerId = 0;
-        //           int quetionnaireId = 0;
-        //           //   providerId = (int)Session["provider"];
-        //           quetionnaireId = (int)Session["questionnaire"];
-        //           //    Provider provider = new Provider(new Id(providerId));
-        //           //  Campaign campaign = new Campaign(new Id(Convert.ToInt32(Session["campaign"])));
-        //           //int totalpage = questionnaire.getPageQuestionnaireCount(questionnaire);
-        //           //pgno = pageNumber - 1;
-        //           //for (int i = 0; i < totalpage; i++)
-        //           //{
-        //           //    if (pgno == i)
-        //           //    {
-        //           //        int totalperage = 0;
-        //           //        int totper = 80 / totalpage;
-        //           //        if (pgno == 0)
-        //           //        {
-        //           //            pgno = 1;
-        //           //            totalperage = (totper * 1) + 10;
-        //           //        }
-        //           //        else
-        //           //        {
-        //           //            totalperage = (totper * i) + 10;
-        //           //        }
-        //           //        provider.updateSurveyProgressBar(provider, campaign, totalperage);
-        //           //        break;
-        //           //    }
-        //           //}
-        //           //
-        //           if (Request.QueryString["questionIndex"] != null)
-        //           {
-        //               questionIndex += int.Parse(Request.QueryString["questionIndex"].ToString());
-        //           }
-
-        //           if (Request.QueryString["skip"] != null)
-        //           {
-        //               skip = "&skip=true";
-        //           }
-
-        //           if (jumpToQuestion == 0)
-        //           {
-        //               if (page != null)
-        //               {
-        //                   if (string.IsNullOrEmpty(errorQueryString))
-        //                   {
-        //                       Response.Redirect("QuestionnaireResponse?partNumberSelectList=" + partNumberSelectList +
-        //"&siteSelectList=" + siteSelectList + "&partnumberStatusSelectList=" + partnumberStatusSelectList + "&pageNumber=" + pageNumber.ToString() +
-        //                               "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
-        //                               + "&questionIndex=" + questionIndex.ToString() + skip);
-        //                   }
-        //                   else if (Request.QueryString["errorQuestion"] == null)
-        //                   {
-        //                       Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
-        //                   }
-        //                   else
-        //                   {
-        //                       Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
-        //                   }
-        //               }
-        //               else
-        //               {
-        //                   //if (menuGroup.id.id == 2)
-        //                   //{
-        //                   //    Response.Redirect("spendCategoryForm.aspx");
-        //                   //}
-        //                   //else
-        //                   //{
-        //                   //int providerId = 0;
-        //                   //int quetionnaireId = 0;
-        //                   //providerId = (int)Session["providerId"];
-        //                   //quetionnaireId = (int)Session["questionnaire"];
-        //                   //Provider provider = new Provider(new Id(providerId));
-        //                   //Campaign campaign = new Campaign(new Id(Convert.ToInt32(Session["campaign"])));
-        //                   //provider.updateSurveyProgressBar(provider, campaign, 80);
-        //                   Response.Redirect("~/Registration/Home/eSignature");
-        //                   // }
-        //               }
-        //           }
-        //           else
-        //           {
-        //               if (page != null)
-        //               {
-        //                   if (string.IsNullOrEmpty(errorQueryString))
-        //                   {
-        //                       Response.Redirect("QuestionnaireResponse?pageNumber=" + pageNumber.ToString() +
-        //                          "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
-        //                          + "&questionIndex=" + questionIndex.ToString() + skip);
-        //                   }
-        //                   else if (Request.QueryString["errorQuestion"] == null)
-        //                   {
-        //                       Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
-        //                   }
-        //                   else
-        //                   {
-        //                       Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
-        //                   }
-        //               }
-        //               else
-        //               {
-        //                   //if (menuGroup.id.id == 2)
-        //                   //{
-        //                   //    Response.Redirect("spendCategoryForm.aspx");
-        //                   //}
-        //                   //else
-        //                   //{
-
-        //                   Response.Redirect("~/Registration/Home/eSignature");
-        //                   //}
-        //               }
-        //           }
-        //       }
 
         private int saveUploadedFile(int protocolId, int touchpointId, int partnerId, int questionnaireId, int pptq)
         {
@@ -1748,8 +1236,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return jumpToQuestion;
         }
 
-
-        public void fillPartnumberBySite(int siteID, int pptqID, int partNumberID)
+        public void getPartnumberBySite(int siteID, int pptqID, int partNumberID)
         {
             if (Session["partnumberstatus"] != null && Int32.Parse(Session["partnumberstatus"].ToString()) != 0)
             {
@@ -1801,38 +1288,103 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
         }
-        public void nextpartnumber()
+        public void nextpartnumber(int isForNext = 0)
         {
             int previouspartnumber = Convert.ToInt32(Session["partnumber"]);
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+            int partnumberstatus = Convert.ToInt32(Session["partnumberstatus"]);
 
-            List<partnumber> objPartNumberList;
-
-            if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+            List<partnumber> objPartNumberList = new List<partnumber>();
+            if (partnumberstatus == 0)
             {
-                int site = Convert.ToInt32(Session["site"]);
-                objPartNumberList = db.pr_getPartnumberByPPTQandSite(pptq, site).Distinct().ToList();
+                if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+                {
+                    int site = Convert.ToInt32(Session["site"]);
+                    objPartNumberList = db.pr_getPartnumberByPPTQandSite(pptq, site).Distinct().ToList();
+                }
+                else
+                {
+                    objPartNumberList = db.pr_getPartnumberByPPTQ(pptq).Distinct().ToList();
+                }
             }
             else
             {
-                objPartNumberList = db.pr_getPartnumberByPPTQ(pptq).Distinct().ToList();
+                if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+                {
+                    int site = Convert.ToInt32(Session["site"]);
+                    objPartNumberList = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, site, partnumberstatus).Distinct().ToList();
+                }
+                else
+                {
+                    objPartNumberList = db.pr_getPartnumberByPPTQandStatus(pptq, partnumberstatus).Distinct().ToList();
+                }
+
+                if (objPartNumberList.Count <2)
+                {
+                    if (partnumberstatus == Status.INCOMPLETE)
+                    {
+                        partnumberstatus = Status.NOT_STARTED;
+                        Session["partnumberstatus"] = Status.NOT_STARTED;
+                    }
+
+                    if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+                    {
+                        int site = Convert.ToInt32(Session["site"]);
+                        objPartNumberList = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, site, partnumberstatus).Distinct().ToList();
+                    }
+                    else
+                    {
+                        objPartNumberList = db.pr_getPartnumberByPPTQandStatus(pptq, partnumberstatus).Distinct().ToList();
+                    }
+
+                    if (objPartNumberList.Count <2)
+                    {
+                        partnumberstatus = Status.COMPLETED;
+                        Session["partnumberstatus"] = Status.COMPLETED;
+                        if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+                        {
+                            int site = Convert.ToInt32(Session["site"]);
+                            objPartNumberList = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, site, partnumberstatus).Distinct().ToList();
+                        }
+                        else
+                        {
+                            objPartNumberList = db.pr_getPartnumberByPPTQandStatus(pptq, partnumberstatus).Distinct().ToList();
+                        }
+                    }
+
+                }
             }
 
 
             Session["NextPartnumber"] = null;
             int checkNext = 0;
-            foreach (var item in objPartNumberList)
+            int listitemNo = 1;
+            if (objPartNumberList.Count > 1)
             {
-                if (checkNext == 1)
+                foreach (var item in objPartNumberList)
                 {
-                    Session["NextPartnumber"] = item.id;
-                    break;
-                }
-                if (item.id == previouspartnumber)
-                {
-                    checkNext = 1;
+                    if (checkNext == 1)
+                    {
+                        Session["NextPartnumber"] = item.id;
+                        break;
+                    }
+                    if (item.id == previouspartnumber)
+                    {
+                        checkNext = 1;
+                    }
+                    listitemNo++;
                 }
             }
+
+            if (Session["NextPartnumber"] == null)
+            {
+                try
+                {
+                    Session["NextPartnumber"] = objPartNumberList.FirstOrDefault().id;
+                }
+                catch { }
+            }
+
         }
 
         public void getSitepoint(int pptqID, int siteId)
@@ -1846,6 +1398,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var items = new SelectList(db.pr_getSiteByPPTQ(pptqID), "id", "description").ToList();
             //   items.Insert(0, (new SelectListItem { Text = "All", Value = "" }));
             ViewBag.siteSelectList = items;
+            try
+            {
+                Session["site"] = int.Parse(items.FirstOrDefault().Value);
+            }
+            catch { }
         }
 
         public void getPartnumberstatus(int partNumberStatusId)
@@ -1931,46 +1488,252 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
         public ActionResult GetPartNumberByDropdown(int siteID, int partnumberStatusID)
         {
-            int pptq = updateZcodesAll();
+            if (Session["hs3Registration"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-            List<partnumber> objpartnumber = new List<partnumber>();
-            if (siteID == 0 && partnumberStatusID == 0)
-            {
-                //show all partnumbers
-                objpartnumber = db.pr_getPartnumberByPPTQ(pptq).Distinct().ToList();
-            }
-            else if (siteID != 0 && partnumberStatusID != 0)
-            {
-                // show partnumbers according to site and status
-                objpartnumber = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, siteID, partnumberStatusID).Distinct().ToList();
-            }
-            else if (siteID == 0 && partnumberStatusID != 0)
-            {
-                // show partnumbers according to status only
-                objpartnumber = db.pr_getPartnumberByPPTQandStatus(pptq, partnumberStatusID).Distinct().ToList();
-            }
-            else
-            {
-                objpartnumber = db.pr_getPartnumberByPPTQandSite(pptq, siteID).Distinct().ToList();
-                // show partnumbers according to site only
-            }
-            Session["site"] = siteID;
-            Session["partnumberstatus"] = partnumberStatusID;
-            try
-            {
-                Session["partnumber"] = objpartnumber.FirstOrDefault().id;
-            }
-            catch { }
+
+            updateZcodesAll();
+
+            //int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+
+            //List<partnumber> objpartnumber = new List<partnumber>();
+            //if (siteID == 0 && partnumberStatusID == 0)
+            //{
+            //    //show all partnumbers
+            //    objpartnumber = db.pr_getPartnumberByPPTQ(pptq).Distinct().ToList();
+            //}
+            //else if (siteID != 0 && partnumberStatusID != 0)
+            //{
+            //    // show partnumbers according to site and status
+            //    objpartnumber = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, siteID, partnumberStatusID).Distinct().ToList();
+            //}
+            //else if (siteID == 0 && partnumberStatusID != 0)
+            //{
+            //    // show partnumbers according to status only
+            //    objpartnumber = db.pr_getPartnumberByPPTQandStatus(pptq, partnumberStatusID).Distinct().ToList();
+            //}
+            //else
+            //{
+            //    objpartnumber = db.pr_getPartnumberByPPTQandSite(pptq, siteID).Distinct().ToList();
+            //    // show partnumbers according to site only
+            //}
+            //Session["site"] = siteID;
+            //Session["partnumberstatus"] = partnumberStatusID;
+            //try
+            //{
+            //    Session["partnumber"] = objpartnumber.FirstOrDefault().id;
+            //}
+            //catch { }
             //return Json(new { Data = objpartnumber.Select(x => new { x.id, x.description }) }, JsonRequestBehavior.AllowGet);
             Response.Redirect("QuestionnaireResponse?siteSelectList=" + siteID + "&partnumberStatusSelectList=" + partnumberStatusID);
             return View();
         }
 
+
+        private void dropdownBindings(int siteSelectList, int partnumberStatusSelectList, int pptq, int partNumberSelectList)
+        {
+            //partnumberStatusSelectList
+            if (partnumberStatusSelectList == 0)
+            {
+                getPartnumberstatus();
+                Session["partnumberstatus"] = 0;
+            }
+            else
+            {
+                getPartnumberstatus(partnumberStatusSelectList);
+                Session["partnumberstatus"] = partnumberStatusSelectList;
+            }
+            if (siteSelectList == 0)
+            {
+                getSitepoint(pptq);
+
+            }
+            else
+            {
+                getSitepoint(pptq, siteSelectList);
+                Session["site"] = siteSelectList;
+            }
+
+            if (partNumberSelectList == 0)
+            {
+                if (partnumberStatusSelectList != 0)
+                {
+                    var partNumberList = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, Int32.Parse(Session["site"].ToString()), Int32.Parse(Session["partnumberstatus"].ToString())).Distinct().ToList();
+                    try
+                    {
+                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description", partNumberList.First().id);
+                        Session["partnumber"] = partNumberList.First().id;
+                    }
+                    catch
+                    {
+                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
+                    }
+                }
+                else
+                {
+                    var partNumberList = db.pr_getPartnumberByPPTQandSite(pptq, Int32.Parse(Session["site"].ToString())).Distinct().ToList();
+                    try
+                    {
+                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description", partNumberList.First().id);
+                        Session["partnumber"] = partNumberList.First().id;
+                    }
+                    catch
+                    {
+                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
+                    }
+                }
+               
+            }
+            else
+            {
+                getPartnumberBySite(int.Parse(Session["site"].ToString()), pptq, partNumberSelectList);
+            }
+            nextpartnumber();
+        }
+
+
+        //private void dropdownBindings2(int siteSelectList, int partnumberStatusSelectList, int pptq, int partNumberSelectList)
+        //{
+        //    if (Session["partnumber"] != null && Int32.Parse(Session["partnumber"].ToString()) != 0)
+        //    {
+        //        int partNumberID = Int32.Parse(Session["partnumber"].ToString());
+        //        if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+        //        {
+        //            int site = Convert.ToInt32(Session["site"]);
+        //            getPartnumberBySite(site, pptq, partNumberID);
+        //        }
+        //        else
+        //        {
+        //            getPartnumber(pptq, partNumberID);
+        //        }
+        //        nextpartnumber();
+        //    }
+        //    else
+        //    {
+        //        if (Session["partnumberstatus"] != null && Int32.Parse(Session["partnumberstatus"].ToString()) != 0)
+        //        {
+
+        //            int siteId = Int32.Parse(Session["site"].ToString());
+
+        //            var partNumberList = db.pr_getPartnumberByPPTQandStatus(pptq, Int32.Parse(Session["partnumberstatus"].ToString())).Distinct().ToList();
+        //            try
+        //            {
+        //                ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description", partNumberList.First().id);
+        //            }
+        //            catch
+        //            {
+        //                ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
+        //            }
+        //            // Session["partnumber"] = partNumberList.First().id;
+        //            // items.Insert(0, (new SelectListItem { Text = "All", Value = "" }));
+
+        //        }
+        //        else
+        //        {
+        //            getPartnumber(pptq);
+        //        }
+
+        //        //  Session["partnumber"] = partNumberSelectList;
+        //    }
+        //    if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+        //    {
+
+        //        int siteId = Int32.Parse(Session["site"].ToString());
+        //        getSitepoint(pptq, siteId);
+
+        //    }
+        //    else
+        //    {
+        //        getSitepoint(pptq);
+
+        //    }
+        //    if (Session["partnumberstatus"] != null && Int32.Parse(Session["partnumberstatus"].ToString()) != 0)
+        //    {
+        //        int partnumberstatusID = Convert.ToInt32(Session["partnumberstatus"]);
+        //        //if (index == 6)
+        //        //{
+        //        //    getPartnumberstatus(index);
+        //        //    getPartnumberByPartnumberStatus(index);
+        //        //}
+        //        //else 
+        //        if (partnumberstatusID == Generic.Helpers.PartNumberHelper.Status.COMPLETED)
+        //        {
+        //            getPartnumberstatus(partnumberstatusID);
+        //            getPartnumberByPartnumberStatus(pptq, partnumberstatusID);
+        //        }
+        //        else if (partnumberstatusID == Generic.Helpers.PartNumberHelper.Status.INCOMPLETE)
+        //        {
+        //            getPartnumberstatus(partnumberstatusID);
+        //            getPartnumberByPartnumberStatus(pptq, partnumberstatusID);
+        //        }
+        //        else if (partnumberstatusID == Generic.Helpers.PartNumberHelper.Status.NOT_STARTED)
+        //        {
+        //            //if (ddlSitepoint.SelectedIndex > -1)
+        //            //{
+        //            int site = siteSelectList;
+        //            if (Session["partnumber"] != null && Int32.Parse(Session["partnumber"].ToString()) != 0)
+        //            {
+        //                int partindex = Convert.ToInt32(Session["partnumber"]);
+        //                if (partindex > 0)
+        //                {
+        //                    getPartnumberBySite(site, pptq, partindex);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                if (Session["partnumberstatus"] != null && Int32.Parse(Session["partnumberstatus"].ToString()) != 0)
+        //                {
+
+        //                    int siteId = Int32.Parse(Session["site"].ToString());
+
+        //                    var partNumberList = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, siteId, Int32.Parse(Session["partnumberstatus"].ToString())).Distinct().ToList();
+        //                    try
+        //                    {
+        //                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description", partNumberList.First().id);
+        //                        Session["partnumber"] = partNumberList.First().id;
+        //                    }
+        //                    catch
+        //                    {
+        //                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
+        //                    }
+        //                    // items.Insert(0, (new SelectListItem { Text = "All", Value = "" }));
+
+        //                }
+        //                else
+        //                {
+        //                    fillPartnumberBySite(site, pptq);
+        //                }
+        //            }
+        //            getPartnumberstatus(partnumberstatusID);
+        //            // }
+        //            // else
+        //            //{
+        //            //  getPartnumberstatus(index);
+        //            //}
+        //        }
+        //        //else
+        //        //{
+        //        //  getPartnumberstatus();
+        //        //}
+        //    }
+        //    else
+        //    {
+        //        getPartnumberstatus();
+        //        Session["partnumberstatus"] = partnumberStatusSelectList;
+        //    }
+
+        //}
+
+
+
         private int updateZcodesAll()
         {
-            int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
-
-            foreach (var item in db.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq).ToList())
+            var dbConext = new EntitiesDBContext();
+            int pptq = dbConext.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+           
+            foreach (var item in dbConext.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq).ToList())
             {
                 if (item.zcode.Count(x => x == 'Z') == item.zcode.Length)
                 {
@@ -1985,8 +1748,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     item.status = Status.INCOMPLETE;
                 }
-                db.Entry(item).State = EntityState.Modified;
-                db.SaveChanges();
+                dbConext.Entry(item).State = EntityState.Modified;
+                dbConext.SaveChanges();
             }
             return pptq;
         }

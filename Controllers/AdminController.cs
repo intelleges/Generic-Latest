@@ -13,6 +13,7 @@ using Generic.Models;
 using Generic.Helpers.Utility;
 using System.Net;
 using Generic.SessionClass;
+using System.Reflection;
 
 
 namespace Generic.Controllers
@@ -180,8 +181,39 @@ namespace Generic.Controllers
 
             base.Dispose(disposing);
         }
+        
+        public string GetAllMethods()
+        {
+            string detail = "";
 
 
+            //MethodInfo[] methodInfos = typeof(HomeController).GetMethods(BindingFlags.Public | BindingFlags.Static); 
+            //// sort methods by name 
+            //Array.Sort(methodInfos, delegate(MethodInfo methodInfo1, MethodInfo methodInfo2) 
+            //{ return methodInfo1.Name.CompareTo(methodInfo2.Name); });
+            //// write method names 
+            //foreach (MethodInfo methodInfo in methodInfos) 
+            //{
+            //    detail += methodInfo.Name+"<br>";
+                
+            //}
+
+            foreach (var method in typeof(Generic.Areas.RegistrationArea.Controllers.HomeController).GetMethods())
+            {
+                var parameters = method.GetParameters();
+                var parameterDescriptions = string.Join
+                    (", ", method.GetParameters()
+                                 .Select(x => x.ParameterType + " " + x.Name)
+                                 .ToArray());
+
+                detail +=                                  method.ReturnType +
+                     " " +            method.Name +
+                        " "+          parameterDescriptions +"<br>";
+            }
+
+           
+            return detail;
+        }
        
 
     }

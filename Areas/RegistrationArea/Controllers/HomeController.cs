@@ -66,7 +66,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var touchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
 
                 var responseTypesQuestionnaire = db.pr_getResponseTypeByQuestionnaire(ptq.questionnaire).ToList();
-
+                 var objQuestionnaire = db.pr_getQuestionnaire(ptq.questionnaire).FirstOrDefault();
+           
                 if (touchpoint.endDate >= DateTime.Now)
                 {
                     Session["accessCode"] = accessCode;
@@ -77,6 +78,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     Session["touchpoint"] = touchpoint.id;
                     Session["partnerType"] = ptq.partnerType;
                     Session["questionnaire"] = ptq.questionnaire;
+                    Session["leveltype"] = objQuestionnaire.levelType;                    
                     Session["protocol"] = touchpoint.protocol;
                     Session["responseTypesQuestionnaire"] = responseTypesQuestionnaire;
                     return RedirectToAction("companyInformation");

@@ -583,12 +583,42 @@ namespace Generic.DataLayer
             TextBox txtbox = new TextBox();
             FileUpload fileupload = new FileUpload();
             response response = new response();
+
             partnerPartnertypeTouchpointQuestionnaireQuestionResponse pptqResponse = new partnerPartnertypeTouchpointQuestionnaireQuestionResponse();
-            if (this.protocol != null)
+
+            if ((int)HttpContext.Current.Session["leveltype"] == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
+            {
+                var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ((int)HttpContext.Current.Session["partnumber"], (int)HttpContext.Current.Session["site"], objpptq.id).FirstOrDefault(); ;
+                try
+                {
+                    pptqResponse = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(question.id, PartNumberSiteZcodepptq.id).ToList()
+                        .Select(x => new partnerPartnertypeTouchpointQuestionnaireQuestionResponse()
+                        {
+                            id = x.id,
+                            question = x.question,
+                            response = x.response,
+                            comment = x.comment,
+                            value = x.value,
+                            // score=int.Parse(x.score),
+                            partnerPartnerTypeTouchpointQuestionnaire = x.partNumberSiteZcodePPTQ,
+                            uploadedFile = x.uploadedFile,
+                            uploadedFileType = x.uploadedFileType
+
+                        }).FirstOrDefault();
+                }
+                catch { }
+            }
+            else if ((int)HttpContext.Current.Session["leveltype"] == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL)
             {
                 pptqResponse = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(question.id, objpptq.id).FirstOrDefault();
-
             }
+
+         
+           
+           
+             
+
+           
             surveyForm surveyfrm = new surveyForm();
             string incldComment = "";
             string incldFileUpload = "";
@@ -1135,11 +1165,32 @@ namespace Generic.DataLayer
             }
             else
             {
-                //get responses
+                if ((int)HttpContext.Current.Session["leveltype"] == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
+                {
+                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ((int)HttpContext.Current.Session["partnumber"], (int)HttpContext.Current.Session["site"], objpptq.id).FirstOrDefault(); ;
+                    try
+                    {
+                        pptqResponse = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(question.id, PartNumberSiteZcodepptq.id).ToList()
+                            .Select(x => new partnerPartnertypeTouchpointQuestionnaireQuestionResponse()
+                            {
+                                id = x.id,
+                                question = x.question,
+                                response = x.response,
+                                comment = x.comment,
+                                value = x.value,
+                                // score=int.Parse(x.score),
+                                partnerPartnerTypeTouchpointQuestionnaire = x.partNumberSiteZcodePPTQ,
+                                uploadedFile = x.uploadedFile,
+                                uploadedFileType = x.uploadedFileType
 
-                pptqResponse = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, objpptq.id).LastOrDefault();
-                //   db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ
-                // response = db.pr_getResponseByQuestion(questionId).FirstOrDefault();
+                            }).FirstOrDefault();
+                    }
+                    catch { }
+                }
+                else if ((int)HttpContext.Current.Session["leveltype"] == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL)
+                {
+                    pptqResponse = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(question.id, objpptq.id).FirstOrDefault();
+                }
             }
 
             responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
@@ -1420,10 +1471,32 @@ namespace Generic.DataLayer
                     //  List<response> responses = null;
                     if (showContentOnly == false)
                     {
-                        //get the list of reponses
+                        if ((int)HttpContext.Current.Session["leveltype"] == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
+                        {
+                            try
+                            {
+                                var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ((int)HttpContext.Current.Session["partnumber"], (int)HttpContext.Current.Session["site"], objpptq.id).FirstOrDefault(); ;
 
-                        pptqResponses = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, objpptq.id).ToList();
-                        // responses = db.pr_getResponseByQuestion(questionId).ToList();
+                                pptqResponses = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(question.id, PartNumberSiteZcodepptq.id).ToList()
+                                    .Select(x => new partnerPartnertypeTouchpointQuestionnaireQuestionResponse()
+                                    {
+                                        id = x.id,
+                                        question = x.question,
+                                        response = x.response,
+                                        comment = x.comment,
+                                        value = x.value,
+                                        // score=int.Parse(x.score),
+                                        partnerPartnerTypeTouchpointQuestionnaire = x.partNumberSiteZcodePPTQ,
+                                        uploadedFile = x.uploadedFile,
+                                        uploadedFileType = x.uploadedFileType
+
+                                    }).ToList();
+                            }catch{}
+                        }
+                        else if ((int)HttpContext.Current.Session["leveltype"] == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL)
+                        {
+                            pptqResponses = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(question.id, objpptq.id).ToList();
+                        }
                     }
                     //hidden field
                     HiddenField hiddenField = new HiddenField();
@@ -1533,8 +1606,33 @@ namespace Generic.DataLayer
             }
             else
             {
-                //response = db.pr_getResponseByQuestion(questionId).FirstOrDefault();
-                pptqResponse = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(question.id, objpptq.id).FirstOrDefault();
+
+                if ((int)HttpContext.Current.Session["leveltype"] == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
+                {
+                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ((int)HttpContext.Current.Session["partnumber"], (int)HttpContext.Current.Session["site"], objpptq.id).FirstOrDefault(); ;
+                    try
+                    {
+                        pptqResponse = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(question.id, PartNumberSiteZcodepptq.id).ToList()
+                            .Select(x => new partnerPartnertypeTouchpointQuestionnaireQuestionResponse()
+                            {
+                                id = x.id,
+                                question = x.question,
+                                response = x.response,
+                                comment = x.comment,
+                                value = x.value,
+                                // score=int.Parse(x.score),
+                                partnerPartnerTypeTouchpointQuestionnaire = x.partNumberSiteZcodePPTQ,
+                                uploadedFile = x.uploadedFile,
+                                uploadedFileType = x.uploadedFileType
+
+                            }).FirstOrDefault();
+                    }
+                    catch { }
+                }
+                else if ((int)HttpContext.Current.Session["leveltype"] == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL)
+                {
+                    pptqResponse = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(question.id, objpptq.id).FirstOrDefault();
+                }
             }
             responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
 
@@ -1544,12 +1642,7 @@ namespace Generic.DataLayer
                     radioButtonList = new Generic.Helpers.UIControl.MyRadioButtonList();
                     radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
                     radioButtonList.Attributes.Add("onClick", "showdivnew(this);removevalidation(this.id) ");
-                   // radioButtonList.t
-                    //Generic.Helpers.UIControl.MyRadioButtonList();
-                    //radioButtonList.Attributes.Add("data-val", "true");
-                    //radioButtonList.Attributes.Add("data-val-required", "Required");
-                    //System.Web.UI.HtmlControls.R
-
+                   
                     radioButtonList.RepeatDirection = RepeatDirection.Horizontal;
                     tableCell = new TableCell();
                     
@@ -1564,7 +1657,7 @@ namespace Generic.DataLayer
                             radioButtonList.Items[i].Attributes.Add("data-val", "true");
                             radioButtonList.Items[i].Attributes.Add("data-val-required", "Required");
                         }
-                        //radioButtonList.Items[i].Attributes["data-val"] = "true";
+                   
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                         {
                             if (pptqResponse.response == 74)
@@ -1580,20 +1673,9 @@ namespace Generic.DataLayer
                                 divShowHideFlag = -1;
                             }
                             radioButtonList.Items[i].Selected = true;
+                            radioButtonList.Items[i].Attributes.Add("checked", "true");
                         }
-                        //radioButtonList.Items[i].
-                        //foreach (ListItem option in radioButtonList.Items)
-                        //{
-                        //    option.Attributes["data-val"] = "true";
-                        //    option.Attributes["data-val-required"] = "Required";
-                        //    ((IAttributeAccessor)option).SetAttribute("data-val", "true");
-                        //}
-
-
-                     //   RadioButton rb = new RadioButton(); 
-                        //radioButtonList.Items.Add(rb.
-                      //  rb.InputAttributes.Add
-
+                        
                         tableCell.Controls.Add(radioButtonList);
                     }
                     if (divShowHideFlag == 3)
