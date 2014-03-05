@@ -132,3 +132,4 @@ C:\Users\john\Desktop\hs3MVC\Generic\obj\Debug\Generic.pdb
 C:\Users\john\Desktop\hs3MVC\Generic\bin\HtmlAgilityPack.dll
 C:\Users\john\Desktop\hs3MVC\Generic\bin\HtmlAgilityPack.pdb
 C:\Users\john\Desktop\hs3MVC\Generic\bin\HtmlAgilityPack.xml
+C:\Users\john\Desktop\hs3MVC\Generic\bin\ChargifyNET.dll

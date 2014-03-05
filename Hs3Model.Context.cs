@@ -10480,5 +10480,293 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodeByPPTQForUI_Result>("pr_getPartnumberSiteZcodeByPPTQForUI", partnerPartnertypeTouchpointQuestionnaireParameter);
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addProduct(string description, string productNumber, Nullable<bool> inhouse, Nullable<bool> salable, Nullable<decimal> ourCost, Nullable<decimal> listPrice, Nullable<decimal> sellingPrice, Nullable<int> productLine, Nullable<bool> active, Nullable<int> sortOrder)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var productNumberParameter = productNumber != null ?
+                new ObjectParameter("ProductNumber", productNumber) :
+                new ObjectParameter("ProductNumber", typeof(string));
+    
+            var inhouseParameter = inhouse.HasValue ?
+                new ObjectParameter("inhouse", inhouse) :
+                new ObjectParameter("inhouse", typeof(bool));
+    
+            var salableParameter = salable.HasValue ?
+                new ObjectParameter("salable", salable) :
+                new ObjectParameter("salable", typeof(bool));
+    
+            var ourCostParameter = ourCost.HasValue ?
+                new ObjectParameter("ourCost", ourCost) :
+                new ObjectParameter("ourCost", typeof(decimal));
+    
+            var listPriceParameter = listPrice.HasValue ?
+                new ObjectParameter("listPrice", listPrice) :
+                new ObjectParameter("listPrice", typeof(decimal));
+    
+            var sellingPriceParameter = sellingPrice.HasValue ?
+                new ObjectParameter("sellingPrice", sellingPrice) :
+                new ObjectParameter("sellingPrice", typeof(decimal));
+    
+            var productLineParameter = productLine.HasValue ?
+                new ObjectParameter("ProductLine", productLine) :
+                new ObjectParameter("ProductLine", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addProduct", descriptionParameter, productNumberParameter, inhouseParameter, salableParameter, ourCostParameter, listPriceParameter, sellingPriceParameter, productLineParameter, activeParameter, sortOrderParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addSubscriptiontype(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addSubscriptiontype", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveProduct(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveProduct", idParameter);
+        }
+    
+        public virtual int pr_archiveSubscriptiontype(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveSubscriptiontype", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getCalculatedCostForEnterpriseSubscription(Nullable<int> userCount, Nullable<int> partnerCount, Nullable<int> partnumberCount, Nullable<int> subscriptionType)
+        {
+            var userCountParameter = userCount.HasValue ?
+                new ObjectParameter("userCount", userCount) :
+                new ObjectParameter("userCount", typeof(int));
+    
+            var partnerCountParameter = partnerCount.HasValue ?
+                new ObjectParameter("partnerCount", partnerCount) :
+                new ObjectParameter("partnerCount", typeof(int));
+    
+            var partnumberCountParameter = partnumberCount.HasValue ?
+                new ObjectParameter("partnumberCount", partnumberCount) :
+                new ObjectParameter("partnumberCount", typeof(int));
+    
+            var subscriptionTypeParameter = subscriptionType.HasValue ?
+                new ObjectParameter("subscriptionType", subscriptionType) :
+                new ObjectParameter("subscriptionType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getCalculatedCostForEnterpriseSubscription", userCountParameter, partnerCountParameter, partnumberCountParameter, subscriptionTypeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCountFromPPTQByStatus_Result> pr_getCountFromPPTQByStatus(Nullable<int> partnerTypeTouchpointQuestionnaire)
+        {
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCountFromPPTQByStatus_Result>("pr_getCountFromPPTQByStatus", partnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerStatusCountByTouchpointQuestionnaire_Result> pr_getPartnerStatusCountByTouchpointQuestionnaire(Nullable<int> touchpoint, Nullable<int> questionnaire)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerStatusCountByTouchpointQuestionnaire_Result>("pr_getPartnerStatusCountByTouchpointQuestionnaire", touchpointParameter, questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getProduct_Result> pr_getProduct(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getProduct_Result>("pr_getProduct", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getProductAll_Result> pr_getProductAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getProductAll_Result>("pr_getProductAll");
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireByAccesscode_Result> pr_getQuestionnaireByAccesscode(Nullable<int> accesscode)
+        {
+            var accesscodeParameter = accesscode.HasValue ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireByAccesscode_Result>("pr_getQuestionnaireByAccesscode", accesscodeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ_Result> pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ(Nullable<int> question, Nullable<int> partnumberSiteZcodePPTQ)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var partnumberSiteZcodePPTQParameter = partnumberSiteZcodePPTQ.HasValue ?
+                new ObjectParameter("partnumberSiteZcodePPTQ", partnumberSiteZcodePPTQ) :
+                new ObjectParameter("partnumberSiteZcodePPTQ", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ_Result>("pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ", questionParameter, partnumberSiteZcodePPTQParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSubscriptiontype_Result> pr_getSubscriptiontype(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSubscriptiontype_Result>("pr_getSubscriptiontype", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSubscriptiontypeAll_Result> pr_getSubscriptiontypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSubscriptiontypeAll_Result>("pr_getSubscriptiontypeAll");
+        }
+    
+        public virtual int pr_modifyProduct(Nullable<int> id, string description, string productNumber, Nullable<bool> inhouse, Nullable<bool> salable, Nullable<decimal> ourCost, Nullable<decimal> listPrice, Nullable<decimal> sellingPrice, Nullable<int> productLine, Nullable<bool> active, Nullable<int> sortOrder)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var productNumberParameter = productNumber != null ?
+                new ObjectParameter("ProductNumber", productNumber) :
+                new ObjectParameter("ProductNumber", typeof(string));
+    
+            var inhouseParameter = inhouse.HasValue ?
+                new ObjectParameter("inhouse", inhouse) :
+                new ObjectParameter("inhouse", typeof(bool));
+    
+            var salableParameter = salable.HasValue ?
+                new ObjectParameter("salable", salable) :
+                new ObjectParameter("salable", typeof(bool));
+    
+            var ourCostParameter = ourCost.HasValue ?
+                new ObjectParameter("ourCost", ourCost) :
+                new ObjectParameter("ourCost", typeof(decimal));
+    
+            var listPriceParameter = listPrice.HasValue ?
+                new ObjectParameter("listPrice", listPrice) :
+                new ObjectParameter("listPrice", typeof(decimal));
+    
+            var sellingPriceParameter = sellingPrice.HasValue ?
+                new ObjectParameter("sellingPrice", sellingPrice) :
+                new ObjectParameter("sellingPrice", typeof(decimal));
+    
+            var productLineParameter = productLine.HasValue ?
+                new ObjectParameter("ProductLine", productLine) :
+                new ObjectParameter("ProductLine", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyProduct", idParameter, descriptionParameter, productNumberParameter, inhouseParameter, salableParameter, ourCostParameter, listPriceParameter, sellingPriceParameter, productLineParameter, activeParameter, sortOrderParameter);
+        }
+    
+        public virtual int pr_modifySubscriptiontype(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifySubscriptiontype", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeProduct(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeProduct", idParameter);
+        }
+    
+        public virtual int pr_removeSubscriptiontype(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeSubscriptiontype", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_resetPartnumberStatusAndZcodeByAccessCode(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_resetPartnumberStatusAndZcodeByAccessCode", accesscodeParameter);
+        }
+    
+        public virtual int pr_unArchiveProduct(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveProduct", idParameter);
+        }
+    
+        public virtual int pr_unArchiveSubscriptiontype(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveSubscriptiontype", idParameter);
+        }
     }
 }

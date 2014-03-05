@@ -1,0 +1,153 @@
+﻿
+@model Generic.Models.LocalSignup
+
+<div class="row">
+    <div class="span3">
+        <h2>Signup</h2>
+        <h3>@ViewBag.ProductName</h3>
+        <p>On this page, the user is required to complete the form which allows the system to both create a user, and create a corresponding customer in the associated Chargify account.</p>
+        <p>When the user clicks on the 'Place My Order' button, the system will create an ASP.NET membership user first, then create the Chargify customer second.</p>
+        <p><i>You can simulate a non-working credit card by using '2' as the number instead of the default '1' ...</i></p>
+    </div>
+    <div class="span9" style="margin-top: 20px;">
+        <p class="alert alert-info">Please enter the following information and click 'Place My Order' to complete the signup process.</p>
+        @using (Html.BeginForm("Local", "Signup", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <input type="hidden" name="id" value="3384605" />
+            <fieldset>
+                <legend>Billing Information</legend>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.UserPayment.CardNumber, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.UserPayment.CardNumber)
+                        @Html.ValidationMessageFor(model => model.UserPayment.CardNumber)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="ExpMonth">Expiry</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(model => model.UserPayment.ExpirationMonth, (SelectList)ViewBag.ExpMonths, "Month", new { @class = "input-small" }) /
+                                @Html.DropDownListFor(model => model.UserPayment.ExpirationYear, (SelectList)ViewBag.ExpYears, "Year", new { @class = "input-small" })
+                        @Html.ValidationMessageFor(model => model.UserPayment.ExpirationMonth)
+                        @Html.ValidationMessageFor(model => model.UserPayment.ExpirationYear)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.UserPayment.CVV, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.UserPayment.CVV)
+                        @Html.ValidationMessageFor(model => model.UserPayment.CVV)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.UserAddress.Address, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.UserAddress.Address)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.UserAddress.Country, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.UserAddress.Country)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.UserAddress.State, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.UserAddress.State)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.UserAddress.City, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.UserAddress.City)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.UserAddress.Zip, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.UserAddress.Zip)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.CouponCode, new { @class = "control-label" })
+                    <div class="controls">
+                        <div class="input-append">
+                            @Html.EditorFor(model => model.CouponCode)
+                            <button class="btn" type="button">Validate</button>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+    
+            <fieldset>
+                <legend>Contact Information</legend>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.UserContact.EmailAddress, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.UserContact.EmailAddress)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.UserContact.FirstName, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.UserContact.FirstName)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.UserContact.LastName, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.UserContact.LastName)
+                    </div>
+                </div>
+
+            </fieldset>
+            
+            <fieldset>
+                <legend>Account Information</legend>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.User.UserName, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.User.UserName)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.User.Password, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.User.Password)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(model => model.User.ConfirmPassword, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(model => model.User.ConfirmPassword)
+                    </div>
+                </div>
+            </fieldset>
+           
+            
+            <div class="form-actions">
+                <input class="btn btn-primary" type="submit" value="Place My Order" />
+            </div>
+    
+        }
+    </div>
+</div>

@@ -1025,7 +1025,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         //    }
                         //}
 
-                        
+
                         nextpartnumber();
                         updateZcodesAll();
 
@@ -1319,7 +1319,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     objPartNumberList = db.pr_getPartnumberByPPTQandStatus(pptq, partnumberstatus).Distinct().ToList();
                 }
 
-                if (objPartNumberList.Count <2)
+                if (objPartNumberList.Count < 2)
                 {
                     if (partnumberstatus == Status.INCOMPLETE)
                     {
@@ -1337,7 +1337,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         objPartNumberList = db.pr_getPartnumberByPPTQandStatus(pptq, partnumberstatus).Distinct().ToList();
                     }
 
-                    if (objPartNumberList.Count <2)
+                    if (objPartNumberList.Count < 2)
                     {
                         partnumberstatus = Status.COMPLETED;
                         Session["partnumberstatus"] = Status.COMPLETED;
@@ -1386,6 +1386,108 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
 
         }
+
+
+        public void previouspartnumber(int isForNext = 0)
+        {
+            int previouspartnumber = Convert.ToInt32(Session["partnumber"]);
+            int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+            int partnumberstatus = Convert.ToInt32(Session["partnumberstatus"]);
+
+            List<partnumber> objPartNumberList = new List<partnumber>();
+            if (partnumberstatus == 0)
+            {
+                if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+                {
+                    int site = Convert.ToInt32(Session["site"]);
+                    objPartNumberList = db.pr_getPartnumberByPPTQandSite(pptq, site).Distinct().ToList();
+                }
+                else
+                {
+                    objPartNumberList = db.pr_getPartnumberByPPTQ(pptq).Distinct().ToList();
+                }
+            }
+            else
+            {
+                if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+                {
+                    int site = Convert.ToInt32(Session["site"]);
+                    objPartNumberList = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, site, partnumberstatus).Distinct().ToList();
+                }
+                else
+                {
+                    objPartNumberList = db.pr_getPartnumberByPPTQandStatus(pptq, partnumberstatus).Distinct().ToList();
+                }
+
+                //if (objPartNumberList.Count < 2)
+                //{
+                //    if (partnumberstatus == Status.INCOMPLETE)
+                //    {
+                //        partnumberstatus = Status.NOT_STARTED;
+                //        Session["partnumberstatus"] = Status.NOT_STARTED;
+                //    }
+
+                //    if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+                //    {
+                //        int site = Convert.ToInt32(Session["site"]);
+                //        objPartNumberList = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, site, partnumberstatus).Distinct().ToList();
+                //    }
+                //    else
+                //    {
+                //        objPartNumberList = db.pr_getPartnumberByPPTQandStatus(pptq, partnumberstatus).Distinct().ToList();
+                //    }
+
+                //    if (objPartNumberList.Count < 2)
+                //    {
+                //        partnumberstatus = Status.COMPLETED;
+                //        Session["partnumberstatus"] = Status.COMPLETED;
+                //        if (Session["site"] != null && Int32.Parse(Session["site"].ToString()) != 0)
+                //        {
+                //            int site = Convert.ToInt32(Session["site"]);
+                //            objPartNumberList = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, site, partnumberstatus).Distinct().ToList();
+                //        }
+                //        else
+                //        {
+                //            objPartNumberList = db.pr_getPartnumberByPPTQandStatus(pptq, partnumberstatus).Distinct().ToList();
+                //        }
+                //    }
+
+                //}
+            }
+
+
+            Session["PreviousPartnumber"] = null;
+            int checkNext = 0;
+            int listitemNo = 1;
+            objPartNumberList = objPartNumberList.OrderByDescending(x => x.id).ToList();
+            if (objPartNumberList.Count > 1)
+            {
+                foreach (var item in objPartNumberList)
+                {
+                    if (checkNext == 1)
+                    {
+                        Session["PreviousPartnumber"] = item.id;
+                        break;
+                    }
+                    if (item.id == previouspartnumber)
+                    {
+                        checkNext = 1;
+                    }
+                    listitemNo++;
+                }
+            }
+
+            if (Session["PreviousPartnumber"] == null)
+            {
+                try
+                {
+                    Session["PreviousPartnumber"] = objPartNumberList.FirstOrDefault().id;
+                }
+                catch { }
+            }
+
+        }
+
 
         public void getSitepoint(int pptqID, int siteId)
         {
@@ -1486,6 +1588,31 @@ namespace Generic.Areas.RegistrationArea.Controllers
             Response.Redirect("QuestionnaireResponse?partNumberSelectList=" + partNumberSelectList + "&siteSelectList=" + siteSelectList + "&partnumberStatusSelectList=" + partnumberStatusSelectList);
             return View();
         }
+
+
+        public ActionResult SaveForLater()
+        {
+            updateZcodesAll();
+            Response.Redirect("~/Registration/Home/eSignature");
+            return View();
+        }
+
+        public ActionResult PreviousPartNumberUI()
+        {
+            previouspartnumber();
+            Response.Redirect("QuestionnaireResponse?partNumberSelectList=" + Session["PreviousPartnumber"] +
+"&siteSelectList=" + Session["site"] + "&partnumberStatusSelectList=" + Session["partnumberstatus"]);
+
+            return View();
+        }
+        public ActionResult NextPartNumberUI()
+        {
+            //  nextpartnumber();
+            Response.Redirect("QuestionnaireResponse?partNumberSelectList=" + Session["NextPartnumber"] +
+"&siteSelectList=" + Session["site"] + "&partnumberStatusSelectList=" + Session["partnumberstatus"]);
+            return View();
+        }
+
         public ActionResult GetPartNumberByDropdown(int siteID, int partnumberStatusID)
         {
             if (Session["hs3Registration"] == null)
@@ -1584,7 +1711,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
                     }
                 }
-               
+
             }
             else
             {
@@ -1732,7 +1859,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             var dbConext = new EntitiesDBContext();
             int pptq = dbConext.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
-           
+
             foreach (var item in dbConext.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq).ToList())
             {
                 if (item.zcode.Count(x => x == 'Z') == item.zcode.Length)

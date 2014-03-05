@@ -3814,5 +3814,116 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_addProduct" FunctionName="hs3MVCMTQa2Model.Store.pr_addProduct" />
+    <FunctionImportMapping FunctionImportName="pr_addSubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_addSubscriptiontype" />
+    <FunctionImportMapping FunctionImportName="pr_archiveProduct" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveProduct" />
+    <FunctionImportMapping FunctionImportName="pr_archiveSubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveSubscriptiontype" />
+    <FunctionImportMapping FunctionImportName="pr_getCalculatedCostForEnterpriseSubscription" FunctionName="hs3MVCMTQa2Model.Store.pr_getCalculatedCostForEnterpriseSubscription" />
+    <FunctionImportMapping FunctionImportName="pr_getCountFromPPTQByStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getCountFromPPTQByStatus">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCountFromPPTQByStatus_Result">
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+          <ScalarProperty Name="Incomplete" ColumnName="Incomplete" />
+          <ScalarProperty Name="Not_Started" ColumnName="Not Started" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getPartnerStatusCountByTouchpointQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerStatusCountByTouchpointQuestionnaire">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerStatusCountByTouchpointQuestionnaire_Result">
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+          <ScalarProperty Name="Incompleted" ColumnName="Incompleted" />
+          <ScalarProperty Name="No_Response" ColumnName="No Response" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getProduct" FunctionName="hs3MVCMTQa2Model.Store.pr_getProduct">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getProduct_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="productNumber" ColumnName="productNumber" />
+          <ScalarProperty Name="inhouse" ColumnName="inhouse" />
+          <ScalarProperty Name="salable" ColumnName="salable" />
+          <ScalarProperty Name="ourCost" ColumnName="ourCost" />
+          <ScalarProperty Name="listPrice" ColumnName="listPrice" />
+          <ScalarProperty Name="sellingPrice" ColumnName="sellingPrice" />
+          <ScalarProperty Name="productLine" ColumnName="productLine" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getProductAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getProductAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getProductAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="productNumber" ColumnName="productNumber" />
+          <ScalarProperty Name="inhouse" ColumnName="inhouse" />
+          <ScalarProperty Name="salable" ColumnName="salable" />
+          <ScalarProperty Name="ourCost" ColumnName="ourCost" />
+          <ScalarProperty Name="listPrice" ColumnName="listPrice" />
+          <ScalarProperty Name="sellingPrice" ColumnName="sellingPrice" />
+          <ScalarProperty Name="productLine" ColumnName="productLine" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireByAccesscode" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireByAccesscode">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireByAccesscode_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="footer" ColumnName="footer" />
+          <ScalarProperty Name="locked" ColumnName="locked" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="multiLanguage" ColumnName="multiLanguage" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="person" ColumnName="person" />
+          <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+          <ScalarProperty Name="letter" ColumnName="letter" />
+          <ScalarProperty Name="levelType" ColumnName="levelType" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ_Result">
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="response" ColumnName="response" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getSubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptiontype">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSubscriptiontype_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getSubscriptiontypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptiontypeAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSubscriptiontypeAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_modifyProduct" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyProduct" />
+    <FunctionImportMapping FunctionImportName="pr_modifySubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_modifySubscriptiontype" />
+    <FunctionImportMapping FunctionImportName="pr_removeProduct" FunctionName="hs3MVCMTQa2Model.Store.pr_removeProduct" />
+    <FunctionImportMapping FunctionImportName="pr_removeSubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_removeSubscriptiontype" />
+    <FunctionImportMapping FunctionImportName="pr_resetPartnumberStatusAndZcodeByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_resetPartnumberStatusAndZcodeByAccessCode" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveProduct" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveProduct" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveSubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveSubscriptiontype" />
   </EntityContainerMapping>
 </Mapping>

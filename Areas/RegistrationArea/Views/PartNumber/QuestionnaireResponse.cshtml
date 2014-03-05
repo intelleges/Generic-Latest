@@ -9,7 +9,7 @@
 
 <script type="text/javascript" src="@Url.Content("~/contents/js/animatedcollapse.js")"></script>
 <script src="~/Scripts/jquery.blockUI.js"></script>
-
+<link href="~/Contents/css/progressbar.css" rel="stylesheet" />
 
 
 <script type="text/javascript">
@@ -31,9 +31,28 @@
         e.preventDefault();
 
     });
+   
     $(document).ready(function () {
-        //$('input[type=radio]').attr('data-val', 'true').attr('data-val-required', 'Required');
+        $("#btnSaveForLater").click(function (e) {
 
+            window.location.replace("Saveforlater");
+           
+        });
+        
+
+        $("#imgBtnPrevious").click(function (e) {
+
+            window.location.replace("PreviousPartNumberUI");
+
+        });
+
+
+        $("#imgBtnNext").click(function (e) {
+
+            window.location.replace("NextPartNumberUI");
+
+        });
+        
     });
 
 </script>
@@ -459,7 +478,7 @@ top: -50px;
 </script>
 
 @section Bottom{
-    <div class="banner1">
+    <div class="">
         <table width="100%" border="0" cellspacing="0" cellpadding="0" style="float: left;">
             <tr>
                 <td width="20%" align="right">
@@ -574,6 +593,12 @@ top: -50px;
         </tr>
     </table>
 }
+
+
+@section zCodes{
+    @Html.Raw(ViewBag.zcodeList)
+}
+
 @using (Html.BeginForm("QuestionnaireResponse", "PartNumber", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="supplycon">
@@ -627,14 +652,12 @@ top: -50px;
                                                     <td>
 
 
-                                                        <input ID="imgBtnPrevious" type="image" alt="Previous" src="@Url.Content("~/Contents/images/buttonPrevious.jpg")"
-                                                      />
+                                                        <input ID="imgBtnPrevious" type="button" style="font-weight:bold"  value="<<" />
                                                     </td>
                                                     <td>&nbsp;&nbsp;
                                                     </td>
                                                     <td>
-                                                        <input runat="server" type="image" ID="imgBtnNext" alt="Next" src="@Url.Content("~/Contents/images/button.jpg")"
-                                                     />
+                                                        <input type="button" ID="imgBtnNext" style="font-weight:bold" value=">>" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -651,7 +674,7 @@ top: -50px;
                 <tr>
                     <td></td>
                     <td align="right">
-                        <input type="submit" value="@ViewBag.SAVE_FOR_LATER_TEXT" />
+                        <input type="button" id="btnSaveForLater" value="@ViewBag.SAVE_FOR_LATER_TEXT" />
                         <p>
                             <span id="lblQuestionnaireTitle" class="redheader"></span>
                         </p>
@@ -672,8 +695,7 @@ top: -50px;
                             <div style="width: 800px;" align="left">
 
 
-                                 @Html.Raw(ViewBag.zcodeList)
-
+                              
 
 
                                 @Html.Raw(ViewBag.questions)

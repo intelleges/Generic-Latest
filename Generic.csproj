@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="ChargifyNET">
+      <HintPath>..\packages\chargify.1.0.5169.17336\lib\net35\ChargifyNET.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -164,6 +167,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="WebMatrix.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="WebMatrix.WebData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="accessLevel.cs">
@@ -512,6 +517,7 @@
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\PersonComboModel.cs" />
     <Compile Include="Models\ProductTypeModel.cs" />
+    <Compile Include="Models\SignupModels.cs" />
     <Compile Include="Models\StringContainer.cs" />
     <Compile Include="Models\TouchpointComboModel.cs" />
     <Compile Include="numberSeed.cs">
@@ -669,6 +675,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAutoMailType_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getCountFromPPTQByStatus_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCountryAll_Result.cs">
@@ -875,6 +884,9 @@
     <Compile Include="pr_getPartnerrRemitAddress_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerStatusCountByTouchpointQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerTypeAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1019,6 +1031,12 @@
     <Compile Include="pr_getPPTQByStatus_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getProductAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getProduct_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getProtocolAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1044,6 +1062,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getQuestionnaireAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getQuestionnaireByAccesscode_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getQuestionnaireByPage_Result.cs">
@@ -1101,6 +1122,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getResponseByLanguage_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getResponseByQuestion_Result.cs">
@@ -1170,6 +1194,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getState_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getSubscriptiontypeAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getSubscriptiontype_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getSurveyAll_Result.cs">
@@ -1369,6 +1399,7 @@
     <Content Include="Contents\css\menu - Copy.css" />
     <Content Include="Contents\css\menu.css" />
     <Content Include="Contents\css\menuone.css" />
+    <Content Include="Contents\css\progressbar.css" />
     <Content Include="Contents\css\results.css" />
     <Content Include="Contents\css\scrollbar.css" />
     <Content Include="Contents\css\style.css" />
@@ -1686,6 +1717,7 @@
     <Content Include="Contents\images\previous_arrow.gif" />
     <Content Include="Contents\images\previous_button.gif" />
     <Content Include="Contents\images\proceed.gif" />
+    <Content Include="Contents\images\progress.png" />
     <Content Include="Contents\images\prosser.jpg" />
     <Content Include="Contents\images\providerTemplate.JPG" />
     <Content Include="Contents\images\questionnaire-bg.gif" />
@@ -2255,6 +2287,7 @@
     <Content Include="Scripts\2013.2.611\telerik.upload.min.js" />
     <Content Include="Scripts\2013.2.611\telerik.window.min.js" />
     <Content Include="Scripts\alertify.js" />
+    <Content Include="wallet.ico" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2614,10 +2647,13 @@
     <Content Include="Views\UserHome\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\UserHome\Partials\SelectProduct.cshtml" />
+    <Content Include="Views\UserHome\SelectProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\UserHome\SelectProduct.cshtml" />
+    <Content Include="Views\UserHome\ProductDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UserHome\Partials\AccountInfo.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

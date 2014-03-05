@@ -5,158 +5,152 @@
     Layout = "~/tmp/Views/Shared/_LayoutMaster.cshtml";    
 }
 <style>
-
     .footer {
-
-background-color: white!important;
-border-top:2px #a9c2c9 solid!important;
-
-}
-
+        background-color: white!important;
+        border-top: 2px #a9c2c9 solid!important;
+    }
 </style>
- <script type="text/javascript">
-     try {
-         var pageTracker = _gat._getTracker("UA-7827202-1");
-         pageTracker._trackPageview();
-     } catch (err) { }</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-7827202-1");
+        pageTracker._trackPageview();
+    } catch (err) { }</script>
 
-
-    <link rel="icon" href="@Url.Content("~/Contents/images/favicon.ico")" type="image/ico">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Intelleges</title>
-  <link href="@Url.Content("~/Contents/RegistrationStyle/css/styles.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Contents/RegistrationStyle/css/menu.css")" rel="stylesheet" type="text/css" />
-    
-    <link rel="stylesheet" href="@Url.Content("~/Contents/RegistrationStyle/divwindow/css/dhtmlwindow.css")" type="text/css" />
-
-
-
-
-    
-<script type ="text/javascript" src="https://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js">s</script>
-    @*<script type="text/javascript"  src="/Contents/js/modal.js"></script>*@
+<link rel="icon" href="@Url.Content("~/Contents/images/favicon.ico")" type="image/ico">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Intelleges</title>
+<link href="@Url.Content("~/Contents/RegistrationStyle/css/styles.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Contents/RegistrationStyle/css/menu.css")" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="@Url.Content("~/Contents/RegistrationStyle/divwindow/css/dhtmlwindow.css")" type="text/css" />
+<script type="text/javascript" src="https://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js">s</script>
 <link href="@Url.Content("~/Contents/css/gfdynamicfeedcontroller.css")" type="text/css" rel="stylesheet" />
 
-
- @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jqueryui")
-    @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jqueryui")
+@(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
                 .Add("telerik.common.css")
                 .Add("telerik.rtl.css")
                 .Combined(true)
                 .Compress(true)))
 
-<body>
-    
 
-    <!-- Contact us : -->
+@{Html.Telerik().Splitter().Name("Splitter1")
+      .HtmlAttributes(new { style = "height: 600px;" })
+      .Orientation(SplitterOrientation.Vertical)
+      .Panes(vPanes =>
+      {
+          vPanes.Add()
+              .Size("100px")
+              .Collapsible(true).Collapsed(true)
+              .Content(@<div>
 
-    <script type="text/javascript">
-        function contact() { //Define arbitrary function to run desired DHTML Window widget codes
-        //    emailwindow = dhtmlmodal.open("ajaxbox", "iframe", "RegistrationStyle/divwindow/contact_us.php", "", "width=452px,height=600px,left=8px,top=1px,resize=0,scrolling=0")
-        }
-    </script>
-        <div id="dhtmlwindowholder"><span style="display:none"></span></div>
-        <div>
-            @RenderSection("Bottom", required: false)
-        </div>
-        
-   
-    
-    <!-- Contact us Ends : -->
-    <div class="main"> 
-        
-        <div class="content">
-            <div class="infologinbanner">
-            @RenderSection("Top", false)
-            </div>
-            
-    <div class="supplycon">
-        <div class="commonh">
-        </div>
-        <div>
-            <table width="89%" height="78" border="0" align="center" cellpadding="0" cellspacing="0">
-               
-                <tr>
-                    <td>
-                        &nbsp;
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                       
-                                     @RenderBody()
-                                   
-                        
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @*<span style="color: #8faebb;">*Required Fields</span>*@
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
+                  @RenderSection("zCodes", required: false)
 
-            <div>
-                 @RenderSection("BottomFooter", required: false)
-            </div>
-           
-            @*<div class="supplyfot">
-                <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td height="60">
-                            &nbsp;
-                        </td>
-                    </tr>
-                </table>
-            </div>*@
-        </div>
-        <div class="footer">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td width="66%" class="textone">
-                    </td>
-                    <td width="34%" align="right" class="texttwo">
-                        <div style="margin-right: 18px;">
-                             
-                            Copyright &copy; @DateTime.Now.Year, Intelleges @Html.Raw("&#174;"). All rights reserved.</div>
-                   
-                        
-                     
-                        
 
-                        
 
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="bluebg">
-        </div>
-    </div>
+                        </div>);
 
- @RenderSection("scripts", required: false)
-  <script src="~/Scripts/jquery-1.8.2.js"></script>
-    <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
-    <script type="text/javascript">
-        jQuery.noConflict();
-        jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
-    </script>
+          vPanes.Add()
+              .Scrollable(false)
+              .Content(Html.Telerik().Splitter().Name("Splitter2")
+                      .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; overflow: hidden;" })
+                      .Orientation(SplitterOrientation.Horizontal)
+                      .Panes(hPanes =>
+                      {
+                          hPanes.Add()
+                              .Size("150px")
+                              .Collapsible(true).Collapsed(true)
+                              .Content(@<p>Inner splitter :: left pane</p>);
 
-    
+                          hPanes.Add()
+                              .Content(@<div id="container">
+
+
+                                  <div id="dhtmlwindowholder"><span style="display: none"></span></div>
+                                  <div>
+                                      @RenderSection("Bottom", required: false)
+                                  </div>
+
+                                  <div class="main">
+                                      <div class="content">
+                                          <div class="infologinbanner">
+                                              @RenderSection("Top", false)
+                                          </div>
+                                          <div class="supplycon">
+                                              <div class="commonh">
+                                              </div>
+                                              <div style="border-bottom: 2px solid gray;">
+                                                  <table width="89%" height="78" border="0" align="center" cellpadding="0" cellspacing="0">
+                                                      <tr>
+                                                          <td>&nbsp;
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>
+                                                              @RenderBody()
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td></td>
+                                                      </tr>
+                                                  </table>
+                                              </div>
+                                          </div>
+
+                                          <div>
+                                              @RenderSection("BottomFooter", required: false)
+                                          </div>
+                                      </div>
+                                      
+                                  </div>
+
+
+
+
+
+                              </div>);
+
+                          hPanes.Add()
+                              .Size("20%")
+                              .Collapsible(true).Collapsed(true)
+                              .Content(@<p>Inner splitter :: right pane</p>);
+                      }).ToString());
+
+          vPanes.Add()
+              .Size("20%")
+              .Collapsible(true).Collapsed(true)
+              .Content(@<div class="footer2">
+                                          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                              <tr>
+                                                  <td width="66%" class="textone"></td>
+                                                  <td width="34%" align="right" class="texttwo">
+                                                      <div style="margin-right: 18px;">
+                                                          Copyright &copy; @DateTime.Now.Year, Intelleges @Html.Raw("&#174;"). All rights reserved.
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                      </div>
+                                     );
+      })
+      .Render();
+}
+
+
+
+
+@RenderSection("scripts", required: false)
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+<script type="text/javascript">
+    jQuery.noConflict();
+    jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
+</script>
 @(Html.Telerik().ScriptRegistrar()
     .DefaultGroup(group => group
         .Combined(true)
         .Compress(true)
-    )    
-)
-
-
-    @Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
-    
-
-</body>
-
+     )
+    )
+@Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))

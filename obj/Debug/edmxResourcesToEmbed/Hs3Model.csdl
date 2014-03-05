@@ -3057,6 +3057,91 @@
     <FunctionImport Name="pr_getPartnumberSiteZcodeByPPTQForUI" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberSiteZcodeByPPTQForUI_Result)">
       <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="pr_addProduct" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="ProductNumber" Mode="In" Type="String" />
+      <Parameter Name="inhouse" Mode="In" Type="Boolean" />
+      <Parameter Name="salable" Mode="In" Type="Boolean" />
+      <Parameter Name="ourCost" Mode="In" Type="Decimal" />
+      <Parameter Name="listPrice" Mode="In" Type="Decimal" />
+      <Parameter Name="sellingPrice" Mode="In" Type="Decimal" />
+      <Parameter Name="ProductLine" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addSubscriptiontype" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveProduct">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveSubscriptiontype">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getCalculatedCostForEnterpriseSubscription" ReturnType="Collection(Int32)">
+      <Parameter Name="userCount" Mode="In" Type="Int32" />
+      <Parameter Name="partnerCount" Mode="In" Type="Int32" />
+      <Parameter Name="partnumberCount" Mode="In" Type="Int32" />
+      <Parameter Name="subscriptionType" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getCountFromPPTQByStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCountFromPPTQByStatus_Result)">
+      <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getPartnerStatusCountByTouchpointQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerStatusCountByTouchpointQuestionnaire_Result)">
+      <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getProduct" ReturnType="Collection(hs3MVCMTQa2Model.pr_getProduct_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getProductAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getProductAll_Result)" />
+    <FunctionImport Name="pr_getQuestionnaireByAccesscode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByAccesscode_Result)">
+      <Parameter Name="accesscode" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ_Result)">
+      <Parameter Name="question" Mode="In" Type="Int32" />
+      <Parameter Name="partnumberSiteZcodePPTQ" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getSubscriptiontype" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptiontype_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getSubscriptiontypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptiontypeAll_Result)" />
+    <FunctionImport Name="pr_modifyProduct">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="ProductNumber" Mode="In" Type="String" />
+      <Parameter Name="inhouse" Mode="In" Type="Boolean" />
+      <Parameter Name="salable" Mode="In" Type="Boolean" />
+      <Parameter Name="ourCost" Mode="In" Type="Decimal" />
+      <Parameter Name="listPrice" Mode="In" Type="Decimal" />
+      <Parameter Name="sellingPrice" Mode="In" Type="Decimal" />
+      <Parameter Name="ProductLine" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifySubscriptiontype">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeProduct">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeSubscriptiontype">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_resetPartnumberStatusAndZcodeByAccessCode" ReturnType="Collection(Int32)">
+      <Parameter Name="accesscode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveProduct">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveSubscriptiontype">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="accessLevel">
     <Key>
@@ -8299,5 +8384,72 @@
     <Property Type="String" Name="site" Nullable="false" MaxLength="200" />
     <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
     <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="pr_getCountFromPPTQByStatus_Result">
+    <Property Type="Int32" Name="Completed" Nullable="false" />
+    <Property Type="Int32" Name="Incomplete" Nullable="false" />
+    <Property Type="Int32" Name="Not_Started" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getPartnerStatusCountByTouchpointQuestionnaire_Result">
+    <Property Type="Int32" Name="Completed" Nullable="false" />
+    <Property Type="Int32" Name="Incompleted" Nullable="false" />
+    <Property Type="Int32" Name="No_Response" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getProduct_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="productNumber" Nullable="true" MaxLength="50" />
+    <Property Type="Boolean" Name="inhouse" Nullable="false" />
+    <Property Type="Boolean" Name="salable" Nullable="false" />
+    <Property Type="Decimal" Name="ourCost" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="listPrice" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="sellingPrice" Nullable="true" Precision="19" />
+    <Property Type="Int32" Name="productLine" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getProductAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="productNumber" Nullable="true" MaxLength="50" />
+    <Property Type="Boolean" Name="inhouse" Nullable="false" />
+    <Property Type="Boolean" Name="salable" Nullable="false" />
+    <Property Type="Decimal" Name="ourCost" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="listPrice" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="sellingPrice" Nullable="true" Precision="19" />
+    <Property Type="Int32" Name="productLine" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getQuestionnaireByAccesscode_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="footer" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="locked" Nullable="true" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="multiLanguage" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+    <Property Type="Int32" Name="person" Nullable="false" />
+    <Property Type="Int32" Name="partnerType" Nullable="false" />
+    <Property Type="Int32" Name="letter" Nullable="true" />
+    <Property Type="Int32" Name="levelType" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ_Result">
+    <Property Type="Int32" Name="question" Nullable="false" />
+    <Property Type="Int32" Name="response" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getSubscriptiontype_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="false" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getSubscriptiontypeAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="false" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
   </ComplexType>
 </Schema>
