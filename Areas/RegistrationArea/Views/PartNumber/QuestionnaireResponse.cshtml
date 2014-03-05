@@ -53,6 +53,10 @@
 
         });
         
+
+        $('#zcodeSplitter').show();
+
+
     });
 
 </script>
@@ -596,7 +600,10 @@ top: -50px;
 
 
 @section zCodes{
-    @Html.Raw(ViewBag.zcodeList)
+    <div id="zcodeSplitter" style="display:none">    @Html.Raw(ViewBag.zcodeList)
+
+        </div>
+
 }
 
 @using (Html.BeginForm("QuestionnaireResponse", "PartNumber", FormMethod.Post, new { enctype = "multipart/form-data" }))
