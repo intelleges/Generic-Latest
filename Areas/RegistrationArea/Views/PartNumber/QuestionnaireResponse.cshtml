@@ -9,7 +9,7 @@
 
 <script type="text/javascript" src="@Url.Content("~/contents/js/animatedcollapse.js")"></script>
 <script src="~/Scripts/jquery.blockUI.js"></script>
-<link href="~/Contents/css/progressbar.css" rel="stylesheet" />
+
 
 
 <script type="text/javascript">
@@ -53,10 +53,6 @@
 
         });
         
-
-        //$('#zcodeSplitter').show();
-
-
     });
 
 </script>
@@ -600,10 +596,7 @@ top: -50px;
 
 
 @section zCodes{
-     @Html.Raw(ViewBag.zcodeList)
-
-        
-
+    @Html.Raw(ViewBag.zcodeList)
 }
 
 @using (Html.BeginForm("QuestionnaireResponse", "PartNumber", FormMethod.Post, new { enctype = "multipart/form-data" }))
