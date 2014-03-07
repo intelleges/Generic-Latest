@@ -76,6 +76,7 @@
     <EntitySet Name="personRole" EntityType="hs3MVCMTQa2Model.Store.personRole" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="personSearchCount" EntityType="hs3MVCMTQa2Model.Store.personSearchCount" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="personStatus" EntityType="hs3MVCMTQa2Model.Store.personStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="product" EntityType="hs3MVCMTQa2Model.Store.product" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="protocol" EntityType="hs3MVCMTQa2Model.Store.protocol" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="protocolTouchpoint" EntityType="hs3MVCMTQa2Model.Store.protocolTouchpoint" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="query" EntityType="hs3MVCMTQa2Model.Store.query" store:Type="Tables" Schema="dbo" />
@@ -94,6 +95,11 @@
     <EntitySet Name="ratingType" EntityType="hs3MVCMTQa2Model.Store.ratingType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="response" EntityType="hs3MVCMTQa2Model.Store.response" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="responseLanguage" EntityType="hs3MVCMTQa2Model.Store.responseLanguage" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="responseTemp" EntityType="hs3MVCMTQa2Model.Store.responseTemp" store:Type="Tables" store:Schema="dbo" store:Name="responseTemp">
+      <DefiningQuery>SELECT 
+      [responseTemp].[description] AS [description]
+      FROM [dbo].[responseTemp] AS [responseTemp]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="responseTranslation" EntityType="hs3MVCMTQa2Model.Store.responseTranslation" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="responseType" EntityType="hs3MVCMTQa2Model.Store.responseType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="responseZcode" EntityType="hs3MVCMTQa2Model.Store.responseZcode" store:Type="Tables" store:Schema="dbo" store:Name="responseZcode">
@@ -120,7 +126,10 @@
       [sizingStandard].[numOfEmployees] AS [numOfEmployees]
       FROM [dbo].[sizingStandard] AS [sizingStandard]</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="sorter" EntityType="hs3MVCMTQa2Model.Store.sorter" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="state" EntityType="hs3MVCMTQa2Model.Store.state" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="subscriptionStatus" EntityType="hs3MVCMTQa2Model.Store.subscriptionStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="subscriptionType" EntityType="hs3MVCMTQa2Model.Store.subscriptionType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="survey" EntityType="hs3MVCMTQa2Model.Store.survey" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="surveyQuestion" EntityType="hs3MVCMTQa2Model.Store.surveyQuestion" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="surveyset" EntityType="hs3MVCMTQa2Model.Store.surveyset" store:Type="Tables" Schema="dbo" />
@@ -729,6 +738,18 @@
     <Property Name="applicationPath" Type="varchar" MaxLength="500" />
     <Property Name="companyName" Type="varchar" MaxLength="50" />
     <Property Name="instanceName" Type="varchar" MaxLength="50" />
+    <Property Name="userMax" Type="int" />
+    <Property Name="partnerMax" Type="int" />
+    <Property Name="partnumberMax" Type="int" />
+    <Property Name="product" Type="int" />
+    <Property Name="subscriptionType" Type="int" />
+    <Property Name="freeTrialStartDate" Type="date" />
+    <Property Name="freeTrialEndDate" Type="date" />
+    <Property Name="licenseStartDate" Type="date" />
+    <Property Name="licenseEndDate" Type="date" />
+    <Property Name="monthlyFee" Type="money" />
+    <Property Name="subscriptionStatus" Type="int" />
+    <Property Name="chargifyID" Type="varchar" MaxLength="50" />
     <Property Name="archivedDate" Type="date" />
   </EntityType>
   <EntityType Name="enterpriseMenu">
@@ -1542,6 +1563,22 @@
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
   </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="productNumber" Type="varchar" MaxLength="50" />
+    <Property Name="inhouse" Type="bit" Nullable="false" />
+    <Property Name="salable" Type="bit" Nullable="false" />
+    <Property Name="ourCost" Type="money" />
+    <Property Name="listPrice" Type="money" />
+    <Property Name="sellingPrice" Type="money" />
+    <Property Name="productLine" Type="int" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="sortOrder" Type="int" />
+  </EntityType>
   <EntityType Name="protocol">
     <Key>
       <PropertyRef Name="id" />
@@ -1758,6 +1795,15 @@
     <Property Name="response" Type="int" Nullable="false" />
     <Property Name="language" Type="int" Nullable="false" />
   </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.responseTemp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="responseTemp">
+    <Key>
+      <PropertyRef Name="description" />
+    </Key>
+    <Property Name="description" Type="varchar(max)" Nullable="false" />
+  </EntityType>
   <EntityType Name="responseTranslation">
     <Key>
       <PropertyRef Name="response" />
@@ -1879,6 +1925,13 @@
     <Property Name="revenue" Type="decimal" Precision="5" Scale="2" />
     <Property Name="numOfEmployees" Type="int" />
   </EntityType>
+  <EntityType Name="sorter">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="sortOrder" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="state">
     <Key>
       <PropertyRef Name="id" />
@@ -1889,6 +1942,24 @@
     <Property Name="sortOrder" Type="int" />
     <Property Name="active" Type="bit" />
     <Property Name="enterprise" Type="int" />
+  </EntityType>
+  <EntityType Name="subscriptionStatus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" />
+    <Property Name="active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="subscriptionType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="sortOrder" Type="int" Nullable="false" />
+    <Property Name="active" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="survey">
     <Key>
@@ -3486,6 +3557,18 @@
     <Parameter Name="applicationPath" Type="varchar" Mode="In" />
     <Parameter Name="companyName" Type="varchar" Mode="In" />
     <Parameter Name="instanceName" Type="varchar" Mode="In" />
+    <Parameter Name="userMax" Type="int" Mode="In" />
+    <Parameter Name="partnerMax" Type="int" Mode="In" />
+    <Parameter Name="partnumberMax" Type="int" Mode="In" />
+    <Parameter Name="product" Type="int" Mode="In" />
+    <Parameter Name="subscriptionType" Type="int" Mode="In" />
+    <Parameter Name="freeTrialStartDate" Type="date" Mode="In" />
+    <Parameter Name="freeTrialEndDate" Type="date" Mode="In" />
+    <Parameter Name="licenseStartDate" Type="date" Mode="In" />
+    <Parameter Name="licenseEndDate" Type="date" Mode="In" />
+    <Parameter Name="monthlyFee" Type="money" Mode="In" />
+    <Parameter Name="subscriptionStatus" Type="int" Mode="In" />
+    <Parameter Name="chargifyID" Type="varchar" Mode="In" />
     <Parameter Name="archivedDate" Type="date" Mode="In" />
   </Function>
   <Function Name="pr_addEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3788,13 +3871,13 @@
   </Function>
   <Function Name="pr_addProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="description" Type="varchar" Mode="In" />
-    <Parameter Name="ProductNumber" Type="varchar" Mode="In" />
+    <Parameter Name="productNumber" Type="varchar" Mode="In" />
     <Parameter Name="inhouse" Type="bit" Mode="In" />
     <Parameter Name="salable" Type="bit" Mode="In" />
     <Parameter Name="ourCost" Type="money" Mode="In" />
     <Parameter Name="listPrice" Type="money" Mode="In" />
     <Parameter Name="sellingPrice" Type="money" Mode="In" />
-    <Parameter Name="ProductLine" Type="int" Mode="In" />
+    <Parameter Name="productLine" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
   </Function>
@@ -3976,7 +4059,12 @@
     <Parameter Name="active" Type="bit" Mode="In" />
     <Parameter Name="enterprise" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_addSubscriptiontype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_addSubscriptionStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_addSubscriptionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="description" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
@@ -4053,9 +4141,6 @@
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_archiveEmailTemplateType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="pr_archiveEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_archiveGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -4155,7 +4240,10 @@
   <Function Name="pr_archiveState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_archiveSubscriptiontype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_archiveSubscriptionStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_archiveSubscriptionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_archiveSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -4709,6 +4797,9 @@
   <Function Name="pr_getQuestionnaireByPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="partnumberSiteZcodePPTQ" Type="int" Mode="In" />
   </Function>
+  <Function Name="pr_getQuestionnaireByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question" Type="int" Mode="In" />
+  </Function>
   <Function Name="pr_getQuestionnaireCMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
@@ -4753,6 +4844,9 @@
   <Function Name="pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="question" Type="int" Mode="In" />
     <Parameter Name="partnumberSiteZcodePPTQ" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getResponseByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionnaire" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_getResponseByTranslation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="translation" Type="int" Mode="In" />
@@ -4839,10 +4933,14 @@
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="stateName" Type="char" Mode="InOut" />
   </Function>
-  <Function Name="pr_getSubscriptiontype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_getSubscriptionStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_getSubscriptiontypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getSubscriptionStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="pr_getSubscriptionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_getSubscriptionTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="pr_getSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
@@ -4968,6 +5066,18 @@
     <Parameter Name="applicationPath" Type="varchar" Mode="In" />
     <Parameter Name="companyName" Type="varchar" Mode="In" />
     <Parameter Name="instanceName" Type="varchar" Mode="In" />
+    <Parameter Name="userMax" Type="int" Mode="In" />
+    <Parameter Name="partnerMax" Type="int" Mode="In" />
+    <Parameter Name="partnumberMax" Type="int" Mode="In" />
+    <Parameter Name="product" Type="int" Mode="In" />
+    <Parameter Name="subscriptionType" Type="int" Mode="In" />
+    <Parameter Name="freeTrialStartDate" Type="date" Mode="In" />
+    <Parameter Name="freeTrialEndDate" Type="date" Mode="In" />
+    <Parameter Name="licenseStartDate" Type="date" Mode="In" />
+    <Parameter Name="licenseEndDate" Type="date" Mode="In" />
+    <Parameter Name="monthlyFee" Type="money" Mode="In" />
+    <Parameter Name="subscriptionStatus" Type="int" Mode="In" />
+    <Parameter Name="chargifyID" Type="varchar" Mode="In" />
     <Parameter Name="archivedDate" Type="date" Mode="In" />
   </Function>
   <Function Name="pr_modifyEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5308,13 +5418,13 @@
   <Function Name="pr_modifyProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="description" Type="varchar" Mode="In" />
-    <Parameter Name="ProductNumber" Type="varchar" Mode="In" />
+    <Parameter Name="productNumber" Type="varchar" Mode="In" />
     <Parameter Name="inhouse" Type="bit" Mode="In" />
     <Parameter Name="salable" Type="bit" Mode="In" />
     <Parameter Name="ourCost" Type="money" Mode="In" />
     <Parameter Name="listPrice" Type="money" Mode="In" />
     <Parameter Name="sellingPrice" Type="money" Mode="In" />
-    <Parameter Name="ProductLine" Type="int" Mode="In" />
+    <Parameter Name="productLine" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
   </Function>
@@ -5485,7 +5595,13 @@
     <Parameter Name="sortOrder" Type="int" Mode="In" />
     <Parameter Name="active" Type="bit" Mode="In" />
   </Function>
-  <Function Name="pr_modifySubscriptiontype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_modifySubscriptionStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar" Mode="In" />
+    <Parameter Name="sortOrder" Type="int" Mode="In" />
+    <Parameter Name="active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="pr_modifySubscriptionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="description" Type="varchar" Mode="In" />
     <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -5757,7 +5873,10 @@
   <Function Name="pr_removeState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_removeSubscriptiontype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_removeSubscriptionStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_removeSubscriptionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_removeSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5812,9 +5931,6 @@
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_unArchiveEmailTemplateType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="pr_unArchiveEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_unArchiveGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5914,7 +6030,10 @@
   <Function Name="pr_unArchiveState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
-  <Function Name="pr_unArchiveSubscriptiontype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="pr_unArchiveSubscriptionStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="pr_unArchiveSubscriptionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="pr_unArchiveSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">

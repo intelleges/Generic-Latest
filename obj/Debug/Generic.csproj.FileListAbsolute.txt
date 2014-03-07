@@ -96,7 +96,9 @@ C:\Users\John\Desktop\MVCMT\Generic\obj\Debug\Generic.dll
 C:\Users\John\Desktop\MVCMT\Generic\obj\Debug\Generic.pdb
 C:\Users\john\Desktop\hs3MVC\Generic\bin\Generic.dll
 C:\Users\john\Desktop\hs3MVC\Generic\bin\Generic.pdb
+C:\Users\john\Desktop\hs3MVC\Generic\bin\ChargifyNET.dll
 C:\Users\john\Desktop\hs3MVC\Generic\bin\EntityFramework.dll
+C:\Users\john\Desktop\hs3MVC\Generic\bin\HtmlAgilityPack.dll
 C:\Users\john\Desktop\hs3MVC\Generic\bin\LinqToExcel.dll
 C:\Users\john\Desktop\hs3MVC\Generic\bin\log4net.dll
 C:\Users\john\Desktop\hs3MVC\Generic\bin\Microsoft.Web.Infrastructure.dll
@@ -115,6 +117,8 @@ C:\Users\john\Desktop\hs3MVC\Generic\bin\System.Web.WebPages.dll
 C:\Users\john\Desktop\hs3MVC\Generic\bin\System.Web.WebPages.Razor.dll
 C:\Users\john\Desktop\hs3MVC\Generic\bin\Telerik.Web.Mvc.dll
 C:\Users\john\Desktop\hs3MVC\Generic\bin\EntityFramework.xml
+C:\Users\john\Desktop\hs3MVC\Generic\bin\HtmlAgilityPack.pdb
+C:\Users\john\Desktop\hs3MVC\Generic\bin\HtmlAgilityPack.xml
 C:\Users\john\Desktop\hs3MVC\Generic\bin\LinqToExcel.xml
 C:\Users\john\Desktop\hs3MVC\Generic\bin\Newtonsoft.Json.xml
 C:\Users\john\Desktop\hs3MVC\Generic\bin\System.Net.Http.Formatting.xml
@@ -126,10 +130,6 @@ C:\Users\john\Desktop\hs3MVC\Generic\bin\System.Web.Razor.xml
 C:\Users\john\Desktop\hs3MVC\Generic\bin\System.Web.WebPages.xml
 C:\Users\john\Desktop\hs3MVC\Generic\bin\System.Web.WebPages.Deployment.xml
 C:\Users\john\Desktop\hs3MVC\Generic\bin\System.Web.WebPages.Razor.xml
-C:\Users\john\Desktop\hs3MVC\Generic\obj\Debug\Generic.csprojResolveAssemblyReference.cache
 C:\Users\john\Desktop\hs3MVC\Generic\obj\Debug\Generic.dll
 C:\Users\john\Desktop\hs3MVC\Generic\obj\Debug\Generic.pdb
-C:\Users\john\Desktop\hs3MVC\Generic\bin\HtmlAgilityPack.dll
-C:\Users\john\Desktop\hs3MVC\Generic\bin\HtmlAgilityPack.pdb
-C:\Users\john\Desktop\hs3MVC\Generic\bin\HtmlAgilityPack.xml
-C:\Users\john\Desktop\hs3MVC\Generic\bin\ChargifyNET.dll
+C:\Users\john\Desktop\hs3MVC\Generic\obj\Debug\Generic.csprojResolveAssemblyReference.cache

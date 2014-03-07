@@ -139,6 +139,11 @@ namespace Generic
         public DbSet<response> response { get; set; }
         public DbSet<responseZcode> responseZcode { get; set; }
         public DbSet<automailMessagePPTQ> automailMessagePPTQ { get; set; }
+        public DbSet<product> product { get; set; }
+        public DbSet<responseTemp> responseTemp { get; set; }
+        public DbSet<sorter> sorter { get; set; }
+        public DbSet<subscriptionStatus> subscriptionStatus { get; set; }
+        public DbSet<subscriptionType> subscriptionType { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -366,7 +371,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addEmailTemplateType", descriptionParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addEnterprise(string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<System.DateTime> archivedDate)
+        public virtual ObjectResult<Nullable<decimal>> pr_addEnterprise(string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<int> userMax, Nullable<int> partnerMax, Nullable<int> partnumberMax, Nullable<int> product, Nullable<int> subscriptionType, Nullable<System.DateTime> freeTrialStartDate, Nullable<System.DateTime> freeTrialEndDate, Nullable<System.DateTime> licenseStartDate, Nullable<System.DateTime> licenseEndDate, Nullable<decimal> monthlyFee, Nullable<int> subscriptionStatus, string chargifyID, Nullable<System.DateTime> archivedDate)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
@@ -396,11 +401,59 @@ namespace Generic
                 new ObjectParameter("instanceName", instanceName) :
                 new ObjectParameter("instanceName", typeof(string));
     
+            var userMaxParameter = userMax.HasValue ?
+                new ObjectParameter("userMax", userMax) :
+                new ObjectParameter("userMax", typeof(int));
+    
+            var partnerMaxParameter = partnerMax.HasValue ?
+                new ObjectParameter("partnerMax", partnerMax) :
+                new ObjectParameter("partnerMax", typeof(int));
+    
+            var partnumberMaxParameter = partnumberMax.HasValue ?
+                new ObjectParameter("partnumberMax", partnumberMax) :
+                new ObjectParameter("partnumberMax", typeof(int));
+    
+            var productParameter = product.HasValue ?
+                new ObjectParameter("product", product) :
+                new ObjectParameter("product", typeof(int));
+    
+            var subscriptionTypeParameter = subscriptionType.HasValue ?
+                new ObjectParameter("subscriptionType", subscriptionType) :
+                new ObjectParameter("subscriptionType", typeof(int));
+    
+            var freeTrialStartDateParameter = freeTrialStartDate.HasValue ?
+                new ObjectParameter("freeTrialStartDate", freeTrialStartDate) :
+                new ObjectParameter("freeTrialStartDate", typeof(System.DateTime));
+    
+            var freeTrialEndDateParameter = freeTrialEndDate.HasValue ?
+                new ObjectParameter("freeTrialEndDate", freeTrialEndDate) :
+                new ObjectParameter("freeTrialEndDate", typeof(System.DateTime));
+    
+            var licenseStartDateParameter = licenseStartDate.HasValue ?
+                new ObjectParameter("licenseStartDate", licenseStartDate) :
+                new ObjectParameter("licenseStartDate", typeof(System.DateTime));
+    
+            var licenseEndDateParameter = licenseEndDate.HasValue ?
+                new ObjectParameter("licenseEndDate", licenseEndDate) :
+                new ObjectParameter("licenseEndDate", typeof(System.DateTime));
+    
+            var monthlyFeeParameter = monthlyFee.HasValue ?
+                new ObjectParameter("monthlyFee", monthlyFee) :
+                new ObjectParameter("monthlyFee", typeof(decimal));
+    
+            var subscriptionStatusParameter = subscriptionStatus.HasValue ?
+                new ObjectParameter("subscriptionStatus", subscriptionStatus) :
+                new ObjectParameter("subscriptionStatus", typeof(int));
+    
+            var chargifyIDParameter = chargifyID != null ?
+                new ObjectParameter("chargifyID", chargifyID) :
+                new ObjectParameter("chargifyID", typeof(string));
+    
             var archivedDateParameter = archivedDate.HasValue ?
                 new ObjectParameter("archivedDate", archivedDate) :
                 new ObjectParameter("archivedDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterprise", descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, archivedDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterprise", descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, userMaxParameter, partnerMaxParameter, partnumberMaxParameter, productParameter, subscriptionTypeParameter, freeTrialStartDateParameter, freeTrialEndDateParameter, licenseStartDateParameter, licenseEndDateParameter, monthlyFeeParameter, subscriptionStatusParameter, chargifyIDParameter, archivedDateParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addEnterpriseObjectName(Nullable<int> enterprise, string objectName, string alias, Nullable<int> device)
@@ -5525,7 +5578,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEmailTemplateType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual int pr_modifyEnterprise(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<System.DateTime> archivedDate)
+        public virtual int pr_modifyEnterprise(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<int> userMax, Nullable<int> partnerMax, Nullable<int> partnumberMax, Nullable<int> product, Nullable<int> subscriptionType, Nullable<System.DateTime> freeTrialStartDate, Nullable<System.DateTime> freeTrialEndDate, Nullable<System.DateTime> licenseStartDate, Nullable<System.DateTime> licenseEndDate, Nullable<decimal> monthlyFee, Nullable<int> subscriptionStatus, string chargifyID, Nullable<System.DateTime> archivedDate)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -5559,11 +5612,59 @@ namespace Generic
                 new ObjectParameter("instanceName", instanceName) :
                 new ObjectParameter("instanceName", typeof(string));
     
+            var userMaxParameter = userMax.HasValue ?
+                new ObjectParameter("userMax", userMax) :
+                new ObjectParameter("userMax", typeof(int));
+    
+            var partnerMaxParameter = partnerMax.HasValue ?
+                new ObjectParameter("partnerMax", partnerMax) :
+                new ObjectParameter("partnerMax", typeof(int));
+    
+            var partnumberMaxParameter = partnumberMax.HasValue ?
+                new ObjectParameter("partnumberMax", partnumberMax) :
+                new ObjectParameter("partnumberMax", typeof(int));
+    
+            var productParameter = product.HasValue ?
+                new ObjectParameter("product", product) :
+                new ObjectParameter("product", typeof(int));
+    
+            var subscriptionTypeParameter = subscriptionType.HasValue ?
+                new ObjectParameter("subscriptionType", subscriptionType) :
+                new ObjectParameter("subscriptionType", typeof(int));
+    
+            var freeTrialStartDateParameter = freeTrialStartDate.HasValue ?
+                new ObjectParameter("freeTrialStartDate", freeTrialStartDate) :
+                new ObjectParameter("freeTrialStartDate", typeof(System.DateTime));
+    
+            var freeTrialEndDateParameter = freeTrialEndDate.HasValue ?
+                new ObjectParameter("freeTrialEndDate", freeTrialEndDate) :
+                new ObjectParameter("freeTrialEndDate", typeof(System.DateTime));
+    
+            var licenseStartDateParameter = licenseStartDate.HasValue ?
+                new ObjectParameter("licenseStartDate", licenseStartDate) :
+                new ObjectParameter("licenseStartDate", typeof(System.DateTime));
+    
+            var licenseEndDateParameter = licenseEndDate.HasValue ?
+                new ObjectParameter("licenseEndDate", licenseEndDate) :
+                new ObjectParameter("licenseEndDate", typeof(System.DateTime));
+    
+            var monthlyFeeParameter = monthlyFee.HasValue ?
+                new ObjectParameter("monthlyFee", monthlyFee) :
+                new ObjectParameter("monthlyFee", typeof(decimal));
+    
+            var subscriptionStatusParameter = subscriptionStatus.HasValue ?
+                new ObjectParameter("subscriptionStatus", subscriptionStatus) :
+                new ObjectParameter("subscriptionStatus", typeof(int));
+    
+            var chargifyIDParameter = chargifyID != null ?
+                new ObjectParameter("chargifyID", chargifyID) :
+                new ObjectParameter("chargifyID", typeof(string));
+    
             var archivedDateParameter = archivedDate.HasValue ?
                 new ObjectParameter("archivedDate", archivedDate) :
                 new ObjectParameter("archivedDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterprise", idParameter, descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, archivedDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterprise", idParameter, descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, userMaxParameter, partnerMaxParameter, partnumberMaxParameter, productParameter, subscriptionTypeParameter, freeTrialStartDateParameter, freeTrialEndDateParameter, licenseStartDateParameter, licenseEndDateParameter, monthlyFeeParameter, subscriptionStatusParameter, chargifyIDParameter, archivedDateParameter);
         }
     
         public virtual int pr_modifyEnterpriseObjectName(Nullable<int> id, Nullable<int> enterprise, string objectName, string alias, Nullable<int> device)
@@ -10488,8 +10589,8 @@ namespace Generic
                 new ObjectParameter("description", typeof(string));
     
             var productNumberParameter = productNumber != null ?
-                new ObjectParameter("ProductNumber", productNumber) :
-                new ObjectParameter("ProductNumber", typeof(string));
+                new ObjectParameter("productNumber", productNumber) :
+                new ObjectParameter("productNumber", typeof(string));
     
             var inhouseParameter = inhouse.HasValue ?
                 new ObjectParameter("inhouse", inhouse) :
@@ -10512,8 +10613,8 @@ namespace Generic
                 new ObjectParameter("sellingPrice", typeof(decimal));
     
             var productLineParameter = productLine.HasValue ?
-                new ObjectParameter("ProductLine", productLine) :
-                new ObjectParameter("ProductLine", typeof(int));
+                new ObjectParameter("productLine", productLine) :
+                new ObjectParameter("productLine", typeof(int));
     
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
@@ -10665,8 +10766,8 @@ namespace Generic
                 new ObjectParameter("description", typeof(string));
     
             var productNumberParameter = productNumber != null ?
-                new ObjectParameter("ProductNumber", productNumber) :
-                new ObjectParameter("ProductNumber", typeof(string));
+                new ObjectParameter("productNumber", productNumber) :
+                new ObjectParameter("productNumber", typeof(string));
     
             var inhouseParameter = inhouse.HasValue ?
                 new ObjectParameter("inhouse", inhouse) :
@@ -10689,8 +10790,8 @@ namespace Generic
                 new ObjectParameter("sellingPrice", typeof(decimal));
     
             var productLineParameter = productLine.HasValue ?
-                new ObjectParameter("ProductLine", productLine) :
-                new ObjectParameter("ProductLine", typeof(int));
+                new ObjectParameter("productLine", productLine) :
+                new ObjectParameter("productLine", typeof(int));
     
             var activeParameter = active.HasValue ?
                 new ObjectParameter("active", active) :
@@ -10767,6 +10868,182 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveSubscriptiontype", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addSubscriptionStatus(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addSubscriptionStatus", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addSubscriptionType1(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addSubscriptionType1", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveSubscriptionStatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveSubscriptionStatus", idParameter);
+        }
+    
+        public virtual int pr_archiveSubscriptionType1(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveSubscriptionType1", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireByQuestion_Result> pr_getQuestionnaireByQuestion(Nullable<int> question)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireByQuestion_Result>("pr_getQuestionnaireByQuestion", questionParameter);
+        }
+    
+        public virtual ObjectResult<pr_getResponseByQuestionnaire_Result> pr_getResponseByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getResponseByQuestionnaire_Result>("pr_getResponseByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSubscriptionStatus_Result> pr_getSubscriptionStatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSubscriptionStatus_Result>("pr_getSubscriptionStatus", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSubscriptionStatusAll_Result> pr_getSubscriptionStatusAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSubscriptionStatusAll_Result>("pr_getSubscriptionStatusAll");
+        }
+    
+        public virtual ObjectResult<pr_getSubscriptionType1_Result> pr_getSubscriptionType1(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSubscriptionType1_Result>("pr_getSubscriptionType1", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSubscriptionTypeAll1_Result> pr_getSubscriptionTypeAll1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSubscriptionTypeAll1_Result>("pr_getSubscriptionTypeAll1");
+        }
+    
+        public virtual int pr_modifySubscriptionStatus(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifySubscriptionStatus", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifySubscriptionType1(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifySubscriptionType1", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeSubscriptionStatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeSubscriptionStatus", idParameter);
+        }
+    
+        public virtual int pr_removeSubscriptionType1(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeSubscriptionType1", idParameter);
+        }
+    
+        public virtual int pr_unArchiveSubscriptionStatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveSubscriptionStatus", idParameter);
+        }
+    
+        public virtual int pr_unArchiveSubscriptionType1(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveSubscriptionType1", idParameter);
         }
     }
 }

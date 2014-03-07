@@ -469,6 +469,18 @@
       <Parameter Name="applicationPath" Mode="In" Type="String" />
       <Parameter Name="companyName" Mode="In" Type="String" />
       <Parameter Name="instanceName" Mode="In" Type="String" />
+      <Parameter Name="userMax" Mode="In" Type="Int32" />
+      <Parameter Name="partnerMax" Mode="In" Type="Int32" />
+      <Parameter Name="partnumberMax" Mode="In" Type="Int32" />
+      <Parameter Name="product" Mode="In" Type="Int32" />
+      <Parameter Name="subscriptionType" Mode="In" Type="Int32" />
+      <Parameter Name="freeTrialStartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="freeTrialEndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="licenseStartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="licenseEndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="monthlyFee" Mode="In" Type="Decimal" />
+      <Parameter Name="subscriptionStatus" Mode="In" Type="Int32" />
+      <Parameter Name="chargifyID" Mode="In" Type="String" />
       <Parameter Name="archivedDate" Mode="In" Type="DateTime" />
     </FunctionImport>
     <FunctionImport Name="pr_addEnterpriseObjectName" ReturnType="Collection(Decimal)">
@@ -1635,6 +1647,18 @@
       <Parameter Name="applicationPath" Mode="In" Type="String" />
       <Parameter Name="companyName" Mode="In" Type="String" />
       <Parameter Name="instanceName" Mode="In" Type="String" />
+      <Parameter Name="userMax" Mode="In" Type="Int32" />
+      <Parameter Name="partnerMax" Mode="In" Type="Int32" />
+      <Parameter Name="partnumberMax" Mode="In" Type="Int32" />
+      <Parameter Name="product" Mode="In" Type="Int32" />
+      <Parameter Name="subscriptionType" Mode="In" Type="Int32" />
+      <Parameter Name="freeTrialStartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="freeTrialEndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="licenseStartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="licenseEndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="monthlyFee" Mode="In" Type="Decimal" />
+      <Parameter Name="subscriptionStatus" Mode="In" Type="Int32" />
+      <Parameter Name="chargifyID" Mode="In" Type="String" />
       <Parameter Name="archivedDate" Mode="In" Type="DateTime" />
     </FunctionImport>
     <FunctionImport Name="pr_modifyEnterpriseObjectName">
@@ -3059,13 +3083,13 @@
     </FunctionImport>
     <FunctionImport Name="pr_addProduct" ReturnType="Collection(Decimal)">
       <Parameter Name="description" Mode="In" Type="String" />
-      <Parameter Name="ProductNumber" Mode="In" Type="String" />
+      <Parameter Name="productNumber" Mode="In" Type="String" />
       <Parameter Name="inhouse" Mode="In" Type="Boolean" />
       <Parameter Name="salable" Mode="In" Type="Boolean" />
       <Parameter Name="ourCost" Mode="In" Type="Decimal" />
       <Parameter Name="listPrice" Mode="In" Type="Decimal" />
       <Parameter Name="sellingPrice" Mode="In" Type="Decimal" />
-      <Parameter Name="ProductLine" Mode="In" Type="Int32" />
+      <Parameter Name="productLine" Mode="In" Type="Int32" />
       <Parameter Name="active" Mode="In" Type="Boolean" />
       <Parameter Name="sortOrder" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -3111,13 +3135,13 @@
     <FunctionImport Name="pr_modifyProduct">
       <Parameter Name="id" Mode="In" Type="Int32" />
       <Parameter Name="description" Mode="In" Type="String" />
-      <Parameter Name="ProductNumber" Mode="In" Type="String" />
+      <Parameter Name="productNumber" Mode="In" Type="String" />
       <Parameter Name="inhouse" Mode="In" Type="Boolean" />
       <Parameter Name="salable" Mode="In" Type="Boolean" />
       <Parameter Name="ourCost" Mode="In" Type="Decimal" />
       <Parameter Name="listPrice" Mode="In" Type="Decimal" />
       <Parameter Name="sellingPrice" Mode="In" Type="Decimal" />
-      <Parameter Name="ProductLine" Mode="In" Type="Int32" />
+      <Parameter Name="productLine" Mode="In" Type="Int32" />
       <Parameter Name="active" Mode="In" Type="Boolean" />
       <Parameter Name="sortOrder" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -3140,6 +3164,65 @@
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="pr_unArchiveSubscriptiontype">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="product" EntityType="hs3MVCMTQa2Model.product" />
+    <EntitySet Name="responseTemp" EntityType="hs3MVCMTQa2Model.responseTemp" />
+    <EntitySet Name="sorter" EntityType="hs3MVCMTQa2Model.sorter" />
+    <EntitySet Name="subscriptionStatus" EntityType="hs3MVCMTQa2Model.subscriptionStatus" />
+    <EntitySet Name="subscriptionType" EntityType="hs3MVCMTQa2Model.subscriptionType" />
+    <FunctionImport Name="pr_addSubscriptionStatus" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="pr_addSubscriptionType1" ReturnType="Collection(Decimal)">
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveSubscriptionStatus">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_archiveSubscriptionType1">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getQuestionnaireByQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByQuestion_Result)">
+      <Parameter Name="question" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getResponseByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getResponseByQuestionnaire_Result)">
+      <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getSubscriptionStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptionStatus_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getSubscriptionStatusAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptionStatusAll_Result)" />
+    <FunctionImport Name="pr_getSubscriptionType1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptionType1_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_getSubscriptionTypeAll1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptionTypeAll1_Result)" />
+    <FunctionImport Name="pr_modifySubscriptionStatus">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="pr_modifySubscriptionType1">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="active" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeSubscriptionStatus">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_removeSubscriptionType1">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveSubscriptionStatus">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pr_unArchiveSubscriptionType1">
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
@@ -3303,6 +3386,18 @@
     <NavigationProperty Name="site" Relationship="hs3MVCMTQa2Model.FK_site_enterprise" FromRole="enterprise" ToRole="site" />
     <NavigationProperty Name="questionnaireLevelType" Relationship="hs3MVCMTQa2Model.questionnaireLevel1" FromRole="enterprise" ToRole="questionnaireLevelType" />
     <NavigationProperty Name="menu1" Relationship="hs3MVCMTQa2Model.enterpriseMenu" FromRole="enterprise" ToRole="menu" />
+    <Property Type="Int32" Name="userMax" />
+    <Property Type="Int32" Name="partnerMax" />
+    <Property Type="Int32" Name="partnumberMax" />
+    <Property Type="Int32" Name="product" />
+    <Property Type="Int32" Name="subscriptionType" />
+    <Property Type="DateTime" Name="freeTrialStartDate" Precision="0" />
+    <Property Type="DateTime" Name="freeTrialEndDate" Precision="0" />
+    <Property Type="DateTime" Name="licenseStartDate" Precision="0" />
+    <Property Type="DateTime" Name="licenseEndDate" Precision="0" />
+    <Property Type="Decimal" Name="monthlyFee" Precision="19" Scale="4" />
+    <Property Type="Int32" Name="subscriptionStatus" />
+    <Property Type="String" Name="chargifyID" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="enterpriseObjectName">
     <Key>
@@ -8447,6 +8542,100 @@
     <Property Type="Boolean" Name="active" Nullable="false" />
   </ComplexType>
   <ComplexType Name="pr_getSubscriptiontypeAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="false" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="productNumber" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="inhouse" Nullable="false" />
+    <Property Type="Boolean" Name="salable" Nullable="false" />
+    <Property Type="Decimal" Name="ourCost" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="listPrice" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="sellingPrice" Precision="19" Scale="4" />
+    <Property Type="Int32" Name="productLine" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+    <Property Type="Int32" Name="sortOrder" />
+  </EntityType>
+  <EntityType Name="responseTemp">
+    <Key>
+      <PropertyRef Name="description" />
+    </Key>
+    <Property Type="String" Name="description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sorter">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="sortOrder" Nullable="false" />
+  </EntityType>
+  <EntityType Name="subscriptionStatus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+  </EntityType>
+  <EntityType Name="subscriptionType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="sortOrder" Nullable="false" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+  </EntityType>
+  <ComplexType Name="pr_getQuestionnaireByQuestion_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="footer" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="locked" Nullable="true" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Int32" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="multiLanguage" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+    <Property Type="Int32" Name="person" Nullable="false" />
+    <Property Type="Int32" Name="partnerType" Nullable="false" />
+    <Property Type="Int32" Name="letter" Nullable="true" />
+    <Property Type="Int32" Name="levelType" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getResponseByQuestionnaire_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="zcode" Nullable="true" MaxLength="2" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="true" />
+    <Property Type="Int32" Name="enterprise" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pr_getSubscriptionStatus_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getSubscriptionStatusAll_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="true" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getSubscriptionType1_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="sortOrder" Nullable="false" />
+    <Property Type="Boolean" Name="active" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pr_getSubscriptionTypeAll1_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
     <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
     <Property Type="Int32" Name="sortOrder" Nullable="false" />

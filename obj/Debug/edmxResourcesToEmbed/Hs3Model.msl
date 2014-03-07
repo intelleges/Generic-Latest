@@ -284,6 +284,18 @@
     <EntitySetMapping Name="enterprise">
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterprise">
         <MappingFragment StoreEntitySet="enterprise">
+          <ScalarProperty Name="chargifyID" ColumnName="chargifyID" />
+          <ScalarProperty Name="subscriptionStatus" ColumnName="subscriptionStatus" />
+          <ScalarProperty Name="monthlyFee" ColumnName="monthlyFee" />
+          <ScalarProperty Name="licenseEndDate" ColumnName="licenseEndDate" />
+          <ScalarProperty Name="licenseStartDate" ColumnName="licenseStartDate" />
+          <ScalarProperty Name="freeTrialEndDate" ColumnName="freeTrialEndDate" />
+          <ScalarProperty Name="freeTrialStartDate" ColumnName="freeTrialStartDate" />
+          <ScalarProperty Name="subscriptionType" ColumnName="subscriptionType" />
+          <ScalarProperty Name="product" ColumnName="product" />
+          <ScalarProperty Name="partnumberMax" ColumnName="partnumberMax" />
+          <ScalarProperty Name="partnerMax" ColumnName="partnerMax" />
+          <ScalarProperty Name="userMax" ColumnName="userMax" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
@@ -298,6 +310,18 @@
       <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterprise">
         <ModificationFunctionMapping>
           <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise">
+            <ScalarProperty Name="chargifyID" ParameterName="chargifyID" />
+            <ScalarProperty Name="subscriptionStatus" ParameterName="subscriptionStatus" />
+            <ScalarProperty Name="monthlyFee" ParameterName="monthlyFee" />
+            <ScalarProperty Name="licenseEndDate" ParameterName="licenseEndDate" />
+            <ScalarProperty Name="licenseStartDate" ParameterName="licenseStartDate" />
+            <ScalarProperty Name="freeTrialEndDate" ParameterName="freeTrialEndDate" />
+            <ScalarProperty Name="freeTrialStartDate" ParameterName="freeTrialStartDate" />
+            <ScalarProperty Name="subscriptionType" ParameterName="subscriptionType" />
+            <ScalarProperty Name="product" ParameterName="product" />
+            <ScalarProperty Name="partnumberMax" ParameterName="partnumberMax" />
+            <ScalarProperty Name="partnerMax" ParameterName="partnerMax" />
+            <ScalarProperty Name="userMax" ParameterName="userMax" />
             <ScalarProperty Name="archivedDate" ParameterName="archivedDate" />
             <ScalarProperty Name="instanceName" ParameterName="instanceName" />
             <ScalarProperty Name="companyName" ParameterName="companyName" />
@@ -309,6 +333,18 @@
             <ResultBinding Name="id" ColumnName="id" />
           </InsertFunction>
           <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterprise">
+            <ScalarProperty Name="chargifyID" ParameterName="chargifyID" Version="Current" />
+            <ScalarProperty Name="subscriptionStatus" ParameterName="subscriptionStatus" Version="Current" />
+            <ScalarProperty Name="monthlyFee" ParameterName="monthlyFee" Version="Current" />
+            <ScalarProperty Name="freeTrialEndDate" ParameterName="licenseEndDate" Version="Current" />
+            <ScalarProperty Name="licenseStartDate" ParameterName="licenseStartDate" Version="Current" />
+            <ScalarProperty Name="freeTrialEndDate" ParameterName="freeTrialEndDate" Version="Current" />
+            <ScalarProperty Name="freeTrialStartDate" ParameterName="freeTrialStartDate" Version="Current" />
+            <ScalarProperty Name="subscriptionType" ParameterName="subscriptionType" Version="Current" />
+            <ScalarProperty Name="product" ParameterName="product" Version="Current" />
+            <ScalarProperty Name="partnumberMax" ParameterName="partnumberMax" Version="Current" />
+            <ScalarProperty Name="partnerMax" ParameterName="partnerMax" Version="Current" />
+            <ScalarProperty Name="userMax" ParameterName="userMax" Version="Current" />
             <ScalarProperty Name="archivedDate" ParameterName="archivedDate" Version="Current" />
             <ScalarProperty Name="instanceName" ParameterName="instanceName" Version="Current" />
             <ScalarProperty Name="companyName" ParameterName="companyName" Version="Current" />
@@ -2668,7 +2704,6 @@
     <FunctionImportMapping FunctionImportName="pr_archiveDomain" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveDomain" />
     <FunctionImportMapping FunctionImportName="pr_archiveEmailBounceType" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveEmailBounceType" />
     <FunctionImportMapping FunctionImportName="pr_archiveEmailTemplateType" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveEmailTemplateType" />
-    <FunctionImportMapping FunctionImportName="pr_archiveEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveEnterprise" />
     <FunctionImportMapping FunctionImportName="pr_archiveGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveGroup" />
     <FunctionImportMapping FunctionImportName="pr_archiveGroupCollection" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveGroupCollection" />
     <FunctionImportMapping FunctionImportName="pr_archiveHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveHs3Menu" />
@@ -3125,7 +3160,6 @@
     <FunctionImportMapping FunctionImportName="pr_unArchiveDomain" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveDomain" />
     <FunctionImportMapping FunctionImportName="pr_unArchiveEmailBounceType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveEmailBounceType" />
     <FunctionImportMapping FunctionImportName="pr_unArchiveEmailTemplateType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveEmailTemplateType" />
-    <FunctionImportMapping FunctionImportName="pr_unArchiveEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveEnterprise" />
     <FunctionImportMapping FunctionImportName="pr_unArchiveGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveGroup" />
     <FunctionImportMapping FunctionImportName="pr_unArchiveGroupCollection" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveGroupCollection" />
     <FunctionImportMapping FunctionImportName="pr_unArchiveHs3Menu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveHs3Menu" />
@@ -3815,9 +3849,7 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_addProduct" FunctionName="hs3MVCMTQa2Model.Store.pr_addProduct" />
-    <FunctionImportMapping FunctionImportName="pr_addSubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_addSubscriptiontype" />
     <FunctionImportMapping FunctionImportName="pr_archiveProduct" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveProduct" />
-    <FunctionImportMapping FunctionImportName="pr_archiveSubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveSubscriptiontype" />
     <FunctionImportMapping FunctionImportName="pr_getCalculatedCostForEnterpriseSubscription" FunctionName="hs3MVCMTQa2Model.Store.pr_getCalculatedCostForEnterpriseSubscription" />
     <FunctionImportMapping FunctionImportName="pr_getCountFromPPTQByStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getCountFromPPTQByStatus">
       <ResultMapping>
@@ -3898,32 +3930,142 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getSubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptiontype">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSubscriptiontype_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="pr_getSubscriptiontypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptiontypeAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSubscriptiontypeAll_Result">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-          <ScalarProperty Name="active" ColumnName="active" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="pr_modifyProduct" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyProduct" />
-    <FunctionImportMapping FunctionImportName="pr_modifySubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_modifySubscriptiontype" />
     <FunctionImportMapping FunctionImportName="pr_removeProduct" FunctionName="hs3MVCMTQa2Model.Store.pr_removeProduct" />
-    <FunctionImportMapping FunctionImportName="pr_removeSubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_removeSubscriptiontype" />
     <FunctionImportMapping FunctionImportName="pr_resetPartnumberStatusAndZcodeByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_resetPartnumberStatusAndZcodeByAccessCode" />
     <FunctionImportMapping FunctionImportName="pr_unArchiveProduct" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveProduct" />
-    <FunctionImportMapping FunctionImportName="pr_unArchiveSubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveSubscriptiontype" />
+    <EntitySetMapping Name="product">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.product">
+        <MappingFragment StoreEntitySet="product">
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="productLine" ColumnName="productLine" />
+          <ScalarProperty Name="sellingPrice" ColumnName="sellingPrice" />
+          <ScalarProperty Name="listPrice" ColumnName="listPrice" />
+          <ScalarProperty Name="ourCost" ColumnName="ourCost" />
+          <ScalarProperty Name="salable" ColumnName="salable" />
+          <ScalarProperty Name="inhouse" ColumnName="inhouse" />
+          <ScalarProperty Name="productNumber" ColumnName="productNumber" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="responseTemp">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.responseTemp">
+        <MappingFragment StoreEntitySet="responseTemp">
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sorter">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.sorter">
+        <MappingFragment StoreEntitySet="sorter">
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="subscriptionStatus">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.subscriptionStatus">
+        <MappingFragment StoreEntitySet="subscriptionStatus">
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="subscriptionType">
+      <EntityTypeMapping TypeName="hs3MVCMTQa2Model.subscriptionType">
+        <MappingFragment StoreEntitySet="subscriptionType">
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="pr_addSubscriptionStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_addSubscriptionStatus" />
+    <FunctionImportMapping FunctionImportName="pr_addSubscriptionType1" FunctionName="hs3MVCMTQa2Model.Store.pr_addSubscriptionType" />
+    <FunctionImportMapping FunctionImportName="pr_archiveSubscriptionStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveSubscriptionStatus" />
+    <FunctionImportMapping FunctionImportName="pr_archiveSubscriptionType1" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveSubscriptionType" />
+    <FunctionImportMapping FunctionImportName="pr_getQuestionnaireByQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireByQuestion">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireByQuestion_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="footer" ColumnName="footer" />
+          <ScalarProperty Name="locked" ColumnName="locked" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="multiLanguage" ColumnName="multiLanguage" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+          <ScalarProperty Name="person" ColumnName="person" />
+          <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+          <ScalarProperty Name="letter" ColumnName="letter" />
+          <ScalarProperty Name="levelType" ColumnName="levelType" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getResponseByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponseByQuestionnaire">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getResponseByQuestionnaire_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="zcode" ColumnName="zcode" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getSubscriptionStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptionStatus">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSubscriptionStatus_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getSubscriptionStatusAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptionStatusAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSubscriptionStatusAll_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getSubscriptionType1" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptionType">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSubscriptionType1_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_getSubscriptionTypeAll1" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptionTypeAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSubscriptionTypeAll1_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pr_modifySubscriptionStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifySubscriptionStatus" />
+    <FunctionImportMapping FunctionImportName="pr_modifySubscriptionType1" FunctionName="hs3MVCMTQa2Model.Store.pr_modifySubscriptionType" />
+    <FunctionImportMapping FunctionImportName="pr_removeSubscriptionStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_removeSubscriptionStatus" />
+    <FunctionImportMapping FunctionImportName="pr_removeSubscriptionType1" FunctionName="hs3MVCMTQa2Model.Store.pr_removeSubscriptionType" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveSubscriptionStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveSubscriptionStatus" />
+    <FunctionImportMapping FunctionImportName="pr_unArchiveSubscriptionType1" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveSubscriptionType" />
   </EntityContainerMapping>
 </Mapping>

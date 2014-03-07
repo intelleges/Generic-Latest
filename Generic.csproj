@@ -631,6 +631,9 @@
     <Compile Include="personStatus.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="product.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="protocol.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
@@ -1073,6 +1076,9 @@
     <Compile Include="pr_getQuestionnaireByPartnumberSiteZcodePPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getQuestionnaireByQuestion_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getQuestionnaireCMSAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1125,6 +1131,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getResponseByQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getResponseByQuestion_Result.cs">
@@ -1194,6 +1203,18 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getState_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getSubscriptionStatusAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getSubscriptionStatus_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getSubscriptionType1_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getSubscriptionTypeAll1_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getSubscriptiontypeAll_Result.cs">
@@ -1280,6 +1301,9 @@
     <Compile Include="response.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="responseTemp.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="responseTranslation.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1314,6 +1338,9 @@
     <Compile Include="sizingStandard.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sorter.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1321,6 +1348,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="state.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="subscriptionStatus.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="subscriptionType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="survey.cs">
@@ -1409,6 +1442,63 @@
     <Content Include="Contents\css\styles0.css" />
     <Content Include="Contents\css\styles_sri.css" />
     <Content Include="Contents\css\tabcontent.css" />
+    <Content Include="Contents\HomeSiteArea\css\images\bx_loader.gif" />
+    <Content Include="Contents\HomeSiteArea\css\images\controls.png" />
+    <Content Include="Contents\HomeSiteArea\css\jquery.bxslider.css" />
+    <Content Include="Contents\HomeSiteArea\css\normalize.css" />
+    <Content Include="Contents\HomeSiteArea\css\style.css" />
+    <Content Include="Contents\HomeSiteArea\images\active-menu.png" />
+    <Content Include="Contents\HomeSiteArea\images\address.png" />
+    <Content Include="Contents\HomeSiteArea\images\arow.png" />
+    <Content Include="Contents\HomeSiteArea\images\arrow-icon.png" />
+    <Content Include="Contents\HomeSiteArea\images\arrow-select.png" />
+    <Content Include="Contents\HomeSiteArea\images\arrows-metallic.png" />
+    <Content Include="Contents\HomeSiteArea\images\arrows-minimalist.png" />
+    <Content Include="Contents\HomeSiteArea\images\bg-a-link-active.jpg" />
+    <Content Include="Contents\HomeSiteArea\images\bg-a-link.jpg" />
+    <Content Include="Contents\HomeSiteArea\images\bg.png" />
+    <Content Include="Contents\HomeSiteArea\images\border-sub-title.png" />
+    <Content Include="Contents\HomeSiteArea\images\btn-trial.png" />
+    <Content Include="Contents\HomeSiteArea\images\bx_loader.gif" />
+    <Content Include="Contents\HomeSiteArea\images\captcha.jpg" />
+    <Content Include="Contents\HomeSiteArea\images\construction.gif" />
+    <Content Include="Contents\HomeSiteArea\images\controls.png" />
+    <Content Include="Contents\HomeSiteArea\images\cs-portfolio.png" />
+    <Content Include="Contents\HomeSiteArea\images\default.png" />
+    <Content Include="Contents\HomeSiteArea\images\img1text10.png" />
+    <Content Include="Contents\HomeSiteArea\images\img1text3.png" />
+    <Content Include="Contents\HomeSiteArea\images\img1text7.png" />
+    <Content Include="Contents\HomeSiteArea\images\img2text10.png" />
+    <Content Include="Contents\HomeSiteArea\images\img2text3.png" />
+    <Content Include="Contents\HomeSiteArea\images\img3text10.png" />
+    <Content Include="Contents\HomeSiteArea\images\img3text3.png" />
+    <Content Include="Contents\HomeSiteArea\images\img4text10.png" />
+    <Content Include="Contents\HomeSiteArea\images\img4text3.png" />
+    <Content Include="Contents\HomeSiteArea\images\img5.png" />
+    <Content Include="Contents\HomeSiteArea\images\img5text3.png" />
+    <Content Include="Contents\HomeSiteArea\images\imgtext1.png" />
+    <Content Include="Contents\HomeSiteArea\images\imgtext11.png" />
+    <Content Include="Contents\HomeSiteArea\images\imgtext12.png" />
+    <Content Include="Contents\HomeSiteArea\images\imgtext4.png" />
+    <Content Include="Contents\HomeSiteArea\images\imgtext5.png" />
+    <Content Include="Contents\HomeSiteArea\images\imgtext8.png" />
+    <Content Include="Contents\HomeSiteArea\images\imgtext9.png" />
+    <Content Include="Contents\HomeSiteArea\images\logo.png" />
+    <Content Include="Contents\HomeSiteArea\images\map.png" />
+    <Content Include="Contents\HomeSiteArea\images\register.png" />
+    <Content Include="Contents\HomeSiteArea\images\sodo.png" />
+    <Content Include="Contents\HomeSiteArea\images\thongke.png" />
+    <Content Include="Contents\HomeSiteArea\images\title-enhanced.jpg" />
+    <Content Include="Contents\HomeSiteArea\images\title-enterprise.jpg" />
+    <Content Include="Contents\HomeSiteArea\images\title-main.jpg" />
+    <Content Include="Contents\HomeSiteArea\images\title-standard.jpg" />
+    <Content Include="Contents\HomeSiteArea\index.html" />
+    <Content Include="Contents\HomeSiteArea\js\jquery-1.9.1.js" />
+    <Content Include="Contents\HomeSiteArea\js\jquery-1.9.1.min.js" />
+    <Content Include="Contents\HomeSiteArea\js\jquery-ui.js" />
+    <Content Include="Contents\HomeSiteArea\js\jquery.bxslider.min.js" />
+    <Content Include="Contents\HomeSiteArea\js\jquery.easing.1.3.js" />
+    <Content Include="Contents\HomeSiteArea\js\jquery.fitvids.js" />
     <Content Include="Contents\images\addAll_button.gif" />
     <Content Include="Contents\images\addpartners.gif" />
     <Content Include="Contents\images\addprovider_head.jpg" />
@@ -2256,6 +2346,63 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="HomeSiteArea\css\images\bx_loader.gif" />
+    <Content Include="HomeSiteArea\css\images\controls.png" />
+    <Content Include="HomeSiteArea\css\jquery.bxslider.css" />
+    <Content Include="HomeSiteArea\css\normalize.css" />
+    <Content Include="HomeSiteArea\css\style.css" />
+    <Content Include="HomeSiteArea\images\active-menu.png" />
+    <Content Include="HomeSiteArea\images\address.png" />
+    <Content Include="HomeSiteArea\images\arow.png" />
+    <Content Include="HomeSiteArea\images\arrow-icon.png" />
+    <Content Include="HomeSiteArea\images\arrow-select.png" />
+    <Content Include="HomeSiteArea\images\arrows-metallic.png" />
+    <Content Include="HomeSiteArea\images\arrows-minimalist.png" />
+    <Content Include="HomeSiteArea\images\bg-a-link-active.jpg" />
+    <Content Include="HomeSiteArea\images\bg-a-link.jpg" />
+    <Content Include="HomeSiteArea\images\bg.png" />
+    <Content Include="HomeSiteArea\images\border-sub-title.png" />
+    <Content Include="HomeSiteArea\images\btn-trial.png" />
+    <Content Include="HomeSiteArea\images\bx_loader.gif" />
+    <Content Include="HomeSiteArea\images\captcha.jpg" />
+    <Content Include="HomeSiteArea\images\construction.gif" />
+    <Content Include="HomeSiteArea\images\controls.png" />
+    <Content Include="HomeSiteArea\images\cs-portfolio.png" />
+    <Content Include="HomeSiteArea\images\default.png" />
+    <Content Include="HomeSiteArea\images\img1text10.png" />
+    <Content Include="HomeSiteArea\images\img1text3.png" />
+    <Content Include="HomeSiteArea\images\img1text7.png" />
+    <Content Include="HomeSiteArea\images\img2text10.png" />
+    <Content Include="HomeSiteArea\images\img2text3.png" />
+    <Content Include="HomeSiteArea\images\img3text10.png" />
+    <Content Include="HomeSiteArea\images\img3text3.png" />
+    <Content Include="HomeSiteArea\images\img4text10.png" />
+    <Content Include="HomeSiteArea\images\img4text3.png" />
+    <Content Include="HomeSiteArea\images\img5.png" />
+    <Content Include="HomeSiteArea\images\img5text3.png" />
+    <Content Include="HomeSiteArea\images\imgtext1.png" />
+    <Content Include="HomeSiteArea\images\imgtext11.png" />
+    <Content Include="HomeSiteArea\images\imgtext12.png" />
+    <Content Include="HomeSiteArea\images\imgtext4.png" />
+    <Content Include="HomeSiteArea\images\imgtext5.png" />
+    <Content Include="HomeSiteArea\images\imgtext8.png" />
+    <Content Include="HomeSiteArea\images\imgtext9.png" />
+    <Content Include="HomeSiteArea\images\logo.png" />
+    <Content Include="HomeSiteArea\images\map.png" />
+    <Content Include="HomeSiteArea\images\register.png" />
+    <Content Include="HomeSiteArea\images\sodo.png" />
+    <Content Include="HomeSiteArea\images\thongke.png" />
+    <Content Include="HomeSiteArea\images\title-enhanced.jpg" />
+    <Content Include="HomeSiteArea\images\title-enterprise.jpg" />
+    <Content Include="HomeSiteArea\images\title-main.jpg" />
+    <Content Include="HomeSiteArea\images\title-standard.jpg" />
+    <Content Include="HomeSiteArea\index.html" />
+    <Content Include="HomeSiteArea\js\jquery-1.9.1.js" />
+    <Content Include="HomeSiteArea\js\jquery-1.9.1.min.js" />
+    <Content Include="HomeSiteArea\js\jquery-ui.js" />
+    <Content Include="HomeSiteArea\js\jquery.bxslider.min.js" />
+    <Content Include="HomeSiteArea\js\jquery.easing.1.3.js" />
+    <Content Include="HomeSiteArea\js\jquery.fitvids.js" />
     <Content Include="Scripts\2013.2.611\jquery-1.7.1.min.js" />
     <Content Include="Scripts\2013.2.611\jquery.validate.min.js" />
     <Content Include="Scripts\2013.2.611\telerik.all.min.js" />
@@ -2644,9 +2791,6 @@
     <EmbeddedResource Include="Views\Role\AssignMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\UserHome\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\UserHome\SelectProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -2654,6 +2798,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\UserHome\Partials\AccountInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_HomeSiteLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UserHome\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UserHome\SelectedProductDetail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

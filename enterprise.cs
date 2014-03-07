@@ -50,6 +50,18 @@ namespace Generic
         public string companyName { get; set; }
         public string instanceName { get; set; }
         public Nullable<System.DateTime> archivedDate { get; set; }
+        public Nullable<int> userMax { get; set; }
+        public Nullable<int> partnerMax { get; set; }
+        public Nullable<int> partnumberMax { get; set; }
+        public Nullable<int> product { get; set; }
+        public Nullable<int> subscriptionType { get; set; }
+        public Nullable<System.DateTime> freeTrialStartDate { get; set; }
+        public Nullable<System.DateTime> freeTrialEndDate { get; set; }
+        public Nullable<System.DateTime> licenseStartDate { get; set; }
+        public Nullable<System.DateTime> licenseEndDate { get; set; }
+        public Nullable<decimal> monthlyFee { get; set; }
+        public Nullable<int> subscriptionStatus { get; set; }
+        public string chargifyID { get; set; }
     
         public virtual ICollection<agency> agency { get; set; }
         public virtual ICollection<country> country { get; set; }

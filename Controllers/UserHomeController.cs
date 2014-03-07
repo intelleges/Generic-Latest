@@ -34,7 +34,7 @@ namespace BAA.Controllers
         }
 
         [HttpPost]
-        public ActionResult SelectProduct(LocalSignup model, int SubscriptionType)
+        public ActionResult SelectProduct(ProductTypeModel model, int SubscriptionType)
         {
             List<SelectListItem> expYears = new List<SelectListItem>();
             for (int i = 0; i <= 10; i++)
@@ -56,22 +56,22 @@ namespace BAA.Controllers
             if (SubscriptionType == 1)
             {
                 var product = Chargify.LoadProduct("standard");
-                //ViewBag.ProductName = product.Name ?? string.Empty;
+                ViewBag.ProductName = product.Name ?? string.Empty;
             }
             else if (SubscriptionType == 2)
             {
                 var product = Chargify.LoadProduct("advanced");
-               // ViewBag.ProductName = product.Name ?? string.Empty;
+                ViewBag.ProductName = product.Name ?? string.Empty;
             }
             else {
                 var product = Chargify.LoadProduct("enterprise");
-               // ViewBag.ProductName = product.Name ?? string.Empty;
+               ViewBag.ProductName = product.Name ?? string.Empty;
             }
-            
-            
 
-            //model.CalculatedCost=db.pr_getCalculatedCostForEnterpriseSubscription(model.userCount,model.partnerCount,model.partnumberCount,model.SubscriptionType).FirstOrDefault();
-            return View("ProductDetail", model);
+
+            ViewBag.Query = "AccountInfo";
+            ViewBag.CalculatedCost=db.pr_getCalculatedCostForEnterpriseSubscription(model.userCount,model.partnerCount,model.partnumberCount,SubscriptionType).FirstOrDefault();
+            return View("Index");
         }
         [HttpPost]
         public ActionResult Local(LocalSignup model, string id)
