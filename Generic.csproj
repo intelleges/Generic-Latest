@@ -39,9 +39,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=1.0.20229.20821, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\AjaxControlToolkit.dll</HintPath>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\..\..\..\..\Desktop\MVCMT\Generic\bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -53,9 +52,8 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="GoogleTranslateAPI, Version=0.3.0.100, Culture=neutral, PublicKeyToken=37a8e65b17fcdcbb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\GoogleTranslateAPI.dll</HintPath>
+    <Reference Include="GoogleTranslateAPI">
+      <HintPath>..\..\..\..\..\Desktop\MVCMT\Generic\bin\GoogleTranslateAPI.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -85,9 +83,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\LinqToExcel_x64.1.7.1\lib\Remotion.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="SendGridMail, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\SendGridMail.dll</HintPath>
+    <Reference Include="SendGridMail">
+      <HintPath>..\..\..\..\..\Desktop\MVCMT\Generic\bin\SendGridMail.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -103,9 +100,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\System.Web.Optimization.dll</HintPath>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\..\..\..\Desktop\MVCMT\Generic\bin\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -163,12 +159,11 @@
     <Reference Include="Telerik.Web.Mvc">
       <HintPath>..\packages\TelerikMvcExtensions.2013.2.611\lib\net40\Telerik.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\WebGrease.dll</HintPath>
+    <Reference Include="WebGrease">
+      <HintPath>..\..\..\..\..\Desktop\MVCMT\Generic\bin\WebGrease.dll</HintPath>
     </Reference>
-    <Reference Include="WebMatrix.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="WebMatrix.WebData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="accessLevel.cs">
@@ -1442,63 +1437,6 @@
     <Content Include="Contents\css\styles0.css" />
     <Content Include="Contents\css\styles_sri.css" />
     <Content Include="Contents\css\tabcontent.css" />
-    <Content Include="Contents\HomeSiteArea\css\images\bx_loader.gif" />
-    <Content Include="Contents\HomeSiteArea\css\images\controls.png" />
-    <Content Include="Contents\HomeSiteArea\css\jquery.bxslider.css" />
-    <Content Include="Contents\HomeSiteArea\css\normalize.css" />
-    <Content Include="Contents\HomeSiteArea\css\style.css" />
-    <Content Include="Contents\HomeSiteArea\images\active-menu.png" />
-    <Content Include="Contents\HomeSiteArea\images\address.png" />
-    <Content Include="Contents\HomeSiteArea\images\arow.png" />
-    <Content Include="Contents\HomeSiteArea\images\arrow-icon.png" />
-    <Content Include="Contents\HomeSiteArea\images\arrow-select.png" />
-    <Content Include="Contents\HomeSiteArea\images\arrows-metallic.png" />
-    <Content Include="Contents\HomeSiteArea\images\arrows-minimalist.png" />
-    <Content Include="Contents\HomeSiteArea\images\bg-a-link-active.jpg" />
-    <Content Include="Contents\HomeSiteArea\images\bg-a-link.jpg" />
-    <Content Include="Contents\HomeSiteArea\images\bg.png" />
-    <Content Include="Contents\HomeSiteArea\images\border-sub-title.png" />
-    <Content Include="Contents\HomeSiteArea\images\btn-trial.png" />
-    <Content Include="Contents\HomeSiteArea\images\bx_loader.gif" />
-    <Content Include="Contents\HomeSiteArea\images\captcha.jpg" />
-    <Content Include="Contents\HomeSiteArea\images\construction.gif" />
-    <Content Include="Contents\HomeSiteArea\images\controls.png" />
-    <Content Include="Contents\HomeSiteArea\images\cs-portfolio.png" />
-    <Content Include="Contents\HomeSiteArea\images\default.png" />
-    <Content Include="Contents\HomeSiteArea\images\img1text10.png" />
-    <Content Include="Contents\HomeSiteArea\images\img1text3.png" />
-    <Content Include="Contents\HomeSiteArea\images\img1text7.png" />
-    <Content Include="Contents\HomeSiteArea\images\img2text10.png" />
-    <Content Include="Contents\HomeSiteArea\images\img2text3.png" />
-    <Content Include="Contents\HomeSiteArea\images\img3text10.png" />
-    <Content Include="Contents\HomeSiteArea\images\img3text3.png" />
-    <Content Include="Contents\HomeSiteArea\images\img4text10.png" />
-    <Content Include="Contents\HomeSiteArea\images\img4text3.png" />
-    <Content Include="Contents\HomeSiteArea\images\img5.png" />
-    <Content Include="Contents\HomeSiteArea\images\img5text3.png" />
-    <Content Include="Contents\HomeSiteArea\images\imgtext1.png" />
-    <Content Include="Contents\HomeSiteArea\images\imgtext11.png" />
-    <Content Include="Contents\HomeSiteArea\images\imgtext12.png" />
-    <Content Include="Contents\HomeSiteArea\images\imgtext4.png" />
-    <Content Include="Contents\HomeSiteArea\images\imgtext5.png" />
-    <Content Include="Contents\HomeSiteArea\images\imgtext8.png" />
-    <Content Include="Contents\HomeSiteArea\images\imgtext9.png" />
-    <Content Include="Contents\HomeSiteArea\images\logo.png" />
-    <Content Include="Contents\HomeSiteArea\images\map.png" />
-    <Content Include="Contents\HomeSiteArea\images\register.png" />
-    <Content Include="Contents\HomeSiteArea\images\sodo.png" />
-    <Content Include="Contents\HomeSiteArea\images\thongke.png" />
-    <Content Include="Contents\HomeSiteArea\images\title-enhanced.jpg" />
-    <Content Include="Contents\HomeSiteArea\images\title-enterprise.jpg" />
-    <Content Include="Contents\HomeSiteArea\images\title-main.jpg" />
-    <Content Include="Contents\HomeSiteArea\images\title-standard.jpg" />
-    <Content Include="Contents\HomeSiteArea\index.html" />
-    <Content Include="Contents\HomeSiteArea\js\jquery-1.9.1.js" />
-    <Content Include="Contents\HomeSiteArea\js\jquery-1.9.1.min.js" />
-    <Content Include="Contents\HomeSiteArea\js\jquery-ui.js" />
-    <Content Include="Contents\HomeSiteArea\js\jquery.bxslider.min.js" />
-    <Content Include="Contents\HomeSiteArea\js\jquery.easing.1.3.js" />
-    <Content Include="Contents\HomeSiteArea\js\jquery.fitvids.js" />
     <Content Include="Contents\images\addAll_button.gif" />
     <Content Include="Contents\images\addpartners.gif" />
     <Content Include="Contents\images\addprovider_head.jpg" />
@@ -2800,13 +2738,16 @@
     <Content Include="Views\UserHome\Partials\AccountInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\UserHome\SelectedProductDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\Shared\_HomeSiteLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\UserHome\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\UserHome\SelectedProductDetail.cshtml" />
+    <Content Include="Views\UserHome\Confirmation.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

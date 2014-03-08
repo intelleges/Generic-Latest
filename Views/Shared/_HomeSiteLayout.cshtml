@@ -1,570 +1,597 @@
-﻿@inherits System.Web.Mvc.WebViewPage
+﻿
 @using Generic.Helpers
 @using System.Web.Mvc.Html
 @using Telerik.Web.Mvc.UI;
 @using System.Web.Optimization;
+@model Generic.Models.LocalSignup
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Intelleges</title>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width"/>
-        @Styles.Render("~/Content/css")
+<head>
+    <title>Intelleges</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryui")
-        <!-- jQuery library (served from CDN) -->
-        <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
-        
-        <!-- jQuery accordion -->
-        <script type="text/javascript" src="@Url.Content("//code.jquery.com/jquery-1.9.1.min.js")"/>
-        <script type="text/javascript" src="@Url.Content("//code.jquery.com/ui/1.10.4/jquery-ui.min.js")"></script>
-       
-        @*<link href="css/normalize.css" rel="stylesheet" />*@
-        @*<link href="~/Contents/HomeSiteArea/css/normalize.css" rel="stylesheet" />*@
-        <!-- bxSlider Javascript file -->
-        <link type="text/css" href="@Url.Content("~/HomeSiteArea/css/normalize.css")" rel="stylesheet" />
-        
-        <script type="text/javascript" src="@Url.Content("~/HomeSiteArea/js/jquery.bxslider.min.js")"></script>
- @*       <link href="css/jquery.bxslider.css" rel="stylesheet" />*@
-        <link type="text/css" href="@Url.Content("~/HomeSiteArea/css/jquery.bxslider.css")" rel="stylesheet" />
-        <link type="text/css" href="@Url.Content("~/HomeSiteArea/css/style.css")" rel="stylesheet" />
-        @*<link href="css/style.css" rel="stylesheet" />*@
+    <!-- jQuery library (served from CDN) -->
+    <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+    
+    <!-- jQuery accordion -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
 
-    </head>
-    <body  class="index">
-        <div id="page">
-            <div id="header-wrap">
-                <div id="header">
-                    <div class="logo">
-                        <img alt="" src="~/Contents/HomeSiteArea/images/logo.png" width="277" height="75" />
+    <link href="~/HomeSiteArea/css/normalize.css" rel="stylesheet" />
+
+    <!-- bxSlider Javascript file -->
+    <script src="~/HomeSiteArea/js/jquery.bxslider.min.js"></script>
+    <link href="~/HomeSiteArea/css/jquery.bxslider.css" rel="stylesheet" />
+
+    <link href="~/HomeSiteArea/css/style.css" rel="stylesheet" />
+
+</head>
+<body class="index">
+    <div id="page">
+        <div id="header-wrap">
+            <div id="header">
+                <div class="logo">
+                    <img alt="" src="~/HomeSiteArea/images/logo.png" width="277" height="75" />
+                </div>
+                <div class="menu-header">
+                    <ul class="menu">
+                        <li>
+                            <a class="active menu-overview" href="#">Overview</a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-pricing">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-contactus">Contact us</a>
+                        </li>
+                    </ul>
+                    <a class="free-trial" href="#">Free Trial</a>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        @RenderBody()
+        @RenderSection("featured", false)
+        <div id="content">
+            <ul class="bxslider">
+                <li>
+                    <div class="primary-left">
+                        <h1>Lower costs, reduce overall effort</h1>
+                        <p>
+                            Leverage our enterprise software to centralize and simplify the process of
+                            collecting data and documents for many
+                            compliance requirements while lowering
+                            costs and reducing overall enterprise
+                            effort.
+                        </p>
+                        <a class="btn" href="#">Try it for FREE</a>
                     </div>
-                    <div class="menu-header">
-                        <ul class="menu">
+                    <div class="primary-right">
+                        <iframe width="639" height="390" src="//www.youtube.com/embed/tuepR09S_AY?wmode=opaque" allowfullscreen></iframe>
+                    </div>
+                    <div style="clear: both;"></div>
+
+                </li>
+                <li class="slide2">
+                    <div class="primary-left">
+                        <h1>Comprehend, connect &amp; comply</h1>
+                        <p>
+                            With Intelleges you can easily measure,
+                            monitor and analyze compliance processes
+                            and objectives and implement corrective
+                            action to achieve planned results and
+                            continuous improvement.
+                        </p>
+                        <a class="btn" href="#">See how it works</a>
+                    </div>
+                    <div class="primary-right">
+                        <iframe width="639" height="390" src="//www.youtube.com/embed/tuepR09S_AY?wmode=opaque" allowfullscreen></iframe>
+                    </div>
+                    <div style="clear: both;"></div>
+                </li>
+                <li class="slide3">
+                    <div class="primary-left">
+                        <h1>Conflict Minerals deep dive </h1>
+                        <p>
+                            Organize compliance efforts with a single
+                            affordable solution that allows you to
+                            streamline compliance efforts and share
+                            data across the enterprise.
+                        </p>
+                        <a class="get-access" href="#">Webinar Access w/Subscription</a>
+                    </div>
+                    <div class="primary-right">
+                        <section class="tabs">
+                            <input id="tab-1" type="radio" name="radio-set" class="tab-selector-1" checked="checked" />
+                            <label for="tab-1" class="tab-label-1">Conflict Minerals w/U.S. State Dept</label>
+
+                            <input id="tab-2" type="radio" name="radio-set" class="tab-selector-2" />
+                            <label for="tab-2" class="tab-label-2">Conflict Minerals w/Hogan Lovells</label>
+
+                            <input id="tab-3" type="radio" name="radio-set" class="tab-selector-3" />
+                            <label for="tab-3" class="tab-label-3">Conflict Minerals w/Supply Chain Mag</label>
+
+                            <div class="clear-shadow"></div>
+
+                            <div class="content">
+                                <div class="content-1">
+                                    <iframe width="636" height="390" src="//www.youtube.com/embed/tuepR09S_AY?wmode=opaque" allowfullscreen></iframe>
+                                </div>
+                                <div class="content-2">
+                                    <iframe width="636" height="390" src="//www.youtube.com/embed/VxcbppCX6Rk?wmode=opaque" allowfullscreen></iframe>
+                                </div>
+                                <div class="content-3">
+                                    <iframe width="636" height="390" src="//www.youtube.com/embed/tuepR09S_AY?wmode=opaque" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div style="clear: both;"></div>
+
+                </li>
+                <li>
+                    <div class="primary slide-4">
+                        <h2>Intelleges: Enterprise-Level Compliance Software at an Affordable Price</h2>
+                        <img alt="" src="images/sodo.png" width="1024" height="333" />
+                        <a class="btn-slide-4" href="#">Sign Up Free</a>
+                    </div>
+                    <div style="clear: both;"></div>
+                </li>
+                <li>
+                    <div class="primary-left slide-5">
+                        <ul class="link-top">
+                            <li>Hand-offs/e-mails reduced or eliminated</li>
+                            <li> Queue times eliminated</li>
+                            <li>Cycle-time significantly reduced</li>
+                            <li>Templates controlled/locked in tool</li>
+                            <li>Real-time project status and reporting</li>
+                            <li>Centralized data repository/ data reuse</li>
+                            <li>Automated process, tracking and reporting</li>
+                            <li>Automated notifications and data exchange with SAP/OS</li>
+                        </ul>
+                        <ul class="link-bottom">
+                            <li>Hand-offs/e-mails reduced or eliminated</li>
+                            <li>Queue times eliminated</li>
+                            <li>Cycle-time significantly reduced</li>
+                            <li>Templates controlled/locked in tool</li>
+                            <li>Real-time project status and reporting</li>
+                            <li>Centralized data repository/ data reuse</li>
+                            <li>Automated process, tracking and reporting</li>
+                            <li>Automated notifications and data exchange with SAP/OS</li>
+                        </ul>
+                    </div>
+                    <div class="primary-right slide-5">
+                        <img alt="" src="~/HomeSiteArea/images/img5.png" width="422" height="420" />
+                    </div>
+                    <div style="clear: both;"></div>
+                </li>
+                <li class="slide6">
+                    <div id="pricing-main" class="div-pricing">
+                        <h3 class="title">
+                            Please select the product<br />that is right for you
+                        </h3>
+                        <h4 class="sub-title">
+                            Hs3 On-Demand Compliance Pricing
+                        </h4>
+                        <ul>
+                            <li class="row1">How Many Users (Unique Logins - 5 user minium)</li>
+                            <li class="row2">How Many Partners (Unique Access Codes)</li>
+                            <li class="row3">Part's (Unique P/N's - Touchpoints)</li>
+                            <li class="row4">Protocols</li>
+                            <li class="row5">Storage (for Document Management)</li>
+                            <li class="row6">ERP System Data Exchange (SAP, Oracle Financials)</li>
+                            <li class="row7">Shared Database</li>
+                            <li class="row8 last">Support</li>
+                        </ul>
+                        <a href="#">See How It Work!!!</a>
+                    </div>
+                    <div id="pricing-standard" class="pricing-child div-pricing">
+                        <h3 class="title">
+                            $135 per month per user<br />$1/partner
+                        </h3>
+                        <h4 class="sub-title">
+                            STANDARD
+                        </h4>
+                        <form method="post" action="/UserHome/Index" id="form-pricing-standard">
+                            <input type="hidden" value="1" name="SubscriptionType" />
+<input type="hidden" value="cost" name="query" />
+                            <ul>
+                                <li class="row1"><input type="text" name="userCount" placeholder="Enter Uers Count" /></li>
+                                <li class="row2"><input type="text" name="partnerCount" placeholder="Enter Partner Count" /></li>
+                                <li class="row3"><input type="text" name="partnumberCount" placeholder="Enter Part Number" /></li>
+                                <li class="row4">SINGLE</li>
+                                <li class="row5">1 GB</li>
+                                <li class="row6">No</li>
+                                <li class="row7">Yes</li>
+                                <li class="row8 last">Email Only</li>
+                            </ul>
+                            <input type="submit" name="submit-standard" id="submit-standard" value="Calculate Cost" />
+                        </form>
+                    </div>
+                    <div id="pricing-enhanced" class="pricing-child div-pricing">
+                        <h3 class="title">
+                            $10K/Protocol
+                        </h3>
+                        <h4 class="sub-title">
+                            Advanced
+                        </h4>
+                        <form method="post" id="form-pricing-enhanced">
+                            <ul>
+                                <li class="row1"><input type="text" placeholder="Enter Uers Count" name="many-user-enhanced" /></li>
+                                <li class="row2"><input type="text" placeholder="Enter Partner Count" name="many-partners-enhanced" /></li>
+                                <li class="row3"><input type="text" placeholder="Enter Part Number" name="many-part-enhanced" /></li>
+                                <li class="row4">3</li>
+                                <li class="row5">10 GB</li>
+                                <li class="row6">No</li>
+                                <li class="row7">Yes</li>
+                                <li class="row8 last">Phone Support</li>
+                            </ul>
+                            <input type="submit" name="submit-enhanced" id="submit-enhanced" value="Calculate Cost" />
+                        </form>
+                    </div>
+                    <div id="pricing-enterprise" class="pricing-child div-pricing">
+                        <h3 class="title">
+                            Core System Integration
+                        </h3>
+                        <h4 class="sub-title">
+                            ENTERPRISE
+                        </h4>
+                        <form method="post" id="form-pricing-enterprise">
+                            <ul>
+                                <li class="row1">Unlimited</li>
+                                <li class="row2">Unlimited</li>
+                                <li class="row3">Unlimited</li>
+                                <li class="row4">Unlimited</li>
+                                <li class="row5">10 GB</li>
+                                <li class="row6">No</li>
+                                <li class="row7">Yes</li>
+                                <li class="row8 last">Phone Support</li>
+                            </ul>
+                            <input type="submit" name="submit-enterprise" id="submit-enterprise" value="CALL US!" />
+                        </form>
+                    </div>
+                    <div style="clear: both;"></div>
+                </li>
+                <li>
+                    <div class="primary-left slide-7">
+                        <img alt="" class="tk" src="~/HomeSiteArea/images/thongke.png" width="425" height="319" />
+                        <ul class="text">
                             <li>
-                                <a class="active menu-overview" href="#">Overview</a>
-                            </li>
-                            <li>
-                                <a href="#" class="menu-pricing">Pricing</a>
-                            </li>
-                            <li>
-                                <a href="#" class="menu-contactus">Contact us</a>
+                                Diversified portfolio of business-to-business customers across
+                                the globe, industry segments and customer sizes
                             </li>
                         </ul>
-                        <a class="free-trial" href="#">Free Trial</a>
                     </div>
+                    <div class="primary-right slide-7">
+                        <h2>Our team is knowledgeable and experienced</h2>
+                        <div id="accordion">
+                            <h3>Key Leadership: John Betancourt (President & Chief Executive Officer)</h3>
+                            <div>
+                                <p>
+                                    Intelleges founder, Mr. Betancourt focuses on helping companies remain compliant in a constantly changing world.
+                                    Working on key strategic issues day-to-day at Intelleges, his focus is broad strategy, innovation, and key initiatives.
+                                    Intelleges allows businesses to collect, store and share compliance information easily, ensuring that companies comply with the data and document collection demands of many regulatory requirements globally.
+                                    Specific protocols include Foreign Corrupt Practices Act, Buy American Act, eSRS (SF-295), Customs Trade Partnership Against Terrorism, and many others. Keeping compliance information current and up to date and compliance costs down is how companies stay competitive in a globalized world.
+                                    Mr. Betancourt works to provide thought leadership in the global compliance arena, and maintaining customers up to date on industry best practices, monitoring key trends, information requirements, privacy and regulatory changes, and helping firms reduce costs by streamlining the overall process.
+                                    <br />
+                                    <strong>Princeton University, A.B (Philosophy) </strong>
+                                </p>
+                            </div>
+                            <h3>Key Leadership: Bruce Rubin (Chief Operating Officer)</h3>
+                            <div>
+                                <p>
+                                    Focused on developing and implementing forecasting programs and models that improve global compliance especially in the area of emerging economies.
+                                    I have worked with the operational personnel at many major retailers including Walmart, Target, Lowes, KMart, Sears, Do-it Best, to understand their requirements and to ensure the company complies with global standards.
+                                    <br />
+                                    <strong>Temple University, MBA</strong>
+                                </p>
+                            </div>
+                            <h3>Key Leadership: Daniel Kessler (General Counsel)</h3>
+                            <div>
+                                <p>
+                                    25 years of corporate in-house and private practice legal experience related to ensuring compliance with a broad range of regulatory issues (international and U.S. marketing and sales activities in the pharmaceutical and healthcare sectors, pricing and antitrust, FDA, securities, privacy).
+                                    Assists multi-national companies in establishing or enhancing integrated compliance programs with regard to anti-corruption, economic sanctions, export controls, import issues (including C-TPAT) and anti-boycott compliance and in establishing and undertaking audit programs (and remediation, as necessary) of third-party relationships.
+                                    Working with companies in the Middle East, Central & Eastern Europe, Latin America and Asia regarding these different trade regulatory environments and establishing innovative multi-platform compliance programs that have broad exposure to a full range of substantive legal and risk management issues.
+                                    <strong>The University of Chicago Law School, J.D.; The Fletcher School of Law and Diplomacy, Tufts University, M.A. in Law and Diplomacy; Haverford College, B.A.</strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="b1">INTELLEGES:</span><p>
+                                SMALL BUSINESS AWARD 2005 WINNER<br />
+                                <b>55 Systems Analysis Services</b> contracts<br />
+                                Successfully completed for U.S.Army<br />
+                                Totaling <b>6,809,377</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </li>
+                <li>
+                    <div id="content-slide-8">
+                        <div class="primary-left slide-8">
+                            <form id="form-slide-8">
+                                <input type="text" name="fname" placeholder="Enter your email address" /><br />
+                                <label>
+                                    <select>
+                                        <option value="0">Select your area of focus</option>
+                                    </select>
+                                </label>
+                                <div class="upload">
+                                    <input id="faux" type="text" placeholder="Upload your resume" />
+                                    <a href="#" id="browse">Upload </a>
+                                    <div id="wrapper">
+                                        <input id="input" type="file" />
+                                    </div>
+                                </div>
+                                <textarea rows="5" cols="40" placeholder="Tell us more about you..."></textarea>
+                                <input class="submit" type="submit" value="JOIN US!" />
+                            </form>
+                        </div>
+                        <div class="primary-right slide-8">
+                            <h2>USA OFFICE: LOCATED AT 3960 BROADWAY, NEW YORK, NEW YORK 10032</h2>
+                            <img alt="" src="~/HomeSiteArea/images/map.png" width="695" height="374" />
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </li>
+                <li class="contact-page slide9">
+                    <div class="content-contact-us">
+
+                        <div class="primary-left">
+
+                            <div class="contact-left">
+                                <p class="title-page">Contact us</p>
+                                <p>Sales Questions: <a href="mailto:sales@intelleges.com">Sales@intelleges.com</a></p>
+                                <p>Support Questions: <a href="mailto:support@intelleges.com">Support@intelleges.com</a></p>
+                                <p>Press Questions: <a href="mailto:press@intelleges.com">Press@intelleges.com</a></p>
+                            </div>
+
+                        </div>
+
+                        <div class="primary-right">
+
+                            <div class="contact-right">
+
+                                <p class="sign-up-now"><a href="#" class="menu-sign-up-now">SIGN UP NOW</a></p>
+
+                                <p class="p-content">Our Mission is Simple: We want to be the most reliable software company on earth.</p>
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div style="clear: both;"></div>
+
+                    </div>
+
+                    <div style="clear: both;"></div>
+                </li>
+                <li class="contact-form-page slide10">
+                    <div class="content-contact-form">
+                        <p class="title-page">Create an Intelleges Account</p>
+                        <form name="register" id="register" method="post" action="/UserHome/Signup">
+                            <div class="contact-form-left">
+                                <span class="title-top-content">Account Information</span>
+                                <div class="clear"></div>
+                                <div><div class="label-form"><label>Email Address</label></div><input type="email" name="email" required> </div>
+                                <div><div class="label-form"><label>CompanyName</label></div><input type="text" name="CompanyName" required> </div>
+                                <div><div class="label-form"><label>Company URL</label></div><input type="text" name="CompanyURL" required> </div>
+                                <div class="clear"></div>
+                                <span class="title-top-content">Select Product Information</span>
+                                <span class="title-top-content-left"></span>
+                                <div class="clear"></div>
+                                <div><div class="label-form" style="width:155px;"><label>Product Selected</label></div><input type="text" value="@ViewBag.ProductName" name="product-select" required> </div>
+                                <div><div class="label-form" style="width:155px;"><label>User Count</label></div>
+<input style="width:50px;float:left;" type="text" value="@ViewBag.userCount" name="user-count" required>
+                                 <div class="label-form"><label>Partner/Part#</label></div><input type="text" style="width:100px;" value="@ViewBag.part" name="parnet-count" required>
+ </div>
+                               
+                                </div>
+                            <div class="contact-form-right">
+                                <span class="title-top-content">Word Verification</span>
+                                <div class="clear"></div>
+                                <div class="verification" style="margin-left:0px;">
+                                    <div style="float:left;width:100%;margin-right:-39px;">
+                                        
+                                        <label>Enter the text you see in the image:</label><input type="text" name="text-image">
+                                    </div><div style="float:right;width:55%;margin-right:-182px;" class="captchanew"></div>
+                                </div>       
+                                <div class="clear"></div><span class="title-top-content">Terms of Service</span>
+                                <div class="clear"></div>
+                                <div><div class="label-form" style="width:155px;"><label>License Type</label></div><input type="text" style="width:155px;" value="30-Day Free Trial" name="Trial" required> </div>
+                                <div><div class="label-form" style="width:155px;"><label>Monthly Fee</label></div><input type="text" value="@ViewBag.CalculatedCost" name="monthly" required> </div>
+
+                                <div class="box-service">
+                                    <div class="checkbox"><input type="checkbox" name="checkbox1"> <label style="margin-left:25px;margin-top:-25px;">I agree to the Terms of Service and Privacy Policy</label></div>
+                                    <div class="submit-form"><input type="submit" value="Sign Up"></div>
+                                </div>
+                            </div>
+                        </form>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </li>
+            </ul>
+
+            <div class="text1 textslide">
+                <h2>Intelleges&reg; Version 3 Platform</h2>
+                <p>Intelleges&#39;s Hs3, introduced in 2000, is a very flexible platform used by companies to comply with a variety of regulations that require the collection of data and documentation from suppliers, customers, internal personnel, and/or other entities.</p>
+                <div class="imgtext1"><img alt="" src="~/HomeSiteArea/images/imgtext1.png" width="864" height="442" /></div>
+            </div>
+            <div class="text2 textslide">
+                <p>At large and medium-sized firms these processes are often handled using less efficient spreadsheet-based approaches or with online survey tools intended for <b>consumer surveys</b>, such as Survey Monkey&trade; and Zoomerang&trade; that are not suitable for enterprise global compliance initiatives. </p>
+                <strong>Limitations of Other Approaches</strong>
+                <p>The spreadsheet-based approach is not practicable when working with large populations of suppliers and/or part#s. It does not provide capabilities to easily aggregate data; and, generally offers very little data validation and data security to ensure that information collected meets compliance requirements for data that is complete, accurate, not tampered with, and current.</p>
+                <p>The online survey tools, although better than spreadsheets, have quite a number of limitations as well. They, among other limitations, do not allow for part# level questionnaires; do not have document collection capability; are not able to provide role-based access controls based on data segmentation; and, are not able to provide advanced data exchange capabilities that allow for data sharing with enterprise resource planning systems such as SAP. </p>
+            </div>
+            <div class="text3 textslide">
+                <p>Moreover, for <b>global compliance requirements</b>, such as those related to supply chain security, where different </p>
+                <div class="img1text3"><img alt="" src="~/HomeSiteArea/images/img1text3.png" width="580" height="326" /></div>
+                <p>geographical areas may have different requirements &ndash; C-TPAT (USA); PIP (Canada); AEO (EU), etc. &ndash; a multi-protocol system is needed where all these different protocols can be managed separately but viewed holistically. Neither spreadsheets nor standard online survey tools provide for any of these types of requirements and therefore are NOT the best tools to use for such initiatives. To handle information overlap a single module is needed.</p>
+                <div id="img2text3">
+                    <img alt="" class="img2text3 imgtext3" src="~/HomeSiteArea/images/img2text3.png" width="241" height="192" />
+                    <div class="groupimg imgtext3">
+                        <img alt="" class="img3text3" src="~/HomeSiteArea/images/img3text3.png" width="220" height="85" />
+                        <img alt="" class="img4text3" src="~/HomeSiteArea/images/img4text3.png" width="225" height="63" />
+                    </div>
+                    <img alt="" class="img5text3 imgtext3" src="~/HomeSiteArea/images/img5text3.png" width="355" height="152" />
                     <div style="clear: both;"></div>
                 </div>
             </div>
-             @RenderBody()
-            <div id="content">
-                <ul class="bxslider">
-                    <li>
-                        <div class="primary-left">
-                            <h1>Lower costs, reduce overall effort</h1>
-                            <p>Leverage our enterprise software to centralize and simplify the process of 
-                                collecting data and documents for many 
-                                compliance requirements while lowering 
-                                costs and reducing overall enterprise 
-                                effort.</p>
-                            <a class="btn" href="#">Try it for FREE</a>
-                        </div>
-                        <div class="primary-right">
-                            <iframe width="639" height="390" src="//www.youtube.com/embed/tuepR09S_AY?wmode=opaque"  allowfullscreen></iframe>
-                        </div>
-                        <div style="clear: both;"></div>    
-
-                    </li>
-                    <li class="slide2">
-                        <div class="primary-left">
-                            <h1>Comprehend, connect &amp; comply</h1>
-                            <p>With Intelleges you can easily measure, 
-                                monitor and analyze compliance processes
-                                and objectives and implement corrective 
-                                action to achieve planned results and 
-                                continuous improvement.</p>
-                            <a class="btn" href="#">See how it works</a>
-                        </div>
-                        <div class="primary-right">
-                            <iframe width="639" height="390" src="//www.youtube.com/embed/tuepR09S_AY?wmode=opaque"  allowfullscreen></iframe>
-                        </div>
-                        <div style="clear: both;"></div>
-                    </li>
-                    <li class="slide3">
-                        <div class="primary-left">
-                            <h1>Conflict Minerals deep dive </h1>
-                            <p>Organize compliance efforts with a single 
-                                affordable solution that allows you to 
-                                streamline compliance efforts and share 
-                                data across the enterprise.</p>
-                            <a class="get-access" href="#">Webinar Access w/Subscription</a>
-                        </div>
-                        <div class="primary-right">
-                            <section class="tabs">
-                                <input id="tab-1" type="radio" name="radio-set" class="tab-selector-1" checked="checked" />
-                                <label for="tab-1" class="tab-label-1">Conflict Minerals w/U.S. State Dept</label>
-
-                                <input id="tab-2" type="radio" name="radio-set" class="tab-selector-2" />
-                                <label for="tab-2" class="tab-label-2">Conflict Minerals w/Hogan Lovells</label>
-
-                                <input id="tab-3" type="radio" name="radio-set" class="tab-selector-3" />
-                                <label for="tab-3" class="tab-label-3">Conflict Minerals w/Supply Chain Mag</label>
-
-                                <div class="clear-shadow"></div>
-
-                                <div class="content">
-                                    <div class="content-1">
-                                        <iframe width="636" height="390" src="//www.youtube.com/embed/tuepR09S_AY?wmode=opaque"  allowfullscreen></iframe>
-                                    </div>
-                                    <div class="content-2">
-                                        <iframe width="636" height="390" src="//www.youtube.com/embed/VxcbppCX6Rk?wmode=opaque"  allowfullscreen></iframe>
-                                    </div>
-                                    <div class="content-3">
-                                        <iframe width="636" height="390" src="//www.youtube.com/embed/tuepR09S_AY?wmode=opaque"  allowfullscreen></iframe>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                        <div style="clear: both;"></div>  
-
-                    </li>
-                    <li>
-                        <div class="primary slide-4">
-                            <h2>Intelleges: Enterprise-Level Compliance Software at an Affordable Price</h2>
-                            <img alt="" src="images/sodo.png" width="1024" height="333" />
-                            <a class="btn-slide-4" href="#">Sign Up Free</a>
-                        </div>
-                        <div style="clear: both;"></div> 
-                    </li>
-                    <li>
-                        <div class="primary-left slide-5">
-                            <ul class="link-top">
-                                <li>Hand-offs/e-mails reduced or eliminated</li>
-                                <li> Queue times eliminated</li>
-                                <li>Cycle-time significantly reduced</li>
-                                <li>Templates controlled/locked in tool</li>
-                                <li>Real-time project status and reporting</li>
-                                <li>Centralized data repository/ data reuse</li>
-                                <li>Automated process, tracking and reporting</li>
-                                <li>Automated notifications and data exchange with SAP/OS</li>
-                            </ul>
-                            <ul class="link-bottom">
-                                <li>Hand-offs/e-mails reduced or eliminated</li>
-                                <li>Queue times eliminated</li>
-                                <li>Cycle-time significantly reduced</li>
-                                <li>Templates controlled/locked in tool</li>
-                                <li>Real-time project status and reporting</li>
-                                <li>Centralized data repository/ data reuse</li>
-                                <li>Automated process, tracking and reporting</li>
-                                <li>Automated notifications and data exchange with SAP/OS</li>
-                            </ul>
-                        </div>
-                        <div class="primary-right slide-5">
-                            <img alt="" src="images/img5.png" width="422" height="420" />
-                        </div>
-                        <div style="clear: both;"></div>
-                    </li>
-                    <li class="slide6">
-                        <div id="pricing-main" class="div-pricing">
-                            <h3 class="title">
-                                Please select the product<br/>that is right for you
-                            </h3>
-                            <h4 class="sub-title">
-                                Hs3 On-Demand Compliance Pricing
-                            </h4>
-                            <ul>
-                                <li class="row1">How Many Users (Unique Logins - 5 user minium)</li>
-                                <li class="row2">How Many Partners (Unique Access Codes)</li>
-                                <li class="row3">Part's (Unique P/N's - Touchpoints)</li>
-                                <li class="row4">Protocols</li>
-                                <li class="row5">Storage (for Document Management)</li>
-                                <li class="row6">ERP System Data Exchange (SAP, Oracle Financials)</li>
-                                <li class="row7">Shared Database</li>
-                                <li class="row8 last">Support</li>
-                            </ul>
-                            <a href="#">See How It Work!!!</a>
-                        </div>
-                        <div id="pricing-standard" class="pricing-child div-pricing">
-                            <h3 class="title">
-                                $135 per month per user<br />$1/partner
-                            </h3>
-                            <h4 class="sub-title">
-                                STANDARD
-                            </h4>
-                            <form  method="post" action="/UserHome/SelectProduct" id="form-pricing-standard">
-                                <input type="hidden" value="1" name="SubscriptionType" />
-                                <ul>
-                                    <li class="row1"><input type="text" name="userCount" placeholder="Enter Uers Count"  /></li>
-                                    <li class="row2"><input type="text" name="partnerCount" placeholder="Enter Partner Count"  /></li>
-                                    <li class="row3"><input type="text" name="partnumberCount" placeholder="Enter Part Number" /></li>
-                                    <li class="row4">SINGLE</li>
-                                    <li class="row5">1 GB</li>
-                                    <li class="row6">No</li>
-                                    <li class="row7">Yes</li>
-                                    <li class="row8 last">Email Only</li>
-                                </ul>
-                                <input type="submit" name="submit-standard" id="submit-standard" value="Calculate Cost" />
-                            </form>
-                        </div>
-                        <div id="pricing-enhanced" class="pricing-child div-pricing">
-                            <h3 class="title">
-                                $10K/Protocol
-                            </h3>
-                            <h4 class="sub-title">
-                                Advanced
-                            </h4>
-                            <form  method="post" id="form-pricing-enhanced">
-                                <ul>
-                                    <li class="row1"><input type="text" placeholder="Enter Uers Count" name="many-user-enhanced" /></li>
-                                    <li class="row2"><input type="text" placeholder="Enter Partner Count" name="many-partners-enhanced" /></li>
-                                    <li class="row3"><input type="text" placeholder="Enter Part Number" name="many-part-enhanced" /></li>
-                                    <li class="row4">3</li>
-                                    <li class="row5">10 GB</li>
-                                    <li class="row6">No</li>
-                                    <li class="row7">Yes</li>
-                                    <li class="row8 last">Phone Support</li>
-                                </ul>
-                                <input type="submit" name="submit-enhanced" id="submit-enhanced" value="Calculate Cost" />
-                            </form>
-                        </div>
-                        <div id="pricing-enterprise" class="pricing-child div-pricing">
-                            <h3 class="title">
-                                Core System Integration
-                            </h3>
-                            <h4 class="sub-title">
-                                ENTERPRISE
-                            </h4>
-                            <form  method="post" id="form-pricing-enterprise">
-                                <ul>
-                                    <li class="row1">Unlimited</li>
-                                    <li class="row2">Unlimited</li>
-                                    <li class="row3">Unlimited</li>
-                                    <li class="row4">Unlimited</li>
-                                    <li class="row5">10 GB</li>
-                                    <li class="row6">No</li>
-                                    <li class="row7">Yes</li>
-                                    <li class="row8 last">Phone Support</li>
-                                </ul>
-                                <input type="submit" name="submit-enterprise" id="submit-enterprise" value="CALL US!" />
-                            </form>
-                        </div>
-                        <div style="clear: both;"></div>    
-                    </li>
-                    <li>
-                        <div class="primary-left slide-7">
-                            <img alt="" class="tk" src="~/Contents/HomeSiteArea/images/thongke.png" width="425" height="319" />
-                            <ul class="text">
-                                <li>
-                                    Diversified portfolio of business-to-business customers across
-                                    the globe, industry segments and customer sizes
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="primary-right slide-7">
-                            <h2>Our team is knowledgeable and experienced</h2>
-                            <div id="accordion">
-                                <h3>Key Leadership: John Betancourt (President & Chief Executive Officer)</h3>
-                                <div>
-                                    <p>
-                                        Intelleges founder, Mr. Betancourt focuses on helping companies remain compliant in a constantly changing world. 
-                                        Working on key strategic issues day-to-day at Intelleges, his focus is broad strategy, innovation, and key initiatives. 
-                                        Intelleges allows businesses to collect, store and share compliance information easily, ensuring that companies comply with the data and document collection demands of many regulatory requirements globally. 
-                                        Specific protocols include Foreign Corrupt Practices Act, Buy American Act, eSRS (SF-295), Customs Trade Partnership Against Terrorism, and many others. Keeping compliance information current and up to date and compliance costs down is how companies stay competitive in a globalized world. 
-                                        Mr. Betancourt works to provide thought leadership in the global compliance arena, and maintaining customers up to date on industry best practices, monitoring key trends, information requirements, privacy and regulatory changes, and helping firms reduce costs by streamlining the overall process.
-                                        <br />
-                                        <strong>Princeton University, A.B (Philosophy) </strong>
-                                    </p>
-                                </div>
-                                <h3>Key Leadership: Bruce Rubin (Chief Operating Officer)</h3>
-                                <div>
-                                    <p>
-                                        Focused on developing and implementing forecasting programs and models that improve global compliance especially in the area of emerging economies. 
-                                        I have worked with the operational personnel at many major retailers including Walmart, Target, Lowes, KMart, Sears, Do-it Best, to understand their requirements and to ensure the company complies with global standards.
-                                        <br />
-                                        <strong>Temple University, MBA</strong>
-                                    </p>
-                                </div>
-                                <h3>Key Leadership: Daniel Kessler (General Counsel)</h3>
-                                <div>
-                                    <p>
-                                        25 years of corporate in-house and private practice legal experience related to ensuring compliance with a broad range of regulatory issues (international and U.S. marketing and sales activities in the pharmaceutical and healthcare sectors, pricing and antitrust, FDA, securities, privacy). 
-                                        Assists multi-national companies in establishing or enhancing integrated compliance programs with regard to anti-corruption, economic sanctions, export controls, import issues (including C-TPAT) and anti-boycott compliance and in establishing and undertaking audit programs (and remediation, as necessary) of third-party relationships. 
-                                        Working with companies in the Middle East, Central & Eastern Europe, Latin America and Asia regarding these different trade regulatory environments and establishing innovative multi-platform compliance programs that have broad exposure to a full range of substantive legal and risk management issues. 
-                                        <strong>The University of Chicago Law School, J.D.; The Fletcher School of Law and Diplomacy, Tufts University, M.A. in Law and Diplomacy; Haverford College, B.A.</strong>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <span class="b1">INTELLEGES:</span><p>SMALL BUSINESS AWARD 2005 WINNER<br />
-                                    <b>55 Systems Analysis Services</b> contracts<br />
-                                    Successfully completed for U.S.Army<br />
-                                    Totaling <b>6,809,377</b></p>
-                            </div>
-                        </div> 
-                        <div style="clear: both;"></div>   
-                    </li>
-                    <li>
-                        <div id="content-slide-8">
-                            <div class="primary-left slide-8">
-                                <form id="form-slide-8">
-                                    <input type="text" name="fname" placeholder="Enter your email address"/><br/>
-                                    <label>
-                                        <select>
-                                            <option value="0">Select your area of focus</option>
-                                        </select> 
-                                    </label>
-                                    <div class="upload">
-                                        <input id="faux" type="text" placeholder="Upload your resume" />
-                                        <a href="#" id="browse">Upload </a>
-                                        <div id="wrapper">
-                                            <input id="input" type="file" />
-                                        </div>
-                                    </div>
-                                    <textarea rows="5" cols="40" placeholder="Tell us more about you..."></textarea>
-                                    <input class="submit" type="submit" value="JOIN US!"/>
-                                </form>
-                            </div>
-                            <div class="primary-right slide-8">
-                                <h2>USA OFFICE: LOCATED AT 3960 BROADWAY, NEW YORK, NEW YORK 10032</h2>
-                                <img alt="" src="~/Contents/HomeSiteArea/images/map.png" width="695" height="374" />
-                            </div>
-                            <div style="clear: both;"></div>
-                        </div>
-                        <div style="clear: both;"></div>
-                    </li>
-                    <li class="contact-page slide9">
-                        <div class="content-contact-us">
-
-                            <div class="primary-left">
-
-                                <div class="contact-left"><p class="title-page">Contact us</p>       
-                                    <p>Sales Questions: <a href="mailto:sales@intelleges.com">Sales@intelleges.com</a></p>
-                                    <p>Support Questions: <a href="mailto:support@intelleges.com">Support@intelleges.com</a></p>
-                                    <p>Press Questions: <a href="mailto:press@intelleges.com">Press@intelleges.com</a></p>
-                                </div>
-
-                            </div>
-
-                            <div class="primary-right">
-
-                                <div class="contact-right">
-
-                                    <p class="sign-up-now"><a href="#" class="menu-sign-up-now">SIGN UP NOW</a></p>
-
-                                    <p class="p-content">Our Mission is Simple: We want to be the most reliable software company on earth.</p>
-
-                                </div>
-
-
-
-                            </div>
-
-                            <div style="clear: both;"></div>
-
-                        </div>
-
-                        <div style="clear: both;"></div>
-                    </li>
-                    <li class="contact-form-page slide10">
-                        <div class="content-contact-form">
-                            <p class="title-page">Create an Intelleges Account</p>
-                            <form name="register" id="register" method="post">
-                                <div class="contact-form-left">
-                                    <span class="title-top-content">Account Information</span>
-                                    <div class="clear"></div>
-                                    <div><div class="label-form"><label >Email Address</label></div><input type="email" name="email" required> </div>
-                                    <div><div class="label-form"><label >Password</label></div><input type="password" name="Password" required> </div>
-                                    <div><div class="label-form"><label >Re-enter Password</label></div><input type="password" name="re-enter-password" required> </div>
-
-                                    <span class="title-top-content">Word Verification</span>
-                                    <div class="clear"></div>	
-                                    <div class="verification"><label >Enter the text you see in the below image:</label><input type="text" name="text-image"> 
-                                        <div class="captchanew"></div>
-                                    </div>
-
-
-                                </div>
-                                <div class="contact-form-right">
-                                    <span class="title-top-content">Select Product Information</span>
-                                    <span class="title-top-content-left"></span>
-                                    <div class="clear"></div>
-                                    <div><div class="label-form"><label >Product Selected</label></div><input type="text" name="product-select" required> </div>
-                                    <div><div class="label-form"><label >User Count</label></div><input type="text" name="user-count" required> </div>
-                                    <div><div class="label-form"><label >Parnet/Part# Count</label></div><input type="text" name="parnet-count" required> </div>
-                                    <div><div class="label-form"><label >Monthly Fee</label></div><input type="text" name="monthly" required> </div>
-
-                                    <span class="title-top-content">Terms of Service</span>
-                                    <div class="clear"></div>	
-                                    <div class="box-service">
-                                        <div class="checkbox"><input type="checkbox" name="checkbox1" > <label>I agree to the Terms of Service and Privacy Policy</label></div>
-                                        <div class="submit-form"><input type="submit" value="Sign Up"></div>
-                                    </div>   
-                                </div>
-                            </form>
-                            <div style="clear: both;"></div>
-                        </div>
-                        <div style="clear: both;"></div>    
-                    </li>
+            <div class="text4 textslide">
+                <p>
+                    For what appear to be simpler requirements such as data collection for <b>
+                        supply chain partner disaster recovery and
+                        business continuity
+                    </b>, where response rates are imperative and <b>longitudinal analysis</b> is the ultimate objective, again, the
+                    online consumer survey tools and spreadsheets, do not provide effective capability to analyze data overtime and  manage supplier participation to ensure adequate response rates.
+                </p>
+                <div class="imgtext4">
+                    <img alt="" src="~/HomeSiteArea/images/imgtext4.png" width="570" height="450" />
+                </div>
+                <p>Without the right tools, these efforts are often not successful, and very little information is collected that can be used to reduce supply chain risk or better evaluate vendor maturity. </p>
+            </div>
+            <div class="text5 textslide">
+                <h3>Hs3 Capabilities</h3>
+                <p>Intelleges provides a fully automated, integrated and more comprehensive compliance capability enabling faster, more dependable data collection, sharing, validation, and reporting that meets the needs of most global compliance requirements.</p>
+                <p>The Hs3 cloud-based software is designed to allow an enterprise to effectively and efficiently meet the requirements of a variety of regulatory and non-regulatory requirements within a <b>single</b> integrated information platform.</p>
+                <div class="imgtext5"><img alt="" src="~/HomeSiteArea/images/imgtext5.png" width="785" height="310" /></div>
+            </div>
+            <div class="text6 textslide">
+                <h3>Key Capabilities</h3>
+                <ul>
+                    <li>1.	Modules with multi-protocol capability</li>
+                    <li>2.	Enterprise-level data sharing</li>
+                    <li>3.	Integrated rule based (touch point) workflows</li>
+                    <li>4.	Partner-type distinction within touch points</li>
+                    <li>5.	Spreadsheet-based questionnaire generation</li>
+                    <li>6.	Spreadsheet-based content management system (CMS)</li>
+                    <li>7.	Questionnaire hierarchy: partner-level; part# level; purchase order level</li>
+                    <li>8.	Complex data validation processing</li>
+                    <li>9.	Respondent ability to attach documents to questions</li>
+                    <li>10.	Respondent ability to apply comments to questions</li>
+                    <li>11.	Respondent ability to save the questionnaire and return at a later date to update data</li>
+                    <li>12.	Automated email notifications and reminders</li>
+                    <li>13.	Completed questionnaire stored on standard online storage systems such as Dropbox and Sharefile</li>
+                    <li>14.	User role-based access control (both data and functionality restrictions)</li>
+                    <li>15.	User Single Sign-on and Automated user purge</li>
+                    <li>16.	Key administrative charting and dashboards</li>
+                    <li>17.	Multi-protocol data integration</li>
+                    <li>18.	Longitudinal analysis capability</li>
+                    <li>19.	SAP/LSMW integration</li>
+                    <li>19.	SAP/LSMW integration</li>
                 </ul>
-
-                <div class="text1 textslide">
-                    <h2>Intelleges&reg; Version 3 Platform</h2>
-                    <p>Intelleges&#39;s Hs3, introduced in 2000, is a very flexible platform used by companies to comply with a variety of regulations that require the collection of data and documentation from suppliers, customers, internal personnel, and/or other entities.</p>
-                    <div class="imgtext1"><img alt="" src="~/Contents/HomeSiteArea/images/imgtext1.png" width="864" height="442" /></div>   
-                </div>
-                <div class="text2 textslide">
-                    <p>At large and medium-sized firms these processes are often handled using less efficient spreadsheet-based approaches or with online survey tools intended for <b>consumer surveys</b>, such as Survey Monkey&trade; and Zoomerang&trade; that are not suitable for enterprise global compliance initiatives. </p>
-                    <strong>Limitations of Other Approaches</strong>
-                    <p>The spreadsheet-based approach is not practicable when working with large populations of suppliers and/or part#s. It does not provide capabilities to easily aggregate data; and, generally offers very little data validation and data security to ensure that information collected meets compliance requirements for data that is complete, accurate, not tampered with, and current.</p>
-                    <p>The online survey tools, although better than spreadsheets, have quite a number of limitations as well. They, among other limitations, do not allow for part# level questionnaires; do not have document collection capability; are not able to provide role-based access controls based on data segmentation; and, are not able to provide advanced data exchange capabilities that allow for data sharing with enterprise resource planning systems such as SAP. </p>
-                </div>
-                <div class="text3 textslide">
-                    <p>Moreover, for <b>global compliance requirements</b>, such as those related to supply chain security, where different </p>
-                    <div class="img1text3"><img alt="" src="~/Contents/HomeSiteArea/images/img1text3.png" width="580" height="326" /></div>
-                    <p>geographical areas may have different requirements &ndash; C-TPAT (USA); PIP (Canada); AEO (EU), etc. &ndash; a multi-protocol system is needed where all these different protocols can be managed separately but viewed holistically. Neither spreadsheets nor standard online survey tools provide for any of these types of requirements and therefore are NOT the best tools to use for such initiatives. To handle information overlap a single module is needed.</p>
-                    <div id="img2text3">
-                        <img alt="" class="img2text3 imgtext3" src="~/Contents/HomeSiteArea/images/img2text3.png" width="241" height="192" />
-                        <div class="groupimg imgtext3">
-                            <img alt="" class="img3text3" src="~/Contents/HomeSiteArea/images/img3text3.png" width="220" height="85" />
-                            <img alt="" class="img4text3" src="~/Contents/HomeSiteArea/images/img4text3.png" width="225" height="63" />
-                        </div>
-                        <img alt="" class="img5text3 imgtext3" src="~/Contents/HomeSiteArea/images/img5text3.png" width="355" height="152" />
-                        <div style="clear: both;"></div>
-                    </div>
-                </div>
-                <div class="text4 textslide">
-                    <p>For what appear to be simpler requirements such as data collection for <b>supply chain partner disaster recovery and 
-                            business continuity</b>, where response rates are imperative and <b>longitudinal analysis</b> is the ultimate objective, again, the 
-                        online consumer survey tools and spreadsheets, do not provide effective capability to analyze data overtime and  manage supplier participation to ensure adequate response rates. </p>
-                    <div class="imgtext4">
-                        <img alt="" src="~/Contents/HomeSiteArea/images/imgtext4.png" width="570" height="450" />
-                    </div>
-                    <p>Without the right tools, these efforts are often not successful, and very little information is collected that can be used to reduce supply chain risk or better evaluate vendor maturity. </p>
-                </div>
-                <div class="text5 textslide">
-                    <h3>Hs3 Capabilities</h3>
-                    <p>Intelleges provides a fully automated, integrated and more comprehensive compliance capability enabling faster, more dependable data collection, sharing, validation, and reporting that meets the needs of most global compliance requirements.</p>
-                    <p>The Hs3 cloud-based software is designed to allow an enterprise to effectively and efficiently meet the requirements of a variety of regulatory and non-regulatory requirements within a <b>single</b> integrated information platform.</p>
-                    <div class="imgtext5"><img alt="" src="~/Contents/HomeSiteArea/images/imgtext5.png" width="785" height="310" /></div>
-                </div>
-                <div class="text6 textslide">
-                    <h3>Key Capabilities</h3>
-                    <ul>
-                        <li>1.	Modules with multi-protocol capability</li>
-                        <li>2.	Enterprise-level data sharing</li>
-                        <li>3.	Integrated rule based (touch point) workflows</li>
-                        <li>4.	Partner-type distinction within touch points</li>
-                        <li>5.	Spreadsheet-based questionnaire generation</li>
-                        <li>6.	Spreadsheet-based content management system (CMS)</li>
-                        <li>7.	Questionnaire hierarchy: partner-level; part# level; purchase order level</li>
-                        <li>8.	Complex data validation processing</li>
-                        <li>9.	Respondent ability to attach documents to questions</li>
-                        <li>10.	Respondent ability to apply comments to questions</li>
-                        <li>11.	Respondent ability to save the questionnaire and return at a later date to update data</li>
-                        <li>12.	Automated email notifications and reminders</li>
-                        <li>13.	Completed questionnaire stored on standard online storage systems such as Dropbox and Sharefile</li>
-                        <li>14.	User role-based access control (both data and functionality restrictions)</li>
-                        <li>15.	User Single Sign-on and Automated user purge</li>
-                        <li>16.	Key administrative charting and dashboards</li>
-                        <li>17.	Multi-protocol data integration</li>
-                        <li>18.	Longitudinal analysis capability</li>
-                        <li>19.	SAP/LSMW integration</li>
-                        <li>19.	SAP/LSMW integration</li>
-                    </ul>
-                </div>
-                <div class="text7 textsile">
-                    <img alt="" src="~/Contents/HomeSiteArea/images/img1text7.png" width="557" height="303" />
-                    <p class="text7-right">Hs3 modules are divided into specific functional areas of compliance each with unique features and capabilities:
-                        Hs3_SCS (Integrated Global Supply Chain Security Compliance); Hs3_BAA (Part# level Country of Origin Compliance as is required for example for Buy American Act compliance); Hs3_FMF (Part# Level Cost Breakdown reporting for Foreign Military Financing Reporting); Hs3_EC (Executive Compensation Reporting); Hs3_AML (Anti-money Laundering Compliance); Hs3_CR (Supplier Certifications for DCMA and DCAA audit); Hs3_3TG ( for Conflict Minerals Compliance); Hs3_QA (for product Quality Assurance Efforts); and Hs3_EE (for Energy Efficiency & Green Energy Efforts.
-                    </p>
-                    <div style="clear: both;"></div>
-                    <h3>Modularized Approach</h3>
-                    <p>While information is entered separately for each specific module, the modules are fully-integrated and provide real-time data sharing for each enterprise. Hs3 provides for a "single data entry point" where the data entered from any location is instantly sent to all other appropriate modules in the Hs3 system. This means that data entered into one module is immediately and automatically updated and reflected in all of the other modules as well.</p>
-                </div>
-                <div class="text8 textslide">
-                    <p>Hs3 modules are organized with the concept that a compliance requirement should operate as a series of integrated processes that can be reproduced within the Hs3 system as a series of workflows, touch points, internal system controls and questionnaires. </p>
-                    <img alt="" src="~/Contents/HomeSite Area/images/imgtext8.png" width="417" height="420" />
-                    <p class="text8-right">Follow standard business process improvement methodology for compliance. Once the key compliance requirements are understood, Hs3 allows you to Design, Model and Execute a comprehensive process, and then provides key analytics for effective Monitoring and Tracking of Performance. 
-                        By continuously analyzing data, and automated controls based on set metrics, the Hs3 system provides Smart-Action-Alerts that allow for process optimization. 
-                    </p>
-                </div>
-                <div style="clear: both;"></div>
-                <div class="text9 textslide">
-                    <img alt="" src="~/Contents/HomeSiteArea/images/imgtext9.png" width="605" height="617" />
-                    <div class="text-right">
-                        <p>A protocol-based approach with workflow integration allows each individual module to provide a comprehensive record of all information needed for external compliance reporting. 
-
-                        </p>
-                        <p>The data is complete and accurate because the Intelleges system accommodates all regulatory requirements into a series of workflows, touch points, informational hyperlinks, questionnaires and partner types allowing all the internal operational areas of a company and external suppliers to participate in a comprehensive and compliant manner.</p>
-                    </div>
-                </div>
-                <div style="clear: both;"></div>
-                <div class="text10 textslide">
-                    <div class="text-left10" style="float: left;line-height: 20px;width: 700px;">
-                        <p>The analytics module which includes detailed charts and dashboards allows for effective enterprise level administration that allows for effective management and focus on overall program effectiveness and ROI. This ensures that compliance KPI&#39;s such as response rates, data validation, etc. can be monitored and administered effectively.</p>
-                        <p>The software is customizable using Hs3's proprietary Microsoft Excel-based Questionnaire Builder and the Microsoft Excel-based Questionnaire Content Management System (CMS). As a result, Hs3 is scalable and highly suited for many types and sizes of organizations and is highly compatible with a variety of regulatory protocols.</p>
-                        <p>Additionally, there is equal access to all data in the system. This means that personnel can access compliance data directly from the system using advanced </p>
-                        <p>querying UI capabilities without the need for additional programming or specialized consulting resources.</p>
-                        <p>Hs3 has been designed to be an enterprise integrated solution that can easily integrate </p>
-                        <p>with large scale ERP systems such as SAP and Oracle Financials.</p>
-                        <p>Hs3 integration features include LDAP/Single Sign-on; and SAP LSMW and thus the system is well-organized and very efficient in automating large scale data exchange with other large scale systems.</p>
-                        <p>The Hs3 package includes several very attractive features like it has a Model-View-Controller </p>
-                        <p>Multi-Tenant architecture which allows for a shared code base, but also the flexibility of company specific customizations and configuration. Providing this architecture offers scalability and easier adaptation to the specific needs of large and fast-growing companies.
-                        </p>
-                        <p>All in all, the Hs3 system offers unique capabilities that can allow large and medium sized enterprises to meet global compliance requirements in a way that is integrated, comprehensive, streamlined and affordable.</p>
-                    </div>
-                    <div class="img-right" style="float: right;width: 200px;">
-                        <img alt="" src="~/Contents/HomeSiteArea/images/img1text10.png" width="180" height="131" />
-                        <img alt="" src="~/Contents/HomeSiteArea/images/img2text10.png" width="205" height="131" />
-                        <img alt="" src="ima~/Contents/HomeSiteArea/imagesges/img3text10.png" width="201" height="129" />
-                        <img alt="" src="~/Contents/HomeSiteArea/images/img4text10.png" width="209" height="133" />
-                    </div>
-                </div>
-                <div style="clear: both;"></div>
-                <div class="text11 textslide" style="text-align: center;">
-                    <img alt="" src="~/Contents/HomeSiteArea/images/imgtext11.png" width="785" height="460" />
-                </div>
-                <div style="clear: both;"></div>
-                <div class="text12 textslide">
-                    <img alt="" src="~/Contents/HomeSiteArea/images/imgtext12.png" width="533" height="535" style="float: left;"/>
-                    <div class="text-right" style="float: right;width: 455px;">
-                        <strong>Comprehend-Connect-Comply</strong>
-                        <p>represents the systematic  approach which Intelleges Professional Services personnel employ for Hs3 implementations.  This approach allows us to see, predict, and plan ahead: we take a broad, long-range approach to our compliance methodology that involves objective analysis, thinking ahead, and planning. That means being able to think in multiple time frames, identifying what they are trying to accomplish over time and how the different perspectives integrate together now, in six months, in a year, in three years, etc.. It also means allowing us to identify the impact of decisions on various segments of the organization--including internal departments, personnel, suppliers, and customers.</p>
-                    </div>
-                </div>
-                <div style="clear: both;"></div>
-                <div class="text13 textslide">
-                    <strong>Security</strong>
-                    <p>At Intelleges, security is of the utmost importance. All code for Hs3 is maintained on a single server. Programmers do not have the ability to download code to their personal computers. All coding follows a paired-programming approach and is done directly on the Development Server. Once code is tested and compiled, it is reviewed by a senior manager and then is posted to a QA server. After detailed testing, the code is released by the Team Lead (U.S. Passport holders ONLY.) to the Production Server.</p>
-                    <p>Client data is maintained encrypted on a dedicated Production Database Server. Direct access to the Production Database Server is only accessible via the Production Web Server (IP Constraint).  The application only has access to data via restricted stored procedures. Team Leads (U.S. Passport holders ONLY) have access to client data. Only two employees have access to client data.</p>
-                    <p>All employees are subject to background checks and must pass security clearance requirements. Extensive security controls are in place to protect against security threats.</p>
-                    <strong>Pricing:</strong> $135/monthly per User + $10/one-time fee per partner<br />
-                    <strong>Contact:</strong> For more information please contact Rachel Schneider, Global Accounts Manager at <a href="mailto:rachel.schneider@intelleges.com" target="_top">
-                        rachel.schneider@intelleges.com</a> or call at 917 848 8088. 
-                </div>
-
             </div>
+            <div class="text7 textsile">
+                <img alt="" src="~/HomeSiteArea/images/img1text7.png" width="557" height="303" />
+                <p class="text7-right">
+                    Hs3 modules are divided into specific functional areas of compliance each with unique features and capabilities:
+                    Hs3_SCS (Integrated Global Supply Chain Security Compliance); Hs3_BAA (Part# level Country of Origin Compliance as is required for example for Buy American Act compliance); Hs3_FMF (Part# Level Cost Breakdown reporting for Foreign Military Financing Reporting); Hs3_EC (Executive Compensation Reporting); Hs3_AML (Anti-money Laundering Compliance); Hs3_CR (Supplier Certifications for DCMA and DCAA audit); Hs3_3TG ( for Conflict Minerals Compliance); Hs3_QA (for product Quality Assurance Efforts); and Hs3_EE (for Energy Efficiency & Green Energy Efforts.
+                </p>
+                <div style="clear: both;"></div>
+                <h3>Modularized Approach</h3>
+                <p>While information is entered separately for each specific module, the modules are fully-integrated and provide real-time data sharing for each enterprise. Hs3 provides for a "single data entry point" where the data entered from any location is instantly sent to all other appropriate modules in the Hs3 system. This means that data entered into one module is immediately and automatically updated and reflected in all of the other modules as well.</p>
+            </div>
+            <div class="text8 textslide">
+                <p>Hs3 modules are organized with the concept that a compliance requirement should operate as a series of integrated processes that can be reproduced within the Hs3 system as a series of workflows, touch points, internal system controls and questionnaires. </p>
+                <img alt="" src="~/HomeSite Area/images/imgtext8.png" width="417" height="420" />
+                <p class="text8-right">
+                    Follow standard business process improvement methodology for compliance. Once the key compliance requirements are understood, Hs3 allows you to Design, Model and Execute a comprehensive process, and then provides key analytics for effective Monitoring and Tracking of Performance.
+                    By continuously analyzing data, and automated controls based on set metrics, the Hs3 system provides Smart-Action-Alerts that allow for process optimization.
+                </p>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="text9 textslide">
+                <img alt="" src="~/HomeSiteArea/images/imgtext9.png" width="605" height="617" />
+                <div class="text-right">
+                    <p>
+                        A protocol-based approach with workflow integration allows each individual module to provide a comprehensive record of all information needed for external compliance reporting.
 
-            
-
+                    </p>
+                    <p>The data is complete and accurate because the Intelleges system accommodates all regulatory requirements into a series of workflows, touch points, informational hyperlinks, questionnaires and partner types allowing all the internal operational areas of a company and external suppliers to participate in a comprehensive and compliant manner.</p>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="text10 textslide">
+                <div class="text-left10" style="float: left;line-height: 20px;width: 700px;">
+                    <p>The analytics module which includes detailed charts and dashboards allows for effective enterprise level administration that allows for effective management and focus on overall program effectiveness and ROI. This ensures that compliance KPI&#39;s such as response rates, data validation, etc. can be monitored and administered effectively.</p>
+                    <p>The software is customizable using Hs3's proprietary Microsoft Excel-based Questionnaire Builder and the Microsoft Excel-based Questionnaire Content Management System (CMS). As a result, Hs3 is scalable and highly suited for many types and sizes of organizations and is highly compatible with a variety of regulatory protocols.</p>
+                    <p>Additionally, there is equal access to all data in the system. This means that personnel can access compliance data directly from the system using advanced </p>
+                    <p>querying UI capabilities without the need for additional programming or specialized consulting resources.</p>
+                    <p>Hs3 has been designed to be an enterprise integrated solution that can easily integrate </p>
+                    <p>with large scale ERP systems such as SAP and Oracle Financials.</p>
+                    <p>Hs3 integration features include LDAP/Single Sign-on; and SAP LSMW and thus the system is well-organized and very efficient in automating large scale data exchange with other large scale systems.</p>
+                    <p>The Hs3 package includes several very attractive features like it has a Model-View-Controller </p>
+                    <p>
+                        Multi-Tenant architecture which allows for a shared code base, but also the flexibility of company specific customizations and configuration. Providing this architecture offers scalability and easier adaptation to the specific needs of large and fast-growing companies.
+                    </p>
+                    <p>All in all, the Hs3 system offers unique capabilities that can allow large and medium sized enterprises to meet global compliance requirements in a way that is integrated, comprehensive, streamlined and affordable.</p>
+                </div>
+                <div class="img-right" style="float: right;width: 200px;">
+                    <img alt="" src="~/HomeSiteArea/images/img1text10.png" width="180" height="131" />
+                    <img alt="" src="~/HomeSiteArea/images/img2text10.png" width="205" height="131" />
+                    <img alt="" src="~/HomeSiteArea/imagesges/img3text10.png" width="201" height="129" />
+                    <img alt="" src="~/HomeSiteArea/images/img4text10.png" width="209" height="133" />
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="text11 textslide" style="text-align: center;">
+                <img alt="" src="~/HomeSiteArea/images/imgtext11.png" width="785" height="460" />
+            </div>
+            <div style="clear: both;"></div>
+            <div class="text12 textslide">
+                <img alt="" src="~/HomeSiteArea/images/imgtext12.png" width="533" height="535" style="float: left;" />
+                <div class="text-right" style="float: right;width: 455px;">
+                    <strong>Comprehend-Connect-Comply</strong>
+                    <p>represents the systematic  approach which Intelleges Professional Services personnel employ for Hs3 implementations.  This approach allows us to see, predict, and plan ahead: we take a broad, long-range approach to our compliance methodology that involves objective analysis, thinking ahead, and planning. That means being able to think in multiple time frames, identifying what they are trying to accomplish over time and how the different perspectives integrate together now, in six months, in a year, in three years, etc.. It also means allowing us to identify the impact of decisions on various segments of the organization--including internal departments, personnel, suppliers, and customers.</p>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="text13 textslide">
+                <strong>Security</strong>
+                <p>At Intelleges, security is of the utmost importance. All code for Hs3 is maintained on a single server. Programmers do not have the ability to download code to their personal computers. All coding follows a paired-programming approach and is done directly on the Development Server. Once code is tested and compiled, it is reviewed by a senior manager and then is posted to a QA server. After detailed testing, the code is released by the Team Lead (U.S. Passport holders ONLY.) to the Production Server.</p>
+                <p>Client data is maintained encrypted on a dedicated Production Database Server. Direct access to the Production Database Server is only accessible via the Production Web Server (IP Constraint).  The application only has access to data via restricted stored procedures. Team Leads (U.S. Passport holders ONLY) have access to client data. Only two employees have access to client data.</p>
+                <p>All employees are subject to background checks and must pass security clearance requirements. Extensive security controls are in place to protect against security threats.</p>
+                <strong>Pricing:</strong> $135/monthly per User + $10/one-time fee per partner<br />
+                <strong>Contact:</strong> For more information please contact Rachel Schneider, Global Accounts Manager at <a href="mailto:rachel.schneider@intelleges.com" target="_top">
+                    rachel.schneider@intelleges.com
+                </a> or call at 917 848 8088.
+            </div>
 
         </div>
 
-    </body>
+
+
+
+    </div>
+
+</body>
 </html>
 <script>
 
 
     $(document).ready(function () {
-        alert(@ViewBag.Query);
         slider = $('.bxslider').bxSlider();
-                    $("#accordion").accordion({
-                        collapsible: true,
-                        active: false
-                    });
 
-                });
+        if ('@ViewBag.Query' == "AccountInfo") {
+            slider.goToSlide(9);
+        }
+
+        $("#accordion").accordion({
+            collapsible: true,
+            active: false
+        });
+
+    });
     $(".menu-overview").click(function () {
         slider.goToSlide(3);
     });
@@ -578,4 +605,4 @@
     $(".menu-pricing").click(function () {
         slider.goToSlide(5);
     });
-            </script>
+</script>

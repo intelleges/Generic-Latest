@@ -22,59 +22,59 @@ namespace BAA.Controllers
         //
         // GET: /UserHome/
         private EntitiesDBContext db = new EntitiesDBContext();
-        public ActionResult Index()
+        public ActionResult Index(string query, ProductTypeModel model, int? SubscriptionType)
         {
-            return View();
-        }
+            
+            if (query == "cost")
+            {
+                List<SelectListItem> expYears = new List<SelectListItem>();
+                for (int i = 0; i <= 10; i++)
+                {
+                    string year = (DateTime.Today.Year + i).ToString();
+                    expYears.Add(new SelectListItem { Text = year, Value = year });
+                }
+                ViewBag.ExpYears = new SelectList(expYears, "Value", "Text");
 
-        public ActionResult SelectProduct()
-        {
-            return View();
+                IEnumerable<SelectListItem> expMonths = DateTimeFormatInfo.InvariantInfo.MonthNames.Where(m => !String.IsNullOrEmpty(m)).Select((monthName, index) => new SelectListItem
+                {
+                    Value = (index + 1).ToString(),
+                    Text = (index + 1).ToString("00")
+                });
+
+                ViewBag.ExpMonths = new SelectList(expMonths, "Value", "Text");
+                Session["subscriptiontype"] = SubscriptionType;
+
+                if (SubscriptionType == 1)
+                {
+                    var product = Chargify.LoadProduct("standard");
+                    ViewBag.ProductName = product.Name ?? string.Empty;
+                }
+                else if (SubscriptionType == 2)
+                {
+                    var product = Chargify.LoadProduct("advanced");
+                    ViewBag.ProductName = product.Name ?? string.Empty;
+                }
+                else
+                {
+                    var product = Chargify.LoadProduct("enterprise");
+                    ViewBag.ProductName = product.Name ?? string.Empty;
+                }
+
+                ViewBag.userCount = model.userCount;
+                ViewBag.partner = model.partnerCount;
+                ViewBag.part = model.partnumberCount;
+                ViewBag.Query = "AccountInfo";
+                ViewBag.CalculatedCost = db.pr_getCalculatedCostForEnterpriseSubscription(model.userCount, model.partnerCount, model.partnumberCount, SubscriptionType).FirstOrDefault();
         
+            
+            }
+            
+            return View();
         }
 
+        
         [HttpPost]
-        public ActionResult SelectProduct(ProductTypeModel model, int SubscriptionType)
-        {
-            List<SelectListItem> expYears = new List<SelectListItem>();
-            for (int i = 0; i <= 10; i++)
-            {
-                string year = (DateTime.Today.Year + i).ToString();
-                expYears.Add(new SelectListItem { Text = year, Value = year });
-            }
-            ViewBag.ExpYears = new SelectList(expYears, "Value", "Text");
-
-            IEnumerable<SelectListItem> expMonths = DateTimeFormatInfo.InvariantInfo.MonthNames.Where(m => !String.IsNullOrEmpty(m)).Select((monthName, index) => new SelectListItem
-            {
-                Value = (index + 1).ToString(),
-                Text = (index + 1).ToString("00")
-            });
-
-            ViewBag.ExpMonths = new SelectList(expMonths, "Value", "Text");
-            Session["subscriptiontype"] = SubscriptionType;
-
-            if (SubscriptionType == 1)
-            {
-                var product = Chargify.LoadProduct("standard");
-                ViewBag.ProductName = product.Name ?? string.Empty;
-            }
-            else if (SubscriptionType == 2)
-            {
-                var product = Chargify.LoadProduct("advanced");
-                ViewBag.ProductName = product.Name ?? string.Empty;
-            }
-            else {
-                var product = Chargify.LoadProduct("enterprise");
-               ViewBag.ProductName = product.Name ?? string.Empty;
-            }
-
-
-            ViewBag.Query = "AccountInfo";
-            ViewBag.CalculatedCost=db.pr_getCalculatedCostForEnterpriseSubscription(model.userCount,model.partnerCount,model.partnumberCount,SubscriptionType).FirstOrDefault();
-            return View("Index");
-        }
-        [HttpPost]
-        public ActionResult Local(LocalSignup model, string id)
+        public ActionResult Signup(LocalSignup model, string id)
         {
             try
             {
@@ -132,13 +132,13 @@ namespace BAA.Controllers
                         // ViewBag.ProductName = product.Name ?? string.Empty;
                     }
 
-
+                    Session["subscriptionProduct"] = subscriptionProduct;
                     try
                     {
                         var newSubscription = Chargify.CreateSubscription(subscriptionProduct, customerInfo, paymentAttributes);
 
                         //WebSecurity.Login(model.User.UserName, model.User.Password, false);
-                        return RedirectToAction("Index", "UserHome");
+                        return RedirectToAction("Confirmation");
                     }
                     catch (ChargifyException ex)
                     {
@@ -166,7 +166,11 @@ namespace BAA.Controllers
             }
         }
 
-
+        public ActionResult Confirmation()
+        { 
+          return View();
+        }
+ 
         #region Helpers
         private ChargifyConnect Chargify
         {
