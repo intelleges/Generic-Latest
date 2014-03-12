@@ -1070,7 +1070,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         Session["CustomizedLSMW"] = customizedLSMW;
 
 
-
+                        Session["CountryCode"] = null; 
 
 
                         if (Session["NextPartnumber"] == null)
