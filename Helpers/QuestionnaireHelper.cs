@@ -7,7 +7,7 @@ namespace Generic.Helpers.Questionnaire
 {
     public static class CommentType
     {
-        public const int YN_WARNING_N = 1;  
+        public const int YN_WARNING_N = 1;
         public const int YN_WARNING_Y = 2;
         public const int YN_COMMENT_Y = 3;
         public const int YN_COMMENT_N = 4;
@@ -35,17 +35,17 @@ namespace Generic.Helpers.Questionnaire
         public const int ANY_RESPONSE = 3;
         public const int RESERVED_FOR_FUTURE = 4;
 
-//74	Yes
-//75	No
-//76	N/A
-//77	COTS
+        //74	Yes
+        //75	No
+        //76	N/A
+        //77	COTS
 
     }
-  
-    
+
+
 
     public static class SkipLogicAnswer
-    {        
+    {
         public const int Y = 1;
         public const int N = 0;
         public const int M = 2;
@@ -135,7 +135,35 @@ namespace Generic.Helpers.Questionnaire
         public const string XX_Comment_Only_Question = "XX";
         public const string YY_Skipped = "YY";
         public const string ZZ_Not_Answered = "ZZ";
-      
+
     }
+    public static class ResponseType
+    {
+        public const int RADIOBUTTON = 3;
+        public const int TEXTCOMMENT = 4;
+        public const int TEXTINTEGER = 5;
+        public const int TEXTNUMBER = 6;
+        public const int TEXTAREA = 7;
+        public const int DROPDOWN = 10;
+        public const int VERTICALRADIOBUTTON = 11;
+        public const int CHECKBOX = 12;
+        public const int UPLOAD = 13;
+        public const int TEXT_UPLOAD = 14;
+
+
+    }
+
+    public class CustomizedLSMW
+    {
+        public string LIFNR { get; set; }
+        public string MATNR { get; set; }
+        public string WERKS { get; set; }
+        public string ZPOST { get; set; }
+        public string ZCFLAG { get; set; }
+        public DateTime COMPLETED_DATE { get; set; }
+        public string ZCODE { get; set; }
+        public int PartnumberSiteZcode { get; set; }
+    }
+
 
 }

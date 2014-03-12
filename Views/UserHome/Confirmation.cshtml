@@ -2,9 +2,8 @@
     ViewBag.Title = "Confirmation";
     Layout = "~/Views/Shared/_HomeSiteLayout.cshtml";
 }
-@section featured {
+
 
 <h2>Confirmation</h2>
-<p>Thank your for your Free-Trial Registration for the <b>Session["subscriptionProduct"] as string</b> product. You will receive an Email Invitation with Login information. Please contact us at techsupport@intelleges.com if you have any issues logging in. Thanks again for your interest in our products. Have a great day!"</p>
+<p>Thank your for your Free-Trial Registration for the <b>@ViewBag.Type</b> product. You will receive an Email Invitation with Login information. Please contact us at techsupport@intelleges.com if you have any issues logging in. Thanks again for your interest in our products. Have a great day!"</p>
 
-}

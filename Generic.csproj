@@ -393,6 +393,9 @@
     <Compile Include="country.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="customizedLSMWReport.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataLayer\MenuOperation.cs" />
     <Compile Include="DataLayer\surveyForm.cs" />
     <Compile Include="domain.cs">
@@ -639,6 +642,9 @@
     <Compile Include="prReminder.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_addCustomizedLSMWReport_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_findUserRole_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -685,6 +691,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCountry_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getCustomizedReportByPPTQandZcode_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getDomainAll_Result.cs">

@@ -23,8 +23,52 @@ namespace BAA.Controllers
         //
         // GET: /UserHome/
         private EntitiesDBContext db = new EntitiesDBContext();
-        public ActionResult Index()
+        public ActionResult Index(ProductTypeModel model, int? SubscriptionType)
         {
+            ViewBag.Query = "";
+            if (model.partnerCount >0)
+            {
+                List<SelectListItem> expYears = new List<SelectListItem>();
+                for (int i = 0; i <= 10; i++)
+                {
+                    string year = (DateTime.Today.Year + i).ToString();
+                    expYears.Add(new SelectListItem { Text = year, Value = year });
+                }
+                ViewBag.ExpYears = new SelectList(expYears, "Value", "Text");
+
+                IEnumerable<SelectListItem> expMonths = DateTimeFormatInfo.InvariantInfo.MonthNames.Where(m => !String.IsNullOrEmpty(m)).Select((monthName, index) => new SelectListItem
+                {
+                    Value = (index + 1).ToString(),
+                    Text = (index + 1).ToString("00")
+                });
+
+                ViewBag.ExpMonths = new SelectList(expMonths, "Value", "Text");
+                Session["subscriptiontype"] = SubscriptionType;
+
+                if (SubscriptionType == 1)
+                {
+                    var product = Chargify.LoadProduct("standard");
+                    ViewBag.ProductName = product.Name ?? string.Empty;
+                    ViewBag.Product = "1";
+                }
+                else if (SubscriptionType == 2)
+                {
+                    var product = Chargify.LoadProduct("advanced");
+                    ViewBag.ProductName = product.Name ?? string.Empty;
+                    ViewBag.Product = "2";
+                }
+                else
+                {
+                    var product = Chargify.LoadProduct("enterprise");
+                    ViewBag.ProductName = product.Name ?? string.Empty;
+                    ViewBag.Product = "3";
+                }
+                ViewBag.CalculatedCost = db.pr_getCalculatedCostForEnterpriseSubscription(model.userCount, model.partnerCount, model.partnumberCount, SubscriptionType).FirstOrDefault();
+                ViewBag.User = model.userCount;
+                ViewBag.Partner = model.partnerCount;
+                ViewBag.Query = "AccountInfo";
+            }
+           
             return View();
         }
 
@@ -40,7 +84,7 @@ namespace BAA.Controllers
             try
             {
                 string email = frmCollection["email"].ToString();
-                string Password = frmCollection["Password"].ToString();
+                //string Password = frmCollection["Password"].ToString();
                 int product = int.Parse(frmCollection["product-select"].ToString());
                 int userCount = int.Parse(frmCollection["user-count"].ToString());
                 int partnerCount = int.Parse(frmCollection["partner-count"].ToString());
@@ -51,27 +95,84 @@ namespace BAA.Controllers
                     System.Data.Objects.ObjectResult<Decimal?> addEnterpriseResult = db.pr_addEnterprise("", 0, true, null, null, "NewCompany", "newCompany", userCount, partnerCount, partnerCount, product, 1, DateTime.Now, DateTime.Now.AddDays(30), DateTime.Now, DateTime.Now.AddDays(30), monthly, 1, "1", null);
                  
                     int enterpriseID= (int)addEnterpriseResult.FirstOrDefault().Value;
-                    System.Data.Objects.ObjectResult<Decimal?> addpersonResult = db.pr_addPerson(enterpriseID, 1, 1, 1, 1, 1, "1", "1", "1", "New first name", "New lastname", "Mr", "", "", Password, email, "", "", "", 1, "1", 1, "", "", 1, 1, null, null, null, null);
+                    System.Data.Objects.ObjectResult<Decimal?> addpersonResult = db.pr_addPerson(enterpriseID, 1, 1, 1, 1, 1, "1", "1", "1", "New first name", "New lastname", "Mr", "", "", "", email, "", "", "", 1, "1", 1, "", "", 1, 1, null, null, null, null);
                     System.Data.Objects.ObjectResult<Decimal?> addPartnerResult = db.pr_addPartner(enterpriseID, "1", "New Person", "", "", "", 1, "", "", 1, "", "", "F", "L", "", email, "", "", 1, 1, 1, 1, DateTime.Now, true, null);
                    int partnerID = (int)addPartnerResult.FirstOrDefault().Value;
                     string accessCode = db.pr_getAccesscode().FirstOrDefault();
 
                     int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(1, 1).FirstOrDefault().id;
+                    Guid userId = Guid.NewGuid();
+                    //db.pr_addPartnerPartnertypeTouchpointQuestionnaire(partnerID, ptq, accessCode, 1, DateTime.Now, null, partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE, null, null, null, null, null);
+                    //db.pr_addPartnerPartnertypeTouchpointQuestionnaire(partnerID, ptq, accessCode, 1, DateTime.Now,DateTime.Now, partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE, 0, null, null, null, 0);
+                    //var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
 
-                    db.pr_addPartnerPartnertypeTouchpointQuestionnaire(partnerID, ptq, accessCode, 1, DateTime.Now, null, partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE, null, null, null, null, null);
+                    //var objtouchpoint = db.pr_getTouchpoint(1).FirstOrDefault();
+                    //var objperson = db.pr_getPerson((int)addpersonResult.FirstOrDefault().Value).FirstOrDefault();
+                    //var objpartner = db.pr_getPartner(partnerID).FirstOrDefault();
 
-                    var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
+                    //Email objemail = new Email(amm);
+                    //EmailFormat emailFormat = new EmailFormat();
+                    //objemail.body = emailFormat.sGetEmailBody(objemail.body, objperson, objpartner, objtouchpoint, ptq);
+                    //objemail.emailTo = email;
+                    //SendEmail objSendEmail = new SendEmail();
+                    //objSendEmail.sendEmail(objemail);
 
-                    var objtouchpoint = db.pr_getTouchpoint(1).FirstOrDefault();
-                    var objperson = db.pr_getPerson((int)addpersonResult.FirstOrDefault().Value).FirstOrDefault();
-                    var objpartner = db.pr_getPartner(partnerID).FirstOrDefault();
+                    var customerInfo = new CustomerAttributes()
+                    {
+                        FirstName = "First",
+                        LastName = "Last",
+                        Email = email,
+                        SystemID = userId.ToString()
+                    };
 
-                    Email objemail = new Email(amm);
-                    EmailFormat emailFormat = new EmailFormat();
-                    objemail.body = emailFormat.sGetEmailBody(objemail.body, objperson, objpartner, objtouchpoint, ptq);
-                    objemail.emailTo = email;
-                    SendEmail objSendEmail = new SendEmail();
-                    objSendEmail.sendEmail(objemail);
+                    var paymentAttributes = new CreditCardAttributes()
+                    {
+                        FullNumber = "1",
+                        CVV = "123",
+                        ExpirationMonth = 12,
+                        ExpirationYear =2018,
+                        BillingAddress = "Address",
+                        BillingCity ="City",
+                        BillingZip = "1000100",
+                        BillingState = "State",
+                        BillingCountry = "USA"
+                    };
+                    string subscriptionProduct = "";
+                    int SubscriptionType = Convert.ToInt32(Session["subscriptiontype"]);
+                    if (SubscriptionType == 1)
+                    {
+                        subscriptionProduct = "standard";
+                    }
+                    else if (SubscriptionType == 2)
+                    {
+                        subscriptionProduct = "advanced";
+                        // ViewBag.ProductName = product.Name ?? string.Empty;
+                    }
+                    else
+                    {
+                        subscriptionProduct = "enterprise";
+                        // ViewBag.ProductName = product.Name ?? string.Empty;
+                    }
+
+
+                    try
+                    {
+                        var newSubscription = Chargify.CreateSubscription(subscriptionProduct, customerInfo, paymentAttributes);
+
+                        //WebSecurity.Login(model.User.UserName, model.User.Password, false);
+                        return RedirectToAction("Confirmation");
+                    }
+                    catch (ChargifyException ex)
+                    {
+                        if (ex.ErrorMessages.Count > 0)
+                        {
+                            ModelState.AddModelError("", ex.ErrorMessages.FirstOrDefault().Message);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", ex.ToString());
+                        }
+                    }
 
 
                 }
@@ -79,52 +180,25 @@ namespace BAA.Controllers
             catch
             {
             }
+            return RedirectToAction("Confirmation");
+        }
+
+        public ActionResult Confirmation()
+        {
+            int Stype = Convert.ToInt32(Session["subscriptiontype"]);
+            if (Stype == 1)
+            {
+                ViewBag.Type = "STANDARD";
+            }
+            if (Stype == 2)
+            {
+                ViewBag.Type = "ADVANCED";
+            }
+
             return View();
         }
 
-
-
-        [HttpPost]
-        public ActionResult SelectProduct(ProductTypeModel model, int SubscriptionType)
-        {
-            List<SelectListItem> expYears = new List<SelectListItem>();
-            for (int i = 0; i <= 10; i++)
-            {
-                string year = (DateTime.Today.Year + i).ToString();
-                expYears.Add(new SelectListItem { Text = year, Value = year });
-            }
-            ViewBag.ExpYears = new SelectList(expYears, "Value", "Text");
-
-            IEnumerable<SelectListItem> expMonths = DateTimeFormatInfo.InvariantInfo.MonthNames.Where(m => !String.IsNullOrEmpty(m)).Select((monthName, index) => new SelectListItem
-            {
-                Value = (index + 1).ToString(),
-                Text = (index + 1).ToString("00")
-            });
-
-            ViewBag.ExpMonths = new SelectList(expMonths, "Value", "Text");
-            Session["subscriptiontype"] = SubscriptionType;
-
-            if (SubscriptionType == 1)
-            {
-                var product = Chargify.LoadProduct("standard");
-                ViewBag.ProductName = product.Name ?? string.Empty;
-            }
-            else if (SubscriptionType == 2)
-            {
-                var product = Chargify.LoadProduct("advanced");
-                ViewBag.ProductName = product.Name ?? string.Empty;
-            }
-            else
-            {
-                var product = Chargify.LoadProduct("enterprise");
-                ViewBag.ProductName = product.Name ?? string.Empty;
-            }
-
-
-            ViewBag.Query = "AccountInfo";
-            ViewBag.CalculatedCost = db.pr_getCalculatedCostForEnterpriseSubscription(model.userCount, model.partnerCount, model.partnumberCount, SubscriptionType).FirstOrDefault();
-            return View("Index");
-        }
+       
         [HttpPost]
         public ActionResult Local(LocalSignup model, string id)
         {

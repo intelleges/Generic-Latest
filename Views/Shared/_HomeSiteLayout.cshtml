@@ -192,8 +192,9 @@
                             <h4 class="sub-title">
                                 STANDARD
                             </h4>
-                            <form  method="post" action="/UserHome/SelectProduct" id="form-pricing-standard">
+                            <form  method="post" action="/UserHome/Index" id="form-pricing-standard">
                                 <input type="hidden" value="1" name="SubscriptionType" />
+                              
                                 <ul>
                                     <li class="row1"><input type="text" name="userCount" placeholder="Enter Uers Count"  /></li>
                                     <li class="row2"><input type="text" name="partnerCount" placeholder="Enter Partner Count"  /></li>
@@ -214,11 +215,12 @@
                             <h4 class="sub-title">
                                 Advanced
                             </h4>
-                            <form  method="post" id="form-pricing-enhanced">
+                            <form  method="post" action="/UserHome/Index" id="form-pricing-enhanced">
+                                <input type="hidden" value="2" name="SubscriptionType" />
                                 <ul>
-                                    <li class="row1"><input type="text" placeholder="Enter Uers Count" name="many-user-enhanced" /></li>
-                                    <li class="row2"><input type="text" placeholder="Enter Partner Count" name="many-partners-enhanced" /></li>
-                                    <li class="row3"><input type="text" placeholder="Enter Part Number" name="many-part-enhanced" /></li>
+                                    <li class="row1"><input type="text" placeholder="Enter Uers Count"  name="userCount" /></li>
+                                    <li class="row2"><input type="text" placeholder="Enter Partner Count" name="partnerCount" /></li>
+                                    <li class="row3"><input type="text" placeholder="Enter Part Number" name="partnumberCount" /></li>
                                     <li class="row4">3</li>
                                     <li class="row5">10 GB</li>
                                     <li class="row6">No</li>
@@ -374,30 +376,33 @@
                                     <span class="title-top-content">Account Information</span>
                                     <div class="clear"></div>
                                     <div><div class="label-form"><label >Email Address</label></div><input type="email" name="email" required> </div>
-                                    <div><div class="label-form"><label >Password</label></div><input type="password" name="Password" required> </div>
-                                    <div><div class="label-form"><label >Re-enter Password</label></div><input type="password" name="re-enter-password" required> </div>
+                                    <div><div class="label-form"><label >CompanyName</label></div><input type="text" name="CompanyName" required> </div>
+                                    <div><div class="label-form"><label >Company URL</label></div><input type="text" name="CompanyURL" required> </div>
+                                    <div class="clear"></div>
+                                    <span class="title-top-content">Select Product Information</span>
+                                    <span class="title-top-content-left"></span>
+                                    <div class="clear"></div>
+                                    <div><div class="label-form"><label style="float:left;margin-right:-13px;" >Product Selected</label></div><input type="text" name="product-select" value="@ViewBag.Product" required> </div>
+                                    <div><div class="label-form"><label >User Count</label></div><input style="width:50px;float:left;" type="text" name="user-count" value="@ViewBag.User" required>
+                                    <div class="label-form"><label >Partner/Part#</label></div><input style="width:70px;" type="text" name="partner-count" value="@ViewBag.Partner" required> </div>
+                                    
 
-                                    <span class="title-top-content">Word Verification</span>
-                                    <div class="clear"></div>	
-                                    <div class="verification"><label >Enter the text you see in the below image:</label><input type="text" name="text-image"> 
-                                        <div class="captchanew"></div>
-                                    </div>
 
 
                                 </div>
                                 <div class="contact-form-right">
-                                    <span class="title-top-content">Select Product Information</span>
-                                    <span class="title-top-content-left"></span>
-                                    <div class="clear"></div>
-                                    <div><div class="label-form"><label >Product Selected</label></div><input type="text" name="product-select" required> </div>
-                                    <div><div class="label-form"><label >User Count</label></div><input type="text" name="user-count" required> </div>
-                                    <div><div class="label-form"><label >Partner/Part# Count</label></div><input type="text" name="partner-count" required> </div>
-                                    <div><div class="label-form"><label >Monthly Fee</label></div><input type="text" name="monthly" required> </div>
-
+                                    
+                                    <span class="title-top-content">Word Verification</span>
+                                    <div class="clear"></div>	
+                                    <div class="verification"><label >Enter the text you see in the image:</label><input type="text" name="text-image"> 
+                                        <div class="captchanew"></div>
+                                    </div>
                                     <span class="title-top-content">Terms of Service</span>
                                     <div class="clear"></div>	
+                                    <div><div class="label-form"><label >LicenseType</label></div><input type="text" name="LicenseType" value="30 day free trial" required> </div>
+                                    <div><div class="label-form"><label >Monthly Fee</label></div><input type="text" name="monthly" value="0" required> </div>
                                     <div class="box-service">
-                                        <div class="checkbox"><input type="checkbox" name="checkbox1" > <label>I agree to the Terms of Service and Privacy Policy</label></div>
+                                        <div class="checkbox"><input type="checkbox" style="margin-top:10px;" name="checkbox1" > <label style="margin-left:27px;margin-top:-24px;">I agree to the Terms of Service and Privacy Policy</label></div>
                                         <div class="submit-form"><input type="submit" value="Sign Up"></div>
                                     </div>   
                                 </div>
@@ -547,7 +552,7 @@
             </div>
 
             
-
+<input type="hidden" class="test" onclick="slideten();" />
 
         </div>
 
@@ -555,21 +560,30 @@
 </html>
 <script>
 
-
     $(document).ready(function () {
-        alert(@ViewBag.Query);
+                
         slider = $('.bxslider').bxSlider();
+        if ("@ViewBag.Query" == "AccountInfo") {
+            // slider1 = $('.bxslider').bxSlider();
+            $('.test').trigger("click");
+        }
                     $("#accordion").accordion({
                         collapsible: true,
                         active: false
                     });
+                   
+
+                    
 
                 });
     $(".menu-overview").click(function () {
         slider.goToSlide(3);
     });
 
-
+    function slideten()
+    {
+        slider.goToSlide(9);
+    }
 
     $(".menu-contactus").click(function () {
         slider.goToSlide(8);

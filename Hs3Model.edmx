@@ -164,6 +164,7 @@
           <EntitySet Name="UM_M_Menu_deprecated" EntityType="hs3MVCMTQa2Model.Store.UM_M_Menu_deprecated" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="zCode" EntityType="hs3MVCMTQa2Model.Store.zCode" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="zCodeBatchUpdate" EntityType="hs3MVCMTQa2Model.Store.zCodeBatchUpdate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="customizedLSMWReport" EntityType="hs3MVCMTQa2Model.Store.customizedLSMWReport" store:Type="Tables" Schema="honeywellBAA" />
           <EntitySet Name="prReminder" EntityType="hs3MVCMTQa2Model.Store.prReminder" store:Type="Views" store:Schema="dbo" store:Name="prReminder">
             <DefiningQuery>SELECT 
       [prReminder].[ID] AS [ID], 
@@ -2164,6 +2165,19 @@
           <Property Name="zcode" Type="varchar" MaxLength="20" />
           <Property Name="dunsnumber" Type="varchar" MaxLength="20" />
           <Property Name="loadhistory" Type="int" />
+        </EntityType>
+        <EntityType Name="customizedLSMWReport">
+          <Key>
+            <PropertyRef Name="LIFNR" />
+            <PropertyRef Name="MATNR" />
+            <PropertyRef Name="WERKS" />
+          </Key>
+          <Property Name="LIFNR" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="MATNR" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="WERKS" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="ZPOST" Type="varchar" Nullable="false" MaxLength="2" />
+          <Property Name="ZCFLAG" Type="varchar" Nullable="false" MaxLength="1" />
+          <Property Name="COMPLETED_DATE" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.prReminder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -4321,6 +4335,16 @@
         <Function Name="pr_getCountryByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="countryName" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnumberSiteZcodePPTQ" Type="int" Mode="In" />
+          <Parameter Name="zcode" Type="varchar(max)" Mode="In" />
+          <Parameter Name="country" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getCustomizedReportByPPTQandZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="zcode" Type="varchar(max)" Mode="In" />
+          <Parameter Name="country" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getDomain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -4790,7 +4814,7 @@
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getQuestionnaireByAccesscode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="accesscode" Type="int" Mode="In" />
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_getQuestionnaireByPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="page" Type="int" Mode="In" />
@@ -6132,6 +6156,11 @@
         </Function>
         <Function Name="xx_getTelerikBoundColumnSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tablename" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_addCustomizedLSMWReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="honeywellBAA">
+          <Parameter Name="partnumberSiteZcodePPTQ" Type="int" Mode="In" />
+          <Parameter Name="zcode" Type="varchar(max)" Mode="In" />
+          <Parameter Name="country" Type="varchar" Mode="In" />
         </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -9265,7 +9294,7 @@
           </FunctionImport>
           <FunctionImport Name="pr_getProductAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getProductAll_Result)" />
           <FunctionImport Name="pr_getQuestionnaireByAccesscode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByAccesscode_Result)">
-          <Parameter Name="accesscode" Mode="In" Type="Int32" />
+          <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ_Result)">
             <Parameter Name="question" Mode="In" Type="Int32" />
@@ -9325,23 +9354,23 @@
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveSubscriptionStatus">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveSubscriptionType1">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireByQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByQuestion_Result)">
-            <Parameter Name="question" Mode="In" Type="Int32" />
+          <Parameter Name="question" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getResponseByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getResponseByQuestionnaire_Result)">
-            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSubscriptionStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptionStatus_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSubscriptionStatusAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptionStatusAll_Result)" />
           <FunctionImport Name="pr_getSubscriptionType1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptionType1_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSubscriptionTypeAll1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptionTypeAll1_Result)" />
           <FunctionImport Name="pr_modifySubscriptionStatus">
@@ -9357,17 +9386,33 @@
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeSubscriptionStatus">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeSubscriptionType1">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveSubscriptionStatus">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveSubscriptionType1">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2_Result)">
+            <Parameter Name="partnumberSiteZcodePPTQ" Mode="In" Type="Int32" />
+            <Parameter Name="zcode" Mode="In" Type="String" />
+            <Parameter Name="country" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCustomizedReportByPPTQandZcode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCustomizedReportByPPTQandZcode_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="zcode" Mode="In" Type="String" />
+            <Parameter Name="country" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addCustomizedLSMWReport" ReturnType="Collection(hs3MVCMTQa2Model.pr_addCustomizedLSMWReport_Result)">
+            <Parameter Name="partnumberSiteZcodePPTQ" Mode="In" Type="Int32" />
+            <Parameter Name="zcode" Mode="In" Type="String" />
+            <Parameter Name="country" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="customizedLSMWReport" EntityType="hs3MVCMTQa2Model.customizedLSMWReport" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -14788,6 +14833,43 @@
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2_Result">
+          <Property Type="DateTime" Name="completedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="LIFNR" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="MATNR" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="WERKS" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ZPOST" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ZCFLAG" Nullable="false" MaxLength="2" />
+        </ComplexType>
+        <ComplexType Name="pr_getCustomizedReportByPPTQandZcode_Result">
+          <Property Type="String" Name="LIFNR" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="MATNR" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="WERKS" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ZPOST" Nullable="true" />
+          <Property Type="String" Name="ZCFLAG" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="pr_addCustomizedLSMWReport_Result">
+          <Property Type="String" Name="LIFNR" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="MATNR" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="WERKS" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ZPOST" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="ZCFLAG" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="COMPLETED_DATE" Nullable="false" />
+          <Property Type="String" Name="ZCODE" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="customizedLSMWReport">
+          <Key>
+            <PropertyRef Name="LIFNR" />
+            <PropertyRef Name="MATNR" />
+            <PropertyRef Name="WERKS" />
+          </Key>
+          <Property Type="String" Name="LIFNR" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MATNR" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="WERKS" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ZPOST" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ZCFLAG" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="COMPLETED_DATE" Nullable="false" Precision="0" />
+        </EntityType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -19019,6 +19101,54 @@
           <FunctionImportMapping FunctionImportName="pr_removeSubscriptionType1" FunctionName="hs3MVCMTQa2Model.Store.pr_removeSubscriptionType" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveSubscriptionStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveSubscriptionStatus" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveSubscriptionType1" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveSubscriptionType" />
+          <FunctionImportMapping FunctionImportName="pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2" FunctionName="hs3MVCMTQa2Model.Store.pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2_Result">
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+                <ScalarProperty Name="LIFNR" ColumnName="LIFNR" />
+                <ScalarProperty Name="MATNR" ColumnName="MATNR" />
+                <ScalarProperty Name="WERKS" ColumnName="WERKS" />
+                <ScalarProperty Name="ZPOST" ColumnName="ZPOST" />
+                <ScalarProperty Name="ZCFLAG" ColumnName="ZCFLAG" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCustomizedReportByPPTQandZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_getCustomizedReportByPPTQandZcode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCustomizedReportByPPTQandZcode_Result">
+                <ScalarProperty Name="LIFNR" ColumnName="LIFNR" />
+                <ScalarProperty Name="MATNR" ColumnName="MATNR" />
+                <ScalarProperty Name="WERKS" ColumnName="WERKS" />
+                <ScalarProperty Name="ZPOST" ColumnName="ZPOST" />
+                <ScalarProperty Name="ZCFLAG" ColumnName="ZCFLAG" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_addCustomizedLSMWReport" FunctionName="hs3MVCMTQa2Model.Store.pr_addCustomizedLSMWReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_addCustomizedLSMWReport_Result">
+                <ScalarProperty Name="LIFNR" ColumnName="LIFNR" />
+                <ScalarProperty Name="MATNR" ColumnName="MATNR" />
+                <ScalarProperty Name="WERKS" ColumnName="WERKS" />
+                <ScalarProperty Name="ZPOST" ColumnName="ZPOST" />
+                <ScalarProperty Name="ZCFLAG" ColumnName="ZCFLAG" />
+                <ScalarProperty Name="COMPLETED_DATE" ColumnName="COMPLETED_DATE" />
+                <ScalarProperty Name="ZCODE" ColumnName="ZCODE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="customizedLSMWReport">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.customizedLSMWReport">
+              <MappingFragment StoreEntitySet="customizedLSMWReport">
+                <ScalarProperty Name="COMPLETED_DATE" ColumnName="COMPLETED_DATE" />
+                <ScalarProperty Name="ZCFLAG" ColumnName="ZCFLAG" />
+                <ScalarProperty Name="ZPOST" ColumnName="ZPOST" />
+                <ScalarProperty Name="WERKS" ColumnName="WERKS" />
+                <ScalarProperty Name="MATNR" ColumnName="MATNR" />
+                <ScalarProperty Name="LIFNR" ColumnName="LIFNR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

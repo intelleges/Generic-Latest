@@ -144,6 +144,7 @@ namespace Generic
         public DbSet<sorter> sorter { get; set; }
         public DbSet<subscriptionStatus> subscriptionStatus { get; set; }
         public DbSet<subscriptionType> subscriptionType { get; set; }
+        public DbSet<customizedLSMWReport> customizedLSMWReport { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -10719,11 +10720,11 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getProductAll_Result>("pr_getProductAll");
         }
     
-        public virtual ObjectResult<pr_getQuestionnaireByAccesscode_Result> pr_getQuestionnaireByAccesscode(Nullable<int> accesscode)
+        public virtual ObjectResult<pr_getQuestionnaireByAccesscode_Result> pr_getQuestionnaireByAccesscode(string accesscode)
         {
-            var accesscodeParameter = accesscode.HasValue ?
+            var accesscodeParameter = accesscode != null ?
                 new ObjectParameter("accesscode", accesscode) :
-                new ObjectParameter("accesscode", typeof(int));
+                new ObjectParameter("accesscode", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireByAccesscode_Result>("pr_getQuestionnaireByAccesscode", accesscodeParameter);
         }
@@ -11044,6 +11045,57 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveSubscriptionType1", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2_Result> pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2(Nullable<int> partnumberSiteZcodePPTQ, string zcode, string country)
+        {
+            var partnumberSiteZcodePPTQParameter = partnumberSiteZcodePPTQ.HasValue ?
+                new ObjectParameter("partnumberSiteZcodePPTQ", partnumberSiteZcodePPTQ) :
+                new ObjectParameter("partnumberSiteZcodePPTQ", typeof(int));
+    
+            var zcodeParameter = zcode != null ?
+                new ObjectParameter("zcode", zcode) :
+                new ObjectParameter("zcode", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("country", country) :
+                new ObjectParameter("country", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2_Result>("pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2", partnumberSiteZcodePPTQParameter, zcodeParameter, countryParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCustomizedReportByPPTQandZcode_Result> pr_getCustomizedReportByPPTQandZcode(Nullable<int> pptq, string zcode, string country)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var zcodeParameter = zcode != null ?
+                new ObjectParameter("zcode", zcode) :
+                new ObjectParameter("zcode", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("country", country) :
+                new ObjectParameter("country", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCustomizedReportByPPTQandZcode_Result>("pr_getCustomizedReportByPPTQandZcode", pptqParameter, zcodeParameter, countryParameter);
+        }
+    
+        public virtual ObjectResult<pr_addCustomizedLSMWReport_Result> pr_addCustomizedLSMWReport(Nullable<int> partnumberSiteZcodePPTQ, string zcode, string country)
+        {
+            var partnumberSiteZcodePPTQParameter = partnumberSiteZcodePPTQ.HasValue ?
+                new ObjectParameter("partnumberSiteZcodePPTQ", partnumberSiteZcodePPTQ) :
+                new ObjectParameter("partnumberSiteZcodePPTQ", typeof(int));
+    
+            var zcodeParameter = zcode != null ?
+                new ObjectParameter("zcode", zcode) :
+                new ObjectParameter("zcode", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("country", country) :
+                new ObjectParameter("country", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_addCustomizedLSMWReport_Result>("pr_addCustomizedLSMWReport", partnumberSiteZcodePPTQParameter, zcodeParameter, countryParameter);
         }
     }
 }

@@ -81,6 +81,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     Session["leveltype"] = objQuestionnaire.levelType;                    
                     Session["protocol"] = touchpoint.protocol;
                     Session["responseTypesQuestionnaire"] = responseTypesQuestionnaire;
+
+                    List<CustomizedLSMW> CustomizedLSMW = new List<CustomizedLSMW>();
+                    Session["CustomizedLSMW"] = CustomizedLSMW;
+
+
                     return RedirectToAction("companyInformation");
                 }
             }

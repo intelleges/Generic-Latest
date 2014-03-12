@@ -727,6 +727,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             //get zcode according to answer
             var responseZcode = db.pr_getResponse(responseId).FirstOrDefault();
+
+            var objQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
+
+            if (objQuestion.responseType == ResponseType.DROPDOWN)
+            {
+                if (responseZcode.zcode != null)
+                {
+                    Session["CountryCode"] = responseZcode.zcode;
+                }
+            }
+
             string NewZcodePart2_CurrentQuestion = "--";
             if (responseZcode != null)
             {
@@ -1028,6 +1039,38 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                         nextpartnumber();
                         updateZcodesAll();
+
+
+
+                        int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
+
+
+                        string countryCode = "";
+                        if (Session["CountryCode"] != null)
+                        {
+                            countryCode = Session["CountryCode"].ToString();
+                        }
+
+                        List<CustomizedLSMW> customizedLSMW = (List<CustomizedLSMW>)Session["CustomizedLSMW"];
+
+                        CustomizedLSMW objCustomizedLSMW = db.pr_addCustomizedLSMWReport(PartNumberSiteZcodepptq.id, PartNumberSiteZcodepptq.zcode, countryCode).Select(x => new CustomizedLSMW
+                        {
+                            LIFNR = x.LIFNR,
+                            MATNR = x.MATNR,
+                            WERKS = x.WERKS,
+                            ZCFLAG = x.ZCFLAG,
+                            ZCODE = x.ZCODE,
+                            ZPOST = x.ZPOST,
+                            COMPLETED_DATE = x.COMPLETED_DATE,
+                            PartnumberSiteZcode = PartNumberSiteZcodepptq.id
+                        }).FirstOrDefault();
+
+                        customizedLSMW.Add(objCustomizedLSMW);
+                        Session["CustomizedLSMW"] = customizedLSMW;
+
+
+
 
 
                         if (Session["NextPartnumber"] == null)
@@ -1557,19 +1600,32 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
             var psz = db.pr_getPartnumberSiteZcodeByPPTQForUI(pptq.id).ToList().Where(x => x.status == "Completed");
 
+            List<CustomizedLSMW> customizedLSMW = (List<CustomizedLSMW>)Session["CustomizedLSMW"];
+
+
             string labeltext = "";
             if (psz.Count() > 0)
             {
                 labeltext += "<table cellpadding='2' cellspacing='0' border='1' style='width: 100%;'>";
-                labeltext += "<tr><td>Part Number</td><td>Site</td><td>Zcode</td></tr>";
+                labeltext += "<tr><td>Part Number</td><td>Site</td><td>Zcode</td><td>LIFNR</td><td>MATNR</td><td>WERKS</td><td>ZPOST</td><td>ZCFLAG</td><td>COMPLETED DATE</td></tr>";
                 foreach (var dr in psz)
                 {
                     labeltext += "<tr>";
-                    labeltext += "<td>" + dr.partnumber + "</td><td>" + dr.site + "</td><td>" + dr.zcode + "</td>";
+                    try
+                    {
+                        labeltext += "<td>" + dr.partnumber + "</td><td>" + dr.site + "</td><td>" + dr.zcode + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().LIFNR + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().MATNR + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().WERKS + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().ZPOST + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().ZCFLAG + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().COMPLETED_DATE.ToString("MM-dd-yyyy") + "</td>";
+                    }
+                    catch {
+                        labeltext += "<td>" + dr.partnumber + "</td><td>" + dr.site + "</td><td>" + dr.zcode + "</td><td></td><td></td><td></td><td></td><td></td><td></td>";
+                    }
                     labeltext += "</tr>";
                 }
                 labeltext += "</table>";
             }
+
+
+
+
 
 
             ViewBag.zcodeList = labeltext;
@@ -1867,7 +1923,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     item.status = Status.NOT_STARTED;
 
                 }
-                else if (item.zcode.Count(x => x == 'Z') == 0)
+                else if (item.zcode.Count(x => x == 'Z') < 2)
                 {
                     item.status = Status.COMPLETED;
                 }

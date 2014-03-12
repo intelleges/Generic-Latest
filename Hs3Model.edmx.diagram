@@ -216,6 +216,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.sorter" Width="1.5" PointX="2.0241559846439192" PointY="8.3056265303425612" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.subscriptionStatus" Width="1.5" PointX="3.6449568568006891" PointY="11.693718781552146" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.subscriptionType" Width="1.5" PointX="1.9157856432328864" PointY="19.200790101290117" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.customizedLSMWReport" Width="1.5" PointX="7.5228046362860148" PointY="17.56250850184006" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
