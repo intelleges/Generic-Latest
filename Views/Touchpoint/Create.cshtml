@@ -5,22 +5,47 @@
 
 @using Telerik.Web.Mvc.UI
 @{
-    Layout = null;
+    Layout = Generic.Helpers.LayoutHelper.GetPopupLayout();
     ViewBag.Title = "Touch Point";
 }
 
-<script src="~/Scripts/jquery-1.8.2.js"></script>
+@*<script src="~/Scripts/jquery-1.8.2.js"></script>
 @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
                 .Add("telerik.common.css")
                 .Add("telerik.rtl.css")
                 .Combined(true)
                 .Compress(true)))
 <script src="~/Scripts/2013.2.611/telerik.combobox.min.js"></script>
-<script src="~/Scripts/2013.2.611/telerik.list.min.js"></script>
+<script src="~/Scripts/2013.2.611/telerik.list.min.js"></script>*@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm())
+
+<script type="text/javascript">
+    
+    $("form").submit(function (e) {
+        
+        if ($(this).valid()) {
+            
+            $.post('<%= Url.Action("~/touchpoint/Create")%>', $(this).serialize(), function (data) {
+                
+                $("#dynamicData").html(data);
+                
+                $.validator.unobtrusive.parse($("#dynamicData"));
+                
+            });
+            
+        }
+        
+        e.preventDefault();
+       
+    });
+   
+</script>
+
+@{Html.EnableClientValidation();}
+@{Html.EnableUnobtrusiveJavaScript();}
+@using (Html.BeginForm("Create", "touchpoint", new { @class = "frmCreatetouchpoint" }))
 {
     @Html.ValidationSummary(true)
 
@@ -38,7 +63,8 @@
             @Html.LabelFor(model => model.person)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.person)
+            
+             @Html.DropDownList("person", String.Empty)
             @Html.ValidationMessageFor(model => model.person)
         </div>
 
@@ -46,7 +72,8 @@
             @Html.LabelFor(model => model.sponsor)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.sponsor)
+            
+             @Html.DropDownList("sponsor", String.Empty)
             @Html.ValidationMessageFor(model => model.sponsor)
         </div>
 
@@ -54,7 +81,8 @@
             @Html.LabelFor(model => model.admin)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.admin)
+            
+            @Html.DropDownList("admin", String.Empty)
             @Html.ValidationMessageFor(model => model.admin)
         </div>
 

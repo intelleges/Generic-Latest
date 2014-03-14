@@ -71,6 +71,11 @@ namespace Generic.Controllers
             {
                 ViewBag.protocol = new SelectList( db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
             }
+
+            ViewBag.person= new SelectList( db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+            ViewBag.sponsor = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+            ViewBag.admin = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+
             return View();
         }
 
@@ -88,7 +93,17 @@ namespace Generic.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            if (SessionSingleton.ProtocolId != 0)
+            {
+                ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", SessionSingleton.ProtocolId);
+            }
+            else
+            {
+                ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+            }
+            ViewBag.person = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+            ViewBag.sponsor = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+            ViewBag.admin = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
             return View(touchpoint);
         }
 
