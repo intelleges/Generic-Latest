@@ -217,6 +217,15 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.subscriptionStatus" Width="1.5" PointX="3.6449568568006891" PointY="11.693718781552146" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.subscriptionType" Width="1.5" PointX="1.9157856432328864" PointY="19.200790101290117" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.customizedLSMWReport" Width="1.5" PointX="7.5228046362860148" PointY="17.56250850184006" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerReminder_DEPRECATED" Width="1.5" PointX="9.6672605283871569" PointY="10.621224140106339" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqAutoMailMessageLog" Width="1.5" PointX="1.6785161037363654" PointY="5.5060450013289435" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireRule" Width="1.5" PointX="4.8766857650488085" PointY="19.735586011659162" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireRuleActionDateType" Width="1.5" PointX="2.2858787152384776" PointY="9.5518853559866" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireRuleTargetType" Width="1.5" PointX="4.5599218814447156" PointY="16.734965913339966" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleActionDateType" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleTargetType" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

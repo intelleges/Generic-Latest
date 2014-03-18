@@ -21,6 +21,8 @@ namespace Generic
             this.page = new HashSet<page>();
             this.touchpoint = new HashSet<touchpoint>();
             this.questionnaireQuestionnaireCMS = new HashSet<questionnaireQuestionnaireCMS>();
+            this.questionnaireRule = new HashSet<questionnaireRule>();
+            this.questionnaireRule1 = new HashSet<questionnaireRule>();
         }
     
         public int id { get; set; }
@@ -43,5 +45,7 @@ namespace Generic
         public virtual ICollection<touchpoint> touchpoint { get; set; }
         public virtual questionnaireLevelType questionnaireLevelType { get; set; }
         public virtual ICollection<questionnaireQuestionnaireCMS> questionnaireQuestionnaireCMS { get; set; }
+        public virtual ICollection<questionnaireRule> questionnaireRule { get; set; }
+        public virtual ICollection<questionnaireRule> questionnaireRule1 { get; set; }
     }
 }

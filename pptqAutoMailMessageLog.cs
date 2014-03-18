@@ -12,14 +12,11 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class customizedLSMWReport
+    public partial class pptqAutoMailMessageLog
     {
-        public string LIFNR { get; set; }
-        public string MATNR { get; set; }
-        public string WERKS { get; set; }
-        public string ZPOST { get; set; }
-        public string ZCFLAG { get; set; }
-        public System.DateTime COMPLETED_DATE { get; set; }
-        public int partnumberSiteZcodePPTQ { get; set; }
+        public int id { get; set; }
+        public int pptq { get; set; }
+        public int autoMailMessage { get; set; }
+        public System.DateTime sendDate { get; set; }
     }
 }

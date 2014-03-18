@@ -145,6 +145,11 @@ namespace Generic
         public DbSet<subscriptionStatus> subscriptionStatus { get; set; }
         public DbSet<subscriptionType> subscriptionType { get; set; }
         public DbSet<customizedLSMWReport> customizedLSMWReport { get; set; }
+        public DbSet<partnerReminder_DEPRECATED> partnerReminder_DEPRECATED { get; set; }
+        public DbSet<pptqAutoMailMessageLog> pptqAutoMailMessageLog { get; set; }
+        public DbSet<questionnaireRule> questionnaireRule { get; set; }
+        public DbSet<questionnaireRuleActionDateType> questionnaireRuleActionDateType { get; set; }
+        public DbSet<questionnaireRuleTargetType> questionnaireRuleTargetType { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -11096,6 +11101,362 @@ namespace Generic
                 new ObjectParameter("country", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_addCustomizedLSMWReport_Result>("pr_addCustomizedLSMWReport", partnumberSiteZcodePPTQParameter, zcodeParameter, countryParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPPTQautoMailMessageLog(Nullable<int> pptq, Nullable<int> autoMailMessage)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var autoMailMessageParameter = autoMailMessage.HasValue ?
+                new ObjectParameter("autoMailMessage", autoMailMessage) :
+                new ObjectParameter("autoMailMessage", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPPTQautoMailMessageLog", pptqParameter, autoMailMessageParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnairerule(string description, string zcodePattern, string scorePattern, Nullable<int> actionType, Nullable<int> questionnaireToSend, Nullable<int> targetType, string targetEmailList, Nullable<int> actionDateType, Nullable<System.DateTime> actionDateSet, Nullable<int> questionnaire, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var zcodePatternParameter = zcodePattern != null ?
+                new ObjectParameter("zcodePattern", zcodePattern) :
+                new ObjectParameter("zcodePattern", typeof(string));
+    
+            var scorePatternParameter = scorePattern != null ?
+                new ObjectParameter("scorePattern", scorePattern) :
+                new ObjectParameter("scorePattern", typeof(string));
+    
+            var actionTypeParameter = actionType.HasValue ?
+                new ObjectParameter("actionType", actionType) :
+                new ObjectParameter("actionType", typeof(int));
+    
+            var questionnaireToSendParameter = questionnaireToSend.HasValue ?
+                new ObjectParameter("questionnaireToSend", questionnaireToSend) :
+                new ObjectParameter("questionnaireToSend", typeof(int));
+    
+            var targetTypeParameter = targetType.HasValue ?
+                new ObjectParameter("targetType", targetType) :
+                new ObjectParameter("targetType", typeof(int));
+    
+            var targetEmailListParameter = targetEmailList != null ?
+                new ObjectParameter("targetEmailList", targetEmailList) :
+                new ObjectParameter("targetEmailList", typeof(string));
+    
+            var actionDateTypeParameter = actionDateType.HasValue ?
+                new ObjectParameter("actionDateType", actionDateType) :
+                new ObjectParameter("actionDateType", typeof(int));
+    
+            var actionDateSetParameter = actionDateSet.HasValue ?
+                new ObjectParameter("actionDateSet", actionDateSet) :
+                new ObjectParameter("actionDateSet", typeof(System.DateTime));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnairerule", descriptionParameter, zcodePatternParameter, scorePatternParameter, actionTypeParameter, questionnaireToSendParameter, targetTypeParameter, targetEmailListParameter, actionDateTypeParameter, actionDateSetParameter, questionnaireParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireRuleActionDateType(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireRuleActionDateType", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireRuleTargetType(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireRuleTargetType", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveQuestionnairerule(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveQuestionnairerule", idParameter);
+        }
+    
+        public virtual int pr_archiveQuestionnaireRuleActionDateType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveQuestionnaireRuleActionDateType", idParameter);
+        }
+    
+        public virtual int pr_archiveQuestionnaireRuleTargetType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveQuestionnaireRuleTargetType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQautoMailMessagelog_Result> pr_getPPTQautoMailMessagelog(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQautoMailMessagelog_Result>("pr_getPPTQautoMailMessagelog", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQautoMailMessagelogAll_Result> pr_getPPTQautoMailMessagelogAll(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQautoMailMessagelogAll_Result>("pr_getPPTQautoMailMessagelogAll", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnairerule_Result> pr_getQuestionnairerule(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnairerule_Result>("pr_getQuestionnairerule", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireRuleActionDateType_Result> pr_getQuestionnaireRuleActionDateType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireRuleActionDateType_Result>("pr_getQuestionnaireRuleActionDateType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireRuleActionDateTypeAll_Result> pr_getQuestionnaireRuleActionDateTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireRuleActionDateTypeAll_Result>("pr_getQuestionnaireRuleActionDateTypeAll");
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireruleAll_Result> pr_getQuestionnaireruleAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireruleAll_Result>("pr_getQuestionnaireruleAll");
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireRuleTargetType_Result> pr_getQuestionnaireRuleTargetType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireRuleTargetType_Result>("pr_getQuestionnaireRuleTargetType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireRuleTargetTypeAll_Result> pr_getQuestionnaireRuleTargetTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireRuleTargetTypeAll_Result>("pr_getQuestionnaireRuleTargetTypeAll");
+        }
+    
+        public virtual ObjectResult<pr_getReminderListAll_Result> pr_getReminderListAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListAll_Result>("pr_getReminderListAll");
+        }
+    
+        public virtual ObjectResult<pr_getReminderListByCountryAll_Result> pr_getReminderListByCountryAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListByCountryAll_Result>("pr_getReminderListByCountryAll");
+        }
+    
+        public virtual ObjectResult<pr_getReminderListByCountryAll2_Result> pr_getReminderListByCountryAll2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListByCountryAll2_Result>("pr_getReminderListByCountryAll2");
+        }
+    
+        public virtual int pr_modifyQuestionnairerule(Nullable<int> id, string description, string zcodePattern, string scorePattern, Nullable<int> actionType, Nullable<int> questionnaireToSend, Nullable<int> targetType, string targetEmailList, Nullable<int> actionDateType, Nullable<System.DateTime> actionDateSet, Nullable<int> questionnaire, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var zcodePatternParameter = zcodePattern != null ?
+                new ObjectParameter("zcodePattern", zcodePattern) :
+                new ObjectParameter("zcodePattern", typeof(string));
+    
+            var scorePatternParameter = scorePattern != null ?
+                new ObjectParameter("scorePattern", scorePattern) :
+                new ObjectParameter("scorePattern", typeof(string));
+    
+            var actionTypeParameter = actionType.HasValue ?
+                new ObjectParameter("actionType", actionType) :
+                new ObjectParameter("actionType", typeof(int));
+    
+            var questionnaireToSendParameter = questionnaireToSend.HasValue ?
+                new ObjectParameter("questionnaireToSend", questionnaireToSend) :
+                new ObjectParameter("questionnaireToSend", typeof(int));
+    
+            var targetTypeParameter = targetType.HasValue ?
+                new ObjectParameter("targetType", targetType) :
+                new ObjectParameter("targetType", typeof(int));
+    
+            var targetEmailListParameter = targetEmailList != null ?
+                new ObjectParameter("targetEmailList", targetEmailList) :
+                new ObjectParameter("targetEmailList", typeof(string));
+    
+            var actionDateTypeParameter = actionDateType.HasValue ?
+                new ObjectParameter("actionDateType", actionDateType) :
+                new ObjectParameter("actionDateType", typeof(int));
+    
+            var actionDateSetParameter = actionDateSet.HasValue ?
+                new ObjectParameter("actionDateSet", actionDateSet) :
+                new ObjectParameter("actionDateSet", typeof(System.DateTime));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnairerule", idParameter, descriptionParameter, zcodePatternParameter, scorePatternParameter, actionTypeParameter, questionnaireToSendParameter, targetTypeParameter, targetEmailListParameter, actionDateTypeParameter, actionDateSetParameter, questionnaireParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyQuestionnaireRuleActionDateType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireRuleActionDateType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyQuestionnaireRuleTargetType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireRuleTargetType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removePPTQautoMailMessagelog(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePPTQautoMailMessagelog", idParameter);
+        }
+    
+        public virtual int pr_removeQuestionnairerule(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnairerule", idParameter);
+        }
+    
+        public virtual int pr_removeQuestionnaireRuleActionDateType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaireRuleActionDateType", idParameter);
+        }
+    
+        public virtual int pr_removeQuestionnaireRuleTargetType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaireRuleTargetType", idParameter);
+        }
+    
+        public virtual int pr_unArchiveQuestionnairerule(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestionnairerule", idParameter);
+        }
+    
+        public virtual int pr_unArchiveQuestionnaireRuleActionDateType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestionnaireRuleActionDateType", idParameter);
+        }
+    
+        public virtual int pr_unArchiveQuestionnaireRuleTargetType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestionnaireRuleTargetType", idParameter);
         }
     }
 }

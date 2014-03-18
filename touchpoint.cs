@@ -11,7 +11,6 @@ namespace Generic
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class touchpoint
     {
@@ -27,7 +26,6 @@ namespace Generic
         }
     
         public int id { get; set; }
-        [Required]
         public Nullable<int> protocol { get; set; }
         public Nullable<int> person { get; set; }
         public Nullable<int> sponsor { get; set; }

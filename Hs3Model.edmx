@@ -55,7 +55,7 @@
           <EntitySet Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntityType="hs3MVCMTQa2Model.Store.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerReference" EntityType="hs3MVCMTQa2Model.Store.partnerReference" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerRelationshipOwner" EntityType="hs3MVCMTQa2Model.Store.partnerRelationshipOwner" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="partnerReminder" EntityType="hs3MVCMTQa2Model.Store.partnerReminder" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="partnerReminder_DEPRECATED" EntityType="hs3MVCMTQa2Model.Store.partnerReminder_DEPRECATED" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerReminderStatus" EntityType="hs3MVCMTQa2Model.Store.partnerReminderStatus" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerRemitAddress" EntityType="hs3MVCMTQa2Model.Store.partnerRemitAddress" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnerReport" EntityType="hs3MVCMTQa2Model.Store.partnerReport" store:Type="Tables" Schema="dbo" />
@@ -81,6 +81,7 @@
           <EntitySet Name="personRole" EntityType="hs3MVCMTQa2Model.Store.personRole" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personSearchCount" EntityType="hs3MVCMTQa2Model.Store.personSearchCount" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personStatus" EntityType="hs3MVCMTQa2Model.Store.personStatus" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="pptqAutoMailMessageLog" EntityType="hs3MVCMTQa2Model.Store.pptqAutoMailMessageLog" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="product" EntityType="hs3MVCMTQa2Model.Store.product" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="protocol" EntityType="hs3MVCMTQa2Model.Store.protocol" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="protocolTouchpoint" EntityType="hs3MVCMTQa2Model.Store.protocolTouchpoint" store:Type="Tables" Schema="dbo" />
@@ -94,6 +95,9 @@
           <EntitySet Name="questionnaireLevelType" EntityType="hs3MVCMTQa2Model.Store.questionnaireLevelType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="questionnairePage" EntityType="hs3MVCMTQa2Model.Store.questionnairePage" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="questionnaireQuestionnaireCMS" EntityType="hs3MVCMTQa2Model.Store.questionnaireQuestionnaireCMS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="questionnaireRule" EntityType="hs3MVCMTQa2Model.Store.questionnaireRule" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="questionnaireRuleActionDateType" EntityType="hs3MVCMTQa2Model.Store.questionnaireRuleActionDateType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="questionnaireRuleTargetType" EntityType="hs3MVCMTQa2Model.Store.questionnaireRuleTargetType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="questionResponse" EntityType="hs3MVCMTQa2Model.Store.questionResponse" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="questionTranslation" EntityType="hs3MVCMTQa2Model.Store.questionTranslation" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="rating" EntityType="hs3MVCMTQa2Model.Store.rating" store:Type="Tables" Schema="dbo" />
@@ -477,6 +481,22 @@
             <End Role="questionnaireCMS" EntitySet="questionnaireCMS" />
             <End Role="questionnaireQuestionnaireCMS" EntitySet="questionnaireQuestionnaireCMS" />
           </AssociationSet>
+          <AssociationSet Name="FK_questionnaireRule_questionnaire" Association="hs3MVCMTQa2Model.Store.FK_questionnaireRule_questionnaire">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="questionnaireRule" EntitySet="questionnaireRule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaireRule_questionnaire1" Association="hs3MVCMTQa2Model.Store.FK_questionnaireRule_questionnaire1">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="questionnaireRule" EntitySet="questionnaireRule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaireRule_questionnaireRuleActionDateType" Association="hs3MVCMTQa2Model.Store.FK_questionnaireRule_questionnaireRuleActionDateType">
+            <End Role="questionnaireRuleActionDateType" EntitySet="questionnaireRuleActionDateType" />
+            <End Role="questionnaireRule" EntitySet="questionnaireRule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaireRule_questionnaireRuleTargetType" Association="hs3MVCMTQa2Model.Store.FK_questionnaireRule_questionnaireRuleTargetType">
+            <End Role="questionnaireRuleTargetType" EntitySet="questionnaireRuleTargetType" />
+            <End Role="questionnaireRule" EntitySet="questionnaireRule" />
+          </AssociationSet>
           <AssociationSet Name="FK_questionResponse_question" Association="hs3MVCMTQa2Model.Store.FK_questionResponse_question">
             <End Role="question" EntitySet="question" />
             <End Role="questionResponse" EntitySet="questionResponse" />
@@ -560,10 +580,6 @@
           <AssociationSet Name="FK_surveySetSurvey_surveyset" Association="hs3MVCMTQa2Model.Store.FK_surveySetSurvey_surveyset">
             <End Role="surveyset" EntitySet="surveyset" />
             <End Role="surveySetSurvey" EntitySet="surveySetSurvey" />
-          </AssociationSet>
-          <AssociationSet Name="FK_touchpoint_protocol" Association="hs3MVCMTQa2Model.Store.FK_touchpoint_protocol">
-            <End Role="protocol" EntitySet="protocol" />
-            <End Role="touchpoint" EntitySet="touchpoint" />
           </AssociationSet>
           <AssociationSet Name="FK_touchpointPartnerRerouter_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerRerouter_touchpoint">
             <End Role="touchpoint" EntitySet="touchpoint" />
@@ -1188,7 +1204,7 @@
           <Property Name="partner" Type="int" Nullable="false" />
           <Property Name="person" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="partnerReminder">
+        <EntityType Name="partnerReminder_DEPRECATED">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -1569,6 +1585,15 @@
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="bit" />
         </EntityType>
+        <EntityType Name="pptqAutoMailMessageLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="pptq" Type="int" Nullable="false" />
+          <Property Name="autoMailMessage" Type="int" Nullable="false" />
+          <Property Name="sendDate" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="product">
           <Key>
             <PropertyRef Name="id" />
@@ -1743,6 +1768,41 @@
           <Property Name="text" Type="varchar(max)" Nullable="false" />
           <Property Name="link" Type="text" />
           <Property Name="doc" Type="image" />
+        </EntityType>
+        <EntityType Name="questionnaireRule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="zcodePattern" Type="varchar(max)" Nullable="false" />
+          <Property Name="scorePattern" Type="varchar(max)" Nullable="false" />
+          <Property Name="actionType" Type="int" Nullable="false" />
+          <Property Name="questionnaireToSend" Type="int" />
+          <Property Name="targetType" Type="int" Nullable="false" />
+          <Property Name="targetEmailList" Type="varchar(max)" Nullable="false" />
+          <Property Name="actionDateType" Type="int" Nullable="false" />
+          <Property Name="actionDateSet" Type="date" />
+          <Property Name="questionnaire" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="questionnaireRuleActionDateType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="questionnaireRuleTargetType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="questionResponse">
           <Key>
@@ -2052,7 +2112,7 @@
           <Property Name="sponsor" Type="int" />
           <Property Name="admin" Type="int" />
           <Property Name="title" Type="varchar" MaxLength="50" />
-          <Property Name="description" Type="varchar" MaxLength="150" />
+          <Property Name="description" Type="varchar(max)" />
           <Property Name="abbreviation" Type="varchar" MaxLength="50" />
           <Property Name="startDate" Type="datetime" />
           <Property Name="endDate" Type="datetime" />
@@ -2178,6 +2238,7 @@
           <Property Name="ZPOST" Type="varchar" Nullable="false" MaxLength="2" />
           <Property Name="ZCFLAG" Type="varchar" Nullable="false" MaxLength="1" />
           <Property Name="COMPLETED_DATE" Type="date" Nullable="false" />
+          <Property Name="partnumberSiteZcodePPTQ" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.prReminder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -3105,6 +3166,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_questionnaireRule_questionnaire">
+          <End Role="questionnaire" Type="hs3MVCMTQa2Model.Store.questionnaire" Multiplicity="1" />
+          <End Role="questionnaireRule" Type="hs3MVCMTQa2Model.Store.questionnaireRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireRule">
+              <PropertyRef Name="questionnaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaireRule_questionnaire1">
+          <End Role="questionnaire" Type="hs3MVCMTQa2Model.Store.questionnaire" Multiplicity="0..1" />
+          <End Role="questionnaireRule" Type="hs3MVCMTQa2Model.Store.questionnaireRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireRule">
+              <PropertyRef Name="questionnaireToSend" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaireRule_questionnaireRuleActionDateType">
+          <End Role="questionnaireRuleActionDateType" Type="hs3MVCMTQa2Model.Store.questionnaireRuleActionDateType" Multiplicity="1" />
+          <End Role="questionnaireRule" Type="hs3MVCMTQa2Model.Store.questionnaireRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaireRuleActionDateType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireRule">
+              <PropertyRef Name="actionDateType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaireRule_questionnaireRuleTargetType">
+          <End Role="questionnaireRuleTargetType" Type="hs3MVCMTQa2Model.Store.questionnaireRuleTargetType" Multiplicity="1" />
+          <End Role="questionnaireRule" Type="hs3MVCMTQa2Model.Store.questionnaireRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaireRuleTargetType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireRule">
+              <PropertyRef Name="targetType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_questionResponse_question">
           <End Role="question" Type="hs3MVCMTQa2Model.Store.question" Multiplicity="1" />
           <End Role="questionResponse" Type="hs3MVCMTQa2Model.Store.questionResponse" Multiplicity="*" />
@@ -3354,18 +3463,6 @@
             </Principal>
             <Dependent Role="surveySetSurvey">
               <PropertyRef Name="surveySet" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_touchpoint_protocol">
-          <End Role="protocol" Type="hs3MVCMTQa2Model.Store.protocol" Multiplicity="0..1" />
-          <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="protocol">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="touchpoint">
-              <PropertyRef Name="protocol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3888,6 +3985,10 @@
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_addPPTQautoMailMessageLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="autoMailMessage" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="productNumber" Type="varchar" Mode="In" />
@@ -3993,6 +4094,29 @@
           <Parameter Name="text" Type="varchar(max)" Mode="In" />
           <Parameter Name="link" Type="text" Mode="In" />
           <Parameter Name="doc" Type="image" Mode="In" />
+        </Function>
+        <Function Name="pr_addQuestionnairerule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="zcodePattern" Type="varchar(max)" Mode="In" />
+          <Parameter Name="scorePattern" Type="varchar(max)" Mode="In" />
+          <Parameter Name="actionType" Type="int" Mode="In" />
+          <Parameter Name="questionnaireToSend" Type="int" Mode="In" />
+          <Parameter Name="targetType" Type="int" Mode="In" />
+          <Parameter Name="targetEmailList" Type="varchar(max)" Mode="In" />
+          <Parameter Name="actionDateType" Type="int" Mode="In" />
+          <Parameter Name="actionDateSet" Type="date" Mode="In" />
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_addQuestionnaireRuleActionDateType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_addQuestionnaireRuleTargetType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_addQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
@@ -4229,6 +4353,15 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveQuestionnaireLevelType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveQuestionnairerule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveQuestionnaireRuleActionDateType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveQuestionnaireRuleTargetType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -4759,6 +4892,12 @@
         <Function Name="pr_getPersonRoleByRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="role" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPPTQautoMailMessagelog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPPTQautoMailMessagelogAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPPTQByPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
@@ -4853,6 +4992,18 @@
         <Function Name="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getQuestionnairerule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getQuestionnaireRuleActionDateType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getQuestionnaireRuleActionDateTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getQuestionnaireruleAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getQuestionnaireRuleTargetType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getQuestionnaireRuleTargetTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -4860,6 +5011,9 @@
         <Function Name="pr_getRelationshipownerByPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getReminderListAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getReminderListByCountryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getReminderListByCountryAll2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5550,6 +5704,32 @@
           <Parameter Name="link" Type="text" Mode="In" />
           <Parameter Name="doc" Type="image" Mode="In" />
         </Function>
+        <Function Name="pr_modifyQuestionnairerule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="zcodePattern" Type="varchar(max)" Mode="In" />
+          <Parameter Name="scorePattern" Type="varchar(max)" Mode="In" />
+          <Parameter Name="actionType" Type="int" Mode="In" />
+          <Parameter Name="questionnaireToSend" Type="int" Mode="In" />
+          <Parameter Name="targetType" Type="int" Mode="In" />
+          <Parameter Name="targetEmailList" Type="varchar(max)" Mode="In" />
+          <Parameter Name="actionDateType" Type="int" Mode="In" />
+          <Parameter Name="actionDateSet" Type="date" Mode="In" />
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyQuestionnaireRuleActionDateType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyQuestionnaireRuleTargetType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyQuestionSkipLogicJump" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="jumpTo" Type="int" Mode="In" />
@@ -5820,6 +6000,9 @@
         <Function Name="pr_removePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removePPTQautoMailMessagelog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5853,6 +6036,15 @@
         <Function Name="pr_removeQuestionnaireQuestionnaireCMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
           <Parameter Name="questionnaireCMS" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeQuestionnairerule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeQuestionnaireRuleActionDateType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeQuestionnaireRuleTargetType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
@@ -6029,6 +6221,15 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveQuestionnaireLevelType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveQuestionnairerule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveQuestionnaireRuleActionDateType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveQuestionnaireRuleTargetType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -9413,6 +9614,131 @@
             <Parameter Name="country" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="customizedLSMWReport" EntityType="hs3MVCMTQa2Model.customizedLSMWReport" />
+          <EntitySet Name="partnerReminder_DEPRECATED" EntityType="hs3MVCMTQa2Model.partnerReminder_DEPRECATED" />
+          <EntitySet Name="pptqAutoMailMessageLog" EntityType="hs3MVCMTQa2Model.pptqAutoMailMessageLog" />
+          <EntitySet Name="questionnaireRule" EntityType="hs3MVCMTQa2Model.questionnaireRule" />
+          <EntitySet Name="questionnaireRuleActionDateType" EntityType="hs3MVCMTQa2Model.questionnaireRuleActionDateType" />
+          <EntitySet Name="questionnaireRuleTargetType" EntityType="hs3MVCMTQa2Model.questionnaireRuleTargetType" />
+          <AssociationSet Name="FK_questionnaireRule_questionnaire" Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="questionnaireRule" EntitySet="questionnaireRule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaireRule_questionnaire1" Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="questionnaireRule" EntitySet="questionnaireRule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaireRule_questionnaireRuleActionDateType" Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleActionDateType">
+            <End Role="questionnaireRuleActionDateType" EntitySet="questionnaireRuleActionDateType" />
+            <End Role="questionnaireRule" EntitySet="questionnaireRule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaireRule_questionnaireRuleTargetType" Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleTargetType">
+            <End Role="questionnaireRuleTargetType" EntitySet="questionnaireRuleTargetType" />
+            <End Role="questionnaireRule" EntitySet="questionnaireRule" />
+          </AssociationSet>
+          <FunctionImport Name="pr_addPPTQautoMailMessageLog" ReturnType="Collection(Decimal)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="autoMailMessage" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addQuestionnairerule" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="zcodePattern" Mode="In" Type="String" />
+            <Parameter Name="scorePattern" Mode="In" Type="String" />
+            <Parameter Name="actionType" Mode="In" Type="Int32" />
+            <Parameter Name="questionnaireToSend" Mode="In" Type="Int32" />
+            <Parameter Name="targetType" Mode="In" Type="Int32" />
+            <Parameter Name="targetEmailList" Mode="In" Type="String" />
+            <Parameter Name="actionDateType" Mode="In" Type="Int32" />
+            <Parameter Name="actionDateSet" Mode="In" Type="DateTime" />
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addQuestionnaireRuleActionDateType" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addQuestionnaireRuleTargetType" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveQuestionnairerule">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveQuestionnaireRuleActionDateType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveQuestionnaireRuleTargetType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQautoMailMessagelog" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQautoMailMessagelog_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQautoMailMessagelogAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQautoMailMessagelogAll_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnairerule" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnairerule_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireRuleActionDateType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireRuleActionDateType_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireRuleActionDateTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireRuleActionDateTypeAll_Result)" />
+          <FunctionImport Name="pr_getQuestionnaireruleAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireruleAll_Result)" />
+          <FunctionImport Name="pr_getQuestionnaireRuleTargetType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireRuleTargetType_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireRuleTargetTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireRuleTargetTypeAll_Result)" />
+          <FunctionImport Name="pr_getReminderListAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListAll_Result)" />
+          <FunctionImport Name="pr_getReminderListByCountryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListByCountryAll_Result)" />
+          <FunctionImport Name="pr_getReminderListByCountryAll2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListByCountryAll2_Result)" />
+          <FunctionImport Name="pr_modifyQuestionnairerule">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="zcodePattern" Mode="In" Type="String" />
+            <Parameter Name="scorePattern" Mode="In" Type="String" />
+            <Parameter Name="actionType" Mode="In" Type="Int32" />
+            <Parameter Name="questionnaireToSend" Mode="In" Type="Int32" />
+            <Parameter Name="targetType" Mode="In" Type="Int32" />
+            <Parameter Name="targetEmailList" Mode="In" Type="String" />
+            <Parameter Name="actionDateType" Mode="In" Type="Int32" />
+            <Parameter Name="actionDateSet" Mode="In" Type="DateTime" />
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyQuestionnaireRuleActionDateType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyQuestionnaireRuleTargetType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePPTQautoMailMessagelog">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeQuestionnairerule">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeQuestionnaireRuleActionDateType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeQuestionnaireRuleTargetType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveQuestionnairerule">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveQuestionnaireRuleActionDateType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveQuestionnaireRuleTargetType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -10518,6 +10844,8 @@
           <Property Type="Int32" Name="levelType" />
           <NavigationProperty Name="questionnaireLevelType" Relationship="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" FromRole="questionnaire" ToRole="questionnaireLevelType" />
           <NavigationProperty Name="questionnaireQuestionnaireCMS" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" FromRole="questionnaire" ToRole="questionnaireQuestionnaireCMS" />
+          <NavigationProperty Name="questionnaireRule" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire" FromRole="questionnaire" ToRole="questionnaireRule" />
+          <NavigationProperty Name="questionnaireRule1" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1" FromRole="questionnaire" ToRole="questionnaireRule" />
         </EntityType>
         <EntityType Name="questionResponse">
           <Key>
@@ -10749,7 +11077,7 @@
           <Property Name="sponsor" Type="Int32" />
           <Property Name="admin" Type="Int32" />
           <Property Name="title" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="description" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
           <Property Name="abbreviation" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="startDate" Type="DateTime" Precision="3" />
           <Property Name="endDate" Type="DateTime" Precision="3" />
@@ -14869,7 +15197,224 @@
           <Property Type="String" Name="ZPOST" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ZCFLAG" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="COMPLETED_DATE" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="partnumberSiteZcodePPTQ" Nullable="false" />
         </EntityType>
+        <EntityType Name="partnerReminder_DEPRECATED">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="Int32" Name="autoMail" Nullable="false" />
+          <Property Type="DateTime" Name="sendDate" Nullable="false" Precision="3" />
+          <Property Type="Boolean" Name="isSent" />
+        </EntityType>
+        <EntityType Name="pptqAutoMailMessageLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="autoMailMessage" Nullable="false" />
+          <Property Type="DateTime" Name="sendDate" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="questionnaireRule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="zcodePattern" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="scorePattern" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="actionType" Nullable="false" />
+          <Property Type="Int32" Name="questionnaireToSend" />
+          <Property Type="Int32" Name="targetType" Nullable="false" />
+          <Property Type="String" Name="targetEmailList" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="actionDateType" Nullable="false" />
+          <Property Type="DateTime" Name="actionDateSet" Precision="0" />
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire" FromRole="questionnaireRule" ToRole="questionnaire" />
+          <NavigationProperty Name="questionnaire2" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1" FromRole="questionnaireRule" ToRole="questionnaire" />
+          <NavigationProperty Name="questionnaireRuleActionDateType" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleActionDateType" FromRole="questionnaireRule" ToRole="questionnaireRuleActionDateType" />
+          <NavigationProperty Name="questionnaireRuleTargetType" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleTargetType" FromRole="questionnaireRule" ToRole="questionnaireRuleTargetType" />
+        </EntityType>
+        <EntityType Name="questionnaireRuleActionDateType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <NavigationProperty Name="questionnaireRule" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleActionDateType" FromRole="questionnaireRuleActionDateType" ToRole="questionnaireRule" />
+        </EntityType>
+        <EntityType Name="questionnaireRuleTargetType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <NavigationProperty Name="questionnaireRule" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleTargetType" FromRole="questionnaireRuleTargetType" ToRole="questionnaireRule" />
+        </EntityType>
+        <Association Name="FK_questionnaireRule_questionnaire">
+          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.questionnaireRule" Role="questionnaireRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireRule">
+              <PropertyRef Name="questionnaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaireRule_questionnaire1">
+          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="0..1" />
+          <End Type="hs3MVCMTQa2Model.questionnaireRule" Role="questionnaireRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireRule">
+              <PropertyRef Name="questionnaireToSend" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaireRule_questionnaireRuleActionDateType">
+          <End Type="hs3MVCMTQa2Model.questionnaireRuleActionDateType" Role="questionnaireRuleActionDateType" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.questionnaireRule" Role="questionnaireRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaireRuleActionDateType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireRule">
+              <PropertyRef Name="actionDateType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaireRule_questionnaireRuleTargetType">
+          <End Type="hs3MVCMTQa2Model.questionnaireRuleTargetType" Role="questionnaireRuleTargetType" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.questionnaireRule" Role="questionnaireRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaireRuleTargetType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireRule">
+              <PropertyRef Name="targetType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="pr_getPPTQautoMailMessagelog_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="autoMailMessage" Nullable="false" />
+          <Property Type="DateTime" Name="sendDate" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPPTQautoMailMessagelogAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="autoMailMessage" Nullable="false" />
+          <Property Type="DateTime" Name="sendDate" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionnairerule_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" />
+          <Property Type="String" Name="zcodePattern" Nullable="false" />
+          <Property Type="String" Name="scorePattern" Nullable="false" />
+          <Property Type="Int32" Name="actionType" Nullable="false" />
+          <Property Type="Int32" Name="questionnaireToSend" Nullable="true" />
+          <Property Type="Int32" Name="targetType" Nullable="false" />
+          <Property Type="String" Name="targetEmailList" Nullable="false" />
+          <Property Type="Int32" Name="actionDateType" Nullable="false" />
+          <Property Type="DateTime" Name="actionDateSet" Nullable="true" />
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireRuleActionDateType_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireRuleActionDateTypeAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireruleAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" />
+          <Property Type="String" Name="zcodePattern" Nullable="false" />
+          <Property Type="String" Name="scorePattern" Nullable="false" />
+          <Property Type="Int32" Name="actionType" Nullable="false" />
+          <Property Type="Int32" Name="questionnaireToSend" Nullable="true" />
+          <Property Type="Int32" Name="targetType" Nullable="false" />
+          <Property Type="String" Name="targetEmailList" Nullable="false" />
+          <Property Type="Int32" Name="actionDateType" Nullable="false" />
+          <Property Type="DateTime" Name="actionDateSet" Nullable="true" />
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireRuleTargetType_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireRuleTargetTypeAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getReminderListAll_Result">
+          <Property Type="Int32" Name="nextToSend_ptq" Nullable="true" />
+          <Property Type="Int32" Name="nextToSend_pptq" Nullable="false" />
+          <Property Type="Int32" Name="nextToSend_automailmessage" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="true" />
+          <Property Type="DateTime" Name="sendDate" Nullable="true" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="h_automailType_desc" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="automailMessage" Nullable="true" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="Int32" Name="sent_pptq" Nullable="false" />
+          <Property Type="Int32" Name="ptq" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getReminderListByCountryAll_Result">
+          <Property Type="Int32" Name="ptq" Nullable="true" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="automailmessage" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="true" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="desc" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="country" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="lastSentDate" Nullable="true" />
+          <Property Type="Int32" Name="lastSentMessage" Nullable="true" />
+          <Property Type="Int32" Name="sent_pptq" Nullable="false" />
+          <Property Type="Int32" Name="sent_ptq" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getReminderListByCountryAll2_Result">
+          <Property Type="Int32" Name="ptq" Nullable="true" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="automailmessage" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="true" />
+          <Property Type="Int32" Name="inviteCalcFactor" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="desc" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="country" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="lastSentDate" Nullable="true" />
+          <Property Type="Int32" Name="lastSentMessage" Nullable="true" />
+          <Property Type="Int32" Name="sent_pptq" Nullable="false" />
+          <Property Type="Int32" Name="sent_ptq" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -16130,18 +16675,6 @@
                 <ScalarProperty Name="checkedBy" ColumnName="checkedBy" />
                 <ScalarProperty Name="dateChecked" ColumnName="dateChecked" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="partnerReminder">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerReminder">
-              <MappingFragment StoreEntitySet="partnerReminder">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-                <ScalarProperty Name="partner" ColumnName="partner" />
-                <ScalarProperty Name="autoMail" ColumnName="autoMail" />
-                <ScalarProperty Name="sendDate" ColumnName="sendDate" />
-                <ScalarProperty Name="isSent" ColumnName="isSent" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -19140,6 +19673,7 @@
           <EntitySetMapping Name="customizedLSMWReport">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.customizedLSMWReport">
               <MappingFragment StoreEntitySet="customizedLSMWReport">
+                <ScalarProperty Name="partnumberSiteZcodePPTQ" ColumnName="partnumberSiteZcodePPTQ" />
                 <ScalarProperty Name="COMPLETED_DATE" ColumnName="COMPLETED_DATE" />
                 <ScalarProperty Name="ZCFLAG" ColumnName="ZCFLAG" />
                 <ScalarProperty Name="ZPOST" ColumnName="ZPOST" />
@@ -19149,6 +19683,234 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="partnerReminder_DEPRECATED">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerReminder_DEPRECATED">
+              <MappingFragment StoreEntitySet="partnerReminder_DEPRECATED">
+                <ScalarProperty Name="isSent" ColumnName="isSent" />
+                <ScalarProperty Name="sendDate" ColumnName="sendDate" />
+                <ScalarProperty Name="autoMail" ColumnName="autoMail" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pptqAutoMailMessageLog">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.pptqAutoMailMessageLog">
+              <MappingFragment StoreEntitySet="pptqAutoMailMessageLog">
+                <ScalarProperty Name="sendDate" ColumnName="sendDate" />
+                <ScalarProperty Name="autoMailMessage" ColumnName="autoMailMessage" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questionnaireRule">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireRule">
+              <MappingFragment StoreEntitySet="questionnaireRule">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="actionDateSet" ColumnName="actionDateSet" />
+                <ScalarProperty Name="actionDateType" ColumnName="actionDateType" />
+                <ScalarProperty Name="targetEmailList" ColumnName="targetEmailList" />
+                <ScalarProperty Name="targetType" ColumnName="targetType" />
+                <ScalarProperty Name="questionnaireToSend" ColumnName="questionnaireToSend" />
+                <ScalarProperty Name="actionType" ColumnName="actionType" />
+                <ScalarProperty Name="scorePattern" ColumnName="scorePattern" />
+                <ScalarProperty Name="zcodePattern" ColumnName="zcodePattern" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questionnaireRuleActionDateType">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireRuleActionDateType">
+              <MappingFragment StoreEntitySet="questionnaireRuleActionDateType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questionnaireRuleTargetType">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireRuleTargetType">
+              <MappingFragment StoreEntitySet="questionnaireRuleTargetType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPPTQautoMailMessageLog" FunctionName="hs3MVCMTQa2Model.Store.pr_addPPTQautoMailMessageLog" />
+          <FunctionImportMapping FunctionImportName="pr_addQuestionnairerule" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnairerule" />
+          <FunctionImportMapping FunctionImportName="pr_addQuestionnaireRuleActionDateType" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireRuleActionDateType" />
+          <FunctionImportMapping FunctionImportName="pr_addQuestionnaireRuleTargetType" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireRuleTargetType" />
+          <FunctionImportMapping FunctionImportName="pr_archiveQuestionnairerule" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveQuestionnairerule" />
+          <FunctionImportMapping FunctionImportName="pr_archiveQuestionnaireRuleActionDateType" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveQuestionnaireRuleActionDateType" />
+          <FunctionImportMapping FunctionImportName="pr_archiveQuestionnaireRuleTargetType" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveQuestionnaireRuleTargetType" />
+          <FunctionImportMapping FunctionImportName="pr_getPPTQautoMailMessagelog" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQautoMailMessagelog">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQautoMailMessagelog_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="autoMailMessage" ColumnName="autoMailMessage" />
+                <ScalarProperty Name="sendDate" ColumnName="sendDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPPTQautoMailMessagelogAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQautoMailMessagelogAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQautoMailMessagelogAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="autoMailMessage" ColumnName="autoMailMessage" />
+                <ScalarProperty Name="sendDate" ColumnName="sendDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnairerule" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnairerule">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnairerule_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="zcodePattern" ColumnName="zcodePattern" />
+                <ScalarProperty Name="scorePattern" ColumnName="scorePattern" />
+                <ScalarProperty Name="actionType" ColumnName="actionType" />
+                <ScalarProperty Name="questionnaireToSend" ColumnName="questionnaireToSend" />
+                <ScalarProperty Name="targetType" ColumnName="targetType" />
+                <ScalarProperty Name="targetEmailList" ColumnName="targetEmailList" />
+                <ScalarProperty Name="actionDateType" ColumnName="actionDateType" />
+                <ScalarProperty Name="actionDateSet" ColumnName="actionDateSet" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireRuleActionDateType" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireRuleActionDateType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireRuleActionDateType_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireRuleActionDateTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireRuleActionDateTypeAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireRuleActionDateTypeAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireruleAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireruleAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireruleAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="zcodePattern" ColumnName="zcodePattern" />
+                <ScalarProperty Name="scorePattern" ColumnName="scorePattern" />
+                <ScalarProperty Name="actionType" ColumnName="actionType" />
+                <ScalarProperty Name="questionnaireToSend" ColumnName="questionnaireToSend" />
+                <ScalarProperty Name="targetType" ColumnName="targetType" />
+                <ScalarProperty Name="targetEmailList" ColumnName="targetEmailList" />
+                <ScalarProperty Name="actionDateType" ColumnName="actionDateType" />
+                <ScalarProperty Name="actionDateSet" ColumnName="actionDateSet" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireRuleTargetType" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireRuleTargetType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireRuleTargetType_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireRuleTargetTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireRuleTargetTypeAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireRuleTargetTypeAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getReminderListAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderListAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getReminderListAll_Result">
+                <ScalarProperty Name="nextToSend_ptq" ColumnName="nextToSend_ptq" />
+                <ScalarProperty Name="nextToSend_pptq" ColumnName="nextToSend_pptq" />
+                <ScalarProperty Name="nextToSend_automailmessage" ColumnName="nextToSend_automailmessage" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="sendDate" ColumnName="sendDate" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="h_automailType_desc" ColumnName="h_automailType_desc" />
+                <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="sent_pptq" ColumnName="sent_pptq" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getReminderListByCountryAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderListByCountryAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getReminderListByCountryAll_Result">
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="automailmessage" ColumnName="automailmessage" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="desc" ColumnName="desc" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="lastSentDate" ColumnName="lastSentDate" />
+                <ScalarProperty Name="lastSentMessage" ColumnName="lastSentMessage" />
+                <ScalarProperty Name="sent_pptq" ColumnName="sent_pptq" />
+                <ScalarProperty Name="sent_ptq" ColumnName="sent_ptq" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getReminderListByCountryAll2" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderListByCountryAll2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getReminderListByCountryAll2_Result">
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="automailmessage" ColumnName="automailmessage" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="inviteCalcFactor" ColumnName="inviteCalcFactor" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="desc" ColumnName="desc" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="lastSentDate" ColumnName="lastSentDate" />
+                <ScalarProperty Name="lastSentMessage" ColumnName="lastSentMessage" />
+                <ScalarProperty Name="sent_pptq" ColumnName="sent_pptq" />
+                <ScalarProperty Name="sent_ptq" ColumnName="sent_ptq" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyQuestionnairerule" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnairerule" />
+          <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireRuleActionDateType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireRuleActionDateType" />
+          <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireRuleTargetType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireRuleTargetType" />
+          <FunctionImportMapping FunctionImportName="pr_removePPTQautoMailMessagelog" FunctionName="hs3MVCMTQa2Model.Store.pr_removePPTQautoMailMessagelog" />
+          <FunctionImportMapping FunctionImportName="pr_removeQuestionnairerule" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnairerule" />
+          <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireRuleActionDateType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireRuleActionDateType" />
+          <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireRuleTargetType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireRuleTargetType" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionnairerule" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionnairerule" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionnaireRuleActionDateType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionnaireRuleActionDateType" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionnaireRuleTargetType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionnaireRuleTargetType" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

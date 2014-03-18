@@ -10,16 +10,12 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class customizedLSMWReport
+    public partial class pr_getQuestionnaireRuleTargetTypeAll_Result
     {
-        public string LIFNR { get; set; }
-        public string MATNR { get; set; }
-        public string WERKS { get; set; }
-        public string ZPOST { get; set; }
-        public string ZCFLAG { get; set; }
-        public System.DateTime COMPLETED_DATE { get; set; }
-        public int partnumberSiteZcodePPTQ { get; set; }
+        public int id { get; set; }
+        public string description { get; set; }
+        public int sortOrder { get; set; }
+        public bool active { get; set; }
     }
 }
