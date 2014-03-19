@@ -57,8 +57,9 @@
             SelectData.remove;
         });
 
-        $('#btnSubmit').click(function () {
-
+        $('#btnSubmit').click(function (event) {
+            event.preventDefault();
+            console.log('a1');
             var person = $('#person').val();
 
             var foo = [];

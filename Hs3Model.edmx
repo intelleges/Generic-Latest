@@ -6363,6 +6363,17 @@
           <Parameter Name="zcode" Type="varchar(max)" Mode="In" />
           <Parameter Name="country" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="honeywellBAA">
+          <Parameter Name="partnumberSiteZcodePPTQ" Type="int" Mode="In" />
+        </Function>
+        <!--Errors Found During Generation:
+      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerConfirm' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="partnerConfirm">
+        <Property Name="loadhistory" Type="int" />
+        <Property Name="partner" Type="int" />
+        <Property Name="group" Type="int" />
+      </EntityType>-->
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -6412,7 +6423,6 @@
           <EntitySet Name="partnerPartnertypeTouchpointQuestionnaire" EntityType="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire" />
           <EntitySet Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntityType="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
           <EntitySet Name="partnerReference" EntityType="hs3MVCMTQa2Model.partnerReference" />
-          <EntitySet Name="partnerReminder" EntityType="hs3MVCMTQa2Model.partnerReminder" />
           <EntitySet Name="partnerReminderStatus" EntityType="hs3MVCMTQa2Model.partnerReminderStatus" />
           <EntitySet Name="partnerRemitAddress" EntityType="hs3MVCMTQa2Model.partnerRemitAddress" />
           <EntitySet Name="partnerReport" EntityType="hs3MVCMTQa2Model.partnerReport" />
@@ -9663,30 +9673,30 @@
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveQuestionnairerule">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveQuestionnaireRuleActionDateType">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveQuestionnaireRuleTargetType">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPPTQautoMailMessagelog" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQautoMailMessagelog_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPPTQautoMailMessagelogAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQautoMailMessagelogAll_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnairerule" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnairerule_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireRuleActionDateType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireRuleActionDateType_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireRuleActionDateTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireRuleActionDateTypeAll_Result)" />
           <FunctionImport Name="pr_getQuestionnaireruleAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireruleAll_Result)" />
           <FunctionImport Name="pr_getQuestionnaireRuleTargetType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireRuleTargetType_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireRuleTargetTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireRuleTargetTypeAll_Result)" />
           <FunctionImport Name="pr_getReminderListAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListAll_Result)" />
@@ -9719,25 +9729,28 @@
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removePPTQautoMailMessagelog">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeQuestionnairerule">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeQuestionnaireRuleActionDateType">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeQuestionnaireRuleTargetType">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveQuestionnairerule">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveQuestionnaireRuleActionDateType">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveQuestionnaireRuleTargetType">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ_Result)">
+            <Parameter Name="partnumberSiteZcodePPTQ" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -10355,17 +10368,6 @@
           <Property Name="checkedBy" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="dateChecked" Type="DateTime" Precision="3" />
           <Property Name="notes" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="partnerReminder">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="touchpoint" Type="Int32" Nullable="false" />
-          <Property Name="partner" Type="Int32" Nullable="false" />
-          <Property Name="autoMail" Type="Int32" Nullable="false" />
-          <Property Name="sendDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="isSent" Type="Boolean" />
         </EntityType>
         <EntityType Name="partnerReminderStatus">
           <Key>
@@ -15415,6 +15417,17 @@
           <Property Type="Int32" Name="sent_pptq" Nullable="false" />
           <Property Type="Int32" Name="sent_ptq" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ_Result">
+          <Property Type="Int32" Name="partnumber" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="LIFNR" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="MATNR" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="WERKS" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ZPOST" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="ZCFLAG" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="COMPLETED_DATE" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -19911,6 +19924,21 @@
           <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionnairerule" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionnairerule" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionnaireRuleActionDateType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionnaireRuleActionDateType" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionnaireRuleTargetType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionnaireRuleTargetType" />
+          <FunctionImportMapping FunctionImportName="pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ_Result">
+                <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="LIFNR" ColumnName="LIFNR" />
+                <ScalarProperty Name="MATNR" ColumnName="MATNR" />
+                <ScalarProperty Name="WERKS" ColumnName="WERKS" />
+                <ScalarProperty Name="ZPOST" ColumnName="ZPOST" />
+                <ScalarProperty Name="ZCFLAG" ColumnName="ZCFLAG" />
+                <ScalarProperty Name="COMPLETED_DATE" ColumnName="COMPLETED_DATE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

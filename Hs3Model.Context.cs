@@ -72,7 +72,6 @@ namespace Generic
         public DbSet<partnerPartnertypeTouchpointQuestionnaire> partnerPartnertypeTouchpointQuestionnaire { get; set; }
         public DbSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponse { get; set; }
         public DbSet<partnerReference> partnerReference { get; set; }
-        public DbSet<partnerReminder> partnerReminder { get; set; }
         public DbSet<partnerReminderStatus> partnerReminderStatus { get; set; }
         public DbSet<partnerRemitAddress> partnerRemitAddress { get; set; }
         public DbSet<partnerReport> partnerReport { get; set; }
@@ -11457,6 +11456,15 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestionnaireRuleTargetType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ_Result> pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ(Nullable<int> partnumberSiteZcodePPTQ)
+        {
+            var partnumberSiteZcodePPTQParameter = partnumberSiteZcodePPTQ.HasValue ?
+                new ObjectParameter("partnumberSiteZcodePPTQ", partnumberSiteZcodePPTQ) :
+                new ObjectParameter("partnumberSiteZcodePPTQ", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ_Result>("pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ", partnumberSiteZcodePPTQParameter);
         }
     }
 }

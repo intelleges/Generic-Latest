@@ -57,8 +57,9 @@
             SelectData.remove;
         });
 
-        $('#btnSubmit').click(function () {
-
+        $('#btnSubmit').click(function (event) {
+            console.log('a2');
+            event.preventDefault();
             var Role = $('#Role').val();
 
             var foo = [];

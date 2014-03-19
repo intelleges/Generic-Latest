@@ -557,9 +557,6 @@
     <Compile Include="partnerReference.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="partnerReminder.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="partnerReminderStatus.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -697,6 +694,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCountry_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCustomizedReportByPartnumberSiteZcodePPTQandZcode2_Result.cs">

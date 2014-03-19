@@ -50,7 +50,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
                 try
                 {
+
+
                     ViewBag.CMS_PAGE_TITLE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PAGE_TITLE).FirstOrDefault().id).FirstOrDefault().text;
+                                      
                     ViewBag.CMS_PAGE_SUBTITLE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PAGE_SUBTITLE).FirstOrDefault().id).FirstOrDefault().text;
                     ViewBag.CMS_PAGE_PANEL_ONE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PAGE_PANEL_ONE).FirstOrDefault().id).FirstOrDefault().text;
                     ViewBag.CMS_PAGE_PANEL_TWO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PAGE_PANEL_TWO).FirstOrDefault().id).FirstOrDefault().text;
