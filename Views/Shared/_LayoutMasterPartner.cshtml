@@ -72,6 +72,7 @@
                           hPanes.Add()
                               .Size("150px")
                               .Collapsible(true).Collapsed(true)
+                              .Resizable(false)
                               .Content(@<p>Inner splitter :: left pane</p>);
 
                           hPanes.Add()
@@ -124,12 +125,15 @@
 
                           hPanes.Add()
                               .Size("20%")
+                               .Resizable(false)
                               .Collapsible(true).Collapsed(true)
                               .Content(@<p>Inner splitter :: right pane</p>);
+                                                                          
                       }).ToString());
 
           vPanes.Add()
               .Size("20%")
+               .Resizable(false)
               .Collapsible(true).Collapsed(true)
               .Content(@<div class="footer2">
                                           <table width="100%" border="0" cellspacing="0" cellpadding="0">
