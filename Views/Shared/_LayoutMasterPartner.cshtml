@@ -154,25 +154,26 @@
 <script type="text/javascript">
     jQuery.noConflict();
     jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
-    function onCollapsed(e) {
-        localStorage["collapsed"] = 1;
+    $(document).ready(function () {
+        function onCollapsed(e) {
+            localStorage["collapsed"] = 1;
 
-    }
-    function onExpand(e) {
-        localStorage["collapsed"] = 2;
-
-    }
-    function onLoad(e) {
-        var splitter = $("#Splitter1").data("tSplitter");
-        var pane = $("#Splitter1 > .t-pane")[0]; // the first pane
-        if (localStorage["collapsed"] == 1) {
-            splitter.collapse(pane);
         }
-        else {
-            splitter.expand(pane);
-        }
+        function onExpand(e) {
+            localStorage["collapsed"] = 2;
 
-    }
+        }
+        function onLoad(e) {
+            var splitter = $("#Splitter1").data("tSplitter");
+            var pane = $("#Splitter1 > .t-pane")[0]; // the first pane
+            if (localStorage["collapsed"] == 1) {
+                splitter.collapse(pane);
+            }
+            else {
+                splitter.expand(pane);
+            }
+        }
+    });    
 </script>
 @(Html.Telerik().ScriptRegistrar()
     .DefaultGroup(group => group
