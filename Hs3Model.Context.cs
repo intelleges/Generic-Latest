@@ -149,6 +149,8 @@ namespace Generic
         public DbSet<questionnaireRule> questionnaireRule { get; set; }
         public DbSet<questionnaireRuleActionDateType> questionnaireRuleActionDateType { get; set; }
         public DbSet<questionnaireRuleTargetType> questionnaireRuleTargetType { get; set; }
+        public DbSet<calendar> calendar { get; set; }
+        public DbSet<countryHoliday> countryHoliday { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -11465,6 +11467,29 @@ namespace Generic
                 new ObjectParameter("partnumberSiteZcodePPTQ", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ_Result>("pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ", partnumberSiteZcodePPTQParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addDefaultAutoMailMessage(Nullable<int> partnerTypeTouchpointQuestionnaire)
+        {
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addDefaultAutoMailMessage", partnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCalendarByDate_Result> pr_getCalendarByDate(Nullable<System.DateTime> date)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCalendarByDate_Result>("pr_getCalendarByDate", dateParameter);
+        }
+    
+        public virtual ObjectResult<pr_test2_Result> pr_test2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_test2_Result>("pr_test2");
         }
     }
 }

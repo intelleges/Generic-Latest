@@ -12,7 +12,9 @@
           <EntitySet Name="autoMailMessage" EntityType="hs3MVCMTQa2Model.Store.autoMailMessage" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="automailMessagePPTQ" EntityType="hs3MVCMTQa2Model.Store.automailMessagePPTQ" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="autoMailType" EntityType="hs3MVCMTQa2Model.Store.autoMailType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="calendar" EntityType="hs3MVCMTQa2Model.Store.calendar" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="country" EntityType="hs3MVCMTQa2Model.Store.country" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="countryHoliday" EntityType="hs3MVCMTQa2Model.Store.countryHoliday" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="domain" EntityType="hs3MVCMTQa2Model.Store.domain" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="emailBounceType" EntityType="hs3MVCMTQa2Model.Store.emailBounceType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="emailTag_deprecated" EntityType="hs3MVCMTQa2Model.Store.emailTag_deprecated" store:Type="Tables" Schema="dbo" />
@@ -686,6 +688,24 @@
           <Property Name="active" Type="int" />
           <Property Name="oldId" Type="int" />
         </EntityType>
+        <EntityType Name="calendar">
+          <Key>
+            <PropertyRef Name="date_id" />
+          </Key>
+          <Property Name="date_id" Type="date" Nullable="false" />
+          <Property Name="date_year" Type="smallint" />
+          <Property Name="date_month" Type="tinyint" />
+          <Property Name="date_day" Type="tinyint" />
+          <Property Name="weekday_id" Type="tinyint" />
+          <Property Name="weekday_nm" Type="varchar" MaxLength="10" />
+          <Property Name="month_nm" Type="varchar" MaxLength="10" />
+          <Property Name="day_of_year" Type="smallint" />
+          <Property Name="quarter_id" Type="tinyint" />
+          <Property Name="first_day_of_month" Type="date" />
+          <Property Name="last_day_of_month" Type="date" />
+          <Property Name="start_dts" Type="datetime" />
+          <Property Name="end_dts" Type="datetime" />
+        </EntityType>
         <EntityType Name="country">
           <Key>
             <PropertyRef Name="id" />
@@ -698,6 +718,15 @@
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="bit" />
           <Property Name="enterprise" Type="int" />
+        </EntityType>
+        <EntityType Name="countryHoliday">
+          <Key>
+            <PropertyRef Name="country" />
+            <PropertyRef Name="date_id" />
+          </Key>
+          <Property Name="country" Type="int" Nullable="false" />
+          <Property Name="date_id" Type="date" Nullable="false" />
+          <Property Name="holiday" Type="nvarchar" Nullable="false" MaxLength="200" />
         </EntityType>
         <EntityType Name="domain">
           <Key>
@@ -3636,6 +3665,9 @@
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addDefaultAutoMailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addDomain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -4455,6 +4487,9 @@
           <Parameter Name="partnerCount" Type="int" Mode="In" />
           <Parameter Name="partnumberCount" Type="int" Mode="In" />
           <Parameter Name="subscriptionType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getCalendarByDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="date" Mode="In" />
         </Function>
         <Function Name="pr_getCountFromPPTQByStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
@@ -6136,6 +6171,7 @@
         <Function Name="pr_resetPartnumberStatusAndZcodeByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_test2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_unArchiveAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6373,6 +6409,15 @@
         <Property Name="loadhistory" Type="int" />
         <Property Name="partner" Type="int" />
         <Property Name="group" Type="int" />
+      </EntityType>
+      Errors Found During Generation:
+      warning 6013: The table/view 'hs3MVCMTQa2.dbo.queryField' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="queryField">
+        <Property Name="query" Type="int" />
+        <Property Name="field" Type="varchar" MaxLength="100" />
+        <Property Name="criteria" Type="varchar" MaxLength="100" />
+        <Property Name="isText" Type="int" />
       </EntityType>-->
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -9750,8 +9795,17 @@
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ_Result)">
-            <Parameter Name="partnumberSiteZcodePPTQ" Mode="In" Type="Int32" />
+          <Parameter Name="partnumberSiteZcodePPTQ" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="calendar" EntityType="hs3MVCMTQa2Model.calendar" />
+          <EntitySet Name="countryHoliday" EntityType="hs3MVCMTQa2Model.countryHoliday" />
+          <FunctionImport Name="pr_addDefaultAutoMailMessage" ReturnType="Collection(Decimal)">
+            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCalendarByDate" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCalendarByDate_Result)">
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="pr_test2" ReturnType="Collection(hs3MVCMTQa2Model.pr_test2_Result)" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -15428,6 +15482,64 @@
           <Property Type="String" Name="ZCFLAG" Nullable="false" MaxLength="1" />
           <Property Type="DateTime" Name="COMPLETED_DATE" Nullable="false" />
         </ComplexType>
+        <EntityType Name="calendar">
+          <Key>
+            <PropertyRef Name="date_id" />
+          </Key>
+          <Property Type="DateTime" Name="date_id" Nullable="false" Precision="0" />
+          <Property Type="Int16" Name="date_year" />
+          <Property Type="Byte" Name="date_month" />
+          <Property Type="Byte" Name="date_day" />
+          <Property Type="Byte" Name="weekday_id" />
+          <Property Type="String" Name="weekday_nm" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="month_nm" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="day_of_year" />
+          <Property Type="Byte" Name="quarter_id" />
+          <Property Type="DateTime" Name="first_day_of_month" Precision="0" />
+          <Property Type="DateTime" Name="last_day_of_month" Precision="0" />
+          <Property Type="DateTime" Name="start_dts" Precision="3" />
+          <Property Type="DateTime" Name="end_dts" Precision="3" />
+        </EntityType>
+        <EntityType Name="countryHoliday">
+          <Key>
+            <PropertyRef Name="country" />
+            <PropertyRef Name="date_id" />
+          </Key>
+          <Property Type="Int32" Name="country" Nullable="false" />
+          <Property Type="DateTime" Name="date_id" Nullable="false" Precision="0" />
+          <Property Type="String" Name="holiday" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="pr_getCalendarByDate_Result">
+          <Property Type="DateTime" Name="date_id" Nullable="false" />
+          <Property Type="Int16" Name="date_year" Nullable="true" />
+          <Property Type="Byte" Name="date_month" Nullable="true" />
+          <Property Type="Byte" Name="date_day" Nullable="true" />
+          <Property Type="Byte" Name="weekday_id" Nullable="true" />
+          <Property Type="String" Name="weekday_nm" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="month_nm" Nullable="true" MaxLength="10" />
+          <Property Type="Int16" Name="day_of_year" Nullable="true" />
+          <Property Type="Byte" Name="quarter_id" Nullable="true" />
+          <Property Type="DateTime" Name="first_day_of_month" Nullable="true" />
+          <Property Type="DateTime" Name="last_day_of_month" Nullable="true" />
+          <Property Type="DateTime" Name="start_dts" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="end_dts" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_test2_Result">
+          <Property Type="DateTime" Name="invited" Nullable="false" />
+          <Property Type="Int32" Name="inv_sendDateCalcFactor" Nullable="true" />
+          <Property Type="Int32" Name="ptq" Nullable="true" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="automailmessage" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="true" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="desc" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="country" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="lastSentDate" Nullable="true" />
+          <Property Type="Int32" Name="lastSentMessage" Nullable="true" />
+          <Property Type="Int32" Name="sent_pptq" Nullable="false" />
+          <Property Type="Int32" Name="sent_ptq" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -19936,6 +20048,74 @@
                 <ScalarProperty Name="ZPOST" ColumnName="ZPOST" />
                 <ScalarProperty Name="ZCFLAG" ColumnName="ZCFLAG" />
                 <ScalarProperty Name="COMPLETED_DATE" ColumnName="COMPLETED_DATE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="calendar">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.calendar">
+              <MappingFragment StoreEntitySet="calendar">
+                <ScalarProperty Name="end_dts" ColumnName="end_dts" />
+                <ScalarProperty Name="start_dts" ColumnName="start_dts" />
+                <ScalarProperty Name="last_day_of_month" ColumnName="last_day_of_month" />
+                <ScalarProperty Name="first_day_of_month" ColumnName="first_day_of_month" />
+                <ScalarProperty Name="quarter_id" ColumnName="quarter_id" />
+                <ScalarProperty Name="day_of_year" ColumnName="day_of_year" />
+                <ScalarProperty Name="month_nm" ColumnName="month_nm" />
+                <ScalarProperty Name="weekday_nm" ColumnName="weekday_nm" />
+                <ScalarProperty Name="weekday_id" ColumnName="weekday_id" />
+                <ScalarProperty Name="date_day" ColumnName="date_day" />
+                <ScalarProperty Name="date_month" ColumnName="date_month" />
+                <ScalarProperty Name="date_year" ColumnName="date_year" />
+                <ScalarProperty Name="date_id" ColumnName="date_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="countryHoliday">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.countryHoliday">
+              <MappingFragment StoreEntitySet="countryHoliday">
+                <ScalarProperty Name="holiday" ColumnName="holiday" />
+                <ScalarProperty Name="date_id" ColumnName="date_id" />
+                <ScalarProperty Name="country" ColumnName="country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addDefaultAutoMailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_addDefaultAutoMailMessage" />
+          <FunctionImportMapping FunctionImportName="pr_getCalendarByDate" FunctionName="hs3MVCMTQa2Model.Store.pr_getCalendarByDate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCalendarByDate_Result">
+                <ScalarProperty Name="date_id" ColumnName="date_id" />
+                <ScalarProperty Name="date_year" ColumnName="date_year" />
+                <ScalarProperty Name="date_month" ColumnName="date_month" />
+                <ScalarProperty Name="date_day" ColumnName="date_day" />
+                <ScalarProperty Name="weekday_id" ColumnName="weekday_id" />
+                <ScalarProperty Name="weekday_nm" ColumnName="weekday_nm" />
+                <ScalarProperty Name="month_nm" ColumnName="month_nm" />
+                <ScalarProperty Name="day_of_year" ColumnName="day_of_year" />
+                <ScalarProperty Name="quarter_id" ColumnName="quarter_id" />
+                <ScalarProperty Name="first_day_of_month" ColumnName="first_day_of_month" />
+                <ScalarProperty Name="last_day_of_month" ColumnName="last_day_of_month" />
+                <ScalarProperty Name="start_dts" ColumnName="start_dts" />
+                <ScalarProperty Name="end_dts" ColumnName="end_dts" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_test2" FunctionName="hs3MVCMTQa2Model.Store.pr_test2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_test2_Result">
+                <ScalarProperty Name="invited" ColumnName="invited" />
+                <ScalarProperty Name="inv_sendDateCalcFactor" ColumnName="inv_sendDateCalcFactor" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="automailmessage" ColumnName="automailmessage" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="desc" ColumnName="desc" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="lastSentDate" ColumnName="lastSentDate" />
+                <ScalarProperty Name="lastSentMessage" ColumnName="lastSentMessage" />
+                <ScalarProperty Name="sent_pptq" ColumnName="sent_pptq" />
+                <ScalarProperty Name="sent_ptq" ColumnName="sent_ptq" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
