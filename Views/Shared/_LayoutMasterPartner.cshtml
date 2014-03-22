@@ -37,9 +37,11 @@
 
 
 @{Html.Telerik().Splitter().Name("Splitter1")
+         .ClientEvents(ev => ev.OnLoad("onLoad"))
       .ClientEvents(ev => ev.OnCollapse("onCollapsed"))
       .ClientEvents(ev => ev.OnExpand("onExpand"))
-      .ClientEvents(ev => ev.OnLoad("onLoad"))
+     
+   
 
       .HtmlAttributes(new { style = "height: 600px;" })
      
@@ -174,6 +176,10 @@
         }
 
     }
+    function onResize(e) {
+        alert("Splitter " + this.id + " resized!")
+    }
+
 </script>
 @(Html.Telerik().ScriptRegistrar()
     .DefaultGroup(group => group
@@ -181,5 +187,5 @@
         .Compress(true)
      )
     )
-@Html.Telerik().ScriptRegistrar()
+
 @Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
