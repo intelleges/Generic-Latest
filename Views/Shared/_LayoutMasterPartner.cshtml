@@ -37,7 +37,7 @@
 
 
 @{Html.Telerik().Splitter().Name("Splitter1")
-         //.ClientEvents(ev => ev.OnLoad("onLoad"))
+      .ClientEvents(ev => ev.OnLoad("onLoad"))
       .ClientEvents(ev => ev.OnCollapse("onCollapsed"))
       .ClientEvents(ev => ev.OnExpand("onExpand"))
      
@@ -54,7 +54,7 @@
               .Size("100px")
             
               
-              .Collapsible(true).Collapsed(true)
+              .Collapsible(true)
               .Resizable(false)
               .Content(@<div>
 
