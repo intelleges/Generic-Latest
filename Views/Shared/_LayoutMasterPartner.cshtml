@@ -176,13 +176,18 @@
     }
     function onLoad(e) {
         $('#splitterWrapper').css('display', '');
+
+        
         var splitter = $("#Splitter1").data("tSplitter");
         if (splitter == null || splitter == undefined)
         {
             return;
         }
         var pane = $("#Splitter1 > .t-pane")[0]; // the first pane
-        if (localStorage["collapsed"] == 1) {
+        if (window.location.href.indexOf('PartNumber') == -1) {
+            splitter.collapse(pane);
+        }
+        else if (localStorage["collapsed"] == 1) {
             splitter.collapse(pane);
         }
         else {
