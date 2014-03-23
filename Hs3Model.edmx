@@ -9810,7 +9810,7 @@
           </FunctionImport>
           <FunctionImport Name="pr_test2" ReturnType="Collection(hs3MVCMTQa2Model.pr_test2_Result)" />
           <FunctionImport Name="pr_modifyDefaultAutoMailMessage">
-            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
