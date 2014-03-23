@@ -164,13 +164,7 @@
     jQuery.noConflict();
     jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
     
-    (function ($) {
-        $('#splitterWrapper').css('display', '');
-    })(jQuery);
-
-    //$(document).ready(function () {
-    //    $('#splitterWrapper').fadeIn();
-    //});
+    
 
     function onCollapsed(e) {
         localStorage["collapsed"] = 1;
@@ -181,7 +175,7 @@
 
     }
     function onLoad(e) {
-        
+        $('#splitterWrapper').css('display', '');
         var splitter = $("#Splitter1").data("tSplitter");
         if (splitter == null || splitter == undefined)
         {
