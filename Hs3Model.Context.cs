@@ -11491,5 +11491,14 @@ namespace Generic
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_test2_Result>("pr_test2");
         }
+    
+        public virtual int pr_modifyDefaultAutoMailMessage(Nullable<int> partnerTypeTouchpointQuestionnaire)
+        {
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyDefaultAutoMailMessage", partnerTypeTouchpointQuestionnaireParameter);
+        }
     }
 }

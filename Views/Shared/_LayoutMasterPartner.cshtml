@@ -40,9 +40,6 @@
       .ClientEvents(ev => ev.OnLoad("onLoad"))
       .ClientEvents(ev => ev.OnCollapse("onCollapsed"))
       .ClientEvents(ev => ev.OnExpand("onExpand"))
-     
-   
-
       .HtmlAttributes(new { style = "height: 600px;" })
      
 
@@ -50,18 +47,13 @@
       .Panes(vPanes =>
       {
           vPanes.Add()
-
-              .Size("100px")
-            
-              
-              .Collapsible(true).Collapsed(false)
+              .Size("100px")              
+              .HtmlAttributes(new { style = "height: 100px;"})
+              .Collapsible(true)
+              .Collapsed(true)
               .Resizable(false)
               .Content(@<div>
-
     @RenderSection("zCodes", required: false)
-
-
-
 </div>);
 
           vPanes.Add()
@@ -172,7 +164,12 @@
 
     }
     function onLoad(e) {
+        
         var splitter = $("#Splitter1").data("tSplitter");
+        if (splitter == null || splitter == undefined)
+        {
+            return;
+        }
         var pane = $("#Splitter1 > .t-pane")[0]; // the first pane
         if (localStorage["collapsed"] == 1) {
             splitter.collapse(pane);
@@ -182,9 +179,7 @@
         }
 
     }
-    function onResize(e) {
-        alert("Splitter " + this.id + " resized!")
-    }
+    
 
 </script>
 @(Html.Telerik().ScriptRegistrar()

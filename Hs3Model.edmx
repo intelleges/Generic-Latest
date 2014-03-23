@@ -5241,6 +5241,9 @@
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyDefaultAutoMailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_modifyDomain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -9800,12 +9803,15 @@
           <EntitySet Name="calendar" EntityType="hs3MVCMTQa2Model.calendar" />
           <EntitySet Name="countryHoliday" EntityType="hs3MVCMTQa2Model.countryHoliday" />
           <FunctionImport Name="pr_addDefaultAutoMailMessage" ReturnType="Collection(Decimal)">
-            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCalendarByDate" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCalendarByDate_Result)">
-            <Parameter Name="date" Mode="In" Type="DateTime" />
+          <Parameter Name="date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="pr_test2" ReturnType="Collection(hs3MVCMTQa2Model.pr_test2_Result)" />
+          <FunctionImport Name="pr_modifyDefaultAutoMailMessage">
+            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -20119,6 +20125,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyDefaultAutoMailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyDefaultAutoMailMessage" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
