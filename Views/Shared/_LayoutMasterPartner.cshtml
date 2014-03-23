@@ -35,7 +35,7 @@
                 .Compress(true)))
 
 
-
+<div id="splitterWrapper" style="display: none;">
 @{Html.Telerik().Splitter().Name("Splitter1")
       .ClientEvents(ev => ev.OnLoad("onLoad"))
       .ClientEvents(ev => ev.OnCollapse("onCollapsed"))
@@ -48,7 +48,7 @@
       {
           vPanes.Add()
               .Size("100px")              
-              .HtmlAttributes(new { style = "height: 100px;"})
+              //.HtmlAttributes(new { style = "height: 100px;"})
               .Collapsible(true)
               .Collapsed(true)
               .Resizable(false)
@@ -145,6 +145,7 @@
       })
       .Render();
 }
+    </div>
 
 
 
@@ -155,6 +156,15 @@
 <script type="text/javascript">
     jQuery.noConflict();
     jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
+
+    (function ($) {
+        $('#splitterWrapper').css('display', '');
+    })(jQuery);
+
+    //$(document).ready(function () {
+    //    $('#splitterWrapper').fadeIn();
+    //});
+
     function onCollapsed(e) {
         localStorage["collapsed"] = 1;
 
