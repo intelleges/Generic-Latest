@@ -35,7 +35,7 @@
                 .Compress(true)))
 
 
-<div id="splitterWrapper" style="display: none;">
+<div id="splitterWrapper" style="display: none;height: 100px !important;">
 @{Html.Telerik().Splitter().Name("Splitter1")
       .ClientEvents(ev => ev.OnLoad("onLoad"))
       .ClientEvents(ev => ev.OnCollapse("onCollapsed"))
