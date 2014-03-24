@@ -11546,5 +11546,39 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerByEmailAndInternalID_Result>("pr_getPartnerByEmailAndInternalID", enterpriseParameter, emailParameter, internalIDParameter);
         }
+    
+        public virtual ObjectResult<partner> pr_getPartnerByEmailAndInternalID1(Nullable<int> enterprise, string email, string internalID)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var internalIDParameter = internalID != null ?
+                new ObjectParameter("internalID", internalID) :
+                new ObjectParameter("internalID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerByEmailAndInternalID1", enterpriseParameter, emailParameter, internalIDParameter);
+        }
+    
+        public virtual ObjectResult<partner> pr_getPartnerByEmailAndInternalID1(Nullable<int> enterprise, string email, string internalID, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var internalIDParameter = internalID != null ?
+                new ObjectParameter("internalID", internalID) :
+                new ObjectParameter("internalID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerByEmailAndInternalID1", mergeOption, enterpriseParameter, emailParameter, internalIDParameter);
+        }
     }
 }

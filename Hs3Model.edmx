@@ -9838,6 +9838,11 @@
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="internalID" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="pr_getPartnerByEmailAndInternalID1" EntitySet="partner" ReturnType="Collection(hs3MVCMTQa2Model.partner)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="internalID" Mode="In" Type="String" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -20213,6 +20218,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerByEmailAndInternalID1" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerByEmailAndInternalID" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
