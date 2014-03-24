@@ -85,6 +85,8 @@ position: relative;
 top: 8px;
 }
 
+.menucontainer { width: 700px; margin: 0 auto; } .menucontainer li { display: inline-block; margin: 10px; } .menucontainer a { display: block; padding: 5px; }
+li { margin-top: 10px; margin-bottom: 10px; margin-left: 10px; float: left; background: none repeat scroll 0 0 #EEEEEE; height: 30px; line-height: 30px; }
 </style>
 
 
@@ -501,7 +503,7 @@ top: 8px;
 }
 
 @section Top{
-    <ul id="qm0" class="qmmc" style="width: 775px;position: absolute;">
+    <ul id="qm0" class="qmmc menucontainer" style="width: 775px;position: absolute;">
                                     <li><a class="qmparent" href=""></a></li>
                                     <li><a class="qmparent" href="mailto:@ViewBag.CONTACT_US_EMAIL_LINK" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>                                    
                                     <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>
