@@ -36,11 +36,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.CMS_PAGE_NEXT_TEXT = CMS.QUESTIONNAIRE_PAGE_NEXT_TEXT;
             ViewBag.SAVE_FOR_LATER_TEXT = CMS.SAVE_FOR_LATER_TEXT;
 
-            ViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
-            ViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
-            ViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
-            ViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
-            ViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
+            ViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Length >= 20 ? CMS.QUESTIONNAIRE_PDF.Substring(0, 20) : CMS.QUESTIONNAIRE_PDF;
+            ViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Length >= 20 ? CMS.QUESTIONNAIRE_FAQ.Substring(0, 20) : CMS.QUESTIONNAIRE_FAQ;
+            ViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Length >= 20 ? CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 20) : CMS.QUESTIONNAIRE_DOC_OTHER;
+            ViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Length >= 20 ? CMS.QUESTIONNAIRE_VIDEO.Substring(0, 20) : CMS.QUESTIONNAIRE_VIDEO;
+            ViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Length >= 20 ? CMS.CONTACT_US_EMAIL.Substring(0, 20) : CMS.CONTACT_US_EMAIL;
 
             var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
             if (ppptq_cms != null)
