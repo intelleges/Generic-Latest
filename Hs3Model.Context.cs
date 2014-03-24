@@ -11500,5 +11500,51 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyDefaultAutoMailMessage", partnerTypeTouchpointQuestionnaireParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_addPartnumberBySpreadsheet(Nullable<int> enterprise, Nullable<int> partnertype, Nullable<int> touchpoint, Nullable<int> questionnaire, string partner_internal_id, string partner_poc_email_address)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var partner_internal_idParameter = partner_internal_id != null ?
+                new ObjectParameter("partner_internal_id", partner_internal_id) :
+                new ObjectParameter("partner_internal_id", typeof(string));
+    
+            var partner_poc_email_addressParameter = partner_poc_email_address != null ?
+                new ObjectParameter("partner_poc_email_address", partner_poc_email_address) :
+                new ObjectParameter("partner_poc_email_address", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnumberBySpreadsheet", enterpriseParameter, partnertypeParameter, touchpointParameter, questionnaireParameter, partner_internal_idParameter, partner_poc_email_addressParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerByEmailAndInternalID_Result> pr_getPartnerByEmailAndInternalID(Nullable<int> enterprise, string email, string internalID)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var internalIDParameter = internalID != null ?
+                new ObjectParameter("internalID", internalID) :
+                new ObjectParameter("internalID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerByEmailAndInternalID_Result>("pr_getPartnerByEmailAndInternalID", enterpriseParameter, emailParameter, internalIDParameter);
+        }
     }
 }
