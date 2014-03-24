@@ -41,17 +41,56 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
                 try
                 {
+                    var cms_Title = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_TITLE).id);
+                    if (cms_Title != null)
+                    {
+                        ViewBag.CMS_TITLE = cms_Title.text;
+                    }
+                    var cms_SubTitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBTITLE).id);
+                    if (cms_SubTitle != null)
+                    {
+                        ViewBag.CMS_SUBTITLE = cms_SubTitle.text;
+                    }
 
-                    ViewBag.CMS_TITLE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_TITLE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_SUBTITLE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_SUBTITLE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PANEL_ONE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_PANEL_ONE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PANEL_TWO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_PANEL_TWO).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_FOOTER_ONE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_FOOTER_ONE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_FOOTER_TWO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_FOOTER_TWO).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_SUBMIT_TEXT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.ACCESS_CODE_SUBMIT_TEXT).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.RETRIEVE_ACCESS_CODE_TEXT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.RETRIEVE_ACCESS_CODE_TEXT).FirstOrDefault().id).FirstOrDefault().text;
+                    var cms_PanelOne = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_PANEL_ONE).id);
+                    if (cms_PanelOne != null)
+                    {
+                        ViewBag.CMS_PANEL_ONE = cms_PanelOne.text;
+                    }
+
+                    var cms_PanelTwo = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_PANEL_TWO).id);
+                    if (cms_PanelTwo != null)
+                    {
+                        ViewBag.CMS_PANEL_TWO = cms_PanelTwo.text;
+                    }
+
+                    var cms_FooterOne = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_ONE).id);
+                    if (cms_FooterOne != null)
+                    {
+                        ViewBag.CMS_FOOTER_ONE = cms_FooterOne.text;
+                    }
+
+                    var cms_FooterTwo = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_TWO).id);
+                    if (cms_FooterTwo != null)
+                    {
+                        ViewBag.CMS_FOOTER_TWO = cms_FooterTwo.text;
+                    }
+
+                    var cms_SubmitText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBMIT_TEXT).id);
+                    if (cms_SubmitText != null)
+                    {
+                        ViewBag.CMS_SUBMIT_TEXT = cms_SubmitText.text;
+                    }
+
+                    var ret_AccCode = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.RETRIEVE_ACCESS_CODE_TEXT).id);
+                    if (ret_AccCode != null)
+                    {
+                        ViewBag.RETRIEVE_ACCESS_CODE_TEXT = ret_AccCode.text;
+                    }
                 }
-                catch { }
+                catch (Exception exc)
+                {
+                }
             }
 
             return View();
@@ -66,8 +105,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var touchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
 
                 var responseTypesQuestionnaire = db.pr_getResponseTypeByQuestionnaire(ptq.questionnaire).ToList();
-                 var objQuestionnaire = db.pr_getQuestionnaire(ptq.questionnaire).FirstOrDefault();
-           
+                var objQuestionnaire = db.pr_getQuestionnaire(ptq.questionnaire).FirstOrDefault();
+
                 if (touchpoint.endDate >= DateTime.Now)
                 {
                     Session["accessCode"] = accessCode;
@@ -78,7 +117,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     Session["touchpoint"] = touchpoint.id;
                     Session["partnerType"] = ptq.partnerType;
                     Session["questionnaire"] = ptq.questionnaire;
-                    Session["leveltype"] = objQuestionnaire.levelType;                    
+                    Session["leveltype"] = objQuestionnaire.levelType;
                     Session["protocol"] = touchpoint.protocol;
                     Session["responseTypesQuestionnaire"] = responseTypesQuestionnaire;
 
@@ -143,12 +182,24 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 try
                 {
-                    ViewBag.CMS_PAGE_TITLE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.COMPANY_PAGE_TITLE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_SUBTITLE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.COMPANY_PAGE_SUBTITLE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_PANEL_ONE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.COMPANY_PAGE_PANEL_ONE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_PANEL_TWO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.COMPANY_PAGE_PANEL_TWO).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_PREVIOUS_TEXT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.COMPANY_PAGE_PREVIOUS_TEXT).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_NEXT_TEXT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.COMPANY_PAGE_NEXT_TEXT).FirstOrDefault().id).FirstOrDefault().text;
+                    var cms_PageTitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.COMPANY_PAGE_TITLE).id);
+                    if (cms_PageTitle != null)
+                        ViewBag.CMS_PAGE_TITLE = cms_PageTitle.text;
+                    var cms_PageSubtitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.COMPANY_PAGE_SUBTITLE).id);
+                    if (cms_PageSubtitle != null)
+                        ViewBag.CMS_PAGE_SUBTITLE = cms_PageSubtitle.text;
+                    var cms_PagePanelOne = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.COMPANY_PAGE_PANEL_ONE).id);
+                    if (cms_PagePanelOne != null)
+                        ViewBag.CMS_PAGE_PANEL_ONE = cms_PagePanelOne.text;
+                    var cms_PagePanelTwo = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.COMPANY_PAGE_PANEL_TWO).id);
+                    if (cms_PagePanelTwo != null)
+                        ViewBag.CMS_PAGE_PANEL_TWO = cms_PagePanelTwo.text;
+                    var cms_PagePreviousText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.COMPANY_PAGE_PREVIOUS_TEXT).id);
+                    if (cms_PagePreviousText != null)
+                        ViewBag.CMS_PAGE_PREVIOUS_TEXT = cms_PagePreviousText.text;
+                    var cms_PageNextText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.COMPANY_PAGE_NEXT_TEXT).id);
+                    if (cms_PageNextText != null)
+                        ViewBag.CMS_PAGE_NEXT_TEXT = cms_PageNextText.text;
 
                     QuestionnaireMenuLinks(cms, questionnairCMSAll);
                 }
@@ -196,13 +247,24 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
                 try
                 {
-
-                    ViewBag.CMS_PAGE_TITLE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_PAGE_TITLE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_SUBTITLE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_PAGE_SUBTITLE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_PANEL_ONE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_PAGE_PANEL_ONE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_PANEL_TWO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_PAGE_PANEL_TWO).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_PREVIOUS_TEXT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_PAGE_PREVIOUS_TEXT).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_NEXT_TEXT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_PAGE_NEXT_TEXT).FirstOrDefault().id).FirstOrDefault().text;
+                    var cms_PageTitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_PAGE_TITLE).id);
+                    if (cms_PageTitle != null)
+                        ViewBag.CMS_PAGE_TITLE = cms_PageTitle.text;
+                    var cms_PageSubtitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_PAGE_SUBTITLE).id);
+                    if (cms_PageSubtitle != null)
+                        ViewBag.CMS_PAGE_SUBTITLE = cms_PageSubtitle.text;
+                    var cms_PagePanelOne = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_PAGE_PANEL_ONE).id);
+                    if (cms_PagePanelOne != null)
+                        ViewBag.CMS_PAGE_PANEL_ONE = cms_PagePanelOne.text;
+                    var cms_PagePanelTwo = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_PAGE_PANEL_TWO).id);
+                    if (cms_PagePanelTwo != null)
+                        ViewBag.CMS_PAGE_PANEL_TWO = cms_PagePanelTwo.text;
+                    var cms_PagePreviousText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_PAGE_PREVIOUS_TEXT).id);
+                    if (cms_PagePreviousText != null)
+                        ViewBag.CMS_PAGE_PREVIOUS_TEXT = cms_PagePreviousText.text;
+                    var cms_PageNextText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_PAGE_NEXT_TEXT).id);
+                    if (cms_PageNextText != null)
+                        ViewBag.CMS_PAGE_NEXT_TEXT = cms_PageNextText.text;
 
                     QuestionnaireMenuLinks(cms, questionnairCMSAll);
                 }
@@ -277,20 +339,45 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
                 try
                 {
+                    var cms_PageTitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_TITLE).id);
+                    if (cms_PageTitle != null)
+                        ViewBag.CMS_PAGE_TITLE = cms_PageTitle.text;
+                    var cms_PageSubtitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_SUBTITLE).id);
+                    if (cms_PageSubtitle != null)
+                        ViewBag.CMS_PAGE_SUBTITLE = cms_PageSubtitle.text;
+                    var cms_PagePanelOne = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_PANEL_ONE).id);
+                    if (cms_PagePanelOne != null)
+                        ViewBag.CMS_PAGE_PANEL_ONE = cms_PagePanelOne.text;
+                    var cms_PagePanelTwo = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_PANEL_TWO).id);
+                    if (cms_PagePanelTwo != null)
+                        ViewBag.CMS_PAGE_PANEL_TWO = cms_PagePanelTwo.text;
+                    var cms_PagePreviousText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_PREVIOUS_TEXT).id);
+                    if (cms_PagePreviousText != null)
+                        ViewBag.CMS_PAGE_PREVIOUS_TEXT = cms_PagePreviousText.text;
+                    var cms_PageNextText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_NEXT_TEXT).id);
+                    if (cms_PageNextText != null)
+                        ViewBag.CMS_PAGE_NEXT_TEXT = cms_PageNextText.text;
 
-                    ViewBag.CMS_PAGE_TITLE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PAGE_TITLE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_SUBTITLE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PAGE_SUBTITLE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_PANEL_ONE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PAGE_PANEL_ONE).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_PANEL_TWO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PAGE_PANEL_TWO).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_PREVIOUS_TEXT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PAGE_PREVIOUS_TEXT).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CMS_PAGE_NEXT_TEXT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PAGE_NEXT_TEXT).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.SAVE_FOR_LATER_TEXT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.SAVE_FOR_LATER_TEXT).FirstOrDefault().id).FirstOrDefault().text;
+                    var cms_SaveForLater = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.SAVE_FOR_LATER_TEXT).id);
+                    if (cms_SaveForLater != null)
+                        ViewBag.SAVE_FOR_LATER_TEXT = cms_SaveForLater.text;
 
-                    ViewBag.QUESTIONNAIRE_PDF = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PDF).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.QUESTIONNAIRE_FAQ = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_FAQ).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.QUESTIONNAIRE_DOC_OTHER = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.QUESTIONNAIRE_VIDEO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_VIDEO).FirstOrDefault().id).FirstOrDefault().text;
-                    ViewBag.CONTACT_US_EMAIL = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_US_EMAIL).FirstOrDefault().id).FirstOrDefault().text;
+                    var cms_quiestionnare = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PDF).id);
+                    if (cms_quiestionnare != null)
+                        ViewBag.QUESTIONNAIRE_PDF = cms_quiestionnare.text;
+
+                    var cms_QuestionnareFAQ = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_FAQ).id);
+                    if (cms_QuestionnareFAQ != null)
+                        ViewBag.QUESTIONNAIRE_FAQ = cms_QuestionnareFAQ.text;
+                    var cms_questionnare_doc = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER).id);
+                    if (cms_questionnare_doc != null)
+                        ViewBag.QUESTIONNAIRE_DOC_OTHER = cms_questionnare_doc.text;
+                    var cms_Questionnare_video = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_VIDEO).id);
+                    if (cms_Questionnare_video != null)
+                        ViewBag.QUESTIONNAIRE_VIDEO = cms_Questionnare_video.text;
+                    var cms_ContactEmail = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_US_EMAIL).id);
+                    if (cms_ContactEmail != null)
+                        ViewBag.CONTACT_US_EMAIL = cms_ContactEmail.text;
                 }
                 catch { }
             }
@@ -547,7 +634,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
                         if (objQuestion.skipLogicJump != null)
                         {
-                            if (objQuestion.skipLogicAnswer !=null)
+                            if (objQuestion.skipLogicAnswer != null)
                             {
                                 if (answer == "74")
                                 {
@@ -1153,7 +1240,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return File(fileData, "application/pdf", fileName);
         }
 
-       
+
 
         public ActionResult EditCompanyInformation()
         {
@@ -1567,7 +1654,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.QUESTIONNAIRE_VIDEO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_VIDEO).FirstOrDefault().id).FirstOrDefault().text.PadRight(15).Substring(0, 15);
             ViewBag.CONTACT_US_EMAIL = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_US_EMAIL).FirstOrDefault().id).FirstOrDefault().text.PadRight(15).Substring(0, 15);
             ViewBag.QUESTIONNAIRE_VIDEO_LINK = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_US_EMAIL).FirstOrDefault().id).FirstOrDefault().link;
-        
+
         }
         public FileContentResult FileDownloadCMS(string CMSName)
         {
@@ -1602,7 +1689,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                     }
                 }
-               
+
                 fileData = (byte[])fileDataBinary.ToArray();
                 fileName = CMSName;
                 //return file and provide byte file content and file name --application/pdf

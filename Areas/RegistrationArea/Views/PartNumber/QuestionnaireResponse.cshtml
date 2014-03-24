@@ -77,14 +77,13 @@ margin: 15px 2px;
 }
 
 .supplytitleblueone {
-padding: 0 10px 0 0px;
+padding: 60px 10px 0 0px !important;
 }
 
 .surveyban {
 position: relative;
-top: -50px;
+top: 8px;
 }
-
 </style>
 
 
@@ -501,19 +500,20 @@ top: -50px;
 }
 
 @section Top{
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-            <td height="77" valign="top">
-                
-                                <ul id="qm0" class="qmmc" style="width: 775px;">
+    <ul id="qm0" class="qmmc" style="width: 775px;position: absolute;">
                                     <li><a class="qmparent" href=""></a></li>
-                                    <li><a class="qmparent" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>                                    
+                                    <li><a class="qmparent" href="mailto:@ViewBag.CONTACT_US_EMAIL_LINK" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>                                    
                                     <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>
                                     <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@ViewBag.QUESTIONNAIRE_FAQ</a> </li>
                                     <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@ViewBag.QUESTIONNAIRE_DOC_OTHER</a> </li>
                                     <li><a class="qmparent" href="@ViewBag.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@ViewBag.QUESTIONNAIRE_VIDEO</a> </li>
                                     <li class="qmclear">&nbsp;</li>
                                 </ul>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td valign="top">
+                
+                                
 
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
@@ -535,7 +535,7 @@ top: -50px;
 
                             </span>
                         </td>
-                        <td width="13%" height="106" valign="bottom">
+                        <td width="13%"  valign="bottom" class="quest-res">
                             <img src="~/Contents/images/tickmark.gif" alt="" width="95" height="89" class="surveyban" />
                         </td>
                     </tr>
