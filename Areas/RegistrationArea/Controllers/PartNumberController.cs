@@ -282,7 +282,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             Session["site"] = siteSelectList;
 
-
             int questionnaireId = 0;
             int partnerId = 0;
             int touchpointId = 0;
@@ -312,6 +311,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
 
+            dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);
 
             jumpToQuestion = 0;
 
