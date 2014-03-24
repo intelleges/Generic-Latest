@@ -155,8 +155,14 @@
     </tr>
     <tr>
         <td style="font-size: 12px;" align="left" width="70%"></td>
-        <td style="font-size: 12px;" align="left" width="30%">
-        <a href="@ViewBag.CONFIRMATION_PAGE_EXIT_LINK">
+        <td style="font-size: 12px;" align="left" width="30%">  
+           
+@{
+string link = @ViewBag.CONFIRMATION_PAGE_EXIT_LINK;
+link = "http://" +  link;
+}
+
+        <a href="@link"   >
         <input name="btnNext" id="btnNext" value="@ViewBag.CMS_PAGE_NEXT_TEXT" style="border-width:0px;" type="submit">
         </a>
         </td>
