@@ -289,7 +289,7 @@ namespace Generic.Controllers
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
                 // db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire
                 // db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire()
-                foreach (int partnerId in uploadedpartnerList)
+                foreach (int partnerId in uploadedpartnerList.Distinct())
                 {
 
 

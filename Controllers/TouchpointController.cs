@@ -163,7 +163,7 @@ namespace Generic.Controllers
 
         public ActionResult GetTouchPointByprotocolId(int protocolId)
         {
-            var touchpoint = db.pr_getTouchpointByProtocol(protocolId).Select(x => new { x.id, x.description}).ToList();
+            var touchpoint = db.pr_getTouchpointByProtocol(protocolId).Where(x=>x.active==1).Select(x => new { x.id, x.description}).ToList();
             return Json(new { Data = touchpoint }, JsonRequestBehavior.AllowGet);
         }
 
