@@ -73,6 +73,8 @@
           <EntitySet Name="partnumber" EntityType="hs3MVCMTQa2Model.Store.partnumber" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnumberSiteZcodePPTQ" EntityType="hs3MVCMTQa2Model.Store.partnumberSiteZcodePPTQ" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnumberSiteZcodePPTQQuestionResponse" EntityType="hs3MVCMTQa2Model.Store.partnumberSiteZcodePPTQQuestionResponse" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="partnumberSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.Store.partnumberSpreadsheetDataLoad" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="partnumberSpreadsheetDataLoadStatus" EntityType="hs3MVCMTQa2Model.Store.partnumberSpreadsheetDataLoadStatus" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="partnumberStatus" EntityType="hs3MVCMTQa2Model.Store.partnumberStatus" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="person" EntityType="hs3MVCMTQa2Model.Store.person" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personGroup" EntityType="hs3MVCMTQa2Model.Store.personGroup" store:Type="Tables" Schema="dbo" />
@@ -179,6 +181,22 @@
       [prReminder].[SeqNumber] AS [SeqNumber]
       FROM [dbo].[prReminder] AS [prReminder]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__partnumbe__enter__7B863AD4" Association="hs3MVCMTQa2Model.Store.FK__partnumbe__enter__7B863AD4">
+            <End Role="enterprise" EntitySet="enterprise" />
+            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__partnumbe__partn__7C7A5F0D" Association="hs3MVCMTQa2Model.Store.FK__partnumbe__partn__7C7A5F0D">
+            <End Role="partnerType" EntitySet="partnerType" />
+            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__partnumbe__perso__7E62A77F" Association="hs3MVCMTQa2Model.Store.FK__partnumbe__perso__7E62A77F">
+            <End Role="person" EntitySet="person" />
+            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__partnumbe__touch__7D6E8346" Association="hs3MVCMTQa2Model.Store.FK__partnumbe__touch__7D6E8346">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
+          </AssociationSet>
           <AssociationSet Name="FK_agency_enterprise" Association="hs3MVCMTQa2Model.Store.FK_agency_enterprise">
             <End Role="enterprise" EntitySet="enterprise" />
             <End Role="agency" EntitySet="agency" />
@@ -1496,6 +1514,53 @@
           <Property Name="score" Type="nchar" MaxLength="10" />
           <Property Name="partNumberSiteZcodePPTQ" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="partnumberSpreadsheetDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="partner_internal_id" Type="varchar" MaxLength="300" />
+          <Property Name="partner_sap_id" Type="varchar" MaxLength="300" />
+          <Property Name="partner_name" Type="varchar(max)" />
+          <Property Name="partner_address_one" Type="varchar(max)" />
+          <Property Name="partner_address_two" Type="varchar(max)" />
+          <Property Name="partner_city" Type="varchar(max)" />
+          <Property Name="partner_state" Type="varchar" MaxLength="2" />
+          <Property Name="partner_zipcode" Type="varchar" MaxLength="15" />
+          <Property Name="partner_country" Type="varchar" MaxLength="300" />
+          <Property Name="partner_poc_first_name" Type="varchar" MaxLength="300" />
+          <Property Name="partner_poc_last_name" Type="varchar" MaxLength="300" />
+          <Property Name="partner_poc_title" Type="varchar" MaxLength="300" />
+          <Property Name="partner_poc_phone_number" Type="varchar" MaxLength="20" />
+          <Property Name="partner_poc_email_address" Type="varchar" MaxLength="300" />
+          <Property Name="internal_site_id" Type="varchar" MaxLength="100" />
+          <Property Name="sap_site" Type="varchar" MaxLength="100" />
+          <Property Name="sap_plant_code" Type="varchar" MaxLength="100" />
+          <Property Name="site_name" Type="varchar" MaxLength="100" />
+          <Property Name="part_number_sap" Type="varchar" MaxLength="100" />
+          <Property Name="part_number_internal" Type="varchar" MaxLength="100" />
+          <Property Name="sub_commodity_owner" Type="varchar" MaxLength="100" />
+          <Property Name="center_of_excellence" Type="varchar" MaxLength="100" />
+          <Property Name="ro_first_name" Type="varchar" MaxLength="100" />
+          <Property Name="ro_last_name" Type="varchar" MaxLength="100" />
+          <Property Name="ro_email" Type="varchar" MaxLength="100" />
+          <Property Name="date_loaded" Type="datetime" />
+          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="partnertype" Type="int" Nullable="false" />
+          <Property Name="touchpoint" Type="int" Nullable="false" />
+          <Property Name="person" Type="int" Nullable="false" />
+          <Property Name="partnumberSpreadsheetDataLoadStatus" Type="int" />
+          <Property Name="loadGroup" Type="varchar" Nullable="false" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="partnumberSpreadsheetDataLoadStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="partnumberStatus">
           <Key>
             <PropertyRef Name="id" />
@@ -2283,6 +2348,54 @@
           <Property Name="partner" Type="int" Nullable="false" />
           <Property Name="SeqNumber" Type="bigint" />
         </EntityType>
+        <Association Name="FK__partnumbe__enter__7B863AD4">
+          <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="1" />
+          <End Role="partnumberSpreadsheetDataLoad" Type="hs3MVCMTQa2Model.Store.partnumberSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSpreadsheetDataLoad">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__partnumbe__partn__7C7A5F0D">
+          <End Role="partnerType" Type="hs3MVCMTQa2Model.Store.partnerType" Multiplicity="1" />
+          <End Role="partnumberSpreadsheetDataLoad" Type="hs3MVCMTQa2Model.Store.partnumberSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSpreadsheetDataLoad">
+              <PropertyRef Name="partnertype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__partnumbe__perso__7E62A77F">
+          <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+          <End Role="partnumberSpreadsheetDataLoad" Type="hs3MVCMTQa2Model.Store.partnumberSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSpreadsheetDataLoad">
+              <PropertyRef Name="person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__partnumbe__touch__7D6E8346">
+          <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
+          <End Role="partnumberSpreadsheetDataLoad" Type="hs3MVCMTQa2Model.Store.partnumberSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSpreadsheetDataLoad">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_agency_enterprise">
           <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="0..1" />
           <End Role="agency" Type="hs3MVCMTQa2Model.Store.agency" Multiplicity="*" />
@@ -3968,6 +4081,45 @@
           <Parameter Name="score" Type="nchar" Mode="In" />
           <Parameter Name="partNumberSiteZcodePPTQ" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addPartnumberSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partner_internal_id" Type="varchar" Mode="In" />
+          <Parameter Name="partner_sap_id" Type="varchar" Mode="In" />
+          <Parameter Name="partner_name" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_address_one" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_address_two" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_city" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_state" Type="varchar" Mode="In" />
+          <Parameter Name="partner_zipcode" Type="varchar" Mode="In" />
+          <Parameter Name="partner_country" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_first_name" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_last_name" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_title" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_phone_number" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_email_address" Type="varchar" Mode="In" />
+          <Parameter Name="internal_site_id" Type="varchar" Mode="In" />
+          <Parameter Name="sap_site" Type="varchar" Mode="In" />
+          <Parameter Name="sap_plant_code" Type="varchar" Mode="In" />
+          <Parameter Name="site_name" Type="varchar" Mode="In" />
+          <Parameter Name="part_number_sap" Type="varchar" Mode="In" />
+          <Parameter Name="part_number_internal" Type="varchar" Mode="In" />
+          <Parameter Name="sub_commodity_owner" Type="varchar" Mode="In" />
+          <Parameter Name="center_of_excellence" Type="varchar" Mode="In" />
+          <Parameter Name="ro_first_name" Type="varchar" Mode="In" />
+          <Parameter Name="ro_last_name" Type="varchar" Mode="In" />
+          <Parameter Name="ro_email" Type="varchar" Mode="In" />
+          <Parameter Name="date_loaded" Type="datetime" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Type="int" Mode="In" />
+          <Parameter Name="loadGroup" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_addPartnumberSpreadsheetDataLoadstatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addPartnumberStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -4362,6 +4514,9 @@
         <Function Name="pr_archivePartnumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archivePartnumberSpreadsheetDataLoadstatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archivePartnumberStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -4460,6 +4615,10 @@
           <Parameter Name="userRole" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_getAccesscode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getAccesscode2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="in" Type="int" Mode="In" />
+          <Parameter Name="out" Type="varchar" Mode="InOut" />
+        </Function>
         <Function Name="pr_getAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -4481,6 +4640,9 @@
         </Function>
         <Function Name="pr_getAutomailMessageByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getAutomailMessageforPartnumberEmailSendByLoadGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_getAutomailMessagePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
@@ -4696,6 +4858,9 @@
         <Function Name="pr_getPartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerForPartnumberEmailSendByLoadGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loadgroup" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerGroupByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="group" Type="int" Mode="In" />
         </Function>
@@ -4824,6 +4989,16 @@
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnumberSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPartnumberSpreadsheetDataLoadByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getPartnumberSpreadsheetDataLoadstatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPartnumberSpreadsheetDataLoadstatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPartnumberStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5563,6 +5738,47 @@
           <Parameter Name="score" Type="nchar" Mode="In" />
           <Parameter Name="partNumberSiteZcodePPTQ" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPartnumberSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="partner_internal_id" Type="varchar" Mode="In" />
+          <Parameter Name="partner_sap_id" Type="varchar" Mode="In" />
+          <Parameter Name="partner_name" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_address_one" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_address_two" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_city" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_state" Type="varchar" Mode="In" />
+          <Parameter Name="partner_zipcode" Type="varchar" Mode="In" />
+          <Parameter Name="partner_country" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_first_name" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_last_name" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_title" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_phone_number" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_email_address" Type="varchar" Mode="In" />
+          <Parameter Name="internal_site_id" Type="varchar" Mode="In" />
+          <Parameter Name="sap_site" Type="varchar" Mode="In" />
+          <Parameter Name="sap_plant_code" Type="varchar" Mode="In" />
+          <Parameter Name="site_name" Type="varchar" Mode="In" />
+          <Parameter Name="part_number_sap" Type="varchar" Mode="In" />
+          <Parameter Name="part_number_internal" Type="varchar" Mode="In" />
+          <Parameter Name="sub_commodity_owner" Type="varchar" Mode="In" />
+          <Parameter Name="center_of_excellence" Type="varchar" Mode="In" />
+          <Parameter Name="ro_first_name" Type="varchar" Mode="In" />
+          <Parameter Name="ro_last_name" Type="varchar" Mode="In" />
+          <Parameter Name="ro_email" Type="varchar" Mode="In" />
+          <Parameter Name="date_loaded" Type="datetime" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Type="int" Mode="In" />
+          <Parameter Name="loadGroup" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPartnumberSpreadsheetDataLoadstatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPartnumberStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -6031,6 +6247,12 @@
         <Function Name="pr_removePartnumberSiteZcodePPTQQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removePartnumberSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removePartnumberSpreadsheetDataLoadstatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removePartnumberStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6240,6 +6462,9 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchivePartnumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchivePartnumberSpreadsheetDataLoadstatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchivePartnumberStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -9826,6 +10051,136 @@
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="internalID" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="partnumberSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" />
+          <EntitySet Name="partnumberSpreadsheetDataLoadStatus" EntityType="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoadStatus" />
+          <AssociationSet Name="FK__partnumbe__enter__7B863AD4" Association="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4">
+            <End Role="enterprise" EntitySet="enterprise" />
+            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__partnumbe__partn__7C7A5F0D" Association="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D">
+            <End Role="partnerType" EntitySet="partnerType" />
+            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__partnumbe__perso__7E62A77F" Association="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F">
+            <End Role="person" EntitySet="person" />
+            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__partnumbe__touch__7D6E8346" Association="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
+          </AssociationSet>
+          <FunctionImport Name="pr_addPartnumberSpreadsheetDataLoad" ReturnType="Collection(Decimal)">
+            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
+            <Parameter Name="partner_sap_id" Mode="In" Type="String" />
+            <Parameter Name="partner_name" Mode="In" Type="String" />
+            <Parameter Name="partner_address_one" Mode="In" Type="String" />
+            <Parameter Name="partner_address_two" Mode="In" Type="String" />
+            <Parameter Name="partner_city" Mode="In" Type="String" />
+            <Parameter Name="partner_state" Mode="In" Type="String" />
+            <Parameter Name="partner_zipcode" Mode="In" Type="String" />
+            <Parameter Name="partner_country" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_first_name" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_last_name" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_title" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_phone_number" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_email_address" Mode="In" Type="String" />
+            <Parameter Name="internal_site_id" Mode="In" Type="String" />
+            <Parameter Name="sap_site" Mode="In" Type="String" />
+            <Parameter Name="sap_plant_code" Mode="In" Type="String" />
+            <Parameter Name="site_name" Mode="In" Type="String" />
+            <Parameter Name="part_number_sap" Mode="In" Type="String" />
+            <Parameter Name="part_number_internal" Mode="In" Type="String" />
+            <Parameter Name="sub_commodity_owner" Mode="In" Type="String" />
+            <Parameter Name="center_of_excellence" Mode="In" Type="String" />
+            <Parameter Name="ro_first_name" Mode="In" Type="String" />
+            <Parameter Name="ro_last_name" Mode="In" Type="String" />
+            <Parameter Name="ro_email" Mode="In" Type="String" />
+            <Parameter Name="date_loaded" Mode="In" Type="DateTime" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
+            <Parameter Name="loadGroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPartnumberSpreadsheetDataLoadstatus" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archivePartnumberSpreadsheetDataLoadstatus">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAccesscode2">
+            <Parameter Name="in" Mode="In" Type="Int32" />
+            <Parameter Name="out" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnumberSpreadsheetDataLoadByAccessCode" EntitySet="partnumberSpreadsheetDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad)">
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnumberSpreadsheetDataLoadstatus" EntitySet="partnumberSpreadsheetDataLoadStatus" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSpreadsheetDataLoadStatus)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnumberSpreadsheetDataLoadstatusAll" EntitySet="partnumberSpreadsheetDataLoadStatus" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSpreadsheetDataLoadStatus)" />
+          <FunctionImport Name="pr_modifyPartnumberSpreadsheetDataLoad">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
+            <Parameter Name="partner_sap_id" Mode="In" Type="String" />
+            <Parameter Name="partner_name" Mode="In" Type="String" />
+            <Parameter Name="partner_address_one" Mode="In" Type="String" />
+            <Parameter Name="partner_address_two" Mode="In" Type="String" />
+            <Parameter Name="partner_city" Mode="In" Type="String" />
+            <Parameter Name="partner_state" Mode="In" Type="String" />
+            <Parameter Name="partner_zipcode" Mode="In" Type="String" />
+            <Parameter Name="partner_country" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_first_name" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_last_name" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_title" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_phone_number" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_email_address" Mode="In" Type="String" />
+            <Parameter Name="internal_site_id" Mode="In" Type="String" />
+            <Parameter Name="sap_site" Mode="In" Type="String" />
+            <Parameter Name="sap_plant_code" Mode="In" Type="String" />
+            <Parameter Name="site_name" Mode="In" Type="String" />
+            <Parameter Name="part_number_sap" Mode="In" Type="String" />
+            <Parameter Name="part_number_internal" Mode="In" Type="String" />
+            <Parameter Name="sub_commodity_owner" Mode="In" Type="String" />
+            <Parameter Name="center_of_excellence" Mode="In" Type="String" />
+            <Parameter Name="ro_first_name" Mode="In" Type="String" />
+            <Parameter Name="ro_last_name" Mode="In" Type="String" />
+            <Parameter Name="ro_email" Mode="In" Type="String" />
+            <Parameter Name="date_loaded" Mode="In" Type="DateTime" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
+            <Parameter Name="loadGroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPartnumberSpreadsheetDataLoadstatus">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePartnumberSpreadsheetDataLoad">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePartnumberSpreadsheetDataLoadstatus">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchivePartnumberSpreadsheetDataLoadstatus">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutomailMessageforPartnumberEmailSendByLoadGroup" EntitySet="autoMailMessage" ReturnType="Collection(hs3MVCMTQa2Model.autoMailMessage)">
+            <Parameter Name="loadgroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerForPartnumberEmailSendByLoadGroup" EntitySet="partner" ReturnType="Collection(hs3MVCMTQa2Model.partner)">
+            <Parameter Name="loadgroup" Mode="In" Type="String" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -10000,6 +10355,7 @@
           <Property Name="monthlyFee" Precision="19" Scale="4" Type="Decimal" />
           <Property Name="subscriptionStatus" Type="Int32" />
           <Property Name="chargifyID" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4" FromRole="enterprise" ToRole="partnumberSpreadsheetDataLoad" />
         </EntityType>
         <EntityType Name="enterpriseObjectName">
           <Key>
@@ -10640,6 +10996,7 @@
           <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_partnerType_enterprise" FromRole="partnerType" ToRole="enterprise" />
           <NavigationProperty Name="partnerClass1" Relationship="hs3MVCMTQa2Model.FK_partnerType_partnerClass" FromRole="partnerType" ToRole="partnerClass" />
           <NavigationProperty Name="partnerTypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType" FromRole="partnerType" ToRole="partnerTypeTouchpointQuestionnaire" />
+          <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D" FromRole="partnerType" ToRole="partnumberSpreadsheetDataLoad" />
         </EntityType>
         <EntityType Name="partnerTypeGroupGoal">
           <Key>
@@ -10720,6 +11077,7 @@
           <NavigationProperty Name="partner" Relationship="hs3MVCMTQa2Model.partnerRelationshipOwner" FromRole="person" ToRole="partner" />
           <NavigationProperty Name="group1" Relationship="hs3MVCMTQa2Model.personGroup" FromRole="person" ToRole="group" />
           <NavigationProperty Name="role" Relationship="hs3MVCMTQa2Model.personRole" FromRole="person" ToRole="role" />
+          <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F" FromRole="person" ToRole="partnumberSpreadsheetDataLoad" />
           
         </EntityType>
         <EntityType Name="personLoginAudit">
@@ -11168,6 +11526,7 @@
           <NavigationProperty Name="touchpointQuestionResponseValue_deprecated" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionResponseValue_touchpoint" FromRole="touchpoint" ToRole="touchpointQuestionResponseValue_deprecated" />
           <NavigationProperty Name="touchpointQuestionWeight_deprecated" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionWeight_touchpoint" FromRole="touchpoint" ToRole="touchpointQuestionWeight_deprecated" />
           <NavigationProperty Name="questionnaire" Relationship="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" FromRole="touchpoint" ToRole="questionnaire" />
+          <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" FromRole="touchpoint" ToRole="partnumberSpreadsheetDataLoad" />
         </EntityType>
         <EntityType Name="touchpointGroup">
           <Key>
@@ -15587,6 +15946,298 @@
           <Property Type="DateTime" Name="dateApproved" Nullable="true" Precision="16" />
           <Property Type="Boolean" Name="active" Nullable="true" />
           <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+        </ComplexType>
+        <EntityType Name="partnumberSpreadsheetDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="partner_internal_id" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_sap_id" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_name" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_address_one" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_address_two" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_city" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_state" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_zipcode" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_country" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_poc_first_name" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_poc_last_name" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_poc_title" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_poc_phone_number" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_poc_email_address" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="internal_site_id" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="sap_site" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="sap_plant_code" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="site_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="part_number_sap" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="part_number_internal" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="sub_commodity_owner" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="center_of_excellence" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ro_first_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ro_last_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ro_email" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="date_loaded" Precision="3" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="partnumberSpreadsheetDataLoadStatus" />
+          <Property Type="String" Name="loadGroup" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4" FromRole="partnumberSpreadsheetDataLoad" ToRole="enterprise" />
+          <NavigationProperty Name="partnerType1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D" FromRole="partnumberSpreadsheetDataLoad" ToRole="partnerType" />
+          <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F" FromRole="partnumberSpreadsheetDataLoad" ToRole="person" />
+          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" FromRole="partnumberSpreadsheetDataLoad" ToRole="touchpoint" />
+        </EntityType>
+        <EntityType Name="partnumberSpreadsheetDataLoadStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__partnumbe__enter__7B863AD4">
+          <End Type="hs3MVCMTQa2Model.enterprise" Role="enterprise" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Role="partnumberSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSpreadsheetDataLoad">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__partnumbe__partn__7C7A5F0D">
+          <End Type="hs3MVCMTQa2Model.partnerType" Role="partnerType" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Role="partnumberSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSpreadsheetDataLoad">
+              <PropertyRef Name="partnertype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__partnumbe__perso__7E62A77F">
+          <End Type="hs3MVCMTQa2Model.person" Role="person" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Role="partnumberSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSpreadsheetDataLoad">
+              <PropertyRef Name="person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__partnumbe__touch__7D6E8346">
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Role="partnumberSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSpreadsheetDataLoad">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="pr_getPartnumberSpreadsheetDataLoad_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="partner_internal_id" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_sap_id" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_name" Nullable="true" />
+          <Property Type="String" Name="partner_address_one" Nullable="true" />
+          <Property Type="String" Name="partner_address_two" Nullable="true" />
+          <Property Type="String" Name="partner_city" Nullable="true" />
+          <Property Type="String" Name="partner_state" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="partner_zipcode" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="partner_country" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_first_name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_last_name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_title" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_phone_number" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="partner_poc_email_address" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="internal_site_id" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sap_site" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sap_plant_code" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="site_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="part_number_sap" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="part_number_internal" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sub_commodity_owner" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="center_of_excellence" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_first_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_last_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_email" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="date_loaded" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="partnumberSpreadsheetDataLoadStatus" Nullable="true" />
+          <Property Type="String" Name="loadGroup" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="pr_getPartnumberSpreadsheetDataLoadByAccessCode_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="partner_internal_id" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_sap_id" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_name" Nullable="true" />
+          <Property Type="String" Name="partner_address_one" Nullable="true" />
+          <Property Type="String" Name="partner_address_two" Nullable="true" />
+          <Property Type="String" Name="partner_city" Nullable="true" />
+          <Property Type="String" Name="partner_state" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="partner_zipcode" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="partner_country" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_first_name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_last_name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_title" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_phone_number" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="partner_poc_email_address" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="internal_site_id" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sap_site" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sap_plant_code" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="site_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="part_number_sap" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="part_number_internal" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sub_commodity_owner" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="center_of_excellence" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_first_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_last_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_email" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="date_loaded" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="partnumberSpreadsheetDataLoadStatus" Nullable="true" />
+          <Property Type="String" Name="loadGroup" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="pr_getPartnumberSpreadsheetDataLoadstatus_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPartnumberSpreadsheetDataLoadstatusAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getAutomailMessageforPartnumberEmailSendByLoadGroup_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="text" Nullable="true" />
+          <Property Type="String" Name="footer1" Nullable="true" />
+          <Property Type="String" Name="footer2" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="false" />
+          <Property Type="DateTime" Name="sendDateSet" Nullable="true" />
+          <Property Type="Int32" Name="mailType" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+          <Property Type="Int32" Name="id1" Nullable="false" />
+          <Property Type="Int32" Name="partnerType" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="id2" Nullable="false" />
+          <Property Type="String" Name="partner_internal_id" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_sap_id" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_name" Nullable="true" />
+          <Property Type="String" Name="partner_address_one" Nullable="true" />
+          <Property Type="String" Name="partner_address_two" Nullable="true" />
+          <Property Type="String" Name="partner_city" Nullable="true" />
+          <Property Type="String" Name="partner_state" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="partner_zipcode" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="partner_country" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_first_name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_last_name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_title" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_phone_number" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="partner_poc_email_address" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="internal_site_id" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sap_site" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sap_plant_code" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="site_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="part_number_sap" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="part_number_internal" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sub_commodity_owner" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="center_of_excellence" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_first_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_last_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_email" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="date_loaded" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="partnertype1" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint1" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="partnumberSpreadsheetDataLoadStatus" Nullable="true" />
+          <Property Type="String" Name="loadGroup" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="pr_getPartnerForPartnumberEmailSendByLoadGroup_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="province" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="firstName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="lastName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="dunsNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="federalID" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="owner" Nullable="true" />
+          <Property Type="Int32" Name="author" Nullable="true" />
+          <Property Type="DateTime" Name="dateApproved" Nullable="true" Precision="16" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="id1" Nullable="false" />
+          <Property Type="String" Name="partner_internal_id" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_sap_id" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_name" Nullable="true" />
+          <Property Type="String" Name="partner_address_one" Nullable="true" />
+          <Property Type="String" Name="partner_address_two" Nullable="true" />
+          <Property Type="String" Name="partner_city" Nullable="true" />
+          <Property Type="String" Name="partner_state" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="partner_zipcode" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="partner_country" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_first_name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_last_name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_title" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_phone_number" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="partner_poc_email_address" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="internal_site_id" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sap_site" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sap_plant_code" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="site_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="part_number_sap" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="part_number_internal" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sub_commodity_owner" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="center_of_excellence" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_first_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_last_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_email" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="date_loaded" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="enterprise1" Nullable="false" />
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="partnumberSpreadsheetDataLoadStatus" Nullable="true" />
+          <Property Type="String" Name="loadGroup" Nullable="false" MaxLength="8" />
         </ComplexType>
         
       </Schema>
@@ -20202,6 +20853,172 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnerByEmailAndInternalID1" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerByEmailAndInternalID" />
+          <EntitySetMapping Name="partnumberSpreadsheetDataLoad">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad">
+              <MappingFragment StoreEntitySet="partnumberSpreadsheetDataLoad">
+                <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
+                <ScalarProperty Name="partnumberSpreadsheetDataLoadStatus" ColumnName="partnumberSpreadsheetDataLoadStatus" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="date_loaded" ColumnName="date_loaded" />
+                <ScalarProperty Name="ro_email" ColumnName="ro_email" />
+                <ScalarProperty Name="ro_last_name" ColumnName="ro_last_name" />
+                <ScalarProperty Name="ro_first_name" ColumnName="ro_first_name" />
+                <ScalarProperty Name="center_of_excellence" ColumnName="center_of_excellence" />
+                <ScalarProperty Name="sub_commodity_owner" ColumnName="sub_commodity_owner" />
+                <ScalarProperty Name="part_number_internal" ColumnName="part_number_internal" />
+                <ScalarProperty Name="part_number_sap" ColumnName="part_number_sap" />
+                <ScalarProperty Name="site_name" ColumnName="site_name" />
+                <ScalarProperty Name="sap_plant_code" ColumnName="sap_plant_code" />
+                <ScalarProperty Name="sap_site" ColumnName="sap_site" />
+                <ScalarProperty Name="internal_site_id" ColumnName="internal_site_id" />
+                <ScalarProperty Name="partner_poc_email_address" ColumnName="partner_poc_email_address" />
+                <ScalarProperty Name="partner_poc_phone_number" ColumnName="partner_poc_phone_number" />
+                <ScalarProperty Name="partner_poc_title" ColumnName="partner_poc_title" />
+                <ScalarProperty Name="partner_poc_last_name" ColumnName="partner_poc_last_name" />
+                <ScalarProperty Name="partner_poc_first_name" ColumnName="partner_poc_first_name" />
+                <ScalarProperty Name="partner_country" ColumnName="partner_country" />
+                <ScalarProperty Name="partner_zipcode" ColumnName="partner_zipcode" />
+                <ScalarProperty Name="partner_state" ColumnName="partner_state" />
+                <ScalarProperty Name="partner_city" ColumnName="partner_city" />
+                <ScalarProperty Name="partner_address_two" ColumnName="partner_address_two" />
+                <ScalarProperty Name="partner_address_one" ColumnName="partner_address_one" />
+                <ScalarProperty Name="partner_name" ColumnName="partner_name" />
+                <ScalarProperty Name="partner_sap_id" ColumnName="partner_sap_id" />
+                <ScalarProperty Name="partner_internal_id" ColumnName="partner_internal_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberSpreadsheetDataLoad">
+                  <ScalarProperty Name="partnumberSpreadsheetDataLoadStatus" ParameterName="PartnumberSpreadsheetDataLoadStatus" />
+                  <ScalarProperty Name="loadGroup" ParameterName="loadGroup" />
+                  <ScalarProperty Name="person" ParameterName="person" />
+                  <ScalarProperty Name="touchpoint" ParameterName="touchpoint" />
+                  <ScalarProperty Name="partnertype" ParameterName="partnertype" />
+                  <ScalarProperty Name="enterprise" ParameterName="enterprise" />
+                  <ScalarProperty Name="date_loaded" ParameterName="date_loaded" />
+                  <ScalarProperty Name="ro_email" ParameterName="ro_email" />
+                  <ScalarProperty Name="ro_last_name" ParameterName="ro_last_name" />
+                  <ScalarProperty Name="ro_first_name" ParameterName="ro_first_name" />
+                  <ScalarProperty Name="center_of_excellence" ParameterName="center_of_excellence" />
+                  <ScalarProperty Name="sub_commodity_owner" ParameterName="sub_commodity_owner" />
+                  <ScalarProperty Name="part_number_internal" ParameterName="part_number_internal" />
+                  <ScalarProperty Name="part_number_sap" ParameterName="part_number_sap" />
+                  <ScalarProperty Name="site_name" ParameterName="site_name" />
+                  <ScalarProperty Name="sap_plant_code" ParameterName="sap_plant_code" />
+                  <ScalarProperty Name="sap_site" ParameterName="sap_site" />
+                  <ScalarProperty Name="internal_site_id" ParameterName="internal_site_id" />
+                  <ScalarProperty Name="partner_poc_email_address" ParameterName="partner_poc_email_address" />
+                  <ScalarProperty Name="partner_poc_phone_number" ParameterName="partner_poc_phone_number" />
+                  <ScalarProperty Name="partner_poc_title" ParameterName="partner_poc_title" />
+                  <ScalarProperty Name="partner_poc_last_name" ParameterName="partner_poc_last_name" />
+                  <ScalarProperty Name="partner_poc_first_name" ParameterName="partner_poc_first_name" />
+                  <ScalarProperty Name="partner_country" ParameterName="partner_country" />
+                  <ScalarProperty Name="partner_zipcode" ParameterName="partner_zipcode" />
+                  <ScalarProperty Name="partner_state" ParameterName="partner_state" />
+                  <ScalarProperty Name="partner_city" ParameterName="partner_city" />
+                  <ScalarProperty Name="partner_address_two" ParameterName="partner_address_two" />
+                  <ScalarProperty Name="partner_address_one" ParameterName="partner_address_one" />
+                  <ScalarProperty Name="partner_name" ParameterName="partner_name" />
+                  <ScalarProperty Name="partner_sap_id" ParameterName="partner_sap_id" />
+                  <ScalarProperty Name="partner_internal_id" ParameterName="partner_internal_id" />
+                  <ResultBinding Name="id" ColumnName="id" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnumberSpreadsheetDataLoad">
+                  <ScalarProperty Name="partnumberSpreadsheetDataLoadStatus" ParameterName="PartnumberSpreadsheetDataLoadStatus" Version="Current" />
+                  <ScalarProperty Name="loadGroup" ParameterName="loadGroup" Version="Current" />
+                  <ScalarProperty Name="person" ParameterName="person" Version="Current" />
+                  <ScalarProperty Name="touchpoint" ParameterName="touchpoint" Version="Current" />
+                  <ScalarProperty Name="partnertype" ParameterName="partnertype" Version="Current" />
+                  <ScalarProperty Name="enterprise" ParameterName="enterprise" Version="Current" />
+                  <ScalarProperty Name="date_loaded" ParameterName="date_loaded" Version="Current" />
+                  <ScalarProperty Name="ro_email" ParameterName="ro_email" Version="Current" />
+                  <ScalarProperty Name="ro_last_name" ParameterName="ro_last_name" Version="Current" />
+                  <ScalarProperty Name="ro_first_name" ParameterName="ro_first_name" Version="Current" />
+                  <ScalarProperty Name="center_of_excellence" ParameterName="center_of_excellence" Version="Current" />
+                  <ScalarProperty Name="sub_commodity_owner" ParameterName="sub_commodity_owner" Version="Current" />
+                  <ScalarProperty Name="part_number_internal" ParameterName="part_number_internal" Version="Current" />
+                  <ScalarProperty Name="part_number_sap" ParameterName="part_number_sap" Version="Current" />
+                  <ScalarProperty Name="site_name" ParameterName="site_name" Version="Current" />
+                  <ScalarProperty Name="sap_plant_code" ParameterName="sap_plant_code" Version="Current" />
+                  <ScalarProperty Name="sap_site" ParameterName="sap_site" Version="Current" />
+                  <ScalarProperty Name="internal_site_id" ParameterName="internal_site_id" Version="Current" />
+                  <ScalarProperty Name="partner_poc_email_address" ParameterName="partner_poc_email_address" Version="Current" />
+                  <ScalarProperty Name="partner_poc_phone_number" ParameterName="partner_poc_phone_number" Version="Current" />
+                  <ScalarProperty Name="partner_poc_title" ParameterName="partner_poc_title" Version="Current" />
+                  <ScalarProperty Name="partner_poc_last_name" ParameterName="partner_poc_last_name" Version="Current" />
+                  <ScalarProperty Name="partner_poc_first_name" ParameterName="partner_poc_first_name" Version="Current" />
+                  <ScalarProperty Name="partner_country" ParameterName="partner_country" Version="Current" />
+                  <ScalarProperty Name="partner_zipcode" ParameterName="partner_zipcode" Version="Current" />
+                  <ScalarProperty Name="partner_state" ParameterName="partner_state" Version="Current" />
+                  <ScalarProperty Name="partner_city" ParameterName="partner_city" Version="Current" />
+                  <ScalarProperty Name="partner_address_two" ParameterName="partner_address_two" Version="Current" />
+                  <ScalarProperty Name="partner_address_one" ParameterName="partner_address_one" Version="Current" />
+                  <ScalarProperty Name="partner_name" ParameterName="partner_name" Version="Current" />
+                  <ScalarProperty Name="partner_sap_id" ParameterName="partner_sap_id" Version="Current" />
+                  <ScalarProperty Name="partner_internal_id" ParameterName="partner_internal_id" Version="Current" />
+                  <ScalarProperty Name="id" ParameterName="id" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnumberSpreadsheetDataLoad">
+                  <ScalarProperty Name="id" ParameterName="id" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="partnumberSpreadsheetDataLoadStatus">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoadStatus">
+              <MappingFragment StoreEntitySet="partnumberSpreadsheetDataLoadStatus">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoadStatus">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberSpreadsheetDataLoadstatus">
+                  <ScalarProperty Name="active" ParameterName="active" />
+                  <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
+                  <ScalarProperty Name="description" ParameterName="description" />
+                  <ResultBinding Name="id" ColumnName="id" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnumberSpreadsheetDataLoadstatus">
+                  <ScalarProperty Name="active" ParameterName="active" Version="Current" />
+                  <ScalarProperty Name="sortOrder" ParameterName="sortOrder" Version="Current" />
+                  <ScalarProperty Name="description" ParameterName="description" Version="Current" />
+                  <ScalarProperty Name="id" ParameterName="id" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnumberSpreadsheetDataLoadstatus">
+                  <ScalarProperty Name="id" ParameterName="id" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPartnumberSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberSpreadsheetDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_addPartnumberSpreadsheetDataLoadstatus" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberSpreadsheetDataLoadstatus" />
+          <FunctionImportMapping FunctionImportName="pr_archivePartnumberSpreadsheetDataLoadstatus" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePartnumberSpreadsheetDataLoadstatus" />
+          <FunctionImportMapping FunctionImportName="pr_getAccesscode2" FunctionName="hs3MVCMTQa2Model.Store.pr_getAccesscode2" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnumberSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSpreadsheetDataLoad">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnumberSpreadsheetDataLoadByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSpreadsheetDataLoadByAccessCode">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnumberSpreadsheetDataLoadstatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSpreadsheetDataLoadstatus">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnumberSpreadsheetDataLoadstatusAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSpreadsheetDataLoadstatusAll">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyPartnumberSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnumberSpreadsheetDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPartnumberSpreadsheetDataLoadstatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnumberSpreadsheetDataLoadstatus" />
+          <FunctionImportMapping FunctionImportName="pr_removePartnumberSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnumberSpreadsheetDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_removePartnumberSpreadsheetDataLoadstatus" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnumberSpreadsheetDataLoadstatus" />
+          <FunctionImportMapping FunctionImportName="pr_unArchivePartnumberSpreadsheetDataLoadstatus" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePartnumberSpreadsheetDataLoadstatus" />
+          <FunctionImportMapping FunctionImportName="pr_getAutomailMessageforPartnumberEmailSendByLoadGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessageforPartnumberEmailSendByLoadGroup">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerForPartnumberEmailSendByLoadGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerForPartnumberEmailSendByLoadGroup">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

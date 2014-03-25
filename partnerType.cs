@@ -17,6 +17,7 @@ namespace Generic
         public partnerType()
         {
             this.partnerTypeTouchpointQuestionnaire = new HashSet<partnerTypeTouchpointQuestionnaire>();
+            this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
         }
     
         public int id { get; set; }
@@ -31,5 +32,6 @@ namespace Generic
         public virtual enterprise enterprise1 { get; set; }
         public virtual partnerClass partnerClass1 { get; set; }
         public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire { get; set; }
+        public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
     }
 }

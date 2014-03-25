@@ -244,7 +244,7 @@ namespace Generic.Controllers
                         objPartner.title = partners.title;
                         objPartner.dunsNumber = partners.dunsNumber;
                         objPartner.federalID = partners.federalID;
-                       
+
                         db.partner.Add(objPartner);
                         db.SaveChanges();
 
@@ -310,7 +310,7 @@ namespace Generic.Controllers
                     var objtouchpoint = db.pr_getTouchpoint(touchpoint).FirstOrDefault();
                     Email email = new Email(amm);
                     EmailFormat emailFormat = new EmailFormat();
-                    email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint,ptq);
+                    email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
                     email.emailTo = objpartner.email;
                     SendEmail objSendEmail = new SendEmail();
                     objSendEmail.sendEmail(email);
@@ -357,7 +357,7 @@ namespace Generic.Controllers
             var objtouchpoint = db.pr_getTouchpoint(objptq.touchpoint).FirstOrDefault();
             Email email = new Email(amm);
             EmailFormat emailFormat = new EmailFormat();
-            email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint,ptq);
+            email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
             email.emailTo = objpartner.email;
             SendEmail objSendEmail = new SendEmail();
             objSendEmail.sendEmail(email);
@@ -437,166 +437,180 @@ namespace Generic.Controllers
             //int i = 1;
 
             List<int> uploadedpartners = new List<int>();
-
+            string loadGroup = db.pr_getAccesscode().FirstOrDefault();
             foreach (var partnumbers in partnerinExcel.ToList())
             {
-                if (partnumbers.internalID != null)
-                {
-                    partner checkPartner = new partner();
-                    using (var context = new EntitiesDBContext())
-                    {
-                        checkPartner = db.pr_getPartnerByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, partnumbers.email).FirstOrDefault();
-
-                    }
-                    int partnerID = 0;
-                    if (checkPartner == null)
-                    {
-                        partner objPartner = new partner();
-
-                        objPartner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
-                        objPartner.active = true;
-                        objPartner.internalID = partnumbers.internalID;
-                        objPartner.name = partnumbers.name;
-                        objPartner.address1 = partnumbers.address1;
-                        objPartner.address2 = partnumbers.address2;
-                        objPartner.city = partnumbers.city;
-                        var objstate = db.pr_getStateByStateCode(partnumbers.StateName).FirstOrDefault();
-                        if (objstate != null)
-                        {
-                            objPartner.state = objstate.id;
-                        }
-
-                        objPartner.province = partnumbers.province;
-                        objPartner.zipcode = partnumbers.zipcode;
-
-                        var objCountry = db.pr_getCountryByName(partnumbers.CountryName).FirstOrDefault();
-                        if (objCountry != null)
-                        {
-                            objPartner.country = objCountry.id;
-                        }
 
 
-                        objPartner.phone = partnumbers.phone;
-                        objPartner.fax = partnumbers.fax;
-                        objPartner.email = partnumbers.email;
-                        objPartner.firstName = partnumbers.firstName;
-                        objPartner.lastName = partnumbers.lastName;
-                        objPartner.title = partnumbers.title;
-                        objPartner.dunsNumber = partnumbers.dunsNumber;
-                        objPartner.federalID = partnumbers.federalID;
-                        objPartner.dunsNumber = partnumbers.dunsNumber;
-                        objPartner.active = true;
-                        objPartner.enterprise = EnterpriseID;
-                        db.partner.Add(objPartner);
-                        db.SaveChanges();
-
-                        uploadedpartners.Add(objPartner.id);
-                        partnerID = objPartner.id;
-                    }
-                    else
-                    {
-                        partnerID = checkPartner.id;
-                        uploadedpartners.Add(partnerID);
-                    }
-
-                    string accessCode = db.pr_getAccesscode().FirstOrDefault();
-
-                    int pqt = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
-                    int pptqID = 0;
-                    using (var context = new EntitiesDBContext())
-                    {
-                        context.Configuration.ValidateOnSaveEnabled = true;
-                        var pptq = new partnerPartnertypeTouchpointQuestionnaire();
-                        var objCheckpptq = context.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerID, pqt).FirstOrDefault();
-                        if (objCheckpptq == null)
-                        {
-
-                            pptq.partner = partnerID;
-                            pptq.partnerTypeTouchpointQuestionnaire = pqt;
-                            pptq.invitedBy = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
-                            pptq.accesscode = accessCode;
-                            pptq.invitedDate = DateTime.Now;
-                            pptq.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
-                            context.partnerPartnertypeTouchpointQuestionnaire.Add(pptq);
-                            context.SaveChanges();
-                            pptqID = pptq.id;
-                        }
-                        else
-                        {
-                            pptqID = objCheckpptq.id;
-                        }
-                        //try
-                        //{
-                        //    context.SaveChanges();
-                        //}
-                        //catch (OptimisticConcurrencyException)
-                        //{
-                        
-                        //   // context.Refresh(RefreshMode.ClientWins, db.Articles);
-                        //    context.SaveChanges();
-                        //}
-                       
-                       // context.pr_addPartnerPartnertypeTouchpointQuestionnaire(partnerID, pqt, accessCode, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, DateTime.Now, null, null, null, null, null, null);
-                    }
-
-                    var checkSite = db.pr_getSiteByInternalID(EnterpriseID, partnumbers.INTERNAL_SITE_ID).FirstOrDefault();
-                    int siteID = 0;
-                    if (checkSite == null)
-                    {
-                        using (var context = new EntitiesDBContext())
-                        {
-                            site objsite = new site();
-                            objsite.description = partnumbers.SITE_NAME;
-                            objsite.sapID = partnumbers.SAP_SITE;
-                            objsite.internalID = partnumbers.INTERNAL_SITE_ID;
-                            objsite.sortOrder = 1;
-                            objsite.active = true;
-                            objsite.enterprise = EnterpriseID;
-                            context.site.Add(objsite);
-                            context.SaveChanges();
-                            siteID = objsite.id;
-                        }
-                        
-                    }
-                    else
-                    {
-                        siteID = checkSite.id;
-                    }
-
-                    int partNumberID = 0;
-
-                    var checkPartNumber = db.pr_getPartnumberByInternalID(EnterpriseID, partnumbers.PART_NUMBER_INTERNAL).FirstOrDefault();
-
-                    if (checkPartNumber == null)
-                    {
-                        partnumber objPartNumber = new partnumber();
-                        objPartNumber.sapID = partnumbers.PART_NUMBER_SAP;
-                        objPartNumber.description = partnumbers.PART_NUMBER_SAP;
-                        objPartNumber.internalId = partnumbers.PART_NUMBER_INTERNAL;
-                        objPartNumber.active = true;
-                        objPartNumber.partner = partnerID;
-                        db.partnumber.Add(objPartNumber);
-                        db.SaveChanges();
-                        partNumberID = objPartNumber.id;
-
-                    }
-                    else
-                    {
-                        partNumberID = checkPartNumber.id;
-                    }
-                    using (var context2 = new EntitiesDBContext())
-                    {
-                      //  context2.Configuration.ValidateOnSaveEnabled = true;
-                        context2.pr_addPartnumberSiteZcodePPTQ(partNumberID, siteID, string.Empty, Helpers.PartNumberHelper.Status.NOT_STARTED , pptqID);
-                    }
+                db.pr_addPartnumberSpreadsheetDataLoad(partnumbers.internalID, partnumbers.dunsNumber, partnumbers.name, partnumbers.address1, partnumbers.address2, partnumbers.city, partnumbers.StateName, partnumbers.zipcode, partnumbers.CountryName, partnumbers.firstName, partnumbers.lastName, partnumbers.title, partnumbers.phone, partnumbers.email, partnumbers.INTERNAL_SITE_ID, partnumbers.SAP_SITE, partnumbers.SAP_PLANT_CODE, partnumbers.SITE_NAME, partnumbers.PART_NUMBER_SAP, partnumbers.PART_NUMBER_INTERNAL, partnumbers.SUB_COMMODITY_OWNER, partnumbers.CENTER_OF_EXCELLENCE, partnumbers.RO_FIRST_NAME, partnumbers.RO_LAST_NAME, partnumbers.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup);
 
 
 
+                //if (partnumbers.internalID != null)
+                //{
+                //    partner checkPartner = new partner();
+                //    using (var context = new EntitiesDBContext())
+                //    {
+                //        checkPartner = db.pr_getPartnerByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, partnumbers.email).FirstOrDefault();
+
+                //    }
+                //    int partnerID = 0;
+                //    if (checkPartner == null)
+                //    {
+                //        partner objPartner = new partner();
+
+                //        objPartner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
+                //        objPartner.active = true;
+                //        objPartner.internalID = partnumbers.internalID;
+                //        objPartner.name = partnumbers.name;
+                //        objPartner.address1 = partnumbers.address1;
+                //        objPartner.address2 = partnumbers.address2;
+                //        objPartner.city = partnumbers.city;
+                //        var objstate = db.pr_getStateByStateCode(partnumbers.StateName).FirstOrDefault();
+                //        if (objstate != null)
+                //        {
+                //            objPartner.state = objstate.id;
+                //        }
+
+                //        objPartner.province = partnumbers.province;
+                //        objPartner.zipcode = partnumbers.zipcode;
+
+                //        var objCountry = db.pr_getCountryByName(partnumbers.CountryName).FirstOrDefault();
+                //        if (objCountry != null)
+                //        {
+                //            objPartner.country = objCountry.id;
+                //        }
+
+
+                //        objPartner.phone = partnumbers.phone;
+                //        objPartner.fax = partnumbers.fax;
+                //        objPartner.email = partnumbers.email;
+                //        objPartner.firstName = partnumbers.firstName;
+                //        objPartner.lastName = partnumbers.lastName;
+                //        objPartner.title = partnumbers.title;
+                //        objPartner.dunsNumber = partnumbers.dunsNumber;
+                //        objPartner.federalID = partnumbers.federalID;
+                //        objPartner.dunsNumber = partnumbers.dunsNumber;
+                //        objPartner.active = true;
+                //        objPartner.enterprise = EnterpriseID;
+                //        db.partner.Add(objPartner);
+                //        db.SaveChanges();
+
+                //        uploadedpartners.Add(objPartner.id);
+                //        partnerID = objPartner.id;
+                //    }
+                //    else
+                //    {
+                //        partnerID = checkPartner.id;
+                //        uploadedpartners.Add(partnerID);
+                //    }
+
+                //    string accessCode = db.pr_getAccesscode().FirstOrDefault();
+
+                //    int pqt = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
+                //    int pptqID = 0;
+                //    using (var context = new EntitiesDBContext())
+                //    {
+                //        context.Configuration.ValidateOnSaveEnabled = true;
+                //        var pptq = new partnerPartnertypeTouchpointQuestionnaire();
+                //        var objCheckpptq = context.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerID, pqt).FirstOrDefault();
+                //        if (objCheckpptq == null)
+                //        {
+
+                //            pptq.partner = partnerID;
+                //            pptq.partnerTypeTouchpointQuestionnaire = pqt;
+                //            pptq.invitedBy = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
+                //            pptq.accesscode = accessCode;
+                //            pptq.invitedDate = DateTime.Now;
+                //            pptq.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
+                //            context.partnerPartnertypeTouchpointQuestionnaire.Add(pptq);
+                //            context.SaveChanges();
+                //            pptqID = pptq.id;
+                //        }
+                //        else
+                //        {
+                //            pptqID = objCheckpptq.id;
+                //        }
+                //        //try
+                //        //{
+                //        //    context.SaveChanges();
+                //        //}
+                //        //catch (OptimisticConcurrencyException)
+                //        //{
+
+                //        //   // context.Refresh(RefreshMode.ClientWins, db.Articles);
+                //        //    context.SaveChanges();
+                //        //}
+
+                //       // context.pr_addPartnerPartnertypeTouchpointQuestionnaire(partnerID, pqt, accessCode, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, DateTime.Now, null, null, null, null, null, null);
+                //    }
+
+                //    var checkSite = db.pr_getSiteByInternalID(EnterpriseID, partnumbers.INTERNAL_SITE_ID).FirstOrDefault();
+                //    int siteID = 0;
+                //    if (checkSite == null)
+                //    {
+                //        using (var context = new EntitiesDBContext())
+                //        {
+                //            site objsite = new site();
+                //            objsite.description = partnumbers.SITE_NAME;
+                //            objsite.sapID = partnumbers.SAP_SITE;
+                //            objsite.internalID = partnumbers.INTERNAL_SITE_ID;
+                //            objsite.sortOrder = 1;
+                //            objsite.active = true;
+                //            objsite.enterprise = EnterpriseID;
+                //            context.site.Add(objsite);
+                //            context.SaveChanges();
+                //            siteID = objsite.id;
+                //        }
+
+                //    }
+                //    else
+                //    {
+                //        siteID = checkSite.id;
+                //    }
+
+                //    int partNumberID = 0;
+
+                //    var checkPartNumber = db.pr_getPartnumberByInternalID(EnterpriseID, partnumbers.PART_NUMBER_INTERNAL).FirstOrDefault();
+
+                //    if (checkPartNumber == null)
+                //    {
+                //        partnumber objPartNumber = new partnumber();
+                //        objPartNumber.sapID = partnumbers.PART_NUMBER_SAP;
+                //        objPartNumber.description = partnumbers.PART_NUMBER_SAP;
+                //        objPartNumber.internalId = partnumbers.PART_NUMBER_INTERNAL;
+                //        objPartNumber.active = true;
+                //        objPartNumber.partner = partnerID;
+                //        db.partnumber.Add(objPartNumber);
+                //        db.SaveChanges();
+                //        partNumberID = objPartNumber.id;
+
+                //    }
+                //    else
+                //    {
+                //        partNumberID = checkPartNumber.id;
+                //    }
+                //    using (var context2 = new EntitiesDBContext())
+                //    {
+                //      //  context2.Configuration.ValidateOnSaveEnabled = true;
+                //        context2.pr_addPartnumberSiteZcodePPTQ(partNumberID, siteID, string.Empty, Helpers.PartNumberHelper.Status.NOT_STARTED , pptqID);
+                //    }
 
 
 
-                }
+
+
+
+                //  }
             }
+
+            List<partner> objPartners = db.pr_getPartnerForPartnumberEmailSendByLoadGroup(loadGroup).ToList();
+            foreach (partner item in objPartners)
+            {
+                uploadedpartners.Add(item.id);
+            }
+
+
             Session["uploadedpartnerList"] = uploadedpartners;
             Session["partnertype"] = partnertype;
             Session["touchpoint"] = touchpoint;

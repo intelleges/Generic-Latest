@@ -39,6 +39,7 @@ namespace Generic
             this.site = new HashSet<site>();
             this.questionnaireLevelType = new HashSet<questionnaireLevelType>();
             this.menu1 = new HashSet<menu>();
+            this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
         }
     
         public int id { get; set; }
@@ -86,5 +87,6 @@ namespace Generic
         public virtual ICollection<site> site { get; set; }
         public virtual ICollection<questionnaireLevelType> questionnaireLevelType { get; set; }
         public virtual ICollection<menu> menu1 { get; set; }
+        public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
     }
 }

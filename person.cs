@@ -28,6 +28,7 @@ namespace Generic
             this.partner = new HashSet<partner>();
             this.group1 = new HashSet<group>();
             this.role = new HashSet<role>();
+            this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
         }
     
         public int id { get; set; }
@@ -76,5 +77,6 @@ namespace Generic
         public virtual ICollection<partner> partner { get; set; }
         public virtual ICollection<group> group1 { get; set; }
         public virtual ICollection<role> role { get; set; }
+        public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
     }
 }
