@@ -10176,10 +10176,10 @@
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getAutomailMessageforPartnumberEmailSendByLoadGroup" EntitySet="autoMailMessage" ReturnType="Collection(hs3MVCMTQa2Model.autoMailMessage)">
-            <Parameter Name="loadgroup" Mode="In" Type="String" />
+          <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerForPartnumberEmailSendByLoadGroup" EntitySet="partner" ReturnType="Collection(hs3MVCMTQa2Model.partner)">
-            <Parameter Name="loadgroup" Mode="In" Type="String" />
+          <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
