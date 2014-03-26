@@ -325,7 +325,7 @@ namespace Generic.Controllers
             else
             {
                 message = "No invite sent";
-                ViewBag.Message = "2";
+                ViewBag.Message = "1";
             }
             return Json(new { Data = new { message = message } }, JsonRequestBehavior.AllowGet);
         }

@@ -83,11 +83,11 @@
                     url: "@Url.Content("~/partner/InvitePartners")",
                     type: "post",
                     success: function (data) {
-
+                        alertify.alert(data.Data.message);
 
                     },
                     error: function (data) {
-
+                        alertify.alert(data.Data.message);
                     }
                 });
 
