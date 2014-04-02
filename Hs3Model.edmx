@@ -5009,6 +5009,9 @@
         <Function Name="pr_getPartnumberSiteZcodePPTQByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnumberSiteZcodePPTQQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -10265,6 +10268,9 @@
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
             <Parameter Name="loadGroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ_Result)">
+            <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -16324,6 +16330,21 @@
           <Property Type="Int32" Name="partnumberSpreadsheetDataLoadStatus" Nullable="true" />
           <Property Type="String" Name="loadGroup" Nullable="false" MaxLength="8" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="partnumber" Nullable="false" />
+          <Property Type="Int32" Name="site" Nullable="false" />
+          <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="Int32" Name="partnerPartnertypeTouchpointQuestionnaire" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="internalId" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="nationalStockingNumber" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="sapID" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -21105,6 +21126,25 @@
           <FunctionImportMapping FunctionImportName="pr_getPartnerForPartnumberEmailSendByLoadGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerForPartnumberEmailSendByLoadGroup">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="f_" FunctionName="hs3MVCMTQa2Model.Store.f_" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="partnerPartnertypeTouchpointQuestionnaire" ColumnName="partnerPartnertypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nationalStockingNumber" ColumnName="nationalStockingNumber" />
+                <ScalarProperty Name="sapID" ColumnName="sapID" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

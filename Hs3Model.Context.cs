@@ -12168,5 +12168,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("f_", partner_internal_idParameter, partner_sap_idParameter, partner_nameParameter, partner_address_oneParameter, partner_address_twoParameter, partner_cityParameter, partner_stateParameter, partner_zipcodeParameter, partner_countryParameter, partner_poc_first_nameParameter, partner_poc_last_nameParameter, partner_poc_titleParameter, partner_poc_phone_numberParameter, partner_poc_email_addressParameter, internal_site_idParameter, sap_siteParameter, sap_plant_codeParameter, site_nameParameter, part_number_sapParameter, part_number_internalParameter, sub_commodity_ownerParameter, center_of_excellenceParameter, ro_first_nameParameter, ro_last_nameParameter, ro_emailParameter, date_loadedParameter, enterpriseParameter, partnertypeParameter, touchpointParameter, personParameter, partnumberSpreadsheetDataLoadStatusParameter, loadGroupParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ_Result> pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ_Result>("pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
     }
 }
