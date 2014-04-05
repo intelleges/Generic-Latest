@@ -118,6 +118,9 @@ namespace Generic.Helpers.Questionnaire
         public const string CONFIRMATION_PAGE_SIGNOFF_STATEMENT = "CONFIRMATION_PAGE_SIGNOFF_STATEMENT";
         public const string CONFIRMATION_PAGE_HEADLINE = "CONFIRMATION_PAGE_HEADLINE";
 
+        public const string CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT = "CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT";
+        public const string WARNING = "WARNING";
+
         public const string CONTACT_US_EMAIL = "CONTACT_US_EMAIL";
 
         public const string RETRIEVE_ACCESS_CODE_TEXT = "RETRIEVE_ACCESS_CODE_TEXT";

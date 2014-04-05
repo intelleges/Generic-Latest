@@ -124,7 +124,11 @@
 <div class="commonh"></div>
 <div class="redheader" align="center">  <table width="100%"><tbody><tr><td align="center"><span id="lblCompanyName" style="font-size:xx-large">
     
-    @ViewBag.CONFIRMATION_PAGE_HEADLINE
+                                                                                              @if(!((bool)ViewBag.isCompletedSurvey)){
+                                                                                              @ViewBag.CONFIRMATION_PAGE_HEADLINE
+                                                                                              }else{
+                                                                                              @ViewBag.WARNING
+                                                                                              }
 
 
 
@@ -142,7 +146,11 @@
         <td colspan="2" style="font-size: 18px; font-weight: bold;" align="center">
             <span id="lblThankYou">
 
+                @if(!((bool)ViewBag.isCompletedSurvey)){
                 @ViewBag.CONFIRMATION_PAGE_SIGNOFF_STATEMENT
+                }else{
+                @ViewBag.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT
+                }
 
             </span></td>
     </tr>
@@ -151,7 +159,7 @@
     </tr>
     <tr>
         <td colspan="2" style="font-size: 16px; padding-bottom: 75px;" align="center" width="30%">
-            <span id="lblPrintAnswer">Click <a href="#" target="_blank">here</a> to print your survey answers</span>  </td>
+            @*<span id="lblPrintAnswer">Click <a href="#" target="_blank">here</a> to print your survey answers</span>*@  </td>
     </tr>
     <tr>
         <td style="font-size: 12px;" align="left" width="70%"></td>

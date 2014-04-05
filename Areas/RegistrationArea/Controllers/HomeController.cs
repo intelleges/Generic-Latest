@@ -11,6 +11,8 @@ using System.Web.UI.WebControls;
 using Generic.DataLayer;
 using Generic.Models;
 using Generic.Helpers.Questionnaire;
+using Generic.Helpers.Utility;
+using Generic.Helpers;
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class HomeController : Controller
@@ -1597,28 +1599,66 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CMS_PAGE_TITLE = CMS.CONFIRMATION_PAGE_TITLE;
-            ViewBag.CMS_PAGE_SUBTITLE = CMS.CONFIRMATION_PAGE_SUBTITLE;
-            ViewBag.CMS_PAGE_PANEL_ONE = CMS.CONFIRMATION_PAGE_PANEL_ONE;
-            ViewBag.CMS_PAGE_PANEL_TWO = CMS.CONFIRMATION_PAGE_PANEL_TWO;
-            ViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.CONFIRMATION_PAGE_PREVIOUS_TEXT;
-            ViewBag.CMS_PAGE_NEXT_TEXT = CMS.CONFIRMATION_PAGE_NEXT_TEXT;
-
-            ViewBag.CONFIRMATION_PAGE_SIGNOFF_STATEMENT = CMS.CONFIRMATION_PAGE_SIGNOFF_STATEMENT;
-            ViewBag.CONFIRMATION_PAGE_EXIT_LINK = "http://www.intelleges.com";
-            ViewBag.CONFIRMATION_PAGE_HEADLINE = CMS.CONFIRMATION_PAGE_HEADLINE;
-
-            ViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
-            ViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
-            ViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
-            ViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
-            ViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
-
             var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
 
             if (ppptq_cms != null)
             {
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                var leftSites = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(ppptq_cms.id).ToList();
+                var isCompletedSurvey = !(leftSites != null && leftSites.Count() > 0);
+                ViewBag.isCompletedSurvey = !isCompletedSurvey;
+
+                var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+                partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
+                if (isCompletedSurvey)
+                {
+                    var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, ptq.id).FirstOrDefault();
+
+                    var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
+                    Email email = new Email(amm);
+                    EmailFormat emailFormat = new EmailFormat();
+                    email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, objtouchpoint, ptq.id);
+                    email.emailTo = objPartner.email;
+                    SendEmail objSendEmail = new SendEmail();
+                    objSendEmail.sendEmail(email);
+                }
+                else
+                {
+                    var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Incomplete, ptq.id).FirstOrDefault();
+
+                    var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
+                    Email email = new Email(amm);
+                    EmailFormat emailFormat = new EmailFormat();
+                    email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, objtouchpoint, ptq.id);
+                    email.emailTo = objPartner.email;
+                    SendEmail objSendEmail = new SendEmail();
+                    objSendEmail.sendEmail(email);
+                }
+
+
+                ViewBag.CMS_PAGE_TITLE = CMS.CONFIRMATION_PAGE_TITLE;
+                ViewBag.CMS_PAGE_SUBTITLE = CMS.CONFIRMATION_PAGE_SUBTITLE;
+                ViewBag.CMS_PAGE_PANEL_ONE = CMS.CONFIRMATION_PAGE_PANEL_ONE;
+                ViewBag.CMS_PAGE_PANEL_TWO = CMS.CONFIRMATION_PAGE_PANEL_TWO;
+                ViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.CONFIRMATION_PAGE_PREVIOUS_TEXT;
+                ViewBag.CMS_PAGE_NEXT_TEXT = CMS.CONFIRMATION_PAGE_NEXT_TEXT;
+
+                ViewBag.CONFIRMATION_PAGE_SIGNOFF_STATEMENT = CMS.CONFIRMATION_PAGE_SIGNOFF_STATEMENT;
+                ViewBag.CONFIRMATION_PAGE_EXIT_LINK = "http://www.intelleges.com";
+                ViewBag.CONFIRMATION_PAGE_HEADLINE = CMS.CONFIRMATION_PAGE_HEADLINE;
+
+                ViewBag.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT = CMS.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT;
+                ViewBag.WARNING = CMS.CONFIRMATION_PAGE_SIGNOFF_STATEMENT;
+
+
+                ViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
+                ViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
+                ViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
+                ViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
+                ViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
+
+
+
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
                 try
@@ -1634,6 +1674,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     ViewBag.CONFIRMATION_PAGE_SIGNOFF_STATEMENT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONFIRMATION_PAGE_SIGNOFF_STATEMENT).FirstOrDefault().id).FirstOrDefault().text;
                     ViewBag.CONFIRMATION_PAGE_EXIT_LINK = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONFIRMATION_PAGE_EXIT_LINK).FirstOrDefault().id).FirstOrDefault().text;
                     ViewBag.CONFIRMATION_PAGE_HEADLINE = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONFIRMATION_PAGE_HEADLINE).FirstOrDefault().id).FirstOrDefault().text;
+
+                    ViewBag.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT).FirstOrDefault().id).FirstOrDefault().text;
+                    ViewBag.WARNING = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.WARNING).FirstOrDefault().id).FirstOrDefault().text;
 
                     QuestionnaireMenuLinks(cms, questionnairCMSAll);
                 }
