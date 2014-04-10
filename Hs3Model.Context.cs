@@ -12177,5 +12177,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ_Result>("pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
         }
+    
+        public virtual int pr_replaceTextQuestionnaireQuestionnaireCMSText(string text1, string text2)
+        {
+            var text1Parameter = text1 != null ?
+                new ObjectParameter("text1", text1) :
+                new ObjectParameter("text1", typeof(string));
+    
+            var text2Parameter = text2 != null ?
+                new ObjectParameter("text2", text2) :
+                new ObjectParameter("text2", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_replaceTextQuestionnaireQuestionnaireCMSText", text1Parameter, text2Parameter);
+        }
     }
 }

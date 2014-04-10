@@ -6443,6 +6443,10 @@
         <Function Name="pr_removeUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_replaceTextQuestionnaireQuestionnaireCMSText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="text1" Type="varchar(max)" Mode="In" />
+          <Parameter Name="text2" Type="varchar(max)" Mode="In" />
+        </Function>
         <Function Name="pr_resetPartnumberStatusAndZcodeByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
@@ -6681,6 +6685,37 @@
           <Parameter Name="partnumberSiteZcodePPTQ" Type="int" Mode="In" />
         </Function>
         <!--Errors Found During Generation:
+      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerArchive' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="partnerArchive">
+        <Property Name="partner" Type="int" />
+        <Property Name="enterprise" Type="int" />
+        <Property Name="internalID" Type="varchar" MaxLength="255" />
+        <Property Name="name" Type="varchar" MaxLength="255" />
+        <Property Name="address1" Type="varchar" MaxLength="255" />
+        <Property Name="address2" Type="varchar" MaxLength="255" />
+        <Property Name="city" Type="varchar" MaxLength="255" />
+        <Property Name="state" Type="int" />
+        <Property Name="province" Type="varchar" MaxLength="50" />
+        <Property Name="zipcode" Type="varchar" MaxLength="20" />
+        <Property Name="country" Type="int" />
+        <Property Name="phone" Type="varchar" MaxLength="100" />
+        <Property Name="fax" Type="varchar" MaxLength="100" />
+        <Property Name="firstName" Type="varchar" MaxLength="255" />
+        <Property Name="lastName" Type="varchar" MaxLength="255" />
+        <Property Name="title" Type="varchar" MaxLength="255" />
+        <Property Name="email" Type="varchar" MaxLength="255" />
+        <Property Name="dunsNumber" Type="varchar" MaxLength="20" />
+        <Property Name="federalID" Type="varchar" MaxLength="20" />
+        <Property Name="status" Type="int" />
+        <Property Name="loadHistory" Type="int" />
+        <Property Name="owner" Type="int" />
+        <Property Name="author" Type="int" />
+        <Property Name="dateApproved" Type="smalldatetime" />
+        <Property Name="active" Type="bit" />
+        <Property Name="lastModified" Type="datetime" />
+      </EntityType>
+      Errors Found During Generation:
       warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerConfirm' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
       
       <EntityType Name="partnerConfirm">
@@ -10270,7 +10305,11 @@
             <Parameter Name="loadGroup" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ_Result)">
-            <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_replaceTextQuestionnaireQuestionnaireCMSText">
+            <Parameter Name="text1" Mode="In" Type="String" />
+            <Parameter Name="text2" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -21145,6 +21184,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_replaceTextQuestionnaireQuestionnaireCMSText" FunctionName="hs3MVCMTQa2Model.Store.pr_replaceTextQuestionnaireQuestionnaireCMSText" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
