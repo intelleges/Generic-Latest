@@ -151,7 +151,7 @@ namespace Generic.Controllers
             }
 
 
-            ViewBag.CMS_PAGE_TITLE = CMS.REDIRECT_CONFIRMATION_PAGE_TITLE;
+            ViewBag.CMS_PAGE_TITLE = CMS.REDIRECT_CONFIRMATION_PAGE_TITLE.Substring(0, 20);
             ViewBag.CMS_PAGE_SUBTITLE = CMS.REDIRECT_CONFIRMATION_PAGE_SUBTITLE;
             ViewBag.CMS_PAGE_PANEL_ONE = CMS.REDIRECT_CONFIRMATION_PAGE_PANEL_ONE;
             ViewBag.CMS_PAGE_PANEL_TWO = CMS.REDIRECT_CONFIRMATION_PAGE_PANEL_TWO;
@@ -176,7 +176,7 @@ namespace Generic.Controllers
                 {
                     var cms_PageTitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_CONFIRMATION_PAGE_TITLE).id);
                     if (cms_PageTitle != null)
-                        ViewBag.CMS_PAGE_TITLE = cms_PageTitle.text;
+                        ViewBag.CMS_PAGE_TITLE = cms_PageTitle.text.Substring(0, 20);
                     var cms_PageSubtitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_CONFIRMATION_PAGE_SUBTITLE).id);
                     if (cms_PageSubtitle != null)
                         ViewBag.CMS_PAGE_SUBTITLE = cms_PageSubtitle.text;
