@@ -72,7 +72,7 @@ namespace Generic.Controllers
                     //}
                     //else
                     //{
-                    person person = db.pr_getPersonByEmailForLoginAttempts(userName).FirstOrDefault();
+                    person person = db.pr_doLogin(userName, password).FirstOrDefault();
                     SessionSingleton.LoggedInUserId = person.id;
                     SessionSingleton.MyEnterPriseId = person.enterprise;
                     Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
