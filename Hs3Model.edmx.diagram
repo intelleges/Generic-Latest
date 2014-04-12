@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9967287749084393b59eb2759d3608ea" Name="Diagram1" ZoomLevel="60">
+      <Diagram DiagramId="9967287749084393b59eb2759d3608ea" Name="Diagram1" ZoomLevel="58">
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.accessLevel" PointX="0.75" PointY="0.75" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.agency" PointX="3" PointY="35.875" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailAttachment" PointX="33" PointY="62.375" Width="1.5" IsExpanded="true" />
@@ -232,6 +232,7 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.multiTenantProjectType" Width="1.5" PointX="4.64618080139448" PointY="19.960084641333708" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

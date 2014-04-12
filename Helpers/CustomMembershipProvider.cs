@@ -33,22 +33,22 @@ namespace Generic.Helpers
             this.db = new EntitiesDBContext();
         }
 
-       
+
         public override bool ValidateUser(string username, string password)
         {
             if (string.IsNullOrEmpty(password.Trim()) || string.IsNullOrEmpty(username.Trim()))
                 return false;
 
             person login = db.pr_doLogin(username, password).FirstOrDefault();
-            
+
             if (login == null)
             {
 
                 return false;
             }
-            else 
+            else
             {
-                if (login.enterprise == Generic.Helpers.CurrentInstance.EnterpriseID)
+                if (db.pr_getEnterprise(login.enterprise).FirstOrDefault().multiTenantProjectType == Generic.Helpers.CurrentInstance.MultiTenantProjectType)
                 {
                     return true;
                 }

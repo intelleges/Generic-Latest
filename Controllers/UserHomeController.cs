@@ -92,7 +92,7 @@ namespace BAA.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    System.Data.Objects.ObjectResult<Decimal?> addEnterpriseResult = db.pr_addEnterprise("", 0, true, null, null, "NewCompany", "newCompany", userCount, partnerCount, partnerCount, product, 1, DateTime.Now, DateTime.Now.AddDays(30), DateTime.Now, DateTime.Now.AddDays(30), monthly, 1, "1", null);
+                    System.Data.Objects.ObjectResult<Decimal?> addEnterpriseResult = db.pr_addEnterprise("", 0, true, null, null, "NewCompany", "newCompany", userCount, partnerCount, partnerCount, product, 1, DateTime.Now, DateTime.Now.AddDays(30), DateTime.Now, DateTime.Now.AddDays(30), monthly, 1, "1", null,1);
                  
                     int enterpriseID= (int)addEnterpriseResult.FirstOrDefault().Value;
                     System.Data.Objects.ObjectResult<Decimal?> addpersonResult = db.pr_addPerson(enterpriseID, 1, 1, 1, 1, 1, "1", "1", "1", "New first name", "New lastname", "Mr", "", "", "", email, "", "", "", 1, "1", 1, "", "", 1, 1, null, null, null, null);

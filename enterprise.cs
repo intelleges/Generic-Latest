@@ -63,6 +63,7 @@ namespace Generic
         public Nullable<decimal> monthlyFee { get; set; }
         public Nullable<int> subscriptionStatus { get; set; }
         public string chargifyID { get; set; }
+        public Nullable<int> multiTenantProjectType { get; set; }
     
         public virtual ICollection<agency> agency { get; set; }
         public virtual ICollection<country> country { get; set; }

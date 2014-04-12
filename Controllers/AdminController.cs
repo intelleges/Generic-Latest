@@ -30,7 +30,7 @@ namespace Generic.Controllers
 
         protected override void Initialize(RequestContext requestContext)
         {
-            
+
 
             if (MembershipService == null)
                 MembershipService = new CustomMembershipProvider();
@@ -46,9 +46,9 @@ namespace Generic.Controllers
         /// <returns></returns>
         public virtual ActionResult Index()
         {
-        
 
-            var enterprises = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID);
+
+            var enterprises = db.pr_getEnterprise(1);
 
 
             ViewBag.Project = "Generic";
@@ -75,7 +75,8 @@ namespace Generic.Controllers
                     person person = db.pr_getPersonByEmailForLoginAttempts(userName).FirstOrDefault();
                     SessionSingleton.LoggedInUserId = person.id;
                     SessionSingleton.MyEnterPriseId = person.enterprise;
-                    // return Redirect("~/mvcmt/scs/admin/home");
+                    Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
+                  
                     return RedirectToAction("Home", "Admin");
                     //}
                 }
@@ -87,7 +88,7 @@ namespace Generic.Controllers
 
 
 
-            var enterprises = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID);
+            var enterprises = db.pr_getEnterprise(1);
 
             // If we got this far, something failed, redisplay form
             return View(enterprises.FirstOrDefault());
@@ -127,13 +128,13 @@ namespace Generic.Controllers
             return View();
         }
 
-        public virtual ActionResult Menu(string animation,bool? enableOpacityAnimation,int? openDuration,int? closeDuration)
+        public virtual ActionResult Menu(string animation, bool? enableOpacityAnimation, int? openDuration, int? closeDuration)
         {
             //List<Generic.menu> menu = db.pr_getMenuAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
             //return PartialView("_MenuPartial", menu);
 
             ViewData["animation"] = animation ?? "slide";
-            ViewData["enableOpacityAnimation"]= enableOpacityAnimation ?? true;
+            ViewData["enableOpacityAnimation"] = enableOpacityAnimation ?? true;
             ViewData["openDuration"] = openDuration ?? 200;
             ViewData["closeDuration"] = openDuration ?? 200;
             Generic.DataLayer.MenuOperation menuOperation = new DataLayer.MenuOperation();
@@ -170,8 +171,8 @@ namespace Generic.Controllers
 
             model.Touchpoints = db.pr_getTouchpointAll().ToList();
 
-            return PartialView("_TouchpointPartial",model);
-            
+            return PartialView("_TouchpointPartial", model);
+
         }
 
 
@@ -181,7 +182,7 @@ namespace Generic.Controllers
 
             base.Dispose(disposing);
         }
-        
+
         public string GetAllMethods()
         {
             string detail = "";
@@ -195,7 +196,7 @@ namespace Generic.Controllers
             //foreach (MethodInfo methodInfo in methodInfos) 
             //{
             //    detail += methodInfo.Name+"<br>";
-                
+
             //}
 
             foreach (var method in typeof(Generic.Areas.RegistrationArea.Controllers.HomeController).GetMethods())
@@ -206,15 +207,15 @@ namespace Generic.Controllers
                                  .Select(x => x.ParameterType + " " + x.Name)
                                  .ToArray());
 
-                detail +=                                  method.ReturnType +
-                     " " +            method.Name +
-                        " "+          parameterDescriptions +"<br>";
+                detail += method.ReturnType +
+                     " " + method.Name +
+                        " " + parameterDescriptions + "<br>";
             }
 
-           
+
             return detail;
         }
-       
+
 
     }
 }

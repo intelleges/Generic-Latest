@@ -1,7 +1,7 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<Generic.partner>
 @using System.Web.Mvc.Html
 @{
-    Layout = "~/tmp/Views/Shared/_LayoutMasterPartner.cshtml";   
+    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();  
     //ViewBag.Title = "CompanyInfomation";
 }
 @section Bottom{

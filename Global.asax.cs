@@ -15,6 +15,9 @@ namespace Generic
     {
         protected void Application_Start()
         {
+            Helpers.CurrentInstance.IsGeneric=1;
+            
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

@@ -153,6 +153,7 @@ namespace Generic
         public DbSet<countryHoliday> countryHoliday { get; set; }
         public DbSet<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
         public DbSet<partnumberSpreadsheetDataLoadStatus> partnumberSpreadsheetDataLoadStatus { get; set; }
+        public DbSet<multiTenantProjectType> multiTenantProjectType { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -380,7 +381,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addEmailTemplateType", descriptionParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addEnterprise(string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<int> userMax, Nullable<int> partnerMax, Nullable<int> partnumberMax, Nullable<int> product, Nullable<int> subscriptionType, Nullable<System.DateTime> freeTrialStartDate, Nullable<System.DateTime> freeTrialEndDate, Nullable<System.DateTime> licenseStartDate, Nullable<System.DateTime> licenseEndDate, Nullable<decimal> monthlyFee, Nullable<int> subscriptionStatus, string chargifyID, Nullable<System.DateTime> archivedDate)
+        public virtual ObjectResult<Nullable<decimal>> pr_addEnterprise(string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<int> userMax, Nullable<int> partnerMax, Nullable<int> partnumberMax, Nullable<int> product, Nullable<int> subscriptionType, Nullable<System.DateTime> freeTrialStartDate, Nullable<System.DateTime> freeTrialEndDate, Nullable<System.DateTime> licenseStartDate, Nullable<System.DateTime> licenseEndDate, Nullable<decimal> monthlyFee, Nullable<int> subscriptionStatus, string chargifyID, Nullable<System.DateTime> archivedDate, Nullable<int> multiTenantProjectType)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
@@ -462,7 +463,11 @@ namespace Generic
                 new ObjectParameter("archivedDate", archivedDate) :
                 new ObjectParameter("archivedDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterprise", descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, userMaxParameter, partnerMaxParameter, partnumberMaxParameter, productParameter, subscriptionTypeParameter, freeTrialStartDateParameter, freeTrialEndDateParameter, licenseStartDateParameter, licenseEndDateParameter, monthlyFeeParameter, subscriptionStatusParameter, chargifyIDParameter, archivedDateParameter);
+            var multiTenantProjectTypeParameter = multiTenantProjectType.HasValue ?
+                new ObjectParameter("multiTenantProjectType", multiTenantProjectType) :
+                new ObjectParameter("multiTenantProjectType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterprise", descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, userMaxParameter, partnerMaxParameter, partnumberMaxParameter, productParameter, subscriptionTypeParameter, freeTrialStartDateParameter, freeTrialEndDateParameter, licenseStartDateParameter, licenseEndDateParameter, monthlyFeeParameter, subscriptionStatusParameter, chargifyIDParameter, archivedDateParameter, multiTenantProjectTypeParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addEnterpriseObjectName(Nullable<int> enterprise, string objectName, string alias, Nullable<int> device)
@@ -5587,7 +5592,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEmailTemplateType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual int pr_modifyEnterprise(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<int> userMax, Nullable<int> partnerMax, Nullable<int> partnumberMax, Nullable<int> product, Nullable<int> subscriptionType, Nullable<System.DateTime> freeTrialStartDate, Nullable<System.DateTime> freeTrialEndDate, Nullable<System.DateTime> licenseStartDate, Nullable<System.DateTime> licenseEndDate, Nullable<decimal> monthlyFee, Nullable<int> subscriptionStatus, string chargifyID, Nullable<System.DateTime> archivedDate)
+        public virtual int pr_modifyEnterprise(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<int> userMax, Nullable<int> partnerMax, Nullable<int> partnumberMax, Nullable<int> product, Nullable<int> subscriptionType, Nullable<System.DateTime> freeTrialStartDate, Nullable<System.DateTime> freeTrialEndDate, Nullable<System.DateTime> licenseStartDate, Nullable<System.DateTime> licenseEndDate, Nullable<decimal> monthlyFee, Nullable<int> subscriptionStatus, string chargifyID, Nullable<System.DateTime> archivedDate, Nullable<int> multiTenantProjectType)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -5673,7 +5678,11 @@ namespace Generic
                 new ObjectParameter("archivedDate", archivedDate) :
                 new ObjectParameter("archivedDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterprise", idParameter, descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, userMaxParameter, partnerMaxParameter, partnumberMaxParameter, productParameter, subscriptionTypeParameter, freeTrialStartDateParameter, freeTrialEndDateParameter, licenseStartDateParameter, licenseEndDateParameter, monthlyFeeParameter, subscriptionStatusParameter, chargifyIDParameter, archivedDateParameter);
+            var multiTenantProjectTypeParameter = multiTenantProjectType.HasValue ?
+                new ObjectParameter("multiTenantProjectType", multiTenantProjectType) :
+                new ObjectParameter("multiTenantProjectType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterprise", idParameter, descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, userMaxParameter, partnerMaxParameter, partnumberMaxParameter, productParameter, subscriptionTypeParameter, freeTrialStartDateParameter, freeTrialEndDateParameter, licenseStartDateParameter, licenseEndDateParameter, monthlyFeeParameter, subscriptionStatusParameter, chargifyIDParameter, archivedDateParameter, multiTenantProjectTypeParameter);
         }
     
         public virtual int pr_modifyEnterpriseObjectName(Nullable<int> id, Nullable<int> enterprise, string objectName, string alias, Nullable<int> device)
@@ -12189,6 +12198,112 @@ namespace Generic
                 new ObjectParameter("text2", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_replaceTextQuestionnaireQuestionnaireCMSText", text1Parameter, text2Parameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addMultiTenantProjectType(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addMultiTenantProjectType", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveEnterprise1(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveEnterprise1", idParameter);
+        }
+    
+        public virtual int pr_archiveMultiTenantProjectType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveMultiTenantProjectType", idParameter);
+        }
+    
+        public virtual int pr_bootstrapEnterprise(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_bootstrapEnterprise", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getMultiTenantProjectType_Result> pr_getMultiTenantProjectType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getMultiTenantProjectType_Result>("pr_getMultiTenantProjectType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getMultiTenantProjectTypeAll_Result> pr_getMultiTenantProjectTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getMultiTenantProjectTypeAll_Result>("pr_getMultiTenantProjectTypeAll");
+        }
+    
+        public virtual int pr_modifyMultiTenantProjectType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyMultiTenantProjectType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeMultiTenantProjectType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeMultiTenantProjectType", idParameter);
+        }
+    
+        public virtual int pr_unArchiveEnterprise1(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveEnterprise1", idParameter);
+        }
+    
+        public virtual int pr_unArchiveMultiTenantProjectType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveMultiTenantProjectType", idParameter);
         }
     }
 }

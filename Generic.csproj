@@ -525,6 +525,9 @@
     <Compile Include="Models\SignupModels.cs" />
     <Compile Include="Models\StringContainer.cs" />
     <Compile Include="Models\TouchpointComboModel.cs" />
+    <Compile Include="multiTenantProjectType.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="numberSeed.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -833,6 +836,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getMenu_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getMultiTenantProjectTypeAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getMultiTenantProjectType_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getNextPageByQuestionnairePreviousPage_Result.cs">

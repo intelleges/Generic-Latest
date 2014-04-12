@@ -122,7 +122,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     Session["leveltype"] = objQuestionnaire.levelType;
                     Session["protocol"] = touchpoint.protocol;
                     Session["responseTypesQuestionnaire"] = responseTypesQuestionnaire;
-
+                    Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse( db.pr_getPartner(ppptq.partner).FirstOrDefault().enterprise.ToString());
                     List<CustomizedLSMW> CustomizedLSMW = new List<CustomizedLSMW>();
                     Session["CustomizedLSMW"] = CustomizedLSMW;
 

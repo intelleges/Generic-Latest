@@ -12,20 +12,44 @@ namespace Generic.Helpers
             // Default to the generic layout 
             // Note the output will be in the tmp folder when published. 
             string layoutName ="~/tmp/Views/Shared/_GenericLayoutPage.cshtml";
-            layoutName = "~/tmp/Views/Shared/_AdminLayout.cshtml";
-            //if (1 == 2)// NOTE: Condition will be met. 
-            //{
-         //   layoutName = "~/Views/Shared/_GenericAdminLayout.cshtml";
-            //}
+           
+            if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
+            {
+                layoutName = "~/Views/Shared/_adminLayout.cshtml";
+            }
+            else
+            {
+                layoutName = "~/tmp/Views/Shared/_AdminLayout.cshtml";
+            }
+
             return layoutName;
         }
         public static string GetRegistrationLayout()
         {
-            return "~/tmp/Views/Shared/_LayoutMasterPartner.cshtml"; 
+            if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
+            {
+                return "~/Views/Shared/_LayoutMasterPartner.cshtml";
+            }
+            else
+            {
+                return "~/tmp/Views/Shared/_LayoutMasterPartner.cshtml";
+            }
         }
         public static string GetPopupLayout()
         {
-            return "~/tmp/Views/Shared/_PopupLayout.cshtml";
+            if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
+            {
+                return "~/Views/Shared/_PopupLayout.cshtml";
+            }
+            else
+            {
+                return "~/tmp/Views/Shared/_PopupLayout.cshtml";
+            }
         }
+
+
+       
+
+
     }
 }

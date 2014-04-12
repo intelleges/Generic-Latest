@@ -41,6 +41,7 @@
           <EntitySet Name="menu" EntityType="hs3MVCMTQa2Model.Store.menu" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="menuAccessLevel" EntityType="hs3MVCMTQa2Model.Store.menuAccessLevel" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="menuGroup" EntityType="hs3MVCMTQa2Model.Store.menuGroup" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="multiTenantProjectType" EntityType="hs3MVCMTQa2Model.Store.multiTenantProjectType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="numberSeed" EntityType="hs3MVCMTQa2Model.Store.numberSeed" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="page" EntityType="hs3MVCMTQa2Model.Store.page" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="pageSurveyset" EntityType="hs3MVCMTQa2Model.Store.pageSurveyset" store:Type="Tables" Schema="dbo" />
@@ -820,6 +821,7 @@
           <Property Name="subscriptionStatus" Type="int" />
           <Property Name="chargifyID" Type="varchar" MaxLength="50" />
           <Property Name="archivedDate" Type="date" />
+          <Property Name="multiTenantProjectType" Type="int" />
         </EntityType>
         <EntityType Name="enterpriseMenu">
           <Key>
@@ -1052,6 +1054,15 @@
           </Key>
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="multiTenantProjectType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="numberSeed">
           <Key>
@@ -3865,6 +3876,7 @@
           <Parameter Name="subscriptionStatus" Type="int" Mode="In" />
           <Parameter Name="chargifyID" Type="varchar" Mode="In" />
           <Parameter Name="archivedDate" Type="date" Mode="In" />
+          <Parameter Name="multiTenantProjectType" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -3973,6 +3985,11 @@
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="accesslevel" Type="int" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addMultiTenantProjectType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_addPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -4512,6 +4529,9 @@
         <Function Name="pr_archiveEmailTemplateType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archiveGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -4531,6 +4551,9 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveMultiTenantProjectType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archivePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -4635,6 +4658,9 @@
         </Function>
         <Function Name="pr_archiveTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_bootstrapEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_doLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="varchar" Mode="In" />
@@ -4838,6 +4864,10 @@
         <Function Name="pr_getMenuItemTopLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getMultiTenantProjectType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getMultiTenantProjectTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getNextPageByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
           <Parameter Name="previousPage" Type="int" Mode="In" />
@@ -5525,6 +5555,7 @@
           <Parameter Name="subscriptionStatus" Type="int" Mode="In" />
           <Parameter Name="chargifyID" Type="varchar" Mode="In" />
           <Parameter Name="archivedDate" Type="date" Mode="In" />
+          <Parameter Name="multiTenantProjectType" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_modifyEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -5643,6 +5674,12 @@
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="accesslevel" Type="int" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyMultiTenantProjectType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_modifyPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -6239,6 +6276,9 @@
         <Function Name="pr_removeMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeMultiTenantProjectType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6469,6 +6509,9 @@
         <Function Name="pr_unArchiveEmailTemplateType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_unArchiveEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_unArchiveGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6488,6 +6531,9 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveMultiTenantProjectType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchivePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -6684,54 +6730,6 @@
         <Function Name="pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="honeywellBAA">
           <Parameter Name="partnumberSiteZcodePPTQ" Type="int" Mode="In" />
         </Function>
-        <!--Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerArchive' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="partnerArchive">
-        <Property Name="partner" Type="int" />
-        <Property Name="enterprise" Type="int" />
-        <Property Name="internalID" Type="varchar" MaxLength="255" />
-        <Property Name="name" Type="varchar" MaxLength="255" />
-        <Property Name="address1" Type="varchar" MaxLength="255" />
-        <Property Name="address2" Type="varchar" MaxLength="255" />
-        <Property Name="city" Type="varchar" MaxLength="255" />
-        <Property Name="state" Type="int" />
-        <Property Name="province" Type="varchar" MaxLength="50" />
-        <Property Name="zipcode" Type="varchar" MaxLength="20" />
-        <Property Name="country" Type="int" />
-        <Property Name="phone" Type="varchar" MaxLength="100" />
-        <Property Name="fax" Type="varchar" MaxLength="100" />
-        <Property Name="firstName" Type="varchar" MaxLength="255" />
-        <Property Name="lastName" Type="varchar" MaxLength="255" />
-        <Property Name="title" Type="varchar" MaxLength="255" />
-        <Property Name="email" Type="varchar" MaxLength="255" />
-        <Property Name="dunsNumber" Type="varchar" MaxLength="20" />
-        <Property Name="federalID" Type="varchar" MaxLength="20" />
-        <Property Name="status" Type="int" />
-        <Property Name="loadHistory" Type="int" />
-        <Property Name="owner" Type="int" />
-        <Property Name="author" Type="int" />
-        <Property Name="dateApproved" Type="smalldatetime" />
-        <Property Name="active" Type="bit" />
-        <Property Name="lastModified" Type="datetime" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.partnerConfirm' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="partnerConfirm">
-        <Property Name="loadhistory" Type="int" />
-        <Property Name="partner" Type="int" />
-        <Property Name="group" Type="int" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'hs3MVCMTQa2.dbo.queryField' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="queryField">
-        <Property Name="query" Type="int" />
-        <Property Name="field" Type="varchar" MaxLength="100" />
-        <Property Name="criteria" Type="varchar" MaxLength="100" />
-        <Property Name="isText" Type="int" />
-      </EntityType>-->
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -7218,6 +7216,7 @@
             <Parameter Name="subscriptionStatus" Mode="In" Type="Int32" />
             <Parameter Name="chargifyID" Mode="In" Type="String" />
             <Parameter Name="archivedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="multiTenantProjectType" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_addEnterpriseObjectName" ReturnType="Collection(Decimal)">
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
@@ -8400,6 +8399,7 @@
             <Parameter Name="subscriptionStatus" Mode="In" Type="Int32" />
             <Parameter Name="chargifyID" Mode="In" Type="String" />
             <Parameter Name="archivedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="multiTenantProjectType" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyEnterpriseObjectName">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -10311,6 +10311,40 @@
             <Parameter Name="text1" Mode="In" Type="String" />
             <Parameter Name="text2" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="multiTenantProjectType" EntityType="hs3MVCMTQa2Model.multiTenantProjectType" />
+          <FunctionImport Name="pr_addMultiTenantProjectType" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveEnterprise1">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveMultiTenantProjectType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_bootstrapEnterprise">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getMultiTenantProjectType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getMultiTenantProjectType_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getMultiTenantProjectTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getMultiTenantProjectTypeAll_Result)" />
+          <FunctionImport Name="pr_modifyMultiTenantProjectType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeMultiTenantProjectType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveEnterprise1">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveMultiTenantProjectType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -10486,6 +10520,7 @@
           <Property Name="subscriptionStatus" Type="Int32" />
           <Property Name="chargifyID" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
           <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4" FromRole="enterprise" ToRole="partnumberSpreadsheetDataLoad" />
+          <Property Type="Int32" Name="multiTenantProjectType" />
         </EntityType>
         <EntityType Name="enterpriseObjectName">
           <Key>
@@ -16384,6 +16419,27 @@
           <Property Type="Boolean" Name="active" Nullable="false" />
           <Property Type="Int32" Name="partner" Nullable="false" />
         </ComplexType>
+        <EntityType Name="multiTenantProjectType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getMultiTenantProjectType_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getMultiTenantProjectTypeAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -16674,6 +16730,7 @@
           <EntitySetMapping Name="enterprise">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterprise">
               <MappingFragment StoreEntitySet="enterprise">
+                <ScalarProperty Name="multiTenantProjectType" ColumnName="multiTenantProjectType" />
                 <ScalarProperty Name="chargifyID" ColumnName="chargifyID" />
                 <ScalarProperty Name="subscriptionStatus" ColumnName="subscriptionStatus" />
                 <ScalarProperty Name="monthlyFee" ColumnName="monthlyFee" />
@@ -16700,6 +16757,7 @@
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterprise">
               <ModificationFunctionMapping>
                 <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise">
+                  <ScalarProperty Name="multiTenantProjectType" ParameterName="multiTenantProjectType" />
                   <ScalarProperty Name="chargifyID" ParameterName="chargifyID" />
                   <ScalarProperty Name="subscriptionStatus" ParameterName="subscriptionStatus" />
                   <ScalarProperty Name="monthlyFee" ParameterName="monthlyFee" />
@@ -16723,6 +16781,7 @@
                   <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterprise">
+                  <ScalarProperty Name="multiTenantProjectType" ParameterName="multiTenantProjectType" Version="Current" />
                   <ScalarProperty Name="chargifyID" ParameterName="chargifyID" Version="Current" />
                   <ScalarProperty Name="subscriptionStatus" ParameterName="subscriptionStatus" Version="Current" />
                   <ScalarProperty Name="monthlyFee" ParameterName="monthlyFee" Version="Current" />
@@ -21185,6 +21244,44 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_replaceTextQuestionnaireQuestionnaireCMSText" FunctionName="hs3MVCMTQa2Model.Store.pr_replaceTextQuestionnaireQuestionnaireCMSText" />
+          <EntitySetMapping Name="multiTenantProjectType">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.multiTenantProjectType">
+              <MappingFragment StoreEntitySet="multiTenantProjectType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addMultiTenantProjectType" FunctionName="hs3MVCMTQa2Model.Store.pr_addMultiTenantProjectType" />
+          <FunctionImportMapping FunctionImportName="pr_archiveEnterprise1" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveEnterprise" />
+          <FunctionImportMapping FunctionImportName="pr_archiveMultiTenantProjectType" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveMultiTenantProjectType" />
+          <FunctionImportMapping FunctionImportName="pr_bootstrapEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapEnterprise" />
+          <FunctionImportMapping FunctionImportName="pr_getMultiTenantProjectType" FunctionName="hs3MVCMTQa2Model.Store.pr_getMultiTenantProjectType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMultiTenantProjectType_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getMultiTenantProjectTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getMultiTenantProjectTypeAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMultiTenantProjectTypeAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyMultiTenantProjectType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyMultiTenantProjectType" />
+          <FunctionImportMapping FunctionImportName="pr_removeMultiTenantProjectType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeMultiTenantProjectType" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveEnterprise1" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveEnterprise" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveMultiTenantProjectType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveMultiTenantProjectType" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
