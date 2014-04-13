@@ -181,25 +181,34 @@ namespace Generic.Controllers
             var excelRead = new ExcelQueryFactory(physicalPath.ToString());
             // 								 									RO LastName	RO Phone	RO Email
 
-            excelRead.AddMapping<ExcelPartner>(x => x.internalID, "Internal ID");
-            excelRead.AddMapping<ExcelPartner>(x => x.name, "Name");
-            excelRead.AddMapping<ExcelPartner>(x => x.address1, "Address 1");
-            excelRead.AddMapping<ExcelPartner>(x => x.address2, "Address 2");
-            excelRead.AddMapping<ExcelPartner>(x => x.city, "City");
-            excelRead.AddMapping<ExcelPartner>(x => x.StateName, "State");
+            excelRead.AddMapping<ExcelPartner>(x => x.internalID, "PARTNER_INTERNAL_ID");
+
+
+
+
+
+
+            excelRead.AddMapping<ExcelPartner>(x => x.name, "PARTNER_NAME");
+            excelRead.AddMapping<ExcelPartner>(x => x.address1, "PARTNER_ADDRESS_ONE");
+            excelRead.AddMapping<ExcelPartner>(x => x.address2, "PARTNER_ADDRESS_TWO");
+            excelRead.AddMapping<ExcelPartner>(x => x.city, "PARTNER_CITY");
+            excelRead.AddMapping<ExcelPartner>(x => x.StateName, "PARTNER_STATE");
             excelRead.AddMapping<ExcelPartner>(x => x.province, "Province");
-            excelRead.AddMapping<ExcelPartner>(x => x.zipcode, "Zipcode");
-            excelRead.AddMapping<ExcelPartner>(x => x.CountryName, "Country");
-            excelRead.AddMapping<ExcelPartner>(x => x.phone, "POC Phone");
+            excelRead.AddMapping<ExcelPartner>(x => x.zipcode, "PARTNER_ZIPCODE");
+            excelRead.AddMapping<ExcelPartner>(x => x.CountryName, "PARTNER_COUNTRY");
+            excelRead.AddMapping<ExcelPartner>(x => x.phone, "PARTNER_POC_PHONE_NUMBER");
             excelRead.AddMapping<ExcelPartner>(x => x.fax, "POC Fax");
-            excelRead.AddMapping<ExcelPartner>(x => x.email, "POC Email");
-            excelRead.AddMapping<ExcelPartner>(x => x.firstName, "POC FirstName");
-            excelRead.AddMapping<ExcelPartner>(x => x.lastName, "POC LastName");
-            excelRead.AddMapping<ExcelPartner>(x => x.title, "POC Title");
+            excelRead.AddMapping<ExcelPartner>(x => x.email, "PARTNER_POC_EMAIL_ADDRESS");
+            excelRead.AddMapping<ExcelPartner>(x => x.firstName, "PARTNER_POC_FIRST_NAME");
+            excelRead.AddMapping<ExcelPartner>(x => x.lastName, "PARTNER_POC_LAST_NAME");
+            excelRead.AddMapping<ExcelPartner>(x => x.title, "PARTNER_POC_TITLE");
             excelRead.AddMapping<ExcelPartner>(x => x.dunsNumber, "POC DUNS");
             excelRead.AddMapping<ExcelPartner>(x => x.federalID, "POC EID");
 
-
+            excelRead.AddMapping<ExcelPartner>(x => x.PARTNER_SAP_ID, "PARTNER_SAP_ID");
+            excelRead.AddMapping<ExcelPartner>(x => x.RO_FIRST_NAME, "RO_FIRST_NAME");
+            excelRead.AddMapping<ExcelPartner>(x => x.RO_LAST_NAME, "RO_LAST_NAME");
+            excelRead.AddMapping<ExcelPartner>(x => x.RO_EMAIL, "RO_EMAIL");
 
 
             //   var columnnames = excelRead.GetColumnNames(sheetname);
@@ -210,59 +219,81 @@ namespace Generic.Controllers
             //int i = 1;
 
             List<int> uploadedpartners = new List<int>();
-
+            string loadGroup = db.pr_getAccesscode().FirstOrDefault();
             foreach (var partners in partnerinExcel.ToList())
             {
                 if (partners.internalID != null)
                 {
-                    partner checkPartner = new partner();
-                    using (var context = new EntitiesDBContext())
+
+                    var objstateSpreadSheet = db.pr_getStateByStateCode(partners.StateName).FirstOrDefault();
+                    string stateIdSpreadSheet = null;
+                    if (objstateSpreadSheet != null)
                     {
-                        checkPartner = db.pr_getPartnerByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, partners.email).FirstOrDefault();
-                        partners.id = checkPartner.id;
+                        stateIdSpreadSheet = objstateSpreadSheet.id.ToString();
                     }
 
-                    if (checkPartner == null)
+                    var objCountrySpreadSheet = db.pr_getCountryByName(partners.CountryName).FirstOrDefault();
+                    string countryIdSpreadsheet = null;
+                    if (objCountrySpreadSheet != null)
                     {
-                        partner objPartner = new partner();
-                        objPartner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
-                        objPartner.active = true;
-                        objPartner.internalID = partners.internalID;
-                        objPartner.name = partners.name;
-                        objPartner.address1 = partners.address1;
-                        objPartner.address2 = partners.address2;
-                        objPartner.city = partners.city;
-                        objPartner.state = db.pr_getStateByStateCode(partners.StateName).FirstOrDefault().id;
-                        objPartner.province = partners.province;
-                        objPartner.zipcode = partners.zipcode;
-                        objPartner.country = db.pr_getCountryByName(partners.CountryName).FirstOrDefault().id;
-                        objPartner.phone = partners.phone;
-                        objPartner.fax = partners.fax;
-                        objPartner.email = partners.email;
-                        objPartner.firstName = partners.firstName;
-                        objPartner.lastName = partners.lastName;
-                        objPartner.title = partners.title;
-                        objPartner.dunsNumber = partners.dunsNumber;
-                        objPartner.federalID = partners.federalID;
-
-                        db.partner.Add(objPartner);
-                        db.SaveChanges();
-
-                        uploadedpartners.Add(objPartner.id);
+                        countryIdSpreadsheet = objCountrySpreadSheet.id.ToString();
                     }
-                    else
-                    {
-                        uploadedpartners.Add(partners.id);
-                    }
-
-                    string accessCode = db.pr_getAccesscode().FirstOrDefault();
-
-                    int pqt = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
 
                     using (var context = new EntitiesDBContext())
                     {
-                        context.pr_addPartnerPartnertypeTouchpointQuestionnaire(partners.id, pqt, accessCode, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, DateTime.Now, null, partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE, null, null, null, null, null);
+                        int PartnerId = context.pr_addPartnerSpreadsheetDataLoad(partners.internalID, partners.PARTNER_SAP_ID, partners.name, partners.address1, partners.address2, partners.city, stateIdSpreadSheet, partners.zipcode, countryIdSpreadsheet, partners.firstName, partners.lastName, partners.title, partners.phone, partners.email, partners.RO_FIRST_NAME, partners.RO_LAST_NAME, partners.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup);
+                        uploadedpartners.Add(PartnerId);
                     }
+                    
+                    
+                    //partner checkPartner = new partner();
+                    //using (var context = new EntitiesDBContext())
+                    //{
+                    //    checkPartner = db.pr_getPartnerByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, partners.email).FirstOrDefault();
+                    //    partners.id = checkPartner.id;
+                    //}
+
+                    //if (checkPartner == null)
+                    //{
+                    //    partner objPartner = new partner();
+                    //    objPartner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
+                    //    objPartner.active = true;
+                    //    objPartner.internalID = partners.internalID;
+                    //    objPartner.name = partners.name;
+                    //    objPartner.address1 = partners.address1;
+                    //    objPartner.address2 = partners.address2;
+                    //    objPartner.city = partners.city;
+                    //    objPartner.state = db.pr_getStateByStateCode(partners.StateName).FirstOrDefault().id;
+                    //    objPartner.province = partners.province;
+                    //    objPartner.zipcode = partners.zipcode;
+                    //    objPartner.country = db.pr_getCountryByName(partners.CountryName).FirstOrDefault().id;
+                    //    objPartner.phone = partners.phone;
+                    //    objPartner.fax = partners.fax;
+                    //    objPartner.email = partners.email;
+                    //    objPartner.firstName = partners.firstName;
+                    //    objPartner.lastName = partners.lastName;
+                    //    objPartner.title = partners.title;
+                    //    objPartner.dunsNumber = partners.dunsNumber;
+                    //    objPartner.federalID = partners.federalID;
+
+                    //    db.partner.Add(objPartner);
+                    //    db.SaveChanges();
+
+                    //    uploadedpartners.Add(objPartner.id);
+                    //}
+                    //else
+                    //{
+                    //    uploadedpartners.Add(partners.id);
+                    //}
+
+                    //string accessCode = db.pr_getAccesscode().FirstOrDefault();
+
+                    //int pqt = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
+
+                    //using (var context = new EntitiesDBContext())
+                    //{
+                    //    context.pr_addPartnerPartnertypeTouchpointQuestionnaire(partners.id, pqt, accessCode, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, DateTime.Now, null, partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE, null, null, null, null, null);
+                    //}
                 }
             }
             Session["uploadedpartnerList"] = uploadedpartners;
@@ -460,7 +491,7 @@ namespace Generic.Controllers
                     using (var context = new EntitiesDBContext())
                     {
 
-                  var objReturnResult =      context.pr_addPartnumberSpreadsheetDataLoad(partnumbers.internalID, partnumbers.dunsNumber, partnumbers.name, partnumbers.address1, partnumbers.address2, partnumbers.city, stateIdSpreadSheet, partnumbers.zipcode, countryIdSpreadsheet, partnumbers.firstName, partnumbers.lastName, partnumbers.title, partnumbers.phone, partnumbers.email, partnumbers.INTERNAL_SITE_ID, partnumbers.SAP_SITE, partnumbers.SAP_PLANT_CODE, partnumbers.SITE_NAME, partnumbers.PART_NUMBER_SAP, partnumbers.PART_NUMBER_INTERNAL, partnumbers.SUB_COMMODITY_OWNER, partnumbers.CENTER_OF_EXCELLENCE, partnumbers.RO_FIRST_NAME, partnumbers.RO_LAST_NAME, partnumbers.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup).ToList();
+                        var objReturnResult = context.pr_addPartnumberSpreadsheetDataLoad(partnumbers.internalID, partnumbers.dunsNumber, partnumbers.name, partnumbers.address1, partnumbers.address2, partnumbers.city, stateIdSpreadSheet, partnumbers.zipcode, countryIdSpreadsheet, partnumbers.firstName, partnumbers.lastName, partnumbers.title, partnumbers.phone, partnumbers.email, partnumbers.INTERNAL_SITE_ID, partnumbers.SAP_SITE, partnumbers.SAP_PLANT_CODE, partnumbers.SITE_NAME, partnumbers.PART_NUMBER_SAP, partnumbers.PART_NUMBER_INTERNAL, partnumbers.SUB_COMMODITY_OWNER, partnumbers.CENTER_OF_EXCELLENCE, partnumbers.RO_FIRST_NAME, partnumbers.RO_LAST_NAME, partnumbers.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup).ToList();
                     }
                 }
 

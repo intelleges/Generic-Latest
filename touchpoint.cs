@@ -24,6 +24,7 @@ namespace Generic
             this.touchpointQuestionWeight_deprecated = new HashSet<touchpointQuestionWeight_deprecated>();
             this.questionnaire = new HashSet<questionnaire>();
             this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
+            this.partnerSpreadsheetDataLoad = new HashSet<partnerSpreadsheetDataLoad>();
         }
     
         public int id { get; set; }
@@ -49,5 +50,6 @@ namespace Generic
         public virtual ICollection<touchpointQuestionWeight_deprecated> touchpointQuestionWeight_deprecated { get; set; }
         public virtual ICollection<questionnaire> questionnaire { get; set; }
         public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
+        public virtual ICollection<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
     }
 }

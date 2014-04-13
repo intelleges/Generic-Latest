@@ -585,6 +585,9 @@
     <Compile Include="partnerSpendAmount.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="partnerSpreadsheetDataLoad.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="partnerStatus.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

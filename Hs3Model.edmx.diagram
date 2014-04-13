@@ -233,6 +233,11 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.multiTenantProjectType" Width="1.5" PointX="4.64618080139448" PointY="19.960084641333708" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad" Width="1.5" PointX="34.5" PointY="54.5" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__enter__7B863AD4" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__partn__7C7A5F0D" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__perso__7E62A77F" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

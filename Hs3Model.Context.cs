@@ -154,6 +154,7 @@ namespace Generic
         public DbSet<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
         public DbSet<partnumberSpreadsheetDataLoadStatus> partnumberSpreadsheetDataLoadStatus { get; set; }
         public DbSet<multiTenantProjectType> multiTenantProjectType { get; set; }
+        public DbSet<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -12304,6 +12305,107 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveMultiTenantProjectType", idParameter);
+        }
+    
+        public virtual int pr_addPartnerSpreadsheetDataLoad(string partner_internal_id, string partner_sap_id, string partner_name, string partner_address_one, string partner_address_two, string partner_city, string partner_state, string partner_zipcode, string partner_country, string partner_poc_first_name, string partner_poc_last_name, string partner_poc_title, string partner_poc_phone_number, string partner_poc_email_address, string ro_first_name, string ro_last_name, string ro_email, Nullable<System.DateTime> date_loaded, Nullable<int> enterprise, Nullable<int> partnertype, Nullable<int> touchpoint, Nullable<int> person, Nullable<int> partnerSpreadsheetDataLoadStatus, string loadGroup)
+        {
+            var partner_internal_idParameter = partner_internal_id != null ?
+                new ObjectParameter("partner_internal_id", partner_internal_id) :
+                new ObjectParameter("partner_internal_id", typeof(string));
+    
+            var partner_sap_idParameter = partner_sap_id != null ?
+                new ObjectParameter("partner_sap_id", partner_sap_id) :
+                new ObjectParameter("partner_sap_id", typeof(string));
+    
+            var partner_nameParameter = partner_name != null ?
+                new ObjectParameter("partner_name", partner_name) :
+                new ObjectParameter("partner_name", typeof(string));
+    
+            var partner_address_oneParameter = partner_address_one != null ?
+                new ObjectParameter("partner_address_one", partner_address_one) :
+                new ObjectParameter("partner_address_one", typeof(string));
+    
+            var partner_address_twoParameter = partner_address_two != null ?
+                new ObjectParameter("partner_address_two", partner_address_two) :
+                new ObjectParameter("partner_address_two", typeof(string));
+    
+            var partner_cityParameter = partner_city != null ?
+                new ObjectParameter("partner_city", partner_city) :
+                new ObjectParameter("partner_city", typeof(string));
+    
+            var partner_stateParameter = partner_state != null ?
+                new ObjectParameter("partner_state", partner_state) :
+                new ObjectParameter("partner_state", typeof(string));
+    
+            var partner_zipcodeParameter = partner_zipcode != null ?
+                new ObjectParameter("partner_zipcode", partner_zipcode) :
+                new ObjectParameter("partner_zipcode", typeof(string));
+    
+            var partner_countryParameter = partner_country != null ?
+                new ObjectParameter("partner_country", partner_country) :
+                new ObjectParameter("partner_country", typeof(string));
+    
+            var partner_poc_first_nameParameter = partner_poc_first_name != null ?
+                new ObjectParameter("partner_poc_first_name", partner_poc_first_name) :
+                new ObjectParameter("partner_poc_first_name", typeof(string));
+    
+            var partner_poc_last_nameParameter = partner_poc_last_name != null ?
+                new ObjectParameter("partner_poc_last_name", partner_poc_last_name) :
+                new ObjectParameter("partner_poc_last_name", typeof(string));
+    
+            var partner_poc_titleParameter = partner_poc_title != null ?
+                new ObjectParameter("partner_poc_title", partner_poc_title) :
+                new ObjectParameter("partner_poc_title", typeof(string));
+    
+            var partner_poc_phone_numberParameter = partner_poc_phone_number != null ?
+                new ObjectParameter("partner_poc_phone_number", partner_poc_phone_number) :
+                new ObjectParameter("partner_poc_phone_number", typeof(string));
+    
+            var partner_poc_email_addressParameter = partner_poc_email_address != null ?
+                new ObjectParameter("partner_poc_email_address", partner_poc_email_address) :
+                new ObjectParameter("partner_poc_email_address", typeof(string));
+    
+            var ro_first_nameParameter = ro_first_name != null ?
+                new ObjectParameter("ro_first_name", ro_first_name) :
+                new ObjectParameter("ro_first_name", typeof(string));
+    
+            var ro_last_nameParameter = ro_last_name != null ?
+                new ObjectParameter("ro_last_name", ro_last_name) :
+                new ObjectParameter("ro_last_name", typeof(string));
+    
+            var ro_emailParameter = ro_email != null ?
+                new ObjectParameter("ro_email", ro_email) :
+                new ObjectParameter("ro_email", typeof(string));
+    
+            var date_loadedParameter = date_loaded.HasValue ?
+                new ObjectParameter("date_loaded", date_loaded) :
+                new ObjectParameter("date_loaded", typeof(System.DateTime));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var partnerSpreadsheetDataLoadStatusParameter = partnerSpreadsheetDataLoadStatus.HasValue ?
+                new ObjectParameter("partnerSpreadsheetDataLoadStatus", partnerSpreadsheetDataLoadStatus) :
+                new ObjectParameter("partnerSpreadsheetDataLoadStatus", typeof(int));
+    
+            var loadGroupParameter = loadGroup != null ?
+                new ObjectParameter("loadGroup", loadGroup) :
+                new ObjectParameter("loadGroup", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPartnerSpreadsheetDataLoad", partner_internal_idParameter, partner_sap_idParameter, partner_nameParameter, partner_address_oneParameter, partner_address_twoParameter, partner_cityParameter, partner_stateParameter, partner_zipcodeParameter, partner_countryParameter, partner_poc_first_nameParameter, partner_poc_last_nameParameter, partner_poc_titleParameter, partner_poc_phone_numberParameter, partner_poc_email_addressParameter, ro_first_nameParameter, ro_last_nameParameter, ro_emailParameter, date_loadedParameter, enterpriseParameter, partnertypeParameter, touchpointParameter, personParameter, partnerSpreadsheetDataLoadStatusParameter, loadGroupParameter);
         }
     }
 }

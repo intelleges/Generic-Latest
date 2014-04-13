@@ -9,6 +9,12 @@ namespace Generic.ViewModel
     {
         public string StateName { get; set; }
         public string CountryName { get; set; }
+
+        public string PARTNER_SAP_ID { get; set; }
+        public string RO_FIRST_NAME { get; set; }
+        public string RO_LAST_NAME { get; set; }
+        public string RO_EMAIL { get; set; }
+
         //public int InternalId { get; set; }
         //public string  Name { get; set; }
         //public string  Address1 { get; set; }
