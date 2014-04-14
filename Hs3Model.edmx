@@ -10478,7 +10478,7 @@ FROM [dbo].[prReminder] AS [prReminder]</DefiningQuery>
             <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="partnerSpreadsheetDataLoad" EntitySet="partnerSpreadsheetDataLoad" />
           </AssociationSet>
-          <FunctionImport Name="pr_addPartnerSpreadsheetDataLoad">
+          <FunctionImport Name="pr_addPartnerSpreadsheetDataLoad" ReturnType="Collection(Int32)">
             <Parameter Name="partner_internal_id" Mode="In" Type="String" />
             <Parameter Name="partner_sap_id" Mode="In" Type="String" />
             <Parameter Name="partner_name" Mode="In" Type="String" />

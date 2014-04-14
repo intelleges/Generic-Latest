@@ -101,8 +101,9 @@ namespace Generic.Controllers
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
 
             //db.pr_getrol
-
+            if (enterprise != null) { 
             ViewBag.enterpriseName = enterprise.description;
+            }
             return View();
         }
 

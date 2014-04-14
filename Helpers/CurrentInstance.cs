@@ -12,6 +12,12 @@ namespace Generic.Helpers
         {
             get
             {
+                if (System.Web.HttpContext.Current.Session["EnterpriseId"] == null)
+                {
+                     System.Web.HttpContext.Current.Response.Redirect("~/Admin/Index");
+                }
+
+
                 return Convert.ToInt16(System.Web.HttpContext.Current.Session["EnterpriseId"]);
             }
             set
