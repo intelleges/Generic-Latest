@@ -331,6 +331,18 @@ namespace Generic.Controllers
             return View();
         }
 
+        public person GetPerson(string username)
+        {
+            person objPerson = new person();
+            try
+            {
+                objPerson = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, username).FirstOrDefault();
+            }
+            catch { }
+            return objPerson;
+
+        }
+
 
         protected override void Dispose(bool disposing)
         {

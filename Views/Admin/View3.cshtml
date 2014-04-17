@@ -1,0 +1,77 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc.Html
+@using Generic.Helpers;
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = ViewBag.enterpriseName + "Admin";
+}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        //var data = google.visualization.arrayToDataTable([
+        //  ['Task', 'Hours per Day'],
+        //  ['Work', 11],
+        //  ['Eat', 2],
+        //  ['Commute', 2],
+        //  ['Watch TV', 2],
+        //  ['Sleep', 7]
+        //]);
+
+
+        var data = google.visualization.arrayToDataTable([@Html.Raw(ViewBag.pieChartData)]);
+
+
+        var options = {
+            title: 'Response Rate',
+            pieHole: 0.4,
+        };
+
+        var chart1 = new google.visualization.PieChart(document.getElementById('donutchart1'));
+        chart1.draw(data, options);
+        var chart2 = new google.visualization.PieChart(document.getElementById('donutchart2'));
+        chart2.draw(data, options);
+
+        var chart3 = new google.visualization.PieChart(document.getElementById('donutchart3'));
+        chart3.draw(data, options);
+        
+
+    }
+</script>
+
+@*<h2>Hello, @ViewBag.enterpriseName, Admin</h2>*@
+<div>
+    <div style="width:30%; height:100px; float:left"></div>
+     <div style="width:50%; height:100px; float:left"></div>
+     <div  style="width:20%; height:100px; float:left"></div>
+</div>
+
+
+<div>
+    <div style="width:30%; float:left">
+
+        <div id="donutchart1" style="height:300px"></div>
+        <div id="donutchart2" style="height:300px" ></div>
+
+    </div>
+
+     <div style="width:50%; float:left ">
+          <div id="donutchart3"  style="height:600px" ></div>
+     </div>
+     <div  style="width:20%;"></div>
+
+</div>
+
+<div>
+    <div style="width:30%; height:50px"></div>
+     <div style="width:50%; height:50px"></div>
+     <div  style="width:20%; height:50px"></div>
+</div>
+
+
+
+
+
+

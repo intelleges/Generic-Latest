@@ -1,0 +1,147 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc.Html
+@using Generic.Helpers;
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = ViewBag.enterpriseName + "Admin";
+}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        //var data = google.visualization.arrayToDataTable([
+        //  ['Task', 'Hours per Day'],
+        //  ['Work', 11],
+        //  ['Eat', 2],
+        //  ['Commute', 2],
+        //  ['Watch TV', 2],
+        //  ['Sleep', 7]
+        //]);
+
+
+        var data = google.visualization.arrayToDataTable([@Html.Raw(ViewBag.pieChartData)]);
+
+
+        var options = {
+            title: 'Response Rate',
+            pieHole: 0.4,
+        };
+
+        var chart1 = new google.visualization.PieChart(document.getElementById('donutchart1'));
+        chart1.draw(data, options);
+
+        var chart2 = new google.visualization.PieChart(document.getElementById('donutchart2'));
+        chart2.draw(data, options);
+
+        var chart3 = new google.visualization.PieChart(document.getElementById('donutchart3'));
+        chart3.draw(data, options);
+
+        var chart4 = new google.visualization.PieChart(document.getElementById('donutchart4'));
+        chart4.draw(data, options);
+
+        var chart5 = new google.visualization.PieChart(document.getElementById('donutchart5'));
+        chart5.draw(data, options);
+
+        var chart6 = new google.visualization.PieChart(document.getElementById('donutchart6'));
+        chart6.draw(data, options);
+
+        var chart7 = new google.visualization.PieChart(document.getElementById('donutchart7'));
+        chart7.draw(data, options);
+
+        var chart8 = new google.visualization.PieChart(document.getElementById('donutchart8'));
+        chart8.draw(data, options);
+
+        var chart9 = new google.visualization.PieChart(document.getElementById('donutchart9'));
+        chart9.draw(data, options);
+
+        var chart10 = new google.visualization.PieChart(document.getElementById('donutchart10'));
+        chart10.draw(data, options);
+
+        var chart11 = new google.visualization.PieChart(document.getElementById('donutchart11'));
+        chart11.draw(data, options);
+
+        var chart12 = new google.visualization.PieChart(document.getElementById('donutchart12'));
+        chart12.draw(data, options);
+
+        var chart13 = new google.visualization.PieChart(document.getElementById('donutchart13'));
+        chart13.draw(data, options);
+
+        var chart14 = new google.visualization.PieChart(document.getElementById('donutchart14'));
+        chart14.draw(data, options);
+
+        var chart15 = new google.visualization.PieChart(document.getElementById('donutchart15'));
+        chart15.draw(data, options);
+
+
+
+    }
+</script>
+
+@*<h2>Hello, @ViewBag.enterpriseName, Admin</h2>*@
+
+
+<div style="float:left; width:20%">
+    <div id="donutchart1" style=" height: 200px; "></div>
+   
+</div>
+<div style="float:left; width:20%">  
+    <div id="donutchart2" style="height: 200px; "></div>
+</div>
+
+<div style="float:left; width:20%">
+    <div id="donutchart3" style="height: 200px; "></div>
+   
+</div>
+<div style="float:left; width:20%">   
+    <div id="donutchart4" style=" height: 200px; "></div>
+</div>
+
+<div style="float:left; width:20%">   
+    <div id="donutchart5" style=" height: 200px; "></div>
+</div>
+
+
+<div style="float:left; width:20%">
+    <div id="donutchart6" style=" height: 200px; "></div>
+   
+</div>
+<div style="float:left; width:20%">  
+    <div id="donutchart7" style="height: 200px; "></div>
+</div>
+
+<div style="float:left; width:20%">
+    <div id="donutchart8" style="height: 200px; "></div>
+   
+</div>
+<div style="float:left; width:20%">   
+    <div id="donutchart9" style=" height: 200px; "></div>
+</div>
+
+<div style="float:left; width:20%">   
+    <div id="donutchart10" style=" height: 200px; "></div>
+</div>
+
+
+<div style="float:left; width:20%">
+    <div id="donutchart11" style=" height: 200px; "></div>
+   
+</div>
+<div style="float:left; width:20%">  
+    <div id="donutchart12" style="height: 200px; "></div>
+</div>
+
+<div style="float:left; width:20%">
+    <div id="donutchart13" style="height: 200px; "></div>
+   
+</div>
+<div style="float:left; width:20%">   
+    <div id="donutchart14" style=" height: 200px; "></div>
+</div>
+
+<div style="float:left; width:20%">   
+    <div id="donutchart15" style=" height: 200px; "></div>
+</div>
+
+

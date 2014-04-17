@@ -449,7 +449,7 @@ namespace Generic.Controllers
             excelRead.AddMapping<ExcelPartnumber>(x => x.CountryName, "PARTNER_COUNTRY");
             excelRead.AddMapping<ExcelPartnumber>(x => x.phone, "PARTNER_POC_PHONE_NUMBER");
 
-            excelRead.AddMapping<ExcelPartnumber>(x => x.email, "PARTNER_POC_EMAIL_ADDRESS");
+            excelRead.AddMapping<ExcelPartnumber>(x => x.email, "PARTNER_PO`C_EMAIL_ADDRESS");
             excelRead.AddMapping<ExcelPartnumber>(x => x.firstName, "PARTNER_POC_FIRST_NAME");
             excelRead.AddMapping<ExcelPartnumber>(x => x.lastName, "PARTNER_POC_LAST_NAME");
             excelRead.AddMapping<ExcelPartnumber>(x => x.title, "PARTNER_POC_TITLE");

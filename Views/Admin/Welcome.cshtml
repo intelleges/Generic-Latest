@@ -24,37 +24,41 @@
         var data = google.visualization.arrayToDataTable([@Html.Raw(ViewBag.pieChartData)]);
 
 
-        var options = {
-            title: 'Response Rate',
-            pieHole: 0.4,
-        };
+            var options = {
+                title: 'Response Rate',
+                pieHole: 0.4,
+            };
 
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-    }
+            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+            chart.draw(data, options);
+        }
 </script>
 
 @*<h2>Hello, @ViewBag.enterpriseName, Admin</h2>*@
-
-
-
 
 
 <div style="float: left">
     <div id="donutchart" style="width: 700px; height: 500px;"></div>
 </div>
 
+<div>
 
-@*<div class="admin-nav-about">
-    <nav>
-        <ul id="menu">
-            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-            <li>@Html.ActionLink("About", "About", "Home")</li>
-            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-        </ul>
-    </nav>
-</div>*@
+    <a href="#">View 1</a><br />
+    <a href="#">View 2</a><br />
+    <a href="#">View 3</a><br />
+    <a href="#">View 4</a>
+
+  <br />  <a href="#">Dashboard</a>
+  <br />  <a href="#">Icons</a>
+  <br />  <a href="#">Welcome</a>
+  <br />  <a href="#">Change Password</a>
+  <br />  <a href="#">Home Page</a>
 
 
 
+
+
+
+
+</div>
 

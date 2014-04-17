@@ -76,7 +76,7 @@ namespace Generic.Controllers
                     SessionSingleton.LoggedInUserId = person.id;
                     SessionSingleton.MyEnterPriseId = person.enterprise;
                     Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
-                  
+
                     return RedirectToAction("Home", "Admin");
                     //}
                 }
@@ -101,11 +101,209 @@ namespace Generic.Controllers
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
 
             //db.pr_getrol
-            if (enterprise != null) { 
-            ViewBag.enterpriseName = enterprise.description;
+            if (enterprise != null)
+            {
+                ViewBag.enterpriseName = enterprise.description;
+
+
+                pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
+                string pieChartData = "['Status','Count'],";
+                pieChartData += "['Completed'," + objCount.Completed+ "],";
+                pieChartData += "['Incomplete'," + objCount.Incomplete + "],";
+                pieChartData += "['Not Started'," + objCount.Not_Started + "]";
+
+                ViewBag.pieChartData = pieChartData;
+
+
             }
             return View();
         }
+
+        [Authorize]
+        public virtual ActionResult View1()
+        {
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+
+            //db.pr_getrol
+            if (enterprise != null)
+            {
+                ViewBag.enterpriseName = enterprise.description;
+
+
+                pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
+                string pieChartData = "['Status','Count'],";
+                pieChartData += "['Completed'," + objCount.Completed + "],";
+                pieChartData += "['Incomplete'," + objCount.Incomplete + "],";
+                pieChartData += "['Not Started'," + objCount.Not_Started + "]";
+
+                ViewBag.pieChartData = pieChartData;
+
+
+            }
+            return View();
+        }
+
+        [Authorize]
+        public virtual ActionResult View2()
+        {
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+
+            //db.pr_getrol
+            if (enterprise != null)
+            {
+                ViewBag.enterpriseName = enterprise.description;
+
+
+                pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
+                string pieChartData = "['Status','Count'],";
+                pieChartData += "['Completed'," + objCount.Completed + "],";
+                pieChartData += "['Incomplete'," + objCount.Incomplete + "],";
+                pieChartData += "['Not Started'," + objCount.Not_Started + "]";
+
+                ViewBag.pieChartData = pieChartData;
+
+
+            }
+            return View();
+        }
+
+        [Authorize]
+        public virtual ActionResult View3()
+        {
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+
+            //db.pr_getrol
+            if (enterprise != null)
+            {
+                ViewBag.enterpriseName = enterprise.description;
+
+
+                pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
+                string pieChartData = "['Status','Count'],";
+                pieChartData += "['Completed'," + objCount.Completed + "],";
+                pieChartData += "['Incomplete'," + objCount.Incomplete + "],";
+                pieChartData += "['Not Started'," + objCount.Not_Started + "]";
+
+                ViewBag.pieChartData = pieChartData;
+
+
+            }
+            return View();
+        }
+
+        [Authorize]
+        public virtual ActionResult View4()
+        {
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+
+            //db.pr_getrol
+            if (enterprise != null)
+            {
+                ViewBag.enterpriseName = enterprise.description;
+
+
+                pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
+                string pieChartData = "['Status','Count'],";
+                pieChartData += "['Completed'," + objCount.Completed + "],";
+                pieChartData += "['Incomplete'," + objCount.Incomplete + "],";
+                pieChartData += "['Not Started'," + objCount.Not_Started + "]";
+
+                ViewBag.pieChartData = pieChartData;
+
+
+            }
+            return View();
+        }
+
+        [Authorize]
+        public virtual ActionResult Dashboard()
+        {
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+
+            //db.pr_getrol
+            if (enterprise != null)
+            {
+                ViewBag.enterpriseName = enterprise.description;
+
+
+                pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
+                string pieChartData = "['Status','Count'],";
+                pieChartData += "['Completed'," + objCount.Completed + "],";
+                pieChartData += "['Incomplete'," + objCount.Incomplete + "],";
+                pieChartData += "['Not Started'," + objCount.Not_Started + "]";
+
+                ViewBag.pieChartData = pieChartData;
+
+
+            }
+            return View();
+        }
+
+
+        [Authorize]
+        public virtual ActionResult Icons()
+        {
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+
+            //db.pr_getrol
+            if (enterprise != null)
+            {
+                ViewBag.enterpriseName = enterprise.description;
+
+
+                pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
+                string pieChartData = "['Status','Count'],";
+                pieChartData += "['Completed'," + objCount.Completed + "],";
+                pieChartData += "['Incomplete'," + objCount.Incomplete + "],";
+                pieChartData += "['Not Started'," + objCount.Not_Started + "]";
+
+                ViewBag.pieChartData = pieChartData;
+
+
+            }
+            return View();
+        }
+
+
+        [Authorize]
+        public virtual ActionResult Welcome()
+        {
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+
+            //db.pr_getrol
+            if (enterprise != null)
+            {
+                ViewBag.enterpriseName = enterprise.description;
+
+
+                pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
+                string pieChartData = "['Status','Count'],";
+                pieChartData += "['Completed'," + objCount.Completed + "],";
+                pieChartData += "['Incomplete'," + objCount.Incomplete + "],";
+                pieChartData += "['Not Started'," + objCount.Not_Started + "]";
+
+                ViewBag.pieChartData = pieChartData;
+
+
+            }
+            return View();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         [Authorize]
         public virtual ActionResult HomePage()

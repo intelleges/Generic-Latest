@@ -56,7 +56,7 @@ namespace Generic.Controllers
                     byte[] uploadedFile = new byte[uploadLogo.InputStream.Length];
                     uploadLogo.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
                     enterprise.logo = uploadedFile;
-                }    
+                }
 
                 db.enterprise.Add(enterprise);
                 db.SaveChanges();
@@ -142,7 +142,7 @@ namespace Generic.Controllers
 
         public ActionResult AssignQuestionnaireLevel()
         {
-       //  var a =   db.pr_getQuestionnaireLevelType();
+            //  var a =   db.pr_getQuestionnaireLevelType();
             ViewBag.enterprise = new SelectList(db.pr_getEnterpriseAll().ToList(), "id", "description");
             ViewBag.questionnaireLevel = new SelectList(db.pr_getQuestionnaireLevelTypeAll(), "id", "description");
             return View();
@@ -157,6 +157,18 @@ namespace Generic.Controllers
             ViewBag.questionnaireLevel = new SelectList(db.pr_getQuestionnaireLevelTypeAll(), "id", "description");
 
             return View();
+
+        }
+
+        public enterprise GetEnterprise(int enterpriseId)
+        {
+            enterprise objEnterprise = new enterprise();
+            try
+            {
+                objEnterprise = db.pr_getEnterprise(enterpriseId).FirstOrDefault();
+            }
+            catch { }
+            return objEnterprise;
 
         }
 
