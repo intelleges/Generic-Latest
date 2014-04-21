@@ -19,11 +19,14 @@ namespace Generic.Controllers
         {
             foreach (var eventDetails in data)
             {
-                try
+                using (var context = new EntitiesDBContext())
                 {
-                    db.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, null, eventDetails.accesscode, eventDetails.protocolCampaign, eventDetails.ApplicationName, int.Parse(eventDetails.enterprise));
+                    try
+                    {
+                        context.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, null, eventDetails.accesscode, eventDetails.protocolCampaign, eventDetails.ApplicationName, int.Parse(eventDetails.enterprise));
+                    }
+                    catch { context.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, null, eventDetails.accesscode, eventDetails.protocolCampaign, eventDetails.ApplicationName, null); }
                 }
-                catch { db.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, null, eventDetails.accesscode, eventDetails.protocolCampaign, eventDetails.ApplicationName, null); }
             }
 
         }
