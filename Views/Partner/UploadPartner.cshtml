@@ -105,6 +105,22 @@
 
             });
 
+
+        $('#btnInvitelater').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "@Url.Content("~/partner/InvitePartnersLater")",
+                    type: "post",
+                    success: function (data) {
+                        alertify.alert(data.Data.message);
+
+                    },
+                    error: function (data) {
+                        alertify.alert(data.Data.message);
+                    }
+                });
+          });
+
         //$('#UploadAutoMailMessageForm').submit(function (e) {
         //    e.preventDefault();
         //    var objProtocolID = $('#protocol').val();
@@ -204,6 +220,6 @@
     </p>
     <p>
         <input type="submit" name="button" id="btnInvite" style="display: none" value="Send invites now" />
-        <input type="submit" name="button" id="btnInvitelater" style="display: none" onclick="return false;" value="Invite Later" />
+        <input type="submit" name="button" id="btnInvitelater" style="display: none" value="Invite Later" />
     </p>
 </form>

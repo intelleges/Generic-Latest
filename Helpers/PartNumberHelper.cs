@@ -21,4 +21,7 @@ namespace Generic.Helpers.PartNumberHelper
         /// </summary>
         public const int COMPLETED = 3;
     }
+
+
+
 }

@@ -361,6 +361,68 @@ namespace Generic.Controllers
             return Json(new { Data = new { message = message } }, JsonRequestBehavior.AllowGet);
         }
 
+
+
+
+        [HttpPost]
+        public ActionResult InvitePartnersLater()
+        {
+            int partnertype = (int)Session["partnertype"];
+            int touchpoint = (int)Session["touchpoint"];
+            //partnerpartnertypeTouchpointQustionnaire 
+            string message = string.Empty;
+            if (Session["uploadedpartnerList"] != null)
+            {
+                List<int> uploadedpartnerList = (List<int>)Session["uploadedpartnerList"];
+
+                int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
+                // db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire
+                // db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire()
+                foreach (int partnerId in uploadedpartnerList.Distinct())
+                {
+
+
+                    var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerId, ptq).FirstOrDefault();
+                 //   pptq.invitedDate = DateTime.Now;
+                  //  var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+                  //  pptq.invitedBy = person.id;
+
+                    pptq.status = (int)Generic.Helpers.PartnerHelper.PartnerStatus.Hold;
+
+                    db.Entry(pptq).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    //var objpartner = db.pr_getPartner(partnerId).FirstOrDefault();
+                    //objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
+                    //db.Entry(objpartner).State = EntityState.Modified;
+                    //db.SaveChanges();
+
+                    //var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
+
+                    //var objtouchpoint = db.pr_getTouchpoint(touchpoint).FirstOrDefault();
+                    //Email email = new Email(amm);
+                    //EmailFormat emailFormat = new EmailFormat();
+                    //email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
+                    //email.emailTo = objpartner.email;
+                    //SendEmail objSendEmail = new SendEmail();
+                    //objSendEmail.sendEmail(email);
+
+
+                    
+                }
+
+                message = "Invite Not Sent";
+                //ViewBag.Message = "2";
+            }
+            else
+            {
+               // message = "No invite sent";
+               // ViewBag.Message = "1";
+            }
+            return Json(new { Data = new { message = message } }, JsonRequestBehavior.AllowGet);
+        }
+
+        
         public string Invite(int partnerId)
         {
 
@@ -449,7 +511,7 @@ namespace Generic.Controllers
             excelRead.AddMapping<ExcelPartnumber>(x => x.CountryName, "PARTNER_COUNTRY");
             excelRead.AddMapping<ExcelPartnumber>(x => x.phone, "PARTNER_POC_PHONE_NUMBER");
 
-            excelRead.AddMapping<ExcelPartnumber>(x => x.email, "PARTNER_PO`C_EMAIL_ADDRESS");
+            excelRead.AddMapping<ExcelPartnumber>(x => x.email, "PARTNER_POC_EMAIL_ADDRESS");
             excelRead.AddMapping<ExcelPartnumber>(x => x.firstName, "PARTNER_POC_FIRST_NAME");
             excelRead.AddMapping<ExcelPartnumber>(x => x.lastName, "PARTNER_POC_LAST_NAME");
             excelRead.AddMapping<ExcelPartnumber>(x => x.title, "PARTNER_POC_TITLE");

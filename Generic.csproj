@@ -392,6 +392,7 @@
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\ProtocolController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\SendGridEventNotificationController.cs" />
     <Compile Include="Controllers\TestPageController.cs" />
     <Compile Include="Controllers\TouchpointController.cs" />
     <Compile Include="Controllers\UserHomeController.cs" />
@@ -468,10 +469,12 @@
     <Compile Include="Helpers\CustomRoleProvider.cs" />
     <Compile Include="Helpers\hs3ModelExtender.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
+    <Compile Include="Helpers\PartnerHelper.cs" />
     <Compile Include="Helpers\PartNumberHelper.cs" />
     <Compile Include="Helpers\QuestionnaireHelper.cs" />
     <Compile Include="Helpers\UIControl.cs" />
     <Compile Include="Helpers\Utility\EmailFormat.cs" />
+    <Compile Include="Helpers\Utility\SendGridEvents.cs" />
     <Compile Include="Helpers\Utility\Utility.cs" />
     <Compile Include="hs3Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
