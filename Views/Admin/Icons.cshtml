@@ -8,37 +8,109 @@
 }
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-    google.load("visualization", "1", { packages: ["corechart"] });
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
-        //var data = google.visualization.arrayToDataTable([
-        //  ['Task', 'Hours per Day'],
-        //  ['Work', 11],
-        //  ['Eat', 2],
-        //  ['Commute', 2],
-        //  ['Watch TV', 2],
-        //  ['Sleep', 7]
-        //]);
+    //  google.load("visualization", "1", { packages: ["corechart"] });
+    //  google.setOnLoadCallback(drawChart);
+    //  function drawChart() {
+    //var data = google.visualization.arrayToDataTable([
+    //  ['Task', 'Hours per Day'],
+    //  ['Work', 11],
+    //  ['Eat', 2],
+    //  ['Commute', 2],
+    //  ['Watch TV', 2],
+    //  ['Sleep', 7]
+    //]);
 
 
-        var data = google.visualization.arrayToDataTable([@Html.Raw(ViewBag.pieChartData)]);
+    //var data = google.visualization.arrayToDataTable([@Html.Raw(ViewBag.pieChartData)]);
 
 
-            var options = {
-                title: 'Response Rate',
-                pieHole: 0.4,
-            };
+    //    var options = {
+    //        title: 'Response Rate',
+    //        pieHole: 0.4,
+    //    };
 
-            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-            chart.draw(data, options);
-        }
+    //    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    //    chart.draw(data, options);
+    //}
 </script>
+<style>
+    #iconstbl img {
+        height: 80px;
+    }
 
+
+
+    table {
+        border-collapse: separate;
+        border-spacing: 5px;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    th, td {
+        vertical-align: top;
+        padding-left: 0px;
+        padding-right: 30px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    table {
+        margin: 0 auto;
+    }
+</style>
 @*<h2>Hello, @ViewBag.enterpriseName, Admin</h2>*@
 
 
-<div style="float: left">
+@*<div style="float: left">
     <div id="donutchart" style="width: 700px; height: 500px;"></div>
-</div>
+</div>*@
+<table width="100%" id="iconstbl">
+    <tr>
+        <td align="center">
+            <img src="~/Content/icons/dataCleanse.png" /><br /><span>Data Cleanse</span>
+        </td>
+        <td align="center">
+            <img src="~/Content/icons/workflowAutomation.png" /> <br /><span>Workflow Automation</span>
+        </td>
+        <td align="center">
+            <img src="~/Content/icons/questionnaireModeler.png"><br /><span> Questionnaire Modeler</span>
+        </td>
+        <td align="center">
+            <img src="~/Content/icons/prebuiltTemplate.png" /><br /><span>Prebuilt Templates</span>
+        </td>
+        <td align="center">
+            <img src="~/Content/icons/emailReminder.png" /><br /><span>Email Reminders</span>
+        </td>
+        <td align="center">
+            <img src="~/Content/icons/dataSegmentation.png" />  <br /><span>Data Segmentation</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <img src="~/Content/icons/erpIntegration.png" />   <br /><span>ERP Integration</span>
+        </td>
+        <td align="center">
+            <img src="~/Content/icons/dashboardAnalytics.png" />  <br /><span>Dashboard Analytics</span>
+        </td>
+
+
+        <td align="center">
+            <img src="~/Content/icons/auditLogs.png" />  <br /><span>Audit Logs</span>
+        </td>
+        <td align="center">
+            <img src="~/Content/icons/systemAlerts.png" /> <br /><span>System Alerts</span>
+        </td>
+        <td align="center">
+            <img src="~/Content/icons/Role-Based-Access-Control.png" />      <br /><span> Role Based Access Control</span>
+        </td>
+        <td align="center">
+            <img src="~/Content/icons/professionalSvcs.png" />   <br /><span>Professional services</span>
+        </td>
+    </tr>
+</table>
 
 

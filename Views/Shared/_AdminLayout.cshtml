@@ -5,7 +5,7 @@
 @using System.Web.Optimization;
 
 @{
-   
+
     string EnterpriseName = string.Empty;
     string LoginName = string.Empty;
 
@@ -21,7 +21,7 @@
         LoginName = objPerson.firstName + " " + objPerson.lastName;
     }
     catch { }
-    
+
 }
 
 <!DOCTYPE html>
@@ -37,10 +37,10 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryui")
     @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
-                .Add("telerik.common.css")
-                .Add("telerik.rtl.css")
-                .Combined(true)
-                .Compress(true)))
+    .Add("telerik.common.css")
+    .Add("telerik.rtl.css")
+    .Combined(true)
+    .Compress(true)))
 
 </head>
 
@@ -49,125 +49,125 @@
 
 
     @{Html.Telerik().Splitter().Name("Splitter1")
-      .HtmlAttributes(new { style = "height: 600px;" })
-      .Orientation(SplitterOrientation.Vertical)
-      .Panes(vPanes =>
-      {
-          vPanes.Add()
+    .HtmlAttributes(new { style = "height: 600px;" })
+    .Orientation(SplitterOrientation.Vertical)
+    .Panes(vPanes =>
+    {
+    vPanes.Add()
 
-              .Size("100px")
-              .Collapsible(true)
-              .Collapsed(true)
-              .Content(@<div>Nothing In Top Panel For Now5555</div>);
+    .Size("100px")
+    .Collapsible(true)
+    .Collapsed(true)
+    .Content(@<div>Nothing In Top Panel For Now5555</div>);
 
-          vPanes.Add()
-              .Scrollable(false)
-              .Content(Html.Telerik().Splitter().Name("Splitter2")
-                      .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; overflow: hidden;" })
-                      .Orientation(SplitterOrientation.Horizontal)
-                      .Panes(hPanes =>
-                      {
-                          hPanes.Add()
-                              .Size("150px")
-                              .Collapsible(true).Collapsed(true)
-                              .Content(@<p>Inner splitter :: left pane</p>);
+    vPanes.Add()
+    .Scrollable(false)
+    .Content(Html.Telerik().Splitter().Name("Splitter2")
+    .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; overflow: hidden;" })
+    .Orientation(SplitterOrientation.Horizontal)
+    .Panes(hPanes =>
+    {
+    hPanes.Add()
+    .Size("150px")
+    .Collapsible(true).Collapsed(true)
+    .Content(@<p>Inner splitter :: left pane</p>);
 
-                          hPanes.Add()
-                              .Content(@<div id="body">
-                                  @RenderSection("featured", required: false)
-                                  <header>
-                                      <div class="content-wrapper main-content clear-fix">
-                                          <div>
-                                              <div class="admin-logo">
-                                                  <p class="site-title">
-                                                      <a href="@Url.Content("~/Admin/Home")" >@Html.Action("IntellegesLogo", "Admin")   </a>
-                                                  </p>
-                                              </div>
+    hPanes.Add()
+    .Content(@<div id="body">
+        @RenderSection("featured", required: false)
+        <header>
+            <div class="content-wrapper main-content clear-fix">
+                <div>
+                    <div class="admin-logo">
+                        <p class="site-title">
+                            <a href="@Url.Content(" ~ />Admin/Home")" >@Html.Action("IntellegesLogo", "Admin")   </a>
+                        </p>
+                    </div>
 
-                                              <div style="float: left; top: -20px; position: relative; left: 20px;">
-                                                  <h1>STANDARD EDITION</h1>
-                                              </div>
-
-
-                                              <div class="admin-nav-about">
-                                                  <nav>
-                                                      <ul id="menu">
-                                                          <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                                                          <li>@Html.ActionLink("About", "About", "Home")</li>
-                                                          <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                                                      </ul>
-                                                  </nav>
-                                              </div>
-
-                                          </div>
-
-                                          @*<div class="clear-fix"></div>*@
-
-                                          <div style="float: right">Hello, @LoginName, @EnterpriseName </div>
-                                          <div class="clear-fix"></div>
-
-                                          @Html.Action("Menu", "Admin")
+                    <div style="float: left; top: -20px; position: relative; left: 20px;">
+                        <h1>STANDARD EDITION</h1>
+                    </div>
 
 
+                    <div class="admin-nav-about">
+                        <nav>
+                            <ul id="menu">
+                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                <li>@Html.ActionLink("About", "About", "Home")</li>
+                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            </ul>
+                        </nav>
+                    </div>
 
+                </div>
 
-                                      </div>
-                                  </header>
-                                  <section class="content-wrapper main-content clear-fix">
+                @*<div class="clear-fix"></div>*@
 
+                <div style="float: right">Hello, @LoginName, @EnterpriseName </div>
+                <div class="clear-fix"></div>
 
-                                      <div style="margin-top: -20px;">
-
-                                          <a href="@Url.Content("~/Admin/View1")">View 1</a>
-                                          <a href="@Url.Content("~/Admin/View2")">View 2</a>
-                                          <a href="@Url.Content("~/Admin/View3")">View 3</a>
-                                          <a href="@Url.Content("~/Admin/View4")">View 4</a>
-
-                                          <a href="#">Dashboard</a>
-
-                                          <a href="#">Icons</a>
-
-                                          <a href="#">Welcome</a>
-
-                                          <a href="#">Change Password</a>
-
-                                          <a href="#">Home Page</a>
-
-                                      </div>
+                @Html.Action("Menu", "Admin")
 
 
 
-                                      @RenderBody()
-                                  </section>
-                              </div>);
 
-                          hPanes.Add()
-                              .Size("20%")
-                              .Collapsible(true).Collapsed(true)
-                              .Content(@<p>Inner splitter :: right pane</p>);
-                      }).ToString());
+            </div>
+        </header>
+        <section class="content-wrapper main-content clear-fix">
 
-          vPanes.Add()
-              .Size("20%")
-              .Collapsible(true).Collapsed(true)
-              .Content(@<footer>
-                  <div class="content-wrapper">
 
-                      <div class="float-left">
-                          <p>
-                              <div class="admin-touchpoints">
-                                  Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
-                              </div>
-                          </p>
-                      </div>
+            <div style="margin-top: -20px;">
 
-                      <div class="float-right">
-                          <p>&copy; @DateTime.Now.Year - Intelleges</p>
-                      </div>
-                  </div>
-              </footer>);
-      })
-      .Render();
+                <a href="@Url.Content("~/Admin/View1")">View 1</a>
+                <a href="@Url.Content("~/Admin/View2")">View 2</a>
+                <a href="@Url.Content("~/Admin/View3")">View 3</a>
+                <a href="@Url.Content("~/Admin/View4")">View 4</a>
+
+                <a href="#">Dashboard</a>
+                <a href="@Url.Content("~/Admin/Icons")">Icons</a>
+
+
+                <a href="#">Welcome</a>
+
+                <a href="#">Change Password</a>
+
+                <a href="#">Home Page</a>
+
+            </div>
+
+
+
+            @RenderBody()
+        </section>
+    </div>);
+
+    hPanes.Add()
+    .Size("20%")
+    .Collapsible(true).Collapsed(true)
+    .Content(@<p>Inner splitter :: right pane</p>);
+    }).ToString());
+
+    vPanes.Add()
+    .Size("20%")
+    .Collapsible(true).Collapsed(true)
+    .Content(@<footer>
+        <div class="content-wrapper">
+
+            <div class="float-left">
+                <p>
+                    <div class="admin-touchpoints">
+                        Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
+                    </div>
+                </p>
+            </div>
+
+            <div class="float-right">
+                <p>&copy; @DateTime.Now.Year - Intelleges</p>
+            </div>
+        </div>
+    </footer>);
+    })
+    .Render();
     }
 
     <div id="popup">
@@ -206,17 +206,17 @@
 
     @(Html.Telerik().ScriptRegistrar()
     .DefaultGroup(group => group
-        .Combined(true)
-        .Compress(true)
+    .Combined(true)
+    .Compress(true)
     )
     .OnDocumentReady(@<text>
-    var splitter = $('#FullScreen').data('tSplitter');
- 
+        var splitter = $('#FullScreen').data('tSplitter');
+
         $(window).bind('resize', function() {
-            splitter.resize();
+        splitter.resize();
         });
     </text>)
-)
+    )
 
 
     @Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))

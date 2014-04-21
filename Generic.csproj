@@ -2337,6 +2337,20 @@
     <Content Include="Content\2013.2.611\Windows7\slider-v.gif" />
     <Content Include="Content\2013.2.611\Windows7\sprite-vertical.png" />
     <Content Include="Content\2013.2.611\Windows7\sprite.png" />
+    <Content Include="Content\icons\auditLogs.png" />
+    <Content Include="Content\icons\dashboardAnalytics.png" />
+    <Content Include="Content\icons\dataCleanse.png" />
+    <Content Include="Content\icons\dataSegmentation.png" />
+    <Content Include="Content\icons\emailReminder.png" />
+    <Content Include="Content\icons\erpIntegration.png" />
+    <Content Include="Content\icons\Icon.jpg" />
+    <Content Include="Content\icons\prebuiltTemplate.png" />
+    <Content Include="Content\icons\professionalSvcs.png" />
+    <Content Include="Content\icons\queryModeler.png" />
+    <Content Include="Content\icons\questionnaireModeler.png" />
+    <Content Include="Content\icons\Role-Based-Access-Control.png" />
+    <Content Include="Content\icons\systemAlerts.png" />
+    <Content Include="Content\icons\workflowAutomation.png" />
     <Content Include="Content\themes\base\alertify.bootstrap.css" />
     <Content Include="Content\themes\base\alertify.core.css" />
     <Content Include="Content\themes\base\alertify.default.css" />
@@ -2892,6 +2906,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Admin\Welcome.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Icon.psd" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
