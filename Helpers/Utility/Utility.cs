@@ -35,6 +35,7 @@ namespace Generic.Helpers.Utility
 
             Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
             additionalArguments.Add("ApplicationName", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
+            additionalArguments.Add("enterprise", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
             mail.AddUniqueIdentifiers(additionalArguments);
 
             var transportSMTP = SMTP.GetInstance(credentials);
