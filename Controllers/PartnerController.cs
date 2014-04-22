@@ -389,7 +389,7 @@ namespace Generic.Controllers
             }
 
 
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
 
             List<pr_getEventNotificationByLoadGroup_Result> objEventNotification = new List<pr_getEventNotificationByLoadGroup_Result>();
             if (Session["loadgroup"] != null)
@@ -400,7 +400,19 @@ namespace Generic.Controllers
             return Json(new { Data = new { message = message }, EventNotification = objEventNotification }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult InvitePartnersList()
+        {
+            string message = "";
+            List<pr_getEventNotificationByLoadGroup_Result> objEventNotification = new List<pr_getEventNotificationByLoadGroup_Result>();
+            if (Session["loadgroup"] != null)
+            {
+                objEventNotification = db.pr_getEventNotificationByLoadGroup(Session["loadgroup"].ToString()).ToList();
+            }
 
+            return Json(new { Data = new { message = message }, EventNotification = objEventNotification }, JsonRequestBehavior.AllowGet);
+    
+        }
 
 
         [HttpPost]

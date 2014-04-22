@@ -73,33 +73,11 @@
 
             if ("@ViewBag.Message" == "2") {
                 alertify.alert('Invitation Sent');
+                $('#btnInviteList').show();
+                
             }
 
-            $('#btnInviteTest').click(function (e) {
-                e.preventDefault();
-
-
-                $.ajax({
-                    url: "@Url.Content("~/partner/InvitePartners")",
-                    type: "post",
-                    success: function (data) {
-                        alertify.alert(data.Data.message);
-                        var len = data.EventNotification.length;
-                        var events = "";
-                        for (i = 0; i < len; i++)
-                            events += data.EventNotification.email + "" + data.EventNotification.email.event
-                        $('#DivEventNotification').html(events);
-
-
-
-                    },
-                    error: function (data) {
-                        alertify.alert(data.Data.message);
-                    }
-                });
-
-
-            });
+            
 
              $('#btnInvite').click(function (e) {
                 e.preventDefault();
@@ -111,13 +89,18 @@
                     success: function (data) {
                         alertify.alert(data.Data.message);
                         var len = data.EventNotification.length;
-                        var events = "<table><tr><td>Email</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td></tr>";
-                        for (i = 0; i < len; i++)
-                            events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint+"</td></tr>";
+
+                        if (len == 0) {
+                            alertify.alert("Please wait, data processing");
+                        } else {
+
+                            var events = "<table><tr><td>Email</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td></tr>";
+                            for (i = 0; i < len; i++)
+                                events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td></tr>";
 
 
-                        $('#DivEventNotification').html(events);
-
+                            $('#DivEventNotification').html(events);
+                        }
 
 
                     },
@@ -128,6 +111,40 @@
 
 
             });
+
+            $('#btnInviteList').click(function (e) {
+                e.preventDefault();
+
+
+                $.ajax({
+                    url: "@Url.Content("~/partner/InvitePartnersList")",
+                    type: "post",
+                    success: function (data) {
+                      
+                        var len = data.EventNotification.length;
+
+                        if (len == 0) {
+                            alertify.alert("Please wait, data processing");
+                        } else {
+
+                            var events = "<table><tr><td>Email</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td></tr>";
+                            for (i = 0; i < len; i++)
+                                events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td></tr>";
+
+
+                            $('#DivEventNotification').html(events);
+                        }
+
+
+                    },
+                    error: function (data) {
+                        alertify.alert(data.Data.message);
+                    }
+                });
+
+
+             });
+
 
             $('#btnInvitelater').click(function (e) {
                 e.preventDefault();
@@ -231,6 +248,7 @@
     <p>
         <input type="submit" name="button" id="btnInvite" style="display: none" value="Send invites now" />
         <input type="submit" name="button" id="btnInvitelater" style="display: none" value="Invite Later" />
+        <input type="submit" name="button" id="btnInviteList" style="display: none" value="View sent invites" />
     </p>
   @*  <input type="submit" name="button" id="btnInviteTest"  value="Invite Test" />*@
     
