@@ -90,6 +90,8 @@
                         alertify.alert(data.Data.message);
                         var len = data.EventNotification.length;
                         $('#btnInviteList').show();
+                        $('#btnInviteListDownload').show();
+                        
                         if (len == 0) {
                             alertify.alert("Please wait, data processing");
                         } else {
@@ -248,8 +250,8 @@
     <p>
         <input type="submit" name="button" id="btnInvite" style="display: none" value="Send invites now" />
         <input type="submit" name="button" id="btnInvitelater" style="display: none" value="Invite Later" />
-        <input type="submit" name="button" id="btnInviteList" style="display: none" value="View sent invites" />
-        <a href="@Url.Content("~/Partner/InvitePartnersListDownload")">Download List</a>
+        <input type="submit" name="button" id="btnInviteList" style="display: none" value="View sent invites" /> <br />
+        <a id="btnInviteListDownload" style="display: none" href="@Url.Content("~/Partner/InvitePartnersListDownload")">Download List</a>
     </p>
   
     
