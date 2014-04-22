@@ -394,13 +394,13 @@ namespace Generic.Controllers
                 objEventNotification = db.pr_getEventNotificationByLoadGroup(Session["loadgroup"].ToString()).ToList();
             }
 
-            return Json(new { Data = new { message = message }, EventNotification = objEventNotification.Select(x => new { x.@event, x.accesscode,x.email,x.loadgroup,x.protocolTouchpoint,x.reason,timestamp = x.timestamp.ToString()}) }, JsonRequestBehavior.AllowGet);
+            return Json(new { Data = new { message = message }, EventNotification = objEventNotification.Select(x => new { x.@event, x.accesscode, x.email, x.loadgroup, x.protocolTouchpoint, x.reason, timestamp = x.timestamp.ToString() }) }, JsonRequestBehavior.AllowGet);
 
         }
 
         public ActionResult InvitePartnersListDownload()
         {
-          
+
             List<pr_getEventNotificationByLoadGroup_Result> objEventNotification = new List<pr_getEventNotificationByLoadGroup_Result>();
             //objEventNotification[0].timestamp
             // objEventNotification[0].loadgroup
@@ -415,14 +415,15 @@ namespace Generic.Controllers
 
 
 
-           
+
             var stream = new MemoryStream();
             var serializer = new XmlSerializer(typeof(List<ExcelEventNotification>));
 
-           
+            List<ExcelEventNotification> objEvents = new List<ExcelEventNotification>();
+            objEvents = objEventNotification.Select(x => new ExcelEventNotification { Email = x.email, AccessCode = x.accesscode, LoadGroup = x.loadgroup, ProtocolTouchpoint = x.protocolTouchpoint, Reason = x.reason, Date = x.timestamp, Event = x.@event }).ToList();
 
             //We turn it into an XML and save it in the memory
-            serializer.Serialize(stream, objEventNotification.Select(x => new ExcelEventNotification  { Email = x.email, AccessCode = x.accesscode, LoadGroup = x.loadgroup, ProtocolTouchpoint = x.protocolTouchpoint, Reason = x.reason, Date = x.timestamp, Event = x.@event }));
+            serializer.Serialize(stream, objEvents);
             stream.Position = 0;
 
             //We return the XML from the memory as a .xls file
