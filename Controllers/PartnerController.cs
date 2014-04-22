@@ -394,7 +394,7 @@ namespace Generic.Controllers
                 objEventNotification = db.pr_getEventNotificationByLoadGroup(Session["loadgroup"].ToString()).ToList();
             }
 
-            return Json(new { Data = new { message = message }, EventNotification = objEventNotification }, JsonRequestBehavior.AllowGet);
+            return Json(new { Data = new { message = message }, EventNotification = objEventNotification.Select(x => new { x.@event, x.accesscode,x.email,x.loadgroup,x.protocolTouchpoint,x.reason,timestamp = x.timestamp.ToString()}) }, JsonRequestBehavior.AllowGet);
 
         }
 
