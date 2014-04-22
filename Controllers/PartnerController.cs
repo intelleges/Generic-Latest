@@ -13,6 +13,7 @@ using Generic.Models;
 using Generic.Helpers.Utility;
 using Generic.Helpers;
 using System.Data.Objects;
+using System.Threading;
 
 namespace Generic.Controllers
 {
@@ -386,6 +387,10 @@ namespace Generic.Controllers
                 message = "No invite sent";
                 ViewBag.Message = "1";
             }
+
+
+            Thread.Sleep(2000);
+
             List<pr_getEventNotificationByLoadGroup_Result> objEventNotification = new List<pr_getEventNotificationByLoadGroup_Result>();
             if (Session["loadgroup"] != null)
             {
