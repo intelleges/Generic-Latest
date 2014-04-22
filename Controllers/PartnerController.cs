@@ -308,25 +308,6 @@ namespace Generic.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult InvitePartnersTest()
-        {
-            List<pr_getEventNotificationByLoadGroup_Result> objEventNotification = new List<pr_getEventNotificationByLoadGroup_Result>();
-            pr_getEventNotificationByLoadGroup_Result testa = new pr_getEventNotificationByLoadGroup_Result();
-            testa.email = "test1";
-            testa.@event = "test2";
-            testa.accesscode = "test3"; testa.reason = "test4";
-            pr_getEventNotificationByLoadGroup_Result testb = new pr_getEventNotificationByLoadGroup_Result();
-            testb.email = "test1";
-            testb.@event = "test2";
-            testb.accesscode = "test3"; testb.reason = "test4";
-            objEventNotification.Add(testa);
-            objEventNotification.Add(testb);
-
-
-            return Json(new { Data = new { message = "test" }, EventNotification = objEventNotification }, JsonRequestBehavior.AllowGet);
-        }
-
 
         [HttpPost]
         public ActionResult InvitePartners()
