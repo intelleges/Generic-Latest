@@ -34,10 +34,11 @@ namespace Generic.Helpers.Utility
             var credentials = new NetworkCredential(objSendGridPassword.username, objSendGridPassword.password);
 
             Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
-            additionalArguments.Add("ApplicationName", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
+            additionalArguments.Add("ApplicationName", "MVCMT");
             additionalArguments.Add("enterprise", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
+            additionalArguments.Add("loadgroup", email.loadgroup);
             mail.AddUniqueIdentifiers(additionalArguments);
-
+            
             var transportSMTP = SMTP.GetInstance(credentials);
 
 

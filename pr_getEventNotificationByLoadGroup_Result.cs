@@ -10,9 +10,8 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class eventNotification
+    public partial class pr_getEventNotificationByLoadGroup_Result
     {
         public int id { get; set; }
         public string email { get; set; }

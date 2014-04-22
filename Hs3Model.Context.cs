@@ -578,7 +578,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEsignature", firstNameParameter, lastNameParameter, titleParameter, emailParameter, affirmationParameter, officerParameter, phoneParameter, completeDateParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addEventNotification(string email, Nullable<System.DateTime> timestamp, string @event, string reason, string url, string category, string accesscode, string protocolTouchpoint, string applicationName, Nullable<int> enterprise)
+        public virtual ObjectResult<Nullable<decimal>> pr_addEventNotification(string email, Nullable<System.DateTime> timestamp, string @event, string reason, string url, string category, string accesscode, string protocolTouchpoint, string applicationName, Nullable<int> enterprise, string loadgroup)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
@@ -620,7 +620,11 @@ namespace Generic
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEventNotification", emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, enterpriseParameter);
+            var loadgroupParameter = loadgroup != null ?
+                new ObjectParameter("loadgroup", loadgroup) :
+                new ObjectParameter("loadgroup", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEventNotification", emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, enterpriseParameter, loadgroupParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addEventNotificationBounce(string email, string error)
@@ -5805,7 +5809,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEsignature", idParameter, firstNameParameter, lastNameParameter, titleParameter, emailParameter, affirmationParameter, officerParameter, phoneParameter, completeDateParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
         }
     
-        public virtual int pr_modifyEventNotification(Nullable<int> id, string email, Nullable<System.DateTime> timestamp, string @event, string reason, string url, string category, string accesscode, string protocolTouchpoint, string applicationName, Nullable<int> enterprise)
+        public virtual int pr_modifyEventNotification(Nullable<int> id, string email, Nullable<System.DateTime> timestamp, string @event, string reason, string url, string category, string accesscode, string protocolTouchpoint, string applicationName, Nullable<int> enterprise, string loadgroup)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -5851,7 +5855,11 @@ namespace Generic
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEventNotification", idParameter, emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, enterpriseParameter);
+            var loadgroupParameter = loadgroup != null ?
+                new ObjectParameter("loadgroup", loadgroup) :
+                new ObjectParameter("loadgroup", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEventNotification", idParameter, emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, enterpriseParameter, loadgroupParameter);
         }
     
         public virtual int pr_modifyEventNotificationBounce(Nullable<int> id, string email, string error)
@@ -12406,6 +12414,15 @@ namespace Generic
                 new ObjectParameter("loadGroup", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnerSpreadsheetDataLoad", partner_internal_idParameter, partner_sap_idParameter, partner_nameParameter, partner_address_oneParameter, partner_address_twoParameter, partner_cityParameter, partner_stateParameter, partner_zipcodeParameter, partner_countryParameter, partner_poc_first_nameParameter, partner_poc_last_nameParameter, partner_poc_titleParameter, partner_poc_phone_numberParameter, partner_poc_email_addressParameter, ro_first_nameParameter, ro_last_nameParameter, ro_emailParameter, date_loadedParameter, enterpriseParameter, partnertypeParameter, touchpointParameter, personParameter, partnerSpreadsheetDataLoadStatusParameter, loadGroupParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEventNotificationByLoadGroup_Result> pr_getEventNotificationByLoadGroup(string loadgroup)
+        {
+            var loadgroupParameter = loadgroup != null ?
+                new ObjectParameter("loadgroup", loadgroup) :
+                new ObjectParameter("loadgroup", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationByLoadGroup_Result>("pr_getEventNotificationByLoadGroup", loadgroupParameter);
         }
     }
 }

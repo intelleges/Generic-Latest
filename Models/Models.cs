@@ -63,6 +63,15 @@ namespace Generic.Models
         private Boolean _isSendToProvider;
         private Boolean _isSendToUser;
         private string _emailTo;
+
+        private string _loadgroup;
+
+        public string loadgroup
+        {
+            get { return _loadgroup; }
+            set { _loadgroup = value; }
+        }
+
     //    private Questionnaire _questionnaire;
 
         //public Questionnaire questionnaire

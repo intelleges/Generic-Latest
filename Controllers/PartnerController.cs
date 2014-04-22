@@ -306,6 +306,27 @@ namespace Generic.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public ActionResult InvitePartnersTest()
+        {
+            List<pr_getEventNotificationByLoadGroup_Result> objEventNotification = new List<pr_getEventNotificationByLoadGroup_Result>();
+            pr_getEventNotificationByLoadGroup_Result testa = new pr_getEventNotificationByLoadGroup_Result();
+            testa.email = "test1";
+            testa.@event = "test2";
+            testa.accesscode = "test3"; testa.reason = "test4";
+            pr_getEventNotificationByLoadGroup_Result testb = new pr_getEventNotificationByLoadGroup_Result();
+            testb.email = "test1";
+            testb.@event = "test2";
+            testb.accesscode = "test3"; testb.reason = "test4";
+            objEventNotification.Add(testa);
+            objEventNotification.Add(testb);
+
+
+            return Json(new { Data = new { message = "test" }, EventNotification = objEventNotification }, JsonRequestBehavior.AllowGet);
+        }
+
+
         [HttpPost]
         public ActionResult InvitePartners()
         {
@@ -340,6 +361,13 @@ namespace Generic.Controllers
 
                     var objtouchpoint = db.pr_getTouchpoint(touchpoint).FirstOrDefault();
                     Email email = new Email(amm);
+
+                    if (Session["loadgroup"] != null)
+                    {
+                        email.loadgroup = Session["loadgroup"].ToString();
+                    }
+
+
                     EmailFormat emailFormat = new EmailFormat();
                     email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
                     email.emailTo = objpartner.email;
@@ -358,7 +386,13 @@ namespace Generic.Controllers
                 message = "No invite sent";
                 ViewBag.Message = "1";
             }
-            return Json(new { Data = new { message = message } }, JsonRequestBehavior.AllowGet);
+            List<pr_getEventNotificationByLoadGroup_Result> objEventNotification = new List<pr_getEventNotificationByLoadGroup_Result>();
+            if (Session["loadgroup"] != null)
+            {
+                objEventNotification = db.pr_getEventNotificationByLoadGroup(Session["loadgroup"].ToString()).ToList();
+            }
+
+            return Json(new { Data = new { message = message }, EventNotification = objEventNotification }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -383,9 +417,9 @@ namespace Generic.Controllers
 
 
                     var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerId, ptq).FirstOrDefault();
-                 //   pptq.invitedDate = DateTime.Now;
-                  //  var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
-                  //  pptq.invitedBy = person.id;
+                    //   pptq.invitedDate = DateTime.Now;
+                    //  var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+                    //  pptq.invitedBy = person.id;
 
                     pptq.status = (int)Generic.Helpers.PartnerHelper.PartnerStatus.Hold;
 
@@ -408,7 +442,7 @@ namespace Generic.Controllers
                     //objSendEmail.sendEmail(email);
 
 
-                    
+
                 }
 
                 message = "Invite Not Sent";
@@ -416,13 +450,13 @@ namespace Generic.Controllers
             }
             else
             {
-               // message = "No invite sent";
-               // ViewBag.Message = "1";
+                // message = "No invite sent";
+                // ViewBag.Message = "1";
             }
             return Json(new { Data = new { message = message } }, JsonRequestBehavior.AllowGet);
         }
 
-        
+
         public string Invite(int partnerId)
         {
 
@@ -726,6 +760,7 @@ namespace Generic.Controllers
             Session["uploadedpartnerList"] = uploadedpartners;
             Session["partnertype"] = partnertype;
             Session["touchpoint"] = touchpoint;
+            Session["loadgroup"] = loadGroup;
             ViewBag.Message = "1";
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");

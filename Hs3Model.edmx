@@ -904,6 +904,7 @@
           <Property Name="protocolTouchpoint" Type="varchar" MaxLength="50" />
           <Property Name="applicationName" Type="varchar" MaxLength="50" />
           <Property Name="enterprise" Type="int" />
+          <Property Name="loadgroup" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="eventNotificationBounce">
           <Key>
@@ -4013,6 +4014,7 @@
           <Parameter Name="protocolTouchpoint" Type="varchar" Mode="In" />
           <Parameter Name="applicationName" Type="varchar" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_addEventNotificationBounce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
@@ -4915,11 +4917,11 @@
         <Function Name="pr_getEventNotification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getEventNotificationAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="enterprise" Type="int" Mode="In" />
-        </Function>
         <Function Name="pr_getEventNotificationBounce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getEventNotificationByLoadGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_getGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -5722,6 +5724,7 @@
           <Parameter Name="protocolTouchpoint" Type="varchar" Mode="In" />
           <Parameter Name="applicationName" Type="varchar" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_modifyEventNotificationBounce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -7379,6 +7382,7 @@
             <Parameter Name="protocolTouchpoint" Mode="In" Type="String" />
             <Parameter Name="applicationName" Mode="In" Type="String" />
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_addEventNotificationBounce" ReturnType="Collection(Decimal)">
             <Parameter Name="email" Mode="In" Type="String" />
@@ -8566,6 +8570,7 @@
             <Parameter Name="protocolTouchpoint" Mode="In" Type="String" />
             <Parameter Name="applicationName" Mode="In" Type="String" />
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyEventNotificationBounce">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -10509,6 +10514,9 @@
             <Parameter Name="partnerSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
             <Parameter Name="loadGroup" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="pr_getEventNotificationByLoadGroup" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByLoadGroup_Result)">
+            <Parameter Name="loadgroup" Mode="In" Type="String" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -10746,6 +10754,7 @@
           <Property Name="protocolTouchpoint" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="applicationName" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="enterprise" Type="Int32" />
+          <Property Type="String" Name="loadgroup" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="eventNotificationBounce">
           <Key>
@@ -16690,6 +16699,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="pr_getEventNotificationByLoadGroup_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="timestamp" Nullable="true" Precision="23" />
+          <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="reason" Nullable="true" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="category" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="accesscode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="protocolTouchpoint" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="applicationName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="String" Name="loadgroup" Nullable="true" MaxLength="50" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -17192,6 +17215,7 @@
           <EntitySetMapping Name="eventNotification">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.eventNotification">
               <MappingFragment StoreEntitySet="eventNotification">
+                <ScalarProperty Name="loadgroup" ColumnName="loadgroup" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="timestamp" ColumnName="timestamp" />
@@ -17208,6 +17232,7 @@
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.eventNotification">
               <ModificationFunctionMapping>
                 <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addEventNotification">
+                  <ScalarProperty Name="loadgroup" ParameterName="loadgroup" />
                   <ScalarProperty Name="enterprise" ParameterName="enterprise" />
                   <ScalarProperty Name="applicationName" ParameterName="applicationName" />
                   <ScalarProperty Name="protocolTouchpoint" ParameterName="protocolTouchpoint" />
@@ -17221,6 +17246,7 @@
                   <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEventNotification">
+                  <ScalarProperty Name="loadgroup" ParameterName="loadgroup" Version="Current" />
                   <ScalarProperty Name="enterprise" ParameterName="enterprise" Version="Current" />
                   <ScalarProperty Name="applicationName" ParameterName="applicationName" Version="Current" />
                   <ScalarProperty Name="protocolTouchpoint" ParameterName="protocolTouchpoint" Version="Current" />
@@ -19478,8 +19504,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getEventNotification" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotification">
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getEventNotificationAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationAll">
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getEventNotificationBounce" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationBounce">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroup">
@@ -21564,6 +21588,24 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addPartnerSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerSpreadsheetDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_getEventNotificationByLoadGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationByLoadGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationByLoadGroup_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="protocolTouchpoint" ColumnName="protocolTouchpoint" />
+                <ScalarProperty Name="applicationName" ColumnName="applicationName" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="loadgroup" ColumnName="loadgroup" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -75,7 +75,7 @@
                 alertify.alert('Invitation Sent');
             }
 
-            $('#btnInvite').click(function (e) {
+            $('#btnInviteTest').click(function (e) {
                 e.preventDefault();
 
 
@@ -84,6 +84,13 @@
                     type: "post",
                     success: function (data) {
                         alertify.alert(data.Data.message);
+                        var len = data.EventNotification.length;
+                        var events = "";
+                        for (i = 0; i < len; i++)
+                            events += data.EventNotification.email + "" + data.EventNotification.email.event
+                        $('#DivEventNotification').html(events);
+
+
 
                     },
                     error: function (data) {
@@ -94,7 +101,33 @@
 
             });
 
+             $('#btnInvite').click(function (e) {
+                e.preventDefault();
 
+
+                $.ajax({
+                    url: "@Url.Content("~/partner/InvitePartnersTest")",
+                    type: "post",
+                    success: function (data) {
+                        alertify.alert(data.Data.message);
+                        var len = data.EventNotification.length;
+                        var events = "<table><tr><td>Email</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td></tr>";
+                        for (i = 0; i < len; i++)
+                            events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint+"</td></tr>";
+
+
+                        $('#DivEventNotification').html(events);
+
+
+
+                    },
+                    error: function (data) {
+                        alertify.alert(data.Data.message);
+                    }
+                });
+
+
+            });
 
             $('#btnInvitelater').click(function (e) {
                 e.preventDefault();
@@ -103,6 +136,8 @@
                     type: "post",
                     success: function (data) {
                         alertify.alert(data.Data.message);
+
+
 
                     },
                     error: function (data) {
@@ -197,4 +232,10 @@
         <input type="submit" name="button" id="btnInvite" style="display: none" value="Send invites now" />
         <input type="submit" name="button" id="btnInvitelater" style="display: none" value="Invite Later" />
     </p>
+  @*  <input type="submit" name="button" id="btnInviteTest"  value="Invite Test" />*@
+    
+    <div id="DivEventNotification">
+
+
+    </div>
 </form>
