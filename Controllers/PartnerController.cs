@@ -389,7 +389,7 @@ namespace Generic.Controllers
             }
 
 
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
             List<pr_getEventNotificationByLoadGroup_Result> objEventNotification = new List<pr_getEventNotificationByLoadGroup_Result>();
             if (Session["loadgroup"] != null)
