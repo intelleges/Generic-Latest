@@ -7,7 +7,7 @@
     ViewBag.Title = "Partner";
 }
 
-<h2>Index</h2>
+
 
 
 <p>
@@ -20,62 +20,74 @@
 @( Html.Telerik().Grid(Model).Name("PartnerGrid")
         .Columns(columns =>
         {
-            columns.Bound(o => o.enterprise);
+            //columns.Bound(o => o.enterprise);
 
-            columns.Bound(o => o.internalID);
+            columns.Bound(o => o.internalID).Title("Internal ID").Width(100);
 
-            columns.Bound(o => o.name);
+            //, Contact [email hyperlink], Phone, , , , , 
 
-            columns.Bound(o => o.address1);
+            columns.Bound(o => o.name).Title("Partner Name").Width(100);
 
-            columns.Bound(o => o.address2);
+            columns.Bound(o => o.email).Title("Contact").Width(200);
 
-            columns.Bound(o => o.city);
+            columns.Bound(o => o.phone).Title("Phone").Width(100);
+            columns.Bound(o => o.title).Title("Title").Width(100);
+            columns.Bound(o => o.country).Title("Country").Width(100);
+            columns.Bound(o => o.city).Title("City").Width(100);
+            columns.Template(o => 0).Title("Timezone").Width(100);
+            columns.Template(o => 0).Title("Last Contact Date").Width(100);
+            //columns.Bound(o => o.address1);
 
-            columns.Bound(o => o.state);
+            //columns.Bound(o => o.address2);
 
-            columns.Bound(o => o.province);
+          
 
-            columns.Bound(o => o.zipcode);
+            //columns.Bound(o => o.state);
 
-            columns.Bound(o => o.country);
+            //columns.Bound(o => o.province);
 
-            columns.Bound(o => o.phone);
+            //columns.Bound(o => o.zipcode);
 
-            columns.Bound(o => o.fax);
+          
 
-            columns.Bound(o => o.firstName);
+          
 
-            columns.Bound(o => o.lastName);
+            //columns.Bound(o => o.fax);
 
-            columns.Bound(o => o.title);
+            //columns.Bound(o => o.firstName);
 
-            columns.Bound(o => o.email);
+            //columns.Bound(o => o.lastName);
 
-            columns.Bound(o => o.dunsNumber);
+            
 
-            columns.Bound(o => o.federalID);
+           
 
-            columns.Bound(o => o.status);
+            //columns.Bound(o => o.dunsNumber);
 
-            columns.Bound(o => o.loadHistory);
+            //columns.Bound(o => o.federalID);
 
-            columns.Bound(o => o.owner);
+            //columns.Bound(o => o.status);
 
-            columns.Bound(o => o.author);
+            //columns.Bound(o => o.loadHistory);
 
-            columns.Bound(o => o.dateApproved);
+            //columns.Bound(o => o.owner);
 
-            columns.Bound(o => o.active);
+            //columns.Bound(o => o.author);
 
-            columns.Bound(o => o.lastModified);
+            //columns.Bound(o => o.dateApproved);
+
+            //columns.Bound(o => o.active);
+
+            //columns.Bound(o => o.lastModified);
 
             columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit");
             columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details");
             columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete");
         })
         .Pageable()
-        .Sortable()
+        .Sortable().Scrollable(scrolling => scrolling
+           .Enabled(true)
+           .Height(300))
 )
 
 @*

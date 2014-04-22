@@ -21,45 +21,58 @@
 @( Html.Telerik().Grid(Model).Name("PersonGrid")
         .Columns(columns =>
         {
-            columns.Bound(o => o.nmNumber).Width(100);
+            //columns.Bound(o => o.nmNumber).Width(100);
 
-            columns.Bound(o => o.socialSecurity).Width(100);
+            //columns.Bound(o => o.socialSecurity).Width(100);
 
-            columns.Bound(o => o.firstName).Width(100);
+            columns.Bound(o => o.firstName).Width(100).Title("First Name");
 
-            columns.Bound(o => o.lastName).Width(100);
+            columns.Bound(o => o.lastName).Width(100).Title("Last Name");
 
-            columns.Bound(o => o.title).Width(100);
+            columns.Bound(o => o.email).Width(200).Title("Email"); 
 
-            columns.Bound(o => o.suffix).Width(100);
+            columns.Bound(o => o.phone).Width(100).Title("Phone"); 
 
-            columns.Bound(o => o.nickName).Width(100);
+            columns.Template(x => 0).Title("Last Login Date").Width(150); 
 
-            columns.Bound(o => o.passWord).Width(100);
+            columns.Template(x => 0).Title("% Complete").Width(100); 
+            columns.Template(x => 0).Title("% Incomplete").Width(130);
+            columns.Template(x => 0).Title("% No Response").Width(100); 
+            columns.Template(x => 0).Title("Open Alerts").Width(100); 
+            columns.Template(x => 0).Title("Group").Width(100); 
 
-            columns.Bound(o => o.email).Width(100);
 
-            columns.Bound(o => o.address1).Width(100);
+            //columns.Bound(o => o.title).Width(100);
 
-            columns.Bound(o => o.address2).Width(100);
+            //columns.Bound(o => o.suffix).Width(100);
 
-            columns.Bound(o => o.city).Width(100);
+            //columns.Bound(o => o.nickName).Width(100);
 
-            columns.Bound(o => o.state).Width(100);
+            //columns.Bound(o => o.passWord).Width(100);
 
-            columns.Bound(o => o.zipcode).Width(100);
 
-            columns.Bound(o => o.country).Width(100);
 
-            columns.Bound(o => o.phone).Width(100);
+            //columns.Bound(o => o.address1).Width(100);
 
-            columns.Bound(o => o.fax).Width(100);
-            columns.Bound(o => o.active).Width(100);
-            columns.Bound(o => o.ismanager).Width(100);
-            columns.Bound(o => o.partnerPerPage).Width(100);
-            columns.Bound(o => o.resetDate).Width(100).Format("{0:MM/dd/yy}");
-            columns.Bound(o => o.IsArchived).Width(100);
-            columns.Bound(o => o.archivedDate).Width(100);
+            //columns.Bound(o => o.address2).Width(100);
+
+            //columns.Bound(o => o.city).Width(100);
+
+            //columns.Bound(o => o.state).Width(100);
+
+            //columns.Bound(o => o.zipcode).Width(100);
+
+            //columns.Bound(o => o.country).Width(100);
+
+
+
+            //columns.Bound(o => o.fax).Width(100);
+            //columns.Bound(o => o.active).Width(100);
+            //columns.Bound(o => o.ismanager).Width(100);
+            //columns.Bound(o => o.partnerPerPage).Width(100);
+            //columns.Bound(o => o.resetDate).Width(100).Format("{0:MM/dd/yy}");
+            //columns.Bound(o => o.IsArchived).Width(100);
+            //columns.Bound(o => o.archivedDate).Width(100);
 
             columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit");
             columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details");
@@ -68,7 +81,7 @@
         .Pageable()
         .Sortable().Scrollable(scrolling => scrolling
            .Enabled(true)
-           .Height("auto"))
+           .Height(300))
 )
 
 
