@@ -89,7 +89,7 @@
                     success: function (data) {
                         alertify.alert(data.Data.message);
                         var len = data.EventNotification.length;
-
+                        $('#btnInviteList').show();
                         if (len == 0) {
                             alertify.alert("Please wait, data processing");
                         } else {
