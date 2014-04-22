@@ -417,12 +417,12 @@ namespace Generic.Controllers
 
            
             var stream = new MemoryStream();
-            var serializer = new XmlSerializer(typeof(List<pr_getEventNotificationByLoadGroup_Result>));
+            var serializer = new XmlSerializer(typeof(List<ExcelEventNotification>));
 
            
 
             //We turn it into an XML and save it in the memory
-            serializer.Serialize(stream, objEventNotification.Select(x => new { Email = x.email,AccessCode = x.accesscode, LoadGroup = x.loadgroup,ProtocolTouchpoint = x.protocolTouchpoint,Reason = x.reason,Date = x.timestamp,Event = x.@event}));
+            serializer.Serialize(stream, objEventNotification.Select(x => new ExcelEventNotification  { Email = x.email, AccessCode = x.accesscode, LoadGroup = x.loadgroup, ProtocolTouchpoint = x.protocolTouchpoint, Reason = x.reason, Date = x.timestamp, Event = x.@event }));
             stream.Position = 0;
 
             //We return the XML from the memory as a .xls file

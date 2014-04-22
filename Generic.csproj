@@ -1529,6 +1529,7 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ExcelAutoMailMessage.cs" />
+    <Compile Include="ViewModel\ExcelEventNotification.cs" />
     <Compile Include="ViewModel\ExcelPartner.cs" />
     <Compile Include="ViewModel\ExcelQuestionnaire.cs" />
     <Compile Include="ViewModel\QuestionnaireViewModel.cs" />
