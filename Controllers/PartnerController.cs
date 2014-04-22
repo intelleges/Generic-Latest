@@ -14,6 +14,7 @@ using Generic.Helpers.Utility;
 using Generic.Helpers;
 using System.Data.Objects;
 using System.Threading;
+using System.Xml.Serialization;
 
 namespace Generic.Controllers
 {
@@ -408,9 +409,24 @@ namespace Generic.Controllers
                 objEventNotification = db.pr_getEventNotificationByLoadGroup(Session["loadgroup"].ToString()).ToList();
             }
 
-            SimpleExcelExport.ExportToExcel objExport = new SimpleExcelExport.ExportToExcel();
-            var result = objExport.ListToExcel(objEventNotification);
-            return new FileContentResult(result, "application/vnd.ms-excel") { FileDownloadName = "InviteList.xls" };
+            //SimpleExcelExport.ExportToExcel objExport = new SimpleExcelExport.ExportToExcel();
+            //var result = objExport.ListToExcel(objEventNotification);
+            //return new FileContentResult(result, "application/vnd.ms-excel") { FileDownloadName = "InviteList.xls" };
+
+
+
+           
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<pr_getEventNotificationByLoadGroup_Result>));
+
+           
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, objEventNotification);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "InviteList.xls");
 
             //  return Json(new { Data = new { message = message }, EventNotification = objEventNotification }, JsonRequestBehavior.AllowGet);
 
