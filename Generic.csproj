@@ -60,6 +60,9 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="LinqToExcel, Version=1.7.1.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\LinqToExcel_x64.1.7.1\lib\LinqToExcel.dll</HintPath>
@@ -72,6 +75,18 @@
     <Reference Include="MvcDynamicForms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\MvcDynamicForms.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\packages\NPOI.2.0.6\lib\net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\packages\NPOI.2.0.6\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\packages\NPOI.2.0.6\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -87,6 +102,9 @@
     </Reference>
     <Reference Include="SendGridMail">
       <HintPath>..\..\..\..\..\Desktop\MVCMT\Generic\bin\SendGridMail.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleExcelExport">
+      <HintPath>..\packages\SimpleExcelExport.0.0.1.7\lib\net35\SimpleExcelExport.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

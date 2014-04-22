@@ -386,13 +386,34 @@ namespace Generic.Controllers
         {
             string message = "";
             List<pr_getEventNotificationByLoadGroup_Result> objEventNotification = new List<pr_getEventNotificationByLoadGroup_Result>();
+            //objEventNotification[0].timestamp
+            // objEventNotification[0].loadgroup
             if (Session["loadgroup"] != null)
             {
                 objEventNotification = db.pr_getEventNotificationByLoadGroup(Session["loadgroup"].ToString()).ToList();
             }
 
             return Json(new { Data = new { message = message }, EventNotification = objEventNotification }, JsonRequestBehavior.AllowGet);
-    
+
+        }
+
+        public ActionResult InvitePartnersListDownload()
+        {
+          
+            List<pr_getEventNotificationByLoadGroup_Result> objEventNotification = new List<pr_getEventNotificationByLoadGroup_Result>();
+            //objEventNotification[0].timestamp
+            // objEventNotification[0].loadgroup
+            if (Session["loadgroup"] != null)
+            {
+                objEventNotification = db.pr_getEventNotificationByLoadGroup(Session["loadgroup"].ToString()).ToList();
+            }
+
+            SimpleExcelExport.ExportToExcel objExport = new SimpleExcelExport.ExportToExcel();
+            var result = objExport.ListToExcel(objEventNotification);
+            return new FileContentResult(result, "application/vnd.ms-excel") { FileDownloadName = "InviteList.xls" };
+
+            //  return Json(new { Data = new { message = message }, EventNotification = objEventNotification }, JsonRequestBehavior.AllowGet);
+
         }
 
 

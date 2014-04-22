@@ -124,6 +124,7 @@ namespace Generic.Controllers
             //Session["touchpointId"] = touchpointId;
             //Session["partnertypeId"] = partnertypeId;
             //Session["level"] = level;
+            ViewBag.message = "1";
             return View();
         }
 

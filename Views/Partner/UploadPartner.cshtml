@@ -101,9 +101,9 @@
                             alertify.alert("Please wait, data processing");
                         } else {
 
-                            var events = "<table><tr><td>Email</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td></tr>";
+                            var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
                             for (i = 0; i < len; i++)
-                                events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td></tr>";
+                                events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
 
 
                             $('#DivEventNotification').html(events);
@@ -253,7 +253,6 @@
             @(Html.Telerik().Upload()
         .Name("uploadPartner")
         .Multiple(false)
-
 )
 
             <p class="note">
