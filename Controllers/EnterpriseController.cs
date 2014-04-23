@@ -172,6 +172,43 @@ namespace Generic.Controllers
 
         }
 
+        public product GetProduct(int productId)
+        {
+            product objProduct = new product();
+            try
+            {
+                objProduct = db.pr_getProduct(productId).FirstOrDefault();
+            }
+            catch { }
+            return objProduct;
+
+        }
+        public subscriptionType GetSubscriptionType(int SubscriptionTypeId)
+        {
+            subscriptionType objSubscriptionType = new subscriptionType();
+            try
+            {
+                objSubscriptionType = db.pr_getSubscriptiontype(SubscriptionTypeId).FirstOrDefault();
+            }
+            catch { }
+            return objSubscriptionType;
+
+        }
+
+        public subscriptionStatus GetSubscriptionStatus(int SubscriptionStatusId)
+        {
+            subscriptionStatus objSubscriptionStatus = new subscriptionStatus();
+            try
+            {
+                objSubscriptionStatus = db.pr_getSubscriptionStatus(SubscriptionStatusId).FirstOrDefault();
+            }
+            catch { }
+            return objSubscriptionStatus;
+
+        }
+
+       
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

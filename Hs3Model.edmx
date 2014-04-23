@@ -9984,7 +9984,7 @@
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
             <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getProduct" ReturnType="Collection(hs3MVCMTQa2Model.pr_getProduct_Result)">
+          <FunctionImport Name="pr_getProduct" EntitySet="product" ReturnType="Collection(hs3MVCMTQa2Model.product)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getProductAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getProductAll_Result)" />
@@ -9995,8 +9995,8 @@
             <Parameter Name="question" Mode="In" Type="Int32" />
             <Parameter Name="partnumberSiteZcodePPTQ" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getSubscriptiontype" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptiontype_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <FunctionImport Name="pr_getSubscriptiontype" EntitySet="subscriptionType" ReturnType="Collection(hs3MVCMTQa2Model.subscriptionType)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSubscriptiontypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptiontypeAll_Result)" />
           <FunctionImport Name="pr_modifyProduct">
@@ -10060,11 +10060,11 @@
           <FunctionImport Name="pr_getResponseByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getResponseByQuestionnaire_Result)">
           <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getSubscriptionStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptionStatus_Result)">
+          <FunctionImport Name="pr_getSubscriptionStatus" EntitySet="subscriptionStatus" ReturnType="Collection(hs3MVCMTQa2Model.subscriptionStatus)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getSubscriptionStatusAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptionStatusAll_Result)" />
-          <FunctionImport Name="pr_getSubscriptionType1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptionType1_Result)">
+          <FunctionImport Name="pr_getSubscriptionStatusAll" EntitySet="subscriptionStatus" ReturnType="Collection(hs3MVCMTQa2Model.subscriptionStatus)" />
+          <FunctionImport Name="pr_getSubscriptionType1" EntitySet="subscriptionType" ReturnType="Collection(hs3MVCMTQa2Model.subscriptionType)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSubscriptionTypeAll1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSubscriptionTypeAll1_Result)" />
@@ -20739,21 +20739,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getProduct" FunctionName="hs3MVCMTQa2Model.Store.pr_getProduct">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getProduct_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="productNumber" ColumnName="productNumber" />
-                <ScalarProperty Name="inhouse" ColumnName="inhouse" />
-                <ScalarProperty Name="salable" ColumnName="salable" />
-                <ScalarProperty Name="ourCost" ColumnName="ourCost" />
-                <ScalarProperty Name="listPrice" ColumnName="listPrice" />
-                <ScalarProperty Name="sellingPrice" ColumnName="sellingPrice" />
-                <ScalarProperty Name="productLine" ColumnName="productLine" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getProductAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getProductAll">
             <ResultMapping>
@@ -20891,34 +20876,10 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getSubscriptionStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptionStatus">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSubscriptionStatus_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getSubscriptionStatusAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptionStatusAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSubscriptionStatusAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getSubscriptionType1" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptionType">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSubscriptionType1_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getSubscriptionTypeAll1" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptionTypeAll">
             <ResultMapping>
@@ -21606,6 +21567,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptionType" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

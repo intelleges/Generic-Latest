@@ -10732,13 +10732,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerStatusCountByTouchpointQuestionnaire_Result>("pr_getPartnerStatusCountByTouchpointQuestionnaire", touchpointParameter, questionnaireParameter);
         }
     
-        public virtual ObjectResult<pr_getProduct_Result> pr_getProduct(Nullable<int> id)
+        public virtual ObjectResult<product> pr_getProduct(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getProduct_Result>("pr_getProduct", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<product>("pr_getProduct", idParameter);
+        }
+    
+        public virtual ObjectResult<product> pr_getProduct(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<product>("pr_getProduct", mergeOption, idParameter);
         }
     
         public virtual ObjectResult<pr_getProductAll_Result> pr_getProductAll()
@@ -10768,13 +10777,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ_Result>("pr_getResponseByQuestionAndPartnumberSiteZcodePPTQ", questionParameter, partnumberSiteZcodePPTQParameter);
         }
     
-        public virtual ObjectResult<pr_getSubscriptiontype_Result> pr_getSubscriptiontype(Nullable<int> id)
+        public virtual ObjectResult<subscriptionType> pr_getSubscriptiontype(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSubscriptiontype_Result>("pr_getSubscriptiontype", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<subscriptionType>("pr_getSubscriptiontype", idParameter);
+        }
+    
+        public virtual ObjectResult<subscriptionType> pr_getSubscriptiontype(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<subscriptionType>("pr_getSubscriptiontype", mergeOption, idParameter);
         }
     
         public virtual ObjectResult<pr_getSubscriptiontypeAll_Result> pr_getSubscriptiontypeAll()
@@ -10967,27 +10985,50 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getResponseByQuestionnaire_Result>("pr_getResponseByQuestionnaire", questionnaireParameter);
         }
     
-        public virtual ObjectResult<pr_getSubscriptionStatus_Result> pr_getSubscriptionStatus(Nullable<int> id)
+        public virtual ObjectResult<subscriptionStatus> pr_getSubscriptionStatus(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSubscriptionStatus_Result>("pr_getSubscriptionStatus", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<subscriptionStatus>("pr_getSubscriptionStatus", idParameter);
         }
     
-        public virtual ObjectResult<pr_getSubscriptionStatusAll_Result> pr_getSubscriptionStatusAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSubscriptionStatusAll_Result>("pr_getSubscriptionStatusAll");
-        }
-    
-        public virtual ObjectResult<pr_getSubscriptionType1_Result> pr_getSubscriptionType1(Nullable<int> id)
+        public virtual ObjectResult<subscriptionStatus> pr_getSubscriptionStatus(Nullable<int> id, MergeOption mergeOption)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSubscriptionType1_Result>("pr_getSubscriptionType1", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<subscriptionStatus>("pr_getSubscriptionStatus", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<subscriptionStatus> pr_getSubscriptionStatusAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<subscriptionStatus>("pr_getSubscriptionStatusAll");
+        }
+    
+        public virtual ObjectResult<subscriptionStatus> pr_getSubscriptionStatusAll(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<subscriptionStatus>("pr_getSubscriptionStatusAll", mergeOption);
+        }
+    
+        public virtual ObjectResult<subscriptionType> pr_getSubscriptionType1(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<subscriptionType>("pr_getSubscriptionType1", idParameter);
+        }
+    
+        public virtual ObjectResult<subscriptionType> pr_getSubscriptionType1(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<subscriptionType>("pr_getSubscriptionType1", mergeOption, idParameter);
         }
     
         public virtual ObjectResult<pr_getSubscriptionTypeAll1_Result> pr_getSubscriptionTypeAll1()

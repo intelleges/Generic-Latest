@@ -1,6 +1,7 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.person>>
 @using System.Web.Mvc.Html
 @using Telerik.Web.Mvc.UI;
+
 @using Generic.Helpers
 @{
     Layout = Generic.Helpers.LayoutHelper.GetLayout();
@@ -17,29 +18,42 @@
 
 
 
-
 @( Html.Telerik().Grid(Model).Name("PersonGrid")
         .Columns(columns =>
         {
+
+
             //columns.Bound(o => o.nmNumber).Width(100);
 
             //columns.Bound(o => o.socialSecurity).Width(100);
 
-            columns.Bound(o => o.firstName).Width(100).Title("First Name");
 
-            columns.Bound(o => o.lastName).Width(100).Title("Last Name");
+            columns.Template(@<text>  @System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(item.firstName)
 
-            columns.Bound(o => o.email).Width(200).Title("Email"); 
+</text>).Width(100).Title("First Name");
+            columns.Template(@<text>  @System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(item.lastName)
 
-            columns.Bound(o => o.phone).Width(100).Title("Phone"); 
+</text>).Width(100).Title("Last Name");
+            //  columns.Bound(o => o.firstName).Width(100).Title("First Name");
 
-            columns.Template(x => 0).Title("Last Login Date").Width(150); 
+            //  columns.Bound(o => o.lastName).Width(100).Title("Last Name");
 
-            columns.Template(x => 0).Title("% Complete").Width(100); 
+            //  columns.Bound(o => o.email).Width(200).Title("Email");
+            columns.Template(@<text> <a href = "mailto:@item.email" >@item.email</a>
+
+</text>).Width(200).Title("Email");
+            columns.Bound(o => o.phone).Width(100).Title("Phone");
+
+            // columns.Template(x => 0).Title("Last Login Date").Width(150);
+
+            columns.Template(@<text> <a href="http://google.com">0 </a>
+</text>).Title("Last Login Date").Width(150); ;
+
+            columns.Template(x => 0).Title("% Complete").Width(100);
             columns.Template(x => 0).Title("% Incomplete").Width(130);
-            columns.Template(x => 0).Title("% No Response").Width(100); 
-            columns.Template(x => 0).Title("Open Alerts").Width(100); 
-            columns.Template(x => 0).Title("Group").Width(100); 
+            columns.Template(x => 0).Title("% No Response").Width(100);
+            columns.Template(x => 0).Title("Open Alerts").Width(100);
+            columns.Template(x => 0).Title("Group").Width(100);
 
 
             //columns.Bound(o => o.title).Width(100);
@@ -78,7 +92,7 @@
             columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details");
             columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete");
         })
-        .Pageable()
+.Pageable()
         .Sortable().Scrollable(scrolling => scrolling
            .Enabled(true)
            .Height(300))

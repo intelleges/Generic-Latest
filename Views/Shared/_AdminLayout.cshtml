@@ -8,13 +8,18 @@
 
     string EnterpriseName = string.Empty;
     string LoginName = string.Empty;
-
-
+    string ProductName = string.Empty;
+    string SubscriptionTypeName = string.Empty;
+    string SubscriptionStatusName = string.Empty;
     try
     {
         Generic.Controllers.EnterpriseController objEnterpriseController = new Generic.Controllers.EnterpriseController();
-        EnterpriseName = objEnterpriseController.GetEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).description;
-
+        Generic.enterprise objEnterprise = objEnterpriseController.GetEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID);
+        EnterpriseName = objEnterprise.description;
+        ProductName = objEnterpriseController.GetProduct((int)objEnterprise.product).description;
+        SubscriptionTypeName = objEnterpriseController.GetSubscriptionType((int)objEnterprise.subscriptionType).description;
+        SubscriptionStatusName = objEnterpriseController.GetSubscriptionStatus((int)objEnterprise.subscriptionStatus).description;
+        
         Generic.Controllers.PersonController objPersonController = new Generic.Controllers.PersonController();
 
         Generic.person objPerson = objPersonController.GetPerson(User.Identity.Name);
@@ -80,19 +85,21 @@
                 <div>
                     <div class="admin-logo">
                         <p class="site-title">
-                            <a href="@Url.Content(" ~ />Admin/Home")" >@Html.Action("IntellegesLogo", "Admin")   </a>
+                            @*@Url.Content(" ~ />Admin/Home")*@
+                            <a id="IntellegesLogoHref" href="#" >@Html.Action("IntellegesLogo", "Admin")   </a>
                         </p>
                     </div>
 
                     <div style="float: left; top: -20px; position: relative; left: 20px;">
-                        <h1>STANDARD EDITION</h1>
+                       @* <h1>STANDARD EDITION</h1>*@
                     </div>
 
 
                     <div class="admin-nav-about">
                         <nav>
                             <ul id="menu">
-                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                               
+                                <li>@Html.ActionLink("Home", "Icons", "Admin")</li>
                                 <li>@Html.ActionLink("About", "About", "Home")</li>
                                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                             </ul>
@@ -103,7 +110,7 @@
 
                 @*<div class="clear-fix"></div>*@
 
-                <div style="float: right">Hello, @LoginName, @EnterpriseName </div>
+                <div style="float: right">Hello, @LoginName - @EnterpriseName -- @ProductName, @SubscriptionTypeName, @SubscriptionStatusName</div>
                 <div class="clear-fix"></div>
 
                 @Html.Action("Menu", "Admin")
@@ -200,6 +207,27 @@
     <script type="text/javascript">
         jQuery.noConflict();
         jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
+        $(document).ready(function () {
+            $('#IntellegesLogoHref').click(function () {
+                alertify.set({
+                    labels: {
+                        ok: "Yes",
+                        cancel: "No"
+                    }
+                });
+                // button labels will be "Accept" and "Deny"
+                alertify.confirm("You are about to leave the Intelleges Compliance Process Automation Platform and visit www.intelleges.com. Is that OK?", function (e) {
+                    if (e) {
+                        // user clicked "ok"
+                        window.location.replace("https://intelleges.com");
+                    } else {
+                        // user clicked "cancel"
+                    }
+                });
+            });
+        });
+
+        //
     </script>
 
 
