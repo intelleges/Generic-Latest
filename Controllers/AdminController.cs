@@ -95,6 +95,25 @@ namespace Generic.Controllers
 
         }
 
+
+
+        public virtual ActionResult Logout()
+        {
+
+            //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
+            //FormsAuthentication.RedirectToLoginPage();
+
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+
+            return RedirectToAction("Index");
+            //}
+
+
+        }
+
+
+
         [Authorize]
         public virtual ActionResult Home()
         {
@@ -108,7 +127,7 @@ namespace Generic.Controllers
 
                 pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
                 string pieChartData = "['Status','Count'],";
-                pieChartData += "['Completed'," + objCount.Completed+ "],";
+                pieChartData += "['Completed'," + objCount.Completed + "],";
                 pieChartData += "['Incomplete'," + objCount.Incomplete + "],";
                 pieChartData += "['Not Started'," + objCount.Not_Started + "]";
 

@@ -19,7 +19,7 @@
         ProductName = objEnterpriseController.GetProduct((int)objEnterprise.product).description;
         SubscriptionTypeName = objEnterpriseController.GetSubscriptionType((int)objEnterprise.subscriptionType).description;
         SubscriptionStatusName = objEnterpriseController.GetSubscriptionStatus((int)objEnterprise.subscriptionStatus).description;
-        
+
         Generic.Controllers.PersonController objPersonController = new Generic.Controllers.PersonController();
 
         Generic.person objPerson = objPersonController.GetPerson(User.Identity.Name);
@@ -58,121 +58,122 @@
     .Orientation(SplitterOrientation.Vertical)
     .Panes(vPanes =>
     {
-    vPanes.Add()
+        vPanes.Add()
 
-    .Size("100px")
-    .Collapsible(true)
-    .Collapsed(true)
-    .Content(@<div>Nothing In Top Panel For Now5555</div>);
+        .Size("100px")
+        .Collapsible(true)
+        .Collapsed(true)
+        .Content(@<div>Nothing In Top Panel For Now5555</div>);
 
-    vPanes.Add()
-    .Scrollable(false)
-    .Content(Html.Telerik().Splitter().Name("Splitter2")
-    .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; overflow: hidden;" })
-    .Orientation(SplitterOrientation.Horizontal)
-    .Panes(hPanes =>
-    {
-    hPanes.Add()
-    .Size("150px")
-    .Collapsible(true).Collapsed(true)
-    .Content(@<p>Inner splitter :: left pane</p>);
+        vPanes.Add()
+        .Scrollable(false)
+        .Content(Html.Telerik().Splitter().Name("Splitter2")
+        .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; overflow: hidden;" })
+        .Orientation(SplitterOrientation.Horizontal)
+        .Panes(hPanes =>
+        {
+            hPanes.Add()
+            .Size("150px")
+            .Collapsible(true).Collapsed(true)
+            .Content(@<p>Inner splitter :: left pane</p>);
 
-    hPanes.Add()
-    .Content(@<div id="body">
-        @RenderSection("featured", required: false)
-        <header>
-            <div class="content-wrapper main-content clear-fix">
-                <div>
-                    <div class="admin-logo">
-                        <p class="site-title">
-                            @*@Url.Content(" ~ />Admin/Home")*@
-                            <a id="IntellegesLogoHref" href="#" >@Html.Action("IntellegesLogo", "Admin")   </a>
-                        </p>
+            hPanes.Add()
+            .Content(@<div id="body">
+                @RenderSection("featured", required: false)
+                <header>
+                    <div class="content-wrapper main-content clear-fix">
+                        <div>
+                            <div class="admin-logo">
+                                <p class="site-title">
+                                    @*@Url.Content(" ~ />Admin/Home")*@
+                                    <a id="IntellegesLogoHref" href="#">@Html.Action("IntellegesLogo", "Admin")   </a>
+                                </p>
+                            </div>
+
+                            <div style="float: left; top: -20px; position: relative; left: 20px;">
+                                @* <h1>STANDARD EDITION</h1>*@
+                            </div>
+
+
+                            <div class="admin-nav-about">
+                                <nav>
+                                    <ul id="menu">
+
+                                        <li>@Html.ActionLink("Home", "Icons", "Admin")</li>
+                                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                                        <li>@Html.ActionLink("Logout", "Logout", "Admin")</li>
+                                    </ul>
+                                </nav>
+                            </div>
+
+                        </div>
+
+                        @*<div class="clear-fix"></div>*@
+
+                        <div style="float: right">Hello, @LoginName - @EnterpriseName -- @ProductName, @SubscriptionTypeName, @SubscriptionStatusName</div>
+                        <div class="clear-fix"></div>
+
+                        @Html.Action("Menu", "Admin")
+
+
+
+
+                    </div>
+                </header>
+                <section class="content-wrapper main-content clear-fix">
+
+
+                    <div style="margin-top: -20px;">
+
+                        <a href="@Url.Content("~/Admin/View1")">View 1</a>
+                        <a href="@Url.Content("~/Admin/View2")">View 2</a>
+                        <a href="@Url.Content("~/Admin/View3")">View 3</a>
+                        <a href="@Url.Content("~/Admin/View4")">View 4</a>
+
+                        <a href="#">Dashboard</a>
+                        <a href="@Url.Content("~/Admin/Icons")">Icons</a>
+
+
+                        <a href="#">Welcome</a>
+
+                        <a href="#">Change Password</a>
+
+                        <a href="#">Home Page</a>
+
                     </div>
 
-                    <div style="float: left; top: -20px; position: relative; left: 20px;">
-                       @* <h1>STANDARD EDITION</h1>*@
-                    </div>
 
 
-                    <div class="admin-nav-about">
-                        <nav>
-                            <ul id="menu">
-                               
-                                <li>@Html.ActionLink("Home", "Icons", "Admin")</li>
-                                <li>@Html.ActionLink("About", "About", "Home")</li>
-                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                            </ul>
-                        </nav>
-                    </div>
+                    @RenderBody()
+                </section>
+            </div>);
 
+            hPanes.Add()
+            .Size("20%")
+            .Collapsible(true).Collapsed(true)
+            .Content(@<p>Inner splitter :: right pane</p>);
+        }).ToString());
+
+        vPanes.Add()
+        .Size("20%")
+        .Collapsible(true).Collapsed(true)
+        .Content(@<footer>
+            <div class="content-wrapper">
+
+                <div class="float-left">
+                    <p>
+                        <div class="admin-touchpoints">
+                            Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
+                        </div>
+                    </p>
                 </div>
 
-                @*<div class="clear-fix"></div>*@
-
-                <div style="float: right">Hello, @LoginName - @EnterpriseName -- @ProductName, @SubscriptionTypeName, @SubscriptionStatusName</div>
-                <div class="clear-fix"></div>
-
-                @Html.Action("Menu", "Admin")
-
-
-
-
+                <div class="float-right">
+                    <p>&copy; @DateTime.Now.Year - Intelleges</p>
+                </div>
             </div>
-        </header>
-        <section class="content-wrapper main-content clear-fix">
-
-
-            <div style="margin-top: -20px;">
-
-                <a href="@Url.Content("~/Admin/View1")">View 1</a>
-                <a href="@Url.Content("~/Admin/View2")">View 2</a>
-                <a href="@Url.Content("~/Admin/View3")">View 3</a>
-                <a href="@Url.Content("~/Admin/View4")">View 4</a>
-
-                <a href="#">Dashboard</a>
-                <a href="@Url.Content("~/Admin/Icons")">Icons</a>
-
-
-                <a href="#">Welcome</a>
-
-                <a href="#">Change Password</a>
-
-                <a href="#">Home Page</a>
-
-            </div>
-
-
-
-            @RenderBody()
-        </section>
-    </div>);
-
-    hPanes.Add()
-    .Size("20%")
-    .Collapsible(true).Collapsed(true)
-    .Content(@<p>Inner splitter :: right pane</p>);
-    }).ToString());
-
-    vPanes.Add()
-    .Size("20%")
-    .Collapsible(true).Collapsed(true)
-    .Content(@<footer>
-        <div class="content-wrapper">
-
-            <div class="float-left">
-                <p>
-                    <div class="admin-touchpoints">
-                        Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
-                    </div>
-                </p>
-            </div>
-
-            <div class="float-right">
-                <p>&copy; @DateTime.Now.Year - Intelleges</p>
-            </div>
-        </div>
-    </footer>);
+        </footer>);
     })
     .Render();
     }
@@ -237,7 +238,7 @@
     .Compress(true)
     )
     .OnDocumentReady(@<text>
-        var splitter = $('#FullScreen').data('tSplitter');
+    var splitter = $('#FullScreen').data('tSplitter');
 
         $(window).bind('resize', function() {
         splitter.resize();
