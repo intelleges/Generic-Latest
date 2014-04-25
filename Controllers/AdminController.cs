@@ -82,7 +82,7 @@ namespace Generic.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    ModelState.AddModelError("LoginFailed", "The user name or password provided is incorrect.");
                 }
             }
 
