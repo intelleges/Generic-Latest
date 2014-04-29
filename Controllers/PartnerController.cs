@@ -220,7 +220,10 @@ namespace Generic.Controllers
 
             //int i = 1;
 
-            List<int> uploadedpartners = new List<int>();
+            //List<int> uploadedpartners = new List<int>();
+            List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
+
+
             string loadGroup = db.pr_getAccesscode().FirstOrDefault();
             foreach (var partners in partnerinExcel.ToList())
             {
@@ -244,7 +247,7 @@ namespace Generic.Controllers
                     using (var context = new EntitiesDBContext())
                     {
                         int? PartnerId = context.pr_addPartnerSpreadsheetDataLoad(partners.internalID, partners.PARTNER_SAP_ID, partners.name, partners.address1, partners.address2, partners.city, stateIdSpreadSheet, partners.zipcode, countryIdSpreadsheet, partners.firstName, partners.lastName, partners.title, partners.phone, partners.email, partners.RO_FIRST_NAME, partners.RO_LAST_NAME, partners.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup).ToList().FirstOrDefault();
-                        uploadedpartners.Add(int.Parse(PartnerId.ToString()));
+                        uploadedpartners.Add(new Tuple<int,string>( int.Parse(PartnerId.ToString()),""));
                     }
 
 
@@ -301,6 +304,7 @@ namespace Generic.Controllers
             Session["uploadedpartnerList"] = uploadedpartners;
             Session["partnertype"] = partnertype;
             Session["touchpoint"] = touchpoint;
+            Session["loadGroup"] = loadGroup;
             ViewBag.Message = "1";
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
@@ -316,32 +320,38 @@ namespace Generic.Controllers
             int partnertype = (int)Session["partnertype"];
             int touchpoint = (int)Session["touchpoint"];
 
+            string loadGroup =(string)Session["loadGroup"];
+            
+
             string message = string.Empty;
-            if (Session["uploadedpartnerList"] != null)
+            if (Session["loadGroup"] != null)
             {
-                List<int> uploadedpartnerList = (List<int>)Session["uploadedpartnerList"];
+              //  List<Tuple<int, string>> uploadedpartnerList = (List<Tuple<int, string>>)Session["uploadedpartnerList"];
+              //  List<int> uploadedpartnerList = (List<int>)Session["uploadedpartnerList"];
+
+                var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).ToList();
 
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
                 // db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire
                 // db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire()
-                foreach (int partnerId in uploadedpartnerList.Distinct())
+                foreach (var partnerItem in objPartners)
                 {
 
 
-                    var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerId, ptq).FirstOrDefault();
+                    var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerItem.partner, ptq).FirstOrDefault();
                     pptq.invitedDate = DateTime.Now;
                     var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
                     pptq.invitedBy = person.id;
                     db.Entry(pptq).State = EntityState.Modified;
                     db.SaveChanges();
 
-                    var objpartner = db.pr_getPartner(partnerId).FirstOrDefault();
+                    var objpartner = db.pr_getPartner(partnerItem.partner).FirstOrDefault();
                     objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
                     db.Entry(objpartner).State = EntityState.Modified;
                     db.SaveChanges();
 
                     var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
-
+                    amm.text.Replace("[partner Access Code]", partnerItem.accesscode);
                     var objtouchpoint = db.pr_getTouchpoint(touchpoint).FirstOrDefault();
                     Email email = new Email(amm);
 
@@ -599,7 +609,11 @@ namespace Generic.Controllers
 
             //int i = 1;
 
-            List<int> uploadedpartners = new List<int>();
+            List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
+
+            //uploadedpartners.Add(new Tuple<int, string>(1, "1"));
+            //uploadedpartners.ToList().FirstOrDefault().Item1;
+
             string loadGroup = db.pr_getAccesscode().FirstOrDefault();
             foreach (var partnumbers in partnerinExcel.ToList())
             {
@@ -623,7 +637,8 @@ namespace Generic.Controllers
                     using (var context = new EntitiesDBContext())
                     {
 
-                        var objReturnResult = context.pr_addPartnumberSpreadsheetDataLoad(partnumbers.internalID, partnumbers.dunsNumber, partnumbers.name, partnumbers.address1, partnumbers.address2, partnumbers.city, stateIdSpreadSheet, partnumbers.zipcode, countryIdSpreadsheet, partnumbers.firstName, partnumbers.lastName, partnumbers.title, partnumbers.phone, partnumbers.email, partnumbers.INTERNAL_SITE_ID, partnumbers.SAP_SITE, partnumbers.SAP_PLANT_CODE, partnumbers.SITE_NAME, partnumbers.PART_NUMBER_SAP, partnumbers.PART_NUMBER_INTERNAL, partnumbers.SUB_COMMODITY_OWNER, partnumbers.CENTER_OF_EXCELLENCE, partnumbers.RO_FIRST_NAME, partnumbers.RO_LAST_NAME, partnumbers.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup).ToList();
+                        int? PartnerID = context.pr_addPartnumberSpreadsheetDataLoad(partnumbers.internalID, partnumbers.dunsNumber, partnumbers.name, partnumbers.address1, partnumbers.address2, partnumbers.city, stateIdSpreadSheet, partnumbers.zipcode, countryIdSpreadsheet, partnumbers.firstName, partnumbers.lastName, partnumbers.title, partnumbers.phone, partnumbers.email, partnumbers.INTERNAL_SITE_ID, partnumbers.SAP_SITE, partnumbers.SAP_PLANT_CODE, partnumbers.SITE_NAME, partnumbers.PART_NUMBER_SAP, partnumbers.PART_NUMBER_INTERNAL, partnumbers.SUB_COMMODITY_OWNER, partnumbers.CENTER_OF_EXCELLENCE, partnumbers.RO_FIRST_NAME, partnumbers.RO_LAST_NAME, partnumbers.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup).ToList().FirstOrDefault();
+                        uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerID.ToString()), partnumbers.PARTNER_SAP_ID));
                     }
                 }
 
@@ -786,17 +801,18 @@ namespace Generic.Controllers
                 //  }
             }
 
-            List<partner> objPartners = db.pr_getPartnerForPartnumberEmailSendByLoadGroup(loadGroup).ToList();
-            foreach (partner item in objPartners)
-            {
-                uploadedpartners.Add(item.id);
-            }
+            //List<partner> objPartners = db.pr_getPartnerForPartnumberEmailSendByLoadGroup(loadGroup).ToList();
+            //foreach (partner item in objPartners)
+            //{
+            //    uploadedpartners.Add(item.id);
+            //}
 
 
             Session["uploadedpartnerList"] = uploadedpartners;
             Session["partnertype"] = partnertype;
             Session["touchpoint"] = touchpoint;
             Session["loadgroup"] = loadGroup;
+            
             ViewBag.Message = "1";
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");

@@ -933,6 +933,9 @@
     <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireByInvitedByPerson_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ1_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

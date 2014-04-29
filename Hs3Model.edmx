@@ -1240,6 +1240,7 @@
           <Property Name="pdf" Type="varbinary(max)" />
           <Property Name="docFolderAddress" Type="varchar" MaxLength="500" />
           <Property Name="score" Type="decimal" />
+          <Property Name="loadGroup" Type="varchar" MaxLength="8" />
         </EntityType>
         <EntityType Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
           <Key>
@@ -4154,6 +4155,7 @@
           <Parameter Name="pdf" Type="varbinary" Mode="In" />
           <Parameter Name="docFolderAddress" Type="varchar" Mode="In" />
           <Parameter Name="score" Type="decimal" Mode="In" />
+          <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
@@ -5063,6 +5065,9 @@
         <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByInvitedByPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loadgroup" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
@@ -5866,6 +5871,7 @@
           <Parameter Name="pdf" Type="varbinary" Mode="In" />
           <Parameter Name="docFolderAddress" Type="varchar" Mode="In" />
           <Parameter Name="score" Type="decimal" Mode="In" />
+          <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -7517,6 +7523,7 @@
             <Parameter Name="pdf" Mode="In" Type="Binary" />
             <Parameter Name="docFolderAddress" Mode="In" Type="String" />
             <Parameter Name="score" Mode="In" Type="Decimal" />
+            <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" ReturnType="Collection(Decimal)">
             <Parameter Name="question" Mode="In" Type="Int32" />
@@ -8706,6 +8713,7 @@
             <Parameter Name="pdf" Mode="In" Type="Binary" />
             <Parameter Name="docFolderAddress" Mode="In" Type="String" />
             <Parameter Name="score" Mode="In" Type="Decimal" />
+            <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -10515,6 +10523,9 @@
             <Parameter Name="loadGroup" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getEventNotificationByLoadGroup" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByLoadGroup_Result)">
+          <Parameter Name="loadgroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup_Result)">
             <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           
@@ -11104,6 +11115,7 @@
           <Property Name="status" Nullable="false" Type="Int32" />
           <NavigationProperty Name="automailMessagePPTQ" Relationship="hs3MVCMTQa2Model.FK_automailMessagePPTQ_partnerPartnertypeTouchpointQuestionnaire" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="automailMessagePPTQ" />
           <NavigationProperty Name="partnerStatus" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_partnerStatus" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="partnerStatus" />
+          <Property Type="String" Name="loadGroup" MaxLength="8" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
           <Key>
@@ -16713,6 +16725,11 @@
           <Property Type="Int32" Name="enterprise" Nullable="true" />
           <Property Type="String" Name="loadgroup" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup_Result">
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -17868,6 +17885,7 @@
           <EntitySetMapping Name="partnerPartnertypeTouchpointQuestionnaire">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire">
               <MappingFragment StoreEntitySet="partnerPartnertypeTouchpointQuestionnaire">
+                <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="partner" ColumnName="partner" />
@@ -17886,6 +17904,7 @@
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire">
               <ModificationFunctionMapping>
                 <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerPartnertypeTouchpointQuestionnaire">
+                  <ScalarProperty Name="loadGroup" ParameterName="loadgroup" />
                   <ScalarProperty Name="status" ParameterName="status" />
                   <ScalarProperty Name="score" ParameterName="score" />
                   <ScalarProperty Name="docFolderAddress" ParameterName="docFolderAddress" />
@@ -17901,6 +17920,7 @@
                   <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerPartnertypeTouchpointQuestionnaire">
+                  <ScalarProperty Name="loadGroup" ParameterName="loadgroup" Version="Current" />
                   <ScalarProperty Name="status" ParameterName="status" Version="Current" />
                   <ScalarProperty Name="score" ParameterName="score" Version="Current" />
                   <ScalarProperty Name="docFolderAddress" ParameterName="docFolderAddress" Version="Current" />
@@ -21568,6 +21588,15 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getSubscriptiontype" FunctionName="hs3MVCMTQa2Model.Store.pr_getSubscriptionType" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup_Result">
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
