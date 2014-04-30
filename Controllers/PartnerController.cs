@@ -352,6 +352,12 @@ namespace Generic.Controllers
 
                     var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
                     amm.text.Replace("[partner Access Code]", partnerItem.accesscode);
+
+                    var objpartnerByAccessCode =  db.pr_getPartnumberSpreadsheetDataLoadByAccessCode(partnerItem.accesscode).FirstOrDefault();
+                    if (objpartnerByAccessCode.dueDate.HasValue == true)
+                    {
+                        amm.text.Replace("[Due Date]", objpartnerByAccessCode.dueDate.Value.ToString("MMM, dd, yyyy"));
+                    }
                     var objtouchpoint = db.pr_getTouchpoint(touchpoint).FirstOrDefault();
                     Email email = new Email(amm);
 
