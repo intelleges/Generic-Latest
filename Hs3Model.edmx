@@ -1611,6 +1611,7 @@
           <Property Name="person" Type="int" Nullable="false" />
           <Property Name="partnumberSpreadsheetDataLoadStatus" Type="int" />
           <Property Name="loadGroup" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="dueDate" Type="date" />
         </EntityType>
         <EntityType Name="partnumberSpreadsheetDataLoadStatus">
           <Key>
@@ -4290,6 +4291,7 @@
           <Parameter Name="person" Type="int" Mode="In" />
           <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Type="int" Mode="In" />
           <Parameter Name="loadGroup" Type="varchar" Mode="In" />
+          <Parameter Name="dueDate" Type="date" Mode="In" />
         </Function>
         <Function Name="pr_addPartnumberSpreadsheetDataLoadstatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -5976,6 +5978,7 @@
           <Parameter Name="person" Type="int" Mode="In" />
           <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Type="int" Mode="In" />
           <Parameter Name="loadGroup" Type="varchar" Mode="In" />
+          <Parameter Name="dueDate" Type="date" Mode="In" />
         </Function>
         <Function Name="pr_modifyPartnumberSpreadsheetDataLoadstatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -10325,6 +10328,7 @@
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
             <Parameter Name="loadGroup" Mode="In" Type="String" />
+            <Parameter Name="dueDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="pr_addPartnumberSpreadsheetDataLoadstatus" ReturnType="Collection(Decimal)">
             <Parameter Name="description" Mode="In" Type="String" />
@@ -10382,6 +10386,7 @@
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
             <Parameter Name="loadGroup" Mode="In" Type="String" />
+            <Parameter Name="dueDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyPartnumberSpreadsheetDataLoadstatus">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -10526,7 +10531,7 @@
           <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup_Result)">
-            <Parameter Name="loadgroup" Mode="In" Type="String" />
+          <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -16342,6 +16347,7 @@
           <NavigationProperty Name="partnerType1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D" FromRole="partnumberSpreadsheetDataLoad" ToRole="partnerType" />
           <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F" FromRole="partnumberSpreadsheetDataLoad" ToRole="person" />
           <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" FromRole="partnumberSpreadsheetDataLoad" ToRole="touchpoint" />
+          <Property Type="DateTime" Name="dueDate" Precision="0" />
         </EntityType>
         <EntityType Name="partnumberSpreadsheetDataLoadStatus">
           <Key>
@@ -21315,6 +21321,7 @@
           <EntitySetMapping Name="partnumberSpreadsheetDataLoad">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad">
               <MappingFragment StoreEntitySet="partnumberSpreadsheetDataLoad">
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
                 <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
                 <ScalarProperty Name="partnumberSpreadsheetDataLoadStatus" ColumnName="partnumberSpreadsheetDataLoadStatus" />
                 <ScalarProperty Name="person" ColumnName="person" />
@@ -21353,6 +21360,7 @@
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad">
               <ModificationFunctionMapping>
                 <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberSpreadsheetDataLoad">
+                  <ScalarProperty Name="dueDate" ParameterName="dueDate" />
                   <ScalarProperty Name="partnumberSpreadsheetDataLoadStatus" ParameterName="PartnumberSpreadsheetDataLoadStatus" />
                   <ScalarProperty Name="loadGroup" ParameterName="loadGroup" />
                   <ScalarProperty Name="person" ParameterName="person" />
@@ -21388,6 +21396,7 @@
                   <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnumberSpreadsheetDataLoad">
+                  <ScalarProperty Name="dueDate" ParameterName="dueDate" Version="Current" />
                   <ScalarProperty Name="partnumberSpreadsheetDataLoadStatus" ParameterName="PartnumberSpreadsheetDataLoadStatus" Version="Current" />
                   <ScalarProperty Name="loadGroup" ParameterName="loadGroup" Version="Current" />
                   <ScalarProperty Name="person" ParameterName="person" Version="Current" />
