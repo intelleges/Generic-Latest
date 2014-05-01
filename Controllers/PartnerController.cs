@@ -356,8 +356,9 @@ namespace Generic.Controllers
                     var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(partnerItem.accesscode, loadGroup).FirstOrDefault();
                    
                     if (objpartnerByAccessCode != null)
-                    {                        
-                            amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));                        
+                    {               
+                        
+                         amm.text =   amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));                        
                     }
 
                     var objtouchpoint = db.pr_getTouchpoint(touchpoint).FirstOrDefault();
