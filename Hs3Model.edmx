@@ -5083,6 +5083,10 @@
         <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+          <Parameter Name="loadgroup" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -10532,6 +10536,10 @@
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup_Result)">
           <Parameter Name="loadgroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode" ReturnType="Collection(DateTime)">
+            <Parameter Name="accesscode" Mode="In" Type="String" />
+            <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -21606,6 +21614,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -12490,5 +12490,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup_Result>("pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup", loadgroupParameter);
         }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(string accesscode, string loadgroup)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            var loadgroupParameter = loadgroup != null ?
+                new ObjectParameter("loadgroup", loadgroup) :
+                new ObjectParameter("loadgroup", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode", accesscodeParameter, loadgroupParameter);
+        }
     }
 }
