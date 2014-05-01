@@ -10295,7 +10295,7 @@
             <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
           </AssociationSet>
-          <FunctionImport Name="pr_addPartnumberSpreadsheetDataLoad" ReturnType="Collection(Decimal)">
+          <FunctionImport Name="pr_addPartnumberSpreadsheetDataLoad" ReturnType="Collection(Int32)">
             <Parameter Name="partner_internal_id" Mode="In" Type="String" />
             <Parameter Name="partner_sap_id" Mode="In" Type="String" />
             <Parameter Name="partner_name" Mode="In" Type="String" />
