@@ -12503,5 +12503,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode", accesscodeParameter, loadgroupParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnumberSpreadsheetDataLoadReport_Result> pr_getPartnumberSpreadsheetDataLoadReport(Nullable<int> enterprise, Nullable<int> ptq)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSpreadsheetDataLoadReport_Result>("pr_getPartnumberSpreadsheetDataLoadReport", enterpriseParameter, ptqParameter);
+        }
     }
 }

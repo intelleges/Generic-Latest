@@ -5196,6 +5196,10 @@
         <Function Name="pr_getPartnumberSpreadsheetDataLoadByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnumberSpreadsheetDataLoadReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="ptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnumberSpreadsheetDataLoadstatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -10540,6 +10544,10 @@
           <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode" ReturnType="Collection(DateTime)">
             <Parameter Name="accesscode" Mode="In" Type="String" />
             <Parameter Name="loadgroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnumberSpreadsheetDataLoadReport" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberSpreadsheetDataLoadReport_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -16744,6 +16752,15 @@
           <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
           <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnumberSpreadsheetDataLoadReport_Result">
+          <Property Type="String" Name="PARTNER_ID" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="PARTNER_NAME" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ACCESSCODE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="sapid" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="loadgroup" Nullable="true" MaxLength="8" />
+          <Property Type="DateTime" Name="duedate" Nullable="true" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -21615,6 +21632,19 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnumberSpreadsheetDataLoadReport" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSpreadsheetDataLoadReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberSpreadsheetDataLoadReport_Result">
+                <ScalarProperty Name="PARTNER_ID" ColumnName="PARTNER_ID" />
+                <ScalarProperty Name="PARTNER_NAME" ColumnName="PARTNER_NAME" />
+                <ScalarProperty Name="ACCESSCODE" ColumnName="ACCESSCODE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="sapid" ColumnName="sapid" />
+                <ScalarProperty Name="loadgroup" ColumnName="loadgroup" />
+                <ScalarProperty Name="duedate" ColumnName="duedate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
