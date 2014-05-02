@@ -5,6 +5,17 @@ using System.Web;
 
 namespace Generic.Helpers.Questionnaire
 {
+
+    enum Responses
+    {
+        YES = 74,
+        NO = 75,
+        NA = 76,
+        COTS = 77,
+        Pass = 78,
+        End = 79
+    }
+
     public static class CommentType
     {
         public const int YN_WARNING_N = 1;

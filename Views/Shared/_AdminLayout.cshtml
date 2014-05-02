@@ -212,17 +212,19 @@
             $('#IntellegesLogoHref').click(function () {
                 alertify.set({
                     labels: {
-                        ok: "Yes",
-                        cancel: "No"
-                    }
+                        ok: "No",
+                        cancel: "Yes"
+                    },
+                    buttonFocus: "cancel"
                 });
                 // button labels will be "Accept" and "Deny"
                 alertify.confirm("You are about to leave the Intelleges Compliance Process Automation Platform and visit www.intelleges.com. Is that OK?", function (e) {
                     if (e) {
                         // user clicked "ok"
-                        window.location.replace("https://intelleges.com");
+
                     } else {
                         // user clicked "cancel"
+                        window.location.replace("https://intelleges.com");
                     }
                 });
             });
