@@ -368,7 +368,8 @@ namespace Generic.Controllers
                     {
                         email.loadgroup = Session["loadgroup"].ToString();
                     }
-
+                    email.accesscode = partnerItem.accesscode;
+                    email.protocolTouchpoint = objtouchpoint.description;
 
                     EmailFormat emailFormat = new EmailFormat();
                     email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);

@@ -22,7 +22,7 @@ namespace Generic.Helpers.Utility
 
         public string ApplicationName { get; set; }
         public string enterprise { get; set; }
-        public string protocolCampaign { get; set; }
+        public string protocolTouchpoint { get; set; }
         public string loadgroup { get; set; }
         public unique_args unique_args { get; set; }
     }

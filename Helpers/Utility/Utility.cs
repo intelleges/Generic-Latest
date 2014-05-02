@@ -37,6 +37,9 @@ namespace Generic.Helpers.Utility
             additionalArguments.Add("ApplicationName", "MVCMT");
             additionalArguments.Add("enterprise", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
             additionalArguments.Add("loadgroup", email.loadgroup);
+            additionalArguments.Add("accesscode", email.accesscode);
+            additionalArguments.Add("protocolTouchpoint", email.protocolTouchpoint);
+
             mail.AddUniqueIdentifiers(additionalArguments);
             
             var transportSMTP = SMTP.GetInstance(credentials);

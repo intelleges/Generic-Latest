@@ -72,6 +72,21 @@ namespace Generic.Models
             set { _loadgroup = value; }
         }
 
+        private string _accesscode;
+        public string accesscode
+        {
+            get { return _accesscode; }
+            set { _accesscode = value; }
+        }
+
+        private string _protocolTouchpoint;
+        public string protocolTouchpoint
+        {
+            get { return _protocolTouchpoint; }
+            set { _protocolTouchpoint = value; }
+        }
+
+
     //    private Questionnaire _questionnaire;
 
         //public Questionnaire questionnaire
