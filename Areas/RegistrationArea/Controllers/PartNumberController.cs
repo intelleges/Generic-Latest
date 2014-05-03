@@ -818,7 +818,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     }
                     else
                     {
-
+                        updateZcodesAll();
                         //Reset all session of partnumber
                         Session["partnumber"] = null;
                         Session["site"] = null;
