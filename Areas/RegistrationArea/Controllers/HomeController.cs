@@ -13,6 +13,7 @@ using Generic.Models;
 using Generic.Helpers.Questionnaire;
 using Generic.Helpers.Utility;
 using Generic.Helpers;
+using Generic.Helpers.PartnerHelper;
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class HomeController : Controller
@@ -126,6 +127,15 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse( db.pr_getPartner(ppptq.partner).FirstOrDefault().enterprise.ToString());
                     List<CustomizedLSMW> CustomizedLSMW = new List<CustomizedLSMW>();
                     Session["CustomizedLSMW"] = CustomizedLSMW;
+
+                    if (ppptq.status == (int)PartnerStatus.Invited_NoResponse)
+                    {
+                        ppptq.status = (int)PartnerStatus.Responded_Incomplete;
+                        db.Entry(ppptq).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                    }
+
 
 
                     return RedirectToAction("companyInformation");
@@ -1557,6 +1567,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
 
                 pptq.completedDate = DateTime.Now;
+                pptq.status = (int)PartnerStatus.Responded_Complete;
                 db.Entry(pptq).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Finish");

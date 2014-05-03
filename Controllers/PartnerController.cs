@@ -15,6 +15,7 @@ using Generic.Helpers;
 using System.Data.Objects;
 using System.Threading;
 using System.Xml.Serialization;
+using Generic.Helpers.PartnerHelper;
 
 namespace Generic.Controllers
 {
@@ -25,10 +26,17 @@ namespace Generic.Controllers
 
         //
         // GET: /Partner/
-
+        //1170	All	../Partner/index	1142	89	True	1	2
         public virtual ActionResult Index()
         {
-            var partner = db.pr_getPartnerAll(SessionSingleton.MyEnterPriseId);
+            var partner = db.pr_getPartnerAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var country = db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+
+            //var partners  = from p in partner
+            //                from c in country on p. equals c.Id into pc
+                            
+                           
+
             return View(partner.ToList());
         }
 
@@ -247,7 +255,7 @@ namespace Generic.Controllers
                     using (var context = new EntitiesDBContext())
                     {
                         int? PartnerId = context.pr_addPartnerSpreadsheetDataLoad(partners.internalID, partners.PARTNER_SAP_ID, partners.name, partners.address1, partners.address2, partners.city, stateIdSpreadSheet, partners.zipcode, countryIdSpreadsheet, partners.firstName, partners.lastName, partners.title, partners.phone, partners.email, partners.RO_FIRST_NAME, partners.RO_LAST_NAME, partners.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup).ToList().FirstOrDefault();
-                        uploadedpartners.Add(new Tuple<int,string>( int.Parse(PartnerId.ToString()),""));
+                        uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
                     }
 
 
@@ -320,14 +328,14 @@ namespace Generic.Controllers
             int partnertype = (int)Session["partnertype"];
             int touchpoint = (int)Session["touchpoint"];
 
-            string loadGroup =(string)Session["loadGroup"];
-            
+            string loadGroup = (string)Session["loadGroup"];
+
 
             string message = string.Empty;
             if (Session["loadGroup"] != null)
             {
-              //  List<Tuple<int, string>> uploadedpartnerList = (List<Tuple<int, string>>)Session["uploadedpartnerList"];
-              //  List<int> uploadedpartnerList = (List<int>)Session["uploadedpartnerList"];
+                //  List<Tuple<int, string>> uploadedpartnerList = (List<Tuple<int, string>>)Session["uploadedpartnerList"];
+                //  List<int> uploadedpartnerList = (List<int>)Session["uploadedpartnerList"];
 
                 var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).ToList();
 
@@ -342,6 +350,7 @@ namespace Generic.Controllers
                     pptq.invitedDate = DateTime.Now;
                     var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
                     pptq.invitedBy = person.id;
+                    pptq.status = (int)PartnerStatus.Invited_NoResponse;
                     db.Entry(pptq).State = EntityState.Modified;
                     db.SaveChanges();
 
@@ -354,11 +363,11 @@ namespace Generic.Controllers
                     amm.text.Replace("[partner Access Code]", partnerItem.accesscode);
 
                     var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(partnerItem.accesscode, loadGroup).FirstOrDefault();
-                   
+
                     if (objpartnerByAccessCode != null)
-                    {               
-                        
-                         amm.text =   amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));                        
+                    {
+
+                        amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
                     }
 
                     var objtouchpoint = db.pr_getTouchpoint(touchpoint).FirstOrDefault();
@@ -822,7 +831,7 @@ namespace Generic.Controllers
             Session["partnertype"] = partnertype;
             Session["touchpoint"] = touchpoint;
             Session["loadgroup"] = loadGroup;
-            
+
             ViewBag.Message = "1";
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
@@ -837,14 +846,14 @@ namespace Generic.Controllers
 
 
             List<pr_getPartnumberSpreadsheetDataLoadReport_Result> objReport = new List<pr_getPartnumberSpreadsheetDataLoadReport_Result>();
-           
-            objReport = db.pr_getPartnumberSpreadsheetDataLoadReport(0,0).ToList();
-            
+
+            objReport = db.pr_getPartnumberSpreadsheetDataLoadReport(0, 0).ToList();
+
 
             var stream = new MemoryStream();
             var serializer = new XmlSerializer(typeof(List<pr_getPartnumberSpreadsheetDataLoadReport_Result>));
 
-           
+
             //We turn it into an XML and save it in the memory
             serializer.Serialize(stream, objReport);
             stream.Position = 0;

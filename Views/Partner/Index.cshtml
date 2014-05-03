@@ -22,18 +22,18 @@
         {
             //columns.Bound(o => o.enterprise);
 
-            columns.Bound(o => o.internalID).Title("Internal ID").Width(100);
+           // columns.Bound(o => o.internalID).Title("Internal ID").Width(100);
 
             //, Contact [email hyperlink], Phone, , , , , 
 
-            columns.Bound(o => o.name).Title("Partner Name").Width(200);
+            columns.Bound(o => o.name).Title("Partner Name").Width(300);
 
             columns.Bound(o => o.email).Title("Contact").Width(200);
 
             columns.Bound(o => o.phone).Title("Phone").Width(200);
             columns.Bound(o => o.title).Title("Title").Width(200);
             columns.Bound(o => o.country).Title("Country").Width(100);
-            columns.Bound(o => o.city).Title("City").Width(100);
+            columns.Bound(o => o.city).Title("City").Width(200);
             columns.Template(o => 0).Title("Timezone").Width(100);
             columns.Template(o => 0).Title("Last Contact Date").Width(100);
             //columns.Bound(o => o.address1);
