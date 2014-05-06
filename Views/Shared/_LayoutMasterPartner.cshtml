@@ -2,7 +2,8 @@
 @using Telerik.Web.Mvc.UI;
 @using System.Web.Optimization;
 @{
-    Layout = "~/tmp/Views/Shared/_LayoutMaster.cshtml";    
+    
+    Layout = Generic.Helpers.LayoutHelper.GetMasterLayout();   
 }
 <style>
     .footer {

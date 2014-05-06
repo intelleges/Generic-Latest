@@ -35,6 +35,19 @@ namespace Generic.Helpers
                 return "~/tmp/Views/Shared/_LayoutMasterPartner.cshtml";
             }
         }
+
+        public static string GetMasterLayout()
+        {
+            if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
+            {
+                return "~/Views/Shared/_LayoutMaster.cshtml";
+            }
+            else
+            {
+                return "~/tmp/Views/Shared/_LayoutMaster.cshtml";
+            }
+        }
+
         public static string GetPopupLayout()
         {
             if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
