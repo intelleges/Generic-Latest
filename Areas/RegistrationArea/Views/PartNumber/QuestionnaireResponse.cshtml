@@ -629,7 +629,11 @@ li { margin-top: 10px; margin-bottom: 10px; margin-left: 10px; float: left; back
                                         <td>&nbsp;
                                         </td>
                                         <td>
-          <span style="font-size: 12px;">Part #</span>&nbsp;
+          <span style="font-size: 12px;">
+
+                 @Html.Raw(ViewBag.QUESTIONNAIRE_PAGE_PN)
+
+          </span>&nbsp;
                                     @Html.DropDownList("partNumberSelectList", null, null, new { @class = "dropdownchange", @data_val = "true", @data_val_required="Required" })
                                             <br />     <span class="field-validation-valid" data-valmsg-for="partNumberSelectList" data-valmsg-replace="true"></span>
 
@@ -643,7 +647,13 @@ li { margin-top: 10px; margin-bottom: 10px; margin-left: 10px; float: left; back
                                 <table cellpadding="2" cellspacing="0" border="0" width="476px;">
                                     <tr>
                                         <td>
-                                            <span style="font-size: 12px;">Site</span>&nbsp;
+                                            <span style="font-size: 12px;">
+
+
+                                                    @Html.Raw(ViewBag.QUESTIONNAIRE_PAGE_SITE)
+
+
+                                            </span>&nbsp;
                                              @Html.DropDownList("siteSelectList", null,null, new { @class = "dropdownchange ", @data_val = "true", @data_val_required="Site is required." })
                                                  <br />     <span class="field-validation-valid" data-valmsg-for="siteSelectList" data-valmsg-replace="true"></span>
                                        </td>

@@ -37,6 +37,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.CMS_PAGE_NEXT_TEXT = CMS.QUESTIONNAIRE_PAGE_NEXT_TEXT;
             ViewBag.SAVE_FOR_LATER_TEXT = CMS.SAVE_FOR_LATER_TEXT;
 
+            ViewBag.QUESTIONNAIRE_PAGE_PN = CMS.QUESTIONNAIRE_PAGE_PN;
+            ViewBag.QUESTIONNAIRE_PAGE_SITE = CMS.QUESTIONNAIRE_PAGE_SITE;
+
+
+
+
             ViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Length >= 20 ? CMS.QUESTIONNAIRE_PDF.Substring(0, 20) : CMS.QUESTIONNAIRE_PDF;
             ViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Length >= 20 ? CMS.QUESTIONNAIRE_FAQ.Substring(0, 20) : CMS.QUESTIONNAIRE_FAQ;
             ViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Length >= 20 ? CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 20) : CMS.QUESTIONNAIRE_DOC_OTHER;
@@ -92,8 +98,19 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     if (cms_ContactEmail != null)
                         ViewBag.CONTACT_US_EMAIL = cms_ContactEmail.text;
                     var cms_ContactEmailLink = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_US_EMAIL).id);
-                    if (cms_ContactEmail != null)
-                        ViewBag.CONTACT_US_EMAIL_LINK = cms_ContactEmail.link;
+                    if (cms_ContactEmailLink != null)
+                        ViewBag.CONTACT_US_EMAIL_LINK = cms_ContactEmailLink.link;
+
+                    //
+                    var cms_QUESTIONNAIRE_PAGE_PN = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_PN).id);
+                    if (cms_QUESTIONNAIRE_PAGE_PN != null)
+                        ViewBag.QUESTIONNAIRE_PAGE_PN = cms_QUESTIONNAIRE_PAGE_PN.text;
+
+                    //
+                    var cms_QUESTIONNAIRE_PAGE_SITE = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_SITE).id);
+                    if (cms_QUESTIONNAIRE_PAGE_SITE != null)
+                        ViewBag.QUESTIONNAIRE_PAGE_SITE = cms_QUESTIONNAIRE_PAGE_SITE.text;
+
 
 
                 }
