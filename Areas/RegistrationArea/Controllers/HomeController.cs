@@ -37,7 +37,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
             var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-           
+
             if (ppptq_cms != null)
             {
                 Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(db.pr_getPartner(ppptq_cms.partner).FirstOrDefault().enterprise.ToString());
@@ -126,7 +126,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     Session["leveltype"] = objQuestionnaire.levelType;
                     Session["protocol"] = touchpoint.protocol;
                     Session["responseTypesQuestionnaire"] = responseTypesQuestionnaire;
-                    Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse( db.pr_getPartner(ppptq.partner).FirstOrDefault().enterprise.ToString());
+                    Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(db.pr_getPartner(ppptq.partner).FirstOrDefault().enterprise.ToString());
                     List<CustomizedLSMW> CustomizedLSMW = new List<CustomizedLSMW>();
                     Session["CustomizedLSMW"] = CustomizedLSMW;
 
@@ -1302,14 +1302,28 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 return HttpNotFound();
             }
+            if (partner.state == null)
+            {
+                ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().AsEnumerable(), "id", "stateCode");
+            }
+            else
+            {
+                ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().AsEnumerable(), "id", "stateCode", partner.state);
+            }
 
-            ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().AsEnumerable(), "id", "stateCode", partner.state);
+            if( partner.country==null){
+                ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            }else{
+
             ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", partner.country);
-            //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
+            }
+                //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
 
             ComboBoxModel objCombobox = new ComboBoxModel();
-
-            objCombobox.ComboBoxAttributes.SelectedIndex = partner.state;
+            if (partner.state != null)
+            {
+                objCombobox.ComboBoxAttributes.SelectedIndex = partner.state;
+            }
             ViewBag.combobox = objCombobox;
             IEnumerable<state> states = new List<state>();
             states = db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
@@ -1318,7 +1332,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
             ComboBoxModel objComboboxCountry = new ComboBoxModel();
-            objComboboxCountry.ComboBoxAttributes.SelectedIndex = partner.country;
+            if (partner.country != null)
+            {
+                objComboboxCountry.ComboBoxAttributes.SelectedIndex = partner.country;
+            }
             ViewBag.comboboxCountry = objComboboxCountry;
             ViewBag.countries = db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID);
 
