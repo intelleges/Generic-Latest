@@ -1,0 +1,58 @@
+﻿
+@using System.Web.Mvc.Html
+@using Generic.Helpers;
+@using Telerik.Web.Mvc.UI;
+
+@model Generic.ViewModel.MainGirdVM
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = ViewBag.enterpriseName + "Admin";
+    int counter = 0;
+}
+<table>
+    
+    @foreach( var objMainGirdVM in Model.Groups)
+    {
+   <tr>
+       @if(counter==0)
+       {
+           counter = 3;
+        <td style="width: 83px;">
+           <div id="DivTypeGroup">
+    @(Html.Telerik().Grid<string>()
+    .Name("GroupTypeGrid")
+    .BindTo(objMainGirdVM.Types)
+    .Columns(columns =>
+    {
+        columns.Bound(p => p);
+
+    })
+)
+</div>
+        </td> 
+       }
+        <td style="width:243px;">
+            
+        @(Html.Telerik().Grid<Generic.ViewModel.GridDataVM>()
+    .Name("GroupTypeGrid")
+    .BindTo((IEnumerable<Generic.ViewModel.GridDataVM>)objMainGirdVM.Data)
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.G);
+        columns.Bound(p => p.U);
+        columns.Bound(p => p.R);
+        columns.Bound(p => p.C);
+        columns.Bound(p => p.N_R);
+        columns.Bound(p => p.R_I);
+        columns.Bound(p => p.RC);
+        columns.Bound(p => p.T);
+    })
+)
+                
+        </td>
+        
+     
+    </tr>
+        counter--;
+    }
+</table>

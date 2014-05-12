@@ -828,6 +828,9 @@
     <Compile Include="pr_getKeyAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getkeyReportForBAA_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getKey_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -966,6 +969,9 @@
     <Compile Include="pr_getPartnerrRemitAddress_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerStatusByEnterprise_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerStatusCountByTouchpointQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1039,6 +1045,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnumberSiteZcodePPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnumberSpreadsheetDataLoadAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnumberSpreadsheetDataLoadByAccessCode_Result.cs">
@@ -1377,6 +1386,9 @@
     <Compile Include="pr_getSurvey_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getTouchpointAllByEnterprise_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getTouchpointAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1441,6 +1453,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="response.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RESPONSE2.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="responseTemp.cs">
@@ -1538,6 +1553,9 @@
     <Compile Include="ViewModel\ExcelEventNotification.cs" />
     <Compile Include="ViewModel\ExcelPartner.cs" />
     <Compile Include="ViewModel\ExcelQuestionnaire.cs" />
+    <Compile Include="ViewModel\GridDataVM.cs" />
+    <Compile Include="ViewModel\GroupsVM.cs" />
+    <Compile Include="ViewModel\MainGirdVM.cs" />
     <Compile Include="ViewModel\QuestionnaireViewModel.cs" />
     <Compile Include="xx_getLastDBModified_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
@@ -1558,6 +1576,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="zCodeBatchUpdate.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zcta.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -2940,6 +2961,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Icon.psd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Dashbord1.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

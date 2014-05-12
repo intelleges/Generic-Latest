@@ -14,6 +14,7 @@ using Generic.Helpers.Utility;
 using System.Net;
 using Generic.SessionClass;
 using System.Reflection;
+using Generic.ViewModel;
 
 
 namespace Generic.Controllers
@@ -208,6 +209,58 @@ namespace Generic.Controllers
 
             }
             return View();
+        }
+
+        [Authorize]
+        public virtual ActionResult Dashbord1()
+        {
+            MainGirdVM objMainGirdVM = new MainGirdVM();
+            objMainGirdVM.Groups = new List<GroupsVM>();
+            GroupsVM objgroup=null;
+           // GroupTypeVM objGroupTypeVM=null;
+            GridDataVM objGridDataVM=null;
+            for(int i=0;i<=3;i++)
+            {
+              objgroup  = new GroupsVM();
+                objgroup.GroupId=i;
+                objgroup.GroupName="name "+i;
+
+
+                objgroup.Types = new List<string>();
+
+                objgroup.Data = new List<GridDataVM>();
+               
+                for(int j=0;j<=3;j++)
+                {
+                    string strType = "type_" + j;
+                    objgroup.Types.Add(strType);
+
+                    objGridDataVM = new GridDataVM();
+
+                    objGridDataVM.G=i;
+                    objGridDataVM.U=i;
+                    objGridDataVM.R=i;
+                    objGridDataVM.C=i;
+                    objGridDataVM.N_R=i;
+                    objGridDataVM.R_I=i;
+                    objGridDataVM.RC=i;
+                    objGridDataVM.T=i;
+
+                    objgroup.Data.Add(objGridDataVM);
+                    
+                }
+                //objgroup.ListGridType = new List<GroupTypeVM>();
+                //objgroup.ListGridData = new List<GridDataVM>();
+                //objgroup.ListGridType.Add(objGroupTypeVM);
+                //objgroup.ListGridData.Add(objGridDataVM);
+
+
+                objMainGirdVM.Groups.Add(objgroup);
+
+            }
+
+
+            return View(objMainGirdVM);
         }
 
         [Authorize]

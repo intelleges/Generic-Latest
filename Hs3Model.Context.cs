@@ -155,6 +155,8 @@ namespace Generic
         public DbSet<partnumberSpreadsheetDataLoadStatus> partnumberSpreadsheetDataLoadStatus { get; set; }
         public DbSet<multiTenantProjectType> multiTenantProjectType { get; set; }
         public DbSet<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
+        public DbSet<RESPONSE2> RESPONSE2 { get; set; }
+        public DbSet<zcta> zcta { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -12515,6 +12517,112 @@ namespace Generic
                 new ObjectParameter("ptq", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSpreadsheetDataLoadReport_Result>("pr_getPartnumberSpreadsheetDataLoadReport", enterpriseParameter, ptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getkeyReportForBAA_Result> pr_getkeyReportForBAA()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getkeyReportForBAA_Result>("pr_getkeyReportForBAA");
+        }
+    
+        public virtual ObjectResult<pr_getPartnerStatusByEnterprise_Result> pr_getPartnerStatusByEnterprise(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerStatusByEnterprise_Result>("pr_getPartnerStatusByEnterprise", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnumberSpreadsheetDataLoadAll_Result> pr_getPartnumberSpreadsheetDataLoadAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSpreadsheetDataLoadAll_Result>("pr_getPartnumberSpreadsheetDataLoadAll");
+        }
+    
+        public virtual ObjectResult<pr_getTouchpointAllByEnterprise_Result> pr_getTouchpointAllByEnterprise(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTouchpointAllByEnterprise_Result>("pr_getTouchpointAllByEnterprise", enterpriseParameter);
+        }
+    
+        public virtual int pr_modifyAutoMailMessageOldToNew(Nullable<int> partnertypetouchpointquestionnaireOld, Nullable<int> partnertypetouchpointquestionnaireNew)
+        {
+            var partnertypetouchpointquestionnaireOldParameter = partnertypetouchpointquestionnaireOld.HasValue ?
+                new ObjectParameter("partnertypetouchpointquestionnaireOld", partnertypetouchpointquestionnaireOld) :
+                new ObjectParameter("partnertypetouchpointquestionnaireOld", typeof(int));
+    
+            var partnertypetouchpointquestionnaireNewParameter = partnertypetouchpointquestionnaireNew.HasValue ?
+                new ObjectParameter("partnertypetouchpointquestionnaireNew", partnertypetouchpointquestionnaireNew) :
+                new ObjectParameter("partnertypetouchpointquestionnaireNew", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutoMailMessageOldToNew", partnertypetouchpointquestionnaireOldParameter, partnertypetouchpointquestionnaireNewParameter);
+        }
+    
+        public virtual int pr_modifyQuestionnaireQuestionnaireCMSOldToNew(Nullable<int> questionnaireOld, Nullable<int> questionnaireNew)
+        {
+            var questionnaireOldParameter = questionnaireOld.HasValue ?
+                new ObjectParameter("questionnaireOld", questionnaireOld) :
+                new ObjectParameter("questionnaireOld", typeof(int));
+    
+            var questionnaireNewParameter = questionnaireNew.HasValue ?
+                new ObjectParameter("questionnaireNew", questionnaireNew) :
+                new ObjectParameter("questionnaireNew", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireQuestionnaireCMSOldToNew", questionnaireOldParameter, questionnaireNewParameter);
+        }
+    
+        public virtual int pr_modifyResponseZcodeForCountryCode(Nullable<int> offset, Nullable<int> responseIDLower, Nullable<int> responseIDUpper)
+        {
+            var offsetParameter = offset.HasValue ?
+                new ObjectParameter("offset", offset) :
+                new ObjectParameter("offset", typeof(int));
+    
+            var responseIDLowerParameter = responseIDLower.HasValue ?
+                new ObjectParameter("responseIDLower", responseIDLower) :
+                new ObjectParameter("responseIDLower", typeof(int));
+    
+            var responseIDUpperParameter = responseIDUpper.HasValue ?
+                new ObjectParameter("responseIDUpper", responseIDUpper) :
+                new ObjectParameter("responseIDUpper", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyResponseZcodeForCountryCode", offsetParameter, responseIDLowerParameter, responseIDUpperParameter);
+        }
+    
+        public virtual ObjectResult<string> Recover_Dropped_Objects_Proc(string database_Name, Nullable<System.DateTime> date_From, Nullable<System.DateTime> date_To)
+        {
+            var database_NameParameter = database_Name != null ?
+                new ObjectParameter("Database_Name", database_Name) :
+                new ObjectParameter("Database_Name", typeof(string));
+    
+            var date_FromParameter = date_From.HasValue ?
+                new ObjectParameter("Date_From", date_From) :
+                new ObjectParameter("Date_From", typeof(System.DateTime));
+    
+            var date_ToParameter = date_To.HasValue ?
+                new ObjectParameter("Date_To", date_To) :
+                new ObjectParameter("Date_To", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("Recover_Dropped_Objects_Proc", database_NameParameter, date_FromParameter, date_ToParameter);
+        }
+    
+        public virtual int pr_getGroupByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getGroupByPTQ", ptqParameter);
+        }
+    
+        public virtual int pr_getPartnerTypeByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnerTypeByPTQ", ptqParameter);
         }
     }
 }

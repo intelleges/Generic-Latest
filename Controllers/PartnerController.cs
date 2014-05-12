@@ -863,7 +863,24 @@ namespace Generic.Controllers
 
         }
 
+        public ActionResult PartnumberSpreadsheetDataLoadReportDownloadForSecondReport()
+        {
+            List<pr_getPartnerStatusByEnterprise_Result> objReport = new List<pr_getPartnerStatusByEnterprise_Result>();
 
+            objReport = db.pr_getPartnerStatusByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();            
+
+
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<pr_getPartnerStatusByEnterprise_Result>));
+
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, objReport);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "DataLoadReport.xls");
+        }
 
 
         protected override void Dispose(bool disposing)

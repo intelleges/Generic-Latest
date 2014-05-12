@@ -238,6 +238,8 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__partn__7C7A5F0D" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__perso__7E62A77F" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.RESPONSE2" Width="1.5" PointX="8.3364520372526965" PointY="22.663033972803053" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.zcta" Width="1.5" PointX="3.1083844411691577" PointY="22.242464955077722" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
