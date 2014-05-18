@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Generic.DataLayer;
+using Generic.Helpers.PartnerHelper;
 using Generic.Helpers.PartNumberHelper;
 using Generic.Helpers.Questionnaire;
 using Generic.Models;
@@ -1400,6 +1401,24 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 dbConext.Entry(item).State = EntityState.Modified;
                 dbConext.SaveChanges();
             }
+
+            using (var context = new EntitiesDBContext())
+            {
+                partnerPartnertypeTouchpointQuestionnaire objpptq = context.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+
+                var statuses = context.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq).ToList().Select(x => x.status).Distinct();
+                if (statuses.Count() == 1)
+                {
+                    if (statuses.FirstOrDefault() == Status.COMPLETED)
+                    {
+                        objpptq.completedDate = DateTime.Now;
+                        objpptq.status = (int)PartnerStatus.Responded_Complete;
+                        context.Entry(objpptq).State = EntityState.Modified;
+                        context.SaveChanges();
+                    }
+                }
+            }
+
             return pptq;
         }
 

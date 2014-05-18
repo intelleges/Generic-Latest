@@ -214,12 +214,29 @@ namespace Generic.Controllers
         [Authorize]
         public virtual ActionResult Dashbord1()
         {
+            var PartnerType = db.pr_getPartnerTypeByPTQ(2);
+
+            List<string> objTypeList=new List<string>();
+         
+ string a= "Dealer/Distributor";
+string b="Manufacturer";
+string c= "Maintenance & Repair";
+string d="Design";
+string e= "Research";
+string f = "Consultant";
+objTypeList.Add(a);
+objTypeList.Add(b);
+objTypeList.Add(c);
+objTypeList.Add(d);
+objTypeList.Add(e);
+objTypeList.Add(f);
+
             MainGirdVM objMainGirdVM = new MainGirdVM();
             objMainGirdVM.Groups = new List<GroupsVM>();
             GroupsVM objgroup=null;
            // GroupTypeVM objGroupTypeVM=null;
             GridDataVM objGridDataVM=null;
-            for(int i=0;i<=3;i++)
+            for(int i=0;i<=1;i++)
             {
               objgroup  = new GroupsVM();
                 objgroup.GroupId=i;
@@ -229,10 +246,10 @@ namespace Generic.Controllers
                 objgroup.Types = new List<string>();
 
                 objgroup.Data = new List<GridDataVM>();
-               
-                for(int j=0;j<=3;j++)
+
+                foreach (string obj in objTypeList)
                 {
-                    string strType = "type_" + j;
+                    string strType = obj;
                     objgroup.Types.Add(strType);
 
                     objGridDataVM = new GridDataVM();

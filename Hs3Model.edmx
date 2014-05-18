@@ -91,6 +91,7 @@
           <EntitySet Name="product" EntityType="hs3MVCMTQa2Model.Store.product" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="protocol" EntityType="hs3MVCMTQa2Model.Store.protocol" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="protocolTouchpoint" EntityType="hs3MVCMTQa2Model.Store.protocolTouchpoint" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ptqGroup" EntityType="hs3MVCMTQa2Model.Store.ptqGroup" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="query" EntityType="hs3MVCMTQa2Model.Store.query" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="queryFieldQuestion" EntityType="hs3MVCMTQa2Model.Store.queryFieldQuestion" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="question" EntityType="hs3MVCMTQa2Model.Store.question" store:Type="Tables" Schema="dbo" />
@@ -1810,6 +1811,14 @@
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="touchpointAnchor" Type="int" />
           <Property Name="touchpointId" Type="int" />
+        </EntityType>
+        <EntityType Name="ptqGroup">
+          <Key>
+            <PropertyRef Name="ptq" />
+            <PropertyRef Name="group" />
+          </Key>
+          <Property Name="ptq" Type="int" Nullable="false" />
+          <Property Name="group" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="query">
           <Key>
@@ -4624,6 +4633,16 @@
         <Function Name="pr_addSurveysetSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="surveySet" Type="int" Mode="In" />
           <Parameter Name="survey" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addSystemMasterToEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="internalId" Type="varchar" Mode="In" />
+          <Parameter Name="firstname" Type="varchar" Mode="In" />
+          <Parameter Name="lastname" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="phonenumber" Type="varchar" Mode="In" />
+          <Parameter Name="zipcode" Type="varchar" Mode="In" />
+          <Parameter Name="country" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="protocol" Type="int" Mode="In" />
@@ -10634,6 +10653,17 @@
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerTypeByPTQ">
           <Parameter Name="ptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="ptqGroup" EntityType="hs3MVCMTQa2Model.ptqGroup" />
+          <FunctionImport Name="pr_addSystemMasterToEnterprise" ReturnType="Collection(Int32)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="internalId" Mode="In" Type="String" />
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="phonenumber" Mode="In" Type="String" />
+            <Parameter Name="zipcode" Mode="In" Type="String" />
+            <Parameter Name="country" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -16939,6 +16969,14 @@
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Int32" Name="active" Nullable="true" />
         </ComplexType>
+        <EntityType Name="ptqGroup">
+          <Key>
+            <PropertyRef Name="ptq" />
+            <PropertyRef Name="group" />
+          </Key>
+          <Property Type="Int32" Name="ptq" Nullable="false" />
+          <Property Type="Int32" Name="group" Nullable="false" />
+        </EntityType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -21938,6 +21976,15 @@
           <FunctionImportMapping FunctionImportName="Recover_Dropped_Objects_Proc" FunctionName="hs3MVCMTQa2Model.Store.Recover_Dropped_Objects_Proc" />
           <FunctionImportMapping FunctionImportName="pr_getGroupByPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupByPTQ" />
           <FunctionImportMapping FunctionImportName="pr_getPartnerTypeByPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerTypeByPTQ" />
+          <EntitySetMapping Name="ptqGroup">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.ptqGroup">
+              <MappingFragment StoreEntitySet="ptqGroup">
+                <ScalarProperty Name="group" ColumnName="group" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addSystemMasterToEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_addSystemMasterToEnterprise" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -240,6 +240,7 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.RESPONSE2" Width="1.5" PointX="8.3364520372526965" PointY="22.663033972803053" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.zcta" Width="1.5" PointX="3.1083844411691577" PointY="22.242464955077722" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.ptqGroup" Width="1.5" PointX="6.7628700857809134" PointY="7.3817649518054749" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

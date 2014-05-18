@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Generic.Models;
 
 namespace Generic.Controllers
 {
@@ -70,8 +71,43 @@ namespace Generic.Controllers
             return View(person);
         }
 
+        public ActionResult CreatePerson()
+        {
+            ViewBag.enterprise = new SelectList(db.enterprise, "id", "description");
+            ViewBag.personStatus = new SelectList(db.personStatus, "id", "description");
+            ViewBag.role = new SelectList(db.role, "id", "description");
+
+            ComboBoxModel objComboboxCountry = new ComboBoxModel();
+            
+            ViewBag.comboboxCountry = objComboboxCountry;
+            if (SessionSingleton.EnterPriseId == null)
+            {
+                SessionSingleton.EnterPriseId = Generic.Helpers.CurrentInstance.EnterpriseID;
+            }
+            ViewBag.countries = db.pr_getCountryAll(SessionSingleton.EnterPriseId);
+            return View();
+        }
+
         //
-        // GET: /Person/Edit/5
+        // POST: /Person/Create
+
+        [HttpPost]
+        public ActionResult CreatePerson(person person)
+        {
+            if (ModelState.IsValid)
+            {
+
+                int? PersonId = db.pr_addSystemMasterToEnterprise(SessionSingleton.EnterPriseId, person.internalId, person.firstName, person.lastName, person.email, person.phone, person.zipcode, person.country).FirstOrDefault();
+
+                SessionSingleton.PersonId =(int)PersonId;
+                return RedirectToAction("AssignGroup", "Person");
+            }
+
+            ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", person.enterprise);
+            ViewBag.personStatus = new SelectList(db.personStatus, "id", "description", person.personStatus);
+
+            return View(person);
+        }
 
         public ActionResult Edit(int id = 0)
         {

@@ -867,8 +867,8 @@ namespace Generic.Controllers
         {
             List<pr_getPartnerStatusByEnterprise_Result> objReport = new List<pr_getPartnerStatusByEnterprise_Result>();
 
-            objReport = db.pr_getPartnerStatusByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();            
-
+        var test= db.pr_getPartnerStatusByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+        objReport = test;
 
             var stream = new MemoryStream();
             var serializer = new XmlSerializer(typeof(List<pr_getPartnerStatusByEnterprise_Result>));

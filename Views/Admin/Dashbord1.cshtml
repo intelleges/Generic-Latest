@@ -8,51 +8,70 @@
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = ViewBag.enterpriseName + "Admin";
     int counter = 0;
+   
 }
-<table>
-    
+<table border="1">
+    @*here is the list of groups*@
     @foreach( var objMainGirdVM in Model.Groups)
     {
+        
    <tr>
+       
        @if(counter==0)
        {
            counter = 3;
-        <td style="width: 83px;">
-           <div id="DivTypeGroup">
+        <td style="display:inline-block;width:219px;">
+           @*here is the type gid*@
     @(Html.Telerik().Grid<string>()
-    .Name("GroupTypeGrid")
+    .Name("GroupTypeGrid").HtmlAttributes(new { @style = "display:inline-block;width:219px;" })
     .BindTo(objMainGirdVM.Types)
     .Columns(columns =>
     {
-        columns.Bound(p => p);
+        columns.Bound(p => p).HtmlAttributes(new { @style = "display:inline-block;width:200px;" });
 
     })
 )
-</div>
+
         </td> 
        }
-        <td style="width:243px;">
-            
+        <td style="display:inline-block;width:219px;">
+            @*here is the data grid *@
         @(Html.Telerik().Grid<Generic.ViewModel.GridDataVM>()
-    .Name("GroupTypeGrid")
+    .Name("dataGrid").HtmlAttributes(new { @style = "display:inline-block;width:400px;" })
     .BindTo((IEnumerable<Generic.ViewModel.GridDataVM>)objMainGirdVM.Data)
     .Columns(columns =>
     {
-        columns.Bound(p => p.G);
-        columns.Bound(p => p.U);
-        columns.Bound(p => p.R);
-        columns.Bound(p => p.C);
-        columns.Bound(p => p.N_R);
-        columns.Bound(p => p.R_I);
-        columns.Bound(p => p.RC);
-        columns.Bound(p => p.T);
+        columns.Bound(p => p.G).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" }); 
+        columns.Bound(p => p.U).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" }); 
+        columns.Bound(p => p.R).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" }); 
+        columns.Bound(p => p.C).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" }); 
+        columns.Bound(p => p.N_R).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" });
+        columns.Bound(p => p.R_I).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" }); 
+        columns.Bound(p => p.RC).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" });
+        columns.Bound(p => p.T).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" }); 
     })
 )
                 
         </td>
         
-     
+   
+       
     </tr>
+  
         counter--;
     }
 </table>
+<script>
+    $(document).ready(function ()
+    {
+        debugger;
+        $('#dataGrid span.t-link').removeAttr('class');
+        $('#dataGrid th.t-header').removeAttr('class');
+        $('#dataGrid div.t-grid-pager.t-grid-bottom').hide();
+        $('#GroupTypeGrid div.t-grid-pager.t-grid-bottom').hide();
+        $('#GroupTypeGrid span.t-link').text("Types");
+        $('#dataGrid').removeClass('t-grid');
+        $('#GroupTypeGrid').removeClass('t-grid');
+    });
+    
+</script>

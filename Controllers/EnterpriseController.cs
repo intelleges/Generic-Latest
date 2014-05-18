@@ -61,7 +61,10 @@ namespace Generic.Controllers
                 db.enterprise.Add(enterprise);
                 db.SaveChanges();
                 SessionSingleton.EnterPriseId = enterprise.id;
-                return RedirectToAction("Create", "Role");
+
+                db.pr_bootstrapEnterprise(enterprise.id);
+
+                return RedirectToAction("CreatePerson", "Person");
             }
 
             return View(enterprise);

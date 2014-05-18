@@ -157,6 +157,7 @@ namespace Generic
         public DbSet<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
         public DbSet<RESPONSE2> RESPONSE2 { get; set; }
         public DbSet<zcta> zcta { get; set; }
+        public DbSet<ptqGroup> ptqGroup { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -12623,6 +12624,43 @@ namespace Generic
                 new ObjectParameter("ptq", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnerTypeByPTQ", ptqParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_addSystemMasterToEnterprise(Nullable<int> enterprise, string internalId, string firstname, string lastname, string email, string phonenumber, string zipcode, Nullable<int> country)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var internalIdParameter = internalId != null ?
+                new ObjectParameter("internalId", internalId) :
+                new ObjectParameter("internalId", typeof(string));
+    
+            var firstnameParameter = firstname != null ?
+                new ObjectParameter("firstname", firstname) :
+                new ObjectParameter("firstname", typeof(string));
+    
+            var lastnameParameter = lastname != null ?
+                new ObjectParameter("lastname", lastname) :
+                new ObjectParameter("lastname", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var phonenumberParameter = phonenumber != null ?
+                new ObjectParameter("phonenumber", phonenumber) :
+                new ObjectParameter("phonenumber", typeof(string));
+    
+            var zipcodeParameter = zipcode != null ?
+                new ObjectParameter("zipcode", zipcode) :
+                new ObjectParameter("zipcode", typeof(string));
+    
+            var countryParameter = country.HasValue ?
+                new ObjectParameter("country", country) :
+                new ObjectParameter("country", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addSystemMasterToEnterprise", enterpriseParameter, internalIdParameter, firstnameParameter, lastnameParameter, emailParameter, phonenumberParameter, zipcodeParameter, countryParameter);
         }
     }
 }
