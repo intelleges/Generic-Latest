@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Generic.Models;
+using Generic.Helpers.Utility;
 
 namespace Generic.Controllers
 {
@@ -100,6 +101,26 @@ namespace Generic.Controllers
                 int? PersonId = db.pr_addSystemMasterToEnterprise(SessionSingleton.EnterPriseId, person.internalId, person.firstName, person.lastName, person.email, person.phone, person.zipcode, person.country).FirstOrDefault();
 
                 SessionSingleton.PersonId =(int)PersonId;
+
+                // Email Invite
+                var objSystemMaster= db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
+
+                autoMailMessage objamm = new autoMailMessage();
+
+                objamm.subject = "Invitation";
+                objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
+
+                Email email = new Email(objamm);
+
+               
+
+                EmailFormat emailFormat = new EmailFormat();
+             //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
+                email.body = objamm.text;
+                email.emailTo = objSystemMaster.email;
+                SendEmail objSendEmail = new SendEmail();
+                objSendEmail.sendEmail(email);
+
                 return RedirectToAction("AssignGroup", "Person");
             }
 
