@@ -11,13 +11,14 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Person</legend>
 
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.internalId)
         </div>
@@ -26,7 +27,7 @@
             @Html.ValidationMessageFor(model => model.internalId)
         </div>
 
-        
+
         <div class="editor-label">
             First Name
         </div>
@@ -43,9 +44,9 @@
             @Html.ValidationMessageFor(model => model.lastName)
         </div>
 
-       
 
-      
+
+
 
         <div class="editor-label">
             @Html.LabelFor(model => model.email)
@@ -55,7 +56,21 @@
             @Html.ValidationMessageFor(model => model.email)
         </div>
 
-       
+        <div class="editor-label">
+            Cordinator
+        </div>
+        <div class="editor-field">
+            <input type="text" name="coordinator" data-val="true" data-val-required="Required"  />
+                 <br />    <span class="field-validation-valid" data-valmsg-for="coordinator" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="editor-label">
+            Cordinator Email
+        </div>
+        <div class="editor-field">
+            <input type="text" name="coordinatorEmail" data-val="true" data-val-required="Required" />
+             <br />    <span class="field-validation-valid" data-valmsg-for="coordinatorEmail" data-valmsg-replace="true"></span>
+        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.phone)
@@ -63,7 +78,7 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.phone)
             @Html.ValidationMessageFor(model => model.phone)
-        </div>       
+        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.zipcode)
@@ -71,32 +86,34 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.zipcode)
             @Html.ValidationMessageFor(model => model.zipcode)
-        </div>   
+        </div>
 
-         <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(model => model.country)
         </div>
         <div class="editor-field">
-               @(Html.Telerik().ComboBox()
+            @(Html.Telerik().ComboBox()
             .Name("country")
-            .AutoFill((bool)ViewBag.comboboxCountry.ComboBoxAttributes.AutoFill)            
-            .BindTo(new SelectList((IEnumerable<Generic.country>)ViewBag.countries, "id", "name",(int)ViewBag.comboboxCountry.ComboBoxAttributes.SelectedIndex))
+            .AutoFill((bool)ViewBag.comboboxCountry.ComboBoxAttributes.AutoFill)
+            .BindTo(new SelectList((IEnumerable<Generic.country>)ViewBag.countries, "id", "name", (int)ViewBag.comboboxCountry.ComboBoxAttributes.SelectedIndex))
             .HtmlAttributes(new { style = string.Format("width:{0}px", ViewBag.comboboxCountry.ComboBoxAttributes.Width) })
             .Filterable(filtering =>
             {
-                if ((int)ViewBag.comboboxCountry.ComboBoxAttributes.FilterMode != 0) 
+                if ((int)ViewBag.comboboxCountry.ComboBoxAttributes.FilterMode != 0)
                 {
                     filtering.FilterMode(AutoCompleteFilterMode.StartsWith);
                 }
             })
             .HighlightFirstMatch((bool)ViewBag.comboboxCountry.ComboBoxAttributes.HighlightFirst)
     )
-           
-        </div> 
+
+        </div>
 
         <p>
-            <input type="submit" style="width:150px" value="Create" />
-          <a href="#"> <input type="button" style="width:150px" value="Next" /> </a> 
+            <input type="submit" style="width: 150px" value="Create" />
+            <a href="#">
+                <input type="button" style="width: 150px" value="Next" />
+            </a>
         </p>
     </fieldset>
 }

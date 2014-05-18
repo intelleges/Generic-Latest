@@ -93,7 +93,7 @@ namespace Generic.Controllers
         // POST: /Person/Create
 
         [HttpPost]
-        public ActionResult CreatePerson(person person)
+        public ActionResult CreatePerson(person person, string coordinator, string coordinatorEmail)
         {
             if (ModelState.IsValid)
             {
@@ -105,14 +105,17 @@ namespace Generic.Controllers
                 // Email Invite
                 var objSystemMaster= db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
 
+
+                db.pr_addEnterpriseSystemInfo(null, null, null, coordinator, null, coordinatorEmail, null, null, null, SessionSingleton.EnterPriseId);
+
+
+
                 autoMailMessage objamm = new autoMailMessage();
 
                 objamm.subject = "Invitation";
                 objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
 
                 Email email = new Email(objamm);
-
-               
 
                 EmailFormat emailFormat = new EmailFormat();
              //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
