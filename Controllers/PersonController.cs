@@ -106,7 +106,7 @@ namespace Generic.Controllers
                 var objSystemMaster= db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
 
 
-                db.pr_addEnterpriseSystemInfo(null, null, null, coordinator, null, coordinatorEmail, null, null, null, SessionSingleton.EnterPriseId);
+                db.pr_addEnterpriseSystemInfo(null, null, null, coordinator, null, coordinatorEmail, null, null, true, SessionSingleton.EnterPriseId);
 
 
 
