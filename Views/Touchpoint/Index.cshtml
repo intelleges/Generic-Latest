@@ -31,7 +31,8 @@
             columns.Bound(o => o.description);
 
             columns.Bound(o => o.abbreviation);
-
+            columns.Bound(o => o.purpose);
+            columns.Bound(o => o.touchpointTarget.description);
             columns.Bound(o => o.startDate);
 
             columns.Bound(o => o.endDate);

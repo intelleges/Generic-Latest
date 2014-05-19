@@ -58,6 +58,9 @@ namespace Generic.Controllers
                     enterprise.logo = uploadedFile;
                 }
 
+                enterprise.active = true;
+                enterprise.multiTenantProjectType = 1;
+
                 db.enterprise.Add(enterprise);
                 db.SaveChanges();
                 SessionSingleton.EnterPriseId = enterprise.id;

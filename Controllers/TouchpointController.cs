@@ -22,7 +22,7 @@ namespace Generic.Controllers
             var touchPoint = db.pr_getTouchpointAll();
             return View(touchPoint.ToList());
 
-          
+
         }
 
         //
@@ -65,16 +65,18 @@ namespace Generic.Controllers
         {
             if (SessionSingleton.ProtocolId != 0)
             {
-                ViewBag.protocol = new SelectList( db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", SessionSingleton.ProtocolId);
+                ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", SessionSingleton.ProtocolId);
             }
             else
             {
-                ViewBag.protocol = new SelectList( db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+                ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
             }
 
-            ViewBag.person= new SelectList( db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+            ViewBag.person = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
             ViewBag.sponsor = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
             ViewBag.admin = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+            ViewBag.target = new SelectList(db.pr_getTouchpointTargetAll(), "id", "description");
+
 
             return View();
         }
@@ -87,8 +89,8 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-            //    touchpoint.protocol = ;
+
+                //    touchpoint.protocol = ;
                 db.touchpoint.Add(touchpoint);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -104,6 +106,7 @@ namespace Generic.Controllers
             ViewBag.person = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
             ViewBag.sponsor = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
             ViewBag.admin = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+            ViewBag.target = new SelectList(db.pr_getTouchpointTargetAll(), "id", "description");
             return View(touchpoint);
         }
 
@@ -113,6 +116,15 @@ namespace Generic.Controllers
         public ActionResult Edit(int id = 0)
         {
             touchpoint touchpoint = db.pr_getTouchpoint(id).FirstOrDefault();
+            if (touchpoint.target != null)
+            {
+                ViewBag.target = new SelectList(db.pr_getTouchpointTargetAll(), "id", "description", touchpoint.target);
+            }
+            else
+            {
+                ViewBag.target = new SelectList(db.pr_getTouchpointTargetAll(), "id", "description");
+            }
+
             if (touchpoint == null)
             {
                 return HttpNotFound();
@@ -131,6 +143,15 @@ namespace Generic.Controllers
                 db.Entry(touchpoint).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+
+            if (touchpoint.target != null)
+            {
+                ViewBag.target = new SelectList(db.pr_getTouchpointTargetAll(), "id", "description", touchpoint.target);
+            }
+            else
+            {
+                ViewBag.target = new SelectList(db.pr_getTouchpointTargetAll(), "id", "description");
             }
             return View(touchpoint);
         }
@@ -163,7 +184,7 @@ namespace Generic.Controllers
 
         public ActionResult GetTouchPointByprotocolId(int protocolId)
         {
-            var touchpoint = db.pr_getTouchpointByProtocol(protocolId).Where(x=>x.active==1).Select(x => new { x.id, x.description}).ToList();
+            var touchpoint = db.pr_getTouchpointByProtocol(protocolId).Where(x => x.active == 1).Select(x => new { x.id, x.description }).ToList();
             return Json(new { Data = touchpoint }, JsonRequestBehavior.AllowGet);
         }
 

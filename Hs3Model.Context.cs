@@ -158,6 +158,7 @@ namespace Generic
         public DbSet<RESPONSE2> RESPONSE2 { get; set; }
         public DbSet<zcta> zcta { get; set; }
         public DbSet<ptqGroup> ptqGroup { get; set; }
+        public DbSet<touchpointTarget> touchpointTarget { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -2101,7 +2102,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addSurveysetSurvey", surveySetParameter, surveyParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addTouchpoint(Nullable<int> protocol, Nullable<int> person, Nullable<int> sponsor, Nullable<int> admin, string title, string description, string abbreviation, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<bool> automaticReminder, Nullable<int> sortOrder, Nullable<int> active)
+        public virtual ObjectResult<Nullable<decimal>> pr_addTouchpoint(Nullable<int> protocol, Nullable<int> person, Nullable<int> sponsor, Nullable<int> admin, string title, string description, string purpose, Nullable<int> target, string abbreviation, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<bool> automaticReminder, Nullable<int> sortOrder, Nullable<int> active)
         {
             var protocolParameter = protocol.HasValue ?
                 new ObjectParameter("protocol", protocol) :
@@ -2127,6 +2128,14 @@ namespace Generic
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
     
+            var purposeParameter = purpose != null ?
+                new ObjectParameter("purpose", purpose) :
+                new ObjectParameter("purpose", typeof(string));
+    
+            var targetParameter = target.HasValue ?
+                new ObjectParameter("target", target) :
+                new ObjectParameter("target", typeof(int));
+    
             var abbreviationParameter = abbreviation != null ?
                 new ObjectParameter("abbreviation", abbreviation) :
                 new ObjectParameter("abbreviation", typeof(string));
@@ -2151,7 +2160,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addTouchpoint", protocolParameter, personParameter, sponsorParameter, adminParameter, titleParameter, descriptionParameter, abbreviationParameter, startDateParameter, endDateParameter, automaticReminderParameter, sortOrderParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addTouchpoint", protocolParameter, personParameter, sponsorParameter, adminParameter, titleParameter, descriptionParameter, purposeParameter, targetParameter, abbreviationParameter, startDateParameter, endDateParameter, automaticReminderParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual int pr_addTouchpointGroup(Nullable<int> touchpoint, Nullable<int> group)
@@ -7383,7 +7392,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifySystemExpiry", systemExpiryParameter);
         }
     
-        public virtual int pr_modifyTouchpoint(Nullable<int> id, Nullable<int> protocol, Nullable<int> person, Nullable<int> sponsor, Nullable<int> admin, string title, string description, string abbreviation, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<bool> automaticReminder, Nullable<int> sortOrder, Nullable<int> active)
+        public virtual int pr_modifyTouchpoint(Nullable<int> id, Nullable<int> protocol, Nullable<int> person, Nullable<int> sponsor, Nullable<int> admin, string title, string description, string abbreviation, string purpose, Nullable<int> target, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<bool> automaticReminder, Nullable<int> sortOrder, Nullable<int> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -7417,6 +7426,14 @@ namespace Generic
                 new ObjectParameter("abbreviation", abbreviation) :
                 new ObjectParameter("abbreviation", typeof(string));
     
+            var purposeParameter = purpose != null ?
+                new ObjectParameter("purpose", purpose) :
+                new ObjectParameter("purpose", typeof(string));
+    
+            var targetParameter = target.HasValue ?
+                new ObjectParameter("target", target) :
+                new ObjectParameter("target", typeof(int));
+    
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("startDate", startDate) :
                 new ObjectParameter("startDate", typeof(System.DateTime));
@@ -7437,7 +7454,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyTouchpoint", idParameter, protocolParameter, personParameter, sponsorParameter, adminParameter, titleParameter, descriptionParameter, abbreviationParameter, startDateParameter, endDateParameter, automaticReminderParameter, sortOrderParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyTouchpoint", idParameter, protocolParameter, personParameter, sponsorParameter, adminParameter, titleParameter, descriptionParameter, abbreviationParameter, purposeParameter, targetParameter, startDateParameter, endDateParameter, automaticReminderParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual int pr_modifyTouchpointQuestionResponseValue(Nullable<int> touchpoint, Nullable<int> question, Nullable<int> response, Nullable<int> value)
@@ -12661,6 +12678,124 @@ namespace Generic
                 new ObjectParameter("country", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addSystemMasterToEnterprise", enterpriseParameter, internalIdParameter, firstnameParameter, lastnameParameter, emailParameter, phonenumberParameter, zipcodeParameter, countryParameter);
+        }
+    
+        public virtual int pr_bootstrapQuestionnaireCMS(Nullable<int> questionnaire, string companyName, string touchpointTitle, string touchpointPurpose, string touchpointTarget)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("companyName", companyName) :
+                new ObjectParameter("companyName", typeof(string));
+    
+            var touchpointTitleParameter = touchpointTitle != null ?
+                new ObjectParameter("touchpointTitle", touchpointTitle) :
+                new ObjectParameter("touchpointTitle", typeof(string));
+    
+            var touchpointPurposeParameter = touchpointPurpose != null ?
+                new ObjectParameter("touchpointPurpose", touchpointPurpose) :
+                new ObjectParameter("touchpointPurpose", typeof(string));
+    
+            var touchpointTargetParameter = touchpointTarget != null ?
+                new ObjectParameter("touchpointTarget", touchpointTarget) :
+                new ObjectParameter("touchpointTarget", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_bootstrapQuestionnaireCMS", questionnaireParameter, companyNameParameter, touchpointTitleParameter, touchpointPurposeParameter, touchpointTargetParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addTouchpointTarget(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addTouchpointTarget", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveTouchpointTarget(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveTouchpointTarget", idParameter);
+        }
+    
+        public virtual ObjectResult<touchpointTarget> pr_getTouchpointTarget(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpointTarget>("pr_getTouchpointTarget", idParameter);
+        }
+    
+        public virtual ObjectResult<touchpointTarget> pr_getTouchpointTarget(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpointTarget>("pr_getTouchpointTarget", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<touchpointTarget> pr_getTouchpointTargetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpointTarget>("pr_getTouchpointTargetAll");
+        }
+    
+        public virtual ObjectResult<touchpointTarget> pr_getTouchpointTargetAll(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpointTarget>("pr_getTouchpointTargetAll", mergeOption);
+        }
+    
+        public virtual int pr_modifyTouchpointTarget(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyTouchpointTarget", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeTouchpointTarget(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeTouchpointTarget", idParameter);
+        }
+    
+        public virtual int pr_unArchiveTouchpointTarget(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveTouchpointTarget", idParameter);
         }
     }
 }

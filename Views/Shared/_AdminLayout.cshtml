@@ -199,9 +199,12 @@
                 width: 900,
                 open: function () {
                     $("#modal").attr("src", url);
+
                 }
             });
         }
+
+       
 
         jQuery.noConflict();
         $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);

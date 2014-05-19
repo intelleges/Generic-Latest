@@ -40,6 +40,8 @@ namespace Generic
         public Nullable<bool> automaticReminder { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<int> active { get; set; }
+        public string purpose { get; set; }
+        public Nullable<int> target { get; set; }
     
         public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire { get; set; }
         public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire1 { get; set; }
@@ -51,5 +53,6 @@ namespace Generic
         public virtual ICollection<questionnaire> questionnaire { get; set; }
         public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
         public virtual ICollection<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
+        public virtual touchpointTarget touchpointTarget { get; set; }
     }
 }

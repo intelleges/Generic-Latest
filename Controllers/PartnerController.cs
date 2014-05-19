@@ -634,6 +634,19 @@ namespace Generic.Controllers
             //uploadedpartners.ToList().FirstOrDefault().Item1;
 
             string loadGroup = db.pr_getAccesscode().FirstOrDefault();
+            int countpartNumbers = partnerinExcel.Count();
+            int recordNumber = 1;
+            foreach (var partnumbersItem in partnerinExcel.ToList())
+            {
+                if (partnumbersItem.internalID == null || partnumbersItem.PARTNER_SAP_ID == null || partnumbersItem.dunsNumber == null || partnumbersItem.PART_NUMBER_INTERNAL == null || partnumbersItem.PART_NUMBER_SAP == null)
+                {
+                    ErrorView objerrorView = new ErrorView();
+                    objerrorView.errorMessage ="Record "+ recordNumber.ToString() + " of " + countpartNumbers +" has invalid values.";
+                    return PartialView("_Error", objerrorView);
+                }
+                recordNumber++;
+            }
+
             foreach (var partnumbers in partnerinExcel.ToList())
             {
 

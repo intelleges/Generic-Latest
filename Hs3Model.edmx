@@ -182,6 +182,7 @@
           <EntitySet Name="touchpointQuestionnaire_deprecated" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionnaire_deprecated" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="touchpointQuestionResponseValue_deprecated" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionResponseValue_deprecated" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="touchpointQuestionWeight_deprecated" EntityType="hs3MVCMTQa2Model.Store.touchpointQuestionWeight_deprecated" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="touchpointTarget" EntityType="hs3MVCMTQa2Model.Store.touchpointTarget" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UM_M_Menu_deprecated" EntityType="hs3MVCMTQa2Model.Store.UM_M_Menu_deprecated" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="zCode" EntityType="hs3MVCMTQa2Model.Store.zCode" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="zCodeBatchUpdate" EntityType="hs3MVCMTQa2Model.Store.zCodeBatchUpdate" store:Type="Tables" Schema="dbo" />
@@ -626,6 +627,10 @@
           <AssociationSet Name="FK_surveySetSurvey_surveyset" Association="hs3MVCMTQa2Model.Store.FK_surveySetSurvey_surveyset">
             <End Role="surveyset" EntitySet="surveyset" />
             <End Role="surveySetSurvey" EntitySet="surveySetSurvey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpoint_touchpointTarget" Association="hs3MVCMTQa2Model.Store.FK_touchpoint_touchpointTarget">
+            <End Role="touchpointTarget" EntitySet="touchpointTarget" />
+            <End Role="touchpoint" EntitySet="touchpoint" />
           </AssociationSet>
           <AssociationSet Name="FK_touchpointPartnerRerouter_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_touchpointPartnerRerouter_touchpoint">
             <End Role="touchpoint" EntitySet="touchpoint" />
@@ -2300,6 +2305,8 @@
           <Property Name="title" Type="varchar" MaxLength="50" />
           <Property Name="description" Type="varchar(max)" />
           <Property Name="abbreviation" Type="varchar" MaxLength="50" />
+          <Property Name="purpose" Type="varchar(max)" />
+          <Property Name="target" Type="int" />
           <Property Name="startDate" Type="datetime" />
           <Property Name="endDate" Type="datetime" />
           <Property Name="automaticReminder" Type="bit" />
@@ -2379,6 +2386,15 @@
           <Property Name="touchpoint" Type="int" Nullable="false" />
           <Property Name="question" Type="int" Nullable="false" />
           <Property Name="weight" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="touchpointTarget">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UM_M_Menu_deprecated">
           <Key>
@@ -3746,6 +3762,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_touchpoint_touchpointTarget">
+          <End Role="touchpointTarget" Type="hs3MVCMTQa2Model.Store.touchpointTarget" Multiplicity="0..1" />
+          <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpointTarget">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpoint">
+              <PropertyRef Name="target" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_touchpointPartnerRerouter_touchpoint">
           <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
           <End Role="touchpointPartnerRerouter" Type="hs3MVCMTQa2Model.Store.touchpointPartnerRerouter" Multiplicity="*" />
@@ -4650,7 +4678,9 @@
           <Parameter Name="sponsor" Type="int" Mode="In" />
           <Parameter Name="admin" Type="int" Mode="In" />
           <Parameter Name="title" Type="varchar" Mode="In" />
-          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="purpose" Type="varchar(max)" Mode="In" />
+          <Parameter Name="target" Type="int" Mode="In" />
           <Parameter Name="abbreviation" Type="varchar" Mode="In" />
           <Parameter Name="startDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
@@ -4676,6 +4706,11 @@
           <Parameter Name="touchpoint" Type="int" Mode="In" />
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="weight" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_archiveAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -4825,8 +4860,18 @@
         <Function Name="pr_archiveTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_bootstrapEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_bootstrapQuestionnaireCMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+          <Parameter Name="companyName" Type="varchar" Mode="In" />
+          <Parameter Name="touchpointTitle" Type="varchar" Mode="In" />
+          <Parameter Name="touchpointPurpose" Type="varchar(max)" Mode="In" />
+          <Parameter Name="touchpointTarget" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_doLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="varchar" Mode="In" />
@@ -5643,6 +5688,10 @@
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="response" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getTouchpointTargetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getTranslationByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
         </Function>
@@ -6391,8 +6440,10 @@
           <Parameter Name="sponsor" Type="int" Mode="In" />
           <Parameter Name="admin" Type="int" Mode="In" />
           <Parameter Name="title" Type="varchar" Mode="In" />
-          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
           <Parameter Name="abbreviation" Type="varchar" Mode="In" />
+          <Parameter Name="purpose" Type="varchar(max)" Mode="In" />
+          <Parameter Name="target" Type="int" Mode="In" />
           <Parameter Name="startDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
           <Parameter Name="automaticReminder" Type="bit" Mode="In" />
@@ -6404,6 +6455,12 @@
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="response" Type="int" Mode="In" />
           <Parameter Name="value" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_modifyUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -6687,6 +6744,9 @@
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="response" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6844,6 +6904,9 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="ProperCase" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -7882,6 +7945,8 @@
             <Parameter Name="admin" Mode="In" Type="Int32" />
             <Parameter Name="title" Mode="In" Type="String" />
             <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="purpose" Mode="In" Type="String" />
+            <Parameter Name="target" Mode="In" Type="Int32" />
             <Parameter Name="abbreviation" Mode="In" Type="String" />
             <Parameter Name="startDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
@@ -9080,6 +9145,8 @@
             <Parameter Name="title" Mode="In" Type="String" />
             <Parameter Name="description" Mode="In" Type="String" />
             <Parameter Name="abbreviation" Mode="In" Type="String" />
+            <Parameter Name="purpose" Mode="In" Type="String" />
+            <Parameter Name="target" Mode="In" Type="Int32" />
             <Parameter Name="startDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
             <Parameter Name="automaticReminder" Mode="In" Type="Boolean" />
@@ -10665,6 +10732,42 @@
             <Parameter Name="zipcode" Mode="In" Type="String" />
             <Parameter Name="country" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="pr_bootstrapQuestionnaireCMS">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="touchpointTitle" Mode="In" Type="String" />
+            <Parameter Name="touchpointPurpose" Mode="In" Type="String" />
+            <Parameter Name="touchpointTarget" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="touchpointTarget" EntityType="hs3MVCMTQa2Model.touchpointTarget" />
+          <AssociationSet Name="FK_touchpoint_touchpointTarget" Association="hs3MVCMTQa2Model.FK_touchpoint_touchpointTarget">
+            <End Role="touchpointTarget" EntitySet="touchpointTarget" />
+            <End Role="touchpoint" EntitySet="touchpoint" />
+          </AssociationSet>
+          <FunctionImport Name="pr_addTouchpointTarget" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveTouchpointTarget">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTouchpointTarget" EntitySet="touchpointTarget" ReturnType="Collection(hs3MVCMTQa2Model.touchpointTarget)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTouchpointTargetAll" EntitySet="touchpointTarget" ReturnType="Collection(hs3MVCMTQa2Model.touchpointTarget)" />
+          <FunctionImport Name="pr_modifyTouchpointTarget">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeTouchpointTarget">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveTouchpointTarget">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -12018,6 +12121,9 @@
           <NavigationProperty Name="questionnaire" Relationship="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" FromRole="touchpoint" ToRole="questionnaire" />
           <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" FromRole="touchpoint" ToRole="partnumberSpreadsheetDataLoad" />
           <NavigationProperty Name="partnerSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346" FromRole="touchpoint" ToRole="partnerSpreadsheetDataLoad" />
+          <Property Type="String" Name="purpose" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="target" />
+          <NavigationProperty Name="touchpointTarget" Relationship="hs3MVCMTQa2Model.FK_touchpoint_touchpointTarget" FromRole="touchpoint" ToRole="touchpointTarget" />
         </EntityType>
         <EntityType Name="touchpointGroup">
           <Key>
@@ -16977,6 +17083,40 @@
           <Property Type="Int32" Name="ptq" Nullable="false" />
           <Property Type="Int32" Name="group" Nullable="false" />
         </EntityType>
+        <EntityType Name="touchpointTarget">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <NavigationProperty Name="touchpoint" Relationship="hs3MVCMTQa2Model.FK_touchpoint_touchpointTarget" FromRole="touchpointTarget" ToRole="touchpoint" />
+        </EntityType>
+        <Association Name="FK_touchpoint_touchpointTarget">
+          <End Type="hs3MVCMTQa2Model.touchpointTarget" Role="touchpointTarget" Multiplicity="0..1" />
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpointTarget">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpoint">
+              <PropertyRef Name="target" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="pr_getTouchpointTarget_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getTouchpointTargetAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -19383,6 +19523,8 @@
           <EntitySetMapping Name="touchpoint">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpoint">
               <MappingFragment StoreEntitySet="touchpoint">
+                <ScalarProperty Name="target" ColumnName="target" />
+                <ScalarProperty Name="purpose" ColumnName="purpose" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="protocol" ColumnName="protocol" />
                 <ScalarProperty Name="person" ColumnName="person" />
@@ -19401,6 +19543,8 @@
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpoint">
               <ModificationFunctionMapping>
                 <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addTouchpoint">
+                  <ScalarProperty Name="target" ParameterName="target" />
+                  <ScalarProperty Name="purpose" ParameterName="purpose" />
                   <ScalarProperty Name="active" ParameterName="active" />
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
                   <ScalarProperty Name="automaticReminder" ParameterName="automaticReminder" />
@@ -19416,6 +19560,8 @@
                   <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyTouchpoint">
+                  <ScalarProperty Name="target" ParameterName="target" Version="Current" />
+                  <ScalarProperty Name="purpose" ParameterName="purpose" Version="Current" />
                   <ScalarProperty Name="active" ParameterName="active" Version="Current" />
                   <ScalarProperty Name="sortOrder" ParameterName="sortOrder" Version="Current" />
                   <ScalarProperty Name="automaticReminder" ParameterName="automaticReminder" Version="Current" />
@@ -21985,6 +22131,26 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addSystemMasterToEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_addSystemMasterToEnterprise" />
+          <FunctionImportMapping FunctionImportName="pr_bootstrapQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapQuestionnaireCMS" />
+          <EntitySetMapping Name="touchpointTarget">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpointTarget">
+              <MappingFragment StoreEntitySet="touchpointTarget">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addTouchpointTarget" FunctionName="hs3MVCMTQa2Model.Store.pr_addTouchpointTarget" />
+          <FunctionImportMapping FunctionImportName="pr_archiveTouchpointTarget" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveTouchpointTarget" />
+          <FunctionImportMapping FunctionImportName="pr_getTouchpointTarget" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointTarget">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getTouchpointTargetAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointTargetAll">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyTouchpointTarget" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyTouchpointTarget" />
+          <FunctionImportMapping FunctionImportName="pr_removeTouchpointTarget" FunctionName="hs3MVCMTQa2Model.Store.pr_removeTouchpointTarget" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveTouchpointTarget" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveTouchpointTarget" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

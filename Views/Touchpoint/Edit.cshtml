@@ -72,6 +72,24 @@
             @Html.ValidationMessageFor(model => model.abbreviation)
         </div>
 
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.purpose)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.purpose)
+            @Html.ValidationMessageFor(model => model.purpose)
+        </div>
+
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.target)
+        </div>
+        <div class="editor-field">
+             @Html.DropDownList("target", String.Empty)
+            @Html.ValidationMessageFor(model => model.target)
+        </div>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.startDate)
         </div>

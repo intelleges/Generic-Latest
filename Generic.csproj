@@ -1398,6 +1398,12 @@
     <Compile Include="pr_getTouchpointByProtocol_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getTouchpointTargetAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getTouchpointTarget_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getTouchpoint_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1549,9 +1555,13 @@
     <Compile Include="touchpointQuestionWeight_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="touchpointTarget.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="UM_M_Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ErrorPage.cs" />
     <Compile Include="ViewModel\ExcelAutoMailMessage.cs" />
     <Compile Include="ViewModel\ExcelEventNotification.cs" />
     <Compile Include="ViewModel\ExcelPartner.cs" />
@@ -2971,7 +2981,7 @@
     <Content Include="Views\Admin\Dashbord1.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_Error.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Person\CreatePerson.cshtml" />
