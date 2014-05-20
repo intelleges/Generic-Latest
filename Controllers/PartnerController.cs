@@ -638,11 +638,14 @@ namespace Generic.Controllers
             int recordNumber = 1;
             foreach (var partnumbersItem in partnerinExcel.ToList())
             {
-                if (partnumbersItem.internalID == null || partnumbersItem.PARTNER_SAP_ID == null || partnumbersItem.dunsNumber == null || partnumbersItem.PART_NUMBER_INTERNAL == null || partnumbersItem.PART_NUMBER_SAP == null)
+                if (partnumbersItem.internalID != null)
                 {
-                    ErrorView objerrorView = new ErrorView();
-                    objerrorView.errorMessage ="Record "+ recordNumber.ToString() + " of " + countpartNumbers +" has invalid values.";
-                    return PartialView("_Error", objerrorView);
+                    if (partnumbersItem.PARTNER_SAP_ID == null || partnumbersItem.dunsNumber == null || partnumbersItem.PART_NUMBER_INTERNAL == null || partnumbersItem.PART_NUMBER_SAP == null)
+                    {
+                        ErrorView objerrorView = new ErrorView();
+                        objerrorView.errorMessage = "Record " + recordNumber.ToString() + " of " + countpartNumbers + " has invalid values.";
+                        return PartialView("_Error", objerrorView);
+                    }
                 }
                 recordNumber++;
             }
