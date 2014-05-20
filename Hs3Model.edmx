@@ -5670,6 +5670,9 @@
         <Function Name="pr_getSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getSystemMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -10750,10 +10753,10 @@
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveTouchpointTarget">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getTouchpointTarget" EntitySet="touchpointTarget" ReturnType="Collection(hs3MVCMTQa2Model.touchpointTarget)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getTouchpointTargetAll" EntitySet="touchpointTarget" ReturnType="Collection(hs3MVCMTQa2Model.touchpointTarget)" />
           <FunctionImport Name="pr_modifyTouchpointTarget">
@@ -10763,10 +10766,13 @@
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeTouchpointTarget">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveTouchpointTarget">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSystemMaster" EntitySet="person" ReturnType="Collection(hs3MVCMTQa2Model.person)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -17117,6 +17123,14 @@
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getSystemMaster_Result">
+          <Property Type="String" Name="firstname" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastname" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -22151,6 +22165,8 @@
           <FunctionImportMapping FunctionImportName="pr_modifyTouchpointTarget" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyTouchpointTarget" />
           <FunctionImportMapping FunctionImportName="pr_removeTouchpointTarget" FunctionName="hs3MVCMTQa2Model.Store.pr_removeTouchpointTarget" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveTouchpointTarget" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveTouchpointTarget" />
+          <FunctionImportMapping FunctionImportName="pr_getSystemMaster" FunctionName="hs3MVCMTQa2Model.Store.pr_getSystemMaster">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

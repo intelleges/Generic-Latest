@@ -44,7 +44,11 @@ namespace Generic.Helpers.Utility
         {
             return this.sGetResult(sEmailBody, sender, null, partner, null, touchpoint, ptq);
         }
-        private string sGetResult(string sEmailBody, person sender, person receiver, partner partner, enterprise enterprise, touchpoint touchpoint, int ptq = 0)
+        public string sGetEmailBody(string sEmailBody, person sender, person receiver, touchpoint touchpoint, enterprise enterprise,person systemmaster)
+        {
+            return this.sGetResult(sEmailBody, sender, receiver, null, enterprise, touchpoint,0,systemmaster);
+        }
+        private string sGetResult(string sEmailBody, person sender, person receiver, partner partner, enterprise enterprise, touchpoint touchpoint, int ptq = 0, person systemmaster = null)
         {
             Regex regex = new Regex(@"\[(.*?)\]");
             //comment add sebody
@@ -197,6 +201,43 @@ namespace Generic.Helpers.Utility
                     case "[partner Email and Password]":
                         sValue = this.sGetpartnerEmailandPassword(partner);
                         break;
+
+                    case "[Enterprise Name]":
+                        sValue = enterprise.description;
+                        break;
+
+                    case "[Touchpoint Title]":
+                        sValue =touchpoint.description;
+                        break;
+                    case "[User Firstname]":
+                        sValue = receiver.firstName;
+                        break;
+                    case "[Touchpoint Purpose]":
+                        sValue = touchpoint.purpose;
+                        break;
+                    case "[User Email]":
+                        sValue = receiver.email;
+                        break;
+                    case "[Temporary Access Code]":
+                        sValue = receiver.passWord;
+                        break;
+                    case "[Project Url]":
+                        sValue = "https://www.intelleges.com/mvcmt/Generic";
+                        break;
+                    case "[User Inviting Email]":
+                        sValue = sender.email;
+                        break;
+                    case "[User Inviting Firstname]":
+                        sValue = sender.firstName;
+                        break;
+                    case "[User Inviting Last Name]":
+                        sValue = sender.lastName;
+                        break;
+                    case "[Default System Master Email]":
+                        sValue = systemmaster.email;
+                        break;
+
+
                     default:
                         sValue = "";
                         break;

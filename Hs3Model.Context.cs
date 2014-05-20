@@ -12797,5 +12797,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveTouchpointTarget", idParameter);
         }
+    
+        public virtual ObjectResult<person> pr_getSystemMaster(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getSystemMaster", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<person> pr_getSystemMaster(Nullable<int> enterprise, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getSystemMaster", mergeOption, enterpriseParameter);
+        }
     }
 }
