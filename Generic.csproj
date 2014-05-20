@@ -489,6 +489,7 @@
     <Compile Include="Helpers\LayoutHelper.cs" />
     <Compile Include="Helpers\PartnerHelper.cs" />
     <Compile Include="Helpers\PartNumberHelper.cs" />
+    <Compile Include="Helpers\PersonHelper.cs" />
     <Compile Include="Helpers\QuestionnaireHelper.cs" />
     <Compile Include="Helpers\UIControl.cs" />
     <Compile Include="Helpers\Utility\EmailFormat.cs" />

@@ -2,9 +2,22 @@
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @{
-    Layout = null;
+    Layout = LayoutHelper.GetPopupLayout();
     ViewBag.Title = ViewBag.Project + "Admin";
 }
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $('.cancelPopup').click(function () {
+            window.parent.$('#popup').dialog('close');
+            return false;
+        });
+    });
+
+</script>
+
 
 <h2>Create</h2>
 
@@ -13,44 +26,23 @@
 
     <fieldset>
         <legend>person</legend>
-
+          <div style="width: 48%; float: left">
         <div class="editor-label">
             @Html.LabelFor(model => model.manager)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.manager)
+           
+          
+             @Html.DropDownList("manager", String.Empty)
             @Html.ValidationMessageFor(model => model.manager)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.personStatus, "personStatu")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("personStatus", String.Empty)
-            @Html.ValidationMessageFor(model => model.personStatus)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.riskType)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.riskType)
-            @Html.ValidationMessageFor(model => model.riskType)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.loadHistory)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.loadHistory)
-            @Html.ValidationMessageFor(model => model.loadHistory)
-        </div>
+        </div>       
 
         <div class="editor-label">
             @Html.LabelFor(model => model.campaign)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.campaign)
+            @Html.DropDownList("campaign", String.Empty)
+           
             @Html.ValidationMessageFor(model => model.campaign)
         </div>
 
@@ -62,22 +54,7 @@
             @Html.ValidationMessageFor(model => model.internalId)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.nmNumber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.nmNumber)
-            @Html.ValidationMessageFor(model => model.nmNumber)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.socialSecurity)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.socialSecurity)
-            @Html.ValidationMessageFor(model => model.socialSecurity)
-        </div>
-
+      
         <div class="editor-label">
             @Html.LabelFor(model => model.firstName)
         </div>
@@ -119,14 +96,6 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.passWord)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.passWord)
-            @Html.ValidationMessageFor(model => model.passWord)
-        </div>
-
-        <div class="editor-label">
             @Html.LabelFor(model => model.email)
         </div>
         <div class="editor-field">
@@ -134,7 +103,22 @@
             @Html.ValidationMessageFor(model => model.email)
         </div>
 
-        <div class="editor-label">
+       
+
+      
+
+      
+
+       
+
+        <p>
+            <input type="submit" value="Create" />
+             <input type="button" class="cancelPopup" value="Cancel" />
+        </p>
+              </div>
+
+          <div style="width: 48%; float: left">
+ <div class="editor-label">
             @Html.LabelFor(model => model.address1)
         </div>
         <div class="editor-field">
@@ -149,8 +133,7 @@
             @Html.EditorFor(model => model.address2)
             @Html.ValidationMessageFor(model => model.address2)
         </div>
-
-        <div class="editor-label">
+                <div class="editor-label">
             @Html.LabelFor(model => model.city)
         </div>
         <div class="editor-field">
@@ -162,7 +145,7 @@
             @Html.LabelFor(model => model.state)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.state)
+          @Html.DropDownList("state", String.Empty)
             @Html.ValidationMessageFor(model => model.state)
         </div>
 
@@ -178,7 +161,7 @@
             @Html.LabelFor(model => model.country)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.country)
+            @Html.DropDownList("country", String.Empty)
             @Html.ValidationMessageFor(model => model.country)
         </div>
 
@@ -190,65 +173,7 @@
             @Html.ValidationMessageFor(model => model.phone)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.fax)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.fax)
-            @Html.ValidationMessageFor(model => model.fax)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.active)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.active)
-            @Html.ValidationMessageFor(model => model.active)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ismanager)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ismanager)
-            @Html.ValidationMessageFor(model => model.ismanager)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.partnerPerPage)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.partnerPerPage)
-            @Html.ValidationMessageFor(model => model.partnerPerPage)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.resetDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.resetDate)
-            @Html.ValidationMessageFor(model => model.resetDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsArchived)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsArchived)
-            @Html.ValidationMessageFor(model => model.IsArchived)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.archivedDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.archivedDate)
-            @Html.ValidationMessageFor(model => model.archivedDate)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
+              </div>
     </fieldset>
 }
 

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Generic.Models;
 using Generic.Helpers.Utility;
+using Generic.Helpers;
 
 namespace Generic.Controllers
 {
@@ -45,9 +46,11 @@ namespace Generic.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.enterprise = new SelectList(db.enterprise, "id", "description");
-            ViewBag.personStatus = new SelectList(db.personStatus, "id", "description");
-            ViewBag.role = new SelectList(db.role, "id", "description");
+            ViewBag.campaign = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+            ViewBag.manager = new SelectList(db.pr_getPersonByEnterprise2(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+
+            ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             return View();
         }
 
@@ -59,6 +62,15 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                person.personStatus = (int)PersonHelper.PersonStatus.Invited;
+                person.active = 1;
+                person.ismanager=0;
+                person.partnerPerPage = 500;
+                person.riskType = 0;
+                person.loadHistory = 0;
+                person.passWord = db.pr_getAccesscode().FirstOrDefault();
+
                 person.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
                 db.person.Add(person);
                 db.SaveChanges();
@@ -125,8 +137,12 @@ Thanks in advance.<br>
                 return RedirectToAction("AssignGroup", "Person");
             }
 
-            ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", person.enterprise);
-            ViewBag.personStatus = new SelectList(db.personStatus, "id", "description", person.personStatus);
+            ViewBag.campaign = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+            ViewBag.manager = new SelectList(db.pr_getPersonByEnterprise2(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+
+            ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+      
 
             return View(person);
         }
