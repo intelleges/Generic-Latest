@@ -222,7 +222,25 @@ namespace Generic.Helpers.Utility
                         sValue = receiver.passWord;
                         break;
                     case "[Project Url]":
-                        sValue = "https://www.intelleges.com/mvcmt/Generic";
+                        if (enterprise == null)
+                        {
+                            sValue = "https://www.intelleges.com/mvcmt/Generic";
+                        }
+                        else
+                        {
+                            if (enterprise.multiTenantProjectType == 1)
+                            {
+                                sValue = "https://www.intelleges.com/mvcmt/Generic";
+                            }
+                            else if (enterprise.multiTenantProjectType == 2)
+                            {
+                                sValue = "https://www.intelleges.com/mvcmt/BAA";
+                            }
+                            else
+                            {
+                                sValue = "https://www.intelleges.com/mvcmt/Generic";   
+                            }
+                        }
                         break;
                     case "[User Inviting Email]":
                         sValue = sender.email;
