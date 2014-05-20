@@ -63,6 +63,65 @@ namespace Generic.Controllers
                 db.person.Add(person);
                 db.SaveChanges();
                 SessionSingleton.PersonId = person.id;
+
+
+
+                person objdefaultSystemMaster = db.pr_getSystemMaster(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+
+
+                int? PersonId = person.id;
+
+              
+
+                // Email Invite
+                var objSystemMaster = db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
+
+                enterprise objEnterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+
+               
+                autoMailMessage objamm = new autoMailMessage();
+
+                objamm.subject = "Welcome to Intelleges for [Enterprise Name]: [Touchpoint Title]";
+                //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
+                objamm.text = @"Hi [User Firstname],<br>
+
+You have a new account at Intelleges for [Enterprise Name] [Touchpoint Title].<br>
+
+As you know the purpose of this system is to help us [Touchpoint Purpose].<br>
+
+Your username is [User Email]. The administrator has set your password [Temporary Access Code].<br>
+
+You can sign in to Intelleges services at:<br>
+
+[Project Url]<br>
+
+Note: you will need to change your password once you login.<br>
+
+If you have any questions please contact me [User Inviting Email] or contact your system master [System Master Email]<br>
+
+Thanks in advance.<br>
+
+[User Inviting Firstname] [User Inviting Last Name]<br>
+[Enterprise Name]";
+
+
+                Email email = new Email(objamm);
+                person objInvitingUser = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+
+                touchpoint objCurrentTouchpoint = db.pr_getTouchpoint(objInvitingUser.campaign).FirstOrDefault();
+
+                EmailFormat emailFormat = new EmailFormat();
+                email.subject = emailFormat.sGetEmailBody(email.subject, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
+                //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
+                email.body = emailFormat.sGetEmailBody(email.body, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
+                //  email.body = objamm.text;
+                email.emailTo = objSystemMaster.email;
+                SendEmail objSendEmail = new SendEmail();
+                objSendEmail.sendEmail(email);
+
+
+
+
                 return RedirectToAction("AssignGroup", "Person");
             }
 
