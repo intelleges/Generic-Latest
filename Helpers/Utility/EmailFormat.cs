@@ -233,7 +233,7 @@ namespace Generic.Helpers.Utility
                     case "[User Inviting Last Name]":
                         sValue = sender.lastName;
                         break;
-                    case "[Default System Master Email]":
+                    case "[System Master Email]":
                         sValue = systemmaster.email;
                         break;
 
