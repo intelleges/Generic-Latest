@@ -31,11 +31,11 @@ namespace Generic.SessionClass
         {
             get
             {
-                return Convert.ToInt16(System.Web.HttpContext.Current.Session["EnterpriseId"]);
+                return Convert.ToInt16(System.Web.HttpContext.Current.Session["NewEnterpriseId"]);
             }
             set
             {
-                System.Web.HttpContext.Current.Session["EnterpriseId"] = value;
+                System.Web.HttpContext.Current.Session["NewEnterpriseId"] = value;
             }
         }
 
