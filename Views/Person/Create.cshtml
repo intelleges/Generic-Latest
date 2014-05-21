@@ -87,21 +87,9 @@
             @Html.ValidationMessageFor(model => model.suffix)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.nickName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.nickName)
-            @Html.ValidationMessageFor(model => model.nickName)
-        </div>
+       
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.email)
-            @Html.ValidationMessageFor(model => model.email)
-        </div>
+        
 
        
 
@@ -172,7 +160,13 @@
             @Html.EditorFor(model => model.phone)
             @Html.ValidationMessageFor(model => model.phone)
         </div>
-
+<div class="editor-label">
+            @Html.LabelFor(model => model.email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
               </div>
     </fieldset>
 }
