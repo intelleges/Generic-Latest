@@ -78,7 +78,14 @@ namespace Generic.Controllers
                     SessionSingleton.MyEnterPriseId = person.enterprise;
                     Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
 
-                    return RedirectToAction("Home", "Admin");
+                    if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
+                    {
+                        return RedirectToAction("ResetPassword", "Person");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Home", "Admin");
+                    }
                     //}
                 }
                 else

@@ -12,6 +12,7 @@ using Generic.Helpers;
 
 namespace Generic.Controllers
 {
+     [Authorize]
     public class PersonController : Controller
     {
         private EntitiesDBContext db = new EntitiesDBContext();
@@ -294,6 +295,24 @@ Thanks in advance.<br>
             return RedirectToAction("Index");
         }
 
+
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ResetPassword(string password)
+        {
+            person objUser = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+            objUser.passWord = password;
+            objUser.personStatus = (int)PersonHelper.PersonStatus.Registered;
+            objUser.riskType = 1;
+            objUser.loadHistory = 1;
+            db.Entry(objUser).State = EntityState.Modified;
+            db.SaveChanges();
+            ViewBag.Message = 1;
+            return View();
+        }
 
         public ActionResult AssignGroup(int person = 0)
         {

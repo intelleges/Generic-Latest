@@ -18747,8 +18747,38 @@
                 <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removePerson">
                   <ScalarProperty Name="id" ParameterName="id" />
                 </DeleteFunction>
-                <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByEnterprise">
+                <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPerson">
+                  <ScalarProperty Name="personStatus" ParameterName="PersonStatus" Version="Current" />
+                  <ScalarProperty Name="archivedDate" ParameterName="archivedDate" Version="Current" />
+                  <ScalarProperty Name="IsArchived" ParameterName="IsArchived" Version="Current" />
+                  <ScalarProperty Name="resetDate" ParameterName="resetDate" Version="Current" />
+                  <ScalarProperty Name="partnerPerPage" ParameterName="partnerPerPage" Version="Current" />
+                  <ScalarProperty Name="ismanager" ParameterName="ismanager" Version="Current" />
+                  <ScalarProperty Name="active" ParameterName="active" Version="Current" />
+                  <ScalarProperty Name="fax" ParameterName="fax" Version="Current" />
+                  <ScalarProperty Name="phone" ParameterName="phone" Version="Current" />
+                  <ScalarProperty Name="country" ParameterName="country" Version="Current" />
+                  <ScalarProperty Name="zipcode" ParameterName="zipcode" Version="Current" />
+                  <ScalarProperty Name="state" ParameterName="state" Version="Current" />
+                  <ScalarProperty Name="city" ParameterName="city" Version="Current" />
+                  <ScalarProperty Name="address2" ParameterName="address2" Version="Current" />
+                  <ScalarProperty Name="address1" ParameterName="address1" Version="Current" />
+                  <ScalarProperty Name="email" ParameterName="email" Version="Current" />
+                  <ScalarProperty Name="passWord" ParameterName="passWord" Version="Current" />
+                  <ScalarProperty Name="nickName" ParameterName="nickName" Version="Current" />
+                  <ScalarProperty Name="suffix" ParameterName="suffix" Version="Current" />
+                  <ScalarProperty Name="title" ParameterName="title" Version="Current" />
+                  <ScalarProperty Name="lastName" ParameterName="lastName" Version="Current" />
+                  <ScalarProperty Name="firstName" ParameterName="firstName" Version="Current" />
+                  <ScalarProperty Name="socialSecurity" ParameterName="socialSecurity" Version="Current" />
+                  <ScalarProperty Name="nmNumber" ParameterName="nmNumber" Version="Current" />
+                  <ScalarProperty Name="internalId" ParameterName="internalId" Version="Current" />
+                  <ScalarProperty Name="campaign" ParameterName="campaign" Version="Current" />
+                  <ScalarProperty Name="loadHistory" ParameterName="loadHistory" Version="Current" />
+                  <ScalarProperty Name="riskType" ParameterName="riskType" Version="Current" />
+                  <ScalarProperty Name="manager" ParameterName="manager" Version="Current" />
                   <ScalarProperty Name="enterprise" ParameterName="enterprise" Version="Current" />
+                  <ScalarProperty Name="id" ParameterName="id" Version="Current" />
                 </UpdateFunction>
               </ModificationFunctionMapping>
             </EntityTypeMapping>
