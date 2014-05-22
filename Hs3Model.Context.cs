@@ -12392,7 +12392,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveMultiTenantProjectType", idParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> pr_addPartnerSpreadsheetDataLoad(string partner_internal_id, string partner_sap_id, string partner_name, string partner_address_one, string partner_address_two, string partner_city, string partner_state, string partner_zipcode, string partner_country, string partner_poc_first_name, string partner_poc_last_name, string partner_poc_title, string partner_poc_phone_number, string partner_poc_email_address, string ro_first_name, string ro_last_name, string ro_email, Nullable<System.DateTime> date_loaded, Nullable<int> enterprise, Nullable<int> partnertype, Nullable<int> touchpoint, Nullable<int> person, Nullable<int> partnerSpreadsheetDataLoadStatus, string loadGroup)
+        public virtual ObjectResult<Nullable<int>> pr_addPartnerSpreadsheetDataLoad(string partner_internal_id, string partner_sap_id, string partner_name, string partner_address_one, string partner_address_two, string partner_city, string partner_state, string partner_zipcode, string partner_country, string partner_poc_first_name, string partner_poc_last_name, string partner_poc_title, string partner_poc_phone_number, string partner_poc_email_address, string ro_first_name, string ro_last_name, string ro_email, Nullable<System.DateTime> date_loaded, Nullable<int> enterprise, Nullable<int> partnertype, Nullable<int> touchpoint, Nullable<int> person, Nullable<int> partnerSpreadsheetDataLoadStatus, string loadGroup, Nullable<System.DateTime> dueDate)
         {
             var partner_internal_idParameter = partner_internal_id != null ?
                 new ObjectParameter("partner_internal_id", partner_internal_id) :
@@ -12490,7 +12490,11 @@ namespace Generic
                 new ObjectParameter("loadGroup", loadGroup) :
                 new ObjectParameter("loadGroup", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnerSpreadsheetDataLoad", partner_internal_idParameter, partner_sap_idParameter, partner_nameParameter, partner_address_oneParameter, partner_address_twoParameter, partner_cityParameter, partner_stateParameter, partner_zipcodeParameter, partner_countryParameter, partner_poc_first_nameParameter, partner_poc_last_nameParameter, partner_poc_titleParameter, partner_poc_phone_numberParameter, partner_poc_email_addressParameter, ro_first_nameParameter, ro_last_nameParameter, ro_emailParameter, date_loadedParameter, enterpriseParameter, partnertypeParameter, touchpointParameter, personParameter, partnerSpreadsheetDataLoadStatusParameter, loadGroupParameter);
+            var dueDateParameter = dueDate.HasValue ?
+                new ObjectParameter("dueDate", dueDate) :
+                new ObjectParameter("dueDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnerSpreadsheetDataLoad", partner_internal_idParameter, partner_sap_idParameter, partner_nameParameter, partner_address_oneParameter, partner_address_twoParameter, partner_cityParameter, partner_stateParameter, partner_zipcodeParameter, partner_countryParameter, partner_poc_first_nameParameter, partner_poc_last_nameParameter, partner_poc_titleParameter, partner_poc_phone_numberParameter, partner_poc_email_addressParameter, ro_first_nameParameter, ro_last_nameParameter, ro_emailParameter, date_loadedParameter, enterpriseParameter, partnertypeParameter, touchpointParameter, personParameter, partnerSpreadsheetDataLoadStatusParameter, loadGroupParameter, dueDateParameter);
         }
     
         public virtual ObjectResult<pr_getEventNotificationByLoadGroup_Result> pr_getEventNotificationByLoadGroup(string loadgroup)
@@ -12814,6 +12818,31 @@ namespace Generic
                 new ObjectParameter("enterprise", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getSystemMaster", mergeOption, enterpriseParameter);
+        }
+    
+        public virtual int pr_bootstrapAutomailMessage(Nullable<int> partnertypetouchpointquestionnaire, string companyName, string touchpointTitle, string touchpointPurpose, string touchpointTarget)
+        {
+            var partnertypetouchpointquestionnaireParameter = partnertypetouchpointquestionnaire.HasValue ?
+                new ObjectParameter("partnertypetouchpointquestionnaire", partnertypetouchpointquestionnaire) :
+                new ObjectParameter("partnertypetouchpointquestionnaire", typeof(int));
+    
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("companyName", companyName) :
+                new ObjectParameter("companyName", typeof(string));
+    
+            var touchpointTitleParameter = touchpointTitle != null ?
+                new ObjectParameter("touchpointTitle", touchpointTitle) :
+                new ObjectParameter("touchpointTitle", typeof(string));
+    
+            var touchpointPurposeParameter = touchpointPurpose != null ?
+                new ObjectParameter("touchpointPurpose", touchpointPurpose) :
+                new ObjectParameter("touchpointPurpose", typeof(string));
+    
+            var touchpointTargetParameter = touchpointTarget != null ?
+                new ObjectParameter("touchpointTarget", touchpointTarget) :
+                new ObjectParameter("touchpointTarget", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_bootstrapAutomailMessage", partnertypetouchpointquestionnaireParameter, companyNameParameter, touchpointTitleParameter, touchpointPurposeParameter, touchpointTargetParameter);
         }
     }
 }

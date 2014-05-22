@@ -82,7 +82,21 @@ namespace Generic.Controllers
             return View();
         }
 
-        
+        public ActionResult SkipAutoMailMessage()
+        {
+            //Session["QuestionnaireId"] = questionnaireId;
+            //Session["protocolId"] = protocol;
+            //Session["touchpointId"] = touchpoint;
+            //Session["partnertypeId"] = partnertype;
+            //Session["level"] = level;
+            partnerTypeTouchpointQuestionnaire objptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType((int)Session["partnertypeId"]).ToList().Where(x => x.touchpoint == (int)Session["touchpointId"]).FirstOrDefault();
+
+            db.pr_bootstrapAutomailMessage(objptq.id, "Not Defined Yet", "Not Defined Yet", "Not Defined Yet", "Not Defined Yet");
+
+            ErrorView objerrorView = new ErrorView();
+            objerrorView.errorMessage = "Upload done";
+            return PartialView("_Error", objerrorView);
+        }
 
 
         protected override void Dispose(bool disposing)

@@ -39,6 +39,7 @@ namespace Generic
         public int person { get; set; }
         public Nullable<int> partnerSpreadsheetDataLoadStatus { get; set; }
         public string loadGroup { get; set; }
+        public Nullable<System.DateTime> dueDate { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
         public virtual partnerType partnerType1 { get; set; }

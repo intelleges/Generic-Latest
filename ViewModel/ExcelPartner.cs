@@ -14,7 +14,7 @@ namespace Generic.ViewModel
         public string RO_FIRST_NAME { get; set; }
         public string RO_LAST_NAME { get; set; }
         public string RO_EMAIL { get; set; }
-
+        public DateTime? DUE_DATE { get; set; }
         //public int InternalId { get; set; }
         //public string  Name { get; set; }
         //public string  Address1 { get; set; }

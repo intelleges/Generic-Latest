@@ -125,8 +125,23 @@ namespace Generic.Controllers
             //Session["partnertypeId"] = partnertypeId;
             //Session["level"] = level;
             ViewBag.message = "1";
-            return View();
+            
+            return RedirectToAction("UploadAutoMailMessage","AutoMailMessage");
         }
+
+        public ActionResult SkipCMS()
+        {
+            //Session["QuestionnaireId"] = questionnaireId;
+            //Session["protocolId"] = protocol;
+            //Session["touchpointId"] = touchpoint;
+            //Session["partnertypeId"] = partnertype;
+            //Session["level"] = level;
+
+            db.pr_bootstrapQuestionnaireCMS((int)Session["QuestionnaireId"], "Not Defined Yet", "Not Defined Yet",  "Not Defined Yet", "Not Defined Yet");
+
+            return RedirectToAction("UploadAutoMailMessage", "AutoMailMessage");
+        }
+
 
         public ActionResult UploadQuestionnaire()
         {

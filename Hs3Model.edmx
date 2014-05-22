@@ -1429,7 +1429,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="partner_internal_id" Type="varchar" MaxLength="300" />
+          <Property Name="partner_internal_id" Type="varchar" Nullable="false" MaxLength="300" />
           <Property Name="partner_sap_id" Type="varchar" MaxLength="300" />
           <Property Name="partner_name" Type="varchar(max)" />
           <Property Name="partner_address_one" Type="varchar(max)" />
@@ -1442,7 +1442,7 @@
           <Property Name="partner_poc_last_name" Type="varchar" MaxLength="300" />
           <Property Name="partner_poc_title" Type="varchar" MaxLength="300" />
           <Property Name="partner_poc_phone_number" Type="varchar" MaxLength="20" />
-          <Property Name="partner_poc_email_address" Type="varchar" MaxLength="300" />
+          <Property Name="partner_poc_email_address" Type="varchar" Nullable="false" MaxLength="300" />
           <Property Name="ro_first_name" Type="varchar" MaxLength="100" />
           <Property Name="ro_last_name" Type="varchar" MaxLength="100" />
           <Property Name="ro_email" Type="varchar" MaxLength="100" />
@@ -1453,6 +1453,7 @@
           <Property Name="person" Type="int" Nullable="false" />
           <Property Name="partnerSpreadsheetDataLoadStatus" Type="int" />
           <Property Name="loadGroup" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="dueDate" Type="date" />
         </EntityType>
         <EntityType Name="partnerStatus">
           <Key>
@@ -4264,6 +4265,7 @@
           <Parameter Name="person" Type="int" Mode="In" />
           <Parameter Name="partnerSpreadsheetDataLoadStatus" Type="int" Mode="In" />
           <Parameter Name="loadGroup" Type="varchar" Mode="In" />
+          <Parameter Name="dueDate" Type="datetime" Mode="In" />
         </Function>
         <Function Name="pr_addPartnerType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="name" Type="varchar" Mode="In" />
@@ -4862,6 +4864,13 @@
         </Function>
         <Function Name="pr_archiveTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_bootstrapAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertypetouchpointquestionnaire" Type="int" Mode="In" />
+          <Parameter Name="companyName" Type="varchar" Mode="In" />
+          <Parameter Name="touchpointTitle" Type="varchar" Mode="In" />
+          <Parameter Name="touchpointPurpose" Type="varchar(max)" Mode="In" />
+          <Parameter Name="touchpointTarget" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_bootstrapEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -10675,6 +10684,7 @@
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="partnerSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
             <Parameter Name="loadGroup" Mode="In" Type="String" />
+            <Parameter Name="dueDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="pr_getEventNotificationByLoadGroup" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByLoadGroup_Result)">
           <Parameter Name="loadgroup" Mode="In" Type="String" />
@@ -10772,7 +10782,14 @@
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSystemMaster" EntitySet="person" ReturnType="Collection(hs3MVCMTQa2Model.person)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_bootstrapAutomailMessage">
+            <Parameter Name="partnertypetouchpointquestionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="touchpointTitle" Mode="In" Type="String" />
+            <Parameter Name="touchpointPurpose" Mode="In" Type="String" />
+            <Parameter Name="touchpointTarget" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -16884,7 +16901,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="partner_internal_id" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="partner_internal_id" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="partner_sap_id" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="partner_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="partner_address_one" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -16897,7 +16914,7 @@
           <Property Name="partner_poc_last_name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="partner_poc_title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="partner_poc_phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="partner_poc_email_address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="partner_poc_email_address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ro_first_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ro_last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ro_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -16912,6 +16929,7 @@
           <NavigationProperty Name="partnerType1" Relationship="hs3MVCMTQa2Model.FK__partner__partn__7C7A5F0D" FromRole="partnerSpreadsheetDataLoad" ToRole="partnerType" />
           <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK__partner__perso__7E62A77F" FromRole="partnerSpreadsheetDataLoad" ToRole="person" />
           <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346" FromRole="partnerSpreadsheetDataLoad" ToRole="touchpoint" />
+          <Property Type="DateTime" Name="dueDate" Precision="0" />
         </EntityType>
         <Association Name="FK__partner__enter__7B863AD4">
           <End Type="hs3MVCMTQa2Model.enterprise" Role="enterprise" Multiplicity="1" />
@@ -21980,6 +21998,7 @@
           <EntitySetMapping Name="partnerSpreadsheetDataLoad">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad">
               <MappingFragment StoreEntitySet="partnerSpreadsheetDataLoad">
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
                 <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
                 <ScalarProperty Name="partnerSpreadsheetDataLoadStatus" ColumnName="partnerSpreadsheetDataLoadStatus" />
                 <ScalarProperty Name="person" ColumnName="person" />
@@ -22197,6 +22216,7 @@
           <FunctionImportMapping FunctionImportName="pr_unArchiveTouchpointTarget" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveTouchpointTarget" />
           <FunctionImportMapping FunctionImportName="pr_getSystemMaster" FunctionName="hs3MVCMTQa2Model.Store.pr_getSystemMaster">
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_bootstrapAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapAutomailMessage" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
