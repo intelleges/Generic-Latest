@@ -51,6 +51,9 @@
     <Reference Include="ChargifyNET">
       <HintPath>..\packages\chargify.1.0.5169.17336\lib\net35\ChargifyNET.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -485,6 +488,7 @@
     <Compile Include="Helpers\CurrentInstance.cs" />
     <Compile Include="Helpers\CustomMembershipProvider.cs" />
     <Compile Include="Helpers\CustomRoleProvider.cs" />
+    <Compile Include="Helpers\HandleErrorAttibute.cs" />
     <Compile Include="Helpers\hs3ModelExtender.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
     <Compile Include="Helpers\PartnerHelper.cs" />
@@ -1577,6 +1581,9 @@
     <Compile Include="xx_getLastDBModified_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="xx_getQuestionByQuestionnaire1_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="xx_getQuestionByQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1603,6 +1610,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Contents\css\b118june_styles.css" />
     <Content Include="Contents\css\bubble-tooltip.css" />
     <Content Include="Contents\css\custom-dropdown.css" />
@@ -2982,7 +2990,7 @@
     <Content Include="Content\Icon.psd" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\Dashbord1.cshtml" />
+    <EmbeddedResource Include="Views\Admin\Dashbord1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Shared\_Error.cshtml" />

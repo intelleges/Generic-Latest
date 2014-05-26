@@ -10,4 +10,15 @@ namespace Generic.ViewModel
         public  List<GroupsVM> Groups { get; set; }
        
     }
+
+    public class PartnerTypeDataList
+    {
+        public List<PartnerTypeData> partnerType { get; set; }
+    }
+
+    public class PartnerTypeData
+    {
+        public int ID{get;set;}
+        public string Description{get;set;}
+    }
 }

@@ -87,5 +87,17 @@ namespace Generic.SessionClass
             }
         }
 
+        public static int PTQ
+        {
+            get
+            {
+                return Convert.ToInt16(System.Web.HttpContext.Current.Session["PTQ"]);
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["PTQ"] = value;
+            }
+        }
+
     }
 }

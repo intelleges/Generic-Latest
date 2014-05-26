@@ -48,12 +48,20 @@ namespace Generic.Controllers
         public virtual ActionResult Index()
         {
 
+            try
+            {
+                var enterprises = db.pr_getEnterprise(1);
 
-            var enterprises = db.pr_getEnterprise(1);
+                ViewBag.Project = "Generic";
+                return View(enterprises.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                //Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+                return View();
+            }
 
 
-            ViewBag.Project = "Generic";
-            return View(enterprises.FirstOrDefault());
         }
 
         [HttpPost]
@@ -76,6 +84,8 @@ namespace Generic.Controllers
                     person person = db.pr_doLogin(userName, password).FirstOrDefault();
                     SessionSingleton.LoggedInUserId = person.id;
                     SessionSingleton.MyEnterPriseId = person.enterprise;
+                    SessionSingleton.PTQ = 2;
+
                     Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
 
                     if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
@@ -221,70 +231,26 @@ namespace Generic.Controllers
         [Authorize]
         public virtual ActionResult Dashbord1()
         {
-            var PartnerType = db.pr_getPartnerTypeByPTQ(2);
+            var partnerTypeByPTQList = db.pr_getPartnerTypeByPTQ(SessionSingleton.PTQ).ToList();
 
-            List<string> objTypeList=new List<string>();
-         
- string a= "Dealer/Distributor";
-string b="Manufacturer";
-string c= "Maintenance & Repair";
-string d="Design";
-string e= "Research";
-string f = "Consultant";
-objTypeList.Add(a);
-objTypeList.Add(b);
-objTypeList.Add(c);
-objTypeList.Add(d);
-objTypeList.Add(e);
-objTypeList.Add(f);
 
-            MainGirdVM objMainGirdVM = new MainGirdVM();
-            objMainGirdVM.Groups = new List<GroupsVM>();
-            GroupsVM objgroup=null;
-           // GroupTypeVM objGroupTypeVM=null;
-            GridDataVM objGridDataVM=null;
-            for(int i=0;i<=1;i++)
+
+            PartnerTypeDataList datalist = new PartnerTypeDataList();
+            datalist.partnerType = new List<PartnerTypeData>();
+
+            foreach (var item in partnerTypeByPTQList)
             {
-              objgroup  = new GroupsVM();
-                objgroup.GroupId=i;
-                objgroup.GroupName="name "+i;
+                PartnerTypeData data = new PartnerTypeData();
+                data.ID = item.id;
 
+                data.Description = item.description;
 
-                objgroup.Types = new List<string>();
-
-                objgroup.Data = new List<GridDataVM>();
-
-                foreach (string obj in objTypeList)
-                {
-                    string strType = obj;
-                    objgroup.Types.Add(strType);
-
-                    objGridDataVM = new GridDataVM();
-
-                    objGridDataVM.G=i;
-                    objGridDataVM.U=i;
-                    objGridDataVM.R=i;
-                    objGridDataVM.C=i;
-                    objGridDataVM.N_R=i;
-                    objGridDataVM.R_I=i;
-                    objGridDataVM.RC=i;
-                    objGridDataVM.T=i;
-
-                    objgroup.Data.Add(objGridDataVM);
-                    
-                }
-                //objgroup.ListGridType = new List<GroupTypeVM>();
-                //objgroup.ListGridData = new List<GridDataVM>();
-                //objgroup.ListGridType.Add(objGroupTypeVM);
-                //objgroup.ListGridData.Add(objGridDataVM);
-
-
-                objMainGirdVM.Groups.Add(objgroup);
+                datalist.partnerType.Add(data);
 
             }
 
 
-            return View(objMainGirdVM);
+            return View(datalist);
         }
 
         [Authorize]

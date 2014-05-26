@@ -1,6 +1,8 @@
-﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+﻿
+<#@ template language="C#" debug="false" hostspecific="true"#>
 <#@ include file="EF.Utility.CS.ttinclude"#><#@
  output extension=".cs"#><#
+
 
 const string inputFile = @"Hs3Model.edmx";
 var textTransform = DynamicTextTransformation.Create(this);

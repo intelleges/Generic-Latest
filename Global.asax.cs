@@ -15,8 +15,8 @@ namespace Generic
     {
         protected void Application_Start()
         {
-            Helpers.CurrentInstance.IsGeneric=1;
-            
+            Helpers.CurrentInstance.IsGeneric = 1;
+
 
             AreaRegistration.RegisterAllAreas();
 
@@ -25,5 +25,12 @@ namespace Generic
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
-    }
+
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.IgnoreRoute("elmah.axd");
+        }
+
+
+      }
 }

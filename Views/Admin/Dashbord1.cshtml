@@ -1,77 +1,170 @@
-﻿
-@using System.Web.Mvc.Html
-@using Generic.Helpers;
-@using Telerik.Web.Mvc.UI;
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.ViewModel.PartnerTypeDataList>
+    @using System.Web.Mvc.Html;
+    @using Generic.Helpers;
+    @using Telerik.Web.Mvc.UI;
 
-@model Generic.ViewModel.MainGirdVM
-@{
+    @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = ViewBag.enterpriseName + "Admin";
-    int counter = 0;
-   
-}
-<table border="1">
-    @*here is the list of groups*@
-    @foreach( var objMainGirdVM in Model.Groups)
-    {
-        
-   <tr>
-       
-       @if(counter==0)
-       {
-           counter = 3;
-        <td style="display:inline-block;width:219px;">
-           @*here is the type gid*@
-    @(Html.Telerik().Grid<string>()
-    .Name("GroupTypeGrid").HtmlAttributes(new { @style = "display:inline-block;width:219px;" })
-    .BindTo(objMainGirdVM.Types)
-    .Columns(columns =>
-    {
-        columns.Bound(p => p).HtmlAttributes(new { @style = "display:inline-block;width:200px;" });
+    int counter =Model.partnerType.Count()+3;
 
-    })
-)
-
-        </td> 
-       }
-        <td style="display:inline-block;width:219px;">
-            @*here is the data grid *@
-        @(Html.Telerik().Grid<Generic.ViewModel.GridDataVM>()
-    .Name("dataGrid").HtmlAttributes(new { @style = "display:inline-block;width:400px;" })
-    .BindTo((IEnumerable<Generic.ViewModel.GridDataVM>)objMainGirdVM.Data)
-    .Columns(columns =>
-    {
-        columns.Bound(p => p.G).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" }); 
-        columns.Bound(p => p.U).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" }); 
-        columns.Bound(p => p.R).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" }); 
-        columns.Bound(p => p.C).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" }); 
-        columns.Bound(p => p.N_R).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" });
-        columns.Bound(p => p.R_I).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" }); 
-        columns.Bound(p => p.RC).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" });
-        columns.Bound(p => p.T).Width(5);//.HtmlAttributes(new { @style = "display:inline-block;width:10px;" }); 
-    })
-)
-                
-        </td>
-        
-   
-       
-    </tr>
-  
-        counter--;
     }
-</table>
-<script>
-    $(document).ready(function ()
-    {
-        debugger;
-        $('#dataGrid span.t-link').removeAttr('class');
-        $('#dataGrid th.t-header').removeAttr('class');
-        $('#dataGrid div.t-grid-pager.t-grid-bottom').hide();
-        $('#GroupTypeGrid div.t-grid-pager.t-grid-bottom').hide();
-        $('#GroupTypeGrid span.t-link').text("Types");
-        $('#dataGrid').removeClass('t-grid');
-        $('#GroupTypeGrid').removeClass('t-grid');
-    });
-    
-</script>
+    <style type="text/css">
+        table.PartnerTypes {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        table.TestTable {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+
+            table td {
+                border: 1px solid black;
+                font-size: 12px;
+            }
+
+            table th {
+                border: 1px solid black;
+                font-size: 12px;
+                text-align: right;
+                padding-right: 0;
+            }
+
+            table.PartnerTypes td.AlgnRight {
+                text-align: right;
+                color: darkblue;
+                padding-right: 0;
+            }
+
+            table.TestTable th {
+                border: 1px solid black;
+                font-size: 12px;
+                text-align: center;
+                padding-right: 0;
+            }
+
+            table.TestTable td.AlgnRight {
+                text-align: right;
+                color: darkblue;
+                padding-right: 0;
+                width: 25px;
+                font-weight: bold;
+            }
+    </style>
+    <table id="OuterTable">
+        <tr>
+            <td>
+                <table class="PartnerTypes">
+                    <tr style="background-color:darkblue;; color: white;">
+                        <th>
+                            PARTNER TYPE&nbsp;
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    @foreach(var partnerType in Model.partnerType)
+                    {
+                    <tr>
+                        <td id="@partnerType.ID" class="AlgnRight"><span>&nbsp;&nbsp;@partnerType.Description.Trim()&nbsp;&nbsp;</span></td>
+                    </tr>
+                    }
+                    <tr>
+                        <td class="AlgnRight"><span>&nbsp;&nbsp;<strong>Total</strong>&nbsp;&nbsp;</span></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="TestTable">
+                    @for(int i=1;i<=counter;i++)
+                    {
+                    if(i==1)
+                    {
+                    <tr style="background-color:darkblue;; color: white;">
+                        <th colspan="8">
+                            ACS-ADI_C
+                        </th>
+                    </tr>
+                    }
+                    else
+                    {
+                    if(i==2)
+                    {
+                    <tr>
+                        <td class="AlgnRight">G&nbsp;</td>
+                        <td class="AlgnRight">U&nbsp;</td>
+                        <td class="AlgnRight">R&nbsp;</td>
+                        <td class="AlgnRight">C&nbsp;</td>
+                        <td class="AlgnRight">N/R&nbsp;</td>
+                        <td class="AlgnRight">R/I&nbsp;</td>
+                        <td class="AlgnRight">R/C&nbsp;</td>
+                        <td class="AlgnRight">T&nbsp;</td>
+                    </tr>
+                    }
+                    else
+
+                    {
+                    <tr>
+                        <td class="AlgnRight">0&nbsp;</td>
+                        <td class="AlgnRight">0&nbsp;</td>
+                        <td class="AlgnRight">0&nbsp;</td>
+                        <td class="AlgnRight">0&nbsp;</td>
+                        <td class="AlgnRight">0&nbsp;</td>
+                        <td class="AlgnRight">0&nbsp;</td>
+                        <td class="AlgnRight">0&nbsp;</td>
+                        <td class="AlgnRight">0&nbsp;</td>
+                    </tr>
+                    }
+                    }
+                    }
+
+
+
+
+
+
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            debugger;
+            //$("#TestTable tr:eq(1)").each(function () {
+            //    $(this).find("td").css({
+            //        "color": "skyblue",
+            //        "text-align": "right",
+            //    "padding-right": "0",
+            //    "width": "25px",
+            //    "font-weight": "bold"                });
+            //});
+
+
+            //$("#TestTable tr:gt(1)").each(function () {
+            //    $(this).find("td:eq(0)").css({
+            //        "color": "black",
+            //        "text-align": "right",
+            //        "padding-right": "0",
+            //        "width": "25px",
+            //        "font-weight": "bold"                });
+            //});
+
+            //$("#TestTable tr:gt(1)").each(function () {
+            //    $(this).find("td:gt(0)").css({
+            //        "color": "blue",
+            //        "text-align": "right",
+            //        "padding-right": "0",
+            //        "width": "25px",
+            //        "font-weight": "bold"
+            //    });
+            //});
+        });
+
+    </script>
