@@ -1,0 +1,182 @@
+﻿<error errorId="c78a15e3-3d14-4b0b-8c4f-12bf3c630926" application="/LM/W3SVC/3/ROOT" host="CAROLYNOLLIOBET" type="System.Web.HttpException" message="The controller for path '/2bb9a49ad3b3417fbfba515ffae6b8fc/arterySignalR/ping' was not found or does not implement IController." source="System.Web.Mvc" detail="System.Web.HttpException (0x80004005): The controller for path '/2bb9a49ad3b3417fbfba515ffae6b8fc/arterySignalR/ping' was not found or does not implement IController.&#xD;&#xA;   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)&#xD;&#xA;   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController&amp; controller, IControllerFactory&amp; factory)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)&#xD;&#xA;   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()&#xD;&#xA;   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)" user="john@intelleges.com" time="2014-05-22T17:47:44.0451824Z" statusCode="404">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_CONTENT_TYPE:application/x-www-form-urlencoded; charset=UTF-8&#xD;&#xA;HTTP_ACCEPT:text/plain, */*; q=0.01&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip,deflate,sdch&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en-US,en;q=0.8&#xD;&#xA;HTTP_COOKIE:ASP.NET_SessionId=g1ef5nndlci3d3upegsxlt43; .ASPXAUTH=5CF00A0D34C8909770A32AB6D3102183897E349419B482C8640EFAB0229B261A3AEE33DDF7D2F2131683D8BBF49914AA9E7EF7BACE3D32A6097D08EFF733EB0551E4478E49D247715386AA37184853D7D4CA190CEE066F0526CB829595DB44AFC8F7986640C4C2B8669073E3F9D3F48254C716A96AF6C27AFC3EB498EBF1C10B&#xD;&#xA;HTTP_HOST:localhost:51090&#xD;&#xA;HTTP_REFERER:http://localhost:51090/Admin/Dashbord1&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36&#xD;&#xA;HTTP_X_REQUESTED_WITH:XMLHttpRequest&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Connection: keep-alive&#xD;&#xA;Content-Type: application/x-www-form-urlencoded; charset=UTF-8&#xD;&#xA;Accept: text/plain, */*; q=0.01&#xD;&#xA;Accept-Encoding: gzip,deflate,sdch&#xD;&#xA;Accept-Language: en-US,en;q=0.8&#xD;&#xA;Cookie: ASP.NET_SessionId=g1ef5nndlci3d3upegsxlt43; .ASPXAUTH=5CF00A0D34C8909770A32AB6D3102183897E349419B482C8640EFAB0229B261A3AEE33DDF7D2F2131683D8BBF49914AA9E7EF7BACE3D32A6097D08EFF733EB0551E4478E49D247715386AA37184853D7D4CA190CEE066F0526CB829595DB44AFC8F7986640C4C2B8669073E3F9D3F48254C716A96AF6C27AFC3EB498EBF1C10B&#xD;&#xA;Host: localhost:51090&#xD;&#xA;Referer: http://localhost:51090/Admin/Dashbord1&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36&#xD;&#xA;X-Requested-With: XMLHttpRequest&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/3/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="C:\Users\standard\genericlatest1\Generic\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="Forms" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="john@intelleges.com" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="john@intelleges.com" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="john@intelleges.com" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="application/x-www-form-urlencoded; charset=UTF-8" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="3" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/3" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/2bb9a49ad3b3417fbfba515ffae6b8fc/arterySignalR/ping" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="C:\Users\standard\genericlatest1\Generic\2bb9a49ad3b3417fbfba515ffae6b8fc\arterySignalR\ping" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="requestUrl=http%3A%2F%2Flocalhost%3A51090%2FAdmin%2FDashbord1&amp;browserName=Chrome&amp;_=1400780864019" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="59676" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/2bb9a49ad3b3417fbfba515ffae6b8fc/arterySignalR/ping" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="51090" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/8.0" />
+    </item>
+    <item name="URL">
+      <value string="/2bb9a49ad3b3417fbfba515ffae6b8fc/arterySignalR/ping" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_CONTENT_TYPE">
+      <value string="application/x-www-form-urlencoded; charset=UTF-8" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="text/plain, */*; q=0.01" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip,deflate,sdch" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en-US,en;q=0.8" />
+    </item>
+    <item name="HTTP_COOKIE">
+      <value string="ASP.NET_SessionId=g1ef5nndlci3d3upegsxlt43; .ASPXAUTH=5CF00A0D34C8909770A32AB6D3102183897E349419B482C8640EFAB0229B261A3AEE33DDF7D2F2131683D8BBF49914AA9E7EF7BACE3D32A6097D08EFF733EB0551E4478E49D247715386AA37184853D7D4CA190CEE066F0526CB829595DB44AFC8F7986640C4C2B8669073E3F9D3F48254C716A96AF6C27AFC3EB498EBF1C10B" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:51090" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:51090/Admin/Dashbord1" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36" />
+    </item>
+    <item name="HTTP_X_REQUESTED_WITH">
+      <value string="XMLHttpRequest" />
+    </item>
+  </serverVariables>
+  <queryString>
+    <item name="requestUrl">
+      <value string="http://localhost:51090/Admin/Dashbord1" />
+    </item>
+    <item name="browserName">
+      <value string="Chrome" />
+    </item>
+    <item name="_">
+      <value string="1400780864019" />
+    </item>
+  </queryString>
+  <cookies>
+    <item name="ASP.NET_SessionId">
+      <value string="g1ef5nndlci3d3upegsxlt43" />
+    </item>
+    <item name=".ASPXAUTH">
+      <value string="5CF00A0D34C8909770A32AB6D3102183897E349419B482C8640EFAB0229B261A3AEE33DDF7D2F2131683D8BBF49914AA9E7EF7BACE3D32A6097D08EFF733EB0551E4478E49D247715386AA37184853D7D4CA190CEE066F0526CB829595DB44AFC8F7986640C4C2B8669073E3F9D3F48254C716A96AF6C27AFC3EB498EBF1C10B" />
+    </item>
+  </cookies>
+</error>
