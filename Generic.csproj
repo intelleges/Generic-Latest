@@ -1581,9 +1581,6 @@
     <Compile Include="xx_getLastDBModified_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="xx_getQuestionByQuestionnaire1_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="xx_getQuestionByQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

@@ -15,6 +15,7 @@ using System.Net;
 using Generic.SessionClass;
 using System.Reflection;
 using Generic.ViewModel;
+using System.Data;
 
 
 namespace Generic.Controllers
@@ -136,7 +137,18 @@ namespace Generic.Controllers
         public virtual ActionResult Home()
         {
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            var PTQ = "";
+            //DataTable dt;
+            try
+            {
+                //PTQ = (db.pr_getGroupByPTQ2(Convert.ToInt32(Session["PTQ"]))).ToString();
+                //dt = db.pr_getGroupByPTQ2(2);
+                ViewBag.abc = db.pr_getGroupByPTQ2(2);
+            }
+            catch (Exception ex)
+            {
 
+            }
             //db.pr_getrol
             if (enterprise != null)
             {
@@ -153,6 +165,8 @@ namespace Generic.Controllers
 
 
             }
+            if (PTQ != null)
+                ViewBag.PTQ = PTQ;
             return View();
         }
 
@@ -234,6 +248,8 @@ namespace Generic.Controllers
             var partnerTypeByPTQList = db.pr_getPartnerTypeByPTQ(SessionSingleton.PTQ).ToList();
 
 
+            var groupDataList = db.pr_getGroupByPTQ(SessionSingleton.PTQ).ToList();
+              
 
             PartnerTypeDataList datalist = new PartnerTypeDataList();
             datalist.partnerType = new List<PartnerTypeData>();
@@ -249,8 +265,11 @@ namespace Generic.Controllers
 
             }
 
+            Dashboard1 dashBoard = new Dashboard1();
+            dashBoard.partnerType = datalist.partnerType;
+            dashBoard.groups = groupDataList;
 
-            return View(datalist);
+            return View(dashBoard);
         }
 
         [Authorize]

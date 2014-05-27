@@ -15,7 +15,12 @@ namespace Generic.ViewModel
     {
         public List<PartnerTypeData> partnerType { get; set; }
     }
-
+    public class Dashboard1
+    {
+        public List<PartnerTypeData> partnerType { get; set; }
+        public List<Generic.group> groups { get; set; }
+        
+    }
     public class PartnerTypeData
     {
         public int ID{get;set;}

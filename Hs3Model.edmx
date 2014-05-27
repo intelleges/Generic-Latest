@@ -5032,6 +5032,9 @@
         <Function Name="pr_getGroupByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getGroupByPTQ2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getGroupByTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="touchpoint" Type="int" Mode="In" />
         </Function>
@@ -10728,10 +10731,10 @@
             <Parameter Name="Date_From" Mode="In" Type="DateTime" />
             <Parameter Name="Date_To" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="pr_getGroupByPTQ">
+          <FunctionImport Name="pr_getGroupByPTQ" EntitySet="group" ReturnType="Collection(hs3MVCMTQa2Model.group)">
           <Parameter Name="ptq" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getPartnerTypeByPTQ">
+          <FunctionImport Name="pr_getPartnerTypeByPTQ" EntitySet="partnerType" ReturnType="Collection(hs3MVCMTQa2Model.partnerType)">
           <Parameter Name="ptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="ptqGroup" EntityType="hs3MVCMTQa2Model.ptqGroup" />
@@ -10790,6 +10793,9 @@
             <Parameter Name="touchpointTitle" Mode="In" Type="String" />
             <Parameter Name="touchpointPurpose" Mode="In" Type="String" />
             <Parameter Name="touchpointTarget" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getGroupByPTQ2">
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -22217,6 +22223,7 @@
           <FunctionImportMapping FunctionImportName="pr_getSystemMaster" FunctionName="hs3MVCMTQa2Model.Store.pr_getSystemMaster">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_bootstrapAutomailMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapAutomailMessage" />
+          <FunctionImportMapping FunctionImportName="pr_getGroupByPTQ2" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupByPTQ2" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
