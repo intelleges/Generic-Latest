@@ -243,6 +243,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.ptqGroup" Width="1.5" PointX="6.7628700857809134" PointY="7.3817649518054749" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.touchpointTarget" Width="1.5" PointX="4.2925238424411623" PointY="7.3003565256019849" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_touchpoint_touchpointTarget" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.template" Width="1.5" PointX="1.485370243659881" PointY="13.98989882226563" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -6,7 +6,7 @@
 @using System.Web.Optimization;
 @{
     Layout = LayoutHelper.GetPopupLayout();
-    ViewBag.Title = "Upload Partner";
+    ViewBag.Title = "Upload Person";
 }
 
 @Styles.Render("~/Content/css")
@@ -21,7 +21,20 @@
     //jQuery.noConflict();
     jQuery(document).ready(function () {
 
-        $('#protocol').change(function () {
+        if ("@ViewBag.Message" == "1") {
+
+            $('#btnInvite').show();
+            $('#btnInvitelater').show();
+
+            alertify.alert('User uploaded successfully');
+        }
+
+        if ("@ViewBag.Message" == "2") {
+            alertify.alert('Invitation Sent');
+        }
+
+
+       @* $('#protocol').change(function () {
             var objProtocolID = $('#protocol').val();
             var formData = { protocolId: objProtocolID };
             if (objProtocolID == "") {
@@ -74,17 +87,7 @@
         });
 
 
-        if ("@ViewBag.Message" == "1") {
-
-                $('#btnInvite').show();
-                $('#btnInvitelater').show();
-
-                alertify.alert('Partner uploaded successfully');
-            }
-
-            if ("@ViewBag.Message" == "2") {
-            alertify.alert('Invitation Sent');
-        }
+        
 
         $('#btnInvite').click(function (e) {
             e.preventDefault();
@@ -167,38 +170,13 @@
                         alertify.alert(data.Data.message);
                     }
                 });
-          });
-
-        //$('#UploadAutoMailMessageForm').submit(function (e) {
-        //    e.preventDefault();
-        //    var objProtocolID = $('#protocol').val();
-        //    var objProtocolName = $('#protocol option[value="' + $('#protocol').val() + '"]').text();
-
-        //    var objtouchpointID = $('#touchpoint').val();
-        //    var objtouchpointName = $('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text();
-
-        //    var objpartnertypeID = $('#partnertype').val();
-        //    var objpartnertypeName = $('#partnertype option[value="' + $('#partnertype').val() + '"]').text();
-
-        //    var formData = { protocolId: objProtocolID, protocolName: objProtocolName, touchpointId: objtouchpointID, touchpointName: objtouchpointName, partnertypeID: objpartnertypeID, partnertypeName: objpartnertypeName };
-        //    $.ajax({
-        //        url: "UploadQuestionnaire",
-        //        type: "post",
-        //        data: formData,
-        //        success: function (data) {
-        //            alertify.alert('Questionnaire Uploaded Successfully!');
-        //        },
-        //        error: function (data) {
-        //            alertify.alert('Error occured while Questionnaire Uploaded!');
-        //        }
-        //    });
-        //});
+          });*@       
 
     });
 </script>
 
 
-<h2>Upload Partner</h2>
+<h2>Upload User</h2>
 
 
 <form id="UploadpartnerForm" method="post" enctype="multipart/form-data">
@@ -206,70 +184,31 @@
 
 
 
-    <div class="editor-label">
-        1. Please select a protocol
-    </div>
-    <div class="editor-field">
-        @Html.DropDownList("protocol", String.Empty)
-    </div>
-    <div id="touchpointDiv" style="display: none">
+    <div id="uploadPersonDiv" >
         <div class="editor-label">
-            2. Please select a touchpoint
-        </div>
-        <div class="editor-field">
-            <select id="touchpoint" name="touchpoint"></select>
-
-        </div>
-    </div>
-    <div id="partnertypeDiv" style="display: none">
-        <div class="editor-label">
-            3. Please select a partnertype
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("partnertype", String.Empty)
-
-            <a href="@Url.Content("~/PartnerType/Create")">Add Partner Type</a>
-
-        </div>
-    </div>
-
-    <div id="groupDiv" style="display: none">
-        <div class="editor-label">
-            4. Please select a group
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("group", String.Empty)
-
-            <a href="@Url.Content("~/Group/Create")">Add Group</a>
-
-        </div>
-    </div>
-
-    <div id="uploadPartnerDiv" style="display: none">
-        <div class="editor-label">
-            5. Please select an Excel file containing the partner information.
+            Please select an Excel file containing the user information.
         </div>
         <div class="editor-field">
             @(Html.Telerik().Upload()
-        .Name("uploadPartner")
+        .Name("uploadPerson")
         .Multiple(false)
 )
 
             <p class="note">
                 Maximum allowed file size: 10 MB
             </p>
-            <p> <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/addPartnerTemplate.xls">Click here to download partner upload template</a> </p>
+            <p> <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/addUserTemplate.xls">Click here to download add user template</a> </p>
         </div>
     </div>
-    <p id="btnUploadDiv" style="display: none">
+    <p id="btnUploadDiv" >
         <input type="submit" name="button" id="btnUpload" value="Upload" />
 
     </p>
-    <p>
+   @* <p>
         <input type="submit" name="button" id="btnInvite" style="display: none" value="Send invites now" />
         <input type="submit" name="button" id="btnInvitelater" style="display: none" value="Invite Later" />
         <input type="submit" name="button" id="btnInviteList" style="display: none" value="View sent invites" />
-    </p>
+    </p>*@
 
      <div id="DivEventNotification">
 

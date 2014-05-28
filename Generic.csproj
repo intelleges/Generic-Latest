@@ -1394,6 +1394,12 @@
     <Compile Include="pr_getSystemMaster_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getTemplateAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getTemplate_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getTouchpointAllByEnterprise_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1545,6 +1551,9 @@
     <Compile Include="systemConfiguration.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="template.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="touchpoint.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1573,6 +1582,7 @@
     <Compile Include="ViewModel\ExcelAutoMailMessage.cs" />
     <Compile Include="ViewModel\ExcelEventNotification.cs" />
     <Compile Include="ViewModel\ExcelPartner.cs" />
+    <Compile Include="ViewModel\ExcelPerson.cs" />
     <Compile Include="ViewModel\ExcelQuestionnaire.cs" />
     <Compile Include="ViewModel\GridDataVM.cs" />
     <Compile Include="ViewModel\GroupsVM.cs" />
@@ -2997,6 +3007,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Person\ResetPassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Shared\_templatesPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Person\UploadPerson.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

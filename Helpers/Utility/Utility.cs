@@ -42,9 +42,15 @@ namespace Generic.Helpers.Utility
 
             mail.AddUniqueIdentifiers(additionalArguments);
             
+
+            //mail.StreamedAttachments.Add(
+            //mail.CreateMimeMessage().AlternateViews.Add;
+
+
+
             var transportSMTP = SMTP.GetInstance(credentials);
 
-
+      
 
             if (email.type == "user")
             {

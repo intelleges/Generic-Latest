@@ -434,6 +434,15 @@ namespace Generic.Controllers
 
             return PartialView("_InstanceLogoPartial", enterprise);
         }
+
+
+        public virtual ActionResult DownloadTemplate()
+        {
+            ViewBag.templates = new SelectList(db.pr_getTemplateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "url", "description");
+            return PartialView("_templatesPartial");
+        }
+
+
         public ActionResult TouchpointCombobox(TouchpointComboModel model)
         {
             model.AutoCompleteAttributes.Width = model.AutoCompleteAttributes.Width ?? 200;

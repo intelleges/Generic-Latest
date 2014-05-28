@@ -24,6 +24,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         public virtual ActionResult Index(string id = "", string accessCode = null)
         {
+           
+
+
             ViewBag.accesscode = accessCode;
 
             ViewBag.CMS_TITLE = CMS.ACCESS_CODE_TITLE;

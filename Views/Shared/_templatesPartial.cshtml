@@ -1,0 +1,33 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using Telerik.Web.Mvc.UI;
+@using Telerik.Web.Mvc.UI.Html;
+@using System.Web.Mvc;
+@using Generic;
+@using Generic.Controllers;
+@{
+    Layout = null;
+}
+
+<style>
+    select#templates {
+        width: 244px;
+    }
+</style>
+
+<script>
+
+    $(document).ready(function () {
+      
+        $("#templates").change(function () {
+            if ($("#templates").val() != '') {
+                window.location.href = $("#templates").val();
+            }
+        });
+
+
+    });
+
+</script>
+
+
+@Html.DropDownList("templates", String.Empty)

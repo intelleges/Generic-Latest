@@ -9,6 +9,9 @@ using System.Web.Mvc;
 using Generic.Models;
 using Generic.Helpers.Utility;
 using Generic.Helpers;
+using System.IO;
+using LinqToExcel;
+using Generic.ViewModel;
 
 namespace Generic.Controllers
 {
@@ -44,6 +47,123 @@ namespace Generic.Controllers
 
         //
         // GET: /Person/Create
+
+        public ActionResult UploadPerson()
+        {            
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UploadPerson(HttpPostedFileBase uploadPerson)
+        {
+
+            if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
+            {
+                Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
+            }
+
+            if (!Directory.Exists((Server.MapPath("~/uploadedFiles/Person"))))
+            {
+                Directory.CreateDirectory(Server.MapPath("~/uploadedFiles/Person"));
+            }
+
+            // The Name of the Upload component is "attachments" 
+            var file = uploadPerson;
+
+            // Some browsers send file names with full path. This needs to be stripped.
+            var fileName = Path.GetFileName(file.FileName);
+            var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/Person"), fileName);
+
+            // The files are not actually saved in this demo 
+            file.SaveAs(physicalPath);
+
+            int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
+
+            string sheetname = "addUser";
+            var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+
+
+
+            excelRead.AddMapping<ExcelPerson>(x => x.internalId, "internalID");
+            excelRead.AddMapping<ExcelPerson>(x => x.state, "StateName");
+            excelRead.AddMapping<ExcelPerson>(x => x.country, "CountryName");
+           
+
+
+            //   var columnnames = excelRead.GetColumnNames(sheetname);
+            var personinExcel = from a in excelRead.Worksheet<ExcelPerson>(sheetname) select a;
+
+           
+            List<Tuple<int, string>> uploadedperson = new List<Tuple<int, string>>();
+            person objInvitingUser = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+
+          //  string loadGroup = db.pr_getAccesscode().FirstOrDefault();
+            foreach (var objPerson in personinExcel.ToList())
+            {
+                if (objPerson.internalId != null)
+                {
+
+                    var objstateSpreadSheet = db.pr_getStateByStateCode(objPerson.StateName).FirstOrDefault();
+                    int? stateIdSpreadSheet=null;
+                    if (objstateSpreadSheet != null)
+                    {
+                        stateIdSpreadSheet = objstateSpreadSheet.id;
+                    }
+
+                    var objCountrySpreadSheet = db.pr_getCountryByName(objPerson.CountryName).FirstOrDefault();
+                    int? countryIdSpreadsheet=null;
+                    if (objCountrySpreadSheet != null)
+                    {
+                        countryIdSpreadsheet = objCountrySpreadSheet.id;
+                    }
+
+                    using (var context = new EntitiesDBContext())
+                    {
+                        person objaddPerson = new person();
+
+                        objaddPerson.campaign = objInvitingUser.campaign;
+
+                        objaddPerson.internalId = objPerson.internalId;
+                        objaddPerson.firstName = objPerson.firstName;
+                        objaddPerson.lastName = objPerson.lastName;
+                        objaddPerson.title = objPerson.title;
+                        objaddPerson.suffix = objPerson.suffix;
+                        objaddPerson.address1 = objPerson.address1;
+                        objaddPerson.address2 = objPerson.address2;
+                        objaddPerson.city = objPerson.city;
+                        objaddPerson.zipcode = objPerson.zipcode;
+                        objaddPerson.phone = objPerson.phone;
+                        objaddPerson.email = objPerson.email;
+
+
+                        objaddPerson.personStatus = (int)PersonHelper.PersonStatus.Loaded;
+                        objaddPerson.active = 1;
+                        objaddPerson.ismanager = 0;
+                        objaddPerson.partnerPerPage = 500;
+                        objaddPerson.riskType = 0;
+                        objaddPerson.loadHistory = 0;
+                        objaddPerson.state = stateIdSpreadSheet;
+                        objaddPerson.country = countryIdSpreadsheet;
+                        objaddPerson.passWord = db.pr_getAccesscode().FirstOrDefault();
+
+                        objaddPerson.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
+                        db.person.Add(objaddPerson);
+                        db.SaveChanges();
+
+                        int? PartnerId = objaddPerson.id;
+                        uploadedperson.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
+                    }
+
+
+                  
+                }
+            }
+            Session["uploadedPersonList"] = uploadedperson;
+           
+         //   Session["loadGroup"] = loadGroup;
+            ViewBag.Message = "1";
+          
+            return View();
+        }
 
         public ActionResult Create()
         {
