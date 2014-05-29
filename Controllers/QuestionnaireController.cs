@@ -27,13 +27,46 @@ namespace Generic.Controllers
         public ActionResult UploadCMS()
         {
 
+            if (Session["QuestionnaireId"] == null)
+            {
+
+                ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+                ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            }
+            else
+            {
+                ViewBag.NoDropdowns = "1";
+
+                ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+                ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+        
+                //db.pr_getPartnertypeTouchpointQuestionnaireByQuestionnaire((int)Session["QuestionnaireId"]).ToList();
+            }
+
+            //
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult UploadCMS(HttpPostedFileBase uploadCMSFile, HttpPostedFileBase uploadCMSFilePDF, HttpPostedFileBase uploadCMSFileFAQ, HttpPostedFileBase uploadCMSFileOther)
+        public ActionResult UploadCMS(HttpPostedFileBase uploadCMSFile, HttpPostedFileBase uploadCMSFilePDF, HttpPostedFileBase uploadCMSFileFAQ, HttpPostedFileBase uploadCMSFileOther, int touchpoint, int partnertype)
         {
-            int questionnaireId = (int)Session["QuestionnaireId"];
+            int questionnaireId = 0;
+            if (Session["QuestionnaireId"] != null)
+            {
+                questionnaireId = (int)Session["QuestionnaireId"];
+            }
+            else
+            {
+                var objptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault();
+                if (objptq != null)
+                {
+                    questionnaireId = objptq.questionnaire;
+                }
+            }
+
 
             if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
             {
@@ -125,8 +158,8 @@ namespace Generic.Controllers
             //Session["partnertypeId"] = partnertypeId;
             //Session["level"] = level;
             ViewBag.message = "1";
-            
-            return RedirectToAction("UploadAutoMailMessage","AutoMailMessage");
+
+            return RedirectToAction("UploadAutoMailMessage", "AutoMailMessage");
         }
 
         public ActionResult SkipCMS()
@@ -137,7 +170,7 @@ namespace Generic.Controllers
             //Session["partnertypeId"] = partnertype;
             //Session["level"] = level;
 
-            db.pr_bootstrapQuestionnaireCMS((int)Session["QuestionnaireId"], "Not Defined Yet", "Not Defined Yet",  "Not Defined Yet", "Not Defined Yet");
+            db.pr_bootstrapQuestionnaireCMS((int)Session["QuestionnaireId"], "Not Defined Yet", "Not Defined Yet", "Not Defined Yet", "Not Defined Yet");
 
             return RedirectToAction("UploadAutoMailMessage", "AutoMailMessage");
         }
@@ -432,8 +465,8 @@ namespace Generic.Controllers
                             }
                             catch (Exception ex)
                             {
-                                
-                               
+
+
                             }
                             int questionId = objQuestion.id;
                             if (responseType.ToLower() == "list" || responseType.ToLower() == "dropdown"
@@ -467,8 +500,8 @@ namespace Generic.Controllers
                                     }
                                     catch (Exception ex)
                                     {
-                                        
-                                       
+
+
                                     }
                                 }
                             }

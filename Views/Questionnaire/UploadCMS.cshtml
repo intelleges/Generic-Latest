@@ -16,9 +16,71 @@
                 alertify.alert('CMS uploaded successfully');
             }
             
+            if ("@ViewBag.NoDropdowns" == "1") {
+                $('#dropdownsDiv').hide();
+                $('#uploadDiv').show();
+                $('#uploadButtonDiv').show();
+            }
 
         });
 
+    </script>
+
+    <script>
+        jQuery.noConflict();
+        jQuery(document).ready(function () {
+
+            $('#protocol').change(function () {
+                var objProtocolID = $('#protocol').val();
+                var formData = { protocolId: objProtocolID };
+                if (objProtocolID == "") {
+                    var touchpointSelectList = "<option value=''>-Select-</option>";
+                    $('#touchpoint').html(touchpointSelectList);
+                    return;
+                }
+                $.ajax({
+                    url: "@Url.Content("~/touchpoint/GetTouchPointByprotocolId")",
+                    type: "post",
+                    data: formData,
+                    success: function (data) {
+                        var len = data.Data.length;
+                        var i = 0;
+                        var touchpointSelectList = "<option value=''></option>";
+                        for (i = 0; i < len; i++) {
+                            touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
+                        }
+
+                        $('#touchpoint').html(touchpointSelectList);
+                        $('#touchpointDiv').show();
+
+                    },
+                    error: function (data) {
+                        var touchpointSelectList = "<option value=''> -Select-</option>";
+                        $('#touchpoint').html(touchpointSelectList);
+                    }
+                });
+
+
+            });
+
+
+            $('#touchpoint').change(function () {
+                $('#partnertypeDiv').show();
+            });
+
+            $('#partnertype').change(function () {
+                $('#uploadDiv').show();
+                $('#uploadButtonDiv').show();
+
+            });
+
+
+            if ("@ViewBag.Message" == "1") {
+            alertify.alert('Auto mail message uploaded successfully');
+        }
+            
+
+        });
     </script>
 }
 
@@ -30,9 +92,40 @@
 <form id="UploadCMSForm" method="post">
     @Html.ValidationSummary(true)
   
-    <div id="uploadDiv" >
+    <div id="dropdownsDiv">
+
+    <div id="protocolDiv">
+
+    <div class="editor-label">
+        1. Please select a protocol
+    </div>
+    <div class="editor-field">
+        @Html.DropDownList("protocol", String.Empty)
+    </div>
+        </div>
+    <div id="touchpointDiv" style="display: none">
         <div class="editor-label">
-           Please select an Excel file containing the questionnaire CMS information. Click here if you need to download the template.
+            2. Please select a touchpoint
+        </div>
+        <div class="editor-field">
+
+            <select id="touchpoint" name="touchpoint"></select>
+           
+        </div>
+    </div>
+    <div id="partnertypeDiv" style="display: none">
+        <div class="editor-label">
+            3. Please select a partnertype
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("partnertype", String.Empty)
+        </div>
+    </div>
+
+</div>
+    <div id="uploadDiv" style="display: none">
+        <div class="editor-label">
+         4. Please select an Excel file containing the questionnaire CMS information. Click here if you need to download the template.
         </div>
         <div class="editor-field">
             @(Html.Telerik().Upload()
@@ -96,7 +189,7 @@
 
 
     </div>
-    <p id="uploadButtonDiv" >
+    <p id="uploadButtonDiv" style="display: none">
         <input type="submit" id="btnUpload" value="Upload" />
         <a href="@Url.Content("~/QUestionnaire/SkipCMS")"> <input type="button" id="btnSkip" value="Skip" /></a>
     </p>

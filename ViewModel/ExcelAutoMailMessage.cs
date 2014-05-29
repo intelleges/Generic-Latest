@@ -13,5 +13,6 @@ namespace Generic.ViewModel
         public string Text { get; set; }
         public string Footer { get; set; }
         public string Signature { get; set; }
+        public int SendDateCalcFactor { get; set; }
     }
 }

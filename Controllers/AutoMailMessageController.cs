@@ -52,6 +52,7 @@ namespace Generic.Controllers
 
             string sheetname = "mailMessage";
             var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+            excelRead.AddMapping<ExcelAutoMailMessage>(x => x.SendDateCalcFactor, "Send Date Calc Factor");
             var autoMailMessageinExcel = from a in excelRead.Worksheet<ExcelAutoMailMessage>(sheetname) select a;
 
             partnerTypeTouchpointQuestionnaire objptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype).ToList().Where(x => x.touchpoint == touchpoint).FirstOrDefault();
@@ -65,6 +66,8 @@ namespace Generic.Controllers
                 objautoMailMessage.footer2 = autoMailMessages.Signature;
                 objautoMailMessage.text = autoMailMessages.Text;
                 objautoMailMessage.partnerTypeTouchpointQuestionnaire = objptq.id;
+                objautoMailMessage.sendDateCalcFactor = autoMailMessages.SendDateCalcFactor;
+
                 objautoMailMessage.mailType = i;
                 if (i != 4)
                 {
