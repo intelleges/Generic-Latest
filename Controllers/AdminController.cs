@@ -425,8 +425,15 @@ namespace Generic.Controllers
         public virtual ActionResult InstanceLogo()
         {
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-
-            return PartialView("_InstanceLogoPartial", enterprise);
+            if (enterprise.logo == null)
+            {
+                var enterpriseIntelleges = db.pr_getEnterprise(1).FirstOrDefault();
+                return PartialView("_InstanceLogoPartial", enterpriseIntelleges);
+            }
+            else
+            {
+                return PartialView("_InstanceLogoPartial", enterprise);
+            }
         }
         public virtual ActionResult IntellegesLogo()
         {
