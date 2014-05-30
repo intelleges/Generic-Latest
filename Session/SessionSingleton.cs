@@ -99,5 +99,17 @@ namespace Generic.SessionClass
             }
         }
 
+        public static string EnterpriseURL
+        {
+            get
+            {
+                return System.Web.HttpContext.Current.Session["EnterpriseURL"].ToString();
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["EnterpriseURL"] = value;
+            }
+        }
+
     }
 }

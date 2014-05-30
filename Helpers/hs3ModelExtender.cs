@@ -35,5 +35,11 @@ namespace Generic
             }
         }
 
+        public DbSet<domain> domains { get; set; }
+
+        public DbSet<agency> agencies { get; set; }
+
+        public DbSet<enterprise> enterprises { get; set; }
+
     }
 }

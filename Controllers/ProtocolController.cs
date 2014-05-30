@@ -44,7 +44,8 @@ namespace Generic.Controllers
         {
             //ViewBag.enterprise = new SelectList(db.enterprise, "id", "description");
             //ViewBag.admin = new SelectList(db.person, "id", "internalId");
-            //ViewBag.sponsor = new SelectList(db.person, "id", "internalId");
+            ViewBag.agency = new SelectList(db.pr_getAgencyAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+            ViewBag.domain = new SelectList(db.pr_getDomainAll(), "id", "description");
             return View();
         }
 
@@ -56,6 +57,9 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                protocol.active = 1;
+
                 protocol.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
                 protocol.sponsor = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
                 protocol.admin = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
@@ -65,9 +69,8 @@ namespace Generic.Controllers
                 return RedirectToAction("Create","Touchpoint");
             }
 
-            ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", protocol.enterprise);
-            ViewBag.admin = new SelectList(db.person, "id", "internalId", protocol.admin);
-            ViewBag.sponsor = new SelectList(db.person, "id", "internalId", protocol.sponsor);
+            ViewBag.agency = new SelectList(db.pr_getAgencyAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description",protocol.agency);
+            ViewBag.domain = new SelectList(db.pr_getDomainAll(), "id", "description",protocol.domain);
             return View(protocol);
         }
 

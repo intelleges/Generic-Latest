@@ -19,13 +19,13 @@
         ProductName = objEnterpriseController.GetProduct((int)objEnterprise.product).description;
         SubscriptionTypeName = objEnterpriseController.GetSubscriptionType((int)objEnterprise.subscriptionType).description;
         SubscriptionStatusName = objEnterpriseController.GetSubscriptionStatus((int)objEnterprise.subscriptionStatus).description;
-
-        Generic.Controllers.PersonController objPersonController = new Generic.Controllers.PersonController();
-
-        Generic.person objPerson = objPersonController.GetPerson(User.Identity.Name);
-        LoginName = objPerson.firstName + " " + objPerson.lastName;
     }
     catch { }
+    Generic.Controllers.PersonController objPersonController = new Generic.Controllers.PersonController();
+
+    Generic.person objPerson = objPersonController.GetPerson(User.Identity.Name);
+    LoginName = objPerson.firstName + " " + objPerson.lastName;
+    
 
 }
 
@@ -86,9 +86,9 @@
                             <div class="admin-logo">
                                 <p class="site-title">
                                     @*@Url.Content(" ~ />Admin/Home")*@
-                                   @* <a id="IntellegesLogoHref" href="#">@Html.Action("IntellegesLogo", "Admin") </a>*@
-                                     <a id="IntellegesLogoHref" href="#">@Html.Action("InstanceLogo", "Admin")
-                                       </a>
+                                    @* <a id="IntellegesLogoHref" href="">@Html.Action("IntellegesLogo", "Admin") </a>*@
+                                    <a id="IntellegesLogoHref" href="#">@Html.Action("InstanceLogo", "Admin")
+                                    </a>
                                 </p>
                             </div>
 
@@ -143,11 +143,11 @@
 
                         <a href="#">Home Page</a>
 
-                         <a href="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</a>
-                        
+                        <a href="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</a>
+
                         <a href="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</a>
 
-                        @Html.Action("downloadTemplate", "Admin") 
+                        @Html.Action("downloadTemplate", "Admin")
 
                     </div>
 
@@ -207,7 +207,7 @@
             });
         }
 
-       
+
 
         jQuery.noConflict();
         $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
@@ -231,7 +231,7 @@
                 // button labels will be "Accept" and "Deny"
                 alertify.confirm("You are about to leave the Intelleges Compliance Process Automation Platform and visit www.intelleges.com. Is that OK?", function (e) {
                     if (e) {
-                        // user clicked "ok"
+                        window.location.replace("http://@Generic.SessionClass.SessionSingleton.EnterpriseURL");
 
                     } else {
                         // user clicked "cancel"

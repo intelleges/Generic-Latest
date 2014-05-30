@@ -95,6 +95,22 @@ namespace Generic.Controllers
            
             List<Tuple<int, string>> uploadedperson = new List<Tuple<int, string>>();
             person objInvitingUser = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+            int countpartNumbers = personinExcel.Count();
+            int recordNumber = 1;
+            foreach (var personItem in personinExcel.ToList())
+            {
+                if (personItem.internalId != null)
+                {
+                    if (personItem.phone == null )
+                    {
+                        ErrorView objerrorView = new ErrorView();
+                        objerrorView.errorMessage = "Record " + recordNumber.ToString() + " of " + countpartNumbers + " has invalid values.";
+                        return PartialView("_Error", objerrorView);
+                    }
+                }
+                recordNumber++;
+            }
+
 
           //  string loadGroup = db.pr_getAccesscode().FirstOrDefault();
             foreach (var objPerson in personinExcel.ToList())

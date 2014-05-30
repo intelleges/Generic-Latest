@@ -87,6 +87,13 @@ namespace Generic.Controllers
                     SessionSingleton.MyEnterPriseId = person.enterprise;
                     SessionSingleton.PTQ = 2;
 
+                    try
+                    {
+                        SessionSingleton.EnterpriseURL = db.pr_getEnterpriseSystemInfo(person.enterprise).FirstOrDefault().companyWebSite;
+                    }
+                    catch {
+                        SessionSingleton.EnterpriseURL = "#";
+                    }
                     Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
 
                     if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)

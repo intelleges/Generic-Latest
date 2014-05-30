@@ -400,9 +400,11 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AgencyController.cs" />
     <Compile Include="Controllers\AutoMailMessageController.cs" />
     <Compile Include="Controllers\AutoMailMessagesController.cs" />
     <Compile Include="Controllers\AutoMailTypeController.cs" />
+    <Compile Include="Controllers\DomainController.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2587,6 +2589,21 @@
     <Content Include="Scripts\2013.2.611\telerik.upload.min.js" />
     <Content Include="Scripts\2013.2.611\telerik.window.min.js" />
     <Content Include="Scripts\alertify.js" />
+    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.9.2.js" />
+    <Content Include="Scripts\jquery-ui-1.9.2.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="wallet.ico" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -2600,6 +2617,16 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <EmbeddedResource Include="Views\Domain\Index.cshtml" />
+    <EmbeddedResource Include="Views\Domain\Details.cshtml" />
+    <EmbeddedResource Include="Views\Domain\Create.cshtml" />
+    <EmbeddedResource Include="Views\Domain\Edit.cshtml" />
+    <EmbeddedResource Include="Views\Domain\Delete.cshtml" />
+    <EmbeddedResource Include="Views\Agency\Index.cshtml" />
+    <EmbeddedResource Include="Views\Agency\Details.cshtml" />
+    <EmbeddedResource Include="Views\Agency\Create.cshtml" />
+    <EmbeddedResource Include="Views\Agency\Edit.cshtml" />
+    <EmbeddedResource Include="Views\Agency\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
