@@ -19,11 +19,19 @@ namespace Generic.ViewModel
     {
         public List<PartnerTypeData> partnerType { get; set; }
         public List<Generic.group> groups { get; set; }
+        public List<Generic.ptqGroup> ptqGroups { get; set; }
+        public List<pr_getDashboardCountForReferenceByPTQ_Result> ptqDashboard { get; set; }
         
     }
     public class PartnerTypeData
     {
         public int ID{get;set;}
         public string Description{get;set;}
+    }
+    public class View4
+    {
+        public int groupID { get; set; }
+        public string groupDescription { get; set; }
+        public string pieChart { get; set; }
     }
 }

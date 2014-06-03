@@ -158,9 +158,11 @@ namespace Generic
         public DbSet<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
         public DbSet<RESPONSE2> RESPONSE2 { get; set; }
         public DbSet<zcta> zcta { get; set; }
-        public DbSet<ptqGroup> ptqGroup { get; set; }
         public DbSet<touchpointTarget> touchpointTarget { get; set; }
         public DbSet<template> template { get; set; }
+        public DbSet<pptqGroup> pptqGroup { get; set; }
+        public DbSet<pptqGroupType> pptqGroupType { get; set; }
+        public DbSet<ptqGroup> ptqGroup { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -12971,6 +12973,181 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveTemplate", idParameter);
+        }
+    
+        public virtual ObjectResult<ptqGroup> pr_getPTQGroupByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ptqGroup>("pr_getPTQGroupByPTQ", ptqParameter);
+        }
+    
+        public virtual ObjectResult<ptqGroup> pr_getPTQGroupByPTQ(Nullable<int> ptq, MergeOption mergeOption)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ptqGroup>("pr_getPTQGroupByPTQ", mergeOption, ptqParameter);
+        }
+    
+        public virtual int pr_addPPTQGroup(Nullable<int> pptq, Nullable<int> group, Nullable<int> pptqGroupType)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            var pptqGroupTypeParameter = pptqGroupType.HasValue ?
+                new ObjectParameter("pptqGroupType", pptqGroupType) :
+                new ObjectParameter("pptqGroupType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPPTQGroup", pptqParameter, groupParameter, pptqGroupTypeParameter);
+        }
+    
+        public virtual ObjectResult<pr_addPTQGroup_Result> pr_addPTQGroup(Nullable<int> ptq, Nullable<int> group, Nullable<int> goal)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            var goalParameter = goal.HasValue ?
+                new ObjectParameter("goal", goal) :
+                new ObjectParameter("goal", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_addPTQGroup_Result>("pr_addPTQGroup", ptqParameter, groupParameter, goalParameter);
+        }
+    
+        public virtual ObjectResult<pr_getGroupStatusCountForReferenceByPTQ_Result> pr_getGroupStatusCountForReferenceByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupStatusCountForReferenceByPTQ_Result>("pr_getGroupStatusCountForReferenceByPTQ", ptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQGroupByGroup_Result> pr_getPPTQGroupByGroup(Nullable<int> group)
+        {
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQGroupByGroup_Result>("pr_getPPTQGroupByGroup", groupParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQGroupByPPTQ_Result> pr_getPPTQGroupByPPTQ(Nullable<int> pPTQ)
+        {
+            var pPTQParameter = pPTQ.HasValue ?
+                new ObjectParameter("PPTQ", pPTQ) :
+                new ObjectParameter("PPTQ", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQGroupByPPTQ_Result>("pr_getPPTQGroupByPPTQ", pPTQParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPTQGroup_Result> pr_getPTQGroup(Nullable<int> ptq, Nullable<int> group, Nullable<int> partnertype)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPTQGroup_Result>("pr_getPTQGroup", ptqParameter, groupParameter, partnertypeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPTQGroupByGroup_Result> pr_getPTQGroupByGroup(Nullable<int> group)
+        {
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPTQGroupByGroup_Result>("pr_getPTQGroupByGroup", groupParameter);
+        }
+    
+        public virtual ObjectResult<pr_getStatusCountForReferenceByPTQ_Result> pr_getStatusCountForReferenceByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getStatusCountForReferenceByPTQ_Result>("pr_getStatusCountForReferenceByPTQ", ptqParameter);
+        }
+    
+        public virtual int pr_modifyPTQGroup(Nullable<int> ptq, Nullable<int> group, Nullable<int> goal)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            var goalParameter = goal.HasValue ?
+                new ObjectParameter("goal", goal) :
+                new ObjectParameter("goal", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPTQGroup", ptqParameter, groupParameter, goalParameter);
+        }
+    
+        public virtual int pr_removePPTQGroup(Nullable<int> pPTQ, Nullable<int> group)
+        {
+            var pPTQParameter = pPTQ.HasValue ?
+                new ObjectParameter("PPTQ", pPTQ) :
+                new ObjectParameter("PPTQ", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePPTQGroup", pPTQParameter, groupParameter);
+        }
+    
+        public virtual int pr_removePTQGroup(Nullable<int> ptq, Nullable<int> group)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePTQGroup", ptqParameter, groupParameter);
+        }
+    
+        public virtual ObjectResult<xx_getQuestionByQuestionnaire1_Result> xx_getQuestionByQuestionnaire1(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_getQuestionByQuestionnaire1_Result>("xx_getQuestionByQuestionnaire1", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getDashboardCountForReferenceByPTQ_Result> pr_getDashboardCountForReferenceByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDashboardCountForReferenceByPTQ_Result>("pr_getDashboardCountForReferenceByPTQ", ptqParameter);
         }
     }
 }

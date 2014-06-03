@@ -10,13 +10,10 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class ptqGroup
+    public partial class pr_getStatusCountForReferenceByPTQ_Result
     {
-        public int ptq { get; set; }
-        public int group { get; set; }
-        public int partnertype { get; set; }
-        public int goal { get; set; }
+        public string status { get; set; }
+        public Nullable<int> total { get; set; }
     }
 }

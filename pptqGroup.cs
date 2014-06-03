@@ -12,11 +12,10 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class ptqGroup
+    public partial class pptqGroup
     {
-        public int ptq { get; set; }
+        public int pptq { get; set; }
         public int group { get; set; }
-        public int partnertype { get; set; }
-        public int goal { get; set; }
+        public int pptqGroupType { get; set; }
     }
 }

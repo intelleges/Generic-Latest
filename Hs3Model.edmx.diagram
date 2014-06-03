@@ -240,10 +240,12 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.RESPONSE2" Width="1.5" PointX="8.3364520372526965" PointY="22.663033972803053" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.zcta" Width="1.5" PointX="3.1083844411691577" PointY="22.242464955077722" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.ptqGroup" Width="1.5" PointX="6.7628700857809134" PointY="7.3817649518054749" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.touchpointTarget" Width="1.5" PointX="4.2925238424411623" PointY="7.3003565256019849" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_touchpoint_touchpointTarget" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.template" Width="1.5" PointX="1.485370243659881" PointY="13.98989882226563" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqGroup" Width="1.5" PointX="19.375" PointY="3.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqGroupType" Width="1.5" PointX="19.375" PointY="6.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.ptqGroup" Width="1.5" PointX="19.375" PointY="9.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

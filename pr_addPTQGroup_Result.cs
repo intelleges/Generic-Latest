@@ -10,9 +10,8 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class ptqGroup
+    public partial class pr_addPTQGroup_Result
     {
         public int ptq { get; set; }
         public int group { get; set; }

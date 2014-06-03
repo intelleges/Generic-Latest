@@ -85,7 +85,7 @@ namespace Generic.Controllers
                     person person = db.pr_doLogin(userName, password).FirstOrDefault();
                     SessionSingleton.LoggedInUserId = person.id;
                     SessionSingleton.MyEnterPriseId = person.enterprise;
-                    SessionSingleton.PTQ = 2;
+                    SessionSingleton.PTQ = 2073;
 
                     try
                     {
@@ -161,12 +161,17 @@ namespace Generic.Controllers
             {
                 ViewBag.enterpriseName = enterprise.description;
 
-
-                pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
+                //pr_getStatusCountForReferenceByPTQ
+                List<pr_getStatusCountForReferenceByPTQ_Result> objCount = db.pr_getStatusCountForReferenceByPTQ(2073).ToList()
+                    ;
+                //pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
                 string pieChartData = "['Status','Count'],";
-                pieChartData += "['Completed'," + objCount.Completed + "],";
-                pieChartData += "['Incomplete'," + objCount.Incomplete + "],";
-                pieChartData += "['Not Started'," + objCount.Not_Started + "]";
+                foreach (var data in objCount)
+                {
+                    pieChartData += "['" + data.status + "'," + data.total + "],";
+                }
+                //  pieChartData += "['Total'," + objCount.total + "]";
+                //pieChartData += "['Not Started'," + objCount.Not_Started + "]";
 
                 ViewBag.pieChartData = pieChartData;
 
@@ -252,21 +257,24 @@ namespace Generic.Controllers
         [Authorize]
         public virtual ActionResult Dashbord1()
         {
-            var partnerTypeByPTQList = db.pr_getPartnerTypeByPTQ(SessionSingleton.PTQ).ToList();
+            var objDashboard = db.pr_getDashboardCountForReferenceByPTQ(SessionSingleton.PTQ).ToList();
 
+            
+
+           
 
             var groupDataList = db.pr_getGroupByPTQ(SessionSingleton.PTQ).ToList();
-              
+            var ptqgroupDataList = db.pr_getPTQGroupByPTQ(SessionSingleton.PTQ).ToList();
 
             PartnerTypeDataList datalist = new PartnerTypeDataList();
             datalist.partnerType = new List<PartnerTypeData>();
 
-            foreach (var item in partnerTypeByPTQList)
+            foreach (var item in objDashboard.Select(x=>x.partnertype).Distinct())
             {
                 PartnerTypeData data = new PartnerTypeData();
-                data.ID = item.id;
+                data.ID = item;
 
-                data.Description = item.description;
+                data.Description = db.pr_getPartnerType(item).FirstOrDefault().description;
 
                 datalist.partnerType.Add(data);
 
@@ -275,7 +283,9 @@ namespace Generic.Controllers
             Dashboard1 dashBoard = new Dashboard1();
             dashBoard.partnerType = datalist.partnerType;
             dashBoard.groups = groupDataList;
-
+            dashBoard.ptqGroups = ptqgroupDataList;
+            dashBoard.ptqDashboard = objDashboard;
+           
             return View(dashBoard);
         }
 
@@ -283,20 +293,38 @@ namespace Generic.Controllers
         public virtual ActionResult View4()
         {
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-
+            List<View4> objView4 = new List<View4>();
             //db.pr_getrol
             if (enterprise != null)
             {
                 ViewBag.enterpriseName = enterprise.description;
 
+                List<pr_getGroupStatusCountForReferenceByPTQ_Result> objCount = db.pr_getGroupStatusCountForReferenceByPTQ(2073).ToList();
+                //  pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
 
-                pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
-                string pieChartData = "['Status','Count'],";
-                pieChartData += "['Completed'," + objCount.Completed + "],";
-                pieChartData += "['Incomplete'," + objCount.Incomplete + "],";
-                pieChartData += "['Not Started'," + objCount.Not_Started + "]";
 
-                ViewBag.pieChartData = pieChartData;
+
+                foreach (var objGroup in objCount.Select(x => x.group).Distinct())
+                {
+                    View4 objView4item = new View4();
+
+                    string pieChartData = "['Status','Count'],";
+                    foreach (var item in objCount.Where(x => x.group == objGroup))
+                    {
+                        pieChartData += "['" + item.status + "'," + item.total + "],";
+                    }
+                    objView4item.groupDescription = db.pr_getGroup(objGroup).FirstOrDefault().description;
+                    objView4item.groupID = objGroup;
+                    objView4item.pieChart = pieChartData;
+
+                    objView4.Add(objView4item);
+                }
+
+                //pieChartData += "['Completed'," + objCount.Completed + "],";
+                //pieChartData += "['Incomplete'," + objCount.Incomplete + "],";
+                //pieChartData += "['Not Started'," + objCount.Not_Started + "]";
+
+                ViewBag.pieChartGroupData = objView4;
 
 
             }

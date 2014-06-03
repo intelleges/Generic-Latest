@@ -1,9 +1,9 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<Generic.ViewModel.Dashboard1>
-@using System.Web.Mvc.Html;
-@using Generic.Helpers;
-@using Telerik.Web.Mvc.UI;
+    @using System.Web.Mvc.Html;
+    @using Generic.Helpers;
+    @using Telerik.Web.Mvc.UI;
 
-@{
+    @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = ViewBag.enterpriseName + "Admin";
     int counter = Model.partnerType.Count() + 3;
@@ -15,75 +15,77 @@
     int c2 = Model.groups.Count() % 3 > 0 ? 1 : 0;
     int partnerTablesCount = int.Parse(Math.Floor(c).ToString()) + c2;
 
-}
-<style type="text/css">
-    table.PartnerTypes {
-        border-collapse: collapse;
-        border: 1px solid black;
     }
+    <style type="text/css">
+        table.PartnerTypes {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
 
-    table.TestTable {
-        border-collapse: collapse;
-        border: 1px solid black;
-        float: left;
-        margin-right: 10px;
-    }
+        table.TestTable {
+            border-collapse: collapse;
+            border: 1px solid black;
+            float: left;
+            margin-right: 10px;
+        }
 
-    table td {
-        border: 1px solid black;
-        font-size: 12px;
-    }
+        table td {
+            border: 1px solid black;
+            font-size: 12px;
+        }
 
-    table th {
-        border: 1px solid black;
-        font-size: 12px;
-        text-align: right;
-        padding-right: 0;
-    }
+        table th {
+            border: 1px solid black;
+            font-size: 12px;
+            text-align: right;
+            padding-right: 0;
+        }
 
-    table.PartnerTypes td.AlgnRight {
-        text-align: right;
-        color: darkblue;
-        padding-right: 0;
-    }
+        table.PartnerTypes td.AlgnRight {
+            text-align: right;
+            color: darkblue;
+            padding-right: 0;
+        }
 
-    table.TestTable th {
-        border: 1px solid black;
-        font-size: 12px;
-        text-align: center;
-        padding-right: 0;
-    }
+        table.TestTable th {
+            border: 1px solid black;
+            font-size: 12px;
+            text-align: center;
+            padding-right: 0;
+        }
 
-    table.TestTable td.AlgnRight {
-        text-align: right;
-        color: darkblue;
-        padding-right: 0;
-        width: 30px;
-        font-weight: bold;
-    }
-</style>
+        table.TestTable td.AlgnRight {
+            text-align: right;
+            color: darkblue;
+            padding-right: 0;
+            width: 30px;
+            font-weight: bold;
+        }
+    </style>
 
-@for (int m = 0; m < partnerTablesCount; m++)
-{
-    
+    @for (int m = 0; m < partnerTablesCount; m++)
+    {
+
 
     <table id="OuterTable">
         <tr>
             <td style="border-right:0">
                 <table class="PartnerTypes">
                     <tr style="background-color: darkblue; color: white;">
-                        <th>PARTNER TYPE&nbsp;
+                        <th>
+                            PARTNER TYPE&nbsp;
                         </th>
                     </tr>
                     <tr>
-                        <td>&nbsp;
+                        <td>
+                            &nbsp;
                         </td>
                     </tr>
                     @foreach (var partnerType in Model.partnerType)
                     {
-                        <tr>
-                            <td id="@partnerType.ID" class="AlgnRight"><span>&nbsp;&nbsp;@partnerType.Description.Trim()&nbsp;&nbsp;</span></td>
-                        </tr>
+                    <tr>
+                        <td id="@partnerType.ID" class="AlgnRight"><span>&nbsp;&nbsp;@partnerType.Description.Trim()&nbsp;&nbsp;</span></td>
+                    </tr>
                     }
                     <tr>
                         <td class="AlgnRight"><span>&nbsp;&nbsp;<strong>Total</strong>&nbsp;&nbsp;</span></td>
@@ -94,49 +96,55 @@
                 @for (int n = 0; n < 3; n++)
                 {
 
-                    if (groupAdded < groupCount)
-                    {
-<table class="TestTable">
+                if (groupAdded < groupCount)
+                {
+                <table class="TestTable">
                     @for (int i = 1; i <= counter; i++)
                     {
-                        if (i == 1)
-                        {
-<tr style="background-color:darkblue;; color: white;">
+                    if (i == 1)
+                    {
+                    <tr style="background-color:darkblue;; color: white;">
                         <th colspan="8">
-                           @Model.groups[groupAdded].description
+                            @Model.groups[groupAdded].description
 
                         </th>
                     </tr>
-                        }
-                        else
-                        {
-                            if (i == 2)
-                            {
-<tr>
-                        <td class="AlgnRight">G&nbsp;</td>
-                        <td class="AlgnRight">U&nbsp;</td>
-                        <td class="AlgnRight">R&nbsp;</td>
-                        <td class="AlgnRight">C&nbsp;</td>
-                        <td class="AlgnRight">N/R&nbsp;</td>
-                        <td class="AlgnRight">R/I&nbsp;</td>
-                        <td class="AlgnRight">R/C&nbsp;</td>
-                        <td class="AlgnRight">T&nbsp;</td>
+                    }
+                    else
+                    {
+                    if (i == 2)
+                    {
+                    <tr>
+                        <td class="AlgnRight" title="Goal">G&nbsp;</td>
+                        <td class="AlgnRight" title="UnConfirmed">U&nbsp;</td>
+                        <td class="AlgnRight" title="Review">R&nbsp;</td>
+                        <td class="AlgnRight" title="Confirmed">C&nbsp;</td>
+                        <td class="AlgnRight" title="No Response">N/R&nbsp;</td>
+                        <td class="AlgnRight" title="Response Incomplete">R/I&nbsp;</td>
+                        <td class="AlgnRight" title="Response Complete">R/C&nbsp;</td>
+                        <td class="AlgnRight" title="Total">T&nbsp;</td>
                     </tr>
-                            }
-                            else
-                            {
-<tr>
+                    }
+                    else
+                    {
+                    <tr>
+                        <td class="AlgnRight"> @Model.ptqGroups[groupAdded].goal &nbsp;</td>
                         <td class="AlgnRight">0&nbsp;</td>
                         <td class="AlgnRight">0&nbsp;</td>
                         <td class="AlgnRight">0&nbsp;</td>
-                        <td class="AlgnRight">0&nbsp;</td>
-                        <td class="AlgnRight">0&nbsp;</td>
-                        <td class="AlgnRight">0&nbsp;</td>
-                        <td class="AlgnRight">0&nbsp;</td>
-                        <td class="AlgnRight">0&nbsp;</td>
+                        <td class="AlgnRight" style="background-color: #E56D38"> @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Invited/No Response" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()   &nbsp;</td>
+                        <td class="AlgnRight" style="background-color:#FDEB41">@Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Responded/Complete" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()  &nbsp;</td>
+                        <td class="AlgnRight" style="background-color: #BCD637">@Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Responded/Incomplete" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()&nbsp;</td>
+                        <td class="AlgnRight">
+@{ 
+                    @Html.Raw(        @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Invited/No Response" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()  +
+                            @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Responded/Complete" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()   +
+                            @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Responded/Incomplete" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault() )
+}
+&nbsp;</td>
                     </tr>
-                            }
-                        }
+                    }
+                    }
                     }
 
 
@@ -144,51 +152,51 @@
 
 
 
-                    </table>
-                
-                    
-                    groupAdded++;
-                    }
+                </table>
+
+
+                groupAdded++;
+                }
 
                 }
             </td>
         </tr>
     </table>
 
-  
-}
 
-<script>
-    $(document).ready(function () {
-        debugger;
-        //$("#TestTable tr:eq(1)").each(function () {
-        //    $(this).find("td").css({
-        //        "color": "skyblue",
-        //        "text-align": "right",
-        //    "padding-right": "0",
-        //    "width": "25px",
-        //    "font-weight": "bold"                });
-        //});
+    }
+
+    <script>
+        $(document).ready(function () {
+            debugger;
+            //$("#TestTable tr:eq(1)").each(function () {
+            //    $(this).find("td").css({
+            //        "color": "skyblue",
+            //        "text-align": "right",
+            //    "padding-right": "0",
+            //    "width": "25px",
+            //    "font-weight": "bold"                });
+            //});
 
 
-        //$("#TestTable tr:gt(1)").each(function () {
-        //    $(this).find("td:eq(0)").css({
-        //        "color": "black",
-        //        "text-align": "right",
-        //        "padding-right": "0",
-        //        "width": "25px",
-        //        "font-weight": "bold"                });
-        //});
+            //$("#TestTable tr:gt(1)").each(function () {
+            //    $(this).find("td:eq(0)").css({
+            //        "color": "black",
+            //        "text-align": "right",
+            //        "padding-right": "0",
+            //        "width": "25px",
+            //        "font-weight": "bold"                });
+            //});
 
-        //$("#TestTable tr:gt(1)").each(function () {
-        //    $(this).find("td:gt(0)").css({
-        //        "color": "blue",
-        //        "text-align": "right",
-        //        "padding-right": "0",
-        //        "width": "25px",
-        //        "font-weight": "bold"
-        //    });
-        //});
-    });
+            //$("#TestTable tr:gt(1)").each(function () {
+            //    $(this).find("td:gt(0)").css({
+            //        "color": "blue",
+            //        "text-align": "right",
+            //        "padding-right": "0",
+            //        "width": "25px",
+            //        "font-weight": "bold"
+            //    });
+            //});
+        });
 
-</script>
+    </script>
