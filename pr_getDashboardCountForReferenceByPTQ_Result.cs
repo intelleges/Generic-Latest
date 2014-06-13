@@ -17,5 +17,6 @@ namespace Generic
         public int partnertype { get; set; }
         public string status { get; set; }
         public Nullable<int> total { get; set; }
+        public int statusID { get; set; }
     }
 }

@@ -132,9 +132,25 @@
                         <td class="AlgnRight">0&nbsp;</td>
                         <td class="AlgnRight">0&nbsp;</td>
                         <td class="AlgnRight">0&nbsp;</td>
-                        <td class="AlgnRight" style="background-color: #E56D38"> @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Invited/No Response" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()   &nbsp;</td>
-                        <td class="AlgnRight" style="background-color:#FDEB41">@Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Responded/Complete" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()  &nbsp;</td>
-                        <td class="AlgnRight" style="background-color: #BCD637">@Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Responded/Incomplete" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()&nbsp;</td>
+                        <td class="AlgnRight" style="background-color: #E56D38">
+
+                           
+
+                            <a style="text-decoration:none" href="~/Admin/DashboardPartners?Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse)&Group=@Model.groups[groupAdded].id" target="_blank">
+                             @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.statusID== (int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()  
+                            </a>
+                             &nbsp;</td>
+                        <td class="AlgnRight" style="background-color:#FDEB41">
+                             <a style="text-decoration:none" href="~/Admin/DashboardPartners?Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete)&Group=@Model.groups[groupAdded].id" target="_blank">
+                            @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.statusID== (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()
+                                 </a>
+                                 
+                                   &nbsp;</td>
+                        <td class="AlgnRight" style="background-color: #BCD637">
+                            <a style="text-decoration:none" href="~/Admin/DashboardPartners?Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete)&Group=@Model.groups[groupAdded].id" target="_blank">
+                            @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.statusID== (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()
+                                </a>
+                                &nbsp;</td>
                         <td class="AlgnRight">
 @{ 
                     @Html.Raw(        @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Invited/No Response" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()  +

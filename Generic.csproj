@@ -937,6 +937,9 @@
     <Compile Include="pr_getPartnerByEmail_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerByPTQGroupStatus_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerByRelationshipowner_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2663,6 +2666,7 @@
     <EmbeddedResource Include="Views\Agency\Create.cshtml" />
     <EmbeddedResource Include="Views\Agency\Edit.cshtml" />
     <EmbeddedResource Include="Views\Agency\Delete.cshtml" />
+    <EmbeddedResource Include="Views\Admin\DashboardPartners.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

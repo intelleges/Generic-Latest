@@ -13149,5 +13149,39 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDashboardCountForReferenceByPTQ_Result>("pr_getDashboardCountForReferenceByPTQ", ptqParameter);
         }
+    
+        public virtual ObjectResult<partner> pr_getPartnerByPTQGroupStatus(Nullable<int> ptq, Nullable<int> group, Nullable<int> status)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerByPTQGroupStatus", ptqParameter, groupParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<partner> pr_getPartnerByPTQGroupStatus(Nullable<int> ptq, Nullable<int> group, Nullable<int> status, MergeOption mergeOption)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerByPTQGroupStatus", mergeOption, ptqParameter, groupParameter, statusParameter);
+        }
     }
 }

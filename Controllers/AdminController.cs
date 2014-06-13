@@ -85,7 +85,7 @@ namespace Generic.Controllers
                     person person = db.pr_doLogin(userName, password).FirstOrDefault();
                     SessionSingleton.LoggedInUserId = person.id;
                     SessionSingleton.MyEnterPriseId = person.enterprise;
-                    SessionSingleton.PTQ = 2073;
+                    SessionSingleton.PTQ = (int)person.campaign;
 
                     try
                     {
@@ -260,7 +260,7 @@ namespace Generic.Controllers
             var objDashboard = db.pr_getDashboardCountForReferenceByPTQ(SessionSingleton.PTQ).ToList();
 
             
-
+         //  db.pr_getPartnerByPTQGroupStatus(
            
 
             var groupDataList = db.pr_getGroupByPTQ(SessionSingleton.PTQ).ToList();
@@ -288,6 +288,14 @@ namespace Generic.Controllers
            
             return View(dashBoard);
         }
+
+        public virtual ActionResult DashboardPartners(int status, int group)
+        {
+            var objPartners = db.pr_getPartnerByPTQGroupStatus(SessionSingleton.PTQ, group, status).ToList();
+
+            return View(objPartners);
+        }
+
 
         [Authorize]
         public virtual ActionResult View4()

@@ -1,0 +1,40 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable< Generic.partner>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Partner";
+}
+
+
+
+
+
+
+
+
+@( Html.Telerik().Grid(Model).Name("PartnerGrid")
+        .Columns(columns =>
+        {
+           
+
+            columns.Bound(o => o.name).Title("Partner Name").Width(300);
+
+            columns.Bound(o => o.email).Title("Contact").Width(200);
+
+            columns.Bound(o => o.phone).Title("Phone").Width(200);
+            columns.Bound(o => o.title).Title("Title").Width(200);
+            columns.Bound(o => o.country).Title("Country").Width(100);
+            columns.Bound(o => o.city).Title("City").Width(200);
+            columns.Template(o => 0).Title("Timezone").Width(100);
+            columns.Template(o => 0).Title("Last Contact Date").Width(100);
+
+           
+        })
+        .Pageable()
+        .Sortable().Scrollable(scrolling => scrolling
+           .Enabled(true)
+           .Height(300))
+)
+
