@@ -22,5 +22,6 @@ namespace Generic
         public string status { get; set; }
         public Nullable<System.DateTime> dueDate { get; set; }
         public string zcode { get; set; }
+        public string sapid { get; set; }
     }
 }

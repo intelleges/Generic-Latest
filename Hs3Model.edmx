@@ -17534,6 +17534,7 @@
           <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
           <Property Type="DateTime" Name="dueDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="sapid" Nullable="true" MaxLength="200" />
         </ComplexType>
         
       </Schema>
@@ -22791,6 +22792,7 @@
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="dueDate" ColumnName="dueDate" />
                 <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="sapid" ColumnName="sapid" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
