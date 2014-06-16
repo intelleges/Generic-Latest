@@ -994,6 +994,9 @@
     <Compile Include="pr_getPartnerrRemitAddress_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerStatusByEnterpriseAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerStatusByEnterprise_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2667,6 +2670,7 @@
     <EmbeddedResource Include="Views\Agency\Edit.cshtml" />
     <EmbeddedResource Include="Views\Agency\Delete.cshtml" />
     <EmbeddedResource Include="Views\Admin\DashboardPartners.cshtml" />
+    <Content Include="Views\Shared\_reportsDropdownPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

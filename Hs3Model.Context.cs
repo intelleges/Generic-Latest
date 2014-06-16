@@ -13183,5 +13183,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerByPTQGroupStatus", mergeOption, ptqParameter, groupParameter, statusParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerStatusByEnterpriseAll_Result> pr_getPartnerStatusByEnterpriseAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerStatusByEnterpriseAll_Result>("pr_getPartnerStatusByEnterpriseAll", enterpriseParameter);
+        }
     }
 }

@@ -142,11 +142,19 @@
                         <a href="#">Change Password</a>
 
                         <a href="@Url.Content("~/Admin/Home")">Home Page</a>
-                        
 
-                        <a href="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</a>
 
-                        <a href="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</a>
+
+
+
+                        <select id="reports" name="reports">
+                            <option value="">Select Report</option>
+                            <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</option>
+                            <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</option>
+                            <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForReport3")">Report 3</option>
+                        </select>
+
+
 
                         @Html.Action("downloadTemplate", "Admin")
 
@@ -243,6 +251,22 @@
         });
 
         //
+    </script>
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#reports").change(function () {
+                if ($("#reports").val() != '') {
+                    window.location.href = $("#reports").val();
+                }
+            });
+
+
+        });
+
     </script>
 
 

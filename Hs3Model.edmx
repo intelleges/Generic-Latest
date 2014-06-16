@@ -5269,6 +5269,9 @@
         <Function Name="pr_getPartnerStatusByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerStatusByEnterpriseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerStatusCountByTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="touchpoint" Type="int" Mode="In" />
           <Parameter Name="questionnaire" Type="int" Mode="In" />
@@ -11008,6 +11011,9 @@
             <Parameter Name="ptq" Mode="In" Type="Int32" />
             <Parameter Name="group" Mode="In" Type="Int32" />
             <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerStatusByEnterpriseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerStatusByEnterpriseAll_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -17518,6 +17524,17 @@
           <Property Type="Boolean" Name="active" Nullable="true" />
           <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnerStatusByEnterpriseAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="dueDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -22761,6 +22778,21 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnerByPTQGroupStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerByPTQGroupStatus">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerStatusByEnterpriseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerStatusByEnterpriseAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerStatusByEnterpriseAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>

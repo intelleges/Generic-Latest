@@ -890,6 +890,7 @@ namespace Generic.Controllers
 
         public ActionResult PartnumberSpreadsheetDataLoadReportDownloadForSecondReport()
         {
+      
             List<pr_getPartnerStatusByEnterprise_Result> objReport = new List<pr_getPartnerStatusByEnterprise_Result>();
 
         var test= db.pr_getPartnerStatusByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
@@ -906,7 +907,25 @@ namespace Generic.Controllers
             //We return the XML from the memory as a .xls file
             return File(stream, "application/vnd.ms-excel", "DataLoadReport.xls");
         }
+        public ActionResult PartnumberSpreadsheetDataLoadReportDownloadForReport3()
+        {
 
+            List<pr_getPartnerStatusByEnterpriseAll_Result> objReport = new List<pr_getPartnerStatusByEnterpriseAll_Result>();
+
+            var test = db.pr_getPartnerStatusByEnterpriseAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            objReport = test;
+
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<pr_getPartnerStatusByEnterpriseAll_Result>));
+
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, objReport);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "Report3.xls");
+        }
 
         protected override void Dispose(bool disposing)
         {
