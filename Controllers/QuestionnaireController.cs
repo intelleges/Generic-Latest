@@ -257,8 +257,10 @@ namespace Generic.Controllers
                     foreach (var excelQuestionnaire in questionnaireinExcel)
                     {
                         responses = null; responseType = string.Empty;
-                        if (excelQuestionnaire.Page < 1 || excelQuestionnaire.Surveyset.Length < 1 || excelQuestionnaire.Survey.Length < 1 || excelQuestionnaire.Question.Length < 1 || excelQuestionnaire.Response.Length < 1 || excelQuestionnaire.Title.Length < 1 || excelQuestionnaire.Required.Length < 1 || excelQuestionnaire.Comment.Length < 1)
+                        if (excelQuestionnaire.Page < 1 || excelQuestionnaire.Surveyset.Length < 1 || excelQuestionnaire.Survey.Length < 1 || excelQuestionnaire.Question.Length < 1 || excelQuestionnaire.Response.Length < 1 || excelQuestionnaire.Title.Length < 1 || excelQuestionnaire.Required.Length < 1 )
                         {
+                          //  || excelQuestionnaire.Comment.Length < 1
+
                             //skip this row.
                             //no useful anymore
                         }
@@ -368,6 +370,11 @@ namespace Generic.Controllers
                             {
                                 isRequired = 0;
                             }
+                            if (excelQuestionnaire.Comment == null)
+                            {
+                                excelQuestionnaire.Comment = "N";
+                            }
+
                             if (excelQuestionnaire.Comment.ToLower() == "y" || excelQuestionnaire.Comment.ToLower() == "yes" || excelQuestionnaire.Comment.ToLower() == "1")
                             {
                                 isRequiredComment = 1;
@@ -631,8 +638,14 @@ namespace Generic.Controllers
                 }
                 catch (Exception ex)
                 {
-
-                    ViewBag.Error = ex.InnerException.Message;
+                   try
+                    {
+                        ViewBag.Error = ex.InnerException.Message;
+                    }
+                    catch
+                    {
+                        ViewBag.Error = ex.Message;
+                    }
                     ViewBag.protocol = new SelectList(db.pr_getProtocolAll(EnterpriseID), "id", "name");
                     ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
                     ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");

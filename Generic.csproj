@@ -91,6 +91,13 @@
     <Reference Include="NPOI.OpenXmlFormats">
       <HintPath>..\packages\NPOI.2.0.6\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
+    <Reference Include="Recaptcha, Version=1.0.5.0, Culture=neutral, PublicKeyToken=9afc4d65b28c38c2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\recaptcha.1.0.5.0\lib\.NetFramework 4.0\Recaptcha.dll</HintPath>
+    </Reference>
+    <Reference Include="Recaptcha.MvcModel">
+      <HintPath>..\packages\reCaptchaMvcExtensions.1.0.1\lib\Recaptcha.MvcModel.dll</HintPath>
+    </Reference>
     <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\LinqToExcel_x64.1.7.1\lib\Remotion.dll</HintPath>

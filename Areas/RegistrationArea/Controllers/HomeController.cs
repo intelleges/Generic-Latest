@@ -24,7 +24,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         public virtual ActionResult Index(string id = "", string accessCode = null)
         {
-           
+
 
 
             ViewBag.accesscode = accessCode;
@@ -554,8 +554,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             responseComment = answer;
                         }
 
+                        var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
+                        if (checkpsz.Count == 0)
+                        {
+                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                        }
+                        else
+                        {
+                            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, pptq);
+                        }
 
-                        db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                       // db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
                     }
                     else if (keyName.ToString().Contains("_checkBox"))
                     {
@@ -580,8 +589,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 responseComment = answer;
                             }
 
+                            var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
+                            if (checkpsz.Count == 0)
+                            {
+                                db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                            }
+                            else
+                            {
+                                db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, pptq);
+                            }
 
-                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+
+                         //   db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
 
                         }
                     }
@@ -638,53 +657,65 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             responseComment = null;
                         }
 
-                        db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
-
+                     //   db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                        var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
+                        if (checkpsz.Count == 0)
+                        {
+                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                        }
+                        else
+                        {
+                            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, pptq);
+                        }
                     }
 
                     objQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
 
 
 
-
+                    //JB skip logic handling begins
 
                     if (answer == "74" || answer == "75" || answer == "76" || answer != "")
                     {
                         if (objQuestion.skipLogicJump != null)
                         {
+                            //if (objQuestion.skipLogicAnswer != null)
+                            //{
+                            //    if (answer == "74")
+                            //    {
+
+
+                            //        if (objQuestion.skipLogicJump.Contains("&"))
+                            //        {
+                            //        }
+                            //        else
+                            //        {
+                            //            jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                            //        }
+                            //    }
+                            //    else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer != null) && answer != "" && answer != "75")
+
+                            //        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                            //    else
+                            //    {
+                            //        jumpToQuestion = 0;
+                            //    }
+                            //}
+                            //else
+
+                            //{
+                            //    if (answer == "74" && (objQuestion.commentType == 5 || objQuestion.commentType == 3))
+                            //    {
+                            //        if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer != null))
+                            //            jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                            //        else
+                            //            jumpToQuestion = 0;
+
+                            //    }
                             if (objQuestion.skipLogicAnswer != null)
                             {
-                                if (answer == "74")
-                                {
 
-
-                                    if (objQuestion.skipLogicJump.Contains("&"))
-                                    {
-                                    }
-                                    else
-                                    {
-                                        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                                    }
-                                }
-                                else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer != null) && answer != "" && answer != "75")
-
-                                    jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                                else
-                                {
-                                    jumpToQuestion = 0;
-                                }
-                            }
-                            else
-                            {
-                                if (answer == "74" && (objQuestion.commentType == 5 || objQuestion.commentType == 3))
-                                {
-                                    if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer != null))
-                                        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                                    else
-                                        jumpToQuestion = 0;
-
-                                }
-                                else if (objQuestion.skipLogicJump.Contains("&"))
+                                if (objQuestion.skipLogicJump.Contains("&"))
                                 {
                                     string[] strQuestionLogic = objQuestion.skipLogicJump.Split(';');
                                     for (int k = 0; k < strQuestionLogic.Length - 1; k++)
@@ -708,17 +739,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                 gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
                                             }
                                             string answerStatus = "";
-                                            if (ansLogicStatus == 1)
-                                            {
-                                                answerStatus = "74";
-                                            }
-                                            else
-                                            {
-                                                answerStatus = "1";
-                                            }
+                                            //if (ansLogicStatus == 1)
+                                            //{
+                                            //    answerStatus = "74";
+                                            //}
+                                            //else
+                                            //{
+                                            //    answerStatus = "1";
+                                            //}
                                             Boolean foundFlage = false;
 
-                                            for (int l = 0; l < count; ++l)
+                                            for (int l = 0; l < formCollection.Keys.Count; ++l)
                                             {
                                                 key = formCollection.Keys[l];
                                                 if (key.Contains("question_"))
@@ -734,63 +765,83 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                     }
                                                     if (questionId == questionidLogic)
                                                     {
-                                                        if (answer == "74" || answer == "75" || answer == "76")
-                                                        {
-                                                            foundFlage = true;
-                                                            if (answer == answerStatus)
-                                                            {
-                                                                if (j == 0)
-                                                                {
-                                                                    logicOneStatus = true;
-                                                                }
-                                                                else if (j == 1)
-                                                                {
-                                                                    logicTwoStatus = true;
-                                                                }
-                                                            }
-                                                            else if (answerStatus == "1")
-                                                            {
-                                                                if (answer == "75" || answer == "76")
-                                                                {
-                                                                    if (j == 0)
-                                                                    {
-                                                                        logicOneStatus = true;
-                                                                    }
-                                                                    else if (j == 1)
-                                                                    {
-                                                                        logicTwoStatus = true;
-                                                                    }
-                                                                }
-                                                            }
-                                                            break;
-                                                        }
+
+                                                        foundFlage = true;
+
+                                                        //if (answer == "74" || answer == "75" || answer == "76")
+                                                        //{
+                                                        //    foundFlage = true;
+                                                        //    if (answer == answerStatus)
+                                                        //    {
+                                                        //        if (j == 0)
+                                                        //        {
+                                                        //            logicOneStatus = true;
+                                                        //        }
+                                                        //        else if (j == 1)
+                                                        //        {
+                                                        //            logicTwoStatus = true;
+                                                        //        }
+                                                        //    }
+                                                        //    else if (answerStatus == "1")
+                                                        //    {
+                                                        //        if (answer == "75" || answer == "76")
+                                                        //        {
+                                                        //            if (j == 0)
+                                                        //            {
+                                                        //                logicOneStatus = true;
+                                                        //            }
+                                                        //            else if (j == 1)
+                                                        //            {
+                                                        //                logicTwoStatus = true;
+                                                        //            }
+                                                        //        }
+                                                        //    }
+                                                        //    break;
+                                                        //}
 
                                                     }
                                                 }
                                             }
 
-                                            if (!foundFlage)
+                                            if (foundFlage)
                                             {
                                                 question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
-                                                response responsenew = db.pr_getResponseByQuestion(questionidLogic).FirstOrDefault();
+                                                var context = new EntitiesDBContext();
 
-                                                if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no")
-                                                {
-                                                    foundFlage = true;
-                                                    string tempstr = "";
-                                                    if (answerStatus == "74")
+                                                int? rID = context.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault().response;
+                                                response responsenew = db.pr_getResponse(rID).FirstOrDefault();
+
+                                                
+                                                int check = 0;
+                                                    if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
                                                     {
-                                                        tempstr = "yes";
+                                                        foundFlage = true;
+
+                                                        if (ansLogicStatus == 1 && responsenew.description.ToLower() == "yes")
+                                                        {
+                                                            check = 1;
+                                                        }
+                                                        else if (ansLogicStatus == 0 && responsenew.description.ToLower() == "no")
+                                                        {
+                                                            check = 1;
+                                                        }
+                                                        else if (ansLogicStatus == -1 && responsenew.description.ToLower() == "n/a")
+                                                        {
+                                                            check = 1;
+                                                        }
+                                                        else if (ansLogicStatus == 2 && responsenew.description.ToLower() == "cots")
+                                                        {
+                                                            check = 1;
+                                                        }
                                                     }
-                                                    else if (answerStatus == "75")
+                                                    else
                                                     {
-                                                        tempstr = "no";
+                                                        if (ansLogicStatus == 3 && responsenew != null)
+                                                        {
+                                                            check = 1;
+                                                        }
                                                     }
-                                                    else if (answerStatus == "76")
-                                                    {
-                                                        tempstr = "n/a";
-                                                    }
-                                                    if (responsenew.description.ToLower() == tempstr)
+                                                    if (check == 1)
                                                     {
                                                         if (j == 0)
                                                         {
@@ -801,25 +852,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                             logicTwoStatus = true;
                                                         }
                                                     }
-                                                    else
-                                                    {
-                                                        if (answerStatus == "1")
-                                                        {
-                                                            if (responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no")
-                                                            {
-                                                                if (j == 0)
-                                                                {
-                                                                    logicOneStatus = true;
-                                                                }
-                                                                else if (j == 1)
-                                                                {
-                                                                    logicTwoStatus = true;
-                                                                }
-                                                            }
-                                                        }
-                                                    }
                                                 }
-                                            }
+                                            
+                                    
                                             //int ansLogicStatus =Convert.ToInt32(
                                         }
                                         if (logicOneStatus == true && logicTwoStatus == true)
@@ -1314,13 +1349,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().AsEnumerable(), "id", "stateCode", partner.state);
             }
 
-            if( partner.country==null){
+            if (partner.country == null)
+            {
                 ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
-            }else{
-
-            ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", partner.country);
             }
-                //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
+            else
+            {
+
+                ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", partner.country);
+            }
+            //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
 
             ComboBoxModel objCombobox = new ComboBoxModel();
             if (partner.state != null)
