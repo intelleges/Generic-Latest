@@ -979,7 +979,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             else
             {
 
-                goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage);
+                goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, page,  pageNumber);
             }
 
 
@@ -987,7 +987,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
 
 
-        private void goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage)
+        private void goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int pageQ = 0, int pageNumberQ = 0)
         {
             int pageId = 0;
             int pageNumber = 0;
@@ -1007,9 +1007,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
             page page = null;
             // menuGroup = (MenuGroup)Session["menuGroup"];
 
-            if (Request.QueryString["pageNumber"] != null)
+           if (pageNumberQ != 0)
             {
-                pageNumber = int.Parse(Request.QueryString["pageNumber"].ToString());
+                pageNumber = pageNumberQ;
                 pageNumber = pageNumber + 1;
 
             }
@@ -1018,12 +1018,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 pageNumber = 2;
             }
 
-            if (Request.QueryString["page"] != null)
+            if (pageQ != 0)
             {
-                pageId = int.Parse(Request.QueryString["page"].ToString());
+                pageId = pageQ;
 
                 page = db.pr_getNextPageByQuestionnaire(questionnaireId, pageId, jumpToQuestion).FirstOrDefault();
-            }
+            }              
             else
             {
                 page = db.pr_getNextPageByQuestionnaire(questionnaireId, 0, 0).FirstOrDefault();
