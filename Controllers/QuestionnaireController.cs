@@ -8,6 +8,7 @@ using Generic.ViewModel;
 using LinqToExcel;
 using Generic.SessionClass;
 using Generic.Helpers.Questionnaire;
+using System.Xml.Serialization;
 
 namespace Generic.Controllers
 {
@@ -175,6 +176,27 @@ namespace Generic.Controllers
             return RedirectToAction("UploadAutoMailMessage", "AutoMailMessage");
         }
 
+
+        //[AllowAnonymous]
+        public ActionResult DownloadCMSTemplate()
+        {
+
+            List<ExcelQuestionnaireCMS> objReport = new List<ExcelQuestionnaireCMS>();
+
+            var test = db.pr_getQuestionnaireCMSAll().ToList().Select(x=> new ExcelQuestionnaireCMS { ITEM=x.description, TEXT="", LINK="" }).ToList();
+            objReport = test;
+
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<ExcelQuestionnaireCMS>));
+
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, objReport);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "CMSTemplate.xls");
+        }
 
         public ActionResult UploadQuestionnaire()
         {
