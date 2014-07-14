@@ -759,10 +759,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                     surveyId = int.Parse(array[2]);
                                                     answer = formCollection[l];
 
-                                                    if (questionId == gotoQuestionId)
-                                                    {
-                                                        Response.Redirect("eSignature");
-                                                    }
+                                                    //if (questionId == gotoQuestionId)
+                                                    //{
+                                                    //    Response.Redirect("eSignature");
+                                                    //}
                                                     if (questionId == questionidLogic)
                                                     {
 
@@ -946,6 +946,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //{
             //    var value = formCollection[keyName.ToString()];
             //}
+
+            if (questionId == jumpToQuestion)
+            {
+                goEsignature = "true";
+            }
 
 
             if (goEsignature == "true")

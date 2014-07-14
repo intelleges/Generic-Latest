@@ -97,11 +97,12 @@ namespace Generic.Controllers
 
             var cmsinExcel = from a in excelRead.Worksheet<ExcelQuestionnaireCMS>(sheetname) select a;
 
-            var objQuestionnareCMS = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(questionnaireId).ToList();
-
+            //var objQuestionnareCMS = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(questionnaireId).ToList();
+            var objQuestionnareCMS = db.pr_getQuestionnaireCMSAll().ToList();
+               
             foreach (var cms in cmsinExcel)
             {
-                var questionnaireCMSID = objQuestionnareCMS.Where(x => x.text == cms.ITEM).FirstOrDefault();
+                var questionnaireCMSID = objQuestionnareCMS.Where(x => x.description == cms.ITEM).FirstOrDefault();
                 if (questionnaireCMSID != null)
                 {
                     using (var context = new EntitiesDBContext())
@@ -110,44 +111,44 @@ namespace Generic.Controllers
                         {
                             if (uploadCMSFilePDF == null)
                             {
-                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.questionnaireCMS, cms.TEXT, cms.LINK, null);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
                             }
                             else
                             {
                                 byte[] uploadedFile = new byte[uploadCMSFilePDF.InputStream.Length];
                                 uploadCMSFilePDF.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.questionnaireCMS, cms.TEXT, cms.LINK, uploadedFile);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, uploadedFile);
                             }
                         }
                         else if (cms.ITEM == CMS.QUESTIONNAIRE_FAQ)
                         {
                             if (uploadCMSFileFAQ == null)
                             {
-                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.questionnaireCMS, cms.TEXT, cms.LINK, null);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
                             }
                             else
                             {
                                 byte[] uploadedFile = new byte[uploadCMSFileFAQ.InputStream.Length];
                                 uploadCMSFileFAQ.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.questionnaireCMS, cms.TEXT, cms.LINK, uploadedFile);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, uploadedFile);
                             }
                         }
                         else if (cms.ITEM == CMS.QUESTIONNAIRE_DOC_OTHER)
                         {
                             if (uploadCMSFileOther == null)
                             {
-                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.questionnaireCMS, cms.TEXT, cms.LINK, null);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
                             }
                             else
                             {
                                 byte[] uploadedFile = new byte[uploadCMSFileOther.InputStream.Length];
                                 uploadCMSFileOther.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.questionnaireCMS, cms.TEXT, cms.LINK, uploadedFile);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, uploadedFile);
                             }
                         }
                         else
                         {
-                            context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.questionnaireCMS, cms.TEXT, cms.LINK, null);
+                            context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
                         }
                     }
                 }
