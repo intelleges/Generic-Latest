@@ -113,6 +113,9 @@ namespace Generic.Controllers
                 db.Entry(objpartner).State = EntityState.Modified;
                 db.SaveChanges();
 
+                Generic.Helpers.CurrentInstance.EnterpriseID = (int)objpartner.enterprise;
+
+
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint((int)Session["partnerType"], (int)Session["touchpoint"]).FirstOrDefault().id;
                 var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(objpartner.id, ptq).FirstOrDefault();
               
