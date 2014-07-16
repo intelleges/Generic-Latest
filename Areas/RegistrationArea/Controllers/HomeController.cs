@@ -395,7 +395,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         ViewBag.QUESTIONNAIRE_VIDEO = cms_Questionnare_video.text;
                     var cms_ContactEmail = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_US_EMAIL).id);
                     if (cms_ContactEmail != null)
+                    {
                         ViewBag.CONTACT_US_EMAIL = cms_ContactEmail.text;
+                        ViewBag.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK = cms_ContactEmail.link;
+                    }
                 }
                 catch { }
             }
