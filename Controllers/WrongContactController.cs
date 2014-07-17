@@ -77,7 +77,11 @@ namespace Generic.Controllers
                         ViewBag.CMS_PAGE_HEADER = cms_PageHeader.text;
                     var cms_PageHeaderText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_PAGE_HEADER_TEXT).id);
                     if (cms_PageHeaderText != null)
+                    {
+                        
+                        
                         ViewBag.CMS_PAGE_HEADER_TEXT = cms_PageHeaderText.text;
+                    }
                     var cms_PagePreviuosText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_PAGE_PREVIOUS_TEXT).id);
                     if (cms_PagePreviuosText != null)
                         ViewBag.CMS_PAGE_PREVIOUS_TEXT = cms_PagePreviuosText.text;
@@ -102,6 +106,9 @@ namespace Generic.Controllers
         {
             partner objpartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
             objpartner.firstName = partner.firstName;
+
+            Session["New Contact Name"] = partner.firstName;
+
             objpartner.lastName = partner.lastName;
             objpartner.title = partner.title;
             objpartner.email = partner.email;
@@ -154,7 +161,7 @@ namespace Generic.Controllers
             }
 
 
-            ViewBag.CMS_PAGE_TITLE = CMS.REDIRECT_CONFIRMATION_PAGE_TITLE.Substring(0, 20);
+            ViewBag.CMS_PAGE_TITLE = CMS.REDIRECT_CONFIRMATION_PAGE_TITLE;//.Substring(0, 20);
             ViewBag.CMS_PAGE_SUBTITLE = CMS.REDIRECT_CONFIRMATION_PAGE_SUBTITLE;
             ViewBag.CMS_PAGE_PANEL_ONE = CMS.REDIRECT_CONFIRMATION_PAGE_PANEL_ONE;
             ViewBag.CMS_PAGE_PANEL_TWO = CMS.REDIRECT_CONFIRMATION_PAGE_PANEL_TWO;
@@ -179,7 +186,7 @@ namespace Generic.Controllers
                 {
                     var cms_PageTitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_CONFIRMATION_PAGE_TITLE).id);
                     if (cms_PageTitle != null)
-                        ViewBag.CMS_PAGE_TITLE = cms_PageTitle.text.Substring(0, 20);
+                        ViewBag.CMS_PAGE_TITLE = cms_PageTitle.text;
                     var cms_PageSubtitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_CONFIRMATION_PAGE_SUBTITLE).id);
                     if (cms_PageSubtitle != null)
                         ViewBag.CMS_PAGE_SUBTITLE = cms_PageSubtitle.text;
@@ -195,13 +202,21 @@ namespace Generic.Controllers
                         ViewBag.CMS_PAGE_HEADER = cms_PageHeader.text;
                     var cms_PageHeaderText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_CONFIRMATION_PAGE_HEADER_TEXT).id);
                     if (cms_PageHeaderText != null)
+                    {
+                        cms_PageHeaderText.text = cms_PageHeaderText.text.Replace("[Touchpoint Title]", cms_PageTitle.text);
+                        cms_PageHeaderText.text = cms_PageHeaderText.text.Replace("[New Contact Name]", Session["New Contact Name"].ToString());
+
                         ViewBag.CMS_PAGE_HEADER_TEXT = cms_PageHeaderText.text;
+                    }
                     var cms_PagePreviuosText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_CONFIRMATION_PAGE_PREVIOUS_TEXT).id);
                     if (cms_PagePreviuosText != null)
                         ViewBag.CMS_PAGE_PREVIOUS_TEXT = cms_PagePreviuosText.text;
                     var cms_PageNextText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_CONFIRMATION_PAGE_NEXT_TEXT).id);
                     if (cms_PageNextText != null)
+                    {
                         ViewBag.CMS_PAGE_NEXT_TEXT = cms_PageNextText.text;
+                        ViewBag.CMS_PAGE_NEXT_LINK = cms_PageNextText.link;
+                    }
 
                 }
                 catch
