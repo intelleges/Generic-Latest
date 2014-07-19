@@ -108,6 +108,7 @@ namespace Generic.Controllers
             objpartner.firstName = partner.firstName;
 
             Session["New Contact Name"] = partner.firstName;
+            Session["New Contact Full Name"] =partner.firstName +" "+ partner.lastName;
 
             objpartner.lastName = partner.lastName;
             objpartner.title = partner.title;
@@ -205,8 +206,10 @@ namespace Generic.Controllers
                     {
                         cms_PageHeaderText.text = cms_PageHeaderText.text.Replace("[Touchpoint Title]", cms_PageTitle.text);
                         cms_PageHeaderText.text = cms_PageHeaderText.text.Replace("[New Contact Name]", Session["New Contact Name"].ToString());
+                        cms_PageHeaderText.text = cms_PageHeaderText.text.Replace("[New Contact Full Name]", Session["New Contact Full Name"].ToString());                      
 
                         ViewBag.CMS_PAGE_HEADER_TEXT = cms_PageHeaderText.text;
+
                     }
                     var cms_PagePreviuosText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_CONFIRMATION_PAGE_PREVIOUS_TEXT).id);
                     if (cms_PagePreviuosText != null)

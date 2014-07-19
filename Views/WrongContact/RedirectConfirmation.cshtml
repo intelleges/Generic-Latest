@@ -4,6 +4,13 @@
     ViewBag.Title = "Redirect Confirmation";
     Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();  
 }
+<style>
+
+ #lblCompanyName  img {
+max-width: 350px;
+}
+
+</style>
 
 
 @section Bottom{
@@ -137,9 +144,11 @@
             <div class="supplycon">
 <div class="commonh"></div>
 <div class="redheader" align="center">  <table width="100%"><tbody><tr><td align="center"><span id="lblCompanyName" style="font-size:xx-large">
-    
+     @Html.Action("InstanceLogo", "Admin", new { area = "" }) 
+
+                <br />
                                                                                              
-                                                                                              @ViewBag.CMS_PAGE_HEADER
+                     @ViewBag.CMS_PAGE_HEADER
                                                                                              
 
 
@@ -158,6 +167,7 @@
         <td colspan="2" style="font-size: 18px; font-weight: bold;" align="center">
             <span id="lblThankYou">
 
+                
                
                 @ViewBag.CMS_PAGE_HEADER_TEXT
                 
