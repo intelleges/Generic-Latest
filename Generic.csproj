@@ -1292,6 +1292,9 @@
     <Compile Include="pr_getQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getQuestionRowIDByQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getQuestion_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2486,6 +2489,14 @@
     <Content Include="Content\icons\Role-Based-Access-Control.png" />
     <Content Include="Content\icons\systemAlerts.png" />
     <Content Include="Content\icons\workflowAutomation.png" />
+    <Content Include="Content\ProgressBar\progressbar.js" />
+    <Content Include="Content\ProgressBar\skins\big-green\progressbar.css" />
+    <Content Include="Content\ProgressBar\skins\big-green\type_4.gif" />
+    <Content Include="Content\ProgressBar\skins\default\progressbar.css" />
+    <Content Include="Content\ProgressBar\skins\jquery-ui-like\pbar-ani.gif" />
+    <Content Include="Content\ProgressBar\skins\jquery-ui-like\progressbar.css" />
+    <Content Include="Content\ProgressBar\skins\round-pink\progressbar.css" />
+    <Content Include="Content\ProgressBar\skins\tiny-green\progressbar.css" />
     <Content Include="Content\themes\base\alertify.bootstrap.css" />
     <Content Include="Content\themes\base\alertify.core.css" />
     <Content Include="Content\themes\base\alertify.default.css" />

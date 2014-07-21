@@ -8,6 +8,30 @@
 }
 
 <script type="text/javascript" src="@Url.Content("~/contents/js/animatedcollapse.js")"></script>
+
+@*<script type="text/javascript" src="@Url.Content("~/Content/ProgressBar/progressbar.js")"></script>*@
+
+<link href="~/Content/ProgressBar/skins/tiny-green/progressbar.css" rel="stylesheet" />
+<link href="~/Content/ProgressBar/skins/default/progressbar.css" rel="stylesheet" />
+
+
+
+<script>
+    $(document).ready(function () {
+
+        var percentage = $('#barpercent').val();
+        progressBar(percentage, $('#progressBar'));
+
+
+        function progressBar(percent, $element) {
+            //alert(percent);
+            var progressBarWidth = percent * $element.width() / 100;
+            $element.find('div').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
+        }
+
+    });
+	</script>
+
 <script type="text/javascript">
 
     function showdiv(sender) {
@@ -57,6 +81,8 @@
                     }
                 }
             });
+
+
         });
         //var logic
     }
@@ -351,14 +377,22 @@
 <div class="supplycon">
     <div align="center" class="redheader">
 
-        <table width="100%">
+        <table style="margin: auto; width: 88%;">
             <tr>
-                <td></td>
-                <td align="left" style="width: 425px">
+                <td width="85%" style="text-align: right;">
+
+                    <div id="progressBar" class="tiny-green" style="width:660px">
+                        <div></div>
+                    </div>
+
+                    <input id="barpercent" type="hidden" value="@ViewBag.percentageProgressbar" />
+                </td>
+           
+                <td align="left">  @*style="width: 425px"*@
                     <input type="submit" value="@ViewBag.SAVE_FOR_LATER_TEXT" />
-                    <p>
+                    @*<p>*@
                         <span id="ctl00_contentQuestionnaireTitle_lblQuestionnaireTitle" class="redheader"></span>
-                    </p>
+                   @* </p>*@
                 </td>
             </tr>
 
@@ -406,8 +440,8 @@
                                     <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
                                     <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
 
-                                      <input type="hidden" name="Page" value="@Request.QueryString["Page"]" /> 
-                                      <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" /> 
+                                    <input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
+                                    <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
 
                                 </div>
                                     

@@ -411,6 +411,21 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             int questionnaireId = (int)Session["questionnaire"];
 
+
+            int totalCount = (int)db.pr_getQuestionCountByQuestionnaire(questionnaireId).FirstOrDefault();
+            var rows = db.pr_getQuestionRowIDByQuestionnaire(questionnaireId).ToList();
+
+            foreach (var row in rows)
+            {
+                if (row.page == page)
+                {
+
+                    var percentageprogressbar = ((row.row - 1) / (float)totalCount) * 100;
+
+                    ViewBag.percentageProgressbar = percentageprogressbar;
+                    break;
+                }
+            }
             questionnaire objQuestionnaire = db.pr_getQuestionnaire(questionnaireId).FirstOrDefault();
 
             touchpoint objtouchpoint = new touchpoint();
@@ -567,7 +582,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, pptq);
                         }
 
-                       // db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                        // db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
                     }
                     else if (keyName.ToString().Contains("_checkBox"))
                     {
@@ -603,7 +618,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
 
 
-                         //   db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                            //   db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
 
                         }
                     }
@@ -660,7 +675,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             responseComment = null;
                         }
 
-                     //   db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                        //   db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
                         if (checkpsz.Count == 0)
                         {
@@ -814,50 +829,50 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                 int? rID = context.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault().response;
                                                 response responsenew = db.pr_getResponse(rID).FirstOrDefault();
 
-                                                
-                                                int check = 0;
-                                                    if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
-                                                    {
-                                                        foundFlage = true;
 
-                                                        if (ansLogicStatus == 1 && responsenew.description.ToLower() == "yes")
-                                                        {
-                                                            check = 1;
-                                                        }
-                                                        else if (ansLogicStatus == 0 && responsenew.description.ToLower() == "no")
-                                                        {
-                                                            check = 1;
-                                                        }
-                                                        else if (ansLogicStatus == -1 && responsenew.description.ToLower() == "n/a")
-                                                        {
-                                                            check = 1;
-                                                        }
-                                                        else if (ansLogicStatus == 2 && responsenew.description.ToLower() == "cots")
-                                                        {
-                                                            check = 1;
-                                                        }
-                                                    }
-                                                    else
+                                                int check = 0;
+                                                if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
+                                                {
+                                                    foundFlage = true;
+
+                                                    if (ansLogicStatus == 1 && responsenew.description.ToLower() == "yes")
                                                     {
-                                                        if (ansLogicStatus == 3 && responsenew != null)
-                                                        {
-                                                            check = 1;
-                                                        }
+                                                        check = 1;
                                                     }
-                                                    if (check == 1)
+                                                    else if (ansLogicStatus == 0 && responsenew.description.ToLower() == "no")
                                                     {
-                                                        if (j == 0)
-                                                        {
-                                                            logicOneStatus = true;
-                                                        }
-                                                        else if (j == 1)
-                                                        {
-                                                            logicTwoStatus = true;
-                                                        }
+                                                        check = 1;
+                                                    }
+                                                    else if (ansLogicStatus == -1 && responsenew.description.ToLower() == "n/a")
+                                                    {
+                                                        check = 1;
+                                                    }
+                                                    else if (ansLogicStatus == 2 && responsenew.description.ToLower() == "cots")
+                                                    {
+                                                        check = 1;
                                                     }
                                                 }
-                                            
-                                    
+                                                else
+                                                {
+                                                    if (ansLogicStatus == 3 && responsenew != null)
+                                                    {
+                                                        check = 1;
+                                                    }
+                                                }
+                                                if (check == 1)
+                                                {
+                                                    if (j == 0)
+                                                    {
+                                                        logicOneStatus = true;
+                                                    }
+                                                    else if (j == 1)
+                                                    {
+                                                        logicTwoStatus = true;
+                                                    }
+                                                }
+                                            }
+
+
                                             //int ansLogicStatus =Convert.ToInt32(
                                         }
                                         if (logicOneStatus == true && logicTwoStatus == true)
@@ -987,7 +1002,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             else
             {
 
-                goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, page,  pageNumber);
+                goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, page, pageNumber);
             }
 
 
@@ -1015,7 +1030,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             page page = null;
             // menuGroup = (MenuGroup)Session["menuGroup"];
 
-           if (pageNumberQ != 0)
+            if (pageNumberQ != 0)
             {
                 pageNumber = pageNumberQ;
                 pageNumber = pageNumber + 1;
@@ -1031,7 +1046,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 pageId = pageQ;
 
                 page = db.pr_getNextPageByQuestionnaire(questionnaireId, pageId, jumpToQuestion).FirstOrDefault();
-            }              
+            }
             else
             {
                 page = db.pr_getNextPageByQuestionnaire(questionnaireId, 0, 0).FirstOrDefault();
@@ -1777,7 +1792,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.QUESTIONNAIRE_VIDEO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_VIDEO).FirstOrDefault().id).FirstOrDefault().text.PadRight(15).Substring(0, 15);
             ViewBag.CONTACT_US_EMAIL = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_US_EMAIL).FirstOrDefault().id).FirstOrDefault().text.PadRight(15).Substring(0, 15);
             ViewBag.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_US_EMAIL).FirstOrDefault().id).FirstOrDefault().link;
-            
+
             ViewBag.QUESTIONNAIRE_VIDEO_LINK = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_US_EMAIL).FirstOrDefault().id).FirstOrDefault().link;
 
         }

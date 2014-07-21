@@ -13192,5 +13192,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerStatusByEnterpriseAll_Result>("pr_getPartnerStatusByEnterpriseAll", enterpriseParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getQuestionCountByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getQuestionCountByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionRowIDByQuestionnaire_Result> pr_getQuestionRowIDByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionRowIDByQuestionnaire_Result>("pr_getQuestionRowIDByQuestionnaire", questionnaireParameter);
+        }
     }
 }

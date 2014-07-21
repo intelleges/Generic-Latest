@@ -5567,6 +5567,9 @@
         <Function Name="pr_getQuestionByTranslation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="translation" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getQuestionCountByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5625,6 +5628,9 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getQuestionnaireRuleTargetTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getQuestionRowIDByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -11013,7 +11019,13 @@
             <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerStatusByEnterpriseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerStatusByEnterpriseAll_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionCountByQuestionnaire" ReturnType="Collection(Int32)">
+          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionRowIDByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionRowIDByQuestionnaire_Result)">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -17536,6 +17548,15 @@
           <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="sapid" Nullable="true" MaxLength="200" />
         </ComplexType>
+        <ComplexType Name="pr_getQuestionRowIDByQuestionnaire_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int64" Name="row" Nullable="true" />
+          <Property Type="String" Name="question" Nullable="true" />
+          <Property Type="String" Name="name" Nullable="true" />
+          <Property Type="String" Name="title" Nullable="false" />
+          <Property Type="Int32" Name="responsetype" Nullable="true" />
+          <Property Type="Int32" Name="page" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -22793,6 +22814,20 @@
                 <ScalarProperty Name="dueDate" ColumnName="dueDate" />
                 <ScalarProperty Name="zcode" ColumnName="zcode" />
                 <ScalarProperty Name="sapid" ColumnName="sapid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionCountByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionCountByQuestionnaire" />
+          <FunctionImportMapping FunctionImportName="pr_getQuestionRowIDByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionRowIDByQuestionnaire">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionRowIDByQuestionnaire_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="row" ColumnName="row" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="responsetype" ColumnName="responsetype" />
+                <ScalarProperty Name="page" ColumnName="page" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
