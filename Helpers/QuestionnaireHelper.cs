@@ -163,6 +163,8 @@ namespace Generic.Helpers.Questionnaire
         public const string QUESTIONNAIRE_PAGE_PN = "QUESTIONNAIRE_PAGE_PN";
         public const string QUESTIONNAIRE_PAGE_SITE = "QUESTIONNAIRE_PAGE_SITE";
 
+        // added by Suresh on 22nd July for test response result as pdf
+        public const string QUESTIONNAIRE_RESPONSE_PDF = "QUESTIONNAIRE_RESPONSE_PDF";
     }
 
     public static class ZCode

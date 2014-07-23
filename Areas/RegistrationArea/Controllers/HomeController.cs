@@ -14,6 +14,11 @@ using Generic.Helpers.Questionnaire;
 using Generic.Helpers.Utility;
 using Generic.Helpers;
 using Generic.Helpers.PartnerHelper;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Xml;
+using iTextSharp.text.html.simpleparser;
+using System.Text;
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class HomeController : Controller
@@ -1805,6 +1810,23 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 byte[] fileDataBinary = null;
                 string fileName;
 
+
+                //if (CMSName == CMS.QUESTIONNAIRE_RESPONSE_PDF)
+                //{
+                //    var test_res_cm = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();// .pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+
+                //    if (test_res_cm != null)
+                //    {
+
+
+                //    }
+
+                //    fileData = (byte[])fileDataBinary.ToArray();
+                //    fileName = CMSName;
+                //    return File(fileData, "application/pdf", fileName);
+                //}
+                // above added by Suresh for test result down as pdf  on 22nd July 2014.
+
                 var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
 
                 if (ppptq_cms != null)
@@ -1840,6 +1862,106 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 return null;
             }
         }
+
+        //below code added by Suresn on 22nd July 2014. Reason: for Download pdf 
+
+        protected ActionResult ViewPdf(object model)
+        {
+            // Create the iTextSharp document.
+            Document pdfDoc = new Document();
+            
+            MemoryStream memStream = new MemoryStream();
+            PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memStream);
+            writer.CloseStream = false;
+            pdfDoc.Open();
+
+            string htmltext = this.RenderActionResultToString(this.View("QuestionnaireResponsePdfDownload", model));  //name of the view...
+            var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(htmltext), null);
+
+            //Get each array values from parsed elements and add to the PDF document
+            foreach (var htmlElement in parsedHtmlElements)
+                pdfDoc.Add(htmlElement as IElement);
+
+            //Close your PDF
+            pdfDoc.Close();
+
+            // Close and get the resulted binary data.
+            pdfDoc.Close();
+            byte[] buf = new byte[memStream.Position];
+            memStream.Position = 0;
+            memStream.Read(buf, 0, buf.Length);
+
+            // Send the binary data to the browser.
+            return new BinaryContentResult(buf, "application/pdf");
+        }
+
+        // for pdf download.
+        protected string RenderActionResultToString(ActionResult result)
+        {
+            // Create memory writer.
+            var sb = new StringBuilder();
+            var memWriter = new StringWriter(sb);
+
+            // Create fake http context to render the view.
+            var fakeResponse = new HttpResponse(memWriter);
+            var fakeContext = new HttpContext(System.Web.HttpContext.Current.Request,
+                fakeResponse);
+            var fakeControllerContext = new ControllerContext(
+                new HttpContextWrapper(fakeContext),
+                this.ControllerContext.RouteData,
+                this.ControllerContext.Controller);
+            var oldContext = System.Web.HttpContext.Current;
+            System.Web.HttpContext.Current = fakeContext;
+
+            // Render the view.
+            result.ExecuteResult(fakeControllerContext);
+
+            // Restore old context.
+            System.Web.HttpContext.Current = oldContext;
+
+            // Flush memory and return output.
+            memWriter.Flush();
+            return sb.ToString();
+        }
+
+        public class BinaryContentResult : ActionResult
+        {
+            private string ContentType;
+            private byte[] ContentBytes;
+
+            public BinaryContentResult(byte[] contentBytes, string contentType)
+            {
+                this.ContentBytes = contentBytes;
+                this.ContentType = contentType;
+            }
+
+            public override void ExecuteResult(ControllerContext context)
+            {
+                var response = context.HttpContext.Response;
+                response.Clear();
+                response.Cache.SetCacheability(HttpCacheability.NoCache);
+                response.ContentType = this.ContentType;
+
+                var stream = new MemoryStream(this.ContentBytes);
+                stream.WriteTo(response.OutputStream);
+                stream.Dispose();
+            }
+        }
+        
+        public ActionResult OrdersInPdf()
+        {         
+            QuestionnaireModel modl = new QuestionnaireModel();
+            List<pr_getPartnerQuestionResponseByAccessCode_Result> reslt = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
+
+            //List<pr_getPartnerHeaderByAccessCode_Result>
+             var find= db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
+             ViewBag.reslt2 = find;
+            //db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().
+
+            string result = "Sukhbir";         
+            return ViewPdf(reslt);  
+        }
+
 
 
     }

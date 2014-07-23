@@ -13210,5 +13210,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionRowIDByQuestionnaire_Result>("pr_getQuestionRowIDByQuestionnaire", questionnaireParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerQuestionResponseByAccessCode_Result> pr_getPartnerQuestionResponseByAccessCode(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerQuestionResponseByAccessCode_Result>("pr_getPartnerQuestionResponseByAccessCode", accesscodeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerHeaderByAccessCode_Result> pr_getPartnerHeaderByAccessCode(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerHeaderByAccessCode_Result>("pr_getPartnerHeaderByAccessCode", accesscodeParameter);
+        }
     }
 }

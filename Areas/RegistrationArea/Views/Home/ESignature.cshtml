@@ -5,22 +5,16 @@
     //ViewBag.Title = "CompanyInfomation";
 }
 
-
-
 <link href="~/Content/ProgressBar/skins/tiny-green/progressbar.css" rel="stylesheet" />
 <link href="~/Content/ProgressBar/skins/default/progressbar.css" rel="stylesheet" />
 
-
-
 <script>
     $(document).ready(function () {
-
         
         progressBar(100, $('#progressBar'));
 
-
         function progressBar(percent, $element) {
-            //alert(percent);
+
             var progressBarWidth = percent * $element.width() / 100;
             $element.find('div').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
         }
@@ -29,21 +23,32 @@
 	</script>
 
 @section Bottom{
-    @*<div class="">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="float: left; margin-top: -44px">
+    <div class="">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0"> @*" style="float: left; margin-top: -44px*@
             <tr>
                 <td width="20%" align="right">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td width="22%" valign="top">
                               <ul id="qm0" class="qmmc" style="width: 775px;">
-                                    <li><a class="qmparent" href=""></a></li>
+
+                                   <li><a class="qmparent" href=""></a></li>
+                                    <li><a class="qmparent" href="mailto:@ViewBag.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>
+                                  <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_RESPONSE_PDF" target="_blank">Download result</a></li>  
+                                  
+                                  <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>
+                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@ViewBag.QUESTIONNAIRE_FAQ</a> </li>
+                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@ViewBag.QUESTIONNAIRE_DOC_OTHER</a> </li>
+                                    <li><a class="qmparent" href="@ViewBag.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@ViewBag.QUESTIONNAIRE_VIDEO</a> </li>
+                                    <li class="qmclear">&nbsp;</li>
+
+                                   @* <li><a class="qmparent" href=""></a></li>
                                     <li><a class="qmparent" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>                                    
                                     <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>
                                     <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@ViewBag.QUESTIONNAIRE_FAQ</a> </li>
                                     <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@ViewBag.QUESTIONNAIRE_DOC_OTHER</a> </li>
                                     <li><a class="qmparent" href="@ViewBag.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@ViewBag.QUESTIONNAIRE_VIDEO</a> </li>
-                                    <li class="qmclear">&nbsp;</li>
+                                    <li class="qmclear">&nbsp;</li>*@
                                 </ul>  
                             </td>
                             <td width="20%" align="right" valign="top"></td>
@@ -52,7 +57,7 @@
                 </td>
             </tr>
         </table>
-    </div>*@
+    </div>
 
 }
 

@@ -1,0 +1,104 @@
+﻿@inherits System.Web.Mvc.WebViewPage<List<Generic.pr_getPartnerQuestionResponseByAccessCode_Result>>
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@using Generic.Helpers
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    
+</head>
+<body>
+    <div>
+
+        @foreach (var item in ViewBag.reslt2)
+{        
+            <div style="border:1px solid #000000">
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>
+                        Access Code
+                    </td>
+                    <td>@item.Access_Code</td>
+                </tr>
+                <tr>
+                    <td>
+                         Internal ID
+                    </td>
+                    <td>@item.Internal_ID</td>
+                </tr>
+                <tr>
+                    <td>
+                        Score
+                    </td>
+                    <td>@item.Score</td>
+                </tr>
+                <tr>
+                    <td>
+                        Invited Date
+                    </td>
+                    <td>@item.Invited_Date</td>
+                </tr>
+                <tr>
+                    <td>
+                        Completed Date
+                    </td>
+                    <td>@item.Completed_Date</td>
+                </tr>
+                <tr>
+                    <td>
+                        ZCode
+                    </td>
+                    <td>@item.ZCode</td>
+                </tr>
+                <tr>
+                    <td>
+                       Company
+                    </td>
+                    <td>@item.Company</td>
+                </tr>
+                <tr>
+                    <td>
+                        POC First Name
+                    </td>
+                    <td>@item.POC_First_Name</td>
+                </tr>
+                 <tr>
+                    <td>
+                        POC Last Name
+                    </td>
+                    <td>@item.POC_Last_Name</td>
+                </tr>
+                
+            </table>
+    </div>            
+}  
+       
+
+        <br />
+        <br />
+        
+        @*here we can run foreach loop to bind all questions and answers*@
+        <table width="100%" cellpadding="0" cellspacing="0">
+            @foreach (var p in @Model)
+            {
+                <tr>
+                    <td width="80%">
+                        @p.question
+                    </td>
+                    <td>
+                        @p.description
+                    </td>
+                </tr>
+            }
+            test 
+        </table>
+    </div>
+</body>
+</html>
