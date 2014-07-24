@@ -145,8 +145,9 @@ max-width: 350px;
 <div class="commonh"></div>
 <div class="redheader" align="center">  <table width="100%"><tbody><tr><td align="center"><span id="lblCompanyName" style="font-size:xx-large">
      @Html.Action("InstanceLogo", "Admin", new { area = "" }) 
-
+    </span>
                 <br />
+    <br />
                                                                                              
                      @ViewBag.CMS_PAGE_HEADER
                                                                                              
@@ -154,7 +155,7 @@ max-width: 350px;
 
 
 
-                                                                                          </span>
+                                                                                          
     </td></tr><tr>
     <td align="center">
      
@@ -191,11 +192,13 @@ max-width: 350px;
               <table width="230" border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
                                                     <td width="103" align="right" valign="bottom">
-                                                        <input type="submit" name="btnCancel" id="btnCancel" value="@ViewBag.CMS_PAGE_PREVIOUS_TEXT" onclick="javascrit: history.go(-1); return false;" style="border-width: 0px;" />
+                                                        @*<input type="submit" name="btnCancel" id="btnCancel" value="@ViewBag.CMS_PAGE_PREVIOUS_TEXT" onclick="javascrit: history.go(-1); return false;" style="border-width: 0px;" />*@
+
                                                     </td>
                                                     <td width="112" align="right" valign="bottom">
-                                                 <a href="@ViewBag.CMS_PAGE_NEXT_LINK">       <input type="button" name="btnNext" id="btnNext" value="@ViewBag.CMS_PAGE_NEXT_TEXT" style="border-width: 0px;" /> </a>
-                                                    </td>
+                                                 <a href="http://honeywell.com/">       <input type="button" name="btnNext" id="btnNext" value="@ViewBag.CMS_PAGE_NEXT_TEXT" style="border-width: 0px;" /> </a>
+                                                   @*@ViewBag.CMS_PAGE_NEXT_LINK*@
+                                                         </td>
                                                 </tr>
                                                 <tr>
                                                     <td>&nbsp;

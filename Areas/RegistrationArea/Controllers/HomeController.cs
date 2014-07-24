@@ -1757,7 +1757,22 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 ViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
                 ViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
 
+                #region Added by Suresh for the Logo
 
+                List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+                if (enterprise == null)
+                {
+                    //var enterpriseIntelleges = db.pr_getEnterprise(1).FirstOrDefault();
+                    //ViewBag.logoSrc = enterpriseIntelleges;
+                    // return PartialView("_InstanceLogoPartial", enterpriseIntelleges);
+                }
+                else
+                {
+                    ViewBag.logoSrc = enterprise.FirstOrDefault().logo;
+                    //  return PartialView("_InstanceLogoPartial", enterprise);
+                }
+                
+                #endregion
 
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
@@ -1956,7 +1971,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //List<pr_getPartnerHeaderByAccessCode_Result>
              var find= db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
              ViewBag.reslt2 = find;
-            //db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().
+             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+             if (enterprise == null)
+             {
+                 //var enterpriseIntelleges = db.pr_getEnterprise(1).FirstOrDefault();
+                 //ViewBag.logoSrc = enterpriseIntelleges;
+                // return PartialView("_InstanceLogoPartial", enterpriseIntelleges);
+             }
+             else
+             {
+                 ViewBag.logoSrc = enterprise.FirstOrDefault().logo;
+               //  return PartialView("_InstanceLogoPartial", enterprise);
+             }
 
             string result = "Sukhbir";         
             return ViewPdf(reslt);  

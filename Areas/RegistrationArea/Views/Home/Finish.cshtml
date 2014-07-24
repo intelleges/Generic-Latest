@@ -15,6 +15,7 @@
                                 <ul id="qm0" class="qmmc" style="width: 775px;">
                                     <li><a class="qmparent" href=""></a></li>
                                     <li><a class="qmparent" href="mailto:@ViewBag.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>
+                                    <li><a class="qmparent" href="~/Registration/Home/OrdersInPdf" target="_blank">Download PDF</a></li>  
                                     <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>
                                     <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@ViewBag.QUESTIONNAIRE_FAQ</a> </li>
                                     <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@ViewBag.QUESTIONNAIRE_DOC_OTHER</a> </li>
@@ -121,18 +122,24 @@
 
             <div class="supplycon">
 <div class="commonh"></div>
-<div class="redheader" align="center">  <table width="100%"><tbody><tr><td align="center"><span id="lblCompanyName" style="font-size:xx-large">
-    
+<div class="redheader" align="center">  <table width="100%"><tbody><tr><td align="center">
+    @*<span id="lblCompanyName" style="font-size:xx-large">            
                                                                                               @if(!((bool)ViewBag.isCompletedSurvey)){
                                                                                               @ViewBag.CONFIRMATION_PAGE_HEADLINE
                                                                                               }else{
                                                                                               @ViewBag.WARNING
                                                                                               }
-
-
-
-
-                                                                                          </span>
+                                                                                          </span>*@
+     <a id="IntLogo" href="#"> 
+                     @{
+                         if (@ViewBag.logoSrc != null)
+                        {    
+                            string imageBase64 = Convert.ToBase64String(@ViewBag.logoSrc);
+                            string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                                 <img src="@imageSrc"  style="max-height: 50px;" />
+                        }
+                     }
+                                    </a>
     </td></tr><tr>
     <td align="center">
      
@@ -169,7 +176,7 @@ string link = @ViewBag.CONFIRMATION_PAGE_EXIT_LINK;
 //link = "http://" +  link;
 }
 
-        <a href="@link"   >
+        <a href="http://honeywell.com/"> @*@link*@
         <input name="btnNext" id="btnNext" value="@ViewBag.CMS_PAGE_NEXT_TEXT" style="border-width:0px;" type="submit">
         </a>
         </td>

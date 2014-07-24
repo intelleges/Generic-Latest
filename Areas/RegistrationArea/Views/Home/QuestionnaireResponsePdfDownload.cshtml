@@ -15,90 +15,159 @@
     
 </head>
 <body>
-    <div>
+   
+    <table>
+        <tr>
+            <td>
+               
+                @* <a id="IntLogo" href="#"> 
+                     @{
+                         if (@ViewBag.logoSrc != null)
+                        {    
+                            string imageBase64 = Convert.ToBase64String(@ViewBag.logoSrc);
+                            string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                                 <img width="100%" src="@imageSrc"  style="max-height: 50px;" />
+                        }
+                     }
+                                    </a>*@
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td style="font-size:15px;color:#081835">
+                2014 C-TPAT Site Self-Assessment Survey
+            </td>
+        </tr>
+    </table>
 
         @foreach (var item in ViewBag.reslt2)
 {        
-            <div style="border:1px solid #000000">
-            <table width="100%" cellpadding="0" cellspacing="0">
+           <table border="1"><tr><td>
+            <table width="610" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                    <td>
+                    <td style="font-size:13px">
                         Access Code
-                    </td>
-                    <td>@item.Access_Code</td>
+                    </td><td></td>
+                    <td style="font-size:13px">@item.Access_Code</td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="font-size:13px">
                          Internal ID
-                    </td>
-                    <td>@item.Internal_ID</td>
+                    </td><td></td>
+                    <td style="font-size:13px">@item.Internal_ID</td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="font-size:11px">
                         Score
-                    </td>
-                    <td>@item.Score</td>
+                    </td><td></td>
+                    <td style="font-size:11px">@item.Score</td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="font-size:11px">
                         Invited Date
-                    </td>
-                    <td>@item.Invited_Date</td>
+                    </td><td></td>
+                    <td style="font-size:11px">@item.Invited_Date</td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="font-size:11px">
                         Completed Date
-                    </td>
-                    <td>@item.Completed_Date</td>
+                    </td><td></td>
+                    <td style="font-size:11px">@item.Completed_Date</td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="font-size:11px">
                         ZCode
-                    </td>
-                    <td>@item.ZCode</td>
+                    </td><td></td>
+                    <td style="font-size:11px">@item.ZCode</td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="font-size:11px">
                        Company
-                    </td>
-                    <td>@item.Company</td>
+                    </td><td></td>
+                    <td style="font-size:11px">@item.Company</td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="font-size:11px">
                         POC First Name
-                    </td>
-                    <td>@item.POC_First_Name</td>
+                    </td><td></td>
+                    <td style="font-size:11px">@item.POC_First_Name</td>
                 </tr>
                  <tr>
-                    <td>
+                    <td style="font-size:11px">
                         POC Last Name
-                    </td>
-                    <td>@item.POC_Last_Name</td>
+                    </td><td></td>
+                    <td style="font-size:11px">@item.POC_Last_Name</td>
                 </tr>
                 
             </table>
-    </div>            
+    </td>      
+               </tr>
+               </table>      
 }  
        
 
         <br />
         <br />
-        
+        @{int i = 1;}
         @*here we can run foreach loop to bind all questions and answers*@
-        <table width="100%" cellpadding="0" cellspacing="0">
+        <table border="1"><tr><td>
+        <table cellpadding="0" cellspacing="0" border="0">
             @foreach (var p in @Model)
             {
                 <tr>
-                    <td width="80%">
-                        @p.question
+                    <td style="font-size:11px" width="25" valign="top"> <span>@i</span></td>
+                    <td style="font-size:11px" width="300">
+                     @p.question
                     </td>
-                    <td>
+                    <td style="font-size:11px;text-align:left;padding-left:10px" width="100">
                         @p.description
                     </td>
                 </tr>
+                i++;
             }
-            test 
+             
         </table>
-    </div>
+            </td></tr></table>
+        <br />
+        
+        @foreach (var item in ViewBag.reslt2)
+{        
+            <table border="1"><tr><td>
+            <table width="610" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td style="font-size:11px">
+                        eSignature First Name
+                    </td>
+                    <td></td>
+                    <td style="font-size:11px;">@item.eSignature_First_Name</td>
+                </tr>
+                 <tr>
+                    <td style="font-size:11px">
+                        eSignature Last Name
+                    </td>
+                    <td></td>
+                    <td style="font-size:11px;">@item.eSignature_Last_Name</td>
+                </tr>
+                 <tr>
+                    <td style="font-size:11px">
+                        eSignature eMail
+                    </td><td></td>
+                    <td style="font-size:11px">  @item.eSignature_eMail </td>
+                </tr>
+                 <tr>
+                    <td style="font-size:11px">
+                        eSignature Title
+                    </td><td></td>
+                    <td style="font-size:11px">@item.eSignature_Title</td>
+                </tr>
+                </table>
+               </td>
+
+                </tr>
+
+            </table>
+        }
+    
 </body>
 </html>
