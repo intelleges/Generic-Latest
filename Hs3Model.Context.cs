@@ -11385,11 +11385,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListAll_Result>("pr_getReminderListAll");
         }
     
-        public virtual ObjectResult<pr_getReminderListByCountryAll_Result> pr_getReminderListByCountryAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListByCountryAll_Result>("pr_getReminderListByCountryAll");
-        }
-    
         public virtual ObjectResult<pr_getReminderListByCountryAll2_Result> pr_getReminderListByCountryAll2()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListByCountryAll2_Result>("pr_getReminderListByCountryAll2");
@@ -13241,6 +13236,11 @@ namespace Generic
         public virtual ObjectResult<pr_getReminderListIncompleteByCountryAll_Result> pr_getReminderListIncompleteByCountryAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListIncompleteByCountryAll_Result>("pr_getReminderListIncompleteByCountryAll");
+        }
+    
+        public virtual ObjectResult<pr_getReminderListByCountryAll_Result> pr_getReminderListByCountryAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListByCountryAll_Result>("pr_getReminderListByCountryAll");
         }
     }
 }

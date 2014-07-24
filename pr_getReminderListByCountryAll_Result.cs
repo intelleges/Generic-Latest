@@ -13,6 +13,7 @@ namespace Generic
     
     public partial class pr_getReminderListByCountryAll_Result
     {
+        public Nullable<int> enterprise { get; set; }
         public Nullable<int> ptq { get; set; }
         public int pptq { get; set; }
         public Nullable<int> automailmessage { get; set; }

@@ -10497,7 +10497,6 @@
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireRuleTargetTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireRuleTargetTypeAll_Result)" />
           <FunctionImport Name="pr_getReminderListAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListAll_Result)" />
-          <FunctionImport Name="pr_getReminderListByCountryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListByCountryAll_Result)" />
           <FunctionImport Name="pr_getReminderListByCountryAll2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListByCountryAll2_Result)" />
           <FunctionImport Name="pr_modifyQuestionnairerule">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -11044,9 +11043,10 @@
           <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getEventNotificationByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByEnterprise_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getReminderListIncompleteByCountryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListIncompleteByCountryAll_Result)" />
+          <FunctionImport Name="pr_getReminderListByCountryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListByCountryAll_Result)" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -16697,20 +16697,6 @@
           <Property Type="Int32" Name="sent_pptq" Nullable="false" />
           <Property Type="Int32" Name="ptq" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="pr_getReminderListByCountryAll_Result">
-          <Property Type="Int32" Name="ptq" Nullable="true" />
-          <Property Type="Int32" Name="pptq" Nullable="false" />
-          <Property Type="Int32" Name="automailmessage" Nullable="true" />
-          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="true" />
-          <Property Type="String" Name="subject" Nullable="true" />
-          <Property Type="String" Name="desc" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="country" Nullable="false" MaxLength="200" />
-          <Property Type="DateTime" Name="lastSentDate" Nullable="true" />
-          <Property Type="Int32" Name="lastSentMessage" Nullable="true" />
-          <Property Type="Int32" Name="sent_pptq" Nullable="false" />
-          <Property Type="Int32" Name="sent_ptq" Nullable="false" />
-        </ComplexType>
         <ComplexType Name="pr_getReminderListByCountryAll2_Result">
           <Property Type="Int32" Name="ptq" Nullable="true" />
           <Property Type="Int32" Name="pptq" Nullable="false" />
@@ -17610,6 +17596,21 @@
           <Property Type="String" Name="loadgroup" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="pr_getReminderListIncompleteByCountryAll_Result">
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="ptq" Nullable="true" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="automailmessage" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="true" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="desc" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="country" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="lastSentDate" Nullable="true" />
+          <Property Type="Int32" Name="lastSentMessage" Nullable="true" />
+          <Property Type="Int32" Name="sent_pptq" Nullable="false" />
+          <Property Type="Int32" Name="sent_ptq" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getReminderListByCountryAll_Result">
           <Property Type="Int32" Name="enterprise" Nullable="true" />
           <Property Type="Int32" Name="ptq" Nullable="true" />
           <Property Type="Int32" Name="pptq" Nullable="false" />
@@ -22077,24 +22078,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getReminderListByCountryAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderListByCountryAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getReminderListByCountryAll_Result">
-                <ScalarProperty Name="ptq" ColumnName="ptq" />
-                <ScalarProperty Name="pptq" ColumnName="pptq" />
-                <ScalarProperty Name="automailmessage" ColumnName="automailmessage" />
-                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
-                <ScalarProperty Name="subject" ColumnName="subject" />
-                <ScalarProperty Name="desc" ColumnName="desc" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="lastSentDate" ColumnName="lastSentDate" />
-                <ScalarProperty Name="lastSentMessage" ColumnName="lastSentMessage" />
-                <ScalarProperty Name="sent_pptq" ColumnName="sent_pptq" />
-                <ScalarProperty Name="sent_ptq" ColumnName="sent_ptq" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getReminderListByCountryAll2" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderListByCountryAll2">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getReminderListByCountryAll2_Result">
@@ -22945,6 +22928,25 @@
           <FunctionImportMapping FunctionImportName="pr_getReminderListIncompleteByCountryAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderListIncompleteByCountryAll">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getReminderListIncompleteByCountryAll_Result">
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="automailmessage" ColumnName="automailmessage" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="desc" ColumnName="desc" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="lastSentDate" ColumnName="lastSentDate" />
+                <ScalarProperty Name="lastSentMessage" ColumnName="lastSentMessage" />
+                <ScalarProperty Name="sent_pptq" ColumnName="sent_pptq" />
+                <ScalarProperty Name="sent_ptq" ColumnName="sent_ptq" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getReminderListByCountryAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderListByCountryAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getReminderListByCountryAll_Result">
                 <ScalarProperty Name="enterprise" ColumnName="enterprise" />
                 <ScalarProperty Name="ptq" ColumnName="ptq" />
                 <ScalarProperty Name="pptq" ColumnName="pptq" />
