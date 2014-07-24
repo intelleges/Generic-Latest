@@ -5075,6 +5075,9 @@
         <Function Name="pr_getEventNotificationBounce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getEventNotificationByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getEventNotificationByLoadGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
@@ -5647,6 +5650,7 @@
         <Function Name="pr_getReminderListAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getReminderListByCountryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getReminderListByCountryAll2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getReminderListIncompleteByCountryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -11037,8 +11041,12 @@
           <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerHeaderByAccessCode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerHeaderByAccessCode_Result)">
-            <Parameter Name="accesscode" Mode="In" Type="String" />
+          <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="pr_getEventNotificationByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByEnterprise_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getReminderListIncompleteByCountryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListIncompleteByCountryAll_Result)" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -17588,6 +17596,34 @@
           <Property Type="String" Name="eSignature_eMail" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="eSignature_Title" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="pr_getEventNotificationByEnterprise_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="timestamp" Nullable="true" Precision="23" />
+          <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="reason" Nullable="true" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="accesscode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="touchpoint" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="application" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="sender" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="loadgroup" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_getReminderListIncompleteByCountryAll_Result">
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="ptq" Nullable="true" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="automailmessage" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="true" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="desc" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="country" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="lastSentDate" Nullable="true" />
+          <Property Type="Int32" Name="lastSentMessage" Nullable="true" />
+          <Property Type="Int32" Name="sent_pptq" Nullable="false" />
+          <Property Type="Int32" Name="sent_ptq" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -22886,6 +22922,42 @@
                 <ScalarProperty Name="eSignature_Last_Name" ColumnName="eSignature Last Name" />
                 <ScalarProperty Name="eSignature_eMail" ColumnName="eSignature eMail" />
                 <ScalarProperty Name="eSignature_Title" ColumnName="eSignature Title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getEventNotificationByEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationByEnterprise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationByEnterprise_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="application" ColumnName="application" />
+                <ScalarProperty Name="sender" ColumnName="sender" />
+                <ScalarProperty Name="loadgroup" ColumnName="loadgroup" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getReminderListIncompleteByCountryAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderListIncompleteByCountryAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getReminderListIncompleteByCountryAll_Result">
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="automailmessage" ColumnName="automailmessage" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="desc" ColumnName="desc" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="lastSentDate" ColumnName="lastSentDate" />
+                <ScalarProperty Name="lastSentMessage" ColumnName="lastSentMessage" />
+                <ScalarProperty Name="sent_pptq" ColumnName="sent_pptq" />
+                <ScalarProperty Name="sent_ptq" ColumnName="sent_ptq" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

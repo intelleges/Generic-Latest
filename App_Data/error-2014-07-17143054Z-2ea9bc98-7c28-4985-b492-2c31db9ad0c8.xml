@@ -1,0 +1,168 @@
+﻿<error errorId="2ea9bc98-7c28-4985-b492-2c31db9ad0c8" application="/LM/W3SVC/12/ROOT" host="DOMUSUNO" type="System.Web.HttpException" message="A potentially dangerous Request.Path value was detected from the client (:)." source="System.Web" detail="System.Web.HttpException (0x80004005): A potentially dangerous Request.Path value was detected from the client (:).&#xD;&#xA;   at System.Web.HttpRequest.ValidateInputIfRequiredByConfig()&#xD;&#xA;   at System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)" time="2014-07-17T14:30:54.5763877Z" statusCode="400">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_ACCEPT:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip,deflate,sdch&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en-US,en;q=0.8&#xD;&#xA;HTTP_COOKIE:ASP.NET_SessionId=tykgemrdmaosqufsxgzuty2y; acopendivids=yDiv_3497,nDiv_3497; acgroupswithpersist=nada; .ASPXAUTH=2B649E3A6BB773B73BE3730B3EADF6087A9F1F5D2E00380F17464383E2A81B95ADAA3476E991D85A031941B83C6FC65ECA20D256A6273421171EE07A639992D50756B2C0221DB159B1FAEDE308D04906227B6D0B541E768911F09BAC1C6250B2FCE860611E1439373CFD990930108CA1B2A08E9078E9E6B7CBFE357F3F39B087396426AC06DD04CBAAEC6A2EF42333BF24E707CB090431138418B35A0558064A&#xD;&#xA;HTTP_HOST:localhost:51090&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Connection: keep-alive&#xD;&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xD;&#xA;Accept-Encoding: gzip,deflate,sdch&#xD;&#xA;Accept-Language: en-US,en;q=0.8&#xD;&#xA;Cookie: ASP.NET_SessionId=tykgemrdmaosqufsxgzuty2y; acopendivids=yDiv_3497,nDiv_3497; acgroupswithpersist=nada; .ASPXAUTH=2B649E3A6BB773B73BE3730B3EADF6087A9F1F5D2E00380F17464383E2A81B95ADAA3476E991D85A031941B83C6FC65ECA20D256A6273421171EE07A639992D50756B2C0221DB159B1FAEDE308D04906227B6D0B541E768911F09BAC1C6250B2FCE860611E1439373CFD990930108CA1B2A08E9078E9E6B7CBFE357F3F39B087396426AC06DD04CBAAEC6A2EF42333BF24E707CB090431138418B35A0558064A&#xD;&#xA;Host: localhost:51090&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/12/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="C:\Users\john\Desktop\hs3MVC_Latest\Generic\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="12" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/12" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/Registration/Home/http:/https:/in.honeywell.com/BusinessFunction/HGS/Pages/Hgs_home.aspx" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="C:\Users\john\Desktop\hs3MVC_Latest\Generic\Registration\Home\http:\https:\in.honeywell.com\BusinessFunction\HGS\Pages\Hgs_home.aspx" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="54210" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/Registration/Home/http:/https:/in.honeywell.com/BusinessFunction/HGS/Pages/Hgs_home.aspx" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="51090" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/8.0" />
+    </item>
+    <item name="URL">
+      <value string="/Registration/Home/http:/https:/in.honeywell.com/BusinessFunction/HGS/Pages/Hgs_home.aspx" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip,deflate,sdch" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en-US,en;q=0.8" />
+    </item>
+    <item name="HTTP_COOKIE">
+      <value string="ASP.NET_SessionId=tykgemrdmaosqufsxgzuty2y; acopendivids=yDiv_3497,nDiv_3497; acgroupswithpersist=nada; .ASPXAUTH=2B649E3A6BB773B73BE3730B3EADF6087A9F1F5D2E00380F17464383E2A81B95ADAA3476E991D85A031941B83C6FC65ECA20D256A6273421171EE07A639992D50756B2C0221DB159B1FAEDE308D04906227B6D0B541E768911F09BAC1C6250B2FCE860611E1439373CFD990930108CA1B2A08E9078E9E6B7CBFE357F3F39B087396426AC06DD04CBAAEC6A2EF42333BF24E707CB090431138418B35A0558064A" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:51090" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36" />
+    </item>
+  </serverVariables>
+  <cookies>
+    <item name="ASP.NET_SessionId">
+      <value string="tykgemrdmaosqufsxgzuty2y" />
+    </item>
+    <item name="acopendivids">
+      <value string="yDiv_3497,nDiv_3497" />
+    </item>
+    <item name="acgroupswithpersist">
+      <value string="nada" />
+    </item>
+    <item name=".ASPXAUTH">
+      <value string="2B649E3A6BB773B73BE3730B3EADF6087A9F1F5D2E00380F17464383E2A81B95ADAA3476E991D85A031941B83C6FC65ECA20D256A6273421171EE07A639992D50756B2C0221DB159B1FAEDE308D04906227B6D0B541E768911F09BAC1C6250B2FCE860611E1439373CFD990930108CA1B2A08E9078E9E6B7CBFE357F3F39B087396426AC06DD04CBAAEC6A2EF42333BF24E707CB090431138418B35A0558064A" />
+    </item>
+  </cookies>
+</error>

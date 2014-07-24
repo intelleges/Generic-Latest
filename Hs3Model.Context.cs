@@ -13228,5 +13228,19 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerHeaderByAccessCode_Result>("pr_getPartnerHeaderByAccessCode", accesscodeParameter);
         }
+    
+        public virtual ObjectResult<pr_getEventNotificationByEnterprise_Result> pr_getEventNotificationByEnterprise(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationByEnterprise_Result>("pr_getEventNotificationByEnterprise", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getReminderListIncompleteByCountryAll_Result> pr_getReminderListIncompleteByCountryAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListIncompleteByCountryAll_Result>("pr_getReminderListIncompleteByCountryAll");
+        }
     }
 }
