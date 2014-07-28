@@ -59,6 +59,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     if (cms_Title != null)
                     {
                         ViewBag.CMS_TITLE = cms_Title.text;
+
+                        Session["QuestionnaireTitle"] = cms_Title.text;
+
                     }
                     var cms_SubTitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBTITLE).id);
                     if (cms_SubTitle != null)
@@ -1980,14 +1983,30 @@ namespace Generic.Areas.RegistrationArea.Controllers
              }
              else
              {
-                 ViewBag.logoSrc = enterprise.FirstOrDefault().logo;
-               //  return PartialView("_InstanceLogoPartial", enterprise);
-             }
+                 ViewBag.logoSrc = enterprise.FirstOrDefault().applicationPath;
 
+                 //byte[] data = enterprise.FirstOrDefault().logo;
+                 //Session["logoPrint"] = data;
+
+
+                 //  return PartialView("_InstanceLogoPartial", enterprise);
+             }
+            
+            ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
             string result = "Sukhbir";         
             return ViewPdf(reslt);  
         }
 
+        public FileContentResult ExportPng()
+        {
+            byte[] contents = (byte[])Session["logoPrint"];
+            return File(contents, "image/png", "test" + ".png");
+        }
+
+        public string testS()
+        {
+            return Session["testS"].ToString();
+        }
 
 
     }

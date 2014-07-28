@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -56,6 +57,30 @@ namespace Generic.Controllers
                     byte[] uploadedFile = new byte[uploadLogo.InputStream.Length];
                     uploadLogo.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
                     enterprise.logo = uploadedFile;
+
+
+                    if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
+                    }
+
+                    if (!Directory.Exists((Server.MapPath("~/uploadedFiles/EnterpriseLogo"))))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/uploadedFiles/EnterpriseLogo"));
+                    }
+
+                   
+                    var file = uploadLogo;
+
+                    // Some browsers send file names with full path. This needs to be stripped.
+                    var fileName = Path.GetFileName(file.FileName) ;
+                    var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/EnterpriseLogo"), fileName);
+
+                 
+                    file.SaveAs(physicalPath);
+
+                    enterprise.applicationPath = physicalPath.ToString();
+
                 }
 
                 enterprise.active = true;
@@ -104,6 +129,29 @@ namespace Generic.Controllers
                     byte[] uploadedFile = new byte[uploadLogo.InputStream.Length];
                     uploadLogo.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
                     enterprise.logo = uploadedFile;
+
+                    if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
+                    }
+
+                    if (!Directory.Exists((Server.MapPath("~/uploadedFiles/EnterpriseLogo"))))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/uploadedFiles/EnterpriseLogo"));
+                    }
+
+
+                    var file = uploadLogo;
+
+                    // Some browsers send file names with full path. This needs to be stripped.
+                    var fileName = Path.GetFileName(file.FileName);
+                    var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/EnterpriseLogo"), fileName);
+
+
+                    file.SaveAs(physicalPath);
+
+                    enterprise.applicationPath = physicalPath.ToString();
+
                 }
                 else
                 {
@@ -111,8 +159,13 @@ namespace Generic.Controllers
                     {
                         var enterpriseExisting = context.pr_getEnterprise(enterprise.id).FirstOrDefault();
                         enterprise.logo = enterpriseExisting.logo;
+                        enterprise.applicationPath = enterpriseExisting.applicationPath;
                     }
                 }
+
+                enterprise.active = true;
+                enterprise.multiTenantProjectType = 1;
+
 
                 db.Entry(enterprise).State = EntityState.Modified;
                 db.SaveChanges();
