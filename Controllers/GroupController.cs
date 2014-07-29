@@ -128,6 +128,12 @@ namespace Generic.Controllers
             return Json(new { Data = group }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult FindGroup()
+        {
+            ViewBag.Test = "Hi";
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

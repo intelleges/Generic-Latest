@@ -662,6 +662,12 @@ Thanks in advance.<br>
 
         }
 
+        public ActionResult FindPerson()
+        {
+            ViewBag.Test = "Hi";
+            return View();
+        }
+
 
         protected override void Dispose(bool disposing)
         {

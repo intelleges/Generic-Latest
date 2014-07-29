@@ -841,6 +841,13 @@ namespace Generic.Controllers
             return Content("");
         }
 
+        public ActionResult FindQuestionnaire()
+        {
+            ViewBag.Test = "Hi";
+            return View();
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

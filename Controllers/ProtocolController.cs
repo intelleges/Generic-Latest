@@ -133,6 +133,13 @@ namespace Generic.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult FindProtocol()
+        {
+            ViewBag.Test = "Hi";
+            return View();
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

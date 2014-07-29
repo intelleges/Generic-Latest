@@ -188,6 +188,13 @@ namespace Generic.Controllers
             return Json(new { Data = touchpoint }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult FindTouchPoint()
+        {
+            ViewBag.Test = "Hi";
+            return View();
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

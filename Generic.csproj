@@ -427,6 +427,7 @@
     <Compile Include="Controllers\ProtocolController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SendGridEventNotificationController.cs" />
+    <Compile Include="Controllers\SystemInfoController.cs" />
     <Compile Include="Controllers\TestPageController.cs" />
     <Compile Include="Controllers\TouchpointController.cs" />
     <Compile Include="Controllers\UserHomeController.cs" />
@@ -2708,6 +2709,14 @@
     <EmbeddedResource Include="Views\Agency\Delete.cshtml" />
     <EmbeddedResource Include="Views\Admin\DashboardPartners.cshtml" />
     <Content Include="Views\Shared\_reportsDropdownPartial.cshtml" />
+    <EmbeddedResource Include="Views\Partner\FindPartner.cshtml" />
+    <EmbeddedResource Include="Views\Enterprise\FindEnterprise.cshtml" />
+    <EmbeddedResource Include="Views\Group\FindGroup.cshtml" />
+    <EmbeddedResource Include="Views\Person\FindPerson.cshtml" />
+    <EmbeddedResource Include="Views\Protocol\FindProtocol.cshtml" />
+    <EmbeddedResource Include="Views\Touchpoint\FindTouchPoint.cshtml" />
+    <EmbeddedResource Include="Views\Questionnaire\FindQuestionnaire.cshtml" />
+    <EmbeddedResource Include="Views\SystemInfo\FindSystemInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

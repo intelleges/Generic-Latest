@@ -266,7 +266,13 @@ namespace Generic.Controllers
 
         }
 
-       
+
+        public ActionResult FindEnterprise()
+        {
+            ViewBag.Test = "Hi";
+            return View();
+        }
+
 
         protected override void Dispose(bool disposing)
         {

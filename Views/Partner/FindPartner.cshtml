@@ -1,0 +1,601 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc;
+@using System.Web.Mvc.Html;
+@using Generic.Helpers;
+@using Telerik.Web.Mvc.UI;
+@using System.Web.Optimization;
+@{
+    Layout = LayoutHelper.GetPopupLayout();
+    ViewBag.Title = "Find Partner";
+}
+<style>
+    .dropDown {
+        width: 210px;
+        border-style: inset;
+        border-left-width: 2px;
+        border-top-width: 2px;
+        height: 20px;
+        font-size: 13px;
+        font-family: Arial;
+    }
+
+    .txtBox {
+        width: 205px;
+        border-style: inset;
+        border-left-width: 2px;
+        border-top-width: 2px;
+        height: 15px;
+        border-bottom: none;
+        border-right: none;
+    }
+</style>
+<h2>Find Partner</h2>
+<form id="FindpartnerForm" method="post" enctype="multipart/form-data">
+    @* javascript:OpenManualAddModal("../Partner/FindPartner/")*@
+
+
+    @* <table width="100%" border="0">
+        <tbody>
+            <tr>
+                <td class="tLeftColumn">Campaign </td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <select id="ddlCampaignFind" class="dropDown" name="ctl00$contentMain$ddlCampaignFind">
+                        <option value=""></option>
+                        <option value="27">test</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">
+                    <span id="lblGroupFind">Group</span>
+                </td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <select id="ddlSsapFind" class="dropDown" name="ctl00$contentMain$ddlSsapFind">
+                        <option value=""></option>
+                        <option value="7">test</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">Internal ID (EID)</td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <input id="txtInternalIdFind" class="txtBox" type="text" name="ctl00$contentMain$txtInternalIdFind">
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">DUNS Number</td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <input id="txtDunsNumberFind" class="txtBox" type="text" name="ctl00$contentMain$txtDunsNumberFind">
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">Name</td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <input id="txtNameFind" class="txtBox" type="text" name="ctl00$contentMain$txtNameFind">
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">Federal ID</td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <input id="txtFederalIdFind" class="txtBox" type="text" name="ctl00$contentMain$txtFederalIdFind">
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">Contact Email</td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <input id="txtContactEmailFind" class="txtBox" type="text" name="ctl00$contentMain$txtContactEmailFind">
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">HRO Email</td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <input id="txtHROEmailFind" class="txtBox" type="text" name="ctl00$contentMain$txtHROEmailFind">
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">Zip Code</td>
+                <td width="5%"></td>
+                <td class="tRightColumn">
+                    <input id="txtZipCodeFind" class="txtBox" type="text" name="ctl00$contentMain$txtZipCodeFind">
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">Country</td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <select id="ddlCountryFind" class="dropDown" name="ctl00$contentMain$ddlCountryFind">
+                        <option value=""></option>
+                        <option value="479">test </option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">Type</td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <select id="ddlProviderTypeFind" class="dropDown" name="ctl00$contentMain$ddlProviderTypeFind">
+                        <option value=""></option>
+                        <option value="1">test</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">Status</td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <select id="ddlStatusFind" class="dropDown" name="ctl00$contentMain$ddlStatusFind">
+                        <option value=""></option>
+                        <option value="13">test</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">Score Between </td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <input id="txtScoreFromFind" class="txtBox" type="text" style="width: 60px;" name="ctl00$contentMain$txtScoreFromFind">
+                    &
+                    <input id="txtScoreToFind" class="txtBox" type="text" style="width: 60px;" name="ctl00$contentMain$txtScoreToFind">
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">Added Between</td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <input id="txtAddedFromFind" class="txtBox" type="text" style="width: 60px;" name="ctl00$contentMain$txtAddedFromFind">
+                    &
+                    <input id="txtAddedToFind" class="txtBox" type="text" style="width: 60px;" name="ctl00$contentMain$txtAddedToFind">
+                </td>
+            </tr>
+            <tr>
+                <td class="tLeftColumn">FULL TEXT SEARCH</td>
+                <td class="tCenterColumn"></td>
+                <td class="tRightColumn">
+                    <input id="txtFullTextSearch" class="txtBox" type="text" style="width: 250px;" name="ctl00$contentMain$txtFullTextSearch">
+                </td>
+            </tr>
+        </tbody>
+    </table>*@
+
+    <div id="panelFind">
+        <table width="100%" border="0">
+            <tbody>
+                <tr>
+                    <td class="tLeftColumn">Campaign </td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <select id="ddlCampaignFind" class="dropDown" name="ctl00$contentMain$ddlCampaignFind">
+                            <option value=""></option>
+                            <option value="27">2013 C-TPAT</option>
+                            <option value="28">2013 Foreign MFG</option>
+                            <option value="26">2013 PIP</option>
+                            <option value="29">Foreign Manufacturer A</option>
+                            <option value="24">Honeywell Site 2013</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">
+                        <span id="lblGroupFind">Group</span>
+                    </td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <select id="ddlSsapFind" class="dropDown" name="ctl00$contentMain$ddlSsapFind">
+                            <option value=""></option>
+                            <option value="7">ACS-ADI_C</option>
+                            <option value="8">ACS-ECC_C</option>
+                            <option value="9">ACS-HBS_C</option>
+                            <option value="24">ACS-HLS_C</option>
+                            <option value="10">ACS-HPS_C</option>
+                            <option value="23">ACS-HSG_C</option>
+                            <option value="22">ACS-HSM_C</option>
+                            <option value="26">ACS-HSP_C</option>
+                            <option value="11">ACS-LSafety_C</option>
+                            <option value="12">ACS-S&C_C</option>
+                            <option value="13">ACS-Secur_C</option>
+                            <option value="42">ACS_ACS_C</option>
+                            <option value="14">AERO-AERO_C</option>
+                            <option value="15">AERO-FM&T_C</option>
+                            <option value="16">AERO-HTSI_C</option>
+                            <option value="17">CORP-CORP_C</option>
+                            <option value="41">GTest</option>
+                            <option value="6">Honeywell</option>
+                            <option value="27">MX03</option>
+                            <option value="28">MX07</option>
+                            <option value="29">MX13</option>
+                            <option value="30">MX25</option>
+                            <option value="32">MX29</option>
+                            <option value="33">MX31</option>
+                            <option value="34">MX34</option>
+                            <option value="35">MX37</option>
+                            <option value="38">MX60</option>
+                            <option value="37">MX78</option>
+                            <option value="40">MX80</option>
+                            <option value="36">MX88</option>
+                            <option value="39">MX92</option>
+                            <option value="18">PMT-PMT_C</option>
+                            <option value="19">PMT-UOP_C</option>
+                            <option value="20">TS-CPG_C</option>
+                            <option value="25">TS-FM_C</option>
+                            <option value="21">TS-HHT_C</option>
+                            <option value="1">Unassigned</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Internal ID (EID)</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtInternalIdFind" class="txtBox" type="text" name="ctl00$contentMain$txtInternalIdFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">DUNS Number</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtDunsNumberFind" class="txtBox" type="text" name="ctl00$contentMain$txtDunsNumberFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Name</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtNameFind" class="txtBox" type="text" name="ctl00$contentMain$txtNameFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Federal ID</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtFederalIdFind" class="txtBox" type="text" name="ctl00$contentMain$txtFederalIdFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Contact Email</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtContactEmailFind" class="txtBox" type="text" name="ctl00$contentMain$txtContactEmailFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">HRO Email</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtHROEmailFind" class="txtBox" type="text" name="ctl00$contentMain$txtHROEmailFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Zip Code</td>
+                    <td width="5%"></td>
+                    <td class="tRightColumn">
+                        <input id="txtZipCodeFind" class="txtBox" type="text" name="ctl00$contentMain$txtZipCodeFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Country</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <select id="ddlCountryFind" class="dropDown" name="ctl00$contentMain$ddlCountryFind">
+                            <option value=""></option>
+                            <option value="479">Afghanistan </option>
+                            <option value="240">Albania</option>
+                            <option value="241">Algeria</option>
+                            <option value="242">American Samoa</option>
+                            <option value="243">Andorra</option>
+                            <option value="244">Angola</option>
+                            <option value="245">Anguilla</option>
+                            <option value="246">Antarctica</option>
+                            <option value="247">Antigua and Barbuda</option>
+                            <option value="248">Argentina</option>
+                            <option value="249">Armenia</option>
+                            <option value="250">Aruba</option>
+                            <option value="251">Australia</option>
+                            <option value="252">Austria</option>
+                            <option value="253">Azerbaijan</option>
+                            <option value="254">Bahamas</option>
+                            <option value="255">Bahrain</option>
+                            <option value="256">Bangladesh</option>
+                            <option value="257">Barbados</option>
+                            <option value="258">Belarus</option>
+                            <option value="259">Belgium</option>
+                            <option value="260">Belize</option>
+                            <option value="261">Benin</option>
+                            <option value="262">Bermuda</option>
+                            <option value="263">Bhutan</option>
+                            <option value="264">Bolivia</option>
+                            <option value="265">Bosnia-Herzegovina</option>
+                            <option value="266">Botswana</option>
+                            <option value="267">Bouvet Island</option>
+                            <option value="268">Brazil</option>
+                            <option value="269">British Indian Ocean Territory</option>
+                            <option value="270">Brunei Darussalam</option>
+                            <option value="271">Bulgaria</option>
+                            <option value="272">Burkina Faso</option>
+                            <option value="273">Burundi</option>
+                            <option value="274">Cambodia</option>
+                            <option value="275">Cameroon</option>
+                            <option value="276">Canada</option>
+                            <option value="277">Cape Verde</option>
+                            <option value="278">Cayman Islands</option>
+                            <option value="279">Central African Republic</option>
+                            <option value="280">Chad</option>
+                            <option value="281">Chile</option>
+                            <option value="282">China</option>
+                            <option value="283">Christmas Island</option>
+                            <option value="284">Cocos (Keeling) Islands</option>
+                            <option value="285">Colombia</option>
+                            <option value="286">Comoros</option>
+                            <option value="287">Congo</option>
+                            <option value="288">Cook Islands</option>
+                            <option value="289">Costa Rica</option>
+                            <option value="290">Croatia</option>
+                            <option value="291">Cuba</option>
+                            <option value="292">Cyprus</option>
+                            <option value="293">Czech Republic</option>
+                            <option value="311">Czechoslovakia</option>
+                            <option value="294">Denmark</option>
+                            <option value="295">Djibouti</option>
+                            <option value="296">Dominica</option>
+                            <option value="297">Dominican Republic</option>
+                            <option value="298">East Timor</option>
+                            <option value="299">Ecuador</option>
+                            <option value="300">Educational</option>
+                            <option value="301">Egypt</option>
+                            <option value="302">El Salvador</option>
+                            <option value="303">Equatorial Guinea</option>
+                            <option value="304">Eritrea</option>
+                            <option value="305">Estonia</option>
+                            <option value="306">Ethiopia</option>
+                            <option value="307">Falkland Islands</option>
+                            <option value="308">Faroe Islands</option>
+                            <option value="309">Fiji</option>
+                            <option value="310">Finland</option>
+                            <option value="312">France</option>
+                            <option value="313">France (European Territory)</option>
+                            <option value="314">French Guyana</option>
+                            <option value="315">Gabon</option>
+                            <option value="316">Gambia</option>
+                            <option value="317">Georgia</option>
+                            <option value="318">Germany</option>
+                            <option value="319">Ghana</option>
+                            <option value="320">Gibraltar</option>
+                            <option value="321">Great Britain</option>
+                            <option value="322">Greece</option>
+                            <option value="323">Greenland</option>
+                            <option value="324">Grenada</option>
+                            <option value="325">Guadeloupe (French)</option>
+                            <option value="326">Guam (USA)</option>
+                            <option value="327">Guatemala</option>
+                            <option value="328">Guinea</option>
+                            <option value="329">Guinea Bissau</option>
+                            <option value="330">Guyana</option>
+                            <option value="331">Haiti</option>
+                            <option value="332">Heard and McDonald Islands</option>
+                            <option value="333">Holy See (Vatican City State)</option>
+                            <option value="334">Honduras</option>
+                            <option value="335">Hong Kong</option>
+                            <option value="336">Hungary</option>
+                            <option value="337">Iceland</option>
+                            <option value="338">India</option>
+                            <option value="339">Indonesia</option>
+                            <option value="340">Iran</option>
+                            <option value="341">Iraq</option>
+                            <option value="342">Ireland</option>
+                            <option value="343">Israel</option>
+                            <option value="344">Italy</option>
+                            <option value="345">Ivory Coast (Cote D'Ivoire)</option>
+                            <option value="346">Jamaica</option>
+                            <option value="347">Japan</option>
+                            <option value="348">Jordan</option>
+                            <option value="349">Kazakhstan</option>
+                            <option value="350">Kenya</option>
+                            <option value="351">Kiribati</option>
+                            <option value="352">Kuwait</option>
+                            <option value="353">Kyrgyz Republic (Kyrgyzstan)</option>
+                            <option value="354">Laos</option>
+                            <option value="355">Latvia</option>
+                            <option value="356">Lebanon</option>
+                            <option value="357">Lesotho</option>
+                            <option value="358">Liberia</option>
+                            <option value="359">Libya</option>
+                            <option value="360">Liechtenstein</option>
+                            <option value="361">Lithuania</option>
+                            <option value="362">Luxembourg</option>
+                            <option value="363">Macau</option>
+                            <option value="364">Macedonia</option>
+                            <option value="365">Madagascar</option>
+                            <option value="366">Malawi</option>
+                            <option value="367">Malaysia</option>
+                            <option value="368">Maldives</option>
+                            <option value="369">Mali</option>
+                            <option value="370">Malta</option>
+                            <option value="371">Marshall Islands</option>
+                            <option value="372">Martinique (French)</option>
+                            <option value="373">Mauritania</option>
+                            <option value="374">Mauritius</option>
+                            <option value="375">Mayotte</option>
+                            <option value="376">Mexico</option>
+                            <option value="377">Micronesia</option>
+                            <option value="378">Moldavia</option>
+                            <option value="481">Moldova</option>
+                            <option value="379">Monaco</option>
+                            <option value="380">Mongolia</option>
+                            <option value="381">Montserrat</option>
+                            <option value="382">Morocco</option>
+                            <option value="383">Mozambique</option>
+                            <option value="384">Myanmar</option>
+                            <option value="385">Namibia</option>
+                            <option value="386">Nauru</option>
+                            <option value="387">Nepal</option>
+                            <option value="388">Netherlands</option>
+                            <option value="389">Netherlands Antilles</option>
+                            <option value="390">Neutral Zone</option>
+                            <option value="391">New Caledonia (French)</option>
+                            <option value="392">New Zealand</option>
+                            <option value="393">Nicaragua</option>
+                            <option value="394">Niger</option>
+                            <option value="395">Nigeria</option>
+                            <option value="396">Niue</option>
+                            <option value="482">NON-US</option>
+                            <option value="397">Norfolk Island</option>
+                            <option value="398">North Korea</option>
+                            <option value="399">Northern Mariana Islands</option>
+                            <option value="400">Norway</option>
+                            <option value="401">Oman</option>
+                            <option value="402">Pakistan</option>
+                            <option value="403">Palau</option>
+                            <option value="404">Panama</option>
+                            <option value="405">Papua New Guinea</option>
+                            <option value="406">Paraguay</option>
+                            <option value="407">Peru</option>
+                            <option value="408">Philippines</option>
+                            <option value="409">Pitcairn Island</option>
+                            <option value="410">Poland</option>
+                            <option value="411">Polynesia (French)</option>
+                            <option value="412">Portugal</option>
+                            <option value="413">Puerto Rico</option>
+                            <option value="414">Qatar</option>
+                            <option value="415">Reunion (French)</option>
+                            <option value="416">Romania</option>
+                            <option value="480">Russia</option>
+                            <option value="417">Russian Federation</option>
+                            <option value="418">Rwanda</option>
+                            <option value="419">S. Georgia & S. Sandwich Isls.</option>
+                            <option value="420">Saint Helena</option>
+                            <option value="421">Saint Kitts & Nevis Anguilla</option>
+                            <option value="422">Saint Lucia</option>
+                            <option value="423">Saint Pierre and Miquelon</option>
+                            <option value="424">Saint Tome (Sao Tome) and Principe</option>
+                            <option value="425">Saint Vincent & Grenadines</option>
+                            <option value="426">Samoa</option>
+                            <option value="427">San Marino</option>
+                            <option value="428">Saudi Arabia</option>
+                            <option value="429">Senegal</option>
+                            <option value="430">Seychelles</option>
+                            <option value="431">Sierra Leone</option>
+                            <option value="432">Singapore</option>
+                            <option value="433">Slovak Republic</option>
+                            <option value="434">Slovenia</option>
+                            <option value="435">Solomon Islands</option>
+                            <option value="436">Somalia</option>
+                            <option value="437">South Africa</option>
+                            <option value="438">South Korea</option>
+                            <option value="439">Spain</option>
+                            <option value="440">Sri Lanka</option>
+                            <option value="441">Sudan</option>
+                            <option value="442">Suriname</option>
+                            <option value="443">Svalbard and Jan Mayen Islands</option>
+                            <option value="444">Swaziland</option>
+                            <option value="445">Sweden</option>
+                            <option value="446">Switzerland</option>
+                            <option value="447">Syria</option>
+                            <option value="448">Tadjikistan</option>
+                            <option value="449">Taiwan</option>
+                            <option value="450">Tanzania</option>
+                            <option value="451">Thailand</option>
+                            <option value="452">Togo</option>
+                            <option value="453">Tokelau</option>
+                            <option value="454">Tonga</option>
+                            <option value="455">Trinidad and Tobago</option>
+                            <option value="456">Tunisia</option>
+                            <option value="457">Turkey</option>
+                            <option value="458">Turkmenistan</option>
+                            <option value="459">Turks and Caicos Islands</option>
+                            <option value="460">Tuvalu</option>
+                            <option value="462">Uganda</option>
+                            <option value="463">Ukraine</option>
+                            <option value="464">United Arab Emirates</option>
+                            <option value="465">United Kingdom</option>
+                            <option value="1">United States</option>
+                            <option value="466">Uruguay</option>
+                            <option value="461">USA Minor Outlying Islands</option>
+                            <option value="467">Uzbekistan</option>
+                            <option value="468">Vanuatu</option>
+                            <option value="469">Venezuela</option>
+                            <option value="470">Vietnam</option>
+                            <option value="471">Virgin Islands</option>
+                            <option value="472">Wallis and Futuna Islands</option>
+                            <option value="473">Western Sahara</option>
+                            <option value="474">Yemen</option>
+                            <option value="475">Yugoslavia</option>
+                            <option value="476">Zaire</option>
+                            <option value="477">Zambia</option>
+                            <option value="478">Zimbabwe</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Type</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <select id="ddlProviderTypeFind" class="dropDown" name="ctl00$contentMain$ddlProviderTypeFind">
+                            <option value=""></option>
+                            <option value="1">Customer</option>
+                            <option value="2">Site</option>
+                            <option value="3">Supplier</option>
+                            <option value="4">Transport</option>
+                            <option value="5">Warehouse</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Status</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <select id="ddlStatusFind" class="dropDown" name="ctl00$contentMain$ddlStatusFind">
+                            <option value=""></option>
+                            <option value="13">Approved By Manager</option>
+                            <option value="5">Confirmed</option>
+                            <option value="6">Invited</option>
+                            <option value="9">No Response</option>
+                            <option value="11">Refusal</option>
+                            <option value="12">Rejected By Manager</option>
+                            <option value="8">Responded/Complete</option>
+                            <option value="7">Responded/Incomplete</option>
+                            <option value="4">Reviewing</option>
+                            <option value="10">Transferred</option>
+                            <option value="3">Unconfirmed</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Score Between </td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtScoreFromFind" class="txtBox" type="text" style="width: 60px;" name="ctl00$contentMain$txtScoreFromFind">
+                        &
+                        <input id="txtScoreToFind" class="txtBox" type="text" style="width: 60px;" name="ctl00$contentMain$txtScoreToFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Added Between</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtAddedFromFind" class="txtBox" type="text" style="width: 60px;" name="ctl00$contentMain$txtAddedFromFind">
+                        &
+                        <input id="txtAddedToFind" class="txtBox" type="text" style="width: 60px;" name="ctl00$contentMain$txtAddedToFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">FULL TEXT SEARCH</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtFullTextSearch" class="txtBox" type="text" style="width: 250px;" name="ctl00$contentMain$txtFullTextSearch">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</form>

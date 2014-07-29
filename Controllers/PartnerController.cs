@@ -927,6 +927,13 @@ namespace Generic.Controllers
             return File(stream, "application/vnd.ms-excel", "Report3.xls");
         }
 
+       
+        public ActionResult FindPartner()
+        {
+            ViewBag.Test = "Hi";
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
