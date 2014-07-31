@@ -98,22 +98,16 @@
 
                 if (groupAdded < groupCount)
                 {
+                    int? totalNR = 0, totalRI=0, totalRC=0, totalRow=0;
                 <table class="TestTable">
-                    @for (int i = 1; i <= counter; i++)
-                    {
-                    if (i == 1)
-                    {
+                   
                     <tr style="background-color:darkblue;; color: white;">
                         <th colspan="8">
                             @Model.groups[groupAdded].description
 
                         </th>
                     </tr>
-                    }
-                    else
-                    {
-                    if (i == 2)
-                    {
+                   
                     <tr>
                         <td class="AlgnRight" title="Goal">G&nbsp;</td>
                         <td class="AlgnRight" title="UnConfirmed">U&nbsp;</td>
@@ -124,9 +118,10 @@
                         <td class="AlgnRight" title="Response Complete">R/C&nbsp;</td>
                         <td class="AlgnRight" title="Total">T&nbsp;</td>
                     </tr>
-                    }
-                    else
+                    
+                     @foreach (var partnerType in Model.partnerType)
                     {
+
                     <tr>
                         <td class="AlgnRight"> @Model.ptqGroups[groupAdded].goal &nbsp;</td>
                         <td class="AlgnRight">0&nbsp;</td>
@@ -136,36 +131,53 @@
 
                            
 
-                            <a style="text-decoration:none" href="~/Admin/DashboardPartners?Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse)&Group=@Model.groups[groupAdded].id" target="_blank">
-                             @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.statusID== (int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()  
-                            </a>
-                             &nbsp;</td>
-                        <td class="AlgnRight" style="background-color:#FDEB41">
-                             <a style="text-decoration:none" href="~/Admin/DashboardPartners?Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete)&Group=@Model.groups[groupAdded].id" target="_blank">
-                            @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.statusID== (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()
+                            <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse)&Group=@Model.groups[groupAdded].id" target="_blank">
+                     @{ int? nr = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();  
+                        totalNR += nr;
+                        }
+                           
+                                @nr
+                                
                                  </a>
+                             </td>
+                        <td class="AlgnRight" style="background-color:#FDEB41">
+                             <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete)&Group=@Model.groups[groupAdded].id" target="_blank">
+                            @{ int? ri = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                               totalRI += ri;
+                                     
+                                 }
+                                 @ri
+                             </a>
                                  
                                    &nbsp;</td>
                         <td class="AlgnRight" style="background-color: #BCD637">
-                            <a style="text-decoration:none" href="~/Admin/DashboardPartners?Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete)&Group=@Model.groups[groupAdded].id" target="_blank">
-                            @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.statusID== (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()
-                                </a>
+                            <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete)&Group=@Model.groups[groupAdded].id" target="_blank">
+                            @{int? rc = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                             totalRC += rc;
+                                   } @rc </a>
                                 &nbsp;</td>
                         <td class="AlgnRight">
 @{ 
-                    @Html.Raw(        @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Invited/No Response" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()  +
-                            @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Responded/Complete" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault()   +
-                            @Model.ptqDashboard.Where(x=> x.group==@Model.groups[groupAdded].id && x.status=="Responded/Incomplete" ).Select(s=>s.total).DefaultIfEmpty(0).FirstOrDefault() )
+                       totalRow +=    nr  + ri  + rc ;
+                            
+                             @Html.Raw( totalRow)
 }
 &nbsp;</td>
                     </tr>
-                    }
-                    }
-                    }
+                   
+                     }
 
 
-
-
+                     <tr>
+                        <td class="AlgnRight" title="Goal">0&nbsp;</td>
+                        <td class="AlgnRight" title="UnConfirmed">0&nbsp;</td>
+                        <td class="AlgnRight" title="Review">0&nbsp;</td>
+                        <td class="AlgnRight" title="Confirmed">0&nbsp;</td>
+                        <td class="AlgnRight" title="No Response">@totalNR&nbsp;</td>
+                        <td class="AlgnRight" title="Response Incomplete">@totalRI&nbsp;</td>
+                        <td class="AlgnRight" title="Response Complete">@totalRC&nbsp;</td>
+                        <td class="AlgnRight" title="Total">@totalRow&nbsp;</td>
+                    </tr>
 
 
                 </table>

@@ -16,6 +16,6 @@ namespace Generic
     {
         public int pptq { get; set; }
         public int group { get; set; }
-        public int pptqGroupType { get; set; }
+        public Nullable<int> pptqGroupType { get; set; }
     }
 }

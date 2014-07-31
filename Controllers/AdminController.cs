@@ -85,7 +85,7 @@ namespace Generic.Controllers
                     person person = db.pr_doLogin(userName, password).FirstOrDefault();
                     SessionSingleton.LoggedInUserId = person.id;
                     SessionSingleton.MyEnterPriseId = person.enterprise;
-                    SessionSingleton.PTQ = (int)person.campaign;
+                    SessionSingleton.Touchpoint = (int)person.campaign;
 
                     try
                     {
@@ -257,41 +257,85 @@ namespace Generic.Controllers
         [Authorize]
         public virtual ActionResult Dashbord1()
         {
-            var objDashboard = db.pr_getDashboardCountForReferenceByPTQ(SessionSingleton.PTQ).ToList();
-
-            
-         //  db.pr_getPartnerByPTQGroupStatus(
-           
-
-            var groupDataList = db.pr_getGroupByPTQ(SessionSingleton.PTQ).ToList();
-            var ptqgroupDataList = db.pr_getPTQGroupByPTQ(SessionSingleton.PTQ).ToList();
-
-            PartnerTypeDataList datalist = new PartnerTypeDataList();
-            datalist.partnerType = new List<PartnerTypeData>();
-
-            foreach (var item in objDashboard.Select(x=>x.partnertype).Distinct())
-            {
-                PartnerTypeData data = new PartnerTypeData();
-                data.ID = item;
-
-                data.Description = db.pr_getPartnerType(item).FirstOrDefault().description;
-
-                datalist.partnerType.Add(data);
-
-            }
 
             Dashboard1 dashBoard = new Dashboard1();
-            dashBoard.partnerType = datalist.partnerType;
-            dashBoard.groups = groupDataList;
-            dashBoard.ptqGroups = ptqgroupDataList;
-            dashBoard.ptqDashboard = objDashboard;
-           
+
+            var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(SessionSingleton.Touchpoint).ToList();
+
+            foreach (var ptqItem in ptq)
+            {
+
+                var objDashboard = db.pr_getDashboardCountForReferenceByPTQ(ptqItem.id).ToList();
+
+
+                //  db.pr_getPartnerByPTQGroupStatus(
+
+
+                var groupDataList = db.pr_getGroupByPTQ(ptqItem.id).ToList();
+                var ptqgroupDataList = db.pr_getPTQGroupByPTQ(ptqItem.id).ToList();
+
+                PartnerTypeDataList datalist = new PartnerTypeDataList();
+                datalist.partnerType = new List<PartnerTypeData>();
+
+                foreach (var item in objDashboard.Select(x => x.partnertype).Distinct())
+                {
+                    PartnerTypeData data = new PartnerTypeData();
+                    data.ID = item;
+
+                    data.Description = db.pr_getPartnerType(item).FirstOrDefault().description;
+
+                    datalist.partnerType.Add(data);
+
+                }
+
+
+
+
+
+                if (dashBoard.partnerType == null)
+                {
+                    dashBoard.partnerType = datalist.partnerType;
+                }
+                else
+                {
+                    dashBoard.partnerType = dashBoard.partnerType.Union(datalist.partnerType).ToList().Distinct().ToList();
+                }
+
+
+                if (dashBoard.groups == null)
+                {
+                    dashBoard.groups = groupDataList;
+                }
+                else
+                {
+                    dashBoard.groups = dashBoard.groups.Union(groupDataList).ToList().Distinct().ToList();
+                }
+                if (dashBoard.ptqGroups == null)
+                {
+                    dashBoard.ptqGroups = ptqgroupDataList;
+                }
+                else
+                {
+                    dashBoard.ptqGroups = dashBoard.ptqGroups.Union(ptqgroupDataList).ToList().Distinct().ToList();
+                }
+                if (dashBoard.ptqDashboard == null)
+                {
+                    dashBoard.ptqDashboard = objDashboard;
+                }
+                else
+                {
+                    dashBoard.ptqDashboard = dashBoard.ptqDashboard.Union(objDashboard).ToList().Distinct().ToList();
+                }
+                
+                
+            }
             return View(dashBoard);
         }
 
-        public virtual ActionResult DashboardPartners(int status, int group)
+        public virtual ActionResult DashboardPartners(int status, int group, int partnerType)
         {
-            var objPartners = db.pr_getPartnerByPTQGroupStatus(SessionSingleton.PTQ, group, status).ToList();
+            var objptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnerType, SessionSingleton.Touchpoint).FirstOrDefault();
+            var objPartners = db.pr_getPartnerByPTQGroupStatus(objptq.id, group, status).ToList();
 
             return View(objPartners);
         }

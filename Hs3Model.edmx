@@ -1773,7 +1773,7 @@
           </Key>
           <Property Name="pptq" Type="int" Nullable="false" />
           <Property Name="group" Type="int" Nullable="false" />
-          <Property Name="pptqGroupType" Type="int" Nullable="false" />
+          <Property Name="pptqGroupType" Type="int" />
         </EntityType>
         <EntityType Name="pptqGroupType">
           <Key>
@@ -17425,7 +17425,7 @@
           </Key>
           <Property Name="pptq" Type="Int32" Nullable="false" />
           <Property Name="group" Type="Int32" Nullable="false" />
-          <Property Name="pptqGroupType" Type="Int32" Nullable="false" />
+          <Property Name="pptqGroupType" Type="Int32" />
         </EntityType>
         <EntityType Name="pptqGroupType">
           <Key>

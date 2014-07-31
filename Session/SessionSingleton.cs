@@ -99,6 +99,18 @@ namespace Generic.SessionClass
             }
         }
 
+        public static int Touchpoint
+        {
+            get
+            {
+                return Convert.ToInt16(System.Web.HttpContext.Current.Session["touchpoint"]);
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["touchpoint"] = value;
+            }
+        }
+
         public static string EnterpriseURL
         {
             get
