@@ -119,6 +119,22 @@ namespace Generic.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult GetPartnerTypeByTouchpoint(int touchpointId)
+        {
+            if (touchpointId == 0)
+            {
+                var partnerType = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(x => new { x.id, x.description }).ToList();
+                return Json(new { Data = partnerType }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var partnerType = db.pr_getPartnertypeByTouchpoint(touchpointId).Select(x => new { x.id, x.description }).ToList();
+                return Json(new { Data = partnerType }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

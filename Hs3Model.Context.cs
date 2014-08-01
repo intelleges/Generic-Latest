@@ -163,6 +163,8 @@ namespace Generic
         public DbSet<pptqGroup> pptqGroup { get; set; }
         public DbSet<pptqGroupType> pptqGroupType { get; set; }
         public DbSet<ptqGroup> ptqGroup { get; set; }
+        public DbSet<v_PartnerFind> v_PartnerFind { get; set; }
+        public DbSet<view_PartnerData> view_PartnerData { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -13245,6 +13247,94 @@ namespace Generic
         public virtual ObjectResult<pr_getReminderListByCountryAll_Result> pr_getReminderListByCountryAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListByCountryAll_Result>("pr_getReminderListByCountryAll");
+        }
+    
+        public virtual int pr_dynamicFilters(string table, string argsList)
+        {
+            var tableParameter = table != null ?
+                new ObjectParameter("table", table) :
+                new ObjectParameter("table", typeof(string));
+    
+            var argsListParameter = argsList != null ?
+                new ObjectParameter("argsList", argsList) :
+                new ObjectParameter("argsList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_dynamicFilters", tableParameter, argsListParameter);
+        }
+    
+        public virtual ObjectResult<pr_getGroupByEnterprise_Result> pr_getGroupByEnterprise(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupByEnterprise_Result>("pr_getGroupByEnterprise", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode2(string accesscode, string loadgroup)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            var loadgroupParameter = loadgroup != null ?
+                new ObjectParameter("loadgroup", loadgroup) :
+                new ObjectParameter("loadgroup", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode2", accesscodeParameter, loadgroupParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerStatusAll_Result> pr_getPartnerStatusAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerStatusAll_Result>("pr_getPartnerStatusAll");
+        }
+    
+        public virtual ObjectResult<pr_getPartnertypeByTouchpoint_Result> pr_getPartnertypeByTouchpoint(Nullable<int> touchpoint)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnertypeByTouchpoint_Result>("pr_getPartnertypeByTouchpoint", touchpointParameter);
+        }
+    
+        public virtual int sp_dynamicFilters(string table, string argsList)
+        {
+            var tableParameter = table != null ?
+                new ObjectParameter("table", table) :
+                new ObjectParameter("table", typeof(string));
+    
+            var argsListParameter = argsList != null ?
+                new ObjectParameter("argsList", argsList) :
+                new ObjectParameter("argsList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dynamicFilters", tableParameter, argsListParameter);
+        }
+    
+        public virtual ObjectResult<view_PartnerData> pr_dynamicFiltersPartner(string table, string argsList)
+        {
+            var tableParameter = table != null ?
+                new ObjectParameter("table", table) :
+                new ObjectParameter("table", typeof(string));
+    
+            var argsListParameter = argsList != null ?
+                new ObjectParameter("argsList", argsList) :
+                new ObjectParameter("argsList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<view_PartnerData>("pr_dynamicFiltersPartner", tableParameter, argsListParameter);
+        }
+    
+        public virtual ObjectResult<view_PartnerData> pr_dynamicFiltersPartner(string table, string argsList, MergeOption mergeOption)
+        {
+            var tableParameter = table != null ?
+                new ObjectParameter("table", table) :
+                new ObjectParameter("table", typeof(string));
+    
+            var argsListParameter = argsList != null ?
+                new ObjectParameter("argsList", argsList) :
+                new ObjectParameter("argsList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<view_PartnerData>("pr_dynamicFiltersPartner", mergeOption, tableParameter, argsListParameter);
         }
     }
 }

@@ -16,6 +16,7 @@ using System.Data.Objects;
 using System.Threading;
 using System.Xml.Serialization;
 using Generic.Helpers.PartnerHelper;
+using System.Web.Routing;
 
 namespace Generic.Controllers
 {
@@ -34,8 +35,8 @@ namespace Generic.Controllers
 
             //var partners  = from p in partner
             //                from c in country on p. equals c.Id into pc
-                            
-                           
+
+
 
             return View(partner.ToList());
         }
@@ -198,7 +199,7 @@ namespace Generic.Controllers
             //excelRead.AddMapping<ExcelPartner>(x => x.StateName, "Provider State");
 
             //excelRead.AddMapping<ExcelPartner>(x => x.CountryName, "Provider Country");
-      
+
             //excelRead.AddMapping<ExcelPartner>(x => x.email, "Provider Contact Email");
             //excelRead.AddMapping<ExcelPartner>(x => x.firstName, "Provider Contact First Name");
             //excelRead.AddMapping<ExcelPartner>(x => x.lastName, "Provider Contact Last Name");
@@ -890,11 +891,11 @@ namespace Generic.Controllers
 
         public ActionResult PartnumberSpreadsheetDataLoadReportDownloadForSecondReport()
         {
-      
+
             List<pr_getPartnerStatusByEnterprise_Result> objReport = new List<pr_getPartnerStatusByEnterprise_Result>();
 
-        var test= db.pr_getPartnerStatusByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-        objReport = test;
+            var test = db.pr_getPartnerStatusByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            objReport = test;
 
             var stream = new MemoryStream();
             var serializer = new XmlSerializer(typeof(List<pr_getPartnerStatusByEnterprise_Result>));
@@ -927,21 +928,83 @@ namespace Generic.Controllers
             return File(stream, "application/vnd.ms-excel", "Report3.xls");
         }
 
-       
+
         public ActionResult FindPartner()
         {
-            ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
-
-            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
 
             ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
 
+            ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
 
+            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
 
-            ViewBag.Test = "Hi";
+            ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
+
             return View();
         }
 
+        [HttpPost]
+        public ActionResult FindPartner(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch)
+        {
+            //dbo.pr_dynamicFilters 'partner', ' Campaign=1009; Group=20;Country=2; Type=4'
+            //var objPartners = db.pr_dynamicFiltersPartner("view_PartnerData", "name=well;enterprise=3");
+
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
+
+            if (touchpoint != null)
+                arguments += "touchpoint=" + touchpoint + ";";
+            if (group != null)
+                arguments += "group=" + group + ";";
+            if (country != null)
+                arguments += "country=" + country + ";";
+            if (partnertype != null)
+                arguments += "partnertype=" + partnertype + ";";
+
+            if (partnerStatus != null)
+                arguments += "Status=" + partnerStatus + ";";
+
+
+            if (txtInternalIdFind != null)
+                arguments += "InternalId=" + txtInternalIdFind + ";";
+
+
+            //string , string , string , string , string , string )
+            if (txtDunsNumberFind != null)
+                arguments += "DunsNumber=" + txtDunsNumberFind + ";";
+            if (txtNameFind != null)
+                arguments += "Name=" + txtNameFind + ";";
+            if (txtFederalIdFind != null)
+                arguments += "FederalId=" + txtFederalIdFind + ";";
+            if (txtContactEmailFind != null)
+                arguments += "ContactEmail=" + txtContactEmailFind + ";";
+            if (txtHROEmailFind != null)
+                arguments += "HROEmail=" + txtHROEmailFind + ";";
+            if (txtScoreFromFind != null)
+                arguments += "ScoreFrom=" + txtScoreFromFind + ";";
+            if (txtScoreToFind != null)
+                arguments += "ScoreTo=" + txtScoreToFind + ";";
+            if (txtAddedFromFind != null)
+                arguments += "AddedFrom=" + txtAddedFromFind + ";";
+            if (txtAddedToFind != null)
+                arguments += "AddedTo=" + txtAddedToFind + ";";
+            if (txtFullTextSearch != null)
+                arguments += "FullTextSearch=" + txtFullTextSearch + ";";
+            //var objPartners2 =   db.Database.ExecuteSqlCommand("Yourprocedure @param, @param1", param1, param2);
+
+            var objPartners = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+
+
+            TempData["partner"] = objPartners;
+            return RedirectToAction("FindPartnerResult");
+        }
+
+        public ActionResult FindPartnerResult()
+        {
+
+            List<view_PartnerData> abc = (List<view_PartnerData>)TempData["partner"];
+            return View(abc);
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

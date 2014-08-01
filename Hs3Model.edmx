@@ -199,6 +199,50 @@
       [prReminder].[SeqNumber] AS [SeqNumber]
       FROM [dbo].[prReminder] AS [prReminder]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="v_PartnerFind" EntityType="hs3MVCMTQa2Model.Store.v_PartnerFind" store:Type="Views" store:Schema="dbo" store:Name="v_PartnerFind">
+            <DefiningQuery>SELECT 
+      [v_PartnerFind].[enterprise] AS [enterprise], 
+      [v_PartnerFind].[campaign] AS [campaign], 
+      [v_PartnerFind].[group] AS [group], 
+      [v_PartnerFind].[partnertype] AS [partnertype], 
+      [v_PartnerFind].[internalID] AS [internalID], 
+      [v_PartnerFind].[dunsnumber] AS [dunsnumber], 
+      [v_PartnerFind].[federalID] AS [federalID], 
+      [v_PartnerFind].[email] AS [email], 
+      [v_PartnerFind].[name] AS [name], 
+      [v_PartnerFind].[zipcode] AS [zipcode], 
+      [v_PartnerFind].[country] AS [country], 
+      [v_PartnerFind].[description] AS [description], 
+      [v_PartnerFind].[partnerTypeTouchpointQuestionnaire] AS [partnerTypeTouchpointQuestionnaire], 
+      [v_PartnerFind].[accesscode] AS [accesscode], 
+      [v_PartnerFind].[invitedDate] AS [invitedDate], 
+      [v_PartnerFind].[completedDate] AS [completedDate]
+      FROM [dbo].[v_PartnerFind] AS [v_PartnerFind]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_PartnerData" EntityType="hs3MVCMTQa2Model.Store.view_PartnerData" store:Type="Views" store:Schema="dbo" store:Name="view_PartnerData">
+            <DefiningQuery>SELECT 
+      [view_PartnerData].[id] AS [id], 
+      [view_PartnerData].[enterprise] AS [enterprise], 
+      [view_PartnerData].[internalID] AS [internalID], 
+      [view_PartnerData].[PartnerName] AS [PartnerName], 
+      [view_PartnerData].[Contact] AS [Contact], 
+      [view_PartnerData].[phone] AS [phone], 
+      [view_PartnerData].[ContactEmail] AS [ContactEmail], 
+      [view_PartnerData].[ContactTitle] AS [ContactTitle], 
+      [view_PartnerData].[owner] AS [owner], 
+      [view_PartnerData].[Country] AS [Country], 
+      [view_PartnerData].[city] AS [city], 
+      [view_PartnerData].[state] AS [state], 
+      [view_PartnerData].[address] AS [address], 
+      [view_PartnerData].[zipcode] AS [zipcode], 
+      [view_PartnerData].[Touchpoint] AS [Touchpoint], 
+      [view_PartnerData].[Partnertype] AS [Partnertype], 
+      [view_PartnerData].[Group] AS [Group], 
+      [view_PartnerData].[AccessCode] AS [AccessCode], 
+      [view_PartnerData].[status] AS [status], 
+      [view_PartnerData].[Expr1] AS [Expr1]
+      FROM [dbo].[view_PartnerData] AS [view_PartnerData]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__partner__enter__7B863AD4" Association="hs3MVCMTQa2Model.Store.FK__partner__enter__7B863AD4">
             <End Role="enterprise" EntitySet="enterprise" />
             <End Role="partnerSpreadsheetDataLoad" EntitySet="partnerSpreadsheetDataLoad" />
@@ -2501,6 +2545,70 @@
           <Property Name="touchpoint" Type="int" Nullable="false" />
           <Property Name="partner" Type="int" Nullable="false" />
           <Property Name="SeqNumber" Type="bigint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.v_PartnerFind' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="v_PartnerFind">
+          <Key>
+            <PropertyRef Name="campaign" />
+            <PropertyRef Name="partnertype" />
+            <PropertyRef Name="description" />
+            <PropertyRef Name="partnerTypeTouchpointQuestionnaire" />
+            <PropertyRef Name="accesscode" />
+            <PropertyRef Name="invitedDate" />
+          </Key>
+          <Property Name="enterprise" Type="int" />
+          <Property Name="campaign" Type="int" Nullable="false" />
+          <Property Name="group" Type="varchar" MaxLength="100" />
+          <Property Name="partnertype" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="internalID" Type="varchar" MaxLength="255" />
+          <Property Name="dunsnumber" Type="varchar" MaxLength="20" />
+          <Property Name="federalID" Type="varchar" MaxLength="20" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="zipcode" Type="varchar" MaxLength="20" />
+          <Property Name="country" Type="int" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="partnerTypeTouchpointQuestionnaire" Type="int" Nullable="false" />
+          <Property Name="accesscode" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="invitedDate" Type="date" Nullable="false" />
+          <Property Name="completedDate" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PartnerData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="view_PartnerData">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="owner" />
+            <PropertyRef Name="Country" />
+            <PropertyRef Name="state" />
+            <PropertyRef Name="Partnertype" />
+            <PropertyRef Name="AccessCode" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="Expr1" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="enterprise" Type="int" />
+          <Property Name="internalID" Type="varchar" MaxLength="255" />
+          <Property Name="PartnerName" Type="varchar" MaxLength="255" />
+          <Property Name="Contact" Type="varchar" MaxLength="512" />
+          <Property Name="phone" Type="varchar" MaxLength="100" />
+          <Property Name="ContactEmail" Type="varchar" MaxLength="255" />
+          <Property Name="ContactTitle" Type="varchar" MaxLength="255" />
+          <Property Name="owner" Type="varchar" Nullable="false" MaxLength="402" />
+          <Property Name="Country" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="city" Type="varchar" MaxLength="255" />
+          <Property Name="state" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="address" Type="varchar" MaxLength="255" />
+          <Property Name="zipcode" Type="varchar" MaxLength="20" />
+          <Property Name="Touchpoint" Type="varchar" MaxLength="50" />
+          <Property Name="Partnertype" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Group" Type="varchar" MaxLength="50" />
+          <Property Name="AccessCode" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="status" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Expr1" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__partner__enter__7B863AD4">
           <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="1" />
@@ -4942,6 +5050,14 @@
           <Parameter Name="username" Type="varchar" Mode="In" />
           <Parameter Name="password" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_dynamicFilters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="table" Type="nvarchar" Mode="In" />
+          <Parameter Name="argsList" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="pr_dynamicFiltersPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="table" Type="nvarchar" Mode="In" />
+          <Parameter Name="argsList" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="pr_findPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="selected_sql" Type="varchar" Mode="In" />
@@ -5086,6 +5202,9 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getGroupAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getGroupByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getGroupByPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5260,6 +5379,10 @@
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
           <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+          <Parameter Name="loadgroup" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5276,6 +5399,7 @@
         <Function Name="pr_getPartnerrRemitAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPartnerStatusByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
@@ -5294,6 +5418,9 @@
         </Function>
         <Function Name="pr_getPartnerTypeByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPartnertypeByTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPartnertypeTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -7086,6 +7213,10 @@
         <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_dynamicFilters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="table" Type="nvarchar" Mode="In" />
+          <Parameter Name="argsList" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -11049,6 +11180,31 @@
           </FunctionImport>
           <FunctionImport Name="pr_getReminderListIncompleteByCountryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListIncompleteByCountryAll_Result)" />
           <FunctionImport Name="pr_getReminderListByCountryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListByCountryAll_Result)" />
+          <EntitySet Name="v_PartnerFind" EntityType="hs3MVCMTQa2Model.v_PartnerFind" />
+          <FunctionImport Name="pr_dynamicFilters">
+            <Parameter Name="table" Mode="In" Type="String" />
+            <Parameter Name="argsList" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getGroupByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGroupByEnterprise_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode2" ReturnType="Collection(DateTime)">
+            <Parameter Name="accesscode" Mode="In" Type="String" />
+            <Parameter Name="loadgroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerStatusAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerStatusAll_Result)" />
+          <FunctionImport Name="pr_getPartnertypeByTouchpoint" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnertypeByTouchpoint_Result)">
+          <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dynamicFilters">
+            <Parameter Name="table" Mode="In" Type="String" />
+            <Parameter Name="argsList" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_dynamicFiltersPartner" EntitySet="view_PartnerData" ReturnType="Collection(hs3MVCMTQa2Model.view_PartnerData)">
+            <Parameter Name="table" Mode="In" Type="String" />
+            <Parameter Name="argsList" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="view_PartnerData" EntityType="hs3MVCMTQa2Model.view_PartnerData" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -17627,6 +17783,94 @@
           <Property Type="Int32" Name="sent_pptq" Nullable="false" />
           <Property Type="Int32" Name="sent_ptq" Nullable="false" />
         </ComplexType>
+        <EntityType Name="v_PartnerFind">
+          <Key>
+            <PropertyRef Name="campaign" />
+            <PropertyRef Name="partnertype" />
+            <PropertyRef Name="description" />
+            <PropertyRef Name="partnerTypeTouchpointQuestionnaire" />
+            <PropertyRef Name="accesscode" />
+            <PropertyRef Name="invitedDate" />
+          </Key>
+          <Property Type="Int32" Name="enterprise" />
+          <Property Type="Int32" Name="campaign" Nullable="false" />
+          <Property Type="String" Name="group" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partnertype" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="internalID" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="dunsnumber" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="federalID" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="email" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="name" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="zipcode" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="country" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="invitedDate" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="completedDate" Precision="0" />
+        </EntityType>
+        <ComplexType Name="pr_getGroupByEnterprise_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="groupCollection" Nullable="false" />
+          <Property Type="Int32" Name="groupType" Nullable="true" />
+          <Property Type="Int32" Name="author" Nullable="true" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="dateCreated" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getPartnerStatusAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getPartnertypeByTouchpoint_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="alias" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="partnerClass" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="view_PartnerData">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="owner" />
+            <PropertyRef Name="Country" />
+            <PropertyRef Name="state" />
+            <PropertyRef Name="Partnertype" />
+            <PropertyRef Name="AccessCode" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="Expr1" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" />
+          <Property Type="String" Name="internalID" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PartnerName" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Contact" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="phone" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ContactEmail" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ContactTitle" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="owner" Nullable="false" MaxLength="402" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Country" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="city" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="state" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="address" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="zipcode" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Touchpoint" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Partnertype" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Group" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AccessCode" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Expr1" Nullable="false" />
+        </EntityType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -22965,6 +23209,100 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="v_PartnerFind">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.v_PartnerFind">
+              <MappingFragment StoreEntitySet="v_PartnerFind">
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+                <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="federalID" ColumnName="federalID" />
+                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="group" ColumnName="group" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_dynamicFilters" FunctionName="hs3MVCMTQa2Model.Store.pr_dynamicFilters" />
+          <FunctionImportMapping FunctionImportName="pr_getGroupByEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupByEnterprise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGroupByEnterprise_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="groupCollection" ColumnName="groupCollection" />
+                <ScalarProperty Name="groupType" ColumnName="groupType" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode2" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnerStatusAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerStatusAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerStatusAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnertypeByTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnertypeByTouchpoint">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnertypeByTouchpoint_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="partnerClass" ColumnName="partnerClass" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_dynamicFilters" FunctionName="hs3MVCMTQa2Model.Store.sp_dynamicFilters" />
+          <FunctionImportMapping FunctionImportName="pr_dynamicFiltersPartner" FunctionName="hs3MVCMTQa2Model.Store.pr_dynamicFiltersPartner" />
+          <EntitySetMapping Name="view_PartnerData">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_PartnerData">
+              <MappingFragment StoreEntitySet="view_PartnerData">
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="AccessCode" ColumnName="AccessCode" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="Partnertype" ColumnName="Partnertype" />
+                <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="ContactTitle" ColumnName="ContactTitle" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1,0 +1,42 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.view_PartnerData>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetPopupLayout();
+    ViewBag.Title = "Partner";
+}
+
+
+
+@( Html.Telerik().Grid(Model).Name("PartnerGrid")
+        .Columns(columns =>
+        {           
+            columns.Bound(o => o.internalID).Title("Internal ID").Width(100);
+            columns.Bound(o => o.PartnerName).Title("Partner Name").Width(300);
+            columns.Bound(o => o.Contact).Title("Contact").Width(200);
+            columns.Bound(o => o.phone).Title("Phone").Width(200);
+            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200);
+            columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(100);
+
+            columns.Bound(o => o.owner).Title("Owner").Width(100);
+            columns.Bound(o => o.Country).Title("Country").Width(200);
+            columns.Bound(o => o.city).Title("City").Width(200);
+            columns.Bound(o => o.state).Title("State").Width(200);
+            columns.Bound(o => o.address).Title("Address").Width(100);
+            columns.Bound(o => o.zipcode).Title("Zipcode").Width(200);
+
+            columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(100);
+            columns.Bound(o => o.Partnertype).Title("Partnertype").Width(200);
+            columns.Bound(o => o.Group).Title("Group").Width(200);
+            columns.Bound(o => o.AccessCode).Title("AccessCode").Width(200);
+            columns.Bound(o => o.status).Title("Status").Width(100);
+           
+
+        })
+        .Pageable()
+        .Sortable().Scrollable(scrolling => scrolling
+           .Enabled(true)
+           .Height(300))
+)
+

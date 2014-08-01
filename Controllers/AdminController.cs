@@ -332,6 +332,7 @@ namespace Generic.Controllers
             return View(dashBoard);
         }
 
+        [Authorize]
         public virtual ActionResult DashboardPartners(int status, int group, int partnerType)
         {
             var objptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnerType, SessionSingleton.Touchpoint).FirstOrDefault();

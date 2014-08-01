@@ -845,6 +845,9 @@
     <Compile Include="pr_getGroupAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getGroupByEnterprise_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getGroupByPerson_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1016,6 +1019,9 @@
     <Compile Include="pr_getPartnerrRemitAddress_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerStatusAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerStatusByEnterpriseAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1026,6 +1032,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnerTypeAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnertypeByTouchpoint_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint_Result.cs">
@@ -1657,6 +1666,12 @@
     <Compile Include="ViewModel\GroupsVM.cs" />
     <Compile Include="ViewModel\MainGirdVM.cs" />
     <Compile Include="ViewModel\QuestionnaireViewModel.cs" />
+    <Compile Include="view_PartnerData.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="v_PartnerFind.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="xx_getLastDBModified_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2717,6 +2732,7 @@
     <EmbeddedResource Include="Views\Touchpoint\FindTouchPoint.cshtml" />
     <EmbeddedResource Include="Views\Questionnaire\FindQuestionnaire.cshtml" />
     <EmbeddedResource Include="Views\SystemInfo\FindSystemInfo.cshtml" />
+    <EmbeddedResource Include="Views\Partner\FindPartnerResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

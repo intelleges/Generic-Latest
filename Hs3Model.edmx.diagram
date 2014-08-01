@@ -39,7 +39,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.numberSeed" PointX="8.75" PointY="9.75" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.page" PointX="24" PointY="55" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partner" PointX="10.5" PointY="57" Width="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerAction" PointX="10.75" PointY="0.75" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerAction" PointX="13" PointY="0.5" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerActionLog" PointX="10.75" PointY="3.75" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerAddress" PointX="4.75" PointY="10.75" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerClass" PointX="5.75" PointY="54.125" Width="1.5" IsExpanded="true" />
@@ -225,7 +225,7 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleActionDateType" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleTargetType" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.calendar" PointX="8.9657377400275955" PointY="3.0341506316485587" Width="1.5" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.countryHoliday" PointX="9.7895382297176585" PointY="0.16536417611193105" Width="1.5" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.countryHoliday" PointX="11.25" PointY="1" Width="1.5" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Width="1.5" PointX="8.857501676705434" PointY="12.582762694257667" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoadStatus" Width="1.5" PointX="7.3667746425451588" PointY="11.931239461494256" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4" />
@@ -246,6 +246,8 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqGroup" Width="1.5" PointX="19.375" PointY="3.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqGroupType" Width="1.5" PointX="19.375" PointY="6.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.ptqGroup" Width="1.5" PointX="19.375" PointY="9.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.v_PartnerFind" Width="1.5" PointX="7.1037309631257" PointY="19.899432087270277" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PartnerData" Width="1.5" PointX="3.0518367807622244" PointY="2.7568238241396954" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
