@@ -965,30 +965,30 @@ namespace Generic.Controllers
                 arguments += "Status=" + partnerStatus + ";";
 
 
-            if (txtInternalIdFind != null)
+            if (txtInternalIdFind != "")
                 arguments += "InternalId=" + txtInternalIdFind + ";";
 
 
             //string , string , string , string , string , string )
-            if (txtDunsNumberFind != null)
+            if (txtDunsNumberFind != "")
                 arguments += "DunsNumber=" + txtDunsNumberFind + ";";
-            if (txtNameFind != null)
+            if (txtNameFind != "")
                 arguments += "Name=" + txtNameFind + ";";
-            if (txtFederalIdFind != null)
+            if (txtFederalIdFind != "")
                 arguments += "FederalId=" + txtFederalIdFind + ";";
-            if (txtContactEmailFind != null)
+            if (txtContactEmailFind != "")
                 arguments += "ContactEmail=" + txtContactEmailFind + ";";
-            if (txtHROEmailFind != null)
+            if (txtHROEmailFind != "")
                 arguments += "HROEmail=" + txtHROEmailFind + ";";
-            if (txtScoreFromFind != null)
+            if (txtScoreFromFind != "")
                 arguments += "ScoreFrom=" + txtScoreFromFind + ";";
-            if (txtScoreToFind != null)
+            if (txtScoreToFind != "")
                 arguments += "ScoreTo=" + txtScoreToFind + ";";
-            if (txtAddedFromFind != null)
+            if (txtAddedFromFind != "")
                 arguments += "AddedFrom=" + txtAddedFromFind + ";";
-            if (txtAddedToFind != null)
+            if (txtAddedToFind != "")
                 arguments += "AddedTo=" + txtAddedToFind + ";";
-            if (txtFullTextSearch != null)
+            if (txtFullTextSearch != "")
                 arguments += "FullTextSearch=" + txtFullTextSearch + ";";
             //var objPartners2 =   db.Database.ExecuteSqlCommand("Yourprocedure @param, @param1", param1, param2);
 
