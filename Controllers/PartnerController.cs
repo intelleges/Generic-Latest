@@ -945,7 +945,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult FindPartner(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch)
+        public ActionResult FindPartner(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode)
         {
             //dbo.pr_dynamicFilters 'partner', ' Campaign=1009; Group=20;Country=2; Type=4'
             //var objPartners = db.pr_dynamicFiltersPartner("view_PartnerData", "name=well;enterprise=3");
@@ -976,6 +976,10 @@ namespace Generic.Controllers
                 arguments += "Name=" + txtNameFind + ";";
             if (txtFederalIdFind != "")
                 arguments += "FederalId=" + txtFederalIdFind + ";";
+
+            if (accesscode != "")
+                arguments += "accesscode=" + accesscode + ";";
+
             if (txtContactEmailFind != "")
                 arguments += "ContactEmail=" + txtContactEmailFind + ";";
             if (txtHROEmailFind != "")
@@ -1001,6 +1005,21 @@ namespace Generic.Controllers
 
         public ActionResult FindPartnerResult()
         {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             List<view_PartnerData> abc = (List<view_PartnerData>)TempData["partner"];
             return View(abc);

@@ -5,20 +5,23 @@
 @using Telerik.Web.Mvc.UI;
 @using System.Web.Optimization;
 @{
-    Layout = LayoutHelper.GetPopupLayout();
+    Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Find Partner";
 }
 <style>
-    .dropDown {
-        width: 210px;
-        border-style: inset;
+  #panelFind select {
+        width: 210px;       
+    }
+   .txtBox1 {
+        width: 205px;  
+         border-style: inset;
         border-left-width: 2px;
         border-top-width: 2px;
-        height: 20px;
-        font-size: 13px;
-        font-family: Arial;
+        height: 15px;
+        border-bottom: none;
+        border-right: none; 
+        margin: 0 0 0 0;     
     }
-
     .txtBox {
         width: 205px;
         border-style: inset;
@@ -28,6 +31,13 @@
         border-bottom: none;
         border-right: none;
     }
+    .t-input {
+    height:16px;
+    
+    }
+    #panelFind td {
+  padding: 0 0 0 0; 
+}
 </style>
 <h2>Find Partner</h2>
 
@@ -107,7 +117,7 @@
 <form id="FindpartnerForm" method="post" enctype="multipart/form-data">
  
     <div id="panelFind">
-        <table width="100%" border="0">
+        <table width="70%; " style="float:left" border="0">
             <tbody>
                 <tr>
                     <td class="tLeftColumn">Campaign </td>
@@ -133,49 +143,57 @@
                     <td class="tLeftColumn">Internal ID (EID)</td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="txtInternalIdFind" class="txtBox" type="text" name="txtInternalIdFind">
+                        <input id="txtInternalIdFind" class="txtBox1" type="text" name="txtInternalIdFind">
                     </td>
                 </tr>
                 <tr>
                     <td class="tLeftColumn">DUNS Number</td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="txtDunsNumberFind" class="txtBox" type="text" name="txtDunsNumberFind">
+                        <input id="txtDunsNumberFind" class="txtBox1" type="text" name="txtDunsNumberFind">
                     </td>
                 </tr>
                 <tr>
                     <td class="tLeftColumn">Name</td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="txtNameFind" class="txtBox" type="text" name="txtNameFind">
+                        <input id="txtNameFind" class="txtBox1" type="text" name="txtNameFind">
                     </td>
                 </tr>
+               
                 <tr>
+                    <td class="tLeftColumn">Access Code</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="accesscode" class="txtBox1" type="text" name="accesscode">
+                    </td>
+                </tr>
+                 <tr>
                     <td class="tLeftColumn">Federal ID</td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="txtFederalIdFind" class="txtBox" type="text" name="txtFederalIdFind">
+                        <input id="txtFederalIdFind" class="txtBox1" type="text" name="txtFederalIdFind">
                     </td>
                 </tr>
                 <tr>
                     <td class="tLeftColumn">Contact Email</td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="txtContactEmailFind" class="txtBox" type="text" name="txtContactEmailFind">
+                        <input id="txtContactEmailFind" class="txtBox1" type="text" name="txtContactEmailFind">
                     </td>
                 </tr>
                 <tr>
                     <td class="tLeftColumn">HRO Email</td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="txtHROEmailFind" class="txtBox" type="text" name="txtHROEmailFind">
+                        <input id="txtHROEmailFind" class="txtBox1" type="text" name="txtHROEmailFind">
                     </td>
                 </tr>
                 <tr>
                     <td class="tLeftColumn">Zip Code</td>
                     <td width="5%"></td>
                     <td class="tRightColumn">
-                        <input id="txtZipCodeFind" class="txtBox" type="text" name="txtZipCodeFind">
+                        <input id="txtZipCodeFind" class="txtBox1" type="text" name="txtZipCodeFind">
                     </td>
                 </tr>
                 <tr>
@@ -203,9 +221,9 @@
                     <td class="tLeftColumn">Score Between </td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="txtScoreFromFind" class="txtBox" type="text" style="width: 60px;" name="txtScoreFromFind">
+                        <input id="txtScoreFromFind" class="txtBox1" type="text" style="width: 60px;" name="txtScoreFromFind">
                         &
-                        <input id="txtScoreToFind" class="txtBox" type="text" style="width: 60px;" name="txtScoreToFind">
+                        <input id="txtScoreToFind" class="txtBox1" type="text" style="width: 60px;" name="txtScoreToFind">
                     </td>
                 </tr>
                 <tr>
@@ -225,7 +243,7 @@
                     <td class="tLeftColumn">FULL TEXT SEARCH</td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="txtFullTextSearch" class="txtBox" type="text" style="width: 250px;" name="txtFullTextSearch">
+                        <input id="txtFullTextSearch" class="txtBox1" type="text" style="width: 250px;" name="txtFullTextSearch">
                     </td>
                 </tr>
                  <tr>
@@ -233,14 +251,29 @@
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
                         
-                        <input id="btnFind" class="txtBox" value="Find" type="submit" style="width: 100px; height:22px" name="btnFind">
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <input id="btnCancel" class="txtBox" value="Cancel"  type="button" style="width: 100px; height:22px" name="btnCancel">
-
-                    </td>
+                            </td>
                 </tr>
             </tbody>
         </table>
-    </div>
+  
+        <table style="float:left">
+            <tr>
+                <td>
+
+                </td>
+                <td>
+
+                     <input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height:28px" name="btnFind">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="btnCancel" class="txtBox1" value="Cancel"  type="button" style="width: 100px; height:28px" name="btnCancel">
+
+               
+
+                </td>
+            </tr>
+
+        </table>
+        
+          </div>
 
 </form>
