@@ -20,7 +20,7 @@
 @( Html.Telerik().Grid(Model).Name("PartnerGrid")
         .Columns(columns =>
         {
-            columns.Bound(o => o.internalID).Title("Internal ID").Width(100);
+            columns.Bound(o => o.internalID).Title("Internal ID").Width(100).Encoded(false);
             columns.Bound(o => o.PartnerName).Title("Partner Name").Width(400);
             columns.Bound(o => o.Contact).Title("Contact").Width(100);
             columns.Bound(o => o.phone).Title("Phone").Width(100);
@@ -42,8 +42,10 @@
 
 
         })
-        .Pageable(pager => pager.PageSize(13))
+        .DataKeys(keys=>keys.Add(o=>o.internalID))
+        .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
         .Sortable(sorting => sorting.Enabled(true))
+      
         .Scrollable(scrolling => scrolling
            .Enabled(true)
            .Height(380))

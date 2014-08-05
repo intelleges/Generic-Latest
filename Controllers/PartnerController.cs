@@ -998,9 +998,9 @@ namespace Generic.Controllers
 
             var objPartners = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
 
-
+            Session["partner"] = objPartners;
             TempData["partner"] = objPartners;
-            return RedirectToAction("FindPartnerResult");
+            return RedirectToAction("FindPartnerResult",objPartners);
         }
 
         public ActionResult FindPartnerResult()
@@ -1019,9 +1019,11 @@ namespace Generic.Controllers
 
 
 
+            List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
 
-
-            List<view_PartnerData> abc = (List<view_PartnerData>)TempData["partner"];
+            //List<view_PartnerData> abc = (List<view_PartnerData>)TempData["partner"];
+            //Session["partner"] 
+           
             return View(abc);
         }
         protected override void Dispose(bool disposing)
