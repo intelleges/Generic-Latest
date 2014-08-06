@@ -34,5 +34,11 @@ namespace Generic
         public string AccessCode { get; set; }
         public string status { get; set; }
         public int Expr1 { get; set; }
+        public Nullable<int> countryID { get; set; }
+        public int touchpointID { get; set; }
+        public int partnertypeID { get; set; }
+        public int groupID { get; set; }
+        public int statusID { get; set; }
+        public int campaign { get; set; }
     }
 }

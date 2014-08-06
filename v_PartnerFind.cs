@@ -30,5 +30,6 @@ namespace Generic
         public string accesscode { get; set; }
         public System.DateTime invitedDate { get; set; }
         public Nullable<System.DateTime> completedDate { get; set; }
+        public int touchpoint { get; set; }
     }
 }

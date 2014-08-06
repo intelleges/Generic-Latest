@@ -13336,5 +13336,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<view_PartnerData>("pr_dynamicFiltersPartner", mergeOption, tableParameter, argsListParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerStatusCountByTouchpoint_Result> pr_getPartnerStatusCountByTouchpoint(Nullable<int> touchpoint)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerStatusCountByTouchpoint_Result>("pr_getPartnerStatusCountByTouchpoint", touchpointParameter);
+        }
     }
 }

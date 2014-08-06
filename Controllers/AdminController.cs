@@ -144,6 +144,7 @@ namespace Generic.Controllers
         public virtual ActionResult Home()
         {
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(SessionSingleton.Touchpoint).ToList();
             var PTQ = "";
             //DataTable dt;
             try
@@ -160,21 +161,24 @@ namespace Generic.Controllers
             if (enterprise != null)
             {
                 ViewBag.enterpriseName = enterprise.description;
-
-                //pr_getStatusCountForReferenceByPTQ
-                List<pr_getStatusCountForReferenceByPTQ_Result> objCount = db.pr_getStatusCountForReferenceByPTQ(2073).ToList()
-                    ;
-                //pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
-                string pieChartData = "['Status','Count'],";
-                foreach (var data in objCount)
+                try
                 {
-                    pieChartData += "['" + data.status + "'," + data.total + "],";
+                    //pr_getStatusCountForReferenceByPTQ
+                  //  List<pr_getStatusCountForReferenceByPTQ_Result> objCount = db.pr_getStatusCountForReferenceByPTQ(ptq.FirstOrDefault().id).ToList();
+                    List<pr_getPartnerStatusCountByTouchpoint_Result> objCount = db.pr_getPartnerStatusCountByTouchpoint(SessionSingleton.Touchpoint).ToList();
+                    
+                    //pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
+                    string pieChartData = "['Status','Count'],";
+                    foreach (var data in objCount)
+                    {
+                        pieChartData += "['" + data.status + "'," + data.total + "],";
+                    }
+                    //  pieChartData += "['Total'," + objCount.total + "]";
+                    //pieChartData += "['Not Started'," + objCount.Not_Started + "]";
+
+                    ViewBag.pieChartData = pieChartData;
                 }
-                //  pieChartData += "['Total'," + objCount.total + "]";
-                //pieChartData += "['Not Started'," + objCount.Not_Started + "]";
-
-                ViewBag.pieChartData = pieChartData;
-
+                catch { }
 
             }
             if (PTQ != null)
