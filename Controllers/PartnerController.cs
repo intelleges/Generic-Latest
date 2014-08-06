@@ -953,16 +953,16 @@ namespace Generic.Controllers
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
             if (touchpoint != null)
-                arguments += "touchpoint=" + touchpoint + ";";
+                arguments += "touchpointID=" + touchpoint + ";";
             if (group != null)
-                arguments += "group=" + group + ";";
+                arguments += "groupID=" + group + ";";
             if (country != null)
-                arguments += "country=" + country + ";";
+                arguments += "countryID=" + country + ";";
             if (partnertype != null)
-                arguments += "partnertype=" + partnertype + ";";
+                arguments += "partnertypeID=" + partnertype + ";";
 
             if (partnerStatus != null)
-                arguments += "Status=" + partnerStatus + ";";
+                arguments += "StatusID=" + partnerStatus + ";";
 
 
             if (txtInternalIdFind != "")

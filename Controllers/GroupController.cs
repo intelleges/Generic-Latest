@@ -135,7 +135,19 @@ namespace Generic.Controllers
                 return Json(new { Data = group }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        //public ActionResult GetGroupByTouchpointName(string touchpointId)
+        //{
+        //    if (touchpointId == 0)
+        //    {
+        //        var group = db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(x => new { x.id, x.description }).ToList();
+        //        return Json(new { Data = group }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    else
+        //    {
+        //        var group = db.pr_getGroupByTouchpoint(touchpointId).Select(x => new { x.id, x.description }).ToList();
+        //        return Json(new { Data = group }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
         public ActionResult FindGroup()
         {
             ViewBag.Test = "Hi";

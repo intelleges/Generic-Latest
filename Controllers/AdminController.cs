@@ -335,10 +335,26 @@ namespace Generic.Controllers
         [Authorize]
         public virtual ActionResult DashboardPartners(int status, int group, int partnerType)
         {
-            var objptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnerType, SessionSingleton.Touchpoint).FirstOrDefault();
-            var objPartners = db.pr_getPartnerByPTQGroupStatus(objptq.id, group, status).ToList();
+           // var objptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnerType, SessionSingleton.Touchpoint).FirstOrDefault();
+           // var objPartners = db.pr_getPartnerByPTQGroupStatus(objptq.id, group, status).ToList();
 
-            return View(objPartners);
+            //return View(objPartners);
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
+            if (group != 0)
+                arguments += "groupID=" + group + ";";
+         
+            if (partnerType != 0)
+                arguments += "partnertypeID=" + partnerType + ";";
+
+            if (status != 0)
+                arguments += "StatusID=" + status + ";";
+            //var objPartners2 =   db.Database.ExecuteSqlCommand("Yourprocedure @param, @param1", param1, param2);
+
+            var objPartners = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+
+            Session["partner"] = objPartners;
+            TempData["partner"] = objPartners;
+            return RedirectToAction("FindPartnerResult","Partner");
         }
 
 
