@@ -1005,26 +1005,21 @@ namespace Generic.Controllers
 
         public ActionResult FindPartnerResult()
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
+            try
+            {
+                List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
+                return View(abc);
+            }
+            catch
+            {
+                return RedirectToAction("FindPartner");
+                
+            }
 
             //List<view_PartnerData> abc = (List<view_PartnerData>)TempData["partner"];
             //Session["partner"] 
            
-            return View(abc);
+            
         }
         protected override void Dispose(bool disposing)
         {

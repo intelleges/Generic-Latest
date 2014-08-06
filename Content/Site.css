@@ -769,3 +769,10 @@ tr.pager td {
     float:left;
     width:30%;
 }
+/*Popup CSS*/
+.esigncont {
+    color: #8cadb9;
+    font-family: Verdana,Geneva,sans-serif;
+    font-size: 13px;
+    text-align: right;
+}

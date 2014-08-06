@@ -15,6 +15,12 @@
     #modal {
         height: 489px;
     }
+    .ui-dialog {
+    width:99% !important;
+    left:0;
+    }
+
+  
 </style>
 
 @( Html.Telerik().Grid(Model).Name("PartnerGrid")
@@ -24,13 +30,15 @@
             columns.Bound(o => o.PartnerName).Title("Partner Name").Width(400);
             columns.Bound(o => o.Contact).Title("Contact").Width(100);
             columns.Bound(o => o.phone).Title("Phone").Width(100);
-            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200);
+            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="OpenManualAddModal('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>);
+           
             columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(200);
 
             columns.Bound(o => o.owner).Title("Owner").Width(100);
             columns.Bound(o => o.Country).Title("Country").Width(100);
             columns.Bound(o => o.city).Title("City").Width(100);
             columns.Bound(o => o.state).Title("State").Width(100);
+            
             columns.Bound(o => o.address).Title("Address").Width(200);
             columns.Bound(o => o.zipcode).Title("Zipcode").Width(100);
 
@@ -54,4 +62,32 @@
           
 
 )
+<div id="EmailDialog" title="Questionnaire Routing Form">
+    <p>Email dialog</p>
+</div>
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+<script type="text/javascript">
+    $(function () {
+        jQuery.noConflict();
+        $("#EmailDialog").dialog({
+            autoOpen: false
+        });
+       
+    });
+    function OpenEmailDialog(ac)
+    {
+        jQuery.noConflict();
+       
+        $.get("/WrongContact/Index", { accessCode:ac }, function (data) {
+         
+            $("#EmailDialog").html(data);
+            $("#EmailDialog").dialog({
+                width: 1200,
+                height: 1000,
+            });
+            $("#EmailDialog").dialog('open');
+        });
+    }
+</script>
 

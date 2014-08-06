@@ -216,7 +216,19 @@
             });
         }
 
+        //function OpenManualAddModalFullWidth(url) {
+        //    jQuery.noConflict();
+        //    $("#popup").dialog({
+        //        autoOpen: true,
+        //        modal: true,
+        //        height: 550,
+        //        width: 100%,
+        //        open: function () {
+        //            $("#modal").attr("src", url);
 
+        //        }
+        //    });
+        //}
 
         jQuery.noConflict();
         $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
@@ -268,7 +280,7 @@
         });
 
     </script>
-
+   
 
     @(Html.Telerik().ScriptRegistrar()
     .DefaultGroup(group => group
