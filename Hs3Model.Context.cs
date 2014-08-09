@@ -163,8 +163,10 @@ namespace Generic
         public DbSet<pptqGroup> pptqGroup { get; set; }
         public DbSet<pptqGroupType> pptqGroupType { get; set; }
         public DbSet<ptqGroup> ptqGroup { get; set; }
-        public DbSet<v_PartnerFind> v_PartnerFind { get; set; }
         public DbSet<view_PartnerData> view_PartnerData { get; set; }
+        public DbSet<v_PartnerFind> v_PartnerFind { get; set; }
+        public DbSet<view_GroupData> view_GroupData { get; set; }
+        public DbSet<view_PersonData> view_PersonData { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -13344,6 +13346,41 @@ namespace Generic
                 new ObjectParameter("touchpoint", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerStatusCountByTouchpoint_Result>("pr_getPartnerStatusCountByTouchpoint", touchpointParameter);
+        }
+    
+        public virtual int pr_dynamicFiltersPerson(string table, string argsList)
+        {
+            var tableParameter = table != null ?
+                new ObjectParameter("table", table) :
+                new ObjectParameter("table", typeof(string));
+    
+            var argsListParameter = argsList != null ?
+                new ObjectParameter("argsList", argsList) :
+                new ObjectParameter("argsList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_dynamicFiltersPerson", tableParameter, argsListParameter);
+        }
+    
+        public virtual int pr_dynamicFiltersGroup(string table, string argsList)
+        {
+            var tableParameter = table != null ?
+                new ObjectParameter("table", table) :
+                new ObjectParameter("table", typeof(string));
+    
+            var argsListParameter = argsList != null ?
+                new ObjectParameter("argsList", argsList) :
+                new ObjectParameter("argsList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_dynamicFiltersGroup", tableParameter, argsListParameter);
+        }
+    
+        public virtual ObjectResult<pr_getViewPartnerDataByPartner_Result> pr_getViewPartnerDataByPartner(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getViewPartnerDataByPartner_Result>("pr_getViewPartnerDataByPartner", idParameter);
         }
     }
 }

@@ -94,6 +94,10 @@ namespace Generic.Controllers
             }
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
             ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
+            ViewBag.state = new SelectList(db.state, "id", "name", partner.state);
+            ViewBag.country = new SelectList(db.country, "id", "name", partner.country);
+            //ViewBag.status = db.pr_getPartnerStatusAll().Where(x => x.id == partner.status).FirstOrDefault().description;
+            ViewBag.status = ((List<view_PartnerData>)Session["partner"]).Where(x => x.id == partner.id).FirstOrDefault().status;
             return View(partner);
         }
 
@@ -107,7 +111,8 @@ namespace Generic.Controllers
             {
                 db.Entry(partner).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { success = true });
+                //return RedirectToAction("Index");
             }
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
             ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
@@ -1000,7 +1005,7 @@ namespace Generic.Controllers
 
             Session["partner"] = objPartners;
             TempData["partner"] = objPartners;
-            return RedirectToAction("FindPartnerResult",objPartners);
+            return RedirectToAction("FindPartnerResult", objPartners);
         }
 
         public ActionResult FindPartnerResult()
@@ -1013,13 +1018,13 @@ namespace Generic.Controllers
             catch
             {
                 return RedirectToAction("FindPartner");
-                
+
             }
 
             //List<view_PartnerData> abc = (List<view_PartnerData>)TempData["partner"];
             //Session["partner"] 
-           
-            
+
+
         }
         protected override void Dispose(bool disposing)
         {

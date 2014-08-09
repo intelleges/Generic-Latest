@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9967287749084393b59eb2759d3608ea" Name="Diagram1" ZoomLevel="57">
+      <Diagram DiagramId="9967287749084393b59eb2759d3608ea" Name="Diagram1" ZoomLevel="101">
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.accessLevel" PointX="0.75" PointY="0.75" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.agency" PointX="3" PointY="35.875" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailAttachment" PointX="33" PointY="62.375" Width="1.5" IsExpanded="true" />
@@ -246,8 +246,10 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqGroup" Width="1.5" PointX="19.375" PointY="3.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqGroupType" Width="1.5" PointX="19.375" PointY="6.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.ptqGroup" Width="1.5" PointX="19.375" PointY="9.75" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.v_PartnerFind" Width="1.5" PointX="7.1037309631257" PointY="19.899432087270277" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PartnerData" Width="1.5" PointX="3.0518367807622244" PointY="2.7568238241396954" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.v_PartnerFind" Width="1.5" PointX="8.7861387845064236" PointY="11.886942377261326" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_GroupData" Width="1.5" PointX="11.381892615641418" PointY="19.568007567696277" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PersonData" Width="1.5" PointX="5.8211369224922436" PointY="31.90072286124375" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

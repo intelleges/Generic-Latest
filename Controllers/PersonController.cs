@@ -669,6 +669,85 @@ Thanks in advance.<br>
         }
 
 
+        [HttpPost]
+        public ActionResult FindPerson(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode)
+        {
+            //dbo.pr_dynamicFilters 'partner', ' Campaign=1009; Group=20;Country=2; Type=4'
+            //var objPartners = db.pr_dynamicFiltersPartner("view_PartnerData", "name=well;enterprise=3");
+
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
+
+            //if (touchpoint != null)
+            //    arguments += "touchpointID=" + touchpoint + ";";
+            //if (group != null)
+            //    arguments += "groupID=" + group + ";";
+            //if (country != null)
+            //    arguments += "countryID=" + country + ";";
+            //if (partnertype != null)
+            //    arguments += "partnertypeID=" + partnertype + ";";
+
+            //if (partnerStatus != null)
+            //    arguments += "StatusID=" + partnerStatus + ";";
+
+
+            //if (txtInternalIdFind != "")
+            //    arguments += "InternalId=" + txtInternalIdFind + ";";
+
+
+            ////string , string , string , string , string , string )
+            //if (txtDunsNumberFind != "")
+            //    arguments += "DunsNumber=" + txtDunsNumberFind + ";";
+            //if (txtNameFind != "")
+            //    arguments += "Name=" + txtNameFind + ";";
+            //if (txtFederalIdFind != "")
+            //    arguments += "FederalId=" + txtFederalIdFind + ";";
+
+            //if (accesscode != "")
+            //    arguments += "accesscode=" + accesscode + ";";
+
+            //if (txtContactEmailFind != "")
+            //    arguments += "ContactEmail=" + txtContactEmailFind + ";";
+            //if (txtHROEmailFind != "")
+            //    arguments += "HROEmail=" + txtHROEmailFind + ";";
+            //if (txtScoreFromFind != "")
+            //    arguments += "ScoreFrom=" + txtScoreFromFind + ";";
+            //if (txtScoreToFind != "")
+            //    arguments += "ScoreTo=" + txtScoreToFind + ";";
+            //if (txtAddedFromFind != "")
+            //    arguments += "AddedFrom=" + txtAddedFromFind + ";";
+            //if (txtAddedToFind != "")
+            //    arguments += "AddedTo=" + txtAddedToFind + ";";
+            //if (txtFullTextSearch != "")
+            //    arguments += "FullTextSearch=" + txtFullTextSearch + ";";
+            //var objPartners2 =   db.Database.ExecuteSqlCommand("Yourprocedure @param, @param1", param1, param2);
+
+            var objPartners = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicFiltersPerson  'view_PersonData' , '" + arguments + "'").ToList();
+
+            Session["person"] = objPartners;
+            TempData["person"] = objPartners;
+            return RedirectToAction("FindPersonResult", objPartners);
+        }
+
+        public ActionResult FindPersonResult()
+        {
+            try
+            {
+                List<view_PersonData> abc = (List<view_PersonData>)Session["person"];
+                return View(abc);
+            }
+            catch
+            {
+                return RedirectToAction("FindPartner");
+
+            }
+
+            //List<view_PartnerData> abc = (List<view_PartnerData>)TempData["partner"];
+            //Session["partner"] 
+
+
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

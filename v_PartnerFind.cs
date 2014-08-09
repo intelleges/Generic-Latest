@@ -15,7 +15,7 @@ namespace Generic
     public partial class v_PartnerFind
     {
         public Nullable<int> enterprise { get; set; }
-        public int campaign { get; set; }
+        public int touchpoint { get; set; }
         public string group { get; set; }
         public string partnertype { get; set; }
         public string internalID { get; set; }
@@ -30,6 +30,5 @@ namespace Generic
         public string accesscode { get; set; }
         public System.DateTime invitedDate { get; set; }
         public Nullable<System.DateTime> completedDate { get; set; }
-        public int touchpoint { get; set; }
     }
 }

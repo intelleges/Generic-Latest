@@ -33,96 +33,109 @@
 
 <h2>Find Person</h2>
 
+<form id="FindpersonForm" method="post" enctype="multipart/form-data">
+    <div id="ctl00_contentMain_panelFind">
+        <table width="100%" border="0">
+            <tbody>
+                <tr>
+                    <td class="tLeftColumn">INTERNAL ID</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="ctl00_contentMain_txtInternalIdFind" class="txtBox" type="text" name="ctl00$contentMain$txtInternalIdFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">TITLE</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="ctl00_contentMain_txtTitleFind" class="txtBox" type="text" name="ctl00$contentMain$txtTitleFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">FIRST NAME</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="ctl00_contentMain_txtFirstNameFind" class="txtBox" type="text" name="ctl00$contentMain$txtFirstNameFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">EMAIL</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="ctl00_contentMain_txtEmailFind" class="txtBox" type="text" name="ctl00$contentMain$txtEmailFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">LAST NAME</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="ctl00_contentMain_txtLastNameFind" class="txtBox" type="text" name="ctl00$contentMain$txtLastNameFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">PHONE</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="ctl00_contentMain_txtPhoneFind" class="txtBox" type="text" name="ctl00$contentMain$txtPhoneFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">ROLE</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <select id="ctl00_contentMain_ddlRoleFind" class="dropDown" name="ctl00$contentMain$ddlRoleFind">
+                            <option value=""></option>
+                            <option value="2">Corporate User</option>
+                            <option value="3">Business Leader</option>
+                            <option value="4">Sponsor</option>
+                            <option value="5">Sector Owner</option>
+                            <option value="11">Buyer</option>
+                            <option value="12">Non-Buyer</option>
+                            <option value="22">ne</option>
+                            <option value="23">Test</option>
+                            <option value="24">test</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">CAMPAIGN</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <select id="ctl00_contentMain_ddlCampaignFind" class="dropDown" name="ctl00$contentMain$ddlCampaignFind">
+                            <option value=""></option>
+                            <option value="27">2013 C-TPAT</option>
+                            <option value="28">2013 Foreign MFG</option>
+                            <option value="26">2013 PIP</option>
+                            <option value="29">Foreign Manufacturer A</option>
+                            <option value="24">Honeywell Site 2013</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">FULL TEXT SEARCH </td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="ctl00_contentMain_txtFullTextSearch" class="txtBoxDay" type="text" style="width: 250px;" name="ctl00$contentMain$txtFullTextSearch">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="advancedSearch" colspan="3">
+                        <a id="ctl00_contentMain_linkAdvanceSearch" style="color: Black;" href="#">ADVANCED SEARCH</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="float: left">
+            <tr>
+                <td></td>
+                <td>
 
-<div id="ctl00_contentMain_panelFind">
-    <table width="100%" border="0">
-        <tbody>
-            <tr>
-                <td class="tLeftColumn">INTERNAL ID</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="ctl00_contentMain_txtInternalIdFind" class="txtBox" type="text" name="ctl00$contentMain$txtInternalIdFind">
+                    <input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height: 28px" name="btnFind">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="btnCancel" class="txtBox1" value="Cancel" type="button" style="width: 100px; height: 28px" name="btnCancel">
                 </td>
             </tr>
-            <tr>
-                <td class="tLeftColumn">TITLE</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="ctl00_contentMain_txtTitleFind" class="txtBox" type="text" name="ctl00$contentMain$txtTitleFind">
-                </td>
-            </tr>
-            <tr>
-                <td class="tLeftColumn">FIRST NAME</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="ctl00_contentMain_txtFirstNameFind" class="txtBox" type="text" name="ctl00$contentMain$txtFirstNameFind">
-                </td>
-            </tr>
-            <tr>
-                <td class="tLeftColumn">EMAIL</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="ctl00_contentMain_txtEmailFind" class="txtBox" type="text" name="ctl00$contentMain$txtEmailFind">
-                </td>
-            </tr>
-            <tr>
-                <td class="tLeftColumn">LAST NAME</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="ctl00_contentMain_txtLastNameFind" class="txtBox" type="text" name="ctl00$contentMain$txtLastNameFind">
-                </td>
-            </tr>
-            <tr>
-                <td class="tLeftColumn">PHONE</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="ctl00_contentMain_txtPhoneFind" class="txtBox" type="text" name="ctl00$contentMain$txtPhoneFind">
-                </td>
-            </tr>
-            <tr>
-                <td class="tLeftColumn">ROLE</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <select id="ctl00_contentMain_ddlRoleFind" class="dropDown" name="ctl00$contentMain$ddlRoleFind">
-                        <option value=""></option>
-                        <option value="2">Corporate User</option>
-                        <option value="3">Business Leader</option>
-                        <option value="4">Sponsor</option>
-                        <option value="5">Sector Owner</option>
-                        <option value="11">Buyer</option>
-                        <option value="12">Non-Buyer</option>
-                        <option value="22">ne</option>
-                        <option value="23">Test</option>
-                        <option value="24">test</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="tLeftColumn">CAMPAIGN</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <select id="ctl00_contentMain_ddlCampaignFind" class="dropDown" name="ctl00$contentMain$ddlCampaignFind">
-                        <option value=""></option>
-                        <option value="27">2013 C-TPAT</option>
-                        <option value="28">2013 Foreign MFG</option>
-                        <option value="26">2013 PIP</option>
-                        <option value="29">Foreign Manufacturer A</option>
-                        <option value="24">Honeywell Site 2013</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="tLeftColumn">FULL TEXT SEARCH </td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="ctl00_contentMain_txtFullTextSearch" class="txtBoxDay" type="text" style="width: 250px;" name="ctl00$contentMain$txtFullTextSearch">
-                </td>
-            </tr>
-            <tr>
-                <td class="advancedSearch" colspan="3">
-                    <a id="ctl00_contentMain_linkAdvanceSearch" style="color: Black;" href="#">ADVANCED SEARCH</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+
+        </table>
+    </div>
+</form>
