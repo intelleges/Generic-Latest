@@ -32,7 +32,7 @@
         <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
         <li><a href="javascript:openRemovePopup()">Remove</a></li>
         <li><a href="javascript:openArchivePopup()">Archive</a></li>
-        <li><a href="javascript:openViewDetailPopup()">View Detail</a></li>
+        <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
         <li><a href="javascript:openCompletePopup()">Complete</a></li>
     </ul>
 </div>
@@ -81,6 +81,7 @@
 
 
 )
+
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -123,12 +124,15 @@
             autoOpen: false
         });
 
+       
     });
+
     function CloseMe() {
         $("#genericPopup").dialog('close');
-        $("#PartnerGrid").data("kendoGrid").read();
-
+        $(".t-icon .t-refresh").trigger('click');
     }
+
+
     function OpenEmailDialog(ac) {
         jQuery.noConflict();
 
@@ -178,9 +182,12 @@
         $("#genericPopup").dialog('open');
     }
 
-    function openViewDetailPopup() {
-        $("#genericPopup").html("<h1>Your View Detail content goes here</h1>");
-        $("#genericPopup").dialog({ height: 500, title: "View Detail" });
+    function openViewDetailPopup(id) {
+        $("#genericPopup").html("<p>Loading Data...</p>");
+        $.get("/Partner/Details/" + id, function (data) {
+            $("#genericPopup").html(data);
+        });
+        $("#genericPopup").dialog({ height: 600, title: "View Detail" });
         $("#genericPopup").dialog('open');
     }
 

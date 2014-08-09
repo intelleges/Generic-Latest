@@ -109,8 +109,10 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(partner).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(partner).State = EntityState.Modified;
+                //db.SaveChanges();
+                db.pr_modifyPartner(partner.id, partner.enterprise, partner.internalID, partner.name, partner.address1, partner.address2, partner.city, partner.state, partner.province, partner.zipcode, partner.country, partner.phone, partner.fax, partner.firstName, partner.lastName, partner.title, partner.email, partner.dunsNumber, partner.federalID, partner.status, partner.loadHistory, partner.owner, partner.author, partner.dateApproved, partner.active, partner.lastModified);
+
                 return Json(new { success = true });
                 //return RedirectToAction("Index");
             }
@@ -1026,6 +1028,7 @@ namespace Generic.Controllers
 
 
         }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
