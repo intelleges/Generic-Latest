@@ -82,6 +82,23 @@ namespace Generic.Controllers
             return View(partner);
         }
 
+
+        public ActionResult Archive(int id)
+        {
+            db.pr_archivePartner(id);
+            //if (ModelState.IsValid)
+            //{
+            //    //db.Entry(partner).State = EntityState.Modified;
+            //    //db.SaveChanges();
+            //    db.pr_modifyPartner(partner.id, partner.enterprise, partner.internalID, partner.name, partner.address1, partner.address2, partner.city, partner.state, partner.province, partner.zipcode, partner.country, partner.phone, partner.fax, partner.firstName, partner.lastName, partner.title, partner.email, partner.dunsNumber, partner.federalID, partner.status, partner.loadHistory, partner.owner, partner.author, partner.dateApproved, partner.active, partner.lastModified);
+
+            //    return Json(new { success = true });
+            //    //return RedirectToAction("Index");
+            //}
+            //ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
+            //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
+            return Json(new { success = true },JsonRequestBehavior.AllowGet);
+        }
         //
         // GET: /Partner/Edit/5
 
@@ -111,7 +128,7 @@ namespace Generic.Controllers
             {
                 //db.Entry(partner).State = EntityState.Modified;
                 //db.SaveChanges();
-                db.pr_modifyPartner(partner.id, partner.enterprise, partner.internalID, partner.name, partner.address1, partner.address2, partner.city, partner.state, partner.province, partner.zipcode, partner.country, partner.phone, partner.fax, partner.firstName, partner.lastName, partner.title, partner.email, partner.dunsNumber, partner.federalID, partner.status, partner.loadHistory, partner.owner, partner.author, partner.dateApproved, partner.active, partner.lastModified);
+                db.pr_modifyPartner(partner.id, Generic.Helpers.CurrentInstance.EnterpriseID, partner.internalID, partner.name, partner.address1, partner.address2, partner.city, partner.state, partner.province, partner.zipcode, partner.country, partner.phone, partner.fax, partner.firstName, partner.lastName, partner.title, partner.email, partner.dunsNumber, partner.federalID, partner.status, partner.loadHistory, partner.owner, partner.author, partner.dateApproved, partner.active, partner.lastModified);
 
                 return Json(new { success = true });
                 //return RedirectToAction("Index");
@@ -1003,18 +1020,21 @@ namespace Generic.Controllers
                 arguments += "FullTextSearch=" + txtFullTextSearch + ";";
             //var objPartners2 =   db.Database.ExecuteSqlCommand("Yourprocedure @param, @param1", param1, param2);
 
-            var objPartners = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+          
 
-            Session["partner"] = objPartners;
-            TempData["partner"] = objPartners;
-            return RedirectToAction("FindPartnerResult", objPartners);
+           
+
+            Session["partnersearch"] = arguments;
+
+            return RedirectToAction("FindPartnerResult");
         }
 
         public ActionResult FindPartnerResult()
         {
             try
             {
-                List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
+                 Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + Session["partnersearch"].ToString() + "'").ToList();
+                 List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
                 return View(abc);
             }
             catch

@@ -30,8 +30,8 @@
 <div class="display_menu" style="display: none;">
     <ul>
         <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-        <li><a href="javascript:openRemovePopup(@item.id)">Remove</a></li>
-        <li><a href="javascript:openArchivePopup()">Archive</a></li>
+        <li><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
+        <li><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
         <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
         <li><a href="javascript:openCompletePopup()">Complete</a></li>
     </ul>
@@ -170,16 +170,63 @@
         $("#genericPopup").dialog('open');
     }
 
-    function openRemovePopup() {
-        $("#genericPopup").html("<h1>Your Remove content goes here</h1>");
-        $("#genericPopup").dialog({ height: 500, title: "Remove" });
-        $("#genericPopup").dialog('open');
+    function openRemovePopup(id,internalid,name) {
+       
+
+
+        alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
+        });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to Remove "+internalid+" : "+name+". Are you sure you want to do this?", function (e) {
+            if (e) {
+                // Click no
+                    } else {
+                        // click yes
+               
+                $.get("/Partner/Archive/" + id, function (data) {
+                    // $(".t-icon .t-refresh").trigger('click');
+                    window.location.replace(window.location.href);
+                });
+
+                    }
+                });
+
+
     }
 
-    function openArchivePopup() {
-        $("#genericPopup").html("<h1>Your Archive content goes here</h1>");
-        $("#genericPopup").dialog({ height: 500, title: "Archive" });
-        $("#genericPopup").dialog('open');
+    
+    function openArchivePopup(id, internalid, name) {
+
+
+
+        alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
+        });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to Archive " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+            if (e) {
+                // Click no
+            } else {
+                // click yes
+
+                $.get("/Partner/Archive/" + id, function (data) {
+                    // $(".t-icon .t-refresh").trigger('click');
+                    window.location.replace(window.location.href);
+                });
+
+            }
+        });
+
+
     }
 
     function openViewDetailPopup(id) {
