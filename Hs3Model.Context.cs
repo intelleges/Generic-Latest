@@ -167,8 +167,8 @@ namespace Generic
         public DbSet<v_PartnerFind> v_PartnerFind { get; set; }
         public DbSet<view_GroupData> view_GroupData { get; set; }
         public DbSet<view_ProtocolData> view_ProtocolData { get; set; }
-        public DbSet<view_TouchpointData> view_TouchpointData { get; set; }
         public DbSet<view_QuestionnaireData> view_QuestionnaireData { get; set; }
+        public DbSet<view_TouchpointData> view_TouchpointData { get; set; }
         public DbSet<view_PersonData> view_PersonData { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
