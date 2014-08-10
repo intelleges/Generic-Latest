@@ -249,7 +249,10 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PartnerData" Width="1.5" PointX="3.0518367807622244" PointY="2.7568238241396954" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.v_PartnerFind" Width="1.5" PointX="8.7861387845064236" PointY="11.886942377261326" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_GroupData" Width="1.5" PointX="11.381892615641418" PointY="19.568007567696277" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PersonData" Width="1.5" PointX="5.8211369224922436" PointY="31.90072286124375" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_ProtocolData" Width="1.5" PointX="6.70521145998743" PointY="16.868197016822265" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_TouchpointData" Width="1.5" PointX="8.6813057179941353" PointY="27.577457530227239" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_QuestionnaireData" Width="1.5" PointX="9.2306223312535423" PointY="27.650872198702242" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PersonData" Width="1.5" PointX="2.2162862430402481" PointY="18.202427723539262" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -26,14 +26,14 @@
         .Columns(columns =>
         {
             columns.Bound(o => o.internalID).Title("Internal ID").Width(100).Encoded(false);
-            columns.Bound(o => o.firstname).Title("Firstname").Width(400);
-            columns.Bound(o => o.lastname).Title("Lastname").Width(400);
+            columns.Bound(o => o.firstname).Title("Firstname").Width(200);
+            columns.Bound(o => o.lastname).Title("Lastname").Width(200);
             columns.Bound(o => o.email).Title("Email").Width(100);
 
             columns.Bound(o => o.State).Title("State").Width(100);
 
             columns.Bound(o => o.Country).Title("Country").Width(200);
-            columns.Bound(o => o.Role).Title("Role").Width(100);
+            //columns.Bound(o => o.Role).Title("Role").Width(100);
 
         })
         .DataKeys(keys => keys.Add(o => o.internalID))

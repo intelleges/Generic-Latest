@@ -1681,6 +1681,15 @@
     <Compile Include="view_PersonData.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="view_ProtocolData.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_QuestionnaireData.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_TouchpointData.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="v_PartnerFind.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2746,6 +2755,10 @@
     <EmbeddedResource Include="Views\SystemInfo\FindSystemInfo.cshtml" />
     <EmbeddedResource Include="Views\Partner\FindPartnerResult.cshtml" />
     <Content Include="Views\Person\FindPersonResult.cshtml" />
+    <Content Include="Views\Group\FindGroupResult.cshtml" />
+    <Content Include="Views\Protocol\FindProtocolResult.cshtml" />
+    <Content Include="Views\Questionnaire\FindQuestionnaireResult.cshtml" />
+    <Content Include="Views\Touchpoint\FindTouchpointResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

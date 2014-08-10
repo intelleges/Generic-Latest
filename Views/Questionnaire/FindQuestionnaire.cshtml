@@ -9,7 +9,8 @@
     ViewBag.Title = "Find Questionnaire";
 }
 <style>
-    .dropDown {
+    .dropDown
+    {
         width: 210px;
         border-style: inset;
         border-left-width: 2px;
@@ -19,7 +20,8 @@
         font-family: Arial;
     }
 
-    .txtBox {
+    .txtBox
+    {
         width: 205px;
         border-style: inset;
         border-left-width: 2px;
@@ -30,80 +32,94 @@
     }
 </style>
 <h2>Find Questionnaire</h2>
+<form id="FindpersonForm" method="post" enctype="multipart/form-data">
+    <div id="panelFind">
+        <table width="100%" border="0">
+            <tbody>
+                <tr>
+                    <td class="tLeftColumn">TITLE</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtTitleFind" class="txtBox" type="text" name="ctl00$contentMain$txtTitleFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">DESCRIPTION</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtDescriptionFind" class="txtBox" type="text" name="ctl00$contentMain$txtDescriptionFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">CAMPAIGN</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <select id="ddlCampaignFind" class="dropDown" name="ctl00$contentMain$ddlCampaignFind">
+                            <option value="0"></option>
+                            <option value="27">2013 C-TPAT</option>
+                            <option value="28">2013 Foreign MFG</option>
+                            <option value="26">2013 PIP</option>
+                            <option value="29">Foreign Manufacturer A</option>
+                            <option value="24">Honeywell Site 2013</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">PROVIDER TYPE</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <select id="ddlProviderTypeFind" class="dropDown" name="ctl00$contentMain$ddlProviderTypeFind">
+                            <option value="0"></option>
+                            <option value="1">Customer</option>
+                            <option value="2">Site</option>
+                            <option value="3">Supplier</option>
+                            <option value="4">Transport</option>
+                            <option value="5">Warehouse</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">LETTER</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <select id="ddlLetterFind" class="dropDown" name="ctl00$contentMain$ddlLetterFind">
+                            <option value="0"></option>
+                            <option value="3">Honeywell__Customer</option>
+                            <option value="4">Security Self-Assessment Profile </option>
+                            <option value="5">3rd Party Import Site</option>
+                            <option value="6">Customer Welcome Letter</option>
+                            <option value="7">Letter A</option>
+                            <option value="8"></option>
+                            <option value="9"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">FULL TEXT SEARCH </td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtFullTextSearch" class="txtBoxDay" type="text" style="width: 250px;" name="ctl00$contentMain$txtFullTextSearch">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="advancedSearch" colspan="3">
+                        <a id="linkAdvanceSearch" style="color: Black;" href="#">ADVANCED SEARCH</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="float: left">
+            <tr>
+                <td></td>
+                <td>
 
-<div id="panelFind">
-    <table width="100%" border="0">
-        <tbody>
-            <tr>
-                <td class="tLeftColumn">TITLE</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="txtTitleFind" class="txtBox" type="text" name="ctl00$contentMain$txtTitleFind">
+                    <input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height: 28px" name="btnFind">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="btnCancel" class="txtBox1" value="Cancel" type="button" style="width: 100px; height: 28px" name="btnCancel">
                 </td>
             </tr>
-            <tr>
-                <td class="tLeftColumn">DESCRIPTION</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="txtDescriptionFind" class="txtBox" type="text" name="ctl00$contentMain$txtDescriptionFind">
-                </td>
-            </tr>
-            <tr>
-                <td class="tLeftColumn">CAMPAIGN</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <select id="ddlCampaignFind" class="dropDown" name="ctl00$contentMain$ddlCampaignFind">
-                        <option value="0"></option>
-                        <option value="27">2013 C-TPAT</option>
-                        <option value="28">2013 Foreign MFG</option>
-                        <option value="26">2013 PIP</option>
-                        <option value="29">Foreign Manufacturer A</option>
-                        <option value="24">Honeywell Site 2013</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="tLeftColumn">PROVIDER TYPE</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <select id="ddlProviderTypeFind" class="dropDown" name="ctl00$contentMain$ddlProviderTypeFind">
-                        <option value="0"></option>
-                        <option value="1">Customer</option>
-                        <option value="2">Site</option>
-                        <option value="3">Supplier</option>
-                        <option value="4">Transport</option>
-                        <option value="5">Warehouse</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="tLeftColumn">LETTER</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <select id="ddlLetterFind" class="dropDown" name="ctl00$contentMain$ddlLetterFind">
-                        <option value="0"></option>
-                        <option value="3">Honeywell__Customer</option>
-                        <option value="4">Security Self-Assessment Profile </option>
-                        <option value="5">3rd Party Import Site</option>
-                        <option value="6">Customer Welcome Letter</option>
-                        <option value="7">Letter A</option>
-                        <option value="8"></option>
-                        <option value="9"></option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="tLeftColumn">FULL TEXT SEARCH </td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="txtFullTextSearch" class="txtBoxDay" type="text" style="width: 250px;" name="ctl00$contentMain$txtFullTextSearch">
-                </td>
-            </tr>
-            <tr>
-                <td class="advancedSearch" colspan="3">
-                    <a id="linkAdvanceSearch" style="color: Black;" href="#">ADVANCED SEARCH</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+
+        </table>
+    </div>
+</form>
+

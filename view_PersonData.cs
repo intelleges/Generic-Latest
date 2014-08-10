@@ -25,9 +25,7 @@ namespace Generic
         public Nullable<int> Default_Touchpoint { get; set; }
         public Nullable<int> personStatusID { get; set; }
         public string Person_Status { get; set; }
-        public Nullable<int> groupID { get; set; }
-        public string Group { get; set; }
-        public int roleID { get; set; }
-        public string Role { get; set; }
+        public int Group_Count { get; set; }
+        public int Role_Count { get; set; }
     }
 }
