@@ -136,7 +136,7 @@
     function OpenEmailDialog(ac) {
         jQuery.noConflict();
 
-        $.get("/WrongContact/Index", { accessCode: ac }, function (data) {
+        $.get("@Url.Content("~/WrongContact/Index")", { accessCode: ac }, function (data) {
 
             $("#EmailDialog").html(data);
             $("#EmailDialog").dialog({
@@ -162,7 +162,7 @@
     });
 
     function openEditPopup(id) {
-        $.get("/Partner/Edit/" + id, function (data) {
+        $.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
             $("#genericPopup").html(data);
         });
 
@@ -188,7 +188,7 @@
                     } else {
                         // click yes
                
-                $.get("/Partner/Archive/" + id, function (data) {
+                $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
                     // $(".t-icon .t-refresh").trigger('click');
                     window.location.replace(window.location.href);
                 });
@@ -218,7 +218,7 @@
             } else {
                 // click yes
 
-                $.get("/Partner/Archive/" + id, function (data) {
+                $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
                     // $(".t-icon .t-refresh").trigger('click');
                     window.location.replace(window.location.href);
                 });
@@ -231,7 +231,7 @@
 
     function openViewDetailPopup(id) {
         $("#genericPopup").html("<p>Loading Data...</p>");
-        $.get("/Partner/Details/" + id, function (data) {
+        $.get("@Url.Content("~/Partner/Details/")" + id, function (data) {
             $("#genericPopup").html(data);
         });
         $("#genericPopup").dialog({ height: 600, title: "View Detail" });
