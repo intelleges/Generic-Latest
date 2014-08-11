@@ -47,6 +47,48 @@ namespace Generic.Controllers
         public virtual ActionResult Details(int id = 0)
         {
             partner partner = db.pr_getPartner(id).FirstOrDefault();
+           // List<country> objCountries = db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+
+           
+
+            try
+            {
+                ViewBag.CoutryName = db.pr_getCountry(partner.country).FirstOrDefault().name;
+            }
+            catch { }
+
+            try
+            {
+                ViewBag.StateName = db.pr_getState(partner.state).FirstOrDefault().name;
+            }
+            catch { }
+
+            try
+            {
+                var owner = db.pr_getPerson(partner.owner).FirstOrDefault();
+                ViewBag.OwnerName = owner.firstName + " " + owner.lastName;
+            }
+            catch { }
+
+            try
+            {
+                var author = db.pr_getPerson(partner.author).FirstOrDefault();
+                ViewBag.AuthorName = author.firstName + " " + author.lastName;
+            }
+            catch { }
+            try
+            {
+                PartnerStatus status = (PartnerStatus)partner.status;
+
+                ViewBag.StatusName = status ;
+            }
+            catch { }
+
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";partnerID="+partner.id+";";
+            List<view_EventNotificationData> objevents = db.Database.SqlQuery<view_EventNotificationData>("EXEC pr_dynamicFiltersEventNotification  'view_EventNotificationData' , '" + arguments + "'").ToList();
+
+            ViewBag.events = objevents;
+
             if (partner == null)
             {
                 return HttpNotFound();

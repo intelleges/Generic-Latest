@@ -33,7 +33,7 @@
         <li><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
         <li><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
         <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-        <li><a href="javascript:openCompletePopup()">Complete</a></li>
+        <li><a href="javascript:openCompletePopup(@item.AccessCode)">Complete</a></li>
     </ul>
 </div>
 </text>);
@@ -124,6 +124,9 @@
             autoOpen: false
         });
 
+        $('#popup').bind('dialogclose', function (event) {
+            window.location.replace(window.location.href);
+        });
        
     });
 
@@ -133,7 +136,7 @@
 
         window.location.replace(window.location.href);
     }
-
+   
 
     function OpenEmailDialog(ac) {
         jQuery.noConflict();
@@ -240,9 +243,12 @@
         $("#genericPopup").dialog('open');
     }
 
-    function openCompletePopup() {
-        $("#genericPopup").html("<h1>Your Complete content goes here</h1>");
-        $("#genericPopup").dialog({ height: 500, title: "Complete" });
+    function openCompletePopup(accesscode) {
+        $("#genericPopup").html("<p>Loading Data...</p>");
+        $.get("@Url.Content("~/Registration?Accesscode=")" + accesscode, function (data) {
+             $("#genericPopup").html(data);
+         });
+        $("#genericPopup").dialog({ height: 600, title: "Complete" });
         $("#genericPopup").dialog('open');
     }
 

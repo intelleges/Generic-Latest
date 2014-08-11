@@ -219,6 +219,19 @@
       [v_PartnerFind].[completedDate] AS [completedDate]
       FROM [dbo].[v_PartnerFind] AS [v_PartnerFind]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="view_EventNotificationData" EntityType="hs3MVCMTQa2Model.Store.view_EventNotificationData" store:Type="Views" store:Schema="dbo" store:Name="view_EventNotificationData">
+            <DefiningQuery>SELECT 
+      [view_EventNotificationData].[enterprise] AS [enterprise], 
+      [view_EventNotificationData].[partnerID] AS [partnerID], 
+      [view_EventNotificationData].[mailtype] AS [mailtype], 
+      [view_EventNotificationData].[description] AS [description], 
+      [view_EventNotificationData].[Date_Sent] AS [Date_Sent], 
+      [view_EventNotificationData].[partner] AS [partner], 
+      [view_EventNotificationData].[partnertypetouchpointquestionnaire] AS [partnertypetouchpointquestionnaire], 
+      [view_EventNotificationData].[timestamp] AS [timestamp], 
+      [view_EventNotificationData].[event] AS [event]
+      FROM [dbo].[view_EventNotificationData] AS [view_EventNotificationData]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="view_GroupData" EntityType="hs3MVCMTQa2Model.Store.view_GroupData" store:Type="Views" store:Schema="dbo" store:Name="view_GroupData">
             <DefiningQuery>SELECT 
       [view_GroupData].[enterprise] AS [enterprise], 
@@ -2649,6 +2662,27 @@
           <Property Name="accesscode" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="invitedDate" Type="date" Nullable="false" />
           <Property Name="completedDate" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_EventNotificationData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="view_EventNotificationData">
+          <Key>
+            <PropertyRef Name="partnerID" />
+            <PropertyRef Name="mailtype" />
+            <PropertyRef Name="Date_Sent" />
+            <PropertyRef Name="partner" />
+            <PropertyRef Name="partnertypetouchpointquestionnaire" />
+          </Key>
+          <Property Name="enterprise" Type="int" />
+          <Property Name="partnerID" Type="int" Nullable="false" />
+          <Property Name="mailtype" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+          <Property Name="Date_Sent" Type="date" Nullable="false" />
+          <Property Name="partner" Type="int" Nullable="false" />
+          <Property Name="partnertypetouchpointquestionnaire" Type="int" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" />
+          <Property Name="event" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_GroupData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -5252,6 +5286,10 @@
           <Parameter Name="table" Type="nvarchar" Mode="In" />
           <Parameter Name="argsList" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="pr_dynamicFiltersEventNotification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="table" Type="nvarchar" Mode="In" />
+          <Parameter Name="argsList" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="pr_dynamicFiltersGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="table" Type="nvarchar" Mode="In" />
           <Parameter Name="argsList" Type="nvarchar(max)" Mode="In" />
@@ -7505,6 +7543,10 @@
         </Function>
         <Function Name="xx_getTelerikBoundColumnSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tablename" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="xx_updateMenuArchiveRestoreRemove" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="action" Type="varchar" Mode="In" />
+          <Parameter Name="entity" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_addCustomizedLSMWReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="honeywellBAA">
           <Parameter Name="partnumberSiteZcodePPTQ" Type="int" Mode="In" />
@@ -11460,6 +11502,15 @@
             <Parameter Name="argsList" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="view_PersonData" EntityType="hs3MVCMTQa2Model.view_PersonData" />
+          <EntitySet Name="view_EventNotificationData" EntityType="hs3MVCMTQa2Model.view_EventNotificationData" />
+          <FunctionImport Name="pr_dynamicFiltersEventNotification">
+            <Parameter Name="table" Mode="In" Type="String" />
+            <Parameter Name="argsList" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="xx_updateMenuArchiveRestoreRemove" ReturnType="Collection(hs3MVCMTQa2Model.xx_updateMenuArchiveRestoreRemove_Result)">
+            <Parameter Name="action" Mode="In" Type="String" />
+            <Parameter Name="entity" Mode="In" Type="String" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -18267,6 +18318,34 @@
           <Property Type="Int32" Name="Group_Count" Nullable="false" />
           <Property Type="Int32" Name="Role_Count" Nullable="false" />
         </EntityType>
+        <EntityType Name="view_EventNotificationData">
+          <Key>
+            <PropertyRef Name="mailtype" />
+            <PropertyRef Name="Date_Sent" />
+            <PropertyRef Name="partner" />
+            <PropertyRef Name="partnertypetouchpointquestionnaire" />
+            <PropertyRef Name="partnerID" />
+          </Key>
+          <Property Type="Int32" Name="enterprise" />
+          <Property Type="Int32" Name="mailtype" Nullable="false" />
+          <Property Type="String" Name="description" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="Date_Sent" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="Int32" Name="partnertypetouchpointquestionnaire" Nullable="false" />
+          <Property Type="DateTime" Name="timestamp" Precision="3" />
+          <Property Type="String" Name="event" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="partnerID" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="xx_updateMenuArchiveRestoreRemove_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="parentid" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="accesslevel" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -23830,6 +23909,36 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="view_EventNotificationData">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_EventNotificationData">
+              <MappingFragment StoreEntitySet="view_EventNotificationData">
+                <ScalarProperty Name="partnerID" ColumnName="partnerID" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="partnertypetouchpointquestionnaire" ColumnName="partnertypetouchpointquestionnaire" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="Date_Sent" ColumnName="Date_Sent" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="mailtype" ColumnName="mailtype" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_dynamicFiltersEventNotification" FunctionName="hs3MVCMTQa2Model.Store.pr_dynamicFiltersEventNotification" />
+          <FunctionImportMapping FunctionImportName="xx_updateMenuArchiveRestoreRemove" FunctionName="hs3MVCMTQa2Model.Store.xx_updateMenuArchiveRestoreRemove">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xx_updateMenuArchiveRestoreRemove_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="parentid" ColumnName="parentid" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

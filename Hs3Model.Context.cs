@@ -170,6 +170,7 @@ namespace Generic
         public DbSet<view_QuestionnaireData> view_QuestionnaireData { get; set; }
         public DbSet<view_TouchpointData> view_TouchpointData { get; set; }
         public DbSet<view_PersonData> view_PersonData { get; set; }
+        public DbSet<view_EventNotificationData> view_EventNotificationData { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -13423,6 +13424,32 @@ namespace Generic
                 new ObjectParameter("argsList", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_dynamicFiltersTouchpoint", tableParameter, argsListParameter);
+        }
+    
+        public virtual int pr_dynamicFiltersEventNotification(string table, string argsList)
+        {
+            var tableParameter = table != null ?
+                new ObjectParameter("table", table) :
+                new ObjectParameter("table", typeof(string));
+    
+            var argsListParameter = argsList != null ?
+                new ObjectParameter("argsList", argsList) :
+                new ObjectParameter("argsList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_dynamicFiltersEventNotification", tableParameter, argsListParameter);
+        }
+    
+        public virtual ObjectResult<xx_updateMenuArchiveRestoreRemove_Result> xx_updateMenuArchiveRestoreRemove(string action, string entity)
+        {
+            var actionParameter = action != null ?
+                new ObjectParameter("action", action) :
+                new ObjectParameter("action", typeof(string));
+    
+            var entityParameter = entity != null ?
+                new ObjectParameter("entity", entity) :
+                new ObjectParameter("entity", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_updateMenuArchiveRestoreRemove_Result>("xx_updateMenuArchiveRestoreRemove", actionParameter, entityParameter);
         }
     }
 }
