@@ -129,7 +129,9 @@
 
     function CloseMe() {
         $("#genericPopup").dialog('close');
-        $(".t-icon .t-refresh").trigger('click');
+        //$(".t-icon .t-refresh").trigger('click');
+
+        window.location.replace(window.location.href);
     }
 
 

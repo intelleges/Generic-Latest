@@ -236,6 +236,8 @@
                 @Html.ValidationMessageFor(model => model.author)
             </div>*@
 
+            
+
             <div class="editor-label">
                 @Html.LabelFor(model => model.dateApproved)
             </div>
@@ -260,6 +262,15 @@
                 @Html.ValidationMessageFor(model => model.lastModified)
             </div>
 
+
+            @Html.HiddenFor(model => model.enterprise)
+            @Html.HiddenFor(model => model.email)
+            @Html.HiddenFor(model => model.status)
+
+            @Html.HiddenFor(model => model.owner)
+            @Html.HiddenFor(model => model.author)
+
+
         </div>
         <p style="float: right; width: 20%;">
             @*<input type="submit" value="Save" />*@
@@ -273,8 +284,7 @@
     function savedata() {
 
         $.post("/Partner/Edit/", $("form").serialize(), function (data) {
-            if (data.success)
-            {
+            if (data.success) {
                 CloseMe();
             }
         });
@@ -282,7 +292,7 @@
 
         //var $form = $('form');
         //if ($form.valid()) {
-           
+
         //    alert("valida data");
         //}
         //else {
