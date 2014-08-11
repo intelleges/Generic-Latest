@@ -283,7 +283,7 @@
 <script type="text/javascript">
     function savedata() {
 
-        $.post("/Partner/Edit/", $("form").serialize(), function (data) {
+        $.post("@Url.Content("~//Partner/Edit/")", $("form").serialize(), function (data) {
             if (data.success) {
                 CloseMe();
             }
