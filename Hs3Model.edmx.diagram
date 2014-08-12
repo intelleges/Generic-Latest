@@ -253,7 +253,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_QuestionnaireData" Width="1.5" PointX="6.1642152882014472" PointY="16.358235843646451" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_TouchpointData" Width="1.5" PointX="2.5834408936013658" PointY="3.503760235153027" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PersonData" Width="1.5" PointX="11.199077965318727" PointY="16.921360768806824" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_EventNotificationData" Width="1.5" PointX="7.6807862723622407" PointY="15.434881068502962" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_EventNotificationData" Width="1.5" PointX="1.5683200888188182" PointY="29.257688938294393" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -39,6 +39,9 @@
         display: inline-block;
         font-size: 13px!important;
     }
+    #PartnerEventGrid {
+    font-size:12px;
+    }
 </style>
 
 
@@ -249,22 +252,25 @@
 @( Html.Telerik().Grid((List<Generic.view_EventNotificationData>)ViewBag.events).Name("PartnerEventGrid")
         .Columns(columns =>
         {
-            columns.Bound(o => o.description).Title("Description").Width(100).Encoded(false);
-           
-           
-            columns.Bound(o => o.timestamp).Title("Date").Width(100);
-           
+            columns.Bound(o => o.internalID).Title("Internal ID").Width(100);
+            columns.Bound(o => o.accesscode).Title("Access Code").Width(100);
             
-
+           
+            columns.Bound(o => o.emailType).Title("Email Type").Width(100);
+            columns.Bound(o => o.Date_Sent).Title("Date Sent").Width(100);
+            columns.Bound(o => o.timestamp).Title("Time Stamp").Width(100);
+            columns.Bound(o => o.@event).Title("Event").Width(100);
+           
+           
 
         })
         
-        .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+        //.Pageable(pager => pager.PageSize(10).Total(200).Enabled(true))
         .Sortable(sorting => sorting.Enabled(true))
 
         .Scrollable(scrolling => scrolling
            .Enabled(true)
-           .Height(380))
+           .Height(260))
            .HtmlAttributes(new { @class = "ra" })
 
 

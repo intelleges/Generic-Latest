@@ -15,13 +15,15 @@ namespace Generic
     public partial class view_EventNotificationData
     {
         public Nullable<int> enterprise { get; set; }
+        public int partnerID { get; set; }
+        public string internalID { get; set; }
         public int mailtype { get; set; }
-        public string description { get; set; }
+        public string emailType { get; set; }
         public System.DateTime Date_Sent { get; set; }
         public int partner { get; set; }
         public int partnertypetouchpointquestionnaire { get; set; }
         public Nullable<System.DateTime> timestamp { get; set; }
         public string @event { get; set; }
-        public int partnerID { get; set; }
+        public string accesscode { get; set; }
     }
 }
