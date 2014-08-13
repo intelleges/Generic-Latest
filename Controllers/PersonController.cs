@@ -664,7 +664,7 @@ Thanks in advance.<br>
 
         public ActionResult FindPerson()
         {
-            ViewBag.Test = "Hi";
+            ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
             return View();
         }
 

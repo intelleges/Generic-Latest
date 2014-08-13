@@ -269,7 +269,12 @@ namespace Generic.Controllers
 
         public ActionResult FindEnterprise()
         {
-            ViewBag.Test = "Hi";
+            ViewBag.subscriptionType = new SelectList(db.pr_getSubscriptionTypeAll1(), "id", "description");
+            ViewBag.product = new SelectList(db.pr_getProductAll(), "id", "description");
+            ViewBag.subscriptionStatus = new SelectList(db.pr_getSubscriptionStatusAll(), "id", "description");
+            ViewBag.multiTenantProjectType = new SelectList(db.pr_getMultiTenantProjectTypeAll(), "id", "description");           
+                
+                
             return View();
         }
 

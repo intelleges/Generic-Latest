@@ -57,19 +57,19 @@ Html.Telerik().Menu()
         {
             foreach (var root in menuOperation.GetAllParentMenu())
             {
-                menu1.Add().Url(root.url).Text(root.description).Items(item =>
+                menu1.Add().Url(Url.Content(root.url)).Text(root.description).Items(item =>
                     {
                         if (root.id == root.parentid) // 1 = 1
                         {
                             foreach (var firstChild in menuOperation.GetMenus(root.parentid, root.id)) // 1,1 will give for ex 9 ,10,11,etc
                             {
-                                item.Add().Url(firstChild.url).Text(firstChild.description).Items(childItem =>
+                                item.Add().Url(Url.Content(firstChild.url)).Text(firstChild.description).Items(childItem =>
                                     {
                                         if (firstChild.id != firstChild.parentid) // 9 != 1
                                         {
                                             foreach (var SecondChild in menuOperation.GetMenus(firstChild.id, firstChild.id)) // 9,1 will  give for e 67,68.
                                             {
-                                                childItem.Add().Url(SecondChild.url).Text(SecondChild.description);
+                                                childItem.Add().Url(Url.Content(SecondChild.url)).Text(SecondChild.description);
                                             }
                                         }
                                     });

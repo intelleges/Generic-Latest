@@ -5,24 +5,25 @@
 @using Telerik.Web.Mvc.UI;
 @using System.Web.Optimization;
 @{
-    Layout = LayoutHelper.GetPopupLayout();
+    Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Find Protocol";
 }
 
 <style>
-    .dropDown
-    {
-        width: 210px;
-        border-style: inset;
+    #panelFind select {
+        width: 210px;       
+    }
+   .txtBox {
+        width: 205px;  
+         border-style: inset;
         border-left-width: 2px;
         border-top-width: 2px;
-        height: 20px;
-        font-size: 13px;
-        font-family: Arial;
+        height: 15px;
+        border-bottom: none;
+        border-right: none; 
+        margin: 0 0 0 0;     
     }
-
-    .txtBox
-    {
+    .txtBox2 {
         width: 205px;
         border-style: inset;
         border-left-width: 2px;
@@ -31,18 +32,25 @@
         border-bottom: none;
         border-right: none;
     }
+    .t-input {
+    height:16px;
+    
+    }
+    #panelFind td {
+  padding: 0 0 0 0; 
+}
 </style>
 
 <h2>Find Protocol</h2>
 <form id="FindpersonForm" method="post" enctype="multipart/form-data">
-    <div id="ctl00_contentMain_panelFind">
-        <table width="100%" border="0">
+    <div id="panelFind">
+         <table width="70%; " style="float:left" border="0">
             <tbody>
                 <tr>
                     <td class="tLeftColumn">NAME</td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="ctl00_contentMain_txtNameFind" class="txtBox" type="text" name="ctl00$contentMain$txtNameFind">
+                        <input id="txtNameFind" class="txtBox" type="text" name="txtNameFind">
                     </td>
                 </tr>
                 <tr>
@@ -352,12 +360,12 @@
                     <td class="tLeftColumn">FULL TEXT SEARCH </td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="ctl00_contentMain_txtFullTextSearch" class="txtBox" type="text" style="width: 250px;" name="ctl00$contentMain$txtFullTextSearch">
+                        <input id="txtFullTextSearch" class="txtBox" type="text" style="width: 250px;" name="txtFullTextSearch">
                     </td>
                 </tr>
                 <tr>
                     <td class="advancedSearch" colspan="3">
-                        <a id="ctl00_contentMain_linkAdvanceSearch" style="color: Black;" href="#">ADVANCED SEARCH</a>
+                        <a id="linkAdvanceSearch"  style="color: Black;" href="#">ADVANCED SEARCH</a>
                     </td>
                 </tr>
             </tbody>

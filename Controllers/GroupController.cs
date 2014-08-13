@@ -122,6 +122,27 @@ namespace Generic.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult GetGroupByTouchpointid(int touchpointId)
+        {
+            if (touchpointId == 0)
+            {
+
+                var group = (from x in db.view_GroupData
+                             select new { x.enterprise, x.name, x.description, x.Owner }).ToList();
+                return Json(new { data = group }, JsonRequestBehavior.AllowGet);
+             
+            }
+            else
+            {
+                var group = (from x in db.view_GroupData
+                             select new { x.description }).ToList();
+                
+                return Json(new { Data = group }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
         public ActionResult GetGroupByTouchpoint(int touchpointId)
         {
             if (touchpointId == 0)
@@ -150,7 +171,7 @@ namespace Generic.Controllers
         //}
         public ActionResult FindGroup()
         {
-            ViewBag.Test = "Hi";
+            ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
             return View();
         }
 

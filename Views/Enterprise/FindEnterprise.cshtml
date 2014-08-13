@@ -5,8 +5,175 @@
 @using Telerik.Web.Mvc.UI;
 @using System.Web.Optimization;
 @{
-    Layout = LayoutHelper.GetPopupLayout();
+    Layout = LayoutHelper.GetLayout();
+
     ViewBag.Title = "Find Enterprise";
 }
 
+<style>
+    #panelFind select {
+        width: 210px;       
+    }
+   .txtBox {
+        width: 205px;  
+         border-style: inset;
+        border-left-width: 2px;
+        border-top-width: 2px;
+        height: 15px;
+        border-bottom: none;
+        border-right: none; 
+        margin: 0 0 0 0;     
+    }
+    .txtBox2 {
+        width: 205px;
+        border-style: inset;
+        border-left-width: 2px;
+        border-top-width: 2px;
+        height: 15px;
+        border-bottom: none;
+        border-right: none;
+    }
+    .t-input {
+    height:16px;
+    
+    }
+    #panelFind td {
+  padding: 0 0 0 0; 
+}
+</style>
 <h2>Find Enterprise</h2>
+<form id="FindForm" method="post" enctype="multipart/form-data">
+    <div id="panelFind">
+         <table width="70%; " style="float:left" border="0">
+            <tbody>
+                <tr>
+                    <td class="tLeftColumn">companyName</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="companyName" class="txtBox" type="text" name="companyName">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">instanceName</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="instanceName" class="txtBox" type="text" name="instanceName">
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="tLeftColumn">systemMaster</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="systemMaster" class="txtBox" type="text" name="systemMaster">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">userMax</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="userMax" class="txtBox" type="text" name="userMax">
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="tLeftColumn">partnerMax</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="partnerMax" class="txtBox" type="text" name="partnerMax">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tLeftColumn">partnumberMax</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="partnumberMax" class="txtBox" type="text" name="partnumberMax">
+                    </td>
+                </tr>
+                  <tr>
+                    <td class="tLeftColumn">subscriptionType</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                           @Html.DropDownList("subscriptionType", String.Empty)
+                    </td>
+                </tr>
+
+                 <tr>
+                    <td class="tLeftColumn">product</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                          @Html.DropDownList("product", String.Empty)
+                    </td>
+                </tr>
+              
+                       
+                 <tr>
+                    <td class="tLeftColumn">freeTrial between</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                         @Html.Telerik().DatePicker().Name("freeTrialFrom")
+                      
+                        &
+
+                         @Html.Telerik().DatePicker().Name("freeTrialTo")
+                    </td>
+                </tr>
+
+
+                
+                 <tr>
+                    <td class="tLeftColumn">license between</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        @Html.Telerik().DatePicker().Name("licenseFrom")
+                      
+                        &
+
+                         @Html.Telerik().DatePicker().Name("licenseTo")
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="tLeftColumn">monthlyFee</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="monthlyFee" class="txtBox" type="text" name="monthlyFee">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">subscriptionStatus</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                           @Html.DropDownList("subscriptionStatus", String.Empty)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">chargifyID</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="chargifyID" class="txtBox" type="text" name="chargifyID">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">multiTenantProjectType</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                           @Html.DropDownList("multiTenantProjectType", String.Empty)
+                    </td>
+                </tr>
+               
+            </tbody>
+        </table>
+        <table style="float: left">
+            <tr>
+                <td></td>
+                <td>
+
+                    <input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height: 28px" name="btnFind">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="btnCancel" class="txtBox1" value="Cancel" type="button" style="width: 100px; height: 28px" name="btnCancel">
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</form>
+

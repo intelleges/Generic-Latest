@@ -5,24 +5,25 @@
 @using Telerik.Web.Mvc.UI;
 @using System.Web.Optimization;
 @{
-    Layout = LayoutHelper.GetPopupLayout();
+    Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Find TouchPoint";
 }
 
 <style>
-    .dropDown
-    {
-        width: 210px;
-        border-style: inset;
+     #panelFind select {
+        width: 210px;       
+    }
+   .txtBox {
+        width: 205px;  
+         border-style: inset;
         border-left-width: 2px;
         border-top-width: 2px;
-        height: 20px;
-        font-size: 13px;
-        font-family: Arial;
+        height: 15px;
+        border-bottom: none;
+        border-right: none; 
+        margin: 0 0 0 0;     
     }
-
-    .txtBox
-    {
+    .txtBox2 {
         width: 205px;
         border-style: inset;
         border-left-width: 2px;
@@ -31,19 +32,26 @@
         border-bottom: none;
         border-right: none;
     }
+    .t-input {
+    height:16px;
+    
+    }
+    #panelFind td {
+  padding: 0 0 0 0; 
+}
 </style>
 
 
 <h2>Find TouchPoint</h2>
 <form id="FindpersonForm" method="post" enctype="multipart/form-data">
     <div id="panelFind">
-        <table width="100%" border="0">
+        <table width="70%; " style="float:left" border="0">
             <tbody>
                 <tr>
                     <td class="tLeftColumn">NAME</td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="txtNameFind" class="txtBox" type="text" name="ctl00$contentMain$txtNameFind">
+                        <input id="txtNameFind" class="txtBox" type="text" name="txtNameFind">
                     </td>
                 </tr>
                 <tr>
@@ -303,9 +311,13 @@
                     <td class="tLeftColumn">START DATE BETWEEN</td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="txtStartFromFind" class="txtBoxDay" type="text" name="ctl00$contentMain$txtStartFromFind">
+                         @Html.Telerik().DatePicker().Name("txtStartFromFind")
+                      
                         &
-                    <input id="txtStartToFind" class="txtBoxDay" type="text" name="ctl00$contentMain$txtStartToFind">
+
+                         @Html.Telerik().DatePicker().Name("txtStartToFind")
+
+                       
                     </td>
 
                 </tr>
@@ -313,9 +325,11 @@
                     <td class="tLeftColumn">END DAY BETWEEN </td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        <input id="txtEndFromFind" class="txtBoxDay" type="text" name="ctl00$contentMain$txtEndFromFind">
+                       @Html.Telerik().DatePicker().Name("txtAddedFromFind")
+                      
                         &
-                    <input id="txtEndToFind" class="txtBoxDay" type="text" name="ctl00$contentMain$txtEndToFind">
+
+                         @Html.Telerik().DatePicker().Name("txtAddedToFind")
                     </td>
                 </tr>
                 <tr>
