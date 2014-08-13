@@ -15,7 +15,7 @@ using Generic.ViewModel;
 
 namespace Generic.Controllers
 {
-     [Authorize]
+    [Authorize]
     public class PersonController : Controller
     {
         private EntitiesDBContext db = new EntitiesDBContext();
@@ -49,7 +49,7 @@ namespace Generic.Controllers
         // GET: /Person/Create
 
         public ActionResult UploadPerson()
-        {            
+        {
             return View();
         }
         [HttpPost]
@@ -86,13 +86,13 @@ namespace Generic.Controllers
             excelRead.AddMapping<ExcelPerson>(x => x.internalId, "internalID");
             excelRead.AddMapping<ExcelPerson>(x => x.state, "StateName");
             excelRead.AddMapping<ExcelPerson>(x => x.country, "CountryName");
-           
+
 
 
             //   var columnnames = excelRead.GetColumnNames(sheetname);
             var personinExcel = from a in excelRead.Worksheet<ExcelPerson>(sheetname) select a;
 
-           
+
             List<Tuple<int, string>> uploadedperson = new List<Tuple<int, string>>();
             person objInvitingUser = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
             int countpartNumbers = personinExcel.Count();
@@ -101,7 +101,7 @@ namespace Generic.Controllers
             {
                 if (personItem.internalId != null)
                 {
-                    if (personItem.phone == null )
+                    if (personItem.phone == null)
                     {
                         ErrorView objerrorView = new ErrorView();
                         objerrorView.errorMessage = "Record " + recordNumber.ToString() + " of " + countpartNumbers + " has invalid values.";
@@ -112,21 +112,21 @@ namespace Generic.Controllers
             }
 
 
-          //  string loadGroup = db.pr_getAccesscode().FirstOrDefault();
+            //  string loadGroup = db.pr_getAccesscode().FirstOrDefault();
             foreach (var objPerson in personinExcel.ToList())
             {
                 if (objPerson.internalId != null)
                 {
 
                     var objstateSpreadSheet = db.pr_getStateByStateCode(objPerson.StateName).FirstOrDefault();
-                    int? stateIdSpreadSheet=null;
+                    int? stateIdSpreadSheet = null;
                     if (objstateSpreadSheet != null)
                     {
                         stateIdSpreadSheet = objstateSpreadSheet.id;
                     }
 
                     var objCountrySpreadSheet = db.pr_getCountryByName(objPerson.CountryName).FirstOrDefault();
-                    int? countryIdSpreadsheet=null;
+                    int? countryIdSpreadsheet = null;
                     if (objCountrySpreadSheet != null)
                     {
                         countryIdSpreadsheet = objCountrySpreadSheet.id;
@@ -170,14 +170,14 @@ namespace Generic.Controllers
                     }
 
 
-                  
+
                 }
             }
             Session["uploadedPersonList"] = uploadedperson;
-           
-         //   Session["loadGroup"] = loadGroup;
+
+            //   Session["loadGroup"] = loadGroup;
             ViewBag.Message = "1";
-          
+
             return View();
         }
 
@@ -202,7 +202,7 @@ namespace Generic.Controllers
 
                 person.personStatus = (int)PersonHelper.PersonStatus.Invited;
                 person.active = 1;
-                person.ismanager=0;
+                person.ismanager = 0;
                 person.partnerPerPage = 500;
                 person.riskType = 0;
                 person.loadHistory = 0;
@@ -220,14 +220,14 @@ namespace Generic.Controllers
 
                 int? PersonId = person.id;
 
-              
+
 
                 // Email Invite
                 var objSystemMaster = db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
 
                 enterprise objEnterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
 
-               
+
                 autoMailMessage objamm = new autoMailMessage();
 
                 objamm.subject = "Welcome to Intelleges for [Enterprise Name]: [Touchpoint Title]";
@@ -279,7 +279,7 @@ Thanks in advance.<br>
 
             ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
-      
+
 
             return View(person);
         }
@@ -291,7 +291,7 @@ Thanks in advance.<br>
             ViewBag.role = new SelectList(db.role, "id", "description");
 
             ComboBoxModel objComboboxCountry = new ComboBoxModel();
-            
+
             ViewBag.comboboxCountry = objComboboxCountry;
             if (SessionSingleton.EnterPriseId == null)
             {
@@ -310,14 +310,14 @@ Thanks in advance.<br>
             if (ModelState.IsValid)
             {
                 person objdefaultSystemMaster = db.pr_getSystemMaster(1).FirstOrDefault();
-     
+
 
                 int? PersonId = db.pr_addSystemMasterToEnterprise(SessionSingleton.EnterPriseId, person.internalId, person.firstName, person.lastName, person.email, person.phone, person.zipcode, person.country).FirstOrDefault();
 
-                SessionSingleton.PersonId =(int)PersonId;
+                SessionSingleton.PersonId = (int)PersonId;
 
                 // Email Invite
-                var objSystemMaster= db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
+                var objSystemMaster = db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
 
                 enterprise objEnterprise = db.pr_getEnterprise(SessionSingleton.EnterPriseId).FirstOrDefault();
 
@@ -328,8 +328,8 @@ Thanks in advance.<br>
                 autoMailMessage objamm = new autoMailMessage();
 
                 objamm.subject = "Welcome to Intelleges for [Enterprise Name]: [Touchpoint Title]";
-           //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
-                   objamm.text = @"Hi [User Firstname],<br>
+                //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
+                objamm.text = @"Hi [User Firstname],<br>
 
 You have a new account at Intelleges for [Enterprise Name] [Touchpoint Title].<br>
 
@@ -355,12 +355,12 @@ Thanks in advance.<br>
                 person objInvitingUser = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
 
                 touchpoint objCurrentTouchpoint = db.pr_getTouchpoint(objInvitingUser.campaign).FirstOrDefault();
-                
+
                 EmailFormat emailFormat = new EmailFormat();
                 email.subject = emailFormat.sGetEmailBody(email.subject, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
-             //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
+                //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
                 email.body = emailFormat.sGetEmailBody(email.body, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
-              //  email.body = objamm.text;
+                //  email.body = objamm.text;
                 email.emailTo = objSystemMaster.email;
                 SendEmail objSendEmail = new SendEmail();
                 objSendEmail.sendEmail(email);
@@ -464,7 +464,7 @@ Thanks in advance.<br>
                     ViewBag.person = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "email");
                 }
 
-               
+
             }
             catch
             {
@@ -506,7 +506,7 @@ Thanks in advance.<br>
                 return RedirectToAction("AssignRole", "Person");
             }
             catch { }
-           
+
             if (SessionSingleton.PersonId != 0)
             {
                 ViewBag.person = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "email", SessionSingleton.PersonId);
@@ -594,7 +594,7 @@ Thanks in advance.<br>
                     ViewBag.person = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "email");
                 }
 
-               
+
             }
             catch
             {
@@ -628,7 +628,7 @@ Thanks in advance.<br>
 
             foreach (var item in assignedRoleList)
             {
-                db.pr_addPersonRole(person,int.Parse(item));
+                db.pr_addPersonRole(person, int.Parse(item));
             }
 
             if (SessionSingleton.PersonId != 0)
@@ -672,54 +672,52 @@ Thanks in advance.<br>
         [HttpPost]
         public ActionResult FindPerson(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode)
         {
-            //dbo.pr_dynamicFilters 'partner', ' Campaign=1009; Group=20;Country=2; Type=4'
-            //var objPartners = db.pr_dynamicFiltersPartner("view_PartnerData", "name=well;enterprise=3");
-
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
-            //if (touchpoint != null)
-            //    arguments += "touchpointID=" + touchpoint + ";";
-            //if (group != null)
-            //    arguments += "groupID=" + group + ";";
-            //if (country != null)
-            //    arguments += "countryID=" + country + ";";
-            //if (partnertype != null)
-            //    arguments += "partnertypeID=" + partnertype + ";";
+            if (touchpoint != null)
+                arguments += "touchpointID=" + touchpoint + ";";
+            if (group != null)
+                arguments += "groupID=" + group + ";";
+            if (country != null)
+                arguments += "countryID=" + country + ";";
+            if (partnertype != null)
+                arguments += "partnertypeID=" + partnertype + ";";
 
-            //if (partnerStatus != null)
-            //    arguments += "StatusID=" + partnerStatus + ";";
-
-
-            //if (txtInternalIdFind != "")
-            //    arguments += "InternalId=" + txtInternalIdFind + ";";
+            if (partnerStatus != null)
+                arguments += "StatusID=" + partnerStatus + ";";
 
 
-            ////string , string , string , string , string , string )
-            //if (txtDunsNumberFind != "")
-            //    arguments += "DunsNumber=" + txtDunsNumberFind + ";";
-            //if (txtNameFind != "")
-            //    arguments += "Name=" + txtNameFind + ";";
-            //if (txtFederalIdFind != "")
-            //    arguments += "FederalId=" + txtFederalIdFind + ";";
+            if (txtInternalIdFind != "")
+                arguments += "InternalId=" + txtInternalIdFind + ";";
 
-            //if (accesscode != "")
-            //    arguments += "accesscode=" + accesscode + ";";
 
-            //if (txtContactEmailFind != "")
-            //    arguments += "ContactEmail=" + txtContactEmailFind + ";";
-            //if (txtHROEmailFind != "")
-            //    arguments += "HROEmail=" + txtHROEmailFind + ";";
-            //if (txtScoreFromFind != "")
-            //    arguments += "ScoreFrom=" + txtScoreFromFind + ";";
-            //if (txtScoreToFind != "")
-            //    arguments += "ScoreTo=" + txtScoreToFind + ";";
-            //if (txtAddedFromFind != "")
-            //    arguments += "AddedFrom=" + txtAddedFromFind + ";";
-            //if (txtAddedToFind != "")
-            //    arguments += "AddedTo=" + txtAddedToFind + ";";
-            //if (txtFullTextSearch != "")
-            //    arguments += "FullTextSearch=" + txtFullTextSearch + ";";
+            //string , string , string , string , string , string )
+            if (txtDunsNumberFind != "")
+                arguments += "DunsNumber=" + txtDunsNumberFind + ";";
+            if (txtNameFind != "")
+                arguments += "Name=" + txtNameFind + ";";
+            if (txtFederalIdFind != "")
+                arguments += "FederalId=" + txtFederalIdFind + ";";
+
+            if (accesscode != "")
+                arguments += "accesscode=" + accesscode + ";";
+
+            if (txtContactEmailFind != "")
+                arguments += "ContactEmail=" + txtContactEmailFind + ";";
+            if (txtHROEmailFind != "")
+                arguments += "HROEmail=" + txtHROEmailFind + ";";
+            if (txtScoreFromFind != "")
+                arguments += "ScoreFrom=" + txtScoreFromFind + ";";
+            if (txtScoreToFind != "")
+                arguments += "ScoreTo=" + txtScoreToFind + ";";
+            if (txtAddedFromFind != "")
+                arguments += "AddedFrom=" + txtAddedFromFind + ";";
+            if (txtAddedToFind != "")
+                arguments += "AddedTo=" + txtAddedToFind + ";";
+            if (txtFullTextSearch != "")
+                arguments += "FullTextSearch=" + txtFullTextSearch + ";";
             //var objPartners2 =   db.Database.ExecuteSqlCommand("Yourprocedure @param, @param1", param1, param2);
+            
 
             var objPartners = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicFiltersPerson  'view_PersonData' , '" + arguments + "'").ToList();
 

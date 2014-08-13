@@ -1,0 +1,80 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.view_QuestionnaireData>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetPopupLayout();
+    ViewBag.Title = "Partner";
+}
+
+<style>
+    div#PartnerGrid
+    {
+        font-size: 11px;
+    }
+
+    #modal
+    {
+        height: 489px;
+    }
+
+    .ui-dialog
+    {
+        width: 99% !important;
+        left: 0;
+    }
+</style>
+
+@( Html.Telerik().Grid(Model).Name("QuestionnaireGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Author).Title("Author").Width(100);
+            columns.Bound(o => o.CMS).Title("CMS").Width(100);
+            columns.Bound(o => o.Completed).Title("Completed").Width(100);
+            columns.Bound(o => o.enterprise).Title("enterprise").Width(100);
+            columns.Bound(o => o.PartnerType).Title("PartnerType").Width(100);
+
+            columns.Bound(o => o.Reminders).Title("Reminders").Width(200);
+            columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(100);
+
+        })
+
+        .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+        .Sortable(sorting => sorting.Enabled(true))
+
+        .Scrollable(scrolling => scrolling
+           .Enabled(true)
+           .Height(380))
+           .HtmlAttributes(new { @class = "ra" })
+
+
+
+)
+<div id="EmailDialog" title="Questionnaire Routing Form">
+    <p>Email dialog</p>
+</div>
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+<script type="text/javascript">
+    $(function () {
+        jQuery.noConflict();
+        $("#EmailDialog").dialog({
+            autoOpen: false
+        });
+
+    });
+    function OpenEmailDialog(ac) {
+        jQuery.noConflict();
+
+        $.get("/WrongContact/Index", { accessCode: ac }, function (data) {
+
+            $("#EmailDialog").html(data);
+            $("#EmailDialog").dialog({
+                width: 1200,
+                height: 1000,
+            });
+            $("#EmailDialog").dialog('open');
+        });
+    }
+</script>
+

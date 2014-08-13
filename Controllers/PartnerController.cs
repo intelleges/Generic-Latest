@@ -139,7 +139,7 @@ namespace Generic.Controllers
             //}
             //ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
             //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
-            return Json(new { success = true },JsonRequestBehavior.AllowGet);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
         //
         // GET: /Partner/Edit/5
@@ -995,6 +995,39 @@ namespace Generic.Controllers
         }
 
 
+        public ActionResult ArchivePartner()
+        {
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
+
+            List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+            List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
+
+            return View("RemovePartner", objPartnerViewModelList);
+
+        }
+
+        public ActionResult RemovePartner()
+        {
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
+
+            List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+            List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
+
+            return View("RemovePartner", objPartnerViewModelList);
+
+        }
+
+        public ActionResult RestorePartner()
+        {
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
+
+            List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+            List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
+
+            return View("RemovePartner", objPartnerViewModelList);
+
+        }
+
         public ActionResult FindPartner()
         {
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
@@ -1006,6 +1039,7 @@ namespace Generic.Controllers
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
 
             ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
+
 
             return View();
         }
@@ -1062,10 +1096,6 @@ namespace Generic.Controllers
                 arguments += "FullTextSearch=" + txtFullTextSearch + ";";
             //var objPartners2 =   db.Database.ExecuteSqlCommand("Yourprocedure @param, @param1", param1, param2);
 
-          
-
-           
-
             Session["partnersearch"] = arguments;
 
             return RedirectToAction("FindPartnerResult");
@@ -1075,9 +1105,11 @@ namespace Generic.Controllers
         {
             try
             {
-                 Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + Session["partnersearch"].ToString() + "'").ToList();
-                 List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
-                return View(abc);
+                Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + Session["partnersearch"].ToString() + "'").ToList();
+                List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
+                List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(abc);
+
+                return View(objPartnerViewModelList);
             }
             catch
             {
@@ -1096,5 +1128,49 @@ namespace Generic.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        private List<PartnerViewModel> ConvertToPartnerViewModel(List<view_PartnerData> iview_PartnerDataList)
+        {
+            List<PartnerViewModel> objPartnerViewModelList = new List<PartnerViewModel>();
+
+            foreach (var iview_PartnerData in iview_PartnerDataList)
+            {
+                PartnerViewModel objPartnerViewModel = new PartnerViewModel();
+                objPartnerViewModel.id = iview_PartnerData.id;
+                objPartnerViewModel.internalID = iview_PartnerData.internalID;
+                objPartnerViewModel.enterprise = iview_PartnerData.enterprise;
+                objPartnerViewModel.PartnerName = iview_PartnerData.PartnerName;
+                objPartnerViewModel.Contact = iview_PartnerData.Contact;
+                objPartnerViewModel.phone = iview_PartnerData.phone;
+                objPartnerViewModel.ContactEmail = iview_PartnerData.ContactEmail;
+                objPartnerViewModel.ContactTitle = iview_PartnerData.ContactTitle;
+                objPartnerViewModel.owner = iview_PartnerData.owner;
+                objPartnerViewModel.Country = iview_PartnerData.Country;
+                objPartnerViewModel.city = iview_PartnerData.city;
+                objPartnerViewModel.state = iview_PartnerData.state;
+                objPartnerViewModel.address = iview_PartnerData.address;
+                objPartnerViewModel.zipcode = iview_PartnerData.zipcode;
+                objPartnerViewModel.Touchpoint = iview_PartnerData.Touchpoint;
+
+                objPartnerViewModel.Partnertype = iview_PartnerData.Partnertype;
+                objPartnerViewModel.Group = iview_PartnerData.Group;
+                objPartnerViewModel.AccessCode = iview_PartnerData.AccessCode;
+                objPartnerViewModel.status = iview_PartnerData.status;
+                objPartnerViewModel.Expr1 = iview_PartnerData.Expr1;
+                objPartnerViewModel.countryID = iview_PartnerData.countryID;
+                objPartnerViewModel.touchpointID = iview_PartnerData.touchpointID;
+
+                objPartnerViewModel.partnertypeID = iview_PartnerData.partnertypeID;
+                objPartnerViewModel.groupID = iview_PartnerData.groupID;
+                objPartnerViewModel.statusID = iview_PartnerData.statusID;
+                objPartnerViewModel.campaign = iview_PartnerData.campaign;
+                objPartnerViewModel.IsSelected = false;
+
+                objPartnerViewModelList.Add(objPartnerViewModel);
+            }
+            return objPartnerViewModelList;
+
+        }
+
     }
 }

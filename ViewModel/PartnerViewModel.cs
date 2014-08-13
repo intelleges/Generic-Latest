@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace Generic.ViewModel
+{
+    public class PartnerViewModel
+    {
+        public int id { get; set; }
+        public Nullable<int> enterprise { get; set; }
+        public string internalID { get; set; }
+        public string PartnerName { get; set; }
+        public string Contact { get; set; }
+        public string phone { get; set; }
+        public string ContactEmail { get; set; }
+        public string ContactTitle { get; set; }
+        public string owner { get; set; }
+        public string Country { get; set; }
+        public string city { get; set; }
+        public string state { get; set; }
+        public string address { get; set; }
+        public string zipcode { get; set; }
+        public string Touchpoint { get; set; }
+        public string Partnertype { get; set; }
+        public string Group { get; set; }
+        public string AccessCode { get; set; }
+        public string status { get; set; }
+        public int Expr1 { get; set; }
+        public Nullable<int> countryID { get; set; }
+        public int touchpointID { get; set; }
+        public int partnertypeID { get; set; }
+        public int groupID { get; set; }
+        public int statusID { get; set; }
+        public int campaign { get; set; }
+        public bool IsSelected { get; set; }
+
+    }
+}

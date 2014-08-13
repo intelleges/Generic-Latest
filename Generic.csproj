@@ -1662,6 +1662,7 @@
     <Compile Include="UM_M_Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\PartnerViewModel.cs" />
     <Compile Include="ViewModel\ErrorPage.cs" />
     <Compile Include="ViewModel\ExcelAutoMailMessage.cs" />
     <Compile Include="ViewModel\ExcelEventNotification.cs" />
@@ -2765,6 +2766,7 @@
     <Content Include="Views\Protocol\FindProtocolResult.cshtml" />
     <Content Include="Views\Questionnaire\FindQuestionnaireResult.cshtml" />
     <Content Include="Views\Touchpoint\FindTouchpointResult.cshtml" />
+    <Content Include="Views\Partner\RemovePartner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
