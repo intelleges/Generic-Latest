@@ -24,6 +24,8 @@
         left: 0;
     }
 </style>
+<form action="@Url.Content("~/Partner/RemovePartner")" method="post">
+ <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
 
 @( Html.Telerik().Grid(Model).Name("PartnerGrid")
         .Columns(columns =>
@@ -32,7 +34,7 @@
             columns.Bound(o => o.IsSelected)
 
                    .Title("<input type='checkbox' onchange='Selectall();' id='chkSelectAll' style='margin-left: 11px;' name='checkedRecords' value='<#= IsSelected #>' />")
-                   .Template(@<text><input type='checkbox' id='chkMessage' name='chkSelect' value='<#= IsSelected #>' /></text>)
+                   .Template(@<text><input type='checkbox' id='chkMessage' name='chkSelect' value='@item.id' /></text>)
                    .Width(50)
                    .HtmlAttributes(new { style = "text-align:center" });
 
@@ -51,7 +53,8 @@
 </text>);
             columns.Bound(o => o.Contact).Title("Contact").Width(100);
             columns.Bound(o => o.phone).Title("Phone").Width(100);
-            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="OpenManualAddModal('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>);
+            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="OpenManualAddModal('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>)
+            .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
 
             columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(200);
 
@@ -81,7 +84,8 @@
 
 
         })
-         .ClientEvents(events => events.OnDataBound("onDataBound"))
+       
+         //.ClientEvents(events => events.OnDataBound("onDataBound"))
         .DataKeys(keys => keys.Add(o => o.internalID))
         .Pageable(pager => pager.PageSize(13).Total(200).Enabled(false))
         .Sortable(sorting => sorting.Enabled(true))
@@ -94,7 +98,7 @@
 
 
 )
-
+</form>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
