@@ -500,6 +500,33 @@ namespace Generic.Controllers
 
         }
 
+
+        public ActionResult ExportExcel()
+        {
+           
+
+            string arguments = Session["partnersearch"].ToString() + "active=1;";
+            Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+            List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
+           
+
+
+
+
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<view_PartnerData>));
+
+            List<ExcelEventNotification> objEvents = new List<ExcelEventNotification>();
+           
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, abc);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "PartnerList.xls");
+
+
+             }
         public ActionResult InvitePartnersListDownload()
         {
 
