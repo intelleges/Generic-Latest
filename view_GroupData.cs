@@ -14,13 +14,15 @@ namespace Generic
     
     public partial class view_GroupData
     {
-        public Nullable<int> enterprise { get; set; }
+        public int id { get; set; }
+        public Nullable<int> Enterprise { get; set; }
         public string name { get; set; }
+        public int UserCount { get; set; }
+        public int PartnerCount { get; set; }
+        public int ShadowCount { get; set; }
+        public int CampaignCount { get; set; }
+        public Nullable<int> Active { get; set; }
         public string description { get; set; }
-        public int group { get; set; }
-        public Nullable<int> personCount { get; set; }
         public string Owner { get; set; }
-        public int touchpointID { get; set; }
-        public Nullable<int> active { get; set; }
     }
 }

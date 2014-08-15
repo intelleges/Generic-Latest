@@ -1674,6 +1674,9 @@
     <Compile Include="ViewModel\GroupsVM.cs" />
     <Compile Include="ViewModel\MainGirdVM.cs" />
     <Compile Include="ViewModel\QuestionnaireViewModel.cs" />
+    <Compile Include="view_EnterpriseData.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="view_EventNotificationData.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

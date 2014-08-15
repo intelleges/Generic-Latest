@@ -128,7 +128,7 @@ namespace Generic.Controllers
             {
 
                 var group = (from x in db.view_GroupData
-                             select new { x.enterprise, x.name, x.description, x.Owner }).ToList();
+                             select new { x.Enterprise, x.name, x.description, x.Owner }).ToList();
                 return Json(new { data = group }, JsonRequestBehavior.AllowGet);
              
             }

@@ -163,14 +163,15 @@ namespace Generic
         public DbSet<pptqGroup> pptqGroup { get; set; }
         public DbSet<pptqGroupType> pptqGroupType { get; set; }
         public DbSet<ptqGroup> ptqGroup { get; set; }
-        public DbSet<view_PartnerData> view_PartnerData { get; set; }
         public DbSet<v_PartnerFind> v_PartnerFind { get; set; }
-        public DbSet<view_GroupData> view_GroupData { get; set; }
         public DbSet<view_ProtocolData> view_ProtocolData { get; set; }
         public DbSet<view_QuestionnaireData> view_QuestionnaireData { get; set; }
         public DbSet<view_TouchpointData> view_TouchpointData { get; set; }
-        public DbSet<view_PersonData> view_PersonData { get; set; }
         public DbSet<view_EventNotificationData> view_EventNotificationData { get; set; }
+        public DbSet<view_EnterpriseData> view_EnterpriseData { get; set; }
+        public DbSet<view_GroupData> view_GroupData { get; set; }
+        public DbSet<view_PartnerData> view_PartnerData { get; set; }
+        public DbSet<view_PersonData> view_PersonData { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -13317,7 +13318,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dynamicFilters", tableParameter, argsListParameter);
         }
     
-        public virtual ObjectResult<view_PartnerData> pr_dynamicFiltersPartner(string table, string argsList)
+        public virtual int pr_dynamicFiltersPartner(string table, string argsList)
         {
             var tableParameter = table != null ?
                 new ObjectParameter("table", table) :
@@ -13327,20 +13328,7 @@ namespace Generic
                 new ObjectParameter("argsList", argsList) :
                 new ObjectParameter("argsList", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<view_PartnerData>("pr_dynamicFiltersPartner", tableParameter, argsListParameter);
-        }
-    
-        public virtual ObjectResult<view_PartnerData> pr_dynamicFiltersPartner(string table, string argsList, MergeOption mergeOption)
-        {
-            var tableParameter = table != null ?
-                new ObjectParameter("table", table) :
-                new ObjectParameter("table", typeof(string));
-    
-            var argsListParameter = argsList != null ?
-                new ObjectParameter("argsList", argsList) :
-                new ObjectParameter("argsList", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<view_PartnerData>("pr_dynamicFiltersPartner", mergeOption, tableParameter, argsListParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_dynamicFiltersPartner", tableParameter, argsListParameter);
         }
     
         public virtual ObjectResult<pr_getPartnerStatusCountByTouchpoint_Result> pr_getPartnerStatusCountByTouchpoint(Nullable<int> touchpoint)
@@ -13450,6 +13438,32 @@ namespace Generic
                 new ObjectParameter("entity", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_updateMenuArchiveRestoreRemove_Result>("xx_updateMenuArchiveRestoreRemove", actionParameter, entityParameter);
+        }
+    
+        public virtual int pr_dynamicFiltersEnterprise(string table, string argsList)
+        {
+            var tableParameter = table != null ?
+                new ObjectParameter("table", table) :
+                new ObjectParameter("table", typeof(string));
+    
+            var argsListParameter = argsList != null ?
+                new ObjectParameter("argsList", argsList) :
+                new ObjectParameter("argsList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_dynamicFiltersEnterprise", tableParameter, argsListParameter);
+        }
+    
+        public virtual int pr_dynamicFiltersEnterprise_2(string table, string argsList)
+        {
+            var tableParameter = table != null ?
+                new ObjectParameter("table", table) :
+                new ObjectParameter("table", typeof(string));
+    
+            var argsListParameter = argsList != null ?
+                new ObjectParameter("argsList", argsList) :
+                new ObjectParameter("argsList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_dynamicFiltersEnterprise_2", tableParameter, argsListParameter);
         }
     }
 }

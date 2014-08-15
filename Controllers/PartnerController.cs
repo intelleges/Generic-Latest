@@ -30,15 +30,12 @@ namespace Generic.Controllers
         //1170	All	../Partner/index	1142	89	True	1	2
         public virtual ActionResult Index()
         {
-            var partner = db.pr_getPartnerAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var country = db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
-            //var partners  = from p in partner
-            //                from c in country on p. equals c.Id into pc
-
+            Session["partnersearch"] = arguments;
+            return RedirectToAction("FindPartnerResult");
 
 
-            return View(partner.ToList());
         }
 
         //
@@ -47,9 +44,9 @@ namespace Generic.Controllers
         public virtual ActionResult Details(int id = 0)
         {
             partner partner = db.pr_getPartner(id).FirstOrDefault();
-           // List<country> objCountries = db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            // List<country> objCountries = db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
 
-           
+
 
             try
             {
@@ -80,11 +77,11 @@ namespace Generic.Controllers
             {
                 PartnerStatus status = (PartnerStatus)partner.status;
 
-                ViewBag.StatusName = status ;
+                ViewBag.StatusName = status;
             }
             catch { }
 
-            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";partnerID="+partner.id+";";
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";partnerID=" + partner.id + ";";
             List<view_EventNotificationData> objevents = db.Database.SqlQuery<view_EventNotificationData>("EXEC pr_dynamicFiltersEventNotification  'view_EventNotificationData' , '" + arguments + "'").ToList();
 
             ViewBag.events = objevents;
@@ -997,7 +994,7 @@ namespace Generic.Controllers
 
         public ActionResult ArchivePartner()
         {
-            string arguments = Session["partnersearch"].ToString()+"active=1";
+            string arguments = Session["partnersearch"].ToString() + "active=1";
 
             List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
             List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
@@ -1008,7 +1005,7 @@ namespace Generic.Controllers
 
         public ActionResult RemovePartner()
         {
-            string arguments = Session["partnersearch"].ToString() +"active=1;";
+            string arguments = Session["partnersearch"].ToString() + "active=1;";
 
             List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
             List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
@@ -1054,7 +1051,7 @@ namespace Generic.Controllers
         }
         public ActionResult RestorePartner()
         {
-            string arguments = Session["partnersearch"].ToString()+"active=0;";
+            string arguments = Session["partnersearch"].ToString() + "active=0;";
 
             List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
             List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
@@ -1130,14 +1127,14 @@ namespace Generic.Controllers
                 arguments += "AddedTo=" + txtAddedToFind + ";";
             if (txtFullTextSearch != "")
                 arguments += "FullTextSearch=" + txtFullTextSearch + ";";
-            
+
 
             Session["partnersearch"] = arguments;
             if (searchType == "Remove")
             {
                 return RedirectToAction("RemovePartner");
             }
-            else if(searchType=="Archive")
+            else if (searchType == "Archive")
             {
                 return RedirectToAction("ArchivePartner");
             }
@@ -1158,7 +1155,7 @@ namespace Generic.Controllers
                 string arguments = Session["partnersearch"].ToString() + "active=1;";
                 Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
                 List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
-               // List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(abc);
+                // List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(abc);
 
                 return View(abc);
             }

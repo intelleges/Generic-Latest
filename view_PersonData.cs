@@ -14,6 +14,7 @@ namespace Generic
     
     public partial class view_PersonData
     {
+        public int id { get; set; }
         public Nullable<int> enterprise { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
@@ -23,12 +24,11 @@ namespace Generic
         public string Country { get; set; }
         public string State { get; set; }
         public Nullable<int> Default_Touchpoint { get; set; }
+        public string Touchpoint { get; set; }
         public Nullable<int> personStatusID { get; set; }
         public string Person_Status { get; set; }
-        public int Group_Count { get; set; }
-        public int Role_Count { get; set; }
-        public int id { get; set; }
-        public string Touchpoint { get; set; }
+        public Nullable<int> Group_Count { get; set; }
+        public Nullable<int> Role_Count { get; set; }
         public Nullable<int> active { get; set; }
     }
 }

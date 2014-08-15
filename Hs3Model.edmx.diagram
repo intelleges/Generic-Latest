@@ -246,14 +246,15 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqGroup" Width="1.5" PointX="19.375" PointY="3.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqGroupType" Width="1.5" PointX="19.375" PointY="6.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.ptqGroup" Width="1.5" PointX="19.375" PointY="9.75" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PartnerData" Width="1.5" PointX="3.0518367807622244" PointY="2.7568238241396954" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.v_PartnerFind" Width="1.5" PointX="8.7861387845064236" PointY="11.886942377261326" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_GroupData" Width="1.5" PointX="11.381892615641418" PointY="19.568007567696277" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_ProtocolData" Width="1.5" PointX="0.27665853885778158" PointY="23.504151131726871" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_QuestionnaireData" Width="1.5" PointX="6.1642152882014472" PointY="16.358235843646451" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_TouchpointData" Width="1.5" PointX="2.5834408936013658" PointY="3.503760235153027" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PersonData" Width="1.5" PointX="11.199077965318727" PointY="16.921360768806824" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_EventNotificationData" Width="1.5" PointX="1.5683200888188182" PointY="29.257688938294393" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_EnterpriseData" Width="1.5" PointX="10.664423144731867" PointY="20.913431832992206" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_GroupData" Width="1.5" PointX="1.4395212500540173" PointY="11.402112280671537" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PartnerData" Width="1.5" PointX="5.2499305835226222" PointY="5.8996014026457448" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PersonData" Width="1.5" PointX="1.4035133819112151" PointY="5.6748982992372" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
