@@ -40,5 +40,6 @@ namespace Generic
         public int groupID { get; set; }
         public int statusID { get; set; }
         public int campaign { get; set; }
+        public Nullable<bool> active { get; set; }
     }
 }

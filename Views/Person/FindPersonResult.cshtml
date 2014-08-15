@@ -3,20 +3,24 @@
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 @{
-    Layout = LayoutHelper.GetPopupLayout();
-    ViewBag.Title = "Partner";
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Person";
 }
 
+
 <style>
-    div#PartnerGrid {
+    div#PersonGrid
+    {
         font-size: 11px;
     }
 
-    #modal {
+    #modal
+    {
         height: 489px;
     }
 
-    .ui-dialog {
+    .ui-dialog
+    {
         width: 99% !important;
         left: 0;
     }

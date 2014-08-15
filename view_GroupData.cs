@@ -20,5 +20,7 @@ namespace Generic
         public int group { get; set; }
         public Nullable<int> personCount { get; set; }
         public string Owner { get; set; }
+        public int touchpointID { get; set; }
+        public Nullable<int> active { get; set; }
     }
 }

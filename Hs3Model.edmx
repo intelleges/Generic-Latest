@@ -237,11 +237,13 @@
           <EntitySet Name="view_GroupData" EntityType="hs3MVCMTQa2Model.Store.view_GroupData" store:Type="Views" store:Schema="dbo" store:Name="view_GroupData">
             <DefiningQuery>SELECT 
       [view_GroupData].[enterprise] AS [enterprise], 
+      [view_GroupData].[touchpointID] AS [touchpointID], 
       [view_GroupData].[name] AS [name], 
       [view_GroupData].[description] AS [description], 
       [view_GroupData].[group] AS [group], 
       [view_GroupData].[personCount] AS [personCount], 
-      [view_GroupData].[Owner] AS [Owner]
+      [view_GroupData].[Owner] AS [Owner], 
+      [view_GroupData].[active] AS [active]
       FROM [dbo].[view_GroupData] AS [view_GroupData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_PartnerData" EntityType="hs3MVCMTQa2Model.Store.view_PartnerData" store:Type="Views" store:Schema="dbo" store:Name="view_PartnerData">
@@ -271,11 +273,13 @@
       [view_PartnerData].[statusID] AS [statusID], 
       [view_PartnerData].[status] AS [status], 
       [view_PartnerData].[Expr1] AS [Expr1], 
-      [view_PartnerData].[campaign] AS [campaign]
+      [view_PartnerData].[campaign] AS [campaign], 
+      [view_PartnerData].[active] AS [active]
       FROM [dbo].[view_PartnerData] AS [view_PartnerData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_PersonData" EntityType="hs3MVCMTQa2Model.Store.view_PersonData" store:Type="Views" store:Schema="dbo" store:Name="view_PersonData">
             <DefiningQuery>SELECT 
+      [view_PersonData].[id] AS [id], 
       [view_PersonData].[enterprise] AS [enterprise], 
       [view_PersonData].[firstname] AS [firstname], 
       [view_PersonData].[lastname] AS [lastname], 
@@ -285,10 +289,12 @@
       [view_PersonData].[Country] AS [Country], 
       [view_PersonData].[State] AS [State], 
       [view_PersonData].[Default_Touchpoint] AS [Default_Touchpoint], 
+      [view_PersonData].[Touchpoint] AS [Touchpoint], 
       [view_PersonData].[personStatusID] AS [personStatusID], 
       [view_PersonData].[Person_Status] AS [Person_Status], 
       [view_PersonData].[Group_Count] AS [Group_Count], 
-      [view_PersonData].[Role_Count] AS [Role_Count]
+      [view_PersonData].[Role_Count] AS [Role_Count], 
+      [view_PersonData].[active] AS [active]
       FROM [dbo].[view_PersonData] AS [view_PersonData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_ProtocolData" EntityType="hs3MVCMTQa2Model.Store.view_ProtocolData" store:Type="Views" store:Schema="dbo" store:Name="view_ProtocolData">
@@ -305,9 +311,16 @@
           <EntitySet Name="view_QuestionnaireData" EntityType="hs3MVCMTQa2Model.Store.view_QuestionnaireData" store:Type="Views" store:Schema="dbo" store:Name="view_QuestionnaireData">
             <DefiningQuery>SELECT 
       [view_QuestionnaireData].[enterprise] AS [enterprise], 
+      [view_QuestionnaireData].[protocolID] AS [protocolID], 
       [view_QuestionnaireData].[Protocol] AS [Protocol], 
+      [view_QuestionnaireData].[touchpointid] AS [touchpointid], 
       [view_QuestionnaireData].[Touchpoint] AS [Touchpoint], 
+      [view_QuestionnaireData].[questionnaireId] AS [questionnaireId], 
+      [view_QuestionnaireData].[name] AS [name], 
+      [view_QuestionnaireData].[description] AS [description], 
+      [view_QuestionnaireData].[partnertypeid] AS [partnertypeid], 
       [view_QuestionnaireData].[PartnerType] AS [PartnerType], 
+      [view_QuestionnaireData].[personID] AS [personID], 
       [view_QuestionnaireData].[Author] AS [Author], 
       [view_QuestionnaireData].[Locked] AS [Locked], 
       [view_QuestionnaireData].[Completed] AS [Completed], 
@@ -2693,15 +2706,18 @@
       -->
         <EntityType Name="view_GroupData">
           <Key>
+            <PropertyRef Name="touchpointID" />
             <PropertyRef Name="group" />
             <PropertyRef Name="Owner" />
           </Key>
           <Property Name="enterprise" Type="int" />
+          <Property Name="touchpointID" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" />
           <Property Name="description" Type="varchar" MaxLength="100" />
           <Property Name="group" Type="int" Nullable="false" />
           <Property Name="personCount" Type="int" />
           <Property Name="Owner" Type="varchar" Nullable="false" MaxLength="401" />
+          <Property Name="active" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PartnerData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2748,19 +2764,23 @@
           <Property Name="status" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Expr1" Type="int" Nullable="false" />
           <Property Name="campaign" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PersonData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="view_PersonData">
           <Key>
+            <PropertyRef Name="id" />
             <PropertyRef Name="firstname" />
             <PropertyRef Name="lastname" />
             <PropertyRef Name="email" />
+            <PropertyRef Name="Touchpoint" />
             <PropertyRef Name="Person_Status" />
             <PropertyRef Name="Group_Count" />
             <PropertyRef Name="Role_Count" />
           </Key>
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="enterprise" Type="int" />
           <Property Name="firstname" Type="varchar" Nullable="false" MaxLength="200" />
           <Property Name="lastname" Type="varchar" Nullable="false" MaxLength="200" />
@@ -2770,10 +2790,12 @@
           <Property Name="Country" Type="varchar" MaxLength="200" />
           <Property Name="State" Type="varchar" MaxLength="255" />
           <Property Name="Default_Touchpoint" Type="int" />
+          <Property Name="Touchpoint" Type="varchar" Nullable="false" MaxLength="15" />
           <Property Name="personStatusID" Type="int" />
           <Property Name="Person_Status" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="Group_Count" Type="int" Nullable="false" />
           <Property Name="Role_Count" Type="int" Nullable="false" />
+          <Property Name="active" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_ProtocolData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2799,7 +2821,12 @@
       -->
         <EntityType Name="view_QuestionnaireData">
           <Key>
+            <PropertyRef Name="protocolID" />
+            <PropertyRef Name="touchpointid" />
+            <PropertyRef Name="questionnaireId" />
+            <PropertyRef Name="partnertypeid" />
             <PropertyRef Name="PartnerType" />
+            <PropertyRef Name="personID" />
             <PropertyRef Name="Author" />
             <PropertyRef Name="Locked" />
             <PropertyRef Name="Completed" />
@@ -2809,9 +2836,16 @@
             <PropertyRef Name="Reminders" />
           </Key>
           <Property Name="enterprise" Type="int" />
+          <Property Name="protocolID" Type="int" Nullable="false" />
           <Property Name="Protocol" Type="varchar" MaxLength="50" />
+          <Property Name="touchpointid" Type="int" Nullable="false" />
           <Property Name="Touchpoint" Type="varchar" MaxLength="50" />
+          <Property Name="questionnaireId" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="description" Type="varchar" MaxLength="100" />
+          <Property Name="partnertypeid" Type="int" Nullable="false" />
           <Property Name="PartnerType" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="personID" Type="int" Nullable="false" />
           <Property Name="Author" Type="varchar" Nullable="false" MaxLength="401" />
           <Property Name="Locked" Type="varchar" Nullable="false" MaxLength="2" />
           <Property Name="Completed" Type="int" Nullable="false" />
@@ -18165,6 +18199,7 @@
           <Property Type="Int32" Name="groupID" Nullable="false" />
           <Property Type="Int32" Name="statusID" Nullable="false" />
           <Property Type="Int32" Name="campaign" Nullable="false" />
+          <Property Type="Boolean" Name="active" />
         </EntityType>
         <ComplexType Name="pr_getPartnerStatusCountByTouchpoint_Result">
           <Property Type="Int32" Name="statusid" Nullable="false" />
@@ -18229,6 +18264,7 @@
           <Key>
             <PropertyRef Name="group" />
             <PropertyRef Name="Owner" />
+            <PropertyRef Name="touchpointID" />
           </Key>
           <Property Type="Int32" Name="enterprise" />
           <Property Type="String" Name="name" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -18236,6 +18272,8 @@
           <Property Type="Int32" Name="group" Nullable="false" />
           <Property Type="Int32" Name="personCount" />
           <Property Type="String" Name="Owner" Nullable="false" MaxLength="401" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="touchpointID" Nullable="false" />
+          <Property Type="Int32" Name="active" />
         </EntityType>
         <EntityType Name="view_ProtocolData">
           <Key>
@@ -18263,6 +18301,11 @@
             <PropertyRef Name="No_Response" />
             <PropertyRef Name="CMS" />
             <PropertyRef Name="Reminders" />
+            <PropertyRef Name="protocolID" />
+            <PropertyRef Name="touchpointid" />
+            <PropertyRef Name="questionnaireId" />
+            <PropertyRef Name="partnertypeid" />
+            <PropertyRef Name="personID" />
           </Key>
           <Property Type="Int32" Name="enterprise" />
           <Property Type="String" Name="Protocol" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -18275,6 +18318,13 @@
           <Property Type="Int32" Name="No_Response" Nullable="false" />
           <Property Type="String" Name="CMS" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Reminders" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="protocolID" Nullable="false" />
+          <Property Type="Int32" Name="touchpointid" Nullable="false" />
+          <Property Type="Int32" Name="questionnaireId" Nullable="false" />
+          <Property Type="String" Name="name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="description" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="partnertypeid" Nullable="false" />
+          <Property Type="Int32" Name="personID" Nullable="false" />
         </EntityType>
         <EntityType Name="view_TouchpointData">
           <Key>
@@ -18307,6 +18357,8 @@
             <PropertyRef Name="Person_Status" />
             <PropertyRef Name="Group_Count" />
             <PropertyRef Name="Role_Count" />
+            <PropertyRef Name="id" />
+            <PropertyRef Name="Touchpoint" />
           </Key>
           <Property Type="Int32" Name="enterprise" />
           <Property Type="String" Name="firstname" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -18321,6 +18373,9 @@
           <Property Type="String" Name="Person_Status" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Group_Count" Nullable="false" />
           <Property Type="Int32" Name="Role_Count" Nullable="false" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="Touchpoint" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="active" />
         </EntityType>
         <ComplexType Name="xx_updateMenuArchiveRestoreRemove_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -23739,6 +23794,7 @@
           <EntitySetMapping Name="view_PartnerData">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_PartnerData">
               <MappingFragment StoreEntitySet="view_PartnerData">
+                <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="campaign" ColumnName="campaign" />
                 <ScalarProperty Name="statusID" ColumnName="statusID" />
                 <ScalarProperty Name="groupID" ColumnName="groupID" />
@@ -23836,6 +23892,8 @@
           <EntitySetMapping Name="view_GroupData">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_GroupData">
               <MappingFragment StoreEntitySet="view_GroupData">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="touchpointID" ColumnName="touchpointID" />
                 <ScalarProperty Name="Owner" ColumnName="Owner" />
                 <ScalarProperty Name="personCount" ColumnName="personCount" />
                 <ScalarProperty Name="group" ColumnName="group" />
@@ -23861,6 +23919,13 @@
           <EntitySetMapping Name="view_QuestionnaireData">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_QuestionnaireData">
               <MappingFragment StoreEntitySet="view_QuestionnaireData">
+                <ScalarProperty Name="personID" ColumnName="personID" />
+                <ScalarProperty Name="partnertypeid" ColumnName="partnertypeid" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="questionnaireId" ColumnName="questionnaireId" />
+                <ScalarProperty Name="touchpointid" ColumnName="touchpointid" />
+                <ScalarProperty Name="protocolID" ColumnName="protocolID" />
                 <ScalarProperty Name="Reminders" ColumnName="Reminders" />
                 <ScalarProperty Name="CMS" ColumnName="CMS" />
                 <ScalarProperty Name="No_Response" ColumnName="No_Response" />
@@ -23899,6 +23964,9 @@
           <EntitySetMapping Name="view_PersonData">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_PersonData">
               <MappingFragment StoreEntitySet="view_PersonData">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Role_Count" ColumnName="Role_Count" />
                 <ScalarProperty Name="Group_Count" ColumnName="Group_Count" />
                 <ScalarProperty Name="Person_Status" ColumnName="Person_Status" />

@@ -662,15 +662,93 @@ Thanks in advance.<br>
 
         }
 
-        public ActionResult FindPerson()
+        public ActionResult ArchivePerson()
+        {
+            string arguments = Session["personsearch"].ToString() + "active=1;";
+            List<view_PersonData> objPersonDataList = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicFiltersPerson  'view_PersonData' , '" + arguments + "'").ToList();
+            List<PersonViewModel> objPersonViewModelList = ConvertToPersonViewModel(objPersonDataList);
+            ViewBag.searchType = "Archive";
+            return View("RemovePerson", objPersonViewModelList);
+        }
+
+        public ActionResult RemovePerson()
+        {
+            string arguments = Session["personsearch"].ToString() + "active=1;";
+            List<view_PersonData> objPersonDataList = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicFiltersPerson  'view_PersonData' , '" + arguments + "'").ToList();
+            List<PersonViewModel> objPersonViewModelList = ConvertToPersonViewModel(objPersonDataList);
+            ViewBag.searchType = "Remove";
+            return View("RemovePerson", objPersonViewModelList);
+
+        }
+
+        [HttpPost]
+        public ActionResult RemovePerson(string searchType, List<int> chkSelect)
+        {
+            if (searchType == "Remove")
+            {
+                foreach (int personID in chkSelect)
+                {
+                    db.pr_removePerson(personID);
+                }
+
+                ViewBag.searchType = "Remove";
+                return RedirectToAction("RemovePerson");
+            }
+            else if (searchType == "Archive")
+            {
+                foreach (int personID in chkSelect)
+                {
+                    db.pr_archivePerson(personID);
+                }
+                ViewBag.searchType = "Archive";
+                return RedirectToAction("ArchivePerson");
+            }
+            else if (searchType == "Restore")
+            {
+                foreach (int personID in chkSelect)
+                {
+                    db.pr_unArchivePerson(personID);
+                }
+                ViewBag.searchType = "Restore";
+                return RedirectToAction("RestorePerson");
+            }
+            else
+            {
+                return RedirectToAction("FindPerson");
+            }
+        }
+
+        public ActionResult RestorePerson()
+        {
+            string arguments = Session["personsearch"].ToString() + "active=0;";
+
+            List<view_PersonData> objPersonDataList = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicFiltersPerson  'view_PersonData' , '" + arguments + "'").ToList();
+            List<PersonViewModel> objPersonViewModelList = ConvertToPersonViewModel(objPersonDataList);
+            ViewBag.searchType = "Restore";
+            return View("RemovePerson", objPersonViewModelList);
+
+        }
+
+        public ActionResult FindPerson(string searchType)
         {
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
+
+            ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+            ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+            ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
+
+            ViewBag.searchType = searchType;
             return View();
         }
 
 
+
         [HttpPost]
-        public ActionResult FindPerson(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode)
+        public ActionResult FindPerson(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode, string searchType)
         {
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
@@ -717,28 +795,48 @@ Thanks in advance.<br>
             if (txtFullTextSearch != "")
                 arguments += "FullTextSearch=" + txtFullTextSearch + ";";
             //var objPartners2 =   db.Database.ExecuteSqlCommand("Yourprocedure @param, @param1", param1, param2);
-            
 
-            var objPartners = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicFiltersPerson  'view_PersonData' , '" + arguments + "'").ToList();
 
-            Session["person"] = objPartners;
-            TempData["person"] = objPartners;
-            return RedirectToAction("FindPersonResult", objPartners);
+            //   var objPartners = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicFiltersPerson  'view_PersonData' , '" + arguments + "'").ToList();
+            Session["personsearch"] = arguments;
+            //Session["person"] = objPartners;
+            //TempData["person"] = objPartners;
+
+            //  return RedirectToAction("FindPersonResult", objPartners);
+            if (searchType == "Remove")
+            {
+                return RedirectToAction("RemovePerson");
+            }
+            else if (searchType == "Archive")
+            {
+                return RedirectToAction("ArchivePerson");
+            }
+            else if (searchType == "Restore")
+            {
+                return RedirectToAction("RestorePerson");
+            }
+            else
+            {
+                return RedirectToAction("FindPersonResult");
+            }
         }
 
         public ActionResult FindPersonResult()
         {
             try
             {
+                string arguments = Session["personsearch"].ToString();// +"active=1;";
+                Session["person"] = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicFiltersPerson  'view_PersonData' , '" + arguments + "'").ToList();
                 List<view_PersonData> abc = (List<view_PersonData>)Session["person"];
+                // List<view_PersonData> objPartnerViewModelList = ConvertToPartnerViewModel(abc);
+
                 return View(abc);
             }
             catch
             {
-                return RedirectToAction("FindPartner");
+                return RedirectToAction("FindPerson");
 
             }
-
             //List<view_PartnerData> abc = (List<view_PartnerData>)TempData["partner"];
             //Session["partner"] 
 
@@ -750,6 +848,38 @@ Thanks in advance.<br>
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        private List<PersonViewModel> ConvertToPersonViewModel(List<view_PersonData> iview_PersonDataList)
+        {
+            List<PersonViewModel> objPersonViewModelList = new List<PersonViewModel>();
+
+            foreach (var iview_PersonDataData in iview_PersonDataList)
+            {
+                PersonViewModel objPersonViewModel = new PersonViewModel();
+                objPersonViewModel.enterprise = iview_PersonDataData.enterprise;
+                objPersonViewModel.id = iview_PersonDataData.id;
+                objPersonViewModel.Touchpoint = iview_PersonDataData.Touchpoint;
+                objPersonViewModel.firstname = iview_PersonDataData.firstname;
+                objPersonViewModel.title = iview_PersonDataData.title;
+                objPersonViewModel.internalID = iview_PersonDataData.internalID;
+                objPersonViewModel.email = iview_PersonDataData.email;
+                objPersonViewModel.Country = iview_PersonDataData.Country;
+                objPersonViewModel.State = iview_PersonDataData.State;
+                objPersonViewModel.Default_Touchpoint = iview_PersonDataData.Default_Touchpoint;
+                objPersonViewModel.personStatusID = iview_PersonDataData.personStatusID;
+                objPersonViewModel.Person_Status = iview_PersonDataData.Person_Status;
+                objPersonViewModel.Group_Count = iview_PersonDataData.Group_Count;
+                objPersonViewModel.Role_Count = iview_PersonDataData.Role_Count;
+                objPersonViewModel.Person_Status = iview_PersonDataData.Person_Status;
+                objPersonViewModel.IsSelected = false;
+
+
+
+                objPersonViewModelList.Add(objPersonViewModel);
+            }
+            return objPersonViewModelList;
+
         }
     }
 }

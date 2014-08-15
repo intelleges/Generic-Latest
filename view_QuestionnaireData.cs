@@ -25,5 +25,12 @@ namespace Generic
         public int No_Response { get; set; }
         public string CMS { get; set; }
         public string Reminders { get; set; }
+        public int protocolID { get; set; }
+        public int touchpointid { get; set; }
+        public int questionnaireId { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public int partnertypeid { get; set; }
+        public int personID { get; set; }
     }
 }

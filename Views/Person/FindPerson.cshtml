@@ -10,20 +10,25 @@
 }
 
 <style>
-    #panelFind select {
-        width: 210px;       
+    #panelFind select
+    {
+        width: 210px;
     }
-   .txtBox {
-        width: 205px;  
-         border-style: inset;
+
+    .txtBox
+    {
+        width: 205px;
+        border-style: inset;
         border-left-width: 2px;
         border-top-width: 2px;
         height: 15px;
         border-bottom: none;
-        border-right: none; 
-        margin: 0 0 0 0;     
+        border-right: none;
+        margin: 0 0 0 0;
     }
-    .txtBox2 {
+
+    .txtBox2
+    {
         width: 205px;
         border-style: inset;
         border-left-width: 2px;
@@ -32,20 +37,24 @@
         border-bottom: none;
         border-right: none;
     }
-    .t-input {
-    height:16px;
-    
+
+    .t-input
+    {
+        height: 16px;
     }
-    #panelFind td {
-  padding: 0 0 0 0; 
-}
+
+    #panelFind td
+    {
+        padding: 0 0 0 0;
+    }
 </style>
 
 <h2>Find Person</h2>
 
 <form id="FindpersonForm" method="post" enctype="multipart/form-data">
     <div id="panelFind">
-         <table width="70%; " style="float:left" border="0">
+        <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
+        <table width="70%; " style="float: left" border="0">
             <tbody>
                 <tr>
                     <td class="tLeftColumn">INTERNAL ID</td>
@@ -89,16 +98,16 @@
                         <input id="Phone" class="txtBox" type="text" name="Phone">
                     </td>
                 </tr>
-               
+
                 <tr>
                     <td class="tLeftColumn">CAMPAIGN</td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                         @Html.DropDownList("touchpoint", String.Empty)
+                        @Html.DropDownList("touchpoint", String.Empty)
                     </td>
                 </tr>
-               
-               
+
+
             </tbody>
         </table>
         <table style="float: left">
