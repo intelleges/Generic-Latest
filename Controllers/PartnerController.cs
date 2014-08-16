@@ -98,8 +98,18 @@ namespace Generic.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.enterprise = new SelectList(db.enterprise, "id", "description");
-            ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1");
+            //ViewBag.enterprise = new SelectList(db.enterprise, "id", "description");
+            //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1");
+
+            ViewBag.state = new SelectList(db.state, "id", "name");
+            ViewBag.country = new SelectList(db.country, "id", "name");
+            ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname");
+            ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname");
+
+
             return View();
         }
 
@@ -107,17 +117,37 @@ namespace Generic.Controllers
         // POST: /Partner/Create
 
         [HttpPost]
-        public ActionResult Create(partner partner)
+        public ActionResult Create(partner partner, int? protocol, int? partnertype, int? touchpoint, int? group, DateTime? DueDate)
         {
-            if (ModelState.IsValid)
-            {
-                db.partner.Add(partner);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
 
-            ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
-            ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
+
+            string loadGroup = db.pr_getAccesscode().FirstOrDefault();
+            partner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
+
+            try
+            {
+                int? PartnerId = db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, partner.state.ToString(), partner.zipcode, partner.country.ToString(), partner.firstName, partner.lastName, partner.title, partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
+                uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
+                Session["uploadedpartnerList"] = uploadedpartners;
+                Session["partnertype"] = partnertype;
+                Session["touchpoint"] = touchpoint;
+                Session["loadGroup"] = loadGroup;
+                ViewBag.Message = "1";
+               
+            }
+            catch
+            {
+                ViewBag.Message = "error";
+                
+            }
+            ViewBag.state = new SelectList(db.state, "id", "name",partner.state);
+            ViewBag.country = new SelectList(db.country, "id", "name",partner.country);
+            ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name",protocol);
+            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name",partnertype);
+            ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name",group);
+            ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname",partner.owner);
+            ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname",partner.author);
             return View(partner);
         }
 
@@ -148,7 +178,7 @@ namespace Generic.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
+            //   ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
             ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
             ViewBag.state = new SelectList(db.state, "id", "name", partner.state);
             ViewBag.country = new SelectList(db.country, "id", "name", partner.country);
@@ -503,12 +533,12 @@ namespace Generic.Controllers
 
         public ActionResult ExportExcel()
         {
-           
+
 
             string arguments = Session["partnersearch"].ToString() + "active=1;";
             Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
             List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
-           
+
 
 
 
@@ -517,7 +547,7 @@ namespace Generic.Controllers
             var serializer = new XmlSerializer(typeof(List<view_PartnerData>));
 
             List<ExcelEventNotification> objEvents = new List<ExcelEventNotification>();
-           
+
             //We turn it into an XML and save it in the memory
             serializer.Serialize(stream, abc);
             stream.Position = 0;
@@ -526,7 +556,7 @@ namespace Generic.Controllers
             return File(stream, "application/vnd.ms-excel", "PartnerList.xls");
 
 
-             }
+        }
         public ActionResult InvitePartnersListDownload()
         {
 

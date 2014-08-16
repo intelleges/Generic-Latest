@@ -1,27 +1,451 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<Generic.partner>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
 @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Partner";
 }
 
+<script>
+    //jQuery.noConflict();
+    jQuery(document).ready(function () {
 
+        $('#protocol').change(function () {
+            var objProtocolID = $('#protocol').val();
+            var formData = { protocolId: objProtocolID };
+            if (objProtocolID == "") {
+                var touchpointSelectList = "<option value=''>-Select-</option>";
+                $('#touchpoint').html(touchpointSelectList);
+                return;
+            }
+            $.ajax({
+                url: "@Url.Content("~/touchpoint/GetTouchPointByprotocolId")",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    var len = data.Data.length;
+                    var i = 0;
+                    var touchpointSelectList = "<option value=''></option>";
+                    for (i = 0; i < len; i++) {
+                        touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
+                    }
+
+                    $('#touchpoint').html(touchpointSelectList);
+                    $('#touchpointDiv').show();
+
+                },
+                error: function (data) {
+                    var touchpointSelectList = "<option value=''> -Select-</option>";
+                    $('#touchpoint').html(touchpointSelectList);
+                }
+            });
+
+
+        });
+
+
+     
+
+     
+
+
+
+        if ("@ViewBag.Message" == "1") {
+            $('.addPartnerDiv').hide();
+            $('#btnInvite').show();
+            $('#btnInvitelater').show();
+
+            alertify.alert('Partner uploaded successfully');
+        }
+
+        if ("@ViewBag.Message" == "2") {
+            alertify.alert('Invitation Sent');
+        }
+
+        $('#btnInvite').click(function (e) {
+            e.preventDefault();
+
+
+            $.ajax({
+                url: "@Url.Content("~/partner/InvitePartners")",
+                type: "post",
+                success: function (data) {
+                    alertify.alert(data.Data.message);
+                    var len = data.EventNotification.length;
+                    $('#btnInviteList').show();
+                    if (len == 0) {
+                        alertify.alert("Please wait, data processing");
+                    } else {
+
+                        var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                        for (i = 0; i < len; i++)
+                            events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+                        $('#DivEventNotification').html(events);
+                    }
+
+                },
+                error: function (data) {
+
+                }
+            });
+
+
+        });
+
+
+        $('#btnInviteList').click(function (e) {
+            e.preventDefault();
+
+
+            $.ajax({
+                url: "@Url.Content("~/partner/InvitePartnersList")",
+                type: "post",
+                success: function (data) {
+
+                    var len = data.EventNotification.length;
+
+                    if (len == 0) {
+                        alertify.alert("Please wait, data processing");
+                    } else {
+
+                        var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                        for (i = 0; i < len; i++)
+                            events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+                        $('#DivEventNotification').html(events);
+                    }
+
+
+                },
+                error: function (data) {
+                    alertify.alert(data.Data.message);
+                }
+            });
+
+
+        });
+
+
+
+        $('#btnInvitelater').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "@Url.Content("~/partner/InvitePartnersLater")",
+                type: "post",
+                success: function (data) {
+                    alertify.alert(data.Data.message);
+
+                },
+                error: function (data) {
+                    alertify.alert(data.Data.message);
+                }
+            });
+        });
+
+       
+
+    });
+</script>
+
+
+<style type="text/css">
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .twocol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .twocol .editor-field {
+        width: 35%;
+        display: inline-block;
+    }
+
+    .threecol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .threecol .editor-field {
+        width: 20%;
+        display: inline-block;
+    }
+
+        .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+            width: 90%;
+            display: inline-block;
+            font-size: 11px;
+        }
+</style>
+<div class="addPartnerDiv">
 <h2>Create</h2>
-
-@using (Html.BeginForm()) {
+    </div>
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>partner</legend>
+<div id="addPartner" class="addPartnerDiv">
+        <div class="twocol">
+            @Html.HiddenFor(model => model.id)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.enterprise, "enterprise1")
+            <div class="editor-label">
+                @Html.LabelFor(model => model.name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.name)
+                @Html.ValidationMessageFor(model => model.name)
+            </div>
+
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.internalID)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.internalID)
+                @Html.ValidationMessageFor(model => model.internalID)
+            </div>
+
+
         </div>
-        <div class="editor-field">
-            @Html.DropDownList("enterprise", String.Empty)
-            @Html.ValidationMessageFor(model => model.enterprise)
+
+        <div class="threecol">
+<div class="editor-label">
+                @Html.LabelFor(model => model.address1)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.address1)
+                @Html.ValidationMessageFor(model => model.address1)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.address2)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.address2)
+                @Html.ValidationMessageFor(model => model.address2)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.city)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.city)
+                @Html.ValidationMessageFor(model => model.city)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.state)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("state", String.Empty)
+                @Html.ValidationMessageFor(model => model.state)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.province)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.province)
+                @Html.ValidationMessageFor(model => model.province)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.zipcode)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.zipcode)
+                @Html.ValidationMessageFor(model => model.zipcode)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.country)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("country", String.Empty)
+                @Html.ValidationMessageFor(model => model.country)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.phone)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.phone)
+                @Html.ValidationMessageFor(model => model.phone)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.fax)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.fax)
+                @Html.ValidationMessageFor(model => model.fax)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.firstName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.firstName)
+                @Html.ValidationMessageFor(model => model.firstName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.lastName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.lastName)
+                @Html.ValidationMessageFor(model => model.lastName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.title)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.title)
+                @Html.ValidationMessageFor(model => model.title)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.email)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.email)
+                @Html.ValidationMessageFor(model => model.email)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.dunsNumber)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.dunsNumber)
+                @Html.ValidationMessageFor(model => model.dunsNumber)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.federalID)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.federalID)
+                @Html.ValidationMessageFor(model => model.federalID)
+            </div>
+
+            @*<div class="editor-label">
+                @Html.LabelFor(model => model.loadHistory)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.loadHistory)
+                @Html.ValidationMessageFor(model => model.loadHistory)
+            </div>*@
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.owner)
+            </div>
+            <div class="editor-field">
+            
+                 @Html.DropDownList("owner", String.Empty)
+                @Html.ValidationMessageFor(model => model.owner)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.author)
+            </div>
+            <div class="editor-field">
+              
+                 @Html.DropDownList("author", String.Empty)
+                @Html.ValidationMessageFor(model => model.author)
+            </div>
+
+
+
+           @* <div class="editor-label">
+                @Html.LabelFor(model => model.dateApproved)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.dateApproved)
+                @Html.ValidationMessageFor(model => model.dateApproved)
+            </div>*@
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.active)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.active)
+                @Html.ValidationMessageFor(model => model.active)
+            </div>
+
+            <div class="editor-label">
+                Protocol
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("protocol", String.Empty)
+            </div>
+
+            <div class="editor-label">
+                Touchpoint
+            </div>
+            <div class="editor-field">
+                <select id="touchpoint" name="touchpoint"></select>
+            </div>
+            <div class="editor-label">
+                Partner Type
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("partnertype", String.Empty)
+                @*<a href="@Url.Content("~/PartnerType/Create")">Add Partner Type</a>*@
+            </div>
+
+            <div class="editor-label">
+                Group
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("group", String.Empty)
+
+                @*<a href="@Url.Content("~/Group/Create")">Add Group</a>*@
+
+            </div>
+            <div class="editor-label">
+                Due Date
+            </div>
+            <div class="editor-field">
+            @Html.Telerik().DatePicker().Name("DueDate")
+            </div>
+         
+
+
         </div>
+        <p style="float: right; width: 20%;">
+            @*<input type="submit" value="Save" />*@
+            <input type="submit" value="Save" />
+            @*<input type="button" onclick="CloseMe()" value="Cancel" />*@
+        </p>
+    </div>
+    <p>
+        <input type="submit" name="button" id="btnInvite" style="display: none" value="Send invites now" />
+        <input type="submit" name="button" id="btnInvitelater" style="display: none" value="Invite Later" />
+        <input type="submit" name="button" id="btnInviteList" style="display: none" value="View sent invites" />
+    </p>
+
+         <div id="DivEventNotification">
+
+    </div>
+    </fieldset>
+    
+    
+@*<fieldset>
+        <legend>partner</legend>
+
+        
 
         <div class="editor-label">
             @Html.LabelFor(model => model.internalID)
@@ -218,13 +642,6 @@
         <p>
             <input type="submit" value="Create" />
         </p>
-    </fieldset>
+    </fieldset>*@
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
