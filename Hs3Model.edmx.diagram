@@ -254,7 +254,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_EnterpriseData" Width="1.5" PointX="10.664423144731867" PointY="20.913431832992206" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_GroupData" Width="1.5" PointX="1.4395212500540173" PointY="11.402112280671537" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PartnerData" Width="1.5" PointX="5.2499305835226222" PointY="5.8996014026457448" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PersonData" Width="1.5" PointX="1.4035133819112151" PointY="5.6748982992372" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PersonData" Width="1.5" PointX="3.9414416141535344" PointY="30.138812004653182" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

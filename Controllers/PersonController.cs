@@ -12,6 +12,7 @@ using Generic.Helpers;
 using System.IO;
 using LinqToExcel;
 using Generic.ViewModel;
+using System.Xml.Serialization;
 
 namespace Generic.Controllers
 {
@@ -26,10 +27,13 @@ namespace Generic.Controllers
         public ActionResult Index()
         {
 
-            //var personGroup =db.p
-            //var person = db.person.Include(p => p.enterprise1).Include(p => p.personStatu).Include(p => p.role1);
-            var person = db.pr_getPersonAll(SessionSingleton.MyEnterPriseId);
-            return View(person.ToList());
+            ////var personGroup =db.p
+            ////var person = db.person.Include(p => p.enterprise1).Include(p => p.personStatu).Include(p => p.role1);
+            //var person = db.pr_getPersonAll(SessionSingleton.MyEnterPriseId);
+            //return View(person.ToList());
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
+            Session["personsearch"] = arguments;
+            return RedirectToAction("FindPersonResult");
         }
 
         //
@@ -662,6 +666,23 @@ Thanks in advance.<br>
 
         }
 
+
+        public ActionResult Archive(int id)
+        {
+            db.pr_archivePerson(id);
+            //if (ModelState.IsValid)
+            //{
+            //    //db.Entry(partner).State = EntityState.Modified;
+            //    //db.SaveChanges();
+            //    db.pr_modifyPartner(partner.id, partner.enterprise, partner.internalID, partner.name, partner.address1, partner.address2, partner.city, partner.state, partner.province, partner.zipcode, partner.country, partner.phone, partner.fax, partner.firstName, partner.lastName, partner.title, partner.email, partner.dunsNumber, partner.federalID, partner.status, partner.loadHistory, partner.owner, partner.author, partner.dateApproved, partner.active, partner.lastModified);
+
+            //    return Json(new { success = true });
+            //    //return RedirectToAction("Index");
+            //}
+            //ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
+            //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult ArchivePerson()
         {
             string arguments = Session["personsearch"].ToString() + "active=1;";
@@ -678,6 +699,33 @@ Thanks in advance.<br>
             List<PersonViewModel> objPersonViewModelList = ConvertToPersonViewModel(objPersonDataList);
             ViewBag.searchType = "Remove";
             return View("RemovePerson", objPersonViewModelList);
+
+        }
+
+        public ActionResult ExportExcel()
+        {
+
+
+            string arguments = Session["personsearch"].ToString() + "active=1;";
+            Session["person"] = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicfiltersPerson  'view_persondata' , '" + arguments + "'").ToList();
+            List<view_PersonData> abc = (List<view_PersonData>)Session["person"];
+
+
+
+
+
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<view_PersonData>));
+
+            List<ExcelEventNotification> objEvents = new List<ExcelEventNotification>();
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, abc);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "PersonList.xls");
+
 
         }
 
@@ -825,7 +873,7 @@ Thanks in advance.<br>
         {
             try
             {
-                string arguments = Session["personsearch"].ToString();// +"active=1;";
+                string arguments = Session["personsearch"].ToString() + "active=1;";// D1 Uncommented active=1
                 Session["person"] = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicFiltersPerson  'view_PersonData' , '" + arguments + "'").ToList();
                 List<view_PersonData> abc = (List<view_PersonData>)Session["person"];
                 // List<view_PersonData> objPartnerViewModelList = ConvertToPartnerViewModel(abc);

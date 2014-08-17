@@ -307,10 +307,10 @@
       [view_PersonData].[email] AS [email], 
       [view_PersonData].[Country] AS [Country], 
       [view_PersonData].[State] AS [State], 
-      [view_PersonData].[Default_Touchpoint] AS [Default_Touchpoint], 
       [view_PersonData].[Touchpoint] AS [Touchpoint], 
+      [view_PersonData].[Default_Touchpoint] AS [Default_Touchpoint], 
       [view_PersonData].[personStatusID] AS [personStatusID], 
-      [view_PersonData].[Person Status] AS [Person Status], 
+      [view_PersonData].[Person_Status] AS [Person_Status], 
       [view_PersonData].[Group_Count] AS [Group_Count], 
       [view_PersonData].[Role_Count] AS [Role_Count], 
       [view_PersonData].[active] AS [active]
@@ -2831,10 +2831,10 @@
           <Property Name="email" Type="varchar" Nullable="false" MaxLength="200" />
           <Property Name="Country" Type="varchar" MaxLength="200" />
           <Property Name="State" Type="varchar" MaxLength="255" />
-          <Property Name="Default_Touchpoint" Type="int" />
-          <Property Name="Touchpoint" Type="varchar(max)" />
+          <Property Name="Touchpoint" Type="int" />
+          <Property Name="Default_Touchpoint" Type="varchar(max)" />
           <Property Name="personStatusID" Type="int" />
-          <Property Name="Person Status" Type="varchar" MaxLength="50" />
+          <Property Name="Person_Status" Type="varchar" MaxLength="50" />
           <Property Name="Group_Count" Type="int" />
           <Property Name="Role_Count" Type="int" />
           <Property Name="active" Type="int" />
@@ -18478,8 +18478,8 @@
           <Property Type="String" Name="email" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Country" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="State" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="Default_Touchpoint" />
-          <Property Type="String" Name="Touchpoint" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Touchpoint" />
+          <Property Type="String" Name="Default_Touchpoint" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="personStatusID" />
           <Property Type="String" Name="Person_Status" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Group_Count" />
@@ -24101,10 +24101,10 @@
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="Role_Count" ColumnName="Role_Count" />
                 <ScalarProperty Name="Group_Count" ColumnName="Group_Count" />
-                <ScalarProperty Name="Person_Status" ColumnName="Person Status" />
+                <ScalarProperty Name="Person_Status" ColumnName="Person_Status" />
                 <ScalarProperty Name="personStatusID" ColumnName="personStatusID" />
-                <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
                 <ScalarProperty Name="Default_Touchpoint" ColumnName="Default_Touchpoint" />
+                <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="email" ColumnName="email" />

@@ -2,10 +2,44 @@
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @{
-    Layout = LayoutHelper.GetLayout();
+    Layout = null;  // LayoutHelper.GetLayout();
     ViewBag.Title = ViewBag.Project + "Admin";
 }
 
+<style type="text/css">
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .twocol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .twocol .editor-field {
+        width: 35%;
+        display: inline-block;
+    }
+
+    .threecol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .threecol .editor-field {
+        width: 20%;
+        display: inline-block;
+    }
+
+        .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+            width: 90%;
+            display: inline-block;
+            font-size: 11px;
+        }
+</style>
 <h2>Edit</h2>
 
 @using (Html.BeginForm()) {
@@ -13,16 +47,24 @@
 
     <fieldset>
         <legend>person</legend>
-
+        <div class="twocol">
         @Html.HiddenFor(model => model.id)
-
-        <div class="editor-label">
+            <div class="editor-label">
+            @Html.LabelFor(model => model.internalId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.internalId)
+            @Html.ValidationMessageFor(model => model.internalId)
+        </div>
+            </div>
+        <div class="threecol">
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.enterprise, "enterprise1")
         </div>
         <div class="editor-field">
             @Html.DropDownList("enterprise", String.Empty)
             @Html.ValidationMessageFor(model => model.enterprise)
-        </div>
+        </div>*@
         
         <div class="editor-label">
             @Html.LabelFor(model => model.manager)
@@ -64,13 +106,7 @@
             @Html.ValidationMessageFor(model => model.campaign)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.internalId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.internalId)
-            @Html.ValidationMessageFor(model => model.internalId)
-        </div>
+        
 
         <div class="editor-label">
             @Html.LabelFor(model => model.nmNumber)
@@ -255,16 +291,15 @@
             @Html.EditorFor(model => model.archivedDate)
             @Html.ValidationMessageFor(model => model.archivedDate)
         </div>
-
-        <p>
+            </div>
+        <p style="float: right; width: 20%;">
             <input type="submit" value="Save" />
+             <input type="button" onclick="CloseMe()" value="Cancel" />
         </p>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 
 @*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -23,8 +23,8 @@ namespace Generic
         public string email { get; set; }
         public string Country { get; set; }
         public string State { get; set; }
-        public Nullable<int> Default_Touchpoint { get; set; }
-        public string Touchpoint { get; set; }
+        public Nullable<int> Touchpoint { get; set; }
+        public string Default_Touchpoint { get; set; }
         public Nullable<int> personStatusID { get; set; }
         public string Person_Status { get; set; }
         public Nullable<int> Group_Count { get; set; }
