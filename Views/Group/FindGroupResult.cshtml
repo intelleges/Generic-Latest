@@ -3,39 +3,82 @@
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 @{
-    Layout = LayoutHelper.GetPopupLayout();
-    ViewBag.Title = "Partner";
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Group";
 }
 
 <style>
-    div#PartnerGrid
-    {
+    div#GroupGrid {
         font-size: 11px;
     }
 
-    #modal
-    {
+    #modal {
         height: 489px;
     }
 
-    .ui-dialog
-    {
+    .ui-dialog {
         width: 99% !important;
         left: 0;
+    }
+
+    .t-grid-content tr > td:hover .menu_block + .display_menu {
+        display: block !important;
+    }
+
+    .display_menu {
+        left: 65px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+
+    .t-grid-content tr > td {
+        overflow: visible !important;
+        position: relative;
+    }
+
+    .display_menu > ul {
+        padding: 0 16px;
+    }
+
+    .display_menu li {
+        list-style: none outside none;
+        width: 143px;
     }
 </style>
 
 @( Html.Telerik().Grid(Model).Name("GroupGrid")
+.ToolBar(commands => commands
+                .Custom()
+                    .HtmlAttributes(new { id = "export" })
+                    .Text("Export to Excel")
+                    .Action("ExportExcel", "group"))
+
         .Columns(columns =>
         {
-            columns.Bound(o => o.enterprise).Title("Enterprise").Width(100);
-            columns.Bound(o => o.description).Title("Description").Width(100);
-            columns.Bound(o => o.name).Title("Name").Width(100);
+            columns.Bound(o => o.name).Title("Name").Width(100).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
+<div class="display_menu" style="display: none;">
+    <ul>
+        <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+        <li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>
+        <li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>
+        <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+        @*<li><a href="@item.Expr1" target="_blank">Complete</a></li>*@
+    </ul>
+</div>
+</text>);
             columns.Bound(o => o.Owner).Title("Owner").Width(100);
+            columns.Bound(o => o.description).Title("Description").Width(200);
+            columns.Bound(o => o.PartnerCount).Title("Partner Count").Width(100);
+            columns.Bound(o => o.ShadowCount).Title("Shadow Count").Width(100);
+            columns.Bound(o => o.UserCount).Title("User Count").Width(100);
+            columns.Bound(o => o.CampaignCount).Title("Campaign Count").Width(100);
 
-            columns.Bound(o => o.personCount).Title("PersonCount").Width(100);
         })
-
+         .DataKeys(keys => keys.Add(o => o.id))
         .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
         .Sortable(sorting => sorting.Enabled(true))
 
@@ -43,13 +86,11 @@
            .Enabled(true)
            .Height(380))
            .HtmlAttributes(new { @class = "ra" })
-
-
-
 )
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
+<div id="genericPopup" title=""></div>
 <script src="~/Scripts/jquery-1.8.2.js"></script>
 <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
 <script type="text/javascript">
@@ -58,8 +99,19 @@
         $("#EmailDialog").dialog({
             autoOpen: false
         });
+        $('#popup').bind('dialogclose', function (event) {
+            window.location.replace(window.location.href);
+        });
+
 
     });
+
+    function CloseMe() {
+        $("#genericPopup").dialog('close');
+        //$(".t-icon .t-refresh").trigger('click');
+
+        window.location.replace(window.location.href);
+    }
     function OpenEmailDialog(ac) {
         jQuery.noConflict();
 
@@ -72,6 +124,94 @@
             });
             $("#EmailDialog").dialog('open');
         });
+    }
+
+    $('#menu_block').hover(function () {
+        alert("call");
+        $('#display_menu').show();
+    }, function () {
+        $('#display_menu').hide();
+    })
+
+    $('#menu_block').mouseenter(function () {
+        $('#display_menu').show();
+    }).mouseleave(function () {
+
+        $('#display_menu').hide();
+
+    });
+
+    function openEditPopup(id) {
+        $.get("@Url.Content("~/Group/Edit/")" + id, function (data) {
+             $("#genericPopup").html(data);
+         });
+
+         $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
+         $("#genericPopup").dialog('open');
+    }
+    function openRemovePopup(id,  name) {
+
+
+
+        alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
+        });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to Remove : " + name + ". Are you sure you want to do this?", function (e) {
+            if (e) {
+                // Click no
+            } else {
+                // click yes
+
+                $.get("@Url.Content("~/Group/Archive/")" + id, function (data) {
+                    // $(".t-icon .t-refresh").trigger('click');
+                    window.location.replace(window.location.href);
+                });
+
+            }
+        });
+
+
+    }
+    function openArchivePopup(id,  name) {
+
+
+
+        alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
+        });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to Archive : " + name + ". Are you sure you want to do this?", function (e) {
+            if (e) {
+                // Click no
+            } else {
+                // click yes
+
+                $.get("@Url.Content("~/Group/Archive/")" + id, function (data) {
+                    // $(".t-icon .t-refresh").trigger('click');
+                    window.location.replace(window.location.href);
+                });
+
+            }
+        });
+
+
+    }
+    function openViewDetailPopup(id) {
+        $("#genericPopup").html("<p>Loading Data...</p>");
+        $.get("@Url.Content("~/Group/Details/")" + id, function (data) {
+            $("#genericPopup").html(data);
+        });
+        $("#genericPopup").dialog({ height: 600, title: "View Detail" });
+        $("#genericPopup").dialog('open');
     }
 </script>
 

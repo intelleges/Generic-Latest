@@ -2,86 +2,131 @@
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @{
-    Layout = LayoutHelper.GetLayout();
+    Layout = null;  // LayoutHelper.GetLayout();
     ViewBag.Title = "Group";
 }
+<style type="text/css">
+    .threecol, .twocol {
+        width: 100%;
+        display: inline-block;
+        font-size: 13px!important;
+    }
 
-<h2>Group Detail</h2>
+        .twocol .display-label {
+            width: 10%;
+            display: inline-block;
+        }
+
+        .twocol .display-field {
+            width: 35%;
+            display: inline-block;
+        }
+
+        .threecol .display-label {
+            width: 10%;
+            display: inline-block;
+        }
+
+        .threecol .display-field {
+            width: 20%;
+            display: inline-block;
+        }
+
+            .threecol .display-field label {
+                width: 90%;
+                display: inline-block;
+                font-size: 13px!important;
+            }
+
+    #PartnerEventGrid {
+        font-size: 12px;
+    }
+</style>
+<h2>SSDetail</h2>
 
 <fieldset>
     <legend>group</legend>
+    <div class="twocol">
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.enterprise1.description)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.enterprise1.description)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.name)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.name)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.groupCollection1.name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.groupCollection1.name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.author)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.author)
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.groupCollection1.name)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.groupCollection1.name)
+        </div>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.state)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.state)
-    </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.name)
-    </div>
+    <div class="threecol">
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.enterprise1.description)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.enterprise1.description)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.description)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.description)
-    </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.email)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.email)
-    </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.dateCreated)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.dateCreated)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.author)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.author)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.sortOrder)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.sortOrder)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.state)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.state)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.active)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.active)
+
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.description)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.description)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.email)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.email)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.dateCreated)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.dateCreated)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.sortOrder)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.sortOrder)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.active)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.active)
+        </div>
     </div>
 </fieldset>
-<p>
+@*<p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>*@
