@@ -546,8 +546,7 @@ namespace Generic.Controllers
             var stream = new MemoryStream();
             var serializer = new XmlSerializer(typeof(List<view_PartnerData>));
 
-            List<ExcelEventNotification> objEvents = new List<ExcelEventNotification>();
-
+           
             //We turn it into an XML and save it in the memory
             serializer.Serialize(stream, abc);
             stream.Position = 0;

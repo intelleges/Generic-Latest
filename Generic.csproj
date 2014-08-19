@@ -1674,6 +1674,7 @@
     <Compile Include="ViewModel\GridDataVM.cs" />
     <Compile Include="ViewModel\GroupsVM.cs" />
     <Compile Include="ViewModel\MainGirdVM.cs" />
+    <Compile Include="ViewModel\ProtocolViewModel.cs" />
     <Compile Include="ViewModel\QuestionnaireViewModel.cs" />
     <Compile Include="view_EnterpriseData.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
@@ -2774,6 +2775,7 @@
     <Content Include="Views\Partner\RemovePartner.cshtml" />
     <Content Include="Views\Person\RemovePerson.cshtml" />
     <Content Include="Views\Group\RemoveGroup.cshtml" />
+    <EmbeddedResource Include="Views\Protocol\RemoveProtocol.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

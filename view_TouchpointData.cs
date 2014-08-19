@@ -26,5 +26,7 @@ namespace Generic
         public int Questionnaire_Count { get; set; }
         public int Partner_Count { get; set; }
         public int PartnerType_Count { get; set; }
+        public int id { get; set; }
+        public Nullable<int> active { get; set; }
     }
 }

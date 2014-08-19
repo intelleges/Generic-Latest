@@ -21,5 +21,7 @@ namespace Generic
         public int User_Count { get; set; }
         public int Partner_Count { get; set; }
         public int Group_Count { get; set; }
+        public int id { get; set; }
+        public Nullable<int> active { get; set; }
     }
 }

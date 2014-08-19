@@ -318,13 +318,15 @@
           </EntitySet>
           <EntitySet Name="view_ProtocolData" EntityType="hs3MVCMTQa2Model.Store.view_ProtocolData" store:Type="Views" store:Schema="dbo" store:Name="view_ProtocolData">
             <DefiningQuery>SELECT 
+      [view_ProtocolData].[id] AS [id], 
       [view_ProtocolData].[enterprise] AS [enterprise], 
       [view_ProtocolData].[name] AS [name], 
       [view_ProtocolData].[Protocol_Admin] AS [Protocol_Admin], 
       [view_ProtocolData].[Protocol_Sponsor] AS [Protocol_Sponsor], 
       [view_ProtocolData].[User_Count] AS [User_Count], 
       [view_ProtocolData].[Partner_Count] AS [Partner_Count], 
-      [view_ProtocolData].[Group_Count] AS [Group_Count]
+      [view_ProtocolData].[Group_Count] AS [Group_Count], 
+      [view_ProtocolData].[active] AS [active]
       FROM [dbo].[view_ProtocolData] AS [view_ProtocolData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_QuestionnaireData" EntityType="hs3MVCMTQa2Model.Store.view_QuestionnaireData" store:Type="Views" store:Schema="dbo" store:Name="view_QuestionnaireData">
@@ -352,6 +354,7 @@
           <EntitySet Name="view_TouchpointData" EntityType="hs3MVCMTQa2Model.Store.view_TouchpointData" store:Type="Views" store:Schema="dbo" store:Name="view_TouchpointData">
             <DefiningQuery>SELECT 
       [view_TouchpointData].[enterprise] AS [enterprise], 
+      [view_TouchpointData].[id] AS [id], 
       [view_TouchpointData].[Name] AS [Name], 
       [view_TouchpointData].[Touchpoint_Admin] AS [Touchpoint_Admin], 
       [view_TouchpointData].[Touchpoint_Sponsor] AS [Touchpoint_Sponsor], 
@@ -362,7 +365,8 @@
       [view_TouchpointData].[Group_Count] AS [Group_Count], 
       [view_TouchpointData].[Questionnaire_Count] AS [Questionnaire_Count], 
       [view_TouchpointData].[Partner_Count] AS [Partner_Count], 
-      [view_TouchpointData].[PartnerType_Count] AS [PartnerType_Count]
+      [view_TouchpointData].[PartnerType_Count] AS [PartnerType_Count], 
+      [view_TouchpointData].[active] AS [active]
       FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__partner__enter__7B863AD4" Association="hs3MVCMTQa2Model.Store.FK__partner__enter__7B863AD4">
@@ -2844,12 +2848,14 @@
       -->
         <EntityType Name="view_ProtocolData">
           <Key>
+            <PropertyRef Name="id" />
             <PropertyRef Name="Protocol_Admin" />
             <PropertyRef Name="Protocol_Sponsor" />
             <PropertyRef Name="User_Count" />
             <PropertyRef Name="Partner_Count" />
             <PropertyRef Name="Group_Count" />
           </Key>
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="enterprise" Type="int" />
           <Property Name="name" Type="varchar" MaxLength="50" />
           <Property Name="Protocol_Admin" Type="varchar" Nullable="false" MaxLength="401" />
@@ -2857,6 +2863,7 @@
           <Property Name="User_Count" Type="int" Nullable="false" />
           <Property Name="Partner_Count" Type="int" Nullable="false" />
           <Property Name="Group_Count" Type="int" Nullable="false" />
+          <Property Name="active" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_QuestionnaireData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2901,6 +2908,7 @@
       -->
         <EntityType Name="view_TouchpointData">
           <Key>
+            <PropertyRef Name="id" />
             <PropertyRef Name="Touchpoint_Admin" />
             <PropertyRef Name="Touchpoint_Sponsor" />
             <PropertyRef Name="User_Count" />
@@ -2910,6 +2918,7 @@
             <PropertyRef Name="PartnerType_Count" />
           </Key>
           <Property Name="enterprise" Type="int" />
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Touchpoint_Admin" Type="varchar" Nullable="false" MaxLength="401" />
           <Property Name="Touchpoint_Sponsor" Type="varchar" Nullable="false" MaxLength="401" />
@@ -2921,6 +2930,7 @@
           <Property Name="Questionnaire_Count" Type="int" Nullable="false" />
           <Property Name="Partner_Count" Type="int" Nullable="false" />
           <Property Name="PartnerType_Count" Type="int" Nullable="false" />
+          <Property Name="active" Type="int" />
         </EntityType>
         <Association Name="FK__partner__enter__7B863AD4">
           <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="1" />
@@ -18282,6 +18292,7 @@
             <PropertyRef Name="User_Count" />
             <PropertyRef Name="Partner_Count" />
             <PropertyRef Name="Group_Count" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Type="Int32" Name="enterprise" />
           <Property Type="String" Name="name" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -18290,6 +18301,8 @@
           <Property Type="Int32" Name="User_Count" Nullable="false" />
           <Property Type="Int32" Name="Partner_Count" Nullable="false" />
           <Property Type="Int32" Name="Group_Count" Nullable="false" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="active" />
         </EntityType>
         <EntityType Name="view_QuestionnaireData">
           <Key>
@@ -18335,6 +18348,7 @@
             <PropertyRef Name="Questionnaire_Count" />
             <PropertyRef Name="Partner_Count" />
             <PropertyRef Name="PartnerType_Count" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Type="Int32" Name="enterprise" />
           <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -18348,6 +18362,8 @@
           <Property Type="Int32" Name="Questionnaire_Count" Nullable="false" />
           <Property Type="Int32" Name="Partner_Count" Nullable="false" />
           <Property Type="Int32" Name="PartnerType_Count" Nullable="false" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="active" />
         </EntityType>
         <ComplexType Name="xx_updateMenuArchiveRestoreRemove_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -23938,6 +23954,8 @@
           <EntitySetMapping Name="view_ProtocolData">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_ProtocolData">
               <MappingFragment StoreEntitySet="view_ProtocolData">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Group_Count" ColumnName="Group_Count" />
                 <ScalarProperty Name="Partner_Count" ColumnName="Partner_Count" />
                 <ScalarProperty Name="User_Count" ColumnName="User_Count" />
@@ -23975,6 +23993,8 @@
           <EntitySetMapping Name="view_TouchpointData">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_TouchpointData">
               <MappingFragment StoreEntitySet="view_TouchpointData">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="PartnerType_Count" ColumnName="PartnerType_Count" />
                 <ScalarProperty Name="Partner_Count" ColumnName="Partner_Count" />
                 <ScalarProperty Name="Questionnaire_Count" ColumnName="Questionnaire_Count" />

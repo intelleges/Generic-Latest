@@ -8,49 +8,63 @@
 }
 
 <style>
-    div#ProtocolGrid {
+    div#ProtocolGrid
+    {
         font-size: 11px;
     }
 
-    #modal {
+    #modal
+    {
         height: 489px;
     }
 
-    .ui-dialog {
+    .ui-dialog
+    {
         width: 99% !important;
         left: 0;
     }
 </style>
-
+<form action="@Url.Content("~/Protocol/RemoveProtocol")" method="post">
+ <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
 
 @( Html.Telerik().Grid(Model).Name("ProtocolGrid")
-.ToolBar(commands => commands
-                .Custom()
-                    .HtmlAttributes(new { id = "export" })
-                    .Text("Export to Excel")
-                    .Action("ExportExcel", "protocol"))
         .Columns(columns =>
         {
-            columns.Bound(o => o.name).Title("Protocol Name").Width(400)
-                                .Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
+
+            columns.Bound(o => o.enterprise)
+
+                   .Title("<input type='checkbox' onchange='Selectall();' id='chkSelectAll' style='margin-left: 11px;' name='checkedRecords' value='<#= IsSelected #>' />")
+                   .Template(@<text><input type='checkbox' id='chkMessage' name='chkSelect' value='@item.id' /></text>)
+                   .Width(50)
+                   .HtmlAttributes(new { style = "text-align:center" });
+
+
+           
+            columns.Bound(o => o.name).Title("Protocol Name").Width(400).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
 <div class="display_menu" style="display: none;">
     <ul>
         <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
         <li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>
         <li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>
         <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-
+      
     </ul>
 </div>
 </text>);
             columns.Bound(o => o.Protocol_Admin).Title("Protocol_Admin").Width(100);
-            columns.Bound(o => o.Protocol_Sponsor).Title("Protocol_Sponsor").Width(100);
+            columns.Bound(o => o.Protocol_Sponsor).Title("Protocol_Sponsor").Width(100)
+            .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
 
             columns.Bound(o => o.User_Count).Title("User_Count").Width(100);
 
             columns.Bound(o => o.Partner_Count).Title("Partner_Count").Width(100);
-            columns.Bound(o => o.Group_Count).Title("Group_Count").Width(100);        })
+            columns.Bound(o => o.Group_Count).Title("Group_Count").Width(100);
+           
+           
 
+
+        })
+       
          //.ClientEvents(events => events.OnDataBound("onDataBound"))
         .DataKeys(keys => keys.Add(o => o.id))
         .Pageable(pager => pager.PageSize(13).Total(200).Enabled(false))
@@ -60,17 +74,23 @@
            .Enabled(true)
            .Height(380))
            .HtmlAttributes(new { @class = "ra" })
+
+
+
 )
+</form>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
 <div id="genericPopup" title=""></div>
 <style>
-    .t-grid-content tr > td:hover .menu_block + .display_menu {
+    .t-grid-content tr > td:hover .menu_block + .display_menu
+    {
         display: block !important;
     }
 
-    .display_menu {
+    .display_menu
+    {
         left: 65px;
         overflow: visible;
         position: absolute;
@@ -80,16 +100,19 @@
         z-index: 100;
     }
 
-    .t-grid-content tr > td {
+    .t-grid-content tr > td
+    {
         overflow: visible !important;
         position: relative;
     }
 
-    .display_menu > ul {
+    .display_menu > ul
+    {
         padding: 0 16px;
     }
 
-    .display_menu li {
+    .display_menu li
+    {
         list-style: none outside none;
         width: 143px;
     }
@@ -102,21 +125,22 @@
         $("#EmailDialog").dialog({
             autoOpen: false
         });
-        $('#popup').bind('dialogclose', function (event) {
-            window.location.replace(window.location.href);
-        });
+
 
     });
+
     function CloseMe() {
         $("#genericPopup").dialog('close');
-        // $("#PartnerGrid").data("kendoGrid").read();
-        window.location.replace(window.location.href);
+        //$(".t-icon .t-refresh").trigger('click');
 
+        window.location.replace(window.location.href);
     }
+
+
     function OpenEmailDialog(ac) {
         jQuery.noConflict();
 
-        $.get("/WrongContact/Index", { accessCode: ac }, function (data) {
+        $.get("@Url.Content("~/WrongContact/Index")", { accessCode: ac }, function (data) {
 
             $("#EmailDialog").html(data);
             $("#EmailDialog").dialog({
@@ -127,7 +151,7 @@
         });
     }
     $('#menu_block').hover(function () {
-       // alert("call");
+        alert("call");
         $('#display_menu').show();
     }, function () {
         $('#display_menu').hide();
@@ -142,14 +166,15 @@
     });
 
     function openEditPopup(id) {
-        $.get("/Protocol/Edit/" + id, function (data) {
+        $.get("@Url.Content("~/Protocol/Edit/")" + id, function (data) {
             $("#genericPopup").html(data);
         });
 
         $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
         $("#genericPopup").dialog('open');
     }
-    function openRemovePopup(id,  name) {
+
+    function openRemovePopup(id, name) {
 
 
 
@@ -161,7 +186,7 @@
             buttonFocus: "cancel"
         });
         // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Remove : " + name + ". Are you sure you want to do this?", function (e) {
+        alertify.confirm("You are about to Remove "  + name + ". Are you sure you want to do this?", function (e) {
             if (e) {
                 // Click no
             } else {
@@ -179,7 +204,7 @@
     }
 
 
-    function openArchivePopup(id,  name) {
+    function openArchivePopup(id, name) {
 
 
 
@@ -191,7 +216,7 @@
             buttonFocus: "cancel"
         });
         // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Archive: " + name + ". Are you sure you want to do this?", function (e) {
+        alertify.confirm("You are about to Archive " + name + ". Are you sure you want to do this?", function (e) {
             if (e) {
                 // Click no
             } else {
@@ -207,7 +232,6 @@
 
 
     }
-
 
     function openViewDetailPopup(id) {
         $("#genericPopup").html("<p>Loading Data...</p>");
@@ -218,30 +242,53 @@
         $("#genericPopup").dialog('open');
     }
 
+    function openCompletePopup() {
+        $("#genericPopup").html("<h1>Your Complete content goes here</h1>");
+        $("#genericPopup").dialog({ height: 500, title: "Complete" });
+        $("#genericPopup").dialog('open');
+    }
 
-    //function openRemovePopup() {
-    //    $("#genericPopup").html("<h1>Your Remove content goes here</h1>");
-    //    $("#genericPopup").dialog({ height: 500, title: "Remove" });
-    //    $("#genericPopup").dialog('open');
-    //}
 
-    //function openArchivePopup() {
-    //    $("#genericPopup").html("<h1>Your Archive content goes here</h1>");
-    //    $("#genericPopup").dialog({ height: 500, title: "Archive" });
-    //    $("#genericPopup").dialog('open');
-    //}
 
-    //function openViewDetailPopup() {
-    //    $("#genericPopup").html("<h1>Your View Detail content goes here</h1>");
-    //    $("#genericPopup").dialog({ height: 500, title: "View Detail" });
-    //    $("#genericPopup").dialog('open');
-    //}
 
-    //function openCompletePopup() {
-    //    $("#genericPopup").html("<h1>Your Complete content goes here</h1>");
-    //    $("#genericPopup").dialog({ height: 500, title: "Complete" });
-    //    $("#genericPopup").dialog('open');
-    //}
+
+    function Selectall() {
+        // if check all is checked, all checkboxes are checked
+        // if check all is unchecked, all checkboxes are cleared
+
+        if ($('#chkSelectAll').is(':checked')) {
+            $('input:checkbox[name$=chkSelect]').each(
+                function () {
+                    $(this).attr('checked', 'checked');
+                });
+        }
+        else {
+            $('input:checkbox[name$=chkSelect]').each(
+                function () {
+                    $(this).removeAttr('checked');
+                });
+        }
+    }
+
+    $('input:checkbox[name$=chkSelect]').click(
+    function () {
+        // if any of the checkbox is unchecked
+        // check all checkbox should be cleared
+        if (!$(this).is(':checked')) {
+            $('#chkSelectAll').removeAttr('checked');
+        }
+        else {
+            // if all of the checkbox is checked
+            // check all checkbox should be checked
+            if ($('input:checkbox[name$=chkSelect]').length ==
+            $('input:checkbox[name$=chkSelect]:checked').length) {
+                $('#chkSelectAll').attr('checked', 'checked');
+            }
+        }
+    });
+
+
+
 
 
 </script>
