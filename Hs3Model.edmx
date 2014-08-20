@@ -4817,6 +4817,7 @@
           <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Type="int" Mode="In" />
           <Parameter Name="loadGroup" Type="varchar" Mode="In" />
           <Parameter Name="dueDate" Type="date" Mode="In" />
+          <Parameter Name="group" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addPartnumberSpreadsheetDataLoadstatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -11074,24 +11075,7 @@
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="internalID" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="partnumberSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" />
           <EntitySet Name="partnumberSpreadsheetDataLoadStatus" EntityType="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoadStatus" />
-          <AssociationSet Name="FK__partnumbe__enter__7B863AD4" Association="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4">
-            <End Role="enterprise" EntitySet="enterprise" />
-            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
-          </AssociationSet>
-          <AssociationSet Name="FK__partnumbe__partn__7C7A5F0D" Association="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D">
-            <End Role="partnerType" EntitySet="partnerType" />
-            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
-          </AssociationSet>
-          <AssociationSet Name="FK__partnumbe__perso__7E62A77F" Association="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F">
-            <End Role="person" EntitySet="person" />
-            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
-          </AssociationSet>
-          <AssociationSet Name="FK__partnumbe__touch__7D6E8346" Association="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346">
-            <End Role="touchpoint" EntitySet="touchpoint" />
-            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
-          </AssociationSet>
           <FunctionImport Name="pr_addPartnumberSpreadsheetDataLoad" ReturnType="Collection(Int32)">
             <Parameter Name="partner_internal_id" Mode="In" Type="String" />
             <Parameter Name="partner_sap_id" Mode="In" Type="String" />
@@ -11126,6 +11110,7 @@
             <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
             <Parameter Name="loadGroup" Mode="In" Type="String" />
             <Parameter Name="dueDate" Mode="In" Type="DateTime" />
+            <Parameter Name="group" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_addPartnumberSpreadsheetDataLoadstatus" ReturnType="Collection(Decimal)">
             <Parameter Name="description" Mode="In" Type="String" />
@@ -11139,10 +11124,10 @@
             <Parameter Name="in" Mode="In" Type="Int32" />
             <Parameter Name="out" Mode="InOut" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="pr_getPartnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad)">
+          <FunctionImport Name="pr_getPartnumberSpreadsheetDataLoad">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getPartnumberSpreadsheetDataLoadByAccessCode" EntitySet="partnumberSpreadsheetDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad)">
+          <FunctionImport Name="pr_getPartnumberSpreadsheetDataLoadByAccessCode">
           <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnumberSpreadsheetDataLoadstatus" EntitySet="partnumberSpreadsheetDataLoadStatus" ReturnType="Collection(hs3MVCMTQa2Model.partnumberSpreadsheetDataLoadStatus)">
@@ -11618,6 +11603,23 @@
           </FunctionImport>
           <EntitySet Name="view_PartnerData" EntityType="hs3MVCMTQa2Model.view_PartnerData" />
           <EntitySet Name="view_PersonData" EntityType="hs3MVCMTQa2Model.view_PersonData" />
+          <EntitySet Name="partnumberSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" />
+          <AssociationSet Name="FK__partnumbe__enter__7B863AD4" Association="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4">
+            <End Role="enterprise" EntitySet="enterprise" />
+            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__partnumbe__partn__7C7A5F0D" Association="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D">
+            <End Role="partnerType" EntitySet="partnerType" />
+            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__partnumbe__perso__7E62A77F" Association="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F">
+            <End Role="person" EntitySet="person" />
+            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__partnumbe__touch__7D6E8346" Association="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
+          </AssociationSet>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -11792,9 +11794,9 @@
           <Property Name="monthlyFee" Precision="19" Scale="4" Type="Decimal" />
           <Property Name="subscriptionStatus" Type="Int32" />
           <Property Name="chargifyID" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4" FromRole="enterprise" ToRole="partnumberSpreadsheetDataLoad" />
           <Property Type="Int32" Name="multiTenantProjectType" />
           <NavigationProperty Name="partnerSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partner__enter__7B863AD4" FromRole="enterprise" ToRole="partnerSpreadsheetDataLoad" />
+          <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4" FromRole="enterprise" ToRole="partnumberSpreadsheetDataLoad" />
         </EntityType>
         <EntityType Name="enterpriseObjectName">
           <Key>
@@ -12437,8 +12439,8 @@
           <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_partnerType_enterprise" FromRole="partnerType" ToRole="enterprise" />
           <NavigationProperty Name="partnerClass1" Relationship="hs3MVCMTQa2Model.FK_partnerType_partnerClass" FromRole="partnerType" ToRole="partnerClass" />
           <NavigationProperty Name="partnerTypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType" FromRole="partnerType" ToRole="partnerTypeTouchpointQuestionnaire" />
-          <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D" FromRole="partnerType" ToRole="partnumberSpreadsheetDataLoad" />
           <NavigationProperty Name="partnerSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partner__partn__7C7A5F0D" FromRole="partnerType" ToRole="partnerSpreadsheetDataLoad" />
+          <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D" FromRole="partnerType" ToRole="partnumberSpreadsheetDataLoad" />
         </EntityType>
         <EntityType Name="partnerTypeGroupGoal">
           <Key>
@@ -12519,8 +12521,8 @@
           <NavigationProperty Name="partner" Relationship="hs3MVCMTQa2Model.partnerRelationshipOwner" FromRole="person" ToRole="partner" />
           <NavigationProperty Name="group1" Relationship="hs3MVCMTQa2Model.personGroup" FromRole="person" ToRole="group" />
           <NavigationProperty Name="role" Relationship="hs3MVCMTQa2Model.personRole" FromRole="person" ToRole="role" />
-          <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F" FromRole="person" ToRole="partnumberSpreadsheetDataLoad" />
           <NavigationProperty Name="partnerSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partner__perso__7E62A77F" FromRole="person" ToRole="partnerSpreadsheetDataLoad" />
+          <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F" FromRole="person" ToRole="partnumberSpreadsheetDataLoad" />
           
         </EntityType>
         <EntityType Name="personLoginAudit">
@@ -12969,11 +12971,11 @@
           <NavigationProperty Name="touchpointQuestionResponseValue_deprecated" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionResponseValue_touchpoint" FromRole="touchpoint" ToRole="touchpointQuestionResponseValue_deprecated" />
           <NavigationProperty Name="touchpointQuestionWeight_deprecated" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionWeight_touchpoint" FromRole="touchpoint" ToRole="touchpointQuestionWeight_deprecated" />
           <NavigationProperty Name="questionnaire" Relationship="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" FromRole="touchpoint" ToRole="questionnaire" />
-          <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" FromRole="touchpoint" ToRole="partnumberSpreadsheetDataLoad" />
           <NavigationProperty Name="partnerSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346" FromRole="touchpoint" ToRole="partnerSpreadsheetDataLoad" />
           <Property Type="String" Name="purpose" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="target" />
           <NavigationProperty Name="touchpointTarget" Relationship="hs3MVCMTQa2Model.FK_touchpoint_touchpointTarget" FromRole="touchpoint" ToRole="touchpointTarget" />
+          <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" FromRole="touchpoint" ToRole="partnumberSpreadsheetDataLoad" />
         </EntityType>
         <EntityType Name="touchpointGroup">
           <Key>
@@ -17380,49 +17382,6 @@
           <Property Type="Boolean" Name="active" Nullable="true" />
           <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
         </ComplexType>
-        <EntityType Name="partnumberSpreadsheetDataLoad">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="partner_internal_id" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_sap_id" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_name" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_address_one" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_address_two" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_city" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_state" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_zipcode" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_country" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_poc_first_name" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_poc_last_name" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_poc_title" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_poc_phone_number" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="partner_poc_email_address" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="internal_site_id" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="sap_site" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="sap_plant_code" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="site_name" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="part_number_sap" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="part_number_internal" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="sub_commodity_owner" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="center_of_excellence" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ro_first_name" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ro_last_name" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ro_email" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="date_loaded" Precision="3" />
-          <Property Type="Int32" Name="enterprise" Nullable="false" />
-          <Property Type="Int32" Name="partnertype" Nullable="false" />
-          <Property Type="Int32" Name="touchpoint" Nullable="false" />
-          <Property Type="Int32" Name="person" Nullable="false" />
-          <Property Type="Int32" Name="partnumberSpreadsheetDataLoadStatus" />
-          <Property Type="String" Name="loadGroup" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4" FromRole="partnumberSpreadsheetDataLoad" ToRole="enterprise" />
-          <NavigationProperty Name="partnerType1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D" FromRole="partnumberSpreadsheetDataLoad" ToRole="partnerType" />
-          <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F" FromRole="partnumberSpreadsheetDataLoad" ToRole="person" />
-          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" FromRole="partnumberSpreadsheetDataLoad" ToRole="touchpoint" />
-          <Property Type="DateTime" Name="dueDate" Precision="0" />
-        </EntityType>
         <EntityType Name="partnumberSpreadsheetDataLoadStatus">
           <Key>
             <PropertyRef Name="id" />
@@ -17432,54 +17391,6 @@
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </EntityType>
-        <Association Name="FK__partnumbe__enter__7B863AD4">
-          <End Type="hs3MVCMTQa2Model.enterprise" Role="enterprise" Multiplicity="1" />
-          <End Type="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Role="partnumberSpreadsheetDataLoad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="enterprise">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnumberSpreadsheetDataLoad">
-              <PropertyRef Name="enterprise" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__partnumbe__partn__7C7A5F0D">
-          <End Type="hs3MVCMTQa2Model.partnerType" Role="partnerType" Multiplicity="1" />
-          <End Type="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Role="partnumberSpreadsheetDataLoad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="partnerType">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnumberSpreadsheetDataLoad">
-              <PropertyRef Name="partnertype" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__partnumbe__perso__7E62A77F">
-          <End Type="hs3MVCMTQa2Model.person" Role="person" Multiplicity="1" />
-          <End Type="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Role="partnumberSpreadsheetDataLoad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="person">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnumberSpreadsheetDataLoad">
-              <PropertyRef Name="person" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__partnumbe__touch__7D6E8346">
-          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
-          <End Type="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Role="partnumberSpreadsheetDataLoad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="touchpoint">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnumberSpreadsheetDataLoad">
-              <PropertyRef Name="touchpoint" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="pr_getPartnumberSpreadsheetDataLoad_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="partner_internal_id" Nullable="true" MaxLength="300" />
@@ -18502,6 +18413,97 @@
           <Property Type="Int32" Name="Role_Count" />
           <Property Type="Int32" Name="active" />
         </EntityType>
+        <EntityType Name="partnumberSpreadsheetDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="partner_internal_id" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_sap_id" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_name" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_address_one" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_address_two" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_city" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_state" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_zipcode" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_country" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_poc_first_name" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_poc_last_name" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_poc_title" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_poc_phone_number" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="partner_poc_email_address" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="internal_site_id" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="sap_site" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="sap_plant_code" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="site_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="part_number_sap" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="part_number_internal" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="sub_commodity_owner" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="center_of_excellence" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ro_first_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ro_last_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ro_email" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="date_loaded" Precision="3" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="partnumberSpreadsheetDataLoadStatus" />
+          <Property Type="String" Name="loadGroup" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="dueDate" Precision="0" />
+          <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4" FromRole="partnumberSpreadsheetDataLoad" ToRole="enterprise" />
+          <NavigationProperty Name="partnerType1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D" FromRole="partnumberSpreadsheetDataLoad" ToRole="partnerType" />
+          <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F" FromRole="partnumberSpreadsheetDataLoad" ToRole="person" />
+          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" FromRole="partnumberSpreadsheetDataLoad" ToRole="touchpoint" />
+        </EntityType>
+        <Association Name="FK__partnumbe__enter__7B863AD4">
+          <End Type="hs3MVCMTQa2Model.enterprise" Role="enterprise" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Role="partnumberSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSpreadsheetDataLoad">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__partnumbe__partn__7C7A5F0D">
+          <End Type="hs3MVCMTQa2Model.partnerType" Role="partnerType" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Role="partnumberSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSpreadsheetDataLoad">
+              <PropertyRef Name="partnertype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__partnumbe__perso__7E62A77F">
+          <End Type="hs3MVCMTQa2Model.person" Role="person" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Role="partnumberSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSpreadsheetDataLoad">
+              <PropertyRef Name="person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__partnumbe__touch__7D6E8346">
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" Role="partnumberSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSpreadsheetDataLoad">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -23102,125 +23104,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnerByEmailAndInternalID1" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerByEmailAndInternalID" />
-          <EntitySetMapping Name="partnumberSpreadsheetDataLoad">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad">
-              <MappingFragment StoreEntitySet="partnumberSpreadsheetDataLoad">
-                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
-                <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
-                <ScalarProperty Name="partnumberSpreadsheetDataLoadStatus" ColumnName="partnumberSpreadsheetDataLoadStatus" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="date_loaded" ColumnName="date_loaded" />
-                <ScalarProperty Name="ro_email" ColumnName="ro_email" />
-                <ScalarProperty Name="ro_last_name" ColumnName="ro_last_name" />
-                <ScalarProperty Name="ro_first_name" ColumnName="ro_first_name" />
-                <ScalarProperty Name="center_of_excellence" ColumnName="center_of_excellence" />
-                <ScalarProperty Name="sub_commodity_owner" ColumnName="sub_commodity_owner" />
-                <ScalarProperty Name="part_number_internal" ColumnName="part_number_internal" />
-                <ScalarProperty Name="part_number_sap" ColumnName="part_number_sap" />
-                <ScalarProperty Name="site_name" ColumnName="site_name" />
-                <ScalarProperty Name="sap_plant_code" ColumnName="sap_plant_code" />
-                <ScalarProperty Name="sap_site" ColumnName="sap_site" />
-                <ScalarProperty Name="internal_site_id" ColumnName="internal_site_id" />
-                <ScalarProperty Name="partner_poc_email_address" ColumnName="partner_poc_email_address" />
-                <ScalarProperty Name="partner_poc_phone_number" ColumnName="partner_poc_phone_number" />
-                <ScalarProperty Name="partner_poc_title" ColumnName="partner_poc_title" />
-                <ScalarProperty Name="partner_poc_last_name" ColumnName="partner_poc_last_name" />
-                <ScalarProperty Name="partner_poc_first_name" ColumnName="partner_poc_first_name" />
-                <ScalarProperty Name="partner_country" ColumnName="partner_country" />
-                <ScalarProperty Name="partner_zipcode" ColumnName="partner_zipcode" />
-                <ScalarProperty Name="partner_state" ColumnName="partner_state" />
-                <ScalarProperty Name="partner_city" ColumnName="partner_city" />
-                <ScalarProperty Name="partner_address_two" ColumnName="partner_address_two" />
-                <ScalarProperty Name="partner_address_one" ColumnName="partner_address_one" />
-                <ScalarProperty Name="partner_name" ColumnName="partner_name" />
-                <ScalarProperty Name="partner_sap_id" ColumnName="partner_sap_id" />
-                <ScalarProperty Name="partner_internal_id" ColumnName="partner_internal_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad">
-              <ModificationFunctionMapping>
-                <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberSpreadsheetDataLoad">
-                  <ScalarProperty Name="dueDate" ParameterName="dueDate" />
-                  <ScalarProperty Name="partnumberSpreadsheetDataLoadStatus" ParameterName="PartnumberSpreadsheetDataLoadStatus" />
-                  <ScalarProperty Name="loadGroup" ParameterName="loadGroup" />
-                  <ScalarProperty Name="person" ParameterName="person" />
-                  <ScalarProperty Name="touchpoint" ParameterName="touchpoint" />
-                  <ScalarProperty Name="partnertype" ParameterName="partnertype" />
-                  <ScalarProperty Name="enterprise" ParameterName="enterprise" />
-                  <ScalarProperty Name="date_loaded" ParameterName="date_loaded" />
-                  <ScalarProperty Name="ro_email" ParameterName="ro_email" />
-                  <ScalarProperty Name="ro_last_name" ParameterName="ro_last_name" />
-                  <ScalarProperty Name="ro_first_name" ParameterName="ro_first_name" />
-                  <ScalarProperty Name="center_of_excellence" ParameterName="center_of_excellence" />
-                  <ScalarProperty Name="sub_commodity_owner" ParameterName="sub_commodity_owner" />
-                  <ScalarProperty Name="part_number_internal" ParameterName="part_number_internal" />
-                  <ScalarProperty Name="part_number_sap" ParameterName="part_number_sap" />
-                  <ScalarProperty Name="site_name" ParameterName="site_name" />
-                  <ScalarProperty Name="sap_plant_code" ParameterName="sap_plant_code" />
-                  <ScalarProperty Name="sap_site" ParameterName="sap_site" />
-                  <ScalarProperty Name="internal_site_id" ParameterName="internal_site_id" />
-                  <ScalarProperty Name="partner_poc_email_address" ParameterName="partner_poc_email_address" />
-                  <ScalarProperty Name="partner_poc_phone_number" ParameterName="partner_poc_phone_number" />
-                  <ScalarProperty Name="partner_poc_title" ParameterName="partner_poc_title" />
-                  <ScalarProperty Name="partner_poc_last_name" ParameterName="partner_poc_last_name" />
-                  <ScalarProperty Name="partner_poc_first_name" ParameterName="partner_poc_first_name" />
-                  <ScalarProperty Name="partner_country" ParameterName="partner_country" />
-                  <ScalarProperty Name="partner_zipcode" ParameterName="partner_zipcode" />
-                  <ScalarProperty Name="partner_state" ParameterName="partner_state" />
-                  <ScalarProperty Name="partner_city" ParameterName="partner_city" />
-                  <ScalarProperty Name="partner_address_two" ParameterName="partner_address_two" />
-                  <ScalarProperty Name="partner_address_one" ParameterName="partner_address_one" />
-                  <ScalarProperty Name="partner_name" ParameterName="partner_name" />
-                  <ScalarProperty Name="partner_sap_id" ParameterName="partner_sap_id" />
-                  <ScalarProperty Name="partner_internal_id" ParameterName="partner_internal_id" />
-                  <ResultBinding Name="id" ColumnName="id" />
-                </InsertFunction>
-                <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnumberSpreadsheetDataLoad">
-                  <ScalarProperty Name="dueDate" ParameterName="dueDate" Version="Current" />
-                  <ScalarProperty Name="partnumberSpreadsheetDataLoadStatus" ParameterName="PartnumberSpreadsheetDataLoadStatus" Version="Current" />
-                  <ScalarProperty Name="loadGroup" ParameterName="loadGroup" Version="Current" />
-                  <ScalarProperty Name="person" ParameterName="person" Version="Current" />
-                  <ScalarProperty Name="touchpoint" ParameterName="touchpoint" Version="Current" />
-                  <ScalarProperty Name="partnertype" ParameterName="partnertype" Version="Current" />
-                  <ScalarProperty Name="enterprise" ParameterName="enterprise" Version="Current" />
-                  <ScalarProperty Name="date_loaded" ParameterName="date_loaded" Version="Current" />
-                  <ScalarProperty Name="ro_email" ParameterName="ro_email" Version="Current" />
-                  <ScalarProperty Name="ro_last_name" ParameterName="ro_last_name" Version="Current" />
-                  <ScalarProperty Name="ro_first_name" ParameterName="ro_first_name" Version="Current" />
-                  <ScalarProperty Name="center_of_excellence" ParameterName="center_of_excellence" Version="Current" />
-                  <ScalarProperty Name="sub_commodity_owner" ParameterName="sub_commodity_owner" Version="Current" />
-                  <ScalarProperty Name="part_number_internal" ParameterName="part_number_internal" Version="Current" />
-                  <ScalarProperty Name="part_number_sap" ParameterName="part_number_sap" Version="Current" />
-                  <ScalarProperty Name="site_name" ParameterName="site_name" Version="Current" />
-                  <ScalarProperty Name="sap_plant_code" ParameterName="sap_plant_code" Version="Current" />
-                  <ScalarProperty Name="sap_site" ParameterName="sap_site" Version="Current" />
-                  <ScalarProperty Name="internal_site_id" ParameterName="internal_site_id" Version="Current" />
-                  <ScalarProperty Name="partner_poc_email_address" ParameterName="partner_poc_email_address" Version="Current" />
-                  <ScalarProperty Name="partner_poc_phone_number" ParameterName="partner_poc_phone_number" Version="Current" />
-                  <ScalarProperty Name="partner_poc_title" ParameterName="partner_poc_title" Version="Current" />
-                  <ScalarProperty Name="partner_poc_last_name" ParameterName="partner_poc_last_name" Version="Current" />
-                  <ScalarProperty Name="partner_poc_first_name" ParameterName="partner_poc_first_name" Version="Current" />
-                  <ScalarProperty Name="partner_country" ParameterName="partner_country" Version="Current" />
-                  <ScalarProperty Name="partner_zipcode" ParameterName="partner_zipcode" Version="Current" />
-                  <ScalarProperty Name="partner_state" ParameterName="partner_state" Version="Current" />
-                  <ScalarProperty Name="partner_city" ParameterName="partner_city" Version="Current" />
-                  <ScalarProperty Name="partner_address_two" ParameterName="partner_address_two" Version="Current" />
-                  <ScalarProperty Name="partner_address_one" ParameterName="partner_address_one" Version="Current" />
-                  <ScalarProperty Name="partner_name" ParameterName="partner_name" Version="Current" />
-                  <ScalarProperty Name="partner_sap_id" ParameterName="partner_sap_id" Version="Current" />
-                  <ScalarProperty Name="partner_internal_id" ParameterName="partner_internal_id" Version="Current" />
-                  <ScalarProperty Name="id" ParameterName="id" Version="Current" />
-                </UpdateFunction>
-                <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnumberSpreadsheetDataLoad">
-                  <ScalarProperty Name="id" ParameterName="id" />
-                </DeleteFunction>
-              </ModificationFunctionMapping>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="partnumberSpreadsheetDataLoadStatus">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoadStatus">
               <MappingFragment StoreEntitySet="partnumberSpreadsheetDataLoadStatus">
@@ -24133,6 +24016,46 @@
                 <ScalarProperty Name="lastname" ColumnName="lastname" />
                 <ScalarProperty Name="firstname" ColumnName="firstname" />
                 <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="partnumberSpreadsheetDataLoad">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad">
+              <MappingFragment StoreEntitySet="partnumberSpreadsheetDataLoad">
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
+                <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
+                <ScalarProperty Name="partnumberSpreadsheetDataLoadStatus" ColumnName="partnumberSpreadsheetDataLoadStatus" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="date_loaded" ColumnName="date_loaded" />
+                <ScalarProperty Name="ro_email" ColumnName="ro_email" />
+                <ScalarProperty Name="ro_last_name" ColumnName="ro_last_name" />
+                <ScalarProperty Name="ro_first_name" ColumnName="ro_first_name" />
+                <ScalarProperty Name="center_of_excellence" ColumnName="center_of_excellence" />
+                <ScalarProperty Name="sub_commodity_owner" ColumnName="sub_commodity_owner" />
+                <ScalarProperty Name="part_number_internal" ColumnName="part_number_internal" />
+                <ScalarProperty Name="part_number_sap" ColumnName="part_number_sap" />
+                <ScalarProperty Name="site_name" ColumnName="site_name" />
+                <ScalarProperty Name="sap_plant_code" ColumnName="sap_plant_code" />
+                <ScalarProperty Name="sap_site" ColumnName="sap_site" />
+                <ScalarProperty Name="internal_site_id" ColumnName="internal_site_id" />
+                <ScalarProperty Name="partner_poc_email_address" ColumnName="partner_poc_email_address" />
+                <ScalarProperty Name="partner_poc_phone_number" ColumnName="partner_poc_phone_number" />
+                <ScalarProperty Name="partner_poc_title" ColumnName="partner_poc_title" />
+                <ScalarProperty Name="partner_poc_last_name" ColumnName="partner_poc_last_name" />
+                <ScalarProperty Name="partner_poc_first_name" ColumnName="partner_poc_first_name" />
+                <ScalarProperty Name="partner_country" ColumnName="partner_country" />
+                <ScalarProperty Name="partner_zipcode" ColumnName="partner_zipcode" />
+                <ScalarProperty Name="partner_state" ColumnName="partner_state" />
+                <ScalarProperty Name="partner_city" ColumnName="partner_city" />
+                <ScalarProperty Name="partner_address_two" ColumnName="partner_address_two" />
+                <ScalarProperty Name="partner_address_one" ColumnName="partner_address_one" />
+                <ScalarProperty Name="partner_name" ColumnName="partner_name" />
+                <ScalarProperty Name="partner_sap_id" ColumnName="partner_sap_id" />
+                <ScalarProperty Name="partner_internal_id" ColumnName="partner_internal_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

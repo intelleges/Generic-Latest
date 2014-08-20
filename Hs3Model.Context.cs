@@ -152,7 +152,6 @@ namespace Generic
         public DbSet<questionnaireRuleTargetType> questionnaireRuleTargetType { get; set; }
         public DbSet<calendar> calendar { get; set; }
         public DbSet<countryHoliday> countryHoliday { get; set; }
-        public DbSet<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
         public DbSet<partnumberSpreadsheetDataLoadStatus> partnumberSpreadsheetDataLoadStatus { get; set; }
         public DbSet<multiTenantProjectType> multiTenantProjectType { get; set; }
         public DbSet<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
@@ -172,6 +171,7 @@ namespace Generic
         public DbSet<view_GroupData> view_GroupData { get; set; }
         public DbSet<view_PartnerData> view_PartnerData { get; set; }
         public DbSet<view_PersonData> view_PersonData { get; set; }
+        public DbSet<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -11678,7 +11678,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partner>("pr_getPartnerByEmailAndInternalID1", mergeOption, enterpriseParameter, emailParameter, internalIDParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> pr_addPartnumberSpreadsheetDataLoad(string partner_internal_id, string partner_sap_id, string partner_name, string partner_address_one, string partner_address_two, string partner_city, string partner_state, string partner_zipcode, string partner_country, string partner_poc_first_name, string partner_poc_last_name, string partner_poc_title, string partner_poc_phone_number, string partner_poc_email_address, string internal_site_id, string sap_site, string sap_plant_code, string site_name, string part_number_sap, string part_number_internal, string sub_commodity_owner, string center_of_excellence, string ro_first_name, string ro_last_name, string ro_email, Nullable<System.DateTime> date_loaded, Nullable<int> enterprise, Nullable<int> partnertype, Nullable<int> touchpoint, Nullable<int> person, Nullable<int> partnumberSpreadsheetDataLoadStatus, string loadGroup, Nullable<System.DateTime> dueDate)
+        public virtual ObjectResult<Nullable<int>> pr_addPartnumberSpreadsheetDataLoad(string partner_internal_id, string partner_sap_id, string partner_name, string partner_address_one, string partner_address_two, string partner_city, string partner_state, string partner_zipcode, string partner_country, string partner_poc_first_name, string partner_poc_last_name, string partner_poc_title, string partner_poc_phone_number, string partner_poc_email_address, string internal_site_id, string sap_site, string sap_plant_code, string site_name, string part_number_sap, string part_number_internal, string sub_commodity_owner, string center_of_excellence, string ro_first_name, string ro_last_name, string ro_email, Nullable<System.DateTime> date_loaded, Nullable<int> enterprise, Nullable<int> partnertype, Nullable<int> touchpoint, Nullable<int> person, Nullable<int> partnumberSpreadsheetDataLoadStatus, string loadGroup, Nullable<System.DateTime> dueDate, Nullable<int> group)
         {
             var partner_internal_idParameter = partner_internal_id != null ?
                 new ObjectParameter("partner_internal_id", partner_internal_id) :
@@ -11812,7 +11812,11 @@ namespace Generic
                 new ObjectParameter("dueDate", dueDate) :
                 new ObjectParameter("dueDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnumberSpreadsheetDataLoad", partner_internal_idParameter, partner_sap_idParameter, partner_nameParameter, partner_address_oneParameter, partner_address_twoParameter, partner_cityParameter, partner_stateParameter, partner_zipcodeParameter, partner_countryParameter, partner_poc_first_nameParameter, partner_poc_last_nameParameter, partner_poc_titleParameter, partner_poc_phone_numberParameter, partner_poc_email_addressParameter, internal_site_idParameter, sap_siteParameter, sap_plant_codeParameter, site_nameParameter, part_number_sapParameter, part_number_internalParameter, sub_commodity_ownerParameter, center_of_excellenceParameter, ro_first_nameParameter, ro_last_nameParameter, ro_emailParameter, date_loadedParameter, enterpriseParameter, partnertypeParameter, touchpointParameter, personParameter, partnumberSpreadsheetDataLoadStatusParameter, loadGroupParameter, dueDateParameter);
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnumberSpreadsheetDataLoad", partner_internal_idParameter, partner_sap_idParameter, partner_nameParameter, partner_address_oneParameter, partner_address_twoParameter, partner_cityParameter, partner_stateParameter, partner_zipcodeParameter, partner_countryParameter, partner_poc_first_nameParameter, partner_poc_last_nameParameter, partner_poc_titleParameter, partner_poc_phone_numberParameter, partner_poc_email_addressParameter, internal_site_idParameter, sap_siteParameter, sap_plant_codeParameter, site_nameParameter, part_number_sapParameter, part_number_internalParameter, sub_commodity_ownerParameter, center_of_excellenceParameter, ro_first_nameParameter, ro_last_nameParameter, ro_emailParameter, date_loadedParameter, enterpriseParameter, partnertypeParameter, touchpointParameter, personParameter, partnumberSpreadsheetDataLoadStatusParameter, loadGroupParameter, dueDateParameter, groupParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addPartnumberSpreadsheetDataLoadstatus(string description, Nullable<int> sortOrder, Nullable<bool> active)
@@ -11850,40 +11854,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getAccesscode2", inParameter, @out);
         }
     
-        public virtual ObjectResult<partnumberSpreadsheetDataLoad> pr_getPartnumberSpreadsheetDataLoad(Nullable<int> id)
+        public virtual int pr_getPartnumberSpreadsheetDataLoad(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSpreadsheetDataLoad>("pr_getPartnumberSpreadsheetDataLoad", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnumberSpreadsheetDataLoad", idParameter);
         }
     
-        public virtual ObjectResult<partnumberSpreadsheetDataLoad> pr_getPartnumberSpreadsheetDataLoad(Nullable<int> id, MergeOption mergeOption)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSpreadsheetDataLoad>("pr_getPartnumberSpreadsheetDataLoad", mergeOption, idParameter);
-        }
-    
-        public virtual ObjectResult<partnumberSpreadsheetDataLoad> pr_getPartnumberSpreadsheetDataLoadByAccessCode(string accesscode)
+        public virtual int pr_getPartnumberSpreadsheetDataLoadByAccessCode(string accesscode)
         {
             var accesscodeParameter = accesscode != null ?
                 new ObjectParameter("accesscode", accesscode) :
                 new ObjectParameter("accesscode", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSpreadsheetDataLoad>("pr_getPartnumberSpreadsheetDataLoadByAccessCode", accesscodeParameter);
-        }
-    
-        public virtual ObjectResult<partnumberSpreadsheetDataLoad> pr_getPartnumberSpreadsheetDataLoadByAccessCode(string accesscode, MergeOption mergeOption)
-        {
-            var accesscodeParameter = accesscode != null ?
-                new ObjectParameter("accesscode", accesscode) :
-                new ObjectParameter("accesscode", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnumberSpreadsheetDataLoad>("pr_getPartnumberSpreadsheetDataLoadByAccessCode", mergeOption, accesscodeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnumberSpreadsheetDataLoadByAccessCode", accesscodeParameter);
         }
     
         public virtual ObjectResult<partnumberSpreadsheetDataLoadStatus> pr_getPartnumberSpreadsheetDataLoadstatus(Nullable<int> id)

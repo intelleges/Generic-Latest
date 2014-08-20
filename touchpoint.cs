@@ -23,8 +23,8 @@ namespace Generic
             this.touchpointQuestionResponseValue_deprecated = new HashSet<touchpointQuestionResponseValue_deprecated>();
             this.touchpointQuestionWeight_deprecated = new HashSet<touchpointQuestionWeight_deprecated>();
             this.questionnaire = new HashSet<questionnaire>();
-            this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
             this.partnerSpreadsheetDataLoad = new HashSet<partnerSpreadsheetDataLoad>();
+            this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
         }
     
         public int id { get; set; }
@@ -51,8 +51,8 @@ namespace Generic
         public virtual ICollection<touchpointQuestionResponseValue_deprecated> touchpointQuestionResponseValue_deprecated { get; set; }
         public virtual ICollection<touchpointQuestionWeight_deprecated> touchpointQuestionWeight_deprecated { get; set; }
         public virtual ICollection<questionnaire> questionnaire { get; set; }
-        public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
         public virtual ICollection<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
         public virtual touchpointTarget touchpointTarget { get; set; }
+        public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
     }
 }

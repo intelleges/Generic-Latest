@@ -232,9 +232,17 @@
             @Html.DropDownList("partnertype", String.Empty)
             @Html.ActionLink("Create New", "Create", "PartnerType")
         </div>
+       
     </div>
 
     <div id="uploadDiv" style="display: none">
+         <div class="editor-label">
+            4. Please select a group
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("group", String.Empty)
+        
+        </div>
         <div class="editor-label">
             5. Please select an Excel file containing the questionnaire information. Click here if you need to download the template.
         </div>

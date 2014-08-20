@@ -14,33 +14,34 @@
         font-size: 13px!important;
     }
 
-    .twocol .display-label {
-        width: 10%;
-        display: inline-block;
-    }
+        .twocol .display-label {
+            width: 10%;
+            display: inline-block;
+        }
 
-    .twocol .display-field {
-        width: 35%;
-        display: inline-block;
-    }
+        .twocol .display-field {
+            width: 35%;
+            display: inline-block;
+        }
 
-    .threecol .display-label {
-        width: 10%;
-        display: inline-block;
-    }
+        .threecol .display-label {
+            width: 10%;
+            display: inline-block;
+        }
 
-    .threecol .display-field {
-        width: 20%;
-        display: inline-block;
-    }
+        .threecol .display-field {
+            width: 20%;
+            display: inline-block;
+        }
 
-    .threecol .display-field label {
-        width: 90%;
-        display: inline-block;
-        font-size: 13px!important;
-    }
+            .threecol .display-field label {
+                width: 90%;
+                display: inline-block;
+                font-size: 13px!important;
+            }
+
     #PartnerEventGrid {
-    font-size:12px;
+        font-size: 12px;
     }
 </style>
 
@@ -76,7 +77,7 @@
             @Html.DisplayFor(model => model.enterprise1.description)
         </div>
 
-     @*   <div class="display-label">
+        @*   <div class="display-label">
             @Html.DisplayNameFor(model => model.internalID)
         </div>
         <div class="display-field">
@@ -254,17 +255,17 @@
         {
             columns.Bound(o => o.internalID).Title("Internal ID").Width(100);
             columns.Bound(o => o.accesscode).Title("Access Code").Width(100);
-            
-           
+
+
             columns.Bound(o => o.emailType).Title("Email Type").Width(100);
             columns.Bound(o => o.Date_Sent).Title("Date Sent").Width(100);
             columns.Bound(o => o.timestamp).Title("Time Stamp").Width(100);
             columns.Bound(o => o.@event).Title("Event").Width(100);
-           
-           
+
+
 
         })
-        
+
         //.Pageable(pager => pager.PageSize(10).Total(200).Enabled(true))
         .Sortable(sorting => sorting.Enabled(true))
 

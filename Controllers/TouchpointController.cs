@@ -7,6 +7,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
+using System.Xml.Serialization;
+using Generic.ViewModel;
 
 namespace Generic.Controllers
 {
@@ -19,10 +22,13 @@ namespace Generic.Controllers
 
         public ActionResult Index()
         {
-            var touchPoint = db.pr_getTouchpointAll();
-            return View(touchPoint.ToList());
+            //var touchPoint = db.pr_getTouchpointAll();
+            //return View(touchPoint.ToList());
 
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
+            Session["touchpointsearch"] = arguments;
+            return RedirectToAction("FindTouchpointResult");
         }
 
         //
@@ -110,6 +116,23 @@ namespace Generic.Controllers
             return View(touchpoint);
         }
 
+
+        public ActionResult Archive(int id)
+        {
+            db.pr_archiveTouchpoint(id);
+            //if (ModelState.IsValid)
+            //{
+            //    //db.Entry(partner).State = EntityState.Modified;
+            //    //db.SaveChanges();
+            //    db.pr_modifyPartner(partner.id, partner.enterprise, partner.internalID, partner.name, partner.address1, partner.address2, partner.city, partner.state, partner.province, partner.zipcode, partner.country, partner.phone, partner.fax, partner.firstName, partner.lastName, partner.title, partner.email, partner.dunsNumber, partner.federalID, partner.status, partner.loadHistory, partner.owner, partner.author, partner.dateApproved, partner.active, partner.lastModified);
+
+            //    return Json(new { success = true });
+            //    //return RedirectToAction("Index");
+            //}
+            //ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
+            //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
         //
         // GET: /Touchpoint/Edit/5
 
@@ -181,6 +204,100 @@ namespace Generic.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult ExportExcel()
+        {
+
+
+            string arguments = Session["touchpointsearch"].ToString() + "active=1;";
+            Session["touchpoint"] = db.Database.SqlQuery<view_TouchpointData>("EXEC pr_dynamicFiltersTouchpoint  'view_TouchpointData' , '" + arguments + "'").ToList();
+            List<view_TouchpointData> abc = (List<view_TouchpointData>)Session["touchpoint"];
+
+
+
+
+
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<view_TouchpointData>));
+
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, abc);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "TouchpointList.xls");
+
+
+        }
+
+        public ActionResult ArchiveTouchpoint()
+        {
+            string arguments = Session["touchpointsearch"].ToString() + "active=1";
+
+            List<view_TouchpointData> objTouchpointDataList = db.Database.SqlQuery<view_TouchpointData>("EXEC pr_dynamicFiltersTouchpoint  'view_TouchpointData' , '" + arguments + "'").ToList();
+            List<TouchPointViewModel> objTouchpointViewModelList = ConvertToTouchpointViewModel(objTouchpointDataList);
+            ViewBag.searchType = "Archive";
+            return View("RemoveTouchpoint", objTouchpointViewModelList);
+
+        }
+
+
+        public ActionResult RemoveTouchpoint()
+        {
+            string arguments = Session["Touchpointsearch"].ToString() + "active=1;";
+
+            List<view_TouchpointData> objTouchpointDataList = db.Database.SqlQuery<view_TouchpointData>("EXEC pr_dynamicFiltersTouchpoint  'view_TouchpointData' , '" + arguments + "'").ToList();
+            List<TouchPointViewModel> objTouchpointViewModelList = ConvertToTouchpointViewModel(objTouchpointDataList);
+            ViewBag.searchType = "Remove";
+            return View("RemoveTouchpoint", objTouchpointViewModelList);
+
+        }
+        [HttpPost]
+        public ActionResult RemoveTouchpoint(string searchType, List<int> chkSelect)
+        {
+            if (searchType == "Remove")
+            {
+                foreach (int touchpointID in chkSelect)
+                {
+                    db.pr_removeTouchpoint(touchpointID);
+                }
+
+                ViewBag.searchType = "Remove";
+                return RedirectToAction("RemoveTouchpoint");
+            }
+            else if (searchType == "Archive")
+            {
+                foreach (int touchpointID in chkSelect)
+                {
+                    db.pr_archivePartner(touchpointID);
+                }
+                ViewBag.searchType = "Archive";
+                return RedirectToAction("ArchiveTouchpoint");
+            }
+            else if (searchType == "Restore")
+            {
+                foreach (int touchpointID in chkSelect)
+                {
+                    db.pr_unArchiveTouchpoint(touchpointID);
+                }
+                ViewBag.searchType = "Restore";
+                return RedirectToAction("RestoreTouchpoint");
+            }
+            else
+            {
+                return RedirectToAction("FindTouchpoint");
+            }
+        }
+        public ActionResult RestoreTouchpoint()
+        {
+            string arguments = Session["touchpointsearch"].ToString() + "active=0;";
+
+            List<view_TouchpointData> objTouchpointDataList = db.Database.SqlQuery<view_TouchpointData>("EXEC pr_dynamicFiltersTouchpoint  'view_TouchpointData' , '" + arguments + "'").ToList();
+            List<TouchPointViewModel> objTouchpointViewModelList = ConvertToTouchpointViewModel(objTouchpointDataList);
+            ViewBag.searchType = "Restore";
+            return View("RemoveTouchpoint", objTouchpointViewModelList);
+
+        }
 
         public ActionResult GetTouchPointByprotocolId(int protocolId)
         {
@@ -188,14 +305,24 @@ namespace Generic.Controllers
             return Json(new { Data = touchpoint }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult FindTouchPoint()
+        public ActionResult FindTouchPoint(string searchType)
         {
-            ViewBag.Test = "Hi";
+            ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
+
+            ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+            ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+            ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
+
+            ViewBag.searchType = searchType;
             return View();
         }
 
         [HttpPost]
-        public ActionResult FindTouchPoint(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode)
+        public ActionResult FindTouchPoint(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode, string searchType)
         {
             //dbo.pr_dynamicFilters 'partner', ' Campaign=1009; Group=20;Country=2; Type=4'
             //var objPartners = db.pr_dynamicFiltersPartner("view_PartnerData", "name=well;enterprise=3");
@@ -246,17 +373,38 @@ namespace Generic.Controllers
             //    arguments += "FullTextSearch=" + txtFullTextSearch + ";";
             //var objPartners2 =   db.Database.ExecuteSqlCommand("Yourprocedure @param, @param1", param1, param2);
 
-            var objPartners = db.Database.SqlQuery<view_TouchpointData>("EXEC pr_dynamicFiltersTouchpoint  'view_TouchpointData' , '" + arguments + "'").ToList();
+            //var objPartners = db.Database.SqlQuery<view_TouchpointData>("EXEC pr_dynamicFiltersTouchpoint  'view_TouchpointData' , '" + arguments + "'").ToList();
 
-            Session["touchpoint"] = objPartners;
-            TempData["touchpoint"] = objPartners;
-            return RedirectToAction("FindTouchPointResult", objPartners);
+            //Session["touchpoint"] = objPartners;
+            //TempData["touchpoint"] = objPartners;
+            //return RedirectToAction("FindTouchPointResult", objPartners);
+            Session["touchpointsearch"] = arguments;
+            if (searchType == "Remove")
+            {
+                return RedirectToAction("RemoveTouchpoint");
+            }
+            else if (searchType == "Archive")
+            {
+                return RedirectToAction("ArchiveTouchpoint");
+            }
+            else if (searchType == "Restore")
+            {
+                return RedirectToAction("RestoreTouchpoint");
+            }
+            else
+            {
+                return RedirectToAction("FindTouchpointResult");
+            }
         }
 
         public ActionResult FindTouchPointResult()
         {
             try
             {
+                string arguments = Session["touchpointsearch"].ToString() + "active=1;";
+                Session["touchpoint"] = db.Database.SqlQuery<view_TouchpointData>("EXEC pr_dynamicFiltersTouchpoint  'view_TouchpointData' , '" + arguments + "'").ToList();
+
+
                 List<view_TouchpointData> abc = (List<view_TouchpointData>)Session["touchpoint"];
                 return View(abc);
             }
@@ -269,6 +417,34 @@ namespace Generic.Controllers
             //List<view_PartnerData> abc = (List<view_PartnerData>)TempData["partner"];
             //Session["partner"] 
 
+
+        }
+
+        private List<TouchPointViewModel> ConvertToTouchpointViewModel(List<view_TouchpointData> iview_TouchpointDataList)
+        {
+            List<TouchPointViewModel> objTouchpointViewModelList = new List<TouchPointViewModel>();
+
+            foreach (var iview_TouchpointData in iview_TouchpointDataList)
+            {
+                TouchPointViewModel objTouchpointViewModel = new TouchPointViewModel();
+                objTouchpointViewModel.id = iview_TouchpointData.id;
+                objTouchpointViewModel.Name = iview_TouchpointData.Name;
+                objTouchpointViewModel.enterprise = iview_TouchpointData.enterprise;
+                objTouchpointViewModel.description = iview_TouchpointData.description;
+                objTouchpointViewModel.End_Date = iview_TouchpointData.End_Date;
+                objTouchpointViewModel.Partner_Count = iview_TouchpointData.Partner_Count;
+                objTouchpointViewModel.PartnerType_Count = iview_TouchpointData.PartnerType_Count;
+                objTouchpointViewModel.Questionnaire_Count = iview_TouchpointData.Questionnaire_Count;
+                objTouchpointViewModel.Start_Date = iview_TouchpointData.Start_Date;
+                objTouchpointViewModel.Touchpoint_Admin = iview_TouchpointData.Touchpoint_Admin;
+                objTouchpointViewModel.Touchpoint_Sponsor = iview_TouchpointData.Touchpoint_Sponsor;
+                objTouchpointViewModel.User_Count = iview_TouchpointData.User_Count;
+
+                objTouchpointViewModel.IsSelected = false;
+
+                objTouchpointViewModelList.Add(objTouchpointViewModel);
+            }
+            return objTouchpointViewModelList;
 
         }
 
