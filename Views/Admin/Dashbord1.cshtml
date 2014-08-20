@@ -141,8 +141,8 @@
                                  </a>
                              </td>
                         <td class="AlgnRight" style="background-color:#FDEB41">
-                             <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete)&Group=@Model.groups[groupAdded].id" target="_blank">
-                            @{ int? ri = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                             <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete)&Group=@Model.groups[groupAdded].id" target="_blank">
+                            @{ int? ri = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete ).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
                                totalRI += ri;
                                      
                                  }
@@ -151,8 +151,8 @@
                                  
                                   </td>
                         <td class="AlgnRight" style="background-color: #BCD637">
-                            <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete)&Group=@Model.groups[groupAdded].id" target="_blank">
-                            @{int? rc = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                            <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete)&Group=@Model.groups[groupAdded].id" target="_blank">
+                            @{int? rc = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
                              totalRC += rc;
                                    } @rc </a>
                             </td>
