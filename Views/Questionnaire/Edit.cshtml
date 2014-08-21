@@ -1,0 +1,214 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.view_QuestionnaireData>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    ViewBag.Title = "Questionnaire";
+    Layout = null;//LayoutHelper.GetLayout();
+}
+
+
+
+<style type="text/css">
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .twocol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .twocol .editor-field {
+        width: 35%;
+        display: inline-block;
+    }
+
+    .threecol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .threecol .editor-field {
+        width: 20%;
+        display: inline-block;
+    }
+
+        .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+            width: 90%;
+            display: inline-block;
+            font-size: 11px;
+        }
+</style>
+
+<h2>Edit</h2>
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Questionnaire</legend>
+
+         <div class="twocol">
+        @Html.HiddenFor(model => model.id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.enterprise)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.enterprise)
+            @Html.ValidationMessageFor(model => model.enterprise)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.protocolID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.protocolID)
+            @Html.ValidationMessageFor(model => model.protocolID)
+        </div>
+
+             </div>
+        <div class="threecol">
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Protocol)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Protocol)
+            @Html.ValidationMessageFor(model => model.Protocol)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.touchpointid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.touchpointid)
+            @Html.ValidationMessageFor(model => model.touchpointid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Touchpoint)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Touchpoint)
+            @Html.ValidationMessageFor(model => model.Touchpoint)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.partnertypeid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.partnertypeid)
+            @Html.ValidationMessageFor(model => model.partnertypeid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PartnerType)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PartnerType)
+            @Html.ValidationMessageFor(model => model.PartnerType)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.personID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.personID)
+            @Html.ValidationMessageFor(model => model.personID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Author)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Author)
+            @Html.ValidationMessageFor(model => model.Author)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Locked)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Locked)
+            @Html.ValidationMessageFor(model => model.Locked)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Completed)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Completed)
+            @Html.ValidationMessageFor(model => model.Completed)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Incomplete)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Incomplete)
+            @Html.ValidationMessageFor(model => model.Incomplete)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.No_Response)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.No_Response)
+            @Html.ValidationMessageFor(model => model.No_Response)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CMS)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CMS)
+            @Html.ValidationMessageFor(model => model.CMS)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Reminders)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Reminders)
+            @Html.ValidationMessageFor(model => model.Reminders)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.active)
+            @Html.ValidationMessageFor(model => model.active)
+        </div>
+
+            </div>
+        <p style="float: right; width: 20%;">
+            @*<input type="submit" value="Save" />*@
+            <input type="button" value="Save"  />
+            <input type="button" onclick="CloseMe()" value="Cancel" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

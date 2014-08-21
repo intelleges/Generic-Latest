@@ -243,7 +243,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.ptqGroup" Width="1.5" PointX="19.375" PointY="9.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.v_PartnerFind" Width="1.5" PointX="8.7861387845064236" PointY="11.886942377261326" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_ProtocolData" Width="1.5" PointX="0.27665853885778158" PointY="23.504151131726871" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_QuestionnaireData" Width="1.5" PointX="6.1642152882014472" PointY="16.358235843646451" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_TouchpointData" Width="1.5" PointX="2.5834408936013658" PointY="3.503760235153027" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_EventNotificationData" Width="1.5" PointX="1.5683200888188182" PointY="29.257688938294393" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_EnterpriseData" Width="1.5" PointX="10.664423144731867" PointY="20.913431832992206" />
@@ -255,6 +254,7 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_QuestionnaireData" Width="1.5" PointX="7.7105916439139239" PointY="18.778120481771474" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

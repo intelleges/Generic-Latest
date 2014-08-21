@@ -21,8 +21,13 @@ namespace Generic.Controllers
 
         public ActionResult Index()
         {
-            var questionnaire = db.pr_getQuestionnaireAll(SessionSingleton.MyEnterPriseId);
-            return View(questionnaire.ToList());
+            //var questionnaire = db.pr_getQuestionnaireAll(SessionSingleton.MyEnterPriseId);
+            //return View(questionnaire.ToList());
+
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
+
+            Session["questionnairesearch"] = arguments;
+            return RedirectToAction("FindQuestionnaireResult");
         }
 
         public ActionResult UploadCMS()
@@ -175,6 +180,40 @@ namespace Generic.Controllers
             db.pr_bootstrapQuestionnaireCMS((int)Session["QuestionnaireId"], "Not Defined Yet", "Not Defined Yet", "Not Defined Yet", "Not Defined Yet");
 
             return RedirectToAction("UploadAutoMailMessage", "AutoMailMessage");
+        }
+
+
+        public ActionResult Edit(int id = 0)
+        {
+            questionnaire questionnaire = db.pr_getQuestionnaire(id).FirstOrDefault();
+            if (questionnaire == null)
+            {
+                return HttpNotFound();
+            }
+            //   ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
+            ViewBag.CMS = new SelectList(db.questionnaireCMS, "description", "id", questionnaire.id);
+            //ViewBag.state = new SelectList(db.questionn, "id", "name", partner.state);
+            //ViewBag.country = new SelectList(db.country, "id", "name", partner.country);
+            ////ViewBag.status = db.pr_getPartnerStatusAll().Where(x => x.id == partner.status).FirstOrDefault().description;
+            //ViewBag.status = ((List<view_QuestionnaireData>)Session["partner"]).Where(x => x.id == partner.id).FirstOrDefault().status;
+            return View(questionnaire);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(questionnaire questionnaire)
+        {
+            if (ModelState.IsValid)
+            {
+                //db.Entry(partner).State = EntityState.Modified;
+                //db.SaveChanges();
+                db.pr_modifyQuestionnaire(questionnaire.id, questionnaire.title, questionnaire.description, questionnaire.footer, questionnaire.locked, questionnaire.sortOrder, questionnaire.active, questionnaire.multiLanguage, questionnaire.enterprise, questionnaire.person, questionnaire.partnerType, questionnaire.letter, questionnaire.levelType);
+
+                return Json(new { success = true });
+                //return RedirectToAction("Index");
+            }
+            ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", questionnaire.enterprise);
+            //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
+            return View(questionnaire);
         }
 
 
@@ -890,7 +929,11 @@ namespace Generic.Controllers
         {
             try
             {
+                //List<view_QuestionnaireData> abc = (List<view_QuestionnaireData>)Session["questionnaire"];
+                string arguments = Session["questionnairesearch"].ToString() + "active=1;";
+                Session["questionnaire"] = db.Database.SqlQuery<view_QuestionnaireData>("EXEC pr_dynamicFiltersQuestionnaire  'view_QuestionnaireData' , '" + arguments + "'").ToList();
                 List<view_QuestionnaireData> abc = (List<view_QuestionnaireData>)Session["questionnaire"];
+                
                 return View(abc);
             }
             catch

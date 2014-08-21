@@ -2778,6 +2778,7 @@
     <Content Include="Views\Group\RemoveGroup.cshtml" />
     <EmbeddedResource Include="Views\Protocol\RemoveProtocol.cshtml" />
     <Content Include="Views\Touchpoint\RemoveTouchpoint.cshtml" />
+    <Content Include="Views\Questionnaire\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

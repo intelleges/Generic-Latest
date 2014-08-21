@@ -331,12 +331,12 @@
           </EntitySet>
           <EntitySet Name="view_QuestionnaireData" EntityType="hs3MVCMTQa2Model.Store.view_QuestionnaireData" store:Type="Views" store:Schema="dbo" store:Name="view_QuestionnaireData">
             <DefiningQuery>SELECT 
+      [view_QuestionnaireData].[id] AS [id], 
       [view_QuestionnaireData].[enterprise] AS [enterprise], 
       [view_QuestionnaireData].[protocolID] AS [protocolID], 
       [view_QuestionnaireData].[Protocol] AS [Protocol], 
       [view_QuestionnaireData].[touchpointid] AS [touchpointid], 
       [view_QuestionnaireData].[Touchpoint] AS [Touchpoint], 
-      [view_QuestionnaireData].[questionnaireId] AS [questionnaireId], 
       [view_QuestionnaireData].[name] AS [name], 
       [view_QuestionnaireData].[description] AS [description], 
       [view_QuestionnaireData].[partnertypeid] AS [partnertypeid], 
@@ -348,7 +348,8 @@
       [view_QuestionnaireData].[Incomplete] AS [Incomplete], 
       [view_QuestionnaireData].[No_Response] AS [No_Response], 
       [view_QuestionnaireData].[CMS] AS [CMS], 
-      [view_QuestionnaireData].[Reminders] AS [Reminders]
+      [view_QuestionnaireData].[Reminders] AS [Reminders], 
+      [view_QuestionnaireData].[active] AS [active]
       FROM [dbo].[view_QuestionnaireData] AS [view_QuestionnaireData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_TouchpointData" EntityType="hs3MVCMTQa2Model.Store.view_TouchpointData" store:Type="Views" store:Schema="dbo" store:Name="view_TouchpointData">
@@ -2870,9 +2871,9 @@
       -->
         <EntityType Name="view_QuestionnaireData">
           <Key>
+            <PropertyRef Name="id" />
             <PropertyRef Name="protocolID" />
             <PropertyRef Name="touchpointid" />
-            <PropertyRef Name="questionnaireId" />
             <PropertyRef Name="partnertypeid" />
             <PropertyRef Name="PartnerType" />
             <PropertyRef Name="personID" />
@@ -2884,12 +2885,12 @@
             <PropertyRef Name="CMS" />
             <PropertyRef Name="Reminders" />
           </Key>
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="enterprise" Type="int" />
           <Property Name="protocolID" Type="int" Nullable="false" />
           <Property Name="Protocol" Type="varchar" MaxLength="50" />
           <Property Name="touchpointid" Type="int" Nullable="false" />
           <Property Name="Touchpoint" Type="varchar" MaxLength="50" />
-          <Property Name="questionnaireId" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="100" />
           <Property Name="description" Type="varchar" MaxLength="100" />
           <Property Name="partnertypeid" Type="int" Nullable="false" />
@@ -2902,6 +2903,7 @@
           <Property Name="No_Response" Type="int" Nullable="false" />
           <Property Name="CMS" Type="varchar" Nullable="false" MaxLength="3" />
           <Property Name="Reminders" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="active" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -11568,7 +11570,6 @@
           </FunctionImport>
           <EntitySet Name="v_PartnerFind" EntityType="hs3MVCMTQa2Model.v_PartnerFind" />
           <EntitySet Name="view_ProtocolData" EntityType="hs3MVCMTQa2Model.view_ProtocolData" />
-          <EntitySet Name="view_QuestionnaireData" EntityType="hs3MVCMTQa2Model.view_QuestionnaireData" />
           <EntitySet Name="view_TouchpointData" EntityType="hs3MVCMTQa2Model.view_TouchpointData" />
           <FunctionImport Name="pr_dynamicFiltersProtocol">
             <Parameter Name="table" Mode="In" Type="String" />
@@ -11620,6 +11621,7 @@
             <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
           </AssociationSet>
+          <EntitySet Name="view_QuestionnaireData" EntityType="hs3MVCMTQa2Model.view_QuestionnaireData" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -18215,41 +18217,6 @@
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="Int32" Name="active" />
         </EntityType>
-        <EntityType Name="view_QuestionnaireData">
-          <Key>
-            <PropertyRef Name="PartnerType" />
-            <PropertyRef Name="Author" />
-            <PropertyRef Name="Locked" />
-            <PropertyRef Name="Completed" />
-            <PropertyRef Name="Incomplete" />
-            <PropertyRef Name="No_Response" />
-            <PropertyRef Name="CMS" />
-            <PropertyRef Name="Reminders" />
-            <PropertyRef Name="protocolID" />
-            <PropertyRef Name="touchpointid" />
-            <PropertyRef Name="questionnaireId" />
-            <PropertyRef Name="partnertypeid" />
-            <PropertyRef Name="personID" />
-          </Key>
-          <Property Type="Int32" Name="enterprise" />
-          <Property Type="String" Name="Protocol" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Touchpoint" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PartnerType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Author" Nullable="false" MaxLength="401" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Locked" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="Completed" Nullable="false" />
-          <Property Type="Int32" Name="Incomplete" Nullable="false" />
-          <Property Type="Int32" Name="No_Response" Nullable="false" />
-          <Property Type="String" Name="CMS" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Reminders" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="protocolID" Nullable="false" />
-          <Property Type="Int32" Name="touchpointid" Nullable="false" />
-          <Property Type="Int32" Name="questionnaireId" Nullable="false" />
-          <Property Type="String" Name="name" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="description" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="partnertypeid" Nullable="false" />
-          <Property Type="Int32" Name="personID" Nullable="false" />
-        </EntityType>
         <EntityType Name="view_TouchpointData">
           <Key>
             <PropertyRef Name="Touchpoint_Admin" />
@@ -18504,6 +18471,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="view_QuestionnaireData">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="protocolID" />
+            <PropertyRef Name="touchpointid" />
+            <PropertyRef Name="partnertypeid" />
+            <PropertyRef Name="PartnerType" />
+            <PropertyRef Name="personID" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="Locked" />
+            <PropertyRef Name="Completed" />
+            <PropertyRef Name="Incomplete" />
+            <PropertyRef Name="No_Response" />
+            <PropertyRef Name="CMS" />
+            <PropertyRef Name="Reminders" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" />
+          <Property Type="Int32" Name="protocolID" Nullable="false" />
+          <Property Type="String" Name="Protocol" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="touchpointid" Nullable="false" />
+          <Property Type="String" Name="Touchpoint" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="description" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="partnertypeid" Nullable="false" />
+          <Property Type="String" Name="PartnerType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="personID" Nullable="false" />
+          <Property Type="String" Name="Author" Nullable="false" MaxLength="401" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Locked" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Completed" Nullable="false" />
+          <Property Type="Int32" Name="Incomplete" Nullable="false" />
+          <Property Type="Int32" Name="No_Response" Nullable="false" />
+          <Property Type="String" Name="CMS" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Reminders" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="active" />
+        </EntityType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -23849,30 +23852,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="view_QuestionnaireData">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_QuestionnaireData">
-              <MappingFragment StoreEntitySet="view_QuestionnaireData">
-                <ScalarProperty Name="personID" ColumnName="personID" />
-                <ScalarProperty Name="partnertypeid" ColumnName="partnertypeid" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="questionnaireId" ColumnName="questionnaireId" />
-                <ScalarProperty Name="touchpointid" ColumnName="touchpointid" />
-                <ScalarProperty Name="protocolID" ColumnName="protocolID" />
-                <ScalarProperty Name="Reminders" ColumnName="Reminders" />
-                <ScalarProperty Name="CMS" ColumnName="CMS" />
-                <ScalarProperty Name="No_Response" ColumnName="No_Response" />
-                <ScalarProperty Name="Incomplete" ColumnName="Incomplete" />
-                <ScalarProperty Name="Completed" ColumnName="Completed" />
-                <ScalarProperty Name="Locked" ColumnName="Locked" />
-                <ScalarProperty Name="Author" ColumnName="Author" />
-                <ScalarProperty Name="PartnerType" ColumnName="PartnerType" />
-                <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
-                <ScalarProperty Name="Protocol" ColumnName="Protocol" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="view_TouchpointData">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_TouchpointData">
               <MappingFragment StoreEntitySet="view_TouchpointData">
@@ -24056,6 +24035,31 @@
                 <ScalarProperty Name="partner_name" ColumnName="partner_name" />
                 <ScalarProperty Name="partner_sap_id" ColumnName="partner_sap_id" />
                 <ScalarProperty Name="partner_internal_id" ColumnName="partner_internal_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_QuestionnaireData">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_QuestionnaireData">
+              <MappingFragment StoreEntitySet="view_QuestionnaireData">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="Reminders" ColumnName="Reminders" />
+                <ScalarProperty Name="CMS" ColumnName="CMS" />
+                <ScalarProperty Name="No_Response" ColumnName="No_Response" />
+                <ScalarProperty Name="Incomplete" ColumnName="Incomplete" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="personID" ColumnName="personID" />
+                <ScalarProperty Name="PartnerType" ColumnName="PartnerType" />
+                <ScalarProperty Name="partnertypeid" ColumnName="partnertypeid" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
+                <ScalarProperty Name="touchpointid" ColumnName="touchpointid" />
+                <ScalarProperty Name="Protocol" ColumnName="Protocol" />
+                <ScalarProperty Name="protocolID" ColumnName="protocolID" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

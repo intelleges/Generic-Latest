@@ -14,10 +14,17 @@ namespace Generic
     
     public partial class view_QuestionnaireData
     {
+        public int id { get; set; }
         public Nullable<int> enterprise { get; set; }
+        public int protocolID { get; set; }
         public string Protocol { get; set; }
+        public int touchpointid { get; set; }
         public string Touchpoint { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public int partnertypeid { get; set; }
         public string PartnerType { get; set; }
+        public int personID { get; set; }
         public string Author { get; set; }
         public string Locked { get; set; }
         public int Completed { get; set; }
@@ -25,12 +32,6 @@ namespace Generic
         public int No_Response { get; set; }
         public string CMS { get; set; }
         public string Reminders { get; set; }
-        public int protocolID { get; set; }
-        public int touchpointid { get; set; }
-        public int questionnaireId { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public int partnertypeid { get; set; }
-        public int personID { get; set; }
+        public Nullable<int> active { get; set; }
     }
 }
