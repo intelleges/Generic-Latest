@@ -1224,6 +1224,20 @@ namespace Generic.Controllers
 
 
         }
+        public ActionResult PrintPDF(string accesscode)
+        {
+            if (!string.IsNullOrEmpty(accesscode))
+            {
+                Session["accessCode"] = accesscode;
+                ///Registration/Home/OrdersInPdf
+                return RedirectToAction("OrdersInPdf","Home",new  {area="Registration"});
+            }
+            return RedirectToAction("FindPartnerResult");
+        
+        }
+
+
+
 
         protected override void Dispose(bool disposing)
         {
