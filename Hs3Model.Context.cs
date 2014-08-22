@@ -172,6 +172,7 @@ namespace Generic
         public DbSet<view_PersonData> view_PersonData { get; set; }
         public DbSet<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
         public DbSet<view_QuestionnaireData> view_QuestionnaireData { get; set; }
+        public DbSet<view_PartnerConfirmationData> view_PartnerConfirmationData { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -13450,6 +13451,11 @@ namespace Generic
                 new ObjectParameter("argsList", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_dynamicFiltersEnterprise_2", tableParameter, argsListParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerConfirmationData_Result> pr_getPartnerConfirmationData()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerConfirmationData_Result>("pr_getPartnerConfirmationData");
         }
     }
 }

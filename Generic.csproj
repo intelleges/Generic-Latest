@@ -962,6 +962,9 @@
     <Compile Include="pr_getPartnerByRelationshipowner_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerConfirmationData_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerCorpInfo_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1662,6 +1665,7 @@
     <Compile Include="UM_M_Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ConfirmPartnerViewModel.cs" />
     <Compile Include="ViewModel\GroupViewModel.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
     <Compile Include="ViewModel\PartnerViewModel.cs" />
@@ -1684,6 +1688,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="view_GroupData.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_PartnerConfirmationData.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="view_PartnerData.cs">
@@ -2781,6 +2788,7 @@
     <Content Include="Views\Questionnaire\Edit.cshtml" />
     <Content Include="Views\Questionnaire\QuestionnaireDetailView.cshtml" />
     <Content Include="Views\Questionnaire\QuestionnaireQuestionnaireCMS.cshtml" />
+    <Content Include="Views\Partner\ConfirmPartner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

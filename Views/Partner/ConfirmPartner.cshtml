@@ -1,0 +1,207 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.ViewModel.ConfirmPartnerViewModel>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Partner";
+}
+
+<style>
+    div#PartnerGrid
+    {
+        font-size: 11px;
+    }
+
+    #modal
+    {
+        height: 489px;
+    }
+
+    .ui-dialog
+    {
+        width: 99% !important;
+        left: 0;
+    }
+    .rbtncls {
+        width:15px;margin-left: 10px;
+    }
+</style>
+<form action="@Url.Content("~/Partner/ConfirmPartner")" method="post">
+
+@( Html.Telerik().Grid(Model).Name("ConfirmPartnerGrid")
+        .Columns(columns =>
+        {
+
+            columns.Bound(o => o.IsSelected1)
+
+                   .Title("<input type='radio' onchange='SelectallFirstRadioButtons();' id='rbtnSelectAll1' class='rbtncls' name='checkedRecords' />")
+                   .Template(@<text><input type='radio' id='rbtnMessage1' name='rbtnSelect1' style="width:15px;"  /></text>)
+                   .Width(50)
+                   .HtmlAttributes(new { style = "text-align:center" });
+
+
+            columns.Bound(o => o.Partner_A).Title("Name").Width(100);
+            columns.Bound(o => o.Group1).Title("Group").Width(100);
+            columns.Bound(o => o.StatusID_1).Title("StatusID").Width(100);
+            columns.Bound(o => o.Status1).Title("Status").Width(100);
+            columns.Bound(o => o.IsReference1).Title("IsReference").Width(100);
+
+             columns.Bound(o => o.IsSelected2)
+
+                   .Title("<input type='radio' onchange='SelectallSecondRadioButtons();' id='rbtnSelectAll2' class='rbtncls' name='checkedRecords' />")
+                   .Template(@<text><input type='radio' id='rbtnMessage2' style="width:15px;" name='rbtnSelect2'  /></text>)
+                   .Width(50)
+                   .HtmlAttributes(new { style = "text-align:center;width:50px" });
+
+
+            columns.Bound(o => o.Partner_B).Title("Name").Width(100);
+
+            columns.Bound(o => o.Group2).Title("Group").Width(100);
+            columns.Bound(o => o.StatusID_2).Title("StatusID").Width(100);
+            columns.Bound(o => o.Status2).Title("Status").Width(100);
+            columns.Bound(o => o.IsReference2).Title("IsReference").Width(100);
+            
+        })
+       
+         //.ClientEvents(events => events.OnDataBound("onDataBound"))
+        //.DataKeys(keys => keys.Add(o => o.internalID))
+        .Pageable(pager => pager.PageSize(13).Total(200).Enabled(false))
+        .Sortable(sorting => sorting.Enabled(true))
+
+        .Scrollable(scrolling => scrolling
+           .Enabled(true)
+           .Height(380))
+           .HtmlAttributes(new { @class = "ra" })
+)
+</form>
+
+
+<style>
+    .t-grid-content tr > td:hover .menu_block + .display_menu
+    {
+        display: block !important;
+    }
+
+    .display_menu
+    {
+        left: 65px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+
+    .t-grid-content tr > td
+    {
+        overflow: visible !important;
+        position: relative;
+    }
+
+    .display_menu > ul
+    {
+        padding: 0 16px;
+    }
+
+    .display_menu li
+    {
+        list-style: none outside none;
+        width: 143px;
+    }
+</style>
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+<script type="text/javascript">
+    $(function () {
+        jQuery.noConflict();
+    });
+
+    function CloseMe() {
+        $("#genericPopup").dialog('close');
+        //$(".t-icon .t-refresh").trigger('click');
+
+        window.location.replace(window.location.href);
+    }
+
+      function SelectallFirstRadioButtons() {
+        // if check all is checked, all radio buttons  are selected
+          // if check all is unchecked, all radio buttons are cleared
+
+          if ($('#rbtnSelectAll1').is(':checked')) {
+              debugger;
+              $('input:radio[name$=rbtnSelect1]').each(
+                function () {
+                    $(this).attr('checked', 'checked');
+                });
+              $('input:radio[name$=rbtnSelect2]').each(
+                function () {
+                    debugger;
+                    $(this).removeAttr('checked');
+                });
+        }
+        else {
+              $('input:radio[name$=rbtnSelect1]').each(
+                function () {
+                    debugger;
+                    $(this).removeAttr('checked');
+                });
+          }
+      }
+
+      function SelectallSecondRadioButtons() {
+          // if check all is checked, all radio buttons  are selected
+          // if check all is unchecked, all radio buttons are cleared
+
+          if ($('#rbtnSelectAll2').is(':checked')) {
+              debugger;
+              $('input:radio[name$=rbtnSelect2]').each(
+                function () {
+                    $(this).attr('checked', 'checked');
+                });
+              $('input:radio[name$=rbtnSelect1]').each(
+                function () {
+                    debugger;
+                    $(this).removeAttr('checked');
+                });
+          }
+          else {
+              $('input:radio[name$=rbtnSelect2]').each(
+                function () {
+                    debugger;
+                    $(this).removeAttr('checked');
+                });
+          }
+      }
+
+
+    //  $('input:radio[name$=rbtnSelect1]').click(
+    //function () {
+        
+    //    if (!$(this).is(':checked')) {
+    //        $('#checkedRecords1').removeAttr('checked');
+    //    }
+    //    else {
+    //        if ($('input:radio[name$=rbtnSelect1]').length ==
+    //        $('input:radio[name$=rbtnSelect1]:checked').length) {
+    //            $('#rbtnSelectAll1').attr('checked', 'checked');
+    //        }
+    //    }
+    //});
+
+    //  $('input:radio[name$=rbtnSelect2]').click(
+    // function () {
+
+    //     if (!$(this).is(':checked')) {
+    //         $('#checkedRecords2').removeAttr('checked');
+    //     }
+    //     else {
+    //         if ($('input:radio[name$=rbtnSelect2]').length ==
+    //         $('input:radio[name$=rbtnSelect2]:checked').length) {
+    //             $('#rbtnSelectAll2').attr('checked', 'checked');
+    //         }
+    //     }
+    // });
+</script>
+

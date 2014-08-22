@@ -242,8 +242,6 @@ namespace Generic.Controllers
             return View();
         }
 
-
-
         public ActionResult UploadPartner()
         {
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
@@ -1276,5 +1274,42 @@ namespace Generic.Controllers
 
         }
 
+       // To Confirm Partner
+        public ActionResult ConfirmPartner()
+        {
+            List<view_PartnerConfirmationData> objConfirmPartnerList = db.Database.SqlQuery<view_PartnerConfirmationData>("EXEC pr_getPartnerConfiramaionData").ToList();
+            List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
+            return View("ConfirmPartner", objConfirmPartnerViewModelList);
+            
+        }
+
+        private List<ConfirmPartnerViewModel> ConvertToConfirmPartnerViewModel(List<view_PartnerConfirmationData> iview_ConfirmPartnerDataList)
+        {
+            List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = new List<ConfirmPartnerViewModel>();
+
+            foreach (var iview_ConfirmPartnerData in iview_ConfirmPartnerDataList)
+            {
+                ConfirmPartnerViewModel objConfirmPartnerViewModel = new ConfirmPartnerViewModel();
+                objConfirmPartnerViewModel.Partner_A = iview_ConfirmPartnerData.Partner_A;
+                objConfirmPartnerViewModel.Group1 = iview_ConfirmPartnerData.Group1;
+                objConfirmPartnerViewModel.StatusID_1 = iview_ConfirmPartnerData.StatusID_1;
+                objConfirmPartnerViewModel.Status1 = iview_ConfirmPartnerData.Status1;
+                objConfirmPartnerViewModel.IsReference1 = iview_ConfirmPartnerData.IsReference1;
+                objConfirmPartnerViewModel.Partner_B = iview_ConfirmPartnerData.Partner_B;
+                objConfirmPartnerViewModel.Group2 = iview_ConfirmPartnerData.Group2;
+                objConfirmPartnerViewModel.StatusID_2 = iview_ConfirmPartnerData.StatusID_2;
+                objConfirmPartnerViewModel.Status2 = iview_ConfirmPartnerData.Status2;
+                objConfirmPartnerViewModel.IsReference2 = iview_ConfirmPartnerData.IsReference2;
+                objConfirmPartnerViewModel.InternalIDMatch = iview_ConfirmPartnerData.InternalIDMatch;
+                objConfirmPartnerViewModel.FederalIDMatch = iview_ConfirmPartnerData.FederalIDMatch;
+                objConfirmPartnerViewModel.DUNSMatch = iview_ConfirmPartnerData.DUNSMatch;
+                objConfirmPartnerViewModel.NameMatch = iview_ConfirmPartnerData.NameMatch;
+                objConfirmPartnerViewModel.IsSelected1 = false;
+                objConfirmPartnerViewModel.IsSelected2 = false;
+
+                objConfirmPartnerViewModelList.Add(objConfirmPartnerViewModel);
+            }
+            return objConfirmPartnerViewModelList;
+        }
     }
 }

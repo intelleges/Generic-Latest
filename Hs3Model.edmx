@@ -265,6 +265,24 @@
       [view_GroupData].[Active] AS [Active]
       FROM [dbo].[view_GroupData] AS [view_GroupData]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="view_PartnerConfirmationData" EntityType="hs3MVCMTQa2Model.Store.view_PartnerConfirmationData" store:Type="Views" store:Schema="dbo" store:Name="view_PartnerConfirmationData">
+            <DefiningQuery>SELECT 
+      [view_PartnerConfirmationData].[Partner_A] AS [Partner_A], 
+      [view_PartnerConfirmationData].[Group1] AS [Group1], 
+      [view_PartnerConfirmationData].[StatusID_1] AS [StatusID_1], 
+      [view_PartnerConfirmationData].[Status1] AS [Status1], 
+      [view_PartnerConfirmationData].[IsReference1] AS [IsReference1], 
+      [view_PartnerConfirmationData].[Partner_B] AS [Partner_B], 
+      [view_PartnerConfirmationData].[Group2] AS [Group2], 
+      [view_PartnerConfirmationData].[StatusID_2] AS [StatusID_2], 
+      [view_PartnerConfirmationData].[Status2] AS [Status2], 
+      [view_PartnerConfirmationData].[IsReference2] AS [IsReference2], 
+      [view_PartnerConfirmationData].[InternalIDMatch] AS [InternalIDMatch], 
+      [view_PartnerConfirmationData].[FederalIDMatch] AS [FederalIDMatch], 
+      [view_PartnerConfirmationData].[DUNSMatch] AS [DUNSMatch], 
+      [view_PartnerConfirmationData].[NameMatch] AS [NameMatch]
+      FROM [dbo].[view_PartnerConfirmationData] AS [view_PartnerConfirmationData]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="view_PartnerData" EntityType="hs3MVCMTQa2Model.Store.view_PartnerData" store:Type="Views" store:Schema="dbo" store:Name="view_PartnerData">
             <DefiningQuery>SELECT 
       [view_PartnerData].[id] AS [id], 
@@ -2771,6 +2789,41 @@
           <Property Name="ShadowCount" Type="int" Nullable="false" />
           <Property Name="CampaignCount" Type="int" Nullable="false" />
           <Property Name="Active" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PartnerConfirmationData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="view_PartnerConfirmationData">
+          <Key>
+            <PropertyRef Name="Partner_A" />
+            <PropertyRef Name="Group1" />
+            <PropertyRef Name="StatusID_1" />
+            <PropertyRef Name="Status1" />
+            <PropertyRef Name="IsReference1" />
+            <PropertyRef Name="Partner_B" />
+            <PropertyRef Name="Group2" />
+            <PropertyRef Name="StatusID_2" />
+            <PropertyRef Name="Status2" />
+            <PropertyRef Name="IsReference2" />
+            <PropertyRef Name="InternalIDMatch" />
+            <PropertyRef Name="FederalIDMatch" />
+            <PropertyRef Name="DUNSMatch" />
+            <PropertyRef Name="NameMatch" />
+          </Key>
+          <Property Name="Partner_A" Type="varchar" Nullable="false" MaxLength="9" />
+          <Property Name="Group1" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="StatusID_1" Type="int" Nullable="false" />
+          <Property Name="Status1" Type="varchar" Nullable="false" MaxLength="11" />
+          <Property Name="IsReference1" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="Partner_B" Type="varchar" Nullable="false" MaxLength="9" />
+          <Property Name="Group2" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="StatusID_2" Type="int" Nullable="false" />
+          <Property Name="Status2" Type="varchar" Nullable="false" MaxLength="11" />
+          <Property Name="IsReference2" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="InternalIDMatch" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="FederalIDMatch" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="DUNSMatch" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="NameMatch" Type="varchar" Nullable="false" MaxLength="2" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PartnerData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -5692,6 +5745,7 @@
         <Function Name="pr_getPartnerByRelationshipowner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerConfirmationData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
@@ -11622,6 +11676,8 @@
             <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
           </AssociationSet>
           <EntitySet Name="view_QuestionnaireData" EntityType="hs3MVCMTQa2Model.view_QuestionnaireData" />
+          <EntitySet Name="view_PartnerConfirmationData" EntityType="hs3MVCMTQa2Model.view_PartnerConfirmationData" />
+          <FunctionImport Name="pr_getPartnerConfirmationData" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerConfirmationData_Result)" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -18507,6 +18563,54 @@
           <Property Type="String" Name="Reminders" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="active" />
         </EntityType>
+        <EntityType Name="view_PartnerConfirmationData">
+          <Key>
+            <PropertyRef Name="Partner_A" />
+            <PropertyRef Name="Group1" />
+            <PropertyRef Name="StatusID_1" />
+            <PropertyRef Name="Status1" />
+            <PropertyRef Name="IsReference1" />
+            <PropertyRef Name="Partner_B" />
+            <PropertyRef Name="Group2" />
+            <PropertyRef Name="StatusID_2" />
+            <PropertyRef Name="Status2" />
+            <PropertyRef Name="IsReference2" />
+            <PropertyRef Name="InternalIDMatch" />
+            <PropertyRef Name="FederalIDMatch" />
+            <PropertyRef Name="DUNSMatch" />
+            <PropertyRef Name="NameMatch" />
+          </Key>
+          <Property Type="String" Name="Partner_A" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Group1" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="StatusID_1" Nullable="false" />
+          <Property Type="String" Name="Status1" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="IsReference1" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Partner_B" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Group2" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="StatusID_2" Nullable="false" />
+          <Property Type="String" Name="Status2" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="IsReference2" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="InternalIDMatch" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FederalIDMatch" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DUNSMatch" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NameMatch" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="pr_getPartnerConfirmationData_Result">
+          <Property Type="String" Name="Partner_A" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="Group1" Nullable="false" MaxLength="8" />
+          <Property Type="Int32" Name="StatusID_1" Nullable="false" />
+          <Property Type="String" Name="Status1" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="IsReference1" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="Partner_B" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="Group2" Nullable="false" MaxLength="8" />
+          <Property Type="Int32" Name="StatusID_2" Nullable="false" />
+          <Property Type="String" Name="Status2" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="IsReference2" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="InternalIDMatch" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="FederalIDMatch" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="DUNSMatch" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="NameMatch" Nullable="false" MaxLength="2" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -24064,6 +24168,46 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="view_PartnerConfirmationData">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_PartnerConfirmationData">
+              <MappingFragment StoreEntitySet="view_PartnerConfirmationData">
+                <ScalarProperty Name="NameMatch" ColumnName="NameMatch" />
+                <ScalarProperty Name="DUNSMatch" ColumnName="DUNSMatch" />
+                <ScalarProperty Name="FederalIDMatch" ColumnName="FederalIDMatch" />
+                <ScalarProperty Name="InternalIDMatch" ColumnName="InternalIDMatch" />
+                <ScalarProperty Name="IsReference2" ColumnName="IsReference2" />
+                <ScalarProperty Name="Status2" ColumnName="Status2" />
+                <ScalarProperty Name="StatusID_2" ColumnName="StatusID_2" />
+                <ScalarProperty Name="Group2" ColumnName="Group2" />
+                <ScalarProperty Name="Partner_B" ColumnName="Partner_B" />
+                <ScalarProperty Name="IsReference1" ColumnName="IsReference1" />
+                <ScalarProperty Name="Status1" ColumnName="Status1" />
+                <ScalarProperty Name="StatusID_1" ColumnName="StatusID_1" />
+                <ScalarProperty Name="Group1" ColumnName="Group1" />
+                <ScalarProperty Name="Partner_A" ColumnName="Partner_A" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerConfirmationData" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerConfirmationData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerConfirmationData_Result">
+                <ScalarProperty Name="Partner_A" ColumnName="Partner_A" />
+                <ScalarProperty Name="Group1" ColumnName="Group1" />
+                <ScalarProperty Name="StatusID_1" ColumnName="StatusID_1" />
+                <ScalarProperty Name="Status1" ColumnName="Status1" />
+                <ScalarProperty Name="IsReference1" ColumnName="IsReference1" />
+                <ScalarProperty Name="Partner_B" ColumnName="Partner_B" />
+                <ScalarProperty Name="Group2" ColumnName="Group2" />
+                <ScalarProperty Name="StatusID_2" ColumnName="StatusID_2" />
+                <ScalarProperty Name="Status2" ColumnName="Status2" />
+                <ScalarProperty Name="IsReference2" ColumnName="IsReference2" />
+                <ScalarProperty Name="InternalIDMatch" ColumnName="InternalIDMatch" />
+                <ScalarProperty Name="FederalIDMatch" ColumnName="FederalIDMatch" />
+                <ScalarProperty Name="DUNSMatch" ColumnName="DUNSMatch" />
+                <ScalarProperty Name="NameMatch" ColumnName="NameMatch" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
