@@ -182,6 +182,19 @@ namespace Generic.Controllers
             return RedirectToAction("UploadAutoMailMessage", "AutoMailMessage");
         }
 
+        public ActionResult QuestionnaireDetailView(int id=0)
+        {
+            List<question> questionnairedetail = db.pr_getQuestionByQuestionnaire(id).ToList();
+            return View(questionnairedetail);
+        
+        }
+        public ActionResult QuestionnaireQuestionnaireCMS(int id = 0)
+        {
+            List<questionnaireQuestionnaireCMS> questionnairedetail = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(id).ToList();
+            return View(questionnairedetail);
+            
+
+        }
 
         public ActionResult Edit(int id = 0)
         {

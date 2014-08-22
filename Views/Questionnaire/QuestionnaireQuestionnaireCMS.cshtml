@@ -1,14 +1,14 @@
-﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.view_QuestionnaireData>>
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.questionnaireQuestionnaireCMS>>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 @{
     Layout = LayoutHelper.GetLayout();
-    ViewBag.Title = "Questionnaire";
+    ViewBag.Title = "Questionnaire Detail View";
 }
 
 <style>
-    div#QuestionnaireGrid {
+    div#QuestionnaireDetailViewGrid {
         font-size: 11px;
     }
 
@@ -23,44 +23,35 @@
 </style>
 
 
-@( Html.Telerik().Grid(Model).Name("QuestionnaireGrid")
+@( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
 .ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "export" })
                     .Text("Export to Excel")
-                    .Action("ExportExcel", "Questionnaire"))
+                    .Action("ExportExcelQuestionnaireDetail", "Questionnaire"))
         .Columns(columns =>
         {
 
-            columns.Bound(o => o.name).Title("Name").Width(100).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
+            columns.Bound(o => o.questionnaireCMS).Title("Questionnaire CMS").Width(200).Template(@<text><a href='#' id='@item.questionnaireCMS' class="menu_block">@item.questionnaireCMS</a>
 <div class="display_menu" style="display: none;">
     <ul>
-        <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-        <li><a href="javascript:openRemovePopup(@item.id,'@item.Author')">Remove</a></li>
-        <li><a href="javascript:openArchivePopup(@item.id,'@item.Author')">Archive</a></li>
-        <li><a href="~/Questionnaire/QuestionnaireDetailView/@item.id">View Detail</a></li>
+        <li><a href="javascript:openEditPopup(@item.questionnaire)">Edit/Correct</a></li>
+        <li><a href="javascript:openRemovePopup(@item.questionnaire,'@item.questionnaireCMS')">Remove</a></li>
+        <li><a href="javascript:openArchivePopup(@item.questionnaire,'@item.questionnaireCMS')">Archive</a></li>
+        <li><a href="javascript:openViewDetailPopup(@item.questionnaire)">View Detail</a></li>
 
-        <li><a href="javascript:openViewDetailPopup(@item.id)">Edit/Upload CMS</a></li>
-        <li><a href="javascript:openViewDetailPopup(@item.id)">Edit/Upload AutoMail</a></li>
-
+       
     </ul>
 </div>
 </text>);
-            columns.Bound(o => o.Author).Title("Author").Width(100);
-            columns.Bound(o => o.Protocol).Title("Protocol").Width(100);
-            columns.Bound(o => o.description).Title("Description").Width(100);
-            columns.Bound(o => o.Locked).Title("Locked").Width(100);
-            columns.Bound(o => o.Incomplete).Title("Incomplete").Width(100);
-            columns.Bound(o => o.No_Response).Title("No Response").Width(100);
-            columns.Bound(o => o.CMS).Title("CMS").Width(100);
-            columns.Bound(o => o.Completed).Title("Completed").Width(100);
-            columns.Bound(o => o.enterprise).Title("enterprise").Width(100);
-            columns.Bound(o => o.PartnerType).Title("PartnerType").Width(100);
-            columns.Bound(o => o.Reminders).Title("Reminders").Width(200);
-            columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(100);
+            columns.Bound(o => o.text).Title("Text").Width(100);
+            columns.Bound(o => o.link).Title("Link").Width(100);
+
+            columns.Bound(o => o.doc).Title("Download").Width(100).Template(@<text><a href='#'>Download</a></text>);
+           
 
         })
-        .DataKeys(keys => keys.Add(o => o.id))
+        .DataKeys(keys => keys.Add(o => o.questionnaire))
         .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
         .Sortable(sorting => sorting.Enabled(true))
 
@@ -153,7 +144,7 @@
     });
 
     function openEditPopup(id) {
-        $.get("@Url.Content("~/Questionnaire/Edit/")" + id, function (data) {
+        $.get("@Url.Content("~/Questionnaire/EditQuestionCMSDetail/")" + id, function (data) {
             $("#genericPopup").html(data);
         });
 
@@ -179,7 +170,7 @@
             } else {
                 // click yes
 
-                $.get("@Url.Content("~/Questionnaire/Archive/")" + id, function (data) {
+                $.get("@Url.Content("~/Questionnaire/ArchiveQuestionCMSDetail/")" + id, function (data) {
                     // $(".t-icon .t-refresh").trigger('click');
                     window.location.replace(window.location.href);
                 });
@@ -209,7 +200,7 @@
             } else {
                 // click yes
 
-                $.get("@Url.Content("~/Questionnaire/Archive/")" + id, function (data) {
+                $.get("@Url.Content("~/Questionnaire/ArchiveQuestionCMSDetail/")" + id, function (data) {
                     // $(".t-icon .t-refresh").trigger('click');
                     window.location.replace(window.location.href);
                 });
@@ -222,7 +213,7 @@
 
     function openViewDetailPopup(id) {
         $("#genericPopup").html("<p>Loading Data...</p>");
-        $.get("@Url.Content("~/Questionnaire/Details/")" + id, function (data) {
+        $.get("@Url.Content("~/Questionnaire/QuestionnaireCMSDetail")" + id, function (data) {
             $("#genericPopup").html(data);
         });
         $("#genericPopup").dialog({ height: 600, title: "View Detail" });
