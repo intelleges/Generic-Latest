@@ -1230,7 +1230,8 @@ namespace Generic.Controllers
             {
                 Session["accessCode"] = accesscode;
                 ///Registration/Home/OrdersInPdf
-                return RedirectToAction("OrdersInPdf","Home",new  {area="Registration"});
+               // return RedirectToAction("OrdersInPdf","Home",new  {area="Registration"});
+                Response.Redirect("~/Registration/Home/OrdersInPdf");
             }
             return RedirectToAction("FindPartnerResult");
         
