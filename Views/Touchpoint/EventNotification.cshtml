@@ -1,62 +1,61 @@
-﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.view_TouchpointData>>
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.view_EventNotificationData>>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 @{
     Layout = LayoutHelper.GetLayout();
-    ViewBag.Title = "Touchpoint";
+    ViewBag.Title = "Questionnaire Detail View";
 }
 
 <style>
-    div#TouchpointGrid
-    {
+    div#QuestionnaireDetailViewGrid {
         font-size: 11px;
     }
 
-    #modal
-    {
+    #modal {
         height: 489px;
     }
 
-    .ui-dialog
-    {
+    .ui-dialog {
         width: 99% !important;
         left: 0;
     }
 </style>
 
-@( Html.Telerik().Grid(Model).Name("TouchpointGrid")
+
+@( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
 .ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "export" })
                     .Text("Export to Excel")
-                    .Action("ExportExcel", "Touchpoint"))
-
+                    .Action("ExportExcelEventNotification", "TouchPoint"))
         .Columns(columns =>
         {
-            columns.Bound(o => o.Name).Title("Name").Width(100).Template(@<text><a href='#' id='@item.Name' class="menu_block">@item.Name</a>
-<div class="display_menu" style="display: none;">   <ul>
+
+            columns.Bound(o => o.partner).Title("Name").Width(800).Template(@<text><a href='#' id='@item.partner' class="menu_block">@item.partner</a>
+<div class="display_menu" style="display: none;">
+    <ul>
         <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-        <li><a href="javascript:openRemovePopup(@item.id,'@item.Name')">Remove</a></li>
-        <li><a href="javascript:openArchivePopup(@item.id,'@item.Name')">Archive</a></li>
+        <li><a href="javascript:openRemovePopup(@item.id,'@item.partner')">Remove</a></li>
+        <li><a href="javascript:openArchivePopup(@item.id,'@item.partner')">Archive</a></li>
         <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-        <li><a href="~/TouchPoint/EventNotification/@item.id">Event Notification</a></li>
-        
+
+       
+
     </ul>
 </div>
 </text>);
-
-            columns.Bound(o => o.Start_Date).Title("Start Date").Width(100);
-            columns.Bound(o => o.End_Date).Title("End Date").Width(100);
-            columns.Bound(o => o.Group_Count).Title("Group Count").Width(100);
-            columns.Bound(o => o.Partner_Count).Title("Partner Count").Width(100);
-
-            columns.Bound(o => o.Questionnaire_Count).Title("Questionnaire Count").Width(100);
-            columns.Bound(o => o.description).Title("Description").Width(100);
-            columns.Bound(o => o.Touchpoint_Admin).Title("Touchpoint Admin").Width(100);
-            columns.Bound(o => o.Touchpoint_Sponsor).Title("Touchpoint Sponsor").Width(100);
-            columns.Bound(o => o.User_Count).Title("User Count").Width(100);
+            columns.Bound(o => o.partnertypetouchpointquestionnaire).Title("Question").Width(800);
+            columns.Bound(o => o.timestamp).Title("Title").Width(100);
+            columns.Bound(o => o.mailtype).Title("Tag").Width(100);
+            columns.Bound(o => o.emailType).Title("Response Type").Width(100);
+            columns.Bound(o => o.email).Title("Required").Width(100);
+            columns.Bound(o => o.Date_Sent).Title("Weight").Width(100);
+            columns.Bound(o => o.@event).Title("Skipped Logic Answer").Width(100);
+            columns.Bound(o => o.accesscode).Title("Skip Logic Jump").Width(100);
+            columns.Bound(o => o.Touchpoint).Title("Access Level").Width(100);
             
+           
 
         })
         .DataKeys(keys => keys.Add(o => o.id))
@@ -116,13 +115,13 @@
             window.location.replace(window.location.href);
         });
     });
+
     function CloseMe() {
         $("#genericPopup").dialog('close');
         //$(".t-icon .t-refresh").trigger('click');
 
         window.location.replace(window.location.href);
     }
-
     function OpenEmailDialog(ac) {
         jQuery.noConflict();
 
@@ -152,7 +151,7 @@
     });
 
     function openEditPopup(id) {
-        $.get("@Url.Content("~/Touchpoint/Edit/")" + id, function (data) {
+        $.get("@Url.Content("~/Questionnaire/EditQuestionDetail/")" + id, function (data) {
             $("#genericPopup").html(data);
         });
 
@@ -160,7 +159,7 @@
         $("#genericPopup").dialog('open');
     }
 
-    function openRemovePopup(id,  name) {
+    function openRemovePopup(id, name) {
 
 
 
@@ -172,13 +171,13 @@
             buttonFocus: "cancel"
         });
         // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Remove  : " + name + ". Are you sure you want to do this?", function (e) {
+        alertify.confirm("You are about to Remove : " + name + ". Are you sure you want to do this?", function (e) {
             if (e) {
                 // Click no
             } else {
                 // click yes
 
-                $.get("@Url.Content("~/Touchpoint/Archive/")" + id, function (data) {
+                $.get("@Url.Content("~/Questionnaire/ArchiveQuestionDetail/")" + id, function (data) {
                     // $(".t-icon .t-refresh").trigger('click');
                     window.location.replace(window.location.href);
                 });
@@ -190,7 +189,7 @@
     }
 
 
-    function openArchivePopup(id,  name) {
+    function openArchivePopup(id, name) {
 
 
 
@@ -208,7 +207,7 @@
             } else {
                 // click yes
 
-                $.get("@Url.Content("~/Touchpoint/Archive/")" + id, function (data) {
+                $.get("@Url.Content("~/Questionnaire/ArchiveQuestionDetail/")" + id, function (data) {
                     // $(".t-icon .t-refresh").trigger('click');
                     window.location.replace(window.location.href);
                 });
@@ -221,13 +220,12 @@
 
     function openViewDetailPopup(id) {
         $("#genericPopup").html("<p>Loading Data...</p>");
-        $.get("@Url.Content("~/Touchpoint/Details/")" + id, function (data) {
+        $.get("@Url.Content("~/Questionnaire/QuestionDetail/")" + id, function (data) {
             $("#genericPopup").html(data);
         });
         $("#genericPopup").dialog({ height: 600, title: "View Detail" });
         $("#genericPopup").dialog('open');
     }
-
 
 </script>
 

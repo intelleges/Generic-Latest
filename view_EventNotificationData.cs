@@ -25,5 +25,8 @@ namespace Generic
         public Nullable<System.DateTime> timestamp { get; set; }
         public string @event { get; set; }
         public string accesscode { get; set; }
+        public int id { get; set; }
+        public string email { get; set; }
+        public string Touchpoint { get; set; }
     }
 }

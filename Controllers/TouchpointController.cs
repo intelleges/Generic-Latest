@@ -447,7 +447,20 @@ namespace Generic.Controllers
             return objTouchpointViewModelList;
 
         }
+        public ActionResult EventNotification(int id = 0)
+        {
+            //string arguments = Session["touchpointsearch"].ToString() + "touchpointid=" + id + ";";
+            //List<question> questionnairedetail = db.pr_dynamicFiltersEventNotification("view_EventNotificationData", arguments).ToList();
+            //return View(questionnairedetail);
 
+            string arguments = Session["touchpointsearch"].ToString() + "touchpointid=" + id + ";";
+            Session["touchpoint"] = db.Database.SqlQuery<view_EventNotificationData>("EXEC pr_dynamicFiltersEventNotification  'view_EventNotificationData' , '" + arguments + "'").ToList();
+
+
+            List<view_EventNotificationData> abc = (List<view_EventNotificationData>)Session["touchpoint"];
+
+            return View(abc);
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

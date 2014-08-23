@@ -17,5 +17,7 @@ namespace Generic
         public int pptq { get; set; }
         public int group { get; set; }
         public Nullable<int> pptqGroupType { get; set; }
+        public Nullable<bool> isShadow { get; set; }
+        public Nullable<int> pptqReference { get; set; }
     }
 }

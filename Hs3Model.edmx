@@ -238,17 +238,20 @@
           </EntitySet>
           <EntitySet Name="view_EventNotificationData" EntityType="hs3MVCMTQa2Model.Store.view_EventNotificationData" store:Type="Views" store:Schema="dbo" store:Name="view_EventNotificationData">
             <DefiningQuery>SELECT 
+      [view_EventNotificationData].[id] AS [id], 
       [view_EventNotificationData].[enterprise] AS [enterprise], 
       [view_EventNotificationData].[partnerID] AS [partnerID], 
       [view_EventNotificationData].[internalID] AS [internalID], 
       [view_EventNotificationData].[mailtype] AS [mailtype], 
       [view_EventNotificationData].[emailType] AS [emailType], 
+      [view_EventNotificationData].[email] AS [email], 
       [view_EventNotificationData].[Date_Sent] AS [Date_Sent], 
       [view_EventNotificationData].[partner] AS [partner], 
       [view_EventNotificationData].[partnertypetouchpointquestionnaire] AS [partnertypetouchpointquestionnaire], 
       [view_EventNotificationData].[timestamp] AS [timestamp], 
       [view_EventNotificationData].[event] AS [event], 
-      [view_EventNotificationData].[accesscode] AS [accesscode]
+      [view_EventNotificationData].[accesscode] AS [accesscode], 
+      [view_EventNotificationData].[Touchpoint] AS [Touchpoint]
       FROM [dbo].[view_EventNotificationData] AS [view_EventNotificationData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_GroupData" EntityType="hs3MVCMTQa2Model.Store.view_GroupData" store:Type="Views" store:Schema="dbo" store:Name="view_GroupData">
@@ -1963,6 +1966,8 @@
           <Property Name="pptq" Type="int" Nullable="false" />
           <Property Name="group" Type="int" Nullable="false" />
           <Property Name="pptqGroupType" Type="int" />
+          <Property Name="isShadow" Type="bit" />
+          <Property Name="pptqReference" Type="int" />
         </EntityType>
         <EntityType Name="pptqGroupType">
           <Key>
@@ -2749,23 +2754,27 @@
       -->
         <EntityType Name="view_EventNotificationData">
           <Key>
+            <PropertyRef Name="id" />
             <PropertyRef Name="partnerID" />
             <PropertyRef Name="mailtype" />
             <PropertyRef Name="Date_Sent" />
             <PropertyRef Name="partner" />
             <PropertyRef Name="partnertypetouchpointquestionnaire" />
           </Key>
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="enterprise" Type="int" />
           <Property Name="partnerID" Type="int" Nullable="false" />
           <Property Name="internalID" Type="varchar" MaxLength="255" />
           <Property Name="mailtype" Type="int" Nullable="false" />
           <Property Name="emailType" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
           <Property Name="Date_Sent" Type="date" Nullable="false" />
           <Property Name="partner" Type="int" Nullable="false" />
           <Property Name="partnertypetouchpointquestionnaire" Type="int" Nullable="false" />
           <Property Name="timestamp" Type="datetime" />
           <Property Name="event" Type="varchar" MaxLength="50" />
           <Property Name="accesscode" Type="varchar" MaxLength="50" />
+          <Property Name="Touchpoint" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_GroupData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -17964,6 +17973,8 @@
           <Property Name="pptq" Type="Int32" Nullable="false" />
           <Property Name="group" Type="Int32" Nullable="false" />
           <Property Name="pptqGroupType" Type="Int32" />
+          <Property Type="Boolean" Name="isShadow" />
+          <Property Type="Int32" Name="pptqReference" />
         </EntityType>
         <EntityType Name="pptqGroupType">
           <Key>
@@ -18316,6 +18327,7 @@
             <PropertyRef Name="Date_Sent" />
             <PropertyRef Name="partner" />
             <PropertyRef Name="partnertypetouchpointquestionnaire" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Type="Int32" Name="enterprise" />
           <Property Type="Int32" Name="partnerID" Nullable="false" />
@@ -18328,6 +18340,9 @@
           <Property Type="DateTime" Name="timestamp" Precision="3" />
           <Property Type="String" Name="event" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="accesscode" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="email" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Touchpoint" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="view_EnterpriseData">
           <Key>
@@ -23581,6 +23596,8 @@
           <EntitySetMapping Name="pptqGroup">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.pptqGroup">
               <MappingFragment StoreEntitySet="pptqGroup">
+                <ScalarProperty Name="pptqReference" ColumnName="pptqReference" />
+                <ScalarProperty Name="isShadow" ColumnName="isShadow" />
                 <ScalarProperty Name="pptqGroupType" ColumnName="pptqGroupType" />
                 <ScalarProperty Name="group" ColumnName="group" />
                 <ScalarProperty Name="pptq" ColumnName="pptq" />
@@ -23997,6 +24014,9 @@
           <EntitySetMapping Name="view_EventNotificationData">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_EventNotificationData">
               <MappingFragment StoreEntitySet="view_EventNotificationData">
+                <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="accesscode" ColumnName="accesscode" />
                 <ScalarProperty Name="event" ColumnName="event" />
                 <ScalarProperty Name="timestamp" ColumnName="timestamp" />
