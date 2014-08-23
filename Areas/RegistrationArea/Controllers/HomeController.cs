@@ -1774,7 +1774,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     ViewBag.logoSrc = enterprise.FirstOrDefault().logo;
                     //  return PartialView("_InstanceLogoPartial", enterprise);
                 }
-                
+
                 #endregion
 
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
@@ -1887,7 +1887,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             // Create the iTextSharp document.
             Document pdfDoc = new Document();
-            
+
             MemoryStream memStream = new MemoryStream();
             PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memStream);
             writer.CloseStream = false;
@@ -1965,36 +1965,39 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 stream.Dispose();
             }
         }
-        
+
         public ActionResult OrdersInPdf()
-        {         
+        {
             QuestionnaireModel modl = new QuestionnaireModel();
             List<pr_getPartnerQuestionResponseByAccessCode_Result> reslt = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
 
             //List<pr_getPartnerHeaderByAccessCode_Result>
-             var find= db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
-             ViewBag.reslt2 = find;
-             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-             if (enterprise == null)
-             {
-                 //var enterpriseIntelleges = db.pr_getEnterprise(1).FirstOrDefault();
-                 //ViewBag.logoSrc = enterpriseIntelleges;
+            var find = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
+            ViewBag.reslt2 = find;
+            List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            if (enterprise == null)
+            {
+                //var enterpriseIntelleges = db.pr_getEnterprise(1).FirstOrDefault();
+                //ViewBag.logoSrc = enterpriseIntelleges;
                 // return PartialView("_InstanceLogoPartial", enterpriseIntelleges);
-             }
-             else
-             {
-                 ViewBag.logoSrc = enterprise.FirstOrDefault().applicationPath;
+            }
+            else
+            {
+                //C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\enterprise3.gif
+                string temp = enterprise.FirstOrDefault().applicationPath;
+                ViewBag.logoSrc = Server.MapPath("~") + temp.Substring(temp.IndexOf("uploadedFiles") - 1);
+                //ViewBag.logoSrc = enterprise.FirstOrDefault().applicationPath;
 
-                 //byte[] data = enterprise.FirstOrDefault().logo;
-                 //Session["logoPrint"] = data;
+                //byte[] data = enterprise.FirstOrDefault().logo;
+                //Session["logoPrint"] = data;
 
 
-                 //  return PartialView("_InstanceLogoPartial", enterprise);
-             }
-            
+                //  return PartialView("_InstanceLogoPartial", enterprise);
+            }
+
             ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
-            string result = "Sukhbir";         
-            return ViewPdf(reslt);  
+            string result = "Sukhbir";
+            return ViewPdf(reslt);
         }
 
         public FileContentResult ExportPng()
