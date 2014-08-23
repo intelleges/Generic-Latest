@@ -8,8 +8,7 @@
 }
 
 <style>
-    div#PartnerGrid
-    {
+    div#ConfirmPartnerGrid {
         font-size: 11px;
     }
 
@@ -24,7 +23,7 @@
         left: 0;
     }
     .rbtncls {
-        width:15px;margin-left: 10px;
+        width:15px;margin-left: 0px;
     }
 </style>
 <form action="@Url.Content("~/Partner/ConfirmPartner")" method="post">
@@ -35,33 +34,45 @@
 
             columns.Bound(o => o.IsSelected1)
 
-                   .Title("<input type='radio' onchange='SelectallFirstRadioButtons();' id='rbtnSelectAll1' class='rbtncls' name='checkedRecords' />")
-                   .Template(@<text><input type='radio' id='rbtnMessage1' name='rbtnSelect1' style="width:15px;"  /></text>)
-                   .Width(50)
+                   @*.Title("<input type='radio' onchange='SelectallFirstRadioButtons();' id='rbtnSelectAll1' class='rbtncls' name='checkedRecords' />")*@
+                   .Title("A")     
+                   .Template(@<text><input type='radio' id='rbtnMessage1' name='rbtnSelect' style="width:15px;"  /></text>)
+                   .Width(30)
                    .HtmlAttributes(new { style = "text-align:center" });
 
 
-            columns.Bound(o => o.Partner_A).Title("Name").Width(100);
-            columns.Bound(o => o.Group1).Title("Group").Width(100);
-            columns.Bound(o => o.StatusID_1).Title("StatusID").Width(100);
+            columns.Bound(o => o.Partner_A).Title("Name").Width(70);
+            columns.Bound(o => o.Group1).Title("Group").Width(70);
+            @*columns.Bound(o => o.StatusID_1).Title("StatusID").Width(100);*@
             columns.Bound(o => o.Status1).Title("Status").Width(100);
-            columns.Bound(o => o.IsReference1).Title("IsReference").Width(100);
+            columns.Bound(o => o.IsReference1).Title("Ref").Width(50);
 
              columns.Bound(o => o.IsSelected2)
 
-                   .Title("<input type='radio' onchange='SelectallSecondRadioButtons();' id='rbtnSelectAll2' class='rbtncls' name='checkedRecords' />")
-                   .Template(@<text><input type='radio' id='rbtnMessage2' style="width:15px;" name='rbtnSelect2'  /></text>)
-                   .Width(50)
+                   @*.Title("<input type='radio' onchange='SelectallSecondRadioButtons();' id='rbtnSelectAll2' class='rbtncls' name='checkedRecords' />")*@
+                    .Title("B") 
+                   .Template(@<text><input type='radio' id='rbtnMessage2' style="width:15px;" name='rbtnSelect'  /></text>)
+                   .Width(30)
                    .HtmlAttributes(new { style = "text-align:center;width:50px" });
 
 
-            columns.Bound(o => o.Partner_B).Title("Name").Width(100);
+            columns.Bound(o => o.Partner_B).Title("Name").Width(70);
 
-            columns.Bound(o => o.Group2).Title("Group").Width(100);
-            columns.Bound(o => o.StatusID_2).Title("StatusID").Width(100);
+            columns.Bound(o => o.Group2).Title("Group").Width(70);
+            @*columns.Bound(o => o.StatusID_2).Title("StatusID").Width(100);*@
             columns.Bound(o => o.Status2).Title("Status").Width(100);
-            columns.Bound(o => o.IsReference2).Title("IsReference").Width(100);
+            columns.Bound(o => o.IsReference2).Title("Ref").Width(50);
+
+            columns.Bound(o => o.InternalIDMatch).Title("IM").Width(50);
+            columns.Bound(o => o.FederalIDMatch).Title("FM").Width(50);
+            columns.Bound(o => o.DUNSMatch).Title("DM").Width(50);
+            columns.Bound(o => o.NameMatch).Title("NM").Width(50);
+
             
+            columns.Command(commands => commands.Custom("Ignore").Text("Ignore").SendState(false).Ajax(true).Action("IgnoreDetails", "Partner")).Title("Ignore").Width(100);
+            columns.Command(commands => commands.Custom("Remove").Text("Remove").SendState(false).Ajax(true).Action("RemoveDetails", "Partner")).Title("Remove").Width(100);
+            columns.Command(commands => commands.Custom("Shadow").Text("Shadow").SendState(false).Ajax(true).Action("ShadowDetails", "Partner")).Title("Shadow").Width(100);
+            columns.Command(commands => commands.Custom("Skip").Text("Skip").SendState(false).Ajax(true).Action("SkipDetails", "Partner")).Title("Skip").Width(100);
         })
        
          //.ClientEvents(events => events.OnDataBound("onDataBound"))

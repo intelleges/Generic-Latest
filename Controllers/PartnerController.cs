@@ -1326,5 +1326,23 @@ namespace Generic.Controllers
             }
             return objConfirmPartnerViewModelList;
         }
+
+        public ActionResult IgnoreDetails()
+        {
+            return View("ConfirmPartner");
+        }
+        public ActionResult RemoveDetails()
+        {
+            return View("ConfirmPartner");
+        }
+        public ActionResult ShadowDetails()
+        {
+            return View("ConfirmPartner");
+        }
+        public ActionResult SkipDetails()
+        {
+            return View("ConfirmPartner");
+        }
+       
     }
 }
