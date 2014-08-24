@@ -21,14 +21,20 @@
         left: 0;
     }
 </style>
-
+@*commands.Template("<input id='File' type='file' value='Upload' />");*@
+@*commands
+        .Custom()
+        .HtmlAttributes(new { id = "export" })
+        .Text("Export to Excel")
+        .Action("ExportExcelQuestionnaireDetail", "Questionnaire");*@
 
 @( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
-.ToolBar(commands => commands
-                .Custom()
-                    .HtmlAttributes(new { id = "export" })
-                    .Text("Export to Excel")
-                    .Action("ExportExcelQuestionnaireDetail", "Questionnaire"))
+.ToolBar(commands =>
+{
+    commands.Template("<a class='t-button ' href='/Questionnaire/ExportExcelQuestionnaireDetail/"+ this.ViewContext.RouteData.Values["id"]+"' id='export'>Export to Excel</a><input style='display:none;' type='file' id='file' name='file' /><a class='t-button '  id='btn-upload' href='#'>Upload</a>");
+
+
+})
         .Columns(columns =>
         {
 
@@ -40,7 +46,7 @@
         <li><a href="javascript:openArchivePopup(@item.questionnaire,'@item.questionnaireCMS')">Archive</a></li>
         <li><a href="javascript:openViewDetailPopup(@item.questionnaire)">View Detail</a></li>
 
-       
+
     </ul>
 </div>
 </text>);
@@ -48,7 +54,7 @@
             columns.Bound(o => o.link).Title("Link").Width(100);
 
             columns.Bound(o => o.doc).Title("Download").Width(100).Template(@<text><a href='#'>Download</a></text>);
-           
+
 
         })
         .DataKeys(keys => keys.Add(o => o.questionnaire))
@@ -219,6 +225,14 @@
         $("#genericPopup").dialog({ height: 600, title: "View Detail" });
         $("#genericPopup").dialog('open');
     }
+
+    $(function () {
+        $('#btn-upload').click(function (e) {
+            e.preventDefault();
+            $('#file').click();
+        }
+       );
+    });
 
 </script>
 
