@@ -173,6 +173,7 @@ namespace Generic
         public DbSet<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
         public DbSet<view_QuestionnaireData> view_QuestionnaireData { get; set; }
         public DbSet<view_PartnerConfirmationData> view_PartnerConfirmationData { get; set; }
+        public DbSet<ConfirmPartnerActionType> ConfirmPartnerActionType { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -13456,6 +13457,46 @@ namespace Generic
         public virtual ObjectResult<pr_getPartnerConfirmationData_Result> pr_getPartnerConfirmationData()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerConfirmationData_Result>("pr_getPartnerConfirmationData");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addConfirmPartnerActionType(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addConfirmPartnerActionType", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveConfirmPartnerActionType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveConfirmPartnerActionType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getConfirmPartnerActionType_Result> pr_getConfirmPartnerActionType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getConfirmPartnerActionType_Result>("pr_getConfirmPartnerActionType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getConfirmPartnerActionTypeAll_Result> pr_getConfirmPartnerActionTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getConfirmPartnerActionTypeAll_Result>("pr_getConfirmPartnerActionTypeAll");
         }
     }
 }

@@ -134,20 +134,20 @@ namespace Generic.Controllers
                 Session["touchpoint"] = touchpoint;
                 Session["loadGroup"] = loadGroup;
                 ViewBag.Message = "1";
-               
+
             }
             catch
             {
                 ViewBag.Message = "error";
-                
+
             }
-            ViewBag.state = new SelectList(db.state, "id", "name",partner.state);
-            ViewBag.country = new SelectList(db.country, "id", "name",partner.country);
-            ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name",protocol);
-            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name",partnertype);
-            ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name",group);
-            ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname",partner.owner);
-            ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname",partner.author);
+            ViewBag.state = new SelectList(db.state, "id", "name", partner.state);
+            ViewBag.country = new SelectList(db.country, "id", "name", partner.country);
+            ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", protocol);
+            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", partnertype);
+            ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", group);
+            ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname", partner.owner);
+            ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname", partner.author);
             return View(partner);
         }
 
@@ -414,7 +414,9 @@ namespace Generic.Controllers
             Session["partnertype"] = partnertype;
             Session["touchpoint"] = touchpoint;
             Session["loadGroup"] = loadGroup;
-            ViewBag.Message = "1";
+            //ViewBag.Message = "1";
+            var Target = db.touchpoint.Where(x => x.id.Equals(touchpoint)).Select(x=>x.target).ToList();
+            ViewBag.Message = Target[0].ToString();               
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
@@ -544,7 +546,7 @@ namespace Generic.Controllers
             var stream = new MemoryStream();
             var serializer = new XmlSerializer(typeof(List<view_PartnerData>));
 
-           
+
             //We turn it into an XML and save it in the memory
             serializer.Serialize(stream, abc);
             stream.Position = 0;
@@ -697,7 +699,7 @@ namespace Generic.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult UploadPartNumber(int protocol, int partnertype, int touchpoint,int group, HttpPostedFileBase uploadPartNumber)
+        public ActionResult UploadPartNumber(int protocol, int partnertype, int touchpoint, int group, HttpPostedFileBase uploadPartNumber)
         {
 
             if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
@@ -799,7 +801,7 @@ namespace Generic.Controllers
                     using (var context = new EntitiesDBContext())
                     {
 
-                        var PartnerID = context.pr_addPartnumberSpreadsheetDataLoad(partnumbers.internalID, partnumbers.dunsNumber, partnumbers.name, partnumbers.address1, partnumbers.address2, partnumbers.city, stateIdSpreadSheet, partnumbers.zipcode, countryIdSpreadsheet, partnumbers.firstName, partnumbers.lastName, partnumbers.title, partnumbers.phone, partnumbers.email, partnumbers.INTERNAL_SITE_ID, partnumbers.SAP_SITE, partnumbers.SAP_PLANT_CODE, partnumbers.SITE_NAME, partnumbers.PART_NUMBER_SAP, partnumbers.PART_NUMBER_INTERNAL, partnumbers.SUB_COMMODITY_OWNER, partnumbers.CENTER_OF_EXCELLENCE, partnumbers.RO_FIRST_NAME, partnumbers.RO_LAST_NAME, partnumbers.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup, partnumbers.DUE_DATE,group).ToList().FirstOrDefault();
+                        var PartnerID = context.pr_addPartnumberSpreadsheetDataLoad(partnumbers.internalID, partnumbers.dunsNumber, partnumbers.name, partnumbers.address1, partnumbers.address2, partnumbers.city, stateIdSpreadSheet, partnumbers.zipcode, countryIdSpreadsheet, partnumbers.firstName, partnumbers.lastName, partnumbers.title, partnumbers.phone, partnumbers.email, partnumbers.INTERNAL_SITE_ID, partnumbers.SAP_SITE, partnumbers.SAP_PLANT_CODE, partnumbers.SITE_NAME, partnumbers.PART_NUMBER_SAP, partnumbers.PART_NUMBER_INTERNAL, partnumbers.SUB_COMMODITY_OWNER, partnumbers.CENTER_OF_EXCELLENCE, partnumbers.RO_FIRST_NAME, partnumbers.RO_LAST_NAME, partnumbers.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup, partnumbers.DUE_DATE, group).ToList().FirstOrDefault();
                         uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerID.ToString()), partnumbers.PARTNER_SAP_ID));
                     }
                 }
@@ -1230,11 +1232,11 @@ namespace Generic.Controllers
             {
                 Session["accessCode"] = accesscode;
                 ///Registration/Home/OrdersInPdf
-               // return RedirectToAction("OrdersInPdf","Home",new  {area="Registration"});
+                // return RedirectToAction("OrdersInPdf","Home",new  {area="Registration"});
                 Response.Redirect("~/Registration/Home/OrdersInPdf");
             }
             return RedirectToAction("FindPartnerResult");
-        
+
         }
 
 
@@ -1289,13 +1291,13 @@ namespace Generic.Controllers
 
         }
 
-       // To Confirm Partner
+        // To Confirm Partner
         public ActionResult ConfirmPartner()
         {
             List<view_PartnerConfirmationData> objConfirmPartnerList = db.Database.SqlQuery<view_PartnerConfirmationData>("EXEC pr_getPartnerConfiramaionData").ToList();
             List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
             return View("ConfirmPartner", objConfirmPartnerViewModelList);
-            
+
         }
 
         private List<ConfirmPartnerViewModel> ConvertToConfirmPartnerViewModel(List<view_PartnerConfirmationData> iview_ConfirmPartnerDataList)
@@ -1343,6 +1345,6 @@ namespace Generic.Controllers
         {
             return View("ConfirmPartner");
         }
-       
+
     }
 }

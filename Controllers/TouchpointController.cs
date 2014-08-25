@@ -165,7 +165,7 @@ namespace Generic.Controllers
             {
                 db.Entry(touchpoint).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
             }
 
             if (touchpoint.target != null)

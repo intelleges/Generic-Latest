@@ -23,12 +23,19 @@
 </style>
 
 
-@( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
+@*.@( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
 .ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "export" })
                     .Text("Export to Excel")
-                    .Action("ExportExcelQuestionnaireDetail", "Questionnaire"))
+                    .Action("ExportExcelQuestionnaireDetail", "Questionnaire"))*@
+
+@( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")    
+.ToolBar(commands =>
+    {
+    commands.Template("<a class='t-button ' href='/Questionnaire/ExportExcelQuestionnaireDetail/"+ this.ViewContext.RouteData.Values["id"]+"' id='export'>Export to Excel</a>        <input style='display:none;' type='file' id='file' name='file' /><a class='t-button ' id='btn-upload' href='#'>Upload</a>");
+    })
+
         .Columns(columns =>
         {
 
@@ -234,6 +241,14 @@
         $("#genericPopup").dialog({ height: 600, title: "View Detail" });
         $("#genericPopup").dialog('open');
     }
+
+    $(function () {
+        $('#btn-upload').click(function (e) {
+            e.preventDefault();
+            $('#file').click();
+        }
+       );
+    });
 
 </script>
 

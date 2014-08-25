@@ -16,7 +16,6 @@
 @Scripts.Render("~/bundles/jqueryui")
 
 
-
 <script>
     //jQuery.noConflict();
     jQuery(document).ready(function () {
@@ -32,167 +31,177 @@
             $.ajax({
                 url: "@Url.Content("~/touchpoint/GetTouchPointByprotocolId")",
                 type: "post",
-                data: formData,
-                success: function (data) {
-                    var len = data.Data.length;
-                    var i = 0;
-                    var touchpointSelectList = "<option value=''></option>";
-                    for (i = 0; i < len; i++) {
-                        touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
-                    }
-
-                    $('#touchpoint').html(touchpointSelectList);
-                    $('#touchpointDiv').show();
-
-                },
-                error: function (data) {
-                    var touchpointSelectList = "<option value=''> -Select-</option>";
-                    $('#touchpoint').html(touchpointSelectList);
+            data: formData,
+            success: function (data) {
+                var len = data.Data.length;
+                var i = 0;
+                var touchpointSelectList = "<option value=''></option>";
+                for (i = 0; i < len; i++) {
+                    touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
                 }
-            });
 
+                $('#touchpoint').html(touchpointSelectList);
+                $('#touchpointDiv').show();
 
+            },
+            error: function (data) {
+                var touchpointSelectList = "<option value=''> -Select-</option>";
+                $('#touchpoint').html(touchpointSelectList);
+            }
         });
 
 
-        $('#touchpoint').change(function () {
-            $('#partnertypeDiv').show();
+    });
+
+
+    $('#touchpoint').change(function () {
+        $('#partnertypeDiv').show();
 
 
 
-        });
+    });
 
-        $('#partnertype').change(function () {
-            $('#groupDiv').show();
-        });
+    $('#partnertype').change(function () {
+        $('#groupDiv').show();
+    });
 
-        $('#group').change(function () {
+    $('#group').change(function () {
 
-            $('#uploadPartnerDiv').show();
-            $('#btnUploadDiv').show();
+        $('#uploadPartnerDiv').show();
+        $('#btnUploadDiv').show();
 
-        });
+    });
 
 
-        if ("@ViewBag.Message" == "1") {
+    if ("@ViewBag.Message" == "1") {
 
-                $('#btnInvite').show();
-                $('#btnInvitelater').show();
+        $('#btnInvite').show();
+        $('#btnInvitelater').show();
 
-                alertify.alert('Partner uploaded successfully');
+        alertify.alert('Partner uploaded successfully');
+    }
+
+    if ("@ViewBag.Message" == "2") {
+        $('#btnConfirm').show();
+        $('#btnConfirmlater').show();
+        alertify.alert('Invitation Sent');
+    }
+
+    // Confirm button button
+    $('#btnConfirm').click(function (e) {
+        alert ("Confirm now Button Clicked");
+    });
+
+    // Confirm Later button 
+    $('#btnConfirmlater').click(function (e) {
+        alert ("Confirm later Button Clicked");
+    });
+
+    $('#btnInvite').click(function (e) {
+        e.preventDefault();
+
+
+        $.ajax({
+            url: "@Url.Content("~/partner/InvitePartners")",
+            type: "post",
+        success: function (data) {
+            alertify.alert(data.Data.message);
+            var len = data.EventNotification.length;
+            $('#btnInviteList').show();
+            if (len == 0) {
+                alertify.alert("Please wait, data processing");
+            } else {
+
+                var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                for (i = 0; i < len; i++)
+                    events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+                $('#DivEventNotification').html(events);
             }
 
-            if ("@ViewBag.Message" == "2") {
-            alertify.alert('Invitation Sent');
+        },
+        error: function (data) {
+
         }
-
-        $('#btnInvite').click(function (e) {
-            e.preventDefault();
-
-
-            $.ajax({
-                url: "@Url.Content("~/partner/InvitePartners")",
-                    type: "post",
-                    success: function (data) {
-                        alertify.alert(data.Data.message);
-                        var len = data.EventNotification.length;
-                        $('#btnInviteList').show();
-                        if (len == 0) {
-                            alertify.alert("Please wait, data processing");
-                        } else {
-
-                            var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
-                            for (i = 0; i < len; i++)
-                                events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+    });
+    });
 
 
-                            $('#DivEventNotification').html(events);
-                        }
-
-                    },
-                    error: function (data) {
-
-                    }
-                });
+    $('#btnInviteList').click(function (e) {
+        e.preventDefault();
 
 
-            });
+        $.ajax({
+            url: "@Url.Content("~/partner/InvitePartnersList")",
+            type: "post",
+        success: function (data) {
+
+            var len = data.EventNotification.length;
+
+            if (len == 0) {
+                alertify.alert("Please wait, data processing");
+            } else {
+
+                var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                for (i = 0; i < len; i++)
+                    events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
 
 
-        $('#btnInviteList').click(function (e) {
-            e.preventDefault();
+                $('#DivEventNotification').html(events);
+            }
 
 
-            $.ajax({
-                url: "@Url.Content("~/partner/InvitePartnersList")",
-                    type: "post",
-                    success: function (data) {
-
-                        var len = data.EventNotification.length;
-
-                        if (len == 0) {
-                            alertify.alert("Please wait, data processing");
-                        } else {
-
-                            var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
-                            for (i = 0; i < len; i++)
-                                events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+        },
+        error: function (data) {
+            alertify.alert(data.Data.message);
+        }
+    });
 
 
-                            $('#DivEventNotification').html(events);
-                        }
-
-
-                    },
-                    error: function (data) {
-                        alertify.alert(data.Data.message);
-                    }
-                });
-
-
-        });
+    });
 
 
 
-        $('#btnInvitelater').click(function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: "@Url.Content("~/partner/InvitePartnersLater")",
-                    type: "post",
-                    success: function (data) {
-                        alertify.alert(data.Data.message);
+    $('#btnInvitelater').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "@Url.Content("~/partner/InvitePartnersLater")",
+            type: "post",
+        success: function (data) {
+            alertify.alert(data.Data.message);
 
-                    },
-                    error: function (data) {
-                        alertify.alert(data.Data.message);
-                    }
-                });
-          });
+        },
+        error: function (data) {
+            alertify.alert(data.Data.message);
+        }
+    });
+    });
 
-        //$('#UploadAutoMailMessageForm').submit(function (e) {
-        //    e.preventDefault();
-        //    var objProtocolID = $('#protocol').val();
-        //    var objProtocolName = $('#protocol option[value="' + $('#protocol').val() + '"]').text();
+    //$('#UploadAutoMailMessageForm').submit(function (e) {
+    //    e.preventDefault();
+    //    var objProtocolID = $('#protocol').val();
+    //    var objProtocolName = $('#protocol option[value="' + $('#protocol').val() + '"]').text();
 
-        //    var objtouchpointID = $('#touchpoint').val();
-        //    var objtouchpointName = $('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text();
+    //    var objtouchpointID = $('#touchpoint').val();
+    //    var objtouchpointName = $('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text();
 
-        //    var objpartnertypeID = $('#partnertype').val();
-        //    var objpartnertypeName = $('#partnertype option[value="' + $('#partnertype').val() + '"]').text();
+    //    var objpartnertypeID = $('#partnertype').val();
+    //    var objpartnertypeName = $('#partnertype option[value="' + $('#partnertype').val() + '"]').text();
 
-        //    var formData = { protocolId: objProtocolID, protocolName: objProtocolName, touchpointId: objtouchpointID, touchpointName: objtouchpointName, partnertypeID: objpartnertypeID, partnertypeName: objpartnertypeName };
-        //    $.ajax({
-        //        url: "UploadQuestionnaire",
-        //        type: "post",
-        //        data: formData,
-        //        success: function (data) {
-        //            alertify.alert('Questionnaire Uploaded Successfully!');
-        //        },
-        //        error: function (data) {
-        //            alertify.alert('Error occured while Questionnaire Uploaded!');
-        //        }
-        //    });
-        //});
+    //    var formData = { protocolId: objProtocolID, protocolName: objProtocolName, touchpointId: objtouchpointID, touchpointName: objtouchpointName, partnertypeID: objpartnertypeID, partnertypeName: objpartnertypeName };
+    //    $.ajax({
+    //        url: "UploadQuestionnaire",
+    //        type: "post",
+    //        data: formData,
+    //        success: function (data) {
+    //            alertify.alert('Questionnaire Uploaded Successfully!');
+    //        },
+    //        error: function (data) {
+    //            alertify.alert('Error occured while Questionnaire Uploaded!');
+    //        }
+    //    });
+    //});
 
     });
 </script>
@@ -228,7 +237,7 @@
         <div class="editor-field">
             @Html.DropDownList("partnertype", String.Empty)
 
-            <a href="@Url.Content("~/PartnerType/Create")">Add Partner Type</a>
+            <a href="@Url.Content(" ~ />PartnerType/Create")">Add Partner Type</a>
 
         </div>
     </div>
@@ -240,7 +249,7 @@
         <div class="editor-field">
             @Html.DropDownList("group", String.Empty)
 
-            <a href="@Url.Content("~/Group/Create")">Add Group</a>
+            <a href="@Url.Content(" ~ />Group/Create")">Add Group</a>
 
         </div>
     </div>
@@ -251,9 +260,9 @@
         </div>
         <div class="editor-field">
             @(Html.Telerik().Upload()
-        .Name("uploadPartner")
-        .Multiple(false)
-)
+            .Name("uploadPartner")
+            .Multiple(false)
+            )
 
             <p class="note">
                 Maximum allowed file size: 10 MB
@@ -269,9 +278,13 @@
         <input type="submit" name="button" id="btnInvite" style="display: none" value="Send invites now" />
         <input type="submit" name="button" id="btnInvitelater" style="display: none" value="Invite Later" />
         <input type="submit" name="button" id="btnInviteList" style="display: none" value="View sent invites" />
+        @*For Confirm Now and later buttons*@
+        <input type="submit" name="button" id="btnConfirm" style="display: none" value="Confirm Now" />
+        <input type="submit" name="button" id="btnConfirmlater" style="display: none" value="Confirm Later" />
+
     </p>
 
-     <div id="DivEventNotification">
+    <div id="DivEventNotification">
 
     </div>
 

@@ -256,6 +256,7 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_QuestionnaireData" Width="1.5" PointX="7.7105916439139239" PointY="18.778120481771474" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PartnerConfirmationData" Width="1.5" PointX="6.3538794230454974" PointY="1.1254657959218444" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.ConfirmPartnerActionType" Width="1.5" PointX="19.375" PointY="12.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
