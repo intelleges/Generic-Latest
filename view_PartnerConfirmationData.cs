@@ -11,7 +11,7 @@ namespace Generic
 {
     using System;
     using System.Collections.Generic;
-    
+       
     public partial class view_PartnerConfirmationData
     {
         public string Partner_A { get; set; }

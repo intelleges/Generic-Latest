@@ -806,7 +806,6 @@ namespace Generic.Controllers
                     }
                 }
 
-
                 //if (partnumbers.internalID != null)
                 //{
                 //    partner checkPartner = new partner();
@@ -818,7 +817,7 @@ namespace Generic.Controllers
                 //    int partnerID = 0;
                 //    if (checkPartner == null)
                 //    {
-                //        partner objPartner = new partner();
+                //        partner objPartner = new partner();i have 
 
                 //        objPartner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
                 //        objPartner.active = true;
@@ -1323,10 +1322,16 @@ namespace Generic.Controllers
                 objConfirmPartnerViewModel.NameMatch = iview_ConfirmPartnerData.NameMatch;
                 objConfirmPartnerViewModel.IsSelected1 = false;
                 objConfirmPartnerViewModel.IsSelected2 = false;
-
+                objConfirmPartnerViewModel.IsCheckboxSelected = false;
                 objConfirmPartnerViewModelList.Add(objConfirmPartnerViewModel);
             }
             return objConfirmPartnerViewModelList;
+        }
+
+        public ActionResult getActionTypes()
+        {
+            var data = db.pr_getConfirmPartnerActionTypeAll().FirstOrDefault();
+            return Json(data.ToString(),JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult IgnoreDetails()
