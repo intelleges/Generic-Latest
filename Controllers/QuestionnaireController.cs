@@ -47,7 +47,7 @@ namespace Generic.Controllers
                 ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
 
                 ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
-        
+
                 //db.pr_getPartnertypeTouchpointQuestionnaireByQuestionnaire((int)Session["QuestionnaireId"]).ToList();
             }
 
@@ -104,7 +104,7 @@ namespace Generic.Controllers
 
             //var objQuestionnareCMS = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(questionnaireId).ToList();
             var objQuestionnareCMS = db.pr_getQuestionnaireCMSAll().ToList();
-               
+
             foreach (var cms in cmsinExcel)
             {
                 var questionnaireCMSID = objQuestionnareCMS.Where(x => x.description == cms.ITEM).FirstOrDefault();
@@ -182,20 +182,47 @@ namespace Generic.Controllers
             return RedirectToAction("UploadAutoMailMessage", "AutoMailMessage");
         }
 
-        public ActionResult QuestionnaireDetailView(int id=0)
+        public ActionResult QuestionnaireDetailView(int id = 0)
         {
             List<question> questionnairedetail = db.pr_getQuestionByQuestionnaire(id).ToList();
             return View(questionnairedetail);
-        
+
         }
         public ActionResult QuestionnaireQuestionnaireCMS(int id = 0)
         {
             List<questionnaireQuestionnaireCMS> questionnairedetail = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(id).ToList();
             return View(questionnairedetail);
-            
-
+        }
+        public ActionResult QuestionnaireQuestionnaireAutoMail(int id = 0)
+        {
+            List<autoMailMessage> questionnaireAutoMailDetail =
+                db.Database.SqlQuery<autoMailMessage>("EXEC pr_getAutomailMessageByQuestionnaire '" + id + "'").ToList();
+            List<QuestionnaireAutoMailViewModel> lstquestionaireAutoMailDetails = ConvertToQuestionnaireAutoMailViewModel(questionnaireAutoMailDetail);
+            return View(lstquestionaireAutoMailDetails);
         }
 
+        private List<QuestionnaireAutoMailViewModel> ConvertToQuestionnaireAutoMailViewModel(List<autoMailMessage> questionnaireAutoMailDataList)
+        {
+            List<QuestionnaireAutoMailViewModel> objQuestionnaireAutoMailViewModelList = new List<QuestionnaireAutoMailViewModel>();
+
+            foreach (var AutoMailData in questionnaireAutoMailDataList)
+            {
+                QuestionnaireAutoMailViewModel objAutoMailViewModel = new QuestionnaireAutoMailViewModel();
+                objAutoMailViewModel.id = AutoMailData.id;
+                objAutoMailViewModel.subject = AutoMailData.subject;
+                objAutoMailViewModel.text = AutoMailData.text;
+                objAutoMailViewModel.footer1 = AutoMailData.footer1;
+                objAutoMailViewModel.footer2 = AutoMailData.footer2;
+                objAutoMailViewModel.sendDateCalcFactor = AutoMailData.sendDateCalcFactor;
+                objAutoMailViewModel.sendDateSet = AutoMailData.sendDateSet;
+                objAutoMailViewModel.mailType = AutoMailData.mailType;
+                objAutoMailViewModel.partnerTypeTouchpointQuestionnaire = AutoMailData.partnerTypeTouchpointQuestionnaire;
+
+
+                objQuestionnaireAutoMailViewModelList.Add(objAutoMailViewModel);
+            }
+            return objQuestionnaireAutoMailViewModelList;
+        }
         public ActionResult Edit(int id = 0)
         {
             questionnaire questionnaire = db.pr_getQuestionnaire(id).FirstOrDefault();
@@ -236,7 +263,7 @@ namespace Generic.Controllers
 
             List<ExcelQuestionnaireCMS> objReport = new List<ExcelQuestionnaireCMS>();
 
-            var test = db.pr_getQuestionnaireCMSAll().ToList().Select(x=> new ExcelQuestionnaireCMS { ITEM=x.description, TEXT="", LINK="" }).ToList();
+            var test = db.pr_getQuestionnaireCMSAll().ToList().Select(x => new ExcelQuestionnaireCMS { ITEM = x.description, TEXT = "", LINK = "" }).ToList();
             objReport = test;
 
             var stream = new MemoryStream();
@@ -332,9 +359,9 @@ namespace Generic.Controllers
                     foreach (var excelQuestionnaire in questionnaireinExcel)
                     {
                         responses = null; responseType = string.Empty;
-                        if (excelQuestionnaire.Page < 1 || excelQuestionnaire.Surveyset.Length < 1 || excelQuestionnaire.Survey.Length < 1 || excelQuestionnaire.Question.Length < 1 || excelQuestionnaire.Response.Length < 1 || excelQuestionnaire.Title.Length < 1 || excelQuestionnaire.Required.Length < 1 )
+                        if (excelQuestionnaire.Page < 1 || excelQuestionnaire.Surveyset.Length < 1 || excelQuestionnaire.Survey.Length < 1 || excelQuestionnaire.Question.Length < 1 || excelQuestionnaire.Response.Length < 1 || excelQuestionnaire.Title.Length < 1 || excelQuestionnaire.Required.Length < 1)
                         {
-                          //  || excelQuestionnaire.Comment.Length < 1
+                            //  || excelQuestionnaire.Comment.Length < 1
 
                             //skip this row.
                             //no useful anymore
@@ -713,7 +740,7 @@ namespace Generic.Controllers
                 }
                 catch (Exception ex)
                 {
-                   try
+                    try
                     {
                         ViewBag.Error = ex.InnerException.Message;
                     }
@@ -731,6 +758,44 @@ namespace Generic.Controllers
             }
             return View(); // this will never executed
         }
+
+        public ActionResult ExportExcelQuestionnaireDetail(string id)
+        {
+
+            Session["questionnaireexport"] = db.Database.SqlQuery<ExcelQuestionnaireQuestionnireCMS>("EXEC pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire '" + id + "'").ToList();
+
+            List<ExcelQuestionnaireQuestionnireCMS> abc = (List<ExcelQuestionnaireQuestionnireCMS>)Session["questionnaireexport"];
+            
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<ExcelQuestionnaireQuestionnireCMS>));
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, abc);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "QuestionnaireList.xls");
+        }
+        
+        public ActionResult ExportExcelAutoMailDetail(string id)
+        {
+
+            Session["AutoMailexport"] = db.Database.SqlQuery<QuestionnaireAutoMailViewModel>("EXEC pr_getAutomailMessageByQuestionnaire '" + id + "'").ToList();
+
+            List<QuestionnaireAutoMailViewModel> lstAutoMail = (List<QuestionnaireAutoMailViewModel>)Session["AutoMailexport"];
+
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<QuestionnaireAutoMailViewModel>));
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, lstAutoMail);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "AutoMailQuestionnaireList.xls");
+        }
+
+
 
         private int getskipLogicJumpQuestionId(int questionId, int QID, string skipLogic, string skipLogicAnswer, string skipLogicJump)
         {
@@ -913,7 +978,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult FindQuestionnaire(int? touchpoint, int? protocol,  int? partnertype, int? author, string name, string description)
+        public ActionResult FindQuestionnaire(int? touchpoint, int? protocol, int? partnertype, int? author, string name, string description)
         {
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
@@ -934,7 +999,7 @@ namespace Generic.Controllers
             var objPartners = db.Database.SqlQuery<view_QuestionnaireData>("EXEC pr_dynamicFiltersQuestionnaire  'view_QuestionnaireData' , '" + arguments + "'").ToList();
 
             Session["questionnaire"] = objPartners;
-          
+
             return RedirectToAction("FindQuestionnaireResult");
         }
 
@@ -946,7 +1011,7 @@ namespace Generic.Controllers
                 string arguments = Session["questionnairesearch"].ToString() + "active=1;";
                 Session["questionnaire"] = db.Database.SqlQuery<view_QuestionnaireData>("EXEC pr_dynamicFiltersQuestionnaire  'view_QuestionnaireData' , '" + arguments + "'").ToList();
                 List<view_QuestionnaireData> abc = (List<view_QuestionnaireData>)Session["questionnaire"];
-                
+
                 return View(abc);
             }
             catch
@@ -956,6 +1021,131 @@ namespace Generic.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult UploadExcelData(string id)
+        {
+            string questionnaireid = id;
+
+            HttpPostedFileBase excelFile = Request.Files["file"];
+
+            if (excelFile != null)
+            {
+                if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
+                }
+
+                if (!Directory.Exists((Server.MapPath("~/uploadedFiles/Questionnaire"))))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/uploadedFiles/Questionnaire"));
+                }
+
+                // The Name of the Upload component is "attachments" 
+                var file = excelFile;
+                // Some browsers send file names with full path. This needs to be stripped.
+                var fileName = Path.GetFileName(file.FileName);
+                var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/Questionnaire"), fileName);
+
+                // The files are not actually saved in this demo
+                file.SaveAs(physicalPath);
+                string sheetname = "Sheet1";
+                var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+
+                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaire, questionnaireid);
+                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaireCMS, "ID");
+                //Need to ignore now
+                //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.section, "SECTION");
+                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.text, "Text");
+                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.link, "Link");
+                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.doc, "Doc");
+                var questionnaireCMSinExcel = from a in excelRead.Worksheet<ExcelQuestionnaireQuestionnireCMS>(sheetname) select a;
+                List<Tuple<int, string>> uploadedquestionnaireCMS = new List<Tuple<int, string>>();
+                
+                foreach (var questionnaireCMSitem in questionnaireCMSinExcel.ToList())
+                {
+                    using (var context= new EntitiesDBContext())
+                        {
+                            if (!string.IsNullOrEmpty(questionnaireid))
+                            {
+                                //context.questionnaireQuestionnaireCMS.Attach(questionnaireCMSitem);
+
+                                int modifiedQuestionnaire = context.pr_modifyQuestionnaireQuestionnaireCMS(Convert.ToInt32(questionnaireid),
+                                    questionnaireCMSitem.questionnaireCMS, 
+                                    string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
+                                    questionnaireCMSitem.link, questionnaireCMSitem.doc);
+                             }   
+                        }
+                }
+            }
+
+            return RedirectToAction("/QuestionnaireQuestionnaireCMS/" + id);
+
+        }
+
+        [HttpPost]
+        public ActionResult UploadAutoMailExcelData(string id)
+        {
+            string autoMailid = id;
+
+            HttpPostedFileBase excelFile = Request.Files["file"];
+
+            if (excelFile != null)
+            {
+                if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
+                }
+
+                if (!Directory.Exists((Server.MapPath("~/uploadedFiles/AutoMailQuestionnaire"))))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/uploadedFiles/AutoMailQuestionnaire"));
+                }
+
+                // The Name of the Upload component is "attachments" 
+                var file = excelFile;
+                // Some browsers send file names with full path. This needs to be stripped.
+                var fileName = Path.GetFileName(file.FileName);
+                var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/AutoMailQuestionnaire"), fileName);
+
+                // The files are not actually saved in this demo
+                file.SaveAs(physicalPath);
+                string sheetname = "Sheet1";
+                var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.partnerTypeTouchpointQuestionnaire1, autoMailid);
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.id, "ID");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.subject, "Subject");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.text, "Text AutoMail");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer1, "Footer1");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer2, "Footer2");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateCalcFactor, "sendDate CalcFactor");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateSet, "Send DateSet");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.mailType, "Mail Type");
+               
+                
+                var questionnaireCMSinExcel = from a in excelRead.Worksheet<QuestionnaireAutoMailViewModel>(sheetname) select a;
+                List<Tuple<int, string>> uploadedquestionnaireCMS = new List<Tuple<int, string>>();
+
+                foreach (var questionnaireCMSitem in questionnaireCMSinExcel.ToList())
+                {
+                    using (var context = new EntitiesDBContext())
+                    {
+                        if (!string.IsNullOrEmpty(autoMailid))
+                        {
+                            //context.questionnaireQuestionnaireCMS.Attach(questionnaireCMSitem);
+
+                            int modifiedAutoMail = context.pr_modifyAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid),questionnaireCMSitem.id,
+                                questionnaireCMSitem.subject,string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
+                                questionnaireCMSitem.footer1,questionnaireCMSitem.footer2,questionnaireCMSitem.sendDateCalcFactor,questionnaireCMSitem.sendDateSet,
+                                questionnaireCMSitem.mailType);
+                        }
+                    }
+                }
+            }
+
+            return RedirectToAction("/QuestionnaireQuestionnaireAutoMail/" + id);
+
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

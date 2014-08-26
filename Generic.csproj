@@ -1675,6 +1675,8 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ConfirmPartnerViewModel.cs" />
+    <Compile Include="ViewModel\QuestionnaireAutoMailViewModel.cs" />
+    <Compile Include="ViewModel\ExcelQuestionnaireQuestionnireCMS.cs" />
     <Compile Include="ViewModel\GroupViewModel.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
     <Compile Include="ViewModel\PartnerViewModel.cs" />
@@ -2799,6 +2801,7 @@
     <Content Include="Views\Questionnaire\QuestionnaireQuestionnaireCMS.cshtml" />
     <Content Include="Views\Partner\ConfirmPartner.cshtml" />
     <Content Include="Views\Touchpoint\EventNotification.cshtml" />
+    <Content Include="Views\Questionnaire\QuestionnaireQuestionnaireAutoMail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

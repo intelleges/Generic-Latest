@@ -1,10 +1,10 @@
-﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.questionnaireQuestionnaireCMS>>
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.ViewModel.QuestionnaireAutoMailViewModel>>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 @{
     Layout = LayoutHelper.GetLayout();
-    ViewBag.Title = "Questionnaire Detail View";
+    ViewBag.Title = "Questionnaire AutoMail View";
 }
 
 <style>
@@ -22,41 +22,18 @@
     }
 </style>
 
-@*commands.Template("<input id='File' type='file' value='Upload' />");*@
-@*commands
-        .Custom()
-        .HtmlAttributes(new { id = "export" })
-        .Text("Export to Excel")
-        .Action("ExportExcelQuestionnaireDetail", "Questionnaire");*@
-
-@( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
+@(Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
 .ToolBar(commands =>
 {
-    commands.Template("<form method='post' enctype='multipart/form-data' action='/Questionnaire/UploadExcelData/" + this.ViewContext.RouteData.Values["id"] + "'><a class='t-button' href='/Questionnaire/ExportExcelQuestionnaireDetail/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a><input style='display: none' type='file' id='file' name='file' accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' /><a class='t-button' id='btn-upload' href='#'>Upload</a><input type='submit' value='Process File'></input></form>");
+    commands.Template("<form method='post' enctype='multipart/form-data' action='/Questionnaire/UploadAutoMailExcelData/" + this.ViewContext.RouteData.Values["id"] + "'><a class='t-button' href='/Questionnaire/ExportExcelAutoMailDetail/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a><input style='display: none' type='file' id='file' name='file' accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' /><a class='t-button' id='btn-upload' href='#'>Upload</a><input type='submit' value='Process File'></input></form>");
 })
 .Columns(columns =>
         {
-
-            columns.Bound(o => o.questionnaireCMS).Title("Questionnaire CMS").Width(200).Template(@<text><a href='#' id='@item.questionnaireCMS' class="menu_block">@item.questionnaireCMS</a>
-<div class="display_menu" style="display: none;">
-    <ul>
-        <li><a href="javascript:openEditPopup(@item.questionnaire)">Edit/Correct</a></li>
-        <li><a href="javascript:openRemovePopup(@item.questionnaire,'@item.questionnaireCMS')">Remove</a></li>
-        <li><a href="javascript:openArchivePopup(@item.questionnaire,'@item.questionnaireCMS')">Archive</a></li>
-        <li><a href="javascript:openViewDetailPopup(@item.questionnaire)">View Detail</a></li>
-
-
-    </ul>
-</div>
-</text>);
-            columns.Bound(o => o.text).Title("Text").Width(100);
-            columns.Bound(o => o.link).Title("Link").Width(100);
-
-            columns.Bound(o => o.doc).Title("Download").Width(100).Template(@<text><a href='#'>Download</a></text>);
-
-
+            columns.Bound(o => o.subject).Title("Subject").Width(100);
+            columns.Bound(o => o.text).Title("Text AutoMail").Width(100);
+            columns.Bound(o => o.mailType).Title("Mail Type").Width(100);
         })
-        .DataKeys(keys => keys.Add(o => o.questionnaire))
+        .DataKeys(keys => keys.Add(o => o.id))
         .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
         .Sortable(sorting => sorting.Enabled(true))
 
@@ -64,9 +41,6 @@
            .Enabled(true)
            .Height(380))
            .HtmlAttributes(new { @class = "ra" })
-
-
-
 )
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
@@ -116,8 +90,6 @@
 
     function CloseMe() {
         $("#genericPopup").dialog('close');
-        //$(".t-icon .t-refresh").trigger('click');
-
         window.location.replace(window.location.href);
     }
     function OpenEmailDialog(ac) {
@@ -158,9 +130,6 @@
     }
 
     function openRemovePopup(id, name) {
-
-
-
         alertify.set({
             labels: {
                 ok: "No",
@@ -179,18 +148,11 @@
                     // $(".t-icon .t-refresh").trigger('click');
                     window.location.replace(window.location.href);
                 });
-
             }
         });
-
-
     }
 
-
     function openArchivePopup(id, name) {
-
-
-
         alertify.set({
             labels: {
                 ok: "No",
@@ -212,8 +174,6 @@
 
             }
         });
-
-
     }
 
     function openViewDetailPopup(id) {

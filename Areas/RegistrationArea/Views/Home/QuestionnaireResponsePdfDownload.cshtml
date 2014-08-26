@@ -6,7 +6,7 @@
 @{
     Layout = null;
 
-    //string a = @Url.Content("~/Admin/Home/ExportPng");
+                    //string a = @Url.Content("~/Admin/Home/ExportPng");
     
 }
 
@@ -15,16 +15,16 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    
+
 </head>
 <body>
-   
-    <table>
+
+    <table width="100%">
         <tr>
             <td>
-               
 
-                 
+
+
 
                 @* <a id="IntLogo" href="#"> 
                      @{
@@ -36,154 +36,166 @@
                         }
                      }
                                     </a>*@
-   @* @if(ViewBag.logoSrc != null)
+                @* @if(ViewBag.logoSrc != null)
     {
         string imageBase64 = Convert.ToBase64String(ViewBag.logoSrc);
         string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
         <img width="100%" src="@imageSrc"  style="max-height: 50px;" />
     }*@
- @*<img width="100%" src="@Url.Content("~/Admin/Home/ExportPng")"  style="max-height: 50px;" />*@
-              <img width="400px" src="@ViewBag.logoSrc"  style="" />
+                @*<img width="100%" src="@Url.Content("~/Admin/Home/ExportPng")"  style="max-height: 50px;" />*@
+                @if (!string.IsNullOrEmpty(ViewBag.logoSrc))
+                {
+                    <img width="400px" src="@ViewBag.logoSrc"  style="" />
              
-
+                }
             </td>
         </tr>
     </table>
-    <table>
+    <table width="100%">
         <tr>
-            <td style="font-size:15px;color:#081835">
-               @ViewBag.QuestionnaireTitle
+            <td style="font-size: 15px; color: #081835">
+                @ViewBag.QuestionnaireTitle
             </td>
         </tr>
     </table>
 
-        @foreach (var item in ViewBag.reslt2)
-{        
-           <table border="1"><tr><td>
-            <table width="610" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                    <td style="font-size:13px">
-                        Access Code
-                    </td><td></td>
-                    <td style="font-size:13px">@item.Access_Code</td>
-                </tr>
-                <tr>
-                    <td style="font-size:13px">
-                         Internal ID
-                    </td><td></td>
-                    <td style="font-size:13px">@item.Internal_ID</td>
-                </tr>
-                <tr>
-                    <td style="font-size:11px">
-                        Score
-                    </td><td></td>
-                    <td style="font-size:11px">@item.Score</td>
-                </tr>
-                <tr>
-                    <td style="font-size:11px">
-                        Invited Date
-                    </td><td></td>
-                    <td style="font-size:11px">@DateTime.Parse(item.Invited_Date.ToString()).ToString("MM/dd/yyyy")</td>
-                </tr>
-                <tr>
-                    <td style="font-size:11px">
-                        Completed Date
-                    </td><td></td>
-                    <td style="font-size:11px">@DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")</td>
-                </tr>
-                <tr>
-                    <td style="font-size:11px">
-                        ZCode
-                    </td><td></td>
-                    <td style="font-size:11px">@item.ZCode</td>
-                </tr>
-                <tr>
-                    <td style="font-size:11px">
-                       Company
-                    </td><td></td>
-                    <td style="font-size:11px">@item.Company</td>
-                </tr>
-                <tr>
-                    <td style="font-size:11px">
-                        POC First Name
-                    </td><td></td>
-                    <td style="font-size:11px">@item.POC_First_Name</td>
-                </tr>
-                 <tr>
-                    <td style="font-size:11px">
-                        POC Last Name
-                    </td><td></td>
-                    <td style="font-size:11px">@item.POC_Last_Name</td>
-                </tr>
-                
-            </table>
-    </td>      
-               </tr>
-               </table>      
-}  
-       
+    @foreach (var item in ViewBag.reslt2)
+    {        
+        <table border="1" width="610">
+            <tr>
+                <td>
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td style="font-size: 13px">Access Code
+                            </td>
+                            <td></td>
+                            <td style="font-size: 13px">@item.Access_Code</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 13px">Internal ID
+                            </td>
+                            <td></td>
+                            <td style="font-size: 13px">@item.Internal_ID</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px">Score
+                            </td>
+                            <td></td>
+                            <td style="font-size: 11px">@item.Score</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px">Invited Date
+                            </td>
+                            <td></td>
+                            <td style="font-size: 11px">@DateTime.Parse(item.Invited_Date.ToString()).ToString("MM/dd/yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px">Completed Date
+                            </td>
+                            <td></td>
+                            <td style="font-size: 11px">@DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px">ZCode
+                            </td>
+                            <td></td>
+                            <td style="font-size: 11px">@item.ZCode</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px">Company
+                            </td>
+                            <td></td>
+                            <td style="font-size: 11px">@item.Company</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px">POC First Name
+                            </td>
+                            <td></td>
+                            <td style="font-size: 11px">@item.POC_First_Name</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px">POC Last Name
+                            </td>
+                            <td></td>
+                            <td style="font-size: 11px">@item.POC_Last_Name</td>
+                        </tr>
 
-        <br />
-        <br />
-        @{int i = 1;}
-        @*here we can run foreach loop to bind all questions and answers*@
-        <table border="1"><tr><td>
-        <table cellpadding="0" cellspacing="0" border="0">
-            @foreach (var p in @Model)
-            {
-                <tr>
-                    <td style="font-size:11px" width="25" valign="top"> <span>@i</span></td>
-                    <td style="font-size:11px" width="300">
-                     @p.question
-                    </td>
-                    <td style="font-size:11px;text-align:left;padding-left:10px" width="100">
-                        @p.description
-                    </td>
-                </tr>
-                i++;
-            }
-             
-        </table>
-            </td></tr></table>
-        <br />
-        
-        @foreach (var item in ViewBag.reslt2)
-{        
-            <table border="1"><tr><td>
-            <table width="610" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                    <td style="font-size:11px">
-                        eSignature First Name
-                    </td>
-                    <td></td>
-                    <td style="font-size:11px;">@item.eSignature_First_Name</td>
-                </tr>
-                 <tr>
-                    <td style="font-size:11px">
-                        eSignature Last Name
-                    </td>
-                    <td></td>
-                    <td style="font-size:11px;">@item.eSignature_Last_Name</td>
-                </tr>
-                 <tr>
-                    <td style="font-size:11px">
-                        eSignature eMail
-                    </td><td></td>
-                    <td style="font-size:11px">  @item.eSignature_eMail </td>
-                </tr>
-                 <tr>
-                    <td style="font-size:11px">
-                        eSignature Title
-                    </td><td></td>
-                    <td style="font-size:11px">@item.eSignature_Title</td>
-                </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>      
+    }
+
+
+    <br />
+    <br />
+    @{int i = 1;}
+    @*here we can run foreach loop to bind all questions and answers*@
+    <table border="1" width="610">
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    @foreach (var p in @Model)
+                    {
+                        <tr>
+                            <td style="font-size: 11px" width="25" valign="top"><span>@i</span></td>
+                            <td style="font-size: 11px" width="300">
+                                <div   style="word-wrap:break-word">   
+                                @p.question
+                                    </div>
+                            </td>
+                            <td style="font-size: 11px; text-align: left; padding-left: 10px" width="100">
+                                <div   style="word-wrap:break-word">  
+                                @p.description
+                                    </div>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+
                 </table>
-               </td>
+            </td>
+        </tr>
+    </table>
+    <br />
 
-                </tr>
+    @foreach (var item in ViewBag.reslt2)
+    {        
+        <table border="1" width="610">
+            <tr>
+                <td>
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td style="font-size: 11px">eSignature First Name
+                            </td>
+                            <td></td>
+                            <td style="font-size: 11px;">@item.eSignature_First_Name</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px">eSignature Last Name
+                            </td>
+                            <td></td>
+                            <td style="font-size: 11px;">@item.eSignature_Last_Name</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px">eSignature eMail
+                            </td>
+                            <td></td>
+                            <td style="font-size: 11px">@item.eSignature_eMail </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px">eSignature Title
+                            </td>
+                            <td></td>
+                            <td style="font-size: 11px">@item.eSignature_Title</td>
+                        </tr>
+                    </table>
+                </td>
 
-            </table>
-        }
-    
+            </tr>
+
+        </table>
+    }
+
 </body>
 </html>

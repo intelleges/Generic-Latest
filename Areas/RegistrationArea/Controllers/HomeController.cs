@@ -1881,7 +1881,19 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
         }
 
+        protected ActionResult ViewHTML(object model)
+        {
+
+            return View("QuestionnaireResponsePdfDownload", model);  //name of the view...
+        }
+
+
+
+
+
         //below code added by Suresn on 22nd July 2014. Reason: for Download pdf 
+
+
 
         protected ActionResult ViewPdf(object model)
         {
@@ -1985,7 +1997,15 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 //C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\enterprise3.gif
                 string temp = enterprise.FirstOrDefault().applicationPath;
-                ViewBag.logoSrc = Server.MapPath("~") + temp.Substring(temp.IndexOf("uploadedFiles") - 1);
+                if (temp != null)
+                {
+                    ViewBag.logoSrc = Server.MapPath("~") + temp.Substring(temp.IndexOf("uploadedFiles") - 1);
+                }
+                else
+                {
+                    ViewBag.logoSrc = string.Empty;
+                }
+
                 //ViewBag.logoSrc = enterprise.FirstOrDefault().applicationPath;
 
                 //byte[] data = enterprise.FirstOrDefault().logo;
@@ -1998,6 +2018,43 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
             string result = "Sukhbir";
             return ViewPdf(reslt);
+        }
+
+        public ActionResult OrdersInHTML()
+        {
+            QuestionnaireModel modl = new QuestionnaireModel();
+            List<pr_getPartnerQuestionResponseByAccessCode_Result> reslt = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
+
+            //List<pr_getPartnerHeaderByAccessCode_Result>
+            var find = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
+            ViewBag.reslt2 = find;
+            List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            if (enterprise == null)
+            {
+                //var enterpriseIntelleges = db.pr_getEnterprise(1).FirstOrDefault();
+                //ViewBag.logoSrc = enterpriseIntelleges;
+                // return PartialView("_InstanceLogoPartial", enterpriseIntelleges);
+            }
+            else
+            {
+                //C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\enterprise3.gif
+                string temp = enterprise.FirstOrDefault().applicationPath;
+                if (temp != null)
+                {
+                    ViewBag.logoSrc =  temp.Substring(temp.IndexOf("uploadedFiles") - 1);
+                }
+                //ViewBag.logoSrc = enterprise.FirstOrDefault().applicationPath;
+
+                //byte[] data = enterprise.FirstOrDefault().logo;
+                //Session["logoPrint"] = data;
+
+
+                //  return PartialView("_InstanceLogoPartial", enterprise);
+            }
+
+            ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
+
+            return ViewHTML(reslt);
         }
 
         public FileContentResult ExportPng()
