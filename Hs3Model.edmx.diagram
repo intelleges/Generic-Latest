@@ -205,7 +205,7 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_responseTranslation_response" />
         <AssociationConnector Association="hs3MVCMTQa2Model.responseLanguage" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.responseZcode" PointX="11.062760626460779" PointY="3.5224937514972376" Width="1.5" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.automailMessagePPTQ" PointX="5.75" PointY="31.125" Width="1.5" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.automailMessagePPTQ" PointX="7.25" PointY="30.625" Width="1.5" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_automailMessagePPTQ_autoMailMessage" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_automailMessagePPTQ_partnerPartnertypeTouchpointQuestionnaire" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_partnerStatus" />

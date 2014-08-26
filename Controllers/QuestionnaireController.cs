@@ -1052,12 +1052,12 @@ namespace Generic.Controllers
                 var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
                 excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaire, questionnaireid);
-                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaireCMS, "ID");
+                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaireCMS, "questionnaireCMS");
                 //Need to ignore now
                 //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.section, "SECTION");
-                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.text, "Text");
-                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.link, "Link");
-                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.doc, "Doc");
+                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.text, "text");
+                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.link, "link");
+                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.doc, "doc");
                 var questionnaireCMSinExcel = from a in excelRead.Worksheet<ExcelQuestionnaireQuestionnireCMS>(sheetname) select a;
                 List<Tuple<int, string>> uploadedquestionnaireCMS = new List<Tuple<int, string>>();
                 

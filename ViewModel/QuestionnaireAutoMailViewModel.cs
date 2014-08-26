@@ -6,16 +6,17 @@ using System.Web.Mvc;
 
 namespace Generic.ViewModel
 {
-    public class QuestionnaireAutoMailViewModel :autoMailMessage
+    [Serializable]
+    public class QuestionnaireAutoMailViewModel //:autoMailMessage
     {
-        //public int Id { get; set; }
-        //public string Subject { get; set; }
-        //public string TextAutoMail { get; set; }
-        //public string Footer1 { get; set; }
-        //public string Footer2 { get; set; }
-        //public int SendDateCalcFactor { get; set; }
-        //public DateTime SendDateSell { get; set; }
-        //public int MailType { get; set; }
-        //public int PartnerTypeTouchpointQuestionnaire { get; set; }
+        public int id { get; set; }
+        public string subject { get; set; }
+        public string text { get; set; }
+        public string footer1 { get; set; }
+        public string footer2 { get; set; }
+        public int mailType { get; set; }
+        public int partnerTypeTouchpointQuestionnaire { get; set; }
+        public int sendDateCalcFactor { get; set; }
+        public Nullable<System.DateTime> sendDateSet { get; set; }
     }
 }

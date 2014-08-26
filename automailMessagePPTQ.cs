@@ -11,6 +11,8 @@ namespace Generic
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
+    using System.Xml.Serialization;
     
     public partial class automailMessagePPTQ
     {
@@ -18,8 +20,12 @@ namespace Generic
         public int pptq { get; set; }
         public System.DateTime sentDate { get; set; }
         public int sendGridStatus { get; set; }
-    
+
+        [XmlIgnore]
+        [IgnoreDataMember]
         public virtual autoMailMessage autoMailMessage1 { get; set; }
+        [XmlIgnore]
+        [IgnoreDataMember]
         public virtual partnerPartnertypeTouchpointQuestionnaire partnerPartnertypeTouchpointQuestionnaire { get; set; }
     }
 }
