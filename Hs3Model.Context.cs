@@ -13498,5 +13498,46 @@ namespace Generic
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getConfirmPartnerActionTypeAll_Result>("pr_getConfirmPartnerActionTypeAll");
         }
+    
+        public virtual int pr_modifyAutomailMessageByQuestionnaire(Nullable<int> questionnaire, Nullable<int> id, string subject, string text, string footer1, string footer2, Nullable<int> sendDateCalcFactor, Nullable<System.DateTime> sendDateSet, Nullable<int> mailType)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var footer1Parameter = footer1 != null ?
+                new ObjectParameter("footer1", footer1) :
+                new ObjectParameter("footer1", typeof(string));
+    
+            var footer2Parameter = footer2 != null ?
+                new ObjectParameter("footer2", footer2) :
+                new ObjectParameter("footer2", typeof(string));
+    
+            var sendDateCalcFactorParameter = sendDateCalcFactor.HasValue ?
+                new ObjectParameter("sendDateCalcFactor", sendDateCalcFactor) :
+                new ObjectParameter("sendDateCalcFactor", typeof(int));
+    
+            var sendDateSetParameter = sendDateSet.HasValue ?
+                new ObjectParameter("sendDateSet", sendDateSet) :
+                new ObjectParameter("sendDateSet", typeof(System.DateTime));
+    
+            var mailTypeParameter = mailType.HasValue ?
+                new ObjectParameter("mailType", mailType) :
+                new ObjectParameter("mailType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutomailMessageByQuestionnaire", questionnaireParameter, idParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter, sendDateCalcFactorParameter, sendDateSetParameter, mailTypeParameter);
+        }
     }
 }

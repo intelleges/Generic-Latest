@@ -21,12 +21,12 @@ namespace Generic
         public string text { get; set; }
         public string link { get; set; }
         public byte[] doc { get; set; }
-    
+
         [XmlIgnore]
         [IgnoreDataMember]
         public virtual questionnaire questionnaire1 { get; set; }
-         [XmlIgnore]
-         [IgnoreDataMember]
+        [XmlIgnore]
+        [IgnoreDataMember]
         public virtual questionnaireCMS questionnaireCMS1 { get; set; }
     }
 }

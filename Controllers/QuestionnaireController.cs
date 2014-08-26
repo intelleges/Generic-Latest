@@ -1112,15 +1112,16 @@ namespace Generic.Controllers
                 string sheetname = "Sheet1";
                 var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.partnerTypeTouchpointQuestionnaire1, autoMailid);
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.id, "ID");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.subject, "Subject");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.text, "Text AutoMail");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer1, "Footer1");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer2, "Footer2");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateCalcFactor, "sendDate CalcFactor");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateSet, "Send DateSet");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.mailType, "Mail Type");
+                //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.partnerTypeTouchpointQuestionnaire1, autoMailid);
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.id, "id");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.subject, "subject");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.text, "text");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer1, "footer1");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer2, "footer2");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateCalcFactor, "sendDateCalcFactor");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateSet, "sendDateSet");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.mailType, "mailType");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.partnerTypeTouchpointQuestionnaire, "partnerTypeTouchpointQuestionnaire");
                
                 
                 var questionnaireCMSinExcel = from a in excelRead.Worksheet<QuestionnaireAutoMailViewModel>(sheetname) select a;
@@ -1132,11 +1133,11 @@ namespace Generic.Controllers
                     {
                         if (!string.IsNullOrEmpty(autoMailid))
                         {
-                            //context.questionnaireQuestionnaireCMS.Attach(questionnaireCMSitem);
+                           // context.questionnaireQuestionnaireCMS.Attach(questionnaireCMSitem);
 
-                            int modifiedAutoMail = context.pr_modifyAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid),questionnaireCMSitem.id,
-                                questionnaireCMSitem.subject,string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
-                                questionnaireCMSitem.footer1,questionnaireCMSitem.footer2,questionnaireCMSitem.sendDateCalcFactor,questionnaireCMSitem.sendDateSet,
+                            int modifiedAutoMail = context.pr_modifyAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid), questionnaireCMSitem.id,
+                                questionnaireCMSitem.subject, string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
+                                questionnaireCMSitem.footer1, questionnaireCMSitem.footer2, questionnaireCMSitem.sendDateCalcFactor, questionnaireCMSitem.sendDateSet,
                                 questionnaireCMSitem.mailType);
                         }
                     }

@@ -28,5 +28,6 @@ namespace Generic
         public string FederalIDMatch { get; set; }
         public string DUNSMatch { get; set; }
         public string NameMatch { get; set; }
+        public string EmailMatch { get; set; }
     }
 }

@@ -16,7 +16,6 @@ namespace Generic
     
     public partial class autoMailMessage
     {
-        
         public autoMailMessage()
         {
             this.autoMailAttachment = new HashSet<autoMailAttachment>();
