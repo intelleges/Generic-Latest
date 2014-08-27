@@ -724,7 +724,7 @@ namespace Generic.Controllers
 
             int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
 
-            string sheetname = "upload";
+            string sheetname = "sheet1";
             var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
             excelRead.AddMapping<ExcelPartnumber>(x => x.internalID, "PARTNER_INTERNAL_ID");

@@ -146,7 +146,34 @@
             });
         });
 
-       
+        $("#btnClear").click(function (e) {
+            debugger;
+            alert("Clear Button Click");
+            $("#name").val("");
+            $("#internalID").val("");
+            $("#address1").val("");
+            $("#address2").val("");
+            $("#city").val("");
+            $("#state").val("0");
+            $("#province").val("");
+            $("#zipcode").val("");
+            $("#country").val("0");
+            $("#phone").val("");
+            $("#fax").val("");
+            $("#firstName").val("");
+            $("#lastName").val("");
+            $("#title").val("");
+            $("#email").val("");
+            $("#dunsNumber").val("");
+            $("#federalID").val("");
+            $("#owner").val("0");
+            $("#author").val("0");
+            $("#protocol").val("0");
+            $("#touchpoint").val("0");
+            $("#partnertype").val("0");
+            $("#group").val("0");
+            $("#DueDate").val("");
+        });
 
     });
 </script>
@@ -185,6 +212,46 @@
             display: inline-block;
             font-size: 11px;
         }
+    .txtClass {
+        border-radius: 5px;
+    }
+    .ddlClass {
+        height: 25px;
+width: 96% !important;
+border-radius: 5px;
+    }
+    #DueDate {
+        border-radius: 5px;
+        height:18px;
+    }
+
+
+    .btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 12;
+  -moz-border-radius: 12;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 3px 20px 5px 20px !important;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
 </style>
 <div class="addPartnerDiv">
 <h2>Create</h2>
@@ -200,19 +267,22 @@
             @Html.HiddenFor(model => model.id)
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.name)
+                @Html.Label("Name")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.name)
+                @*@Html.EditorFor(model => model.name)*@
+                @Html.TextBoxFor(model=>model.name,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.name)
             </div>
 
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.internalID)
+                @*@Html.LabelFor(model => model.internalID)*@
+                @Html.Label("Internal ID")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.internalID)
+                @*@Html.EditorFor(model => model.internalID)*@
+                 @Html.TextBoxFor(model=>model.internalID,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.internalID)
             </div>
 
@@ -221,122 +291,151 @@
 
         <div class="threecol">
 <div class="editor-label">
-                @Html.LabelFor(model => model.address1)
+                @*@Html.LabelFor(model => model.address1)*@
+     @Html.Label("Address 1")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.address1)
+                @*@Html.EditorFor(model => model.address1)*@
+                @Html.TextBoxFor(model=>model.address1,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.address1)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.address2)
+                @*@Html.LabelFor(model => model.address2)*@
+                 @Html.Label("Address 2")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.address2)
+                @*@Html.EditorFor(model => model.address2)*@
+                @Html.TextBoxFor(model=>model.address2,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.address2)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.city)
+                @*@Html.LabelFor(model => model.city)*@
+                 @Html.Label("City")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.city)
+                @*@Html.EditorFor(model => model.city)*@
+                @Html.TextBoxFor(model=>model.city,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.city)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.state)
+                @*@Html.LabelFor(model => model.state)*@
+                @Html.Label("State")
             </div>
             <div class="editor-field">
-                @Html.DropDownList("state", String.Empty)
+                @Html.DropDownList("state", null,String.Empty, new {@class="ddlClass" })
+
                 @Html.ValidationMessageFor(model => model.state)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.province)
+                @*@Html.LabelFor(model => model.province)*@
+                @Html.Label("Province")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.province)
+                @*@Html.EditorFor(model => model.province)*@
+                @Html.TextBoxFor(model=>model.province,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.province)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.zipcode)
+                @*@Html.LabelFor(model => model.zipcode)*@
+                @Html.Label("Zip Code")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.zipcode)
+                @*@Html.EditorFor(model => model.zipcode)*@
+                @Html.TextBoxFor(model=>model.zipcode,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.zipcode)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.country)
+                @*@Html.LabelFor(model => model.country)*@
+                @Html.Label("Country")
             </div>
             <div class="editor-field">
-                @Html.DropDownList("country", String.Empty)
+                @Html.DropDownList("country", null,String.Empty, new {@class="ddlClass" })
                 @Html.ValidationMessageFor(model => model.country)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.phone)
+                @*@Html.LabelFor(model => model.phone)*@
+                @Html.Label("Phone")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.phone)
+                @*@Html.EditorFor(model => model.phone)*@
+                @Html.TextBoxFor(model=>model.phone,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.phone)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.fax)
+                @*@Html.LabelFor(model => model.fax)*@
+                @Html.Label("Fax")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.fax)
+                @*@Html.EditorFor(model => model.fax)*@
+                @Html.TextBoxFor(model=>model.fax,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.fax)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.firstName)
+                @*@Html.LabelFor(model => model.firstName)*@
+                @Html.Label("First Name")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.firstName)
+                @*@Html.EditorFor(model => model.firstName)*@
+                @Html.TextBoxFor(model=>model.firstName,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.firstName)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.lastName)
+               @* @Html.LabelFor(model => model.lastName)*@
+                @Html.Label("Last Name")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.lastName)
+                @*@Html.EditorFor(model => model.lastName)*@
+                @Html.TextBoxFor(model=>model.lastName,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.lastName)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.title)
+                @*@Html.LabelFor(model => model.title)*@
+                @Html.Label("Title")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.title)
+                @*@Html.EditorFor(model => model.title)*@
+                @Html.TextBoxFor(model=>model.title,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.title)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.email)
+                @*@Html.LabelFor(model => model.email)*@
+                @Html.Label("Email")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.email)
+                @*@Html.EditorFor(model => model.email)*@
+                @Html.TextBoxFor(model=>model.email,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.email)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.dunsNumber)
+               @* @Html.LabelFor(model => model.dunsNumber)*@
+                @Html.Label("DUNS Number")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.dunsNumber)
+                @*@Html.EditorFor(model => model.dunsNumber)*@
+                @Html.TextBoxFor(model=>model.dunsNumber,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.dunsNumber)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.federalID)
+                @*@Html.LabelFor(model => model.federalID)*@
+                @Html.Label("Federal ID")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.federalID)
+                @*@Html.EditorFor(model => model.federalID)*@
+                @Html.TextBoxFor(model=>model.federalID,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.federalID)
             </div>
 
@@ -349,20 +448,22 @@
             </div>*@
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.owner)
+                @*@Html.LabelFor(model => model.owner)*@
+                @Html.Label("Owner")
             </div>
             <div class="editor-field">
             
-                 @Html.DropDownList("owner", String.Empty)
+                 @Html.DropDownList("owner", null,String.Empty, new {@class="ddlClass" })
                 @Html.ValidationMessageFor(model => model.owner)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.author)
+                @*@Html.LabelFor(model => model.author)*@
+                @Html.Label("Author")
             </div>
             <div class="editor-field">
               
-                 @Html.DropDownList("author", String.Empty)
+                 @Html.DropDownList("author", null,String.Empty, new {@class="ddlClass" })
                 @Html.ValidationMessageFor(model => model.author)
             </div>
 
@@ -377,48 +478,50 @@
             </div>*@
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.active)
+                @*@Html.LabelFor(model => model.active)*@
+                @Html.Label("Active")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.active)
+                @*@Html.EditorFor(model => model.active)*@
+                @Html.TextBoxFor(model=>model.active,new {@class="txtClass"})
                 @Html.ValidationMessageFor(model => model.active)
             </div>
 
             <div class="editor-label">
-                Protocol
+                @Html.Label("Protocol")
             </div>
             <div class="editor-field">
-                @Html.DropDownList("protocol", String.Empty)
+                @Html.DropDownList("protocol", null,String.Empty, new {@class="ddlClass" })
             </div>
 
             <div class="editor-label">
-                Touchpoint
+                @Html.Label("Touchpoint")
             </div>
             <div class="editor-field">
-                <select id="touchpoint" name="touchpoint"></select>
+                <select id="touchpoint" name="touchpoint" class="ddlClass"></select>
             </div>
             <div class="editor-label">
-                Partner Type
+               @Html.Label("Partner Type") 
             </div>
             <div class="editor-field">
-                @Html.DropDownList("partnertype", String.Empty)
+                @Html.DropDownList("partnertype", null,String.Empty, new {@class="ddlClass" })
                 @*<a href="@Url.Content("~/PartnerType/Create")">Add Partner Type</a>*@
             </div>
 
             <div class="editor-label">
-                Group
+               @Html.Label("Group") 
             </div>
             <div class="editor-field">
-                @Html.DropDownList("group", String.Empty)
+                @Html.DropDownList("group", null,String.Empty, new {@class="ddlClass",@style="margin-top: 3%;" })
 
                 @*<a href="@Url.Content("~/Group/Create")">Add Group</a>*@
 
             </div>
             <div class="editor-label">
-                Due Date
+               @Html.Label("Due Date")
             </div>
             <div class="editor-field">
-            @Html.Telerik().DatePicker().Name("DueDate")
+            @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style="width:100%;"})
             </div>
          
 
@@ -426,7 +529,8 @@
         </div>
         <p style="float: right; width: 20%;">
             @*<input type="submit" value="Save" />*@
-            <input type="submit" value="Save" />
+            <input type="submit" value="Save" class="btn" />
+            <input type="button" value="Clear" class="btn" id="btnClear"/>
             @*<input type="button" onclick="CloseMe()" value="Cancel" />*@
         </p>
     </div>
