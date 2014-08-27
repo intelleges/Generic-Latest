@@ -48,10 +48,10 @@ namespace Generic.Helpers.Utility
 
 
 
-            var transportSMTP = SMTP.GetInstance(credentials);
-
+            var transportSMTP = SMTP.GetInstance(credentials, "smtp.sendgrid.net", 587);
+            
       
-
+            
             if (email.type == "user")
             {
                 // mail.AddTo(email.user.email);
@@ -90,7 +90,7 @@ namespace Generic.Helpers.Utility
             enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
 
             mail.From = new MailAddress(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
-
+            
             //mail.From = email.sender.email;
             //mail.FromName = email.sender.firstName + " " + email.sender.lastName;
             //mail.ReplyTo = email.sender.email;
@@ -102,6 +102,7 @@ namespace Generic.Helpers.Utility
             mail.Html = email.body;
             try
             {
+                
                 transportSMTP.Deliver(mail);
                 //mail.SetHtmlBody(email.body);
 
