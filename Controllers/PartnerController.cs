@@ -977,8 +977,12 @@ namespace Generic.Controllers
             Session["loadgroup"] = loadGroup;
 
             ViewBag.Message = "1";
+            
+
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            ViewBag.group = new SelectList(db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
 
             return View();
         }
