@@ -1320,6 +1320,7 @@ namespace Generic.Controllers
                 objConfirmPartnerViewModel.StatusID_2 = iview_ConfirmPartnerData.StatusID_2;
                 objConfirmPartnerViewModel.Status2 = iview_ConfirmPartnerData.Status2;
                 objConfirmPartnerViewModel.IsReference2 = iview_ConfirmPartnerData.IsReference2;
+                objConfirmPartnerViewModel.EmailMatch = iview_ConfirmPartnerData.EmailMatch;
                 objConfirmPartnerViewModel.InternalIDMatch = iview_ConfirmPartnerData.InternalIDMatch;
                 objConfirmPartnerViewModel.FederalIDMatch = iview_ConfirmPartnerData.FederalIDMatch;
                 objConfirmPartnerViewModel.DUNSMatch = iview_ConfirmPartnerData.DUNSMatch;
