@@ -167,6 +167,7 @@
           <EntitySet Name="sysdiagrams" EntityType="hs3MVCMTQa2Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="systemConfiguration" EntityType="hs3MVCMTQa2Model.Store.systemConfiguration" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="template" EntityType="hs3MVCMTQa2Model.Store.template" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tmpPartnerConfirm" EntityType="hs3MVCMTQa2Model.Store.tmpPartnerConfirm" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="touchpoint" EntityType="hs3MVCMTQa2Model.Store.touchpoint" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="touchpointGroup" EntityType="hs3MVCMTQa2Model.Store.touchpointGroup" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="touchpointPartnerRerouter" EntityType="hs3MVCMTQa2Model.Store.touchpointPartnerRerouter" store:Type="Tables" store:Schema="dbo" store:Name="touchpointPartnerRerouter">
@@ -271,21 +272,31 @@
           </EntitySet>
           <EntitySet Name="view_PartnerConfirmationData" EntityType="hs3MVCMTQa2Model.Store.view_PartnerConfirmationData" store:Type="Views" store:Schema="dbo" store:Name="view_PartnerConfirmationData">
             <DefiningQuery>SELECT 
-      [view_PartnerConfirmationData].[Partner_A] AS [Partner_A], 
-      [view_PartnerConfirmationData].[Group1] AS [Group1], 
-      [view_PartnerConfirmationData].[StatusID_1] AS [StatusID_1], 
-      [view_PartnerConfirmationData].[Status1] AS [Status1], 
-      [view_PartnerConfirmationData].[IsReference1] AS [IsReference1], 
-      [view_PartnerConfirmationData].[Partner_B] AS [Partner_B], 
-      [view_PartnerConfirmationData].[Group2] AS [Group2], 
-      [view_PartnerConfirmationData].[StatusID_2] AS [StatusID_2], 
-      [view_PartnerConfirmationData].[Status2] AS [Status2], 
-      [view_PartnerConfirmationData].[IsReference2] AS [IsReference2], 
-      [view_PartnerConfirmationData].[EmailMatch] AS [EmailMatch], 
-      [view_PartnerConfirmationData].[InternalIDMatch] AS [InternalIDMatch], 
-      [view_PartnerConfirmationData].[FederalIDMatch] AS [FederalIDMatch], 
-      [view_PartnerConfirmationData].[DUNSMatch] AS [DUNSMatch], 
-      [view_PartnerConfirmationData].[NameMatch] AS [NameMatch]
+      [view_PartnerConfirmationData].[id] AS [id], 
+      [view_PartnerConfirmationData].[enterprise] AS [enterprise], 
+      [view_PartnerConfirmationData].[touchpoint] AS [touchpoint], 
+      [view_PartnerConfirmationData].[partnerA] AS [partnerA], 
+      [view_PartnerConfirmationData].[partnerA_Name] AS [partnerA_Name], 
+      [view_PartnerConfirmationData].[group1] AS [group1], 
+      [view_PartnerConfirmationData].[group1_Name] AS [group1_Name], 
+      [view_PartnerConfirmationData].[status1] AS [status1], 
+      [view_PartnerConfirmationData].[status1_Name] AS [status1_Name], 
+      [view_PartnerConfirmationData].[isReference1] AS [isReference1], 
+      [view_PartnerConfirmationData].[partnerB] AS [partnerB], 
+      [view_PartnerConfirmationData].[partnerB_Name] AS [partnerB_Name], 
+      [view_PartnerConfirmationData].[group2] AS [group2], 
+      [view_PartnerConfirmationData].[group2_Name] AS [group2_Name], 
+      [view_PartnerConfirmationData].[status2] AS [status2], 
+      [view_PartnerConfirmationData].[status2_Name] AS [status2_Name], 
+      [view_PartnerConfirmationData].[isReference2] AS [isReference2], 
+      [view_PartnerConfirmationData].[emailMatch] AS [emailMatch], 
+      [view_PartnerConfirmationData].[nameMatch] AS [nameMatch], 
+      [view_PartnerConfirmationData].[internalIDMatch] AS [internalIDMatch], 
+      [view_PartnerConfirmationData].[federalIDMatch] AS [federalIDMatch], 
+      [view_PartnerConfirmationData].[dunsMatch] AS [dunsMatch], 
+      [view_PartnerConfirmationData].[action] AS [action], 
+      [view_PartnerConfirmationData].[person] AS [person], 
+      [view_PartnerConfirmationData].[timestamp] AS [timestamp]
       FROM [dbo].[view_PartnerConfirmationData] AS [view_PartnerConfirmationData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_PartnerData" EntityType="hs3MVCMTQa2Model.Store.view_PartnerData" store:Type="Views" store:Schema="dbo" store:Name="view_PartnerData">
@@ -2534,6 +2545,36 @@
           <Property Name="active" Type="bit" Nullable="false" />
           <Property Name="enterprise" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tmpPartnerConfirm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="touchpoint" Type="int" Nullable="false" />
+          <Property Name="partnerA" Type="int" Nullable="false" />
+          <Property Name="partnerA_Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="group1" Type="int" Nullable="false" />
+          <Property Name="group1_Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="status1" Type="int" Nullable="false" />
+          <Property Name="status1_Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="isReference1" Type="bit" Nullable="false" />
+          <Property Name="partnerB" Type="int" Nullable="false" />
+          <Property Name="partnerB_Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="group2" Type="int" Nullable="false" />
+          <Property Name="group2_Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="status2" Type="int" Nullable="false" />
+          <Property Name="status2_Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="isReference2" Type="bit" Nullable="false" />
+          <Property Name="emailMatch" Type="bit" Nullable="false" />
+          <Property Name="nameMatch" Type="bit" />
+          <Property Name="internalIDMatch" Type="bit" Nullable="false" />
+          <Property Name="federalIDMatch" Type="bit" Nullable="false" />
+          <Property Name="dunsMatch" Type="bit" Nullable="false" />
+          <Property Name="action" Type="int" />
+          <Property Name="person" Type="int" />
+          <Property Name="timestamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
         <EntityType Name="touchpoint">
           <Key>
             <PropertyRef Name="id" />
@@ -2815,37 +2856,54 @@
       -->
         <EntityType Name="view_PartnerConfirmationData">
           <Key>
-            <PropertyRef Name="Partner_A" />
-            <PropertyRef Name="Group1" />
-            <PropertyRef Name="StatusID_1" />
-            <PropertyRef Name="Status1" />
-            <PropertyRef Name="IsReference1" />
-            <PropertyRef Name="Partner_B" />
-            <PropertyRef Name="Group2" />
-            <PropertyRef Name="StatusID_2" />
-            <PropertyRef Name="Status2" />
-            <PropertyRef Name="IsReference2" />
-            <PropertyRef Name="EmailMatch" />
-            <PropertyRef Name="InternalIDMatch" />
-            <PropertyRef Name="FederalIDMatch" />
-            <PropertyRef Name="DUNSMatch" />
-            <PropertyRef Name="NameMatch" />
+            <PropertyRef Name="id" />
+            <PropertyRef Name="enterprise" />
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="partnerA" />
+            <PropertyRef Name="partnerA_Name" />
+            <PropertyRef Name="group1" />
+            <PropertyRef Name="group1_Name" />
+            <PropertyRef Name="status1" />
+            <PropertyRef Name="status1_Name" />
+            <PropertyRef Name="isReference1" />
+            <PropertyRef Name="partnerB" />
+            <PropertyRef Name="partnerB_Name" />
+            <PropertyRef Name="group2" />
+            <PropertyRef Name="group2_Name" />
+            <PropertyRef Name="status2" />
+            <PropertyRef Name="status2_Name" />
+            <PropertyRef Name="isReference2" />
+            <PropertyRef Name="emailMatch" />
+            <PropertyRef Name="internalIDMatch" />
+            <PropertyRef Name="federalIDMatch" />
+            <PropertyRef Name="dunsMatch" />
+            <PropertyRef Name="timestamp" />
           </Key>
-          <Property Name="Partner_A" Type="varchar" Nullable="false" MaxLength="9" />
-          <Property Name="Group1" Type="varchar" Nullable="false" MaxLength="8" />
-          <Property Name="StatusID_1" Type="int" Nullable="false" />
-          <Property Name="Status1" Type="varchar" Nullable="false" MaxLength="11" />
-          <Property Name="IsReference1" Type="varchar" Nullable="false" MaxLength="2" />
-          <Property Name="Partner_B" Type="varchar" Nullable="false" MaxLength="9" />
-          <Property Name="Group2" Type="varchar" Nullable="false" MaxLength="8" />
-          <Property Name="StatusID_2" Type="int" Nullable="false" />
-          <Property Name="Status2" Type="varchar" Nullable="false" MaxLength="11" />
-          <Property Name="IsReference2" Type="varchar" Nullable="false" MaxLength="2" />
-          <Property Name="EmailMatch" Type="varchar" Nullable="false" MaxLength="3" />
-          <Property Name="InternalIDMatch" Type="varchar" Nullable="false" MaxLength="3" />
-          <Property Name="FederalIDMatch" Type="varchar" Nullable="false" MaxLength="3" />
-          <Property Name="DUNSMatch" Type="varchar" Nullable="false" MaxLength="3" />
-          <Property Name="NameMatch" Type="varchar" Nullable="false" MaxLength="2" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="touchpoint" Type="int" Nullable="false" />
+          <Property Name="partnerA" Type="int" Nullable="false" />
+          <Property Name="partnerA_Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="group1" Type="int" Nullable="false" />
+          <Property Name="group1_Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="status1" Type="int" Nullable="false" />
+          <Property Name="status1_Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="isReference1" Type="bit" Nullable="false" />
+          <Property Name="partnerB" Type="int" Nullable="false" />
+          <Property Name="partnerB_Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="group2" Type="int" Nullable="false" />
+          <Property Name="group2_Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="status2" Type="int" Nullable="false" />
+          <Property Name="status2_Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="isReference2" Type="bit" Nullable="false" />
+          <Property Name="emailMatch" Type="bit" Nullable="false" />
+          <Property Name="nameMatch" Type="bit" />
+          <Property Name="internalIDMatch" Type="bit" Nullable="false" />
+          <Property Name="federalIDMatch" Type="bit" Nullable="false" />
+          <Property Name="dunsMatch" Type="bit" Nullable="false" />
+          <Property Name="action" Type="int" />
+          <Property Name="person" Type="int" />
+          <Property Name="timestamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PartnerData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -5780,6 +5838,10 @@
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPartnerConfirmationData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getPartnerConfirmationData2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
@@ -11721,7 +11783,6 @@
             <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
           </AssociationSet>
           <EntitySet Name="view_QuestionnaireData" EntityType="hs3MVCMTQa2Model.view_QuestionnaireData" />
-          <EntitySet Name="view_PartnerConfirmationData" EntityType="hs3MVCMTQa2Model.view_PartnerConfirmationData" />
           <FunctionImport Name="pr_getPartnerConfirmationData" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerConfirmationData_Result)" />
           <EntitySet Name="ConfirmPartnerActionType" EntityType="hs3MVCMTQa2Model.ConfirmPartnerActionType" />
           <FunctionImport Name="pr_addConfirmPartnerActionType" ReturnType="Collection(Decimal)">
@@ -11747,6 +11808,12 @@
             <Parameter Name="sendDateSet" Mode="In" Type="DateTime" />
             <Parameter Name="mailType" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="pr_getPartnerConfirmationData2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerConfirmationData2_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tmpPartnerConfirm" EntityType="hs3MVCMTQa2Model.tmpPartnerConfirm" />
+          <EntitySet Name="view_PartnerConfirmationData" EntityType="hs3MVCMTQa2Model.view_PartnerConfirmationData" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -18638,40 +18705,6 @@
           <Property Type="String" Name="Reminders" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="active" />
         </EntityType>
-        <EntityType Name="view_PartnerConfirmationData">
-          <Key>
-            <PropertyRef Name="Partner_A" />
-            <PropertyRef Name="Group1" />
-            <PropertyRef Name="StatusID_1" />
-            <PropertyRef Name="Status1" />
-            <PropertyRef Name="IsReference1" />
-            <PropertyRef Name="Partner_B" />
-            <PropertyRef Name="Group2" />
-            <PropertyRef Name="StatusID_2" />
-            <PropertyRef Name="Status2" />
-            <PropertyRef Name="IsReference2" />
-            <PropertyRef Name="InternalIDMatch" />
-            <PropertyRef Name="FederalIDMatch" />
-            <PropertyRef Name="DUNSMatch" />
-            <PropertyRef Name="NameMatch" />
-            <PropertyRef Name="EmailMatch" />
-          </Key>
-          <Property Type="String" Name="Partner_A" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Group1" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="StatusID_1" Nullable="false" />
-          <Property Type="String" Name="Status1" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="IsReference1" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Partner_B" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Group2" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="StatusID_2" Nullable="false" />
-          <Property Type="String" Name="Status2" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="IsReference2" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="InternalIDMatch" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="FederalIDMatch" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="DUNSMatch" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="NameMatch" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="EmailMatch" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-        </EntityType>
         <ComplexType Name="pr_getPartnerConfirmationData_Result">
           <Property Type="String" Name="Partner_A" Nullable="false" MaxLength="9" />
           <Property Type="String" Name="Group1" Nullable="false" MaxLength="8" />
@@ -18709,6 +18742,114 @@
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnerConfirmationData2_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="partnerA" Nullable="false" />
+          <Property Type="String" Name="partnerA_Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="group1" Nullable="false" />
+          <Property Type="String" Name="group1_Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="status1" Nullable="false" />
+          <Property Type="String" Name="status1_Name" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="isReference1" Nullable="false" />
+          <Property Type="Int32" Name="partnerB" Nullable="false" />
+          <Property Type="String" Name="partnerB_Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="group2" Nullable="false" />
+          <Property Type="String" Name="group2_Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="status2" Nullable="false" />
+          <Property Type="String" Name="status2_Name" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="isReference2" Nullable="false" />
+          <Property Type="Boolean" Name="emailMatch" Nullable="false" />
+          <Property Type="Boolean" Name="nameMatch" Nullable="true" />
+          <Property Type="Boolean" Name="internalIDMatch" Nullable="false" />
+          <Property Type="Boolean" Name="federalIDMatch" Nullable="false" />
+          <Property Type="Boolean" Name="dunsMatch" Nullable="false" />
+          <Property Type="Int32" Name="action" Nullable="true" />
+          <Property Type="Int32" Name="person" Nullable="true" />
+          <Property Type="Binary" Name="timestamp" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <EntityType Name="tmpPartnerConfirm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="partnerA" Nullable="false" />
+          <Property Type="String" Name="partnerA_Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="group1" Nullable="false" />
+          <Property Type="String" Name="group1_Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="status1" Nullable="false" />
+          <Property Type="String" Name="status1_Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="isReference1" Nullable="false" />
+          <Property Type="Int32" Name="partnerB" Nullable="false" />
+          <Property Type="String" Name="partnerB_Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="group2" Nullable="false" />
+          <Property Type="String" Name="group2_Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="status2" Nullable="false" />
+          <Property Type="String" Name="status2_Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="isReference2" Nullable="false" />
+          <Property Type="Boolean" Name="emailMatch" Nullable="false" />
+          <Property Type="Boolean" Name="nameMatch" />
+          <Property Type="Boolean" Name="internalIDMatch" Nullable="false" />
+          <Property Type="Boolean" Name="federalIDMatch" Nullable="false" />
+          <Property Type="Boolean" Name="dunsMatch" Nullable="false" />
+          <Property Type="Int32" Name="action" />
+          <Property Type="Int32" Name="person" />
+          <Property Type="Binary" Name="timestamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="view_PartnerConfirmationData">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="enterprise" />
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="partnerA" />
+            <PropertyRef Name="partnerA_Name" />
+            <PropertyRef Name="group1" />
+            <PropertyRef Name="group1_Name" />
+            <PropertyRef Name="status1" />
+            <PropertyRef Name="status1_Name" />
+            <PropertyRef Name="isReference1" />
+            <PropertyRef Name="partnerB" />
+            <PropertyRef Name="partnerB_Name" />
+            <PropertyRef Name="group2" />
+            <PropertyRef Name="group2_Name" />
+            <PropertyRef Name="status2" />
+            <PropertyRef Name="status2_Name" />
+            <PropertyRef Name="isReference2" />
+            <PropertyRef Name="emailMatch" />
+            <PropertyRef Name="internalIDMatch" />
+            <PropertyRef Name="federalIDMatch" />
+            <PropertyRef Name="dunsMatch" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="partnerA" Nullable="false" />
+          <Property Type="String" Name="partnerA_Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="group1" Nullable="false" />
+          <Property Type="String" Name="group1_Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="status1" Nullable="false" />
+          <Property Type="String" Name="status1_Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="isReference1" Nullable="false" />
+          <Property Type="Int32" Name="partnerB" Nullable="false" />
+          <Property Type="String" Name="partnerB_Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="group2" Nullable="false" />
+          <Property Type="String" Name="group2_Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="status2" Nullable="false" />
+          <Property Type="String" Name="status2_Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="isReference2" Nullable="false" />
+          <Property Type="Boolean" Name="emailMatch" Nullable="false" />
+          <Property Type="Boolean" Name="nameMatch" />
+          <Property Type="Boolean" Name="internalIDMatch" Nullable="false" />
+          <Property Type="Boolean" Name="federalIDMatch" Nullable="false" />
+          <Property Type="Boolean" Name="dunsMatch" Nullable="false" />
+          <Property Type="Int32" Name="action" />
+          <Property Type="Int32" Name="person" />
+          <Property Type="Binary" Name="timestamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -24271,27 +24412,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="view_PartnerConfirmationData">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_PartnerConfirmationData">
-              <MappingFragment StoreEntitySet="view_PartnerConfirmationData">
-                <ScalarProperty Name="EmailMatch" ColumnName="EmailMatch" />
-                <ScalarProperty Name="NameMatch" ColumnName="NameMatch" />
-                <ScalarProperty Name="DUNSMatch" ColumnName="DUNSMatch" />
-                <ScalarProperty Name="FederalIDMatch" ColumnName="FederalIDMatch" />
-                <ScalarProperty Name="InternalIDMatch" ColumnName="InternalIDMatch" />
-                <ScalarProperty Name="IsReference2" ColumnName="IsReference2" />
-                <ScalarProperty Name="Status2" ColumnName="Status2" />
-                <ScalarProperty Name="StatusID_2" ColumnName="StatusID_2" />
-                <ScalarProperty Name="Group2" ColumnName="Group2" />
-                <ScalarProperty Name="Partner_B" ColumnName="Partner_B" />
-                <ScalarProperty Name="IsReference1" ColumnName="IsReference1" />
-                <ScalarProperty Name="Status1" ColumnName="Status1" />
-                <ScalarProperty Name="StatusID_1" ColumnName="StatusID_1" />
-                <ScalarProperty Name="Group1" ColumnName="Group1" />
-                <ScalarProperty Name="Partner_A" ColumnName="Partner_A" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnerConfirmationData" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerConfirmationData">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerConfirmationData_Result">
@@ -24345,6 +24465,99 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyAutomailMessageByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutomailMessageByQuestionnaire" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnerConfirmationData2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerConfirmationData2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerConfirmationData2_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="partnerA" ColumnName="partnerA" />
+                <ScalarProperty Name="partnerA_Name" ColumnName="partnerA_Name" />
+                <ScalarProperty Name="group1" ColumnName="group1" />
+                <ScalarProperty Name="group1_Name" ColumnName="group1_Name" />
+                <ScalarProperty Name="status1" ColumnName="status1" />
+                <ScalarProperty Name="status1_Name" ColumnName="status1_Name" />
+                <ScalarProperty Name="isReference1" ColumnName="isReference1" />
+                <ScalarProperty Name="partnerB" ColumnName="partnerB" />
+                <ScalarProperty Name="partnerB_Name" ColumnName="partnerB_Name" />
+                <ScalarProperty Name="group2" ColumnName="group2" />
+                <ScalarProperty Name="group2_Name" ColumnName="group2_Name" />
+                <ScalarProperty Name="status2" ColumnName="status2" />
+                <ScalarProperty Name="status2_Name" ColumnName="status2_Name" />
+                <ScalarProperty Name="isReference2" ColumnName="isReference2" />
+                <ScalarProperty Name="emailMatch" ColumnName="emailMatch" />
+                <ScalarProperty Name="nameMatch" ColumnName="nameMatch" />
+                <ScalarProperty Name="internalIDMatch" ColumnName="internalIDMatch" />
+                <ScalarProperty Name="federalIDMatch" ColumnName="federalIDMatch" />
+                <ScalarProperty Name="dunsMatch" ColumnName="dunsMatch" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tmpPartnerConfirm">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.tmpPartnerConfirm">
+              <MappingFragment StoreEntitySet="tmpPartnerConfirm">
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="dunsMatch" ColumnName="dunsMatch" />
+                <ScalarProperty Name="federalIDMatch" ColumnName="federalIDMatch" />
+                <ScalarProperty Name="internalIDMatch" ColumnName="internalIDMatch" />
+                <ScalarProperty Name="nameMatch" ColumnName="nameMatch" />
+                <ScalarProperty Name="emailMatch" ColumnName="emailMatch" />
+                <ScalarProperty Name="isReference2" ColumnName="isReference2" />
+                <ScalarProperty Name="status2_Name" ColumnName="status2_Name" />
+                <ScalarProperty Name="status2" ColumnName="status2" />
+                <ScalarProperty Name="group2_Name" ColumnName="group2_Name" />
+                <ScalarProperty Name="group2" ColumnName="group2" />
+                <ScalarProperty Name="partnerB_Name" ColumnName="partnerB_Name" />
+                <ScalarProperty Name="partnerB" ColumnName="partnerB" />
+                <ScalarProperty Name="isReference1" ColumnName="isReference1" />
+                <ScalarProperty Name="status1_Name" ColumnName="status1_Name" />
+                <ScalarProperty Name="status1" ColumnName="status1" />
+                <ScalarProperty Name="group1_Name" ColumnName="group1_Name" />
+                <ScalarProperty Name="group1" ColumnName="group1" />
+                <ScalarProperty Name="partnerA_Name" ColumnName="partnerA_Name" />
+                <ScalarProperty Name="partnerA" ColumnName="partnerA" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_PartnerConfirmationData">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_PartnerConfirmationData">
+              <MappingFragment StoreEntitySet="view_PartnerConfirmationData">
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="dunsMatch" ColumnName="dunsMatch" />
+                <ScalarProperty Name="federalIDMatch" ColumnName="federalIDMatch" />
+                <ScalarProperty Name="internalIDMatch" ColumnName="internalIDMatch" />
+                <ScalarProperty Name="nameMatch" ColumnName="nameMatch" />
+                <ScalarProperty Name="emailMatch" ColumnName="emailMatch" />
+                <ScalarProperty Name="isReference2" ColumnName="isReference2" />
+                <ScalarProperty Name="status2_Name" ColumnName="status2_Name" />
+                <ScalarProperty Name="status2" ColumnName="status2" />
+                <ScalarProperty Name="group2_Name" ColumnName="group2_Name" />
+                <ScalarProperty Name="group2" ColumnName="group2" />
+                <ScalarProperty Name="partnerB_Name" ColumnName="partnerB_Name" />
+                <ScalarProperty Name="partnerB" ColumnName="partnerB" />
+                <ScalarProperty Name="isReference1" ColumnName="isReference1" />
+                <ScalarProperty Name="status1_Name" ColumnName="status1_Name" />
+                <ScalarProperty Name="status1" ColumnName="status1" />
+                <ScalarProperty Name="group1_Name" ColumnName="group1_Name" />
+                <ScalarProperty Name="group1" ColumnName="group1" />
+                <ScalarProperty Name="partnerA_Name" ColumnName="partnerA_Name" />
+                <ScalarProperty Name="partnerA" ColumnName="partnerA" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

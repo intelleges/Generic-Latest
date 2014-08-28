@@ -12,7 +12,7 @@ namespace Generic
     using System;
     using System.Collections.Generic;
     
-    public partial class view_PartnerConfirmationData
+    public partial class tmpPartnerConfirm
     {
         public int id { get; set; }
         public int enterprise { get; set; }

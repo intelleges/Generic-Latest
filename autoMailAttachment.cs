@@ -11,8 +11,6 @@ namespace Generic
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
-    using System.Xml.Serialization;
     
     public partial class autoMailAttachment
     {
@@ -21,8 +19,6 @@ namespace Generic
         public string attachment { get; set; }
         public string note { get; set; }
     
-        [XmlIgnore]
-        [IgnoreDataMember]
         public virtual autoMailMessage autoMailMessage { get; set; }
     }
 }

@@ -10,9 +10,8 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class view_PartnerConfirmationData
+    public partial class pr_getPartnerConfirmationData2_Result
     {
         public int id { get; set; }
         public int enterprise { get; set; }

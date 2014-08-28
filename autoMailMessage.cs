@@ -11,8 +11,6 @@ namespace Generic
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
-    using System.Xml.Serialization;
     
     public partial class autoMailMessage
     {
@@ -32,17 +30,9 @@ namespace Generic
         public int sendDateCalcFactor { get; set; }
         public Nullable<System.DateTime> sendDateSet { get; set; }
     
-        [XmlIgnore]
-        [IgnoreDataMember]
         public virtual ICollection<autoMailAttachment> autoMailAttachment { get; set; }
-        [XmlIgnore]
-        [IgnoreDataMember]
         public virtual autoMailType autoMailType { get; set; }
-        [XmlIgnore]
-        [IgnoreDataMember]
         public virtual partnerTypeTouchpointQuestionnaire partnerTypeTouchpointQuestionnaire1 { get; set; }
-        [XmlIgnore]
-        [IgnoreDataMember]
         public virtual ICollection<automailMessagePPTQ> automailMessagePPTQ { get; set; }
     }
 }
