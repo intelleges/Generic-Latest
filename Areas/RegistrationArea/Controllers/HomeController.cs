@@ -2038,10 +2038,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
             else
             {
                 //C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\enterprise3.gif
-                string temp = enterprise.FirstOrDefault().applicationPath;
+                byte[] temp = enterprise.FirstOrDefault().logo;
                 if (temp != null)
                 {
-                    ViewBag.logoSrc =  temp.Substring(temp.IndexOf("uploadedFiles") - 1);
+                    string imageBase64 = Convert.ToBase64String(temp);
+                    string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                    ViewBag.logoSrc = imageSrc;
                 }
                 //ViewBag.logoSrc = enterprise.FirstOrDefault().applicationPath;
 
