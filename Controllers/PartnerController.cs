@@ -1241,6 +1241,18 @@ namespace Generic.Controllers
             return RedirectToAction("FindPartnerResult");
 
         }
+        public ActionResult PrintHTML(string accesscode)
+        {
+            if (!string.IsNullOrEmpty(accesscode))
+            {
+                Session["accessCode"] = accesscode;
+                ///Registration/Home/OrdersInPdf
+                // return RedirectToAction("OrdersInPdf","Home",new  {area="Registration"});
+                Response.Redirect("~/Registration/Home/OrdersInHTML");
+            }
+            return RedirectToAction("FindPartnerResult");
+
+        }
 
 
 
