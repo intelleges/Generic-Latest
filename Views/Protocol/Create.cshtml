@@ -6,7 +6,7 @@
 @using System.Web.Optimization;
 
 @{
-    Layout = LayoutHelper.GetPopupLayout();
+Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Protocol";
 }
 
@@ -26,203 +26,280 @@
         $('#startDate').datepicker();
      });
 </script>
+                                        <style type="text/css">
+                                            .threecol, twocol {
+                                                width: 100%;
+                                                display: inline-block;
+                                            }
+
+                                            .twocol .editor-label {
+                                                width: 10%;
+                                                display: inline-block;
+                                                font-size: 11px;
+                                            }
+
+                                            .twocol .editor-field {
+                                                width: 35%;
+                                                display: inline-block;
+                                            }
+
+                                            .threecol .editor-label {
+                                                width: 10%;
+                                                display: inline-block;
+                                                font-size: 11px;
+                                            }
+
+                                            .threecol .editor-field {
+                                                width: 20%;
+                                                display: inline-block;
+                                            }
+
+                                                .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+                                                    width: 90%;
+                                                    display: inline-block;
+                                                    font-size: 11px;
+                                                }
+
+                                            .txtClass {
+                                                border-radius: 5px;
+                                            }
+
+                                            .ddlClass {
+                                                height: 25px;
+                                                width: 96% !important;
+                                                border-radius: 5px;
+                                            }
+
+                                            #DueDate {
+                                                border-radius: 5px;
+                                                height: 18px;
+                                            }
 
 
-<h2>Create</h2>
+                                            .btn {
+                                                background: #3498db;
+                                                background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+                                                background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+                                                background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+                                                background-image: -o-linear-gradient(top, #3498db, #2980b9);
+                                                background-image: linear-gradient(to bottom, #3498db, #2980b9);
+                                                -webkit-border-radius: 12;
+                                                -moz-border-radius: 12;
+                                                border-radius: 28px;
+                                                font-family: Arial;
+                                                color: #ffffff;
+                                                font-size: 20px;
+                                                padding: 3px 20px 5px 20px !important;
+                                                text-decoration: none;
+                                            }
 
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
+                                                .btn:hover {
+                                                    background: #3cb0fd;
+                                                    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+                                                    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+                                                    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+                                                    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+                                                    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+                                                    text-decoration: none;
+                                                }
+                                        </style>
 
-    <fieldset>
-        <legend>protocol</legend>
-
-        <div style="width: 48%; float: left">
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.agency)
-            </div>
-            <div class="editor-field">
-
-                @Html.DropDownList("agency", String.Empty)
-
-
-                @Html.ValidationMessageFor(model => model.agency)
-
-                <a href="@Url.Content("~/Agency/Create")">Create</a>
-
-            </div>
-
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.name)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.name)
-                @Html.ValidationMessageFor(model => model.name)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.description)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.description)
-                @Html.ValidationMessageFor(model => model.description)
-            </div>
-
-
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.background)
-            </div>
-            <div class="editor-field">
-                @Html.TextAreaFor(model => model.background)
-                @Html.ValidationMessageFor(model => model.background)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.keyBenefits)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.keyBenefits)
-                @Html.ValidationMessageFor(model => model.keyBenefits)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.startDate)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.startDate)
-                @Html.ValidationMessageFor(model => model.startDate)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.bestPractice)
-            </div>
-            <div class="editor-field">
-
-                @(Html.Telerik().Upload()
-        .Name("bestPractice")
-        .Multiple(false)
-)
-
-
-                @Html.ValidationMessageFor(model => model.bestPractice)
-            </div>
-            <div class="editor-label">
-                @Html.LabelFor(model => model.checkList)
-            </div>
-            <div class="editor-field">
-                @(Html.Telerik().Upload()
-        .Name("checkList")
-        .Multiple(false)
-)
-                @Html.ValidationMessageFor(model => model.checkList)
-            </div>
-
-            <p>
-                <input type="submit" value="Create" />
-            </p>
-
-        </div>
-
-
-        <div style="width: 48%; float: left">
-
-
-
-
-
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.domain)
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("domain", String.Empty)
-                @Html.ValidationMessageFor(model => model.domain)
-
-                  <a href="@Url.Content("~/Domain/Create")">Create</a>
-
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.abbreviation)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.abbreviation)
-                @Html.ValidationMessageFor(model => model.abbreviation)
-            </div>
-
-
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.summary)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.summary)
-                @Html.ValidationMessageFor(model => model.summary)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.purpose)
-            </div>
-            <div class="editor-field">
-                @Html.TextAreaFor(model => model.purpose)
-                @Html.ValidationMessageFor(model => model.purpose)
-            </div>
-
-
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.keyWords)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.keyWords)
-                @Html.ValidationMessageFor(model => model.keyWords)
-            </div>
-
-
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.endDate)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.endDate)
-                @Html.ValidationMessageFor(model => model.endDate)
-            </div>
-
-
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.riskBenefits)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.riskBenefits)
-                @Html.ValidationMessageFor(model => model.riskBenefits)
-            </div>
-
-
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.removeWithoutTouchpointExpiry)
-            </div>
-            <div class="editor-field">
-                <div style="width:150px">
-                <input name="removeWithoutTouchpointExpiry" style="width:20px" type="radio" value="True" /> True
-                <input name="removeWithoutTouchpointExpiry" style="width:20px" type="radio" value="False" /> False
-
-                @Html.ValidationMessageFor(model => model.removeWithoutTouchpointExpiry)
-                    </div>
-            </div>
-        </div>
-
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+                                        <div class="addProtocolDiv">
+                                            <h2>Create Protocol</h2>
 </div>
+                                            @using (Html.BeginForm())
+                                            {
+                                            @Html.ValidationSummary(true)
 
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
+                                        <fieldset>
+                                            <legend>protocol</legend>
+
+                                            <div id="addPartner" class="addPartnerDiv">
+                                                <div class="twocol">
+                                                    @Html.HiddenFor(model => model.id)
+                                                   
+
+                                                        <div class="editor-label">
+                                                            @Html.LabelFor(model => model.agency)
+                                                        </div>
+                                                        <div class="editor-field">
+
+                                                            @Html.DropDownList("agency",null, String.Empty,new {@class="ddlClass"})
+
+
+                                                            @Html.ValidationMessageFor(model => model.agency)
+
+                                                            <a href="@Url.Content(" ~ />Agency/Create")">Create</a>
+
+                                                        </div>
+
+
+                                                        <div class="editor-label">
+                                                            @Html.LabelFor(model => model.name)
+                                                        </div>
+                                                        <div class="editor-field">
+                                                            @Html.TextBoxFor(model => model.name,new {@class="txtClass"})
+                                                            @Html.ValidationMessageFor(model => model.name)
+                                                        </div>
+</div>
+                                                <div class="threecol">
+                                                    <div class="editor-label">
+                                                        @Html.LabelFor(model => model.description)
+                                                    </div>
+                                                    <div class="editor-field">
+                                                        @Html.TextBoxFor(model => model.description,new {@class="txtClass"})
+                                                        @Html.ValidationMessageFor(model => model.description)
+                                                    </div>
+
+
+
+                                                    <div class="editor-label">
+                                                        @Html.LabelFor(model => model.background)
+                                                    </div>
+                                                    <div class="editor-field">
+                                                        @Html.TextAreaFor(model => model.background)
+                                                        @Html.ValidationMessageFor(model => model.background)
+                                                    </div>
+
+                                                    <div class="editor-label">
+                                                        @Html.LabelFor(model => model.keyBenefits)
+                                                    </div>
+                                                    <div class="editor-field">
+                                                        @Html.TextBoxFor(model => model.keyBenefits,new {@class="txtClass"})
+                                                        @Html.ValidationMessageFor(model => model.keyBenefits)
+                                                    </div>
+
+                                                    <div class="editor-label">
+                                                        @Html.LabelFor(model => model.startDate)
+                                                    </div>
+                                                    <div class="editor-field">
+                                                        @Html.TextBoxFor(model => model.startDate,new {@class="txtClass"})
+                                                        @Html.ValidationMessageFor(model => model.startDate)
+                                                    </div>
+
+                                                    <div class="editor-label">
+                                                        @Html.LabelFor(model => model.bestPractice)
+                                                    </div>
+                                                    <div class="editor-field">
+
+                                                        @(Html.Telerik().Upload()
+                                                        .Name("bestPractice")
+                                                        .Multiple(false)
+                                                        )
+
+
+                                                        @Html.ValidationMessageFor(model => model.bestPractice)
+                                                    </div>
+                                                    <div class="editor-label">
+                                                        @Html.LabelFor(model => model.checkList)
+                                                    </div>
+                                                    <div class="editor-field">
+                                                        @(Html.Telerik().Upload()
+                                                        .Name("checkList")
+                                                        .Multiple(false)
+                                                        )
+                                                        @Html.ValidationMessageFor(model => model.checkList)
+                                                    </div>                                               
+
+                                              
+
+
+
+
+
+                                                        <div class="editor-label">
+                                                            @Html.LabelFor(model => model.domain)
+                                                        </div>
+                                                        <div class="editor-field">
+                                                            @Html.DropDownList("domain",null, String.Empty,new {@class="ddlClass"})
+                                                            @Html.ValidationMessageFor(model => model.domain)
+
+                                                            <a href="@Url.Content(" ~ />Domain/Create")">Create</a>
+
+                                                        </div>
+
+                                                        <div class="editor-label">
+                                                            @Html.LabelFor(model => model.abbreviation)
+                                                        </div>
+                                                        <div class="editor-field">
+                                                            @Html.TextBoxFor(model => model.abbreviation,new {@class="txtClass"})
+                                                            @Html.ValidationMessageFor(model => model.abbreviation)
+                                                        </div>
+
+
+
+                                                        <div class="editor-label">
+                                                            @Html.LabelFor(model => model.summary)
+                                                        </div>
+                                                        <div class="editor-field">
+                                                            @Html.TextBoxFor(model => model.summary,new {@class="txtClass"})
+                                                            @Html.ValidationMessageFor(model => model.summary)
+                                                        </div>
+
+                                                        <div class="editor-label">
+                                                            @Html.LabelFor(model => model.purpose)
+                                                        </div>
+                                                        <div class="editor-field">
+                                                            @Html.TextAreaFor(model => model.purpose)
+                                                            @Html.ValidationMessageFor(model => model.purpose)
+                                                        </div>
+
+
+
+                                                        <div class="editor-label">
+                                                            @Html.LabelFor(model => model.keyWords)
+                                                        </div>
+                                                        <div class="editor-field">
+                                                            @Html.TextBoxFor(model => model.keyWords,new {@class="txtClass"})
+                                                            @Html.ValidationMessageFor(model => model.keyWords)
+                                                        </div>
+
+
+
+                                                        <div class="editor-label">
+                                                            @Html.LabelFor(model => model.endDate)
+                                                        </div>
+                                                        <div class="editor-field">
+                                                            @Html.TextBoxFor(model => model.endDate,new {@class="txtClass"})
+                                                            @Html.ValidationMessageFor(model => model.endDate)
+                                                        </div>
+
+
+
+                                                        <div class="editor-label">
+                                                            @Html.LabelFor(model => model.riskBenefits)
+                                                        </div>
+                                                        <div class="editor-field">
+                                                            @Html.TextBoxFor(model => model.riskBenefits,new {@class="txtClass"})
+                                                            @Html.ValidationMessageFor(model => model.riskBenefits)
+                                                        </div>
+
+
+
+                                                        <div class="editor-label">
+                                                            @Html.LabelFor(model => model.removeWithoutTouchpointExpiry)
+                                                        </div>
+                                                        <div class="editor-field">
+                                                            <div style="width:150px">
+                                                                <input name="removeWithoutTouchpointExpiry" style="width:20px" type="radio" value="True" /> True
+                                                                <input name="removeWithoutTouchpointExpiry" style="width:20px" type="radio" value="False" /> False
+
+                                                                @Html.ValidationMessageFor(model => model.removeWithoutTouchpointExpiry)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <p style="float: right; width: 20%;">
+                                                    <input type="submit" value="Save" class="btn" />
+                                                    <input type="button" value="Clear" class="btn" id="btnClear" />
+
+                                                </p>
+                                        </fieldset>
+                                            }
+
+                                            <div>
+                                                @Html.ActionLink("Back to List", "Index")
+                                            </div>
+
+                                            @*@section Scripts {
+                                            @Scripts.Render("~/bundles/jqueryval")
+                                            }*@
