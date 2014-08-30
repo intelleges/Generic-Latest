@@ -11,6 +11,8 @@ namespace Generic
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
+    using System.Xml.Serialization;
     
     public partial class questionnaireQuestionnaireCMS
     {
@@ -20,7 +22,11 @@ namespace Generic
         public string link { get; set; }
         public byte[] doc { get; set; }
     
+        [XmlIgnore]
+        [IgnoreDataMember]
         public virtual questionnaire questionnaire1 { get; set; }
+        [XmlIgnore]
+        [IgnoreDataMember]
         public virtual questionnaireCMS questionnaireCMS1 { get; set; }
     }
 }
