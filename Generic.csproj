@@ -1711,6 +1711,9 @@
     <Compile Include="view_PartnerConfirmationData.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="view_PartnerConfirmationData_tmp.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="view_PartnerData.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

@@ -175,6 +175,7 @@ namespace Generic
         public DbSet<ConfirmPartnerActionType> ConfirmPartnerActionType { get; set; }
         public DbSet<tmpPartnerConfirm> tmpPartnerConfirm { get; set; }
         public DbSet<view_PartnerConfirmationData> view_PartnerConfirmationData { get; set; }
+        public DbSet<view_PartnerConfirmationData_tmp> view_PartnerConfirmationData_tmp { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {

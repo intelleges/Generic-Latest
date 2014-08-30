@@ -19,5 +19,6 @@ namespace Generic
         public Nullable<int> pptqGroupType { get; set; }
         public Nullable<bool> isShadow { get; set; }
         public Nullable<int> pptqReference { get; set; }
+        public byte[] timestamp_ { get; set; }
     }
 }

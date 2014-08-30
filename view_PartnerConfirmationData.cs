@@ -14,30 +14,27 @@ namespace Generic
     
     public partial class view_PartnerConfirmationData
     {
-        public int id { get; set; }
-        public int enterprise { get; set; }
+        public Nullable<long> id { get; set; }
+        public Nullable<int> enterprise { get; set; }
         public int touchpoint { get; set; }
-        public int partnerA { get; set; }
-        public string partnerA_Name { get; set; }
-        public int group1 { get; set; }
-        public string group1_Name { get; set; }
-        public int status1 { get; set; }
-        public string status1_Name { get; set; }
-        public bool isReference1 { get; set; }
-        public int partnerB { get; set; }
-        public string partnerB_Name { get; set; }
-        public int group2 { get; set; }
-        public string group2_Name { get; set; }
-        public int status2 { get; set; }
-        public string status2_Name { get; set; }
-        public bool isReference2 { get; set; }
-        public bool emailMatch { get; set; }
-        public Nullable<bool> nameMatch { get; set; }
-        public bool internalIDMatch { get; set; }
-        public bool federalIDMatch { get; set; }
-        public bool dunsMatch { get; set; }
-        public Nullable<int> action { get; set; }
-        public Nullable<int> person { get; set; }
-        public byte[] timestamp { get; set; }
+        public int Partner_A { get; set; }
+        public string Partner_A_Name { get; set; }
+        public int Group1ID { get; set; }
+        public string Group1 { get; set; }
+        public int StatusID_1 { get; set; }
+        public string Status1 { get; set; }
+        public string IsReference1 { get; set; }
+        public int Partner_B { get; set; }
+        public string Partner_B_Name { get; set; }
+        public int Group2ID { get; set; }
+        public string Group2 { get; set; }
+        public int StatusID_2 { get; set; }
+        public string Status2 { get; set; }
+        public string IsReference2 { get; set; }
+        public string EmailMatch { get; set; }
+        public string InternalIDMatch { get; set; }
+        public string FederalIDMatch { get; set; }
+        public string DUNSMatch { get; set; }
+        public string NameMatch { get; set; }
     }
 }

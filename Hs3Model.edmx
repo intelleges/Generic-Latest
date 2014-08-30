@@ -299,6 +299,35 @@
       [view_PartnerConfirmationData].[timestamp] AS [timestamp]
       FROM [dbo].[view_PartnerConfirmationData] AS [view_PartnerConfirmationData]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="view_PartnerConfirmationData_tmp" EntityType="hs3MVCMTQa2Model.Store.view_PartnerConfirmationData_tmp" store:Type="Views" store:Schema="dbo" store:Name="view_PartnerConfirmationData_tmp">
+            <DefiningQuery>SELECT 
+      [view_PartnerConfirmationData_tmp].[id] AS [id], 
+      [view_PartnerConfirmationData_tmp].[enterprise] AS [enterprise], 
+      [view_PartnerConfirmationData_tmp].[touchpoint] AS [touchpoint], 
+      [view_PartnerConfirmationData_tmp].[Partner_A] AS [Partner_A], 
+      [view_PartnerConfirmationData_tmp].[Partner_A_Name] AS [Partner_A_Name], 
+      [view_PartnerConfirmationData_tmp].[Group1ID] AS [Group1ID], 
+      [view_PartnerConfirmationData_tmp].[Group1] AS [Group1], 
+      [view_PartnerConfirmationData_tmp].[StatusID_1] AS [StatusID_1], 
+      [view_PartnerConfirmationData_tmp].[Status1] AS [Status1], 
+      [view_PartnerConfirmationData_tmp].[IsReference1] AS [IsReference1], 
+      [view_PartnerConfirmationData_tmp].[Partner_B] AS [Partner_B], 
+      [view_PartnerConfirmationData_tmp].[Partner_B_Name] AS [Partner_B_Name], 
+      [view_PartnerConfirmationData_tmp].[Group2ID] AS [Group2ID], 
+      [view_PartnerConfirmationData_tmp].[Group2] AS [Group2], 
+      [view_PartnerConfirmationData_tmp].[StatusID_2] AS [StatusID_2], 
+      [view_PartnerConfirmationData_tmp].[Status2] AS [Status2], 
+      [view_PartnerConfirmationData_tmp].[IsReference2] AS [IsReference2], 
+      [view_PartnerConfirmationData_tmp].[EmailMatch] AS [EmailMatch], 
+      [view_PartnerConfirmationData_tmp].[InternalIDMatch] AS [InternalIDMatch], 
+      [view_PartnerConfirmationData_tmp].[FederalIDMatch] AS [FederalIDMatch], 
+      [view_PartnerConfirmationData_tmp].[DUNSMatch] AS [DUNSMatch], 
+      [view_PartnerConfirmationData_tmp].[NameMatch] AS [NameMatch], 
+      [view_PartnerConfirmationData_tmp].[person] AS [person], 
+      [view_PartnerConfirmationData_tmp].[action] AS [action], 
+      [view_PartnerConfirmationData_tmp].[timestamp] AS [timestamp]
+      FROM [dbo].[view_PartnerConfirmationData_tmp] AS [view_PartnerConfirmationData_tmp]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="view_PartnerData" EntityType="hs3MVCMTQa2Model.Store.view_PartnerData" store:Type="Views" store:Schema="dbo" store:Name="view_PartnerData">
             <DefiningQuery>SELECT 
       [view_PartnerData].[id] AS [id], 
@@ -1990,6 +2019,7 @@
           <Property Name="pptqGroupType" Type="int" />
           <Property Name="isShadow" Type="bit" />
           <Property Name="pptqReference" Type="int" />
+          <Property Name="timestamp_" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="pptqGroupType">
           <Key>
@@ -2904,6 +2934,56 @@
           <Property Name="action" Type="int" />
           <Property Name="person" Type="int" />
           <Property Name="timestamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PartnerConfirmationData_tmp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="view_PartnerConfirmationData_tmp">
+          <Key>
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="Partner_A" />
+            <PropertyRef Name="Group1ID" />
+            <PropertyRef Name="StatusID_1" />
+            <PropertyRef Name="Status1" />
+            <PropertyRef Name="IsReference1" />
+            <PropertyRef Name="Partner_B" />
+            <PropertyRef Name="Group2ID" />
+            <PropertyRef Name="StatusID_2" />
+            <PropertyRef Name="Status2" />
+            <PropertyRef Name="IsReference2" />
+            <PropertyRef Name="EmailMatch" />
+            <PropertyRef Name="InternalIDMatch" />
+            <PropertyRef Name="FederalIDMatch" />
+            <PropertyRef Name="DUNSMatch" />
+            <PropertyRef Name="NameMatch" />
+            <PropertyRef Name="person" />
+            <PropertyRef Name="action" />
+          </Key>
+          <Property Name="id" Type="bigint" />
+          <Property Name="enterprise" Type="int" />
+          <Property Name="touchpoint" Type="int" Nullable="false" />
+          <Property Name="Partner_A" Type="int" Nullable="false" />
+          <Property Name="Partner_A_Name" Type="varchar" MaxLength="255" />
+          <Property Name="Group1ID" Type="int" Nullable="false" />
+          <Property Name="Group1" Type="varchar" MaxLength="50" />
+          <Property Name="StatusID_1" Type="int" Nullable="false" />
+          <Property Name="Status1" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsReference1" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="Partner_B" Type="int" Nullable="false" />
+          <Property Name="Partner_B_Name" Type="varchar" MaxLength="255" />
+          <Property Name="Group2ID" Type="int" Nullable="false" />
+          <Property Name="Group2" Type="varchar" MaxLength="50" />
+          <Property Name="StatusID_2" Type="int" Nullable="false" />
+          <Property Name="Status2" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsReference2" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="EmailMatch" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="InternalIDMatch" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="FederalIDMatch" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="DUNSMatch" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="NameMatch" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="person" Type="int" Nullable="false" />
+          <Property Name="action" Type="int" Nullable="false" />
+          <Property Name="timestamp" Type="uniqueidentifier" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PartnerData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -11814,6 +11894,7 @@
           </FunctionImport>
           <EntitySet Name="tmpPartnerConfirm" EntityType="hs3MVCMTQa2Model.tmpPartnerConfirm" />
           <EntitySet Name="view_PartnerConfirmationData" EntityType="hs3MVCMTQa2Model.view_PartnerConfirmationData" />
+          <EntitySet Name="view_PartnerConfirmationData_tmp" EntityType="hs3MVCMTQa2Model.view_PartnerConfirmationData_tmp" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -18102,6 +18183,7 @@
           <Property Name="pptqGroupType" Type="Int32" />
           <Property Type="Boolean" Name="isShadow" />
           <Property Type="Int32" Name="pptqReference" />
+          <Property Type="Binary" Name="timestamp_" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="pptqGroupType">
           <Key>
@@ -18849,6 +18931,53 @@
           <Property Type="Int32" Name="action" />
           <Property Type="Int32" Name="person" />
           <Property Type="Binary" Name="timestamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="view_PartnerConfirmationData_tmp">
+          <Key>
+            <PropertyRef Name="touchpoint" />
+            <PropertyRef Name="Partner_A" />
+            <PropertyRef Name="Group1ID" />
+            <PropertyRef Name="StatusID_1" />
+            <PropertyRef Name="Status1" />
+            <PropertyRef Name="IsReference1" />
+            <PropertyRef Name="Partner_B" />
+            <PropertyRef Name="Group2ID" />
+            <PropertyRef Name="StatusID_2" />
+            <PropertyRef Name="Status2" />
+            <PropertyRef Name="IsReference2" />
+            <PropertyRef Name="EmailMatch" />
+            <PropertyRef Name="InternalIDMatch" />
+            <PropertyRef Name="FederalIDMatch" />
+            <PropertyRef Name="DUNSMatch" />
+            <PropertyRef Name="NameMatch" />
+            <PropertyRef Name="person" />
+            <PropertyRef Name="action" />
+          </Key>
+          <Property Type="Int64" Name="id" />
+          <Property Type="Int32" Name="enterprise" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="Partner_A" Nullable="false" />
+          <Property Type="String" Name="Partner_A_Name" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Group1ID" Nullable="false" />
+          <Property Type="String" Name="Group1" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="StatusID_1" Nullable="false" />
+          <Property Type="String" Name="Status1" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="IsReference1" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Partner_B" Nullable="false" />
+          <Property Type="String" Name="Partner_B_Name" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Group2ID" Nullable="false" />
+          <Property Type="String" Name="Group2" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="StatusID_2" Nullable="false" />
+          <Property Type="String" Name="Status2" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="IsReference2" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EmailMatch" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="InternalIDMatch" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FederalIDMatch" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DUNSMatch" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NameMatch" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="action" Nullable="false" />
+          <Property Type="Guid" Name="timestamp" />
         </EntityType>
         
       </Schema>
@@ -23820,6 +23949,7 @@
           <EntitySetMapping Name="pptqGroup">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.pptqGroup">
               <MappingFragment StoreEntitySet="pptqGroup">
+                <ScalarProperty Name="timestamp_" ColumnName="timestamp_" />
                 <ScalarProperty Name="pptqReference" ColumnName="pptqReference" />
                 <ScalarProperty Name="isShadow" ColumnName="isShadow" />
                 <ScalarProperty Name="pptqGroupType" ColumnName="pptqGroupType" />
@@ -24552,6 +24682,37 @@
                 <ScalarProperty Name="group1" ColumnName="group1" />
                 <ScalarProperty Name="partnerA_Name" ColumnName="partnerA_Name" />
                 <ScalarProperty Name="partnerA" ColumnName="partnerA" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_PartnerConfirmationData_tmp">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_PartnerConfirmationData_tmp">
+              <MappingFragment StoreEntitySet="view_PartnerConfirmationData_tmp">
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="NameMatch" ColumnName="NameMatch" />
+                <ScalarProperty Name="DUNSMatch" ColumnName="DUNSMatch" />
+                <ScalarProperty Name="FederalIDMatch" ColumnName="FederalIDMatch" />
+                <ScalarProperty Name="InternalIDMatch" ColumnName="InternalIDMatch" />
+                <ScalarProperty Name="EmailMatch" ColumnName="EmailMatch" />
+                <ScalarProperty Name="IsReference2" ColumnName="IsReference2" />
+                <ScalarProperty Name="Status2" ColumnName="Status2" />
+                <ScalarProperty Name="StatusID_2" ColumnName="StatusID_2" />
+                <ScalarProperty Name="Group2" ColumnName="Group2" />
+                <ScalarProperty Name="Group2ID" ColumnName="Group2ID" />
+                <ScalarProperty Name="Partner_B_Name" ColumnName="Partner_B_Name" />
+                <ScalarProperty Name="Partner_B" ColumnName="Partner_B" />
+                <ScalarProperty Name="IsReference1" ColumnName="IsReference1" />
+                <ScalarProperty Name="Status1" ColumnName="Status1" />
+                <ScalarProperty Name="StatusID_1" ColumnName="StatusID_1" />
+                <ScalarProperty Name="Group1" ColumnName="Group1" />
+                <ScalarProperty Name="Group1ID" ColumnName="Group1ID" />
+                <ScalarProperty Name="Partner_A_Name" ColumnName="Partner_A_Name" />
+                <ScalarProperty Name="Partner_A" ColumnName="Partner_A" />
                 <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
                 <ScalarProperty Name="enterprise" ColumnName="enterprise" />
                 <ScalarProperty Name="id" ColumnName="id" />
