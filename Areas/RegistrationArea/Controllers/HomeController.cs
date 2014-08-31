@@ -141,7 +141,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     List<CustomizedLSMW> CustomizedLSMW = new List<CustomizedLSMW>();
                     Session["CustomizedLSMW"] = CustomizedLSMW;
 
-                    if (ppptq.status == (int)PartnerStatus.Invited_NoResponse)
+                    if (ppptq.status < 7 )
                     {
                         ppptq.status = (int)PartnerStatus.Responded_Incomplete;
                         db.Entry(ppptq).State = EntityState.Modified;
