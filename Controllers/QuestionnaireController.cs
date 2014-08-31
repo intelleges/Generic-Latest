@@ -1078,10 +1078,11 @@ namespace Generic.Controllers
                 }
             }
             // return Redirect("~/Questionnaire/QuestionnaireQuestionnaireCMS/" + id);
-            return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = int.Parse(id) });
+           // return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = int.Parse(id) });
            // return QuestionnaireQuestionnaireCMS(int.Parse(id));
-           
-
+            return RedirectToAction("QuestionnaireQuestionnaireCMS");
+    //        return RedirectToAction("Main", new RouteValueDictionary(
+    //new { controller = controllerName, action = "Main", Id = Id }));
 
         }
 
