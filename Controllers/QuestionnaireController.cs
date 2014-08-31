@@ -1077,8 +1077,11 @@ namespace Generic.Controllers
                     }
                 }
             }
-            return Redirect("~/Questionnaire/QuestionnaireQuestionnaireCMS/" + id);
-            //  return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = id });
+            // return Redirect("~/Questionnaire/QuestionnaireQuestionnaireCMS/" + id);
+            return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = int.Parse(id) });
+           // return QuestionnaireQuestionnaireCMS(int.Parse(id));
+           
+
 
         }
 
