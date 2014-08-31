@@ -9,6 +9,7 @@ using LinqToExcel;
 using Generic.SessionClass;
 using Generic.Helpers.Questionnaire;
 using System.Xml.Serialization;
+using System.Web.Routing;
 
 namespace Generic.Controllers
 {
@@ -1080,9 +1081,9 @@ namespace Generic.Controllers
             // return Redirect("~/Questionnaire/QuestionnaireQuestionnaireCMS/" + id);
            // return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = int.Parse(id) });
            // return QuestionnaireQuestionnaireCMS(int.Parse(id));
-            return RedirectToAction("QuestionnaireQuestionnaireCMS");
-    //        return RedirectToAction("Main", new RouteValueDictionary(
-    //new { controller = controllerName, action = "Main", Id = Id }));
+          //  return RedirectToAction("QuestionnaireQuestionnaireCMS");
+            return RedirectToAction("QuestionnaireQuestionnaireCMS", new RouteValueDictionary(
+    new { controller = "Questionnaire", action = "QuestionnaireQuestionnaireCMS", id = int.Parse(id) }));
 
         }
 
