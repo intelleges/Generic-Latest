@@ -4,16 +4,29 @@
     @using Telerik.Web.Mvc.UI;
 
     @{
-    Layout = LayoutHelper.GetLayout();
-    ViewBag.Title = ViewBag.enterpriseName + "Admin";
-    int counter = Model.partnerType.Count() + 3;
+        Layout = LayoutHelper.GetLayout();
+        ViewBag.Title = ViewBag.enterpriseName + "Admin";
+        int counter = 0;
 
-    int groupCount = Model.groups.Count();
-    int groupAdded = 0;
+        try
+        {
+            counter = Model.partnerType.Count() + 3;
+        }
+        catch { }
 
-    decimal c = decimal.Parse(Model.groups.Count().ToString()) / 3;
-    int c2 = Model.groups.Count() % 3 > 0 ? 1 : 0;
-    int partnerTablesCount = int.Parse(Math.Floor(c).ToString()) + c2;
+        int groupCount = 0;
+        try
+        {
+
+            groupCount = Model.groups.Count();
+        }
+        catch { }
+
+        int groupAdded = 0;
+
+        decimal c = decimal.Parse(groupCount.ToString()) / 3;
+        int c2 = groupCount % 3 > 0 ? 1 : 0;
+        int partnerTablesCount = int.Parse(Math.Floor(c).ToString()) + c2;
 
     }
     <style type="text/css">
@@ -96,9 +109,9 @@
                 @for (int n = 0; n < 3; n++)
                 {
 
-                if (groupAdded < groupCount)
-                {
-                    int? totalNR = 0, totalRI=0, totalRC=0, totalRow=0;
+                    if (groupAdded < groupCount)
+                    {
+                        int? totalNR = 0, totalRI = 0, totalRC = 0, totalRow = 0;
                 <table class="TestTable">
                    
                     <tr style="background-color:darkblue;; color: white;">
@@ -120,7 +133,7 @@
                     </tr>
                     
                      @foreach (var partnerType in Model.partnerType)
-                    {
+                     {
 
                     <tr>
                         <td class="AlgnRight"> @Model.ptqGroups[groupAdded].goal &nbsp;</td>
@@ -132,7 +145,7 @@
                            
 
                             <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse)&Group=@Model.groups[groupAdded].id" target="_blank">
-                     @{ int? nr = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();  
+                     @{ int? nr = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
                         totalNR += nr;
                         }
                            
@@ -142,7 +155,7 @@
                              </td>
                         <td class="AlgnRight" style="background-color:#FDEB41">
                              <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete)&Group=@Model.groups[groupAdded].id" target="_blank">
-                            @{ int? ri = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete ).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                            @{ int? ri = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
                                totalRI += ri;
                                      
                                  }
@@ -153,14 +166,14 @@
                         <td class="AlgnRight" style="background-color: #BCD637">
                             <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete)&Group=@Model.groups[groupAdded].id" target="_blank">
                             @{int? rc = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
-                             totalRC += rc;
+                              totalRC += rc;
                                    } @rc </a>
                             </td>
                         <td class="AlgnRight">
 @{ 
-                       totalRow +=    nr  + ri  + rc ;
+                              totalRow += nr + ri + rc;
                             
-                             @Html.Raw( totalRow)
+                             @Html.Raw(totalRow)
 }
 </td>
                     </tr>
@@ -183,8 +196,8 @@
                 </table>
 
 
-                groupAdded++;
-                }
+                     groupAdded++;
+                    }
 
                 }
             </td>
