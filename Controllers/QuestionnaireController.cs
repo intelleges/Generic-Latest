@@ -1078,7 +1078,7 @@ namespace Generic.Controllers
                 }
             }
 
-            return RedirectToAction("/QuestionnaireQuestionnaireCMS/" + id);
+            return RedirectToAction("QuestionnaireQuestionnaireCMS/" + id);
 
         }
 
@@ -1144,7 +1144,8 @@ namespace Generic.Controllers
                 }
             }
 
-            return RedirectToAction("/QuestionnaireQuestionnaireAutoMail/" + id);
+            return RedirectToAction("QuestionnaireQuestionnaireAutoMail/" + id);
+            //return RedirectToAction("/QuestionnaireQuestionnaireAutoMail/" + id);
 
         }
         protected override void Dispose(bool disposing)
