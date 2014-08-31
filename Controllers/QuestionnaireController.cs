@@ -1023,7 +1023,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadExcelData(string id)
+        public void UploadExcelData(string id)
         {
             string questionnaireid = id;
 
@@ -1078,7 +1078,7 @@ namespace Generic.Controllers
                     }
                 }
             }
-             return Redirect("../QuestionnaireQuestionnaireCMS/" + id);
+             Response.Redirect("../QuestionnaireQuestionnaireCMS/" + id);
            // return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = int.Parse(id) });
            // return QuestionnaireQuestionnaireCMS(int.Parse(id));
           //  return RedirectToAction("QuestionnaireQuestionnaireCMS");
