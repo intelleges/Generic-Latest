@@ -765,7 +765,7 @@ namespace Generic.Controllers
             Session["questionnaireexport"] = db.Database.SqlQuery<ExcelQuestionnaireQuestionnireCMS>("EXEC pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire '" + id + "'").ToList();
 
             List<ExcelQuestionnaireQuestionnireCMS> abc = (List<ExcelQuestionnaireQuestionnireCMS>)Session["questionnaireexport"];
-            
+
             var stream = new MemoryStream();
             var serializer = new XmlSerializer(typeof(List<ExcelQuestionnaireQuestionnireCMS>));
 
@@ -776,7 +776,7 @@ namespace Generic.Controllers
             //We return the XML from the memory as a .xls file
             return File(stream, "application/vnd.ms-excel", "QuestionnaireList.xls");
         }
-        
+
         public ActionResult ExportExcelAutoMailDetail(string id)
         {
 
@@ -1060,25 +1060,25 @@ namespace Generic.Controllers
                 excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.doc, "doc");
                 var questionnaireCMSinExcel = from a in excelRead.Worksheet<ExcelQuestionnaireQuestionnireCMS>(sheetname) select a;
                 List<Tuple<int, string>> uploadedquestionnaireCMS = new List<Tuple<int, string>>();
-                
+
                 foreach (var questionnaireCMSitem in questionnaireCMSinExcel.ToList())
                 {
-                    using (var context= new EntitiesDBContext())
+                    using (var context = new EntitiesDBContext())
+                    {
+                        if (!string.IsNullOrEmpty(questionnaireid))
                         {
-                            if (!string.IsNullOrEmpty(questionnaireid))
-                            {
-                                //context.questionnaireQuestionnaireCMS.Attach(questionnaireCMSitem);
+                            //context.questionnaireQuestionnaireCMS.Attach(questionnaireCMSitem);
 
-                                int modifiedQuestionnaire = context.pr_modifyQuestionnaireQuestionnaireCMS(Convert.ToInt32(questionnaireid),
-                                    questionnaireCMSitem.questionnaireCMS, 
-                                    string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
-                                    questionnaireCMSitem.link, questionnaireCMSitem.doc);
-                             }   
+                            int modifiedQuestionnaire = context.pr_modifyQuestionnaireQuestionnaireCMS(Convert.ToInt32(questionnaireid),
+                                questionnaireCMSitem.questionnaireCMS,
+                                string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
+                                questionnaireCMSitem.link, questionnaireCMSitem.doc);
                         }
+                    }
                 }
             }
 
-            return RedirectToAction("QuestionnaireQuestionnaireCMS/" + id);
+            return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = id });
 
         }
 
@@ -1122,8 +1122,8 @@ namespace Generic.Controllers
                 excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateSet, "sendDateSet");
                 excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.mailType, "mailType");
                 excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.partnerTypeTouchpointQuestionnaire, "partnerTypeTouchpointQuestionnaire");
-               
-                
+
+
                 var questionnaireCMSinExcel = from a in excelRead.Worksheet<QuestionnaireAutoMailViewModel>(sheetname) select a;
                 List<Tuple<int, string>> uploadedquestionnaireCMS = new List<Tuple<int, string>>();
 
@@ -1133,7 +1133,7 @@ namespace Generic.Controllers
                     {
                         if (!string.IsNullOrEmpty(autoMailid))
                         {
-                           // context.questionnaireQuestionnaireCMS.Attach(questionnaireCMSitem);
+                            // context.questionnaireQuestionnaireCMS.Attach(questionnaireCMSitem);
 
                             int modifiedAutoMail = context.pr_modifyAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid), questionnaireCMSitem.id,
                                 questionnaireCMSitem.subject, string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
@@ -1144,7 +1144,7 @@ namespace Generic.Controllers
                 }
             }
 
-            return RedirectToAction("QuestionnaireQuestionnaireAutoMail/" + id);
+            return RedirectToAction("QuestionnaireQuestionnaireAutoMail", new { id = id });
             //return RedirectToAction("/QuestionnaireQuestionnaireAutoMail/" + id);
 
         }
