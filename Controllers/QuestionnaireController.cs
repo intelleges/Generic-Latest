@@ -1077,8 +1077,8 @@ namespace Generic.Controllers
                     }
                 }
             }
-
-            return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = id });
+            return Redirect("~/Questionnaire/QuestionnaireQuestionnaireCMS/" + id);
+            //  return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = id });
 
         }
 
@@ -1144,7 +1144,8 @@ namespace Generic.Controllers
                 }
             }
 
-            return RedirectToAction("QuestionnaireQuestionnaireAutoMail", new { id = id });
+            // return RedirectToAction("QuestionnaireQuestionnaireAutoMail", new { id = id });
+            return Redirect("~/Questionnaire/QuestionnaireQuestionnaireAutoMail/" + id);
             //return RedirectToAction("/QuestionnaireQuestionnaireAutoMail/" + id);
 
         }
