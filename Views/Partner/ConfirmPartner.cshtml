@@ -21,13 +21,15 @@
         left: 0;
     }
 
-    .rbtncls {
-        width: 15px;
-        margin-left: 0px;
+    .t-link {
+        text-align: center;
+    }
+    .alertify-message {
+        word-wrap: break-word;
     }
 </style>
 <form action="@Url.Content("~/Partner/ConfirmPartner")" method="post">
-
+  @*<input id="SelectedRecord" type="hidden" value="@ViewBag.SelectedRecord" name="SelectedRecord">*@
     @( Html.Telerik().Grid(Model).Name("ConfirmPartnerGrid")
     .ToolBar(commands =>
          {
@@ -37,50 +39,35 @@
         .Columns(columns =>
         {
             columns.Bound(o => o.IsSelected1)
-
-                   @*.Title("<input type='radio' onchange='SelectallFirstRadioButtons();' id='rbtnSelectAll1' class='rbtncls' name='checkedRecords' />")*@
-.Title("A")
-                   .Template(@<text><input type='radio' id="@item.id" name='rbtnSelect_@item.id' style="width:15px;" onclick="SelectedPartnerA(this)"  /></text>)
-
+                   .Title(" A")
+                   .Template(@<text><input type='radio' id='@item.Partner_A' name='rbtnSelect_@item.id' style="width:15px;" onclick="SelectedPartnerA(this)" /></text>)
                    .Width(30)
-                   .HtmlAttributes(new { style = "text-align:center" });
+                   .HtmlAttributes(new { style = "text-align:center;" });
 
-            //columns.Bound(@Html.RadioButtonFor('@item.id').Title("A").Width(30);
-            columns.Bound(o => o.Partner_A_Name).Title("Name").Width(70);
-            columns.Bound(o => o.Group1).Title("Group").Width(70);
-            @*columns.Bound(o => o.StatusID_1).Title("StatusID").Width(100);*@
-            columns.Bound(o => o.Status1).Title("Status").Width(80);
-            columns.Bound(o => o.IsReference1).Title("Ref").Width(50);
+            columns.Bound(o => o.Partner_A_Name).Title("Name").Width(100);
+            columns.Bound(o => o.Group1).Title("Group").Width(50);
+            columns.Bound(o => o.Status1).Title("Status").Width(80).HtmlAttributes(new { style = "text-overflow: ellipsis !important;overflow: hidden !important;white-space: nowrap;" });
+            columns.Bound(o => o.IsReference1).Title("Ref").Width(30).HtmlAttributes(new { style = "text-align:center;" });;
 
             columns.Bound(o => o.IsSelected2)
-
-                   @*.Title("<input type='radio' onchange='SelectallSecondRadioButtons();' id='rbtnSelectAll2' class='rbtncls' name='checkedRecords' />")*@
-.Title("B")
-                  .Template(@<text><input type='radio' id="@item.id" style="width:15px;" name='rbtnSelect_@item.id' onclick="SelectedPartnerB(this)"  /></text>)
+                  .Title(" B")
+                  .Template(@<text><input type='radio' id="@item.Partner_B" style="width:15px;" name='rbtnSelect_@item.id' onclick="SelectedPartnerB(this)" /></text>)
                   .Width(30)
                   .HtmlAttributes(new { style = "text-align:center;width:50px" });
 
-            columns.Bound(o => o.Partner_B_Name).Title("Name").Width(70);
+            columns.Bound(o => o.Partner_B_Name).Title("Name").Width(100).HtmlAttributes(new { style = "overflow: hidden !important;"});
+            columns.Bound(o => o.Group2).Title("Group").Width(50);
+            columns.Bound(o => o.Status2).Title("Status").Width(80).HtmlAttributes(new { style = "text-overflow: ellipsis !important;overflow: hidden !important;white-space: nowrap;" });
+            columns.Bound(o => o.IsReference2).Title("Ref").Width(30).HtmlAttributes(new { style = "text-align:center;" });;
+            columns.Bound(o => o.EmailMatch).Title("EM").Width(30).HtmlAttributes(new { style = "text-align:center;" });;
+            columns.Bound(o => o.InternalIDMatch).Title("IM").Width(30).HtmlAttributes(new { style = "text-align:center;" });;
+            columns.Bound(o => o.FederalIDMatch).Title("FM").Width(30).HtmlAttributes(new { style = "text-align:center;" });;
+            columns.Bound(o => o.DUNSMatch).Title("DM").Width(30).HtmlAttributes(new { style = "text-align:center;" });;
+            columns.Bound(o => o.NameMatch).Title("NM").Width(30).HtmlAttributes(new { style = "text-align:center;" });;
 
-            columns.Bound(o => o.Group2).Title("Group").Width(70);
-            @*columns.Bound(o => o.StatusID_2).Title("StatusID").Width(100);*@
-            columns.Bound(o => o.Status2).Title("Status").Width(80).HtmlAttributes(new { style = "text-overflow: ellipsis !important;overflow: hidden !important;" });
-            columns.Bound(o => o.IsReference2).Title("Ref").Width(50);
-            columns.Bound(o => o.EmailMatch).Title("EM").Width(45);
-            columns.Bound(o => o.InternalIDMatch).Title("IM").Width(45);
-            columns.Bound(o => o.FederalIDMatch).Title("FM").Width(45);
-            columns.Bound(o => o.DUNSMatch).Title("DM").Width(45);
-            columns.Bound(o => o.NameMatch).Title("NM").Width(45);
-                          
-            
-            @*columns.Command(commands => commands.Custom("Ignore").Text("Ignore").SendState(false).Ajax(true).Action("IgnoreDetails", "Partner")).Title("Ignore").Width(100);
-            columns.Command(commands => commands.Custom("Remove").Text("Remove").SendState(false).Ajax(true).Action("RemoveDetails", "Partner")).Title("Remove").Width(100);
-            columns.Command(commands => commands.Custom("Shadow").Text("Shadow").SendState(false).Ajax(true).Action("ShadowDetails", "Partner")).Title("Shadow").Width(100);
-            columns.Command(commands => commands.Custom("Skip").Text("Skip").SendState(false).Ajax(true).Action("SkipDetails", "Partner")).Title("Skip").Width(100);*@
-        
             columns.Bound(o => o.IsCheckboxSelected)
             .Title("ActionType")
-             .Template(@<text><select><option value="0">Select</option>
+             .Template(@<text><select id="ddlactionType_@item.id"><option value="0">Select</option>
                   <option value="1">Ignore</option>
                   <option value="2">Remove</option>
                   <option value="3">Shadow</option>
@@ -90,13 +77,12 @@
              .HtmlAttributes(new { style = "text-align:center" });
 
             columns.Bound(o => o.IsCheckboxSelected)
-            .Title("<input type='checkbox'  id='chkSelectAll' style='margin-left: 11px;' name='checkedRecords' value='<#= IsCheckboxSelected #>' />")
-            .Template(@<text><input type='checkbox' id='chkpartnerconfirm' name='chkSelect' value='' /></text>)
-                                                   .Width(40)
+            .Title("")@*"<input type='checkbox'  id='chkSelectAll' style='margin-left: 11px;' name='checkedRecords' value='<#= IsCheckboxSelected #>' />")*@
+            .Template(@<text><input type='checkbox' id='chkpartnerconfirm_@item.id' onclick='GetRowDetails(this)' name='chkSelect' value='@item.id' /></text>)
+                                                   .Width(30)
                                                    .HtmlAttributes(new { style = "text-align:center" });
         })
 
-         //.ClientEvents(events => events.OnDataBound("onDataBound"))
             //.DataKeys(keys => keys.Add(o => o.internalID))
         .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
         .Sortable(sorting => sorting.Enabled(true))
@@ -144,76 +130,108 @@
     $(function () {
         jQuery.noConflict();
     });
-
+    var TotalRecord = "";
     $("#btnconfirm").click(function () {
         debugger;
-        var count = $("input[name='chkSelect']:checked").length;      
-        if (count == 0) {
-            alert("No rows selected.");
-            return false;
+        if (TotalRecord != '') {
+            //alert(TotalRecord);
+
+            alertify.set({
+                labels: {                 
+                    ok: "Cancel",cancel: "OK"
+                }
+            });
+
+            var TotalRecordForSP = "'" + TotalRecord + "'";
+            alertify.confirm("Your selected records: " + TotalRecordForSP, function (e) {
+                if (e) {
+                    // Click no
+                } else {
+                    // click yes         
+                }
+            });
+
+
         }
-        else {
-            var displayedData = $("#ConfirmPartnerGrid").data().Telerik.dataSource.view()
-            return alert(count + " row(s) are selected");
-                      
-        }
+        //var count = $("input[name='chkSelect']:checked").length;
+        //if (count == 0) {
+        //    alert("No rows selected.");
+        //    return false;
+        //}
+        //else {
+        //   // var displayedData = $("#ConfirmPartnerGrid").data().Telerik.dataSource.view()
+        //    return alert(count + " row(s) are selected");                     
+        //}
     });
+    
+    //Tocheck and uncheck all the check boxes
+    $("#chkSelectAll").click(function () {
+        debugger;
+        $("input[name='chkSelect']").attr("checked", this.checked);
+
+        $("input[name='chkSelect']").click(function () {
+            if ($("input[name='chkSelect']").length == $("input[name='chkSelect']:checked").length) {
+                $("#chkSelectAll").attr("checked", "checked");
+            }
+            else {
+                $("#chkSelectAll").removeAttr("checked");
+            }
+        });
+    });
+
+    
+
+    function GetRowDetails(e) {
+        debugger;
+        var recordID = e.value;
+        if ($("#chkpartnerconfirm_" + recordID).is(':checked')) {
+            //var closer = $(e).closest("tr").find('td input:radio');
+            var name = $(e).closest("tr").find('td input:radio')[0].name;
+            if ($("input[type='radio'][name='" + name + "']:checked")[0] || $("input[type='radio'][name='" + name + "']:checked")[1]) {
+                if ($("#ddlactionType_" + recordID).val() != "0") {
+                    var Checked = $("input[type='radio'][name='" + name + "']:checked")[0].id;
+                    var UnChecked = $("input[type='radio'][name='" + name + "']:not(:checked)")[0].id;
+                    var ActionType = $("#ddlactionType_" + recordID).val();
+                    TotalRecord += Checked + "," + UnChecked + "," + ActionType + ";";
+                    //alert(TotalRecord);
+                }
+                else {
+                    $("#chkpartnerconfirm_" + recordID).removeAttr("checked");
+                    alert("Please select action type");
+                }
+            }
+            else {
+                $("#chkpartnerconfirm_" + recordID).removeAttr("checked");
+                alert("Please select a group");
+            }
+        }
+    else{
+            var name = $(e).closest("tr").find('td input:radio')[0].name;
+             var Checked = $("input[type='radio'][name='" + name + "']:checked")[0].id;
+             var UnChecked = $("input[type='radio'][name='" + name + "']:not(:checked)")[0].id;
+             var ActionType = $("#ddlactionType_" + recordID).val();
+             var value = Checked + "," + UnChecked + "," + ActionType + ";";
+             TotalRecord = TotalRecord.replace(value,'');
+             //alert(TotalRecord);
+}
+  
+    }
+
+
+    // when radio buttons are checked
+    function SelectedPartnerA(e) {
+        GroupAarray.push(e.id)
+       
+    }
+    function SelectedPartnerB(e) {
+        GroupBarray.push(e.id)
+    }
 
     function CloseMe() {
         $("#genericPopup").dialog('close');
         //$(".t-icon .t-refresh").trigger('click');
 
         window.location.replace(window.location.href);
-    }
-
-    function SelectallFirstRadioButtons() {
-        // if check all is checked, all radio buttons  are selected
-        // if check all is unchecked, all radio buttons are cleared
-
-        if ($('#rbtnSelectAll1').is(':checked')) {
-            debugger;
-            $('input:radio[name$=rbtnSelect1]').each(
-              function () {
-                  $(this).attr('checked', 'checked');
-              });
-            $('input:radio[name$=rbtnSelect2]').each(
-              function () {
-                  debugger;
-                  $(this).removeAttr('checked');
-              });
-        }
-        else {
-            $('input:radio[name$=rbtnSelect1]').each(
-              function () {
-                  debugger;
-                  $(this).removeAttr('checked');
-              });
-        }
-    }
-
-    function SelectallSecondRadioButtons() {
-        // if check all is checked, all radio buttons  are selected
-        // if check all is unchecked, all radio buttons are cleared
-
-        if ($('#rbtnSelectAll2').is(':checked')) {
-            debugger;
-            $('input:radio[name$=rbtnSelect2]').each(
-              function () {
-                  $(this).attr('checked', 'checked');
-              });
-            $('input:radio[name$=rbtnSelect1]').each(
-              function () {
-                  debugger;
-                  $(this).removeAttr('checked');
-              });
-        }
-        else {
-            $('input:radio[name$=rbtnSelect2]').each(
-              function () {
-                  debugger;
-                  $(this).removeAttr('checked');
-              });
-        }
     }
 
     function Selectall() {
@@ -234,22 +252,6 @@
         }
     }
 
-
-    $("#chkSelectAll").click(function () {
-        debugger;
-        $("input[name='chkSelect']").attr("checked", this.checked);
-
-        $("input[name='chkSelect']").click(function () {
-            if ($("input[name='chkSelect']").length == $("input[name='chkSelect']:checked").length) {
-                $("#chkSelectAll").attr("checked", "checked");
-            }
-            else {
-                $("#chkSelectAll").removeAttr("checked");
-            }
-        });
-
-    });
-
     //$('input:radio[name$=chkSelect]').click(
     //function () {
     //    // if any of the checkbox is unchecked
@@ -266,14 +268,5 @@
     //        }
     //    }
     //});
-
-    function SelectedPartnerA(id) {
-        alert("A");
-        
-    }
-    function SelectedPartnerB(id) {
-        alert("B");
-    }
-
 </script>
 

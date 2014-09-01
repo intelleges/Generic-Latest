@@ -1315,7 +1315,6 @@ namespace Generic.Controllers
            // List<view_PartnerConfirmationData> objConfirmPartnerList = db.pr_getPartnerConfirmationData2((int)Generic.Helpers.CurrentInstance.EnterpriseID, (int)Session["touchpoint"]);
             List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
             return View("ConfirmPartner", objConfirmPartnerViewModelList);
-
         }
 
         private List<ConfirmPartnerViewModel> ConvertToConfirmPartnerViewModel(List<view_PartnerConfirmationData> iview_ConfirmPartnerDataList)
@@ -1387,10 +1386,9 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult ConfirmDetails(int parnerA)
+        public ActionResult ConfirmPartner(List<int> chkSelect, List<int> rbtnSelectA, List<int> rbtnSelectB)
         {
-            return View("ConfirmPartner");
+            return RedirectToAction("ConfirmPartner");
         }
-
     }
 }
