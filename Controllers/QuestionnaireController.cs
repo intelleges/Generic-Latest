@@ -192,7 +192,7 @@ namespace Generic.Controllers
         public ActionResult QuestionnaireQuestionnaireCMS(int id = 0)
         {
             List<questionnaireQuestionnaireCMS> questionnairedetail = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(id).ToList();
-            return View(questionnairedetail);
+            return View(questionnairedetail); 
         }
         public ActionResult QuestionnaireQuestionnaireAutoMail(int id = 0)
         {
@@ -1078,7 +1078,9 @@ namespace Generic.Controllers
                     }
                 }
             }
-             Response.Redirect("../QuestionnaireQuestionnaireCMS/" + id);
+
+
+            Response.Redirect(Url.Action("QuestionnaireQuestionnaireCMS", "Questionnaire", new { id = id }));
            // return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = int.Parse(id) });
            // return QuestionnaireQuestionnaireCMS(int.Parse(id));
           //  return RedirectToAction("QuestionnaireQuestionnaireCMS");
@@ -1149,8 +1151,8 @@ namespace Generic.Controllers
                 }
             }
 
-            // return RedirectToAction("QuestionnaireQuestionnaireAutoMail", new { id = id });
-            return Redirect("~/Questionnaire/QuestionnaireQuestionnaireAutoMail/" + id);
+            return RedirectToAction("QuestionnaireQuestionnaireAutoMail", "Questionnaire", new { id = id });
+            //return Redirect("~/Questionnaire/QuestionnaireQuestionnaireAutoMail/" + id);
             //return RedirectToAction("/QuestionnaireQuestionnaireAutoMail/" + id);
 
         }
