@@ -14,7 +14,7 @@ namespace Generic
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute("GenericNew", // Route name 
-                "mvcmt/Generic/{controller}/{action}/{id}",
+                "{controller}/{action}/{id}",
                 // URL with parameters 
                 new { controller = "Admin", action = "Index", id = UrlParameter.Optional },// Parameter defaults 
                 null,
