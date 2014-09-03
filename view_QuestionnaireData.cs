@@ -27,9 +27,9 @@ namespace Generic
         public int personID { get; set; }
         public string Author { get; set; }
         public string Locked { get; set; }
-        public int Completed { get; set; }
-        public int Incomplete { get; set; }
-        public int No_Response { get; set; }
+        public Nullable<int> Completed { get; set; }
+        public Nullable<int> InComplete { get; set; }
+        public Nullable<int> No_Response { get; set; }
         public string CMS { get; set; }
         public string Reminders { get; set; }
         public Nullable<int> active { get; set; }

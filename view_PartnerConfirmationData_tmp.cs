@@ -14,7 +14,7 @@ namespace Generic
     
     public partial class view_PartnerConfirmationData_tmp
     {
-        public Nullable<long> id { get; set; }
+        public Nullable<int> id { get; set; }
         public Nullable<int> enterprise { get; set; }
         public int touchpoint { get; set; }
         public int Partner_A { get; set; }

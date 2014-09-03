@@ -21,10 +21,7 @@
         left: 0;
     }
 
-    .t-link {
-        text-align: center;
-    }
-    .alertify-message {
+     .alertify-message {
         word-wrap: break-word;
     }
 </style>
@@ -39,21 +36,21 @@
         .Columns(columns =>
         {
             columns.Bound(o => o.IsSelected1)
-                   .Title("A")
+                   .Title("&nbsp;A")
                    .Template(@<text><input type='radio' id='@item.Partner_A' name='rbtnSelect_@item.id' style="width:15px;" onclick="SelectedPartnerA(this)" /></text>)
                    .Width(25)
-                   .HtmlAttributes(new { style = "text-align:center;" });
+                   .HtmlAttributes(new { style = "" });
 
             columns.Bound(o => o.Partner_A_Name).Title("Name").Width(100);
             columns.Bound(o => o.Group1).Title("Group").Width(50);
             columns.Bound(o => o.Status1).Title("Status").Width(80).HtmlAttributes(new { style = "text-overflow: ellipsis !important;overflow: hidden !important;white-space: nowrap;" });
-            columns.Bound(o => o.IsReference1).Title("Ref").Width(30).HtmlAttributes(new { style = "text-align:center;" });;
+            columns.Bound(o => o.IsReference1).Title("Ref").Width(30).HtmlAttributes(new { style = "text-align:left;" });;
 
             columns.Bound(o => o.IsSelected2)
-                  .Title("B")
+                  .Title("&nbsp;B")
                   .Template(@<text><input type='radio' id="@item.Partner_B" style="width:15px;" name='rbtnSelect_@item.id' onclick="SelectedPartnerB(this)" /></text>)
                   .Width(25)
-                  .HtmlAttributes(new { style = "text-align:center;" });
+                  .HtmlAttributes(new { style = "" });
 
             columns.Bound(o => o.Partner_B_Name).Title("Name").Width(100).HtmlAttributes(new { style = "overflow: hidden !important;"});
             columns.Bound(o => o.Group2).Title("Group").Width(50);

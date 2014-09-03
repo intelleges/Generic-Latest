@@ -28,5 +28,6 @@ namespace Generic
         public int PartnerType_Count { get; set; }
         public int id { get; set; }
         public Nullable<int> active { get; set; }
+        public string Locked { get; set; }
     }
 }

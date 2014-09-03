@@ -12,7 +12,7 @@ namespace Generic.ViewModel
         public bool IsSelected2 { get; set; }
         public bool IsCheckboxSelected { get; set; }
 
-        public Nullable<long> id { get; set; }
+        public Nullable<int> id { get; set; }
         public Nullable<int> enterprise { get; set; }
         public int touchpoint { get; set; }
         public int Partner_A { get; set; }

@@ -1310,14 +1310,16 @@ namespace Generic.Controllers
         // To Confirm Partner
         public ActionResult ConfirmPartner()
         {
-            string arguments = "enterprise=" + (int)Generic.Helpers.CurrentInstance.EnterpriseID + ";touchpoint=" + (int)Session["touchpoint"] + ";";
-            List<view_PartnerConfirmationData> objConfirmPartnerList = db.Database.SqlQuery<view_PartnerConfirmationData>("EXEC pr_getPartnerConfirmationData2 @enterprise,@touchpoint", new SqlParameter("enterprise", (int)Generic.Helpers.CurrentInstance.EnterpriseID), new SqlParameter("touchpoint", (int)Session["touchpoint"])).ToList();
+            //string arguments = "enterprise=" + (int)Generic.Helpers.CurrentInstance.EnterpriseID + ";touchpoint=" + Session["touchpoint"] + ";";
+            int touchpointID = Convert.ToInt32(Session["touchpoint"].ToString().Trim());
+            int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
+            List<view_PartnerConfirmationData_tmp> objConfirmPartnerList = db.Database.SqlQuery<view_PartnerConfirmationData_tmp>("pr_getPartnerConfirmationData2 @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
            // List<view_PartnerConfirmationData> objConfirmPartnerList = db.pr_getPartnerConfirmationData2((int)Generic.Helpers.CurrentInstance.EnterpriseID, (int)Session["touchpoint"]);
             List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
             return View("ConfirmPartner", objConfirmPartnerViewModelList);
         }
 
-        private List<ConfirmPartnerViewModel> ConvertToConfirmPartnerViewModel(List<view_PartnerConfirmationData> iview_ConfirmPartnerDataList)
+        private List<ConfirmPartnerViewModel> ConvertToConfirmPartnerViewModel(List<view_PartnerConfirmationData_tmp> iview_ConfirmPartnerDataList)
         {
             List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = new List<ConfirmPartnerViewModel>();
 
@@ -1336,7 +1338,7 @@ namespace Generic.Controllers
 
                 objConfirmPartnerViewModel.Status1 = iview_ConfirmPartnerData.Status1;
                // string strref1 = iview_ConfirmPartnerData.isReference1.ToString()=="True" ? "Yes" : "No";
-                objConfirmPartnerViewModel.IsReference1 = iview_ConfirmPartnerData.IsReference1;
+                objConfirmPartnerViewModel.IsReference1 = iview_ConfirmPartnerData.IsReference1.ToString() == "True" ? "Yes" : "No"; ;
 
                 objConfirmPartnerViewModel.Partner_B = iview_ConfirmPartnerData.Partner_B;
                 objConfirmPartnerViewModel.Partner_B_Name = iview_ConfirmPartnerData.Partner_B_Name;

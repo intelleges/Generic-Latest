@@ -171,9 +171,9 @@ namespace Generic
         public DbSet<view_PartnerData> view_PartnerData { get; set; }
         public DbSet<view_PersonData> view_PersonData { get; set; }
         public DbSet<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
-        public DbSet<view_QuestionnaireData> view_QuestionnaireData { get; set; }
         public DbSet<ConfirmPartnerActionType> ConfirmPartnerActionType { get; set; }
         public DbSet<tmpPartnerConfirm> tmpPartnerConfirm { get; set; }
+        public DbSet<view_QuestionnaireData> view_QuestionnaireData { get; set; }
         public DbSet<view_PartnerConfirmationData> view_PartnerConfirmationData { get; set; }
         public DbSet<view_PartnerConfirmationData_tmp> view_PartnerConfirmationData_tmp { get; set; }
     
