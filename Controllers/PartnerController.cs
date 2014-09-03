@@ -1313,6 +1313,8 @@ namespace Generic.Controllers
             //string arguments = "enterprise=" + (int)Generic.Helpers.CurrentInstance.EnterpriseID + ";touchpoint=" + Session["touchpoint"] + ";";
             int touchpointID = Convert.ToInt32(Session["touchpoint"].ToString().Trim());
             int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
+            //int enterpriseid = 1067;
+            //int touchpointID = 1016;           
             List<view_PartnerConfirmationData_tmp> objConfirmPartnerList = db.Database.SqlQuery<view_PartnerConfirmationData_tmp>("pr_getPartnerConfirmationData2 @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
            // List<view_PartnerConfirmationData> objConfirmPartnerList = db.pr_getPartnerConfirmationData2((int)Generic.Helpers.CurrentInstance.EnterpriseID, (int)Session["touchpoint"]);
             List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
@@ -1387,10 +1389,16 @@ namespace Generic.Controllers
             return View("ConfirmPartner");
         }
 
-        [HttpPost]
-        public ActionResult ConfirmPartner(List<int> chkSelect, List<int> rbtnSelectA, List<int> rbtnSelectB)
+        public JsonResult ConfirmPartnerRecords(string inputList)
         {
-            return RedirectToAction("ConfirmPartner");
+            try
+            {
+                return Json("sent", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(-1, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

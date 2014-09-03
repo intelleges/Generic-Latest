@@ -41,8 +41,8 @@
                    .Width(25)
                    .HtmlAttributes(new { style = "" });
 
-            columns.Bound(o => o.Partner_A_Name).Title("Name").Width(100);
-            columns.Bound(o => o.Group1).Title("Group").Width(50);
+            columns.Bound(o => o.Partner_A_Name).Title("Name").Width(100).HtmlAttributes(new { style = "overflow: hidden !important;"});
+            columns.Bound(o => o.Group1).Title("Group").Width(50).HtmlAttributes(new { style = "overflow: hidden !important;text-overflow: ellipsis !important;"});
             columns.Bound(o => o.Status1).Title("Status").Width(80).HtmlAttributes(new { style = "text-overflow: ellipsis !important;overflow: hidden !important;white-space: nowrap;" });
             columns.Bound(o => o.IsReference1).Title("Ref").Width(30).HtmlAttributes(new { style = "text-align:left;" });;
 
@@ -53,7 +53,7 @@
                   .HtmlAttributes(new { style = "" });
 
             columns.Bound(o => o.Partner_B_Name).Title("Name").Width(100).HtmlAttributes(new { style = "overflow: hidden !important;"});
-            columns.Bound(o => o.Group2).Title("Group").Width(50);
+            columns.Bound(o => o.Group2).Title("Group").Width(50).HtmlAttributes(new { style = "overflow: hidden !important;text-overflow: ellipsis !important;"});
             columns.Bound(o => o.Status2).Title("Status").Width(80).HtmlAttributes(new { style = "text-overflow: ellipsis !important;overflow: hidden !important;white-space: nowrap;" });
             columns.Bound(o => o.IsReference2).Title("Ref").Width(30).HtmlAttributes(new { style = "text-align:center;" });;
             columns.Bound(o => o.EmailMatch).Title("EM").Width(30).HtmlAttributes(new { style = "text-align:center;" });;
@@ -133,20 +133,39 @@
         if (TotalRecord != '') {
             //alert(TotalRecord);
 
-            alertify.set({
-                labels: {                 
-                    ok: "Cancel",cancel: "OK"
-                }
-            });
+            //alertify.set({
+            //    labels: {                 
+            //        ok: "Cancel",cancel: "OK"
+            //    }
+            //});
 
             var TotalRecordForSP = "'" + TotalRecord + "'";
-            alertify.confirm("Your selected records: " + TotalRecordForSP, function (e) {
-                if (e) {
-                    // Click no
-                } else {
-                    // click yes         
-                }
-            });
+
+            function ConfirmPartnerRecords() {
+                debugger;
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("ConfirmPartnerRecords", "Partner")',
+                    data: { inputList: TotalRecordForSP },
+                    async: false,
+                    success: function (result) {
+                        debugger
+                        if (result == -1) {
+                            alert("An error occured while confirming records.");
+                        }
+                    },
+                    error: function (err, msg) {
+                    }
+                });
+            }
+            }
+            //alertify.confirm("Your selected records: " + TotalRecordForSP, function (e) {
+            //    if (e) {
+            //        // Click no
+            //    } else {
+            //        // click yes         
+            //    }
+            //});
 
 
         }
