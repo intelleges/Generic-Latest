@@ -107,12 +107,14 @@ namespace Generic.Controllers
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
-            ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname");
+            //ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname");
             ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname");
-
+            ViewBag.owner=db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}",  v.firstName, v.lastName) }).ToList();
 
             return View();
         }
+
+        
 
         //
         // POST: /Partner/Create
@@ -134,7 +136,9 @@ namespace Generic.Controllers
                 Session["partnertype"] = partnertype;
                 Session["touchpoint"] = touchpoint;
                 Session["loadGroup"] = loadGroup;
-                ViewBag.Message = "1";
+                var Target = db.touchpoint.Where(x => x.id==touchpoint).Select(x => x.target).ToList();
+                ViewBag.Message = Target[0].ToString();
+                //ViewBag.Message = "1";
 
             }
             catch

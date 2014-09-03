@@ -6,7 +6,8 @@
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Partner";
     }
-
+ <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
     <script>
         //jQuery.noConflict();
         jQuery(document).ready(function () {
@@ -41,27 +42,91 @@
                 }
             });
 
-
         });
 
 
+          
 
+            if ("@ViewBag.Message" == "1") {
+                debugger;
+           // $('.addPartnerDiv').hide();
+            //$('#btnInvite').show();
+            //$('#btnInvitelater').show();
+            //jQuery("#dvInvite").dialog({
+            //    width: 350,
+            //    height:300,
+            //    buttons: {
+            //           "Cancel": function () {
+            //            alert('you choose cancel');
+            //            $(this).dialog('close');
+            //        }
+            //    }
+            //});
+            alertify.set({
+                labels: {
+                    ok: "Invite Later", cancel: "Invite Now"
+                }
+            });
 
+            
+            alertify.confirm("" , function (e) {
+                if (e) {
+                    // Click no
+                } else {
+                    // click yes         
+                }
+            });
 
-
-
-
-        if ("@ViewBag.Message" == "1") {
-            $('.addPartnerDiv').hide();
-            $('#btnInvite').show();
-            $('#btnInvitelater').show();
-
-            alertify.alert('Partner uploaded successfully');
+           // alertify.alert('Partner uploaded successfully');
         }
 
-        if ("@ViewBag.Message" == "2") {
-            alertify.alert('Invitation Sent');
-        }
+            if ("@ViewBag.Message" == "2") {
+                debugger;
+               // $('.addPartnerDiv').hide();
+                //$('#btnConfirm').show();
+                //$('#btnConfirmlater').show();
+                //alertify.alert('Invitation Sent');
+                alertify.set({
+                    labels: {
+                        ok: "Confirm Later", cancel: "Confirm Now"
+                    }
+                });
+
+
+                alertify.confirm("", function (e) {
+                    if (e) {
+                        // Click no
+                    } else {
+                        // click yes         
+                    }
+                });
+               
+
+                //$("#dvConfirm").dialog({
+                //        resizable: false,
+                //        height:140,
+                //        modal: true,
+                //        buttons: {
+                //            "Delete all items": function() {
+                //                $( this ).dialog( "close" );
+                //            },
+                //            Cancel: function() {
+                //                $( this ).dialog( "close" );
+                //            }
+                //        }
+                //    });
+
+                //jQuery("#dvConfirm").dialog({
+                //    width: 350,
+                //    height: 300,
+                //    buttons: {
+                //        "Cancel": function () {
+                //            alert('you choose cancel');
+                //            $(this).dialog('close');
+                //        }
+                //    }
+                //});
+            }
 
         $('#btnInvite').click(function (e) {
             e.preventDefault();
@@ -96,59 +161,54 @@
         });
 
 
-        $('#btnInviteList').click(function (e) {
-            e.preventDefault();
+            $('#btnInviteList').click(function (e) {
+                e.preventDefault();
 
 
-            $.ajax({
-                url: "@Url.Content("~/partner/InvitePartnersList")",
-                type: "post",
-            success: function (data) {
+                $.ajax({
+                    url: "@Url.Content("~/partner/InvitePartnersList")",
+                    type: "post",
+                    success: function (data) {
+                        var len = data.EventNotification.length;
 
-                var len = data.EventNotification.length;
+                        if (len == 0) {
+                            alertify.alert("Please wait, data processing");
+                        } else {
 
-                if (len == 0) {
-                    alertify.alert("Please wait, data processing");
-                } else {
-
-                    var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
-                    for (i = 0; i < len; i++)
-                        events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
-
-
-                    $('#DivEventNotification').html(events);
-                }
+                            var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                            for (i = 0; i < len; i++)
+                                events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
 
 
-            },
-            error: function (data) {
-                alertify.alert(data.Data.message);
-            }
-        });
-
-
-        });
+                            $('#DivEventNotification').html(events);
+                        }
+                    },
+                    error: function (data) {
+                        alertify.alert(data.Data.message);
+                    }
+                });
+            });
 
 
 
-        $('#btnInvitelater').click(function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: "@Url.Content("~/partner/InvitePartnersLater")",
-                type: "post",
-            success: function (data) {
-                alertify.alert(data.Data.message);
+            $('#btnInvitelater').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "@Url.Content("~/partner/InvitePartnersLater")",
+                    type: "post",
+                    success: function (data) {
+                        alertify.alert(data.Data.message);
 
-            },
-            error: function (data) {
-                alertify.alert(data.Data.message);
-            }
-        });
-        });
+                    },
+                    error: function (data) {
+                        alertify.alert(data.Data.message);
+                    }
+                });
+            });
 
         $("#btnClear").click(function (e) {
-            debugger;
-            alert("Clear Button Click");
+           // debugger;
+            //alert("Clear Button Click");
             $("#name").val("");
             $("#internalID").val("");
             $("#address1").val("");
@@ -176,6 +236,20 @@
         });
 
         });
+        function doSomething() {
+            alertify.alert('This part is Under Constrution');
+        }
+
+        $("#btnConfirm").click(function () {
+            debugger;
+            alertify.alert('you choose Confirm');
+        });
+
+        $("#btnConfirmlater").click(function () {
+            debugger;
+            alertify.alert('you choose Confirm Later');
+        });
+
     </script>
 
 
@@ -215,6 +289,7 @@
 
         .txtClass {
             border-radius: 5px;
+            border-color:rgb(169, 169, 169);
         }
 
         .ddlClass {
@@ -294,11 +369,9 @@
 
             <div class="threecol">
                 <div class="editor-label">
-                    @*@Html.LabelFor(model => model.address1)*@
                     @Html.Label("Address 1")
                 </div>
                 <div class="editor-field">
-                    @*@Html.EditorFor(model => model.address1)*@
                     @Html.TextBoxFor(model=>model.address1,new {@class="txtClass"})
                     @Html.ValidationMessageFor(model => model.address1)
                 </div>
@@ -314,11 +387,11 @@
                 </div>
 
                 <div class="editor-label">
-                    @*@Html.LabelFor(model => model.city)*@
+                   
                     @Html.Label("City")
                 </div>
                 <div class="editor-field">
-                    @*@Html.EditorFor(model => model.city)*@
+                   
                     @Html.TextBoxFor(model=>model.city,new {@class="txtClass"})
                     @Html.ValidationMessageFor(model => model.city)
                 </div>
@@ -413,11 +486,11 @@
                 </div>
 
                 <div class="editor-label">
-                    @*@Html.LabelFor(model => model.email)*@
+                   
                     @Html.Label("Email")
                 </div>
                 <div class="editor-field">
-                    @*@Html.EditorFor(model => model.email)*@
+                   
                     @Html.TextBoxFor(model=>model.email,new {@class="txtClass"})
                     @Html.ValidationMessageFor(model => model.email)
                 </div>
@@ -451,24 +524,35 @@
                 </div>*@
 
                 <div class="editor-label">
-                    @*@Html.LabelFor(model => model.owner)*@
-                    @Html.Label("Owner")
+                    @Html.Label("Protocol")
                 </div>
                 <div class="editor-field">
-
-                    @Html.DropDownList("owner", null,String.Empty, new {@class="ddlClass" })
-                    @Html.ValidationMessageFor(model => model.owner)
+                    @Html.DropDownList("protocol", null,String.Empty, new {@class="ddlClass" })
                 </div>
-
-                <div class="editor-label">
-                    @*@Html.LabelFor(model => model.author)*@
+                 <div class="editor-label">
+                    @Html.Label("Touchpoint")
+                </div>
+                <div class="editor-field">
+                    <select id="touchpoint" name="touchpoint" class="ddlClass"></select>
+                </div>
+                
+                 <div class="editor-label">
+                    @Html.Label("Due Date")
+                </div>
+                <div class="editor-field">
+                    @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style="width:100%;"})
+                </div>
+               @* <div class="editor-label">
+                    
                     @Html.Label("Author")
                 </div>
                 <div class="editor-field">
 
                     @Html.DropDownList("author", null,String.Empty, new {@class="ddlClass" })
                     @Html.ValidationMessageFor(model => model.author)
-                </div>
+
+                    
+                </div>*@
 
 
 
@@ -480,52 +564,66 @@
                     @Html.ValidationMessageFor(model => model.dateApproved)
                 </div>*@
 
-                <div class="editor-label">
-                    @*@Html.LabelFor(model => model.active)*@
+               @* <div class="editor-label">
+                   
                     @Html.Label("Active")
                 </div>
                 <div class="editor-field">
-                    @*@Html.EditorFor(model => model.active)*@
+                   
                     @Html.TextBoxFor(model=>model.active,new {@class="txtClass"})
                     @Html.ValidationMessageFor(model => model.active)
-                </div>
+                </div>*@
 
-                <div class="editor-label">
-                    @Html.Label("Protocol")
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("protocol", null,String.Empty, new {@class="ddlClass" })
-                </div>
+                
 
-                <div class="editor-label">
-                    @Html.Label("Touchpoint")
-                </div>
-                <div class="editor-field">
-                    <select id="touchpoint" name="touchpoint" class="ddlClass"></select>
-                </div>
-                <div class="editor-label">
-                    @Html.Label("Partner Type")
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("partnertype", null,String.Empty, new {@class="ddlClass" })
-                    @*<a href="@Url.Content(" ~ />PartnerType/Create")">Add Partner Type</a>*@
-                </div>
-
-                <div class="editor-label">
+                 <div class="editor-label">
                     @Html.Label("Group")
                 </div>
                 <div class="editor-field">
                     @Html.DropDownList("group", null,String.Empty, new {@class="ddlClass",@style="margin-top: 3%;" })
 
-                    @*<a href="@Url.Content(" ~ />Group/Create")">Add Group</a>*@
+                   @* <a href="@Url.Content(" ~ /Group/Create")">Add Group</a>*@
 
                 </div>
+
                 <div class="editor-label">
-                    @Html.Label("Due Date")
+                    @Html.Label("Partner Type")
                 </div>
                 <div class="editor-field">
-                    @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style="width:100%;"})
+                    @Html.DropDownList("partnertype", null,String.Empty, new {@class="ddlClass" })
+                    @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Partner Type</a>*@
                 </div>
+               <div class="editor-label">
+                    @*@Html.LabelFor(model => model.owner)*@
+                    @Html.Label("Owner")
+                </div>
+                <div class="editor-field">
+
+                    @Html.DropDownList("owner", null,String.Empty, new {@class="ddlClass" })
+                    @Html.ValidationMessageFor(model => model.owner)
+                    @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Owner</a>*@
+                </div>
+                
+                 <div class="editor-label">
+                   
+                </div>
+                <div class="editor-field">
+                    <a id="lnkGrp" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Group</a>
+                </div>
+                <div class="editor-label">
+                   
+                </div>
+                <div class="editor-field">
+                    <a id="lnkPartnerType" href="javascript:doSomething();" style="margin-left:39%;font-size: 1em;">Add PartnerType</a>
+                </div>
+                <div class="editor-label">
+                   
+                </div>
+                <div class="editor-field">
+                    <a id="lnkOwner" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Owner</a>
+                </div>
+               
+               
 
 
 
@@ -537,18 +635,23 @@
                 @*<input type="button" onclick="CloseMe()" value="Cancel" />*@
             </p>
         </div>
-        <p>
-            <input type="submit" name="button" id="btnInvite" style="display: none" value="Send invites now" />
-            <input type="submit" name="button" id="btnInvitelater" style="display: none" value="Invite Later" />
-            <input type="submit" name="button" id="btnInviteList" style="display: none" value="View sent invites" />
-        </p>
-
+        <p><input type="submit" name="button" id="btnInviteList" style="display:none" value="View sent invites" /></p>
         <div id="DivEventNotification">
 
-        </div>
+        </div>         
     </fieldset>
 
+        <div id="dvInvite" style="display:none">
+            <input type="submit" name="button" id="btnInvite"  value="Send invites now" />
+            <input type="submit" name="button" id="btnInvitelater"  value="Invite Later" />
+        </div>
 
+        
+        <div id="dvConfirm" style="display:none">
+             @*For Confirm Now and later buttons*@
+            <input type="button" name="button" id="btnConfirm"  value="Confirm Now" />
+            <input type="button" name="button" id="btnConfirmlater"  value="Confirm Later" />
+        </div>
     @*<fieldset>
         <legend>partner</legend>
 
