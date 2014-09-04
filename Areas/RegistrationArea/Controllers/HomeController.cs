@@ -115,10 +115,79 @@ namespace Generic.Areas.RegistrationArea.Controllers
         [HttpPost]
         public virtual ActionResult Index(string accessCode)
         {
+            ViewBag.CMS_TITLE = CMS.ACCESS_CODE_TITLE;
+            ViewBag.CMS_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;
+            ViewBag.CMS_PANEL_ONE = CMS.ACCESS_CODE_PANEL_ONE;
+            ViewBag.CMS_PANEL_TWO = CMS.ACCESS_CODE_PANEL_TWO;
+            ViewBag.CMS_FOOTER_ONE = CMS.ACCESS_CODE_FOOTER_ONE;
+            ViewBag.CMS_FOOTER_TWO = CMS.ACCESS_CODE_FOOTER_TWO;
+            ViewBag.CMS_SUBMIT_TEXT = "Login";
+
             var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             if (ppptq != null)
             {
+                Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(db.pr_getPartner(ppptq.partner).FirstOrDefault().enterprise.ToString());
+
+
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+             
+                var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
+                var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
+                try
+                {
+                    var cms_Title = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_TITLE).id);
+                    if (cms_Title != null)
+                    {
+                        ViewBag.CMS_TITLE = cms_Title.text;
+
+                        Session["QuestionnaireTitle"] = cms_Title.text;
+
+                    }
+                    var cms_SubTitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBTITLE).id);
+                    if (cms_SubTitle != null)
+                    {
+                        ViewBag.CMS_SUBTITLE = cms_SubTitle.text;
+                    }
+
+                    var cms_PanelOne = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_PANEL_ONE).id);
+                    if (cms_PanelOne != null)
+                    {
+                        ViewBag.CMS_PANEL_ONE = cms_PanelOne.text;
+                    }
+
+                    var cms_PanelTwo = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_PANEL_TWO).id);
+                    if (cms_PanelTwo != null)
+                    {
+                        ViewBag.CMS_PANEL_TWO = cms_PanelTwo.text;
+                    }
+
+                    var cms_FooterOne = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_ONE).id);
+                    if (cms_FooterOne != null)
+                    {
+                        ViewBag.CMS_FOOTER_ONE = cms_FooterOne.text;
+                    }
+
+                    var cms_FooterTwo = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_TWO).id);
+                    if (cms_FooterTwo != null)
+                    {
+                        ViewBag.CMS_FOOTER_TWO = cms_FooterTwo.text;
+                    }
+
+                    var cms_SubmitText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBMIT_TEXT).id);
+                    if (cms_SubmitText != null)
+                    {
+                        ViewBag.CMS_SUBMIT_TEXT = cms_SubmitText.text;
+                    }
+
+                    var ret_AccCode = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.RETRIEVE_ACCESS_CODE_TEXT).id);
+                    if (ret_AccCode != null)
+                    {
+                        ViewBag.RETRIEVE_ACCESS_CODE_TEXT = ret_AccCode.text;
+                    }
+
+                }
+                catch { }
+                
                 var touchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
 
                 var responseTypesQuestionnaire = db.pr_getResponseTypeByQuestionnaire(ptq.questionnaire).ToList();
@@ -137,11 +206,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     Session["leveltype"] = objQuestionnaire.levelType;
                     Session["protocol"] = touchpoint.protocol;
                     Session["responseTypesQuestionnaire"] = responseTypesQuestionnaire;
-                    Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(db.pr_getPartner(ppptq.partner).FirstOrDefault().enterprise.ToString());
+                  //  Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(db.pr_getPartner(ppptq.partner).FirstOrDefault().enterprise.ToString());
                     List<CustomizedLSMW> CustomizedLSMW = new List<CustomizedLSMW>();
                     Session["CustomizedLSMW"] = CustomizedLSMW;
 
-                    if (ppptq.status < 7 )
+                    if (ppptq.status < 7)
                     {
                         ppptq.status = (int)PartnerStatus.Responded_Incomplete;
                         db.Entry(ppptq).State = EntityState.Modified;
@@ -153,14 +222,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                     return RedirectToAction("companyInformation");
                 }
+                else
+                {
+                    ViewBag.message = "expired";
+                }
             }
-            ViewBag.CMS_TITLE = CMS.ACCESS_CODE_TITLE;
-            ViewBag.CMS_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;
-            ViewBag.CMS_PANEL_ONE = CMS.ACCESS_CODE_PANEL_ONE;
-            ViewBag.CMS_PANEL_TWO = CMS.ACCESS_CODE_PANEL_TWO;
-            ViewBag.CMS_FOOTER_ONE = CMS.ACCESS_CODE_FOOTER_ONE;
-            ViewBag.CMS_FOOTER_TWO = CMS.ACCESS_CODE_FOOTER_TWO;
-            ViewBag.CMS_SUBMIT_TEXT = "Login";
+            else
+            {
+                ViewBag.message = "expired";
+            }
+           
             return View();
         }
 
