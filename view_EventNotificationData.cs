@@ -19,14 +19,12 @@ namespace Generic
         public string internalID { get; set; }
         public int mailtype { get; set; }
         public string emailType { get; set; }
+        public string email { get; set; }
         public System.DateTime Date_Sent { get; set; }
         public int partner { get; set; }
         public int partnertypetouchpointquestionnaire { get; set; }
-        public Nullable<System.DateTime> timestamp { get; set; }
         public string @event { get; set; }
         public string accesscode { get; set; }
-        public int id { get; set; }
-        public string email { get; set; }
         public string Touchpoint { get; set; }
     }
 }

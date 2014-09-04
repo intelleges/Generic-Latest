@@ -28,7 +28,7 @@ namespace Generic
         public string Author { get; set; }
         public string Locked { get; set; }
         public Nullable<int> Completed { get; set; }
-        public Nullable<int> InComplete { get; set; }
+        public Nullable<int> Incomplete { get; set; }
         public Nullable<int> No_Response { get; set; }
         public string CMS { get; set; }
         public string Reminders { get; set; }

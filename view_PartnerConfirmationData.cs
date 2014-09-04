@@ -17,14 +17,14 @@ namespace Generic
         public int id { get; set; }
         public int enterprise { get; set; }
         public int touchpoint { get; set; }
-        public int Partner_A { get; set; }
+        public int partnerA { get; set; }
         public string partnerA_Name { get; set; }
         public int group1 { get; set; }
         public string group1_Name { get; set; }
         public int status1 { get; set; }
         public string status1_Name { get; set; }
         public bool isReference1 { get; set; }
-        public int Partner_B { get; set; }
+        public int partnerB { get; set; }
         public string partnerB_Name { get; set; }
         public int group2 { get; set; }
         public string group2_Name { get; set; }

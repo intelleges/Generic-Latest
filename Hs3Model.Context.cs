@@ -165,7 +165,6 @@ namespace Generic
         public DbSet<v_PartnerFind> v_PartnerFind { get; set; }
         public DbSet<view_ProtocolData> view_ProtocolData { get; set; }
         public DbSet<view_TouchpointData> view_TouchpointData { get; set; }
-        public DbSet<view_EventNotificationData> view_EventNotificationData { get; set; }
         public DbSet<view_EnterpriseData> view_EnterpriseData { get; set; }
         public DbSet<view_GroupData> view_GroupData { get; set; }
         public DbSet<view_PartnerData> view_PartnerData { get; set; }
@@ -173,9 +172,10 @@ namespace Generic
         public DbSet<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
         public DbSet<ConfirmPartnerActionType> ConfirmPartnerActionType { get; set; }
         public DbSet<tmpPartnerConfirm> tmpPartnerConfirm { get; set; }
-        public DbSet<view_QuestionnaireData> view_QuestionnaireData { get; set; }
         public DbSet<view_PartnerConfirmationData> view_PartnerConfirmationData { get; set; }
         public DbSet<view_PartnerConfirmationData_tmp> view_PartnerConfirmationData_tmp { get; set; }
+        public DbSet<view_QuestionnaireData> view_QuestionnaireData { get; set; }
+        public DbSet<view_EventNotificationData> view_EventNotificationData { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
