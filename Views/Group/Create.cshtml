@@ -1,120 +1,133 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<Generic.group>
-    @using System.Web.Mvc.Html
-    @using Generic.Helpers
-    @{
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Group";
     //Html.EnableUnobtrusiveJavaScript(true);
     //Html.EnableClientValidation(true);
+}
+
+
+<script type="text/javascript">
+
+    $(".frmCreateGroup").submit(function (e) {
+
+        if ($(this).valid()) {
+
+            $.post('<%= Url.Action("~/Group/Create")%>', $(this).serialize(), function (data) {
+
+                $("#dynamicData").html(data);
+
+                $.validator.unobtrusive.parse($("#dynamicData"));
+
+            });
+
+        }
+
+        e.preventDefault();
+
+    });
+    function doSomething() {
+        alertify.alert('This part is Under Constrution');
+    }
+
+    $(document).ready(function () {
+        $("#btnClear").click(function (e) {
+            // debugger;
+            //alert("Clear Button Click");
+            $("#name").val("");
+            $("#description").val("");        
+            $("#groupCollection").val("0");
+        });
+    });
+
+</script>
+<style type="text/css">
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .twocol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .twocol .editor-field {
+        width: 35%;
+        display: inline-block;
+    }
+
+    .threecol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .threecol .editor-field {
+        width: 20%;
+        display: inline-block;
+    }
+
+        .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+            width: 90%;
+            display: inline-block;
+            font-size: 11px;
+        }
+
+    .txtClass {
+        border-radius: 5px;
+    }
+
+    .ddlClass {
+        height: 25px;
+        width: 96% !important;
+        border-radius: 5px;
+    }
+
+    #DueDate {
+        border-radius: 5px;
+        height: 18px;
     }
 
 
-    <script type="text/javascript">
+    .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 20px;
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
+    }
 
-        $(".frmCreateGroup").submit(function (e) {
-
-            if ($(this).valid()) {
-
-                $.post('<%= Url.Action("~/Group/Create")%>', $(this).serialize(), function (data) {
-
-                    $("#dynamicData").html(data);
-
-                    $.validator.unobtrusive.parse($("#dynamicData"));
-
-                });
-
-            }
-
-            e.preventDefault();
-
-        });
-
-    </script>
-    <style type="text/css">
-        .threecol, twocol {
-            width: 100%;
-            display: inline-block;
-        }
-
-        .twocol .editor-label {
-            width: 10%;
-            display: inline-block;
-            font-size: 11px;
-        }
-
-        .twocol .editor-field {
-            width: 35%;
-            display: inline-block;
-        }
-
-        .threecol .editor-label {
-            width: 10%;
-            display: inline-block;
-            font-size: 11px;
-        }
-
-        .threecol .editor-field {
-            width: 20%;
-            display: inline-block;
-        }
-
-            .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
-                width: 90%;
-                display: inline-block;
-                font-size: 11px;
-            }
-
-        .txtClass {
-            border-radius: 5px;
-        }
-
-        .ddlClass {
-            height: 25px;
-            width: 96% !important;
-            border-radius: 5px;
-        }
-
-        #DueDate {
-            border-radius: 5px;
-            height: 18px;
-        }
-
-
-        .btn {
-            background: #3498db;
-            background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-            background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-            background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-            background-image: -o-linear-gradient(top, #3498db, #2980b9);
-            background-image: linear-gradient(to bottom, #3498db, #2980b9);
-            -webkit-border-radius: 12;
-            -moz-border-radius: 12;
-            border-radius: 28px;
-            font-family: Arial;
-            color: #ffffff;
-            font-size: 20px;
-            padding: 3px 20px 5px 20px !important;
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
             text-decoration: none;
         }
+</style>
 
-            .btn:hover {
-                background: #3cb0fd;
-                background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-                background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-                background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-                background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-                background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-                text-decoration: none;
-            }
-    </style>
-
-    <div class="addGroupDiv">
-        <h2>Create Group</h2>
-    </div>
+<div class="addGroupDiv">
+    <h2>Create Group</h2>
+</div>
 
 
-    @using (Html.BeginForm("Create", "Group", new { @class="frmCreateGroup"}))
-    {
+@using (Html.BeginForm("Create", "Group", new { @class = "frmCreateGroup" }))
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -122,36 +135,30 @@
         <div id="addGroup" class="addGroupDiv">
             <div class="twocol">
                 @Html.HiddenFor(model => model.id)
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.groupCollection, "groupCollection1")
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("groupCollection",null, String.Empty,new {@class="ddlClass"})
-                    @Html.ValidationMessageFor(model => model.groupCollection)
-                </div>
 
-                <div class="editor-label">
+
+                @*                <div class="editor-label">
                     @Html.LabelFor(model => model.author)
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.author,new {@class="txtClass"})
                     @Html.ValidationMessageFor(model => model.author)
-                </div>
+                </div>*@
             </div>
             <div class="threecol">
-                <div class="editor-label">
+                @* <div class="editor-label">
                     @Html.LabelFor(model => model.state)
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.state,new {@class="txtClass"})
                     @Html.ValidationMessageFor(model => model.state)
-                </div>
+                </div>*@
 
                 <div class="editor-label">
                     @Html.LabelFor(model => model.name)
                 </div>
                 <div class="editor-field">
-                    @Html.TextBoxFor(model => model.name,new {@class="txtClass"})
+                    @Html.TextBoxFor(model => model.name, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.name)
                 </div>
 
@@ -159,10 +166,18 @@
                     @Html.LabelFor(model => model.description)
                 </div>
                 <div class="editor-field">
-                    @Html.TextBoxFor(model => model.description,new {@class="txtClass"})
+                    @Html.TextBoxFor(model => model.description, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.description)
                 </div>
+
                 <div class="editor-label">
+                    @Html.LabelFor(model => model.groupCollection, "groupCollection1")
+                </div>
+                <div class="editor-field" style="width: 27% !important;">
+                    @Html.DropDownList("groupCollection", null, String.Empty, new { @class = "ddlClass" })
+                    @Html.ValidationMessageFor(model => model.groupCollection)
+                </div>
+                @* <div class="editor-label">
                     @Html.LabelFor(model => model.email)
                 </div>
                 <div class="editor-field">
@@ -192,6 +207,23 @@
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.active,new {@class="txtClass"})
                     @Html.ValidationMessageFor(model => model.active)
+                </div>*@
+            </div>
+            <div class="threecol">
+                <div class="editor-label">
+                </div>
+                <div class="editor-field">
+                    <a id="lnkperson" href="javascript:doSomething();" style="margin-left: 53%; font-size: 1em;">Add Person</a>
+                </div>
+                <div class="editor-label">
+                </div>
+                <div class="editor-field">
+                    <a id="lnkpartner" href="javascript:doSomething();" style="margin-left: 53%; font-size: 1em;">Add Partner</a>
+                </div>
+                <div class="editor-label">
+                </div>
+                <div class="editor-field">
+                    <a id="lnktouchpoint" href="javascript:doSomething();" style="margin-left: 43%; font-size: 1em;">Add Touchpoint</a>
                 </div>
             </div>
             <p style="float: right; width: 20%;">
@@ -199,11 +231,11 @@
                 <input type="button" value="Clear" class="btn" id="btnClear" />
             </p>
     </fieldset>
-    }
+}
 
 
 
-    @section Scripts {
+@section Scripts {
     @*
     <script src="~/Scripts/jquery.validate.js"></script>
     <script>
@@ -211,4 +243,4 @@
 
         });
     </script>*@
-    }
+}

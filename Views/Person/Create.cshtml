@@ -1,151 +1,143 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<Generic.person>
-    @using System.Web.Mvc.Html
-    @using Generic.Helpers
-    @using Telerik.Web.Mvc.UI;
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
 
-    @{
+@{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = ViewBag.Project + "Admin";
+}
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        //$('.cancelPopup').click(function () {
+        //    window.parent.$('#popup').dialog('close');
+        //    return false;
+        //});
+        $("#btnClear").click(function (e) {
+            // debugger;
+            //alert("Clear Button Click");
+            $("#firstName").val("");
+            $("#lastName").val("");
+            $("#suffix").val("");
+            $("#internalId").val("");
+            $("#title").val("");
+            $("#email").val("");
+            $("#address1").val("");
+            $("#address2").val("");
+            $("#city").val("");
+            $("#zipcode").val("");
+            $("#phone").val("");
+            $("#state").val("0");
+            $("#country").val("0");
+            $("#manager").val("0");
+            $("#campaign").val("0");
+        });
+    });
+    function doSomething() {
+        alertify.alert('This part is Under Constrution');
+    }
+</script>
+
+<style type="text/css">
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
     }
 
-    <script type="text/javascript">
+    .twocol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
 
+    .twocol .editor-field {
+        width: 35%;
+        display: inline-block;
+    }
 
-        $(document).ready(function () {
-            //$('.cancelPopup').click(function () {
-            //    window.parent.$('#popup').dialog('close');
-            //    return false;
-            //});
-        });
+    .threecol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
 
-    </script>
+    .threecol .editor-field {
+        width: 20%;
+        display: inline-block;
+    }
 
-    <style type="text/css">
-        .threecol, twocol {
-            width: 100%;
-            display: inline-block;
-        }
-
-        .twocol .editor-label {
-            width: 10%;
-            display: inline-block;
-            font-size: 11px;
-        }
-
-        .twocol .editor-field {
-            width: 35%;
-            display: inline-block;
-        }
-
-        .threecol .editor-label {
-            width: 10%;
+        .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+            width: 90%;
             display: inline-block;
             font-size: 11px;
         }
 
-        .threecol .editor-field {
-            width: 20%;
-            display: inline-block;
-        }
+    .txtClass {
+        border-radius: 5px;
+    }
 
-            .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
-                width: 90%;
-                display: inline-block;
-                font-size: 11px;
-            }
+    .ddlClass {
+        height: 25px;
+        width: 96% !important;
+        border-radius: 5px;
+    }
 
-        .txtClass {
-            border-radius: 5px;
-        }
-
-        .ddlClass {
-            height: 25px;
-            width: 96% !important;
-            border-radius: 5px;
-        }
-
-        #DueDate {
-            border-radius: 5px;
-            height: 18px;
-        }
+    #DueDate {
+        border-radius: 5px;
+        height: 18px;
+    }
 
 
-        .btn {
-            background: #3498db;
-            background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-            background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-            background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-            background-image: -o-linear-gradient(top, #3498db, #2980b9);
-            background-image: linear-gradient(to bottom, #3498db, #2980b9);
-            -webkit-border-radius: 12;
-            -moz-border-radius: 12;
-            border-radius: 28px;
-            font-family: Arial;
-            color: #ffffff;
-            font-size: 20px;
-            padding: 3px 20px 5px 20px !important;
+    .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 20px;
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
+    }
+
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
             text-decoration: none;
         }
-
-            .btn:hover {
-                background: #3cb0fd;
-                background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-                background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-                background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-                background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-                background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-                text-decoration: none;
-            }
-    </style>
-    <div class="addPersondiv">
-        <h2>Create Person</h2>
-    </div>
+</style>
+<div class="addPersondiv">
+    <h2>Create Person</h2>
+</div>
 
 
-    @using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>person</legend>
 
         <div id="addPerson" class="addPersonDiv">
-            <div class="twocol">
-
-                @Html.HiddenFor(model => model.id)
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.manager)
-                </div>
-                <div class="editor-field">
-
-
-                    @Html.DropDownList("manager", String.Empty)
-                    @Html.ValidationMessageFor(model => model.manager)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.campaign)
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("campaign", String.Empty)
-
-                    @Html.ValidationMessageFor(model => model.campaign)
-                </div>
-            </div>
             <div class="threecol">
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.internalId)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.internalId)
-                    @Html.ValidationMessageFor(model => model.internalId)
-                </div>
-
-
+                  @Html.HiddenFor(model => model.id)
                 <div class="editor-label">
                     @Html.LabelFor(model => model.firstName)
                 </div>
                 <div class="editor-field">
-                    @Html.EditorFor(model => model.firstName)
+                    @Html.EditorFor(model => model.firstName, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.firstName)
                 </div>
 
@@ -153,34 +145,50 @@
                     @Html.LabelFor(model => model.lastName)
                 </div>
                 <div class="editor-field">
-                    @Html.EditorFor(model => model.lastName)
+                    @Html.EditorFor(model => model.lastName, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.lastName)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.title)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.title)
-                    @Html.ValidationMessageFor(model => model.title)
                 </div>
 
                 <div class="editor-label">
                     @Html.LabelFor(model => model.suffix)
                 </div>
                 <div class="editor-field">
-                    @Html.EditorFor(model => model.suffix)
+                    @Html.EditorFor(model => model.suffix, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.suffix)
                 </div>
 
             </div>
+            <div class="threecol">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.internalId)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.internalId, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.internalId)
+                </div>
 
-            <div style="width: 48%; float: left">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.title)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.title, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.title)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.email)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.email, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.email)
+                </div>
+            </div>
+            <div class="twocol">
                 <div class="editor-label">
                     @Html.LabelFor(model => model.address1)
                 </div>
                 <div class="editor-field">
-                    @Html.EditorFor(model => model.address1)
+                    @Html.EditorFor(model => model.address1, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.address1)
                 </div>
 
@@ -188,14 +196,17 @@
                     @Html.LabelFor(model => model.address2)
                 </div>
                 <div class="editor-field">
-                    @Html.EditorFor(model => model.address2)
+                    @Html.EditorFor(model => model.address2, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.address2)
                 </div>
+            </div>
+
+            <div class="threecol">
                 <div class="editor-label">
                     @Html.LabelFor(model => model.city)
                 </div>
                 <div class="editor-field">
-                    @Html.EditorFor(model => model.city)
+                    @Html.EditorFor(model => model.city, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.city)
                 </div>
 
@@ -203,7 +214,7 @@
                     @Html.LabelFor(model => model.state)
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownList("state", String.Empty)
+                    @Html.DropDownList("state",null, String.Empty, new { @class = "ddlClass" })
                     @Html.ValidationMessageFor(model => model.state)
                 </div>
 
@@ -211,15 +222,16 @@
                     @Html.LabelFor(model => model.zipcode)
                 </div>
                 <div class="editor-field">
-                    @Html.EditorFor(model => model.zipcode)
+                    @Html.EditorFor(model => model.zipcode, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.zipcode)
                 </div>
-
-                <div class="editor-label">
+            </div>
+             <div class="twocol">
+                 <div class="editor-label">
                     @Html.LabelFor(model => model.country)
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownList("country", String.Empty)
+                    @Html.DropDownList("country",null, String.Empty, new { @class = "ddlClass" })
                     @Html.ValidationMessageFor(model => model.country)
                 </div>
 
@@ -227,25 +239,47 @@
                     @Html.LabelFor(model => model.phone)
                 </div>
                 <div class="editor-field">
-                    @Html.EditorFor(model => model.phone)
+                    @Html.EditorFor(model => model.phone, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.phone)
                 </div>
+             </div>
+            <div class="twocol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.email)
+                    @Html.LabelFor(model => model.manager)
                 </div>
                 <div class="editor-field">
-                    @Html.EditorFor(model => model.email)
-                    @Html.ValidationMessageFor(model => model.email)
+                    @Html.DropDownList("manager",null, String.Empty, new { @class = "ddlClass" })
+                    @Html.ValidationMessageFor(model => model.manager)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.campaign)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("campaign",null, String.Empty, new { @class = "ddlClass" })
+
+                    @Html.ValidationMessageFor(model => model.campaign)
                 </div>
             </div>
         </div>
+         <div class="threecol">
+                <div class="editor-label">
+                </div>
+                <div class="editor-field">
+                    <a id="lnkgroup" href="javascript:doSomething();" style="font-size: 1em;">Add Group</a>
+                </div>
+              
+                <div class="editor-field">
+                    <a id="lnkrole" href="javascript:doSomething();" style="font-size: 1em;">Add Role</a>
+                </div>
+            </div>
         <p style="float: right; width: 20%;">
             <input type="submit" value="Save" class="btn" />
             <input type="button" value="Clear" class="btn" id="btnClear" />
         </p>
     </fieldset>
-    }
+}
 
 
 
-  
+
