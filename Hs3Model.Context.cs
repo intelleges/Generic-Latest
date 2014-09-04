@@ -3090,22 +3090,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotification>("pr_getEventNotificationAll", mergeOption, enterpriseParameter);
         }
     
-        public virtual ObjectResult<eventNotificationBounce> pr_getEventNotificationBounce(Nullable<int> id)
+        public virtual ObjectResult<eventNotificationBounce> pr_getEventNotificationBounce(Nullable<int> enterprise)
         {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotificationBounce>("pr_getEventNotificationBounce", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotificationBounce>("pr_getEventNotificationBounce", enterpriseParameter);
         }
     
-        public virtual ObjectResult<eventNotificationBounce> pr_getEventNotificationBounce(Nullable<int> id, MergeOption mergeOption)
+        public virtual ObjectResult<eventNotificationBounce> pr_getEventNotificationBounce(Nullable<int> enterprise, MergeOption mergeOption)
         {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotificationBounce>("pr_getEventNotificationBounce", mergeOption, idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotificationBounce>("pr_getEventNotificationBounce", mergeOption, enterpriseParameter);
         }
     
         public virtual ObjectResult<group> pr_getGroup(Nullable<int> id)
@@ -13553,6 +13553,24 @@ namespace Generic
                 new ObjectParameter("touchpoint", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerConfirmationData2_Result>("pr_getPartnerConfirmationData2", enterpriseParameter, touchpointParameter);
+        }
+    
+        public virtual ObjectResult<pr_PerformSelectedActions_Result> pr_PerformSelectedActions(string inputList)
+        {
+            var inputListParameter = inputList != null ?
+                new ObjectParameter("inputList", inputList) :
+                new ObjectParameter("inputList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_PerformSelectedActions_Result>("pr_PerformSelectedActions", inputListParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutomailMessageByQuestionnaire_Result> pr_getAutomailMessageByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessageByQuestionnaire_Result>("pr_getAutomailMessageByQuestionnaire", questionnaireParameter);
         }
     }
 }

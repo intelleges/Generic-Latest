@@ -5666,6 +5666,9 @@
         <Function Name="pr_getAutomailMessageByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getAutomailMessageByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getAutomailMessageforPartnumberEmailSendByLoadGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
@@ -5767,7 +5770,7 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getEventNotificationBounce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getEventNotificationByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -7333,6 +7336,9 @@
           <Parameter Name="userRole" Type="varchar" Mode="In" />
           <Parameter Name="access" Type="int" Mode="In" />
           <Parameter Name="accessLevel" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_PerformSelectedActions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inputList" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="pr_removeAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -9058,7 +9064,7 @@
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getEventNotificationBounce" EntitySet="eventNotificationBounce" ReturnType="Collection(hs3MVCMTQa2Model.eventNotificationBounce)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getGroup" EntitySet="group" ReturnType="Collection(hs3MVCMTQa2Model.group)">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -11890,6 +11896,12 @@
           <EntitySet Name="view_PartnerConfirmationData_tmp" EntityType="hs3MVCMTQa2Model.view_PartnerConfirmationData_tmp" />
           <EntitySet Name="view_QuestionnaireData" EntityType="hs3MVCMTQa2Model.view_QuestionnaireData" />
           <EntitySet Name="view_EventNotificationData" EntityType="hs3MVCMTQa2Model.view_EventNotificationData" />
+          <FunctionImport Name="pr_PerformSelectedActions" ReturnType="Collection(hs3MVCMTQa2Model.pr_PerformSelectedActions_Result)">
+          <Parameter Name="inputList" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutomailMessageByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageByQuestionnaire_Result)">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -18970,6 +18982,26 @@
           <Property Type="String" Name="accesscode" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Touchpoint" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="pr_PerformSelectedActions_Result">
+          <Property Type="Int32" Name="SELECTED_PARTNER" Nullable="true" />
+          <Property Type="String" Name="Column1" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="R_S_1" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="SELECTED_STATUS" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="NON_SELECTED_PARTNER" Nullable="true" />
+          <Property Type="String" Name="R_S_2" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="NON_SELECTED_status" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_getAutomailMessageByQuestionnaire_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="text" Nullable="true" />
+          <Property Type="String" Name="footer1" Nullable="true" />
+          <Property Type="String" Name="footer2" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="false" />
+          <Property Type="DateTime" Name="sendDateSet" Nullable="true" />
+          <Property Type="Int32" Name="mailType" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -24709,6 +24741,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_PerformSelectedActions" FunctionName="hs3MVCMTQa2Model.Store.pr_PerformSelectedActions">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_PerformSelectedActions_Result">
+                <ScalarProperty Name="SELECTED_PARTNER" ColumnName="SELECTED PARTNER" />
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                <ScalarProperty Name="R_S_1" ColumnName="R/S 1" />
+                <ScalarProperty Name="SELECTED_STATUS" ColumnName="SELECTED STATUS" />
+                <ScalarProperty Name="NON_SELECTED_PARTNER" ColumnName="NON-SELECTED PARTNER" />
+                <ScalarProperty Name="R_S_2" ColumnName="R/S 2" />
+                <ScalarProperty Name="NON_SELECTED_status" ColumnName="NON-SELECTED status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAutomailMessageByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessageByQuestionnaire">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessageByQuestionnaire_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="footer1" ColumnName="footer1" />
+                <ScalarProperty Name="footer2" ColumnName="footer2" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="sendDateSet" ColumnName="sendDateSet" />
+                <ScalarProperty Name="mailType" ColumnName="mailType" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
