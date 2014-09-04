@@ -9063,9 +9063,6 @@
           <FunctionImport Name="pr_getEventNotificationAll" EntitySet="eventNotification" ReturnType="Collection(hs3MVCMTQa2Model.eventNotification)">
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getEventNotificationBounce" EntitySet="eventNotificationBounce" ReturnType="Collection(hs3MVCMTQa2Model.eventNotificationBounce)">
-          <Parameter Name="enterprise" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_getGroup" EntitySet="group" ReturnType="Collection(hs3MVCMTQa2Model.group)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -11900,7 +11897,10 @@
           <Parameter Name="inputList" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getAutomailMessageByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageByQuestionnaire_Result)">
-            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEventNotificationBounce" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationBounce_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -14392,11 +14392,6 @@
           <Property Type="String" Name="protocolTouchpoint" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="applicationName" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="enterprise" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="pr_getEventNotificationBounce_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="email" Nullable="false" MaxLength="255" />
-          <Property Type="String" Name="error" Nullable="true" />
         </ComplexType>
         <ComplexType Name="pr_getGroup_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -19002,6 +18997,14 @@
           <Property Type="Int32" Name="mailType" Nullable="false" />
           <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getEventNotificationBounce_Result">
+          <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="number" Nullable="true" />
+          <Property Type="DateTime" Name="timestamp" Nullable="true" Precision="23" />
+          <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="reason" Nullable="true" />
+          <Property Type="String" Name="protocoltouchpoint" Nullable="true" MaxLength="50" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -21831,8 +21834,6 @@
           <FunctionImportMapping FunctionImportName="pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getEventNotification" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotification">
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getEventNotificationBounce" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationBounce">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroup">
           </FunctionImportMapping>
@@ -24766,6 +24767,18 @@
                 <ScalarProperty Name="sendDateSet" ColumnName="sendDateSet" />
                 <ScalarProperty Name="mailType" ColumnName="mailType" />
                 <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getEventNotificationBounce" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationBounce">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationBounce_Result">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="protocoltouchpoint" ColumnName="protocoltouchpoint" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

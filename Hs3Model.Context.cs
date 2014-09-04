@@ -3090,24 +3090,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotification>("pr_getEventNotificationAll", mergeOption, enterpriseParameter);
         }
     
-        public virtual ObjectResult<eventNotificationBounce> pr_getEventNotificationBounce(Nullable<int> enterprise)
-        {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotificationBounce>("pr_getEventNotificationBounce", enterpriseParameter);
-        }
-    
-        public virtual ObjectResult<eventNotificationBounce> pr_getEventNotificationBounce(Nullable<int> enterprise, MergeOption mergeOption)
-        {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotificationBounce>("pr_getEventNotificationBounce", mergeOption, enterpriseParameter);
-        }
-    
         public virtual ObjectResult<group> pr_getGroup(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -13571,6 +13553,15 @@ namespace Generic
                 new ObjectParameter("questionnaire", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessageByQuestionnaire_Result>("pr_getAutomailMessageByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEventNotificationBounce_Result> pr_getEventNotificationBounce(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationBounce_Result>("pr_getEventNotificationBounce", enterpriseParameter);
         }
     }
 }

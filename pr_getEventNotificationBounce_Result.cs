@@ -13,8 +13,11 @@ namespace Generic
     
     public partial class pr_getEventNotificationBounce_Result
     {
-        public int id { get; set; }
         public string email { get; set; }
-        public string error { get; set; }
+        public Nullable<int> number { get; set; }
+        public Nullable<System.DateTime> timestamp { get; set; }
+        public string @event { get; set; }
+        public string reason { get; set; }
+        public string protocoltouchpoint { get; set; }
     }
 }
