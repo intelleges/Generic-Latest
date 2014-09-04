@@ -158,7 +158,7 @@
 
         <div id="addPartner" class="addPartnerDiv">
             <div class="twocol">
-                @Html.HiddenFor(model => model.id)
+                @*@Html.HiddenFor(model => model.id)*@
                 <div class="editor-label">
                     @Html.LabelFor(model => model.protocol)
                 </div>
@@ -173,7 +173,7 @@
                     @Html.TextBoxFor(model => model.title, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.title)
                 </div>
-              @*  <div class="editor-label">
+                @*  <div class="editor-label">
                     @Html.LabelFor(model => model.person)
                 </div>
                 <div class="editor-field">
@@ -182,7 +182,7 @@
                 </div>*@
             </div>
             <div class="twocol">
-                  <div class="editor-label">
+                <div class="editor-label">
                     @Html.LabelFor(model => model.sponsor)
                 </div>
                 <div class="editor-field">
@@ -223,7 +223,7 @@
                     @Html.DropDownList("target", null, String.Empty, new { @class = "ddlClass" })
                     @Html.ValidationMessageFor(model => model.target)
                 </div>
-                </div>
+            </div>
             <div class="twocol">
                 <div class="editor-label">
                     @Html.LabelFor(model => model.purpose)
@@ -232,16 +232,23 @@
                     @Html.TextAreaFor(model => model.purpose, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.purpose)
                 </div>
-                  </div>
+            </div>
             <div class="threecol">
-                  <div class="editor-label">
+                <div class="editor-label">
                     @Html.LabelFor(model => model.automaticReminder)
                 </div>
                 <div class="editor-field">
-                    @Html.TextBoxFor(model => model.automaticReminder, new { @class = "txtClass" })
-                    @Html.ValidationMessageFor(model => model.automaticReminder)
+                    @* @Html.TextBoxFor(model => model.automaticReminder, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.automaticReminder)*@
+                    <div style="width: 150px; margin-left: 25px;">
+                        <input name="automaticReminder" style="width: 20px" type="radio" value="True" />
+                        Yes
+                                                                <input name="automaticReminder" style="width: 20px" type="radio" value="False" />
+                        No
+                                                                @Html.ValidationMessageFor(model => model.automaticReminder)
+                    </div>
                 </div>
-               @* <div class="editor-label">
+                @* <div class="editor-label">
                     @Html.LabelFor(model => model.startDate)
                 </div>
                 <div class="editor-field">
@@ -253,18 +260,18 @@
                     @Html.Label("Start Date")
                 </div>
                 <div class="editor-field">
-                    @Html.Telerik().DatePicker().Name("startDate").HtmlAttributes(new { @style="width:100%;",@class="txtClass"})
+                    @Html.Telerik().DatePicker().Name("startDate").HtmlAttributes(new { @style = "width:100%;", @class = "txtClass" })
                 </div>
 
-               
-                 <div class="editor-label">
+
+                <div class="editor-label">
                     @Html.Label("End Date")
                 </div>
                 <div class="editor-field">
-                    @Html.Telerik().DatePicker().Name("EndDate").HtmlAttributes(new { @style="width:100%;"})
+                    @Html.Telerik().DatePicker().Name("EndDate").HtmlAttributes(new { @style = "width:100%;" })
                 </div>
 
-               @* <div class="editor-label">
+                @* <div class="editor-label">
                     @Html.LabelFor(model => model.sortOrder)
                 </div>
                 <div class="editor-field">
