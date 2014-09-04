@@ -62,7 +62,6 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 protocol.active = 1;
 
                 protocol.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;

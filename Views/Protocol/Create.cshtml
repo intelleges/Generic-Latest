@@ -10,7 +10,6 @@
     ViewBag.Title = "Protocol";
 }
 
-
 @*@Styles.Render("~/Content/css")*@
 @*@Styles.Render("~/Content/themes/base/css")
 @Scripts.Render("~/bundles/jquery")
@@ -23,8 +22,6 @@
 
 <script>
     $(document).ready(function () {
-       
-
         $("#btnClear").click(function (e) {
              debugger;
             //alert("Clear Button Click");
@@ -42,9 +39,7 @@
             $("#domain").val("0");
             $("#agency").val("0");
         });
-
-
-        $('#startDate').datepicker();
+        //$('#startDate').datepicker();
     });
 </script>
 <style type="text/css">
@@ -137,7 +132,7 @@
 
         <div id="addPartner" class="addPartnerDiv">
             <div class="twocol">
-                @Html.HiddenFor(model => model.id)
+                @*@Html.HiddenFor(model => model.id)*@
                 <div class="editor-label">
                     @Html.LabelFor(model => model.name)
                 </div>
@@ -195,6 +190,12 @@
                     @Html.TextBoxFor(model => model.startDate, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.startDate)
                 </div>
+                @* <div class="editor-label">
+                    @Html.Label("Start Date")
+                </div>
+                <div class="editor-field">
+                    @Html.Telerik().DatePicker().Name("startDate").HtmlAttributes(new { @style="width:100%;",@class="txtClass"})
+                </div>*@
                 <div class="editor-label">
                     @Html.LabelFor(model => model.endDate)
                 </div>
@@ -202,6 +203,12 @@
                     @Html.TextBoxFor(model => model.endDate, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.endDate)
                 </div>
+                @* <div class="editor-label">
+                    @Html.Label("End Date")
+                </div>
+                <div class="editor-field">
+                    @Html.Telerik().DatePicker().Name("endDate").HtmlAttributes(new { @style="width:100%;",@class="txtClass"})
+                </div>*@
             </div>
             <div class="twocol">
                 <div class="editor-label">
@@ -284,7 +291,6 @@
             <p style="float: right; width: 20%;">
                 <input type="submit" value="Save" class="btn" />
                 <input type="button" value="Clear" class="btn" id="btnClear" />
-
             </p>
         </div>
     </fieldset>
