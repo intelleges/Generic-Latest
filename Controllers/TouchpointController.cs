@@ -96,7 +96,9 @@ namespace Generic.Controllers
             if (ModelState.IsValid)
             {
                 //    touchpoint.protocol = ;
+                touchpoint.active = 1;
                 db.touchpoint.Add(touchpoint);
+
                 db.SaveChanges();
                 if (touchpoint.id > 0)
                 {
