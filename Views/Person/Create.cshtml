@@ -35,7 +35,49 @@
             $("#manager").val("0");
             $("#campaign").val("0");
         });
+
+        if ('@ViewBag.isAlert' == '1') {
+            alertify.alert('@ViewBag.message');
+        }
+
+
+        $("form").submit(function () {
+            return validateControl();
+
+        });
+        function validateControl() {
+            if ($("#firstName").val() == "") {
+                alertify.alert("First name is required");
+                return false;
+            }
+            if ($("#lastName").val() == "") {
+                alertify.alert("Last name is required");
+                return false;
+            }
+
+            if ($("#internalId").val() == "") {
+                alertify.alert("InternalId is required");
+                return false;
+            }
+            if ($("#email").val() == "") {
+                alertify.alert("Email is required");
+                return false;
+            }
+            if ($("#manager").val() == "") {
+                alertify.alert("Manager is required");
+                return false;
+            }
+            if ($("#campaign").val() == "") {
+                alertify.alert("Touchpoint is required");
+                return false;
+            }
+        }
+
+
     });
+
+
+
     function doSomething() {
         alertify.alert('This part is Under Constrution');
     }
@@ -132,7 +174,8 @@
 
         <div id="addPerson" class="addPersonDiv">
             <div class="threecol">
-                  @Html.HiddenFor(model => model.id)
+                 @* @Html.HiddenFor(model => model.id)*@
+                <input type="hidden" name="id" value="0" />
                 <div class="editor-label">
                     @Html.LabelFor(model => model.firstName)
                 </div>

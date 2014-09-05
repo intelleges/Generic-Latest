@@ -201,42 +201,58 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult Create(person person)
         {
+            ViewBag.isAlert = 1;
+
+            ViewBag.campaign = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", person.campaign);
+            ViewBag.manager = new SelectList(db.pr_getPersonByEnterprise2(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName", person.manager);
+
+            ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name",person.state);
+            ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name" , person.country);
+
             if (ModelState.IsValid)
             {
+                int flag = 0;
+                try
+                {
+                    person.personStatus = (int)PersonHelper.PersonStatus.Invited;
+                    person.active = 1;
+                    person.ismanager = 0;
+                    person.partnerPerPage = 500;
+                    person.riskType = 0;
+                    person.loadHistory = 0;
+                    person.passWord = db.pr_getAccesscode().FirstOrDefault();
 
-                person.personStatus = (int)PersonHelper.PersonStatus.Invited;
-                person.active = 1;
-                person.ismanager = 0;
-                person.partnerPerPage = 500;
-                person.riskType = 0;
-                person.loadHistory = 0;
-                person.passWord = db.pr_getAccesscode().FirstOrDefault();
-
-                person.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
-                db.person.Add(person);
-                db.SaveChanges();
-                SessionSingleton.PersonId = person.id;
-
-
-
-                person objdefaultSystemMaster = db.pr_getSystemMaster(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-
-
-                int? PersonId = person.id;
+                    person.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
+                    db.person.Add(person);
+                    db.SaveChanges();
+                    SessionSingleton.PersonId = person.id;
 
 
 
-                // Email Invite
-                var objSystemMaster = db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
+                    person objdefaultSystemMaster = db.pr_getSystemMaster(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                    if (objdefaultSystemMaster == null)
+                    {
+                        ViewBag.message = "System master is required";
+                        flag = 1;
+                    }
 
-                enterprise objEnterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                    if (flag == 0)
+                    {
+                        int? PersonId = person.id;
 
 
-                autoMailMessage objamm = new autoMailMessage();
 
-                objamm.subject = "Welcome to Intelleges for [Enterprise Name]: [Touchpoint Title]";
-                //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
-                objamm.text = @"Hi [User Firstname],<br>
+                        // Email Invite
+                        var objSystemMaster = db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
+
+                        enterprise objEnterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+
+
+                        autoMailMessage objamm = new autoMailMessage();
+
+                        objamm.subject = "Welcome to Intelleges for [Enterprise Name]: [Touchpoint Title]";
+                        //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
+                        objamm.text = @"Hi [User Firstname],<br>
 
 You have a new account at Intelleges for [Enterprise Name] [Touchpoint Title].<br>
 
@@ -258,31 +274,49 @@ Thanks in advance.<br>
 [Enterprise Name]";
 
 
-                Email email = new Email(objamm);
-                person objInvitingUser = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+                        Email email = new Email(objamm);
+                        person objInvitingUser = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
 
-                touchpoint objCurrentTouchpoint = db.pr_getTouchpoint(objInvitingUser.campaign).FirstOrDefault();
+                        touchpoint objCurrentTouchpoint = db.pr_getTouchpoint(objInvitingUser.campaign).FirstOrDefault();
 
-                EmailFormat emailFormat = new EmailFormat();
-                email.subject = emailFormat.sGetEmailBody(email.subject, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
-                //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
-                email.body = emailFormat.sGetEmailBody(email.body, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
-                //  email.body = objamm.text;
-                email.emailTo = objSystemMaster.email;
-                SendEmail objSendEmail = new SendEmail();
-                objSendEmail.sendEmail(email);
-
-
+                        EmailFormat emailFormat = new EmailFormat();
+                        email.subject = emailFormat.sGetEmailBody(email.subject, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
+                        //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
+                        email.body = emailFormat.sGetEmailBody(email.body, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
+                        //  email.body = objamm.text;
+                        email.emailTo = objSystemMaster.email;
+                        SendEmail objSendEmail = new SendEmail();
+                        objSendEmail.sendEmail(email);
 
 
-                return RedirectToAction("AssignGroup", "Person");
+
+
+                        //return RedirectToAction("AssignGroup", "Person");
+                        ViewBag.message = "You have successfully added " + person.firstName + " " + person.lastName + " to Intelleges.";
+
+
+                        return View();
+                    }
+                }
+                catch (Exception exp)
+                {
+                    ViewBag.message = exp.Message;
+                    return View(person);
+                }
             }
-
-            ViewBag.campaign = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
-            ViewBag.manager = new SelectList(db.pr_getPersonByEnterprise2(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
-
-            ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
-            ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            else
+            {
+                string errors = "";
+                foreach (ModelState modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                      errors +=  error.ErrorMessage+ " ; ";
+                    }
+                }
+                ViewBag.message = errors;
+            }
+            
 
 
             return View(person);
