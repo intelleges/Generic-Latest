@@ -40,6 +40,13 @@
             $("#agency").val("0");
         });
         //$('#startDate').datepicker();
+        
+    });
+    jQuery(document).ready(function () {
+        if ('@ViewBag.ID' != '0') {
+            debugger;
+            alertify.alert('You have successfully added the @ViewBag.Name protocol to Intelleges with an expiry of @ViewBag.EndDate');
+        }
     });
 </script>
 <style type="text/css">
@@ -183,32 +190,32 @@
                 </div>
             </div>
             <div class="twocol">
-                <div class="editor-label">
+                @*<div class="editor-label">
                     @Html.LabelFor(model => model.startDate)
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.startDate, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.startDate)
-                </div>
-                @* <div class="editor-label">
+                </div>*@
+                 <div class="editor-label">
                     @Html.Label("Start Date")
                 </div>
                 <div class="editor-field">
                     @Html.Telerik().DatePicker().Name("startDate").HtmlAttributes(new { @style="width:100%;",@class="txtClass"})
-                </div>*@
-                <div class="editor-label">
+                </div>
+                @*<div class="editor-label">
                     @Html.LabelFor(model => model.endDate)
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.endDate, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.endDate)
-                </div>
-                @* <div class="editor-label">
+                </div>*@
+                <div class="editor-label">
                     @Html.Label("End Date")
                 </div>
                 <div class="editor-field">
                     @Html.Telerik().DatePicker().Name("endDate").HtmlAttributes(new { @style="width:100%;",@class="txtClass"})
-                </div>*@
+                </div>
             </div>
             <div class="twocol">
                 <div class="editor-label">
@@ -251,21 +258,25 @@
                 </div>
                 <div class="editor-field">
                     @(Html.Telerik().Upload()
-                                                        .Name("checkList")
-                                                        .Multiple(false)
-                                                        )
+                    .Name("checkList")
+                    .Multiple(false)
+                    )
                     @Html.ValidationMessageFor(model => model.checkList)
-                     </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.bestPractice)
-                    </div>
-                    <div class="editor-field">
-                        @(Html.Telerik().Upload()
-                                                        .Name("bestPractice")
-                                                        .Multiple(false)
-                                                        )
-                        @Html.ValidationMessageFor(model => model.bestPractice)
-                    </div>
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.bestPractice)
+                </div>
+                <div class="editor-field">
+                    @(Html.Telerik().Upload()
+                    .Name("bestPractice")
+                    .Multiple(false)
+                    )
+                    @Html.ValidationMessageFor(model => model.bestPractice)
+                </div>
+                    <p style="float: right; width: 20%">
+                        <input type="submit" value="Save" class="btn" />
+                        <input type="button" value="Clear" class="btn" id="btnClear" />
+                    </p>
             </div>
             <div class="twocol">
                 <div class="editor-label">
@@ -288,10 +299,7 @@
                     </div>
                 </div>*@
             </div>
-            <p style="float: right; width: 20%;">
-                <input type="submit" value="Save" class="btn" />
-                <input type="button" value="Clear" class="btn" id="btnClear" />
-            </p>
+           
         </div>
     </fieldset>
 }

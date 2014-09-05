@@ -11,31 +11,37 @@ namespace Generic
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class protocol
     {
         public protocol()
         {
             this.touchpoint = new HashSet<touchpoint>();
         }
-    
+
         public int id { get; set; }
         public Nullable<int> menuGroup { get; set; }
         public Nullable<int> enterprise { get; set; }
+        [Required]
         public string name { get; set; }
         public string description { get; set; }
         public string abbreviation { get; set; }
         public string background { get; set; }
         public string purpose { get; set; }
         public string summary { get; set; }
+        [Required]
         public Nullable<int> agency { get; set; }
         public Nullable<int> admin { get; set; }
         public Nullable<int> sponsor { get; set; }
+        [Required]
         public Nullable<int> domain { get; set; }
         public string validationRequested { get; set; }
         public string keyBenefits { get; set; }
         public string keyWords { get; set; }
+        [Required]
         public Nullable<System.DateTime> startDate { get; set; }
+        [Required]
         public Nullable<System.DateTime> endDate { get; set; }
         public string bestPractice { get; set; }
         public string riskBenefits { get; set; }
@@ -45,7 +51,7 @@ namespace Generic
         public Nullable<bool> isLimited { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<int> active { get; set; }
-    
+
         public virtual enterprise enterprise1 { get; set; }
         public virtual person person { get; set; }
         public virtual person person1 { get; set; }

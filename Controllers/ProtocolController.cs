@@ -62,6 +62,7 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
+                protocol.description = string.IsNullOrEmpty(protocol.description) ? protocol.name : protocol.description;
                 protocol.active = 1;
 
                 protocol.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
@@ -70,7 +71,16 @@ namespace Generic.Controllers
                 db.protocol.Add(protocol);
                 db.SaveChanges();
                 SessionSingleton.ProtocolId = protocol.id;
-                return RedirectToAction("Create", "Touchpoint");
+                if (protocol.id > 0)
+                {
+                    ViewBag.ID = protocol.id;
+                    ViewBag.Name = protocol.name;
+                    ViewBag.EndDate = protocol.endDate;
+                    ViewBag.agency = new SelectList(db.pr_getAgencyAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", protocol.agency);
+                    ViewBag.domain = new SelectList(db.pr_getDomainAll(), "id", "description", protocol.domain);
+                    return View(protocol);
+                }
+                //return RedirectToAction("Create", "Touchpoint");
             }
 
             ViewBag.agency = new SelectList(db.pr_getAgencyAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", protocol.agency);
