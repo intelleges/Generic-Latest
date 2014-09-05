@@ -102,7 +102,7 @@ namespace Generic.Controllers
                 {
                     ViewBag.ID = touchpoint.id;
                     ViewBag.Touchpoint = touchpoint.title;
-                    ViewBag.EndDate = touchpoint.endDate;
+                    ViewBag.EndDate = touchpoint.endDate.Value.ToShortDateString();
                     if (SessionSingleton.ProtocolId != 0)
                     {
                         ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", SessionSingleton.ProtocolId);

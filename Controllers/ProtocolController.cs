@@ -75,7 +75,7 @@ namespace Generic.Controllers
                 {
                     ViewBag.ID = protocol.id;
                     ViewBag.Name = protocol.name;
-                    ViewBag.EndDate = protocol.endDate;
+                    ViewBag.EndDate = protocol.endDate.Value.ToShortDateString();
                     ViewBag.agency = new SelectList(db.pr_getAgencyAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", protocol.agency);
                     ViewBag.domain = new SelectList(db.pr_getDomainAll(), "id", "description", protocol.domain);
                     return View(protocol);
