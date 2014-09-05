@@ -98,15 +98,34 @@ namespace Generic.Controllers
                 //    touchpoint.protocol = ;
                 db.touchpoint.Add(touchpoint);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (touchpoint.id > 0)
+                {
+                    ViewBag.ID = touchpoint.id;
+                    ViewBag.Touchpoint = touchpoint.title;
+                    ViewBag.EndDate = touchpoint.endDate;
+                    if (SessionSingleton.ProtocolId != 0)
+                    {
+                        ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", SessionSingleton.ProtocolId);
+                    }
+                    else
+                    {
+                        ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+                    }
+                    ViewBag.person = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+                    ViewBag.sponsor = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+                    ViewBag.admin = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+                    ViewBag.target = new SelectList(db.pr_getTouchpointTargetAll(), "id", "description");
+                    return View(touchpoint);
+                    //return RedirectToAction("Index");
+                }
             }
             if (SessionSingleton.ProtocolId != 0)
             {
-                ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", SessionSingleton.ProtocolId);
+                ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", SessionSingleton.ProtocolId);
             }
             else
             {
-                ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+                ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             }
             ViewBag.person = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
             ViewBag.sponsor = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");

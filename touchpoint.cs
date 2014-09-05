@@ -11,7 +11,8 @@ namespace Generic
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class touchpoint
     {
         public touchpoint()
@@ -26,23 +27,31 @@ namespace Generic
             this.partnerSpreadsheetDataLoad = new HashSet<partnerSpreadsheetDataLoad>();
             this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
         }
-    
+
         public int id { get; set; }
+        [Required]
         public Nullable<int> protocol { get; set; }
         public Nullable<int> person { get; set; }
+        [Required]
         public Nullable<int> sponsor { get; set; }
+        [Required]
         public Nullable<int> admin { get; set; }
+        [Required]
         public string title { get; set; }
         public string description { get; set; }
         public string abbreviation { get; set; }
+        [Required]
         public Nullable<System.DateTime> startDate { get; set; }
+        [Required]
         public Nullable<System.DateTime> endDate { get; set; }
+        [Required]
         public Nullable<bool> automaticReminder { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<int> active { get; set; }
         public string purpose { get; set; }
+        [Required]
         public Nullable<int> target { get; set; }
-    
+
         public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire { get; set; }
         public virtual ICollection<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire1 { get; set; }
         public virtual protocol protocol1 { get; set; }

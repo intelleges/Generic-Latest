@@ -144,7 +144,12 @@
             $("#target").val("0");
         });
     });
-
+    jQuery(document).ready(function () {
+        if ('@ViewBag.ID' != '0' && '@ViewBag.ID' != '') {
+            debugger;
+            alertify.alert('You have successfully added the  @ViewBag.Touchpoint touchpoint to Intelleges with expiry of @ViewBag.EndDate.');
+        }
+    });
 </script>
 
 @{Html.EnableClientValidation();}
@@ -261,7 +266,8 @@
                 </div>
                 <div class="editor-field">
                     @Html.Telerik().DatePicker().Name("startDate").HtmlAttributes(new { @style = "width:100%;", @class = "txtClass" })
-                </div>
+                    @Html.ValidationMessageFor(model => model.startDate)
+ </div>
 
 
                 <div class="editor-label">
@@ -269,7 +275,8 @@
                 </div>
                 <div class="editor-field">
                     @Html.Telerik().DatePicker().Name("EndDate").HtmlAttributes(new { @style = "width:100%;" })
-                </div>
+                    @Html.ValidationMessageFor(model => model.endDate)               
+ </div>
 
                 @* <div class="editor-label">
                     @Html.LabelFor(model => model.sortOrder)
