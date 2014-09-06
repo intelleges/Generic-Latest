@@ -139,21 +139,30 @@ namespace Generic.Controllers
                 var Target = db.touchpoint.Where(x => x.id==touchpoint).Select(x => x.target).ToList();
                 ViewBag.Message = Target[0].ToString();
                 //ViewBag.Message = "1";
-
+                ViewBag.state = new SelectList(db.state, "id", "name");
+                ViewBag.country = new SelectList(db.country, "id", "name");
+                ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+                ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+                ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+                ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname");
+                ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname");
+                return View();
             }
             catch
             {
                 ViewBag.Message = "error";
 
+              //  alertify-ok"
+                ViewBag.state = new SelectList(db.state, "id", "name", partner.state);
+                ViewBag.country = new SelectList(db.country, "id", "name", partner.country);
+                ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", protocol);
+                ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", partnertype);
+                ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", group);
+                ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname", partner.owner);
+                ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname", partner.author);
+                return View(partner);
             }
-            ViewBag.state = new SelectList(db.state, "id", "name", partner.state);
-            ViewBag.country = new SelectList(db.country, "id", "name", partner.country);
-            ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", protocol);
-            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", partnertype);
-            ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", group);
-            ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname", partner.owner);
-            ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname", partner.author);
-            return View(partner);
+           
         }
 
 
