@@ -4,8 +4,8 @@
 @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Group";
-    //Html.EnableUnobtrusiveJavaScript(true);
-    //Html.EnableClientValidation(true);
+            //Html.EnableUnobtrusiveJavaScript(true);
+            //Html.EnableClientValidation(true);
 }
 
 
@@ -37,9 +37,21 @@
             // debugger;
             //alert("Clear Button Click");
             $("#name").val("");
-            $("#description").val("");        
+            $("#description").val("");
             $("#groupCollection").val("0");
         });
+
+     
+
+        if ('@ViewBag.ID' != '0' && '@ViewBag.ID' != '') {
+            debugger;
+            alertify.alert('You have successfully added the @ViewBag.ID protocol to Intelleges');
+
+            $("#name").val("");
+            $("#description").val("");
+            $("#groupCollection").val("0");
+        }
+
     });
 
 </script>

@@ -80,13 +80,22 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult Create(group group)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+            if (group.name != "" && group.description != "")
             {
+                group.description = string.IsNullOrEmpty(group.description) ? group.name : group.description;
+                group.active = 1;
+                group.sortOrder = 1;
+                group.dateCreated = DateTime.Now;
+                group.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
+
                 group.author = SessionSingleton.LoggedInUserId;
                 group.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
                 db.group.Add(group);
                 db.SaveChanges();
-                return RedirectToAction("Create","Group");
+                ViewBag.ID = group.id;
+                //   db.pr_addGroup(group.enterprise, 0, group.author, 0, group.name, group.description, "", group.dateCreated, group.sortOrder, group.active);
+                return RedirectToAction("Create", "Group");
             }
 
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", group.enterprise);
@@ -97,7 +106,7 @@ namespace Generic.Controllers
         public ActionResult Archive(int id)
         {
             db.pr_archiveGroup(id);
-           
+
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
@@ -166,13 +175,13 @@ namespace Generic.Controllers
                 var group = (from x in db.view_GroupData
                              select new { x.Enterprise, x.name, x.description, x.Owner }).ToList();
                 return Json(new { data = group }, JsonRequestBehavior.AllowGet);
-             
+
             }
             else
             {
                 var group = (from x in db.view_GroupData
                              select new { x.description }).ToList();
-                
+
                 return Json(new { Data = group }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -227,7 +236,7 @@ namespace Generic.Controllers
 
 
         [HttpPost]
-        public ActionResult FindGroup(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode,string searchType)
+        public ActionResult FindGroup(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode, string searchType)
         {
             //dbo.pr_dynamicFilters 'partner', ' Campaign=1009; Group=20;Country=2; Type=4'
             //var objPartners = db.pr_dynamicFiltersPartner("view_PartnerData", "name=well;enterprise=3");
@@ -390,7 +399,7 @@ namespace Generic.Controllers
                 objGroupViewModel.PartnerCount = iview_GroupDataData.PartnerCount;
                 objGroupViewModel.ShadowCount = iview_GroupDataData.ShadowCount;
                 objGroupViewModel.UserCount = iview_GroupDataData.UserCount;
-               
+
                 objGroupViewModel.IsSelected = false;
 
 
@@ -411,7 +420,7 @@ namespace Generic.Controllers
                 string arguments = Session["groupsearch"].ToString() + "active=1;";
                 Session["group"] = db.Database.SqlQuery<view_GroupData>("EXEC pr_dynamicFiltersGroup  'view_GroupData' , '" + arguments + "'").ToList();
                 List<view_GroupData> abc = (List<view_GroupData>)Session["group"];
-              
+
 
                 return View(abc);
             }
