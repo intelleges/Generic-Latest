@@ -39,13 +39,14 @@
             $("#name").val("");
             $("#description").val("");
             $("#groupCollection").val("0");
+            alertify.alert("Hi");
         });
 
      
-
+       
         if ('@ViewBag.ID' != '0' && '@ViewBag.ID' != '') {
             debugger;
-            alertify.alert('You have successfully added the @ViewBag.ID protocol to Intelleges');
+            alertify.alert('You have successfully added the @ViewBag.ID Group to Intelleges');
 
             $("#name").val("");
             $("#description").val("");
