@@ -94,6 +94,7 @@ namespace Generic.Controllers
                 db.group.Add(group);
                 db.SaveChanges();
                 ViewBag.ID = group.id;
+                ViewBag.GroupName = group.description;
                 //   db.pr_addGroup(group.enterprise, 0, group.author, 0, group.name, group.description, "", group.dateCreated, group.sortOrder, group.active);
                 //return RedirectToAction("Create", "Group");
                 ViewBag.groupCollection = new SelectList(db.groupCollection, "id", "name");
