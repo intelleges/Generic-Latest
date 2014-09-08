@@ -30,7 +30,7 @@
     @( Html.Telerik().Grid(Model).Name("ConfirmPartnerGrid")
     .ToolBar(commands =>
          {
-             commands.Template("<a class='t-button' href='#' id='btnconfirm'>Confirm</a><a class='t-button' href='#' id='btninvite'>Invite</a><a class='t-button' id='btnclear' href='#'>Clear</a>");
+             commands.Template("<a class='t-button' href='#' id='btnconfirm'>Confirm</a><a class='t-button' id='btnclear' href='#'>Clear</a>");
          })
 
         .Columns(columns =>
@@ -81,7 +81,7 @@
         })
 
             //.DataKeys(keys => keys.Add(o => o.internalID))
-        .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+        //.Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
         .Sortable(sorting => sorting.Enabled(true))
 
         .Scrollable(scrolling => scrolling
@@ -128,6 +128,14 @@
         jQuery.noConflict();
     });
     var TotalRecord = "";
+
+
+    $("#btnclear").click(function () {
+        $("[type='radio']").prop('checked', false);
+        $("[type='checkbox']").prop('checked', false);
+
+    });
+
     $("#btnconfirm").click(function () {
         debugger;
         if (TotalRecord != '') {
@@ -141,23 +149,26 @@
 
             var TotalRecordForSP = "'" + TotalRecord + "'";
 
-            function ConfirmPartnerRecords() {
-                debugger;
+            //function ConfirmPartnerRecords() {
+                //debugger;
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("ConfirmPartnerRecords", "Partner")',
-                    data: { inputList: TotalRecordForSP },
+                    data: { inputList: TotalRecord },
                     async: false,
                     success: function (result) {
                         debugger
                         if (result == -1) {
                             alert("An error occured while confirming records.");
                         }
+                        else {
+                            alertify.alert("'" + result + "'");
+                        }
                     },
                     error: function (err, msg) {
                     }
                 });
-            }
+            //}
             }
             //alertify.confirm("Your selected records: " + TotalRecordForSP, function (e) {
             //    if (e) {
@@ -168,7 +179,7 @@
             //});
 
 
-        }
+        //}
         //var count = $("input[name='chkSelect']:checked").length;
         //if (count == 0) {
         //    alert("No rows selected.");

@@ -159,12 +159,10 @@ namespace Generic
         public DbSet<zcta> zcta { get; set; }
         public DbSet<touchpointTarget> touchpointTarget { get; set; }
         public DbSet<template> template { get; set; }
-        public DbSet<pptqGroup> pptqGroup { get; set; }
         public DbSet<pptqGroupType> pptqGroupType { get; set; }
         public DbSet<ptqGroup> ptqGroup { get; set; }
         public DbSet<v_PartnerFind> v_PartnerFind { get; set; }
         public DbSet<view_ProtocolData> view_ProtocolData { get; set; }
-        public DbSet<view_TouchpointData> view_TouchpointData { get; set; }
         public DbSet<view_EnterpriseData> view_EnterpriseData { get; set; }
         public DbSet<view_GroupData> view_GroupData { get; set; }
         public DbSet<view_PartnerData> view_PartnerData { get; set; }
@@ -173,9 +171,10 @@ namespace Generic
         public DbSet<ConfirmPartnerActionType> ConfirmPartnerActionType { get; set; }
         public DbSet<tmpPartnerConfirm> tmpPartnerConfirm { get; set; }
         public DbSet<view_PartnerConfirmationData> view_PartnerConfirmationData { get; set; }
-        public DbSet<view_PartnerConfirmationData_tmp> view_PartnerConfirmationData_tmp { get; set; }
         public DbSet<view_QuestionnaireData> view_QuestionnaireData { get; set; }
         public DbSet<view_EventNotificationData> view_EventNotificationData { get; set; }
+        public DbSet<pptqGroup> pptqGroup { get; set; }
+        public DbSet<view_TouchpointData> view_TouchpointData { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -13562,6 +13561,19 @@ namespace Generic
                 new ObjectParameter("enterprise", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationBounce_Result>("pr_getEventNotificationBounce", enterpriseParameter);
+        }
+    
+        public virtual int pr_modifyPersonTouchpoint(Nullable<int> person, Nullable<int> touchpoint)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonTouchpoint", personParameter, touchpointParameter);
         }
     }
 }

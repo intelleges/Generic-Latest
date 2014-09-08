@@ -557,18 +557,33 @@ namespace Generic.Controllers
             model.AutoCompleteAttributes.AutoFill = model.AutoCompleteAttributes.AutoFill ?? false;
             model.AutoCompleteAttributes.AllowMultipleValues = model.AutoCompleteAttributes.AllowMultipleValues ?? true;
             model.AutoCompleteAttributes.MultipleSeparator = model.AutoCompleteAttributes.MultipleSeparator ?? ", ";
-            model.ComboBoxAttributes.Width = model.ComboBoxAttributes.Width ?? 200;
-            model.ComboBoxAttributes.SelectedIndex = model.ComboBoxAttributes.SelectedIndex ?? 0;
+            model.ComboBoxAttributes.Width = model.ComboBoxAttributes.Width ?? 400;
+            model.ComboBoxAttributes.SelectedIndex = model.ComboBoxAttributes.SelectedIndex ?? (int)Session["touchpoint"];
             model.ComboBoxAttributes.HighlightFirst = model.ComboBoxAttributes.HighlightFirst ?? true;
             model.ComboBoxAttributes.AutoFill = model.ComboBoxAttributes.AutoFill ?? true;
             model.ComboBoxAttributes.OpenOnFocus = model.ComboBoxAttributes.OpenOnFocus ?? false;
             model.DropDownListAttributes.Width = model.DropDownListAttributes.Width ?? 200;
             model.DropDownListAttributes.SelectedIndex = model.DropDownListAttributes.SelectedIndex ?? 0;
 
-            model.Touchpoints = db.pr_getTouchpointAll().ToList();
+            model.Touchpoints = db.pr_getTouchpointAllByEnterprise((int)Session["MyEnterPriseId"]).ToList();
 
             return PartialView("_TouchpointPartial", model);
 
+        }
+
+        public JsonResult ChangeTouchpoint(int selectedTouchpoint)
+        {
+            try
+            {
+              
+                db.pr_modifyPersonTouchpoint((int)Session["LoggedInUserId"], selectedTouchpoint);
+                Session["touchpoint"] = selectedTouchpoint;
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
         }
 
 

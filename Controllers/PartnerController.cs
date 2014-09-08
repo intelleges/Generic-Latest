@@ -1349,13 +1349,13 @@ namespace Generic.Controllers
             int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
             //int enterpriseid = 1067;
             //int touchpointID = 1016;           
-            List<view_PartnerConfirmationData_tmp> objConfirmPartnerList = db.Database.SqlQuery<view_PartnerConfirmationData_tmp>("pr_getPartnerConfirmationData2 @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
+            List<view_PartnerConfirmationData> objConfirmPartnerList = db.Database.SqlQuery<view_PartnerConfirmationData>("pr_getPartnerConfirmationData2 @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
            // List<view_PartnerConfirmationData> objConfirmPartnerList = db.pr_getPartnerConfirmationData2((int)Generic.Helpers.CurrentInstance.EnterpriseID, (int)Session["touchpoint"]);
             List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
             return View("ConfirmPartner", objConfirmPartnerViewModelList);
         }
 
-        private List<ConfirmPartnerViewModel> ConvertToConfirmPartnerViewModel(List<view_PartnerConfirmationData_tmp> iview_ConfirmPartnerDataList)
+        private List<ConfirmPartnerViewModel> ConvertToConfirmPartnerViewModel(List<view_PartnerConfirmationData> iview_ConfirmPartnerDataList)
         {
             List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = new List<ConfirmPartnerViewModel>();
 
@@ -1365,36 +1365,36 @@ namespace Generic.Controllers
                 objConfirmPartnerViewModel.id = iview_ConfirmPartnerData.id;
                 objConfirmPartnerViewModel.enterprise = iview_ConfirmPartnerData.enterprise;
                 objConfirmPartnerViewModel.touchpoint = iview_ConfirmPartnerData.touchpoint;
-                objConfirmPartnerViewModel.Partner_A = iview_ConfirmPartnerData.Partner_A;
-                objConfirmPartnerViewModel.Partner_A_Name = iview_ConfirmPartnerData.Partner_A_Name;
+                objConfirmPartnerViewModel.Partner_A = iview_ConfirmPartnerData.partnerA;
+                objConfirmPartnerViewModel.Partner_A_Name = iview_ConfirmPartnerData.partnerA_Name;
 
-                objConfirmPartnerViewModel.Group1ID = iview_ConfirmPartnerData.Group1ID;
-                objConfirmPartnerViewModel.Group1 = iview_ConfirmPartnerData.Group1;
-                objConfirmPartnerViewModel.StatusID_1 = iview_ConfirmPartnerData.StatusID_1;
+                objConfirmPartnerViewModel.Group1ID = iview_ConfirmPartnerData.group1;
+                objConfirmPartnerViewModel.Group1 = iview_ConfirmPartnerData.group1_Name;
+                objConfirmPartnerViewModel.StatusID_1 = iview_ConfirmPartnerData.status1;
 
-                objConfirmPartnerViewModel.Status1 = iview_ConfirmPartnerData.Status1;
+                objConfirmPartnerViewModel.Status1 = iview_ConfirmPartnerData.status1_Name;
                // string strref1 = iview_ConfirmPartnerData.isReference1.ToString()=="True" ? "Yes" : "No";
-                objConfirmPartnerViewModel.IsReference1 = iview_ConfirmPartnerData.IsReference1.ToString() == "True" ? "Yes" : "No"; ;
+                objConfirmPartnerViewModel.IsReference1 = iview_ConfirmPartnerData.isReference1.ToString() == "True" ? "Yes" : "No";
 
-                objConfirmPartnerViewModel.Partner_B = iview_ConfirmPartnerData.Partner_B;
-                objConfirmPartnerViewModel.Partner_B_Name = iview_ConfirmPartnerData.Partner_B_Name;
-                objConfirmPartnerViewModel.Group2ID = iview_ConfirmPartnerData.Group2ID;
-                objConfirmPartnerViewModel.Group2 = iview_ConfirmPartnerData.Group2;
-                objConfirmPartnerViewModel.StatusID_2 = iview_ConfirmPartnerData.StatusID_2;
-                objConfirmPartnerViewModel.Status2 = iview_ConfirmPartnerData.Status2;
+                objConfirmPartnerViewModel.Partner_B = iview_ConfirmPartnerData.partnerB;
+                objConfirmPartnerViewModel.Partner_B_Name = iview_ConfirmPartnerData.partnerB_Name;
+                objConfirmPartnerViewModel.Group2ID = iview_ConfirmPartnerData.group2;
+                objConfirmPartnerViewModel.Group2 = iview_ConfirmPartnerData.group2_Name;
+                objConfirmPartnerViewModel.StatusID_2 = iview_ConfirmPartnerData.status2;
+                objConfirmPartnerViewModel.Status2 = iview_ConfirmPartnerData.status2_Name;
 
                 //string strref2 = iview_ConfirmPartnerData.isReference2.ToString() == "True" ? "Yes" : "No";
-                objConfirmPartnerViewModel.IsReference2 = iview_ConfirmPartnerData.IsReference2;
+                objConfirmPartnerViewModel.IsReference2 = iview_ConfirmPartnerData.isReference2.ToString() == "True" ? "Yes" : "No";
                 //string emailmatch = iview_ConfirmPartnerData.emailMatch.ToString() == "True" ? "Yes" : "No";
-                objConfirmPartnerViewModel.EmailMatch = iview_ConfirmPartnerData.EmailMatch;
+                objConfirmPartnerViewModel.EmailMatch = iview_ConfirmPartnerData.emailMatch.ToString() == "True" ? "Yes" : "No";
                 //string nameMatch = iview_ConfirmPartnerData.nameMatch.ToString() == "True" ? "Yes" : "No";
-                objConfirmPartnerViewModel.NameMatch = iview_ConfirmPartnerData.NameMatch;
+                objConfirmPartnerViewModel.NameMatch = iview_ConfirmPartnerData.nameMatch.ToString() == "True" ? "Yes" : "No"; 
                 //string internalIDMatch = iview_ConfirmPartnerData.internalIDMatch.ToString() == "True" ? "Yes" : "No";
-                objConfirmPartnerViewModel.InternalIDMatch = iview_ConfirmPartnerData.InternalIDMatch;
+                objConfirmPartnerViewModel.InternalIDMatch = iview_ConfirmPartnerData.internalIDMatch.ToString() == "True" ? "Yes" : "No"; 
                 //string federalIDMatch = iview_ConfirmPartnerData.federalIDMatch.ToString() == "True" ? "Yes" : "No";
-                objConfirmPartnerViewModel.FederalIDMatch = iview_ConfirmPartnerData.FederalIDMatch;
+                objConfirmPartnerViewModel.FederalIDMatch = iview_ConfirmPartnerData.federalIDMatch.ToString() == "True" ? "Yes" : "No"; 
                 //string dunsMatch = iview_ConfirmPartnerData.dunsMatch.ToString() == "True" ? "Yes" : "No";
-                objConfirmPartnerViewModel.DUNSMatch = iview_ConfirmPartnerData.DUNSMatch;
+                objConfirmPartnerViewModel.DUNSMatch = iview_ConfirmPartnerData.dunsMatch.ToString() == "True" ? "Yes" : "No"; 
 
                 objConfirmPartnerViewModel.IsSelected1 = false;
                 objConfirmPartnerViewModel.IsSelected2 = false;
@@ -1425,14 +1425,26 @@ namespace Generic.Controllers
 
         public JsonResult ConfirmPartnerRecords(string inputList)
         {
+            var inputParam = GetInputListParameterForPerformSelectedActions(inputList);
+
             try
             {
-                return Json("sent", JsonRequestBehavior.AllowGet);
+                db.pr_PerformSelectedActions(inputParam);
+                return Json(inputParam, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(-1, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private string GetInputListParameterForPerformSelectedActions(string inputList)
+        {
+            var currentPersonId = (int)Session["LoggedInUserId"];
+
+            var currentPersonIdStringAddition = string.Format(",{0};", currentPersonId);
+
+            return inputList.Replace(";", currentPersonIdStringAddition);
         }
     }
 }

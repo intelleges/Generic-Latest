@@ -15,6 +15,7 @@
             .AutoFill(Model.ComboBoxAttributes.AutoFill.Value)
             .SelectedIndex(Model.ComboBoxAttributes.SelectedIndex.Value)
             .BindTo(new SelectList(Model.Touchpoints, "id", "description"))
+            .ClientEvents(e=>e.OnChange("ComboBoxOnChange"))
             .HtmlAttributes(new { style = string.Format("width:{0}px", Model.ComboBoxAttributes.Width) })
             .Filterable(filtering =>
             {
@@ -25,3 +26,20 @@
             })
             .HighlightFirstMatch(Model.ComboBoxAttributes.HighlightFirst.Value)
     )
+
+<script>
+
+    function ComboBoxOnChange(e) {
+        debugger;
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeTouchpoint", "Admin")',
+            data: { selectedTouchpoint: e.value },
+                    async: false,
+                    success: function (result) {
+                    },
+                    error: function (err, msg) {
+                    }
+                });
+    }
+</script>

@@ -10,12 +10,12 @@ namespace Generic.Models
     {
         public TouchpointComboModel()
         {
-            Touchpoints = new List<touchpoint>();
+            Touchpoints = new List<pr_getTouchpointAllByEnterprise_Result>();
             ComboBoxAttributes = new ComboBoxAttributes();
             DropDownListAttributes = new DropDownListAttributes();
             AutoCompleteAttributes = new AutoCompleteAttributes();
         }
-        public IEnumerable<touchpoint> Touchpoints
+        public IEnumerable<pr_getTouchpointAllByEnterprise_Result> Touchpoints
         {
             get;
             set;

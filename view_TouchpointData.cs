@@ -15,18 +15,18 @@ namespace Generic
     public partial class view_TouchpointData
     {
         public Nullable<int> enterprise { get; set; }
-        public string Name { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
         public string Touchpoint_Admin { get; set; }
         public string Touchpoint_Sponsor { get; set; }
         public Nullable<System.DateTime> Start_Date { get; set; }
         public Nullable<System.DateTime> End_Date { get; set; }
         public string description { get; set; }
         public int User_Count { get; set; }
-        public int Group_Count { get; set; }
-        public int Questionnaire_Count { get; set; }
-        public int Partner_Count { get; set; }
-        public int PartnerType_Count { get; set; }
-        public int id { get; set; }
+        public Nullable<int> Group_Count { get; set; }
+        public Nullable<int> Questionnaire_Count { get; set; }
+        public Nullable<int> Partner_Count { get; set; }
+        public Nullable<int> PartnerType_Count { get; set; }
         public Nullable<int> active { get; set; }
         public string Locked { get; set; }
     }

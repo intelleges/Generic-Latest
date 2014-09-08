@@ -454,7 +454,7 @@ namespace Generic.Controllers
             {
                 TouchPointViewModel objTouchpointViewModel = new TouchPointViewModel();
                 objTouchpointViewModel.id = iview_TouchpointData.id;
-                objTouchpointViewModel.Name = iview_TouchpointData.Name;
+                objTouchpointViewModel.name = iview_TouchpointData.name;
                 objTouchpointViewModel.enterprise = iview_TouchpointData.enterprise;
                 objTouchpointViewModel.description = iview_TouchpointData.description;
                 objTouchpointViewModel.End_Date = iview_TouchpointData.End_Date;
