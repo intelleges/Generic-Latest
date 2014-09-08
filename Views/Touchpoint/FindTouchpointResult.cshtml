@@ -34,11 +34,11 @@
 
         .Columns(columns =>
         {
-            columns.Bound(o => o.Name).Title("Name").Width(100).Template(@<text><a href='#' id='@item.Name' class="menu_block">@item.Name</a>
+            columns.Bound(o => o.name).Title("Name").Width(100).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
 <div class="display_menu" style="display: none;">   <ul>
         <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-        <li><a href="javascript:openRemovePopup(@item.id,'@item.Name')">Remove</a></li>
-        <li><a href="javascript:openArchivePopup(@item.id,'@item.Name')">Archive</a></li>
+        <li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>
+        <li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>
         <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
         <li><a href="~/TouchPoint/EventNotification/@item.id">Event Notification</a></li>
         

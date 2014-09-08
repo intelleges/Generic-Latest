@@ -229,8 +229,8 @@ namespace Generic.Controllers
 
 
             string arguments = Session["touchpointsearch"].ToString() + "active=1;";
-            Session["touchpoint"] = db.Database.SqlQuery<view_TouchpointData>("EXEC pr_dynamicFiltersTouchpoint  'view_TouchpointData' , '" + arguments + "'").ToList();
-            List<view_TouchpointData> abc = (List<view_TouchpointData>)Session["touchpoint"];
+            Session["touchpointData"] = db.Database.SqlQuery<view_TouchpointData>("EXEC pr_dynamicFiltersTouchpoint  'view_TouchpointData' , '" + arguments + "'").ToList();
+            List<view_TouchpointData> abc = (List<view_TouchpointData>)Session["touchpointData"];
 
 
 
@@ -428,10 +428,10 @@ namespace Generic.Controllers
             try
             {
                 string arguments = Session["touchpointsearch"].ToString() + "active=1;";
-                Session["touchpoint"] = db.Database.SqlQuery<view_TouchpointData>("EXEC pr_dynamicFiltersTouchpoint  'view_TouchpointData' , '" + arguments + "'").ToList();
+                Session["touchpointData"] = db.Database.SqlQuery<view_TouchpointData>("EXEC pr_dynamicFiltersTouchpoint  'view_TouchpointData' , '" + arguments + "'").ToList();
 
 
-                List<view_TouchpointData> abc = (List<view_TouchpointData>)Session["touchpoint"];
+                List<view_TouchpointData> abc = (List<view_TouchpointData>)Session["touchpointData"];
                 return View(abc);
             }
             catch
@@ -480,10 +480,10 @@ namespace Generic.Controllers
             //return View(questionnairedetail);
 
             string arguments = Session["touchpointsearch"].ToString() + "touchpointid=" + id + ";";
-            Session["touchpoint"] = db.Database.SqlQuery<view_EventNotificationData>("EXEC pr_dynamicFiltersEventNotification  'view_EventNotificationData' , '" + arguments + "'").ToList();
+            Session["touchpointData"] = db.Database.SqlQuery<view_EventNotificationData>("EXEC pr_dynamicFiltersEventNotification  'view_EventNotificationData' , '" + arguments + "'").ToList();
 
 
-            List<view_EventNotificationData> abc = (List<view_EventNotificationData>)Session["touchpoint"];
+            List<view_EventNotificationData> abc = (List<view_EventNotificationData>)Session["touchpointData"];
 
             return View(abc);
         }
