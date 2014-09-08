@@ -109,12 +109,12 @@ namespace Generic.Controllers
             ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             //ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname");
             ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname");
-            ViewBag.owner=db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}",  v.firstName, v.lastName) }).ToList();
+            ViewBag.owner = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}", v.firstName, v.lastName) }).ToList();
 
             return View();
         }
 
-        
+
 
         //
         // POST: /Partner/Create
@@ -136,7 +136,7 @@ namespace Generic.Controllers
                 Session["partnertype"] = partnertype;
                 Session["touchpoint"] = touchpoint;
                 Session["loadGroup"] = loadGroup;
-                var Target = db.touchpoint.Where(x => x.id==touchpoint).Select(x => x.target).ToList();
+                var Target = db.touchpoint.Where(x => x.id == touchpoint).Select(x => x.target).ToList();
                 ViewBag.Message = Target[0].ToString();
                 //ViewBag.Message = "1";
                 ViewBag.state = new SelectList(db.state, "id", "name");
@@ -152,7 +152,7 @@ namespace Generic.Controllers
             {
                 ViewBag.Message = "error";
 
-              //  alertify-ok"
+                //  alertify-ok"
                 ViewBag.state = new SelectList(db.state, "id", "name", partner.state);
                 ViewBag.country = new SelectList(db.country, "id", "name", partner.country);
                 ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name", protocol);
@@ -162,7 +162,7 @@ namespace Generic.Controllers
                 ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstname", partner.author);
                 return View(partner);
             }
-           
+
         }
 
 
@@ -429,8 +429,8 @@ namespace Generic.Controllers
             Session["touchpoint"] = touchpoint;
             Session["loadGroup"] = loadGroup;
             //ViewBag.Message = "1";
-            var Target = db.touchpoint.Where(x => x.id.Equals(touchpoint)).Select(x=>x.target).ToList();
-            ViewBag.Message = Target[0].ToString();               
+            var Target = db.touchpoint.Where(x => x.id.Equals(touchpoint)).Select(x => x.target).ToList();
+            ViewBag.Message = Target[0].ToString();
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
@@ -443,6 +443,7 @@ namespace Generic.Controllers
         public ActionResult InvitePartners()
         {
             int partnertype = (int)Session["partnertype"];
+
             int touchpoint = (int)Session["touchpoint"];
 
             string loadGroup = (string)Session["loadGroup"];
@@ -991,7 +992,7 @@ namespace Generic.Controllers
             Session["loadgroup"] = loadGroup;
 
             ViewBag.Message = "1";
-            
+
 
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
@@ -1097,6 +1098,18 @@ namespace Generic.Controllers
 
         }
 
+        public ActionResult InvitePartner()
+        {
+            string arguments = Session["partnersearch"].ToString() + "active=1;statusID=5";
+
+            List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+            List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
+            ViewBag.searchType = "Invite";
+            return View("RemovePartner", objPartnerViewModelList);
+
+        }
+
+
         public ActionResult RemovePartner()
         {
             string arguments = Session["partnersearch"].ToString() + "active=1;";
@@ -1108,7 +1121,7 @@ namespace Generic.Controllers
 
         }
         [HttpPost]
-        public ActionResult RemovePartner(string searchType, List<int> chkSelect)
+        public ActionResult RemovePartner(string searchType, List<int> chkSelect, List<int> partnertypeID, List<int> touchpoint, List<string> AccessCode, List<string> ContactEmail, DateTime? DueDate)
         {
             if (searchType == "Remove")
             {
@@ -1137,6 +1150,69 @@ namespace Generic.Controllers
                 }
                 ViewBag.searchType = "Restore";
                 return RedirectToAction("RestorePartner");
+            }
+            else if (searchType == "Invite")
+            {
+                int index = 0;
+                foreach (int partnerID in chkSelect)
+                {
+                    // Code to Invite selected partners
+
+                    int partnertypeId = partnertypeID[index];
+                    int touchpointId = touchpoint[index];
+                    string accesscode = AccessCode[index];
+                    string emailID = ContactEmail[index];
+
+                    // var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).ToList();
+
+                    int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertypeId, touchpointId).LastOrDefault().id;
+
+
+
+
+                    var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerID, ptq).FirstOrDefault();
+                    pptq.invitedDate = DateTime.Now;
+                    var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+                    pptq.invitedBy = person.id;
+                    pptq.status = (int)PartnerStatus.Invited_NoResponse;
+                    db.Entry(pptq).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    var objpartner = db.pr_getPartner(partnerID).FirstOrDefault();
+                    objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
+                    db.Entry(objpartner).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
+                    amm.text.Replace("[partner Access Code]", accesscode);
+
+                    //  var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(accesscode, loadGroup).FirstOrDefault();
+
+                    // if (objpartnerByAccessCode != null)
+                    {
+
+                        amm.text = amm.text.Replace("[Due Date]", DateTime.Parse(DueDate.ToString()).ToString("MMM, dd, yyyy"));
+                    }
+
+                    var objtouchpoint = db.pr_getTouchpoint(touchpointId).FirstOrDefault();
+                    Email email = new Email(amm);
+
+                    if (Session["loadgroup"] != null)
+                    {
+                        email.loadgroup = "";
+                    }
+                    email.accesscode = accesscode;
+                    email.protocolTouchpoint = objtouchpoint.description;
+
+                    EmailFormat emailFormat = new EmailFormat();
+                    email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
+                    email.emailTo = objpartner.email;
+                    SendEmail objSendEmail = new SendEmail();
+                    objSendEmail.sendEmail(email);
+                    index++;
+                }
+                ViewBag.searchType = "Invite";
+                return RedirectToAction("InvitePartner");
             }
             else
             {
@@ -1235,6 +1311,10 @@ namespace Generic.Controllers
             else if (searchType == "Restore")
             {
                 return RedirectToAction("RestorePartner");
+            }
+            else if (searchType == "Invite")
+            {
+                return RedirectToAction("InvitePartner");
             }
             else
             {
@@ -1350,8 +1430,8 @@ namespace Generic.Controllers
             //int enterpriseid = 1067;
             //int touchpointID = 1016;           
             List<ConfirmPartnerViewModel> objConfirmPartnerList = db.Database.SqlQuery<ConfirmPartnerViewModel>("pr_getPartnerConfirmationData @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
-         //   List<pr_getPartnerConfirmationData_Result> objConfirmPartnerList = db.pr_getPartnerConfirmationData((int)Generic.Helpers.CurrentInstance.EnterpriseID, (int)Session["touchpoint"]).ToList();
-          //  List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
+            //   List<pr_getPartnerConfirmationData_Result> objConfirmPartnerList = db.pr_getPartnerConfirmationData((int)Generic.Helpers.CurrentInstance.EnterpriseID, (int)Session["touchpoint"]).ToList();
+            //  List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
             return View("ConfirmPartner", objConfirmPartnerList);
         }
 
@@ -1362,18 +1442,18 @@ namespace Generic.Controllers
             foreach (var iview_ConfirmPartnerData in iview_ConfirmPartnerDataList)
             {
                 ConfirmPartnerViewModel objConfirmPartnerViewModel = new ConfirmPartnerViewModel();
-               // objConfirmPartnerViewModel.id = iview_ConfirmPartnerData.id;
-             //   objConfirmPartnerViewModel.enterprise = iview_ConfirmPartnerData.enterprise;
-            //    objConfirmPartnerViewModel.touchpoint = iview_ConfirmPartnerData.touchpoint;
-            //    objConfirmPartnerViewModel.Partner_A = iview_ConfirmPartnerData.Partner_A;
-           //     objConfirmPartnerViewModel.Partner_A_Name = iview_ConfirmPartnerData.Partner_A;
+                // objConfirmPartnerViewModel.id = iview_ConfirmPartnerData.id;
+                //   objConfirmPartnerViewModel.enterprise = iview_ConfirmPartnerData.enterprise;
+                //    objConfirmPartnerViewModel.touchpoint = iview_ConfirmPartnerData.touchpoint;
+                //    objConfirmPartnerViewModel.Partner_A = iview_ConfirmPartnerData.Partner_A;
+                //     objConfirmPartnerViewModel.Partner_A_Name = iview_ConfirmPartnerData.Partner_A;
 
                 objConfirmPartnerViewModel.Group1ID = iview_ConfirmPartnerData.group1;
                 objConfirmPartnerViewModel.Group1 = iview_ConfirmPartnerData.group1_Name;
                 objConfirmPartnerViewModel.StatusID_1 = iview_ConfirmPartnerData.status1;
 
                 objConfirmPartnerViewModel.Status1 = iview_ConfirmPartnerData.status1_Name;
-               // string strref1 = iview_ConfirmPartnerData.isReference1.ToString()=="True" ? "Yes" : "No";
+                // string strref1 = iview_ConfirmPartnerData.isReference1.ToString()=="True" ? "Yes" : "No";
                 objConfirmPartnerViewModel.IsReference1 = iview_ConfirmPartnerData.isReference1.ToString() == "True" ? "Yes" : "No";
 
                 objConfirmPartnerViewModel.Partner_B = iview_ConfirmPartnerData.partnerB;
@@ -1388,13 +1468,13 @@ namespace Generic.Controllers
                 //string emailmatch = iview_ConfirmPartnerData.emailMatch.ToString() == "True" ? "Yes" : "No";
                 objConfirmPartnerViewModel.EmailMatch = iview_ConfirmPartnerData.emailMatch.ToString() == "True" ? "Yes" : "No";
                 //string nameMatch = iview_ConfirmPartnerData.nameMatch.ToString() == "True" ? "Yes" : "No";
-                objConfirmPartnerViewModel.NameMatch = iview_ConfirmPartnerData.nameMatch.ToString() == "True" ? "Yes" : "No"; 
+                objConfirmPartnerViewModel.NameMatch = iview_ConfirmPartnerData.nameMatch.ToString() == "True" ? "Yes" : "No";
                 //string internalIDMatch = iview_ConfirmPartnerData.internalIDMatch.ToString() == "True" ? "Yes" : "No";
-                objConfirmPartnerViewModel.InternalIDMatch = iview_ConfirmPartnerData.internalIDMatch.ToString() == "True" ? "Yes" : "No"; 
+                objConfirmPartnerViewModel.InternalIDMatch = iview_ConfirmPartnerData.internalIDMatch.ToString() == "True" ? "Yes" : "No";
                 //string federalIDMatch = iview_ConfirmPartnerData.federalIDMatch.ToString() == "True" ? "Yes" : "No";
-                objConfirmPartnerViewModel.FederalIDMatch = iview_ConfirmPartnerData.federalIDMatch.ToString() == "True" ? "Yes" : "No"; 
+                objConfirmPartnerViewModel.FederalIDMatch = iview_ConfirmPartnerData.federalIDMatch.ToString() == "True" ? "Yes" : "No";
                 //string dunsMatch = iview_ConfirmPartnerData.dunsMatch.ToString() == "True" ? "Yes" : "No";
-                objConfirmPartnerViewModel.DUNSMatch = iview_ConfirmPartnerData.dunsMatch.ToString() == "True" ? "Yes" : "No"; 
+                objConfirmPartnerViewModel.DUNSMatch = iview_ConfirmPartnerData.dunsMatch.ToString() == "True" ? "Yes" : "No";
 
                 objConfirmPartnerViewModel.IsSelected1 = false;
                 objConfirmPartnerViewModel.IsSelected2 = false;
@@ -1407,7 +1487,7 @@ namespace Generic.Controllers
         public ActionResult getActionTypes()
         {
             var data = db.pr_getConfirmPartnerActionTypeAll().FirstOrDefault();
-            return Json(data.ToString(),JsonRequestBehavior.AllowGet);
+            return Json(data.ToString(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult IgnoreDetails()

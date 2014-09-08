@@ -14,7 +14,7 @@ namespace Generic
     public partial class pr_PerformSelectedActions_Result
     {
         public Nullable<int> SELECTED_PARTNER { get; set; }
-        public string Column1 { get; set; }
+        public string Action { get; set; }
         public string R_S_1 { get; set; }
         public string SELECTED_STATUS { get; set; }
         public Nullable<int> NON_SELECTED_PARTNER { get; set; }

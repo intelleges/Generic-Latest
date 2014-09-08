@@ -26,15 +26,41 @@
 </style>
 <form action="@Url.Content("~/Partner/RemovePartner")" method="post">
  <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
-
+ 
+    @if(ViewBag.searchType =="Invite")
+   {
+         @Html.Raw("Due Date :");
+        @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100px;" })
+   }
+    
+    
+      
+      
 @( Html.Telerik().Grid(Model).Name("PartnerGrid")
+
+
+
+
         .Columns(columns =>
         {
 
             columns.Bound(o => o.IsSelected)
 
                    .Title("<input type='checkbox' onchange='Selectall();' id='chkSelectAll' style='margin-left: 11px;' name='checkedRecords' value='<#= IsSelected #>' />")
-                   .Template(@<text><input type='checkbox' id='chkMessage' name='chkSelect' value='@item.id' /></text>)
+                   .Template(@<text>
+    
+    
+    <input type='checkbox' id='chkMessage' name='chkSelect' value='@item.id' />
+    
+    <input type="hidden"  name='partnertypeID' value='@item.partnertypeID' />
+    
+    <input type="hidden"  name='touchpoint' value='@item.campaign' />
+    
+     <input type="hidden"  name='AccessCode' value='@item.AccessCode' />
+
+    <input type="hidden"  name='ContactEmail' value='@item.ContactEmail' />
+
+    </text>)
                    .Width(50)
                    .HtmlAttributes(new { style = "text-align:center" });
 

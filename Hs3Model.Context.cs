@@ -13531,15 +13531,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerConfirmationData2_Result>("pr_getPartnerConfirmationData2", enterpriseParameter, touchpointParameter);
         }
     
-        public virtual ObjectResult<pr_PerformSelectedActions_Result> pr_PerformSelectedActions(string inputList)
-        {
-            var inputListParameter = inputList != null ?
-                new ObjectParameter("inputList", inputList) :
-                new ObjectParameter("inputList", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_PerformSelectedActions_Result>("pr_PerformSelectedActions", inputListParameter);
-        }
-    
         public virtual ObjectResult<pr_getAutomailMessageByQuestionnaire_Result> pr_getAutomailMessageByQuestionnaire(Nullable<int> questionnaire)
         {
             var questionnaireParameter = questionnaire.HasValue ?
@@ -13582,6 +13573,15 @@ namespace Generic
                 new ObjectParameter("touchpoint", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnerConfirmationData", enterpriseParameter, touchpointParameter);
+        }
+    
+        public virtual ObjectResult<pr_PerformSelectedActions_Result> pr_PerformSelectedActions(string inputList)
+        {
+            var inputListParameter = inputList != null ?
+                new ObjectParameter("inputList", inputList) :
+                new ObjectParameter("inputList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_PerformSelectedActions_Result>("pr_PerformSelectedActions", inputListParameter);
         }
     }
 }

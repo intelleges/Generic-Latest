@@ -11810,9 +11810,6 @@
           <EntitySet Name="view_PartnerConfirmationData" EntityType="hs3MVCMTQa2Model.view_PartnerConfirmationData" />
           <EntitySet Name="view_QuestionnaireData" EntityType="hs3MVCMTQa2Model.view_QuestionnaireData" />
           <EntitySet Name="view_EventNotificationData" EntityType="hs3MVCMTQa2Model.view_EventNotificationData" />
-          <FunctionImport Name="pr_PerformSelectedActions" ReturnType="Collection(hs3MVCMTQa2Model.pr_PerformSelectedActions_Result)">
-          <Parameter Name="inputList" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="pr_getAutomailMessageByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageByQuestionnaire_Result)">
           <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -11828,6 +11825,9 @@
           <FunctionImport Name="pr_getPartnerConfirmationData">
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_PerformSelectedActions" ReturnType="Collection(hs3MVCMTQa2Model.pr_PerformSelectedActions_Result)">
+            <Parameter Name="inputList" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -18801,15 +18801,6 @@
           <Property Type="String" Name="accesscode" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Touchpoint" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <ComplexType Name="pr_PerformSelectedActions_Result">
-          <Property Type="Int32" Name="SELECTED_PARTNER" Nullable="true" />
-          <Property Type="String" Name="Column1" Nullable="false" MaxLength="11" />
-          <Property Type="String" Name="R_S_1" Nullable="true" MaxLength="9" />
-          <Property Type="String" Name="SELECTED_STATUS" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="NON_SELECTED_PARTNER" Nullable="true" />
-          <Property Type="String" Name="R_S_2" Nullable="true" MaxLength="9" />
-          <Property Type="String" Name="NON_SELECTED_status" Nullable="false" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="pr_getAutomailMessageByQuestionnaire_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="subject" Nullable="true" />
@@ -18866,6 +18857,15 @@
           <Property Type="Int32" Name="active" />
           <Property Type="String" Name="Locked" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="pr_PerformSelectedActions_Result">
+          <Property Type="Int32" Name="SELECTED_PARTNER" Nullable="true" />
+          <Property Type="String" Name="Action" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="R_S_1" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="SELECTED_STATUS" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="NON_SELECTED_PARTNER" Nullable="true" />
+          <Property Type="String" Name="R_S_2" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="NON_SELECTED_status" Nullable="true" MaxLength="50" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -24488,19 +24488,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_PerformSelectedActions" FunctionName="hs3MVCMTQa2Model.Store.pr_PerformSelectedActions">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_PerformSelectedActions_Result">
-                <ScalarProperty Name="SELECTED_PARTNER" ColumnName="SELECTED PARTNER" />
-                <ScalarProperty Name="Column1" ColumnName="Column1" />
-                <ScalarProperty Name="R_S_1" ColumnName="R/S 1" />
-                <ScalarProperty Name="SELECTED_STATUS" ColumnName="SELECTED STATUS" />
-                <ScalarProperty Name="NON_SELECTED_PARTNER" ColumnName="NON-SELECTED PARTNER" />
-                <ScalarProperty Name="R_S_2" ColumnName="R/S 2" />
-                <ScalarProperty Name="NON_SELECTED_status" ColumnName="NON-SELECTED status" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getAutomailMessageByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessageByQuestionnaire">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessageByQuestionnaire_Result">
@@ -24564,6 +24551,19 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnerConfirmationData" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerConfirmationData" />
+          <FunctionImportMapping FunctionImportName="pr_PerformSelectedActions" FunctionName="hs3MVCMTQa2Model.Store.pr_PerformSelectedActions">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_PerformSelectedActions_Result">
+                <ScalarProperty Name="SELECTED_PARTNER" ColumnName="SELECTED PARTNER" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="R_S_1" ColumnName="R/S 1" />
+                <ScalarProperty Name="SELECTED_STATUS" ColumnName="SELECTED STATUS" />
+                <ScalarProperty Name="NON_SELECTED_PARTNER" ColumnName="NON-SELECTED PARTNER" />
+                <ScalarProperty Name="R_S_2" ColumnName="R/S 2" />
+                <ScalarProperty Name="NON_SELECTED_status" ColumnName="NON-SELECTED status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
