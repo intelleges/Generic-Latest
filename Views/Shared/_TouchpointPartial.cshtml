@@ -13,8 +13,7 @@
 @(Html.Telerik().ComboBox()
             .Name("ComboBox")
             .AutoFill(Model.ComboBoxAttributes.AutoFill.Value)
-           // .SelectedIndex(Model.ComboBoxAttributes.SelectedIndex.Value)
-            .BindTo(new SelectList(Model.Touchpoints, "id", "description"))
+            .BindTo(new SelectList(Model.Touchpoints, "id", "description",Model.ComboBoxAttributes.SelectedIndex.Value))
             .ClientEvents(e=>e.OnChange("ComboBoxOnChange"))
             .HtmlAttributes(new { style = string.Format("width:{0}px", Model.ComboBoxAttributes.Width) })
             .Filterable(filtering =>
@@ -31,14 +30,17 @@
 
     function ComboBoxOnChange(e) {
         debugger;
+       
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeTouchpoint", "Admin")',
             data: { selectedTouchpoint: e.value },
                     async: false,
                     success: function (result) {
+                       
                     },
                     error: function (err, msg) {
+                    
                     }
                 });
     }
