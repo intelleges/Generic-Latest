@@ -575,7 +575,6 @@ namespace Generic.Controllers
         {
             try
             {
-              
                 db.pr_modifyPersonTouchpoint((int)Session["LoggedInUserId"], selectedTouchpoint);
                 Session["touchpoint"] = selectedTouchpoint;
                 return Json(true, JsonRequestBehavior.AllowGet);

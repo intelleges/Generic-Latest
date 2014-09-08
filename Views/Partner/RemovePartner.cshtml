@@ -110,7 +110,7 @@
 
     </text>)
                    .Width(50)
-                   .HtmlAttributes(new { style = "text-align:center" });
+                   .HtmlAttributes(new { style = "text-align:center" }).Sortable(false);
 
 
             columns.Bound(o => o.internalID).Title("Internal ID").Width(100).Encoded(false);
@@ -365,7 +365,10 @@
     }
 
     $('input:checkbox[name$=chkSelect]').click(
-    function () {
+    function (event) {
+
+       // event.preventDefault();
+
         // if any of the checkbox is unchecked
         // check all checkbox should be cleared
         if (!$(this).is(':checked')) {
