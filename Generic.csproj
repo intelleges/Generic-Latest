@@ -978,9 +978,6 @@
     <Compile Include="pr_getPartnerConfirmationData2_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="pr_getPartnerConfirmationData_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="pr_getPartnerCorpInfo_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

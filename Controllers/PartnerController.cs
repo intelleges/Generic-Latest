@@ -1349,24 +1349,24 @@ namespace Generic.Controllers
             int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
             //int enterpriseid = 1067;
             //int touchpointID = 1016;           
-            List<view_PartnerConfirmationData> objConfirmPartnerList = db.Database.SqlQuery<view_PartnerConfirmationData>("pr_getPartnerConfirmationData2 @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
-           // List<view_PartnerConfirmationData> objConfirmPartnerList = db.pr_getPartnerConfirmationData2((int)Generic.Helpers.CurrentInstance.EnterpriseID, (int)Session["touchpoint"]);
-            List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
-            return View("ConfirmPartner", objConfirmPartnerViewModelList);
+            List<ConfirmPartnerViewModel> objConfirmPartnerList = db.Database.SqlQuery<ConfirmPartnerViewModel>("pr_getPartnerConfirmationData @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
+         //   List<pr_getPartnerConfirmationData_Result> objConfirmPartnerList = db.pr_getPartnerConfirmationData((int)Generic.Helpers.CurrentInstance.EnterpriseID, (int)Session["touchpoint"]).ToList();
+          //  List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
+            return View("ConfirmPartner", objConfirmPartnerList);
         }
 
-        private List<ConfirmPartnerViewModel> ConvertToConfirmPartnerViewModel(List<view_PartnerConfirmationData> iview_ConfirmPartnerDataList)
+        private List<ConfirmPartnerViewModel> ConvertToConfirmPartnerViewModel(List<pr_getPartnerConfirmationData2_Result> iview_ConfirmPartnerDataList)
         {
             List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = new List<ConfirmPartnerViewModel>();
 
             foreach (var iview_ConfirmPartnerData in iview_ConfirmPartnerDataList)
             {
                 ConfirmPartnerViewModel objConfirmPartnerViewModel = new ConfirmPartnerViewModel();
-                objConfirmPartnerViewModel.id = iview_ConfirmPartnerData.id;
-                objConfirmPartnerViewModel.enterprise = iview_ConfirmPartnerData.enterprise;
-                objConfirmPartnerViewModel.touchpoint = iview_ConfirmPartnerData.touchpoint;
-                objConfirmPartnerViewModel.Partner_A = iview_ConfirmPartnerData.partnerA;
-                objConfirmPartnerViewModel.Partner_A_Name = iview_ConfirmPartnerData.partnerA_Name;
+               // objConfirmPartnerViewModel.id = iview_ConfirmPartnerData.id;
+             //   objConfirmPartnerViewModel.enterprise = iview_ConfirmPartnerData.enterprise;
+            //    objConfirmPartnerViewModel.touchpoint = iview_ConfirmPartnerData.touchpoint;
+            //    objConfirmPartnerViewModel.Partner_A = iview_ConfirmPartnerData.Partner_A;
+           //     objConfirmPartnerViewModel.Partner_A_Name = iview_ConfirmPartnerData.Partner_A;
 
                 objConfirmPartnerViewModel.Group1ID = iview_ConfirmPartnerData.group1;
                 objConfirmPartnerViewModel.Group1 = iview_ConfirmPartnerData.group1_Name;

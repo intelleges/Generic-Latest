@@ -13437,11 +13437,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_dynamicFiltersEnterprise_2", tableParameter, argsListParameter);
         }
     
-        public virtual ObjectResult<pr_getPartnerConfirmationData_Result> pr_getPartnerConfirmationData()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerConfirmationData_Result>("pr_getPartnerConfirmationData");
-        }
-    
         public virtual ObjectResult<Nullable<decimal>> pr_addConfirmPartnerActionType(string description, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var descriptionParameter = description != null ?
@@ -13574,6 +13569,19 @@ namespace Generic
                 new ObjectParameter("touchpoint", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonTouchpoint", personParameter, touchpointParameter);
+        }
+    
+        public virtual int pr_getPartnerConfirmationData(Nullable<int> enterprise, Nullable<int> touchpoint)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnerConfirmationData", enterpriseParameter, touchpointParameter);
         }
     }
 }

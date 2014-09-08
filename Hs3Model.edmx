@@ -5833,8 +5833,7 @@
         <Function Name="pr_getPartnerByRelationshipowner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getPartnerConfirmationData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="pr_getPartnerConfirmationData2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="pr_getPartnerConfirmationData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="touchpoint" Type="int" Mode="In" />
         </Function>
@@ -11779,7 +11778,6 @@
             <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="partnumberSpreadsheetDataLoad" EntitySet="partnumberSpreadsheetDataLoad" />
           </AssociationSet>
-          <FunctionImport Name="pr_getPartnerConfirmationData" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerConfirmationData_Result)" />
           <EntitySet Name="ConfirmPartnerActionType" EntityType="hs3MVCMTQa2Model.ConfirmPartnerActionType" />
           <FunctionImport Name="pr_addConfirmPartnerActionType" ReturnType="Collection(Decimal)">
             <Parameter Name="description" Mode="In" Type="String" />
@@ -11827,6 +11825,10 @@
           </FunctionImport>
           <EntitySet Name="pptqGroup" EntityType="hs3MVCMTQa2Model.pptqGroup" />
           <EntitySet Name="view_TouchpointData" EntityType="hs3MVCMTQa2Model.view_TouchpointData" />
+          <FunctionImport Name="pr_getPartnerConfirmationData">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -18616,22 +18618,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="pr_getPartnerConfirmationData_Result">
-          <Property Type="String" Name="Partner_A" Nullable="false" MaxLength="9" />
-          <Property Type="String" Name="Group1" Nullable="false" MaxLength="8" />
-          <Property Type="Int32" Name="StatusID_1" Nullable="false" />
-          <Property Type="String" Name="Status1" Nullable="false" MaxLength="11" />
-          <Property Type="String" Name="IsReference1" Nullable="false" MaxLength="3" />
-          <Property Type="String" Name="Partner_B" Nullable="false" MaxLength="9" />
-          <Property Type="String" Name="Group2" Nullable="false" MaxLength="8" />
-          <Property Type="Int32" Name="StatusID_2" Nullable="false" />
-          <Property Type="String" Name="Status2" Nullable="false" MaxLength="11" />
-          <Property Type="String" Name="IsReference2" Nullable="false" MaxLength="3" />
-          <Property Type="String" Name="InternalIDMatch" Nullable="false" MaxLength="3" />
-          <Property Type="String" Name="FederalIDMatch" Nullable="false" MaxLength="3" />
-          <Property Type="String" Name="DUNSMatch" Nullable="false" MaxLength="3" />
-          <Property Type="String" Name="NameMatch" Nullable="false" MaxLength="2" />
-        </ComplexType>
         <EntityType Name="ConfirmPartnerActionType">
           <Key>
             <PropertyRef Name="id" />
@@ -24364,26 +24350,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_getPartnerConfirmationData" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerConfirmationData">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerConfirmationData_Result">
-                <ScalarProperty Name="Partner_A" ColumnName="Partner_A" />
-                <ScalarProperty Name="Group1" ColumnName="Group1" />
-                <ScalarProperty Name="StatusID_1" ColumnName="StatusID_1" />
-                <ScalarProperty Name="Status1" ColumnName="Status1" />
-                <ScalarProperty Name="IsReference1" ColumnName="IsReference1" />
-                <ScalarProperty Name="Partner_B" ColumnName="Partner_B" />
-                <ScalarProperty Name="Group2" ColumnName="Group2" />
-                <ScalarProperty Name="StatusID_2" ColumnName="StatusID_2" />
-                <ScalarProperty Name="Status2" ColumnName="Status2" />
-                <ScalarProperty Name="IsReference2" ColumnName="IsReference2" />
-                <ScalarProperty Name="InternalIDMatch" ColumnName="InternalIDMatch" />
-                <ScalarProperty Name="FederalIDMatch" ColumnName="FederalIDMatch" />
-                <ScalarProperty Name="DUNSMatch" ColumnName="DUNSMatch" />
-                <ScalarProperty Name="NameMatch" ColumnName="NameMatch" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="ConfirmPartnerActionType">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.ConfirmPartnerActionType">
               <MappingFragment StoreEntitySet="ConfirmPartnerActionType">
@@ -24417,37 +24383,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyAutomailMessageByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutomailMessageByQuestionnaire" />
-          <FunctionImportMapping FunctionImportName="pr_getPartnerConfirmationData2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerConfirmationData2">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerConfirmationData2_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-                <ScalarProperty Name="partnerA" ColumnName="partnerA" />
-                <ScalarProperty Name="partnerA_Name" ColumnName="partnerA_Name" />
-                <ScalarProperty Name="group1" ColumnName="group1" />
-                <ScalarProperty Name="group1_Name" ColumnName="group1_Name" />
-                <ScalarProperty Name="status1" ColumnName="status1" />
-                <ScalarProperty Name="status1_Name" ColumnName="status1_Name" />
-                <ScalarProperty Name="isReference1" ColumnName="isReference1" />
-                <ScalarProperty Name="partnerB" ColumnName="partnerB" />
-                <ScalarProperty Name="partnerB_Name" ColumnName="partnerB_Name" />
-                <ScalarProperty Name="group2" ColumnName="group2" />
-                <ScalarProperty Name="group2_Name" ColumnName="group2_Name" />
-                <ScalarProperty Name="status2" ColumnName="status2" />
-                <ScalarProperty Name="status2_Name" ColumnName="status2_Name" />
-                <ScalarProperty Name="isReference2" ColumnName="isReference2" />
-                <ScalarProperty Name="emailMatch" ColumnName="emailMatch" />
-                <ScalarProperty Name="nameMatch" ColumnName="nameMatch" />
-                <ScalarProperty Name="internalIDMatch" ColumnName="internalIDMatch" />
-                <ScalarProperty Name="federalIDMatch" ColumnName="federalIDMatch" />
-                <ScalarProperty Name="dunsMatch" ColumnName="dunsMatch" />
-                <ScalarProperty Name="action" ColumnName="action" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="tmpPartnerConfirm">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.tmpPartnerConfirm">
               <MappingFragment StoreEntitySet="tmpPartnerConfirm">
@@ -24628,6 +24563,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerConfirmationData" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerConfirmationData" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
