@@ -24,6 +24,54 @@
         left: 0;
     }
 </style>
+
+<script>
+    //jQuery.noConflict();
+    jQuery(document).ready(function () {
+
+
+        $("form").submit(function () {
+            return validateControl();
+
+        });
+        function validateControl() {
+           
+
+            if ($('input:checkbox[name$=chkSelect]:checked').length == 0) {
+                alertify.alert("Please select atleast one partner");
+                return false;
+            }
+           
+            if ("@ViewBag.searchType" == "Invite") {
+                if ($('#DueDate').val() == "") {
+                    alertify.alert("Due Date required");
+                    return false;
+                }
+
+
+
+                var user_date = Date.parse($('#DueDate').val());
+                var today_date = new Date();
+                var diff_date = user_date - today_date;
+
+                var num_years = diff_date / 31536000000;
+                var num_months = (diff_date % 31536000000) / 2628000000;
+                var num_days = ((diff_date % 31536000000) % 2628000000) / 86400000;
+                if (Math.floor(num_days) < -1) {
+                    alertify.alert("Due Date can not be less than today");
+                    return false;
+                }
+            }
+
+
+
+
+           
+        }
+    });
+  </script>
+
+
 <form action="@Url.Content("~/Partner/RemovePartner")" method="post">
  <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
  
