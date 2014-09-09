@@ -111,7 +111,7 @@
 
                     if (groupAdded < groupCount)
                     {
-                        int? totalNR = 0, totalRI = 0, totalRC = 0, totalRow = 0;
+                        int? totalUC = 0, totalC = 0, totalNR = 0, totalRI = 0, totalRC = 0, totalRow = 0;
                 <table class="TestTable">
                    
                     <tr style="background-color:darkblue;; color: white;">
@@ -137,9 +137,33 @@
 
                     <tr>
                         <td class="AlgnRight"> @Model.ptqGroups[groupAdded].goal &nbsp;</td>
+                        <td class="AlgnRight">
+                             <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Unconfirmed)&Group=@Model.groups[groupAdded].id" target="_blank">
+                     @{ int? uc = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Unconfirmed).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                        totalUC += uc;
+                        }
+                           
+                                @uc
+                                
+                                 </a>
+
+
+
+                        </td>
                         <td class="AlgnRight">0&nbsp;</td>
-                        <td class="AlgnRight">0&nbsp;</td>
-                        <td class="AlgnRight">0&nbsp;</td>
+                        <td class="AlgnRight">
+
+                             <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Confirmed)&Group=@Model.groups[groupAdded].id" target="_blank">
+                     @{ int? con = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Confirmed).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                        totalC += con;
+                        }
+                           
+                                @con
+                                
+                                 </a>
+
+
+                        </td>
                         <td class="AlgnRight" style="background-color: #E56D38">
 
                            
@@ -171,7 +195,7 @@
                             </td>
                         <td class="AlgnRight">
 @{ 
-                              totalRow += nr + ri + rc;
+                              totalRow += nr + ri + rc+uc +con;
                             
                              @Html.Raw(totalRow)
 }
@@ -183,9 +207,9 @@
 
                      <tr>
                         <td class="AlgnRight" title="Goal">0&nbsp;</td>
-                        <td class="AlgnRight" title="UnConfirmed">0&nbsp;</td>
+                        <td class="AlgnRight" title="UnConfirmed">@totalUC&nbsp;</td>
                         <td class="AlgnRight" title="Review">0&nbsp;</td>
-                        <td class="AlgnRight" title="Confirmed">0&nbsp;</td>
+                        <td class="AlgnRight" title="Confirmed">@totalC&nbsp;</td>
                         <td class="AlgnRight" title="No Response">@totalNR&nbsp;</td>
                         <td class="AlgnRight" title="Response Incomplete">@totalRI&nbsp;</td>
                         <td class="AlgnRight" title="Response Complete">@totalRC&nbsp;</td>

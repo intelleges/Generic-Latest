@@ -129,7 +129,7 @@ namespace Generic.Controllers
             partner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
 
             try
-            {
+            { 
                 int? PartnerId = db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, partner.state.ToString(), partner.zipcode, partner.country.ToString(), partner.firstName, partner.lastName, partner.title, partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
                 uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
                 Session["uploadedpartnerList"] = uploadedpartners;
