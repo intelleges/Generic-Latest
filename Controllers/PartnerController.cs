@@ -1029,13 +1029,13 @@ namespace Generic.Controllers
         {
 
 
-            List<pr_getEventNotificationBounce_Result> objReport = new List<pr_getEventNotificationBounce_Result>();
+            List<pr_getEventNotificationBounce_Result1> objReport = new List<pr_getEventNotificationBounce_Result1>();
 
             objReport = db.pr_getEventNotificationBounce(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
 
 
             var stream = new MemoryStream();
-            var serializer = new XmlSerializer(typeof(List<pr_getEventNotificationBounce_Result>));
+            var serializer = new XmlSerializer(typeof(List<pr_getEventNotificationBounce_Result1>));
 
 
             //We turn it into an XML and save it in the memory

@@ -13540,15 +13540,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessageByQuestionnaire_Result>("pr_getAutomailMessageByQuestionnaire", questionnaireParameter);
         }
     
-        public virtual ObjectResult<pr_getEventNotificationBounce_Result> pr_getEventNotificationBounce(Nullable<int> enterprise)
-        {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationBounce_Result>("pr_getEventNotificationBounce", enterpriseParameter);
-        }
-    
         public virtual int pr_modifyPersonTouchpoint(Nullable<int> person, Nullable<int> touchpoint)
         {
             var personParameter = person.HasValue ?
@@ -13582,6 +13573,15 @@ namespace Generic
                 new ObjectParameter("inputList", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_PerformSelectedActions_Result>("pr_PerformSelectedActions", inputListParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEventNotificationBounce_Result1> pr_getEventNotificationBounce(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationBounce_Result1>("pr_getEventNotificationBounce", enterpriseParameter);
         }
     }
 }

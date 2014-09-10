@@ -193,11 +193,23 @@ namespace Generic.Controllers
                         ViewBag.CMS_PAGE_SUBTITLE = cms_PageSubtitle.text;
                     var cms_PagePanelOne = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_CONFIRMATION_PAGE_PANEL_ONE).id);
                     if (cms_PagePanelOne != null)
+                    {
+                        cms_PagePanelOne.text = cms_PagePanelOne.text.Replace("[Touchpoint Title]", cms_PageTitle.text);
+                        cms_PagePanelOne.text = cms_PagePanelOne.text.Replace("[New Contact Name]", Session["New Contact Name"].ToString());
+                        cms_PagePanelOne.text = cms_PagePanelOne.text.Replace("[New Contact Full Name]", Session["New Contact Full Name"].ToString());                      
+
+                     
                         ViewBag.CMS_PAGE_PANEL_ONE = cms_PagePanelOne.text;
+                    }
                     var cms_PagePanelTwo = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_CONFIRMATION_PAGE_PANEL_TWO).id);
                     if (cms_PagePanelTwo != null)
-                        ViewBag.CMS_PAGE_PANEL_TWO = cms_PagePanelTwo.text;
+                    {
+                        cms_PagePanelTwo.text = cms_PagePanelTwo.text.Replace("[Touchpoint Title]", cms_PageTitle.text);
+                        cms_PagePanelTwo.text = cms_PagePanelTwo.text.Replace("[New Contact Name]", Session["New Contact Name"].ToString());
+                        cms_PagePanelTwo.text = cms_PagePanelTwo.text.Replace("[New Contact Full Name]", Session["New Contact Full Name"].ToString());                      
 
+                        ViewBag.CMS_PAGE_PANEL_TWO = cms_PagePanelTwo.text;
+                    }
                     var cms_PageHeader = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_CONFIRMATION_PAGE_HEADER).id);
                     if (cms_PageHeader != null)
                         ViewBag.CMS_PAGE_HEADER = cms_PageHeader.text;
