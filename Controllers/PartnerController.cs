@@ -129,7 +129,7 @@ namespace Generic.Controllers
             partner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
 
             try
-            { 
+            {
                 int? PartnerId = db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, partner.state.ToString(), partner.zipcode, partner.country.ToString(), partner.firstName, partner.lastName, partner.title, partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
                 uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
                 Session["uploadedpartnerList"] = uploadedpartners;
@@ -263,6 +263,8 @@ namespace Generic.Controllers
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
 
             ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+            //ViewBag.title = db.touchpoint.First().title;
 
             return View();
         }
@@ -434,6 +436,7 @@ namespace Generic.Controllers
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            ViewBag.touchpointTitle = "You have successfully added " + uploadedpartners.Count + " Partners to the " + db.touchpoint.Single(p => p.id == touchpoint).title + " Touchpoint"; 
             return View();
         }
 

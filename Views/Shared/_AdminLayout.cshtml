@@ -218,6 +218,13 @@
             });
         }
 
+        function CloseManualAddModalWithAlert(alert) {
+            debugger;
+            jQuery.noConflict();
+            $("#popup").dialog('close');
+            alertify.alert(alert);
+        }
+
         //function OpenManualAddModalFullWidth(url) {
         //    jQuery.noConflict();
         //    $("#popup").dialog({
