@@ -29,6 +29,12 @@
     <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
 
     @( Html.Telerik().Grid(Model).Name("GroupGrid")
+     .ToolBar(commands =>
+            {
+                commands.Template("<input style='width: 50px;' type='submit' value='Go' />");
+            })
+            
+            
         .Columns(columns =>
         {
             columns.Bound(o => o.IsSelected)
@@ -39,8 +45,8 @@
             columns.Bound(o => o.name).Title("Name").Width(200);
             columns.Bound(o => o.Owner).Title("Owner").Width(100); 
             columns.Bound(o => o.description).Title("Description").Width(200);
-            columns.Bound(o => o.PartnerCount).Title("Partner Count").Width(100)
-                .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
+            columns.Bound(o => o.PartnerCount).Title("Partner Count").Width(100);
+              //  .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
             columns.Bound(o => o.ShadowCount).Title("Shadow Count").Width(100);
             columns.Bound(o => o.CampaignCount).Title("Campaign Count").Width(100);
             columns.Bound(o => o.UserCount).Title("Country").Width(100);         

@@ -13583,5 +13583,44 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationBounce_Result1>("pr_getEventNotificationBounce", enterpriseParameter);
         }
+    
+        public virtual ObjectResult<pr_getMenuChildItemByPerson_Result> pr_getMenuChildItemByPerson(Nullable<int> person, Nullable<int> parentid)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var parentidParameter = parentid.HasValue ?
+                new ObjectParameter("parentid", parentid) :
+                new ObjectParameter("parentid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getMenuChildItemByPerson_Result>("pr_getMenuChildItemByPerson", personParameter, parentidParameter);
+        }
+    
+        public virtual ObjectResult<menu> pr_getMenuChildItemByPerson1(Nullable<int> person, Nullable<int> parentid)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var parentidParameter = parentid.HasValue ?
+                new ObjectParameter("parentid", parentid) :
+                new ObjectParameter("parentid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenuChildItemByPerson1", personParameter, parentidParameter);
+        }
+    
+        public virtual ObjectResult<menu> pr_getMenuChildItemByPerson1(Nullable<int> person, Nullable<int> parentid, MergeOption mergeOption)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var parentidParameter = parentid.HasValue ?
+                new ObjectParameter("parentid", parentid) :
+                new ObjectParameter("parentid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenuChildItemByPerson1", mergeOption, personParameter, parentidParameter);
+        }
     }
 }

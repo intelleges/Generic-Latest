@@ -5767,6 +5767,10 @@
         <Function Name="pr_getMenuChildItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="parentid" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getMenuChildItemByPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="parentid" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getMenuForRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
@@ -11827,7 +11831,15 @@
           <Parameter Name="inputList" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getEventNotificationBounce" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationBounce_Result1)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getMenuChildItemByPerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getMenuChildItemByPerson_Result)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="parentid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getMenuChildItemByPerson1" EntitySet="menu" ReturnType="Collection(hs3MVCMTQa2Model.menu)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="parentid" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -18876,6 +18888,16 @@
           <Property Type="String" Name="accesscode" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="link" Nullable="true" MaxLength="152" />
         </ComplexType>
+        <ComplexType Name="pr_getMenuChildItemByPerson_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="parentid" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="accesslevel" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -24576,6 +24598,21 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getMenuChildItemByPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuChildItemByPerson">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getMenuChildItemByPerson_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="parentid" ColumnName="parentid" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accesslevel" ColumnName="accesslevel" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getMenuChildItemByPerson1" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuChildItemByPerson" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

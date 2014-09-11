@@ -28,6 +28,11 @@
  <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
 
 @( Html.Telerik().Grid(Model).Name("ProtocolGrid")
+  .ToolBar(commands =>
+            {
+                commands.Template("<input style='width: 50px;' type='submit' value='Go' />");
+            })
+    
         .Columns(columns =>
         {
 
@@ -52,8 +57,8 @@
 </div>
 </text>);
             columns.Bound(o => o.Protocol_Admin).Title("Protocol_Admin").Width(100);
-            columns.Bound(o => o.Protocol_Sponsor).Title("Protocol_Sponsor").Width(100)
-            .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
+            columns.Bound(o => o.Protocol_Sponsor).Title("Protocol_Sponsor").Width(100);
+           // .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
 
             columns.Bound(o => o.User_Count).Title("User_Count").Width(100);
 

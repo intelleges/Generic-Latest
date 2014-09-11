@@ -48,7 +48,7 @@ namespace Generic.DataLayer
         public List<MenuModel> GetMenus(int? parentId, int menuId)
         {
 
-            List<MenuModel> menuModel = db.pr_getMenuChildItem(parentId).Select(t=> new MenuModel
+            List<MenuModel> menuModel = db.pr_getMenuChildItemByPerson1(Generic.SessionClass.SessionSingleton.LoggedInUserId, parentId).Select(t => new MenuModel
                                          {
                                              id = t.id,
                                              parentid = t.parentid,

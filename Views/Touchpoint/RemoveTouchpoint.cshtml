@@ -25,6 +25,11 @@
     <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
 
     @( Html.Telerik().Grid(Model).Name("TouchpointGrid")
+             //.ToolBar(commands =>
+             //       {
+             //           commands.Template("<input style='width: 50px;' type='submit' value='Go' />");
+             //       })
+            
         .Columns(columns =>
         {
 

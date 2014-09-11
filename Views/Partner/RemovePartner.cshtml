@@ -85,7 +85,10 @@
       
       
 @( Html.Telerik().Grid(Model).Name("PartnerGrid")
-
+         .ToolBar(commands =>
+            {
+                commands.Template("<input style='width: 50px;' type='submit' value='Go' />");
+            })
 
 
 
@@ -127,8 +130,8 @@
 </text>);
             columns.Bound(o => o.Contact).Title("Contact").Width(100);
             columns.Bound(o => o.phone).Title("Phone").Width(100);
-            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="OpenManualAddModal('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>)
-            .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
+            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="OpenManualAddModal('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>);
+           // .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
 
             columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(200);
 

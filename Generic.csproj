@@ -915,6 +915,9 @@
     <Compile Include="pr_getMenuByRole_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getMenuChildItemByPerson_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getMenuChildItem_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
