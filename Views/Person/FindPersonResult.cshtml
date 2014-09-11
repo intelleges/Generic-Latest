@@ -71,12 +71,13 @@
 </text>);
             columns.Bound(o => o.firstname).Title("Firstname").Width(200);
             columns.Bound(o => o.lastname).Title("Lastname").Width(200);
-            columns.Bound(o => o.title).Title("Title").Width(100);
-            columns.Bound(o => o.email).Title("Email").Width(100);
-
-            columns.Bound(o => o.State).Title("State").Width(100);
-
-            columns.Bound(o => o.Country).Title("Country").Width(200);
+            //columns.Bound(o => o.title).Title("Title").Width(100);            
+            //columns.Bound(o => o.email).Title("Email").Width(100);
+            //columns.Bound(o => o.State).Title("State").Width(100);
+            
+            columns.Bound(o => o.title).Title("Title").Width(150);
+            columns.Bound(o => o.email).Title("Email").Width(200);
+            columns.Bound(o => o.Country).Title("Country").Width(200);           
             columns.Bound(o => o.Default_Touchpoint).Title("Touchpoint").Width(100);
             columns.Bound(o => o.Person_Status).Title("Status").Width(100);
             columns.Bound(o => o.Group_Count).Title("Group Count").Width(100);
