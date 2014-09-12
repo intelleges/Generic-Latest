@@ -299,7 +299,7 @@ Thanks in advance.<br>
 
                         //return RedirectToAction("AssignGroup", "Person");
                         ViewBag.message = "You have successfully added " + person.firstName + " " + person.lastName + " to Intelleges.";
-
+                        ViewBag.success = 1;
 
                         return View();
                     }
