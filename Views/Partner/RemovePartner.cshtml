@@ -85,10 +85,11 @@
       
       
 @( Html.Telerik().Grid(Model).Name("PartnerGrid")
-         .ToolBar(commands =>
-            {
-                commands.Template("<input style='width: 50px;' type='submit' value='Go' />");
-            })
+          .ToolBar(commands => commands
+                .Custom()
+                    .HtmlAttributes(new { id = "go" })
+                    .Text("Go")
+                    .Action("Go", "Partner"))
 
 
 

@@ -28,10 +28,11 @@
  <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
 
 @( Html.Telerik().Grid(Model).Name("ProtocolGrid")
-  .ToolBar(commands =>
-            {
-                commands.Template("<input style='width: 50px;' type='submit' value='Go' />");
-            })
+   .ToolBar(commands => commands
+                .Custom()
+                    .HtmlAttributes(new { id = "go" })
+                    .Text("Go")
+                    .Action("Go", "Protocol"))
     
         .Columns(columns =>
         {

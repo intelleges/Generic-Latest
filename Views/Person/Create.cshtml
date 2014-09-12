@@ -45,6 +45,11 @@
             return validateControl();
 
         });
+
+        function validateEmail(email) { 
+            var re = /^(([^<>()[\]\\.,;:\s@@\"]+(\.[^<>()[\]\\.,;:\s@@\"]+)*)|(\".+\"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        } 
         function validateControl() {
             if ($("#firstName").val() == "") {
                 alertify.alert("First name is required");
@@ -59,8 +64,16 @@
                 alertify.alert("InternalId is required");
                 return false;
             }
+            if (!validateEmail($("#email").val())) {
+                alertify.alert("Please enter Valid Email Address.");
+                return false;
+            }
             if ($("#email").val() == "") {
                 alertify.alert("Email is required");
+                return false;
+            }
+            if ($("#phone").val() == "") {
+                alertify.alert("phone is required");
                 return false;
             }
             if ($("#manager").val() == "") {
@@ -68,7 +81,7 @@
                 return false;
             }
             if ($("#campaign").val() == "") {
-                alertify.alert("Touchpoint is required");
+                alertify.alert("campaign is required");
                 return false;
             }
         }

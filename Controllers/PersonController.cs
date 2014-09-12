@@ -214,6 +214,7 @@ namespace Generic.Controllers
                 int flag = 0;
                 try
                 {
+
                     person.personStatus = (int)PersonHelper.PersonStatus.Invited;
                     person.active = 1;
                     person.ismanager = 0;
@@ -223,8 +224,13 @@ namespace Generic.Controllers
                     person.passWord = db.pr_getAccesscode().FirstOrDefault();
 
                     person.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
-                    db.person.Add(person);
-                    db.SaveChanges();
+
+                    using (var context = new EntitiesDBContext())
+                    {
+                        context.person.Add(person);
+                        context.SaveChanges();
+                    }  
+                    
                     SessionSingleton.PersonId = person.id;
 
 
@@ -297,6 +303,7 @@ Thanks in advance.<br>
 
                         return View();
                     }
+                    
                 }
                 catch (Exception exp)
                 {

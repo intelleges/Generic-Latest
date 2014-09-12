@@ -25,10 +25,11 @@
     <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
 
     @( Html.Telerik().Grid(Model).Name("TouchpointGrid")
-             //.ToolBar(commands =>
-             //       {
-             //           commands.Template("<input style='width: 50px;' type='submit' value='Go' />");
-             //       })
+             .ToolBar(commands => commands
+                .Custom()
+                    .HtmlAttributes(new { id = "go" })
+                    .Text("Go")
+                    .Action("Go", "Touchpoint"))
             
         .Columns(columns =>
         {
@@ -56,8 +57,8 @@
             columns.Bound(o => o.Start_Date).Title("Start Date").Width(100);
             columns.Bound(o => o.End_Date).Title("End Date").Width(100);
             columns.Bound(o => o.Group_Count).Title("Group Count").Width(100);
-            columns.Bound(o => o.Touchpoint_Admin).Title("Touchpoint Admin").Width(100)
-                .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
+            columns.Bound(o => o.Touchpoint_Admin).Title("Touchpoint Admin").Width(100);
+              //  .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
 
             columns.Bound(o => o.Questionnaire_Count).Title("Questionnaire Count").Width(100);
             columns.Bound(o => o.description).Title("Description").Width(100);
