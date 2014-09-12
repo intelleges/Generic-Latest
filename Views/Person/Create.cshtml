@@ -9,34 +9,40 @@
 }
 
 <script type="text/javascript">
-
+    function clearForm() {
+        $("#firstName").val("");
+        $("#lastName").val("");
+        $("#suffix").val("");
+        $("#internalId").val("");
+        $("#title").val("");
+        $("#email").val("");
+        $("#address1").val("");
+        $("#address2").val("");
+        $("#city").val("");
+        $("#zipcode").val("");
+        $("#phone").val("");
+        $("#state").val("0");
+        $("#country").val("0");
+        $("#manager").val("0");
+        $("#campaign").val("0");
+    }
 
     $(document).ready(function () {
         //$('.cancelPopup').click(function () {
         //    window.parent.$('#popup').dialog('close');
         //    return false;
         //});
+        
+
         $("#btnClear").click(function (e) {
             // debugger;
             //alert("Clear Button Click");
-            $("#firstName").val("");
-            $("#lastName").val("");
-            $("#suffix").val("");
-            $("#internalId").val("");
-            $("#title").val("");
-            $("#email").val("");
-            $("#address1").val("");
-            $("#address2").val("");
-            $("#city").val("");
-            $("#zipcode").val("");
-            $("#phone").val("");
-            $("#state").val("0");
-            $("#country").val("0");
-            $("#manager").val("0");
-            $("#campaign").val("0");
+            clearForm();
+
         });
 
         if ('@ViewBag.isAlert' == '1') {
+            clearForm();
             alertify.alert('@ViewBag.message');
         }
 
