@@ -32,7 +32,7 @@
         //    window.parent.$('#popup').dialog('close');
         //    return false;
         //});
-        
+
 
         $("#btnClear").click(function (e) {
             // debugger;
@@ -42,7 +42,8 @@
         });
 
         if ('@ViewBag.isAlert' == '1') {
-            clearForm();
+            if ('@ViewBag.success' == '1')
+                clearForm();
             alertify.alert('@ViewBag.message');
         }
 
@@ -52,10 +53,10 @@
 
         });
 
-        function validateEmail(email) { 
+        function validateEmail(email) {
             var re = /^(([^<>()[\]\\.,;:\s@@\"]+(\.[^<>()[\]\\.,;:\s@@\"]+)*)|(\".+\"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
-        } 
+        }
         function validateControl() {
             if ($("#firstName").val() == "") {
                 alertify.alert("First name is required");
@@ -193,7 +194,7 @@
 
         <div id="addPerson" class="addPersonDiv">
             <div class="threecol">
-                 @* @Html.HiddenFor(model => model.id)*@
+                @* @Html.HiddenFor(model => model.id)*@
                 <input type="hidden" name="id" value="0" />
                 <div class="editor-label">
                     @Html.LabelFor(model => model.firstName)
@@ -276,7 +277,7 @@
                     @Html.LabelFor(model => model.state)
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownList("state",null, String.Empty, new { @class = "ddlClass" })
+                    @Html.DropDownList("state", null, String.Empty, new { @class = "ddlClass" })
                     @Html.ValidationMessageFor(model => model.state)
                 </div>
 
@@ -288,12 +289,12 @@
                     @Html.ValidationMessageFor(model => model.zipcode)
                 </div>
             </div>
-             <div class="twocol">
-                 <div class="editor-label">
+            <div class="twocol">
+                <div class="editor-label">
                     @Html.LabelFor(model => model.country)
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownList("country",null, String.Empty, new { @class = "ddlClass" })
+                    @Html.DropDownList("country", null, String.Empty, new { @class = "ddlClass" })
                     @Html.ValidationMessageFor(model => model.country)
                 </div>
 
@@ -304,13 +305,13 @@
                     @Html.EditorFor(model => model.phone, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.phone)
                 </div>
-             </div>
+            </div>
             <div class="twocol">
                 <div class="editor-label">
                     @Html.LabelFor(model => model.manager)
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownList("manager",null, String.Empty, new { @class = "ddlClass" })
+                    @Html.DropDownList("manager", null, String.Empty, new { @class = "ddlClass" })
                     @Html.ValidationMessageFor(model => model.manager)
                 </div>
 
@@ -318,23 +319,23 @@
                     @Html.LabelFor(model => model.campaign)
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownList("campaign",null, String.Empty, new { @class = "ddlClass" })
+                    @Html.DropDownList("campaign", null, String.Empty, new { @class = "ddlClass" })
 
                     @Html.ValidationMessageFor(model => model.campaign)
                 </div>
             </div>
         </div>
-         <div class="threecol">
-                <div class="editor-label">
-                </div>
-                <div class="editor-field">
-                    <a id="lnkgroup" href="javascript:doSomething();" style="font-size: 1em;">Add Group</a>
-                </div>
-              
-                <div class="editor-field">
-                    <a id="lnkrole" href="javascript:doSomething();" style="font-size: 1em;">Add Role</a>
-                </div>
+        <div class="threecol">
+            <div class="editor-label">
             </div>
+            <div class="editor-field">
+                <a id="lnkgroup" href="javascript:doSomething();" style="font-size: 1em;">Add Group</a>
+            </div>
+
+            <div class="editor-field">
+                <a id="lnkrole" href="javascript:doSomething();" style="font-size: 1em;">Add Role</a>
+            </div>
+        </div>
         <p style="float: right; width: 20%;">
             <input type="submit" value="Save" class="btn" />
             <input type="button" value="Clear" class="btn" id="btnClear" />
