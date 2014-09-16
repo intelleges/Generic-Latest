@@ -1279,7 +1279,7 @@ namespace Generic.Controllers
             if (txtDunsNumberFind != "")
                 arguments += "DunsNumber=" + txtDunsNumberFind + ";";
             if (txtNameFind != "")
-                arguments += "Name=" + txtNameFind + ";";
+                arguments += "PartnerName=" + txtNameFind + ";";
             if (txtFederalIdFind != "")
                 arguments += "FederalId=" + txtFederalIdFind + ";";
 
