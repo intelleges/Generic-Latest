@@ -15,149 +15,159 @@ namespace Generic.Helpers
 {
     public static class SchedulerServiceHelper
     {
-        public static void init()
+        public static bool init()
         {
 
-            EntitiesDBContext db = new EntitiesDBContext();
-            //CurrentInstance.EnterpriseID = 2;
-
-            //System.Web.HttpContext.Current.Session["EnterpriseId"] = 2;
-            // pr_getReminderListByCountryAll
-            // pr_getReminderListIncompleteByCountryAll
-
-            var reminderList = db.pr_getReminderListByCountryAll().ToList();
-            var reminderIncompleteList = db.pr_getReminderListIncompleteByCountryAll().ToList();
-
-            foreach (var item in reminderList)
+            try
             {
-                //  if (item.name == "Sukhbir Singh")
-                if (item.enterprise == 3)
+                EntitiesDBContext db = new EntitiesDBContext();
+                //CurrentInstance.EnterpriseID = 2;
+
+                //System.Web.HttpContext.Current.Session["EnterpriseId"] = 2;
+                // pr_getReminderListByCountryAll
+                // pr_getReminderListIncompleteByCountryAll
+
+                var reminderList = db.pr_getReminderListByCountryAll().ToList();
+                var reminderIncompleteList = db.pr_getReminderListIncompleteByCountryAll().ToList();
+
+                foreach (var item in reminderList)
                 {
-                    //Console.WriteLine(item.name);
-
-
-
-                    var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(item.pptq).FirstOrDefault();
-                    // pptq.invitedDate = DateTime.Now;
-                    var person = db.pr_getPersonByEmail(2, "john@intelleges.com").FirstOrDefault();
-                    //pptq.invitedBy = person.id;
-                    //pptq.status = (int)PartnerStatus.Invited_NoResponse;
-                    //db.Entry(pptq).State = EntityState.Modified;
-                    //db.SaveChanges();
-
-                    var objpartner = db.pr_getPartner(pptq.partner).FirstOrDefault();
-                    //objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
-                    //db.Entry(objpartner).State = EntityState.Modified;
-                    //db.SaveChanges();
-
-                    var amm = db.pr_getAutomailMessage(item.automailmessage).FirstOrDefault();
-                    amm.text.Replace("[partner Access Code]", pptq.accesscode);
-
-                    var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(pptq.accesscode, pptq.loadGroup).FirstOrDefault();
-
-                    if (objpartnerByAccessCode != null)
+                    //  if (item.name == "Sukhbir Singh")
+                    if (item.enterprise == 3)
                     {
-                        amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
+                        //Console.WriteLine(item.name);
+
+
+
+                        var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(item.pptq).FirstOrDefault();
+                        // pptq.invitedDate = DateTime.Now;
+                        var person = db.pr_getPersonByEmail(2, "john@intelleges.com").FirstOrDefault();
+                        //pptq.invitedBy = person.id;
+                        //pptq.status = (int)PartnerStatus.Invited_NoResponse;
+                        //db.Entry(pptq).State = EntityState.Modified;
+                        //db.SaveChanges();
+
+                        var objpartner = db.pr_getPartner(pptq.partner).FirstOrDefault();
+                        //objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
+                        //db.Entry(objpartner).State = EntityState.Modified;
+                        //db.SaveChanges();
+
+                        var amm = db.pr_getAutomailMessage(item.automailmessage).FirstOrDefault();
+                        amm.text.Replace("[partner Access Code]", pptq.accesscode);
+
+                        var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(pptq.accesscode, pptq.loadGroup).FirstOrDefault();
+
+                        if (objpartnerByAccessCode != null)
+                        {
+                            amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
+                        }
+
+                        var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(item.ptq).FirstOrDefault();
+
+                        var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
+                        Email email = new Email(amm);
+
+
+                        email.accesscode = pptq.accesscode;
+                        email.protocolTouchpoint = objtouchpoint.description;
+
+                        EmailFormat emailFormat = new EmailFormat();
+                        email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq.id);
+
+                        email.emailTo = objpartner.email;
+
+                        //  email.emailTo = "goldykhurmi@gmail.com";
+
+
+                        // SendEmail objSendEmail = new SendEmail();
+                        //objSendEmail.sendEmail(email);
+                        try
+                        {
+                            sendEmails(email, (int)item.enterprise);
+                            db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
+                        }
+                        catch (Exception ex)
+                        {
+
+                            string text = "\r\n \r\n Error in First foreach loop : " + ex.StackTrace;
+                            System.IO.File.AppendAllText(System.IO.Path.Combine(@"C:\reminder_Logs", "Logs.txt"), text);
+
+                        }
+                        // sendEmail(item.subject, "", "", "john@intelleges.com");
                     }
-
-                    var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(item.ptq).FirstOrDefault();
-
-                    var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
-                    Email email = new Email(amm);
-
-
-                    email.accesscode = pptq.accesscode;
-                    email.protocolTouchpoint = objtouchpoint.description;
-
-                    EmailFormat emailFormat = new EmailFormat();
-                    email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq.id);
-
-                    email.emailTo = objpartner.email;
-
-                    //  email.emailTo = "goldykhurmi@gmail.com";
-
-
-                    // SendEmail objSendEmail = new SendEmail();
-                    //objSendEmail.sendEmail(email);
-                    try
-                    {
-                        sendEmails(email, (int)item.enterprise);
-                        db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
-                    }
-                    catch (Exception ex)
-                    {
-
-                        string text = "\r\n \r\n Error in First foreach loop : " + ex.StackTrace;
-                        System.IO.File.AppendAllText(System.IO.Path.Combine(@"C:\reminder_Logs", "Logs.txt"), text);
-
-                    }
-                    // sendEmail(item.subject, "", "", "john@intelleges.com");
                 }
+
+                foreach (var item in reminderIncompleteList)
+                {
+                    //  if (item.name == "Sukhbir Singh")
+                    if (item.enterprise == 3)
+                    {
+                        //Console.WriteLine(item.name);
+
+
+
+                        var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(item.pptq).FirstOrDefault();
+                        // pptq.invitedDate = DateTime.Now;
+                        var person = db.pr_getPersonByEmail(2, "john@intelleges.com").FirstOrDefault();
+                        //pptq.invitedBy = person.id;
+                        //pptq.status = (int)PartnerStatus.Invited_NoResponse;
+                        //db.Entry(pptq).State = EntityState.Modified;
+                        //db.SaveChanges();
+
+                        var objpartner = db.pr_getPartner(pptq.partner).FirstOrDefault();
+                        //objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
+                        //db.Entry(objpartner).State = EntityState.Modified;
+                        //db.SaveChanges();
+
+                        var amm = db.pr_getAutomailMessage(item.automailmessage).FirstOrDefault();
+                        amm.text.Replace("[partner Access Code]", pptq.accesscode);
+
+                        var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(pptq.accesscode, pptq.loadGroup).FirstOrDefault();
+
+                        if (objpartnerByAccessCode != null)
+                        {
+                            amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
+                        }
+
+                        var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(item.ptq).FirstOrDefault();
+
+                        var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
+                        Email email = new Email(amm);
+
+
+                        email.accesscode = pptq.accesscode;
+                        email.protocolTouchpoint = objtouchpoint.description;
+
+                        EmailFormat emailFormat = new EmailFormat();
+                        email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq.id);
+                        email.emailTo = objpartner.email;
+
+                        // email.emailTo = "goldykhurmi@gmail.com";
+
+                        // SendEmail objSendEmail = new SendEmail();
+                        //objSendEmail.sendEmail(email);
+                        try
+                        {
+                            sendEmails(email, (int)item.enterprise);
+                            db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
+                        }
+                        catch (Exception ex)
+                        {
+
+                            string text = "\r\n \r\n Error in SECOND foreach loop : " + ex.StackTrace;
+                            System.IO.File.AppendAllText(System.IO.Path.Combine(@"C:\reminder_Logs", "Logs.txt"), text);
+
+                        }
+                        // sendEmail(item.subject, "", "", "john@intelleges.com");
+                    }
+                }
+
+                return true;
             }
-
-            foreach (var item in reminderIncompleteList)
+            catch (Exception)
             {
-                //  if (item.name == "Sukhbir Singh")
-                if (item.enterprise == 3)
-                {
-                    //Console.WriteLine(item.name);
-
-
-
-                    var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(item.pptq).FirstOrDefault();
-                    // pptq.invitedDate = DateTime.Now;
-                    var person = db.pr_getPersonByEmail(2, "john@intelleges.com").FirstOrDefault();
-                    //pptq.invitedBy = person.id;
-                    //pptq.status = (int)PartnerStatus.Invited_NoResponse;
-                    //db.Entry(pptq).State = EntityState.Modified;
-                    //db.SaveChanges();
-
-                    var objpartner = db.pr_getPartner(pptq.partner).FirstOrDefault();
-                    //objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
-                    //db.Entry(objpartner).State = EntityState.Modified;
-                    //db.SaveChanges();
-
-                    var amm = db.pr_getAutomailMessage(item.automailmessage).FirstOrDefault();
-                    amm.text.Replace("[partner Access Code]", pptq.accesscode);
-
-                    var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(pptq.accesscode, pptq.loadGroup).FirstOrDefault();
-
-                    if (objpartnerByAccessCode != null)
-                    {
-                        amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
-                    }
-
-                    var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(item.ptq).FirstOrDefault();
-
-                    var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
-                    Email email = new Email(amm);
-
-
-                    email.accesscode = pptq.accesscode;
-                    email.protocolTouchpoint = objtouchpoint.description;
-
-                    EmailFormat emailFormat = new EmailFormat();
-                    email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq.id);
-                    email.emailTo = objpartner.email;
-
-                    // email.emailTo = "goldykhurmi@gmail.com";
-
-                    // SendEmail objSendEmail = new SendEmail();
-                    //objSendEmail.sendEmail(email);
-                    try
-                    {
-                        sendEmails(email, (int)item.enterprise);
-                        db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
-                    }
-                    catch (Exception ex)
-                    {
-
-                        string text = "\r\n \r\n Error in SECOND foreach loop : " + ex.StackTrace;
-                        System.IO.File.AppendAllText(System.IO.Path.Combine(@"C:\reminder_Logs", "Logs.txt"), text);
-
-                    }
-                    // sendEmail(item.subject, "", "", "john@intelleges.com");
-                }
+                return false;
+                
             }
 
             //DataTable dt = DataAccessScheduler.getDailyReport();

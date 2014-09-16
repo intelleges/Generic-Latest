@@ -32,6 +32,12 @@
     //    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
     //    chart.draw(data, options);
     //}
+
+    if ('@ViewData["schedulerMessage"]' != '') {
+        alertify.alert('@ViewData["schedulerMessage"]');
+    }
+
+
 </script>
 <style>
     #iconstbl img {
