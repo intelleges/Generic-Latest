@@ -430,8 +430,6 @@ namespace Generic.Controllers
             if (enterprise != null)
             {
                 ViewBag.enterpriseName = enterprise.description;
-
-
                 pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
                 string pieChartData = "['Status','Count'],";
                 pieChartData += "['Completed'," + objCount.Completed + "],";
@@ -439,9 +437,9 @@ namespace Generic.Controllers
                 pieChartData += "['Not Started'," + objCount.Not_Started + "]";
 
                 ViewBag.pieChartData = pieChartData;
-
-
             }
+            SchedulerServiceHelper.init();
+
             return View();
         }
 

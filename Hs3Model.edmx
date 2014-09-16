@@ -5696,6 +5696,9 @@
         <Function Name="pr_getEventNotificationByLoadGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getFocusByIndustry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="industry" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5730,6 +5733,7 @@
         <Function Name="pr_getHs3MenuAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getIndustryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -11840,6 +11844,13 @@
           <FunctionImport Name="pr_getMenuChildItemByPerson1" EntitySet="menu" ReturnType="Collection(hs3MVCMTQa2Model.menu)">
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="parentid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getFocusByIndustry" ReturnType="Collection(hs3MVCMTQa2Model.pr_getFocusByIndustry_Result)">
+            <Parameter Name="industry" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIndustryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIndustryAll_Result)" />
+          <FunctionImport Name="pr_getFocusByIndustry1">
+            <Parameter Name="industry" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -18898,6 +18909,18 @@
           <Property Type="Int32" Name="accesslevel" Nullable="true" />
           <Property Type="Int32" Name="enterprise" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getFocusByIndustry_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortorder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getIndustryAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -24613,6 +24636,27 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getMenuChildItemByPerson1" FunctionName="hs3MVCMTQa2Model.Store.pr_getMenuChildItemByPerson" />
+          <FunctionImportMapping FunctionImportName="pr_getFocusByIndustry" FunctionName="hs3MVCMTQa2Model.Store.pr_getFocusByIndustry">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getFocusByIndustry_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortorder" ColumnName="sortorder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIndustryAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getIndustryAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIndustryAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getFocusByIndustry1" FunctionName="hs3MVCMTQa2Model.Store.pr_getFocusByIndustry" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

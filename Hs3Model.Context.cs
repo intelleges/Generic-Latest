@@ -13622,5 +13622,28 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<menu>("pr_getMenuChildItemByPerson1", mergeOption, personParameter, parentidParameter);
         }
+    
+        public virtual ObjectResult<pr_getFocusByIndustry_Result> pr_getFocusByIndustry(Nullable<int> industry)
+        {
+            var industryParameter = industry.HasValue ?
+                new ObjectParameter("industry", industry) :
+                new ObjectParameter("industry", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getFocusByIndustry_Result>("pr_getFocusByIndustry", industryParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIndustryAll_Result> pr_getIndustryAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIndustryAll_Result>("pr_getIndustryAll");
+        }
+    
+        public virtual int pr_getFocusByIndustry1(Nullable<int> industry)
+        {
+            var industryParameter = industry.HasValue ?
+                new ObjectParameter("industry", industry) :
+                new ObjectParameter("industry", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getFocusByIndustry1", industryParameter);
+        }
     }
 }
