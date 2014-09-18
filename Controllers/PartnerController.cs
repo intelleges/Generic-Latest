@@ -1233,6 +1233,16 @@ namespace Generic.Controllers
 
         }
 
+        public ActionResult UnArchievePartners(int[] items)
+        {
+            foreach (var item in items)
+            {
+                db.pr_unArchivePartner(item);                
+            }
+
+            return Json(true,JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult FindPartner(string searchType)
         {
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
