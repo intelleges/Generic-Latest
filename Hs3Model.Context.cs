@@ -175,6 +175,7 @@ namespace Generic
         public DbSet<view_EventNotificationData> view_EventNotificationData { get; set; }
         public DbSet<pptqGroup> pptqGroup { get; set; }
         public DbSet<view_TouchpointData> view_TouchpointData { get; set; }
+        public DbSet<enterpriseSpreadsheetDataLoad> enterpriseSpreadsheetDataLoad { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -13644,6 +13645,124 @@ namespace Generic
                 new ObjectParameter("industry", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getFocusByIndustry1", industryParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEnterpriseFreeTrial(string emailAddress, string companyName, string companyURL, Nullable<int> industry, Nullable<int> focus, Nullable<bool> agreedToTerms)
+        {
+            var emailAddressParameter = emailAddress != null ?
+                new ObjectParameter("emailAddress", emailAddress) :
+                new ObjectParameter("emailAddress", typeof(string));
+    
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("companyName", companyName) :
+                new ObjectParameter("companyName", typeof(string));
+    
+            var companyURLParameter = companyURL != null ?
+                new ObjectParameter("companyURL", companyURL) :
+                new ObjectParameter("companyURL", typeof(string));
+    
+            var industryParameter = industry.HasValue ?
+                new ObjectParameter("industry", industry) :
+                new ObjectParameter("industry", typeof(int));
+    
+            var focusParameter = focus.HasValue ?
+                new ObjectParameter("focus", focus) :
+                new ObjectParameter("focus", typeof(int));
+    
+            var agreedToTermsParameter = agreedToTerms.HasValue ?
+                new ObjectParameter("agreedToTerms", agreedToTerms) :
+                new ObjectParameter("agreedToTerms", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterpriseFreeTrial", emailAddressParameter, companyNameParameter, companyURLParameter, industryParameter, focusParameter, agreedToTermsParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEnterprise1(string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<int> userMax, Nullable<int> partnerMax, Nullable<int> partnumberMax, Nullable<int> product, Nullable<int> subscriptionType, Nullable<System.DateTime> freeTrialStartDate, Nullable<System.DateTime> freeTrialEndDate, Nullable<System.DateTime> licenseStartDate, Nullable<System.DateTime> licenseEndDate, Nullable<decimal> monthlyFee, Nullable<int> subscriptionStatus, string chargifyID, Nullable<System.DateTime> archivedDate, Nullable<int> multiTenantProjectType)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var logoParameter = logo != null ?
+                new ObjectParameter("logo", logo) :
+                new ObjectParameter("logo", typeof(byte[]));
+    
+            var applicationPathParameter = applicationPath != null ?
+                new ObjectParameter("applicationPath", applicationPath) :
+                new ObjectParameter("applicationPath", typeof(string));
+    
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("companyName", companyName) :
+                new ObjectParameter("companyName", typeof(string));
+    
+            var instanceNameParameter = instanceName != null ?
+                new ObjectParameter("instanceName", instanceName) :
+                new ObjectParameter("instanceName", typeof(string));
+    
+            var userMaxParameter = userMax.HasValue ?
+                new ObjectParameter("userMax", userMax) :
+                new ObjectParameter("userMax", typeof(int));
+    
+            var partnerMaxParameter = partnerMax.HasValue ?
+                new ObjectParameter("partnerMax", partnerMax) :
+                new ObjectParameter("partnerMax", typeof(int));
+    
+            var partnumberMaxParameter = partnumberMax.HasValue ?
+                new ObjectParameter("partnumberMax", partnumberMax) :
+                new ObjectParameter("partnumberMax", typeof(int));
+    
+            var productParameter = product.HasValue ?
+                new ObjectParameter("product", product) :
+                new ObjectParameter("product", typeof(int));
+    
+            var subscriptionTypeParameter = subscriptionType.HasValue ?
+                new ObjectParameter("subscriptionType", subscriptionType) :
+                new ObjectParameter("subscriptionType", typeof(int));
+    
+            var freeTrialStartDateParameter = freeTrialStartDate.HasValue ?
+                new ObjectParameter("freeTrialStartDate", freeTrialStartDate) :
+                new ObjectParameter("freeTrialStartDate", typeof(System.DateTime));
+    
+            var freeTrialEndDateParameter = freeTrialEndDate.HasValue ?
+                new ObjectParameter("freeTrialEndDate", freeTrialEndDate) :
+                new ObjectParameter("freeTrialEndDate", typeof(System.DateTime));
+    
+            var licenseStartDateParameter = licenseStartDate.HasValue ?
+                new ObjectParameter("licenseStartDate", licenseStartDate) :
+                new ObjectParameter("licenseStartDate", typeof(System.DateTime));
+    
+            var licenseEndDateParameter = licenseEndDate.HasValue ?
+                new ObjectParameter("licenseEndDate", licenseEndDate) :
+                new ObjectParameter("licenseEndDate", typeof(System.DateTime));
+    
+            var monthlyFeeParameter = monthlyFee.HasValue ?
+                new ObjectParameter("monthlyFee", monthlyFee) :
+                new ObjectParameter("monthlyFee", typeof(decimal));
+    
+            var subscriptionStatusParameter = subscriptionStatus.HasValue ?
+                new ObjectParameter("subscriptionStatus", subscriptionStatus) :
+                new ObjectParameter("subscriptionStatus", typeof(int));
+    
+            var chargifyIDParameter = chargifyID != null ?
+                new ObjectParameter("chargifyID", chargifyID) :
+                new ObjectParameter("chargifyID", typeof(string));
+    
+            var archivedDateParameter = archivedDate.HasValue ?
+                new ObjectParameter("archivedDate", archivedDate) :
+                new ObjectParameter("archivedDate", typeof(System.DateTime));
+    
+            var multiTenantProjectTypeParameter = multiTenantProjectType.HasValue ?
+                new ObjectParameter("multiTenantProjectType", multiTenantProjectType) :
+                new ObjectParameter("multiTenantProjectType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterprise1", descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, userMaxParameter, partnerMaxParameter, partnumberMaxParameter, productParameter, subscriptionTypeParameter, freeTrialStartDateParameter, freeTrialEndDateParameter, licenseStartDateParameter, licenseEndDateParameter, monthlyFeeParameter, subscriptionStatusParameter, chargifyIDParameter, archivedDateParameter, multiTenantProjectTypeParameter);
         }
     }
 }

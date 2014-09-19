@@ -469,6 +469,9 @@
     <Compile Include="enterpriseObjectName.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="enterpriseSpreadsheetDataLoad.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="enterpriseSystemInfo.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

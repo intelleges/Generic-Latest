@@ -24,6 +24,7 @@
           <EntitySet Name="enterprise" EntityType="hs3MVCMTQa2Model.Store.enterprise" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="enterpriseMenu" EntityType="hs3MVCMTQa2Model.Store.enterpriseMenu" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="enterpriseObjectName" EntityType="hs3MVCMTQa2Model.Store.enterpriseObjectName" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="enterpriseSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.Store.enterpriseSpreadsheetDataLoad" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="enterpriseSystemInfo" EntityType="hs3MVCMTQa2Model.Store.enterpriseSystemInfo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="eSignature" EntityType="hs3MVCMTQa2Model.Store.eSignature" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="eventNotification" EntityType="hs3MVCMTQa2Model.Store.eventNotification" store:Type="Tables" Schema="dbo" />
@@ -1086,6 +1087,21 @@
           <Property Name="objectName" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="alias" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="device" Type="int" />
+        </EntityType>
+        <EntityType Name="enterpriseSpreadsheetDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="emailAddress" Type="varchar" Nullable="false" MaxLength="300" />
+          <Property Name="companyName" Type="varchar" Nullable="false" MaxLength="300" />
+          <Property Name="companyURL" Type="varchar" Nullable="false" MaxLength="300" />
+          <Property Name="industry" Type="int" Nullable="false" />
+          <Property Name="focus" Type="int" Nullable="false" />
+          <Property Name="agreedToTerms" Type="bit" Nullable="false" />
+          <Property Name="subscriptionType" Type="int" Nullable="false" />
+          <Property Name="enterprise" Type="int" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="enterpriseSystemInfo">
           <Key>
@@ -4631,6 +4647,14 @@
           <Parameter Name="chargifyID" Type="varchar" Mode="In" />
           <Parameter Name="archivedDate" Type="date" Mode="In" />
           <Parameter Name="multiTenantProjectType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addEnterpriseFreeTrial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="emailAddress" Type="varchar" Mode="In" />
+          <Parameter Name="companyName" Type="varchar" Mode="In" />
+          <Parameter Name="companyURL" Type="varchar" Mode="In" />
+          <Parameter Name="industry" Type="int" Mode="In" />
+          <Parameter Name="focus" Type="int" Mode="In" />
+          <Parameter Name="agreedToTerms" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_addEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -11846,11 +11870,43 @@
             <Parameter Name="parentid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getFocusByIndustry" ReturnType="Collection(hs3MVCMTQa2Model.pr_getFocusByIndustry_Result)">
-            <Parameter Name="industry" Mode="In" Type="Int32" />
+          <Parameter Name="industry" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getIndustryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIndustryAll_Result)" />
           <FunctionImport Name="pr_getFocusByIndustry1">
+          <Parameter Name="industry" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="enterpriseSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.enterpriseSpreadsheetDataLoad" />
+          <FunctionImport Name="pr_addEnterpriseFreeTrial" ReturnType="Collection(Decimal)">
+            <Parameter Name="emailAddress" Mode="In" Type="String" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="companyURL" Mode="In" Type="String" />
             <Parameter Name="industry" Mode="In" Type="Int32" />
+            <Parameter Name="focus" Mode="In" Type="Int32" />
+            <Parameter Name="agreedToTerms" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addEnterprise1" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="logo" Mode="In" Type="Binary" />
+            <Parameter Name="applicationPath" Mode="In" Type="String" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="instanceName" Mode="In" Type="String" />
+            <Parameter Name="userMax" Mode="In" Type="Int32" />
+            <Parameter Name="partnerMax" Mode="In" Type="Int32" />
+            <Parameter Name="partnumberMax" Mode="In" Type="Int32" />
+            <Parameter Name="product" Mode="In" Type="Int32" />
+            <Parameter Name="subscriptionType" Mode="In" Type="Int32" />
+            <Parameter Name="freeTrialStartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="freeTrialEndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="licenseStartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="licenseEndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="monthlyFee" Mode="In" Type="Decimal" />
+            <Parameter Name="subscriptionStatus" Mode="In" Type="Int32" />
+            <Parameter Name="chargifyID" Mode="In" Type="String" />
+            <Parameter Name="archivedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="multiTenantProjectType" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -18921,6 +18977,21 @@
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <EntityType Name="enterpriseSpreadsheetDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="emailAddress" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="companyName" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="companyURL" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="industry" Nullable="false" />
+          <Property Type="Int32" Name="focus" Nullable="false" />
+          <Property Type="Boolean" Name="agreedToTerms" Nullable="false" />
+          <Property Type="Int32" Name="subscriptionType" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+        </EntityType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -19237,30 +19308,6 @@
             </EntityTypeMapping>
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterprise">
               <ModificationFunctionMapping>
-                <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise">
-                  <ScalarProperty Name="multiTenantProjectType" ParameterName="multiTenantProjectType" />
-                  <ScalarProperty Name="chargifyID" ParameterName="chargifyID" />
-                  <ScalarProperty Name="subscriptionStatus" ParameterName="subscriptionStatus" />
-                  <ScalarProperty Name="monthlyFee" ParameterName="monthlyFee" />
-                  <ScalarProperty Name="licenseEndDate" ParameterName="licenseEndDate" />
-                  <ScalarProperty Name="licenseStartDate" ParameterName="licenseStartDate" />
-                  <ScalarProperty Name="freeTrialEndDate" ParameterName="freeTrialEndDate" />
-                  <ScalarProperty Name="freeTrialStartDate" ParameterName="freeTrialStartDate" />
-                  <ScalarProperty Name="subscriptionType" ParameterName="subscriptionType" />
-                  <ScalarProperty Name="product" ParameterName="product" />
-                  <ScalarProperty Name="partnumberMax" ParameterName="partnumberMax" />
-                  <ScalarProperty Name="partnerMax" ParameterName="partnerMax" />
-                  <ScalarProperty Name="userMax" ParameterName="userMax" />
-                  <ScalarProperty Name="archivedDate" ParameterName="archivedDate" />
-                  <ScalarProperty Name="instanceName" ParameterName="instanceName" />
-                  <ScalarProperty Name="companyName" ParameterName="companyName" />
-                  <ScalarProperty Name="applicationPath" ParameterName="applicationPath" />
-                  <ScalarProperty Name="logo" ParameterName="logo" />
-                  <ScalarProperty Name="active" ParameterName="active" />
-                  <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
-                  <ScalarProperty Name="description" ParameterName="description" />
-                  <ResultBinding Name="id" ColumnName="id" />
-                </InsertFunction>
                 <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterprise">
                   <ScalarProperty Name="multiTenantProjectType" ParameterName="multiTenantProjectType" Version="Current" />
                   <ScalarProperty Name="chargifyID" ParameterName="chargifyID" Version="Current" />
@@ -21602,7 +21649,6 @@
           <FunctionImportMapping FunctionImportName="pr_addEmailTag" FunctionName="hs3MVCMTQa2Model.Store.pr_addEmailTag" />
           <FunctionImportMapping FunctionImportName="pr_addEmailTemplate" FunctionName="hs3MVCMTQa2Model.Store.pr_addEmailTemplate" />
           <FunctionImportMapping FunctionImportName="pr_addEmailTemplateType" FunctionName="hs3MVCMTQa2Model.Store.pr_addEmailTemplateType" />
-          <FunctionImportMapping FunctionImportName="pr_addEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise" />
           <FunctionImportMapping FunctionImportName="pr_addEnterpriseObjectName" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseObjectName" />
           <FunctionImportMapping FunctionImportName="pr_addEnterpriseSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseSystemInfo" />
           <FunctionImportMapping FunctionImportName="pr_addEsignature" FunctionName="hs3MVCMTQa2Model.Store.pr_addEsignature" />
@@ -24657,6 +24703,24 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getFocusByIndustry1" FunctionName="hs3MVCMTQa2Model.Store.pr_getFocusByIndustry" />
+          <EntitySetMapping Name="enterpriseSpreadsheetDataLoad">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterpriseSpreadsheetDataLoad">
+              <MappingFragment StoreEntitySet="enterpriseSpreadsheetDataLoad">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="subscriptionType" ColumnName="subscriptionType" />
+                <ScalarProperty Name="agreedToTerms" ColumnName="agreedToTerms" />
+                <ScalarProperty Name="focus" ColumnName="focus" />
+                <ScalarProperty Name="industry" ColumnName="industry" />
+                <ScalarProperty Name="companyURL" ColumnName="companyURL" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addEnterpriseFreeTrial" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseFreeTrial" />
+          <FunctionImportMapping FunctionImportName="pr_addEnterprise1" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
