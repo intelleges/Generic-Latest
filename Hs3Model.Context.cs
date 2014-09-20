@@ -176,6 +176,7 @@ namespace Generic
         public DbSet<pptqGroup> pptqGroup { get; set; }
         public DbSet<view_TouchpointData> view_TouchpointData { get; set; }
         public DbSet<enterpriseSpreadsheetDataLoad> enterpriseSpreadsheetDataLoad { get; set; }
+        public DbSet<confirmationSpreadsheetDataLoad> confirmationSpreadsheetDataLoad { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -13647,35 +13648,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getFocusByIndustry1", industryParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addEnterpriseFreeTrial(string emailAddress, string companyName, string companyURL, Nullable<int> industry, Nullable<int> focus, Nullable<bool> agreedToTerms)
-        {
-            var emailAddressParameter = emailAddress != null ?
-                new ObjectParameter("emailAddress", emailAddress) :
-                new ObjectParameter("emailAddress", typeof(string));
-    
-            var companyNameParameter = companyName != null ?
-                new ObjectParameter("companyName", companyName) :
-                new ObjectParameter("companyName", typeof(string));
-    
-            var companyURLParameter = companyURL != null ?
-                new ObjectParameter("companyURL", companyURL) :
-                new ObjectParameter("companyURL", typeof(string));
-    
-            var industryParameter = industry.HasValue ?
-                new ObjectParameter("industry", industry) :
-                new ObjectParameter("industry", typeof(int));
-    
-            var focusParameter = focus.HasValue ?
-                new ObjectParameter("focus", focus) :
-                new ObjectParameter("focus", typeof(int));
-    
-            var agreedToTermsParameter = agreedToTerms.HasValue ?
-                new ObjectParameter("agreedToTerms", agreedToTerms) :
-                new ObjectParameter("agreedToTerms", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterpriseFreeTrial", emailAddressParameter, companyNameParameter, companyURLParameter, industryParameter, focusParameter, agreedToTermsParameter);
-        }
-    
         public virtual ObjectResult<Nullable<decimal>> pr_addEnterprise1(string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<int> userMax, Nullable<int> partnerMax, Nullable<int> partnumberMax, Nullable<int> product, Nullable<int> subscriptionType, Nullable<System.DateTime> freeTrialStartDate, Nullable<System.DateTime> freeTrialEndDate, Nullable<System.DateTime> licenseStartDate, Nullable<System.DateTime> licenseEndDate, Nullable<decimal> monthlyFee, Nullable<int> subscriptionStatus, string chargifyID, Nullable<System.DateTime> archivedDate, Nullable<int> multiTenantProjectType)
         {
             var descriptionParameter = description != null ?
@@ -13763,6 +13735,99 @@ namespace Generic
                 new ObjectParameter("multiTenantProjectType", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterprise1", descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, userMaxParameter, partnerMaxParameter, partnumberMaxParameter, productParameter, subscriptionTypeParameter, freeTrialStartDateParameter, freeTrialEndDateParameter, licenseStartDateParameter, licenseEndDateParameter, monthlyFeeParameter, subscriptionStatusParameter, chargifyIDParameter, archivedDateParameter, multiTenantProjectTypeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addConfirmationSpreadsheetDataLoad(Nullable<int> pptq_A, Nullable<int> pptq_B_Reference, Nullable<int> ptq, Nullable<int> action)
+        {
+            var pptq_AParameter = pptq_A.HasValue ?
+                new ObjectParameter("pptq_A", pptq_A) :
+                new ObjectParameter("pptq_A", typeof(int));
+    
+            var pptq_B_ReferenceParameter = pptq_B_Reference.HasValue ?
+                new ObjectParameter("pptq_B_Reference", pptq_B_Reference) :
+                new ObjectParameter("pptq_B_Reference", typeof(int));
+    
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var actionParameter = action.HasValue ?
+                new ObjectParameter("action", action) :
+                new ObjectParameter("action", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addConfirmationSpreadsheetDataLoad", pptq_AParameter, pptq_B_ReferenceParameter, ptqParameter, actionParameter);
+        }
+    
+        public virtual int pr_addEnterpriseFreeTrial(string emailAddress, string companyName, string companyURL, Nullable<int> industry, Nullable<int> focus, Nullable<bool> agreedToTerms)
+        {
+            var emailAddressParameter = emailAddress != null ?
+                new ObjectParameter("emailAddress", emailAddress) :
+                new ObjectParameter("emailAddress", typeof(string));
+    
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("companyName", companyName) :
+                new ObjectParameter("companyName", typeof(string));
+    
+            var companyURLParameter = companyURL != null ?
+                new ObjectParameter("companyURL", companyURL) :
+                new ObjectParameter("companyURL", typeof(string));
+    
+            var industryParameter = industry.HasValue ?
+                new ObjectParameter("industry", industry) :
+                new ObjectParameter("industry", typeof(int));
+    
+            var focusParameter = focus.HasValue ?
+                new ObjectParameter("focus", focus) :
+                new ObjectParameter("focus", typeof(int));
+    
+            var agreedToTermsParameter = agreedToTerms.HasValue ?
+                new ObjectParameter("agreedToTerms", agreedToTerms) :
+                new ObjectParameter("agreedToTerms", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addEnterpriseFreeTrial", emailAddressParameter, companyNameParameter, companyURLParameter, industryParameter, focusParameter, agreedToTermsParameter);
+        }
+    
+        public virtual ObjectResult<pr_getConfirmationSpreadsheetDataLoad_Result> pr_getConfirmationSpreadsheetDataLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getConfirmationSpreadsheetDataLoad_Result>("pr_getConfirmationSpreadsheetDataLoad", idParameter);
+        }
+    
+        public virtual int pr_modifyConfirmationSpreadsheetDataLoad(Nullable<int> id, Nullable<int> pptq_A, Nullable<int> pptq_B_Reference, Nullable<int> ptq, Nullable<int> action)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var pptq_AParameter = pptq_A.HasValue ?
+                new ObjectParameter("pptq_A", pptq_A) :
+                new ObjectParameter("pptq_A", typeof(int));
+    
+            var pptq_B_ReferenceParameter = pptq_B_Reference.HasValue ?
+                new ObjectParameter("pptq_B_Reference", pptq_B_Reference) :
+                new ObjectParameter("pptq_B_Reference", typeof(int));
+    
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var actionParameter = action.HasValue ?
+                new ObjectParameter("action", action) :
+                new ObjectParameter("action", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyConfirmationSpreadsheetDataLoad", idParameter, pptq_AParameter, pptq_B_ReferenceParameter, ptqParameter, actionParameter);
+        }
+    
+        public virtual int pr_removeConfirmationSpreadsheetDataLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeConfirmationSpreadsheetDataLoad", idParameter);
         }
     }
 }

@@ -411,6 +411,9 @@
     <Compile Include="calendar.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="confirmationSpreadsheetDataLoad.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="ConfirmPartnerActionType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -770,6 +773,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCalendarByDate_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getConfirmationSpreadsheetDataLoad_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getConfirmPartnerActionTypeAll_Result.cs">

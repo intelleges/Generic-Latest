@@ -13,6 +13,7 @@
           <EntitySet Name="automailMessagePPTQ" EntityType="hs3MVCMTQa2Model.Store.automailMessagePPTQ" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="autoMailType" EntityType="hs3MVCMTQa2Model.Store.autoMailType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="calendar" EntityType="hs3MVCMTQa2Model.Store.calendar" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="confirmationSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.Store.confirmationSpreadsheetDataLoad" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ConfirmPartnerActionType" EntityType="hs3MVCMTQa2Model.Store.ConfirmPartnerActionType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="country" EntityType="hs3MVCMTQa2Model.Store.country" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="countryHoliday" EntityType="hs3MVCMTQa2Model.Store.countryHoliday" store:Type="Tables" Schema="dbo" />
@@ -962,6 +963,16 @@
           <Property Name="last_day_of_month" Type="date" />
           <Property Name="start_dts" Type="datetime" />
           <Property Name="end_dts" Type="datetime" />
+        </EntityType>
+        <EntityType Name="confirmationSpreadsheetDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="pptq_A" Type="int" Nullable="false" />
+          <Property Name="pptq_B_Reference" Type="int" Nullable="false" />
+          <Property Name="ptq" Type="int" Nullable="false" />
+          <Property Name="action" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ConfirmPartnerActionType">
           <Key>
@@ -4579,6 +4590,12 @@
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addConfirmationSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq_A" Type="int" Mode="In" />
+          <Parameter Name="pptq_B_Reference" Type="int" Mode="In" />
+          <Parameter Name="ptq" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addConfirmPartnerActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -5631,6 +5648,9 @@
         <Function Name="pr_getCalendarByDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="date" Type="date" Mode="In" />
         </Function>
+        <Function Name="pr_getConfirmationSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getConfirmPartnerActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6536,6 +6556,13 @@
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyConfirmationSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="pptq_A" Type="int" Mode="In" />
+          <Parameter Name="pptq_B_Reference" Type="int" Mode="In" />
+          <Parameter Name="ptq" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_modifyCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="eplsCountryID" Type="int" Mode="In" />
@@ -7306,6 +7333,9 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeConfirmationSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -11877,14 +11907,6 @@
           <Parameter Name="industry" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="enterpriseSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.enterpriseSpreadsheetDataLoad" />
-          <FunctionImport Name="pr_addEnterpriseFreeTrial" ReturnType="Collection(Decimal)">
-            <Parameter Name="emailAddress" Mode="In" Type="String" />
-            <Parameter Name="companyName" Mode="In" Type="String" />
-            <Parameter Name="companyURL" Mode="In" Type="String" />
-            <Parameter Name="industry" Mode="In" Type="Int32" />
-            <Parameter Name="focus" Mode="In" Type="Int32" />
-            <Parameter Name="agreedToTerms" Mode="In" Type="Boolean" />
-          </FunctionImport>
           <FunctionImport Name="pr_addEnterprise1" ReturnType="Collection(Decimal)">
             <Parameter Name="description" Mode="In" Type="String" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
@@ -11907,6 +11929,34 @@
             <Parameter Name="chargifyID" Mode="In" Type="String" />
             <Parameter Name="archivedDate" Mode="In" Type="DateTime" />
             <Parameter Name="multiTenantProjectType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="confirmationSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.confirmationSpreadsheetDataLoad" />
+          <FunctionImport Name="pr_addConfirmationSpreadsheetDataLoad" ReturnType="Collection(Decimal)">
+            <Parameter Name="pptq_A" Mode="In" Type="Int32" />
+            <Parameter Name="pptq_B_Reference" Mode="In" Type="Int32" />
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addEnterpriseFreeTrial">
+            <Parameter Name="emailAddress" Mode="In" Type="String" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="companyURL" Mode="In" Type="String" />
+            <Parameter Name="industry" Mode="In" Type="Int32" />
+            <Parameter Name="focus" Mode="In" Type="Int32" />
+            <Parameter Name="agreedToTerms" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getConfirmationSpreadsheetDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.pr_getConfirmationSpreadsheetDataLoad_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyConfirmationSpreadsheetDataLoad">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="pptq_A" Mode="In" Type="Int32" />
+            <Parameter Name="pptq_B_Reference" Mode="In" Type="Int32" />
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeConfirmationSpreadsheetDataLoad">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -18992,6 +19042,23 @@
           <Property Type="Int32" Name="enterprise" />
           <Property Type="Int32" Name="status" Nullable="false" />
         </EntityType>
+        <EntityType Name="confirmationSpreadsheetDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="pptq_A" Nullable="false" />
+          <Property Type="Int32" Name="pptq_B_Reference" Nullable="false" />
+          <Property Type="Int32" Name="ptq" Nullable="false" />
+          <Property Type="Int32" Name="action" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getConfirmationSpreadsheetDataLoad_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="pptq_A" Nullable="false" />
+          <Property Type="Int32" Name="pptq_B_Reference" Nullable="false" />
+          <Property Type="Int32" Name="ptq" Nullable="false" />
+          <Property Type="Int32" Name="action" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -24719,8 +24786,33 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_addEnterpriseFreeTrial" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseFreeTrial" />
           <FunctionImportMapping FunctionImportName="pr_addEnterprise1" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise" />
+          <EntitySetMapping Name="confirmationSpreadsheetDataLoad">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.confirmationSpreadsheetDataLoad">
+              <MappingFragment StoreEntitySet="confirmationSpreadsheetDataLoad">
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="pptq_B_Reference" ColumnName="pptq_B_Reference" />
+                <ScalarProperty Name="pptq_A" ColumnName="pptq_A" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addConfirmationSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addConfirmationSpreadsheetDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_addEnterpriseFreeTrial" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseFreeTrial" />
+          <FunctionImportMapping FunctionImportName="pr_getConfirmationSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_getConfirmationSpreadsheetDataLoad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getConfirmationSpreadsheetDataLoad_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pptq_A" ColumnName="pptq_A" />
+                <ScalarProperty Name="pptq_B_Reference" ColumnName="pptq_B_Reference" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="action" ColumnName="action" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyConfirmationSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyConfirmationSpreadsheetDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_removeConfirmationSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_removeConfirmationSpreadsheetDataLoad" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

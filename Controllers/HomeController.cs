@@ -48,10 +48,10 @@ namespace Generic.Controllers
 
                 Generic.Helpers.CurrentInstance.EnterpriseID = 1;
 
-                System.Data.Objects.ObjectResult<Decimal?> addEnterpriseResult = db.pr_addEnterpriseFreeTrial(emailID, companyName, companyURL, industry, focus, agreedToTerms);
-                var val = addEnterpriseResult.First().Value;
+                var val = db.pr_addEnterpriseFreeTrial(emailID, companyName, companyURL, industry, focus, agreedToTerms);
+              
 
-                return Json(val, JsonRequestBehavior.AllowGet);
+              //  return Json(val, JsonRequestBehavior.AllowGet);
 
                 if (ModelState.IsValid)
                 {
