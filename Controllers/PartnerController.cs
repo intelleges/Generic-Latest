@@ -18,6 +18,8 @@ using System.Xml.Serialization;
 using Generic.Helpers.PartnerHelper;
 using System.Web.Routing;
 using System.Data.SqlClient;
+using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace Generic.Controllers
 {
@@ -436,7 +438,7 @@ namespace Generic.Controllers
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
-            ViewBag.touchpointTitle = "You have successfully added " + uploadedpartners.Count + " Partners to the " + db.touchpoint.Single(p => p.id == touchpoint).title + " Touchpoint"; 
+            ViewBag.touchpointTitle = "You have successfully added " + uploadedpartners.Count + " Partners to the " + db.touchpoint.Single(p => p.id == touchpoint).title + " Touchpoint";
             return View();
         }
 
@@ -1050,6 +1052,63 @@ namespace Generic.Controllers
 
         }
 
+        public void ResponsesByProtocolTouchpointGroupPartnertype2Download()
+        {
+          //  try
+            {
+                ExportToExcel(getResponsesByProtocolCampaignGroupProviderType2(db.pr_getProtocolByTouchpoint(SessionSingleton.Touchpoint).FirstOrDefault().id, SessionSingleton.Touchpoint));
+            }
+          //  catch
+            {
+            }
+        }
+
+        public void ExportToExcel(DataTable dt)
+        {
+            if (dt.Rows.Count > 0)
+            {
+                string filename = "DownloadExcel.xls";
+                System.IO.StringWriter tw = new System.IO.StringWriter();
+                System.Web.UI.HtmlTextWriter hw = new System.Web.UI.HtmlTextWriter(tw);
+                DataGrid dgGrid = new DataGrid();
+                dgGrid.DataSource = dt;
+                dgGrid.DataBind();
+
+                //Get the HTML for the control.
+                dgGrid.RenderControl(hw);
+                //Write the HTML back to the browser.
+                //Response.ContentType = application/vnd.ms-excel;
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + "");
+                
+                Response.Write(tw.ToString());
+                Response.End();
+            }
+        }
+
+        /// <summary>
+        /// Return a campaign object
+        /// </summary>
+        /// <returns></returns>
+        public DataTable getResponsesByProtocolCampaignGroupProviderType2(int protocol, int touchpoint)
+        {
+            DataTable dataTable = new DataTable();
+
+            SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString);
+            conn.Open();
+            SqlCommand command = new SqlCommand("pr_getResponsesByProtocolTouchpointGroupPartnertype2", conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@protocol", SqlDbType.VarChar).Value = protocol;
+            command.Parameters.Add("@touchpoint", SqlDbType.VarChar).Value = touchpoint;
+            command.Parameters.Add("@group", SqlDbType.VarChar).Value = DBNull.Value;
+            command.Parameters.Add("@partnertype", SqlDbType.VarChar).Value = DBNull.Value;
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+            sqlDataAdapter.Fill(dataTable);
+            conn.Close();
+            return dataTable;
+        }
+
+
         public ActionResult PartnumberSpreadsheetDataLoadReportDownloadForSecondReport()
         {
 
@@ -1237,10 +1296,10 @@ namespace Generic.Controllers
         {
             foreach (var item in items)
             {
-                db.pr_unArchivePartner(item);                
+                db.pr_unArchivePartner(item);
             }
 
-            return Json(true,JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult FindPartner(string searchType)
@@ -1437,6 +1496,7 @@ namespace Generic.Controllers
         // To Confirm Partner
         public ActionResult ConfirmPartner()
         {
+
             //string arguments = "enterprise=" + (int)Generic.Helpers.CurrentInstance.EnterpriseID + ";touchpoint=" + Session["touchpoint"] + ";";
             int touchpointID = Convert.ToInt32(Session["touchpoint"].ToString().Trim());
             int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
@@ -1446,6 +1506,40 @@ namespace Generic.Controllers
             //   List<pr_getPartnerConfirmationData_Result> objConfirmPartnerList = db.pr_getPartnerConfirmationData((int)Generic.Helpers.CurrentInstance.EnterpriseID, (int)Session["touchpoint"]).ToList();
             //  List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
             return View("ConfirmPartner", objConfirmPartnerList);
+        }
+
+        public void ExportExcelConfirmPartners()
+        {
+
+            int touchpointID = Convert.ToInt32(Session["touchpoint"].ToString().Trim());
+            int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
+            List<ConfirmPartnerSpreadsheetViewModel> objConfirmPartnerList = db.Database.SqlQuery<ConfirmPartnerSpreadsheetViewModel>("pr_getPartnerConfirmationData_Spreadsheet @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
+            GridView gv = new GridView();
+            gv.DataSource = objConfirmPartnerList;
+            gv.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=ConfirmPartner.xls");
+            Response.ContentType = "application/ms-excel";
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            gv.RenderControl(htw);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+            //var stream = new MemoryStream();
+            //var serializer = new XmlSerializer(typeof(List<ConfirmPartnerSpreadsheetViewModel>));           
+
+            ////We turn it into an XML and save it in the memory
+            //serializer.Serialize(stream, objConfirmPartnerList);
+            //stream.Position = 0;
+
+            ////We return the XML from the memory as a .xls file
+            //return File(stream, "application/vnd.ms-excel", "ConfirmPartner.xls");
+
+
         }
 
         private List<ConfirmPartnerViewModel> ConvertToConfirmPartnerViewModel(List<pr_getPartnerConfirmationData2_Result> iview_ConfirmPartnerDataList)
@@ -1496,7 +1590,83 @@ namespace Generic.Controllers
             }
             return objConfirmPartnerViewModelList;
         }
+        [HttpPost]
+        public void UploadExcelData(string id)
+        {
+            string questionnaireid = id;
 
+            HttpPostedFileBase excelFile = Request.Files["uploadfile"];
+
+            if (excelFile != null)
+            {
+                if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
+                }
+
+                if (!Directory.Exists((Server.MapPath("~/uploadedFiles/Questionnaire"))))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/uploadedFiles/Questionnaire"));
+                }
+
+                // The Name of the Upload component is "attachments" 
+                var file = excelFile;
+                // Some browsers send file names with full path. This needs to be stripped.
+                var fileName = Path.GetFileName(file.FileName);
+                var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/Questionnaire"), fileName);
+
+                // The files are not actually saved in this demo
+                file.SaveAs(physicalPath);
+                string sheetname = "Sheet1";
+                var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+
+                //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaire, questionnaireid);
+                //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaireCMS, "questionnaireCMS");
+                ////Need to ignore now
+                ////excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.section, "SECTION");
+                //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.text, "text");
+                //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.link, "link");
+                //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.doc, "doc");
+                var confirmPartnerExcel = from a in excelRead.Worksheet<ConfirmPartnerSpreadsheetViewModelupload>(sheetname) select a;
+
+                //  var confirmPartnerExcel = from a in excelRead.Worksheet(sheetname) select a;
+
+                List<Tuple<int, string>> uploadConfirmPartner = new List<Tuple<int, string>>();
+
+                foreach (var confirmPartneritem in confirmPartnerExcel.ToList())
+                {
+                    using (var context = new EntitiesDBContext())
+                    {
+                        //   if (!string.IsNullOrEmpty(questionnaireid))
+                        {
+
+
+                            int modifiedQuestionnaire = context.pr_addPartnerconfirmationdata_Spreadsheet(confirmPartneritem.pptqA_id,
+                                confirmPartneritem.Partner_A, confirmPartneritem.AccessCode_A,
+                                confirmPartneritem.PartnerA_Name, confirmPartneritem.PartnerA_Address,
+                                confirmPartneritem.InternalID_A, confirmPartneritem.email_A, confirmPartneritem.GroupID_A,
+                                confirmPartneritem.Group_A, confirmPartneritem.StatusID_A, confirmPartneritem.Status_A,
+                                confirmPartneritem.pptqB_id, confirmPartneritem.Partner_B, confirmPartneritem.AccessCode_B,
+                                confirmPartneritem.PartnerB_Name, confirmPartneritem.PartnerB_Address, confirmPartneritem.InternalID_B,
+                                confirmPartneritem.email_B, confirmPartneritem.GroupID_B, confirmPartneritem.Group_B, confirmPartneritem.StatusID_B, confirmPartneritem.Status_B,
+                                confirmPartneritem.IsReference2, confirmPartneritem.EM, confirmPartneritem.IM, confirmPartneritem.FM, confirmPartneritem.DM,
+                                confirmPartneritem.NM, confirmPartneritem.action
+                               );
+
+                        }
+                    }
+                }
+            }
+
+
+            Response.Redirect(Url.Action("ConfirmPartner", "Partner"));
+            // return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = int.Parse(id) });
+            // return QuestionnaireQuestionnaireCMS(int.Parse(id));
+            //  return RedirectToAction("QuestionnaireQuestionnaireCMS");
+            //        return RedirectToAction("QuestionnaireQuestionnaireCMS", new RouteValueDictionary(
+            //new { controller = "Questionnaire", action = "QuestionnaireQuestionnaireCMS", id = int.Parse(id) }));
+
+        }
         public ActionResult getActionTypes()
         {
             var data = db.pr_getConfirmPartnerActionTypeAll().FirstOrDefault();

@@ -36,4 +36,73 @@ namespace Generic.ViewModel
         public string NameMatch { get; set; }
        
     }
+    public class ConfirmPartnerSpreadsheetViewModel
+    {
+        public Nullable<int> pptqA_id { get; set; }
+        public int Partner_A { get; set; }
+        public string AccessCode_A { get; set; }
+        public string PartnerA_Name { get; set; }
+        public string PartnerA_Address { get; set; }
+        public string InternalID_A { get; set; }
+        public string email_A { get; set; }
+        public int GroupID_A { get; set; }
+        public string Group_A { get; set; }
+        public int StatusID_A { get; set; }
+        public string Status_A { get; set; }
+        public int pptqB_id { get; set; }
+        public int Partner_B { get; set; }
+        public string AccessCode_B { get; set; }
+        public string PartnerB_Name { get; set; }
+        public string PartnerB_Address { get; set; }
+        public string InternalID_B { get; set; }
+        public string email_B { get; set; }
+        public int GroupID_B { get; set; }
+        public string Group_B { get; set; }
+        public int StatusID_B { get; set; }
+        public string Status_B { get; set; }
+        public string IsReference2 { get; set; }
+        public string EM { get; set; }
+        public string IM { get; set; }
+        public string FM { get; set; }
+        public string DM { get; set; }
+        public string NM { get; set; }
+        public string action { get; set; }
+
+
+
+    }
+    public class ConfirmPartnerSpreadsheetViewModelupload
+    {
+        public Nullable<int> pptqA_id { get; set; }
+        public int Partner_A { get; set; }
+        public string AccessCode_A { get; set; }
+        public string PartnerA_Name { get; set; }
+        public string PartnerA_Address { get; set; }
+        public string InternalID_A { get; set; }
+        public string email_A { get; set; }
+        public int GroupID_A { get; set; }
+        public string Group_A { get; set; }
+        public int StatusID_A { get; set; }
+        public string Status_A { get; set; }
+        public int pptqB_id { get; set; }
+        public int Partner_B { get; set; }
+        public string AccessCode_B { get; set; }
+        public string PartnerB_Name { get; set; }
+        public string PartnerB_Address { get; set; }
+        public string InternalID_B { get; set; }
+        public string email_B { get; set; }
+        public int GroupID_B { get; set; }
+        public string Group_B { get; set; }
+        public string StatusID_B { get; set; }
+        public string Status_B { get; set; }
+        public string IsReference2 { get; set; }
+        public string EM { get; set; }
+        public string IM { get; set; }
+        public string FM { get; set; }
+        public string DM { get; set; }
+        public string NM { get; set; }
+        public string action { get; set; }
+
+
+    }
 }

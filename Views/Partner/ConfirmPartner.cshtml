@@ -24,13 +24,26 @@
      .alertify-message {
         word-wrap: break-word;
     }
+    .btn_size {
+        font-size: 11px!important;
+        padding: 2px 6px!important;
+    }
+    .input_size {
+        font-size: 11px!important;
+        padding: 1px!important;
+        position: relative;
+        top: 2px;
+    }
+    .display_inline {
+        display: inline;
+    }
 </style>
-<form action="@Url.Content("~/Partner/ConfirmPartner")" method="post">
+@*<form action="@Url.Content("~/Partner/ConfirmPartner")" method="post">*@
   @*<input id="SelectedRecord" type="hidden" value="@ViewBag.SelectedRecord" name="SelectedRecord">*@
     @( Html.Telerik().Grid(Model).Name("ConfirmPartnerGrid")
     .ToolBar(commands =>
          {
-             commands.Template("<a class='t-button' href='#' id='btnconfirm'>Confirm</a><a class='t-button' id='btnclear' href='#'>Clear</a>");
+             commands.Template("<a class='t-button' href='#' id='btnconfirm' disabled='disabled'>Confirm</a><a class='t-button' id='btnclear' href='#' disabled='disabled'>Clear</a><a class='t-button' id='btnExportToExcel' href='/Partner/ExportExcelConfirmPartners'>Export To Excel</a><form method='post' class='display_inline' enctype='multipart/form-data' action='" + @Url.Action("UploadExcelData", "Partner") + "'><input type='file' id='uploadfile'  name='uploadfile' class='input_size'  /> <input type='submit' class='t-button btn_size' id='btnExportToExcel' value='Upload' /></form> ");
          })
 
         .Columns(columns =>
@@ -89,7 +102,7 @@
            .Height(380))
            .HtmlAttributes(new { @class = "ra" })
 )
-</form>
+@*</form>*@
 
 
 <style>

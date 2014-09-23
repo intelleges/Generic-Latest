@@ -13829,5 +13829,186 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeConfirmationSpreadsheetDataLoad", idParameter);
         }
+    
+        public virtual int pr_getPartnerConfirmationData_Spreadsheet(Nullable<int> enterprise, Nullable<int> touchpoint)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnerConfirmationData_Spreadsheet", enterpriseParameter, touchpointParameter);
+        }
+    
+        public virtual int pr_getPartnerConfirmationData_Spreadsheet1(Nullable<int> enterprise, Nullable<int> touchpoint)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnerConfirmationData_Spreadsheet1", enterpriseParameter, touchpointParameter);
+        }
+    
+        public virtual int pr_getPartnerConfirmationData_Spreadsheet2(Nullable<int> enterprise, Nullable<int> touchpoint)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnerConfirmationData_Spreadsheet2", enterpriseParameter, touchpointParameter);
+        }
+    
+        public virtual int pr_addPartnerconfirmationdata_Spreadsheet(Nullable<int> pptqA_id, Nullable<int> partner_A, string accessCode_A, string partnerA_Name, string partnerA_Address, string internalID_A, string email_A, Nullable<int> groupID_A, string group_A, Nullable<int> statusID_A, string status_A, Nullable<int> pptqB_id, Nullable<int> partner_B, string accessCode_B, string partnerB_Name, string partnerB_Address, string internalID_B, string email_B, Nullable<int> groupID_B, string group_B, string statusID_B, string status_B, string isReference2, string eM, string iM, string fM, string dM, string nM, string action)
+        {
+            var pptqA_idParameter = pptqA_id.HasValue ?
+                new ObjectParameter("pptqA_id", pptqA_id) :
+                new ObjectParameter("pptqA_id", typeof(int));
+    
+            var partner_AParameter = partner_A.HasValue ?
+                new ObjectParameter("Partner_A", partner_A) :
+                new ObjectParameter("Partner_A", typeof(int));
+    
+            var accessCode_AParameter = accessCode_A != null ?
+                new ObjectParameter("AccessCode_A", accessCode_A) :
+                new ObjectParameter("AccessCode_A", typeof(string));
+    
+            var partnerA_NameParameter = partnerA_Name != null ?
+                new ObjectParameter("PartnerA_Name", partnerA_Name) :
+                new ObjectParameter("PartnerA_Name", typeof(string));
+    
+            var partnerA_AddressParameter = partnerA_Address != null ?
+                new ObjectParameter("PartnerA_Address", partnerA_Address) :
+                new ObjectParameter("PartnerA_Address", typeof(string));
+    
+            var internalID_AParameter = internalID_A != null ?
+                new ObjectParameter("InternalID_A", internalID_A) :
+                new ObjectParameter("InternalID_A", typeof(string));
+    
+            var email_AParameter = email_A != null ?
+                new ObjectParameter("email_A", email_A) :
+                new ObjectParameter("email_A", typeof(string));
+    
+            var groupID_AParameter = groupID_A.HasValue ?
+                new ObjectParameter("GroupID_A", groupID_A) :
+                new ObjectParameter("GroupID_A", typeof(int));
+    
+            var group_AParameter = group_A != null ?
+                new ObjectParameter("Group_A", group_A) :
+                new ObjectParameter("Group_A", typeof(string));
+    
+            var statusID_AParameter = statusID_A.HasValue ?
+                new ObjectParameter("StatusID_A", statusID_A) :
+                new ObjectParameter("StatusID_A", typeof(int));
+    
+            var status_AParameter = status_A != null ?
+                new ObjectParameter("Status_A", status_A) :
+                new ObjectParameter("Status_A", typeof(string));
+    
+            var pptqB_idParameter = pptqB_id.HasValue ?
+                new ObjectParameter("pptqB_id", pptqB_id) :
+                new ObjectParameter("pptqB_id", typeof(int));
+    
+            var partner_BParameter = partner_B.HasValue ?
+                new ObjectParameter("Partner_B", partner_B) :
+                new ObjectParameter("Partner_B", typeof(int));
+    
+            var accessCode_BParameter = accessCode_B != null ?
+                new ObjectParameter("AccessCode_B", accessCode_B) :
+                new ObjectParameter("AccessCode_B", typeof(string));
+    
+            var partnerB_NameParameter = partnerB_Name != null ?
+                new ObjectParameter("PartnerB_Name", partnerB_Name) :
+                new ObjectParameter("PartnerB_Name", typeof(string));
+    
+            var partnerB_AddressParameter = partnerB_Address != null ?
+                new ObjectParameter("PartnerB_Address", partnerB_Address) :
+                new ObjectParameter("PartnerB_Address", typeof(string));
+    
+            var internalID_BParameter = internalID_B != null ?
+                new ObjectParameter("InternalID_B", internalID_B) :
+                new ObjectParameter("InternalID_B", typeof(string));
+    
+            var email_BParameter = email_B != null ?
+                new ObjectParameter("email_B", email_B) :
+                new ObjectParameter("email_B", typeof(string));
+    
+            var groupID_BParameter = groupID_B.HasValue ?
+                new ObjectParameter("GroupID_B", groupID_B) :
+                new ObjectParameter("GroupID_B", typeof(int));
+    
+            var group_BParameter = group_B != null ?
+                new ObjectParameter("Group_B", group_B) :
+                new ObjectParameter("Group_B", typeof(string));
+    
+            var statusID_BParameter = statusID_B != null ?
+                new ObjectParameter("StatusID_B", statusID_B) :
+                new ObjectParameter("StatusID_B", typeof(string));
+    
+            var status_BParameter = status_B != null ?
+                new ObjectParameter("Status_B", status_B) :
+                new ObjectParameter("Status_B", typeof(string));
+    
+            var isReference2Parameter = isReference2 != null ?
+                new ObjectParameter("IsReference2", isReference2) :
+                new ObjectParameter("IsReference2", typeof(string));
+    
+            var eMParameter = eM != null ?
+                new ObjectParameter("EM", eM) :
+                new ObjectParameter("EM", typeof(string));
+    
+            var iMParameter = iM != null ?
+                new ObjectParameter("IM", iM) :
+                new ObjectParameter("IM", typeof(string));
+    
+            var fMParameter = fM != null ?
+                new ObjectParameter("FM", fM) :
+                new ObjectParameter("FM", typeof(string));
+    
+            var dMParameter = dM != null ?
+                new ObjectParameter("DM", dM) :
+                new ObjectParameter("DM", typeof(string));
+    
+            var nMParameter = nM != null ?
+                new ObjectParameter("NM", nM) :
+                new ObjectParameter("NM", typeof(string));
+    
+            var actionParameter = action != null ?
+                new ObjectParameter("action", action) :
+                new ObjectParameter("action", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPartnerconfirmationdata_Spreadsheet", pptqA_idParameter, partner_AParameter, accessCode_AParameter, partnerA_NameParameter, partnerA_AddressParameter, internalID_AParameter, email_AParameter, groupID_AParameter, group_AParameter, statusID_AParameter, status_AParameter, pptqB_idParameter, partner_BParameter, accessCode_BParameter, partnerB_NameParameter, partnerB_AddressParameter, internalID_BParameter, email_BParameter, groupID_BParameter, group_BParameter, statusID_BParameter, status_BParameter, isReference2Parameter, eMParameter, iMParameter, fMParameter, dMParameter, nMParameter, actionParameter);
+        }
+    
+        public virtual int pr_getResponsesByProtocolTouchpointGroupPartnertype2(Nullable<int> protocol, Nullable<int> touchpoint, Nullable<int> group, Nullable<int> partnertype)
+        {
+            var protocolParameter = protocol.HasValue ?
+                new ObjectParameter("protocol", protocol) :
+                new ObjectParameter("protocol", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getResponsesByProtocolTouchpointGroupPartnertype2", protocolParameter, touchpointParameter, groupParameter, partnertypeParameter);
+        }
     }
 }

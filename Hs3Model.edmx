@@ -5889,6 +5889,10 @@
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="touchpoint" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerConfirmationData_Spreadsheet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
@@ -6355,6 +6359,12 @@
         </Function>
         <Function Name="pr_getResponseByTranslation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="translation" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getResponsesByProtocolTouchpointGroupPartnertype2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="protocol" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="group" Type="int" Mode="In" />
+          <Parameter Name="partnertype" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getResponseType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -11946,7 +11956,7 @@
             <Parameter Name="agreedToTerms" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_getConfirmationSpreadsheetDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.pr_getConfirmationSpreadsheetDataLoad_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyConfirmationSpreadsheetDataLoad">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -11956,7 +11966,56 @@
             <Parameter Name="action" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeConfirmationSpreadsheetDataLoad">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerConfirmationData_Spreadsheet">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerConfirmationData_Spreadsheet1">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerConfirmationData_Spreadsheet2">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPartnerconfirmationdata_Spreadsheet">
+            <Parameter Name="pptqA_id" Mode="In" Type="Int32" />
+            <Parameter Name="Partner_A" Mode="In" Type="Int32" />
+            <Parameter Name="AccessCode_A" Mode="In" Type="String" />
+            <Parameter Name="PartnerA_Name" Mode="In" Type="String" />
+            <Parameter Name="PartnerA_Address" Mode="In" Type="String" />
+            <Parameter Name="InternalID_A" Mode="In" Type="String" />
+            <Parameter Name="email_A" Mode="In" Type="String" />
+            <Parameter Name="GroupID_A" Mode="In" Type="Int32" />
+            <Parameter Name="Group_A" Mode="In" Type="String" />
+            <Parameter Name="StatusID_A" Mode="In" Type="Int32" />
+            <Parameter Name="Status_A" Mode="In" Type="String" />
+            <Parameter Name="pptqB_id" Mode="In" Type="Int32" />
+            <Parameter Name="Partner_B" Mode="In" Type="Int32" />
+            <Parameter Name="AccessCode_B" Mode="In" Type="String" />
+            <Parameter Name="PartnerB_Name" Mode="In" Type="String" />
+            <Parameter Name="PartnerB_Address" Mode="In" Type="String" />
+            <Parameter Name="InternalID_B" Mode="In" Type="String" />
+            <Parameter Name="email_B" Mode="In" Type="String" />
+            <Parameter Name="GroupID_B" Mode="In" Type="Int32" />
+            <Parameter Name="Group_B" Mode="In" Type="String" />
+            <Parameter Name="StatusID_B" Mode="In" Type="String" />
+            <Parameter Name="Status_B" Mode="In" Type="String" />
+            <Parameter Name="IsReference2" Mode="In" Type="String" />
+            <Parameter Name="EM" Mode="In" Type="String" />
+            <Parameter Name="IM" Mode="In" Type="String" />
+            <Parameter Name="FM" Mode="In" Type="String" />
+            <Parameter Name="DM" Mode="In" Type="String" />
+            <Parameter Name="NM" Mode="In" Type="String" />
+            <Parameter Name="action" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getResponsesByProtocolTouchpointGroupPartnertype2">
+            <Parameter Name="protocol" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="group" Mode="In" Type="Int32" />
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -24813,6 +24872,8 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyConfirmationSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyConfirmationSpreadsheetDataLoad" />
           <FunctionImportMapping FunctionImportName="pr_removeConfirmationSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_removeConfirmationSpreadsheetDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnerConfirmationData_Spreadsheet2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerConfirmationData_Spreadsheet" />
+          <FunctionImportMapping FunctionImportName="pr_getResponsesByProtocolTouchpointGroupPartnertype2" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponsesByProtocolTouchpointGroupPartnertype2" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

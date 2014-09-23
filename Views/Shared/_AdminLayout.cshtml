@@ -154,6 +154,7 @@
                             <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</option>
                             <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForReport3")">Report 3</option>
                               <option value="@Url.Content("~/Partner/EventNotificationBounceReportDownload")">Bounce Report</option>
+                            <option value="@Url.Content("~/Partner/ResponsesByProtocolTouchpointGroupPartnertype2Download")">Response Detail</option>
                         </select>
 
 
@@ -280,7 +281,8 @@
 
             $("#reports").change(function () {
                 if ($("#reports").val() != '') {
-                    window.location.href = $("#reports").val();
+                    //   window.location.href = $("#reports").val();
+                    window.open($("#reports").val());
                 }
             });
 
