@@ -139,6 +139,14 @@
 <script type="text/javascript">
     $(function () {
         jQuery.noConflict();
+
+
+        if(@ViewBag.isMessage == 1)
+        {
+            alertify.alert('@ViewBag.message');
+        }
+
+
     });
     var TotalRecord = "";
 

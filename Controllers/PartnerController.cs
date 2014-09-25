@@ -1054,11 +1054,11 @@ namespace Generic.Controllers
 
         public void ResponsesByProtocolTouchpointGroupPartnertype2Download()
         {
-          //  try
+            //  try
             {
                 ExportToExcel(getResponsesByProtocolCampaignGroupProviderType2(db.pr_getProtocolByTouchpoint(SessionSingleton.Touchpoint).FirstOrDefault().id, SessionSingleton.Touchpoint));
             }
-          //  catch
+            //  catch
             {
             }
         }
@@ -1080,7 +1080,7 @@ namespace Generic.Controllers
                 //Response.ContentType = application/vnd.ms-excel;
                 Response.ContentType = "application/vnd.ms-excel";
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + "");
-                
+
                 Response.Write(tw.ToString());
                 Response.End();
             }
@@ -1503,11 +1503,11 @@ namespace Generic.Controllers
             //int enterpriseid = 1067;
             //int touchpointID = 1016;  
             List<ConfirmPartnerViewModel> objConfirmPartnerList = new List<ConfirmPartnerViewModel>();
-         //   List<ConfirmPartnerViewModel> objConfirmPartnerList = db.Database.SqlQuery<ConfirmPartnerViewModel>("pr_getPartnerConfirmationData @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
+            //   List<ConfirmPartnerViewModel> objConfirmPartnerList = db.Database.SqlQuery<ConfirmPartnerViewModel>("pr_getPartnerConfirmationData @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
             //   List<pr_getPartnerConfirmationData_Result> objConfirmPartnerList = db.pr_getPartnerConfirmationData((int)Generic.Helpers.CurrentInstance.EnterpriseID, (int)Session["touchpoint"]).ToList();
             //  List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
             return View("ConfirmPartner", objConfirmPartnerList);
-           
+
         }
 
         public void ExportExcelConfirmPartners()
@@ -1593,12 +1593,12 @@ namespace Generic.Controllers
             return objConfirmPartnerViewModelList;
         }
         [HttpPost]
-        public void UploadExcelData(string id)
+        public ActionResult UploadExcelData(string id)
         {
             string questionnaireid = id;
 
             HttpPostedFileBase excelFile = Request.Files["uploadfile"];
-
+            int confirmPartnerCount = 0;
             if (excelFile != null)
             {
                 if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
@@ -1654,14 +1654,16 @@ namespace Generic.Controllers
                                 confirmPartneritem.IsReference2, confirmPartneritem.EM, confirmPartneritem.IM, confirmPartneritem.FM, confirmPartneritem.DM,
                                 confirmPartneritem.NM, confirmPartneritem.action
                                ).FirstOrDefault();
-
+                            confirmPartnerCount++;
                         }
                     }
                 }
             }
 
-
-            Response.Redirect(Url.Action("ConfirmPartner", "Partner"));
+            ViewBag.isMessage = 1;
+            ViewBag.message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions.";
+           
+            return View("ConfirmPartner");
             // return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = int.Parse(id) });
             // return QuestionnaireQuestionnaireCMS(int.Parse(id));
             //  return RedirectToAction("QuestionnaireQuestionnaireCMS");
