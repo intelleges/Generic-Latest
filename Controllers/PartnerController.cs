@@ -1501,11 +1501,13 @@ namespace Generic.Controllers
             int touchpointID = Convert.ToInt32(Session["touchpoint"].ToString().Trim());
             int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
             //int enterpriseid = 1067;
-            //int touchpointID = 1016;           
-            List<ConfirmPartnerViewModel> objConfirmPartnerList = db.Database.SqlQuery<ConfirmPartnerViewModel>("pr_getPartnerConfirmationData @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
+            //int touchpointID = 1016;  
+            List<ConfirmPartnerViewModel> objConfirmPartnerList = new List<ConfirmPartnerViewModel>();
+         //   List<ConfirmPartnerViewModel> objConfirmPartnerList = db.Database.SqlQuery<ConfirmPartnerViewModel>("pr_getPartnerConfirmationData @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
             //   List<pr_getPartnerConfirmationData_Result> objConfirmPartnerList = db.pr_getPartnerConfirmationData((int)Generic.Helpers.CurrentInstance.EnterpriseID, (int)Session["touchpoint"]).ToList();
             //  List<ConfirmPartnerViewModel> objConfirmPartnerViewModelList = ConvertToConfirmPartnerViewModel(objConfirmPartnerList);
             return View("ConfirmPartner", objConfirmPartnerList);
+           
         }
 
         public void ExportExcelConfirmPartners()
@@ -1637,11 +1639,11 @@ namespace Generic.Controllers
                 {
                     using (var context = new EntitiesDBContext())
                     {
-                        //   if (!string.IsNullOrEmpty(questionnaireid))
+                        if (!string.IsNullOrEmpty(confirmPartneritem.AccessCode_A))
                         {
 
 
-                            int modifiedQuestionnaire = context.pr_addPartnerconfirmationdata_Spreadsheet(confirmPartneritem.pptqA_id,
+                            int? modifiedQuestionnaire = context.pr_addPartnerConfirmationData_Spreadsheet(confirmPartneritem.pptqA_id,
                                 confirmPartneritem.Partner_A, confirmPartneritem.AccessCode_A,
                                 confirmPartneritem.PartnerA_Name, confirmPartneritem.PartnerA_Address,
                                 confirmPartneritem.InternalID_A, confirmPartneritem.email_A, confirmPartneritem.GroupID_A,
@@ -1651,7 +1653,7 @@ namespace Generic.Controllers
                                 confirmPartneritem.email_B, confirmPartneritem.GroupID_B, confirmPartneritem.Group_B, confirmPartneritem.StatusID_B, confirmPartneritem.Status_B,
                                 confirmPartneritem.IsReference2, confirmPartneritem.EM, confirmPartneritem.IM, confirmPartneritem.FM, confirmPartneritem.DM,
                                 confirmPartneritem.NM, confirmPartneritem.action
-                               );
+                               ).FirstOrDefault();
 
                         }
                     }

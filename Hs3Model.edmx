@@ -4823,6 +4823,37 @@
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="lastModified" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="pr_addPartnerConfirmationData_Spreadsheet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptqA_id" Type="int" Mode="In" />
+          <Parameter Name="Partner_A" Type="int" Mode="In" />
+          <Parameter Name="AccessCode_A" Type="varchar" Mode="In" />
+          <Parameter Name="PartnerA_Name" Type="varchar" Mode="In" />
+          <Parameter Name="PartnerA_Address" Type="varchar" Mode="In" />
+          <Parameter Name="InternalID_A" Type="varchar" Mode="In" />
+          <Parameter Name="email_A" Type="varchar" Mode="In" />
+          <Parameter Name="GroupID_A" Type="int" Mode="In" />
+          <Parameter Name="Group_A" Type="varchar" Mode="In" />
+          <Parameter Name="StatusID_A" Type="int" Mode="In" />
+          <Parameter Name="Status_A" Type="varchar" Mode="In" />
+          <Parameter Name="pptqB_id" Type="int" Mode="In" />
+          <Parameter Name="Partner_B" Type="int" Mode="In" />
+          <Parameter Name="AccessCode_B" Type="varchar" Mode="In" />
+          <Parameter Name="PartnerB_Name" Type="varchar" Mode="In" />
+          <Parameter Name="PartnerB_Address" Type="varchar" Mode="In" />
+          <Parameter Name="InternalID_B" Type="varchar" Mode="In" />
+          <Parameter Name="email_B" Type="varchar" Mode="In" />
+          <Parameter Name="GroupID_B" Type="int" Mode="In" />
+          <Parameter Name="Group_B" Type="varchar" Mode="In" />
+          <Parameter Name="StatusID_B" Type="varchar" Mode="In" />
+          <Parameter Name="Status_B" Type="varchar" Mode="In" />
+          <Parameter Name="IsReference2" Type="varchar" Mode="In" />
+          <Parameter Name="EM" Type="varchar" Mode="In" />
+          <Parameter Name="IM" Type="varchar" Mode="In" />
+          <Parameter Name="FM" Type="varchar" Mode="In" />
+          <Parameter Name="DM" Type="varchar" Mode="In" />
+          <Parameter Name="NM" Type="varchar" Mode="In" />
+          <Parameter Name="action" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_addPartnerCorpInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
           <Parameter Name="businessDescription" Type="varchar" Mode="In" />
@@ -11980,7 +12011,13 @@
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_addPartnerconfirmationdata_Spreadsheet">
+          <FunctionImport Name="pr_getResponsesByProtocolTouchpointGroupPartnertype2">
+            <Parameter Name="protocol" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="group" Mode="In" Type="Int32" />
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPartnerConfirmationData_Spreadsheet" ReturnType="Collection(Int32)">
             <Parameter Name="pptqA_id" Mode="In" Type="Int32" />
             <Parameter Name="Partner_A" Mode="In" Type="Int32" />
             <Parameter Name="AccessCode_A" Mode="In" Type="String" />
@@ -12010,12 +12047,6 @@
             <Parameter Name="DM" Mode="In" Type="String" />
             <Parameter Name="NM" Mode="In" Type="String" />
             <Parameter Name="action" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getResponsesByProtocolTouchpointGroupPartnertype2">
-            <Parameter Name="protocol" Mode="In" Type="Int32" />
-            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
-            <Parameter Name="group" Mode="In" Type="Int32" />
-            <Parameter Name="partnertype" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -24874,6 +24905,7 @@
           <FunctionImportMapping FunctionImportName="pr_removeConfirmationSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_removeConfirmationSpreadsheetDataLoad" />
           <FunctionImportMapping FunctionImportName="pr_getPartnerConfirmationData_Spreadsheet2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerConfirmationData_Spreadsheet" />
           <FunctionImportMapping FunctionImportName="pr_getResponsesByProtocolTouchpointGroupPartnertype2" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponsesByProtocolTouchpointGroupPartnertype2" />
+          <FunctionImportMapping FunctionImportName="pr_addPartnerConfirmationData_Spreadsheet" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerConfirmationData_Spreadsheet" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

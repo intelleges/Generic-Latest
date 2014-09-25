@@ -13869,7 +13869,28 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnerConfirmationData_Spreadsheet2", enterpriseParameter, touchpointParameter);
         }
     
-        public virtual int pr_addPartnerconfirmationdata_Spreadsheet(Nullable<int> pptqA_id, Nullable<int> partner_A, string accessCode_A, string partnerA_Name, string partnerA_Address, string internalID_A, string email_A, Nullable<int> groupID_A, string group_A, Nullable<int> statusID_A, string status_A, Nullable<int> pptqB_id, Nullable<int> partner_B, string accessCode_B, string partnerB_Name, string partnerB_Address, string internalID_B, string email_B, Nullable<int> groupID_B, string group_B, string statusID_B, string status_B, string isReference2, string eM, string iM, string fM, string dM, string nM, string action)
+        public virtual int pr_getResponsesByProtocolTouchpointGroupPartnertype2(Nullable<int> protocol, Nullable<int> touchpoint, Nullable<int> group, Nullable<int> partnertype)
+        {
+            var protocolParameter = protocol.HasValue ?
+                new ObjectParameter("protocol", protocol) :
+                new ObjectParameter("protocol", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getResponsesByProtocolTouchpointGroupPartnertype2", protocolParameter, touchpointParameter, groupParameter, partnertypeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_addPartnerConfirmationData_Spreadsheet(Nullable<int> pptqA_id, Nullable<int> partner_A, string accessCode_A, string partnerA_Name, string partnerA_Address, string internalID_A, string email_A, Nullable<int> groupID_A, string group_A, Nullable<int> statusID_A, string status_A, Nullable<int> pptqB_id, Nullable<int> partner_B, string accessCode_B, string partnerB_Name, string partnerB_Address, string internalID_B, string email_B, Nullable<int> groupID_B, string group_B, string statusID_B, string status_B, string isReference2, string eM, string iM, string fM, string dM, string nM, string action)
         {
             var pptqA_idParameter = pptqA_id.HasValue ?
                 new ObjectParameter("pptqA_id", pptqA_id) :
@@ -13987,28 +14008,7 @@ namespace Generic
                 new ObjectParameter("action", action) :
                 new ObjectParameter("action", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPartnerconfirmationdata_Spreadsheet", pptqA_idParameter, partner_AParameter, accessCode_AParameter, partnerA_NameParameter, partnerA_AddressParameter, internalID_AParameter, email_AParameter, groupID_AParameter, group_AParameter, statusID_AParameter, status_AParameter, pptqB_idParameter, partner_BParameter, accessCode_BParameter, partnerB_NameParameter, partnerB_AddressParameter, internalID_BParameter, email_BParameter, groupID_BParameter, group_BParameter, statusID_BParameter, status_BParameter, isReference2Parameter, eMParameter, iMParameter, fMParameter, dMParameter, nMParameter, actionParameter);
-        }
-    
-        public virtual int pr_getResponsesByProtocolTouchpointGroupPartnertype2(Nullable<int> protocol, Nullable<int> touchpoint, Nullable<int> group, Nullable<int> partnertype)
-        {
-            var protocolParameter = protocol.HasValue ?
-                new ObjectParameter("protocol", protocol) :
-                new ObjectParameter("protocol", typeof(int));
-    
-            var touchpointParameter = touchpoint.HasValue ?
-                new ObjectParameter("touchpoint", touchpoint) :
-                new ObjectParameter("touchpoint", typeof(int));
-    
-            var groupParameter = group.HasValue ?
-                new ObjectParameter("group", group) :
-                new ObjectParameter("group", typeof(int));
-    
-            var partnertypeParameter = partnertype.HasValue ?
-                new ObjectParameter("partnertype", partnertype) :
-                new ObjectParameter("partnertype", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getResponsesByProtocolTouchpointGroupPartnertype2", protocolParameter, touchpointParameter, groupParameter, partnertypeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnerConfirmationData_Spreadsheet", pptqA_idParameter, partner_AParameter, accessCode_AParameter, partnerA_NameParameter, partnerA_AddressParameter, internalID_AParameter, email_AParameter, groupID_AParameter, group_AParameter, statusID_AParameter, status_AParameter, pptqB_idParameter, partner_BParameter, accessCode_BParameter, partnerB_NameParameter, partnerB_AddressParameter, internalID_BParameter, email_BParameter, groupID_BParameter, group_BParameter, statusID_BParameter, status_BParameter, isReference2Parameter, eMParameter, iMParameter, fMParameter, dMParameter, nMParameter, actionParameter);
         }
     }
 }
