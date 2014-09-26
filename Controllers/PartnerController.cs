@@ -1510,28 +1510,44 @@ namespace Generic.Controllers
             return View("ConfirmPartner", objConfirmPartnerList);
 
         }
+        public DataTable getConfirmPartnerSpreadsheet(int enterprise, int touchpoint)
+        {
+            DataTable dataTable = new DataTable();
 
+            SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString);
+            conn.Open();
+            SqlCommand command = new SqlCommand("pr_getPartnerConfirmationData_Spreadsheet", conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@enterprise", SqlDbType.VarChar).Value = enterprise;
+            command.Parameters.Add("@touchpoint", SqlDbType.VarChar).Value = touchpoint;
+            
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+            sqlDataAdapter.Fill(dataTable);
+            conn.Close();
+            return dataTable;
+        }
         public void ExportExcelConfirmPartners()
         {
 
             int touchpointID = Convert.ToInt32(Session["touchpoint"].ToString().Trim());
             int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
-            ((IObjectContextAdapter)db).ObjectContext.CommandTimeout = 180;
-            List<ConfirmPartnerSpreadsheetViewModel> objConfirmPartnerList = db.Database.SqlQuery<ConfirmPartnerSpreadsheetViewModel>("pr_getPartnerConfirmationData_Spreadsheet @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
-            GridView gv = new GridView();
-            gv.DataSource = objConfirmPartnerList;
-            gv.DataBind();
-            Response.ClearContent();
-            Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment; filename=ConfirmPartner.xls");
-            Response.ContentType = "application/ms-excel";
-            Response.Charset = "";
-            StringWriter sw = new StringWriter();
-            HtmlTextWriter htw = new HtmlTextWriter(sw);
-            gv.RenderControl(htw);
-            Response.Output.Write(sw.ToString());
-            Response.Flush();
-            Response.End();
+            ExportToExcel(getConfirmPartnerSpreadsheet(enterpriseid, touchpointID));
+            //((IObjectContextAdapter)db).ObjectContext.CommandTimeout = 180;
+            //List<ConfirmPartnerSpreadsheetViewModel> objConfirmPartnerList = db.Database.SqlQuery<ConfirmPartnerSpreadsheetViewModel>("pr_getPartnerConfirmationData_Spreadsheet @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
+            //GridView gv = new GridView();
+            //gv.DataSource = objConfirmPartnerList;
+            //gv.DataBind();
+            //Response.ClearContent();
+            //Response.Buffer = true;
+            //Response.AddHeader("content-disposition", "attachment; filename=ConfirmPartner.xls");
+            //Response.ContentType = "application/ms-excel";
+            //Response.Charset = "";
+            //StringWriter sw = new StringWriter();
+            //HtmlTextWriter htw = new HtmlTextWriter(sw);
+            //gv.RenderControl(htw);
+            //Response.Output.Write(sw.ToString());
+            //Response.Flush();
+            //Response.End();
 
             //var stream = new MemoryStream();
             //var serializer = new XmlSerializer(typeof(List<ConfirmPartnerSpreadsheetViewModel>));           
