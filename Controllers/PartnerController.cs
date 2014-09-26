@@ -20,6 +20,7 @@ using System.Web.Routing;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 using System.Web.UI;
+using System.Data.Entity.Infrastructure;
 
 namespace Generic.Controllers
 {
@@ -1515,6 +1516,7 @@ namespace Generic.Controllers
 
             int touchpointID = Convert.ToInt32(Session["touchpoint"].ToString().Trim());
             int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
+            ((IObjectContextAdapter)db).ObjectContext.CommandTimeout = 180;
             List<ConfirmPartnerSpreadsheetViewModel> objConfirmPartnerList = db.Database.SqlQuery<ConfirmPartnerSpreadsheetViewModel>("pr_getPartnerConfirmationData_Spreadsheet @enterprise,@touchpoint", new SqlParameter("enterprise", enterpriseid), new SqlParameter("touchpoint", touchpointID)).ToList();
             GridView gv = new GridView();
             gv.DataSource = objConfirmPartnerList;

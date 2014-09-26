@@ -20,8 +20,9 @@ namespace Generic
     public partial class EntitiesDBContext : DbContext
     {
         public EntitiesDBContext()
-            : base("name=Entities")
+            : base("name=hs3MVCMTQa2Entities")
         {
+            
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
