@@ -1513,11 +1513,12 @@ namespace Generic.Controllers
         public DataTable getConfirmPartnerSpreadsheet(int enterprise, int touchpoint)
         {
             DataTable dataTable = new DataTable();
-
+            
             SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString);
             conn.Open();
             SqlCommand command = new SqlCommand("pr_getPartnerConfirmationData_Spreadsheet", conn);
             command.CommandType = CommandType.StoredProcedure;
+            command.CommandTimeout = 120;
             command.Parameters.Add("@enterprise", SqlDbType.VarChar).Value = enterprise;
             command.Parameters.Add("@touchpoint", SqlDbType.VarChar).Value = touchpoint;
             
