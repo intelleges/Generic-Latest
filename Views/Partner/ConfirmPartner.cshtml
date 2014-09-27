@@ -43,7 +43,7 @@
     @( Html.Telerik().Grid(Model).Name("ConfirmPartnerGrid")
     .ToolBar(commands =>
          {
-             commands.Template("<a class='t-button' href='#' id='btnconfirm' disabled='disabled'>Confirm</a><a class='t-button' id='btnclear' href='#' disabled='disabled'>Clear</a><a class='t-button' id='btnExportToExcel' href='/Partner/ExportExcelConfirmPartners'>Export To Excel</a><form method='post' class='display_inline' enctype='multipart/form-data' action='" + @Url.Action("UploadExcelData", "Partner") + "'><input type='file' id='uploadfile'  name='uploadfile' class='input_size'  /> <input type='submit' class='t-button btn_size' id='btnExportToExcel' value='Upload' /></form> ");
+             commands.Template("<a class='t-button' href='#' id='btnconfirm' disabled='disabled'>Confirm</a><a class='t-button' id='btnclear' href='#' disabled='disabled'>Clear</a><a class='t-button' id='btnExportToExcel' href='" + Url.Action("~/Partner/ExportExcelConfirmPartners") + "'>Export To Excel</a><form method='post' class='display_inline' enctype='multipart/form-data' action='" + @Url.Action("UploadExcelData", "Partner") + "'><input type='file' id='uploadfile'  name='uploadfile' class='input_size'  /> <input type='submit' class='t-button btn_size' id='btnExportToExcel' value='Upload' /></form> ");
          })
 
         .Columns(columns =>
