@@ -97,8 +97,9 @@ namespace Generic.Controllers
             {
                 //    touchpoint.protocol = ;
                 touchpoint.active = 1;
-                db.touchpoint.Add(touchpoint);
 
+                db.touchpoint.Add(touchpoint);
+                //db.touchpoint.Attach()
                 db.SaveChanges();
                 if (touchpoint.id > 0)
                 {

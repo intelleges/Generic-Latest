@@ -66,33 +66,34 @@
             });
 
 
-            //$('#UploadQuestionnaireForm').submit(function (e) {
-            //    e.preventDefault();
-            //    var objProtocolID = $('#protocol').val();
-            //    var objProtocolName = $('#protocol option[value="' + $('#protocol').val() + '"]').text();
+            $('#UploadQuestionnaireForm').submit(function (e) {
+                e.preventDefault();
+                var objProtocolID = $('#protocol').val();
+                var objProtocolName = $('#protocol option[value="' + $('#protocol').val() + '"]').text();
 
-            //    var objtouchpointID = $('#touchpoint').val();
-            //    var objtouchpointName = $('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text();
+                var objtouchpointID = $('#touchpoint').val();
+                var objtouchpointName = $('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text();
 
-            //    var objpartnertypeID = $('#partnertype').val();
-            //    var objpartnertypeName = $('#partnertype option[value="' + $('#partnertype').val() + '"]').text();
+                var objpartnertypeID = $('#partnertype').val();
+                var objpartnertypeName = $('#partnertype option[value="' + $('#partnertype').val() + '"]').text();
 
-            //    var objlevelID = $('#level').val();
-            //   // var objlevelName = $('#level option[value="' + $('#level').val() + '"]').text();
+                var objlevelID = $('#level').val();
+               // var objlevelName = $('#level option[value="' + $('#level').val() + '"]').text();
 
-            //    var formData = { protocolId: objProtocolID, protocolName: objProtocolName, touchpointId: objtouchpointID, touchpointName: objtouchpointName, partnertypeID: objpartnertypeID, partnertypeName: objpartnertypeName, level: objlevelID };
-            //    $.ajax({
-            //        url: "UploadQuestionnaire",
-            //        type: "post",
-            //        data: formData,
-            //        success: function (data) {
-            //            alertify.alert('Questionnaire Uploaded Successfully!');
-            //        },
-            //        error: function (data) {
-            //            alertify.alert('Error occured while Questionnaire Uploaded!');
-            //        }
-            //    });
-            //});
+                var formData = { protocol: objProtocolID, protocolName: objProtocolName, touchpoint: objtouchpointID, touchpointName: objtouchpointName, partnertype: objpartnertypeID, partnertypeName: objpartnertypeName, level: objlevelID };
+                $.ajax({
+                    url: '@Url.Action("UploadQuestionnaire","Questionnaire")',
+                    type: "POST",
+                    data: formData,
+                    success: function (data) {
+                        alertify.alert('Congratulations you successfully uploaded your questionnaire. Please select Questionnaire View to Upload your CMS and Automail Messages.');
+                    },
+                    error: function (data) {
+                        console.log(data.statusText);
+                        alertify.alert('Sorry, that questionnaire does not meet data and formatting requirements: '+ data.statusText);
+                    }
+                });
+            });
         });
     </script>
 }

@@ -130,26 +130,30 @@
         $("#btnClear").click(function (e) {
             debugger;
             //alert("Clear Button Click");
-            $("#title").val("");
-            $("#description").val("");
-            $("#abbreviation").val("");
-            $("#purpose").val("");
-            $("#automaticReminder").val("");
-            $("#startDate").val("");
-            $("#EndDate").val("");
-            $("#protocol").val("0");
-            $("#person").val("0");
-            $("#sponsor").val("0");
-            $("#admin").val("0");
-            $("#target").val("0");
+            ClearAll();
         });
     });
     jQuery(document).ready(function () {
         if ('@ViewBag.ID' != '0' && '@ViewBag.ID' != '') {
             debugger;
+            ClearAll();
             alertify.alert('You have successfully added the  @ViewBag.Touchpoint touchpoint to Intelleges with expiry of @ViewBag.EndDate.');
         }
     });
+    function ClearAll() {
+        $("#title").val("");
+        $("#description").val("");
+        $("#abbreviation").val("");
+        $("#purpose").val("");
+        $("#automaticReminder").val("");
+        $("#startDate").val("");
+        $("#EndDate").val("");
+        $("#protocol").val("0");
+        $("#person").val("0");
+        $("#sponsor").val("0");
+        $("#admin").val("0");
+        $("#target").val("0");
+    }
 </script>
 
 @{Html.EnableClientValidation();}
