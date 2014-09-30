@@ -126,7 +126,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             if (ppptq != null)
             {
-                Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(db.pr_getPartner(ppptq.partner).FirstOrDefault().enterprise.ToString());
+                var objPartner =db.pr_getPartner(ppptq.partner).FirstOrDefault();
+                Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(objPartner.enterprise.ToString());
 
 
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
@@ -206,6 +207,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     Session["leveltype"] = objQuestionnaire.levelType;
                     Session["protocol"] = touchpoint.protocol;
                     Session["responseTypesQuestionnaire"] = responseTypesQuestionnaire;
+                    Session["currentEmail"] = objPartner.email;
                   //  Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(db.pr_getPartner(ppptq.partner).FirstOrDefault().enterprise.ToString());
                     List<CustomizedLSMW> CustomizedLSMW = new List<CustomizedLSMW>();
                     Session["CustomizedLSMW"] = CustomizedLSMW;
@@ -1616,13 +1618,21 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objpartner.email = partner.email;
             objpartner.phone = partner.phone;
             objpartner.fax = partner.fax;
-
+            if (Session["currentEmail"].ToString() == objpartner.email)
+            {
             if (ModelState.IsValid)
             {
-                db.Entry(objpartner).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("ContactInformation");
+                
+                    db.Entry(objpartner).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("ContactInformation");
+                }
+               
             }
+            else
+            {
+                ViewBag.isEmailChanged = "1";
+           
             ViewBag.CMS_PAGE_TITLE = CMS.CONTACT_EDIT_PAGE_TITLE;
             ViewBag.CMS_PAGE_SUBTITLE = CMS.CONTACT_EDIT_PAGE_SUBTITLE;
             ViewBag.CMS_PAGE_PANEL_ONE = CMS.CONTACT_EDIT_PAGE_PANEL_ONE;
@@ -1647,6 +1657,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     ViewBag.CMS_PAGE_NEXT_TEXT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_EDIT_PAGE_NEXT_TEXT).FirstOrDefault().id).FirstOrDefault().text;
                 }
                 catch { }
+            }
             }
             return View(partner);
         }
