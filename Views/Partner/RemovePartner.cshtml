@@ -78,15 +78,15 @@
         @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100px;" })
     }
 
-
+     @*.ToolBar(commands => commands
+               .Custom()
+                   .HtmlAttributes(new { id = "go" })
+                   .Text("Go")
+                   .Action("Go", "Partner").HtmlAttributes(new { onclick = "resotreMultiple(event)" }))*@
 
 
     @( Html.Telerik().Grid(Model).Name("PartnerGrid")
-          //.ToolBar(commands => commands
-          //      .Custom()
-          //          .HtmlAttributes(new { id = "go" })
-          //          .Text("Go")
-          //          .Action("Go", "Partner").HtmlAttributes(new { onclick = "resotreMultiple(event)" }))
+         
 
  .ToolBar(commands =>
             {
