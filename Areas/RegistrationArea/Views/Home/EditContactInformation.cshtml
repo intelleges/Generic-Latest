@@ -286,24 +286,26 @@
         </td>
     </tr>
 </table>
-@*<script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function () {
-        alertify.set({
-            labels: {
-                ok: "No",
-                cancel: "Yes"
-            },
-            buttonFocus: "cancel"
-        });
-        // button labels will be "Accept" and "Deny"
-        alertify.confirm("you have changed email address this requires redirect, would you like to redirect this questionnaire to someone else?", function (e) {
-            if (e) {
-                window.location.replace("http://@Generic.SessionClass.SessionSingleton.EnterpriseURL");
+        if ('@ViewBag.isEmailChanged' == "1") {
+            alertify.set({
+                labels: {
+                    ok: "No",
+                    cancel: "Yes"
+                },
+                buttonFocus: "cancel"
+            });
+            // button labels will be "Accept" and "Deny"
+            alertify.confirm("you have changed email address this requires redirect, would you like to redirect this questionnaire to someone else?", function (e) {
+                if (e) {
+                    window.location.replace("@Url.Content("~/wrongContact?AccessCode="+ViewBag.accessCode)");
 
-            } else {
-                // user clicked "cancel"
-                window.location.replace("https://intelleges.com");
-            }
-        });
+                } else {
+                    // user clicked "cancel"
+
+                }
+            });
+        }
     });
-</script>*@
+</script>
