@@ -4,6 +4,10 @@
     Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();  
     //ViewBag.Title = "CompanyInfomation";
 }
+
+<link href="@Url.Content("~/Content/themes/base/alertify.core.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/themes/base/alertify.default.css")" rel="stylesheet" />
+
 @section Bottom{
     @*<div class="">
         <table width="100%" border="0" cellspacing="0" cellpadding="0" style="float: left; margin-top: -44px">
@@ -299,11 +303,11 @@
             // button labels will be "Accept" and "Deny"
             alertify.confirm("you have changed email address this requires redirect, would you like to redirect this questionnaire to someone else?", function (e) {
                 if (e) {
-                    window.location.replace("@Url.Content("~/wrongContact?AccessCode="+ViewBag.accessCode)");
+                    $('#email').val('@Session["currentEmail"].ToString()');
 
                 } else {
                     // user clicked "cancel"
-
+                    window.location.replace("@Url.Content("~/wrongContact?AccessCode="+ViewBag.accessCode)");
                 }
             });
         }

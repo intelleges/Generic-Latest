@@ -1633,7 +1633,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 ViewBag.isEmailChanged = "1";
                 ViewBag.accessCode = Session["accessCode"];
-            partner.email =Session["currentEmail"].ToString();
+                  partner.email =Session["currentEmail"].ToString();
 
             ViewBag.CMS_PAGE_TITLE = CMS.CONTACT_EDIT_PAGE_TITLE;
             ViewBag.CMS_PAGE_SUBTITLE = CMS.CONTACT_EDIT_PAGE_SUBTITLE;
