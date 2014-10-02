@@ -20,9 +20,8 @@ namespace Generic
     public partial class EntitiesDBContext : DbContext
     {
         public EntitiesDBContext()
-            : base("name=hs3MVCMTQa2Entities")
+            : base("name=Entities")
         {
-            
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -178,6 +177,7 @@ namespace Generic
         public DbSet<view_TouchpointData> view_TouchpointData { get; set; }
         public DbSet<enterpriseSpreadsheetDataLoad> enterpriseSpreadsheetDataLoad { get; set; }
         public DbSet<confirmationSpreadsheetDataLoad> confirmationSpreadsheetDataLoad { get; set; }
+        public DbSet<view_QuestionnaireCMS> view_QuestionnaireCMS { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -14010,6 +14010,24 @@ namespace Generic
                 new ObjectParameter("action", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnerConfirmationData_Spreadsheet", pptqA_idParameter, partner_AParameter, accessCode_AParameter, partnerA_NameParameter, partnerA_AddressParameter, internalID_AParameter, email_AParameter, groupID_AParameter, group_AParameter, statusID_AParameter, status_AParameter, pptqB_idParameter, partner_BParameter, accessCode_BParameter, partnerB_NameParameter, partnerB_AddressParameter, internalID_BParameter, email_BParameter, groupID_BParameter, group_BParameter, statusID_BParameter, status_BParameter, isReference2Parameter, eMParameter, iMParameter, fMParameter, dMParameter, nMParameter, actionParameter);
+        }
+    
+        public virtual ObjectResult<view_QuestionnaireCMS> pr_getViewQuestionnaireCMSByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<view_QuestionnaireCMS>("pr_getViewQuestionnaireCMSByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<view_QuestionnaireCMS> pr_getViewQuestionnaireCMSByQuestionnaire(Nullable<int> questionnaire, MergeOption mergeOption)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<view_QuestionnaireCMS>("pr_getViewQuestionnaireCMSByQuestionnaire", mergeOption, questionnaireParameter);
         }
     }
 }

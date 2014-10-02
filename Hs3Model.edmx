@@ -363,6 +363,15 @@
       [view_ProtocolData].[active] AS [active]
       FROM [dbo].[view_ProtocolData] AS [view_ProtocolData]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="view_QuestionnaireCMS" EntityType="hs3MVCMTQa2Model.Store.view_QuestionnaireCMS" store:Type="Views" store:Schema="dbo" store:Name="view_QuestionnaireCMS">
+            <DefiningQuery>SELECT 
+      [view_QuestionnaireCMS].[questionnaireCMS] AS [questionnaireCMS], 
+      [view_QuestionnaireCMS].[description] AS [description], 
+      [view_QuestionnaireCMS].[text] AS [text], 
+      [view_QuestionnaireCMS].[link] AS [link], 
+      [view_QuestionnaireCMS].[doc] AS [doc]
+      FROM [dbo].[view_QuestionnaireCMS] AS [view_QuestionnaireCMS]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="view_QuestionnaireData" EntityType="hs3MVCMTQa2Model.Store.view_QuestionnaireData" store:Type="Views" store:Schema="dbo" store:Name="view_QuestionnaireData">
             <DefiningQuery>SELECT 
       [view_QuestionnaireData].[id] AS [id], 
@@ -3023,6 +3032,20 @@
           <Property Name="Partner_Count" Type="int" Nullable="false" />
           <Property Name="Group_Count" Type="int" Nullable="false" />
           <Property Name="active" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_QuestionnaireCMS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="view_QuestionnaireCMS">
+          <Key>
+            <PropertyRef Name="questionnaireCMS" />
+            <PropertyRef Name="text" />
+          </Key>
+          <Property Name="questionnaireCMS" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="100" />
+          <Property Name="text" Type="varchar(max)" Nullable="false" />
+          <Property Name="link" Type="text" />
+          <Property Name="doc" Type="image" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_QuestionnaireData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -6552,6 +6575,9 @@
         </Function>
         <Function Name="pr_getViewPartnerDataByPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getViewQuestionnaireCMSByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_modifyAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -12048,6 +12074,10 @@
             <Parameter Name="NM" Mode="In" Type="String" />
             <Parameter Name="action" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="pr_getViewQuestionnaireCMSByQuestionnaire" EntitySet="view_QuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.view_QuestionnaireCMS)">
+          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="view_QuestionnaireCMS" EntityType="hs3MVCMTQa2Model.view_QuestionnaireCMS" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -19149,6 +19179,24 @@
           <Property Type="Int32" Name="ptq" Nullable="false" />
           <Property Type="Int32" Name="action" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getViewQuestionnaireCMSByQuestionnaire_Result">
+          <Property Type="Int32" Name="questionnaireCMS" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="text" Nullable="false" />
+          <Property Type="String" Name="link" Nullable="true" MaxLength="Max" />
+          <Property Type="Binary" Name="doc" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        <EntityType Name="view_QuestionnaireCMS">
+          <Key>
+            <PropertyRef Name="questionnaireCMS" />
+            <PropertyRef Name="text" />
+          </Key>
+          <Property Type="Int32" Name="questionnaireCMS" Nullable="false" />
+          <Property Type="String" Name="description" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="link" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="doc" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -24906,6 +24954,19 @@
           <FunctionImportMapping FunctionImportName="pr_getPartnerConfirmationData_Spreadsheet2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerConfirmationData_Spreadsheet" />
           <FunctionImportMapping FunctionImportName="pr_getResponsesByProtocolTouchpointGroupPartnertype2" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponsesByProtocolTouchpointGroupPartnertype2" />
           <FunctionImportMapping FunctionImportName="pr_addPartnerConfirmationData_Spreadsheet" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerConfirmationData_Spreadsheet" />
+          <FunctionImportMapping FunctionImportName="pr_getViewQuestionnaireCMSByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getViewQuestionnaireCMSByQuestionnaire">
+          </FunctionImportMapping>
+          <EntitySetMapping Name="view_QuestionnaireCMS">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_QuestionnaireCMS">
+              <MappingFragment StoreEntitySet="view_QuestionnaireCMS">
+                <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

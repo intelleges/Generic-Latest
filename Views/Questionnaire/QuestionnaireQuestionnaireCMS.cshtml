@@ -1,4 +1,4 @@
-﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.questionnaireQuestionnaireCMS>>
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.view_QuestionnaireCMS>>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
@@ -25,6 +25,12 @@
 line-height: 4px !important;
 font-size: 100% !important;
     }
+     .input_size {
+        font-size: 11px!important;
+        padding: 1px!important;
+        position: relative;
+        top: 2px;
+    }
 </style>
 
 @*commands.Template("<input id='File' type='file' value='Upload' />");*@
@@ -39,23 +45,24 @@ font-size: 100% !important;
 .ToolBar(commands =>
 {
     //commands.Template("<form method='post' enctype='multipart/form-data' action='/Questionnaire/UploadExcelData/" + this.ViewContext.RouteData.Values["id"] + "'><a class='t-button' href='~/Questionnaire/ExportExcelQuestionnaireDetail/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a><input style='display: none' type='file' id='file' name='file' accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' /><a class='t-button' id='btn-upload' href='#'>Upload</a><input type='submit' class='btnprocess t-button' value='Process File'></input></form>");
-    commands.Template("<form method='post' enctype='multipart/form-data' action='" + @Url.Action("UploadExcelData", "Questionnaire") + "/" + this.ViewContext.RouteData.Values["id"] + "'><a class='t-button' href='" + @Url.Action("ExportExcelQuestionnaireDetail", "Questionnaire") + "/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a><input style='display: none' type='file' id='file' name='file' accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' /><a class='t-button' id='btn-upload' href='#'>Upload</a><input type='submit' class='btnprocess t-button' value='Process File'></input></form>");
+    commands.Template("<form method='post' enctype='multipart/form-data' action='" + @Url.Action("UploadExcelData", "Questionnaire") + "/" + this.ViewContext.RouteData.Values["id"] + "'><a class='t-button' href='" + @Url.Action("ExportExcelQuestionnaireDetail", "Questionnaire") + "/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a><input type='file' id='file'  name='file' class='input_size'  /><input type='submit' class='btnprocess t-button' value='Upload'></input></form>");
 })
 .Columns(columns =>
         {
 
-            columns.Bound(o => o.questionnaireCMS).Title("Questionnaire CMS").Width(200).Template(@<text><a href='#' id='@item.questionnaireCMS' class="menu_block">@item.questionnaireCMS</a>
+            columns.Bound(o => o.questionnaireCMS).Title("CMS").Width(70).Template(@<text><a href='#' id='@item.questionnaireCMS' class="menu_block">@item.questionnaireCMS</a>
 <div class="display_menu" style="display: none;">
     <ul>
-        <li><a href="javascript:openEditPopup(@item.questionnaire)">Edit/Correct</a></li>
-        <li><a href="javascript:openRemovePopup(@item.questionnaire,'@item.questionnaireCMS')">Remove</a></li>
-        <li><a href="javascript:openArchivePopup(@item.questionnaire,'@item.questionnaireCMS')">Archive</a></li>
-        <li><a href="javascript:openViewDetailPopup(@item.questionnaire)">View Detail</a></li>
+        <li><a href="javascript:openEditPopup(@ViewBag.questionnaire)">Edit/Correct</a></li>
+        <li><a href="javascript:openRemovePopup(@ViewBag.questionnaire,'@item.questionnaireCMS')">Remove</a></li>
+        <li><a href="javascript:openArchivePopup(@ViewBag.questionnaire,'@item.questionnaireCMS')">Archive</a></li>
+        <li><a href="javascript:openViewDetailPopup(@ViewBag.questionnaire)">View Detail</a></li>
 
 
     </ul>
 </div>
 </text>);
+            columns.Bound(o => o.description).Title("Description").Width(100);
             columns.Bound(o => o.text).Title("Text").Width(100);
             columns.Bound(o => o.link).Title("Link").Width(100);
             columns.Bound(o => o.doc).Title("Download").Width(100).Template(@<text><a href='#'>Download</a></text>);
@@ -63,7 +70,7 @@ font-size: 100% !important;
 
 
         })
-        .DataKeys(keys => keys.Add(o => o.questionnaire))
+        //.DataKeys(keys => keys.Add(o => o.questionnaire))
         .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
         .Sortable(sorting => sorting.Enabled(true))
 

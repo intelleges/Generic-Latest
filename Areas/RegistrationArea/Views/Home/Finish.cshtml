@@ -172,11 +172,11 @@
         <td style="font-size: 12px;" align="left" width="30%">  
            
 @{
-string link = @ViewBag.CONFIRMATION_PAGE_EXIT_LINK;
+    string link = @ViewBag.CMS_PAGE_NEXT_LINK;
 //link = "http://" +  link;
 }
 
-        <a href="http://honeywell.com/"> @*@link*@
+        <a href="@link"> @*@link http://honeywell.com/*@
         <input name="btnNext" id="btnNext" value="@ViewBag.CMS_PAGE_NEXT_TEXT" style="border-width:0px;" type="submit">
         </a>
         </td>

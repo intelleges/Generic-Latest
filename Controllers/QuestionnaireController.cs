@@ -191,8 +191,12 @@ namespace Generic.Controllers
         }
         public ActionResult QuestionnaireQuestionnaireCMS(int id = 0)
         {
-            List<questionnaireQuestionnaireCMS> questionnairedetail = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(id).ToList();
-            return View(questionnairedetail); 
+            //  List<ExcelQuestionnaireQuestionnireCMS> questionnairedetail = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(id).ToList();
+            List<view_QuestionnaireCMS> questionnairedetail = db.pr_getViewQuestionnaireCMSByQuestionnaire(id).ToList();
+
+            ViewBag.questionnaire = id;
+
+            return View(questionnairedetail);
         }
         public ActionResult QuestionnaireQuestionnaireAutoMail(int id = 0)
         {
@@ -763,12 +767,12 @@ namespace Generic.Controllers
         public ActionResult ExportExcelQuestionnaireDetail(string id)
         {
 
-            Session["questionnaireexport"] = db.Database.SqlQuery<ExcelQuestionnaireQuestionnireCMS>("EXEC pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire '" + id + "'").ToList();
+            Session["questionnaireexport"] = db.Database.SqlQuery<view_QuestionnaireCMS>("EXEC pr_getViewQuestionnaireCMSByQuestionnaire '" + id + "'").ToList();
 
-            List<ExcelQuestionnaireQuestionnireCMS> abc = (List<ExcelQuestionnaireQuestionnireCMS>)Session["questionnaireexport"];
+            List<view_QuestionnaireCMS> abc = (List<view_QuestionnaireCMS>)Session["questionnaireexport"];
 
             var stream = new MemoryStream();
-            var serializer = new XmlSerializer(typeof(List<ExcelQuestionnaireQuestionnireCMS>));
+            var serializer = new XmlSerializer(typeof(List<view_QuestionnaireCMS>));
 
             //We turn it into an XML and save it in the memory
             serializer.Serialize(stream, abc);
@@ -1081,11 +1085,11 @@ namespace Generic.Controllers
 
 
             Response.Redirect(Url.Action("QuestionnaireQuestionnaireCMS", "Questionnaire", new { id = id }));
-           // return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = int.Parse(id) });
-           // return QuestionnaireQuestionnaireCMS(int.Parse(id));
-          //  return RedirectToAction("QuestionnaireQuestionnaireCMS");
-    //        return RedirectToAction("QuestionnaireQuestionnaireCMS", new RouteValueDictionary(
-    //new { controller = "Questionnaire", action = "QuestionnaireQuestionnaireCMS", id = int.Parse(id) }));
+            // return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = int.Parse(id) });
+            // return QuestionnaireQuestionnaireCMS(int.Parse(id));
+            //  return RedirectToAction("QuestionnaireQuestionnaireCMS");
+            //        return RedirectToAction("QuestionnaireQuestionnaireCMS", new RouteValueDictionary(
+            //new { controller = "Questionnaire", action = "QuestionnaireQuestionnaireCMS", id = int.Parse(id) }));
 
         }
 

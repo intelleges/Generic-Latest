@@ -230,7 +230,16 @@ namespace Generic.Controllers
                     if (cms_PageNextText != null)
                     {
                         ViewBag.CMS_PAGE_NEXT_TEXT = cms_PageNextText.text;
-                        ViewBag.CMS_PAGE_NEXT_LINK = cms_PageNextText.link;
+                       
+                        if (cms_PageNextText.link == null)
+                        {
+                            ViewBag.CMS_PAGE_NEXT_LINK = db.pr_getEnterpriseSystemInfo(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault().companyWebSite;
+                            
+                        }
+                        else
+                        {
+                            ViewBag.CMS_PAGE_NEXT_LINK = cms_PageNextText.link;
+                        }
                     }
 
                 }
