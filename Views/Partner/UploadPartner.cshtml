@@ -83,8 +83,9 @@
 
      if ("@ViewBag.Message" == "2") {
          parent.CloseManualAddModalWithAlert('@ViewBag.touchpointTitle');
-        $('#btnConfirm').show();
-        $('#btnConfirmlater').show();
+    //    $('#btnConfirm').show();
+         //  $('#btnConfirmlater').show();
+         alertify.alert('@ViewBag.MessageDetail');
     }
 
     // Confirm button button

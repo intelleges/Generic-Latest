@@ -98,9 +98,12 @@ namespace Generic.Controllers
                 //    touchpoint.protocol = ;
                 touchpoint.active = 1;
 
-                db.touchpoint.Add(touchpoint);
+           //     db.touchpoint.Add(touchpoint);
                 //db.touchpoint.Attach()
-                db.SaveChanges();
+             //   db.SaveChanges();
+
+                decimal? tId = db.pr_addTouchpoint(touchpoint.protocol, touchpoint.person, touchpoint.sponsor, touchpoint.admin, touchpoint.title, touchpoint.description, touchpoint.purpose, touchpoint.target, touchpoint.abbreviation, touchpoint.startDate, touchpoint.endDate, touchpoint.automaticReminder, touchpoint.sortOrder, touchpoint.active).FirstOrDefault();
+                touchpoint.id = int.Parse(tId.ToString());
                 if (touchpoint.id > 0)
                 {
                     ViewBag.ID = touchpoint.id;

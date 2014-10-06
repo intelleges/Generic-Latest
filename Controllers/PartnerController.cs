@@ -139,9 +139,16 @@ namespace Generic.Controllers
                 Session["partnertype"] = partnertype;
                 Session["touchpoint"] = touchpoint;
                 Session["loadGroup"] = loadGroup;
-                var Target = db.touchpoint.Where(x => x.id == touchpoint).Select(x => x.target).ToList();
-                ViewBag.Message = Target[0].ToString();
+            //    var Target = db.touchpoint.Where(x => x.id == touchpoint).Select(x => x.target).ToList();
+             //   ViewBag.Message = Target[0].ToString();
                 //ViewBag.Message = "1";
+
+                var Target = db.touchpoint.Where(x => x.id==(touchpoint)).ToList();
+                ViewBag.Message = Target[0].target.ToString();
+                if (Target[0].target.ToString() == "2")
+                {
+                    ViewBag.MessageDetail = "Congratulations, you just added  " + partner.firstName + " to " + Target[0].title;
+                }
                 ViewBag.state = new SelectList(db.state, "id", "name");
                 ViewBag.country = new SelectList(db.country, "id", "name");
                 ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
@@ -353,6 +360,7 @@ namespace Generic.Controllers
 
 
             string loadGroup = db.pr_getAccesscode().FirstOrDefault();
+            int countPartners =0;
             foreach (var partners in partnerinExcel.ToList())
             {
                 if (partners.internalID != null)
@@ -376,6 +384,8 @@ namespace Generic.Controllers
                     {
                         int? PartnerId = context.pr_addPartnerSpreadsheetDataLoad(partners.internalID, partners.PARTNER_SAP_ID, partners.name, partners.address1, partners.address2, partners.city, stateIdSpreadSheet, partners.zipcode, countryIdSpreadsheet, partners.firstName, partners.lastName, partners.title, partners.phone, partners.email, partners.RO_FIRST_NAME, partners.RO_LAST_NAME, partners.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup, partners.DUE_DATE, group).ToList().FirstOrDefault();
                         uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
+
+
                     }
 
 
@@ -434,8 +444,14 @@ namespace Generic.Controllers
             Session["touchpoint"] = touchpoint;
             Session["loadGroup"] = loadGroup;
             //ViewBag.Message = "1";
-            var Target = db.touchpoint.Where(x => x.id.Equals(touchpoint)).Select(x => x.target).ToList();
-            ViewBag.Message = Target[0].ToString();
+        
+            var Target = db.touchpoint.Where(x => x.id == (touchpoint)).ToList();
+            ViewBag.Message = Target[0].target.ToString();
+            if( Target[0].target.ToString()=="2")
+            {
+                ViewBag.MessageDetail = "Congratulations, you have uploaded " + uploadedpartners.Count + " to " + Target[0].title;
+            }
+
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");

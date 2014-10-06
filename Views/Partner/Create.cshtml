@@ -178,7 +178,11 @@
                 //$('#btnConfirm').show();
                 //$('#btnConfirmlater').show();
                 //alertify.alert('Invitation Sent');
-                alertify.set({
+
+                alertify.alert('@ViewBag.MessageDetail');
+                dataClear();
+
+             @*   alertify.set({
                     labels: {
                         ok: "Confirm Later", cancel: "Confirm Now"
                     }
@@ -193,7 +197,7 @@
                         window.location.assign("@Url.Content("~/Partner/ConfirmPartner")");
                      
                     }
-                });
+                });*@
                
 
                 //$("#dvConfirm").dialog({
