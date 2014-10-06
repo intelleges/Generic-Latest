@@ -1138,6 +1138,9 @@ namespace Generic.Controllers
                 var questionnaireCMSinExcel = from a in excelRead.Worksheet<QuestionnaireAutoMailViewModel>(sheetname) select a;
                 List<Tuple<int, string>> uploadedquestionnaireCMS = new List<Tuple<int, string>>();
 
+                db.pr_removeAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid));
+
+
                 foreach (var questionnaireCMSitem in questionnaireCMSinExcel.ToList())
                 {
                     using (var context = new EntitiesDBContext())
@@ -1145,11 +1148,12 @@ namespace Generic.Controllers
                         if (!string.IsNullOrEmpty(autoMailid))
                         {
                             // context.questionnaireQuestionnaireCMS.Attach(questionnaireCMSitem);
-
-                            int modifiedAutoMail = context.pr_modifyAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid), questionnaireCMSitem.id,
-                                questionnaireCMSitem.subject, string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
-                                questionnaireCMSitem.footer1, questionnaireCMSitem.footer2, questionnaireCMSitem.sendDateCalcFactor, questionnaireCMSitem.sendDateSet,
-                                questionnaireCMSitem.mailType);
+                            context.pr_addAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid),questionnaireCMSitem.subject,string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
+                                 questionnaireCMSitem.footer1,questionnaireCMSitem.footer2,questionnaireCMSitem.sendDateCalcFactor, questionnaireCMSitem.sendDateSet,questionnaireCMSitem.mailType);
+                            //int modifiedAutoMail = context.pr_modifyAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid), questionnaireCMSitem.id,
+                            //    questionnaireCMSitem.subject, string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
+                            //    questionnaireCMSitem.footer1, questionnaireCMSitem.footer2, questionnaireCMSitem.sendDateCalcFactor, questionnaireCMSitem.sendDateSet,
+                            //    questionnaireCMSitem.mailType);
                         }
                     }
                 }

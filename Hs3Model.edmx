@@ -4602,6 +4602,16 @@
           <Parameter Name="mailType" Type="int" Mode="In" />
           <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addAutomailMessageByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+          <Parameter Name="subject" Type="varchar(max)" Mode="In" />
+          <Parameter Name="text" Type="varchar(max)" Mode="In" />
+          <Parameter Name="footer1" Type="varchar(max)" Mode="In" />
+          <Parameter Name="footer2" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sendDateCalcFactor" Type="int" Mode="In" />
+          <Parameter Name="sendDateSet" Type="date" Mode="In" />
+          <Parameter Name="mailType" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addAutomailMessagePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="automailMessage" Type="int" Mode="In" />
           <Parameter Name="pptq" Type="int" Mode="In" />
@@ -7395,6 +7405,9 @@
         </Function>
         <Function Name="pr_removeAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeAutomailMessageByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeAutomailMessagePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -12078,6 +12091,19 @@
           <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="view_QuestionnaireCMS" EntityType="hs3MVCMTQa2Model.view_QuestionnaireCMS" />
+          <FunctionImport Name="pr_addAutomailMessageByQuestionnaire">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="footer1" Mode="In" Type="String" />
+            <Parameter Name="footer2" Mode="In" Type="String" />
+            <Parameter Name="sendDateCalcFactor" Mode="In" Type="Int32" />
+            <Parameter Name="sendDateSet" Mode="In" Type="DateTime" />
+            <Parameter Name="mailType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeAutomailMessageByQuestionnaire">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24967,6 +24993,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addAutomailMessageByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomailMessageByQuestionnaire" />
+          <FunctionImportMapping FunctionImportName="pr_removeAutomailMessageByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessageByQuestionnaire" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
