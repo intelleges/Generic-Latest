@@ -97,8 +97,11 @@ namespace Generic.Controllers
             string token = strResponseAttributes[0].Substring(strResponseAttributes[0].LastIndexOf('=') + 1);
             string authToken = strResponseAttributes[1].Substring(strResponseAttributes[1].LastIndexOf('=') + 1);
 
-            Session["Token"] = token;
-            Session["TokenSecret"] = authToken;
+
+            HttpContext.Response.Cookies["Token"].Value = token;
+            HttpContext.Response.Cookies["TokenSecret"].Value = authToken;
+            //Session["Token"] = token;
+            //Session["TokenSecret"] = authToken;
 
             Response.Redirect("https://www.linkedin.com/uas/oauth/authorize?oauth_token=" + token);
         }
@@ -123,8 +126,8 @@ namespace Generic.Controllers
             {
                 ConsumerKey = "7747cjm5yf3gbp",
                 ConsumerSecret = "SzdxJQqxWWonlMz5",
-                Token = Session["Token"].ToString(),
-                TokenSecret = Session["TokenSecret"].ToString(),
+                Token = HttpContext.Response.Cookies["Token"].Value.ToString(),
+                TokenSecret = HttpContext.Response.Cookies["TokenSecret"].Value.ToString(),
                 Verifier = verifier,
                 Type = Hammock.Authentication.OAuth.OAuthType.AccessToken,
                 ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
