@@ -1,5 +1,7 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<Generic.enterprise>
 @using System.Web.Mvc.Html
+@using System.Collections.Generic
+@using Generic
 
 @{
     Layout = null;
@@ -31,7 +33,8 @@
 
 
 
-
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 
 
     <link rel="shortcut icon" href="https://intelleges.com/favicon.ico">
@@ -279,7 +282,116 @@
                 $('#frameYoutube1').attr('src', 'https://www.youtube.com/embed/V5jgvi2H1xY');
             });
 
+            $("#linkedinLoginBtn").on("click", function () {
+                $('<form>', {
+                    "id": "linkedinForm",
+                    "html": '@Html.AntiForgeryToken()' + '<input type="text" name="provider" value="' + "LinkedIn" + '" />',
+                    "action": '/Admin/ExternalLogin',
+                    "method": 'post',
+                    "style": 'display: none'
+                }).appendTo(document.body).submit();
+            });
+
+            $("#linkedinConfirmDialog").dialog({
+                autoOpen: false,
+                height: 400,
+                width: 550,
+                modal: true,
+                buttons: {
+                    "Yes": function () {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Admin/AddEmailToWaitingList",
+                            contentType: 'application/json',
+                            success: function (data) {
+		                        // done
+                            }
+                        });
+
+                        $(this).dialog("close");
+                    },
+                    "No": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $("#linkedinSelectEnterpriseDialog").dialog({
+                autoOpen: false,
+                height: 200,
+                width: 550,
+                modal: true,
+                buttons: {
+                    "Select Enterprise": function () {
+                        $('<form>', {
+                            "id": "loginByEnterprise",
+                            "html": '@Html.AntiForgeryToken()' + '<input type="hidden" name="enterpriseid" value="' + $("#linkedinSelectEnterpriseDialogDropdown").val() + '" />',
+                            "action": '/Admin/LoginByEnterprise',
+                            "method": 'post',
+                            "style": 'display: none'
+                        }).appendTo(document.body).submit();
+                    },
+                    "Confirm": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            onDocumentLoad_linkedinHandler();
         });
+
+        function onDocumentLoad_linkedinHandler() {
+            @{
+                string safeLinkedinMeesage = string.Empty,
+                    safeDialogType = string.Empty,
+                    safeEnterprisesIds = string.Empty,
+                    safeEnterprisesNames = string.Empty;
+                    
+                if (TempData["LinkedInMessage"] != null)
+                {
+                    var messageObject = (KeyValuePair<string, string>)TempData["LinkedInMessage"];
+
+                    safeLinkedinMeesage = messageObject.Value;
+                    safeDialogType = messageObject.Key;
+                    
+                    if (TempData["Enterprises"] != null)
+                    {
+                        var enterprises = TempData["Enterprises"] as List<enterprise>;
+                        
+                        foreach(var enterprise in enterprises)
+                        {
+                            safeEnterprisesIds += enterprise.id + ",";
+                            safeEnterprisesNames += enterprise.companyName + ",";
+                        }
+
+                        safeEnterprisesIds = safeEnterprisesIds.Substring(0, safeEnterprisesIds.Length - 1);
+                        safeEnterprisesNames = safeEnterprisesNames.Substring(0, safeEnterprisesNames.Length - 1);
+                    }
+                }
+            }
+
+            var linkedinMeesage = '@(safeLinkedinMeesage)';
+            var dialogType = '@(safeDialogType)';
+
+            if (dialogType != '' && dialogType != undefined) {
+                if (dialogType == "promptYesNo") {
+                    $("#linkedinConfirmDialogText").text(linkedinMeesage);
+                    $("#linkedinConfirmDialog").dialog("open");
+                }
+                else {
+                    var enterprisesIds = '@(safeEnterprisesIds)'.split(',');
+                    var enterprisesNames = '@(safeEnterprisesNames)'.split(',');
+
+                    $.each(enterprisesIds, function (iter, item) {
+                        var option = new Option(enterprisesNames[iter], item);
+                        $(option).html(enterprisesNames[iter]);
+                        $("#linkedinSelectEnterpriseDialogDropdown").append(option);
+                    });
+
+                    $("#linkedinSelectEnterpriseDialog").dialog("open");
+                }
+            }
+        }
 
 
         thankyou_click = function () {
@@ -302,9 +414,6 @@
             });
         }
     </script>
-
-
-
     <!-- // Menu-->
 
     <style type="text/css">
@@ -326,7 +435,7 @@
     </style>
 </head>
 <body>
-    <div class="wrapper">
+    <div class="wrapper">        
         <div class="header">
             <a id="logoimg" href="https://www.intelleges.com">
                 <img src="@Url.Content("~/Contents/IntellegesLogin_files/logo.png")" alt="Logo"></a>
@@ -335,7 +444,7 @@
         <div class="clearfix"></div>
         <div class="top-nav">
             <div class="top-nav-left">
-                <p class="bold-text" style="padding-top: 15px;">Affordable, on-demand compliance platform</p>
+                <p class="bold-text" style="padding-top: 15px;">Global Data & Document Collection</p>
             </div>
             <!-- .top-nav-left -->
 
@@ -568,14 +677,15 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
                             </p>
 
                         </div>
-                        <!-- .form-inputs-section -->
+                        <!-- .form-inputs-section homepage-signin-div -->
 
-                        <div class="form-submit-section homepage-signin-div">
-
-                            <input id="btnLogin" class="you input-field-submit homepage-signin-button" value="Login" type="button" />
-
-
-                        </div>
+                        <div style="float: left;">
+                            <img id="linkedinLoginBtn" title="Log in using your Link1edIn account" 
+                                src="~/Contents/images/linkedInLogin.png" border="0" style="width:140px"/>
+                                <input id="btnLogin" class="you input-field-submit homepage-signin-button" value="Login" type="button" />
+                            </div>
+                            
+                        
                     </form>
                 </div>
             </div>
@@ -1037,6 +1147,15 @@ quality improvement; regulatory compliance; and competitive positioning.
             <!-- .main-content-left -->
         </div>
         <!-- .main-content -->
+
+        <div id="linkedinConfirmDialog" title="Adding your request to queue">
+	        <p id="linkedinConfirmDialogText"/>
+        </div>
+
+        <div id="linkedinSelectEnterpriseDialog" title="Selecting enterprise">
+	        <p>Select enterprise: </p>
+	        <select id="linkedinSelectEnterpriseDialogDropdown"/>
+        </div>
     </div>
 </body>
 </html>

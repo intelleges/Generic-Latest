@@ -14075,5 +14075,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutomailMessageByQuestionnaire", questionnaireParameter);
         }
+    
+        public virtual ObjectResult<enterprise> pr_getEnterpriseByEmail(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterprise>("pr_getEnterpriseByEmail", emailParameter);
+        }
+    
+        public virtual ObjectResult<enterprise> pr_getEnterpriseByEmail(string email, MergeOption mergeOption)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterprise>("pr_getEnterpriseByEmail", mergeOption, emailParameter);
+        }
     }
 }

@@ -5771,6 +5771,9 @@
         <Function Name="pr_getEnterpriseByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getEnterpriseByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getEnterpriseByQuestionnaireLevelType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaireLevel" Type="int" Mode="In" />
         </Function>
@@ -12102,7 +12105,10 @@
             <Parameter Name="mailType" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeAutomailMessageByQuestionnaire">
-            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEnterpriseByEmail" EntitySet="enterprise" ReturnType="Collection(hs3MVCMTQa2Model.enterprise)">
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -19223,6 +19229,61 @@
           <Property Type="String" Name="link" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Binary" Name="doc" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <ComplexType Name="pr_getEnterpriseByEmail_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Binary" Name="logo" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="applicationPath" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="companyName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="instanceName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="userMax" Nullable="true" />
+          <Property Type="Int32" Name="partnerMax" Nullable="true" />
+          <Property Type="Int32" Name="partnumberMax" Nullable="true" />
+          <Property Type="Int32" Name="product" Nullable="true" />
+          <Property Type="Int32" Name="subscriptionType" Nullable="true" />
+          <Property Type="DateTime" Name="freeTrialStartDate" Nullable="true" />
+          <Property Type="DateTime" Name="freeTrialEndDate" Nullable="true" />
+          <Property Type="DateTime" Name="licenseStartDate" Nullable="true" />
+          <Property Type="DateTime" Name="licenseEndDate" Nullable="true" />
+          <Property Type="Decimal" Name="monthlyFee" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="subscriptionStatus" Nullable="true" />
+          <Property Type="String" Name="chargifyID" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" />
+          <Property Type="Int32" Name="multiTenantProjectType" Nullable="true" />
+          <Property Type="Int32" Name="id1" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="nickName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active1" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate1" Nullable="true" Precision="23" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -24995,6 +25056,8 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addAutomailMessageByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutomailMessageByQuestionnaire" />
           <FunctionImportMapping FunctionImportName="pr_removeAutomailMessageByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessageByQuestionnaire" />
+          <FunctionImportMapping FunctionImportName="pr_getEnterpriseByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseByEmail">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

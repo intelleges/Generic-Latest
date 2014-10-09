@@ -123,5 +123,17 @@ namespace Generic.SessionClass
             }
         }
 
+        public static string EmailFromLinkedin
+        {
+            get
+            {
+                return System.Web.HttpContext.Current.Session["EmailFromLinkedin"].ToString();
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["EmailFromLinkedin"] = value;
+            }
+        }
+
     }
 }
