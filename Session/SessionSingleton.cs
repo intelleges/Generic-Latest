@@ -135,5 +135,65 @@ namespace Generic.SessionClass
             }
         }
 
+        public static string AccessToken
+        {
+            get
+            {
+                return System.Web.HttpContext.Current.Session["AccessToken"].ToString();
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["AccessToken"] = value;
+            }
+        }
+
+        public static string AccessSecretToken
+        {
+            get
+            {
+                return System.Web.HttpContext.Current.Session["AccessSecretToken"].ToString();
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["AccessSecretToken"] = value;
+            }
+        }
+
+        public static string Verifier
+        {
+            get
+            {
+                return System.Web.HttpContext.Current.Session["Verifier"].ToString();
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["Verifier"] = value;
+            }
+        }
+
+        public static string Token
+        {
+            get
+            {
+                return System.Web.HttpContext.Current.Session["Token"].ToString();
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["Token"] = value;
+            }
+        }
+
+        public static string TokenSecret
+        {
+            get
+            {
+                return System.Web.HttpContext.Current.Session["TokenSecret"].ToString();
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["TokenSecret"] = value;
+            }
+        }
+
     }
 }

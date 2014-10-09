@@ -73,7 +73,7 @@ namespace Generic.Controllers
         {
             var credentials = new Hammock.Authentication.OAuth.OAuthCredentials
             {
-                CallbackUrl = "http://www.intelleges.com/mvcmt/Generic/Admin/ExternalLoginCallback",
+                CallbackUrl = "https://www.intelleges.com/mvcmt/Generic/Admin/ExternalLoginCallback",
                 ConsumerKey = "7747cjm5yf3gbp",
                 ConsumerSecret = "SzdxJQqxWWonlMz5",
                 Type = Hammock.Authentication.OAuth.OAuthType.RequestToken
@@ -97,8 +97,8 @@ namespace Generic.Controllers
             string token = strResponseAttributes[0].Substring(strResponseAttributes[0].LastIndexOf('=') + 1);
             string authToken = strResponseAttributes[1].Substring(strResponseAttributes[1].LastIndexOf('=') + 1);
 
-            Session["Token"] = token;
-            Session["TokenSecret"] = authToken;
+            SessionSingleton.Token = token;
+            SessionSingleton.TokenSecret = authToken;
 
             Response.Redirect("https://www.linkedin.com/uas/oauth/authorize?oauth_token=" + token);
         }
@@ -118,14 +118,15 @@ namespace Generic.Controllers
                 return RedirectToAction("Index");
             }
 
-            Session["Verifier"] = verifier;
+            SessionSingleton.Verifier = verifier;
+            // Session["Verifier"] = verifier;
 
             var credentials = new Hammock.Authentication.OAuth.OAuthCredentials
             {
                 ConsumerKey = "7747cjm5yf3gbp",
                 ConsumerSecret = "SzdxJQqxWWonlMz5",
-                Token = Session["Token"].ToString(),
-                TokenSecret = Session["TokenSecret"].ToString(),
+                Token = SessionSingleton.Token,
+                TokenSecret = SessionSingleton.TokenSecret,
                 Verifier = verifier,
                 Type = Hammock.Authentication.OAuth.OAuthType.AccessToken,
                 ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
@@ -151,8 +152,10 @@ namespace Generic.Controllers
             string token = strResponseAttributes[0].Substring(strResponseAttributes[0].LastIndexOf('=') + 1);
             string authToken = strResponseAttributes[1].Substring(strResponseAttributes[1].LastIndexOf('=') + 1);
 
-            Session["AccessToken"] = token;
-            Session["AccessSecretToken"] = authToken;
+            SessionSingleton.AccessToken = token;
+            SessionSingleton.AccessSecretToken = authToken;
+            //Session["AccessToken"] = token;
+            //Session["AccessSecretToken"] = authToken;
 
             var hammockRequest = new Hammock.RestRequest
             {
@@ -166,9 +169,9 @@ namespace Generic.Controllers
                 ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
                 ConsumerKey = "7747cjm5yf3gbp",
                 ConsumerSecret = "SzdxJQqxWWonlMz5",
-                Token = Session["AccessToken"].ToString(),
-                TokenSecret = Session["AccessSecretToken"].ToString(),
-                Verifier = Session["Verifier"].ToString()
+                Token = SessionSingleton.AccessToken,
+                TokenSecret = SessionSingleton.AccessSecretToken,
+                Verifier = SessionSingleton.Verifier
             };
 
             var hammockClient = new Hammock.RestClient()
@@ -190,8 +193,6 @@ namespace Generic.Controllers
                 SessionSingleton.EmailFromLinkedin = email;
 
                 List<Generic.enterprise> result = db.pr_getEnterpriseByEmail(email).ToList();
-
-                //TempData["LinkedInMessage"] = new KeyValuePair<string, string>("promptYesNo", "Thank you for your interest in Intelleges. You currently do not have an Intelleges account, and right now LinkedIn members are by INVITATION ONLY. We are happy to add you to our WAITING LIST and send you an invite if this policy changes in the future. Please click Yes if you would like to be added. If you don&apos;t want to be added, click No. Thank you.");
 
                 if (result.Count() == 0)
                 {
