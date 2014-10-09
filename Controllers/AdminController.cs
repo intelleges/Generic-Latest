@@ -97,8 +97,8 @@ namespace Generic.Controllers
             string token = strResponseAttributes[0].Substring(strResponseAttributes[0].LastIndexOf('=') + 1);
             string authToken = strResponseAttributes[1].Substring(strResponseAttributes[1].LastIndexOf('=') + 1);
 
-            SessionSingleton.Token = token;
-            SessionSingleton.TokenSecret = authToken;
+            Session["Token"] = token;
+            Session["TokenSecret"] = authToken;
 
             Response.Redirect("https://www.linkedin.com/uas/oauth/authorize?oauth_token=" + token);
         }
@@ -117,16 +117,14 @@ namespace Generic.Controllers
             {
                 return RedirectToAction("Index");
             }
-
-            SessionSingleton.Verifier = verifier;
-            // Session["Verifier"] = verifier;
+            Session["Verifier"] = verifier;
 
             var credentials = new Hammock.Authentication.OAuth.OAuthCredentials
             {
                 ConsumerKey = "7747cjm5yf3gbp",
                 ConsumerSecret = "SzdxJQqxWWonlMz5",
-                Token = SessionSingleton.Token,
-                TokenSecret = SessionSingleton.TokenSecret,
+                Token = Session["Token"].ToString(),
+                TokenSecret = Session["TokenSecret"].ToString(),
                 Verifier = verifier,
                 Type = Hammock.Authentication.OAuth.OAuthType.AccessToken,
                 ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
@@ -152,10 +150,8 @@ namespace Generic.Controllers
             string token = strResponseAttributes[0].Substring(strResponseAttributes[0].LastIndexOf('=') + 1);
             string authToken = strResponseAttributes[1].Substring(strResponseAttributes[1].LastIndexOf('=') + 1);
 
-            SessionSingleton.AccessToken = token;
-            SessionSingleton.AccessSecretToken = authToken;
-            //Session["AccessToken"] = token;
-            //Session["AccessSecretToken"] = authToken;
+            Session["AccessToken"] = token;
+            Session["AccessSecretToken"] = authToken;
 
             var hammockRequest = new Hammock.RestRequest
             {
@@ -169,9 +165,9 @@ namespace Generic.Controllers
                 ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
                 ConsumerKey = "7747cjm5yf3gbp",
                 ConsumerSecret = "SzdxJQqxWWonlMz5",
-                Token = SessionSingleton.AccessToken,
-                TokenSecret = SessionSingleton.AccessSecretToken,
-                Verifier = SessionSingleton.Verifier
+                Token = Session["AccessToken"].ToString(),
+                TokenSecret = Session["AccessSecretToken"].ToString(),
+                Verifier = Session["Verifier"].ToString()
             };
 
             var hammockClient = new Hammock.RestClient()
