@@ -73,7 +73,7 @@ namespace Generic.Controllers
         {
             var credentials = new Hammock.Authentication.OAuth.OAuthCredentials
             {
-                CallbackUrl = "https://www.intelleges.com/mvcmt/Generic/Admin/ExternalLoginCallback",
+                CallbackUrl = "http://www.intelleges.com/mvcmt/Generic/Admin/ExternalLoginCallback",
                 ConsumerKey = "7747cjm5yf3gbp",
                 ConsumerSecret = "SzdxJQqxWWonlMz5",
                 Type = Hammock.Authentication.OAuth.OAuthType.RequestToken
