@@ -69,7 +69,6 @@ namespace Generic.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public void ExternalLogin(string provider, string returnUrl)
         {
             var credentials = new Hammock.Authentication.OAuth.OAuthCredentials
@@ -252,7 +251,6 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LoginByEnterprise(string enterpriseid)
         {
             if (!string.IsNullOrEmpty(enterpriseid))
