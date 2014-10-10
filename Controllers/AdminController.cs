@@ -147,7 +147,12 @@ namespace Generic.Controllers
             }
             catch 
             {
-                throw new Exception("NullReferenceException!!! - ");
+                var returnError = "NullReferenceException!!";
+                if (Request.Cookies["AccessToken"] != null)
+                    returnError += " AccessToken - " + Response.Cookies["AccessToken"].Value;
+                if (Request.Cookies["AccessSecretToken"] != null)
+                    returnError += " AccessSecretToken - " + Response.Cookies["AccessSecretToken"].Value;
+                throw new Exception(returnError);
             }
 
             var client = new Hammock.RestClient 
