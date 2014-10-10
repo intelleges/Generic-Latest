@@ -98,8 +98,10 @@ namespace Generic.Controllers
             string token = strResponseAttributes[0].Substring(strResponseAttributes[0].LastIndexOf('=') + 1);
             string authToken = strResponseAttributes[1].Substring(strResponseAttributes[1].LastIndexOf('=') + 1);
 
-            SessionSingleton.AccessToken = token;
-            SessionSingleton.AccessSecretToken = authToken;
+            //SessionSingleton.AccessToken = token;
+            //SessionSingleton.AccessSecretToken = authToken;
+            System.Web.HttpContext.Current.Cache.Insert("AccessToken", token);
+            System.Web.HttpContext.Current.Cache.Insert("AccessSecretToken", authToken);
 
             Response.Redirect("https://www.linkedin.com/uas/oauth/authorize?oauth_token=" + token);
         }
@@ -119,18 +121,28 @@ namespace Generic.Controllers
                 return RedirectToAction("Index");
             }
 
-            var credentials = new Hammock.Authentication.OAuth.OAuthCredentials
+            var credentials = new Hammock.Authentication.OAuth.OAuthCredentials();
+            try
             {
-                ConsumerKey = "7747cjm5yf3gbp",
-                ConsumerSecret = "SzdxJQqxWWonlMz5",
-                Token = SessionSingleton.AccessToken,
-                TokenSecret = SessionSingleton.AccessSecretToken,
-                Verifier = verifier,
-                Type = Hammock.Authentication.OAuth.OAuthType.AccessToken,
-                ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
-                SignatureMethod = Hammock.Authentication.OAuth.OAuthSignatureMethod.HmacSha1,
-                Version = "1.0"
-            };
+                credentials = new Hammock.Authentication.OAuth.OAuthCredentials
+                {
+                    ConsumerKey = "7747cjm5yf3gbp",
+                    ConsumerSecret = "SzdxJQqxWWonlMz5",
+                    //Token = SessionSingleton.AccessToken,
+                    //TokenSecret = SessionSingleton.AccessSecretToken,
+                    Token = System.Web.HttpContext.Current.Cache.Get("AccessToken").ToString(),
+                    TokenSecret = System.Web.HttpContext.Current.Cache.Get("AccessSecretToken").ToString(),
+                    Verifier = verifier,
+                    Type = Hammock.Authentication.OAuth.OAuthType.AccessToken,
+                    ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
+                    SignatureMethod = Hammock.Authentication.OAuth.OAuthSignatureMethod.HmacSha1,
+                    Version = "1.0"
+                };
+            }
+            catch 
+            {
+                throw new Exception("NullReferenceException!!! - ");
+            }
 
             var client = new Hammock.RestClient 
             { 
