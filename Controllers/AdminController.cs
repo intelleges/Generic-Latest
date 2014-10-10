@@ -104,10 +104,15 @@ namespace Generic.Controllers
             //System.Web.HttpContext.Current.Cache.Insert("AccessSecretToken", authToken);
             //HttpContext.GetOwinContext().Response.Cookies.Append("AccessToken", "token");
             //HttpContext.GetOwinContext().Response.Cookies.Append("AccessSecretToken", "authToken");
-            Response.Cookies["AccessToken"].Value = token;
-            Response.Cookies["AccessToken"].Expires = DateTime.Now.AddDays(1);
-            Response.Cookies["AccessSecretToken"].Value = authToken;
-            Response.Cookies["AccessSecretToken"].Expires = DateTime.Now.AddDays(1);
+            HttpCookie myCookie = new HttpCookie("LinkedinCookie");
+            myCookie["AccessToken"] = token;
+            myCookie["AccessSecretToken"] = authToken;
+            myCookie.Expires = DateTime.Now.AddDays(1);
+            System.Web.HttpContext.Current.Response.Cookies.Add(myCookie);
+            //Response.Cookies["AccessToken"].Value = token;
+            //Response.Cookies["AccessToken"].Expires = DateTime.Now.AddDays(1);
+            //Response.Cookies["AccessSecretToken"].Value = authToken;
+            //Response.Cookies["AccessSecretToken"].Expires = DateTime.Now.AddDays(1);
 
             Response.Redirect("https://www.linkedin.com/uas/oauth/authorize?oauth_token=" + token);
         }
@@ -136,8 +141,8 @@ namespace Generic.Controllers
                     ConsumerSecret = "SzdxJQqxWWonlMz5",
                     //Token = SessionSingleton.AccessToken,
                     //TokenSecret = SessionSingleton.AccessSecretToken,
-                    Token = Response.Cookies["AccessToken"].Value.ToString(),
-                    TokenSecret = Response.Cookies["AccessSecretToken"].Value.ToString(),
+                    Token = Server.HtmlEncode(System.Web.HttpContext.Current.Request.Cookies["LinkedinCookie"]["AccessToken"]).ToString(),
+                    TokenSecret = Server.HtmlEncode(System.Web.HttpContext.Current.Request.Cookies["LinkedinCookie"]["AccessSecretToken"]).ToString(),
                     Verifier = verifier,
                     Type = Hammock.Authentication.OAuth.OAuthType.AccessToken,
                     ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
@@ -147,11 +152,14 @@ namespace Generic.Controllers
             }
             catch 
             {
-                var returnError = "NullReferenceException!!";
-                if (Request.Cookies["AccessToken"] != null)
-                    returnError += " AccessToken - " + Response.Cookies["AccessToken"].Value;
-                if (Request.Cookies["AccessSecretToken"] != null)
-                    returnError += " AccessSecretToken - " + Response.Cookies["AccessSecretToken"].Value;
+                var returnError = "NullReferenceException!!!";
+                if (Request.Cookies["LinkedinCookie"] != null)
+                {
+                    if (Request.Cookies["AccessToken"] != null)
+                        returnError += " AccessToken - " + Server.HtmlEncode(System.Web.HttpContext.Current.Request.Cookies["LinkedinCookie"]["AccessToken"]);
+                    if (Request.Cookies["AccessSecretToken"] != null)
+                        returnError += " AccessSecretToken - " + Server.HtmlEncode(System.Web.HttpContext.Current.Request.Cookies["LinkedinCookie"]["AccessSecretToken"]);
+                }
                 throw new Exception(returnError);
             }
 
