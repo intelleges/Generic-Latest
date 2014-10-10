@@ -332,6 +332,7 @@ namespace Generic.Controllers
         public ActionResult GetTouchPointWithTitleByprotocolId(int protocolId)
         {
             var touchpoint = db.pr_getTouchpointByProtocol(protocolId).Where(x => x.active == 1).Select(x => new { x.id, x.title }).ToList();
+            ViewBag.touchpoints = touchpoint;
             return Json(new { Data = touchpoint }, JsonRequestBehavior.AllowGet);
         }
 
