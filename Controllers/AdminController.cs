@@ -66,10 +66,10 @@ namespace Generic.Controllers
 
         //
         // POST: /Account/ExternalLogin
-
+        private static string token_secret;
         [HttpPost]
-        
-        public void ExternalLogin(string provider, string returnUrl)
+        [AllowAnonymous]
+        public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             var credentials = new Hammock.Authentication.OAuth.OAuthCredentials
             {
@@ -100,21 +100,25 @@ namespace Generic.Controllers
 
             //SessionSingleton.AccessToken = token;
             //SessionSingleton.AccessSecretToken = authToken;
-            Session["AccessToken"] = token;
-            Session["AccessSecretToken"] = authToken;
+            //Session["AccessToken"] = token;
+            //Session["AccessSecretToken"] = authToken;
+            token_secret = authToken;
 
             Response.Redirect("https://www.linkedin.com/uas/oauth/authorize?oauth_token=" + token, false);
+            return null;
         }
 
         //
         // GET: /Account/ExternalLoginCallback
-        
+        [AllowAnonymous]
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
-            String verifier = string.Empty;
+            String verifier = string.Empty,
+                oauth_token = string.Empty;
             try
             {
                 verifier = Request.QueryString["oauth_verifier"].ToString();
+                oauth_token = Request["oauth_token"].ToString();
             }
             catch
             {
@@ -128,12 +132,8 @@ namespace Generic.Controllers
                 {
                     ConsumerKey = "7747cjm5yf3gbp",
                     ConsumerSecret = "SzdxJQqxWWonlMz5",
-                    //Token = SessionSingleton.AccessToken,
-                    //TokenSecret = SessionSingleton.AccessSecretToken,
-                    //Token = Server.HtmlEncode(System.Web.HttpContext.Current.Request.Cookies["LinkedinCookie"]["AccessToken"]).ToString(),
-                    //TokenSecret = Server.HtmlEncode(System.Web.HttpContext.Current.Request.Cookies["LinkedinCookie"]["AccessSecretToken"]).ToString(),
-                    Token = Session["AccessToken"].ToString(),
-                    TokenSecret = Session["AccessSecretToken"].ToString(),
+                    Token = oauth_token,
+                    TokenSecret = token_secret,
                     Verifier = verifier,
                     Type = Hammock.Authentication.OAuth.OAuthType.AccessToken,
                     ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
@@ -146,13 +146,7 @@ namespace Generic.Controllers
                 var returnError = "NullReferenceException! ";
                 if (Session["AccessToken"] == null) returnError += " AccessToken is null ";
                 if (Session["AccessSecretToken"] == null) returnError += " AccessSecretToken is null";
-                //if (System.Web.HttpContext.Current.Request.Cookies["LinkedinCookie"] != null)
-                //{
-                //    if (System.Web.HttpContext.Current.Request.Cookies["AccessToken"] != null)
-                //        returnError += " AccessToken - " + Server.HtmlEncode(System.Web.HttpContext.Current.Request.Cookies["LinkedinCookie"]["AccessToken"]);
-                //    if (System.Web.HttpContext.Current.Request.Cookies["AccessSecretToken"] != null)
-                //        returnError += " AccessSecretToken - " + Server.HtmlEncode(System.Web.HttpContext.Current.Request.Cookies["LinkedinCookie"]["AccessSecretToken"]);
-                //}
+                
                 throw new Exception(returnError);
             }
 
