@@ -113,11 +113,17 @@ namespace Generic.Controllers
                    tokenFronUrl = string.Empty;
             try
             {
-                verifier = Request.QueryString["oauth_verifier"].ToString();
                 tokenFronUrl = Request.QueryString["oauth_token"].ToString();
+                verifier = Request.QueryString["oauth_verifier"].ToString();
             }
             catch
             {
+                try
+                {
+                    db.pr_removePersonLinkedinAuthInfo(db.pr_getPersonLinkedinAuthInfoByToken(tokenFronUrl).FirstOrDefault().id);
+                }
+                catch { }
+
                 return RedirectToAction("Index");
             }
 
@@ -238,7 +244,12 @@ namespace Generic.Controllers
                             }
                         }
                     }
-                    else return RedirectToAction("Index");
+                    else
+                    {
+                        db.pr_removePersonLinkedinAuthInfo(fullLinkedinAuthInfo.id);
+
+                        return RedirectToAction("Index");
+                    }
                 }
             }
 
