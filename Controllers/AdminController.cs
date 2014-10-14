@@ -316,7 +316,7 @@ namespace Generic.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Home");
+                    return RedirectToRoute("GenericNew", new { controller = "Admin", action = "Home", id = UrlParameter.Optional });
                 }
             }
 
