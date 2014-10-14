@@ -158,8 +158,8 @@ namespace Generic.Controllers
             Hammock.RestResponse response = client.Request(request);
             String[] strResponseAttributes = response.Content.Split('&');
 
-            string accesstoken = strResponseAttributes[0].Substring(strResponseAttributes[0].LastIndexOf('=') + 1);
-            string accessSecretToken = strResponseAttributes[1].Substring(strResponseAttributes[1].LastIndexOf('=') + 1);
+            string accessToken = strResponseAttributes[0].Substring(strResponseAttributes[0].LastIndexOf('=') + 1);
+            string accessTokenSecret = strResponseAttributes[1].Substring(strResponseAttributes[1].LastIndexOf('=') + 1);
 
             var hammockRequest = new Hammock.RestRequest
             {
@@ -173,8 +173,8 @@ namespace Generic.Controllers
                 ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
                 ConsumerKey = "7747cjm5yf3gbp",
                 ConsumerSecret = "SzdxJQqxWWonlMz5",
-                Token = accesstoken,
-                TokenSecret = accessSecretToken,
+                Token = accessToken,
+                TokenSecret = accessTokenSecret,
                 Verifier = verifier
             };
 
@@ -193,9 +193,7 @@ namespace Generic.Controllers
 
             if (!string.IsNullOrEmpty(email))
             {
-                SessionSingleton.EmailFromLinkedin = email;
-
-                List<Generic.enterprise> result = db.pr_getEnterpriseByEmail(email).ToList();                
+                List<Generic.enterprise> result = db.pr_getEnterpriseByEmail(email).ToList();
 
                 if (result.Count() == 0)
                 {
@@ -208,8 +206,25 @@ namespace Generic.Controllers
 
                     if (resultPerson != null)
                     {
-                        // save linkedin auth information to db
-                        db.pr_modifyPersonLinkedinAuthInfo(fullLinkedinAuthInfo.id, accesstoken, accessSecretToken, verifier, resultPerson.id);
+                        // check if we have already row it db for current user
+                        // if yes, remove currently created row and update prev row with new info
+                        var existingLinkedinInfo = db.pr_getPersonLinkedinAuthInfoByPerson(resultPerson.id).ToArray();
+
+                        foreach (var linkedinAuthInfoItem in existingLinkedinInfo)
+                        {
+                            db.pr_removePersonLinkedinAuthInfo(linkedinAuthInfoItem.id);
+                        }
+
+                        if (resultPerson.id == 3)
+                        {
+                            // default id. on prev step removed all his rows from db. add new one
+                            db.pr_addPersonLinkedinAuthInfo(accessToken, accessTokenSecret, verifier, resultPerson.id);
+                        }
+                        else
+                        {
+                            // standard scenario. modify current row.
+                            db.pr_modifyPersonLinkedinAuthInfo(fullLinkedinAuthInfo.id, accessToken, accessTokenSecret, verifier, resultPerson.id);
+                        }
 
                         if (result.Count() > 1)
                         {
@@ -241,7 +256,7 @@ namespace Generic.Controllers
                             }
                             else
                             {
-                                return RedirectToAction("Home", "Admin");
+                                return RedirectToAction("Home");
                             }
                         }
                     }
@@ -301,7 +316,7 @@ namespace Generic.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Home", "Admin");
+                    return RedirectToAction("Home");
                 }
             }
 
