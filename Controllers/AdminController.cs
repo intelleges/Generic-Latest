@@ -66,7 +66,6 @@ namespace Generic.Controllers
 
         //
         // POST: /Account/ExternalLogin
-        private static string token_secret;
         [HttpPost]
         [AllowAnonymous]
         public ActionResult ExternalLogin(string provider, string returnUrl)
@@ -98,11 +97,8 @@ namespace Generic.Controllers
             string token = strResponseAttributes[0].Substring(strResponseAttributes[0].LastIndexOf('=') + 1);
             string authToken = strResponseAttributes[1].Substring(strResponseAttributes[1].LastIndexOf('=') + 1);
 
-            //SessionSingleton.AccessToken = token;
-            //SessionSingleton.AccessSecretToken = authToken;
-            //Session["AccessToken"] = token;
-            //Session["AccessSecretToken"] = authToken;
-            token_secret = authToken;
+            // save tokens to db. initial, requests tokens are saved.
+            db.pr_addPersonLinkedinAuthInfo(token, authToken, string.Empty, 3);
 
             Response.Redirect("https://www.linkedin.com/uas/oauth/authorize?oauth_token=" + token, false);
             return null;
@@ -114,41 +110,32 @@ namespace Generic.Controllers
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
             String verifier = string.Empty,
-                oauth_token = string.Empty;
+                   tokenFronUrl = string.Empty;
             try
             {
                 verifier = Request.QueryString["oauth_verifier"].ToString();
-                oauth_token = Request["oauth_token"].ToString();
+                tokenFronUrl = Request.QueryString["oauth_token"].ToString();
             }
             catch
             {
                 return RedirectToAction("Index");
             }
 
-            var credentials = new Hammock.Authentication.OAuth.OAuthCredentials();
-            try
+            // get information about auth info by token from linkedin
+            var fullLinkedinAuthInfo = db.pr_getPersonLinkedinAuthInfoByToken(tokenFronUrl).FirstOrDefault();
+
+            var credentials = new Hammock.Authentication.OAuth.OAuthCredentials
             {
-                credentials = new Hammock.Authentication.OAuth.OAuthCredentials
-                {
-                    ConsumerKey = "7747cjm5yf3gbp",
-                    ConsumerSecret = "SzdxJQqxWWonlMz5",
-                    Token = oauth_token,
-                    TokenSecret = token_secret,
-                    Verifier = verifier,
-                    Type = Hammock.Authentication.OAuth.OAuthType.AccessToken,
-                    ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
-                    SignatureMethod = Hammock.Authentication.OAuth.OAuthSignatureMethod.HmacSha1,
-                    Version = "1.0"
-                };
-            }
-            catch 
-            {
-                var returnError = "NullReferenceException! ";
-                if (Session["AccessToken"] == null) returnError += " AccessToken is null ";
-                if (Session["AccessSecretToken"] == null) returnError += " AccessSecretToken is null";
-                
-                throw new Exception(returnError);
-            }
+                ConsumerKey = "7747cjm5yf3gbp",
+                ConsumerSecret = "SzdxJQqxWWonlMz5",
+                Token = fullLinkedinAuthInfo.token,
+                TokenSecret = fullLinkedinAuthInfo.tokenSecret,
+                Verifier = verifier,
+                Type = Hammock.Authentication.OAuth.OAuthType.AccessToken,
+                ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
+                SignatureMethod = Hammock.Authentication.OAuth.OAuthSignatureMethod.HmacSha1,
+                Version = "1.0"
+            };
 
             var client = new Hammock.RestClient 
             { 
@@ -165,8 +152,8 @@ namespace Generic.Controllers
             Hammock.RestResponse response = client.Request(request);
             String[] strResponseAttributes = response.Content.Split('&');
 
-            string token = strResponseAttributes[0].Substring(strResponseAttributes[0].LastIndexOf('=') + 1);
-            string authToken = strResponseAttributes[1].Substring(strResponseAttributes[1].LastIndexOf('=') + 1);
+            string accesstoken = strResponseAttributes[0].Substring(strResponseAttributes[0].LastIndexOf('=') + 1);
+            string accessSecretToken = strResponseAttributes[1].Substring(strResponseAttributes[1].LastIndexOf('=') + 1);
 
             var hammockRequest = new Hammock.RestRequest
             {
@@ -180,8 +167,8 @@ namespace Generic.Controllers
                 ParameterHandling = Hammock.Authentication.OAuth.OAuthParameterHandling.HttpAuthorizationHeader,
                 ConsumerKey = "7747cjm5yf3gbp",
                 ConsumerSecret = "SzdxJQqxWWonlMz5",
-                Token = token,
-                TokenSecret = authToken,
+                Token = accesstoken,
+                TokenSecret = accessSecretToken,
                 Verifier = verifier
             };
 
@@ -193,9 +180,8 @@ namespace Generic.Controllers
             };
 
             var MyInfo = hammockClient.Request(hammockRequest);
-            String content = MyInfo.Content.ToString();
 
-            var person = from c in System.Xml.Linq.XElement.Parse(content).Elements() select c;
+            var person = from c in System.Xml.Linq.XElement.Parse(MyInfo.Content.ToString()).Elements() select c;
 
             string email = person.SingleOrDefault(e => e.Name == "email-address").Value;
 
@@ -203,44 +189,56 @@ namespace Generic.Controllers
             {
                 SessionSingleton.EmailFromLinkedin = email;
 
-                List<Generic.enterprise> result = db.pr_getEnterpriseByEmail(email).ToList();
+                List<Generic.enterprise> result = db.pr_getEnterpriseByEmail(email).ToList();                
 
                 if (result.Count() == 0)
                 {
                     var message = "Thank you for your interest in Intelleges. You currently do not have an Intelleges account, and right now LinkedIn members are by INVITATION ONLY. We are happy to add you to our WAITING LIST and send you an invite if this policy changes in the future. Please click Yes if you would like to be added. If you don &apos;t want to be added, click No. Thank you.";
                     TempData["LinkedInMessage"] = new KeyValuePair<string, string>("promptYesNo", message);
                 }
-                else if (result.Count() > 1)
+                else if (result.Count() >= 1)
                 {
-                    TempData["LinkedInMessage"] = new KeyValuePair<string, string>("promptDropDown", "Please select Enterprise");
-                    TempData["Enterprises"] = result;
-                }
-                else if (result.Count() == 1)
-                {
-                    FormsAuthentication.SetAuthCookie(email, false);
                     person resultPerson = db.pr_getPersonByEmail(result[0].id, email).FirstOrDefault();
-                    SessionSingleton.LoggedInUserId = resultPerson.id;
-                    SessionSingleton.MyEnterPriseId = resultPerson.enterprise;
-                    SessionSingleton.Touchpoint = (int)resultPerson.campaign;
 
-                    try
+                    if (resultPerson != null)
                     {
-                        SessionSingleton.EnterpriseURL = db.pr_getEnterpriseSystemInfo(resultPerson.enterprise).FirstOrDefault().companyWebSite;
-                    }
-                    catch
-                    {
-                        SessionSingleton.EnterpriseURL = "#";
-                    }
-                    Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(resultPerson.enterprise.ToString());
+                        // save linkedin auth information to db
+                        db.pr_modifyPersonLinkedinAuthInfo(fullLinkedinAuthInfo.id, accesstoken, accessSecretToken, verifier, resultPerson.id);
 
-                    if (resultPerson.personStatus == (int)PersonHelper.PersonStatus.Invited)
-                    {
-                        return RedirectToAction("ResetPassword", "Person");
+                        if (result.Count() > 1)
+                        {
+                            TempData["LinkedInMessage"] = new KeyValuePair<string, string>("promptDropDown", "Please select Enterprise");
+                            TempData["Enterprises"] = result;
+                        }
+                        else
+                        {
+                            FormsAuthentication.SetAuthCookie(email, false);
+
+                            SessionSingleton.LoggedInUserId = resultPerson.id;
+                            SessionSingleton.MyEnterPriseId = resultPerson.enterprise;
+                            SessionSingleton.Touchpoint = (int)resultPerson.campaign;
+
+                            try
+                            {
+                                SessionSingleton.EnterpriseURL = db.pr_getEnterpriseSystemInfo(resultPerson.enterprise).FirstOrDefault().companyWebSite;
+                            }
+                            catch
+                            {
+                                SessionSingleton.EnterpriseURL = "#";
+                            }
+                            Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(resultPerson.enterprise.ToString());
+
+                            if (resultPerson.personStatus == (int)PersonHelper.PersonStatus.Invited)
+                            {
+                                return RedirectToAction("ResetPassword", "Person");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Home", "Admin");
+                            }
+                        }
                     }
-                    else
-                    {
-                        return RedirectToAction("Home", "Admin");
-                    }
+                    else return RedirectToAction("Index");
                 }
             }
 
@@ -268,8 +266,10 @@ namespace Generic.Controllers
             if (!string.IsNullOrEmpty(enterpriseid))
             {
                 var email = SessionSingleton.EmailFromLinkedin;
-                FormsAuthentication.SetAuthCookie(email, false);
                 person resultPerson = db.pr_getPersonByEmail(Convert.ToInt32(enterpriseid), email).FirstOrDefault();
+
+                FormsAuthentication.SetAuthCookie(email, false);
+                
                 SessionSingleton.LoggedInUserId = resultPerson.id;
                 SessionSingleton.MyEnterPriseId = resultPerson.enterprise;
                 SessionSingleton.Touchpoint = (int)resultPerson.campaign;

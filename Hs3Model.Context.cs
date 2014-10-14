@@ -178,6 +178,7 @@ namespace Generic
         public DbSet<enterpriseSpreadsheetDataLoad> enterpriseSpreadsheetDataLoad { get; set; }
         public DbSet<confirmationSpreadsheetDataLoad> confirmationSpreadsheetDataLoad { get; set; }
         public DbSet<view_QuestionnaireCMS> view_QuestionnaireCMS { get; set; }
+        public DbSet<personLinkedinAuthInfo> personLinkedinAuthInfo { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -14092,6 +14093,107 @@ namespace Generic
                 new ObjectParameter("email", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterprise>("pr_getEnterpriseByEmail", mergeOption, emailParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_addPersonLinkedinAuthInfo(string token, string tokenSecret, string verifier, Nullable<int> person)
+        {
+            var tokenParameter = token != null ?
+                new ObjectParameter("token", token) :
+                new ObjectParameter("token", typeof(string));
+    
+            var tokenSecretParameter = tokenSecret != null ?
+                new ObjectParameter("tokenSecret", tokenSecret) :
+                new ObjectParameter("tokenSecret", typeof(string));
+    
+            var verifierParameter = verifier != null ?
+                new ObjectParameter("verifier", verifier) :
+                new ObjectParameter("verifier", typeof(string));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPersonLinkedinAuthInfo", tokenParameter, tokenSecretParameter, verifierParameter, personParameter);
+        }
+    
+        public virtual ObjectResult<personLinkedinAuthInfo> pr_getPersonLinkedinAuthInfoAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<personLinkedinAuthInfo>("pr_getPersonLinkedinAuthInfoAll");
+        }
+    
+        public virtual ObjectResult<personLinkedinAuthInfo> pr_getPersonLinkedinAuthInfoAll(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<personLinkedinAuthInfo>("pr_getPersonLinkedinAuthInfoAll", mergeOption);
+        }
+    
+        public virtual ObjectResult<personLinkedinAuthInfo> pr_getPersonLinkedinAuthInfoByPerson(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<personLinkedinAuthInfo>("pr_getPersonLinkedinAuthInfoByPerson", personParameter);
+        }
+    
+        public virtual ObjectResult<personLinkedinAuthInfo> pr_getPersonLinkedinAuthInfoByPerson(Nullable<int> person, MergeOption mergeOption)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<personLinkedinAuthInfo>("pr_getPersonLinkedinAuthInfoByPerson", mergeOption, personParameter);
+        }
+    
+        public virtual ObjectResult<personLinkedinAuthInfo> pr_getPersonLinkedinAuthInfoByToken(string token)
+        {
+            var tokenParameter = token != null ?
+                new ObjectParameter("token", token) :
+                new ObjectParameter("token", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<personLinkedinAuthInfo>("pr_getPersonLinkedinAuthInfoByToken", tokenParameter);
+        }
+    
+        public virtual ObjectResult<personLinkedinAuthInfo> pr_getPersonLinkedinAuthInfoByToken(string token, MergeOption mergeOption)
+        {
+            var tokenParameter = token != null ?
+                new ObjectParameter("token", token) :
+                new ObjectParameter("token", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<personLinkedinAuthInfo>("pr_getPersonLinkedinAuthInfoByToken", mergeOption, tokenParameter);
+        }
+    
+        public virtual int pr_modifyPersonLinkedinAuthInfo(Nullable<int> id, string token, string tokenSecret, string verifier, Nullable<int> person)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var tokenParameter = token != null ?
+                new ObjectParameter("token", token) :
+                new ObjectParameter("token", typeof(string));
+    
+            var tokenSecretParameter = tokenSecret != null ?
+                new ObjectParameter("tokenSecret", tokenSecret) :
+                new ObjectParameter("tokenSecret", typeof(string));
+    
+            var verifierParameter = verifier != null ?
+                new ObjectParameter("verifier", verifier) :
+                new ObjectParameter("verifier", typeof(string));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonLinkedinAuthInfo", idParameter, tokenParameter, tokenSecretParameter, verifierParameter, personParameter);
+        }
+    
+        public virtual int pr_removePersonLinkedinAuthInfo(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonLinkedinAuthInfo", idParameter);
         }
     }
 }

@@ -83,6 +83,7 @@
           <EntitySet Name="partnumberStatus" EntityType="hs3MVCMTQa2Model.Store.partnumberStatus" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="person" EntityType="hs3MVCMTQa2Model.Store.person" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personGroup" EntityType="hs3MVCMTQa2Model.Store.personGroup" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="personLinkedinAuthInfo" EntityType="hs3MVCMTQa2Model.Store.personLinkedinAuthInfo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personLoginAudit" EntityType="hs3MVCMTQa2Model.Store.personLoginAudit" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personLoginAuditEvent" EntityType="hs3MVCMTQa2Model.Store.personLoginAuditEvent" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="personRelationship" EntityType="hs3MVCMTQa2Model.Store.personRelationship" store:Type="Tables" Schema="dbo" />
@@ -657,6 +658,10 @@
           <AssociationSet Name="FK_personGroup_person" Association="hs3MVCMTQa2Model.Store.FK_personGroup_person">
             <End Role="person" EntitySet="person" />
             <End Role="personGroup" EntitySet="personGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personLinkedinAuthInfo_person" Association="hs3MVCMTQa2Model.Store.FK_personLinkedinAuthInfo_person">
+            <End Role="person" EntitySet="person" />
+            <End Role="personLinkedinAuthInfo" EntitySet="personLinkedinAuthInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_personLoginAudit_person" Association="hs3MVCMTQa2Model.Store.FK_personLoginAudit_person">
             <End Role="person" EntitySet="person" />
@@ -1940,6 +1945,16 @@
           </Key>
           <Property Name="person" Type="int" Nullable="false" />
           <Property Name="group" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="personLinkedinAuthInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="token" Type="nvarchar" MaxLength="100" />
+          <Property Name="tokenSecret" Type="nvarchar" MaxLength="100" />
+          <Property Name="verifier" Type="nvarchar" MaxLength="50" />
+          <Property Name="person" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="personLoginAudit">
           <Key>
@@ -3842,6 +3857,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_personLinkedinAuthInfo_person">
+          <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
+          <End Role="personLinkedinAuthInfo" Type="hs3MVCMTQa2Model.Store.personLinkedinAuthInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personLinkedinAuthInfo">
+              <PropertyRef Name="person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_personLoginAudit_person">
           <End Role="person" Type="hs3MVCMTQa2Model.Store.person" Multiplicity="1" />
           <End Role="personLoginAudit" Type="hs3MVCMTQa2Model.Store.personLoginAudit" Multiplicity="*" />
@@ -5103,6 +5130,12 @@
           <Parameter Name="group" Type="int" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addPersonLinkedinAuthInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="token" Type="nvarchar" Mode="In" />
+          <Parameter Name="tokenSecret" Type="nvarchar" Mode="In" />
+          <Parameter Name="verifier" Type="nvarchar" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addPersonRelationshipType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -6235,6 +6268,13 @@
         <Function Name="pr_getPersonInternalIDCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="internalID" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getPersonLinkedinAuthInfoAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getPersonLinkedinAuthInfoByPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonLinkedinAuthInfoByToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="token" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPersonNameById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -7064,6 +7104,13 @@
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="isArchived" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPersonLinkedinAuthInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="token" Type="nvarchar" Mode="In" />
+          <Parameter Name="tokenSecret" Type="nvarchar" Mode="In" />
+          <Parameter Name="verifier" Type="nvarchar" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPersonManager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="manager" Type="int" Mode="In" />
@@ -7541,6 +7588,9 @@
         <Function Name="pr_removePersonGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
           <Parameter Name="group" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removePersonLinkedinAuthInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removePersonRelationshipType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -12108,7 +12158,35 @@
           <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getEnterpriseByEmail" EntitySet="enterprise" ReturnType="Collection(hs3MVCMTQa2Model.enterprise)">
-            <Parameter Name="email" Mode="In" Type="String" />
+          <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="personLinkedinAuthInfo" EntityType="hs3MVCMTQa2Model.personLinkedinAuthInfo" />
+          <AssociationSet Name="FK_personLinkedinAuthInfo_person" Association="hs3MVCMTQa2Model.FK_personLinkedinAuthInfo_person">
+            <End Role="person" EntitySet="person" />
+            <End Role="personLinkedinAuthInfo" EntitySet="personLinkedinAuthInfo" />
+          </AssociationSet>
+          <FunctionImport Name="pr_addPersonLinkedinAuthInfo" ReturnType="Collection(Int32)">
+            <Parameter Name="token" Mode="In" Type="String" />
+            <Parameter Name="tokenSecret" Mode="In" Type="String" />
+            <Parameter Name="verifier" Mode="In" Type="String" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonLinkedinAuthInfoAll" EntitySet="personLinkedinAuthInfo" ReturnType="Collection(hs3MVCMTQa2Model.personLinkedinAuthInfo)" />
+          <FunctionImport Name="pr_getPersonLinkedinAuthInfoByPerson" EntitySet="personLinkedinAuthInfo" ReturnType="Collection(hs3MVCMTQa2Model.personLinkedinAuthInfo)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonLinkedinAuthInfoByToken" EntitySet="personLinkedinAuthInfo" ReturnType="Collection(hs3MVCMTQa2Model.personLinkedinAuthInfo)">
+            <Parameter Name="token" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonLinkedinAuthInfo">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="token" Mode="In" Type="String" />
+            <Parameter Name="tokenSecret" Mode="In" Type="String" />
+            <Parameter Name="verifier" Mode="In" Type="String" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePersonLinkedinAuthInfo">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -13013,6 +13091,7 @@
           <NavigationProperty Name="role" Relationship="hs3MVCMTQa2Model.personRole" FromRole="person" ToRole="role" />
           <NavigationProperty Name="partnerSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partner__perso__7E62A77F" FromRole="person" ToRole="partnerSpreadsheetDataLoad" />
           <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F" FromRole="person" ToRole="partnumberSpreadsheetDataLoad" />
+          <NavigationProperty Name="personLinkedinAuthInfo" Relationship="hs3MVCMTQa2Model.FK_personLinkedinAuthInfo_person" FromRole="person" ToRole="personLinkedinAuthInfo" />
           
         </EntityType>
         <EntityType Name="personLoginAudit">
@@ -19284,6 +19363,43 @@
           <Property Type="Boolean" Name="IsArchived" Nullable="true" />
           <Property Type="DateTime" Name="archivedDate1" Nullable="true" Precision="23" />
         </ComplexType>
+        <EntityType Name="personLinkedinAuthInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="token" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="tokenSecret" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="verifier" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK_personLinkedinAuthInfo_person" FromRole="personLinkedinAuthInfo" ToRole="person" />
+        </EntityType>
+        <Association Name="FK_personLinkedinAuthInfo_person">
+          <End Type="hs3MVCMTQa2Model.person" Role="person" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.personLinkedinAuthInfo" Role="personLinkedinAuthInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personLinkedinAuthInfo">
+              <PropertyRef Name="person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="pr_getPersonLinkedinAuthInfoAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="token" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="tokenSecret" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="verifier" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonLinkedinAuthInfoByPerson_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="token" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="tokenSecret" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="verifier" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -25058,6 +25174,25 @@
           <FunctionImportMapping FunctionImportName="pr_removeAutomailMessageByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutomailMessageByQuestionnaire" />
           <FunctionImportMapping FunctionImportName="pr_getEnterpriseByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseByEmail">
           </FunctionImportMapping>
+          <EntitySetMapping Name="personLinkedinAuthInfo">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personLinkedinAuthInfo">
+              <MappingFragment StoreEntitySet="personLinkedinAuthInfo">
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="verifier" ColumnName="verifier" />
+                <ScalarProperty Name="tokenSecret" ColumnName="tokenSecret" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPersonLinkedinAuthInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonLinkedinAuthInfo" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonLinkedinAuthInfoAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonLinkedinAuthInfoAll">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonLinkedinAuthInfoByPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonLinkedinAuthInfoByPerson">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonLinkedinAuthInfoByToken" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonLinkedinAuthInfoByToken" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonLinkedinAuthInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonLinkedinAuthInfo" />
+          <FunctionImportMapping FunctionImportName="pr_removePersonLinkedinAuthInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_removePersonLinkedinAuthInfo" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

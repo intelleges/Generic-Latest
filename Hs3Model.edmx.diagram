@@ -261,6 +261,8 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseSpreadsheetDataLoad" Width="1.5" PointX="10.995945984030119" PointY="21.91816369719718" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.confirmationSpreadsheetDataLoad" Width="1.5" PointX="11.143329899359182" PointY="5.8776222941827134" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_QuestionnaireCMS" Width="1.5" PointX="10.024359476763923" PointY="6.7434592725445794" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLinkedinAuthInfo" Width="1.5" PointX="2.506392679413032" PointY="20.723104948514656" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLinkedinAuthInfo_person" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

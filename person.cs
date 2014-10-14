@@ -30,6 +30,7 @@ namespace Generic
             this.role = new HashSet<role>();
             this.partnerSpreadsheetDataLoad = new HashSet<partnerSpreadsheetDataLoad>();
             this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
+            this.personLinkedinAuthInfo = new HashSet<personLinkedinAuthInfo>();
         }
     
         public int id { get; set; }
@@ -80,5 +81,6 @@ namespace Generic
         public virtual ICollection<role> role { get; set; }
         public virtual ICollection<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
         public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
+        public virtual ICollection<personLinkedinAuthInfo> personLinkedinAuthInfo { get; set; }
     }
 }
