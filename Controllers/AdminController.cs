@@ -316,7 +316,7 @@ namespace Generic.Controllers
                 }
                 else
                 {
-                    return RedirectToRoute("GenericNew", new { controller = "Admin", action = "Home", id = UrlParameter.Optional });
+                    return RedirectToAction("Home", "Admin");
                 }
             }
 
@@ -722,30 +722,12 @@ namespace Generic.Controllers
             return View();
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         [Authorize]
         public virtual ActionResult HomePage()
         {
             ViewBag.Project = "Generic";
             return View();
         }
-
-
 
         public virtual ActionResult SendGridTest()
         {

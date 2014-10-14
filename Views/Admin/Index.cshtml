@@ -328,12 +328,12 @@
                             "html": '@Html.AntiForgeryToken()'
                                 + '<input type="hidden" name="enterpriseid" value="' + $("#linkedinSelectEnterpriseDialogDropdown").val() + '" />'
                                 + '<input type="hidden" name="email" value="' + $("#tempstorage").val() + '" />',
-                            "action": '/Admin/LoginByEnterprise',
+                            "action": '~/Admin/LoginByEnterprise',
                             "method": 'post',
                             "style": 'display: none'
                         }).appendTo(document.body).submit();
                     },
-                    "Confirm": function () {
+                    "Cancel": function () {
                         $(this).dialog("close");
                     }
                 }
