@@ -325,7 +325,9 @@
                     "Select Enterprise": function () {
                         $('<form>', {
                             "id": "loginByEnterprise",
-                            "html": '@Html.AntiForgeryToken()' + '<input type="hidden" name="enterpriseid" value="' + $("#linkedinSelectEnterpriseDialogDropdown").val() + '" />',
+                            "html": '@Html.AntiForgeryToken()'
+                                + '<input type="hidden" name="enterpriseid" value="' + $("#linkedinSelectEnterpriseDialogDropdown").val() + '" />'
+                                + '<input type="hidden" name="email" value="' + $("#tempstorage").val() + '" />',
                             "action": '/Admin/LoginByEnterprise',
                             "method": 'post',
                             "style": 'display: none'
@@ -345,7 +347,8 @@
                 string safeLinkedinMeesage = string.Empty,
                     safeDialogType = string.Empty,
                     safeEnterprisesIds = string.Empty,
-                    safeEnterprisesNames = string.Empty;
+                    safeEnterprisesNames = string.Empty,
+                    safeEmail = string.Empty;
                     
                 if (TempData["LinkedInMessage"] != null)
                 {
@@ -368,10 +371,17 @@
                         safeEnterprisesNames = safeEnterprisesNames.Substring(0, safeEnterprisesNames.Length - 1);
                     }
                 }
+
+                if (TempData["Email"] != null) 
+                {
+                    safeEmail = TempData["Email"] as string;
+                }
             }
 
             var linkedinMeesage = '@(safeLinkedinMeesage)';
             var dialogType = '@(safeDialogType)';
+
+            $("#tempstorage").val('@(safeEmail)');
 
             if (dialogType != '' && dialogType != undefined) {
                 if (dialogType == "promptYesNo") {
@@ -1153,6 +1163,7 @@ quality improvement; regulatory compliance; and competitive positioning.
         </div>
 
         <div id="linkedinSelectEnterpriseDialog" title="Selecting enterprise">
+            <input type="hidden" id="tempstorage" />
 	        <p>Select enterprise: </p>
 	        <select id="linkedinSelectEnterpriseDialogDropdown"/>
         </div>

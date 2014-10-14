@@ -215,6 +215,7 @@ namespace Generic.Controllers
                         {
                             TempData["LinkedInMessage"] = new KeyValuePair<string, string>("promptDropDown", "Please select Enterprise");
                             TempData["Enterprises"] = result;
+                            TempData["Email"] = email;
                         }
                         else
                         {
@@ -272,11 +273,10 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult LoginByEnterprise(string enterpriseid)
+        public ActionResult LoginByEnterprise(string enterpriseid, string email)
         {
             if (!string.IsNullOrEmpty(enterpriseid))
             {
-                var email = SessionSingleton.EmailFromLinkedin;
                 person resultPerson = db.pr_getPersonByEmail(Convert.ToInt32(enterpriseid), email).FirstOrDefault();
 
                 FormsAuthentication.SetAuthCookie(email, false);
