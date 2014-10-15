@@ -256,7 +256,7 @@ namespace Generic.Controllers
                             }
                             else
                             {
-                                return RedirectToAction("Home");
+                                return RedirectToAction("Home", "Admin");
                             }
                         }
                     }
@@ -273,6 +273,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public JsonResult AddEmailToWaitingList()
         {
             // get email from session and add user to queue
@@ -288,6 +289,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult LoginByEnterprise(string enterpriseid, string email)
         {
             if (!string.IsNullOrEmpty(enterpriseid))
@@ -320,7 +322,7 @@ namespace Generic.Controllers
                 }
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Admin");
         }
 
         [HttpPost]

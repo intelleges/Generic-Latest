@@ -323,15 +323,7 @@
                 modal: true,
                 buttons: {
                     "Select Enterprise": function () {
-                        $('<form>', {
-                            "id": "loginByEnterprise",
-                            "html": '@Html.AntiForgeryToken()'
-                                + '<input type="hidden" name="enterpriseid" value="' + $("#linkedinSelectEnterpriseDialogDropdown").val() + '" />'
-                                + '<input type="hidden" name="email" value="' + $("#tempstorage").val() + '" />',
-                            "action": '~/Admin/LoginByEnterprise',
-                            "method": 'post',
-                            "style": 'display: none'
-                        }).appendTo(document.body).submit();
+                        $("#linkedinSelectEnterpriseDialogForm").submit();
                     },
                     "Cancel": function () {
                         $(this).dialog("close");
@@ -1163,9 +1155,11 @@ quality improvement; regulatory compliance; and competitive positioning.
         </div>
 
         <div id="linkedinSelectEnterpriseDialog" title="Selecting enterprise">
-            <input type="hidden" id="tempstorage" />
-	        <p>Select enterprise: </p>
-	        <select id="linkedinSelectEnterpriseDialogDropdown"/>
+            <form id="linkedinSelectEnterpriseDialogForm" action="~/Admin/LoginByEnterprise" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="tempstorage" name="email" />
+	            <p>Select enterprise: </p>
+	            <select id="linkedinSelectEnterpriseDialogDropdown" name="enterpriseid"/>
+            </form>
         </div>
     </div>
 </body>
