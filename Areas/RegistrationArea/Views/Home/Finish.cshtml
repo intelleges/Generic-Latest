@@ -175,10 +175,17 @@
     string link = @ViewBag.CMS_PAGE_NEXT_LINK;
 //link = "http://" +  link;
 }
-
-        <a href="@link"> @*@link http://honeywell.com/*@
-        <input name="btnNext" id="btnNext" value="@ViewBag.CMS_PAGE_NEXT_TEXT" style="border-width:0px;" type="submit">
-        </a>
+            <script>
+                function redirect(url) {
+                    window.location.href = "http://" + url;
+                    return false;
+                }
+            </script>
+        
+        <input type="button" name="btnNext" id="btnNext"
+	       value="@ViewBag.CMS_PAGE_NEXT_TEXT"
+	       onclick="redirect('@link')"
+	       style="border-width:0px;" />
         </td>
     </tr>
 </tbody></table>
