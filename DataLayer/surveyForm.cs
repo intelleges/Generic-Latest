@@ -220,13 +220,13 @@ namespace Generic.DataLayer
                 for (int i = 0; i < surveyCollection.Count; i++)
                 {
                     survey = surveyCollection[i];
-                    showquestionCollectionBysurvey(surveyset, survey, jumpToquestion, table);
+                    showquestionCollectionBysurvey(surveyset, survey, ref jumpToquestion, table);
                 }
             }
         }
 
         //    private void showquestionCollectionBysurvey(survey survey, int jumpToquestion, Table table)
-        private void showquestionCollectionBysurvey(surveyset surveyset, survey survey, int jumpToquestion, Table table)
+        private void showquestionCollectionBysurvey(surveyset surveyset, survey survey, ref int jumpToquestion, Table table)
         {
 
             List<question> questionCollection = db.pr_getQuestionBySurveySkipLogic(survey.id, jumpToquestion).ToList();
@@ -238,9 +238,9 @@ namespace Generic.DataLayer
 
                 for (int i = 0; i < questionCollection.Count; i++)
                 {
-
                     question = questionCollection[i];
                     this.questionIndex += 1;
+                    jumpToquestion++;
                     showquestion(surveyset, survey, question, this.questionIndex, table);
                 }
             }
@@ -1354,7 +1354,7 @@ namespace Generic.DataLayer
                     tableRow.Controls.Add(tableCell);
 
                     tableCell = new TableCell();
-                    radioButtonList = new Generic.Helpers.UIControl.MyRadioButtonList();
+                    radioButtonList = new  RadioButtonList();//new Generic.Helpers.UIControl.MyRadioButtonList();
                     radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
                     radioButtonList.Font.Size = 10;
                     //radioButtonList.Attributes.Add("onchange", "javascript:showdiv();");
