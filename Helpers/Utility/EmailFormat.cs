@@ -44,6 +44,11 @@ namespace Generic.Helpers.Utility
         {
             return this.sGetResult(sEmailBody, sender, null, partner, null, touchpoint, ptq);
         }
+
+        public string sGetEmailBody(string sEmailBody, person sender, partner partner,enterprise enterprise, touchpoint touchpoint, int ptq)
+        {
+            return this.sGetResult(sEmailBody, sender, null, partner, enterprise, touchpoint, ptq);
+        }
         public string sGetEmailBody(string sEmailBody, person sender, person receiver, touchpoint touchpoint, enterprise enterprise,person systemmaster)
         {
             return this.sGetResult(sEmailBody, sender, receiver, null, enterprise, touchpoint,0,systemmaster);

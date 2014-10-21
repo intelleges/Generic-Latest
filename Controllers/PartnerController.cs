@@ -1438,9 +1438,9 @@ namespace Generic.Controllers
             if (!string.IsNullOrEmpty(accesscode))
             {
                 Session["accessCode"] = accesscode;
-                ///Registration/Home/OrdersInPdf
-                // return RedirectToAction("OrdersInPdf","Home",new  {area="Registration"});
-                Response.Redirect("~/Registration/Home/OrdersInPdf");
+                ///Registration/Home/PDFConfirmation
+                // return RedirectToAction("PDFConfirmation","Home",new  {area="Registration"});
+                Response.Redirect("~/Registration/Home/PDFConfirmation");
             }
             return RedirectToAction("FindPartnerResult");
 
@@ -1450,8 +1450,8 @@ namespace Generic.Controllers
             if (!string.IsNullOrEmpty(accesscode))
             {
                 Session["accessCode"] = accesscode;
-                ///Registration/Home/OrdersInPdf
-                // return RedirectToAction("OrdersInPdf","Home",new  {area="Registration"});
+                ///Registration/Home/PDFConfirmation
+                // return RedirectToAction("PDFConfirmation","Home",new  {area="Registration"});
                 Response.Redirect("~/Registration/Home/OrdersInHTML");
             }
             return RedirectToAction("FindPartnerResult");

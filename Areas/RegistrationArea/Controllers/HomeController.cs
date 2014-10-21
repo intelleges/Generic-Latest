@@ -1797,6 +1797,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
                 partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
+                enterprise _enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
                 if (isCompletedSurvey)
                 {
                     var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, ptq.id).FirstOrDefault();
@@ -1804,7 +1805,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
                     Email email = new Email(amm);
                     EmailFormat emailFormat = new EmailFormat();
-                    email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, objtouchpoint, ptq.id);
+                    email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, _enterprise, objtouchpoint, ptq.id);
                     email.emailTo = objPartner.email;
                     SendEmail objSendEmail = new SendEmail();
                     objSendEmail.sendEmail(email);
@@ -1816,7 +1817,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
                     Email email = new Email(amm);
                     EmailFormat emailFormat = new EmailFormat();
-                    email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, objtouchpoint, ptq.id);
+                    email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, _enterprise, objtouchpoint, ptq.id);
                     email.emailTo = objPartner.email;
                     SendEmail objSendEmail = new SendEmail();
                     objSendEmail.sendEmail(email);
@@ -1886,7 +1887,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 catch { } try
                 {
                     ViewBag.CMS_PAGE_PREVIOUS_TEXT = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONFIRMATION_PAGE_PREVIOUS_TEXT).FirstOrDefault().id).FirstOrDefault().text;
-
+                }
+                catch { } try
+                {
+                    ViewBag.ACCESS_CODE = Session["accessCode"];
+                }
+                catch { } try
+                {
+                    ViewBag.CMS_PAGE_PREVIOUS_LINK = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONFIRMATION_PAGE_PREVIOUS_TEXT).FirstOrDefault().id).FirstOrDefault().link;
                 }
                 catch { }
 
@@ -2115,15 +2123,40 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
         }
 
-        public ActionResult OrdersInPdf()
+        public ActionResult PrintPDF(string accesscode)
+        {
+            if (!string.IsNullOrEmpty(accesscode))
+            {
+                Session["accessCode"] = accesscode;
+                Response.Redirect("~/Registration/Home/PDFConfirmation");
+            }
+            return RedirectToAction("~/Registration/Home");
+
+        }
+
+        public ActionResult PDFConfirmation()
         {
             QuestionnaireModel modl = new QuestionnaireModel();
             List<pr_getPartnerQuestionResponseByAccessCode_Result> reslt = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
 
-            //List<pr_getPartnerHeaderByAccessCode_Result>
             var find = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
             ViewBag.reslt2 = find;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var _person = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().person;
+            ViewBag.person = _person;
+
+            var _country = db.pr_getCountry(_person.country).FirstOrDefault();
+            if (_country != null)
+                ViewBag.country = _country.name;
+            else
+                ViewBag.country = string.Empty;
+
+            var _state = db.pr_getState(_person.state).FirstOrDefault();
+            if (_state != null)
+                ViewBag.state = _state.stateCode;
+            else
+                ViewBag.state = string.Empty;
+
             if (enterprise == null)
             {
                 //var enterpriseIntelleges = db.pr_getEnterprise(1).FirstOrDefault();
@@ -2132,16 +2165,29 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             else
             {
-                //C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\enterprise3.gif
-                string temp = enterprise.FirstOrDefault().applicationPath;
-                if (temp != null)
+                var logo = enterprise.FirstOrDefault().logo;
+                string dirname = @"C:\https\MVCMT\logo\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
+                if (Directory.Exists(dirname))
                 {
-                    ViewBag.logoSrc = Server.MapPath("~") + temp.Substring(temp.IndexOf("uploadedFiles") - 1);
+                    var fileName = dirname + enterprise.FirstOrDefault().id + "Logo.png";
+                    if (!System.IO.File.Exists(fileName))
+                    {
+                        var fs = new BinaryWriter(new FileStream(fileName, FileMode.Append, FileAccess.Write));
+                        fs.Write(logo);
+                        fs.Close();
+                    }
+                    ViewBag.logoSrc = fileName;
                 }
-                else
-                {
-                    ViewBag.logoSrc = string.Empty;
-                }
+
+                //string temp = enterprise.FirstOrDefault().applicationPath;
+                //if (temp != null)
+                //{
+                //    ViewBag.logoSrc = Server.MapPath("~") + temp.Substring(temp.IndexOf("uploadedFiles") - 1);
+                //}
+                //else
+                //{
+                //    ViewBag.logoSrc = string.Empty;
+                //}
 
                 //ViewBag.logoSrc = enterprise.FirstOrDefault().applicationPath;
 
@@ -2162,7 +2208,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
             QuestionnaireModel modl = new QuestionnaireModel();
             List<pr_getPartnerQuestionResponseByAccessCode_Result> reslt = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
 
-            //List<pr_getPartnerHeaderByAccessCode_Result>
             var find = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
             ViewBag.reslt2 = find;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();

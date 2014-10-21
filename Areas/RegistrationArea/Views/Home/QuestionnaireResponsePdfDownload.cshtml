@@ -43,87 +43,162 @@
         <img width="100%" src="@imageSrc"  style="max-height: 50px;" />
     }*@
                 @*<img width="100%" src="@Url.Content("~/Admin/Home/ExportPng")"  style="max-height: 50px;" />*@
+               
                 @if (!string.IsNullOrEmpty(ViewBag.logoSrc))
                 {
-                    <img width="400px" src="@ViewBag.logoSrc"  style="" />
-             
+                    <img width="200px" src="@ViewBag.logoSrc"  style="" />
                 }
             </td>
         </tr>
     </table>
-    <table width="100%">
-        <tr>
-            <td style="font-size: 15px; color: #081835">
-                @ViewBag.QuestionnaireTitle
-            </td>
-        </tr>
-    </table>
-
+    
     @foreach (var item in ViewBag.reslt2)
     {        
-        <table border="1" width="610">
+        <table width="100%">
             <tr>
+                <td style="font-size: 15px; color: #081835">
+                    @ViewBag.QuestionnaireTitle - @item.Access_Code
+                </td>
+            </tr>
+        </table>
+        <table width="100%" cellpadding="0" cellspacing="0" border="1">
+            <tr>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:15px;">
+                        INVITED DATE: @DateTime.Parse(item.Invited_Date.ToString()).ToString("MM/dd/yyyy")
+                </td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:15px;">
+                        COMPLETED DATE: @DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")
+                </td>
+            </tr>
+            <tr> 
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                        SUPPLIER NAME: @ViewBag.person.firstName  @ViewBag.person.lastName
+                </td>
+            </tr>
+            <tr> 
                 <td>
                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
                         <tr>
-                            <td style="font-size: 13px">Access Code
+                            <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;" >
+                                SUPPLIER ADDRESS #1: @ViewBag.person.address1 
                             </td>
-                            <td></td>
-                            <td style="font-size: 13px">@item.Access_Code</td>
                         </tr>
                         <tr>
-                            <td style="font-size: 13px">Internal ID
+                            <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;" >
+                                SUPPLIER ADDRESS #2: @ViewBag.person.address2
                             </td>
-                            <td></td>
-                            <td style="font-size: 13px">@item.Internal_ID</td>
                         </tr>
                         <tr>
-                            <td style="font-size: 11px">Score
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
+                                CITY/TOWN: @ViewBag.person.city
                             </td>
-                            <td></td>
-                            <td style="font-size: 11px">@item.Score</td>
                         </tr>
                         <tr>
-                            <td style="font-size: 11px">Invited Date
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
+                                STATE/PROVINCE/REGION: @ViewBag.state
                             </td>
-                            <td></td>
-                            <td style="font-size: 11px">@DateTime.Parse(item.Invited_Date.ToString()).ToString("MM/dd/yyyy")</td>
                         </tr>
                         <tr>
-                            <td style="font-size: 11px">Completed Date
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
+                                ZIP CODE: @ViewBag.person.zipcode
                             </td>
-                            <td></td>
-                            <td style="font-size: 11px">@DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")</td>
                         </tr>
                         <tr>
-                            <td style="font-size: 11px">ZCode
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
+                                COUNTRY: @ViewBag.country
                             </td>
-                            <td></td>
-                            <td style="font-size: 11px">@item.ZCode</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%" cellpadding="0" cellspacing="0" border="1">
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                                CONTACT NAME: @ViewBag.person.firstName @ViewBag.person.lastName 
+                            </td>
                         </tr>
                         <tr>
-                            <td style="font-size: 11px">Company
+                            <td  style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit">
+                                CONTACT TELEPHONE#: @ViewBag.person.phone
                             </td>
-                            <td></td>
-                            <td style="font-size: 11px">@item.Company</td>
+                            <td width="30%" style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit">
+                                CONTACT FAX#: @ViewBag.person.fax
+                            </td>
                         </tr>
                         <tr>
-                            <td style="font-size: 11px">POC First Name
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                                CONTACT EMAIL ADDRESS: @ViewBag.person.email 
+                                <br />
+                                <br />
                             </td>
-                            <td></td>
-                            <td style="font-size: 11px">@item.POC_First_Name</td>
                         </tr>
-                        <tr>
-                            <td style="font-size: 11px">POC Last Name
-                            </td>
-                            <td></td>
-                            <td style="font-size: 11px">@item.POC_Last_Name</td>
-                        </tr>
-
                     </table>
                 </td>
             </tr>
-        </table>      
+            <tr> 
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
+                    DUNS #: <br />
+                    @ViewBag.person.internalId
+                </td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
+                        SAP/LOCAL SUPPLIER #: <br />
+                        @ViewBag.person.internalId
+                </td>
+            </tr>
+
+
+            @*<tr>
+                <td style="font-size: 13px">Access Code</td>
+                <td></td>
+                <td style="font-size: 13px">@item.Access_Code</td>
+            </tr>
+            <tr>
+                <td style="font-size: 13px">Internal ID</td>
+                <td></td>
+                <td style="font-size: 13px">@item.Internal_ID</td>
+            </tr>
+            <tr>
+                <td style="font-size: 11px">Score</td>
+                <td></td>
+                <td style="font-size: 11px">@item.Score</td>
+            </tr>*@
+
+
+            @*<tr>
+                <td style="font-size: 11px">Invited Date</td>
+                <td></td>
+                <td style="font-size: 11px">@DateTime.Parse(item.Invited_Date.ToString()).ToString("MM/dd/yyyy")</td>
+            </tr>
+            <tr>
+                <td style="font-size: 11px">Completed Date</td>
+                <td></td>
+                <td style="font-size: 11px">@DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")</td>
+            </tr>*@
+
+
+            @* <tr>
+                <td style="font-size: 11px">ZCode</td>
+                <td></td>
+                <td style="font-size: 11px">@item.ZCode</td>
+            </tr>
+            <tr>
+                <td style="font-size: 11px">Company</td>
+                <td></td>
+                <td style="font-size: 11px">@item.Company</td>
+            </tr>
+            <tr>
+                <td style="font-size: 11px">POC First Name</td>
+                <td></td>
+                <td style="font-size: 11px">@item.POC_First_Name</td>
+            </tr>
+            <tr>
+                <td style="font-size: 11px">POC Last Name</td>
+                <td></td>
+                <td style="font-size: 11px">@item.POC_Last_Name</td>
+            </tr>*@
+
+        </table>
+     
     }
 
 
@@ -131,69 +206,64 @@
     <br />
     @{int i = 1;}
     @*here we can run foreach loop to bind all questions and answers*@
-    <table border="1" width="610">
-        <tr>
-            <td>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                    @foreach (var p in @Model)
-                    {
-                        <tr>
-                            <td style="font-size: 11px" width="25" valign="top"><span>@i</span></td>
-                            <td style="font-size: 11px" width="300">
-                                <div   style="word-wrap:break-word">   
-                                @p.question
-                                    </div>
-                            </td>
-                            <td style="font-size: 11px; text-align: left; padding-left: 10px" width="100">
-                                <div   style="word-wrap:break-word">  
-                                @p.description
-                                    </div>
-                            </td>
-                        </tr>
-                        i++;
+   
+        <table cellpadding="0" cellspacing="0" border="1" width="100%">
+            @foreach (var p in @Model)
+            {
+                <tr>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                        <div   style="word-wrap:break-word;" >   
+                           @i.  @Html.Raw(p.question)
+                        </div>
+                    </td>
+                </tr>
+                <tr >
+                    @{
+                        string[] resultArray = p.description.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
+                        <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;">
+                            <div   style="word-wrap:break-word;">  
+                                @if (resultArray.Count() > 0)
+                                {
+                                    @Html.Raw(resultArray[0])
+                                }
+                            </div>
+                        </td>
+                        <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;">
+                            <div   style="word-wrap:break-word;"> 
+                                @if (resultArray.Count() > 1)
+                                {
+                                    @Html.Raw(resultArray[1])
+                                }
+                            </div>
+                        </td>
                     }
-
-                </table>
-            </td>
-        </tr>
-    </table>
+                </tr>
+                     
+                <tr ><td colspan="2"><br/></td></tr>
+                i++;
+            }
+        </table>
     <br />
 
     @foreach (var item in ViewBag.reslt2)
     {        
-        <table border="1" width="610">
+        <table width="100%" cellpadding="0" cellspacing="0" border="1">
             <tr>
-                <td>
-                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                        <tr>
-                            <td style="font-size: 11px">eSignature First Name
-                            </td>
-                            <td></td>
-                            <td style="font-size: 11px;">@item.eSignature_First_Name</td>
-                        </tr>
-                        <tr>
-                            <td style="font-size: 11px">eSignature Last Name
-                            </td>
-                            <td></td>
-                            <td style="font-size: 11px;">@item.eSignature_Last_Name</td>
-                        </tr>
-                        <tr>
-                            <td style="font-size: 11px">eSignature eMail
-                            </td>
-                            <td></td>
-                            <td style="font-size: 11px">@item.eSignature_eMail </td>
-                        </tr>
-                        <tr>
-                            <td style="font-size: 11px">eSignature Title
-                            </td>
-                            <td></td>
-                            <td style="font-size: 11px">@item.eSignature_Title</td>
-                        </tr>
-                    </table>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    NAME: @item.eSignature_Last_Name @item.eSignature_First_Name
                 </td>
-
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    SIGNATURE: @item.eSignature_eMail
+                </td>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    DATE: @item.Completed_Date
+                </td>
             </tr>
-
+            <tr> 
+                <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;" colspan="3">
+                    TITLE: @item.eSignature_Title
+                </td>
+            </tr>
         </table>
     }
 
