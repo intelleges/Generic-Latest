@@ -14195,5 +14195,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonLinkedinAuthInfo", idParameter);
         }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> pr_getDueDateByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("pr_getDueDateByPPTQ", pptqParameter);
+        }
     }
 }

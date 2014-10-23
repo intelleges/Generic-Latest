@@ -5781,6 +5781,9 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getDomainAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getDueDateByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getEmailBounceType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -12173,10 +12176,10 @@
           </FunctionImport>
           <FunctionImport Name="pr_getPersonLinkedinAuthInfoAll" EntitySet="personLinkedinAuthInfo" ReturnType="Collection(hs3MVCMTQa2Model.personLinkedinAuthInfo)" />
           <FunctionImport Name="pr_getPersonLinkedinAuthInfoByPerson" EntitySet="personLinkedinAuthInfo" ReturnType="Collection(hs3MVCMTQa2Model.personLinkedinAuthInfo)">
-            <Parameter Name="person" Mode="In" Type="Int32" />
+          <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPersonLinkedinAuthInfoByToken" EntitySet="personLinkedinAuthInfo" ReturnType="Collection(hs3MVCMTQa2Model.personLinkedinAuthInfo)">
-            <Parameter Name="token" Mode="In" Type="String" />
+          <Parameter Name="token" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyPersonLinkedinAuthInfo">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -12186,7 +12189,10 @@
             <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removePersonLinkedinAuthInfo">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getDueDateByPPTQ" ReturnType="Collection(DateTime)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -25193,6 +25199,7 @@
           <FunctionImportMapping FunctionImportName="pr_getPersonLinkedinAuthInfoByToken" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonLinkedinAuthInfoByToken" />
           <FunctionImportMapping FunctionImportName="pr_modifyPersonLinkedinAuthInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonLinkedinAuthInfo" />
           <FunctionImportMapping FunctionImportName="pr_removePersonLinkedinAuthInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_removePersonLinkedinAuthInfo" />
+          <FunctionImportMapping FunctionImportName="pr_getDueDateByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getDueDateByPPTQ" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

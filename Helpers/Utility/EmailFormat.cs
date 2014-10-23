@@ -191,8 +191,15 @@ namespace Generic.Helpers.Utility
                     case "[Group]":
                         break;
                     case "[Due Date]":
-                       // sValue = partner.getDueDateByInitialInvitation(partner, touchpoint).ToShortDateString();
-                        sValue = "";
+                         EntitiesDBContext db = new EntitiesDBContext();
+                        var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partner.id, ptq).FirstOrDefault();
+                        var t = pptq;
+                        var dueDate = db.pr_getDueDateByPPTQ(pptq.id).FirstOrDefault();
+                        if (dueDate != null)
+                            sValue = Convert.ToDateTime(dueDate).ToString("d");
+                        else
+                            sValue = string.Empty;
+                        //sValue = partner.getDueDateByInitialInvitation(partner, touchpoint).ToShortDateString();
                         break;
                     case "[Start Date]":
                         sValue = DateTime.Now.ToShortDateString();

@@ -57,10 +57,10 @@ namespace Generic.Helpers
 
                         var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(pptq.accesscode, pptq.loadGroup).FirstOrDefault();
 
-                        if (objpartnerByAccessCode != null)
-                        {
-                            amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
-                        }
+                        //if (objpartnerByAccessCode != null)
+                        //{
+                        //    amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
+                        //}
 
                         var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(item.ptq).FirstOrDefault();
 
