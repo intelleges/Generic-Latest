@@ -10,6 +10,11 @@ using Generic.SessionClass;
 using Generic.Helpers.Questionnaire;
 using System.Xml.Serialization;
 using System.Web.Routing;
+using Generic.Helpers.Utility;
+using Generic.Models;
+using Generic.Helpers.PartnerHelper;
+using System.Data;
+using Generic.Helpers;
 
 namespace Generic.Controllers
 {
@@ -204,6 +209,67 @@ namespace Generic.Controllers
                 db.Database.SqlQuery<autoMailMessage>("EXEC pr_getAutomailMessageByQuestionnaire '" + id + "'").ToList();
             List<QuestionnaireAutoMailViewModel> lstquestionaireAutoMailDetails = ConvertToQuestionnaireAutoMailViewModel(questionnaireAutoMailDetail);
             return View(lstquestionaireAutoMailDetails);
+        }
+
+        public ActionResult QuestionnaireQuestionnaireTestAutomailAll(int id = 0)
+        {
+            var _enterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
+            var _currentPerson = db.pr_getPersonByEmail(_enterpriseID, User.Identity.Name).FirstOrDefault();
+            var _internalID = db.pr_getAccesscode().FirstOrDefault();
+            var _loadGroup = db.pr_getAccesscode().FirstOrDefault();
+            var _partnertypeTouchpoint = db.pr_getPartnertypeTouchpointQuestionnaireByQuestionnaire(id).FirstOrDefault();
+            var _ptq = db.pr_getPartnertypeTouchpointQuestionnaireByQuestionnaire(id).FirstOrDefault();
+            var _group = db.pr_getGroupByPTQ(_ptq.id).FirstOrDefault();
+            var _partnerSpreadsheetDataLoadStatus = 1;
+            var _dueDate = DateTime.Now.AddDays(28);
+
+            var _partnerId = db.pr_addPartnerSpreadsheetDataLoad(_internalID, _internalID, _currentPerson.firstName + "_" + _currentPerson.lastName, 
+                    _currentPerson.address1, _currentPerson.address2, _currentPerson.city, _currentPerson.state.ToString(), _currentPerson.zipcode, 
+                    _currentPerson.country.ToString(), _currentPerson.firstName, _currentPerson.lastName, _currentPerson.title, _currentPerson.phone,
+                    _currentPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, _partnertypeTouchpoint.partnerType, 
+                    _partnertypeTouchpoint.touchpoint, _currentPerson.id, _partnerSpreadsheetDataLoadStatus, _loadGroup, _dueDate, _group.id).ToList().FirstOrDefault();
+
+            var _partners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(_loadGroup).ToList();
+            var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(_partnertypeTouchpoint.partnerType, _partnertypeTouchpoint.touchpoint).LastOrDefault().id;
+            
+            foreach (var partnerItem in _partners)
+            {
+                var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerItem.partner, ptq).FirstOrDefault();
+                pptq.invitedDate = DateTime.Now;
+
+                var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+                pptq.invitedBy = person.id;
+                pptq.status = (int)PartnerStatus.Invited_NoResponse;
+                db.Entry(pptq).State = EntityState.Modified;
+                db.SaveChanges();
+
+                var _partner = db.pr_getPartner(partnerItem.partner).FirstOrDefault();
+                _partner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
+                db.Entry(_partner).State = EntityState.Modified;
+                db.SaveChanges();
+
+                var _touchpoint = db.pr_getTouchpoint(_partnertypeTouchpoint.touchpoint).FirstOrDefault();
+                var _enterprise = db.pr_getEnterprise(_partner.enterprise).FirstOrDefault();
+
+                for (var autoMailTypeCounter = autoMailTypes.Invitation; autoMailTypeCounter <= autoMailTypes.Alert; autoMailTypeCounter++)
+                {
+                    var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypeCounter, _ptq.id);
+
+                    foreach (var ammItem in amm)
+                    {
+                        if (ammItem != null && !string.IsNullOrEmpty(ammItem.text))
+                        {
+                            Email email = new Email(ammItem);
+                            EmailFormat emailFormat = new EmailFormat();
+                            email.body = emailFormat.sGetEmailBody(email.body, _currentPerson, _partner, _enterprise, _touchpoint, _ptq.id);
+                            email.emailTo = _partner.email;
+                            SendEmail objSendEmail = new SendEmail();
+                            objSendEmail.sendEmail(email);
+                        }
+                    }
+                }
+            }
+            return RedirectToAction("FindQuestionnaireResult");
         }
 
         private List<QuestionnaireAutoMailViewModel> ConvertToQuestionnaireAutoMailViewModel(List<autoMailMessage> questionnaireAutoMailDataList)
