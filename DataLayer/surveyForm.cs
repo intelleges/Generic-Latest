@@ -327,8 +327,6 @@ namespace Generic.DataLayer
             {
                 if (strQuestion.Contains("[partnumber]"))
                 {
-
-
                     if (HttpContext.Current.Session["partnumber"] != null && HttpContext.Current.Session["partnumber"] != "0" && HttpContext.Current.Session["partnumber"] != "")
                     {
                         int partid = Convert.ToInt32(HttpContext.Current.Session["partnumber"].ToString());
@@ -340,6 +338,19 @@ namespace Generic.DataLayer
                     }
                 }
                 string strQuestionAgain = question.question1;
+
+                if (strQuestionAgain.Contains("[Partner Name]"))
+                {
+                    if (HttpContext.Current.Session["partner"] != null && HttpContext.Current.Session["partner"] != "0" && HttpContext.Current.Session["partner"] != "")
+                    {
+                        var partnerID = (int)HttpContext.Current.Session["partner"];
+                        var _currentPartner = db.pr_getPartner(partnerID).FirstOrDefault();
+                        question.question1 = strQuestionAgain.Replace("[Partner Name]", _currentPartner.firstName + " " + _currentPartner.lastName);
+                        strQuestionAgain = question.question1;
+                    }
+                }
+                
+
                 if (strQuestionAgain.Contains("[next partnumber]"))
                 {
                     if (HttpContext.Current.Session["NextPartnumber"] != null)
