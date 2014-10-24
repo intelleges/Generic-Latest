@@ -55,6 +55,7 @@ namespace Generic.Helpers.Utility
         }
         private string sGetResult(string sEmailBody, person sender, person receiver, partner partner, enterprise enterprise, touchpoint touchpoint, int ptq = 0, person systemmaster = null)
         {
+            EntitiesDBContext db = new EntitiesDBContext();
             Regex regex = new Regex(@"\[(.*?)\]");
             //comment add sebody
             if (sEmailBody == "" || sEmailBody == null)
@@ -191,7 +192,6 @@ namespace Generic.Helpers.Utility
                     case "[Group]":
                         break;
                     case "[Due Date]":
-                         EntitiesDBContext db = new EntitiesDBContext();
                         var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partner.id, ptq).FirstOrDefault();
                         var t = pptq;
                         var dueDate = db.pr_getDueDateByPPTQ(pptq.id).FirstOrDefault();
@@ -202,7 +202,11 @@ namespace Generic.Helpers.Utility
                         //sValue = partner.getDueDateByInitialInvitation(partner, touchpoint).ToShortDateString();
                         break;
                     case "[Start Date]":
-                        sValue = DateTime.Now.ToShortDateString();
+                        var _invitedDate = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partner.id, ptq).FirstOrDefault().invitedDate;
+                        if (_invitedDate != null)
+                            sValue = _invitedDate.ToString("d");
+                        else
+                            sValue = DateTime.Now.ToShortDateString();
                         break;
                     case "[partner Owner Full Name]":
                         sValue = this.sGetpartnerOwnerFullName(partner);
