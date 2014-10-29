@@ -361,6 +361,7 @@ namespace Generic.Controllers
 
             string loadGroup = db.pr_getAccesscode().FirstOrDefault();
             int countPartners =0;
+
             foreach (var partners in partnerinExcel.ToList())
             {
                 if (partners.internalID != null)
@@ -382,9 +383,42 @@ namespace Generic.Controllers
 
                     using (var context = new EntitiesDBContext())
                     {
-                        int? PartnerId = context.pr_addPartnerSpreadsheetDataLoad(partners.internalID, partners.PARTNER_SAP_ID, partners.name, partners.address1, partners.address2, partners.city, stateIdSpreadSheet, partners.zipcode, countryIdSpreadsheet, partners.firstName, partners.lastName, partners.title, partners.phone, partners.email, partners.RO_FIRST_NAME, partners.RO_LAST_NAME, partners.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup, partners.DUE_DATE, group).ToList().FirstOrDefault();
-                        uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
-
+                        try
+                        {
+                            var _person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
+                            var _enterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
+                            int? PartnerId = context.pr_addPartnerSpreadsheetDataLoad(
+                                partners.internalID, 
+                                partners.PARTNER_SAP_ID, 
+                                partners.name,
+                                partners.address1 != null ? partners.address1.Length > 20 ? partners.address1.Substring(0, 20) : partners.address1 : null,
+                                partners.address2 != null ? partners.address2.Length > 20 ? partners.address2.Substring(0, 20) : partners.address2 : null, 
+                                partners.city, 
+                                stateIdSpreadSheet,
+                                partners.zipcode != null ? partners.zipcode.Length > 20 ? partners.zipcode.Substring(0, 20) : partners.zipcode : null,  
+                                countryIdSpreadsheet, 
+                                partners.firstName, 
+                                partners.lastName, 
+                                partners.title,
+                                partners.phone != null ? partners.phone.Length > 20 ? partners.phone.Substring(0, 20) : partners.phone : null,  
+                                partners.email, 
+                                partners.RO_FIRST_NAME, 
+                                partners.RO_LAST_NAME, 
+                                partners.RO_EMAIL, 
+                                DateTime.Now, 
+                                _enterpriseID, 
+                                partnertype, 
+                                touchpoint, 
+                                _person, 
+                                null, 
+                                loadGroup, 
+                                partners.DUE_DATE, 
+                                group).ToList().FirstOrDefault();
+                            uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
+                        }
+                        catch 
+                        {
+                        }
 
                     }
 
@@ -504,11 +538,11 @@ namespace Generic.Controllers
 
                     var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(partnerItem.accesscode, loadGroup).FirstOrDefault();
 
-                    if (objpartnerByAccessCode != null)
-                    {
+                    //if (objpartnerByAccessCode != null)
+                    //{
 
-                        amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
-                    }
+                    //    amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
+                    //}
 
                     var objtouchpoint = db.pr_getTouchpoint(touchpoint).FirstOrDefault();
                     Email email = new Email(amm);
@@ -1268,10 +1302,10 @@ namespace Generic.Controllers
                     //  var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(accesscode, loadGroup).FirstOrDefault();
 
                     // if (objpartnerByAccessCode != null)
-                    {
+                   // {
 
-                        amm.text = amm.text.Replace("[Due Date]", DateTime.Parse(DueDate.ToString()).ToString("MMM, dd, yyyy"));
-                    }
+                       // amm.text = amm.text.Replace("[Due Date]", DateTime.Parse(DueDate.ToString()).ToString("MMM, dd, yyyy"));
+                   // }
 
                     var objtouchpoint = db.pr_getTouchpoint(touchpointId).FirstOrDefault();
                     Email email = new Email(amm);
