@@ -14204,5 +14204,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("pr_getDueDateByPPTQ", pptqParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_eventNotificationCheck(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_eventNotificationCheck", accesscodeParameter);
+        }
     }
 }

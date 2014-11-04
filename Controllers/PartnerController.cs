@@ -1321,7 +1321,21 @@ namespace Generic.Controllers
                     email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
                     email.emailTo = objpartner.email;
                     SendEmail objSendEmail = new SendEmail();
-                    objSendEmail.sendEmail(email);
+
+                    int checkEventNotification = 0;
+
+                    try
+                    {
+                        checkEventNotification = db.pr_eventNotificationCheck(accesscode).FirstOrDefault().Value;
+                    }
+                    catch { }
+
+                    if (checkEventNotification == 0)
+                    {
+                        objSendEmail.sendEmail(email);
+                    }
+                    
+                    
                     index++;
                 }
                 ViewBag.searchType = "Invite";

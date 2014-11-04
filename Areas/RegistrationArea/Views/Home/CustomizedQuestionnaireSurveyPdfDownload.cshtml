@@ -55,7 +55,7 @@
             </tr>
             <tr style="height:40px"> 
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
-                    SUPPLIER NAME: @ViewBag.partnerfirstName  @ViewBag.partnerlastName
+                    SUPPLIER NAME: @ViewBag.partner.firstName  @ViewBag.partner.lastName
                 </td>
             </tr>
             <tr> 
@@ -63,17 +63,17 @@
                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
                         <tr>
                             <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;" >
-                                SUPPLIER ADDRESS (Manufacturing address – no PO Box): @ViewBag.partneraddress1
+                                SUPPLIER ADDRESS (Manufacturing address – no PO Box): @ViewBag.partner.address1
                             </td>
                         </tr>
                         <tr>
                             <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;" >
-                                 @ViewBag.partneraddress2
+                                 @ViewBag.partner.address2
                             </td>
                         </tr>
                         <tr>
                             <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
-                                CITY/TOWN: @ViewBag.partnercity
+                                CITY/TOWN: @ViewBag.partner.city
                             </td>
                         </tr>
                         <tr>
@@ -101,20 +101,20 @@
                     <table width="100%" cellpadding="0" cellspacing="0" style="height:150px; border-collapse:collapse" border="1">
                         <tr>
                             <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
-                                CONTACT NAME: @ViewBag.partnerfirstName @ViewBag.partnerlastName
+                                CONTACT NAME: @ViewBag.partner.firstName @ViewBag.partner.lastName
                             </td>
                         </tr>
                         <tr>
                             <td  style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit;">
-                                CONTACT TELEPHONE#: @ViewBag.partnerphone
+                                CONTACT TELEPHONE#: @ViewBag.partne.rphone
                             </td>
                             <td width="30%" style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit;">
-                                CONTACT FAX#: @ViewBag.partnerfax
+                                CONTACT FAX#: @ViewBag.partner.fax
                             </td>
                         </tr>
                         <tr>
                             <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
-                                CONTACT EMAIL ADDRESS: @ViewBag.partneremail
+                                CONTACT EMAIL ADDRESS: @ViewBag.partner.email
                                 <br />
                                 <br />
                             </td>

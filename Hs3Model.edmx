@@ -5687,6 +5687,9 @@
           <Parameter Name="table" Type="nvarchar" Mode="In" />
           <Parameter Name="argsList" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="pr_eventNotificationCheck" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_findPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="selected_sql" Type="varchar" Mode="In" />
@@ -12192,7 +12195,10 @@
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getDueDateByPPTQ" ReturnType="Collection(DateTime)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_eventNotificationCheck" ReturnType="Collection(Int32)">
+            <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -25200,6 +25206,7 @@
           <FunctionImportMapping FunctionImportName="pr_modifyPersonLinkedinAuthInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonLinkedinAuthInfo" />
           <FunctionImportMapping FunctionImportName="pr_removePersonLinkedinAuthInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_removePersonLinkedinAuthInfo" />
           <FunctionImportMapping FunctionImportName="pr_getDueDateByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getDueDateByPPTQ" />
+          <FunctionImportMapping FunctionImportName="pr_eventNotificationCheck" FunctionName="hs3MVCMTQa2Model.Store.pr_eventNotificationCheck" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
