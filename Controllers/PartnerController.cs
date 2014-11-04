@@ -139,11 +139,11 @@ namespace Generic.Controllers
                 Session["partnertype"] = partnertype;
                 Session["touchpoint"] = touchpoint;
                 Session["loadGroup"] = loadGroup;
-            //    var Target = db.touchpoint.Where(x => x.id == touchpoint).Select(x => x.target).ToList();
-             //   ViewBag.Message = Target[0].ToString();
+                //    var Target = db.touchpoint.Where(x => x.id == touchpoint).Select(x => x.target).ToList();
+                //   ViewBag.Message = Target[0].ToString();
                 //ViewBag.Message = "1";
 
-                var Target = db.touchpoint.Where(x => x.id==(touchpoint)).ToList();
+                var Target = db.touchpoint.Where(x => x.id == (touchpoint)).ToList();
                 ViewBag.Message = Target[0].target.ToString();
                 if (Target[0].target.ToString() == "2")
                 {
@@ -360,7 +360,7 @@ namespace Generic.Controllers
 
 
             string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-            int countPartners =0;
+            int countPartners = 0;
 
             foreach (var partners in partnerinExcel.ToList())
             {
@@ -388,35 +388,35 @@ namespace Generic.Controllers
                             var _person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
                             var _enterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
                             int? PartnerId = context.pr_addPartnerSpreadsheetDataLoad(
-                                partners.internalID, 
-                                partners.PARTNER_SAP_ID, 
+                                partners.internalID,
+                                partners.PARTNER_SAP_ID,
                                 partners.name,
                                 partners.address1 != null ? partners.address1.Length > 20 ? partners.address1.Substring(0, 20) : partners.address1 : null,
-                                partners.address2 != null ? partners.address2.Length > 20 ? partners.address2.Substring(0, 20) : partners.address2 : null, 
-                                partners.city, 
+                                partners.address2 != null ? partners.address2.Length > 20 ? partners.address2.Substring(0, 20) : partners.address2 : null,
+                                partners.city,
                                 stateIdSpreadSheet,
-                                partners.zipcode != null ? partners.zipcode.Length > 20 ? partners.zipcode.Substring(0, 20) : partners.zipcode : null,  
-                                countryIdSpreadsheet, 
-                                partners.firstName, 
-                                partners.lastName, 
+                                partners.zipcode != null ? partners.zipcode.Length > 20 ? partners.zipcode.Substring(0, 20) : partners.zipcode : null,
+                                countryIdSpreadsheet,
+                                partners.firstName,
+                                partners.lastName,
                                 partners.title,
-                                partners.phone != null ? partners.phone.Length > 20 ? partners.phone.Substring(0, 20) : partners.phone : null,  
-                                partners.email, 
-                                partners.RO_FIRST_NAME, 
-                                partners.RO_LAST_NAME, 
-                                partners.RO_EMAIL, 
-                                DateTime.Now, 
-                                _enterpriseID, 
-                                partnertype, 
-                                touchpoint, 
-                                _person, 
-                                null, 
-                                loadGroup, 
-                                partners.DUE_DATE, 
+                                partners.phone != null ? partners.phone.Length > 20 ? partners.phone.Substring(0, 20) : partners.phone : null,
+                                partners.email,
+                                partners.RO_FIRST_NAME,
+                                partners.RO_LAST_NAME,
+                                partners.RO_EMAIL,
+                                DateTime.Now,
+                                _enterpriseID,
+                                partnertype,
+                                touchpoint,
+                                _person,
+                                null,
+                                loadGroup,
+                                partners.DUE_DATE,
                                 group).ToList().FirstOrDefault();
                             uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
                         }
-                        catch 
+                        catch
                         {
                         }
 
@@ -478,10 +478,10 @@ namespace Generic.Controllers
             Session["touchpoint"] = touchpoint;
             Session["loadGroup"] = loadGroup;
             //ViewBag.Message = "1";
-        
+
             var Target = db.touchpoint.Where(x => x.id == (touchpoint)).ToList();
             ViewBag.Message = Target[0].target.ToString();
-            if( Target[0].target.ToString()=="2")
+            if (Target[0].target.ToString() == "2")
             {
                 ViewBag.MessageDetail = "Congratulations, you have uploaded " + uploadedpartners.Count + " to " + Target[0].title;
             }
@@ -1105,13 +1105,28 @@ namespace Generic.Controllers
 
         public void ResponsesByProtocolTouchpointGroupPartnertype2Download()
         {
-            //  try
+            int qId = 0;
+            try
             {
+                qId = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(SessionSingleton.Touchpoint).FirstOrDefault().questionnaire;
+            }
+            catch { }
+            int levelType = 1;
+            try
+            {
+                levelType = int.Parse(db.pr_getQuestionnaire(qId).FirstOrDefault().levelType.ToString());
+            }
+            catch { }
+            if (levelType == 1)
+            {
+
                 ExportToExcel(getResponsesByProtocolCampaignGroupProviderType2(db.pr_getProtocolByTouchpoint(SessionSingleton.Touchpoint).FirstOrDefault().id, SessionSingleton.Touchpoint));
             }
-            //  catch
+            else
             {
+                ExportToExcel(getCustomizedLSMWReport());
             }
+
         }
 
         public void ExportToExcel(DataTable dt)
@@ -1153,6 +1168,22 @@ namespace Generic.Controllers
             command.Parameters.Add("@touchpoint", SqlDbType.VarChar).Value = touchpoint;
             command.Parameters.Add("@group", SqlDbType.VarChar).Value = DBNull.Value;
             command.Parameters.Add("@partnertype", SqlDbType.VarChar).Value = DBNull.Value;
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+            sqlDataAdapter.Fill(dataTable);
+            conn.Close();
+            return dataTable;
+        }
+
+
+        public DataTable getCustomizedLSMWReport()
+        {
+            DataTable dataTable = new DataTable();
+
+            SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString);
+            conn.Open();
+            SqlCommand command = new SqlCommand("[honeywellBAA].[pr_getcustomizedLSMWReport]", conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@enterprise", SqlDbType.VarChar).Value = Generic.Helpers.CurrentInstance.EnterpriseID;
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
             sqlDataAdapter.Fill(dataTable);
             conn.Close();
@@ -1302,10 +1333,10 @@ namespace Generic.Controllers
                     //  var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(accesscode, loadGroup).FirstOrDefault();
 
                     // if (objpartnerByAccessCode != null)
-                   // {
+                    // {
 
-                       // amm.text = amm.text.Replace("[Due Date]", DateTime.Parse(DueDate.ToString()).ToString("MMM, dd, yyyy"));
-                   // }
+                    // amm.text = amm.text.Replace("[Due Date]", DateTime.Parse(DueDate.ToString()).ToString("MMM, dd, yyyy"));
+                    // }
 
                     var objtouchpoint = db.pr_getTouchpoint(touchpointId).FirstOrDefault();
                     Email email = new Email(amm);
@@ -1334,8 +1365,8 @@ namespace Generic.Controllers
                     {
                         objSendEmail.sendEmail(email);
                     }
-                    
-                    
+
+
                     index++;
                 }
                 ViewBag.searchType = "Invite";
@@ -1577,7 +1608,7 @@ namespace Generic.Controllers
         public DataTable getConfirmPartnerSpreadsheet(int enterprise, int touchpoint)
         {
             DataTable dataTable = new DataTable();
-            
+
             SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString);
             conn.Open();
             SqlCommand command = new SqlCommand("pr_getPartnerConfirmationData_Spreadsheet", conn);
@@ -1585,7 +1616,7 @@ namespace Generic.Controllers
             command.CommandTimeout = 120;
             command.Parameters.Add("@enterprise", SqlDbType.VarChar).Value = enterprise;
             command.Parameters.Add("@touchpoint", SqlDbType.VarChar).Value = touchpoint;
-            
+
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
             sqlDataAdapter.Fill(dataTable);
             conn.Close();
@@ -1745,7 +1776,7 @@ namespace Generic.Controllers
 
             ViewBag.isMessage = 1;
             ViewBag.message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions.";
-           
+
             return View("ConfirmPartner");
             // return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = int.Parse(id) });
             // return QuestionnaireQuestionnaireCMS(int.Parse(id));
