@@ -2137,21 +2137,22 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public ActionResult PDFConfirmation()
         {
             QuestionnaireModel modl = new QuestionnaireModel();
-            List<pr_getPartnerQuestionResponseByAccessCode_Result> reslt = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
+            List<pr_getPartnerQuestionResponseByAccessCode_Result> result = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
 
             var find = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
             ViewBag.reslt2 = find;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var _person = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().person;
-            ViewBag.person = _person;
+            var _partnerId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().partner;
+            var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
+            ViewBag.partner = _partner;
 
-            var _country = db.pr_getCountry(_person.country).FirstOrDefault();
+            var _country = db.pr_getCountry(_partner.country).FirstOrDefault();
             if (_country != null)
                 ViewBag.country = _country.name;
             else
                 ViewBag.country = string.Empty;
 
-            var _state = db.pr_getState(_person.state).FirstOrDefault();
+            var _state = db.pr_getState(_partner.state).FirstOrDefault();
             if (_state != null)
                 ViewBag.state = _state.stateCode;
             else
@@ -2159,9 +2160,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (enterprise == null)
             {
-                //var enterpriseIntelleges = db.pr_getEnterprise(1).FirstOrDefault();
-                //ViewBag.logoSrc = enterpriseIntelleges;
-                // return PartialView("_InstanceLogoPartial", enterpriseIntelleges);
             }
             else
             {
@@ -2178,48 +2176,41 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     }
                     ViewBag.logoSrc = fileName;
                 }
-
-                //string temp = enterprise.FirstOrDefault().applicationPath;
-                //if (temp != null)
-                //{
-                //    ViewBag.logoSrc = Server.MapPath("~") + temp.Substring(temp.IndexOf("uploadedFiles") - 1);
-                //}
-                //else
-                //{
-                //    ViewBag.logoSrc = string.Empty;
-                //}
-
-                //ViewBag.logoSrc = enterprise.FirstOrDefault().applicationPath;
-
-                //byte[] data = enterprise.FirstOrDefault().logo;
-                //Session["logoPrint"] = data;
-
-
-                //  return PartialView("_InstanceLogoPartial", enterprise);
             }
 
             ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
-            string result = "Sukhbir";
-            return ViewPdf(reslt);
+            return ViewPdf(result);
         }
 
         public ActionResult OrdersInHTML()
         {
             QuestionnaireModel modl = new QuestionnaireModel();
-            List<pr_getPartnerQuestionResponseByAccessCode_Result> reslt = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
+            List<pr_getPartnerQuestionResponseByAccessCode_Result> result = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
 
             var find = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
             ViewBag.reslt2 = find;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var _partnerId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().partner;
+            var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
+            ViewBag.partner = _partner;
+
+            var _country = db.pr_getCountry(_partner.country).FirstOrDefault();
+            if (_country != null)
+                ViewBag.country = _country.name;
+            else
+                ViewBag.country = string.Empty;
+
+            var _state = db.pr_getState(_partner.state).FirstOrDefault();
+            if (_state != null)
+                ViewBag.state = _state.stateCode;
+            else
+                ViewBag.state = string.Empty;
+
             if (enterprise == null)
             {
-                //var enterpriseIntelleges = db.pr_getEnterprise(1).FirstOrDefault();
-                //ViewBag.logoSrc = enterpriseIntelleges;
-                // return PartialView("_InstanceLogoPartial", enterpriseIntelleges);
             }
             else
             {
-                //C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\enterprise3.gif
                 byte[] temp = enterprise.FirstOrDefault().logo;
                 if (temp != null)
                 {
@@ -2227,18 +2218,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
                     ViewBag.logoSrc = imageSrc;
                 }
-                //ViewBag.logoSrc = enterprise.FirstOrDefault().applicationPath;
-
-                //byte[] data = enterprise.FirstOrDefault().logo;
-                //Session["logoPrint"] = data;
-
-
-                //  return PartialView("_InstanceLogoPartial", enterprise);
             }
 
             ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
 
-            return ViewHTML(reslt);
+            return ViewHTML(result);
         }
 
         public FileContentResult ExportPng()
@@ -2256,5 +2240,139 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return toReplace.Replace("[BLANK]", "");
         }
 
+        public ActionResult CustomizedPDFConfirmation()
+        {
+            List<pr_getPartnerQuestionResponseByAccessCode_Result> reslt = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
+
+            var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
+            ViewBag.partnerHeader = _partnerHeader;
+            List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var _partnerId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().partner;
+            var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
+            ViewBag.partner = _partner;
+
+            var _country = db.pr_getCountry(_partner.country).FirstOrDefault();
+            if (_country != null)
+                ViewBag.country = _country.name;
+            else
+                ViewBag.country = string.Empty;
+
+            var _state = db.pr_getState(_partner.state).FirstOrDefault();
+            if (_state != null)
+                ViewBag.state = _state.stateCode;
+            else
+                ViewBag.state = string.Empty;
+
+            if (enterprise == null)
+            {
+            }
+            else
+            {
+                var logo = enterprise.FirstOrDefault().logo;
+                string dirname = @"C:\https\MVCMT\logo\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
+                if (Directory.Exists(dirname))
+                {
+                    var fileName = dirname + enterprise.FirstOrDefault().id + "Logo.png";
+                    if (!System.IO.File.Exists(fileName))
+                    {
+                        var fs = new BinaryWriter(new FileStream(fileName, FileMode.Append, FileAccess.Write));
+                        fs.Write(logo);
+                        fs.Close();
+                    }
+                    ViewBag.logoSrc = fileName;
+                }
+            }
+
+            ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
+
+            var _questionnaire = db.pr_getQuestionnaireByAccesscode(Session["accessCode"].ToString()).FirstOrDefault();
+
+            ViewBag.SmallBusiness = "checked";
+            ViewBag.Checkbox1 = "checked";
+            ViewBag.Checkbox2 = "checked";
+            ViewBag.Checkbox3 = "checked";
+            ViewBag.Checkbox4 = "checked";
+            ViewBag.Checkbox5 = "checked";
+            ViewBag.Checkbox6 = "checked";
+            ViewBag.Checkbox7 = "checked";
+            ViewBag.Checkbox8 = "checked";
+            ViewBag.Checkbox9 = "checked";
+            ViewBag.Checkbox10 = "";
+            ViewBag.Checkbox11 = "";
+            ViewBag.Checkbox12 = "";
+            ViewBag.Checkbox13 = "";
+            ViewBag.Checkbox14 = "";
+            ViewBag.Checkbox15 = "";
+            ViewBag.Checkbox16 = "";
+            ViewBag.Checkbox17 = "";
+            ViewBag.Checkbox18 = "";
+            ViewBag.Checkbox19 = "";
+            ViewBag.Checkbox20 = "";
+            ViewBag.Checkbox21 = "";
+            ViewBag.Checkbox22 = "";
+            ViewBag.Checkbox23 = "";
+            ViewBag.Checkbox24 = "";
+            ViewBag.Checkbox25 = "";
+            ViewBag.Checkbox26 = "";
+            ViewBag.Checkbox27 = "";
+            ViewBag.Checkbox28 = "";
+            ViewBag.Checkbox29 = "";
+            ViewBag.Checkbox30 = "";
+            ViewBag.Checkbox31 = "";
+            ViewBag.Checkbox32 = "";
+            ViewBag.Checkbox33 = "";
+            ViewBag.Checkbox34 = "";
+            ViewBag.Checkbox35 = "";
+            ViewBag.Checkbox36 = "";
+            ViewBag.Checkbox37 = "";
+            ViewBag.Checkbox38 = "";
+            ViewBag.Checkbox39 = "";
+            ViewBag.Checkbox30 = "";
+            ViewBag.Checkbox41 = "";
+            ViewBag.Checkbox42 = "";
+            ViewBag.Checkbox43 = "";
+            ViewBag.Checkbox44 = "";
+            ViewBag.Checkbox45 = "";
+            ViewBag.Checkbox46 = "";
+            ViewBag.Checkbox47 = "";
+            ViewBag.Checkbox48 = "";
+            ViewBag.Checkbox49 = "";
+            ViewBag.Checkbox50 = "";
+            ViewBag.Checkbox51 = "";
+            ViewBag.Checkbox52 = "";
+            ViewBag.Checkbox53 = "";
+            ViewBag.Checkbox54 = "";
+            ViewBag.Checkbox55 = "";
+               
+            return ViewCustomizedPdf(reslt);
+        }
+
+        protected ActionResult ViewCustomizedPdf(object model)
+        {
+            string htmltext = this.RenderActionResultToString(this.View("CustomizedQuestionnaireSurveyPdfDownload", model));  //name of the view...
+
+            string PDF_FileName = "HON_" +  Session["accessCode"].ToString().Substring(1, 4) + "_"+DateTime.Now.ToString().Replace('/','_').Replace(' ','_').Replace(':','_');
+
+            string dirname = @"C:\https\MVCMT\logo\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
+            if (Directory.Exists(dirname))
+            {
+                var fileName = dirname + PDF_FileName;
+                if (!System.IO.File.Exists(fileName))
+                {
+                    FileStream file = new FileStream(fileName, FileMode.Create, System.IO.FileAccess.Write);
+                    ConvertApi.Web2Pdf convertApi;
+                    convertApi = new ConvertApi.Web2Pdf(400127803);
+
+
+                    convertApi.ConvertHtml(htmltext, file);
+                    file.Close();
+                }
+                byte[] bytes = System.IO.File.ReadAllBytes(dirname + "/" + PDF_FileName + ".pdf");
+
+                // Send the binary data to the browser.
+                return new BinaryContentResult(bytes, "application/pdf");
+            }
+            return new BinaryContentResult(null, "application/pdf");
+        }
     }
 }

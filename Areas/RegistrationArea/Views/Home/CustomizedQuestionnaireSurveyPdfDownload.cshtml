@@ -1,0 +1,604 @@
+﻿
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@using Generic.Helpers
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <table width="100%">
+        <tr>
+            <td>
+                @if (!string.IsNullOrEmpty(ViewBag.logoSrc))
+                {
+                    <img width="200px" src="@ViewBag.logoSrc"  style="" />
+                }
+            </td>
+        </tr>
+    </table>
+    <table width="100%">
+        <tr>
+            <td style="font-size: 25px; text-align:center; color: #081835">
+                SUPPLIER CERTIFICATION and REPRESENTATION FOR CALENDAR YEAR 2015<br />
+                U.S. GOVERNMENT REGULATIONS AND STATUTES
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 15px; text-align:left; color: #081835">
+                Procurement of materials, services and supplies for a United States Government-funded contract requires that prime contractors, 
+                subcontractors and suppliers comply with socioeconomic programs enacted into public law.  Other procurements require compliance with 
+                Executive Orders, Congressional Law, and other regulations.  Specific requirements are listed in the Sections below.
+            </td>
+        </tr>
+    </table>
+   
+
+    
+    @foreach (var item in ViewBag.partnerHeader)
+    {        
+        <table width="100%" cellpadding="0" cellspacing="0" border="1">
+            <tr style="height:40px">
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    ONESOURCE SUPPLIER ID# (DUNS#): 
+                </td>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    HONEYWELL SAP/LOCAL SUPPLIER #:
+                </td>
+            </tr>
+            <tr style="height:40px"> 
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                    SUPPLIER NAME: @ViewBag.partnerfirstName  @ViewBag.partnerlastName
+                </td>
+            </tr>
+            <tr> 
+                <td>
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;" >
+                                SUPPLIER ADDRESS (Manufacturing address – no PO Box): @ViewBag.partneraddress1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;" >
+                                 @ViewBag.partneraddress2
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
+                                CITY/TOWN: @ViewBag.partnercity
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
+                                STATE/PROVINCE/REGION: @ViewBag.state
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
+                                ZIP CODE:
+                                @if (ViewBag.partner.zipcode != null)
+                                {
+                                     @MvcHtmlString.Create(ViewBag.partner.zipcode.ToString().Length > 5 ? ViewBag.partner.zipcode.ToString().Substring(0,5) + "-" + ViewBag.partner.zipcode.ToString().Substring(5, ViewBag.partner.zipcode.ToString().Length - 5): ViewBag.partner.zipcode);
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
+                                COUNTRY: @ViewBag.country
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%" cellpadding="0" cellspacing="0" style="height:150px; border-collapse:collapse" border="1">
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                                CONTACT NAME: @ViewBag.partnerfirstName @ViewBag.partnerlastName
+                            </td>
+                        </tr>
+                        <tr>
+                            <td  style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit;">
+                                CONTACT TELEPHONE#: @ViewBag.partnerphone
+                            </td>
+                            <td width="30%" style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit;">
+                                CONTACT FAX#: @ViewBag.partnerfax
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                                CONTACT EMAIL ADDRESS: @ViewBag.partneremail
+                                <br />
+                                <br />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    }
+
+    <br />
+    <br />
+
+    <div>
+        <p><b> 1. <i>BUSINESS SIZE AND TYPE CLASSIFICATION</i></b></p>
+        <p><i>SUPPLIER</i> represents that it is a<b> <i><u style="color:blue">(Check ALL that apply)</u></i></b></p>
+        <p><input type="checkbox"  id="SmallBusiness" @ViewBag.SmallBusiness/> Small Business (Sm)</p>
+        <p><input type="checkbox" id="Checkbox1" @ViewBag.Checkbox1/> Large Business</p>
+        <p><input type="checkbox" id="Checkbox2" @ViewBag.Checkbox2/> Minority/Disadvantaged Business (Dis)</p>
+        <p><input type="checkbox" id="Checkbox3" @ViewBag.Checkbox3/> Woman-Owned (Wom)</p>
+        <p><input type="checkbox" id="Checkbox4" @ViewBag.Checkbox4/> Veteran-Owned (Vet)</p>
+        <p><input type="checkbox" id="Checkbox5" @ViewBag.Checkbox5/> Service Disabled Veteran-Owned (SD)</p>
+        <p><input type="checkbox" id="Checkbox6" @ViewBag.Checkbox6/> HUBZone Business** (HZ) </p>
+
+        <p style="margin-left:40px; color:red;">
+            <b>
+                <i> ** Please attach a copy of your company's SBA HUBZone Certification 
+            Letter. You may ONLY certify as a HUBZone supplier if your company is listed on 
+            the &quot;Qualified HUBZone Small Business Concerns List&quot; maintained by the Small 
+            Business Administration.
+                </i>
+            </b>
+        </p>
+
+        <p><input type="checkbox" id="Checkbox9"  @ViewBag.Checkbox9/> Historically Black College or University</p>
+
+        <p><input type="checkbox" id="Checkbox10"  @ViewBag.Checkbox10/> Minority Institution</p>
+
+        <p><input type="checkbox" id="Checkbox11"  @ViewBag.Checkbox11/> University or College</p>
+
+        <p><input type="checkbox" id="Checkbox12"  @ViewBag.Checkbox12/> Non-Profit Organization</p>
+
+        <p><input type="checkbox" id="Checkbox12"  @ViewBag.Checkbox000/> Non-Profit Organization with Disabled Persons	</p>
+
+        <p><input type="checkbox" id="Checkbox14"  @ViewBag.Checkbox14/> Alaska Native Corps. &amp; Indian Tribes that have not been certified by the SBA as a Small Disadvantaged Business (ANC)</p>
+
+        <p><input type="checkbox" id="Checkbox15"  @ViewBag.Checkbox15/> Alaska Native Corps. &amp; Indian Tribes that are not Small Businesses (Large, ANC)</p>
+
+        <p>
+            <input type="checkbox"  id="Checkbox19" @ViewBag.Checkbox19/> Government Agency / Entity: Explain: 
+            <input type="text"  id="GovernmentAgency" style="width:200px; height:20px"/>
+        </p>
+    
+        <p><input type="checkbox"  id="Checkbox16" @ViewBag.Checkbox16/> Non-U.S. Small Business (under 500 employees)</p>
+
+        <p><input type="checkbox"  id="Checkbox17" @ViewBag.Checkbox17/> Non-U.S. Large Business (500 + employees)</p>
+
+        <p><input type="checkbox"  id="Checkbox18" @ViewBag.Checkbox18/> Canadian</p>
+
+        <p style="margin-top:150px; color:gray">
+            <b>
+                <i style="text-align:left">Page 1 of 5</i>
+                <i style="margin-left:250px">Supplier Certification and Representation</i>
+                <i style="margin-left:200px">AF 0014H (2015)</i>
+            </b>
+        </p>
+
+        <table  cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+            <tr>
+                <td style="text-align:center; width:150px" valign="top"  >
+                    <p style="text-align:center"><b>NOTICE</b></p>
+                    <p style="text-align:center"><b>OF</b></p>
+                    <p style="text-align:center"><b>PENALTY</b></p>
+                </td>
+                <td valign="top">
+                    <p>Supplier understands, under 15 U.S.C. 645(d), any person who misrepresents a firm’s status that is small, HUBZone small, small disadvantaged, service-disabled veteran-owned small, economically disadvantaged women-owned small, or women-owned small eligible under the WOSB Program in order to obtain a contract to be awarded under the preference programs established pursuant to section 8, 9, 15, 31 and 36 of the Small Business Act or any other provision of Federal law that specifically references section 8(d) for a definition of program eligibility, shall (i) be punished by imposition of fine, imprisonment, or both; (ii) be subject to administrative remedies, including suspension and debarment; and (iii) be ineligible for participation in programs conducted under the authority of the Act (FAR 52.219-1(d)(2)).</p>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <b><input type="checkbox" /> YES </b>
+                    <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+                    <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+                </td>
+            </tr>
+        </table>
+
+        <p><b> MINORITY OWNERSHIP:  <i>ONLY</i>  IF SUPPLIER HAS REPRESENTED ITSELF ABOVE AS A SMALL DISADVANTAGED BUSINESS (SDB) OR WOMEN-OWNED SMALL DISADVANTAGED BUSINESS (WOSDB), PLEASE CHECK THE APPROPRIATE CATEGORY OF OWNERSHIP:  (FAR 52.219-1 Alt 1)</i></b></p>
+
+        <p><input type="checkbox"  id="Checkbox20" @ViewBag.Checkbox20/> A. Black American</p>
+
+        <p><input type="checkbox"  id="Checkbox21" @ViewBag.Checkbox21/> B. Hispanic American:</p>
+
+        <p><input type="checkbox"  id="Checkbox22" @ViewBag.Checkbox22/> C. Native American: American Indians, Eskimos, Aleuts, or Native Hawaiians</p>
+
+        <p><input type="checkbox"  id="Checkbox23" @ViewBag.Checkbox23/> D. Asian-Pacific American: persons with origins from Burma, Thailand, Malaysia, Indonesia, Singapore, Brunei, Japan, China, Taiwan, Laos, Cambodia (Kampuchea), Vietnam, Korea, The Philippines, U.S. Trust Territory of the Pacific Islands (Republic of Palau), Republic of the Marshall Islands, Federated States of Micronesia, the Commonwealth of the Northern Mariana Islands, Guam, Samoa, Macao, Hong Kong, Fiji, Tonga, Kiribati, Tuvalu or Nauru</p>
+
+        <p><input type="checkbox"  id="Checkbox24" @ViewBag.Checkbox24/> E. Subcontinent Asian (Asian-Indian) American: persons with origins from India, Pakistan, Bangladesh, Sri Lanka, Bhutan, the Maldives Islands, or Nepal</p>
+
+        <p>
+            <input type="checkbox"  id="Checkbox25" @ViewBag.Checkbox25/> F. Individual/concern, other than one of the preceding. Explain: 
+            <input type="text" style="width:200px; height:20px"/>
+        </p>
+
+    </div>
+
+    <div>
+
+        <p><b> 2. <i>REPRESENTATION OF ADHERENCE TO HONEYWELL'S "CODE OF BUSINESS CONDUCT"</i></b></p>
+
+        <p>It is the policy of Honeywell to take reasonable steps to ensure that its suppliers and potential suppliers have ethic programs that meet Honeywell requirements for integrity and compliance, and to require its suppliers to certify to the same.</p>
+
+        <p><b><i>SUPPLIER  acknowledges:</i></b>
+
+        <div>
+            <p style="margin-left:20px">It has their own Code of Business Conduct in place which supports the spirit of Honeywell's requirements for integrity and compliance; or has reviewed and understands the Honeywell Code of Business Conduct (Code), located at Internet website:</p>
+
+            <p style="text-align:center"><a href="http://honeywell.com/About/Pages/code-of-business-conduct.aspx">http://honeywell.com/About/Pages/code-of-business-conduct.aspx</a></p>
+
+            <p>and agrees to fully comply and take all necessary steps to assist Honeywell in complying with the Code and its spirit.</p>
+        </div>
+        
+        <p>
+            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+        </p>
+
+    </div>
+
+    <div>
+
+        <p><b> 3. <span class="style1"><i>NORTH AMERICAN INDUSTRY CLASSIFICATION SYSTEM (NAICS) (FAR 19.102)</i></span></b></p>
+
+        <p>If your facility is located in the United States, Canada, or Mexico, please enter your primary NAICS Code that best represents the product or service your firm supplies Honeywell-Aerospace.</p>
+
+        <table border="1" cellpadding="0" cellspacing="0" style="text-align:center; margin-left:auto; margin-right:auto">
+            <tr>
+                <td valign="top" style="width:250px">
+                    <b>NAICS Code:</b>
+                    <p><i>(Must be 6 digits)</i></p>
+                </td>
+                <td style="width:250px">
+                    <input type="text"  id="NAICCode" />
+                </td>
+            </tr>
+        </table>
+
+        <p>The NAICS Code listings can be found through the Internet site: <a href="http://www.census.gov/epcd/www/naics.html">http://www.census.gov/epcd/www/naics.html</a> </p>
+
+    </div>
+
+    <div>
+
+        <p><b> 4. <i>CERTIFICATION OF PREVIOUS CONTRACTS SUBJECT TO EQUAL OPPORTUNITY CLAUSE</i></b></p>
+
+        <p> <i>SUPPPLIER</i> has participated in a previous contract or subcontract subject to the Equal Opportunity Clause.</p>
+
+        <p>
+            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+        </p>
+
+    </div>
+
+    <div>
+
+        <p><b> 5. <i>CERTIFICATION OF EQUAL OPPORTUNITY REPORTS</i></b></p>
+
+        <p><i>SUPPPLIER</i> has filed all required Compliance reports.</p>
+
+        <p>
+            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+        </p>
+
+    </div>
+
+    <p style="margin-top:80px;color:gray">
+        <b>
+            <i style="text-align:left">Page 2 of 5</i>
+            <i style="margin-left:250px">Supplier Certification and Representation</i>
+            <i style="margin-left:200px">AF 0014H (2015)</i>
+        </b>
+    </p>
+
+    <div>
+
+        <p><b> 6. <i>CERTIFICATION OF AFFIRMATIVE ACTION COMPLIANCE</i></b> <b><i style="color:blue;">(Check ONLY one)</i></b></p>
+
+        <p><input type="checkbox"  id="Checkbox32" @ViewBag.Checkbox32/> A. Supplier has developed and has on file, at each establishment, affirmative action programs required by the rules and regulations of the Secretary of Labor (41 CFR 60-1 and 60-2); OR
+
+        <p><input type="checkbox"  id="Checkbox33" @ViewBag.Checkbox33/> B. Supplier has previously had contracts subject to the written affirmative action program requirement of the rules and regulations of the Secretary of Labor.
+
+    </div>
+
+    <div>
+
+        <p><b> 7. <i>CERTIFICATION OF COMPLIANCE WITH VETERANS EMPLOYMENT REPORTING REQUIREMENTS</i></b></p>
+
+        <p><i>SUPPPLIER</i> certifies for any Honeywell award subject to the reporting requirements of 38 U.S.C. 4212(d) (e.g., contracts containing FAR Clause 52.222-37, Employment Reports on Veterans) it has submitted the most recent VETS-100A Report as required by 52.222-37.</p>
+
+        <p>
+            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+        </p>
+
+    </div>
+
+    <div>
+
+        <p>
+            <b> 8. <i>CERTIFICATION REGARDING DEBARMENT, SUSPENSION, PROPOSED DEBARMENT AND OTHER RESPONSIBILITY MATTERS</i></b> 
+            <b><i  style="color:blue;">(Check ONLY one)</i></b>
+        </p>
+
+        <p><input type="checkbox"  id="Checkbox36" @ViewBag.Checkbox36/> A. Supplier certifies, to the best of its knowledge and belief that your firm and/or any of its Principals <b>ARE</b> presently debarred, suspended, proposed for debarment, or declared ineligible for the award of contracts by any Federal agency.</p>
+
+        <p><input type="checkbox"  id="Checkbox37" @ViewBag.Checkbox37"/> B. Supplier certifies, to the best of its knowledge and belief that your firm and/or any of its Principals <b>ARE NOT</b> presently debarred, suspended, proposed for debarment, or declared ineligible for the award of contracts by any Federal agency.</p>
+
+    </div>
+
+    <div>
+
+        <p><b> 9. <i>CERTIFICATE OF INDEPENDENT PRICE DETERMINATION (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583 '>FAR 52-023-2</a>)</i></b></p>
+
+        <p>A. Supplier certifies that:</p>
+
+        <p style="margin-left:40px">1.  The prices in all offers to Honeywell have been arrived at independently, without, for the purpose of restricting competition, any consultation, communication or agreement with any other offeror or competitor relating to (i) those prices, (ii) the intention to submit an offer, or (iii) the methods or factors used to calculate the prices offered.</p>
+
+        <p style="margin-left:40px">2. The prices in all offers to Honeywell have not been and will not be knowingly disclosed by the offeror, directly or indirectly, to any other offeror or competitor before bid opening (in the case of a sealed bid solicitation) or contract award (in the case of a negotiated solicitation) unless otherwise required by law; and</p>
+
+        <p style="margin-left:40px">3. No attempt has been made or will be made by the offeror to induce any other concern to submit or not to submit an offer for the purpose of restricting competition.</p>
+
+        <p>B. Each signature on an offer to Honeywell is considered to be a certification by the signatory that the signatory:</p>
+
+        <p style="margin-left:40px">1. Is the person in the offeror's organization responsible for determining the prices being offered in any bid or proposal, and that the signatory has not participated and will not participate in any action contrary to subparagraphs A.1 through A.3 of this Section; or</p>
+
+        <p style="margin-left:40px">2. (i) Has been authorized, in writing, to act as agent for the principals involved in certifying that those principals have not participated, and will not participate in any action contrary to subparagraphs A.1 through A.3 of this Section; (ii) As an authorized agent, does certify that such principals have not participated, and will not participate, in any action contrary to subparagraphs A.1 through A.3 of this Section; and (iii) As an agent, has not personally participated, and will not participate, in any action contrary to subparagraphs A.1 through A.3 of this Section.</p>
+
+        <p>C. If <i>SUPPLIER</i> deletes or modifies subparagraph A.2 of this Section, Supplier must furnish with its offer a signed statement setting forth in detail the circumstances of the disclosure.</p>
+
+        <p>
+            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+        </p>
+
+    </div> 
+
+    <div>
+
+        <p><b>10. <i>CERTIFICATION REGARDING PAYMENTS TO INFLUENCE CERTAIN FEDERAL TRANSACTIONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52-203-11</a>)</i></b></p>
+
+        <p><i>SUPPLIER</i> certifies, to the best of its knowledge and belief, NO Federal appropriated funds have been paid or will be paid to any person to influence or attempt to influence certain Government officials to award or modify a Federal contract.</p>
+
+        <p>
+            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+        </p>
+
+    </div>
+
+    <div>
+
+        <p><b>11. <i>DISCLOSURE REGARDING PAYMENTS TO INFLUENCE CERTAIN FEDERAL TRANSACTIONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52-203-11</a>)</i></b></p>
+
+        <p><i>SUPPLIER</i> agrees to submit to Honeywell OMB Standard Form LLL prior to any contract award of $150,000 or greater when supplier has paid or will pay Federal appropriated funds to influence certain Government officials to award or modify a Federal contract.</p>
+
+        <p>
+            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+        </p>
+
+    </div>
+
+    <p style="margin-top:100px; color:gray">
+        <b>
+            <i style="text-align:left">Page 3 of 5</i>
+            <i style="margin-left:250px">Supplier Certification and Representation</i>
+            <i style="margin-left:200px">AF 0014H (2015)</i>
+        </b>
+    </p>
+
+    <div>
+
+        <p><b>12. <i>STATEMENT TO PREVENT TRANSACTIONS WITH DENIED PERSONS/DEBARRED PARTIES/SDN</i></b></p>
+
+        <p>To ensure compliance of U.S. export laws, Honeywell does not conduct any business transaction with the "Denied Persons List" published by the U.S. Department of Commerce, the "Denied Parties List" published by the Department of State and the "Specially Designated Nationals" list published by the Department of Treasury, Foreign Assets Control. Honeywell expects all suppliers and its sub-contractors to comply with these laws as well. Supplier agrees to include this requirement in lower-tier Purchase Orders and/or subcontracts. (You may view the U.S. Government web sites of the Agencies noted above to access their lists)
+
+        <p>
+            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+        </p>
+
+    </div>
+
+    <div>
+
+        <p><b>13. <i>FEDERAL AVIATION ADMINISTRATION (FAA) ANTI-DRUG AND ALCOHOL MISUSE PREVENTION PROGRAMS</i></b></p>
+
+        <p>Is your firm an FAA? (14 CFR 145) 
+            <b style ="margin-left:20px"><input type="checkbox"  id="Checkbox40" @ViewBag.Checkbox40/> Yes </b>
+            <b style ="margin-left:20px"><input type="checkbox"  id="Checkbox41" @ViewBag.Checkbox41/> No </b>
+        </p>
+
+        <p>
+            <b style ="margin-left:20px"><i>If Yes</i></b>, Federal Registration #: <input type="text"  id="Federalno" /> 
+        </p>
+
+        <p style ="margin-left:40px">Does your firm have an approved Anti-Drug Program?
+            <b style ="margin-left:20px"><input type="checkbox"/> Yes </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> No </b>
+        </p>
+        <p style ="margin-left:60px"><b>If YES</b>, Anti-Drug Program Plan #:  <input type="text" style="width:200px; height:20px"/></p>
+
+        <p style ="margin-left:40px">Does your firm have an approved Alcohol Misuse Prevention Program?
+            <b style ="margin-left:20px"><input type="checkbox"/> Yes </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> No </b>
+        </p>
+        <p style ="margin-left:60px"><b>If YES</b>, Alcohol Misuse Prevention Program Plan #: <input type="text" style="width:200px; height:20px"/></p>
+
+    </div>
+
+    <div>
+
+        <p><b>14. <i>EXECUTIVE COMPENSATION AND FIRST-TIER SUBCONTRACT AWARDS REPORTING EXEMPTION (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52-204-10</a>)</i></b></p>
+
+        <p><i>SUPPLIER</i> certifies it is a publicly traded company, in which its Executive Compensation is already public record, therefore exempt.</p>
+                    
+        <p>
+            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+        </p>
+
+    </div>
+
+    <div>
+
+        <p><b>15. <i>EXECUTIVE COMPENSATION AND FIRST-TIER SUBCONTRACT AWARDS REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52-204-10</a>)</i></b></p>
+
+        <p>Does your firm file periodic reports on executive compensation under Section 13(a) or 15(d) of the Securities Exchange Act of 1934 (15 U.S.C. 78m(a), 78o(d)) or Section 6104 of the Internal Revenue Code of 1986?</p>
+                    
+        <p>
+            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+        </p>
+
+    </div>
+
+    <div>
+
+        <p><b>16. <i>CERTIFICATION REGARDINGPOLITICALCONTRIBUTIONS, FEES, AND COMMISSIONS (<a href='http://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&SID=9f40509b0e3da13737d77a645b79f912&rgn=div5&view=text&node=22:1.0.1.13.67&idno=22'> ITAR PART 130</a>)</i></b></p>
+
+        <p>Please note that 22 C.F.R.  130.12(b) requires Supplier to respond to this section <b>within 20 days</b>, unless Supplier provides the information directly to the U.S. State Department in accordance with 22 C.F.R.  130.12(c). U.S. law requires Honeywell to inform the Department of State if we have not received a response within 25 days of this request. Additionally, 22 C.F.R.  130.14 requires Supplier to maintain the records upon which the information below is based for a minimum of five years from the date of the report. </p>
+
+        <p>A. <i>SUPPLIER</i> certifies it <b>SELLS</b> defense articles, technical data, and/or defense services to Honeywell that are:  (1) controlled for export under U.S. International Traffic in Arms Regulations (ITAR) (22 CFR Parts 120-130); (2) valued in an amount of $500,000 or greater; and (3) for delivery (or incorporation into another product for delivery) to, or for the use of, the armed forces of an international organization or a country other than the United States. </p>
+        
+        <p style ="margin-left:20px">
+            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+        </p>
+
+        <p> B. <i>SUPPLIER</i> certifies it has paid, offered to pay, or agreed to pay any “fees”, “commissions”, or “political contributions” as defined in 22 CFR § 130.5 and 22 CFR § 130.6 in connection with the sale of defense articles, technical data, and/or defense services to Honeywell. </p>
+        
+        <p style ="margin-left:20px">
+            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+        </p>
+
+        <p><b><i style="color:red;"><u>If Item B. is YES, please complete Exhibit I</u> for each fee, commission, and political contribution, using additional sheets as necessary, referencing the Sales Order/Contract Number at issue, and numbering each successive sheet X of X accordingly.</i></b></p>
+    
+    </div>
+
+    <p style="text-align:center; font-size:21px"><i><u><b>CERTIFICATION</b></u></i></p>
+
+    <p>I hereby certify the information presented here is true and correct and meets the intent and spirit of the statements made above. This certification shall apply to all solicitations, agreements, Purchase Orders, contracts, or subcontracts received from Honeywell, and shall be valid for the calendar year noted on page 1. If any changes to the above occur, Supplier will immediately notify a Honeywell Compliance Officer, in writing, regarding its change in status.</p>
+
+    <table width="100%" cellpadding="0" cellspacing="0" border="1">
+            <tr style="height:40px">
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    NAME:
+                </td>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    SIGNATURE:
+                </td>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    DATE:
+                </td>
+            </tr>
+            <tr style="height:40px"> 
+                <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;" colspan="3">
+                    TITLE: 
+                </td>
+            </tr>
+        </table>
+
+   <p style="margin-top:30px; color:gray">
+        <b>
+            <i style="text-align:left">Page 4 of 5</i>
+            <i style="margin-left:250px">Supplier Certification and Representation</i>
+            <i style="margin-left:200px">AF 0014H (2015)</i>
+        </b>
+    </p>
+    
+    <p style="text-align:center; font-size:21px"><i><u><b>EXHIBIT 1</b></u></i></p>
+
+    <p style="text-align:center; font-size:15px"><i><u><b>Supplemental Information Regarding Political Contributions, Fees and Commissions (ITAR Part 130)</b></u></i></p>
+
+    <p><b> Sheet <input type="text"  id="Sheet1" style="width:200px; height:20px"/> of <input type="text"  id="Sheet2" style="width:200px; height:20px"/> </b></p>
+
+    <p><b>SALES ORDER / CONTRACT NUMBER:</b> <input type="text"  id="CONTRACTNUMBER" style="width:200; height:20"/> </p>
+
+    <p>1. Type of Payment:</p>
+
+    <p><input type="checkbox"  id="Checkbox53" @ViewBag.Checkbox53/> Fee</p>
+
+    <p><input type="checkbox"  id="Checkbox54" @ViewBag.Checkbox54/> Commission</p>
+
+    <p><input type="checkbox"  id="Checkbox55" @ViewBag.Checkbox55/> Political Contribution</p>
+
+    <p>2. Amount of Fee/Commission/Political Contribution (in U.S. dollars): <input type="text"  id="Commission" style="width:200; height:20"/> </p>
+
+    <p>2a. If paid in kind, please include a description and value of the item(s):</p>
+
+    <p>Description: <input type="text"  id="Description" style="width:200; height:20"/> </p>
+
+    <p>Value: $<input type="text"  id="ValueF" style="width:200; height:20"/> </p>
+
+    <p>3. Date Fee/Commission was paid, offered to be paid, or agreed to be paid: <input type="text"  id="DatePaid" style="width:200; height:20"/> </p>
+
+    <p>4. Recipient of the fee/commission/political contribution, or intended recipient if not yet paid:</p>
+
+    <p>Name: <input type="text"  id="NameR" style="width:200; height:20"/></p>
+
+    <p>Nationality: <input type="text"  id="NationalityR" style="width:200; height:20"/> </p>
+
+    <p>Address: <input type="text"  id="AddressR" style="width:200; height:20"/>  </p>
+
+    <p>Employer: <input type="text"  id="EmployerR" style="width:200; height:20"/> </p>
+
+    <p>Title: <input type="text"  id="TitleR" style="width:200; height:20"/> </p>
+
+    <p>Email Address: <input type="text"  id="EmailR" style="width:200; height:20"/></p>
+
+    <p>Telephone Number: <input type="text"  id="TelephoneR" style="width:200; height:20"/> </p>
+
+    <p>5. Person who paid, offered to pay, or agreed to pay the fee/commission/political contribution:</p>
+
+    <p>Name: <input type="text"  id="NameP" style="width:200; height:20"/></p>
+
+    <p>Address: <input type="text"  id="AddressP" style="width:200; height:20"/></p>
+
+    <p>Employer: <input type="text"  id="EmployerP" style="width:200; height:20"/></p>
+
+    <p>Title: <input type="text"  id="TitleP" style="width:200; height:20"/></p>
+
+    <p>Email Address: <input type="text"  id="EmailP" style="width:200; height:20"/></p>
+
+    <p>Telephone Number:<input type="text"  id="TelephoneP" style="width:200; height:20"/> </p>
+
+    <p>6. The relationship, if any, between the recipient/intended recipient and (a) Honeywell, (b) your company, and (c) any non-U.S. purchaser/end user involved in the project:</p>
+
+    <p><input type="text"  id="relationship" style="width:200; height:20"/> </p>
+
+    <p>
+        7. The aggregate amount of <b>ALL</b> fees/commissions/political contributions paid, offered to be paid, and agreed to be paid by, or on behalf of, your company in connection with this project:
+         <input type="text"  id="aggregate" style="width:200; height:20"/> 
+    </p>
+    </div>
+    </form>
+     <p style="margin-top:0px;color:gray">
+        <b>
+            <i style="text-align:left">Page 5 of 5</i>
+            <i style="margin-left:250px">Supplier Certification and Representation</i>
+            <i style="margin-left:200px">AF 0014H (2015)</i>
+        </b>
+    </p>
+</body>
+</html>
+

@@ -52,6 +52,10 @@
     <Reference Include="ChargifyNET">
       <HintPath>..\packages\chargify.1.0.5169.17336\lib\net35\ChargifyNET.dll</HintPath>
     </Reference>
+    <Reference Include="ConvertApi, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\ConvertApi.dll</HintPath>
+    </Reference>
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
@@ -2802,6 +2806,7 @@
     <Content Include="Scripts\2013.2.611\telerik.window.min.js" />
     <Content Include="Scripts\alertify.js" />
     <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\QuestionnaireResponsePdfDownload.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\CustomizedQuestionnaireSurveyPdfDownload.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

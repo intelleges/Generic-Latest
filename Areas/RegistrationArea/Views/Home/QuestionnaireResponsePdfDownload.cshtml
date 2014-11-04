@@ -5,9 +5,6 @@
 
 @{
     Layout = null;
-
-                    //string a = @Url.Content("~/Admin/Home/ExportPng");
-    
 }
 
 <!DOCTYPE html>
@@ -22,28 +19,6 @@
     <table width="100%">
         <tr>
             <td>
-
-
-
-
-                @* <a id="IntLogo" href="#"> 
-                     @{
-                         if (@ViewBag.logoSrc != null)
-                        {    
-                            string imageBase64 = Convert.ToBase64String(@ViewBag.logoSrc);
-                            string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
-                                 <img width="100%" src="@imageSrc"  style="max-height: 50px;" />
-                        }
-                     }
-                                    </a>*@
-                @* @if(ViewBag.logoSrc != null)
-    {
-        string imageBase64 = Convert.ToBase64String(ViewBag.logoSrc);
-        string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
-        <img width="100%" src="@imageSrc"  style="max-height: 50px;" />
-    }*@
-                @*<img width="100%" src="@Url.Content("~/Admin/Home/ExportPng")"  style="max-height: 50px;" />*@
-               
                 @if (!string.IsNullOrEmpty(ViewBag.logoSrc))
                 {
                     <img width="200px" src="@ViewBag.logoSrc"  style="" />
@@ -72,7 +47,7 @@
             </tr>
             <tr> 
                     <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
-                        SUPPLIER NAME: @ViewBag.person.firstName  @ViewBag.person.lastName
+                        SUPPLIER NAME: @ViewBag.partnerfirstName  @ViewBag.partnerlastName
                 </td>
             </tr>
             <tr> 
@@ -80,17 +55,17 @@
                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
                         <tr>
                             <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;" >
-                                SUPPLIER ADDRESS #1: @ViewBag.person.address1 
+                                SUPPLIER ADDRESS #1: @ViewBag.partneraddress1 
                             </td>
                         </tr>
                         <tr>
                             <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;" >
-                                SUPPLIER ADDRESS #2: @ViewBag.person.address2
+                                SUPPLIER ADDRESS #2: @ViewBag.partneraddress2
                             </td>
                         </tr>
                         <tr>
                             <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
-                                CITY/TOWN: @ViewBag.person.city
+                                CITY/TOWN: @ViewBag.partnercity
                             </td>
                         </tr>
                         <tr>
@@ -100,7 +75,11 @@
                         </tr>
                         <tr>
                             <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
-                                ZIP CODE: @ViewBag.person.zipcode
+                                ZIP CODE:
+                                @if (ViewBag.partnerzipcode != null)
+                                {
+                                     @MvcHtmlString.Create(ViewBag.partnerzipcode.ToString().Length > 5 ? ViewBag.partnerzipcode.ToString().Substring(0,5) + "-" + ViewBag.partnerzipcode.ToString().Substring(5, ViewBag.partnerzipcode.ToString().Length - 5): ViewBag.partnerzipcode);
+                                }
                             </td>
                         </tr>
                         <tr>
@@ -114,20 +93,20 @@
                     <table width="100%" cellpadding="0" cellspacing="0" border="1">
                         <tr>
                             <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
-                                CONTACT NAME: @ViewBag.person.firstName @ViewBag.person.lastName 
+                                CONTACT NAME: @ViewBag.partnerfirstName @ViewBag.partnerlastName 
                             </td>
                         </tr>
                         <tr>
                             <td  style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit">
-                                CONTACT TELEPHONE#: @ViewBag.person.phone
+                                CONTACT TELEPHONE#: @ViewBag.partnerphone
                             </td>
                             <td width="30%" style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit">
-                                CONTACT FAX#: @ViewBag.person.fax
+                                CONTACT FAX#: @ViewBag.partnerfax
                             </td>
                         </tr>
                         <tr>
                             <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
-                                CONTACT EMAIL ADDRESS: @ViewBag.person.email 
+                                CONTACT EMAIL ADDRESS: @ViewBag.partneremail 
                                 <br />
                                 <br />
                             </td>
@@ -138,69 +117,15 @@
             <tr> 
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
                     DUNS #: <br />
-                    @ViewBag.person.internalId
+                    @ViewBag.partnerinternalId
                 </td>
                     <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" >
                         SAP/LOCAL SUPPLIER #: <br />
-                        @ViewBag.person.internalId
+                        @ViewBag.partnerinternalId
                 </td>
             </tr>
-
-
-            @*<tr>
-                <td style="font-size: 13px">Access Code</td>
-                <td></td>
-                <td style="font-size: 13px">@item.Access_Code</td>
-            </tr>
-            <tr>
-                <td style="font-size: 13px">Internal ID</td>
-                <td></td>
-                <td style="font-size: 13px">@item.Internal_ID</td>
-            </tr>
-            <tr>
-                <td style="font-size: 11px">Score</td>
-                <td></td>
-                <td style="font-size: 11px">@item.Score</td>
-            </tr>*@
-
-
-            @*<tr>
-                <td style="font-size: 11px">Invited Date</td>
-                <td></td>
-                <td style="font-size: 11px">@DateTime.Parse(item.Invited_Date.ToString()).ToString("MM/dd/yyyy")</td>
-            </tr>
-            <tr>
-                <td style="font-size: 11px">Completed Date</td>
-                <td></td>
-                <td style="font-size: 11px">@DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")</td>
-            </tr>*@
-
-
-            @* <tr>
-                <td style="font-size: 11px">ZCode</td>
-                <td></td>
-                <td style="font-size: 11px">@item.ZCode</td>
-            </tr>
-            <tr>
-                <td style="font-size: 11px">Company</td>
-                <td></td>
-                <td style="font-size: 11px">@item.Company</td>
-            </tr>
-            <tr>
-                <td style="font-size: 11px">POC First Name</td>
-                <td></td>
-                <td style="font-size: 11px">@item.POC_First_Name</td>
-            </tr>
-            <tr>
-                <td style="font-size: 11px">POC Last Name</td>
-                <td></td>
-                <td style="font-size: 11px">@item.POC_Last_Name</td>
-            </tr>*@
-
         </table>
-     
     }
-
 
     <br />
     <br />
