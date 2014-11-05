@@ -2351,23 +2351,29 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             string htmltext = this.RenderActionResultToString(this.View("CustomizedQuestionnaireSurveyPdfDownload", model));  //name of the view...
 
-            string PDF_FileName = "HON_" +  Session["accessCode"].ToString().Substring(1, 4) + "_"+DateTime.Now.ToString().Replace('/','_').Replace(' ','_').Replace(':','_');
+            string PDF_FileName = "HON_" + Session["accessCode"].ToString().Substring(1, 4) +".pdf";// + "_"+DateTime.Now.ToString().Replace('/','_').Replace(' ','_').Replace(':','_');
 
-            string dirname = @"C:\https\MVCMT\logo\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
+            string dirname = @"C:\Users\john\Desktop\hs3MVC_Latest\";// @"C:\https\MVCMT\logo\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
             if (Directory.Exists(dirname))
             {
                 var fileName = dirname + PDF_FileName;
-                if (!System.IO.File.Exists(fileName))
+                if (System.IO.File.Exists(fileName))
                 {
-                    FileStream file = new FileStream(fileName, FileMode.Create, System.IO.FileAccess.Write);
-                    ConvertApi.Web2Pdf convertApi;
-                    convertApi = new ConvertApi.Web2Pdf(400127803);
-
-
-                    convertApi.ConvertHtml(htmltext, file);
-                    file.Close();
+                    try
+                    {
+                        System.IO.File.Delete(fileName);
+                    }
+                    catch{}
                 }
-                byte[] bytes = System.IO.File.ReadAllBytes(dirname + "/" + PDF_FileName + ".pdf");
+
+                FileStream file = new FileStream(fileName, FileMode.Create, System.IO.FileAccess.Write);
+                ConvertApi.Web2Pdf convertApi;
+                convertApi = new ConvertApi.Web2Pdf(400127803);
+
+
+                convertApi.ConvertHtml(htmltext, file);
+                file.Close();
+                byte[] bytes = System.IO.File.ReadAllBytes(fileName);
 
                 // Send the binary data to the browser.
                 return new BinaryContentResult(bytes, "application/pdf");
