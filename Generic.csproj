@@ -1283,6 +1283,9 @@
     <Compile Include="pr_getPPTQGroupByPPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPPTQQuestionResponseByQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getProductAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

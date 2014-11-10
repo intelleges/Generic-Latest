@@ -5161,6 +5161,10 @@
           <Parameter Name="group" Type="int" Mode="In" />
           <Parameter Name="pptqGroupType" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addPPTQpdf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="pdf" Type="varbinary(max)" Mode="In" />
+        </Function>
         <Function Name="pr_addProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="productNumber" Type="varchar" Mode="In" />
@@ -6327,6 +6331,9 @@
         </Function>
         <Function Name="pr_getPPTQGroupByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PPTQ" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPPTQQuestionResponseByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerpartnertypetouchpointquestionnaire" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -12198,7 +12205,14 @@
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_eventNotificationCheck" ReturnType="Collection(Int32)">
-            <Parameter Name="accesscode" Mode="In" Type="String" />
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQQuestionResponseByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQQuestionResponseByQuestionnaire_Result)">
+          <Parameter Name="partnerpartnertypetouchpointquestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPPTQpdf">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="pdf" Mode="In" Type="Binary" />
           </FunctionImport>
           
         </EntityContainer>
@@ -19412,6 +19426,12 @@
           <Property Type="String" Name="verifier" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="person" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getPPTQQuestionResponseByQuestionnaire_Result">
+          <Property Type="Int32" Name="qid" Nullable="false" />
+          <Property Type="String" Name="question" Nullable="true" />
+          <Property Type="Int32" Name="rid" Nullable="false" />
+          <Property Type="String" Name="response" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -25207,6 +25227,17 @@
           <FunctionImportMapping FunctionImportName="pr_removePersonLinkedinAuthInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_removePersonLinkedinAuthInfo" />
           <FunctionImportMapping FunctionImportName="pr_getDueDateByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getDueDateByPPTQ" />
           <FunctionImportMapping FunctionImportName="pr_eventNotificationCheck" FunctionName="hs3MVCMTQa2Model.Store.pr_eventNotificationCheck" />
+          <FunctionImportMapping FunctionImportName="pr_getPPTQQuestionResponseByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQQuestionResponseByQuestionnaire">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQQuestionResponseByQuestionnaire_Result">
+                <ScalarProperty Name="qid" ColumnName="qid" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="rid" ColumnName="rid" />
+                <ScalarProperty Name="response" ColumnName="response" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPPTQpdf" FunctionName="hs3MVCMTQa2Model.Store.pr_addPPTQpdf" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

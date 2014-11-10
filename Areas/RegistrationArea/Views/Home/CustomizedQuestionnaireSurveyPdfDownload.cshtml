@@ -131,13 +131,13 @@
     <div>
         <p><b> 1. <i>BUSINESS SIZE AND TYPE CLASSIFICATION</i></b></p>
         <p><i>SUPPLIER</i> represents that it is a<b> <i><u style="color:blue">(Check ALL that apply)</u></i></b></p>
-        <p><input type="checkbox"  id="SmallBusiness" @ViewBag.SmallBusiness/> Small Business (Sm)</p>
-        <p><input type="checkbox" id="Checkbox1" @ViewBag.Checkbox1/> Large Business</p>
-        <p><input type="checkbox" id="Checkbox2" @ViewBag.Checkbox2/> Minority/Disadvantaged Business (Dis)</p>
-        <p><input type="checkbox" id="Checkbox3" @ViewBag.Checkbox3/> Woman-Owned (Wom)</p>
-        <p><input type="checkbox" id="Checkbox4" @ViewBag.Checkbox4/> Veteran-Owned (Vet)</p>
-        <p><input type="checkbox" id="Checkbox5" @ViewBag.Checkbox5/> Service Disabled Veteran-Owned (SD)</p>
-        <p><input type="checkbox" id="Checkbox6" @ViewBag.Checkbox6/> HUBZone Business** (HZ) </p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox1/> Small Business (Sm)</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox2/> Large Business</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox3/> Minority/Disadvantaged Business (Dis)</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox4/> Woman-Owned (Wom)</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox5/> Veteran-Owned (Vet)</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox6/> Service Disabled Veteran-Owned (SD)</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox7/> HUBZone Business** (HZ) </p>
 
         <p style="margin-left:40px; color:red;">
             <b>
@@ -149,38 +149,22 @@
             </b>
         </p>
 
-        <p><input type="checkbox" id="Checkbox9"  @ViewBag.Checkbox9/> Historically Black College or University</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox8/> Historically Black College or University</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox9/> Minority Institution</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox10/> University or College</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox11/> Non-Profit Organization</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox11_comment/> Non-Profit Organization with Disabled Persons	</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox12/> Alaska Native Corps. &amp; Indian Tribes that have not been certified by the SBA as a Small Disadvantaged Business (ANC)</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox13/> Alaska Native Corps. &amp; Indian Tribes that are not Small Businesses (Large, ANC)</p>
 
-        <p><input type="checkbox" id="Checkbox10"  @ViewBag.Checkbox10/> Minority Institution</p>
-
-        <p><input type="checkbox" id="Checkbox11"  @ViewBag.Checkbox11/> University or College</p>
-
-        <p><input type="checkbox" id="Checkbox12"  @ViewBag.Checkbox12/> Non-Profit Organization</p>
-
-        <p><input type="checkbox" id="Checkbox12"  @ViewBag.Checkbox000/> Non-Profit Organization with Disabled Persons	</p>
-
-        <p><input type="checkbox" id="Checkbox14"  @ViewBag.Checkbox14/> Alaska Native Corps. &amp; Indian Tribes that have not been certified by the SBA as a Small Disadvantaged Business (ANC)</p>
-
-        <p><input type="checkbox" id="Checkbox15"  @ViewBag.Checkbox15/> Alaska Native Corps. &amp; Indian Tribes that are not Small Businesses (Large, ANC)</p>
-
-        <p>
-            <input type="checkbox"  id="Checkbox19" @ViewBag.Checkbox19/> Government Agency / Entity: Explain: 
-            <input type="text"  id="GovernmentAgency" style="width:200px; height:20px"/>
+        <p style="height:4px">
+            <input type="checkbox" @ViewBag.Checkbox14/> Government Agency / Entity: Explain: 
+            <input type="text"   style="width:200px; height:20px" value = "@(ViewBag.Input0 ?? String.Empty)"/>
         </p>
     
-        <p><input type="checkbox"  id="Checkbox16" @ViewBag.Checkbox16/> Non-U.S. Small Business (under 500 employees)</p>
-
-        <p><input type="checkbox"  id="Checkbox17" @ViewBag.Checkbox17/> Non-U.S. Large Business (500 + employees)</p>
-
-        <p><input type="checkbox"  id="Checkbox18" @ViewBag.Checkbox18/> Canadian</p>
-
-        <p style="margin-top:150px; color:gray">
-            <b>
-                <i style="text-align:left">Page 1 of 5</i>
-                <i style="margin-left:250px">Supplier Certification and Representation</i>
-                <i style="margin-left:200px">AF 0014H (2015)</i>
-            </b>
-        </p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox15/> Non-U.S. Small Business (under 500 employees)</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox16/> Non-U.S. Large Business (500 + employees)</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox17/> Canadian</p>
 
         <table  cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
             <tr>
@@ -196,33 +180,36 @@
             <tr>
                 <td></td>
                 <td>
-                    <b><input type="checkbox" /> YES </b>
-                    <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
-                    <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+                    <b><input type="checkbox" @ViewBag.Checkbox18/> YES </b>
+                    <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox19/> NO </b>
+                    <b style ="margin-left:20px">If NO, comment required: <input type="text" value = "@(ViewBag.Input1 ?? String.Empty)" style="width:200px; height:20px"/></b>
                 </td>
             </tr>
         </table>
 
+        <p style="margin-top:230px; color:gray">
+            <b>
+                <i style="text-align:left">Page 1 of 5</i>
+                <i style="margin-left:250px">Supplier Certification and Representation</i>
+                <i style="margin-left:200px">AF 0014H (2015)</i>
+            </b>
+        </p>
+     
         <p><b> MINORITY OWNERSHIP:  <i>ONLY</i>  IF SUPPLIER HAS REPRESENTED ITSELF ABOVE AS A SMALL DISADVANTAGED BUSINESS (SDB) OR WOMEN-OWNED SMALL DISADVANTAGED BUSINESS (WOSDB), PLEASE CHECK THE APPROPRIATE CATEGORY OF OWNERSHIP:  (FAR 52.219-1 Alt 1)</i></b></p>
 
-        <p><input type="checkbox"  id="Checkbox20" @ViewBag.Checkbox20/> A. Black American</p>
-
-        <p><input type="checkbox"  id="Checkbox21" @ViewBag.Checkbox21/> B. Hispanic American</p>
-
-        <p><input type="checkbox"  id="Checkbox22" @ViewBag.Checkbox22/> C. Native American: American Indians, Eskimos, Aleuts, or Native Hawaiians</p>
-
-        <p><input type="checkbox"  id="Checkbox23" @ViewBag.Checkbox23/> D. Asian-Pacific American: persons with origins from Burma, Thailand, Malaysia, Indonesia, Singapore, Brunei, Japan, China, Taiwan, Laos, Cambodia (Kampuchea), Vietnam, Korea, The Philippines, U.S. Trust Territory of the Pacific Islands (Republic of Palau), Republic of the Marshall Islands, Federated States of Micronesia, the Commonwealth of the Northern Mariana Islands, Guam, Samoa, Macao, Hong Kong, Fiji, Tonga, Kiribati, Tuvalu or Nauru</p>
-
-        <p><input type="checkbox"  id="Checkbox24" @ViewBag.Checkbox24/> E. Subcontinent Asian (Asian-Indian) American: persons with origins from India, Pakistan, Bangladesh, Sri Lanka, Bhutan, the Maldives Islands, or Nepal</p>
-
-        <p>
-            <input type="checkbox"  id="Checkbox25" @ViewBag.Checkbox25/> F. Individual/concern, other than one of the preceding. Explain: 
-            <input type="text" style="width:200px; height:20px"/>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox20/> A. Black American</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox21/> B. Hispanic American</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox22/> C. Native American: American Indians, Eskimos, Aleuts, or Native Hawaiians</p>
+        <p><input type="checkbox"  @ViewBag.Checkbox23/> D. Asian-Pacific American: persons with origins from Burma, Thailand, Malaysia, Indonesia, Singapore, Brunei, Japan, China, Taiwan, Laos, Cambodia (Kampuchea), Vietnam, Korea, The Philippines, U.S. Trust Territory of the Pacific Islands (Republic of Palau), Republic of the Marshall Islands, Federated States of Micronesia, the Commonwealth of the Northern Mariana Islands, Guam, Samoa, Macao, Hong Kong, Fiji, Tonga, Kiribati, Tuvalu or Nauru</p>
+        <p style="height:3px"><input type="checkbox"  @ViewBag.Checkbox24/> E. Subcontinent Asian (Asian-Indian) American: persons with origins from India, Pakistan, Bangladesh, Sri Lanka, Bhutan, the Maldives Islands, or Nepal</p>
+        <p style="height:4px;">
+            <input type="checkbox" @ViewBag.Checkbox25/> F. Individual/concern, other than one of the preceding. Explain: 
+            <input type="text" value = "@(ViewBag.Input2 ?? String.Empty)" style="width:200px; height:20px"/>
         </p>
 
     </div>
 
-    <div>
+    <div style="margin-top:35px">
 
         <p><b> 2. <i>REPRESENTATION OF ADHERENCE TO HONEYWELL'S "CODE OF BUSINESS CONDUCT"</i></b></p>
 
@@ -239,9 +226,9 @@
         </div>
         
         <p>
-            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
-            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+            <b style ="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox26/> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox27/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" value = "@(ViewBag.Input3 ?? String.Empty)" style="width:200px; height:20px"/></b>
         </p>
 
     </div>
@@ -259,7 +246,7 @@
                     <p><i>(Must be 6 digits)</i></p>
                 </td>
                 <td style="width:250px">
-                    <input type="text"  id="NAICCode" />
+                    <input type="text"  value = "@(ViewBag.Input4 ?? String.Empty)" />
                 </td>
             </tr>
         </table>
@@ -275,8 +262,8 @@
         <p> <i>SUPPLIER</i> has participated in a previous contract or subcontract subject to the Equal Opportunity Clause.</p>
 
         <p>
-            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+            <b style ="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox28/> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox29/> NO </b>
         </p>
 
     </div>
@@ -288,28 +275,20 @@
         <p><i>SUPPLIER</i> has filed all required Compliance reports.</p>
 
         <p>
-            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
-            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+            <b style ="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox30/> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox31/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" value = "@(ViewBag.Input5 ?? String.Empty)" style="width:200px; height:20px"/></b>
         </p>
 
     </div>
-
-    <p style="margin-top:80px;color:gray">
-        <b>
-            <i style="text-align:left">Page 2 of 5</i>
-            <i style="margin-left:250px">Supplier Certification and Representation</i>
-            <i style="margin-left:200px">AF 0014H (2015)</i>
-        </b>
-    </p>
 
     <div>
 
         <p><b> 6. <i>CERTIFICATION OF AFFIRMATIVE ACTION COMPLIANCE</i></b> <b><i style="color:blue;">(Check ONLY one)</i></b></p>
 
-        <p><input type="checkbox"  id="Checkbox32" @ViewBag.Checkbox32/> A. Supplier <b><i>HAS</i></b> developed and has on file, at each establishment, affirmative action programs required by the rules and regulations of the Secretary of Labor (41 CFR 60-1 and 60-2); OR
+        <p><input type="checkbox" @ViewBag.Checkbox32/> A. Supplier <b><i>HAS</i></b> developed and has on file, at each establishment, affirmative action programs required by the rules and regulations of the Secretary of Labor (41 CFR 60-1 and 60-2); OR
 
-        <p><input type="checkbox"  id="Checkbox33" @ViewBag.Checkbox33/> B. Supplier <b><i>HAS NOT</i></b> previously had contracts subject to the written affirmative action programs requirement of the rules and regulations of the Secretary of Labor.
+        <p><input type="checkbox" @ViewBag.Checkbox33/> B. Supplier <b><i>HAS NOT</i></b> previously had contracts subject to the written affirmative action programs requirement of the rules and regulations of the Secretary of Labor.
 
     </div>
 
@@ -320,12 +299,20 @@
         <p><i>SUPPLIER</i> certifies for any Honeywell award subject to the reporting requirements of 38 U.S.C. 4212(d) (e.g., contracts containing FAR Clause 52.222-37, Employment Reports on Veterans) it has submitted the most recent VETS-100A Report as required by 52.222-37.</p>
 
         <p>
-            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
-            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+            <b style ="margin-left:40px"><input type="checkbox"  @ViewBag.Checkbox34 /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox"  @ViewBag.Checkbox35/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" value = "@(ViewBag.Input6 ?? String.Empty)" style="width:200px; height:20px"/></b>
         </p>
 
     </div>
+
+     <p style="margin-top:60px;color:gray">
+        <b>
+            <i style="text-align:left">Page 2 of 5</i>
+            <i style="margin-left:250px">Supplier Certification and Representation</i>
+            <i style="margin-left:200px">AF 0014H (2015)</i>
+        </b>
+    </p>
 
     <div>
 
@@ -334,9 +321,9 @@
             <b><i  style="color:blue;">(Check ONLY one)</i></b>
         </p>
 
-        <p><input type="checkbox"  id="Checkbox36" @ViewBag.Checkbox36/> A. Supplier certifies, to the best of its knowledge and belief that your firm and/or any of its Principals <b>ARE</b> presently debarred, suspended, proposed for debarment, or declared ineligible for the award of contracts by any Federal agency.</p>
+        <p><input type="checkbox"  @ViewBag.Checkbox36/> A. Supplier certifies, to the best of its knowledge and belief that your firm and/or any of its Principals <b>ARE</b> presently debarred, suspended, proposed for debarment, or declared ineligible for the award of contracts by any Federal agency.</p>
 
-        <p><input type="checkbox"  id="Checkbox37" @ViewBag.Checkbox37"/> B. Supplier certifies, to the best of its knowledge and belief that your firm and/or any of its Principals <b>ARE NOT</b> presently debarred, suspended, proposed for debarment, or declared ineligible for the award of contracts by any Federal agency.</p>
+        <p><input type="checkbox"  @ViewBag.Checkbox37"/> B. Supplier certifies, to the best of its knowledge and belief that your firm and/or any of its Principals <b>ARE NOT</b> presently debarred, suspended, proposed for debarment, or declared ineligible for the award of contracts by any Federal agency.</p>
 
     </div>
 
@@ -361,9 +348,9 @@
         <p>C. If <i>SUPPLIER</i> deletes or modifies subparagraph A.2 of this Section, Supplier must furnish with its offer a signed statement setting forth in detail the circumstances of the disclosure.</p>
 
         <p>
-            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
-            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+            <b style ="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox38/> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox39/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" value = "@(ViewBag.Input7 ?? String.Empty)" style="width:200px; height:20px"/></b>
         </p>
 
     </div> 
@@ -375,8 +362,8 @@
         <p><i>SUPPLIER</i> certifies, to the best of its knowledge and belief, <u><b>NO</b></u> Federal appropriated funds have been paid or will be paid to any person to influence or attempt to influence certain Government officials to award or modify a Federal contract.</p>
 
         <p>
-            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+            <b style ="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox40 /> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox41/> NO </b>
         </p>
 
     </div>
@@ -388,14 +375,28 @@
         <p><i>SUPPLIER</i> agrees to submit to Honeywell OMB Standard Form LLL prior to any contract award of $150,000 or greater when supplier has paid or will pay Federal appropriated funds to influence certain Government officials to award or modify a Federal contract.</p>
 
         <p>
-            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
-            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+            <b style ="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox42/> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox43/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" value = "@(ViewBag.Input8 ?? String.Empty)" style="width:200px; height:20px"/></b>
         </p>
 
     </div>
 
-    <p style="margin-top:80px; color:gray">
+    <div>
+
+        <p><b>12. <i>STATEMENT TO PREVENT TRANSACTIONS WITH DENIED PERSONS/DEBARRED PARTIES/SDN</i></b></p>
+
+        <p>To ensure compliance of U.S. export laws, Honeywell does not conduct any business transaction with the "Denied Persons List" published by the U.S. Department of Commerce, the "Denied Parties List" published by the Department of State and the "Specially Designated Nationals" list published by the Department of Treasury, Foreign Assets Control. Honeywell expects all suppliers and its subcontractors to comply with these laws as well. Supplier agrees to include this requirement in lower-tier Purchase Orders and/or subcontracts. (You may view the U.S. Government web sites of the Agencies noted above to access their lists)
+
+        <p>
+            <b style ="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox44/> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox45/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" value = "@(ViewBag.Input9 ?? String.Empty)" style="width:200px; height:20px"/></b>
+        </p>
+
+    </div>
+
+    <p style="margin-top:160px; color:gray">
         <b>
             <i style="text-align:left">Page 3 of 5</i>
             <i style="margin-left:250px">Supplier Certification and Representation</i>
@@ -405,42 +406,28 @@
 
     <div>
 
-        <p><b>12. <i>STATEMENT TO PREVENT TRANSACTIONS WITH DENIED PERSONS/DEBARRED PARTIES/SDN</i></b></p>
-
-        <p>To ensure compliance of U.S. export laws, Honeywell does not conduct any business transaction with the "Denied Persons List" published by the U.S. Department of Commerce, the "Denied Parties List" published by the Department of State and the "Specially Designated Nationals" list published by the Department of Treasury, Foreign Assets Control. Honeywell expects all suppliers and its subcontractors to comply with these laws as well. Supplier agrees to include this requirement in lower-tier Purchase Orders and/or subcontracts. (You may view the U.S. Government web sites of the Agencies noted above to access their lists)
-
-        <p>
-            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
-            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
-        </p>
-
-    </div>
-
-    <div>
-
         <p><b>13. <i>FEDERAL AVIATION ADMINISTRATION (FAA) ANTI-DRUG AND ALCOHOL MISUSE PREVENTION PROGRAMS</i></b></p>
 
         <p>Is your firm an FAA approved Repair Station?  (14 CFR 145) 
-            <b style ="margin-left:20px"><input type="checkbox"  id="Checkbox40" @ViewBag.Checkbox40/> Yes </b>
-            <b style ="margin-left:20px"><input type="checkbox"  id="Checkbox41" @ViewBag.Checkbox41/> No </b>
+            <b style ="margin-left:20px"><input type="checkbox"  @ViewBag.Checkbox46/> Yes </b>
+            <b style ="margin-left:20px"><input type="checkbox"  @ViewBag.Checkbox47/> No </b>
         </p>
 
         <p>
-            <b style ="margin-left:20px"><i>If Yes</i></b>, Federal Registration #: <input type="text"  id="Federalno" /> 
+            <b style ="margin-left:20px"><i>If Yes</i></b>, Federal Registration #: <input type="text"   value = "@(ViewBag.Input10 ?? String.Empty)"/> 
         </p>
 
         <p style ="margin-left:40px">Does your firm have an approved Anti-Drug Program?
-            <b style ="margin-left:20px"><input type="checkbox"/> Yes </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> No </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox48/> Yes </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox49/> No </b>
         </p>
-        <p style ="margin-left:60px"><b>If YES</b>, Anti-Drug Program Plan #:  <input type="text" style="width:200px; height:20px"/></p>
+        <p style ="margin-left:60px"><b>If YES</b>, Anti-Drug Program Plan #:  <input type="text" style="width:200px; height:20px"  value = "@(ViewBag.Input11 ?? String.Empty)"/></p>
 
         <p style ="margin-left:40px">Does your firm have an approved Alcohol Misuse Prevention Program?
-            <b style ="margin-left:20px"><input type="checkbox"/> Yes </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> No </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox50/> Yes </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox51/> No </b>
         </p>
-        <p style ="margin-left:60px"><b>If YES</b>, Alcohol Misuse Prevention Program Plan #: <input type="text" style="width:200px; height:20px"/></p>
+        <p style ="margin-left:60px"><b>If YES</b>, Alcohol Misuse Prevention Program Plan #: <input type="text" style="width:200px; height:20px"  value = "@(ViewBag.Input12 ?? String.Empty)"/></p>
 
     </div>
 
@@ -451,8 +438,8 @@
         <p><i>SUPPLIER</i> certifies it is a publicly traded company, in which its Executive Compensation is already public record, therefore exempt.</p>
                     
         <p>
-            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+            <b style ="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox52/> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox53/> NO </b>
         </p>
 
     </div>
@@ -464,9 +451,9 @@
         <p>Does your firm file periodic reports on executive compensation under Section 13(a) or 15(d) of the Securities Exchange Act of 1934 (15 U.S.C. 78m(a), 78o(d)) or Section 6104 of the Internal Revenue Code of 1986?</p>
                     
         <p>
-            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
-            <b style ="margin-left:20px">If NO, comment required: <input type="text" style="width:200px; height:20px"/></b>
+            <b style ="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox54/> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox55/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" value = "@(ViewBag.Input13 ?? String.Empty)" style="width:200px; height:20px"/></b>
         </p>
 
     </div>
@@ -480,15 +467,15 @@
         <p>A. <i>SUPPLIER</i> certifies it <b>SELLS</b> defense articles, technical data, and/or defense services to Honeywell that are:  (1) controlled for export under U.S. International Traffic in Arms Regulations (ITAR) (22 CFR Parts 120-130); (2) valued in an amount of $500,000 or greater; and (3) for delivery (or incorporation into another product for delivery) to, or for the use of, the armed forces of an international organization or a country other than the United States. </p>
         
         <p style ="margin-left:20px">
-            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+            <b style ="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox56/> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox57/> NO </b>
         </p>
 
         <p> B. <i>SUPPLIER</i> certifies it has paid, offered to pay, or agreed to pay any “fees”, “commissions”, or “political contributions” as defined in 22 CFR § 130.5 and 22 CFR § 130.6 in connection with the sale of defense articles, technical data, and/or defense services to Honeywell. </p>
         
         <p style ="margin-left:20px">
-            <b style ="margin-left:40px"><input type="checkbox" /> YES </b>
-            <b style ="margin-left:20px"><input type="checkbox"/> NO </b>
+            <b style ="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox58/> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox59/> NO </b>
         </p>
 
         <p><b><i style="color:red;"><u>If Item B. is YES, please complete Exhibit I</u> for each fee, commission, and political contribution, using additional sheets as necessary, referencing the Sales Order/Contract Number at issue, and numbering each successive sheet X of X accordingly.</i></b></p>
@@ -498,6 +485,12 @@
     <p style="text-align:center; font-size:21px"><i><u><b>CERTIFICATION</b></u></i></p>
 
     <p>I hereby certify the information presented here is true and correct and meets the intent and spirit of the statements made above. This certification shall apply to all solicitations, agreements, Purchase Orders, contracts, or subcontracts received from Honeywell, and shall be valid for the calendar year noted on Page 1. If any changes to the above occur, Supplier will immediately notify a Honeywell Compliance Officer, in writing, regarding its change in status.</p>
+
+     <p>
+            <b style ="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox60/> YES </b>
+            <b style ="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox61/> NO </b>
+            <b style ="margin-left:20px">If NO, comment required: <input type="text" value = "@(ViewBag.Input14 ?? String.Empty)" style="width:200px; height:20px"/></b>
+        </p>
 
     <table width="100%" cellpadding="0" cellspacing="0" border="1">
             <tr style="height:40px">
@@ -518,7 +511,7 @@
             </tr>
         </table>
 
-   <p style="margin-top:30px; color:gray">
+   <p style="margin-top:180px; color:gray">
         <b>
             <i style="text-align:left">Page 4 of 5</i>
             <i style="margin-left:250px">Supplier Certification and Representation</i>

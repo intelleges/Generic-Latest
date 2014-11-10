@@ -14213,5 +14213,27 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_eventNotificationCheck", accesscodeParameter);
         }
+    
+        public virtual ObjectResult<pr_getPPTQQuestionResponseByQuestionnaire_Result> pr_getPPTQQuestionResponseByQuestionnaire(Nullable<int> partnerpartnertypetouchpointquestionnaire)
+        {
+            var partnerpartnertypetouchpointquestionnaireParameter = partnerpartnertypetouchpointquestionnaire.HasValue ?
+                new ObjectParameter("partnerpartnertypetouchpointquestionnaire", partnerpartnertypetouchpointquestionnaire) :
+                new ObjectParameter("partnerpartnertypetouchpointquestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQQuestionResponseByQuestionnaire_Result>("pr_getPPTQQuestionResponseByQuestionnaire", partnerpartnertypetouchpointquestionnaireParameter);
+        }
+    
+        public virtual int pr_addPPTQpdf(Nullable<int> id, byte[] pdf)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var pdfParameter = pdf != null ?
+                new ObjectParameter("pdf", pdf) :
+                new ObjectParameter("pdf", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPPTQpdf", idParameter, pdfParameter);
+        }
     }
 }
