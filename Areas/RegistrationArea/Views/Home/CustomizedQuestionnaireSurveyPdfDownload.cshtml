@@ -19,7 +19,7 @@
             <td>
                 @if (!string.IsNullOrEmpty(ViewBag.logoSrc))
                 {
-                    <img width="200px" src="@ViewBag.logoSrc"  style="" />
+                    <img src="@ViewBag.logoSrc" runat="server" style="height:50px; width:200px; border:none" />
                 }
             </td>
         </tr>
@@ -187,7 +187,7 @@
             </tr>
         </table>
 
-        <p style="margin-top:230px; color:gray">
+        <p style="margin-top:180px; color:gray">
             <b>
                 <i style="text-align:left">Page 1 of 5</i>
                 <i style="margin-left:250px">Supplier Certification and Representation</i>

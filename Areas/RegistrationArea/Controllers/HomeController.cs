@@ -2277,10 +2277,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             else
             {
                 var logo = enterprise.FirstOrDefault().logo;
-                string dirname = @"C:\https\MVCMT\logo\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
-                if (Directory.Exists(dirname))
+                string dirname = "~/uploadedFiles/";//@"C:\Users\john\Desktop\hs3MVC_Latest\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
+
+                if (Directory.Exists(Server.MapPath(dirname)))
                 {
-                    var fileName = dirname + enterprise.FirstOrDefault().id + "Logo.png";
+                    var fileName = Server.MapPath(dirname) + enterprise.FirstOrDefault().id + "Logo.png";
                     if (!System.IO.File.Exists(fileName))
                     {
                         var fs = new BinaryWriter(new FileStream(fileName, FileMode.Append, FileAccess.Write));
@@ -2693,10 +2694,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             string PDF_FileName = "HON_" + Session["accessCode"].ToString().Substring(1, 4) +".pdf";// + "_"+DateTime.Now.ToString().Replace('/','_').Replace(' ','_').Replace(':','_');
 
-            string dirname = @"C:\https\MVCMT\logo\";//@"C:\Users\john\Desktop\hs3MVC_Latest\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
-            if (Directory.Exists(dirname))
+            //string dirname = @"C:\Users\john\Desktop\hs3MVC_Latest\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
+            string dirname = "~/uploadedFiles/";
+            if (Directory.Exists(Server.MapPath(dirname)))
             {
-                var fileName = dirname + PDF_FileName;
+                var fileName = Server.MapPath(dirname) + PDF_FileName;
                 if (System.IO.File.Exists(fileName))
                 {
                     try
@@ -2709,7 +2711,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 FileStream file = new FileStream(fileName, FileMode.Create, System.IO.FileAccess.Write);
                 ConvertApi.Web2Pdf convertApi;
                 convertApi = new ConvertApi.Web2Pdf(400127803);
-
 
                 convertApi.ConvertHtml(htmltext, file);
                 file.Close();
