@@ -152,7 +152,9 @@
                                             } 
                                             else
                                             {
-                                               <a href="@ViewBag.CMS_PAGE_PREVIOUS_LINK" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
+                                                <a href="javascript:checkToPrintCustomizedPDF('@ViewBag.ACCESS_CODE')" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
+                                                
+                                               @*<a href="@ViewBag.CMS_PAGE_PREVIOUS_LINK" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>*@
                                             }
                                         </span>
                                     </td>
@@ -171,6 +173,10 @@
 
                                             function checkToPrintPDF(accesscode) {
                                                 window.location.href = "@Url.Content("~/Registration/Home/PrintPDF/?accesscode=")" + accesscode;
+                                            }
+
+                                            function checkToPrintCustomizedPDF(accesscode) {
+                                                window.location.href = "@Url.Content("~/Registration/Home/CustomizedPDFConfirmation/?accesscode=")" + accesscode;
                                             }
                                         </script>
         

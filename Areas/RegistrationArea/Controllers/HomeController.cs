@@ -2730,5 +2730,15 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             return RedirectToAction("~/Registration/Home");
         }
+
+        public ActionResult CustomizedPDFConfirmation(string accesscode)
+        {
+            if (!string.IsNullOrEmpty(accesscode))
+            {
+                Session["accessCode"] = accesscode;
+                Response.Redirect("~/Registration/Home/CustomizedPDFConfirmation");
+            }
+            return RedirectToAction("~/Registration/Home");
+        }
     }
 }
