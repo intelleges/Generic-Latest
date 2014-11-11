@@ -2128,21 +2128,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             if (!string.IsNullOrEmpty(accesscode))
             {
                 Session["accessCode"] = accesscode;
-                var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
-                if (_pptq != null)
-                {
-                    var _partnerId = _pptq.partner;
-                    var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
-                    var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
-                    var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
-
-                    if (pdf == null)
-                        Response.Redirect("~/Registration/Home/PDFConfirmation");
-                    else
-                        Response.Redirect("~/Registration/Home/CustomizedPDFConfirmation");
-                }
-                else
-                    Response.Redirect("~/Registration/Home/PDFConfirmation");
+                Response.Redirect("~/Registration/Home/PDFConfirmation");
             }
             return RedirectToAction("~/Registration/Home");
         }
