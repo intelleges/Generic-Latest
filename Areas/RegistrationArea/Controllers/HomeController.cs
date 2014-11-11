@@ -2128,18 +2128,23 @@ namespace Generic.Areas.RegistrationArea.Controllers
             if (!string.IsNullOrEmpty(accesscode))
             {
                 Session["accessCode"] = accesscode;
-                var _partnerId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().partner;
-                var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
-                var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
-                var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
+                var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+                if (_pptq != null)
+                {
+                    var _partnerId = _pptq.partner;
+                    var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
+                    var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
+                    var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
 
-                if (pdf == null)
-                    Response.Redirect("~/Registration/Home/PDFConfirmation");
+                    if (pdf == null)
+                        Response.Redirect("~/Registration/Home/PDFConfirmation");
+                    else
+                        Response.Redirect("~/Registration/Home/CustomizedPDFConfirmation");
+                }
                 else
-                    return new BinaryContentResult(pdf, "application/pdf");
+                    Response.Redirect("~/Registration/Home/PDFConfirmation");
             }
             return RedirectToAction("~/Registration/Home");
-
         }
 
         public ActionResult PDFConfirmation()
@@ -2721,6 +2726,23 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 return new BinaryContentResult(bytes, "application/pdf");
             }
             return new BinaryContentResult(null, "application/pdf");
+        }
+
+        public ActionResult PDFCustomizedConfirmation()
+        {
+            if (!String.IsNullOrEmpty(Session["accessCode"].ToString()))
+            {
+                 var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+                 if (_pptq != null)
+                 {
+                     var _partnerId = _pptq.partner;
+                     var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
+                     var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
+                     var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
+                     return new BinaryContentResult(pdf, "application/pdf");
+                 }
+            }
+            return RedirectToAction("~/Registration/Home");
         }
     }
 }
