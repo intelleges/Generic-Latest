@@ -2277,7 +2277,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             else
             {
                 var logo = enterprise.FirstOrDefault().logo;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
-                string dirname = "~/uploadedFiles/EnterpriseLogo/";//@"C:\Users\john\Desktop\hs3MVC_Latest\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
+                string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
                 {
@@ -2693,9 +2693,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             string htmltext = this.RenderActionResultToString(this.View("CustomizedQuestionnaireSurveyPdfDownload", model));  //name of the view...
 
-            string PDF_FileName = "HON_" + Session["accessCode"].ToString().Substring(1, 4) +".pdf";// + "_"+DateTime.Now.ToString().Replace('/','_').Replace(' ','_').Replace(':','_');
+            string PDF_FileName = "HON_" + Session["accessCode"].ToString().Substring(1, 4) +".pdf";
 
-            //string dirname = @"C:\Users\john\Desktop\hs3MVC_Latest\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
             string dirname = "~/uploadedFiles/";
             if (Directory.Exists(Server.MapPath(dirname)))
             {
