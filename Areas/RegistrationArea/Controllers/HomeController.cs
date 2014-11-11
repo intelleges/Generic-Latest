@@ -2693,7 +2693,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             string PDF_FileName = "HON_" + Session["accessCode"].ToString().Substring(1, 4) +".pdf";// + "_"+DateTime.Now.ToString().Replace('/','_').Replace(' ','_').Replace(':','_');
 
-            string dirname = @"C:\Users\john\Desktop\hs3MVC_Latest\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
+            string dirname = @"C:\https\MVCMT\logo\";//@"C:\Users\john\Desktop\hs3MVC_Latest\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
             if (Directory.Exists(dirname))
             {
                 var fileName = dirname + PDF_FileName;
