@@ -2276,19 +2276,20 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             else
             {
-                var logo = enterprise.FirstOrDefault().logo;
-                string dirname = "~/uploadedFiles/";//@"C:\Users\john\Desktop\hs3MVC_Latest\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
+                var logo = enterprise.FirstOrDefault().logo;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                string dirname = "~/uploadedFiles/EnterpriseLogo/";//@"C:\Users\john\Desktop\hs3MVC_Latest\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
                 {
-                    var fileName = Server.MapPath(dirname) + enterprise.FirstOrDefault().id + "Logo.png";
-                    if (!System.IO.File.Exists(fileName))
+                    var fileName = enterprise.FirstOrDefault().id + "Logo.png";
+                    var physicalPath = Path.Combine(Server.MapPath(dirname), fileName);
+                    if (!System.IO.File.Exists(physicalPath))
                     {
-                        var fs = new BinaryWriter(new FileStream(fileName, FileMode.Append, FileAccess.Write));
+                        var fs = new BinaryWriter(new FileStream(physicalPath, FileMode.Append, FileAccess.Write));
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = fileName;
+                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
