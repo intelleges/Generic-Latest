@@ -2241,7 +2241,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         public ActionResult CustomizedPDFConfirmation()
         {
-            List<pr_getPartnerQuestionResponseByAccessCode_Result> reslt = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
+            //List<pr_getPartnerQuestionResponseByAccessCode_Result> reslt = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
 
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
             ViewBag.partnerHeader = _partnerHeader;
@@ -2677,12 +2677,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
             }
 
-            return ViewCustomizedPdf(reslt, pptqID);
+            return ViewCustomizedPdf(pptqID);
         }
 
-        protected ActionResult ViewCustomizedPdf(object model, int pptqID)
+        protected ActionResult ViewCustomizedPdf(int pptqID)
         {
-            string htmltext = this.RenderActionResultToString(this.View("CustomizedQuestionnaireSurveyPdfDownload", model));  //name of the view...
+            string htmltext = this.RenderActionResultToString(this.View("CustomizedQuestionnaireSurveyPdfDownload"));  //name of the view...
 
             string PDF_FileName = "HON_" + Session["accessCode"].ToString().Substring(1, 4) +".pdf";
 
