@@ -6332,6 +6332,9 @@
         <Function Name="pr_getPPTQGroupByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PPTQ" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPPTQpdf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPPTQQuestionResponseByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerpartnertypetouchpointquestionnaire" Type="int" Mode="In" />
         </Function>
@@ -12213,6 +12216,9 @@
           <FunctionImport Name="pr_addPPTQpdf">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="pdf" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQpdf" ReturnType="Collection(Binary)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -25238,6 +25244,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_addPPTQpdf" FunctionName="hs3MVCMTQa2Model.Store.pr_addPPTQpdf" />
+          <FunctionImportMapping FunctionImportName="pr_getPPTQpdf" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQpdf" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -14235,5 +14235,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPPTQpdf", idParameter, pdfParameter);
         }
+    
+        public virtual ObjectResult<byte[]> pr_getPPTQpdf(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<byte[]>("pr_getPPTQpdf", idParameter);
+        }
     }
 }

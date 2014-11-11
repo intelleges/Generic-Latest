@@ -1516,9 +1516,18 @@ namespace Generic.Controllers
             if (!string.IsNullOrEmpty(accesscode))
             {
                 Session["accessCode"] = accesscode;
+                var _partnerId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().partner;
+                var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
+                var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
+                var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
+
+                if (pdf == null)
+                    Response.Redirect("~/Registration/Home/PDFConfirmation");
+                else
+                    return new BinaryContentResult(pdf, "application/pdf");
                 ///Registration/Home/PDFConfirmation
                 // return RedirectToAction("PDFConfirmation","Home",new  {area="Registration"});
-                Response.Redirect("~/Registration/Home/PDFConfirmation");
+                //Response.Redirect("~/Registration/Home/PDFConfirmation");
             }
             return RedirectToAction("FindPartnerResult");
 
@@ -1825,6 +1834,30 @@ namespace Generic.Controllers
             var currentPersonIdStringAddition = string.Format(",{0};", currentPersonId);
 
             return inputList.Replace(";", currentPersonIdStringAddition);
+        }
+    }
+
+    public class BinaryContentResult : ActionResult
+    {
+        private string ContentType;
+        private byte[] ContentBytes;
+
+        public BinaryContentResult(byte[] contentBytes, string contentType)
+        {
+            this.ContentBytes = contentBytes;
+            this.ContentType = contentType;
+        }
+
+        public override void ExecuteResult(ControllerContext context)
+        {
+            var response = context.HttpContext.Response;
+            response.Clear();
+            response.Cache.SetCacheability(HttpCacheability.NoCache);
+            response.ContentType = this.ContentType;
+
+            var stream = new MemoryStream(this.ContentBytes);
+            stream.WriteTo(response.OutputStream);
+            stream.Dispose();
         }
     }
 }

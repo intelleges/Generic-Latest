@@ -2128,7 +2128,15 @@ namespace Generic.Areas.RegistrationArea.Controllers
             if (!string.IsNullOrEmpty(accesscode))
             {
                 Session["accessCode"] = accesscode;
-                Response.Redirect("~/Registration/Home/PDFConfirmation");
+                var _partnerId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().partner;
+                var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
+                var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
+                var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
+
+                if (pdf == null)
+                    Response.Redirect("~/Registration/Home/PDFConfirmation");
+                else
+                    return new BinaryContentResult(pdf, "application/pdf");
             }
             return RedirectToAction("~/Registration/Home");
 
@@ -2685,7 +2693,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             string PDF_FileName = "HON_" + Session["accessCode"].ToString().Substring(1, 4) +".pdf";// + "_"+DateTime.Now.ToString().Replace('/','_').Replace(' ','_').Replace(':','_');
 
-            string dirname = @"C:\https\MVCMT\logo\";//@"C:\Users\john\Desktop\hs3MVC_Latest\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
+            string dirname = @"C:\Users\john\Desktop\hs3MVC_Latest\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
             if (Directory.Exists(dirname))
             {
                 var fileName = dirname + PDF_FileName;
