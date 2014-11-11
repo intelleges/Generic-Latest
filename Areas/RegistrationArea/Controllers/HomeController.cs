@@ -2731,7 +2731,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return RedirectToAction("~/Registration/Home");
         }
 
-        public ActionResult CustomizedPDFConfirmation(string accesscode)
+        public ActionResult PrintCustomizedPDFConfirmation(string accesscode)
         {
             if (!string.IsNullOrEmpty(accesscode))
             {
