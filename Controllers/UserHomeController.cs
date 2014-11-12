@@ -16,6 +16,9 @@ using ChargifyNET;
 using ChargifyNET.Configuration;
 using WebMatrix.WebData;
 using Generic.Helpers.Utility;
+using System.Data.Entity.Core.Objects;
+
+
 namespace BAA.Controllers
 {
     public class UserHomeController : Controller
@@ -92,11 +95,11 @@ namespace BAA.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    System.Data.Objects.ObjectResult<Decimal?> addEnterpriseResult = db.pr_addEnterprise("", 0, true, null, null, "NewCompany", "newCompany", userCount, partnerCount, partnerCount, product, 1, DateTime.Now, DateTime.Now.AddDays(30), DateTime.Now, DateTime.Now.AddDays(30), monthly, 1, "1", null,1);
+                    ObjectResult<Decimal?> addEnterpriseResult = db.pr_addEnterprise("", 0, true, null, null, "NewCompany", "newCompany", userCount, partnerCount, partnerCount, product, 1, DateTime.Now, DateTime.Now.AddDays(30), DateTime.Now, DateTime.Now.AddDays(30), monthly, 1, "1", null,1);
                  
                     int enterpriseID= (int)addEnterpriseResult.FirstOrDefault().Value;
-                    System.Data.Objects.ObjectResult<Decimal?> addpersonResult = db.pr_addPerson(enterpriseID, 1, 1, 1, 1, 1, "1", "1", "1", "New first name", "New lastname", "Mr", "", "", "", email, "", "", "", 1, "1", 1, "", "", 1, 1, null, null, null, null);
-                    System.Data.Objects.ObjectResult<Decimal?> addPartnerResult = db.pr_addPartner(enterpriseID, "1", "New Person", "", "", "", 1, "", "", 1, "", "", "F", "L", "", email, "", "", 1, 1, 1, 1, DateTime.Now, true, null);
+                    ObjectResult<Decimal?> addpersonResult = db.pr_addPerson(enterpriseID, 1, 1, 1, 1, 1, "1", "1", "1", "New first name", "New lastname", "Mr", "", "", "", email, "", "", "", 1, "1", 1, "", "", 1, 1, null, null, null, null);
+                    ObjectResult<Decimal?> addPartnerResult = db.pr_addPartner(enterpriseID, "1", "New Person", "", "", "", 1, "", "", 1, "", "", "F", "L", "", email, "", "", 1, 1, 1, 1, DateTime.Now, true, null);
                    int partnerID = (int)addPartnerResult.FirstOrDefault().Value;
                     string accessCode = db.pr_getAccesscode().FirstOrDefault();
 

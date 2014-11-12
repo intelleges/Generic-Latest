@@ -169,15 +169,15 @@
                                             function redirect(url) {
                                                 window.location.href = "http://" + url;
                                                 return false;
-                                            }
+                                            };
 
                                             function checkToPrintPDF(accesscode) {
                                                 window.location.href = "@Url.Content("~/Registration/Home/PrintPDF/?accesscode=")" + accesscode;
-                                            }
+                                            };
 
                                             function checkToPrintCustomizedPDF(accesscode) {
                                                 window.location.href = "@Url.Content("~/Registration/Home/PrintCustomizedPDFConfirmation/?accesscode=")" + accesscode;
-                                            }
+                                            };
                                         </script>
         
                                         <input type="button" name="btnNext" id="btnNext"

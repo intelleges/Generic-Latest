@@ -12,7 +12,7 @@ using Generic.ViewModel;
 using Generic.Models;
 using Generic.Helpers.Utility;
 using Generic.Helpers;
-using System.Data.Objects;
+using System.Data;
 using System.Threading;
 using System.Xml.Serialization;
 using Generic.Helpers.PartnerHelper;

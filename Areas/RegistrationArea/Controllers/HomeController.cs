@@ -19,6 +19,7 @@ using iTextSharp.text.pdf;
 using System.Xml;
 using iTextSharp.text.html.simpleparser;
 using System.Text;
+using System.Data.Entity;
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class HomeController : Controller

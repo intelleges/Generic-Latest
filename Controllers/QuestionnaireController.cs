@@ -15,6 +15,7 @@ using Generic.Models;
 using Generic.Helpers.PartnerHelper;
 using System.Data;
 using Generic.Helpers;
+using System.Data.Entity;
 
 namespace Generic.Controllers
 {
@@ -401,7 +402,7 @@ namespace Generic.Controllers
                     objQuestionnaire.multiLanguage = 0;
                     objQuestionnaire.active = 1;
                     objQuestionnaire.levelType = level;
-                    db.Entry(objQuestionnaire).State = System.Data.EntityState.Added;
+                    db.Entry(objQuestionnaire).State = EntityState.Added;
                     db.SaveChanges();
                     int questionnaireId = objQuestionnaire.id;
 
