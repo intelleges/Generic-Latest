@@ -660,6 +660,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
                         else
                         {
+                            if (responseComment == "")
+                            {
+                                responseComment = checkpsz.FirstOrDefault().comment;
+                            }
+
                             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, pptq);
                         }
 
@@ -695,6 +700,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
                             else
                             {
+                                if (responseComment == "")
+                                {
+                                    responseComment = checkpsz.FirstOrDefault().comment;
+                                }
                                 db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, pptq);
                             }
 
@@ -764,6 +773,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
                         else
                         {
+                            if (responseComment == "")
+                            {
+                                responseComment = checkpsz.FirstOrDefault().comment;
+                            }
                             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, pptq);
                         }
                     }
