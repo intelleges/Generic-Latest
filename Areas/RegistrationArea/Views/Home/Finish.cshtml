@@ -148,11 +148,11 @@
                                         <span id="lblPrintAnswer">
                                             @if (ViewBag.CMS_PAGE_PREVIOUS_LINK == null)
                                             {
-                                                <a href="javascript:checkToPrintPDF('@ViewBag.ACCESS_CODE')" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
+                                                <a href="checkToPrintPDF('@ViewBag.ACCESS_CODE')" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
                                             } 
                                             else
                                             {
-                                                <a href="javascript:checkToPrintCustomizedPDF('@ViewBag.ACCESS_CODE')" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
+                                                <a href="checkToPrintCustomizedPDF('@ViewBag.ACCESS_CODE')" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
                                                 
                                                @*<a href="@ViewBag.CMS_PAGE_PREVIOUS_LINK" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>*@
                                             }
