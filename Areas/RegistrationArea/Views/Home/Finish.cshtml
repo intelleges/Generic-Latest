@@ -148,13 +148,12 @@
                                         <span id="lblPrintAnswer">
                                             @if (ViewBag.CMS_PAGE_PREVIOUS_LINK == null)
                                             {
-                                                <a href="checkToPrintPDF('@ViewBag.ACCESS_CODE')" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
+                                                 <a href='@Url.Action("Finish", "/Home/PrintPDF/", new {accesscode = ViewBag.ACCESS_CODE}, Request.Url.Scheme)'>@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
+                                                @*<a href="checkToPrintPDF('@ViewBag.ACCESS_CODE')" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>*@
                                             } 
                                             else
                                             {
-                                                <a href="checkToPrintCustomizedPDF('@ViewBag.ACCESS_CODE')" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
-                                                
-                                               @*<a href="@ViewBag.CMS_PAGE_PREVIOUS_LINK" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>*@
+                                                <a href='@Url.Action("Finish", "/Home/PrintCustomizedPDFConfirmation/", new {accesscode = ViewBag.ACCESS_CODE}, Request.Url.Scheme)'>@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
                                             }
                                         </span>
                                     </td>
@@ -175,7 +174,7 @@
                                                 window.location.href = "@Url.Content("~/Registration/Home/PrintPDF/?accesscode=")" + accesscode;
                                             };
 
-                                            function checkToPrintCustomizedPDF(accesscode) {
+                                            function PrintCustomizedPDFConfirmation(accesscode) {
                                                 window.location.href = "@Url.Content("~/Registration/Home/PrintCustomizedPDFConfirmation/?accesscode=")" + accesscode;
                                             };
                                         </script>
