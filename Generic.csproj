@@ -857,6 +857,12 @@
     <Compile Include="pr_getEnterpriseByQuestionnaireLevelType_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getEnterpriseByURL_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getEnterpriseContactUs_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getEnterpriseObjectNameAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

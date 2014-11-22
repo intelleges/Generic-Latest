@@ -14244,5 +14244,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<byte[]>("pr_getPPTQpdf", idParameter);
         }
+    
+        public virtual ObjectResult<pr_getEnterpriseByURL_Result> pr_getEnterpriseByURL(string applicationPath)
+        {
+            var applicationPathParameter = applicationPath != null ?
+                new ObjectParameter("applicationPath", applicationPath) :
+                new ObjectParameter("applicationPath", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseByURL_Result>("pr_getEnterpriseByURL", applicationPathParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEnterpriseContactUs_Result> pr_getEnterpriseContactUs(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseContactUs_Result>("pr_getEnterpriseContactUs", enterpriseParameter);
+        }
     }
 }

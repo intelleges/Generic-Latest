@@ -10,16 +10,14 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class pptqAutoMailMessageLog
+    public partial class pr_getEnterpriseContactUs_Result
     {
-        public int id { get; set; }
-        public int pptq { get; set; }
-        public int autoMailMessage { get; set; }
-        public System.DateTime sendDate { get; set; }
-    
-        public virtual autoMailMessage autoMailMessage1 { get; set; }
-        public virtual partnerPartnertypeTouchpointQuestionnaire partnerPartnertypeTouchpointQuestionnaire { get; set; }
+        public int enterprise { get; set; }
+        public int protocol { get; set; }
+        public int touchpoint { get; set; }
+        public int partnertype { get; set; }
+        public int group { get; set; }
+        public int country { get; set; }
     }
 }

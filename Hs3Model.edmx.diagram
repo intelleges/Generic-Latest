@@ -263,6 +263,8 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_QuestionnaireCMS" Width="1.5" PointX="10.024359476763923" PointY="6.7434592725445794" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLinkedinAuthInfo" Width="1.5" PointX="2.506392679413032" PointY="20.723104948514656" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLinkedinAuthInfo_person" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_pptqAutoMailMessageLog_autoMailMessage" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_pptqAutoMailMessageLog_partnerPartnertypeTouchpointQuestionnaire" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

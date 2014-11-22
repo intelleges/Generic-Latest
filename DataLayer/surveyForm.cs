@@ -1076,11 +1076,15 @@ namespace Generic.DataLayer
 
                     txtbox.Width = 600;
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
-
+                    txtbox.Attributes.Add("required", "");
+                    txtbox.Attributes.Add("data-val-required", "Required");
+                    txtbox.Attributes.Add("data-val", "true");
                     divn.InnerHtml = incldComment + " ";//"Include comments here: ";
+                   
                     divn.Controls.Add(txtbox);
-
+                    
                     tableCell.Controls.AddAt(0, divn);
+                    addControlValidator(txtbox.ID, "requiredFieldValidator", tableCell);
 
                 }
                 else if (question.commentType == CommentType.YN_UPLOAD_Y)
@@ -1124,10 +1128,14 @@ namespace Generic.DataLayer
                     divn.Style.Add("display", "none");
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                     txtbox.Width = 600;
-                    divn.InnerHtml = incldComment + " "; //"Include comments here: ";
-                    divn.Controls.Add(txtbox);
+                    divn.InnerHtml = incldComment + " "; //"Include comments here: ";                   
+                    txtbox.Attributes.Add("required", "");
+                    txtbox.Attributes.Add("data-val-required", "Required");
+                    txtbox.Attributes.Add("data-val", "true");
+                    divn.Controls.Add(txtbox); 
 
                     tableCell.Controls.AddAt(0, divn);
+                    addControlValidator(txtbox.ID, "requiredFieldValidator", tableCell);
                 }
             }
 

@@ -18,6 +18,7 @@ namespace Generic
         {
             this.autoMailAttachment = new HashSet<autoMailAttachment>();
             this.automailMessagePPTQ = new HashSet<automailMessagePPTQ>();
+            this.pptqAutoMailMessageLog = new HashSet<pptqAutoMailMessageLog>();
         }
     
         public int id { get; set; }
@@ -34,5 +35,6 @@ namespace Generic
         public virtual autoMailType autoMailType { get; set; }
         public virtual partnerTypeTouchpointQuestionnaire partnerTypeTouchpointQuestionnaire1 { get; set; }
         public virtual ICollection<automailMessagePPTQ> automailMessagePPTQ { get; set; }
+        public virtual ICollection<pptqAutoMailMessageLog> pptqAutoMailMessageLog { get; set; }
     }
 }

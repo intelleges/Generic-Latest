@@ -20,6 +20,7 @@ namespace Generic
             this.partnerPartnertypeTouchpointQuestionnaireQuestionResponse = new HashSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>();
             this.partNumberSiteZcodePPTQ = new HashSet<partNumberSiteZcodePPTQ>();
             this.automailMessagePPTQ = new HashSet<automailMessagePPTQ>();
+            this.pptqAutoMailMessageLog = new HashSet<pptqAutoMailMessageLog>();
         }
     
         public int id { get; set; }
@@ -45,5 +46,6 @@ namespace Generic
         public virtual ICollection<partNumberSiteZcodePPTQ> partNumberSiteZcodePPTQ { get; set; }
         public virtual ICollection<automailMessagePPTQ> automailMessagePPTQ { get; set; }
         public virtual partnerStatus partnerStatus { get; set; }
+        public virtual ICollection<pptqAutoMailMessageLog> pptqAutoMailMessageLog { get; set; }
     }
 }
