@@ -1372,13 +1372,18 @@ namespace Generic.DataLayer
                     tableCell.Style.Add("font-size", "medium");
                     tableRow.Controls.Add(tableCell);
 
-                    tableCell = new TableCell();
-                    radioButtonList = new  RadioButtonList();//new Generic.Helpers.UIControl.MyRadioButtonList();
+                  //  tableCell = new TableCell();
+                   // var tableRadio = new Table();
+                   // tableRadio.Font.Size = 10;
+                   // tableRadio.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
+                    radioButtonList = new  Generic.Helpers.UIControl.MyRadioButtonList();//new Generic.Helpers.UIControl.MyRadioButtonList();
                     radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
+                    (radioButtonList as Generic.Helpers.UIControl.MyRadioButtonList).UseValidation = true;
                     radioButtonList.Font.Size = 10;
                     //radioButtonList.Attributes.Add("onchange", "javascript:showdiv();");
                     radioButtonList.Attributes.Add("onClick", "showdivRadioList(this);removevalidation(this.id) ");
 
+                    
                     
 
                     radioButtonList.RepeatDirection = RepeatDirection.Vertical;
@@ -1386,12 +1391,17 @@ namespace Generic.DataLayer
                     tableCell.HorizontalAlign = HorizontalAlign.Left;
                     for (int i = 0; i < responseCollection.Count; i++)
                     {
+                        //var row = new TableRow();
+
+                        //tableRadio.Rows.Add(new 
                         //radioButtonList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
                         radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
                         if (question.required == 1)
                         {
-                            radioButtonList.Items[i].Attributes.Add("data-val", "true");
-                            radioButtonList.Items[i].Attributes.Add("data-val-required", "Required");
+
+                            radioButtonList.Items[i].Attributes["data-val"] = "true";
+                            radioButtonList.Items[i].Attributes["data-val-required"] = "Required";
+                            radioButtonList.Items[i].Attributes["required"] = "";                           
                         }
                     
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
@@ -1675,6 +1685,7 @@ namespace Generic.DataLayer
                         {
                             radioButtonList.Items[i].Attributes.Add("data-val", "true");
                             radioButtonList.Items[i].Attributes.Add("data-val-required", "Required");
+                            radioButtonList.Items[i].Attributes.Add("required", "");
                         }
                    
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)

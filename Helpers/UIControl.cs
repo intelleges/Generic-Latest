@@ -12,6 +12,7 @@ namespace Generic.Helpers
         public class MyRadioButtonList :
 System.Web.UI.WebControls.RadioButtonList
         {
+            public bool UseValidation { get; set; }
           public  string tableNewAttributes { get; set; }
             protected override void Render(HtmlTextWriter writer)
             {
@@ -31,7 +32,6 @@ System.Web.UI.WebControls.RadioButtonList
 //        </tbody></table></td>
 
 
-                //RenderChildren(writer);
                 
                 int i = 0;
                 foreach (ListItem listItem in Items)
@@ -53,10 +53,17 @@ System.Web.UI.WebControls.RadioButtonList
                         catch { }
                         writer.Write('>');
                         writer.WriteBeginTag("tbody"); writer.Write('>');
-                        writer.WriteBeginTag("tr"); writer.Write('>');
-                      
+                        if (this.RepeatDirection == System.Web.UI.WebControls.RepeatDirection.Horizontal)
+                        {
+                            writer.WriteBeginTag("tr");
+                            writer.Write('>');
+                        }                
                     }
-                   
+                    if (this.RepeatDirection == System.Web.UI.WebControls.RepeatDirection.Vertical)
+                    {
+                        writer.WriteBeginTag("tr");
+                        writer.Write('>');
+                    }
                     writer.WriteBeginTag("td"); writer.Write('>');
                     writer.WriteBeginTag("input");
                     writer.WriteAttribute("ID", this.UniqueID + "_" + i);
@@ -72,15 +79,27 @@ System.Web.UI.WebControls.RadioButtonList
                     writer.Write('>');
                     HttpUtility.HtmlEncode(listItem.Text, writer);
                     writer.WriteEndTag("label");
+                    if(UseValidation)
+                    {
+                        writer.WriteBeginTag("span");                        
+                        writer.WriteAttribute("class", "field-validation-valid");
+                        writer.WriteAttribute("data-valmsg-for", this.UniqueID + "_" + i);
+                        writer.WriteAttribute("data-valmsg-replace", "true");
+                        writer.Write('>');
+                         writer.WriteEndTag("span");
+                    }
                     if (i < Items.Count - 1)
                     {
                         writer.RenderBeginTag(HtmlTextWriterTag.Br);
                         writer.WriteEndTag("td");
                     }
+                    if (this.RepeatDirection == System.Web.UI.WebControls.RepeatDirection.Vertical)
+                        writer.WriteEndTag("tr");
                     writer.WriteLine();
                     i++;
                 }
-                writer.WriteEndTag("tr");
+                if (this.RepeatDirection == System.Web.UI.WebControls.RepeatDirection.Horizontal)
+                    writer.WriteEndTag("tr");
                 writer.WriteEndTag("tbody");
                 writer.WriteEndTag("table");
                // writer.WriteEndTag("table");

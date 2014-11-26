@@ -1888,3 +1888,7 @@ a{
 {
 	overflow:hidden;
 }
+
+.smaller {
+    font-size:10px !important;
+}

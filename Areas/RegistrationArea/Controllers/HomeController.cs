@@ -2255,8 +2255,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         public ActionResult CustomizedPDFConfirmation()
         {
-            //List<pr_getPartnerQuestionResponseByAccessCode_Result> reslt = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
-
+           
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();

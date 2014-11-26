@@ -29,7 +29,15 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jqueryui")
-
+<script>
+    $(document).ready(function () {
+        $("td.supplyright, td.supplyleft").each(function (item) {
+            if ($(this).html().length > 400) {
+                $(this).addClass("smaller");
+            }
+        });
+    });
+</script>
 
 
 @*@Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
