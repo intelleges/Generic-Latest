@@ -2254,6 +2254,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return toReplace.Replace("[BLANK]", "");
         }
 
+        [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
         public ActionResult CustomizedPDFConfirmation()
         {
            
@@ -2268,8 +2269,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
            
             //_signature
             ViewBag.signature = _signature;
-            ViewBag.personTitle = pptq.person.title;
-            ViewBag.completeDate = pptq.completedDate;
+            ViewBag.personTitle = _partner.title;
+            ViewBag.completeDate = pptq.completedDate!=null?pptq.completedDate.Value.ToString("MM/dd/yyyy"):"";
             var _country = db.pr_getCountry(_partner.country).FirstOrDefault();
             if (_country != null)
                 ViewBag.country = _country.name;
@@ -2617,15 +2618,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     case 5787:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox50 = _chacked;
-                            ViewBag.Checkbox51 = _chacked;
+                            ViewBag.Checkbox50 = _chacked;                           
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
                                 ViewBag.Input12 = comments[1];
                         }
                         else if (item.rid == _responseNO)
                         {
-                            
+                            ViewBag.Checkbox51 = _chacked;
                         }
                         break;
                     #endregion
@@ -2744,6 +2744,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return new BinaryContentResult(null, "application/pdf");
         }
 
+       
         public ActionResult PDFCustomizedConfirmation()
         {
             if (!String.IsNullOrEmpty(Session["accessCode"].ToString()))
