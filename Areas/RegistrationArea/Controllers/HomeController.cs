@@ -20,6 +20,7 @@ using System.Xml;
 using iTextSharp.text.html.simpleparser;
 using System.Text;
 using System.Data.Entity;
+using Pechkin;
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class HomeController : Controller
@@ -2259,10 +2260,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var _partnerId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().partner;
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+            var _partnerId = pptq.partner;
+            eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq.id).FirstOrDefault();
             var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
             ViewBag.partner = _partner ;
-
+           
+            //_signature
+            ViewBag.signature = _signature;
+            ViewBag.personTitle = pptq.person.title;
+            ViewBag.completeDate = pptq.completedDate;
             var _country = db.pr_getCountry(_partner.country).FirstOrDefault();
             if (_country != null)
                 ViewBag.country = _country.name;
@@ -2583,39 +2590,42 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         if (item.rid == _responseYES)
                         {
                             ViewBag.Checkbox46 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input10 = comments[1];
                         }
                         else if (item.rid == _responseNO)
                         {
                             ViewBag.Checkbox47 = _chacked;
-                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
-                            if (comments.Length > 1)
-                                ViewBag.Input10 = comments[1];
+                            
                         }
                         break;
                     case 5786:
                         if (item.rid == _responseYES)
                         {
                             ViewBag.Checkbox48 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input11 = comments[1];
                         }
                         else if (item.rid == _responseNO)
                         {
                             ViewBag.Checkbox49 = _chacked;
-                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
-                            if (comments.Length > 1)
-                                ViewBag.Input11 = comments[1];
+                            
                         }
                         break;
                     case 5787:
                         if (item.rid == _responseYES)
                         {
                             ViewBag.Checkbox50 = _chacked;
-                        }
-                        else if (item.rid == _responseNO)
-                        {
                             ViewBag.Checkbox51 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
                                 ViewBag.Input12 = comments[1];
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            
                         }
                         break;
                     #endregion
@@ -2712,15 +2722,22 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     catch{}
                 }
 
-                FileStream file = new FileStream(fileName, FileMode.Create, System.IO.FileAccess.Write);
-                ConvertApi.Web2Pdf convertApi;
-                convertApi = new ConvertApi.Web2Pdf(400127803);
-
-                convertApi.ConvertHtml(htmltext, file);
-                file.Close();
-                byte[] bytes = System.IO.File.ReadAllBytes(fileName);
+                //FileStream file = new FileStream(fileName, FileMode.Create, System.IO.FileAccess.Write);
+               // ConvertApi.Web2Pdf convertApi;
+               // convertApi = new ConvertApi.Web2Pdf(400127803);// new ConvertApi.Web2Pdf(3989087);
+                byte[] bytes=null;
+                bytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmltext);
+                //using (var convertor = new SimplePechkin(new GlobalConfig()))
+                //{
+                //    bytes = convertor.Convert(htmltext);
+                //}
+               // convertApi.ConvertHtml(htmltext, file);
+                    
+               
+               // file.Close();
+               // bytes = System.IO.File.ReadAllBytes(fileName);
                 db.pr_addPPTQpdf(pptqID, bytes);
-                System.IO.File.Delete(fileName);
+              //  System.IO.File.Delete(fileName);
                 // Send the binary data to the browser.
                 return new BinaryContentResult(bytes, "application/pdf");
             }
