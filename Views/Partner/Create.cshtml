@@ -3,21 +3,202 @@
     @using Generic.Helpers
     @using Telerik.Web.Mvc.UI;
     @{
-    Layout = LayoutHelper.GetLayout();
+        #region My
+        Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Partner";
+        #endregion
     }
  <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script>       
+        jQuery(document).ready(function () {  
+
+            $('#protocol').change(function () {
+                var objProtocolID = $('#protocol').val();
+                var formData = { protocolId: objProtocolID };
+                if (objProtocolID == "") {
+                    var touchpointSelectList = "<option value=''>-Select-</option>";
+                    $('#touchpoint').html(touchpointSelectList);
+                    return;
+                }
+                $.ajax({
+                    url: "@Url.Content("~/touchpoint/GetTouchPointWithTitleByprotocolId")",
+                    type: "post",
+                    data: formData,
+                    success: function (data) {
+                        var len = data.Data.length;
+                        var i = 0;
+                        var touchpointSelectList = "<option value=''></option>";
+                        for (i = 0; i < len; i++) {
+                            touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
+                        }
+
+                        $('#touchpoint').html(touchpointSelectList);
+                        $('#touchpointDiv').show();
+
+                    },
+                    error: function (data) {
+                        var touchpointSelectList = "<option value=''> -Select-</option>";
+                        $('#touchpoint').html(touchpointSelectList);
+                    }
+                });
+            });
+            if ("@ViewBag.Message" == "1") {
+                debugger;
+                alertify.set({
+                    labels: {
+                        ok: "Invite Later", cancel: "Invite Now"
+                    }
+                });
+                alertify.confirm("", function (e) {
+                    if (e) {
+                        // Click no
+                    } else {
+                        // click yes  
+                        $.ajax({
+                            url: "@Url.Content("~/partner/InvitePartners")",
+                            type: "post",
+                            success: function (data) {
+
+                                alertify.set({
+                                    labels: {
+                                        ok: "ok", cancel: "cancel"
+                                    }
+                                });
+
+                                dataClear();
+                                alertify.alert(data.Data.message);
+                                $('#alertify-ok').text('OK');
+                                var len = data.EventNotification.length;
+                                $('#btnInviteList').show();
+                                if (len == 0) {
+                                    alertify.alert("Please wait, data processing");
+                                    $('#alertify-ok').text('OK');
+                                } else {
+
+                                    var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                                    for (i = 0; i < len; i++)
+                                        events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+                                    $('#DivEventNotification').html(events);
+                                }
+
+                            },
+                            error: function (data) {
+
+                            }
+                        });
+                    }
+                });
+            }
+            if ("@ViewBag.Message" == "2") {
+                debugger;      
+                alertify.alert('@ViewBag.MessageDetail');
+                dataClear();
+            }
+
+            $('#btnInvite').click(function (e) {
+                e.preventDefault();
+            });
+
+            $('#btnInviteList').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "@Url.Content("~/partner/InvitePartnersList")",
+                    type: "post",
+                    success: function (data) {
+                        var len = data.EventNotification.length;
+
+                        if (len == 0) {
+                            alertify.alert("Please wait, data processing");
+                        } else {
+
+                            var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                            for (i = 0; i < len; i++)
+                                events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+                            $('#DivEventNotification').html(events);
+                        }
+                    },
+                    error: function (data) {
+                        alertify.alert(data.Data.message);
+                    }
+                });
+            });
+
+            $('#btnInvitelater').click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "@Url.Content("~/partner/InvitePartnersLater")",
+                    type: "post",
+                    success: function (data) {
+                        alertify.alert(data.Data.message);
+
+                    },
+                    error: function (data) {
+                        alertify.alert(data.Data.message);
+                    }
+                });
+            });
+
+            $("#btnClear").click(function (e) {               
+                dataClear();
+            });
+
+            function dataClear() {
+                $("#name").val("");
+                $("#internalID").val("");
+                $("#address1").val("");
+                $("#address2").val("");
+                $("#city").val("");
+                $("#state").val("0");
+                $("#province").val("");
+                $("#zipcode").val("");
+                $("#country").val("0");
+                $("#phone").val("");
+                $("#fax").val("");
+                $("#firstName").val("");
+                $("#lastName").val("");
+                $("#title").val("");
+                $("#email").val("");
+                $("#dunsNumber").val("");
+                $("#federalID").val("");
+                $("#owner").val("0");
+                $("#author").val("0");
+                $("#protocol").val("0");
+                $("#touchpoint").val("0");
+                $("#partnertype").val("0");
+                $("#group").val("0");
+                $("#DueDate").val("");
+            }
+        });
+        function doSomething() {
+          
+        }
+
+        $("#btnConfirm").click(function () {
+            debugger;
+            alertify.alert('you choose Confirm');
+        });
+
+        $("#btnConfirmlater").click(function () {
+            debugger;
+            alertify.alert('you choose Confirm Later');
+        });
+    </script>
     <script>
-        //jQuery.noConflict();
-        jQuery(document).ready(function () {
-
-
+        //#region First declaration
+        $(document).ready(function () {
             $("form").submit(function () {
                 return validateControl();
 
             });
+            //#endregion
+            //#region validation
             function validateControl() {
+
                 if ($("#name").val() == "") {
                     alertify.alert("Name is required");
                     return false;
@@ -25,7 +206,7 @@
                 if ($("#internalID").val() == "") {
                     alertify.alert("internalID is required");
                     return false;
-                }
+                }               
 
                 if ($("#firstName").val() == "") {
                     alertify.alert("First Name is required");
@@ -62,278 +243,48 @@
                 if ($("#owner").val() == "") {
                     alertify.alert("Owner is required");
                     return false;
+                }                
+                //#endregion
+                if ($("#address1").val() === "" && $("#address2").val() === "") {
+                    alertify.alert("Address is required");
+                    return false;
+                }
+                if ($("#city").val() === "" ) {
+                    alertify.alert("City is required");
+                    return false;
+                }
+                if ($("#state").val() === "") {
+                    alertify.alert("State is required");
+                    return false;
+                }
+                if ($("#zipcode").val() === "") {
+                    alertify.alert("Zip Code is required");
+                    return false;
+                }
+                if ($("#country").val() === "") {
+                    alertify.alert("Country is required");
+                    return false;
+                }
+                if ($("#phone").val() === "") {
+                    alertify.alert("Phone is required");
+                    return false;
+                }
+                if ($("#title").val() === "") {
+                    alertify.alert("Title is required");
+                    return false;
+                }
+                if ($("#dunsNumber").val() === "") {
+                    alertify.alert("DUNS Number is required");
+                    return false;
+                }
+                if ($("#dunsNumber").val() === "") {
+                    alertify.alert("DUNS Number is required");
+                    return false;
                 }
             }
-
-            $('#protocol').change(function () {
-                var objProtocolID = $('#protocol').val();
-                var formData = { protocolId: objProtocolID };
-                if (objProtocolID == "") {
-                    var touchpointSelectList = "<option value=''>-Select-</option>";
-                    $('#touchpoint').html(touchpointSelectList);
-                    return;
-                }
-                $.ajax({
-                    url: "@Url.Content("~/touchpoint/GetTouchPointWithTitleByprotocolId")",
-                    type: "post",
-                data: formData,
-                success: function (data) {
-                    var len = data.Data.length;
-                    var i = 0;
-                    var touchpointSelectList = "<option value=''></option>";
-                    for (i = 0; i < len; i++) {
-                        touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
-                    }
-
-                    $('#touchpoint').html(touchpointSelectList);
-                    $('#touchpointDiv').show();
-
-                },
-                error: function (data) {
-                    var touchpointSelectList = "<option value=''> -Select-</option>";
-                    $('#touchpoint').html(touchpointSelectList);
-                }
-            });
-
         });
-
-
-          
-
-            if ("@ViewBag.Message" == "1") {
-                debugger;
-           // $('.addPartnerDiv').hide();
-            //$('#btnInvite').show();
-            //$('#btnInvitelater').show();
-            //jQuery("#dvInvite").dialog({
-            //    width: 350,
-            //    height:300,
-            //    buttons: {
-            //           "Cancel": function () {
-            //            alert('you choose cancel');
-            //            $(this).dialog('close');
-            //        }
-            //    }
-            //});
-            alertify.set({
-                labels: {
-                    ok: "Invite Later", cancel: "Invite Now"
-                }
-            });
-
-            
-            alertify.confirm("" , function (e) {
-                if (e) {
-                    // Click no
-                } else {
-                    // click yes  
-
-
-                    $.ajax({
-                        url: "@Url.Content("~/partner/InvitePartners")",
-                         type: "post",
-                         success: function (data) {
-
-                             alertify.set({
-                                 labels: {
-                                     ok: "ok", cancel: "cancel"
-                                 }
-                             });
-
-                             dataClear();
-                             alertify.alert(data.Data.message);
-                             $('#alertify-ok').text('OK');
-                             var len = data.EventNotification.length;
-                             $('#btnInviteList').show();
-                             if (len == 0) {
-                                 alertify.alert("Please wait, data processing");
-                                 $('#alertify-ok').text('OK');
-                             } else {
-
-                                 var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
-                                 for (i = 0; i < len; i++)
-                                     events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
-
-
-                                 $('#DivEventNotification').html(events);
-                             }
-
-                         },
-                         error: function (data) {
-
-                         }
-                     });
-
-
-
-                }
-            });
-
-           // alertify.alert('Partner uploaded successfully');
-        }
-
-            if ("@ViewBag.Message" == "2") {
-                debugger;
-               // $('.addPartnerDiv').hide();
-                //$('#btnConfirm').show();
-                //$('#btnConfirmlater').show();
-                //alertify.alert('Invitation Sent');
-
-                alertify.alert('@ViewBag.MessageDetail');
-                dataClear();
-
-             @*   alertify.set({
-                    labels: {
-                        ok: "Confirm Later", cancel: "Confirm Now"
-                    }
-                });
-
-
-                alertify.confirm("", function (e) {
-                    if (e) {
-                        // Click no
-                    } else {
-                        // click yes   
-                        window.location.assign("@Url.Content("~/Partner/ConfirmPartner")");
-                     
-                    }
-                });*@
-               
-
-                //$("#dvConfirm").dialog({
-                //        resizable: false,
-                //        height:140,
-                //        modal: true,
-                //        buttons: {
-                //            "Delete all items": function() {
-                //                $( this ).dialog( "close" );
-                //            },
-                //            Cancel: function() {
-                //                $( this ).dialog( "close" );
-                //            }
-                //        }
-                //    });
-
-                //jQuery("#dvConfirm").dialog({
-                //    width: 350,
-                //    height: 300,
-                //    buttons: {
-                //        "Cancel": function () {
-                //            alert('you choose cancel');
-                //            $(this).dialog('close');
-                //        }
-                //    }
-                //});
-            }
-
-        $('#btnInvite').click(function (e) {
-            e.preventDefault();
-
-
-           
-
-
-        });
-
-
-            $('#btnInviteList').click(function (e) {
-                e.preventDefault();
-
-
-                $.ajax({
-                    url: "@Url.Content("~/partner/InvitePartnersList")",
-                    type: "post",
-                    success: function (data) {
-                        var len = data.EventNotification.length;
-
-                        if (len == 0) {
-                            alertify.alert("Please wait, data processing");
-                        } else {
-
-                            var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
-                            for (i = 0; i < len; i++)
-                                events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
-
-
-                            $('#DivEventNotification').html(events);
-                        }
-                    },
-                    error: function (data) {
-                        alertify.alert(data.Data.message);
-                    }
-                });
-            });
-
-
-
-            $('#btnInvitelater').click(function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: "@Url.Content("~/partner/InvitePartnersLater")",
-                    type: "post",
-                    success: function (data) {
-                        alertify.alert(data.Data.message);
-
-                    },
-                    error: function (data) {
-                        alertify.alert(data.Data.message);
-                    }
-                });
-            });
-
-        $("#btnClear").click(function (e) {
-           // debugger;
-            //alert("Clear Button Click");
-            dataClear();
-        });
-
-
-        function dataClear() {
-            $("#name").val("");
-            $("#internalID").val("");
-            $("#address1").val("");
-            $("#address2").val("");
-            $("#city").val("");
-            $("#state").val("0");
-            $("#province").val("");
-            $("#zipcode").val("");
-            $("#country").val("0");
-            $("#phone").val("");
-            $("#fax").val("");
-            $("#firstName").val("");
-            $("#lastName").val("");
-            $("#title").val("");
-            $("#email").val("");
-            $("#dunsNumber").val("");
-            $("#federalID").val("");
-            $("#owner").val("0");
-            $("#author").val("0");
-            $("#protocol").val("0");
-            $("#touchpoint").val("0");
-            $("#partnertype").val("0");
-            $("#group").val("0");
-            $("#DueDate").val("");
-        }
-
-
-        });
-        function doSomething() {
-          //  alertify.alert('This part is Under Constrution');
-        }
-
-        $("#btnConfirm").click(function () {
-            debugger;
-            alertify.alert('you choose Confirm');
-        });
-
-        $("#btnConfirmlater").click(function () {
-            debugger;
-            alertify.alert('you choose Confirm Later');
-        });
-
     </script>
-
-
+<!--#region collapse-->
     <style type="text/css">
         .threecol, twocol {
             width: 100%;
@@ -415,6 +366,7 @@
     <div class="addPartnerDiv">
         <h2>Create Partner</h2>
     </div>
+
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
@@ -424,7 +376,7 @@
         <div id="addPartner" class="addPartnerDiv">
             <div class="twocol">
                 @Html.HiddenFor(model => model.id)
-
+                <!-- #region Name-->
                 <div class="editor-label">
                     @Html.Label("Name")
                 </div>
@@ -433,8 +385,8 @@
                     @Html.TextBoxFor(model=>model.name,new {@class="txtClass"})
                     @Html.ValidationMessageFor(model => model.name)
                 </div>
-
-
+                <!-- #endregion-->
+                 <!-- #region Internal ID-->
                 <div class="editor-label">
                     @*@Html.LabelFor(model => model.internalID)*@
                     @Html.Label("Internal ID")
@@ -444,9 +396,10 @@
                     @Html.TextBoxFor(model=>model.internalID,new {@class="txtClass"})
                     @Html.ValidationMessageFor(model => model.internalID)
                 </div>
-
+                <!-- #endregion-->
 
             </div>
+
 
             <div class="threecol">
                 <div class="editor-label">
@@ -575,6 +528,7 @@
                     @Html.TextBoxFor(model=>model.email,new {@class="txtClass"})
                     @Html.ValidationMessageFor(model => model.email)
                 </div>
+<!-- #endregion-->
 
                 <div class="editor-label">
                     @* @Html.LabelFor(model => model.dunsNumber)*@
