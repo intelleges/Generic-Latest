@@ -21,7 +21,8 @@ using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 using System.Web.UI;
 using System.Data.Entity.Infrastructure;
-
+using System.Data.Entity.Core.Objects;
+using System.Text;
 namespace Generic.Controllers
 {
     [Authorize]
@@ -215,21 +216,68 @@ namespace Generic.Controllers
         //
         // POST: /Partner/Edit/5
 
+
         [HttpPost]
         public ActionResult Edit(partner partner)
         {
+            
+            
             if (ModelState.IsValid)
             {
                 //db.Entry(partner).State = EntityState.Modified;
                 //db.SaveChanges();
                 db.pr_modifyPartner(partner.id, Generic.Helpers.CurrentInstance.EnterpriseID, partner.internalID, partner.name, partner.address1, partner.address2, partner.city, partner.state, partner.province, partner.zipcode, partner.country, partner.phone, partner.fax, partner.firstName, partner.lastName, partner.title, partner.email, partner.dunsNumber, partner.federalID, partner.status, partner.loadHistory, partner.owner, partner.author, partner.dateApproved, partner.active, partner.lastModified);
+                var questionar = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partner.id).ToList();
+                foreach (var quest in questionar)
+                {
+                    try
+                    {
 
+                        Session["accessCode"] = quest.accesscode;
+                        var id = Areas.RegistrationArea.Controllers.HomeController.FillPdfHtml(ViewBag, db, Session, Server);
+                        string htmltext = this.RenderActionResultToString(this.View("~/Areas/RegistrationArea/Views/Home/CustomizedQuestionnaireSurveyPdfDownload.cshtml"));
+                        var bytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmltext);
+                        db.pr_addPPTQpdf(id, bytes);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
                 return Json(new { success = true });
                 //return RedirectToAction("Index");
             }
+            //if(partnerDB)
+                      
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
             ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
             return View(partner);
+        }
+        protected string RenderActionResultToString(ActionResult result)
+        {
+            // Create memory writer.
+            var sb = new StringBuilder();
+            var memWriter = new StringWriter(sb);
+
+            // Create fake http context to render the view.
+            var fakeResponse = new HttpResponse(memWriter);
+            var fakeContext = new HttpContext(System.Web.HttpContext.Current.Request,
+                fakeResponse);
+            var fakeControllerContext = new ControllerContext(
+                new HttpContextWrapper(fakeContext),
+                this.ControllerContext.RouteData,
+                this.ControllerContext.Controller);
+            var oldContext = System.Web.HttpContext.Current;
+            System.Web.HttpContext.Current = fakeContext;
+
+            // Render the view.
+            result.ExecuteResult(fakeControllerContext);
+
+            // Restore old context.
+            System.Web.HttpContext.Current = oldContext;
+
+            // Flush memory and return output.
+            memWriter.Flush();
+            return sb.ToString();
         }
 
         //

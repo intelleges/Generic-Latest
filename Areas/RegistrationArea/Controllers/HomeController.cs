@@ -2254,10 +2254,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return toReplace.Replace("[BLANK]", "");
         }
 
-        [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
-        public ActionResult CustomizedPDFConfirmation()
+        public static int FillPdfHtml(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
         {
-           
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
@@ -2265,12 +2263,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var _partnerId = pptq.partner;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq.id).FirstOrDefault();
             var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
-            ViewBag.partner = _partner ;
-           
+            ViewBag.partner = _partner;
+
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner.title;
-            ViewBag.completeDate = pptq.completedDate!=null?pptq.completedDate.Value.ToString("MM/dd/yyyy"):"";
+            ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
             var _country = db.pr_getCountry(_partner.country).FirstOrDefault();
             if (_country != null)
                 ViewBag.country = _country.name;
@@ -2310,7 +2308,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var _questionnaire = db.pr_getQuestionnaireByAccesscode(Session["accessCode"].ToString()).FirstOrDefault();
             var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
             var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID);
-            
+
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -2354,10 +2352,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         ViewBag.Checkbox10 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
                     case 5794:
-                         ViewBag.Checkbox11 = item.rid == _responseYES ? _chacked : string.Empty;
-                         comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
-                         if (comments.Length > 1 && comments[1].Contains("Yes"))
-                             ViewBag.Checkbox11_comment = _responseYES;
+                        ViewBag.Checkbox11 = item.rid == _responseYES ? _chacked : string.Empty;
+                        comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                        if (comments.Length > 1 && comments[1].Contains("Yes"))
+                            ViewBag.Checkbox11_comment = _responseYES;
 
                         break;
                     case 5790:
@@ -2394,11 +2392,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             ViewBag.Checkbox19 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
-                                ViewBag.Input1 = comments[1]; 
+                                ViewBag.Input1 = comments[1];
                         }
                         break;
                     case 5802:
-                        switch(item.rid)
+                        switch (item.rid)
                         {
                             case 13685:
                                 ViewBag.Checkbox20 = _chacked;
@@ -2419,7 +2417,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 ViewBag.Checkbox25 = _chacked;
                                 comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                                 if (comments.Length > 1)
-                                    ViewBag.Input2 = comments[1]; 
+                                    ViewBag.Input2 = comments[1];
                                 break;
                         }
                         break;
@@ -2598,7 +2596,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         else if (item.rid == _responseNO)
                         {
                             ViewBag.Checkbox47 = _chacked;
-                            
+
                         }
                         break;
                     case 5786:
@@ -2612,13 +2610,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         else if (item.rid == _responseNO)
                         {
                             ViewBag.Checkbox49 = _chacked;
-                            
+
                         }
                         break;
                     case 5787:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox50 = _chacked;                           
+                            ViewBag.Checkbox50 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
                                 ViewBag.Input12 = comments[1];
@@ -2699,12 +2697,19 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     #endregion
                 }
             }
+            return pptqID;
+        }
 
+        [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
+        public ActionResult CustomizedPDFConfirmation()
+        {
+            var pptqID = FillPdfHtml(ViewBag, db, Session,Server);
             return ViewCustomizedPdf(pptqID);
         }
 
         protected ActionResult ViewCustomizedPdf(int pptqID)
         {
+           
             string htmltext = this.RenderActionResultToString(this.View("CustomizedQuestionnaireSurveyPdfDownload"));  //name of the view...
 
             string PDF_FileName = "HON_" + Session["accessCode"].ToString().Substring(1, 4) +".pdf";

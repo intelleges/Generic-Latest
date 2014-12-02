@@ -42,6 +42,8 @@ body {
 
 .text-align-adjust {
 	padding-left: 5px;
+      margin-top:10px;
+    margin-bottom:10px;
 }
 
 /***************** start: header ******************/
@@ -186,6 +188,7 @@ body {
 	border:0px solid green;
 	padding:2px 0px;
 	padding-left: 7px;
+    margin-bottom:20px;
 }
 
 .form-submit-section {
@@ -217,6 +220,7 @@ body {
 
 .homepage-signin-button {
 	padding:10px 30px;
+    margin-left: 40px;
 }
 
 .homepage-input-bottom-link a:link,
@@ -250,3 +254,56 @@ body {
 
 
 /***************** End: Free Trail ********************/
+
+.bootstap{
+    @import "../../Content/bootstrap.css"
+}
+
+#contact_us_dialog .modal-dialog{
+   z-index:1000000;
+}
+ footer .float-left,
+    footer .float-right {
+        float: none;
+    }
+
+    footer {
+        text-align: center;
+        height: auto;
+        padding: 10px 0;
+    }
+
+        footer p {
+            margin: 0;
+        }   
+
+#contact_us_dialog input[type="text"], #contact_us_dialog input[type="password"], #contact_us_dialog input[type="email"] {
+        font: normal 11px Arial;
+        height: 25px;
+        border: 1px solid #CFCFCF;
+        line-height: 25px;
+        color: #636363;
+    }
+
+    #contact_us_dialog .modal-dialog {
+        width: 535px;
+    }
+
+    #contact-us-menu, #contact-us-menu:focus, #contact-us-menu:hover {
+        outline: none !important;
+        text-decoration: none !important;
+    }
+
+    #contact_us_dialog #modalformControls p {
+        font-size: 10px;
+        line-height: 11px;
+        margin-top: 15px;
+    }
+
+    .centred-button {
+        position: absolute;
+        top: 80%;
+        height: 10em;
+        margin-top: 1em;
+        left: 460px;
+    }

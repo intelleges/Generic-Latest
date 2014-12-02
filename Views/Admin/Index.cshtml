@@ -2,7 +2,7 @@
 @using System.Web.Mvc.Html
 @using System.Collections.Generic
 @using Generic
-
+@using System.Web.Optimization
 @{
     Layout = null;
 }
@@ -13,30 +13,31 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Intelleges - @Model.companyName </title>
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Contents/IntellegesLogin_files/style.css")">
     <script src="@Url.Content("~/Contents/IntellegesLogin_files/ga_002.js")" async="" type="text/javascript"></script>
     <script src="@Url.Content("~/Contents/IntellegesLogin_files/ga.js")" async="" type="text/javascript"></script>
-    <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jquery_002.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/modal.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jquery_002.js")"></script>*@
+    @*<script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/modal.js")"></script>*@
     <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/TrialHelper.js")"></script>
     <!-- Menu -->
 
 
     <link rel="stylesheet" href="@Url.Content("~/Contents/IntellegesLogin_files/jqx.css")" type="text/css">
-    <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jquery-1.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jquery-1.js")"></script>*@
     <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jqxcore.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jqxmenu.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jquery.js")" charset="utf-8"></script>
-    <script type="text/javascript" language="JavaScript" src="@Url.Content("~/Contents/IntellegesLogin_files/mtcFormAPI.js")"></script>
+    @*<script type="text/javascript" language="JavaScript" src="@Url.Content("~/Contents/IntellegesLogin_files/mtcFormAPI.js")"></script>*@
 
 
 
-
+    
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/tw-bs.css")" />
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 
-
+    @Scripts.Render("https://www.google.com/recaptcha/api/js/recaptcha_ajax.js")
     <link rel="shortcut icon" href="https://intelleges.com/favicon.ico">
     <script type="text/javascript">
         function ShowPicture(id, Source) {
@@ -108,42 +109,7 @@
             $('#scrollbar2').tinyscrollbar();
 
             var theme = '';
-
-            //$("#jqxMenu").jqxMenu({ width: '505', height: '30px', animationShowDuration: 500, theme: theme });
-            // $("#jqxMenu").css('visibility', 'visible');
-            //            $("#Button1").jqxButton({ theme: 'darkblue' });
-
-            //$('#Button1').on('click', function (e) {
-            //    //      alert('Thank your for your [Free Trial/Contact Us/Login] Request. We will get back to you shortly.');
-            //    e.preventDefault();
-
-
-
-
-            //    //   alert($("#txtcompanyurl_freetrial").val());
-            //    //   $('#lbl1').text($("#ddl_protocol_freetrial").val());
-            //    //   $('#lbl2').text($("#txtcompanyurl_freetrial").val());
-            //    //                $('#lbl3').text($("#txtemail_freetrial").val());
-
-            //    $('#lbl1').attr('value', $("#ddl_protocol_freetrial").val());
-            //    $('#lbl2').attr('value', $("#txtcompanyurl_freetrial").val());
-            //    $('#lbl3').attr('value', $("#txtemail_freetrial").val());
-            //    $('#lbl4').attr('value', $("#ddl_protocol_freetrial option:selected").text());
-            //    $("#Button4").click();
-            //    // $("#lbl1").get(0).value = "blah"
-            //    // alert('Thank your for your Free Trial Request. We will get back to you shortly.');
-            //})
-
-            //    $("").click(funcion(e)({
-            //        e.preventDefault();
-            //    $("form").attr("action", "/approve");
-            //    $("form").submit();
-            //}));
-
-            $('#btnLogin').on('click', function (e) {
-                e.preventDefault();
-                $("#loginForm").submit();
-            })
+            
 
             $('.rmText').on('click', function (e) {
                 e.preventDefault();
@@ -161,11 +127,13 @@
 
 
             $("#welc").click(function () {
-                hidealldivs();
-                $("#welcomediv").show();
+                //hidealldivs();
+                $("#welcdiv").hide();
+
+                $("#homepagediv").show();
                 // $("#homepagediv").show();
-                $("#signinid").show();
-                $(".loginwelcome").show();
+                //$("#signinid").show();
+                //$(".loginwelcome").show();
             });
             $("#freetrialid").click(function () {
                 hidealldivs();
@@ -192,10 +160,7 @@
 
             });
             $("#contactusid").click(function () {
-                hidealldivs();
-                $("#contactdiv").show();
-                $("#contactusdiv").show();
-
+                $("#contact_us_dialog").modal('toggle');
             });
 
 
@@ -253,10 +218,12 @@
             });
 
             $("#aboutusa").click(function () {
-                hidealldivs();
+                //hidealldivs();
                 $("#welcdiv").show();
                 //  $("#aboutusdiv").show();
-                $("#signinid").show();
+                //$("#signinid").show();
+                $("#homepagediv").hide();
+               
 
             });
             $("#certi").click(function () {
@@ -435,8 +402,54 @@
             margin-left: 0px;
         }
     </style>
+       
 </head>
 <body>
+    <div class="tw-bs">
+    <!-- #region Contact US-->
+    <script>
+        var _localAddress = "@Request.ServerVariables["REMOTE_ADDR"]";
+        var _publicKey = "@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]";
+     </script>
+     <div class="modal fade" id="contact_us_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Contact us</h4>
+                    </div>
+                    <div class="modal-body">
+                         <form id="modalformControls" role="form">
+                             <img src="~/Contents/IntellegesLogin_files/nextStreetImage.png"/>
+                             <p>
+                                Thank you for visiting Intelleges. We welcome your input. To make sure we <b>connect you with the right person at our company</b>, please complete the two fields below and we will send you an email link where you can submit your comments. Intelleges uses any information we receive from you in accordance with our Privacy Policy. If you need to contact us directly please call 917 848 8088. Thanks again for your visit and we look forward to receiving your comments.
+                             </p>
+  <div class="form-group">
+						<label class="control-label" for="inputEmail">Your Email Address</label>
+						<input id="inputEmail" class="form-control" type="email" placeholder="Please Enter Your Email" required data-error="Incorect email adress" />
+                                <div class="help-block with-errors"></div>
+					</div>
+                        <div class="form-group">  	
+                            		<label class="control-label" for="contact_us_dialog_captcha">Your Secret Code</label>	
+					<div id="contact_us_dialog_captcha"></div>
+                            </div>   
+                            
+                        </form>
+
+                       <div class="centred-button">
+                                         <button type="button" class="btn btn-primary" name="ContactUs" >Submit</button></div>  
+                    </div>                   
+                </div>
+            </div>         
+        </div>
+    <!--#endregion-->
+       
+         
+    </div>
+    <!--#region All Form-->
+    
     <div class="wrapper">        
         <div class="header">
             <a id="logoimg" href="https://www.intelleges.com">
@@ -453,24 +466,26 @@
             <div class="top-nav-right">
 
 
-
+                
                 <div tabindex="1" id="jqxMenu" class="navbar jqx-rc-all jqx-menu jqx-menu-horizontal" style="visibility: visible; display: block; width: 505px; height: 30px; outline: medium none;">
+                    
                     <ul>
-                        <li style="float: left; padding-top: 1px; padding-bottom: 2px;" class="jqx-menu-item-top jqx-rc-all" id="menuItem9906187049704874000"><a id="welc" class="menu" href="https://www.intelleges.com/mvcmt/Generic">Welcome</a>
+                        <li style="float: left; padding-top: 1px; padding-bottom: 2px;" class="jqx-menu-item-top jqx-rc-all" id="menuItem9906187049704874000"><a id="welc" class="menu" href="#">Welcome</a>
 
                         </li>
                         <li style="float: left; padding-top: 1px; padding-bottom: 2px;" class="jqx-menu-item-top jqx-rc-all" id="Li1"><a id="aboutusa" class="menu" href="#">About Us</a>
 
                         </li>
 
-
-                        <li style="float: left; padding-top: 1px; padding-bottom: 2px;" class="jqx-menu-item-top jqx-rc-all" id="Li3"><a class="menu" id="contactusid" href="mailto:support@intelleges.com">Contact Us</a>
+                       
+                        <li style="float: left; padding-top: 1px; padding-bottom: 2px;" class="jqx-menu-item-top jqx-rc-all" id="Li3"> <div class="tw-bs"><a class="menu" id="contactusid" href="#contact_us_dialog"  data-target="#contact_us_dialog">Contact Us</a></div>
 
                         </li>
 
                     </ul>
+                        
                 </div>
-
+                    
                 <!-- .navbar -->
             </div>
             <!-- .top-nav-right -->
@@ -496,11 +511,7 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
 
                 </div>
             </div>
-            <div style="display: none;" id="contactdiv">
-                <div class="main-content-left homepage-main-content-left" style="height: 230px;">
-                    <img src="@Url.Content("~/Contents/IntellegesLogin_files/nextStreetImage.png")" style="width: 452px;" />
-                </div>
-            </div>
+            
 
             <div style="display: block;" id="homepagediv">
 
@@ -509,146 +520,24 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
                     <img src="@Url.Content("~/Contents/IntellegesLogin_files/nextStreetImage.png")" style="width: 452px;" />
 
                 </div>
-            </div>
-
-            <div style="display: none;" id="welcomediv">
-
-
-                <div class="main-content-left homepage-main-content-left" style="height: 230px;">
-                    @*   <img src="@Url.Content("~/Contents/IntellegesLogin_files/nextStreetImage.png")" style="width: 452px;" />*@
-                    <span>
-                        Intelleges offers a fast, streamlined, easy-to-use, new, reliable way to affordably collect data and documents from internal sites, customers, suppliers and other gloabl partners.
-                        <ul>
-                            <li>Enterprise-Level Support</li>
-                            <li>Role=Based Access Control</li>
-                            <li>Spreadsheet-based Interface</li>
-                            <li>Streamlined Interface</li>
-                            <li>Free Customer Support</li>
-                            <li>Scheduled Email Reminders</li>
-                            <li>Bounce Reports w/Redirects</li>
-                        </ul>
-                    </span>
-
-                </div>
-            </div>
-
-            <div style="display: none;" id="freetrialtextdiv">
-                <div class="main-content-left">
-                    <p class="bold-text">Sign up for Intelleges 10-days Free Trial</p>
-                    <br>
-                    <p class="font-size-14">
-                        To sign up for the Intelleges 10-day HS3 Free Trial you will need to<br>
-                        provide your information on the form on this page and click on the<br>
-                        Free Trial Button.
-                        <br>
-                        <br>
-                        You will receive an email with a link to a questionnaire. Once you<br>
-                        complete the questionnaire you will have access to the HS3 Enterprise<br>
-                        system with the same access as paid subscribers.
-                        <br>
-                        <br>
-                        Please note that if you do not subscribe after 10-days your data will not<br>
-                        be saved.
-                        <br>
-                        <br>
-                        Call our 5-109-COMPLY phone number if you have any additional<br>
-                        questions.
-                        <br>
-                        <br>
-                        Thanks!
-                    </p>
-                </div>
-            </div>
-
-            <div style="display: none;" id="logindivtext">
-                <div class="main-content-left homepage-main-content-left">
-                    <p class="bold-text">
-                        Sign In to manage<br>
-                        Your Intelleges ID.
-                    </p>
-                    <br>
-                    <p class="text-color-878787">
-                        Please sign in. If you don't have an Intelleges ID, you can create one by starting a
-                         <span class="homepage-input-bottom-link freetrialclick"><a href="#">FREE TRIAl</a></span>.
-                    </p>
-                </div>
-            </div>
-
-
-            <div style="display: none;" id="confirmationdiv">
-                <div class="main-content-left homepage-main-content-left">
-
-
-
-                    <p class="text-color-878787">
-                        Thank you for your interest in our 
-                        <span id="lbl_thankyouProduct">Label</span> product. We have sent an email to  <span id="lbl_thankyouEmail">Label</span>. Please follow the instructions on that email to begin your free trial.
-                    </p>
-                    <br>
-                    <p class="text-color-878787">
-                        If you have any questions, please email us directly at <span class="homepage-input-bottom-link"><a href="mailto:wendy.sharpe@intelleges.com">wendy.sharpe@intelleges.com</a>  </span>
-                        or call us at the number below.                        
-                    </p>
-                    <p class="text-color-878787">
-                        Please click <span class="homepage-input-bottom-link"><a id="welcomeConfirm" style="color: #009DDC" href="#">here</a></span> to return to the Homepage.                      
-                    </p>
-                    <p class="text-color-878787">
-                        Thanks again for your interest in our Cloud-Based Global Automation Products and Services.                    
-                    </p>
-
-
-
-                </div>
-            </div>
-
-            <div style="display: none;" id="registrationfaildiv">
-                <div class="main-content-left homepage-main-content-left">
-
-
-
-                    <p class="bold-text">
-                        USER ERROR! 
-                    </p>
-                    <br>
-                    <p class="text-color-878787">
-                        <span id="lbl_registrationErrorMessage"></span>
-
-                    </p>
-                    <br>
-                    <p class="text-color-878787">
-                        Please click  <span class="homepage-input-bottom-link"><a id="welcomeConfirm2" style="color: #009DDC" href="#">here</a></span> to return to the Homepage.                      
-                    </p>
-                    <br>
-                    <p class="text-color-878787">
-                        Thanks again for your interest in our Cloud-Based Global Automation Products and Services.                    
-                    </p>
-
-
-
-
-                </div>
-            </div>
-
-
-
+            </div>   
 
             <!-- .main-content-left -->
             <div style="display: block;" id="signinid">
                 <div class="main-content-right homepage-main-content-right" style="height: 230px;">
 
                     <form id="loginForm" action="~/Admin/Index" method="post" enctype="multipart/form-data">
-
+                         <p style="display: block;" class="align-text-with loginwelcome">
+                                Please sign in. If you don't have an Intelleges ID, you can create one by contacting your Hs3 Administrator.    
+                            </p>
                         <p class="bold-text text-align-adjust">Sign In</p>
                         <div class="form-input-section">
                             <label id="lblErrorMessage" style="color: Red;" />
+                            
                             <input id="txtUserName" name="username" type="text" placeholder="Intelleges ID" class="input-field-text" />
 
 
-                            <p class="font-size-12 homepage-input-bottom-link text-align-adjust-small">
-
-                                <a href="#">Forgot your intelleges ID?</a>
-
-                            </p>
+                           
                             <div id="loginerrordiv" style="height: 30px" class="font-size-12 align-text-with loginwelcome">
                                 @foreach (System.Web.Mvc.ModelState modelState in ViewData.ModelState.Values)
                                 {
@@ -665,18 +554,9 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
                                 }
                             </div>
 
-                            <input id="txtPassword" name="password" class="input-field-text" placeholder="Password" type="password">
+                            <input id="txtPassword" name="password" class="input-field-text" placeholder="Password" type="password">                           
 
-
-                            <p class="font-size-12 homepage-input-bottom-link text-align-adjust-small">
-
-                                <a href="#">Forgot your password?</a>
-
-                            </p>
-
-                            <p style="display: block;" class="align-text-with loginwelcome">
-                                Please sign in. If you don't have an Intelleges ID, you can create one by contacting your Hs3 Administrator.    
-                            </p>
+                           
 
                         </div>
                         <!-- .form-inputs-section homepage-signin-div -->
@@ -684,468 +564,13 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
                         <div style="float: left;">
                             <img id="linkedinLoginBtn" title="Log in using your Link1edIn account" 
                                 src="~/Contents/images/linkedInLogin.png" border="0" style="width:140px"/>
-                                <input id="btnLogin" class="you input-field-submit homepage-signin-button" value="Login" type="button" />
+                                <input id="btnLogin" class="you input-field-submit homepage-signin-button" value="Login" type="submit" />
                             </div>
                             
                         
                     </form>
                 </div>
             </div>
-            <div style="display: none;" id="freetrialinputdiv">
-                <div class="main-content-right-free">
-                    <p class="bold-text text-align-adjust">Start Your Free Trial</p>
-                    <br>
-
-                    <div class="form-input-section">
-                        <select name="ddl_protocol_freetrial" id="ddl_protocol_freetrial" class="product-list-dropdown">
-                            <option selected="selected" value="40">Select A Product</option>
-                            <option value="45">3TG - Conflict Mineral</option>
-                            <option value="46">AML/KYC - Anti Money Laundering</option>
-                            <option value="47">BAA - Buy American Act</option>
-                            <option value="48">CDC - Centers for Disease Control</option>
-                            <option value="49">CTR - Anti-Counterfeit</option>
-                            <option value="50">CR - Certs &amp; Reps/eSRS</option>
-                            <option value="51">EC - Executive Compensation</option>
-                            <option value="52">FCPA - Foreign Corrupt Practices Act</option>
-                            <option value="53">FMF - Foreign Military Financing</option>
-                            <option value="57">ITAR - Int'I Traffic in Arms Regulations</option>
-                            <option value="54">SCI - Supply Chain Integrity</option>
-                            <option value="55">SCS - Supply Chain Security/C-TPAT</option>
-                            <option value="56">TAA - Trade Agreement Act</option>
-
-                        </select>
-
-
-                        <p class="font-size-12 text-align-adjust-small">Please select a product</p>
-                        <br>
-                        <input name="txtfreetrialcompanyname" id="txtfreetrialcompanyname" class="input-field-text" placeholder="Your company Name" type="text">
-
-                        <p class="font-size-12 text-align-adjust-small">Enter your company name</p>
-                        <br>
-                        <input name="txtfreetrialcompanyurl" id="txtfreetrialcompanyurl" class="input-field-text" placeholder="Your company URL" type="text">
-
-                        <p class="font-size-12 text-align-adjust-small">Enter your company URL</p>
-                        <br>
-                        <input name="txtfreetrialcompanyemailaddress" id="txtfreetrialcompanyemailaddress" class="input-field-text" placeholder="Your company email address" type="text">
-
-
-
-                        <span id="RequiredFieldValidator1" style="color: Red; font-size: 12px; display: none;">Email required</span>
-                        <span id="RegularExpressionValidator1" style="color: Red; font-size: 12px; display: none;">Email is not valid</span>
-                        <p class="font-size-12 text-align-adjust-small">Enter your company email address</p>
-                        <br>
-                    </div>
-                    <!-- .form-inputs-section -->
-                    <div class="form-submit-section">
-
-                        <input name="Button4" value="Free Trial" onclick='javascript: WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("Button4", "", true, "freeTrial", "", false, false))' id="Button4" class="input-field-submit" type="submit">
-                    </div>
-                    <!-- .form-submit-section -->
-                </div>
-
-            </div>
-
-            <div style="display: none;" id="contactusdiv">
-                <div class="main-content-right homepage-main-content-right" style="height: 230px;">
-
-                    <p class="bold-text text-align-adjust">Contact Us</p>
-                    @* <br>*@
-
-                    <div class="form-input-section">
-
-                        <input name="txtcontactusemail" id="txtcontactusemail" class="input-field-text" placeholder="Email" type="text">
-                        <span id="RequiredFieldValidator2" style="color: Red; font-size: 12px; display: none;">Email required</span>
-                        <span id="RegularExpressionValidator2" style="color: Red; font-size: 12px; display: none;">Email is not valid</span>
-
-                        <p class="font-size-12 homepage-input-bottom-link text-align-adjust-small">Enter your email address</p>
-                        @* <br>*@
-                        <textarea name="txtcontactusmessage" rows="2" cols="20" id="txtcontactusmessage" class="input-field-text" placeholder="Add Text Here" style="height: 100px;"></textarea>
-
-                        <p class="font-size-12 homepage-input-bottom-link text-align-adjust-small">Add Text Here</p>
-                        <br>
-                    </div>
-                    <!-- .form-inputs-section -->
-                    <div class="form-submit-section homepage-signin-div">
-
-                        <input name="Button2" value="Send" onclick='javascript: WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("Button2", "", true, "contactus", "", false, false))' id="Button2" class="input-field-submit homepage-signin-button" type="submit">
-                    </div>
-                    <!-- .form-submit-section -->
-                </div>
-            </div>
-
-
-            <div style="display: none;" id="aboutusdiv">
-                <div class="main-content-right homepage-main-content-right">
-                    <div id="scrollbar2">
-
-                        <div class="viewport">
-                            <div style="top: 0px;" class="overview">
-
-                                <div class="regular">
-                                    <p class="font-size-12 text-align-adjust-small">
-                                        Intelleges’ provides a simple, streamlined platform for companies to collect, store
-                        and share compliance information securely.
-                                    </p>
-                                    <p class="font-size-12 text-align-adjust-small">
-                                        In recent years, corporations who manage and operate large global supplier and customer
-                        ecosystems have been forced to understand, develop, collect and report on increasing
-                        amounts of regulatory data about these third parties to the jurisdictions in which
-                        they do business. Regulations surrounding protocols such as physical and information
-                        security; privacy and confidentiality; and small business/diversity continue to
-                        proliferate. They are particularly onerous for firms that do business under contracts
-                        with governmental authorities and/or in countries that are of security concern.
-                        This problem will worsen as companies become more global, competition increases
-                        and economic powers seek to level the playing field for international trade.
-                                    </p>
-                                    <p class="font-size-12 text-align-adjust-small">
-                                        Compliance data collection requirements exceed the scope of traditional Supply Chain
-                        Management (SCM), ERP, CRM or GRC systems. Consequently, in even the largest firms,
-                        third party compliance is a largely manual, time consuming and cumbersome effort.
-                        For each app licable regulation, teams are typically assembled to understand regulations
-                        and produce questionnaires, which are manually distributed across a network of tens
-                        of thousands of suppliers and customers and whose responses are then summarized
-                        and collated, usually through Microsoft Excel, into reports. The current process,
-                        in most companies, bears significant time, cost and reputation risk.
-                                    </p>
-                                    <p class="font-size-12 text-align-adjust-small">
-                                        Working with large government contractors, Intelleges has developed a web-based,
-                        cloud solution which provides:
-                                    </p>
-                                    <p class="font-size-12 text-align-adjust-small">
-                                    </p>
-                                    <ul class="font-size-12 text-align-adjust-small">
-                                        <li>Standardized proprietary questionnaires and document collection facilities addressing
-                                both security and small business/diversity protocols. </li>
-                                        <li>Automated web-based data collection, notification and evaluation workflow, which
-                                replaces manual and/or spreadsheet based systems and has been proven to improve
-                                response times, increase convenience, and significantly reduce compliance costs
-                                and risks. </li>
-                                        <li>Automated renewal, approval and exceptions management processes. </li>
-                                    </ul>
-                                    <p></p>
-                                    <p class="font-size-12 text-align-adjust-small">
-                                        Having proven the viability and effectiveness of its core platform (response rates
-                        for customer supplier survey program increased from 11 percent to over 70 percent
-                        over a 2 year period), Intelleges now makes this system available via a free trial
-                        demo.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="scrollbar" style="display: none; height: 0px;">
-                            <div style="height: 0px;" class="track">
-                                <div style="top: 0px; height: 525px;" class="thumb">
-                                    <div class="end">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-            <div style="display: none;" id="clientdiv" class="font-size-12 text-align-adjust-small">
-                <div class="main-content-right homepage-main-content-right">
-                    <img src="@Url.Content("~/Contents/IntellegesLogin_files/Clients-01.png")" style="width: 440px; height: 155px;"><br>
-
-                    <p class="homeContent">
-
-                        <strong>Governmental Authorities:</strong>
-                        <br>
-                        Intelleges supplies government authorities around the world including 
-the United States Army with software and services that ensure they meet 
-internal and external compliance requirements.
-                    </p>
-                    <p class="homeContent">
-                        <strong>Corporate Entities:</strong>
-                        <br>
-                        Intelleges
- provides large scale enterprises with web-based applications that 
-assist them in harmonizing and meeting global compliance requirements.
-                    </p>
-
-                </div>
-            </div>
-            <div style="display: none;" id="overviewdiv" class="font-size-12 text-align-adjust-small">
-                <div class="main-content-right homepage-main-content-right">
-
-
-                    <p class="auto-style1">
-                        Hs3 enables next generation business-to-business
- communication by leveraging commercially available advanced 
-technologies.
-                        <br>
-                        <br>
-                        By merging decision science (quantitative and 
-behavioral analysis), polymorphic messaging and advanced computational 
-algorithms, Hs3 allows for consistent, secure and successful intra 
-and/or inter-company (b2b) communication.
-                        <br>
-                        <br>
-                        These digital communication channels assist with
- a myriad of business objectives including product performance and 
-quality improvement; regulatory compliance; and competitive positioning.
-                        <br>
-                        <br>
-                    </p>
-                </div>
-            </div>
-            <div style="display: none;" id="certidiv" class="font-size-12 text-align-adjust-small">
-                <div class="main-content-right homepage-main-content-right">
-                    <img src="@Url.Content("~/Contents/IntellegesLogin_files/Certifications-01.png")" height="240" width="440">
-                </div>
-            </div>
-            <div style="display: none;" id="locdiv">
-                <div class="main-content-right homepage-main-content-right">
-                    <img src="@Url.Content("~/Contents/IntellegesLogin_files/Loc.jpg")" alt="" align="top" height="220" width="440"><br>
-                    <div class="regular" style="text-align: center;">
-                        Main Office Located on Columbia University Medical Center Campus in New York
-                    </div>
-                </div>
-            </div>
-            <div style="display: none;" id="privacydiv">
-                <div class="main-content-right homepage-main-content-right">
-
-                    <div id="scrollbar1">
-                        <div class="scrollbar" style="display: none; height: 0px;">
-                            <div style="height: 0px;" class="track">
-                                <div style="top: 0px; height: 1950px;" class="thumb">
-                                    <div class="end">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="viewport">
-                            <div style="top: 0px;" class="overview">
-                                <div class="font-size-12 text-align-adjust-small">
-                                    <strong>Overview</strong><br>
-                                    <p>
-                                        The following are terms of a legal agreement between you and Intelleges. By accessing,
-                        browsing, or using this Web site, you acknowledge that you have read, understood,
-                        and agree to be bound by these terms and to comply with all applicable laws and
-                        regulations, including export and re-export control laws and regulations. If you
-                        do not agree to these terms, please do not use this Web site. Intelleges may, without
-                        notice to you, at any time revise these Terms of Use and any other information contained
-                        in this Web site by updating this posting. Intelleges may also make improvements
-                        or changes in the products, services, or programs described in this site at any
-                        time without notice.
-                        <br>
-                                        <br>
-                                        <strong>General</strong><br>
-                                        This Web site contains proprietary notices and copyright information, the terms
-                        of which must be observed and followed. This site and all content in this site may
-                        not be copied, reproduced, republished, uploaded, posted, transmitted, distributed,
-                        or used for the creation of derivative works without Intelleges's prior written
-                        consent, except that Intelleges grants you non-exclusive, non-transferable, limited
-                        permission to access and display the Web pages within this site, solely on your
-                        computer and for your personal, non-commercial use of this Web site. This permission
-                        is conditioned on your not modifying the content displayed on this site, your keeping
-                        intact all copyright, trademark, and other proprietary notices, and your acceptance
-                        of any terms, conditions, and notices accompanying the content or otherwise set
-                        forth in this site. Notwithstanding the foregoing, any software and other materials
-                        that are made available for downloading, access, or other use from this site with
-                        their own license terms, conditions, and notices will be governed by such terms,
-                        conditions, and notices. Your failure to comply with the terms, conditions, and
-                        notices on this site will result in automatic termination of any rights granted
-                        to you, without prior notice, and you must immediately destroy all copies of downloaded
-                        materials in your possession or control. Except for the limited permission in the
-                        preceding paragraph, Intelleges does not grant you any express or implied rights
-                        or licenses under any patents, trademarks, copyrights, or other proprietary or intellectual
-                        property rights. You may not mirror any of the content from this site on another
-                        Web site or in any other media. Copyrights and trademarks
-                        <br>
-                                        <br>
-                                        <strong>Trademarks owned by Intelleges</strong><br>
-                                        This is a current listing of United States trademarks owned by Intelleges. Please
-                        note that laws concerning use and marking of trademarks or product names vary by
-                        country. Always consult a local attorney for additional guidance Not all common
-                        law marks used by Intelleges are listed on this page. Failure of a mark to appear
-                        on this page does not mean that Intelleges does not use the mark nor does it mean
-                        that the product is not actively marketed or is not significant within its relevant
-                        market. Those trademarks followed by ® are registered trademarks of Intelleges in
-                        the United States; all others are trademarks or common law marks of Intelleges in
-                        the United States. This list is not a comprehensive list of all Intelleges trademarks.
-                        <br>
-                                        1. Intelleges<br>
-                                        2. HS3<br>
-                                        3. sCRIPS<br>
-                                        4. accudataCheck<br>
-                                        5. SCRM Appliance<br>
-                                        <br>
-                                        <br>
-                                        <strong>Use of Intelleges logos</strong><br>
-                                        The Intelleges logo, and other marks and graphics present on intelleges.com are
-                        owned by intelleges.com and may not be used in any manner without intelleges.com's
-                        express prior written consent. To obtain permission to use any Intelleges logo,
-                        contact your Intelleges representative or email corporatebranding@Intelleges. com.
-                        <br>
-                                        <br>
-                                        <strong>Certain disclaimers</strong><br>
-                                        Information on this Web site is not promised or guaranteed to be correct, current,
-                        or complete, and this site may contain technical inaccuracies or typographical errors.
-                        Intelleges assumes no responsibility (and expressly disclaims responsibility) for
-                        updating this site to keep information current or to ensure the accuracy or completeness
-                        of any posted information. Accordingly, you should confirm the accuracy and completeness
-                        of all posted information before making any decision related to any services, products,
-                        or other matters described in this site. Intelleges provides no assurances that
-                        any reported problems will be resolved by Intelleges, even if Intelleges elects
-                        to provide information with the goal of addressing a problem. This Web site may
-                        provide links or references to non-Intelleges Web sites and resources. Intelleges
-                        makes no representations, warranties, or other commitments whatsoever about any
-                        non-Intelleges Web sites or third-party resources that may be referenced, accessible
-                        from, or linked to any Intelleges site. A link to a non-Intelleges Web site does
-                        not mean that Intelleges endorses the content or use of such Web site or its owner.
-                        In addition, Intelleges is not a party to or responsible for any transactions you
-                        may enter into with third parties, even if you learn of such parties (or use a link
-                        to such parties) from an Intelleges site. Accordingly, you acknowledge and agree
-                        that Intelleges is not responsible for the availability of such external sites or
-                        resources, and is not responsible or liable for any content, services, products,
-                        or other materials on or available from those sites or resources.
-                        <br>
-                                        <br>
-                                        All links to this Web site must be approved in writing by Intelleges.<br>
-                                        <br>
-                                        USE OF THIS SITE IS AT YOUR SOLE RISK. ALL MATERIALS, INFORMATION, PRODUCTS, WEBINARS,
-                        SOFTWARE, PROGRAMS, AND SERVICES ARE PROVIDED "AS IS," WITH NO WARRANTIES OR GUARANTEES
-                        WHATSOEVER. INTELLEGES EXPRESSLY DISCLAIMS TO THE FULLEST EXTENT PERMITTED BY LAW
-                        ALL EXPRESS, IMPLIED, STATUTORY, AND OTHER WARRANTIES, GUARANTEES, OR REPRESENTATIONS,
-                        INCLUDING, WITHOUT LIMITATION, THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-                        PARTICULAR PURPOSE, AND NON-INFRINGEMENT OF PROPRIETARY AND INTELLECTUAL PROPERTY
-                        RIGHTS. WITHOUT LIMITATION, INTELLEGES MAKES NO WARRANTY OR GUARANTEE THAT THIS
-                        WEB SITE WILL BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE. YOU UNDERSTAND AND
-                        AGREE THAT IF YOU DOWNLOAD OR OTHERWISE OBTAIN MATERIALS, INFORMATION, PRODUCTS,
-                        SOFTWARE, WEBINARS, PROGRAMS, OR SERVICES, YOU DO SO AT YOUR OWN DISCRETION AND
-                        RISK AND THAT YOU WILL BE SOLELY RESPONSIBLE FOR ANY DAMAGES THAT MAY RESULT, INCLUDING
-                        LOSS OF DATA OR DAMAGE TO YOUR COMPUTER SYSTEM.
-                        <br>
-                                        <br>
-                                        <strong>LIMITATION OF LIABILITY</strong><br>
-                                        IN NO EVENT WILL INTELLEGES BE LIABLE TO ANY PARTY FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-                        SPECIAL, EXEMPLARY OR CONSEQUENTIAL DAMAGES OF ANY TYPE WHATSOEVER RELATED TO OR
-                        ARISING FROM THIS WEB SITE OR ANY USE OF THIS WEB SITE, OR OF ANY SITE OR RESOURCE
-                        LINKED TO, REFERENCED, OR ACCESSED THROUGH THIS WEB SITE, OR FOR THE USE OR DOWNLOADING
-                        OF, OR ACCESS TO, ANY MATERIALS, INFORMATION, PRODUCTS, OR SERVICES, INCLUDING,
-                        WITHOUT LIMITATION, ANY LOST PROFITS, BUSINESS INTERRUPTION, LOST SAVINGS OR LOSS
-                        OF PROGRAMS OR OTHER DATA, EVEN IF INTELLEGES IS EXPRESSLY ADVISED OF THE POSSIBILITY
-                        OF SUCH DAMAGES. THIS EXCLUSION AND WAIVER OF LIABILITY APPLIES TO ALL CAUSES OF
-                        ACTION, WHETHER BASED ON CONTRACT, WARRANTY, TORT, OR ANY OTHER LEGAL THEORIES.
-                        Additional or different terms, conditions, and notices may apply to specific materials,
-                        information, products, software, and services offered through this Web site. In
-                        the event of any conflict, such additional or different terms, conditions, and notices
-                        will prevail over these Terms of Use. Please see the applicable agreement or notice.
-                        <br>
-                                        <br>
-                                        <strong>REPORT VIOLATIONS</strong><br>
-                                        To report violations of these Terms, please email <a href="mailto:legal@intelleges.com">legal@intelleges.com</a> with appropriate details, including your contact information.
-                        If you have questions or comments about these Terms intelleges.com in general, please
-                        refer contact intelleges.com via the "Contact" link on the home page. Copyright
-                        2008 intelleges.com, inc. All rights reserved. Effective September 2008.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div style="display: none;" id="teamdiv">
-                <div class="main-content-right homepage-main-content-right">
-
-
-                    <div class="font-size-12 text-align-adjust-small">
-                        <p style="padding-top: 0; margin-top: 0">
-                            The Intelleges management team is comprised of compliance professionals and cutting-edge
-                        technologists that specialize in providing enterprise-level, secure, global compliance
-                        solutions . Click a link below to read more about the team.
-                        </p>
-
-
-
-
-
-
-
-                        <script src="@Url.Content("~/Contents/IntellegesLogin_files/jquery-ui.js")"></script>
-                        <link href="@Url.Content("~/Contents/IntellegesLogin_files/jquery-ui.css")" rel="stylesheet">
-
-                        <script type="text/javascript">
-                            $(document).ready(function () {
-                                $("#accordion").accordion({ heightStyle: "content", active: false, collapsible: true });
-
-
-                            });
-                        </script>
-                        <div role="tablist" class="ui-accordion ui-widget ui-helper-reset" id="accordion">
-                            <h3 tabindex="0" aria-selected="false" aria-controls="ui-accordion-accordion-panel-0" id="ui-accordion-accordion-header-0" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>
-                                <a href="#">Key Leadership: John Betancourt (President &amp; Chief Executive Officer)</a></h3>
-                            <div aria-hidden="true" aria-expanded="false" role="tabpanel" aria-labelledby="ui-accordion-accordion-header-0" id="ui-accordion-accordion-panel-0" style="display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-                                <p>
-                                    Intelleges founder, Mr. Betancourt focuses on helping companies remain compliant
-            in a constantly changing world. Working on key strategic issues day-to-day at Intelleges,
-            his focus is broad strategy, innovation, and key initiatives. Intelleges allows
-            businesses to collect, store and share compliance information easily, ensuring that
-            companies comply with the data and document collection demands of many regulatory
-            requirements globally. Specific protocols include Foreign Corrupt Practices Act,
-            Buy American Act, eSRS (SF-295), Customs Trade Partnership Against Terrorism, and
-            many others. Keeping compliance information current and up to date and compliance
-            costs down is how companies stay competitive in a globalized world. Mr. Betancourt
-            works to provide thought leadership in the global compliance arena, and maintaining
-            customers up to date on industry best practices, monitoring key trends, information
-            requirements, privacy and regulatory changes, and helping firms reduce costs by
-            streamlining the overall process.
-            <br>
-                                    <br>
-                                    <b>Princeton University, A.B (Philosophy)</b>
-                                </p>
-                            </div>
-                            <h3 tabindex="-1" aria-selected="false" aria-controls="ui-accordion-accordion-panel-1" id="ui-accordion-accordion-header-1" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>
-                                <a href="#">Key Leadership: Bruce Rubin (Chief Operating Officer)</a></h3>
-                            <div aria-hidden="true" aria-expanded="false" role="tabpanel" aria-labelledby="ui-accordion-accordion-header-1" id="ui-accordion-accordion-panel-1" style="display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-                                <p>
-                                    Focused on developing and implementing forecasting programs and models that improve
-            global compliance especially in the area of emerging economies. I have worked with
-            the operational personnel at many major retailers including Walmart, Target, Lowes,
-            KMart, Sears, Do-it Best, to understand their requirements and to ensure the company
-            complies with global standards.<br>
-                                    <br>
-                                    <b>Temple University, MBA</b>
-                                </p>
-                            </div>
-                            <h3 tabindex="-1" aria-selected="false" aria-controls="ui-accordion-accordion-panel-2" id="ui-accordion-accordion-header-2" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>
-                                <a href="#">Key Leadership: Daniel Kessler (General Counsel)</a></h3>
-                            <div aria-hidden="true" aria-expanded="false" role="tabpanel" aria-labelledby="ui-accordion-accordion-header-2" id="ui-accordion-accordion-panel-2" style="display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-                                <p class="regular">
-                                    25 years of corporate in-house and private practice legal experience related to
-            ensuring compliance with a broad range of regulatory issues (international and U.S.
-            marketing and sales activities in the pharmaceutical and healthcare sectors, pricing
-            and antitrust, FDA, securities, privacy). Assists multi-national companies in establishing
-            or enhancing integrated compliance programs with regard to anti-corruption, economic
-            sanctions, export controls, import issues (including C-TPAT) and anti-boycott compliance
-            and in establishing and undertaking audit programs (and remediation, as necessary)
-            of third-party relationships. Working with companies in the Middle East, Central
-            &amp; Eastern Europe, Latin America and Asia regarding these different trade regulatory
-            environments and establishing innovative multi-platform compliance programs that
-            have broad exposure to a full range of substantive legal and risk management issues.
-            <br>
-                                    <b>The University of Chicago Law School, J.D.; The Fletcher School of Law and Diplomacy,
-                Tufts University, M.A. in Law and Diplomacy; Haverford College, B.A.</b>
-                                </p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-
             <!-- .main-content-left -->
         </div>
         <!-- .main-content -->
@@ -1162,5 +587,8 @@ quality improvement; regulatory compliance; and competitive positioning.
             </form>
         </div>
     </div>
+    <!--#endregion-->
+     @Scripts.Render("~/bundles/bootstrap")
+    <script src="@Url.Content("~/Contents/IntellegesLogin_files/contact-us.js")"></script>
 </body>
 </html>
