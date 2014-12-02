@@ -149,7 +149,7 @@ namespace Generic.Controllers
                 ViewBag.Message = Target[0].target.ToString();
                 if (Target[0].target.ToString() == "2")
                 {
-                    ViewBag.MessageDetail = "Congratulations, you just added  " + partner.firstName + " to " + Target[0].title;
+                    ViewBag.MessageDetail = "Congratulations, you just added  " + partner.name + " to " + Target[0].title;
                 }
                 ViewBag.state = new SelectList(db.state, "id", "name");
                 ViewBag.country = new SelectList(db.country, "id", "name");
