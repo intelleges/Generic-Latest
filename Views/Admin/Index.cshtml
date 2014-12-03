@@ -19,16 +19,17 @@
     <script src="@Url.Content("~/Contents/IntellegesLogin_files/ga.js")" async="" type="text/javascript"></script>
     @*<script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jquery_002.js")"></script>*@
     @*<script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/modal.js")"></script>*@
-    <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/TrialHelper.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/TrialHelper.js")"></script>*@
     <!-- Menu -->
 
-
+    <link href="@Url.Content("~/Content/themes/base/alertify.core.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/themes/base/alertify.default.css")" rel="stylesheet" />  
     <link rel="stylesheet" href="@Url.Content("~/Contents/IntellegesLogin_files/jqx.css")" type="text/css">
     @*<script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jquery-1.js")"></script>*@
     <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jqxcore.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jqxmenu.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jquery.js")" charset="utf-8"></script>
-    @*<script type="text/javascript" language="JavaScript" src="@Url.Content("~/Contents/IntellegesLogin_files/mtcFormAPI.js")"></script>*@
+    <script type="text/javascript" language="JavaScript" src="@Url.Content("~/Contents/IntellegesLogin_files/mtcFormAPI.js")"></script>
 
 
 
@@ -37,7 +38,7 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/tw-bs.css")" />
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 
-    @Scripts.Render("https://www.google.com/recaptcha/api/js/recaptcha_ajax.js")
+   
     <link rel="shortcut icon" href="https://intelleges.com/favicon.ico">
     <script type="text/javascript">
         function ShowPicture(id, Source) {
@@ -160,7 +161,7 @@
 
             });
             $("#contactusid").click(function () {
-                $("#contact_us_dialog").modal('toggle');
+                
             });
 
 
@@ -410,6 +411,8 @@
     <script>
         var _localAddress = "@Request.ServerVariables["REMOTE_ADDR"]";
         var _publicKey = "@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]";
+        var _contactUsHost = "@System.Configuration.ConfigurationManager.AppSettings["contactUsHost"]";
+        var _contactUsDisplayed = false;
      </script>
      <div class="modal fade" id="contact_us_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -590,5 +593,6 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
     <!--#endregion-->
      @Scripts.Render("~/bundles/bootstrap")
     <script src="@Url.Content("~/Contents/IntellegesLogin_files/contact-us.js")"></script>
+     @Scripts.Render("https://www.google.com/recaptcha/api/js/recaptcha_ajax.js")
 </body>
 </html>

@@ -325,6 +325,8 @@ namespace Generic.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
+       
+
         [HttpPost]
         [AllowAnonymous]
         public virtual ActionResult Index(string userName, string password)
