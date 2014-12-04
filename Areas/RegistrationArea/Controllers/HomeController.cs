@@ -2496,30 +2496,24 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
                         break;
                     case 5882:
-                        switch (item.rid)
+                        if(item.response.Contains("Black American"))
+                            ViewBag.Checkbox20 = _chacked;
+                        else if (item.response.Contains("Hispanic"))
+                            ViewBag.Checkbox21 = _chacked;
+                        else if (item.response.Contains("Eskimos"))
+                            ViewBag.Checkbox22 = _chacked;
+                        else if (item.response.Contains("Thailand"))
+                            ViewBag.Checkbox23 = _chacked;
+                        else if (item.response.Contains("Pakistan"))
+                            ViewBag.Checkbox24 = _chacked;
+
+                        else if (item.response.Contains("Individual"))
                         {
-                            case 13685:
-                                ViewBag.Checkbox20 = _chacked;
-                                break;
-                            case 13686:
-                                ViewBag.Checkbox21 = _chacked;
-                                break;
-                            case 13687:
-                                ViewBag.Checkbox22 = _chacked;
-                                break;
-                            case 13688:
-                                ViewBag.Checkbox23 = _chacked;
-                                break;
-                            case 13689:
-                                ViewBag.Checkbox24 = _chacked;
-                                break;
-                            case 13690:
-                                ViewBag.Checkbox25 = _chacked;
-                                comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
-                                if (comments.Length > 1)
-                                    ViewBag.Input2 = comments[1];
-                                break;
-                        }
+                            ViewBag.Checkbox25 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input2 = comments[1];
+                        }                        
                         break;
                     #endregion
 
