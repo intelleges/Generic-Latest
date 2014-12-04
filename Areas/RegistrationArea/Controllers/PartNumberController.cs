@@ -274,9 +274,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
                         //JB: here he is actually setting responses to questions for the CURRENT PARTNUMBER
-                        var context = new EntitiesDBContext();
+                       // var context = new EntitiesDBContext();
 
-                        var PartNumberSiteZcodepptq = context.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
+                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
 
                         var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
                         if (checkpsz.Count == 0)
@@ -285,9 +285,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
                         else
                         {
-                            db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpsz.FirstOrDefault().id, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                            var checkpszObj = checkpsz.FirstOrDefault();
+                            if (checkpszObj != null)
+                            {
+                                var checkpszId = checkpszObj.id;
+                                db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                            }
                         }
-                        ZcodeModify(questionnaireId, questionId, responseId, context, PartNumberSiteZcodepptq);
+                        ZcodeModify(questionnaireId, questionId, responseId, db, PartNumberSiteZcodepptq);
                         //JB: here ends setting responses to questions for the CURRENT PARTNUMBER
                     }
                     else if (keyName.ToString().Contains("_checkBox"))
@@ -309,9 +314,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 responseComment = answer;
                             }
 
-                            var context = new EntitiesDBContext();
+                           // var context = new EntitiesDBContext();
 
-                            var PartNumberSiteZcodepptq = context.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
+                            var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
 
                             var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
                             if (checkpsz.Count == 0)
@@ -320,12 +325,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
                             else
                             {
-                                db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpsz.FirstOrDefault().id, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                var checkpszObj = checkpsz.FirstOrDefault();
+                                if (checkpszObj != null)
+                                {
+                                    var checkpszId = checkpszObj.id;
+                                    db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                }
                             }
 
 
 
-                            ZcodeModify(questionnaireId, questionId, responseId, context, PartNumberSiteZcodepptq);
+                            ZcodeModify(questionnaireId, questionId, responseId, db, PartNumberSiteZcodepptq);
 
 
                         }
@@ -378,8 +388,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             responseComment = null;
                         }
 
-                        var context = new EntitiesDBContext();
-                        var PartNumberSiteZcodepptq = context.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
+                       // var context = new EntitiesDBContext();
+                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
 
                         var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
                         if (checkpsz.Count == 0)
@@ -388,11 +398,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
                         else
                         {
-                            db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpsz.FirstOrDefault().id, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                            var checkpszObj = checkpsz.FirstOrDefault();
+                            
+                            if (checkpszObj != null && PartNumberSiteZcodepptq!=null)
+                            {
+                                var checkpszId = checkpszObj.id;
+                                db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                            }
                         }
 
 
-                        ZcodeModify(questionnaireId, questionId, responseId, context, PartNumberSiteZcodepptq);
+                        ZcodeModify(questionnaireId, questionId, responseId, db, PartNumberSiteZcodepptq);
 
 
                     }
@@ -455,8 +471,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                 {
                                                     question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
                                                     var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
-                                                    var context = new EntitiesDBContext();
-                                                    int? rId = context.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
+                                                   // var context = new EntitiesDBContext();
+                                                    int? rId = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
                                                     response responsenew = db.pr_getResponse(rId).FirstOrDefault();
                                                     int check = 0;
                                                     if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
@@ -529,10 +545,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
             if (jumpToQuestion != 0)
             {
                 // Skip ZCode update            
-                var context = new EntitiesDBContext();
-                var PartNumberSiteZcodepptq = context.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
+                //var context = new EntitiesDBContext();
+                var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
 
-                ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion, context, PartNumberSiteZcodepptq);
+                ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion, db, PartNumberSiteZcodepptq);
 
             }
 

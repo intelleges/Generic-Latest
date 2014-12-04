@@ -2324,31 +2324,61 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     case 5796:
                         ViewBag.Checkbox1 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
+                    case 5876:
+                        ViewBag.Checkbox1 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
                     case 5788:
+                        ViewBag.Checkbox2 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 5868:
                         ViewBag.Checkbox2 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
                     case 5801:
                         ViewBag.Checkbox3 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
+                    case 5881:
+                        ViewBag.Checkbox3 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
                     case 5803:
+                        ViewBag.Checkbox4 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 5883:
                         ViewBag.Checkbox4 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
                     case 5798:
                         ViewBag.Checkbox5 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
+                    case 5878:
+                        ViewBag.Checkbox5 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
                     case 5799:
+                        ViewBag.Checkbox6 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 5879:
                         ViewBag.Checkbox6 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
                     case 5800:
                         ViewBag.Checkbox7 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
+                    case 5880:
+                        ViewBag.Checkbox7 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
                     case 5791:
+                        ViewBag.Checkbox8 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 5871:
                         ViewBag.Checkbox8 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
                     case 5792:
                         ViewBag.Checkbox9 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
+                    case 5872:
+                        ViewBag.Checkbox9 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
                     case 5793:
+                        ViewBag.Checkbox10 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 5873:
                         ViewBag.Checkbox10 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
                     case 5794:
@@ -2358,10 +2388,23 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             ViewBag.Checkbox11_comment = _responseYES;
 
                         break;
+                    case 5874:
+                        ViewBag.Checkbox11 = item.rid == _responseYES ? _chacked : string.Empty;
+                        comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                        if (comments.Length > 1 && comments[1].Contains("Yes"))
+                            ViewBag.Checkbox11_comment = _responseYES;
+
+                        break;
                     case 5790:
                         ViewBag.Checkbox12 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
+                    case 5870:
+                        ViewBag.Checkbox12 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
                     case 5789:
+                        ViewBag.Checkbox13 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 5869:
                         ViewBag.Checkbox13 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
                     case 5795:
@@ -2373,13 +2416,31 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 ViewBag.Input0 = comments[1];
                         }
                         break;
+                    case 5875:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox14 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input0 = comments[1];
+                        }
+                        break;
                     case 5772:
+                        ViewBag.Checkbox15 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 5852:
                         ViewBag.Checkbox15 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
                     case 5773:
                         ViewBag.Checkbox16 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
+                    case 5853:
+                        ViewBag.Checkbox16 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
                     case 5771:
+                        ViewBag.Checkbox17 = item.rid == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 5851:
                         ViewBag.Checkbox17 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
                     case 5797:
@@ -2395,7 +2456,46 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 ViewBag.Input1 = comments[1];
                         }
                         break;
+                    case 5877:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox18 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox19 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input1 = comments[1];
+                        }
+                        break;
                     case 5802:
+                        switch (item.rid)
+                        {
+                            case 13685:
+                                ViewBag.Checkbox20 = _chacked;
+                                break;
+                            case 13686:
+                                ViewBag.Checkbox21 = _chacked;
+                                break;
+                            case 13687:
+                                ViewBag.Checkbox22 = _chacked;
+                                break;
+                            case 13688:
+                                ViewBag.Checkbox23 = _chacked;
+                                break;
+                            case 13689:
+                                ViewBag.Checkbox24 = _chacked;
+                                break;
+                            case 13690:
+                                ViewBag.Checkbox25 = _chacked;
+                                comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                                if (comments.Length > 1)
+                                    ViewBag.Input2 = comments[1];
+                                break;
+                        }
+                        break;
+                    case 5882:
                         switch (item.rid)
                         {
                             case 13685:
@@ -2437,10 +2537,31 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 ViewBag.Input3 = comments[1];
                         }
                         break;
+                    case 5846:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox26 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox27 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input3 = comments[1];
+                        }
+                        break;
                     #endregion
 
                     #region 3 Question
                     case 5769:
+                        if (item.rid == _responseYES)
+                        {
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input4 = comments[1];
+                        }
+                        break;
+                    case 5849:
                         if (item.rid == _responseYES)
                         {
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
@@ -2461,10 +2582,33 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             ViewBag.Checkbox29 = _chacked;
                         }
                         break;
+                    case 5854:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox28 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox29 = _chacked;
+                        }
+                        break;
                     #endregion
 
                     #region 5 Question
                     case 5775:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox30 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox31 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input5 = comments[1];
+                        }
+                        break;
+                    case 5855:
                         if (item.rid == _responseYES)
                         {
                             ViewBag.Checkbox30 = _chacked;
@@ -2491,10 +2635,29 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 break;
                         }
                         break;
+                    case 5856:
+                        if (item.response.Contains("HAS NOT"))
+                            ViewBag.Checkbox33 = _chacked;
+                        else
+                            ViewBag.Checkbox32 = _chacked; 
+                        break;
                     #endregion
 
                     #region 7 Question
                     case 5777:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox34 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox35 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input6 = comments[1];
+                        }
+                        break;
+                    case 5857:
                         if (item.rid == _responseYES)
                         {
                             ViewBag.Checkbox34 = _chacked;
@@ -2521,10 +2684,29 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 break;
                         }
                         break;
+                    case 5847:
+                        if(item.response.Contains("ARE NOT"))
+                            ViewBag.Checkbox37 = _chacked;
+                        else ViewBag.Checkbox36 = _chacked;
+                       
+                        break;
                     #endregion
 
                     #region 9 Question
                     case 5768:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox38 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox39 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input7 = comments[1];
+                        }
+                        break;
+                    case 5848:
                         if (item.rid == _responseYES)
                         {
                             ViewBag.Checkbox38 = _chacked;
@@ -2550,6 +2732,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             ViewBag.Checkbox41 = _chacked;
                         }
                         break;
+                    case 5858:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox40 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox41 = _chacked;
+                        }
+                        break;
                     #endregion
 
                     #region 11 Question
@@ -2566,10 +2758,36 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 ViewBag.Input8 = comments[1];
                         }
                         break;
+                    case 5859:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox42 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox43 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input8 = comments[1];
+                        }
+                        break;
                     #endregion
 
                     #region 12 Question
                     case 5780:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox44 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox45 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input9 = comments[1];
+                        }
+                        break;
+                    case 5860:
                         if (item.rid == _responseYES)
                         {
                             ViewBag.Checkbox44 = _chacked;
@@ -2599,7 +2817,35 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                         }
                         break;
+                    case 5865:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox46 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input10 = comments[1];
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox47 = _chacked;
+
+                        }
+                        break;
                     case 5786:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox48 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input11 = comments[1];
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox49 = _chacked;
+
+                        }
+                        break;
+                    case 5866:
                         if (item.rid == _responseYES)
                         {
                             ViewBag.Checkbox48 = _chacked;
@@ -2626,10 +2872,33 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             ViewBag.Checkbox51 = _chacked;
                         }
                         break;
+                    case 5867:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox50 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input12 = comments[1];
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox51 = _chacked;
+                        }
+                        break;
                     #endregion
 
                     #region 14 Question
                     case 5781:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox52 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox53 = _chacked;
+                        }
+                        break;
+                    case 5861:
                         if (item.rid == _responseYES)
                         {
                             ViewBag.Checkbox52 = _chacked;
@@ -2655,10 +2924,33 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 ViewBag.Input13 = comments[1];
                         }
                         break;
+                    case 5862:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox54 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox55 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input13 = comments[1];
+                        }
+                        break;
                     #endregion
 
                     #region 16 Question
                     case 5783:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox56 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox57 = _chacked;
+                        }
+                        break;
+                    case 5863:
                         if (item.rid == _responseYES)
                         {
                             ViewBag.Checkbox56 = _chacked;
@@ -2678,10 +2970,33 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             ViewBag.Checkbox59 = _chacked;
                         }
                         break;
+                    case 5864:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox58 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox59 = _chacked;
+                        }
+                        break;
                     #endregion
 
                     #region CERTIFICATION
                     case 5805:
+                        if (item.rid == _responseYES)
+                        {
+                            ViewBag.Checkbox60 = _chacked;
+                        }
+                        else if (item.rid == _responseNO)
+                        {
+                            ViewBag.Checkbox61 = _chacked;
+                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                            if (comments.Length > 1)
+                                ViewBag.Input14 = comments[1];
+                        }
+                        break;
+                    case 5885:
                         if (item.rid == _responseYES)
                         {
                             ViewBag.Checkbox60 = _chacked;
