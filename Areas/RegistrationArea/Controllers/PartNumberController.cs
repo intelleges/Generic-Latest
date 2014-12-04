@@ -23,9 +23,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
         private EntitiesDBContext db = new EntitiesDBContext();
         //
         // GET: /RegistrationArea/PartNumber/
-
+        
         public virtual ActionResult QuestionnaireResponse(int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 1, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
+            
             if (Session["hs3Registration"] == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -185,136 +186,97 @@ namespace Generic.Areas.RegistrationArea.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult QuestionnaireResponse(FormCollection formCollection, int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 0, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
-            if (Session["hs3Registration"] == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            //JB: to set dropdown bindings begins
-            Session["partnumber"] = partNumberSelectList;
-
-            Session["partnumberstatus"] = partnumberStatusSelectList;
-
-            Session["site"] = siteSelectList;
-
-            int questionnaireId = 0;
-            int partnerId = 0;
-            int touchpointId = 0;
-            int protocolId = 0;
-
-            questionnaireId = (int)Session["questionnaire"];
-            partnerId = (int)Session["partner"];
-            touchpointId = (int)Session["touchpoint"];
-            protocolId = (int)Session["protocol"];
-
-            int questionId = 0;
-            int surveyId = 0;
-            string key = "";
-            string[] array = new string[5];
-            char[] splitter = { '_' };
-            string answer = "";
-            question objQuestion = new question();
-            Boolean saveForLaterButton = false;
-            string skip = "";
-            string goEsignature = "";
-
-            int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
-
-            dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);
-            //JB: to set dropdown bindings ends
-            //explain this -- start here
-
-            jumpToQuestion = 0;
-
-
-            foreach (var keyName in formCollection.Keys)
-            {
-                answer = formCollection[keyName.ToString()];
-                if (!keyName.ToString().Contains("uploadText") && keyName.ToString().Contains("question_"))
+           
+                if (Session["hs3Registration"] == null)
                 {
-                    ++questionIndex;
+                    return RedirectToAction("Index", "Home");
                 }
+                //JB: to set dropdown bindings begins
+                Session["partnumber"] = partNumberSelectList;
 
-                if (keyName.ToString().Contains("questionHiddenField_"))
+                Session["partnumberstatus"] = partnumberStatusSelectList;
+
+                Session["site"] = siteSelectList;
+
+                int questionnaireId = 0;
+                int partnerId = 0;
+                int touchpointId = 0;
+                int protocolId = 0;
+
+                questionnaireId = (int)Session["questionnaire"];
+                partnerId = (int)Session["partner"];
+                touchpointId = (int)Session["touchpoint"];
+                protocolId = (int)Session["protocol"];
+
+                int questionId = 0;
+                int surveyId = 0;
+                string key = "";
+                string[] array = new string[5];
+                char[] splitter = { '_' };
+                string answer = "";
+                question objQuestion = new question();
+                Boolean saveForLaterButton = false;
+                string skip = "";
+                string goEsignature = "";
+
+                int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+
+                dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);
+                //JB: to set dropdown bindings ends
+                //explain this -- start here
+
+                jumpToQuestion = 0;
+
+
+                foreach (var keyName in formCollection.Keys)
                 {
-
-                    array = keyName.ToString().Split(splitter);
-
-                    questionId = int.Parse(array[1]);
-                    surveyId = int.Parse(array[2]);
-
-
-
-                }
-
-
-
-
-
-                if (keyName.ToString().Contains("btnSaveForLater"))
-                {
-                    saveForLaterButton = true;
-                }
-
-                if (keyName.ToString().Contains("question_"))
-                {
-
-                    if (keyName.ToString().Contains("_text"))
+                    answer = formCollection[keyName.ToString()];
+                    if (!keyName.ToString().Contains("uploadText") && keyName.ToString().Contains("question_"))
                     {
-                        array = keyName.ToString().Split(splitter);
-                        questionId = int.Parse(array[1]);
-                        surveyId = int.Parse(array[2]);
-
-                        int? responseId = null;
-                        string responseComment = string.Empty;
-
-                        responseId = null;
-
-                        responseComment = answer;
-                        //explain this -- ends here
-
-
-                        //JB: here he is actually setting responses to questions for the CURRENT PARTNUMBER
-                       // var context = new EntitiesDBContext();
-
-                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
-
-                        var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
-                        if (checkpsz.Count == 0)
-                        {
-                            db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
-                        }
-                        else
-                        {
-                            var checkpszObj = checkpsz.FirstOrDefault();
-                            if (checkpszObj != null)
-                            {
-                                var checkpszId = checkpszObj.id;
-                                db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
-                            }
-                        }
-                        ZcodeModify(questionnaireId, questionId, responseId, db, PartNumberSiteZcodepptq);
-                        //JB: here ends setting responses to questions for the CURRENT PARTNUMBER
+                        ++questionIndex;
                     }
-                    else if (keyName.ToString().Contains("_checkBox"))
+
+                    if (keyName.ToString().Contains("questionHiddenField_"))
                     {
+
                         array = keyName.ToString().Split(splitter);
+
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
-                        answer = array[3];
-                        if (formCollection[keyName.ToString()].ToLower() == "on")
+
+
+
+                    }
+
+
+
+
+
+                    if (keyName.ToString().Contains("btnSaveForLater"))
+                    {
+                        saveForLaterButton = true;
+                    }
+
+                    if (keyName.ToString().Contains("question_"))
+                    {
+
+                        if (keyName.ToString().Contains("_text"))
                         {
+                            array = keyName.ToString().Split(splitter);
+                            questionId = int.Parse(array[1]);
+                            surveyId = int.Parse(array[2]);
+
                             int? responseId = null;
                             string responseComment = string.Empty;
-                            try
-                            {
-                                responseId = int.Parse(answer);
-                            }
-                            catch
-                            {
-                                responseComment = answer;
-                            }
 
-                           // var context = new EntitiesDBContext();
+                            responseId = null;
+
+                            responseComment = answer;
+                            //explain this -- ends here
+
+
+                            //JB: here he is actually setting responses to questions for the CURRENT PARTNUMBER
+                            // var context = new EntitiesDBContext();
 
                             var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
 
@@ -332,252 +294,299 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                     db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
                                 }
                             }
+                            ZcodeModify(questionnaireId, questionId, responseId, db, PartNumberSiteZcodepptq);
+                            //JB: here ends setting responses to questions for the CURRENT PARTNUMBER
+                        }
+                        else if (keyName.ToString().Contains("_checkBox"))
+                        {
+                            array = keyName.ToString().Split(splitter);
+                            questionId = int.Parse(array[1]);
+                            surveyId = int.Parse(array[2]);
+                            answer = array[3];
+                            if (formCollection[keyName.ToString()].ToLower() == "on")
+                            {
+                                int? responseId = null;
+                                string responseComment = string.Empty;
+                                try
+                                {
+                                    responseId = int.Parse(answer);
+                                }
+                                catch
+                                {
+                                    responseComment = answer;
+                                }
 
+                                // var context = new EntitiesDBContext();
+
+                                var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
+
+                                var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
+                                if (checkpsz.Count == 0)
+                                {
+                                    db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                }
+                                else
+                                {
+                                    var checkpszObj = checkpsz.FirstOrDefault();
+                                    if (checkpszObj != null)
+                                    {
+                                        var checkpszId = checkpszObj.id;
+                                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                    }
+                                }
+
+
+
+                                ZcodeModify(questionnaireId, questionId, responseId, db, PartNumberSiteZcodepptq);
+
+
+                            }
+                        }
+                        else if (keyName.ToString().Contains("_Commenttext"))
+                        {
+                            array = keyName.ToString().Split(splitter);
+                            questionId = int.Parse(array[1]);
+                            surveyId = int.Parse(array[2]);
+
+                        }
+                        else if (keyName.ToString().Contains("_onlyTextComment"))
+                        {
+                            array = keyName.ToString().Split(splitter);
+                            questionId = int.Parse(array[1]);
+                            surveyId = int.Parse(array[2]);
+
+                        }
+                        else
+                        {
+                            array = keyName.ToString().Split(splitter);
+                            questionId = int.Parse(array[1]);
+                            surveyId = int.Parse(array[2]);
+                            int? responseId = null;
+                            string responseComment = string.Empty;
+                            try { responseId = int.Parse(answer); }
+                            catch { }
+                            if (answer == "74")
+                            {
+
+                                string strvl = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_Commenttext"];
+                                if (strvl != null)
+                                {
+                                    responseComment = strvl;
+                                }
+
+                            }
+                            else if (answer == "75")
+                            {
+
+
+                                string strvl = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_onlyTextComment"];
+                                if (strvl != null)
+                                {
+                                    responseComment = strvl;
+                                }
+                            }
+                            else
+                            {
+                                responseComment = null;
+                            }
+
+                            // var context = new EntitiesDBContext();
+                            var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
+
+                            var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
+                            if (checkpsz.Count == 0)
+                            {
+                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                            }
+                            else
+                            {
+                                var checkpszObj = checkpsz.FirstOrDefault();
+
+                                if (checkpszObj != null && PartNumberSiteZcodepptq != null)
+                                {
+                                    var checkpszId = checkpszObj.id;
+                                    try
+                                    {
+                                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                    }
+                                    catch (Exception ex)
+                                    {
+
+                                    }
+                                }
+                            }
 
 
                             ZcodeModify(questionnaireId, questionId, responseId, db, PartNumberSiteZcodepptq);
 
 
                         }
-                    }
-                    else if (keyName.ToString().Contains("_Commenttext"))
-                    {
-                        array = keyName.ToString().Split(splitter);
-                        questionId = int.Parse(array[1]);
-                        surveyId = int.Parse(array[2]);
+                        //JB - just going through questions and setting question response values and modifying zcode values and updating splitter
 
-                    }
-                    else if (keyName.ToString().Contains("_onlyTextComment"))
-                    {
-                        array = keyName.ToString().Split(splitter);
-                        questionId = int.Parse(array[1]);
-                        surveyId = int.Parse(array[2]);
+                        //JB skip logic handling begins
+                        objQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
 
-                    }
-                    else
-                    {
-                        array = keyName.ToString().Split(splitter);
-                        questionId = int.Parse(array[1]);
-                        surveyId = int.Parse(array[2]);
-                        int? responseId = null;
-                        string responseComment = string.Empty;
-                        try { responseId = int.Parse(answer); }
-                        catch { }
-                        if (answer == "74")
+                        if (objQuestion.skipLogicJump != null)
                         {
-
-                            string strvl = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_Commenttext"];
-                            if (strvl != null)
+                            if (objQuestion.skipLogicAnswer != null)
                             {
-                                responseComment = strvl;
-                            }
-
-                        }
-                        else if (answer == "75")
-                        {
-
-
-                            string strvl = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_onlyTextComment"];
-                            if (strvl != null)
-                            {
-                                responseComment = strvl;
-                            }
-                        }
-                        else
-                        {
-                            responseComment = null;
-                        }
-
-                       // var context = new EntitiesDBContext();
-                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
-
-                        var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
-                        if (checkpsz.Count == 0)
-                        {
-                            db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
-                        }
-                        else
-                        {
-                            var checkpszObj = checkpsz.FirstOrDefault();
-                            
-                            if (checkpszObj != null && PartNumberSiteZcodepptq!=null)
-                            {
-                                var checkpszId = checkpszObj.id;
-                                db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
-                            }
-                        }
-
-
-                        ZcodeModify(questionnaireId, questionId, responseId, db, PartNumberSiteZcodepptq);
-
-
-                    }
-                    //JB - just going through questions and setting question response values and modifying zcode values and updating splitter
-
-                    //JB skip logic handling begins
-                    objQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
-
-                    if (objQuestion.skipLogicJump != null)
-                    {
-                        if (objQuestion.skipLogicAnswer != null)
-                        {
-                            if (objQuestion.skipLogicJump.Contains("&"))
-                            {
-                                string[] strQuestionLogic = objQuestion.skipLogicJump.Split(';');
-                                for (int k = 0; k < strQuestionLogic.Length - 1; k++)
+                                if (objQuestion.skipLogicJump.Contains("&"))
                                 {
-                                    string[] subStrQuestionlogic = strQuestionLogic[k].Split('&');
-                                    Boolean logicOneStatus = false;
-                                    Boolean logicTwoStatus = false;
-                                    int gotoQuestionId = 0;
-                                    for (int j = 0; j < subStrQuestionlogic.Length; j++)
+                                    string[] strQuestionLogic = objQuestion.skipLogicJump.Split(';');
+                                    for (int k = 0; k < strQuestionLogic.Length - 1; k++)
                                     {
-                                        string[] strquestionid = subStrQuestionlogic[j].Split('=');
-                                        int questionidLogic = Convert.ToInt32(strquestionid[0]);
-                                        string[] strNewQuestionAns = strquestionid[1].Split(':');
-                                        int ansLogicStatus = 0;
-                                        if (strNewQuestionAns.Length > 0)
+                                        string[] subStrQuestionlogic = strQuestionLogic[k].Split('&');
+                                        Boolean logicOneStatus = false;
+                                        Boolean logicTwoStatus = false;
+                                        int gotoQuestionId = 0;
+                                        for (int j = 0; j < subStrQuestionlogic.Length; j++)
                                         {
-                                            ansLogicStatus = Convert.ToInt32(strNewQuestionAns[0]);
-                                        }
-                                        if (strNewQuestionAns.Length > 1)
-                                        {
-                                            gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
-                                        }
-                                        string answerStatus = "";
-                                        Boolean foundFlage = false;
-                                        for (int l = 0; l < formCollection.Keys.Count; ++l)
-                                        {
-                                            key = formCollection.Keys[l];
-                                            if (key.Contains("question_"))
+                                            string[] strquestionid = subStrQuestionlogic[j].Split('=');
+                                            int questionidLogic = Convert.ToInt32(strquestionid[0]);
+                                            string[] strNewQuestionAns = strquestionid[1].Split(':');
+                                            int ansLogicStatus = 0;
+                                            if (strNewQuestionAns.Length > 0)
                                             {
-                                                array = keyName.ToString().Split(splitter);
-                                                questionId = int.Parse(array[1]);
-                                                surveyId = int.Parse(array[2]);
-                                                answer = formCollection[l];
-
-                                                if (questionId == gotoQuestionId)
+                                                ansLogicStatus = Convert.ToInt32(strNewQuestionAns[0]);
+                                            }
+                                            if (strNewQuestionAns.Length > 1)
+                                            {
+                                                gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
+                                            }
+                                            string answerStatus = "";
+                                            Boolean foundFlage = false;
+                                            for (int l = 0; l < formCollection.Keys.Count; ++l)
+                                            {
+                                                key = formCollection.Keys[l];
+                                                if (key.Contains("question_"))
                                                 {
-                                                    Response.Redirect("~/Registration/Home/eSignature");
-                                                }
-                                                if (questionId == questionidLogic)
-                                                {
+                                                    array = keyName.ToString().Split(splitter);
+                                                    questionId = int.Parse(array[1]);
+                                                    surveyId = int.Parse(array[2]);
+                                                    answer = formCollection[l];
 
-                                                    foundFlage = true;
-
-                                                }
-
-                                                if (foundFlage)
-                                                {
-                                                    question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
-                                                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
-                                                   // var context = new EntitiesDBContext();
-                                                    int? rId = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
-                                                    response responsenew = db.pr_getResponse(rId).FirstOrDefault();
-                                                    int check = 0;
-                                                    if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
+                                                    if (questionId == gotoQuestionId)
                                                     {
+                                                        Response.Redirect("~/Registration/Home/eSignature");
+                                                    }
+                                                    if (questionId == questionidLogic)
+                                                    {
+
                                                         foundFlage = true;
 
-                                                        if (ansLogicStatus == 1 && responsenew.description.ToLower() == "yes")
-                                                        {
-                                                            check = 1;
-                                                        }
-                                                        else if (ansLogicStatus == 0 && responsenew.description.ToLower() == "no")
-                                                        {
-                                                            check = 1;
-                                                        }
-                                                        else if (ansLogicStatus == -1 && responsenew.description.ToLower() == "n/a")
-                                                        {
-                                                            check = 1;
-                                                        }
-                                                        else if (ansLogicStatus == 2 && responsenew.description.ToLower() == "cots")
-                                                        {
-                                                            check = 1;
-                                                        }
                                                     }
-                                                    else
+
+                                                    if (foundFlage)
                                                     {
-                                                        if (ansLogicStatus == 3 && responsenew != null)
+                                                        question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
+                                                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
+                                                        // var context = new EntitiesDBContext();
+                                                        int? rId = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
+                                                        response responsenew = db.pr_getResponse(rId).FirstOrDefault();
+                                                        int check = 0;
+                                                        if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
                                                         {
-                                                            check = 1;
+                                                            foundFlage = true;
+
+                                                            if (ansLogicStatus == 1 && responsenew.description.ToLower() == "yes")
+                                                            {
+                                                                check = 1;
+                                                            }
+                                                            else if (ansLogicStatus == 0 && responsenew.description.ToLower() == "no")
+                                                            {
+                                                                check = 1;
+                                                            }
+                                                            else if (ansLogicStatus == -1 && responsenew.description.ToLower() == "n/a")
+                                                            {
+                                                                check = 1;
+                                                            }
+                                                            else if (ansLogicStatus == 2 && responsenew.description.ToLower() == "cots")
+                                                            {
+                                                                check = 1;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            if (ansLogicStatus == 3 && responsenew != null)
+                                                            {
+                                                                check = 1;
+                                                            }
+                                                        }
+                                                        if (check == 1)
+                                                        {
+                                                            if (j == 0)
+                                                            {
+                                                                logicOneStatus = true;
+                                                            }
+                                                            else if (j == 1)
+                                                            {
+                                                                logicTwoStatus = true;
+                                                            }
                                                         }
                                                     }
-                                                    if (check == 1)
-                                                    {
-                                                        if (j == 0)
-                                                        {
-                                                            logicOneStatus = true;
-                                                        }
-                                                        else if (j == 1)
-                                                        {
-                                                            logicTwoStatus = true;
-                                                        }
-                                                    }
+
+
+
                                                 }
-
-
 
                                             }
 
                                         }
+                                        if (logicOneStatus == true && logicTwoStatus == true)
+                                        {
+                                            objQuestion.skipLogicJump = gotoQuestionId.ToString();
+                                            jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
+                                            break;
+                                        }
+                                    }
 
-                                    }
-                                    if (logicOneStatus == true && logicTwoStatus == true)
-                                    {
-                                        objQuestion.skipLogicJump = gotoQuestionId.ToString();
-                                        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                                        break;
-                                    }
+
+
                                 }
-
-
-
                             }
                         }
+
+
+
                     }
+                }
 
+                if (jumpToQuestion != 0)
+                {
+                    // Skip ZCode update            
+                    //var context = new EntitiesDBContext();
+                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
 
+                    ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion, db, PartNumberSiteZcodepptq);
 
                 }
-            }
-
-            if (jumpToQuestion != 0)
-            {
-                // Skip ZCode update            
-                //var context = new EntitiesDBContext();
-                var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
-
-                ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion, db, PartNumberSiteZcodepptq);
-
-            }
 
 
-            // save uploaded files
-            saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
+                // save uploaded files
+                saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
 
 
 
 
-            if (goEsignature == "true")
-            {
+                if (goEsignature == "true")
+                {
 
-                Response.Redirect("../Home/eSignature");
+                    Response.Redirect("../Home/eSignature");
 
-            }
+                }
 
-            if (saveForLaterButton == true)
-            {
+                if (saveForLaterButton == true)
+                {
 
-            }
+                }
 
-            else
-            {
-                //if it is last question and all are completed for partnumberSelectList Status, then go to next site...reset siteSelectList --maybe the problem here
-                goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, partNumberSelectList, siteSelectList, partnumberStatusSelectList, page, pageNumber);
-            }
+                else
+                {
+                    //if it is last question and all are completed for partnumberSelectList Status, then go to next site...reset siteSelectList --maybe the problem here
+                    goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, partNumberSelectList, siteSelectList, partnumberStatusSelectList, page, pageNumber);
+                }
 
-
+            
             return View();
         }
 
@@ -966,7 +975,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //}
             //else
             //{
-            ViewBag.partNumberSelectList = new SelectList(db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptqID).Where(p => p.site == siteID), "partnumber", "description", partNumberID);
+            ViewBag.partNumberSelectList = new SelectList(db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptqID).Where(p => p.site == siteID).ToList(), "partnumber", "description", partNumberID);
             //}
             Session["partnumber"] = partNumberID;
         }
@@ -1398,28 +1407,31 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         private int updateZcodesAll()
         {
-            var dbConext = new EntitiesDBContext();
-            int pptq = dbConext.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
-
-            foreach (var item in dbConext.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq).ToList())
+            int pptq = 0;
+            using (var dbConext = new EntitiesDBContext())
             {
-                if (item.zcode.Count(x => x == 'Z') == item.zcode.Length)
+                pptq = dbConext.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+                var mlist = dbConext.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq).ToList();
+                foreach (var item in mlist)
                 {
-                    item.status = Status.NOT_STARTED;
+                    if (item.zcode.Count(x => x == 'Z') == item.zcode.Length)
+                    {
+                        item.status = Status.NOT_STARTED;
+
+                    }
+                    else if (item.zcode.Count(x => x == 'Z') < 2)
+                    {
+                        item.status = Status.COMPLETED;
+                    }
+                    else
+                    {
+                        item.status = Status.INCOMPLETE;
+                    }
+                    dbConext.Entry(item).State = EntityState.Modified;
 
                 }
-                else if (item.zcode.Count(x => x == 'Z') < 2)
-                {
-                    item.status = Status.COMPLETED;
-                }
-                else
-                {
-                    item.status = Status.INCOMPLETE;
-                }
-                dbConext.Entry(item).State = EntityState.Modified;
                 dbConext.SaveChanges();
             }
-
             using (var context = new EntitiesDBContext())
             {
                 partnerPartnertypeTouchpointQuestionnaire objpptq = context.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
