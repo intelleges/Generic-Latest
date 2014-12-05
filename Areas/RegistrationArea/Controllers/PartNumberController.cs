@@ -640,7 +640,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //zzzz zz zz
             //0 4
             //6 L-6
-            //PartNumberSiteZcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
+            PartNumberSiteZcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
 
 
             using (var contect = new EntitiesDBContext())
@@ -684,7 +684,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //zzzz zzzzzz zzzzzz
             //0 4
             //6 L-6
-           // PartNumberSiteZcodepptq.zcode = 
+            PartNumberSiteZcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
 
 
             using (var context = new EntitiesDBContext())
@@ -1435,9 +1435,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         item.status = Status.INCOMPLETE;
                     }
                     dbConext.Entry(item).State = EntityState.Modified;
-
+                    dbConext.SaveChanges();
                 }
-                dbConext.SaveChanges();
+                
             }
             using (var context = new EntitiesDBContext())
             {
