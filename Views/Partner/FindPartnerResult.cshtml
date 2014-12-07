@@ -36,13 +36,17 @@
 <a href='#' id='@item.PartnerName' class="menu_block">@item.PartnerName</a>
 <div class="display_menu" style="display: none;">
     <ul>
-        <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-        <li><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
-        <li><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
-        <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-        <li><a href="@item.Expr1" target="_blank">Complete</a></li>
+       
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="@item.Expr1" target="_blank">Complete</a></li>
+           
         <li><a href="javascript:checkToPrintPDF('@item.status','@item.AccessCode')">Print PDF</a></li>
-        <li><a href="javascript:checkToPrintHTML('@item.status','@item.AccessCode')">Print HTML</a></li>
+        
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:checkToPrintHTML('@item.status','@item.AccessCode')">Print HTML</a></li>
+             
     </ul>
 </div>
 </text>);

@@ -237,6 +237,7 @@ namespace Generic.Controllers
                             FormsAuthentication.SetAuthCookie(email, false);
 
                             SessionSingleton.LoggedInUserId = resultPerson.id;
+                            SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(resultPerson.id).FirstOrDefault().role;
                             SessionSingleton.MyEnterPriseId = resultPerson.enterprise;
                             SessionSingleton.Touchpoint = (int)resultPerson.campaign;
 
@@ -299,6 +300,7 @@ namespace Generic.Controllers
                 FormsAuthentication.SetAuthCookie(email, false);
                 
                 SessionSingleton.LoggedInUserId = resultPerson.id;
+                SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(resultPerson.id).FirstOrDefault().role;
                 SessionSingleton.MyEnterPriseId = resultPerson.enterprise;
                 SessionSingleton.Touchpoint = (int)resultPerson.campaign;
 
@@ -346,6 +348,7 @@ namespace Generic.Controllers
                     //{
                     person person = db.pr_doLogin(userName, password).FirstOrDefault();
                     SessionSingleton.LoggedInUserId = person.id;
+                    SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
                     SessionSingleton.MyEnterPriseId = person.enterprise;
                     SessionSingleton.Touchpoint = (int)person.campaign;
 

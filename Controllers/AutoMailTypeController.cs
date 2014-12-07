@@ -78,7 +78,7 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(automailtype).State = EntityState.Modified;
+                db.Entry(automailtype).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -87,6 +87,26 @@ namespace Generic.SessionClass
             }
         }
 
+        public static int? LoggedInUserRole
+        {
+            get
+            {
+                return Convert.ToInt32(System.Web.HttpContext.Current.Session["LoggedInUserRole"]);
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["LoggedInUserRole"] = value;
+            }
+        }
+
+        public static bool ShouldDisplayMenu
+        {
+            get
+            {
+                return LoggedInUserRole == 350 || LoggedInUserRole == 351;
+            }
+        }
+
         public static int PTQ
         {
             get

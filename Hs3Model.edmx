@@ -9478,7 +9478,7 @@
           </FunctionImport>
           <FunctionImport Name="pr_getPersonRelationshipTypeAll" EntitySet="personRelationshipType" ReturnType="Collection(hs3MVCMTQa2Model.personRelationshipType)" />
           
-          <FunctionImport Name="pr_getPersonRoleByPerson" EntitySet="role" ReturnType="Collection(hs3MVCMTQa2Model.role)">
+          <FunctionImport Name="pr_getPersonRoleByPerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonRoleByPerson_Result)">
           <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPersonRoleByRole" EntitySet="role" ReturnType="Collection(hs3MVCMTQa2Model.role)">
@@ -22553,6 +22553,12 @@
           </FunctionImportMapping>
         
           <FunctionImportMapping FunctionImportName="pr_getPersonRoleByPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonRoleByPerson">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonRoleByPerson_Result">
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </ComplexTypeMapping>
+            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPersonRoleByRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonRoleByRole">
           </FunctionImportMapping>

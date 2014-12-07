@@ -12,9 +12,8 @@ namespace Generic
 {
     using System;
     using System.Data.Entity;
-    using System.Data.Entity.Core.Objects;
     using System.Data.Entity.Infrastructure;
-    
+    using System.Data.Entity.Core.Objects;
     using System.Linq;
     
     public partial class EntitiesDBContext : DbContext
@@ -4368,22 +4367,13 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<personRelationshipType>("pr_getPersonRelationshipTypeAll", mergeOption);
         }
     
-        public virtual ObjectResult<role> pr_getPersonRoleByPerson(Nullable<int> person)
+        public virtual ObjectResult<pr_getPersonRoleByPerson_Result> pr_getPersonRoleByPerson(Nullable<int> person)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getPersonRoleByPerson", personParameter);
-        }
-    
-        public virtual ObjectResult<role> pr_getPersonRoleByPerson(Nullable<int> person, MergeOption mergeOption)
-        {
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<role>("pr_getPersonRoleByPerson", mergeOption, personParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonRoleByPerson_Result>("pr_getPersonRoleByPerson", personParameter);
         }
     
         public virtual ObjectResult<role> pr_getPersonRoleByRole(Nullable<int> role)
