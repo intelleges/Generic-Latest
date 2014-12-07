@@ -71,14 +71,14 @@
 <a href='#' id='@item.AccessCode' class="menu_block">@item.AccessCode</a><div class="display_menu" style="display: none;">
     <ul>
         <li>
-            <a href="#">Remind
+            <a href="javascript:remind(@item.id)">Remind
             </a>
         </li>
-        <li><a href="#">Re-Invite (intelleges.com)</a></li>
-        <li><a href="#">Re-Invite (racix.net)</a></li>
-        <li><a href="#">Rescind</a></li>
-        <li><a href="#">Remove</a></li>
-        <li><a href="#">Retrieve</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="#">Re-Invite (intelleges.com)</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="#">Re-Invite (racix.net)</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="#">Rescind</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="#">Remove</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="#">Retrieve</a></li>
     </ul>
 </div>
 </text>);
@@ -152,6 +152,10 @@
         //$(".t-icon .t-refresh").trigger('click');
 
         window.location.replace(window.location.href);
+    }
+
+    function remind() {
+        alertify.alert("Function not available");
     }
 
 
