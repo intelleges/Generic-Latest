@@ -37,9 +37,18 @@ max-width: 350px;
 
 <script>
     $(document).ready(function () {
-        if ('@ViewBag.message' == 'expired') {
-            alertify.alert("The access code you entered is no longer valid. For more information, please contact the administrator listed in the email invitation/reminder you received. Thank you.")
+        var message = '@ViewBag.message';
+        switch (message) {
+            case "expired":
+                alertify.alert("The access code you entered is no longer valid. For more information, please contact the administrator listed in the email invitation/reminder you received. Thank you.");
+                break;
+            case "wrongstatus":
+                var satusCode = '@ViewBag.pptqaccesscode';
+                alertify.alert("Access Code \"" + satusCode.toUpperCase() + "\" is not currently active. Please contact the system administrator in the email you received for further information.\n Thank you.");
+                break;
+            default: break;
         }
+       
     });
 </script>
 

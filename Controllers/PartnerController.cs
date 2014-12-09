@@ -1570,11 +1570,19 @@ namespace Generic.Controllers
                 {
                     var _partnerId = _pptq.partner;
                     var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
-                    var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
-                    var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
+                    var pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault();
+                   
+                    var pdf = db.pr_getPPTQpdf(pptq.id).FirstOrDefault();
 
                     if (pdf == null)
-                        Response.Redirect("~/Registration/Home/PDFConfirmation");
+                    {
+                        //if pdf was deleted from db but questinnarie was completed then we created customized pdf again
+                        if (pptq.status == 8)
+                            Response.Redirect("~/Registration/Home/CustomizedPDFConfirmation");
+                        else
+                            //otherwise redirect to standart pdf
+                            Response.Redirect("~/Registration/Home/PDFConfirmation");
+                    }
                     else
                         Response.Redirect("~/Registration/Home/PDFCustomizedConfirmation");
                 }
