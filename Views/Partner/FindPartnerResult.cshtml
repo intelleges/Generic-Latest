@@ -71,7 +71,7 @@
 <a href='#' id='@item.AccessCode' class="menu_block">@item.AccessCode</a><div class="display_menu" style="display: none;">
     <ul>
         <li>
-            <a href="javascript:remind(@item.id)">Remind
+            <a href="javascript:remind('@item.AccessCode')">Remind
             </a>
         </li>
         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="#">Re-Invite (intelleges.com)</a></li>
@@ -154,8 +154,12 @@
         window.location.replace(window.location.href);
     }
 
-    function remind() {
-        alertify.alert("Function not available");
+    function remind(accessCodeValue) {
+        $.post("Remind", { accessCode: accessCodeValue }).done(function (result) {
+            if (result) {
+                alertify.alert(result);
+            }
+        });
     }
 
 

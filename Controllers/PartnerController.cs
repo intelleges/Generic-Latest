@@ -1899,5 +1899,24 @@ namespace Generic.Controllers
 
             return inputList.Replace(";", currentPersonIdStringAddition);
         }
+
+        [HttpPost]
+        public string Remind(string accessCode)
+        {
+            
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var result = "Reminder sent to " + pptq.partner1.name + " with access code " + accessCode ;
+            if (pptq != null)
+            {
+                if (new int[] { 6, 7 }.Contains(pptq.status))
+                    SchedulerServiceHelper.SendFirstReminderByPptq(pptq.id);
+                else
+                {
+                    result = "The status for "+pptq.partner1.name+" with "+accessCode+" access code does not permit reminders at this time. Please contact your system adminitrator.";
+                }
+
+            }
+            return result;
+        }
     }
 }

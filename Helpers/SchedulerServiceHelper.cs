@@ -83,7 +83,7 @@ namespace Generic.Helpers
                         //objSendEmail.sendEmail(email);
                         try
                         {
-                            sendEmails(email, (int)item.enterprise);
+                            sendEmails(email, (int)item.enterprise, db);
                             db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
                         }
                         catch (Exception ex)
@@ -148,7 +148,7 @@ namespace Generic.Helpers
                         //objSendEmail.sendEmail(email);
                         try
                         {
-                            sendEmails(email, (int)item.enterprise);
+                            sendEmails(email, (int)item.enterprise, db);
                             db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
                         }
                         catch (Exception ex)
@@ -191,9 +191,9 @@ namespace Generic.Helpers
 
         }
 
-        public static string sendEmails(Email email, int enterpriseId)
+        public static string sendEmails(Email email, int enterpriseId, EntitiesDBContext db)
         {
-            EntitiesDBContext db = new EntitiesDBContext();
+           // EntitiesDBContext db = new EntitiesDBContext();
             string returnValue = "";
             string receiver = "";
 
@@ -417,6 +417,45 @@ namespace Generic.Helpers
             {
                 return false;
             }
+        }
+
+        public static bool SendFirstReminderByPptq(int pptqId)
+        {
+            bool result = false;
+            using (EntitiesDBContext db = new EntitiesDBContext())
+            {
+               
+                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
+               
+                var person = db.pr_getPersonByEmail(2, "john@intelleges.com").FirstOrDefault();
+                var objpartner = db.pr_getPartner(pptq.partner).FirstOrDefault();
+              
+                var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                var message = db.pr_getAutoMailmessageByMailtypeandPTQ(2, ptq.id).FirstOrDefault();
+                //objpartner.enterprise
+                var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
+                Email email = new Email(message);
+
+                email.accesscode = pptq.accesscode;
+                email.protocolTouchpoint = objtouchpoint.description;
+
+                EmailFormat emailFormat = new EmailFormat();
+                email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq.id);
+
+                email.emailTo = objpartner.email;
+                try
+                {
+                    sendEmails(email, (int)objpartner.enterprise, db);
+                    db.pr_addPPTQautoMailMessageLog(pptqId, message.id);
+                }
+                catch (Exception ex)
+                {
+                    string text = "\r\n \r\n Error in First foreach loop : " + ex.StackTrace;
+                    System.IO.File.AppendAllText(System.IO.Path.Combine(@"C:\reminder_Logs", "Logs.txt"), text);
+                }
+                result = true;
+            }
+            return result;
         }
     }
 }
