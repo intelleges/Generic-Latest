@@ -431,7 +431,7 @@ namespace Generic.Helpers
                 var objpartner = db.pr_getPartner(pptq.partner).FirstOrDefault();
               
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
-                var message = db.pr_getAutoMailmessageByMailtypeandPTQ(2, ptq.id).FirstOrDefault();
+                var message = db.pr_getAutoMailmessageByMailtypeandPTQ(4, ptq.id).FirstOrDefault();
                 //objpartner.enterprise
                 var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
                 Email email = new Email(message);
