@@ -591,7 +591,10 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
         </div>
     </div>
     <!--#endregion-->
-     @Scripts.Render("~/bundles/bootstrap")
+     @Scripts.Render("~/Scripts/bootstrap.js")
+    @Scripts.Render("~/Scripts/jquery.validate.js")
+    @Scripts.Render("~/Scripts/validator.js")
+    @Scripts.Render("~/Scripts/alertify.js")
     <script src="@Url.Content("~/Contents/IntellegesLogin_files/contact-us.js")"></script>
      @Scripts.Render("https://www.google.com/recaptcha/api/js/recaptcha_ajax.js")
 </body>
