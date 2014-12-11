@@ -42,6 +42,24 @@ namespace Generic.Controllers
 
 
         }
+        [HttpPost]
+        public bool RemoveStockNumbers(string[] values)
+        {
+            var result = false;
+            try
+            {
+                if (values != null)
+                {
+                    foreach (var value in values)
+                        db.pr_archivePartnumber(int.Parse(value));
+                    result = true;
+                }
+            }
+            catch
+            {
+            }
+            return result;
+        }
 
         //
         // GET: /Partner/Details/5
@@ -51,7 +69,11 @@ namespace Generic.Controllers
             partner partner = db.pr_getPartner(id).FirstOrDefault();
             // List<country> objCountries = db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
 
-
+            var pptq = partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault();
+            if (pptq!=null)
+            {
+                ViewBag.partNumbers = db.pr_getPartnumberByPPTQ(pptq.id).ToList();
+            }
 
             try
             {

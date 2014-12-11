@@ -259,7 +259,7 @@
 
             columns.Bound(o => o.emailType).Title("Email Type").Width(100);
             columns.Bound(o => o.Date_Sent).Title("Date Sent").Width(100);
-            columns.Bound(o => o.timestamp).Title("Time Stamp").Width(100);
+          //  columns.Bound(o => o.).Title("Time Stamp").Width(100);
             columns.Bound(o => o.@event).Title("Event").Width(100);
 
 
@@ -277,3 +277,47 @@
 
 
 )
+@if(Generic.Helpers.CurrentInstance.MultiTenantProjectType == 2){    //displays only for BAA
+<table>
+    <tr>
+        <td><input type="button" value="Remove selected" id="removePartNumbers"/></td>
+    </tr>
+    <tr>
+        <td>
+            @( Html.Telerik().Grid((List<Generic.partnumber>)ViewBag.partNumbers).Name("partNumbersGrid")
+        .Columns(columns =>
+        {
+            columns.Template(
+                @<text> <input type="checkbox" id="@item.id"/> </text>
+            ).Width(20);
+            columns.Bound(o => o.nationalStockingNumber).Title("Part number").Width(200);
+            columns.Bound(o => o.description).Title("Description");  
+        })        
+        .Sortable(sorting => sorting.Enabled(true))
+
+        .Scrollable(scrolling => scrolling
+           .Enabled(true)
+           .Height(260))
+           .HtmlAttributes(new { @class = "ra" }).Footer(false)
+)
+        </td>
+    </tr>
+</table>
+}
+
+<script>
+    $("#removePartNumbers").click(function () {
+        var numbers = [];
+        $("#partNumbersGrid input[type='checkbox']:checked").each(function () {
+
+            numbers.push(this.id);
+        });
+        $.ajax("RemoveStockNumbers", { type: "POST", data: { values: numbers } }).done(function (result) {
+            if (result == "True") {
+                $("#partNumbersGrid input[type='checkbox']:checked").each(function(){                   
+                    $(this).parent().parent().remove();
+                });
+            }
+        });
+    });    
+</script>
