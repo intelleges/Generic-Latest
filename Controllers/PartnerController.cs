@@ -61,6 +61,25 @@ namespace Generic.Controllers
             return result;
         }
 
+        [HttpPost]
+        public bool RemovePartnersQuestinnarie(string[] values)
+        {
+            var result = false;
+            try
+            {
+                if (values != null)
+                {
+                    foreach (var value in values)
+                        db.pr_removePartnerPartnertypeTouchpointQuestionnaire(int.Parse(value));
+                    result = true;
+                }
+            }
+            catch
+            {
+            }
+            return result;
+        }
+
         //
         // GET: /Partner/Details/5
 
@@ -109,9 +128,11 @@ namespace Generic.Controllers
             catch { }
 
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";partnerID=" + partner.id + ";";
+            var values = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partner.id).ToList();
+            
             List<view_EventNotificationData> objevents = db.Database.SqlQuery<view_EventNotificationData>("EXEC pr_dynamicFiltersEventNotification  'view_EventNotificationData' , '" + arguments + "'").ToList();
 
-            ViewBag.events = objevents;
+            ViewBag.events = values;
 
             if (partner == null)
             {

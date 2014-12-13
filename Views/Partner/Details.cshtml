@@ -47,238 +47,232 @@
 
 
 
-<h2>Details</h2>
+<h2>Partner</h2>
 
 <fieldset>
     <legend>partner</legend>
 
-    <div class="twocol">
+    <div class="threecol">
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.name)
+            Name
         </div>
         <div class="display-field">
             @Html.DisplayFor(model => model.name)
         </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.internalID)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.internalID)
-        </div>
+       
     </div>
 
 
     <div class="threecol">
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.enterprise1.description)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.enterprise1.description)
-        </div>
-
-        @*   <div class="display-label">
-            @Html.DisplayNameFor(model => model.internalID)
+         <div class="display-label">
+           Internal ID
         </div>
         <div class="display-field">
             @Html.DisplayFor(model => model.internalID)
         </div>
-
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.name)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.name)
-        </div>*@
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.address1)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.address1)
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.address2)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.address2)
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.city)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.city)
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.state)
-        </div>
-        <div class="display-field">
-            @ViewBag.StateName
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.province)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.province)
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.zipcode)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.zipcode)
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.country)
-        </div>
-        <div class="display-field">
-            @ViewBag.CoutryName
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.phone)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.phone)
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.fax)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.fax)
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.firstName)
+            First Name
         </div>
         <div class="display-field">
             @Html.DisplayFor(model => model.firstName)
         </div>
-
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.lastName)
+            Description
         </div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.lastName)
-        </div>
-
+            @Html.DisplayFor(model => model.enterprise1.description)
+        </div> 
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.title)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.title)
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.email)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.email)
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.dunsNumber)
+            DUNS #
         </div>
         <div class="display-field">
             @Html.DisplayFor(model => model.dunsNumber)
         </div>
-
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.federalID)
+            Last Name
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.lastName)
+        </div>
+        <div class="display-label">
+            Date Approved
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.dateApproved)
+        </div>
+        <div class="display-label">
+            Federal ID
         </div>
         <div class="display-field">
             @Html.DisplayFor(model => model.federalID)
         </div>
-
+         <div class="display-label">
+            Phone
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.phone)
+        </div>
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.status)
+           Last Modified
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.lastModified)
+        </div>
+        <div class="display-label">
+            Address1
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.address1)
+        </div>
+        <div class="display-label">
+            Fax
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.fax)
+        </div>
+        <div class="display-label">
+           Author
+        </div>
+        <div class="display-field">
+            @ViewBag.AuthorName
+        </div>
+        <div class="display-label">
+           Address2
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.address2)
+        </div>
+         <div class="display-label">
+            E-mail
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.email)
+        </div>
+        <div class="display-label">
+            Status
         </div>
         <div class="display-field">
             @ViewBag.StatusName
         </div>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.loadHistory)
+        
+        
+        
+        
+        
+        
+       @* <div class="display-label">
+           Load History
         </div>
         <div class="display-field">
             @Html.DisplayFor(model => model.loadHistory)
         </div>
 
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.owner)
+           Owner
         </div>
         <div class="display-field">
             @ViewBag.OwnerName
         </div>
-
         <div class="display-label">
-            @Html.DisplayNameFor(model => model.author)
+            Active
         </div>
         <div class="display-field">
-            @ViewBag.AuthorName
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.dateApproved)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.dateApproved)
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.active)
-        </div>
-        <div class="display-field">
-            @Html.Label(Model.active.ToString())
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.lastModified)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.lastModified)
-        </div>
+            @Html.Label(Model.active.HasValue&&Model.active.Value?"Yes":"No")
+        </div>  *@      
 
     </div>
-
+    <div class="threecol">
+       <div class="display-label">
+            City
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.city)
+        </div>
+       <div class="display-label">
+            Title
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.title)
+        </div>
+    </div>
+    <div class="threecol">
+        <div class="display-label">
+            State
+        </div>
+        <div class="display-field">
+            @ViewBag.StateName
+        </div>
+     </div>
+    <div class="threecol">
+        <div class="display-label">
+           Province
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.province)
+        </div>
+     </div>
+    <div class="threecol">
+       <div class="display-label">
+            Zipcode
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.zipcode)
+        </div>
+     </div>
+    <div class="threecol">
+       <div class="display-label">
+            Country
+        </div>
+        <div class="display-field">
+            @ViewBag.CoutryName
+        </div>
+     </div>
 </fieldset>
 
 
-@( Html.Telerik().Grid((List<Generic.view_EventNotificationData>)ViewBag.events).Name("PartnerEventGrid")
+<table style="width:100%">
+     <tr>
+        <td><input type="button" value="Remove selected" id="removePartnerEvent"/></td>
+    </tr>
+    <tr>
+        <td>
+            @( Html.Telerik().Grid((List<Generic.partnerPartnertypeTouchpointQuestionnaire>)ViewBag.events).Name("PartnerEventGrid")
         .Columns(columns =>
         {
-            columns.Bound(o => o.internalID).Title("Internal ID").Width(100);
+            columns.Template(
+                @<text> <input type="checkbox" id="@item.id" style="@(item.partNumberSiteZcodePPTQ.Any()?"display:none":"display:inherit")"/> </text>
+            ).Width(20);
+           // columns.Bound(o => o.accesscode).Title("Internal ID").Width(100);
             columns.Bound(o => o.accesscode).Title("Access Code").Width(100);
+            columns.Bound(o => o.priority).Title("Priority").Width(100);
 
 
-            columns.Bound(o => o.emailType).Title("Email Type").Width(100);
-            columns.Bound(o => o.Date_Sent).Title("Date Sent").Width(100);
-          //  columns.Bound(o => o.).Title("Time Stamp").Width(100);
-            columns.Bound(o => o.@event).Title("Event").Width(100);
-
+           // columns.Bound(o => o.).Title("Invited by").Width(100);
+            columns.Bound(o => o.invitedDate).Title("Invited Date").Width(100);
+            columns.Bound(o => o.dueDate).Title("Due Date").Width(100);
+             columns.Bound(o => o.completedDate).Title("Completed Date").Width(100);
+            columns.Bound(o => o.status).Title("Status").Width(100);
+            columns.Bound(o => o.progress).Title("Progress").Width(100);
 
 
         })
 
-        //.Pageable(pager => pager.PageSize(10).Total(200).Enabled(true))
-        .Sortable(sorting => sorting.Enabled(true))
+                   // .Pageable(pager => pager.PageSize(10).Total(200).Enabled(true))
+                    .Sortable(sorting => sorting.Enabled(true))
 
-        .Scrollable(scrolling => scrolling
-           .Enabled(true)
-           .Height(260))
-           .HtmlAttributes(new { @class = "ra" })
+                    .Scrollable(scrolling => scrolling
+                       .Enabled(true)
+                       .Height(50))
+                       .HtmlAttributes(new { @class = "ra" }).HtmlAttributes(new { style = "width:100%;Heigth:300px" }).Footer(false)
 
 
 
-)
-@if(Generic.Helpers.CurrentInstance.MultiTenantProjectType == 2){    //displays only for BAA
-<table>
+            )
+        </td>
+    </tr>
+    @if (Generic.Helpers.CurrentInstance.MultiTenantProjectType == 2)
+    {    //displays only for BAA
     <tr>
         <td><input type="button" value="Remove selected" id="removePartNumbers"/></td>
     </tr>
@@ -291,19 +285,20 @@
                 @<text> <input type="checkbox" id="@item.id"/> </text>
             ).Width(20);
             columns.Bound(o => o.nationalStockingNumber).Title("Part number").Width(200);
-            columns.Bound(o => o.description).Title("Description");  
-        })        
+            columns.Bound(o => o.description).Title("Description").Width(280);
+        })
         .Sortable(sorting => sorting.Enabled(true))
 
         .Scrollable(scrolling => scrolling
            .Enabled(true)
-           .Height(260))
-           .HtmlAttributes(new { @class = "ra" }).Footer(false)
+           .Height(50))
+           .HtmlAttributes(new { @class = "ra" }).Footer(false).HtmlAttributes(new { style = "width:100%;Heigth:300px" })
 )
         </td>
     </tr>
+    }
+        
 </table>
-}
 
 <script>
     $("#removePartNumbers").click(function () {
@@ -319,5 +314,19 @@
                 });
             }
         });
-    });    
+    });
+    $("#removePartnerEvent").click(function () {
+        var numbers = [];
+        $("#PartnerEventGrid input[type='checkbox']:checked").each(function () {
+
+            numbers.push(this.id);
+        });
+        $.ajax("RemovePartnersQuestinnarie", { type: "POST", data: { values: numbers } }).done(function (result) {
+            if (result == "True") {
+                $("#PartnerEventGrid input[type='checkbox']:checked").each(function () {
+                    $(this).parent().parent().remove();
+                });
+            }
+        });
+    });  
 </script>

@@ -309,6 +309,7 @@
       [view_PartnerData].[Contact] AS [Contact], 
       [view_PartnerData].[phone] AS [phone], 
       [view_PartnerData].[ContactEmail] AS [ContactEmail], 
+      [view_PartnerData].[dunsNumber] AS [dunsNumber], 
       [view_PartnerData].[ContactTitle] AS [ContactTitle], 
       [view_PartnerData].[owner] AS [owner], 
       [view_PartnerData].[countryID] AS [countryID], 
@@ -1511,6 +1512,7 @@
           <Property Name="accesscode" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="invitedBy" Type="int" Nullable="false" />
           <Property Name="invitedDate" Type="date" Nullable="false" />
+          <Property Name="dueDate" Type="date" />
           <Property Name="completedDate" Type="date" />
           <Property Name="status" Type="int" Nullable="false" />
           <Property Name="progress" Type="int" />
@@ -1518,6 +1520,7 @@
           <Property Name="pdf" Type="varbinary(max)" />
           <Property Name="docFolderAddress" Type="varchar" MaxLength="500" />
           <Property Name="score" Type="decimal" />
+          <Property Name="priority" Type="int" />
           <Property Name="loadGroup" Type="varchar" MaxLength="8" />
         </EntityType>
         <EntityType Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
@@ -2986,6 +2989,7 @@
           <Property Name="Contact" Type="varchar" MaxLength="512" />
           <Property Name="phone" Type="varchar" MaxLength="100" />
           <Property Name="ContactEmail" Type="varchar" MaxLength="255" />
+          <Property Name="dunsNumber" Type="varchar" MaxLength="20" />
           <Property Name="ContactTitle" Type="varchar" MaxLength="255" />
           <Property Name="owner" Type="varchar" Nullable="false" MaxLength="402" />
           <Property Name="countryID" Type="int" />
@@ -12267,10 +12271,10 @@
             <End Role="pptqAutoMailMessageLog" EntitySet="pptqAutoMailMessageLog" />
           </AssociationSet>
           <FunctionImport Name="pr_getEnterpriseByURL" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseByURL_Result)">
-            <Parameter Name="applicationPath" Mode="In" Type="String" />
+          <Parameter Name="applicationPath" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getEnterpriseContactUs" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseContactUs_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -12862,6 +12866,8 @@
           <NavigationProperty Name="partnerStatus" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_partnerStatus" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="partnerStatus" />
           <Property Type="String" Name="loadGroup" MaxLength="8" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="pptqAutoMailMessageLog" Relationship="hs3MVCMTQa2Model.FK_pptqAutoMailMessageLog_partnerPartnertypeTouchpointQuestionnaire" FromRole="partnerPartnertypeTouchpointQuestionnaire" ToRole="pptqAutoMailMessageLog" />
+          <Property Type="DateTime" Name="dueDate" Precision="0" />
+          <Property Type="Int32" Name="priority" />
         </EntityType>
         <EntityType Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
           <Key>
@@ -18950,6 +18956,7 @@
           <Property Type="String" Name="Expr1" Nullable="false" MaxLength="115" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="campaign" Nullable="false" />
           <Property Type="Boolean" Name="active" />
+          <Property Type="String" Name="dunsNumber" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="view_PersonData">
           <Key>
@@ -20681,6 +20688,8 @@
           <EntitySetMapping Name="partnerPartnertypeTouchpointQuestionnaire">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire">
               <MappingFragment StoreEntitySet="partnerPartnertypeTouchpointQuestionnaire">
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
                 <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -24923,6 +24932,7 @@
           <EntitySetMapping Name="view_PartnerData">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_PartnerData">
               <MappingFragment StoreEntitySet="view_PartnerData">
+                <ScalarProperty Name="dunsNumber" ColumnName="dunsNumber" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="campaign" ColumnName="campaign" />
                 <ScalarProperty Name="Expr1" ColumnName="Expr1" />

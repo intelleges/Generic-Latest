@@ -37,6 +37,8 @@ namespace Generic
         public Nullable<decimal> score { get; set; }
         public int status { get; set; }
         public string loadGroup { get; set; }
+        public Nullable<System.DateTime> dueDate { get; set; }
+        public Nullable<int> priority { get; set; }
     
         public virtual ICollection<eSignature> eSignature { get; set; }
         public virtual partner partner1 { get; set; }
