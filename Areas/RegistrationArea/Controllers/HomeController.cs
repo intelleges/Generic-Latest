@@ -21,6 +21,7 @@ using iTextSharp.text.html.simpleparser;
 using System.Text;
 using System.Data.Entity;
 using Pechkin;
+using Generic.Helpers.PartNumberHelper;
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class HomeController : Controller
@@ -1749,26 +1750,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 eSignature objeSignature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq.id).FirstOrDefault();
                 if (objeSignature == null)
                 {
-
-                    objeSignatureNew.affirmation = "Yes";
-                    objeSignatureNew.partnerPartnerTypeTouchpointQuestionnaire = pptq.id;
-                    db.Entry(objeSignatureNew).State = EntityState.Added;
-                    db.SaveChanges();
+                    db.pr_addEsignature(objeSignatureNew.firstName, objeSignatureNew.lastName, objeSignatureNew.title, objeSignatureNew.email, "Yes", objeSignatureNew.officer, objeSignatureNew.phone, DateTime.Now, pptq.id);                    
                 }
                 else
                 {
-                    objeSignature.firstName = objeSignatureNew.firstName;
-                    objeSignature.lastName = objeSignatureNew.lastName;
-                    objeSignature.email = objeSignatureNew.email;
-                    objeSignature.affirmation = "Yes";
-                    db.Entry(objeSignature).State = EntityState.Modified;
-                    db.SaveChanges();
+                    db.pr_modifyEsignature(objeSignatureNew.id, objeSignatureNew.firstName, objeSignatureNew.lastName, objeSignatureNew.title, objeSignatureNew.email, "Yes", objeSignatureNew.officer, objeSignatureNew.phone, DateTime.Now, pptq.id);                   
                 }
-
-                pptq.completedDate = DateTime.Now;
-                pptq.status = (int)PartnerStatus.Responded_Complete;
-                db.Entry(pptq).State = EntityState.Modified;
-                db.SaveChanges();
+                var statuses = db.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq.id).ToList().Select(x => x.status).Distinct();
+                if (statuses.Count() == 1 && statuses.FirstOrDefault() == Status.COMPLETED)
+                {
+                    db.pr_modifyPPTQStatus(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Complete);
+                }
                 return RedirectToAction("Finish");
             }
 
