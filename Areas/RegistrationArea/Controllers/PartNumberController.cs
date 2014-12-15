@@ -1329,11 +1329,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
                 
             }
-            var statuses = db.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq).ToList().Select(x => x.status).Distinct();
-            if (statuses.Any(o => o == Status.COMPLETED || o == Status.INCOMPLETE))
+            using (var dbConext = new EntitiesDBContext())
             {
-                partnerPartnertypeTouchpointQuestionnaire objpptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
-                db.pr_modifyPPTQStatus(objpptq.partner, objpptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Incomplete);
+                partnerPartnertypeTouchpointQuestionnaire objpptq = dbConext.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+                var statuses = dbConext.pr_getPartnumberSiteZcodePPTQByPPTQ(objpptq.id).ToList().Select(x => x.status).Distinct().ToList();
+                if (statuses.Any(o => o == Status.COMPLETED || o == Status.INCOMPLETE))
+                {                   
+                    dbConext.pr_modifyPPTQStatus(objpptq.partner, objpptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Incomplete);
+                }
             }
             return pptq;
         }
