@@ -1757,7 +1757,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     db.pr_modifyEsignature(objeSignatureNew.id, objeSignatureNew.firstName, objeSignatureNew.lastName, objeSignatureNew.title, objeSignatureNew.email, "Yes", objeSignatureNew.officer, objeSignatureNew.phone, DateTime.Now, pptq.id);                   
                 }
                 var statuses = db.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq.id).ToList().Select(x => x.status).Distinct();
-                if (statuses.Count() == 1 && statuses.FirstOrDefault() == Status.COMPLETED)
+                if (statuses.Count()==0||(statuses.Count() == 1 && statuses.FirstOrDefault() == Status.COMPLETED))
                 {
                     db.pr_modifyPPTQStatus(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Complete);
                 }
