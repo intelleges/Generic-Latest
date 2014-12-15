@@ -803,6 +803,29 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
                         }
                     }
+
+                    updateZcodesAll();
+
+                    int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
+
+
+                    string countryCode = "";
+                    if (Session["CountryCode"] != null)
+                    {
+                        countryCode = Session["CountryCode"].ToString();
+                    }
+                    CustomizedLSMW objCustomizedLSMW = db.pr_addCustomizedLSMWReport(PartNumberSiteZcodepptq.id, PartNumberSiteZcodepptq.zcode, countryCode).Select(x => new CustomizedLSMW
+                    {
+                        LIFNR = x.LIFNR,
+                        MATNR = x.MATNR,
+                        WERKS = x.WERKS,
+                        ZCFLAG = x.ZCFLAG,
+                        ZCODE = x.ZCODE,
+                        ZPOST = x.ZPOST,
+                        COMPLETED_DATE = x.COMPLETED_DATE,
+                        PartnumberSiteZcode = PartNumberSiteZcodepptq.id
+                    }).FirstOrDefault();
                     if (finalAnswer)
                     {
                         int flag = 0;
@@ -810,33 +833,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
                         nextpartnumber();
-                        updateZcodesAll();
-
-
-
-                        int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
-                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
-
-
-                        string countryCode = "";
-                        if (Session["CountryCode"] != null)
-                        {
-                            countryCode = Session["CountryCode"].ToString();
-                        }
-
+                        
                         List<CustomizedLSMW> customizedLSMW = (List<CustomizedLSMW>)Session["CustomizedLSMW"];
 
-                        CustomizedLSMW objCustomizedLSMW = db.pr_addCustomizedLSMWReport(PartNumberSiteZcodepptq.id, PartNumberSiteZcodepptq.zcode, countryCode).Select(x => new CustomizedLSMW
-                        {
-                            LIFNR = x.LIFNR,
-                            MATNR = x.MATNR,
-                            WERKS = x.WERKS,
-                            ZCFLAG = x.ZCFLAG,
-                            ZCODE = x.ZCODE,
-                            ZPOST = x.ZPOST,
-                            COMPLETED_DATE = x.COMPLETED_DATE,
-                            PartnumberSiteZcode = PartNumberSiteZcodepptq.id
-                        }).FirstOrDefault();
+                      
 
                         customizedLSMW.Add(objCustomizedLSMW);
                         Session["CustomizedLSMW"] = customizedLSMW;
@@ -870,7 +870,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     }
                     else
                     {
-                        updateZcodesAll();
+                       
                         //Reset all session of partnumber
                         Session["partnumber"] = null;
                         Session["site"] = null;
@@ -1022,7 +1022,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
         }
-        public void nextpartnumber(int isForNext = 0)
+        public void 
+            nextpartnumber(int isForNext = 0)
         {
             int previouspartnumber = Convert.ToInt32(Session["partnumber"]);
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
