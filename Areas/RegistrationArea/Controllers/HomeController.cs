@@ -404,7 +404,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
             {
-                return RedirectToAction("QuestionnaireResponse", "PartNumber");
+                var statuses = db.pr_getPartnumberSiteZcodePPTQByPPTQ(objQuestionnaire.id).ToList().Select(x => x.status).Distinct().ToList();
+                if (statuses.Any(o => o != Status.COMPLETED))
+                    return RedirectToAction("QuestionnaireResponse", "PartNumber");
+                else return RedirectToAction("ESignature");
             }
             else if (objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL)
             {
