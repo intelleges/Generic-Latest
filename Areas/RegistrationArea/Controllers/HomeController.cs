@@ -401,10 +401,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var objQuestionnaire = db.pr_getQuestionnaire(id).FirstOrDefault();
 
 
-
+            var pptqid = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accesscode"].ToString()).FirstOrDefault().id;
             if (objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
             {
-                var statuses = db.pr_getPartnumberSiteZcodePPTQByPPTQ(objQuestionnaire.id).ToList().Select(x => x.status).Distinct().ToList();
+                var statuses = db.pr_getPartnumberSiteZcodePPTQByPPTQ(pptqid).ToList().Select(x => x.status).Distinct().ToList();
                 if (statuses.Any(o => o != Status.COMPLETED))
                     return RedirectToAction("QuestionnaireResponse", "PartNumber");
                 else return RedirectToAction("ESignature");
