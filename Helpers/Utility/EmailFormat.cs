@@ -193,12 +193,13 @@ namespace Generic.Helpers.Utility
                         break;
                     case "[Due Date]":
                         var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partner.id, ptq).FirstOrDefault();
-                        var t = pptq;
-                        var dueDate = db.pr_getDueDateByPPTQ(pptq.id).FirstOrDefault();
-                        if (dueDate != null)
-                            sValue = Convert.ToDateTime(dueDate).ToString("d");
+                        
+                        //var t = pptq;
+                        //var dueDate = db.pr_getDueDateByPPTQ(pptq.id).FirstOrDefault();
+                        if (pptq.dueDate != null)
+                            sValue = Convert.ToDateTime(pptq.dueDate).ToString("d");
                         else
-                            sValue = string.Empty;
+                            sValue = pptq.invitedDate.AddDays(30).ToString("d");
                         //sValue = partner.getDueDateByInitialInvitation(partner, touchpoint).ToShortDateString();
                         break;
                     case "[Start Date]":
