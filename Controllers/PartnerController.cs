@@ -1322,16 +1322,39 @@ namespace Generic.Controllers
             return File(stream, "application/vnd.ms-excel", "Report3.xls");
         }
 
+        public ActionResult PartnumberSpreadsheetDataLoadReportDownloadForAgingReport()
+        {
+            XmlSerializer serializer = null;
+            var stream = new MemoryStream();           
+            var levelType = db.pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint(Generic.Helpers.CurrentInstance.EnterpriseID, SessionSingleton.Touchpoint).FirstOrDefault().Value;
+            if (levelType == 1)
+            {
+                var forLevelOne = db.pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne(Generic.Helpers.CurrentInstance.EnterpriseID, SessionSingleton.Touchpoint).ToList();
+                serializer = new XmlSerializer(typeof(List<pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne_Result>));
+                //We turn it into an XML and save it in the memory
+                serializer.Serialize(stream, forLevelOne);                
+            }
+            else
+            {
+                var forLevelTwo = db.pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo(Generic.Helpers.CurrentInstance.EnterpriseID, SessionSingleton.Touchpoint).ToList();
+                serializer = new XmlSerializer(typeof(List<pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo_Result>));
+                //We turn it into an XML and save it in the memory
+                serializer.Serialize(stream, forLevelTwo);
+            }
+            //set stream position to begining
+            stream.Position = 0;
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "AgingReport.xls");
+        }
+
 
         public ActionResult ArchivePartner()
         {
             string arguments = Session["partnersearch"].ToString() + "active=1";
-
             List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
             List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
             ViewBag.searchType = "Archive";
             return View("RemovePartner", objPartnerViewModelList);
-
         }
 
         public ActionResult InvitePartner()

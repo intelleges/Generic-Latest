@@ -14252,5 +14252,57 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseContactUs_Result>("pr_getEnterpriseContactUs", enterpriseParameter);
         }
+    
+        public virtual int pr_getAgingReportByEnterpriseAndDefaultTouchpoint(Nullable<int> enterprise, Nullable<int> touchpoint)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getAgingReportByEnterpriseAndDefaultTouchpoint", enterpriseParameter, touchpointParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne_Result> pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne(Nullable<int> enterprise, Nullable<int> touchpoint)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne_Result>("pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne", enterpriseParameter, touchpointParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo_Result> pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo(Nullable<int> enterprise, Nullable<int> touchpoint)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo_Result>("pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo", enterpriseParameter, touchpointParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint(Nullable<int> enterprise, Nullable<int> touchpoint)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint", enterpriseParameter, touchpointParameter);
+        }
     }
 }

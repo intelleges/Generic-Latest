@@ -5749,6 +5749,18 @@
         <Function Name="pr_getAgencyAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getAgingReportByEnterpriseAndDefaultTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6468,6 +6480,10 @@
         <Function Name="pr_getQuestionnaireLevelTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getQuestionnaireLevelTypeByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getQuestionnaireQuestionnaireCMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
@@ -12275,6 +12291,22 @@
           </FunctionImport>
           <FunctionImport Name="pr_getEnterpriseContactUs" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseContactUs_Result)">
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAgingReportByEnterpriseAndDefaultTouchpoint">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint" ReturnType="Collection(Int32)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -19557,6 +19589,37 @@
           <Property Type="Int32" Name="group" Nullable="false" />
           <Property Type="Int32" Name="country" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne_Result">
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="internalid" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="partner" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="supplier_email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="supplier_name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="survey_request_date" Nullable="false" />
+          <Property Type="DateTime" Name="survey_due_date" Nullable="true" />
+          <Property Type="Int32" Name="age" Nullable="true" />
+          <Property Type="DateTime" Name="completedDate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="partnumberStatus" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="internalid" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="supplier_useVendor" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="supplier_email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="supplier_name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="survey_request_date" Nullable="false" />
+          <Property Type="DateTime" Name="survey_due_date" Nullable="true" />
+          <Property Type="Int32" Name="age" Nullable="true" />
+          <Property Type="DateTime" Name="completedDate" Nullable="true" />
+          <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="sapid" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -25413,6 +25476,48 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAgingReportByEnterpriseAndDefaultTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_getAgingReportByEnterpriseAndDefaultTouchpoint">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne" FunctionName="hs3MVCMTQa2Model.Store.pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne_Result">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="internalid" ColumnName="internalid" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="supplier_email" ColumnName="supplier email" />
+                <ScalarProperty Name="supplier_name" ColumnName="supplier name" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="survey_request_date" ColumnName="survey request date" />
+                <ScalarProperty Name="survey_due_date" ColumnName="survey due date" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo" FunctionName="hs3MVCMTQa2Model.Store.pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partnumberStatus" ColumnName="partnumberStatus" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="internalid" ColumnName="internalid" />
+                <ScalarProperty Name="supplier_useVendor" ColumnName="supplier_useVendor" />
+                <ScalarProperty Name="supplier_email" ColumnName="supplier email" />
+                <ScalarProperty Name="supplier_name" ColumnName="supplier name" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="survey_request_date" ColumnName="survey request date" />
+                <ScalarProperty Name="survey_due_date" ColumnName="survey due date" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="sapid" ColumnName="sapid" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
