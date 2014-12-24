@@ -14,6 +14,7 @@ namespace Generic
     public partial class pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo_Result
     {
         public int id { get; set; }
+        public string partnumber { get; set; }
         public string partnumberStatus { get; set; }
         public string title { get; set; }
         public string internalid { get; set; }
@@ -29,5 +30,8 @@ namespace Generic
         public string zcode { get; set; }
         public string sapid { get; set; }
         public string description { get; set; }
+        public string ro_first_name { get; set; }
+        public string ro_last_name { get; set; }
+        public string ro_email { get; set; }
     }
 }

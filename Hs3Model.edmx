@@ -19604,6 +19604,7 @@
         </ComplexType>
         <ComplexType Name="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="partnumber" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="partnumberStatus" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="internalid" Nullable="true" MaxLength="255" />
@@ -19619,6 +19620,9 @@
           <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="sapid" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ro_first_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_last_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_email" Nullable="true" MaxLength="100" />
         </ComplexType>
         
       </Schema>
@@ -25499,6 +25503,7 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partnumber" ColumnName="partnumber" />
                 <ScalarProperty Name="partnumberStatus" ColumnName="partnumberStatus" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="internalid" ColumnName="internalid" />
@@ -25514,6 +25519,9 @@
                 <ScalarProperty Name="zcode" ColumnName="zcode" />
                 <ScalarProperty Name="sapid" ColumnName="sapid" />
                 <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="ro_first_name" ColumnName="ro_first_name" />
+                <ScalarProperty Name="ro_last_name" ColumnName="ro_last_name" />
+                <ScalarProperty Name="ro_email" ColumnName="ro_email" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
