@@ -5904,6 +5904,9 @@
         <Function Name="pr_getEventNotificationByLoadGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getEventNotificationDelivered" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getFocusByIndustry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="industry" Type="int" Mode="In" />
         </Function>
@@ -6212,6 +6215,10 @@
         </Function>
         <Function Name="pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPartnumberSiteZcodePPTQByPPTQPartnumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="partnumber" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPartnumberSiteZcodePPTQQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -7826,6 +7833,10 @@
         <Function Name="pr_replaceTextQuestionnaireQuestionnaireCMSText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="text1" Type="varchar(max)" Mode="In" />
           <Parameter Name="text2" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="pr_resetPartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="partnumber" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_resetPartnumberStatusAndZcodeByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
@@ -12307,6 +12318,17 @@
           <FunctionImport Name="pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint" ReturnType="Collection(Int32)">
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnumberSiteZcodePPTQByPPTQPartnumber" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberSiteZcodePPTQByPPTQPartnumber_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="partnumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_resetPartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="partnumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEventNotificationDelivered" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationDelivered_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -19624,6 +19646,19 @@
           <Property Type="String" Name="ro_last_name" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="ro_email" Nullable="true" MaxLength="100" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnumberSiteZcodePPTQByPPTQPartnumber_Result">
+          <Property Type="String" Name="partnumber" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="site" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_getEventNotificationDelivered_Result">
+          <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="number" Nullable="true" />
+          <Property Type="DateTime" Name="timestamp" Nullable="true" Precision="23" />
+          <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="protocoltouchpoint" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="accesscode" Nullable="true" MaxLength="50" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -25526,6 +25561,28 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQByPPTQPartnumber" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQByPPTQPartnumber">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberSiteZcodePPTQByPPTQPartnumber_Result">
+                <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_resetPartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber" FunctionName="hs3MVCMTQa2Model.Store.pr_resetPartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber" />
+          <FunctionImportMapping FunctionImportName="pr_getEventNotificationDelivered" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationDelivered">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationDelivered_Result">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="protocoltouchpoint" ColumnName="protocoltouchpoint" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

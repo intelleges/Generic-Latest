@@ -284,15 +284,25 @@
             columns.Template(
                 @<text> <input type="checkbox" id="@item.id"/> </text>
             ).Width(20);
-            columns.Bound(o => o.nationalStockingNumber).Title("Part number").Width(200);
+            columns.Bound(o => o.nationalStockingNumber).Title("Part number").Width(200).Template(@<text>
+                <a href="#" id="@item.nationalStockingNumber" class="menu_block">
+                    @item.nationalStockingNumber
+                </a>
+            <div class="display_menu" style="display: none;top: -10px;left: 110px;height: 60px;width: 120px;">
+                <ul style="margin-top: 5px;">
+                    <li><a href="javascript:DetailsDialog.removePartNumber(@item.id)">Remove</a></li>
+                    <li><a href="javascript:DetailsDialog.resetPartNumber(@item.id)">Reset</a></li>
+                </ul>
+            </div>
+            </text>);
             columns.Bound(o => o.description).Title("Description").Width(280);
         })
         .Sortable(sorting => sorting.Enabled(true))
 
         .Scrollable(scrolling => scrolling
            .Enabled(true)
-           .Height(50))
-           .HtmlAttributes(new { @class = "ra" }).Footer(false).HtmlAttributes(new { style = "width:100%;Heigth:300px" })
+           .Height(65))
+           .HtmlAttributes(new { @class = "ra" }).Footer(false).HtmlAttributes(new { style = "width:100%;Heigth:350px" })
 )
         </td>
     </tr>
@@ -328,5 +338,5 @@
                 });
             }
         });
-    });  
+    });     
 </script>

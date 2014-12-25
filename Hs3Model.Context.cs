@@ -14304,5 +14304,40 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint", enterpriseParameter, touchpointParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnumberSiteZcodePPTQByPPTQPartnumber_Result> pr_getPartnumberSiteZcodePPTQByPPTQPartnumber(Nullable<int> pptq, Nullable<int> partnumber)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var partnumberParameter = partnumber.HasValue ?
+                new ObjectParameter("partnumber", partnumber) :
+                new ObjectParameter("partnumber", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodePPTQByPPTQPartnumber_Result>("pr_getPartnumberSiteZcodePPTQByPPTQPartnumber", pptqParameter, partnumberParameter);
+        }
+    
+        public virtual int pr_resetPartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber(Nullable<int> pptq, Nullable<int> partnumber)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var partnumberParameter = partnumber.HasValue ?
+                new ObjectParameter("partnumber", partnumber) :
+                new ObjectParameter("partnumber", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_resetPartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber", pptqParameter, partnumberParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEventNotificationDelivered_Result> pr_getEventNotificationDelivered(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationDelivered_Result>("pr_getEventNotificationDelivered", enterpriseParameter);
+        }
     }
 }

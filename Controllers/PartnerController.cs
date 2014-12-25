@@ -1347,6 +1347,18 @@ namespace Generic.Controllers
             return File(stream, "application/vnd.ms-excel", "AgingReport.xls");
         }
 
+        public ActionResult PartnumberSpreadsheetDataLoadReportDownloadForMailDeliveredReport()
+        {
+            var values = db.pr_getEventNotificationDelivered(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            XmlSerializer serializer = new XmlSerializer(typeof(List<pr_getEventNotificationDelivered_Result>));
+            var stream = new MemoryStream();
+            serializer.Serialize(stream, values);
+            //set stream position to begining
+            stream.Position = 0;
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "MailDelivered.xls");
+        }
+
 
         public ActionResult ArchivePartner()
         {
