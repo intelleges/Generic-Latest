@@ -60,6 +60,40 @@ namespace Generic.Controllers
             }
             return result;
         }
+        [HttpPost]
+        public bool RemoveStockNumber(int value)
+        {
+            var result = false;
+            try
+            {
+
+                db.pr_archivePartnumber(value);
+                result = true;
+
+            }
+            catch
+            {
+            }
+            return result;
+        }
+        [HttpPost]
+        public string ResetPartNumber(int partnerId, int partNumberId)
+        {
+            var result = "";
+            try
+            {
+                var pptqId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault().id;
+                db.pr_resetPartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber(pptqId, partNumberId);
+                var resulrValues = db.pr_getPartnumberSiteZcodePPTQByPPTQPartnumber(pptqId, partNumberId).FirstOrDefault();
+                if (resulrValues != null)
+                    result = string.Format("Congratulations you have reset partnumber: {0} to status: {1} for site: {2}", resulrValues.partnumber, resulrValues.status, resulrValues.site);
+               
+            }
+            catch
+            {
+            }
+            return result;
+        }
 
         [HttpPost]
         public bool RemovePartnersQuestinnarie(string[] values)
@@ -79,6 +113,7 @@ namespace Generic.Controllers
             }
             return result;
         }
+
 
         //
         // GET: /Partner/Details/5

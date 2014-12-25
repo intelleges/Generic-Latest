@@ -291,7 +291,7 @@
             <div class="display_menu" style="display: none;top: -10px;left: 110px;height: 60px;width: 120px;">
                 <ul style="margin-top: 5px;">
                     <li><a href="javascript:DetailsDialog.removePartNumber(@item.id)">Remove</a></li>
-                    <li><a href="javascript:DetailsDialog.resetPartNumber(@item.id)">Reset</a></li>
+                    <li><a href="javascript:DetailsDialog.resetPartNumber(@item.partner,@item.id)">Reset</a></li>
                 </ul>
             </div>
             </text>);
@@ -338,5 +338,28 @@
                 });
             }
         });
-    });     
+    });
+    var DetailsDialog = (function () {
+        return {
+            removePartNumber: function (id) {
+                alertify.confirm("Are you sure?", function (e) {
+                    if (e) {
+                        $.ajax("RemoveStockNumber", { type: "POST", data: { value: id } }).done(function (result) {
+                            if (result == "True") {
+                                $("input[type='checkbox']#" + id).parent().parent().remove();
+                            }
+                        });
+                    }
+                });               
+            },
+            resetPartNumber: function (pptqId, pnId) {
+                $.ajax("ResetPartNumber", { type: "POST", data: { partnerId: pptqId, partNumberId: pnId } }).done(function (result) {
+                    if (result) {
+                        alertify.alert(result);
+                    }
+                });
+
+            }
+        }
+    })();
 </script>
