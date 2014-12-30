@@ -112,6 +112,21 @@ namespace Generic.Controllers
 
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public ActionResult ArchiveGroups(string[] id)
+        {
+            var result = false;
+            try
+            {
+                foreach (var strId in id)
+                    db.pr_archiveGroup(int.Parse(strId));
+                result = true;
+            }
+            catch { }
+
+            return Json(new { success = result }, JsonRequestBehavior.AllowGet);
+            //return result;
+        }
 
         //
         // GET: /Group/Edit/5

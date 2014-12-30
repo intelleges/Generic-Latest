@@ -29,11 +29,10 @@
     <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
 
     @( Html.Telerik().Grid(Model).Name("GroupGrid")
-      .ToolBar(commands => commands
-                .Custom()
-                    .HtmlAttributes(new { id = "go" })
-                    .Text("Go")
-                    .Action("Go", "Group"))
+      .ToolBar(commands=>{
+                commands.Template("<input style='width: 50px;' type='button' value='Go' id='go'/>");
+            }
+                    )
             
             
         .Columns(columns =>
@@ -126,7 +125,25 @@
         });
     }
 
-
+    $("#go").click(function () {
+        var valuesCollection = [];
+        $("input:checkbox[name$=chkSelect]:checked").each(function () {
+            valuesCollection.push($(this).val());
+        });
+        var id = JSON.stringify({ 'id': valuesCollection });
+        if (valuesCollection.length > 0) {
+            $.ajax("ArchiveGroups", {
+                type: "POST", data: id, contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+            }).done(function (result) {
+                if (result.success) {
+                    $("input:checkbox[name$=chkSelect]:checked").each(function () {
+                        $(this).parent().parent().remove();
+                    });
+                }
+            });
+        }
+    });
 
 
     function Selectall() {
