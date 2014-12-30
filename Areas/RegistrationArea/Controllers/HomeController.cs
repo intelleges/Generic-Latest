@@ -1364,8 +1364,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         Request.Files[i].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
 
                         // Binary linqBinary = new Binary(uploadedFile);
-
-                        db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(pptqq.id, questionId, pptqq.response, pptqq.comment, uploadedFile, Request.Files[i].ContentType, pptqq.value, pptqq.score, pptq);
+                        pptqq.uploadedFile = uploadedFile;
+                        pptqq.uploadedFileType = Request.Files[i].ContentType;
+                        db.Entry(pptqq).State = EntityState.Modified;
+                        db.SaveChanges();
+                       // db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(pptqq.id, questionId, pptqq.response, pptqq.comment, uploadedFile, Request.Files[i].ContentType, pptqq.value, pptqq.score, pptq);
 
                         //int length = uploadFile.ContentLength;
                         //byte[] tempImage = new byte[length];

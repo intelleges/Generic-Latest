@@ -1095,6 +1095,12 @@ namespace Generic.DataLayer
                     divn.Style.Add("display", "none");
                     fileupload = new FileUpload();
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
+                    fileupload.Attributes.Add("required", "");
+                    fileupload.Attributes.Add("fileextensions", "");
+                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-required", "Required");
+                    fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val", "true");
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                     txtbox.Width = 600;
                     HtmlGenericControl innerdiv = new HtmlGenericControl();
@@ -1106,17 +1112,21 @@ namespace Generic.DataLayer
 
                     ////add validators to _fileUploadComment
                     controlId = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
-                    addControlValidatorToFileUpload(controlId, "regularexpressionValidator", innerdiv);
-                    addControlValidatorToFileUpload(controlId, "customValidator", innerdiv);
+                   // addControlValidatorToFileUpload(controlId, "regularexpressionValidator", innerdiv);
+                    //addControlValidatorToFileUpload(controlId, "customValidator", innerdiv);
                     divn.Controls.AddAt(0, innerdiv);
                     divn.Controls.AddAt(1, innerdivUpload);
                     innerdivUpload.Controls.Add(fileupload);
-                    RequiredFieldValidator validator = new RequiredFieldValidator();
-                    validator.ID = question.id + "_R";
-                    validator.ControlToValidate = controlId;
-                    validator.ErrorMessage = "Required";//" Required";
-                    validator.Display = ValidatorDisplay.Dynamic;
-                    innerdivUpload.Controls.Add(validator);
+                    HtmlGenericControl validationSpan = new HtmlGenericControl("span");
+                    validationSpan.Attributes.Add("data-valmsg-for", controlId);
+                    validationSpan.Attributes.Add("data-valmsg-replace", "true");
+                    innerdivUpload.Controls.Add(validationSpan);
+                    //RequiredFieldValidator validator = new RequiredFieldValidator();
+                   // validator.ID = question.id + "_R";
+                    //validator.ControlToValidate = controlId;
+                    //validator.ErrorMessage = "Required";//" Required";
+                   // validator.Display = ValidatorDisplay.Dynamic;
+                   // innerdivUpload.Controls.Add(validator);
                     tableCell.Controls.AddAt(0, divn);
 
                 }
