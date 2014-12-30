@@ -1495,16 +1495,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
 
+            
+            IEnumerable<state> states = new List<state>();
+            states = db.pr_getStateAll(1).ToList();
+            ViewBag.states = states;
             ComboBoxModel objCombobox = new ComboBoxModel();
             if (partner.state != null)
             {
                 objCombobox.ComboBoxAttributes.SelectedIndex = partner.state;
             }
             ViewBag.combobox = objCombobox;
-            IEnumerable<state> states = new List<state>();
-            states = db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            ViewBag.states = states;
-
 
 
             ComboBoxModel objComboboxCountry = new ComboBoxModel();
@@ -1513,7 +1513,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 objComboboxCountry.ComboBoxAttributes.SelectedIndex = partner.country;
             }
             ViewBag.comboboxCountry = objComboboxCountry;
-            ViewBag.countries = db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID);
+            ViewBag.countries = db.pr_getCountryAll(1);
 
             return View(partner);
         }

@@ -214,7 +214,7 @@
                                                         @(Html.Telerik().ComboBox()
             .Name("state")
             .AutoFill((bool)ViewBag.combobox.ComboBoxAttributes.AutoFill)            
-            .BindTo(new SelectList((IEnumerable<state>)ViewBag.states, "id", "stateCode", (int)ViewBag.combobox.ComboBoxAttributes.SelectedIndex))
+            .BindTo(new SelectList((IEnumerable<state>)ViewBag.states, "id", "stateCode", (int)ViewBag.combobox.ComboBoxAttributes.SelectedIndex))          
             .HtmlAttributes(new { style = string.Format("width:{0}px", ViewBag.combobox.ComboBoxAttributes.Width) })
             .Filterable(filtering =>
             {
