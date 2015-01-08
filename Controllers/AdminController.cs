@@ -64,6 +64,21 @@ namespace Generic.Controllers
             }
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public virtual string GetForgotPassword(string email)
+        {
+            var resultString = "";
+            var result = db.pr_getPasswordByEmail(email).FirstOrDefault();
+            if (result == null)
+                resultString = email + " is invalid and no longer has access to that Intelleges account. Please contact your Account Administrator to activate an expired account or to register a new one.";
+            else
+            {
+                SchedulerServiceHelper.SendPassword(result, email);
+            }
+            return resultString;
+        }
+
         //
         // POST: /Account/ExternalLogin
         [HttpPost]

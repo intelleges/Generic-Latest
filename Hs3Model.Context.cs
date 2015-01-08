@@ -14339,5 +14339,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationDelivered_Result>("pr_getEventNotificationDelivered", enterpriseParameter);
         }
+    
+        public virtual ObjectResult<pr_getPasswordByEmail_Result> pr_getPasswordByEmail(string emailAddress)
+        {
+            var emailAddressParameter = emailAddress != null ?
+                new ObjectParameter("emailAddress", emailAddress) :
+                new ObjectParameter("emailAddress", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPasswordByEmail_Result>("pr_getPasswordByEmail", emailAddressParameter);
+        }
     }
 }

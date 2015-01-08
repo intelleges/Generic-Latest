@@ -449,7 +449,31 @@
         </div>
     <!--#endregion-->
        
-         
+      <div class="modal fade" id="get_password_dialog"  role="dialog"  aria-labelledby="gpsLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Get Your Password</h4>
+                        </div>
+                   <div class="modal-body">
+                       <form id="modalGetPassword">
+                           <p>
+                                If you have forgotten your password or haven't created one, enter your email address and click Submit.
+                             </p>
+                           <div class="form-group">
+                               <label class="control-label" for="inputEmailGetPassword">Your Email Address</label>
+						<input id="inputEmailGetPassword" class="form-control" type="email" placeholder="Please Enter Your Email" required data-error="Incorect email adress" />
+                                <div class="help-block with-errors"></div>
+                               <button type="button" class="btn btn-primary" name="GetPassword" >Submit</button>
+                               </div>
+                       </form>
+                       </div>
+                 </div>
+          </div>
+      </div>
     </div>
     <!--#region All Form-->
     
@@ -568,8 +592,11 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
                             <img id="linkedinLoginBtn" title="Log in using your Link1edIn account" 
                                 src="~/Contents/images/linkedInLogin.png" border="0" style="width:140px"/>
                                 <input id="btnLogin" class="you input-field-submit homepage-signin-button" value="Login" type="submit" />
+                            <a href="#" id="forgotPasswordLinq">Forgot password?</a>
                             </div>
-                            
+                         <div style="float:left">
+                             
+                         </div>   
                         
                     </form>
                 </div>

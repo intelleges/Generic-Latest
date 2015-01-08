@@ -334,6 +334,7 @@ namespace Generic.Helpers
 
 
             var mail = SendGrid.GetInstance();
+           
             var credentials = new NetworkCredential("johnbetancourt", "o5QLb0z8");
             Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
 
@@ -456,6 +457,21 @@ namespace Generic.Helpers
                 result = true;
             }
             return result;
+        }
+
+        public static void SendPassword(pr_getPasswordByEmail_Result person, string emailTo)
+        {
+            var htmlBody=string.Format(@"<br/><br/>
+Hello {0} {1},<br/><br/>
+Your current password is: {2}<br/><br/>To set a new password for your intelleges.com account 
+login with your existing password and select Change 
+Password.<br/><br/>To protect your privacy, we only send this information to 
+the email address on file for this account. <br/><br/>
+If you have any questions, please contact your Account 
+Administrator.<br/><br/>Thank you.<br/>
+Intelleges Team
+",person.firstName,person.lastName,person.passWord);
+            sendEmail("Intelleges Account Request", htmlBody, "", emailTo);
         }
     }
 }

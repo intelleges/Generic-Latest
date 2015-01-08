@@ -261,7 +261,7 @@ body {
     @import "../../Content/bootstrap.css"
 }
 
-#contact_us_dialog .modal-dialog{
+#contact_us_dialog .modal-dialog,#get_password_dialog .modal-dialog{
    z-index:1000000;
 }
  footer .float-left,
@@ -279,7 +279,7 @@ body {
             margin: 0;
         }   
 
-#contact_us_dialog input[type="text"], #contact_us_dialog input[type="password"], #contact_us_dialog input[type="email"] {
+#contact_us_dialog input[type="text"], #contact_us_dialog input[type="password"], #contact_us_dialog input[type="email"], #get_password_dialog input[type="email"]{
         font: normal 11px Arial;
         height: 25px;
         border: 1px solid #CFCFCF;
@@ -296,7 +296,7 @@ body {
         text-decoration: none !important;
     }
 
-    #contact_us_dialog #modalformControls p {
+    #contact_us_dialog #modalformControls p,#modalGetPassword p {
         font-size: 10px;
         line-height: 11px;
         margin-top: 15px;
@@ -309,3 +309,10 @@ body {
         margin-top: 1em;
         left: 460px;
     }
+
+#forgotPasswordLinq {
+    position: absolute;
+    left: 700px;
+    top: 420px;
+    font-size: 12px;
+}

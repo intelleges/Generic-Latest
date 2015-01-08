@@ -6253,6 +6253,9 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPartnumberStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getPasswordByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="emailAddress" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -12328,7 +12331,10 @@
             <Parameter Name="partnumber" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getEventNotificationDelivered" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationDelivered_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPasswordByEmail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPasswordByEmail_Result)">
+            <Parameter Name="emailAddress" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -19659,6 +19665,39 @@
           <Property Type="String" Name="protocoltouchpoint" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="accesscode" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="pr_getPasswordByEmail_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="nickName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -25580,6 +25619,43 @@
                 <ScalarProperty Name="event" ColumnName="event" />
                 <ScalarProperty Name="protocoltouchpoint" ColumnName="protocoltouchpoint" />
                 <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPasswordByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPasswordByEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPasswordByEmail_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
