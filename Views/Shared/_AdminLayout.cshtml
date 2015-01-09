@@ -41,6 +41,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryui")
+    <link rel="stylesheet" href="@Url.Content("~/Content/tw-bs.css")" />
+    <link href="@Url.Content("~/Content/themes/base/alertify.core.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/themes/base/alertify.default.css")" rel="stylesheet" /> 
     @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
     .Add("telerik.common.css")
     .Add("telerik.rtl.css")
@@ -139,7 +142,7 @@
 
                         <a href="#">Welcome</a>
 
-                        <a href="#">Change Password</a>
+                        <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
 
                        @* <a href="@Url.Content("~/Admin/Home")">Home Page</a>*@
                          <a href="@Url.Content("https://www.intelleges.com/mvcmt/Generic/Admin/Home")">Home Page</a>

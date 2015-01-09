@@ -14348,5 +14348,35 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPasswordByEmail_Result>("pr_getPasswordByEmail", emailAddressParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_modifyPasswordByEmailAndPassword(string emailAddress, string passwordOld, string passwordNew)
+        {
+            var emailAddressParameter = emailAddress != null ?
+                new ObjectParameter("emailAddress", emailAddress) :
+                new ObjectParameter("emailAddress", typeof(string));
+    
+            var passwordOldParameter = passwordOld != null ?
+                new ObjectParameter("passwordOld", passwordOld) :
+                new ObjectParameter("passwordOld", typeof(string));
+    
+            var passwordNewParameter = passwordNew != null ?
+                new ObjectParameter("passwordNew", passwordNew) :
+                new ObjectParameter("passwordNew", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_modifyPasswordByEmailAndPassword", emailAddressParameter, passwordOldParameter, passwordNewParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_validatePasswordByEmail(string emailAddress, string password)
+        {
+            var emailAddressParameter = emailAddress != null ?
+                new ObjectParameter("emailAddress", emailAddress) :
+                new ObjectParameter("emailAddress", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_validatePasswordByEmail", emailAddressParameter, passwordParameter);
+        }
     }
 }

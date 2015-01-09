@@ -7142,6 +7142,11 @@
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPasswordByEmailAndPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="emailAddress" Type="varchar" Mode="In" />
+          <Parameter Name="passwordOld" Type="varchar" Mode="In" />
+          <Parameter Name="passwordNew" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -7998,6 +8003,10 @@
         </Function>
         <Function Name="pr_unArchiveTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_validatePasswordByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="emailAddress" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
         </Function>
         <Function Name="ProperCase" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Text" Type="varchar" Mode="In" />
@@ -12334,7 +12343,16 @@
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPasswordByEmail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPasswordByEmail_Result)">
+          <Parameter Name="emailAddress" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPasswordByEmailAndPassword" ReturnType="Collection(Int32)">
             <Parameter Name="emailAddress" Mode="In" Type="String" />
+            <Parameter Name="passwordOld" Mode="In" Type="String" />
+            <Parameter Name="passwordNew" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_validatePasswordByEmail" ReturnType="Collection(Int32)">
+            <Parameter Name="emailAddress" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -25659,6 +25677,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyPasswordByEmailAndPassword" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPasswordByEmailAndPassword" />
+          <FunctionImportMapping FunctionImportName="pr_validatePasswordByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_validatePasswordByEmail" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

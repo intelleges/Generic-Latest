@@ -79,6 +79,37 @@ namespace Generic.Controllers
             return resultString;
         }
 
+        [HttpPost]
+        public virtual string ValidatePassword(string password)
+        {
+            var resultString = "";
+            var person = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+
+            var validation = db.pr_validatePasswordByEmail(person.email, password).FirstOrDefault();
+            if (!validation.HasValue || (validation.HasValue&&validation.Value == 0))
+                resultString = "Invalid password";
+            return resultString;
+        }
+
+        [HttpPost]
+        public virtual ActionResult ChangePassword(string currentPassword, string newPassword, string confirmPassword)
+        {
+            var resultString = "done";
+            var person = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            var validation = db.pr_modifyPasswordByEmailAndPassword(person.email, currentPassword, newPassword).FirstOrDefault();
+            if (!validation.HasValue || (validation.HasValue && validation.Value == 0))
+                resultString = "Invalid password";
+            else SchedulerServiceHelper.SendPasswordChangedNotification(person, person.email);
+            ViewBag.message = resultString;
+            return View();
+        }
+
+        [HttpGet]
+        public virtual ActionResult ChangePassword()
+        {
+            return View();
+        }
+
         //
         // POST: /Account/ExternalLogin
         [HttpPost]
