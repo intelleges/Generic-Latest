@@ -14378,5 +14378,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_validatePasswordByEmail", emailAddressParameter, passwordParameter);
         }
+    
+        public virtual ObjectResult<pr_getRoleByEnterprise_Result> pr_getRoleByEnterprise(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRoleByEnterprise_Result>("pr_getRoleByEnterprise", enterpriseParameter);
+        }
     }
 }

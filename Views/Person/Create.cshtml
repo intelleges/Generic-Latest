@@ -25,6 +25,8 @@
         $("#country").val("0");
         $("#manager").val("0");
         $("#campaign").val("0");
+        $("#RoleId").val("0");
+        $("#GroupId").val("0");
     }
 
     $(document).ready(function () {
@@ -89,6 +91,14 @@
             }
             if ($("#campaign").val() == "") {
                 alertify.alert("campaign is required");
+                return false;
+            }
+            if ($("#RoleId").val() == "") {
+                alertify.alert("role is required");
+                return false;
+            }
+            if ($("#GroupId").val() == "") {
+                alertify.alert("group is required");
                 return false;
             }
         }
@@ -324,8 +334,27 @@
                     @Html.ValidationMessageFor(model => model.campaign)
                 </div>
             </div>
+           
         </div>
-        <div class="threecol">
+         <div class="twocol" style="margin-top:10px">
+                <div class="editor-label">
+                 <label for="RoleId">Role</label>   
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("RoleId", null, String.Empty, new { @class = "ddlClass" })
+                    @Html.ValidationMessageFor(model => model.RoleId)
+                </div>
+
+                <div class="editor-label">
+                   <label for="GroupId">Group</label> 
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("GroupId", null, String.Empty, new { @class = "ddlClass" })
+
+                    @Html.ValidationMessageFor(model => model.GroupId)
+                </div>
+            </div>
+       @* <div class="threecol">
             <div class="editor-label">
             </div>
             <div class="editor-field">
@@ -335,7 +364,7 @@
             <div class="editor-field">
                 <a id="lnkrole" href="javascript:doSomething();" style="font-size: 1em;">Add Role</a>
             </div>
-        </div>
+        </div>*@
         <p style="float: right; width: 20%;">
             <input type="submit" value="Save" class="btn" />
             <input type="button" value="Clear" class="btn" id="btnClear" />

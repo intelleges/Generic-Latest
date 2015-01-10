@@ -608,6 +608,7 @@
     <Compile Include="Models\ComboBoxModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\Models.cs" />
+    <Compile Include="Models\person.extension.cs" />
     <Compile Include="Models\PersonComboModel.cs" />
     <Compile Include="Models\ProductTypeModel.cs" />
     <Compile Include="Models\QuestionnaireModel.cs" />
@@ -1486,6 +1487,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getRoleAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getRoleByEnterprise_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getRoleByName_Result.cs">

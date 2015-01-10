@@ -271,6 +271,9 @@ namespace Generic.Helpers.Utility
                     case "[System Master Email]":
                         sValue = systemmaster.email;
                         break;
+                    case "[System Master FullName]":
+                        sValue = systemmaster.FullName;
+                        break;
                      case "[HON Internal ID]":
                         sValue = partner.name;
                         break;

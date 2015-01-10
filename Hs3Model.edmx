@@ -6576,6 +6576,9 @@
         <Function Name="pr_getRoleAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getRoleByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getRoleByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -12353,6 +12356,9 @@
           <FunctionImport Name="pr_validatePasswordByEmail" ReturnType="Collection(Int32)">
             <Parameter Name="emailAddress" Mode="In" Type="String" />
             <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRoleByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleByEnterprise_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -19716,6 +19722,15 @@
           <Property Type="Boolean" Name="IsArchived" Nullable="true" />
           <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
         </ComplexType>
+        <ComplexType Name="pr_getRoleByEnterprise_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="accessLevel" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="access" Nullable="true" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -25679,6 +25694,19 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyPasswordByEmailAndPassword" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPasswordByEmailAndPassword" />
           <FunctionImportMapping FunctionImportName="pr_validatePasswordByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_validatePasswordByEmail" />
+          <FunctionImportMapping FunctionImportName="pr_getRoleByEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleByEnterprise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRoleByEnterprise_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="access" ColumnName="access" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

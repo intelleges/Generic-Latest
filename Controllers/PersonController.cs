@@ -188,10 +188,12 @@ namespace Generic.Controllers
         public ActionResult Create()
         {
             ViewBag.campaign = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
-            ViewBag.manager = new SelectList(db.pr_getPersonByEnterprise2(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "firstName");
+            ViewBag.manager = new SelectList(db.pr_getPersonByEnterprise2(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "FullName");
 
             ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            ViewBag.RoleId = new SelectList(db.pr_getRoleAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+            ViewBag.GroupId = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             return View();
         }
 
@@ -209,12 +211,15 @@ namespace Generic.Controllers
             ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name",person.state);
             ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name" , person.country);
 
+            ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+            ViewBag.GroupId = new SelectList(db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
             if (ModelState.IsValid)
             {
                 int flag = 0;
                 try
                 {
-
+                   
                     person.personStatus = (int)PersonHelper.PersonStatus.Invited;
                     person.active = 1;
                     person.ismanager = 0;
@@ -232,13 +237,16 @@ namespace Generic.Controllers
                     }  
                     
                     SessionSingleton.PersonId = person.id;
+                    using (var context = new EntitiesDBContext())
+                    {
+                        context.pr_addPersonRole(person.id, person.RoleId);
+                        context.pr_addPersonGroup(person.GroupId, person.id);
+                    }
 
-
-
-                    person objdefaultSystemMaster = db.pr_getSystemMaster(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                    person objdefaultSystemMaster = db.pr_getPerson(person.manager).FirstOrDefault();// db.pr_getSystemMaster(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
                     if (objdefaultSystemMaster == null)
                     {
-                        ViewBag.message = "System master is required";
+                        ViewBag.message = "System manager is required";
                         flag = 1;
                     }
 
@@ -256,28 +264,38 @@ namespace Generic.Controllers
 
                         autoMailMessage objamm = new autoMailMessage();
 
-                        objamm.subject = "Welcome to Intelleges for [Enterprise Name]: [Touchpoint Title]";
+                        objamm.subject = "Intelleges Account Created";
                         //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
-                        objamm.text = @"Hi [User Firstname],<br>
-
-You have a new account at Intelleges for [Enterprise Name] [Touchpoint Title].<br>
-
-As you know the purpose of this system is to help us [Touchpoint Purpose].<br>
-
-Your username is [User Email]. The administrator has set your password [Temporary Access Code].<br>
-
-You can sign in to Intelleges services at:<br>
-
-[Project Url]<br>
-
-Note: you will need to change your password once you login.<br>
-
-If you have any questions please contact me [User Inviting Email] or contact your system master [System Master Email]<br>
-
-Thanks in advance.<br>
-
-[User Inviting Firstname] [User Inviting Last Name]<br>
-[Enterprise Name]";
+                        objamm.text = @"Hello <b>[Receiver Full Name]</b>,<br><br>
+Congratulations. Your Intelleges System Master <b>[System Master FullName]</b> has added you to the Intelleges [Touchpoint Title] Platform.<br>
+Your user name is : [User Email]<br>
+Your current password is: [Temporary Access Code]<br>
+To access your intelleges.com account please click here [Project Url].<br>
+To change your existing password select Change Password once you log in.<br>
+To protect your privacy, we only send this information to the email address on file for this account. <br>
+If you have any questions, please contact your Account Administrator [System Master Email].<br><br>
+Thank you.<br>
+Intelleges Team";
+//                        objamm.text = @"Hello [Receiver Full Name],<br>
+//
+//You have a new account at Intelleges for [Enterprise Name] [Touchpoint Title].<br>
+//
+//As you know the purpose of this system is to help us [Touchpoint Purpose].<br>
+//
+//Your username is [User Email]. The administrator has set your password [Temporary Access Code].<br>
+//
+//You can sign in to Intelleges services at:<br>
+//
+//[Project Url]<br>
+//
+//Note: you will need to change your password once you login.<br>
+//
+//If you have any questions please contact me [User Inviting Email] or contact your system master [System Master Email]<br>
+//
+//Thanks in advance.<br>
+//
+//[User Inviting Firstname] [User Inviting Last Name]<br>
+//[Enterprise Name]";
 
 
                         Email email = new Email(objamm);
@@ -298,7 +316,7 @@ Thanks in advance.<br>
 
 
                         //return RedirectToAction("AssignGroup", "Person");
-                        ViewBag.message = "You have successfully added " + person.firstName + " " + person.lastName + " to Intelleges.";
+                        ViewBag.message = "You have successfully added " + person.FullName + " to Intelleges.";
                         ViewBag.success = 1;
 
                         return View();
