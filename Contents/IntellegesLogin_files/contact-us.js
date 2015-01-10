@@ -45,7 +45,7 @@
         if ($("#modalformControls .has-error").length == 0) {
             //GetForgotPassword
             $.ajax({
-                url: "GetForgotPassword",
+                url: "https://www.intelleges.com/mvcmt/Generic/Admin/GetForgotPassword",
                 data: { Email: email },
                 type: "POST"
             }).done(function (data) {
