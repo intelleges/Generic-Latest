@@ -192,8 +192,8 @@ namespace Generic.Controllers
 
             ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
-            ViewBag.RoleId = new SelectList(db.pr_getRoleAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
-            ViewBag.GroupId = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+            ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+            ViewBag.GroupId = new SelectList(db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             return View();
         }
 
