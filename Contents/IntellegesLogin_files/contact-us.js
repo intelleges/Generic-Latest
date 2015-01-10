@@ -45,7 +45,7 @@
         if ($("#modalformControls .has-error").length == 0) {
             //GetForgotPassword
             $.ajax({
-                url: "Admin/GetForgotPassword",
+                url: "GetForgotPassword",
                 data: { Email: email },
                 type: "POST"
             }).done(function (data) {
