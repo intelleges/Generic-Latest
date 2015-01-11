@@ -14387,5 +14387,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRoleByEnterprise_Result>("pr_getRoleByEnterprise", enterpriseParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_checkPartnumberBadZcodeCountByZcode(string zcode)
+        {
+            var zcodeParameter = zcode != null ?
+                new ObjectParameter("zcode", zcode) :
+                new ObjectParameter("zcode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_checkPartnumberBadZcodeCountByZcode", zcodeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_checkPartnumberStatusCountByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_checkPartnumberStatusCountByPPTQ", pptqParameter);
+        }
     }
 }

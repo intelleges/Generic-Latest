@@ -186,7 +186,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult QuestionnaireResponse(FormCollection formCollection, int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 0, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
-           
+
+            var meesage = "";
                 if (Session["hs3Registration"] == null)
                 {
                     return RedirectToAction("Index", "Home");
@@ -294,7 +295,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                     db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
                                 }
                             }
-                            ZcodeModify(questionnaireId, questionId, responseId,  PartNumberSiteZcodepptq);
+                            meesage= ZcodeModify(questionnaireId, questionId, responseId, PartNumberSiteZcodepptq);
                             //JB: here ends setting responses to questions for the CURRENT PARTNUMBER
                         }
                         else if (keyName.ToString().Contains("_checkBox"))
@@ -337,7 +338,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
 
-                                ZcodeModify(questionnaireId, questionId, responseId, PartNumberSiteZcodepptq);
+                                meesage = ZcodeModify(questionnaireId, questionId, responseId, PartNumberSiteZcodepptq);
 
 
                             }
@@ -417,7 +418,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
 
 
-                            ZcodeModify(questionnaireId, questionId, responseId,  PartNumberSiteZcodepptq);
+                            meesage = ZcodeModify(questionnaireId, questionId, responseId, PartNumberSiteZcodepptq);
 
 
                         }
@@ -557,41 +558,44 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     //var context = new EntitiesDBContext();
                     var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
 
-                    ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion,  PartNumberSiteZcodepptq);
+                    meesage= ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion, PartNumberSiteZcodepptq);
 
                 }
 
 
-                // save uploaded files
-                saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
-
-
-
-
-                if (goEsignature == "true")
+                if (meesage == "")
                 {
+                    // save uploaded files
+                    saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
 
-                    Response.Redirect("../Home/eSignature");
 
+
+
+                    if (goEsignature == "true")
+                    {
+
+                        Response.Redirect("../Home/eSignature");
+
+                    }
+
+                    if (saveForLaterButton == true)
+                    {
+
+                    }
+
+                    else
+                    {
+                        //if it is last question and all are completed for partnumberSelectList Status, then go to next site...reset siteSelectList --maybe the problem here
+                        goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, partNumberSelectList, siteSelectList, partnumberStatusSelectList, page, pageNumber);
+                    }
                 }
-
-                if (saveForLaterButton == true)
-                {
-
-                }
-
-                else
-                {
-                    //if it is last question and all are completed for partnumberSelectList Status, then go to next site...reset siteSelectList --maybe the problem here
-                    goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, partNumberSelectList, siteSelectList, partnumberStatusSelectList, page, pageNumber);
-                }
-
-            
+                ViewBag.message = meesage;
             return View();
         }
 
-        private void ZcodeModify(int questionnaireId, int questionId, int? responseId,  partNumberSiteZcodePPTQ PartNumberSiteZcodepptq)
+        private string ZcodeModify(int questionnaireId, int questionId, int? responseId,  partNumberSiteZcodePPTQ PartNumberSiteZcodepptq)
         {
+            var result = "";
             var responseTypesQuestionnaire = (List<responseType>)Session["responseTypesQuestionnaire"];
 
             string zcode = PartNumberSiteZcodepptq.zcode;
@@ -640,20 +644,41 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //zzzz zz zz
             //0 4
             //6 L-6
-            PartNumberSiteZcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
-
-
-            using (var contect = new EntitiesDBContext())
+            var zzcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
+            var count = db.pr_checkPartnumberBadZcodeCountByZcode(zzcode).FirstOrDefault();
+            if (count > 0)
             {
-                var pnszCodepptq = contect.partNumberSiteZcodePPTQSet.FirstOrDefault(o => o.id == PartNumberSiteZcodepptq.id);
-                pnszCodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
-                contect.Entry(pnszCodepptq).State = EntityState.Modified;
-                contect.SaveChanges();
+                result = "Please try again, if problem persists, please contact your system administrator by clicking on contact us button.<br>Thank you.";
+                zzcode = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
+                PartNumberSiteZcodepptq.zcode = zzcode;
+                using (var contect = new EntitiesDBContext())
+                {
+                    var pnszCodepptq = contect.partNumberSiteZcodePPTQSet.FirstOrDefault(o => o.id == PartNumberSiteZcodepptq.id);
+                    pnszCodepptq.zcode = zzcode;
+                    pnszCodepptq.status = Status.NOT_STARTED;
+                    contect.Entry(pnszCodepptq).State = EntityState.Modified;
+                    contect.SaveChanges();
+                }
             }
+            else
+            {
+                PartNumberSiteZcodepptq.zcode = zzcode;
+
+
+                using (var contect = new EntitiesDBContext())
+                {
+                    var pnszCodepptq = contect.partNumberSiteZcodePPTQSet.FirstOrDefault(o => o.id == PartNumberSiteZcodepptq.id);
+                    pnszCodepptq.zcode = zzcode;
+                    contect.Entry(pnszCodepptq).State = EntityState.Modified;
+                    contect.SaveChanges();
+                }
+            }
+            return result;
         }
 
-        private void ZcodeModifyForSkip(int questionnaireId, int questionId, int jumpToQuestion,  partNumberSiteZcodePPTQ PartNumberSiteZcodepptq)
+        private string ZcodeModifyForSkip(int questionnaireId, int questionId, int jumpToQuestion,  partNumberSiteZcodePPTQ PartNumberSiteZcodepptq)
         {
+            var result = "";
             string zcode = PartNumberSiteZcodepptq.zcode;
             var allQuestions = db.pr_getQuestionByQuestionnaire(questionnaireId).ToList();
             int questionNo = 1;
@@ -684,16 +709,36 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //zzzz zzzzzz zzzzzz
             //0 4
             //6 L-6
-            PartNumberSiteZcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
-
-
-            using (var context = new EntitiesDBContext())
+            var zzcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
+            var count = db.pr_checkPartnumberBadZcodeCountByZcode(zzcode).FirstOrDefault();
+            if (count > 0)
             {
-                var pnszcodepptq = context.partNumberSiteZcodePPTQSet.FirstOrDefault(o => o.id == PartNumberSiteZcodepptq.id);
-                pnszcodepptq.zcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
-                context.Entry(pnszcodepptq).State = EntityState.Modified;
-                context.SaveChanges();
+                result = "Please try again, if problem persists, please contact your system administrator by clicking on contact us button.<br>Thank you.";
+                zzcode = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
+                PartNumberSiteZcodepptq.zcode = zzcode;
+                using (var contect = new EntitiesDBContext())
+                {
+                    var pnszCodepptq = contect.partNumberSiteZcodePPTQSet.FirstOrDefault(o => o.id == PartNumberSiteZcodepptq.id);
+                    pnszCodepptq.zcode = zzcode;
+                    pnszCodepptq.status = Status.NOT_STARTED;
+                    contect.Entry(pnszCodepptq).State = EntityState.Modified;
+                    contect.SaveChanges();
+                }
             }
+            else
+            {
+                PartNumberSiteZcodepptq.zcode = zzcode;
+
+
+                using (var context = new EntitiesDBContext())
+                {
+                    var pnszcodepptq = context.partNumberSiteZcodePPTQSet.FirstOrDefault(o => o.id == PartNumberSiteZcodepptq.id);
+                    pnszcodepptq.zcode = zzcode;
+                    context.Entry(pnszcodepptq).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+            }
+            return result;
         }
 
         private void goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 0, int pageQ = 0, int pageNumberQ = 0)

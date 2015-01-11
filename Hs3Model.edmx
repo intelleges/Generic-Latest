@@ -5683,6 +5683,12 @@
           <Parameter Name="touchpointPurpose" Type="varchar(max)" Mode="In" />
           <Parameter Name="touchpointTarget" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_checkPartnumberBadZcodeCountByZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="zcode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_checkPartnumberStatusCountByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_doLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="varchar" Mode="In" />
           <Parameter Name="password" Type="varchar" Mode="In" />
@@ -12358,7 +12364,13 @@
             <Parameter Name="password" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getRoleByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleByEnterprise_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_checkPartnumberBadZcodeCountByZcode" ReturnType="Collection(Int32)">
+            <Parameter Name="zcode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_checkPartnumberStatusCountByPPTQ" ReturnType="Collection(Int32)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -25707,6 +25719,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_checkPartnumberBadZcodeCountByZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_checkPartnumberBadZcodeCountByZcode" />
+          <FunctionImportMapping FunctionImportName="pr_checkPartnumberStatusCountByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_checkPartnumberStatusCountByPPTQ" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

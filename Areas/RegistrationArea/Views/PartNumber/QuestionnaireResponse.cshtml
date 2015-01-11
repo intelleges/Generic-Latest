@@ -33,6 +33,12 @@
     });
    
     $(document).ready(function () {
+
+        var message = '@ViewBag.message';
+        if (message !== "") {
+            alertify.alert(message);//"");
+        }
+
         $("#btnSaveForLater").click(function (e) {
 
             window.location.replace("Saveforlater");

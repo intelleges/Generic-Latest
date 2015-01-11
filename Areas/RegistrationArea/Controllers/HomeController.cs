@@ -1764,11 +1764,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
                 using (var dbConext = new EntitiesDBContext())
                 {
-                    var statuses = dbConext.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq.id).ToList().Select(x => x.status).Distinct().ToList();
-                    if (statuses.Count == 0 || (statuses.Count == 1 && statuses.FirstOrDefault() == Status.COMPLETED))
+                    var count = dbConext.pr_checkPartnumberStatusCountByPPTQ(pptq.id).FirstOrDefault();
+                   // var statuses = dbConext.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq.id).ToList().Select(x => x.status).Distinct().ToList();
+                    //if (statuses.Count == 0 || (statuses.Count == 1 && statuses.FirstOrDefault() == Status.COMPLETED))
+                    if(count==0)
                     {
                         dbConext.pr_modifyPPTQStatus(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Complete);
                     }
+                    else dbConext.pr_modifyPPTQStatus(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Incomplete);
                 }
                 return RedirectToAction("Finish");
             }
