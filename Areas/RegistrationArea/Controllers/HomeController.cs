@@ -3060,7 +3060,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
                
                // file.Close();
                // bytes = System.IO.File.ReadAllBytes(fileName);
-                db.pr_addPPTQpdf(pptqID, bytes);
+                var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptqID);
+                db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, bytes, quest.docFolderAddress, quest.score, quest.loadGroup);
+                //db.pr_addPPTQpdf(pptqID, bytes);
+                //using (var context = new EntitiesDBContext())
+                //{
+                //    var pptq = context.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptqID);
+                //    pptq.progress = 100;
+                //    context.Entry(pptq).State = EntityState.Modified;
+                //    context.SaveChanges();
+                //}
               //  System.IO.File.Delete(fileName);
                 // Send the binary data to the browser.
                 return new BinaryContentResult(bytes, "application/pdf");
