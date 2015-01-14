@@ -106,6 +106,17 @@ namespace Generic.SessionClass
                 return LoggedInUserRole == 350 || LoggedInUserRole == 351;
             }
         }
+        public static bool ShouldDisplayMenuBAA
+        {
+            get
+            {
+                if (Generic.Helpers.CurrentInstance.MultiTenantProjectType == 2)
+                {
+                    return LoggedInUserRole == 1383;
+                }
+                else return false;
+            }
+        }
 
         public static int PTQ
         {
