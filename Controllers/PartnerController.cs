@@ -315,8 +315,8 @@ namespace Generic.Controllers
                         var id = (int)Areas.RegistrationArea.Controllers.HomeController.FillPdfHtml(ViewBag, db, Session, Server);
                         string htmltext = this.RenderActionResultToString(this.View("~/Areas/RegistrationArea/Views/Home/CustomizedQuestionnaireSurveyPdfDownload.cshtml"));
                         var bytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmltext);
-                        db.pr_addPPTQpdf(id, bytes);
-                        //db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, bytes, quest.docFolderAddress, quest.score, quest.loadGroup);
+                       // db.pr_addPPTQpdf(id, bytes);
+                        db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, bytes, quest.docFolderAddress, quest.score, quest.loadGroup);
                         //quest.progress = 100;
                         //db.Entry(quest).State = EntityState.Modified;
                         //db.SaveChanges();
