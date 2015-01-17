@@ -14405,5 +14405,94 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_checkPartnumberStatusCountByPPTQ", pptqParameter);
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEnterprise2(string description, Nullable<int> sortOrder, Nullable<bool> active, byte[] logo, string applicationPath, string companyName, string instanceName, Nullable<int> userMax, Nullable<int> partnerMax, Nullable<int> partnumberMax, Nullable<int> product, Nullable<int> subscriptionType, Nullable<System.DateTime> freeTrialStartDate, Nullable<System.DateTime> freeTrialEndDate, Nullable<System.DateTime> licenseStartDate, Nullable<System.DateTime> licenseEndDate, Nullable<decimal> monthlyFee, Nullable<int> subscriptionStatus, string chargifyID, Nullable<System.DateTime> archivedDate, Nullable<int> multiTenantProjectType)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var logoParameter = logo != null ?
+                new ObjectParameter("logo", logo) :
+                new ObjectParameter("logo", typeof(byte[]));
+    
+            var applicationPathParameter = applicationPath != null ?
+                new ObjectParameter("applicationPath", applicationPath) :
+                new ObjectParameter("applicationPath", typeof(string));
+    
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("companyName", companyName) :
+                new ObjectParameter("companyName", typeof(string));
+    
+            var instanceNameParameter = instanceName != null ?
+                new ObjectParameter("instanceName", instanceName) :
+                new ObjectParameter("instanceName", typeof(string));
+    
+            var userMaxParameter = userMax.HasValue ?
+                new ObjectParameter("userMax", userMax) :
+                new ObjectParameter("userMax", typeof(int));
+    
+            var partnerMaxParameter = partnerMax.HasValue ?
+                new ObjectParameter("partnerMax", partnerMax) :
+                new ObjectParameter("partnerMax", typeof(int));
+    
+            var partnumberMaxParameter = partnumberMax.HasValue ?
+                new ObjectParameter("partnumberMax", partnumberMax) :
+                new ObjectParameter("partnumberMax", typeof(int));
+    
+            var productParameter = product.HasValue ?
+                new ObjectParameter("product", product) :
+                new ObjectParameter("product", typeof(int));
+    
+            var subscriptionTypeParameter = subscriptionType.HasValue ?
+                new ObjectParameter("subscriptionType", subscriptionType) :
+                new ObjectParameter("subscriptionType", typeof(int));
+    
+            var freeTrialStartDateParameter = freeTrialStartDate.HasValue ?
+                new ObjectParameter("freeTrialStartDate", freeTrialStartDate) :
+                new ObjectParameter("freeTrialStartDate", typeof(System.DateTime));
+    
+            var freeTrialEndDateParameter = freeTrialEndDate.HasValue ?
+                new ObjectParameter("freeTrialEndDate", freeTrialEndDate) :
+                new ObjectParameter("freeTrialEndDate", typeof(System.DateTime));
+    
+            var licenseStartDateParameter = licenseStartDate.HasValue ?
+                new ObjectParameter("licenseStartDate", licenseStartDate) :
+                new ObjectParameter("licenseStartDate", typeof(System.DateTime));
+    
+            var licenseEndDateParameter = licenseEndDate.HasValue ?
+                new ObjectParameter("licenseEndDate", licenseEndDate) :
+                new ObjectParameter("licenseEndDate", typeof(System.DateTime));
+    
+            var monthlyFeeParameter = monthlyFee.HasValue ?
+                new ObjectParameter("monthlyFee", monthlyFee) :
+                new ObjectParameter("monthlyFee", typeof(decimal));
+    
+            var subscriptionStatusParameter = subscriptionStatus.HasValue ?
+                new ObjectParameter("subscriptionStatus", subscriptionStatus) :
+                new ObjectParameter("subscriptionStatus", typeof(int));
+    
+            var chargifyIDParameter = chargifyID != null ?
+                new ObjectParameter("chargifyID", chargifyID) :
+                new ObjectParameter("chargifyID", typeof(string));
+    
+            var archivedDateParameter = archivedDate.HasValue ?
+                new ObjectParameter("archivedDate", archivedDate) :
+                new ObjectParameter("archivedDate", typeof(System.DateTime));
+    
+            var multiTenantProjectTypeParameter = multiTenantProjectType.HasValue ?
+                new ObjectParameter("multiTenantProjectType", multiTenantProjectType) :
+                new ObjectParameter("multiTenantProjectType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterprise2", descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, userMaxParameter, partnerMaxParameter, partnumberMaxParameter, productParameter, subscriptionTypeParameter, freeTrialStartDateParameter, freeTrialEndDateParameter, licenseStartDateParameter, licenseEndDateParameter, monthlyFeeParameter, subscriptionStatusParameter, chargifyIDParameter, archivedDateParameter, multiTenantProjectTypeParameter);
+        }
     }
 }

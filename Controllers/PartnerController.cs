@@ -306,38 +306,22 @@ namespace Generic.Controllers
                 //db.SaveChanges();
                 db.pr_modifyPartner(partner.id, Generic.Helpers.CurrentInstance.EnterpriseID, partner.internalID, partner.name, partner.address1, partner.address2, partner.city, partner.state, partner.province, partner.zipcode, partner.country, partner.phone, partner.fax, partner.firstName, partner.lastName, partner.title, partner.email, partner.dunsNumber, partner.federalID, partner.status, partner.loadHistory, partner.owner, partner.author, partner.dateApproved, partner.active, partner.lastModified);
                 var quest = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partner.id).FirstOrDefault();
-                //foreach (var quest in questionar)
-                //{
+                
                     try
-                    {
-
-                        //Session["accessCode"] = quest.accesscode;
+                    {                       
                         var id = (int)Areas.RegistrationArea.Controllers.HomeController.FillPdfHtml(ViewBag, db, Session, Server);
                         string htmltext = this.RenderActionResultToString(this.View("~/Areas/RegistrationArea/Views/Home/CustomizedQuestionnaireSurveyPdfDownload.cshtml"));
-                        var bytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmltext);
-                       // db.pr_addPPTQpdf(id, bytes);
+                        var bytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmltext);                       
                         db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, bytes, quest.docFolderAddress, quest.score, quest.loadGroup);
-                        //quest.progress = 100;
-                        //db.Entry(quest).State = EntityState.Modified;
-                        //db.SaveChanges();
-                        //using (var context = new EntitiesDBContext())
-                        //{
-
-                        //    var pptq = context.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == id);
-                        //    pptq.progress = 100;
-                        //    pptq.pdf = bytes;
-                        //    context.Entry(pptq).State = EntityState.Modified;
-                        //    context.SaveChanges();
-                        //}
+                       
                     }
                     catch (Exception ex)
                     {
                     }
                // }
                 return Json(new { success = true });
-                //return RedirectToAction("Index");
-            }
-            //if(partnerDB)
+                
+            }          
                       
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
             ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);

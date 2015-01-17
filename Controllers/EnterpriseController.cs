@@ -41,6 +41,10 @@ namespace Generic.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.product = new SelectList(db.pr_getProductAll().ToList(), "id", "description");
+            ViewBag.subscriptionType = new SelectList(db.subscriptionType.ToList(), "id", "description");
+            ViewBag.subscriptionStatus = new SelectList(db.subscriptionStatus.ToList(), "id", "description");
+            ViewBag.multiTenantProjectType = new SelectList(db.multiTenantProjectType.ToList(), "id", "description");
             return View();
         }
 
@@ -50,51 +54,71 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult Create(enterprise enterprise, HttpPostedFileBase uploadLogo)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if (uploadLogo != null)
+                ViewBag.product = new SelectList(db.pr_getProductAll().ToList(), "id", "description", enterprise.product);
+                ViewBag.subscriptionType = new SelectList(db.subscriptionType.ToList(), "id", "description", enterprise.subscriptionType);
+                ViewBag.subscriptionStatus = new SelectList(db.subscriptionStatus.ToList(), "id", "description", enterprise.subscriptionStatus);
+                ViewBag.multiTenantProjectType = new SelectList(db.multiTenantProjectType.ToList(), "id", "description", enterprise.multiTenantProjectType);
+                if (ModelState.IsValid)
                 {
-                    byte[] uploadedFile = new byte[uploadLogo.InputStream.Length];
-                    uploadLogo.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-                    enterprise.logo = uploadedFile;
-
-
-                    if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
+                    var fileFullPath = "";
+                    if (uploadLogo != null)
                     {
-                        Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
+                        byte[] uploadedFile = new byte[uploadLogo.InputStream.Length];
+                        uploadLogo.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+                        enterprise.logo = uploadedFile;
+
+
+                        if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
+                        }
+
+                        if (!Directory.Exists((Server.MapPath("~/uploadedFiles/EnterpriseLogo"))))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/uploadedFiles/EnterpriseLogo"));
+                        }
+
+                        // db.pr_addEnterpriseSystemInfo(
+                        var file = uploadLogo;
+
+                        // Some browsers send file names with full path. This needs to be stripped.
+                        var fileName = Path.GetFileName(file.FileName);
+                        fileFullPath = Path.Combine(Server.MapPath("~/uploadedFiles/EnterpriseLogo"), fileName);
+
+
+                        file.SaveAs(fileFullPath);
+
+                        enterprise.applicationPath = fileFullPath;
+
                     }
 
-                    if (!Directory.Exists((Server.MapPath("~/uploadedFiles/EnterpriseLogo"))))
+                    enterprise.active = true;
+                    //enterprise.multiTenantProjectType = 1;
+                    var result = db.pr_addEnterprise(enterprise.description, enterprise.sortOrder, enterprise.active, enterprise.logo, enterprise.applicationPath, enterprise.companyName, enterprise.instanceName, enterprise.userMax, enterprise.partnerMax, enterprise.partnumberMax, enterprise.product, enterprise.subscriptionType, enterprise.freeTrialStartDate, enterprise.freeTrialEndDate, enterprise.licenseStartDate, enterprise.licenseEndDate, enterprise.monthlyFee, enterprise.subscriptionStatus, null, null, enterprise.multiTenantProjectType).FirstOrDefault();
+                    //db.enterprise.Add(enterprise);
+                    //db.SaveChanges();
+                    if (result.HasValue)
                     {
-                        Directory.CreateDirectory(Server.MapPath("~/uploadedFiles/EnterpriseLogo"));
+                        SessionSingleton.EnterPriseId = (int)result.Value;
+                        enterprise.id = (int)result.Value;                        
+                        db.pr_addEnterpriseSystemInfo(enterprise.systemExpiry, enterprise.licenseLimit, enterprise.companyName, string.Empty, enterprise.companyWebSite, string.Empty, 1, string.Empty, false, SessionSingleton.EnterPriseId);
+                        using (var context = new EntitiesDBContext())
+                        {
+                            context.pr_bootstrapEnterprise(SessionSingleton.EnterPriseId);
+                        }
+                        ViewBag.saved = "true";
+                        //return RedirectToAction("CreatePerson", "Person");
                     }
-
-                   
-                    var file = uploadLogo;
-
-                    // Some browsers send file names with full path. This needs to be stripped.
-                    var fileName = Path.GetFileName(file.FileName) ;
-                    var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/EnterpriseLogo"), fileName);
-
-                 
-                    file.SaveAs(physicalPath);
-
-                    enterprise.applicationPath = physicalPath.ToString();
-
+                    else
+                        ViewBag.saved = "false";
                 }
-
-                enterprise.active = true;
-                enterprise.multiTenantProjectType = 1;
-
-                db.enterprise.Add(enterprise);
-                db.SaveChanges();
-                SessionSingleton.EnterPriseId = enterprise.id;
-
-                db.pr_bootstrapEnterprise(enterprise.id);
-
-                return RedirectToAction("CreatePerson", "Person");
             }
-
+            catch
+            {
+                ViewBag.saved = "false";
+            }
             return View(enterprise);
         }
 

@@ -8,7 +8,115 @@
     Layout = LayoutHelper.GetPopupLayout();
     ViewBag.Title = ViewBag.Project + "Admin";
 }
+<style type="text/css">
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
 
+    .twocol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .twocol .editor-field {
+        width: 35%;
+        display: inline-block;
+    }
+
+    .threecol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .threecol .editor-field {
+        width: 20%;
+        display: inline-block;
+    }
+
+        .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+            width: 90%;
+            display: inline-block;
+            font-size: 11px;
+        }
+
+    .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 20px;
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
+    }
+
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+</style>
+<script>
+    $(document).ready(function () {
+       
+        $("#btnClear").click(function () {
+            $("#enterprise").val("");           
+            $("#firstName").val("");
+            $("#lastName").val("");
+            $("#partnerMax").val("");
+            $("#partnumberMax").val("");
+            $("#product").val("");
+            $("#subscriptionType").val("");
+            $("#freeTrialStartDate").val("");
+            $("#freeTrialEndDate").val("");
+            $("#licenseStartDate").val("");
+            $("#licenseEndDate").val("");
+            $("#monthlyFee").val("");
+            $("#subscriptionStatus").val("");
+            $("#multiTenantProjectType").val("");
+            $("#systemExpiry").val("");
+            $("#licenseLimit").val("");
+            $("#companyWebSite").val("");
+            
+        });
+        var _addValidation = function (elem) {
+            elem.attr("data-val", "true");
+            elem.attr("data-val-required", " ");
+        };
+        _addValidation($("#systemExpiry"));
+        _addValidation($("#licenseLimit"));
+        _addValidation($("#companyWebSite"));
+        _addValidation($("#companyName"));
+        _addValidation($("#description"));
+        _addValidation($("#userMax"));
+        _addValidation($("#partnerMax"));
+        _addValidation($("#partnumberMax"));
+        _addValidation($("#product"));
+        _addValidation($("#subscriptionType"));
+        _addValidation($("#freeTrialStartDate"));
+        _addValidation($("#freeTrialEndDate"));
+        _addValidation($("#licenseStartDate"));
+        _addValidation($("#licenseEndDate"));
+        _addValidation($("#monthlyFee"));
+        _addValidation($("#multiTenantProjectType"));
+        _addValidation($("#subscriptionStatus"));
+        //_addValidation($("#uploadlogo"));
+
+    });
+</script>
 <h2>Create</h2>
 
 @using (Html.BeginForm())
@@ -17,17 +125,153 @@
 
     <fieldset>
         <legend>Person</legend>
-
-
         <div class="editor-label">
+            <label for="enterprise">Select Enterprise</label>
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("enterprise", String.Empty)
+            @Html.ValidationMessageFor(model => model.enterprise)
+        </div>
+        <div class="threecol">
+            <div class="editor-label">
+                <label for="firstName">First Name</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.firstName)
+                @Html.ValidationMessageFor(model => model.firstName)
+            </div>
+            <div class="editor-label">
+                <label for="lastName">Last Name</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.lastName)
+                @Html.ValidationMessageFor(model => model.lastName)
+            </div>
+            <div class="editor-label">
+                <label for="suffix">Suffix</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.suffix)
+                @Html.ValidationMessageFor(model => model.suffix)
+            </div>
+        </div>
+        <div class="threecol">
+            <div class="editor-label">
+                <label for="internalId">Internal Id</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.internalId)
+                @Html.ValidationMessageFor(model => model.internalId)
+            </div>
+            <div class="editor-label">
+                <label for="title">Title</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.title)
+                @Html.ValidationMessageFor(model => model.title)
+            </div>
+            <div class="editor-label">
+                <label for="email">Email</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.email)
+                @Html.ValidationMessageFor(model => model.email)
+            </div>
+        </div>
+        <div class="twocol">
+            <div class="editor-label">
+                <label for="address1">Address 1</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.address1)
+                @Html.ValidationMessageFor(model => model.address1)
+            </div>
+            <div class="editor-label">
+                <label for="address2">Address 2</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.address2)
+                @Html.ValidationMessageFor(model => model.address2)
+            </div>
+        </div>
+        <div class="threecol">
+            <div class="editor-label">
+                <label for="city">City</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.city)
+                @Html.ValidationMessageFor(model => model.city)
+            </div>
+            <div class="editor-label">
+                <label for="state">State</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("state",string.Empty)
+                @Html.ValidationMessageFor(model => model.state)
+            </div>
+            <div class="editor-label">
+                <label for="zipcode">Zip code</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.zipcode)
+                @Html.ValidationMessageFor(model => model.zipcode)
+            </div>
+        </div>
+         <div class="twocol">
+            <div class="editor-label">
+                <label for="country">Country</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("country",string.Empty)
+                @Html.ValidationMessageFor(model => model.country)
+            </div>
+            <div class="editor-label">
+                <label for="phone">Phone</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.phone)
+                @Html.ValidationMessageFor(model => model.phone)
+            </div>
+        </div>
+         <div class="twocol">
+            <div class="editor-label">
+                <label for="manager">Manager</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("manager",string.Empty)
+                @Html.ValidationMessageFor(model => model.manager)
+            </div>
+            <div class="editor-label">
+                <label for="campaign">Campaign</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("campaign",string.Empty)
+                @Html.ValidationMessageFor(model => model.campaign)
+            </div>
+        </div>
+        <div class="twocol">
+            <div class="editor-label">
+                <label for="RoleId">Role</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("RoleId",string.Empty)
+                @Html.ValidationMessageFor(model => model.RoleId)
+            </div>
+            <div class="editor-label">
+                <label for="GroupId">Group</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("GroupId",string.Empty)
+                @Html.ValidationMessageFor(model => model.GroupId)
+            </div>
+        </div>
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.internalId)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.internalId)
             @Html.ValidationMessageFor(model => model.internalId)
         </div>
-
-
         <div class="editor-label">
             First Name
         </div>
@@ -35,7 +279,6 @@
             @Html.EditorFor(model => model.firstName)
             @Html.ValidationMessageFor(model => model.firstName)
         </div>
-
         <div class="editor-label">
             Last Name
         </div>
@@ -43,11 +286,6 @@
             @Html.EditorFor(model => model.lastName)
             @Html.ValidationMessageFor(model => model.lastName)
         </div>
-
-
-
-
-
         <div class="editor-label">
             @Html.LabelFor(model => model.email)
         </div>
@@ -55,7 +293,6 @@
             @Html.EditorFor(model => model.email)
             @Html.ValidationMessageFor(model => model.email)
         </div>
-
         <div class="editor-label">
             Cordinator
         </div>
@@ -63,7 +300,6 @@
             <input type="text" name="coordinator" data-val="true" data-val-required="Required"  />
                  <br />    <span class="field-validation-valid" data-valmsg-for="coordinator" data-valmsg-replace="true"></span>
         </div>
-
         <div class="editor-label">
             Cordinator Email
         </div>
@@ -71,7 +307,6 @@
             <input type="text" name="coordinatorEmail" data-val="true" data-val-required="Required" />
              <br />    <span class="field-validation-valid" data-valmsg-for="coordinatorEmail" data-valmsg-replace="true"></span>
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.phone)
         </div>
@@ -79,7 +314,6 @@
             @Html.EditorFor(model => model.phone)
             @Html.ValidationMessageFor(model => model.phone)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.zipcode)
         </div>
@@ -87,7 +321,6 @@
             @Html.EditorFor(model => model.zipcode)
             @Html.ValidationMessageFor(model => model.zipcode)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.country)
         </div>
@@ -107,12 +340,12 @@
             .HighlightFirstMatch((bool)ViewBag.comboboxCountry.ComboBoxAttributes.HighlightFirst)
     )
 
-        </div>
+        </div>*@
 
-        <p>
-            <input type="submit" style="width: 150px" value="Create" />
+        <p style="float: right; width: 20%;">
+            <input type="submit" style="width: 150px" value="Create" class="btn" />
             <a href="#">
-                <input type="button" style="width: 150px" value="Next" />
+                <input type="button" value="Clear" class="btn" id="btnClear"/>
             </a>
         </p>
     </fieldset>
@@ -122,6 +355,6 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+}

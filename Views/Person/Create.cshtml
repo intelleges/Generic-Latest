@@ -85,14 +85,21 @@
                 alertify.alert("phone is required");
                 return false;
             }
+            @if (!(ViewBag.enterpriseId is int))
+            {
+                <text>
             if ($("#manager").val() == "") {
                 alertify.alert("Manager is required");
                 return false;
+
             }
             if ($("#campaign").val() == "") {
                 alertify.alert("campaign is required");
                 return false;
             }
+            </text>
+            }
+
             if ($("#RoleId").val() == "") {
                 alertify.alert("role is required");
                 return false;
@@ -201,6 +208,16 @@
 
     <fieldset>
         <legend>person</legend>
+        @if (ViewBag.enterpriseId is int)
+        {
+            <div class="editor-label">
+                <label for="enterprise">Enterprise</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("enterprise", string.Empty)
+                @Html.ValidationMessageFor(model => model.enterprise)
+            </div>
+        }
 
         <div id="addPerson" class="addPersonDiv">
             <div class="threecol">
@@ -316,45 +333,47 @@
                     @Html.ValidationMessageFor(model => model.phone)
                 </div>
             </div>
-            <div class="twocol">
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.manager)
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("manager", null, String.Empty, new { @class = "ddlClass" })
-                    @Html.ValidationMessageFor(model => model.manager)
-                </div>
+            @if (!(ViewBag.enterpriseId is int))
+            {
+                <div class="twocol">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.manager)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownList("manager", null, String.Empty, new { @class = "ddlClass" })
+                        @Html.ValidationMessageFor(model => model.manager)
+                    </div>
 
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.campaign)
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("campaign", null, String.Empty, new { @class = "ddlClass" })
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.campaign)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownList("campaign", null, String.Empty, new { @class = "ddlClass" })
 
-                    @Html.ValidationMessageFor(model => model.campaign)
+                        @Html.ValidationMessageFor(model => model.campaign)
+                    </div>
                 </div>
-            </div>
-           
+            }
         </div>
-         <div class="twocol" style="margin-top:10px">
-                <div class="editor-label">
-                 <label for="RoleId">Role</label>   
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("RoleId", null, String.Empty, new { @class = "ddlClass" })
-                    @Html.ValidationMessageFor(model => model.RoleId)
-                </div>
-
-                <div class="editor-label">
-                   <label for="GroupId">Group</label> 
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("GroupId", null, String.Empty, new { @class = "ddlClass" })
-
-                    @Html.ValidationMessageFor(model => model.GroupId)
-                </div>
+        <div class="twocol" style="margin-top: 10px">
+            <div class="editor-label">
+                <label for="RoleId">Role</label>
             </div>
-       @* <div class="threecol">
+            <div class="editor-field">
+                @Html.DropDownList("RoleId", null, String.Empty, new { @class = "ddlClass" })
+                @Html.ValidationMessageFor(model => model.RoleId)
+            </div>
+
+            <div class="editor-label">
+                <label for="GroupId">Group</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("GroupId", null, String.Empty, new { @class = "ddlClass" })
+
+                @Html.ValidationMessageFor(model => model.GroupId)
+            </div>
+        </div>
+        @* <div class="threecol">
             <div class="editor-label">
             </div>
             <div class="editor-field">

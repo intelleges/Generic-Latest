@@ -3,96 +3,297 @@
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 @{
-    Layout = null;
+    Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Create Enterprise";
 }
 
 <h2>Create</h2>
+<style type="text/css">
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
 
+    .twocol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .twocol .editor-field {
+        width: 35%;
+        display: inline-block;
+    }
+
+    .threecol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .threecol .editor-field {
+        width: 20%;
+        display: inline-block;
+    }
+
+        .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+            width: 90%;
+            display: inline-block;
+            font-size: 11px;
+        }
+    .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 20px;
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
+    }
+
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+</style>
+<script>
+    $(document).ready(function () {
+        @if(Model!=null)
+        {
+            <text>
+        var saved = @(ViewBag.saved) ;
+        if(saved){
+            alertify.confirm("Congratulations you just added @Model.companyName @Model.instanceName.<br> Would you like to add the System Master for this Account?", function(choise){
+                if(choise){
+                    window.location.href="../Person/Create?enterpriseId=@Model.id";
+                }
+            });
+        }
+        else{
+            alertify.alert("Enterprise saving error");
+        }
+        </text>
+        }
+        $("#btnClear").click(function () {
+            $("#companyName").val("");
+            $(".t-upload-files.t-reset").find("li").remove();
+            $("#description").val("");
+            $("#userMax").val("");
+            $("#partnerMax").val("");
+            $("#partnumberMax").val("");
+            $("#product").val("");
+            $("#subscriptionType").val("");
+            $("#freeTrialStartDate").val("");
+            $("#freeTrialEndDate").val("");
+            $("#licenseStartDate").val("");
+            $("#licenseEndDate").val("");
+            $("#monthlyFee").val("");
+            $("#subscriptionStatus").val("");
+            $("#multiTenantProjectType").val("");
+            $("#systemExpiry").val("");
+            $("#licenseLimit").val("");
+            $("#companyWebSite").val("");
+            
+        });
+        var _addValidation = function (elem) {
+            elem.attr("data-val", "true");
+            elem.attr("data-val-required", " ");
+        };
+        _addValidation($("#systemExpiry"));
+        _addValidation($("#licenseLimit"));
+        _addValidation($("#companyWebSite"));
+        _addValidation($("#companyName"));
+        _addValidation($("#description"));
+        _addValidation($("#userMax"));
+        _addValidation($("#partnerMax"));
+        _addValidation($("#partnumberMax"));
+        _addValidation($("#product"));
+        _addValidation($("#subscriptionType"));
+        _addValidation($("#freeTrialStartDate"));
+        _addValidation($("#freeTrialEndDate"));
+        _addValidation($("#licenseStartDate"));
+        _addValidation($("#licenseEndDate"));
+        _addValidation($("#monthlyFee"));
+        _addValidation($("#multiTenantProjectType"));
+        _addValidation($("#subscriptionStatus"));
+        //_addValidation($("#uploadlogo"));
+
+    });
+</script>
 @using (Html.BeginForm("Create", "Enterprise", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
 
     <fieldset>
+
         <legend>enterprise</legend>
+        <div class="threecol">
+            <div class="editor-label">
+                <label for="companyName">Company name</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.logo)
+            </div>
+            <div class="editor-field">
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.description)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.description)
-            @Html.ValidationMessageFor(model => model.description)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.sortOrder)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.sortOrder)
-            @Html.ValidationMessageFor(model => model.sortOrder)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.active)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.active)
-            @Html.ValidationMessageFor(model => model.active)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.logo)
-        </div>
-        <div class="editor-field">
-           
                 @(Html.Telerik().Upload()
         .Name("uploadlogo")
-        .Multiple(false)
+        .Multiple(false).HtmlAttributes(new { title = "Max file size allowed is 10 Mb" })
 
 )
 
-                <p class="note">
-                    Maximum allowed file size: 10 MB
-                </p>
 
-           
-            @Html.ValidationMessageFor(model => model.logo)
-        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.applicationPath)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.applicationPath)
-            @Html.ValidationMessageFor(model => model.applicationPath)
-        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.logo)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.description)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.description)
+                @Html.ValidationMessageFor(model => model.description)
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.companyName)
-            @Html.ValidationMessageFor(model => model.companyName)
+        <div class="threecol">
+            <div class="editor-label">
+                <label for="userMax">Users Max.</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.userMax)
+                @Html.ValidationMessageFor(model => model.userMax)
+            </div>
+            <div class="editor-label">
+                <label for="partnerMax">Partners Max.</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.partnerMax)
+                @Html.ValidationMessageFor(model => model.partnerMax)
+            </div>
+            <div class="editor-label">
+                <label for="partnumberMax">Part numbers Max.</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.partnumberMax)
+                @Html.ValidationMessageFor(model => model.partnumberMax)
+            </div>
         </div>
+        <div class="twocol">
+            <div class="editor-label">
+                <label for="product">Product</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("product",String.Empty)
+                @Html.ValidationMessageFor(model => model.product)
+            </div>
+            <div class="editor-label">
+                <label for="subscriptionType">Subscription type</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("subscriptionType",String.Empty)
+                @Html.ValidationMessageFor(model => model.subscriptionType)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.instanceName)
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.instanceName)
-            @Html.ValidationMessageFor(model => model.instanceName)
+        <div class="twocol">
+            <div class="editor-label">
+                <label for="freeTrialStartDate">Free Trial Start Date</label>
+            </div>
+            <div class="editor-field">
+                @Html.Telerik().DatePickerFor(model => model.freeTrialStartDate)
+                @Html.ValidationMessageFor(model => model.freeTrialStartDate)
+            </div>
+            <div class="editor-label">
+                <label for="freeTrialEndDate">Free Trial End Date</label>
+            </div>
+            <div class="editor-field">
+                @Html.Telerik().DatePickerFor(model => model.freeTrialEndDate)
+                @Html.ValidationMessageFor(model => model.freeTrialEndDate)
+            </div>           
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.archivedDate)
+         <div class="twocol">
+            <div class="editor-label">
+                <label for="licenseStartDate">License Start Date</label>
+            </div>
+            <div class="editor-field">
+                @Html.Telerik().DatePickerFor(model => model.licenseStartDate)
+                @Html.ValidationMessageFor(model => model.licenseStartDate)
+            </div>
+            <div class="editor-label">
+                <label for="licenseEndDate">License End Date</label>
+            </div>
+            <div class="editor-field">
+                @Html.Telerik().DatePickerFor(model => model.licenseEndDate)
+                @Html.ValidationMessageFor(model => model.licenseEndDate)
+            </div>           
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.archivedDate)
-            @Html.ValidationMessageFor(model => model.archivedDate)
+        <div class="threecol">
+            <div class="editor-label">
+                <label for="monthlyFee">Monthly fee</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.monthlyFee)
+                @Html.ValidationMessageFor(model => model.monthlyFee)
+            </div>
+            <div class="editor-label">
+                <label for="subscriptionStatus">Subscription status</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("subscriptionStatus",string.Empty)
+                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+            </div>
+            <div class="editor-label">
+                <label for="multiTenantProjectType">Multitenant Project Type</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("multiTenantProjectType",string.Empty)
+                @Html.ValidationMessageFor(model => model.multiTenantProjectType)
+            </div>
         </div>
-
-        <p>
-            <input type="submit" value="Create" />
+        <div class="threecol">
+            <div class="editor-label">
+                <label for="systemExpiry">System Expiry</label>
+            </div>
+            <div class="editor-field">
+                @Html.Telerik().DatePickerFor(model => model.systemExpiry)
+                
+                @Html.ValidationMessageFor(model => model.systemExpiry)
+            </div>
+            <div class="editor-label">
+                <label for="licenseLimit">License Limit</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.licenseLimit)
+                @Html.ValidationMessageFor(model => model.licenseLimit)
+            </div>
+            <div class="editor-label">
+                <label for="companyWebSite">Company Web Site</label>
+            </div>
+            <div class="editor-field">
+               @Html.EditorFor(model => model.companyWebSite)
+                @Html.ValidationMessageFor(model => model.companyWebSite)
+            </div>
+        </div>
+       
+        <p style="float: right; width: 20%;">
+            <input type="submit" value="Save" class="btn" />
+            <input type="button" value="Clear" class="btn" id="btnClear" />
         </p>
     </fieldset>
 }
@@ -101,6 +302,6 @@
     @Html.ActionLink("Back to List", "Index")
 </div>*@
 
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+}

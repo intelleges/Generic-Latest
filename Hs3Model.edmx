@@ -7029,7 +7029,7 @@
           <Parameter Name="status" Type="int" Mode="In" />
           <Parameter Name="progress" Type="int" Mode="In" />
           <Parameter Name="zcode" Type="varchar" Mode="In" />
-          <Parameter Name="pdf" Type="varbinary" Mode="In" />
+          <Parameter Name="pdf" Type="varbinary(max)" Mode="In" />
           <Parameter Name="docFolderAddress" Type="varchar" Mode="In" />
           <Parameter Name="score" Type="decimal" Mode="In" />
           <Parameter Name="loadgroup" Type="varchar" Mode="In" />
@@ -12367,10 +12367,33 @@
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_checkPartnumberBadZcodeCountByZcode" ReturnType="Collection(Int32)">
-            <Parameter Name="zcode" Mode="In" Type="String" />
+          <Parameter Name="zcode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_checkPartnumberStatusCountByPPTQ" ReturnType="Collection(Int32)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addEnterprise2" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="logo" Mode="In" Type="Binary" />
+            <Parameter Name="applicationPath" Mode="In" Type="String" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="instanceName" Mode="In" Type="String" />
+            <Parameter Name="userMax" Mode="In" Type="Int32" />
+            <Parameter Name="partnerMax" Mode="In" Type="Int32" />
+            <Parameter Name="partnumberMax" Mode="In" Type="Int32" />
+            <Parameter Name="product" Mode="In" Type="Int32" />
+            <Parameter Name="subscriptionType" Mode="In" Type="Int32" />
+            <Parameter Name="freeTrialStartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="freeTrialEndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="licenseStartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="licenseEndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="monthlyFee" Mode="In" Type="Decimal" />
+            <Parameter Name="subscriptionStatus" Mode="In" Type="Int32" />
+            <Parameter Name="chargifyID" Mode="In" Type="String" />
+            <Parameter Name="archivedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="multiTenantProjectType" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -25479,7 +25502,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_addEnterprise1" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise" />
           <EntitySetMapping Name="confirmationSpreadsheetDataLoad">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.confirmationSpreadsheetDataLoad">
               <MappingFragment StoreEntitySet="confirmationSpreadsheetDataLoad">
@@ -25721,6 +25743,8 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_checkPartnumberBadZcodeCountByZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_checkPartnumberBadZcodeCountByZcode" />
           <FunctionImportMapping FunctionImportName="pr_checkPartnumberStatusCountByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_checkPartnumberStatusCountByPPTQ" />
+          <FunctionImportMapping FunctionImportName="pr_addEnterprise2" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise" />
+          <FunctionImportMapping FunctionImportName="pr_addEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
