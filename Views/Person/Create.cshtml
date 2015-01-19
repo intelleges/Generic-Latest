@@ -97,6 +97,10 @@
                 alertify.alert("campaign is required");
                 return false;
             }
+            if ($("#GroupId").val() == "") {
+                alertify.alert("group is required");
+                return false;
+            }
             </text>
             }
 
@@ -104,10 +108,7 @@
                 alertify.alert("role is required");
                 return false;
             }
-            if ($("#GroupId").val() == "") {
-                alertify.alert("group is required");
-                return false;
-            }
+            
         }
 
 
@@ -363,7 +364,8 @@
                 @Html.DropDownList("RoleId", null, String.Empty, new { @class = "ddlClass" })
                 @Html.ValidationMessageFor(model => model.RoleId)
             </div>
-
+             @if (!(ViewBag.enterpriseId is int))
+            {
             <div class="editor-label">
                 <label for="GroupId">Group</label>
             </div>
@@ -372,6 +374,7 @@
 
                 @Html.ValidationMessageFor(model => model.GroupId)
             </div>
+             }
         </div>
         @* <div class="threecol">
             <div class="editor-label">

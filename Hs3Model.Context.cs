@@ -14494,5 +14494,84 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterprise2", descriptionParameter, sortOrderParameter, activeParameter, logoParameter, applicationPathParameter, companyNameParameter, instanceNameParameter, userMaxParameter, partnerMaxParameter, partnumberMaxParameter, productParameter, subscriptionTypeParameter, freeTrialStartDateParameter, freeTrialEndDateParameter, licenseStartDateParameter, licenseEndDateParameter, monthlyFeeParameter, subscriptionStatusParameter, chargifyIDParameter, archivedDateParameter, multiTenantProjectTypeParameter);
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_bootstrapAgency(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_bootstrapAgency", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_bootstrapSystemMasterMenu(Nullable<int> role)
+        {
+            var roleParameter = role.HasValue ?
+                new ObjectParameter("role", role) :
+                new ObjectParameter("role", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_bootstrapSystemMasterMenu", roleParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_bootstrapProtocol(Nullable<int> enterprise, Nullable<int> person, Nullable<int> agency)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var agencyParameter = agency.HasValue ?
+                new ObjectParameter("agency", agency) :
+                new ObjectParameter("agency", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_bootstrapProtocol", enterpriseParameter, personParameter, agencyParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_bootstrapTouchpoint(Nullable<int> protocol, Nullable<int> person)
+        {
+            var protocolParameter = protocol.HasValue ?
+                new ObjectParameter("protocol", protocol) :
+                new ObjectParameter("protocol", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_bootstrapTouchpoint", protocolParameter, personParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_bootstrapRole(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_bootstrapRole", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_bootstrapGroup(Nullable<int> enterprise, Nullable<int> person)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_bootstrapGroup", enterpriseParameter, personParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_bootstrapPartnertype(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_bootstrapPartnertype", enterpriseParameter);
+        }
     }
 }

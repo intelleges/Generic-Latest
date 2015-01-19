@@ -5666,6 +5666,9 @@
         <Function Name="pr_archiveTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_bootstrapAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_bootstrapAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnertypetouchpointquestionnaire" Type="int" Mode="In" />
           <Parameter Name="companyName" Type="varchar" Mode="In" />
@@ -5676,12 +5679,34 @@
         <Function Name="pr_bootstrapEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_bootstrapGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_bootstrapPartnertype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_bootstrapProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="agency" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_bootstrapQuestionnaireCMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
           <Parameter Name="companyName" Type="varchar" Mode="In" />
           <Parameter Name="touchpointTitle" Type="varchar" Mode="In" />
           <Parameter Name="touchpointPurpose" Type="varchar(max)" Mode="In" />
           <Parameter Name="touchpointTarget" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_bootstrapRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_bootstrapSystemMasterMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="role" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_bootstrapTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="protocol" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_checkPartnumberBadZcodeCountByZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="zcode" Type="varchar" Mode="In" />
@@ -12394,6 +12419,31 @@
             <Parameter Name="chargifyID" Mode="In" Type="String" />
             <Parameter Name="archivedDate" Mode="In" Type="DateTime" />
             <Parameter Name="multiTenantProjectType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_bootstrapAgency" ReturnType="Collection(Decimal)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_bootstrapSystemMasterMenu" ReturnType="Collection(Int32)">
+          <Parameter Name="role" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_bootstrapProtocol" ReturnType="Collection(Decimal)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="agency" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_bootstrapTouchpoint" ReturnType="Collection(Decimal)">
+            <Parameter Name="protocol" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_bootstrapRole" ReturnType="Collection(Decimal)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_bootstrapGroup" ReturnType="Collection(Int32)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_bootstrapPartnertype" ReturnType="Collection(Decimal)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -25745,6 +25795,13 @@
           <FunctionImportMapping FunctionImportName="pr_checkPartnumberStatusCountByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_checkPartnumberStatusCountByPPTQ" />
           <FunctionImportMapping FunctionImportName="pr_addEnterprise2" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise" />
           <FunctionImportMapping FunctionImportName="pr_addEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterprise" />
+          <FunctionImportMapping FunctionImportName="pr_bootstrapAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapAgency" />
+          <FunctionImportMapping FunctionImportName="pr_bootstrapSystemMasterMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapSystemMasterMenu" />
+          <FunctionImportMapping FunctionImportName="pr_bootstrapProtocol" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapProtocol" />
+          <FunctionImportMapping FunctionImportName="pr_bootstrapTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapTouchpoint" />
+          <FunctionImportMapping FunctionImportName="pr_bootstrapRole" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapRole" />
+          <FunctionImportMapping FunctionImportName="pr_bootstrapGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapGroup" />
+          <FunctionImportMapping FunctionImportName="pr_bootstrapPartnertype" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapPartnertype" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -106,6 +106,9 @@ namespace Generic.Controllers
                         db.pr_addEnterpriseSystemInfo(enterprise.systemExpiry, enterprise.licenseLimit, enterprise.companyName, string.Empty, enterprise.companyWebSite, string.Empty, 1, string.Empty, false, SessionSingleton.EnterPriseId);
                         using (var context = new EntitiesDBContext())
                         {
+                            Session["pr_bootstrapAgencyId"] = context.pr_bootstrapAgency(SessionSingleton.EnterPriseId).FirstOrDefault();
+                            var roleId = context.pr_bootstrapRole(SessionSingleton.EnterPriseId).FirstOrDefault();
+                            var ptId = context.pr_bootstrapPartnertype(SessionSingleton.EnterPriseId).FirstOrDefault();
                             context.pr_bootstrapEnterprise(SessionSingleton.EnterPriseId);
                         }
                         ViewBag.saved = "true";

@@ -191,11 +191,11 @@ namespace Generic.Controllers
             {
                 ViewBag.enterpriseId = enterpriseId.Value;
                 ViewBag.enterprise = new SelectList(db.pr_getEnterpriseAll(), "id", "description", enterpriseId);
-                ViewBag.campaign = new SelectList(db.pr_getTouchpointAllByEnterprise(enterpriseId), "id", "description");
-                ViewBag.manager = new SelectList(db.pr_getPersonByEnterprise2(enterpriseId), "id", "FullName");
+                //ViewBag.campaign = new SelectList(db.pr_getTouchpointAllByEnterprise(1), "id", "description");
+                ViewBag.manager = new SelectList(db.pr_getPersonByEnterprise2(1), "id", "FullName");
 
-                ViewBag.state = new SelectList(db.pr_getStateAll(enterpriseId), "id", "name");
-                ViewBag.country = new SelectList(db.pr_getCountryAll(enterpriseId), "id", "name");
+                ViewBag.state = new SelectList(db.pr_getStateAll(1), "id", "name");
+                ViewBag.country = new SelectList(db.pr_getCountryAll(1), "id", "name");
                 ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise(enterpriseId), "id", "description");
                 ViewBag.GroupId = new SelectList(db.pr_getGroupByEnterprise(enterpriseId), "id", "name");
                 Session["inside"] = true;
@@ -227,14 +227,14 @@ namespace Generic.Controllers
                 interpriseId = person.enterprise;
                 isInside = true;
             }
-            ViewBag.campaign = new SelectList(db.pr_getTouchpointAllByEnterprise(interpriseId), "id", "description", person.campaign);
-            ViewBag.manager = new SelectList(db.pr_getPersonByEnterprise2(interpriseId), "id", "firstName", person.manager);
+            ViewBag.campaign = new SelectList(db.pr_getTouchpointAllByEnterprise(isInside ? 1 : interpriseId), "id", "description", person.campaign);
+            ViewBag.manager = new SelectList(db.pr_getPersonByEnterprise2(isInside ? 1 : interpriseId), "id", "firstName", person.manager);
 
-            ViewBag.state = new SelectList(db.pr_getStateAll(interpriseId), "id", "name", person.state);
-            ViewBag.country = new SelectList(db.pr_getCountryAll(interpriseId), "id", "name", person.country);
+            ViewBag.state = new SelectList(db.pr_getStateAll(isInside ? 1 : interpriseId), "id", "name", person.state);
+            ViewBag.country = new SelectList(db.pr_getCountryAll(isInside ? 1 : interpriseId), "id", "name", person.country);
 
-            ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise(interpriseId), "id", "description");
-            ViewBag.GroupId = new SelectList(db.pr_getGroupByEnterprise(interpriseId), "id", "name");
+            ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise( interpriseId), "id", "description");
+            ViewBag.GroupId = new SelectList(db.pr_getGroupByEnterprise( interpriseId), "id", "name");
 
             if (ModelState.IsValid)
             {
@@ -262,7 +262,19 @@ namespace Generic.Controllers
                     using (var context = new EntitiesDBContext())
                     {
                         context.pr_addPersonRole(person.id, person.RoleId);
-                        context.pr_addPersonGroup(person.GroupId, person.id);
+                                               
+                        if (isInside)
+                        {
+                            var menuCount = context.pr_bootstrapSystemMasterMenu(person.RoleId).FirstOrDefault();
+                            var protocol = context.pr_bootstrapProtocol(person.enterprise, person.id, int.Parse(Session["pr_bootstrapAgencyId"].ToString())).FirstOrDefault();
+                            var touchpoint = context.pr_bootstrapTouchpoint(int.Parse(protocol.ToString()), person.id).FirstOrDefault();
+                            var group = context.pr_bootstrapGroup(person.enterprise, person.id).FirstOrDefault();
+                            context.pr_modifyPersonTouchpoint(person.id, int.Parse(touchpoint.ToString()));
+                            context.pr_addPersonGroup(int.Parse(group.ToString()), person.id);
+                            var sysinfo = context.enterpriseSystemInfo.FirstOrDefault(o=>o.enterprise==person.enterprise);
+                            context.pr_modifyEnterpriseSystemInfo(sysinfo.id, sysinfo.systemExpiry, sysinfo.licenseLimit, sysinfo.companyName, person.FullName, sysinfo.companyWebSite, person.email, sysinfo.isCurrentDataBase, sysinfo.logoImage, sysinfo.configured, sysinfo.enterprise);
+                        }
+                        else context.pr_addPersonGroup(person.GroupId, person.id); 
                     }
                     //if (!isInside)
                     //{

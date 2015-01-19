@@ -23,6 +23,7 @@ using System.Web.UI;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
 using System.Text;
+using Generic.Helpers.Questionnaire;
 namespace Generic.Controllers
 {
     [Authorize]
@@ -1683,12 +1684,16 @@ namespace Generic.Controllers
                     var pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault();
                    
                     var pdf = db.pr_getPPTQpdf(pptq.id).FirstOrDefault();
-
+                    var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                    var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
+                    var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
                     if (pdf == null || pptq.progress==null)
                     {
                         //if pdf was deleted from db but questinnarie was completed then we created customized pdf again
-                        if (pptq.status == 8)
+                        if (pptq.status == 8 && cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONFIRMATION_PAGE_PREVIOUS_TEXT).FirstOrDefault().id).FirstOrDefault().link != null)
+                        {
                             Response.Redirect("~/Registration/Home/CustomizedPDFConfirmation");
+                        }
                         else
                             //otherwise redirect to standart pdf
                             Response.Redirect("~/Registration/Home/PDFConfirmation");

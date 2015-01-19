@@ -2068,7 +2068,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
 
-        protected ActionResult ViewPdf(object model)
+        protected ActionResult ViewPdf(object model, int pptqID)
         {
             // Create the iTextSharp document.
             Document pdfDoc = new Document();
@@ -2094,6 +2094,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
             memStream.Position = 0;
             memStream.Read(buf, 0, buf.Length);
 
+
+            var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptqID);
+            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, buf, quest.docFolderAddress, quest.score, quest.loadGroup);
+            
             // Send the binary data to the browser.
             return new BinaryContentResult(buf, "application/pdf");
         }
@@ -2169,7 +2173,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var find = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
             ViewBag.reslt2 = find;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var _partnerId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().partner;
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+            var _partnerId = pptq.partner;
             var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
             
@@ -2206,7 +2211,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
 
             ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
-            return ViewPdf(result);
+            return ViewPdf(result, pptq.id);
         }
 
         public ActionResult OrdersInHTML()
