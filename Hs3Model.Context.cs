@@ -14573,5 +14573,30 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_bootstrapPartnertype", enterpriseParameter);
         }
+    
+        public virtual int pr_addIndustryFocus(Nullable<int> industry, Nullable<int> focus, Nullable<int> enterprise, Nullable<bool> active, Nullable<int> partnertypetouchpointquestionnaire)
+        {
+            var industryParameter = industry.HasValue ?
+                new ObjectParameter("Industry", industry) :
+                new ObjectParameter("Industry", typeof(int));
+    
+            var focusParameter = focus.HasValue ?
+                new ObjectParameter("focus", focus) :
+                new ObjectParameter("focus", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var partnertypetouchpointquestionnaireParameter = partnertypetouchpointquestionnaire.HasValue ?
+                new ObjectParameter("partnertypetouchpointquestionnaire", partnertypetouchpointquestionnaire) :
+                new ObjectParameter("partnertypetouchpointquestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addIndustryFocus", industryParameter, focusParameter, enterpriseParameter, activeParameter, partnertypetouchpointquestionnaireParameter);
+        }
     }
 }

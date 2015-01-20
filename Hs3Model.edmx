@@ -4847,6 +4847,13 @@
           <Parameter Name="device" Type="int" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addIndustryFocus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Industry" Type="int" Mode="In" />
+          <Parameter Name="focus" Type="int" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+          <Parameter Name="partnertypetouchpointquestionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="object" Type="varchar" Mode="In" />
           <Parameter Name="username" Type="varchar" Mode="In" />
@@ -12443,7 +12450,14 @@
             <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_bootstrapPartnertype" ReturnType="Collection(Decimal)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addIndustryFocus">
+            <Parameter Name="Industry" Mode="In" Type="Int32" />
+            <Parameter Name="focus" Mode="In" Type="Int32" />
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="partnertypetouchpointquestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -25802,6 +25816,7 @@
           <FunctionImportMapping FunctionImportName="pr_bootstrapRole" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapRole" />
           <FunctionImportMapping FunctionImportName="pr_bootstrapGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapGroup" />
           <FunctionImportMapping FunctionImportName="pr_bootstrapPartnertype" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapPartnertype" />
+          <FunctionImportMapping FunctionImportName="pr_addIndustryFocus" FunctionName="hs3MVCMTQa2Model.Store.pr_addIndustryFocus" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
