@@ -90,8 +90,12 @@
                                 <p class="site-title">
                                     @*@Url.Content(" ~ />Admin/Home")*@
                                     @* <a id="IntellegesLogoHref" href="">@Html.Action("IntellegesLogo", "Admin") </a>*@
-                                    <a id="IntellegesLogoHref" style="padding-left:25px;" href="#">@Html.Action("InstanceLogo", "Admin")
+                                    <a id="IntellegesLogoHref"  href="#">@Html.Action("InstanceLogo", "Admin")
                                     </a>
+                                    <form id="selectlogoForm" enctype="multipart/form-data">
+                                        <input type="file" id="selectlogo" style="display:none;"/>
+                                    </form>
+                                    
                                 </p>
                             </div>
 
@@ -257,8 +261,31 @@
         jQuery.noConflict();
         jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
         $(document).ready(function () {
+            //logo uploading
+            $("#selectlogoForm").submit(function (e) {
+                var file_data = $('#selectlogo').prop('files')[0];
+                var form_data = new FormData();
+                form_data.append('uploadLogo', file_data);
+                $.ajax({
+                    url: '../Admin/UploadLogo/',
+                    type: 'POST',
+                    data: form_data,
+                    processData: false,
+                    contentType: false,
+                    cache:false
+                }).done(function (data) {
+                    if (data) {
+                        $('#IntellegesLogoHref').html(data);
+                    }
+                });
+                e.preventDefault();
+            });
+            $("#selectlogo").change(function (e) {
+                //submit form if the file selected
+                $("#selectlogoForm").submit();
+            });
             $('#IntellegesLogoHref').click(function () {
-                alertify.set({
+                @*alertify.set({
                     labels: {
                         ok: "No",
                         cancel: "Yes"
@@ -274,7 +301,13 @@
                         // user clicked "cancel"
                         window.location.replace("https://intelleges.com");
                     }
+                });*@
+                alertify.confirm("Would you like to upload new logo?", function (result) {
+                    if (result) {
+                        $("#selectlogo").click();
+                    }
                 });
+                
             });
         });
 

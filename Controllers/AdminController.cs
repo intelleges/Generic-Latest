@@ -808,6 +808,81 @@ namespace Generic.Controllers
             IEnumerable<MenuModel> menuModel = menuOperation.GetAllParentMenu();
             return PartialView("_MenuPartial", menuModel);
         }
+        public virtual ActionResult UploadLogo(HttpPostedFileBase uploadLogo)
+        {
+            var fileFullPath = "";
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            if (uploadLogo != null)
+            {                
+                if (enterprise != null)
+                {
+                    byte[] uploadedFile = new byte[uploadLogo.InputStream.Length];
+                    uploadLogo.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+                    enterprise.logo = uploadedFile;
+
+
+                    if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
+                    }
+
+                    if (!Directory.Exists((Server.MapPath("~/uploadedFiles/EnterpriseLogo"))))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/uploadedFiles/EnterpriseLogo"));
+                    }
+
+                    // db.pr_addEnterpriseSystemInfo(
+                    var file = uploadLogo;
+
+                    // Some browsers send file names with full path. This needs to be stripped.
+                    var fileName = Path.GetFileName(file.FileName);
+                    fileFullPath = Path.Combine(Server.MapPath("~/uploadedFiles/EnterpriseLogo"), fileName);
+
+
+                    file.SaveAs(fileFullPath);
+
+                    enterprise.applicationPath = fileFullPath;
+                    db.Entry(enterprise).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();                    
+                }
+            }
+            if (enterprise.logo == null)
+            {
+                var enterpriseIntelleges = db.pr_getEnterprise(1).FirstOrDefault();
+                return PartialView("_InstanceLogoPartial", enterpriseIntelleges);
+            }
+            else
+            {
+                return PartialView("_InstanceLogoPartial", enterprise);
+            }
+        }
+        protected string RenderActionResultToString(ActionResult result)
+        {
+            // Create memory writer.
+            var sb = new StringBuilder();
+            var memWriter = new StringWriter(sb);
+
+            // Create fake http context to render the view.
+            var fakeResponse = new HttpResponse(memWriter);
+            var fakeContext = new HttpContext(System.Web.HttpContext.Current.Request,
+                fakeResponse);
+            var fakeControllerContext = new ControllerContext(
+                new HttpContextWrapper(fakeContext),
+                this.ControllerContext.RouteData,
+                this.ControllerContext.Controller);
+            var oldContext = System.Web.HttpContext.Current;
+            System.Web.HttpContext.Current = fakeContext;
+
+            // Render the view.
+            result.ExecuteResult(fakeControllerContext);
+
+            // Restore old context.
+            System.Web.HttpContext.Current = oldContext;
+
+            // Flush memory and return output.
+            memWriter.Flush();
+            return sb.ToString();
+        }
 
         public virtual ActionResult InstanceLogo()
         {
