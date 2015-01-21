@@ -46,7 +46,11 @@
         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF('@item.status','@item.AccessCode')">Print PDF</a></li>
         
         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintHTML('@item.status','@item.AccessCode')">Print HTML</a></li>
-             
+        @if(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
+            
+        { 
+            <li ><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
+        }
     </ul>
 </div>
 </text>);

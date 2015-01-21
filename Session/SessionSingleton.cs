@@ -117,6 +117,13 @@ namespace Generic.SessionClass
                 else return false;
             }
         }
+        public static bool ShouldDisplayMenuBAAFull
+        {
+            get
+            {
+                return Generic.Helpers.CurrentInstance.MultiTenantProjectType == 2 && LoggedInUserRole == 1383 && Generic.Helpers.CurrentInstance.EnterpriseID == 2;
+            }
+        }
 
         public static int PTQ
         {

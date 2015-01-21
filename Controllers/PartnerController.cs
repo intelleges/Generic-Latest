@@ -2020,7 +2020,7 @@ namespace Generic.Controllers
         {
             
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-            var result = "Reminder sent to " + pptq.partner1.name + " with access code " + accessCode ;
+            var result = "Congratulations, you have just sent a reminder to " + pptq.partner1.name + " with access code " + accessCode;
             if (pptq != null)
             {
                 if (new int[] { 6, 7 }.Contains(pptq.status))
