@@ -1,0 +1,261 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.campaignRule>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = ViewBag.Project + "Admin";
+}
+
+<h2>Create Campaign Rule</h2>
+<style type="text/css">
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .twocol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .twocol .editor-field {
+        width: 35%;
+        display: inline-block;
+    }
+
+    .threecol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .threecol .editor-field {
+        width: 20%;
+        display: inline-block;
+    }
+
+        .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+            width: 90%;
+            display: inline-block;
+            font-size: 11px;
+        }
+
+    .txtClass {
+        border-radius: 5px;
+    }
+
+    .ddlClass {
+        height: 25px;
+        width: 96% !important;
+        border-radius: 5px;
+    }
+
+    #DueDate {
+        border-radius: 5px;
+        height: 18px;
+    }
+
+
+    .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 20px;
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
+    }
+
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>campaignRule</legend>
+        <div class="threecol">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.campaign, "Campaign")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.campaign, (SelectList)ViewBag.campaign, "<select campaign>")
+                @Html.ValidationMessageFor(model => model.campaign)
+            </div>
+            <div class="editor-label">
+                @*@Html.LabelFor(model => model.initTestBool, "")*@
+            </div>
+            <div class="editor-field">
+                <label>
+                @Html.CheckBoxFor(model => model.initTestBool, new { @style="width:20px;" })
+                    Init test</label>
+                
+                @Html.ValidationMessageFor(model => model.initTestBool)
+            </div>
+            <div class="editor-label">
+                @*@Html.LabelFor(model => model.straightline)*@
+            </div>
+            <div class="editor-field">
+                <label>
+                @Html.CheckBoxFor(model => model.straightline, new { @style="width:20px;" })
+                Straight line</label>
+                @Html.ValidationMessageFor(model => model.straightline)
+            </div>
+        </div>
+        <h3>Current</h3>
+        <div class="twocol">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.parnerTypeCurrent, "Partner type")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.parnerTypeCurrent, (SelectList)ViewBag.parnerType, "<select partner type>")
+                @Html.ValidationMessageFor(model => model.parnerTypeCurrent)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.touchpointCurrent, "Touchpoint")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.touchpointCurrent, (SelectList)ViewBag.touchpoint, "<select touchpoint>")
+                @Html.ValidationMessageFor(model => model.touchpointCurrent)
+            </div>
+        </div>
+        <br />
+        <div class="twocol">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.statusLogic,"Status Logic")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.statusLogic, (SelectList)ViewBag.logicList, "<select logic>")
+            @Html.ValidationMessageFor(model => model.statusLogic)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.status,"Status")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.status, (SelectList)ViewBag.status, "<select status>")
+                @Html.ValidationMessageFor(model => model.status)
+            </div>
+        </div>
+        <div class="twocol">
+            <div class="editor-label">
+            @Html.LabelFor(model => model.scoreLogic,"Score Logic")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.scoreLogic, (SelectList)ViewBag.logicList, "<select logic>")
+            @Html.ValidationMessageFor(model => model.scoreLogic)
+        </div>
+             <div class="editor-label">
+            @Html.LabelFor(model => model.score,"Score")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.score)
+            @Html.ValidationMessageFor(model => model.score)
+        </div>
+        </div>
+        <div class="twocol">
+            <div class="editor-label">
+            @Html.LabelFor(model => model.responseIntervalLogic,"Response interval Logic")
+        </div>
+        <div class="editor-field">
+           @Html.DropDownListFor(model => model.responseIntervalLogic, (SelectList)ViewBag.logicList, "<select logic>")
+            @Html.ValidationMessageFor(model => model.responseIntervalLogic)
+        </div>
+            <div class="editor-label">
+            @Html.LabelFor(model => model.responseInterval,"Response interval")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.responseInterval)
+            @Html.ValidationMessageFor(model => model.responseInterval)
+        </div>
+        </div>
+        <div class="twocol">
+             <div class="editor-label">
+            @Html.LabelFor(model => model.delayIntervalLogic,"Delay interval Logic")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.delayIntervalLogic, (SelectList)ViewBag.logicList, "<select logic>")
+            @Html.ValidationMessageFor(model => model.delayIntervalLogic)
+        </div>
+            <div class="editor-label">
+            @Html.LabelFor(model => model.delayInterval,"Delay interval")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.delayInterval)
+            @Html.ValidationMessageFor(model => model.delayInterval)
+        </div>
+
+       
+        </div>
+        <h3>Next Current</h3>
+        <div class="twocol">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.parnerTypeNext, "Partner type")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.parnerTypeNext, (SelectList)ViewBag.parnerType, "<select partner type>")
+                @Html.ValidationMessageFor(model => model.parnerTypeNext)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.touchpointNext, "Touchpoint")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.touchpointNext, (SelectList)ViewBag.touchpoint, "<select touchpoint>")
+                @Html.ValidationMessageFor(model => model.touchpointNext)
+            </div>
+        </div>
+
+        <p style="float: right; width: 20%;">
+            <input type="submit" value="Save" class="btn" />
+            <input type="button" value="Clear" class="btn" id="btnClear" />
+        </p>
+    </fieldset>
+}
+
+
+<script>
+    $(document).ready(function () {
+        $("#btnClear").click(function () {
+            $("#touchpointNext").val("");
+            $("#parnerTypeNext").val("");
+            $("#delayInterval").val("");
+            $("#delayIntervalLogic").val("");
+            $("#responseInterval").val("");
+            $("#responseIntervalLogic").val("");
+            $("#score").val("");
+            $("#scoreLogic").val("");
+            $("#status").val("");
+            $("#statusLogic").val("");
+            $("#touchpointCurrent").val("");
+            $("#parnerTypeCurrent").val("");
+            $("#straightline").val("");
+            $("#initTestBool").val("");
+            $("#campaign").val("");            
+        });
+        var message = "@ViewBag.message";
+        if (message) {
+            alertify.alert(message);
+            if(!@ViewBag.error)
+            $("#btnClear").click();
+        }
+    });
+</script>
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+}

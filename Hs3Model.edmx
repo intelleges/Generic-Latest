@@ -13,6 +13,8 @@
           <EntitySet Name="automailMessagePPTQ" EntityType="hs3MVCMTQa2Model.Store.automailMessagePPTQ" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="autoMailType" EntityType="hs3MVCMTQa2Model.Store.autoMailType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="calendar" EntityType="hs3MVCMTQa2Model.Store.calendar" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="campaign" EntityType="hs3MVCMTQa2Model.Store.campaign" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="campaignRule" EntityType="hs3MVCMTQa2Model.Store.campaignRule" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="confirmationSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.Store.confirmationSpreadsheetDataLoad" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ConfirmPartnerActionType" EntityType="hs3MVCMTQa2Model.Store.ConfirmPartnerActionType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="country" EntityType="hs3MVCMTQa2Model.Store.country" store:Type="Tables" Schema="dbo" />
@@ -986,6 +988,38 @@
           <Property Name="last_day_of_month" Type="date" />
           <Property Name="start_dts" Type="datetime" />
           <Property Name="end_dts" Type="datetime" />
+        </EntityType>
+        <EntityType Name="campaign">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="year" Type="int" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="protocol" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="campaignRule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="campaign" Type="int" Nullable="false" />
+          <Property Name="initTest" Type="int" Nullable="false" />
+          <Property Name="ptqCurrent" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="statusLogic" Type="int" Nullable="false" />
+          <Property Name="score" Type="int" Nullable="false" />
+          <Property Name="scoreLogic" Type="int" Nullable="false" />
+          <Property Name="responseInterval" Type="int" Nullable="false" />
+          <Property Name="responseIntervalLogic" Type="int" Nullable="false" />
+          <Property Name="straightline" Type="bit" Nullable="false" />
+          <Property Name="delayInterval" Type="int" Nullable="false" />
+          <Property Name="delayIntervalLogic" Type="int" Nullable="false" />
+          <Property Name="ptqNext" Type="int" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="confirmationSpreadsheetDataLoad">
           <Key>
@@ -4686,6 +4720,25 @@
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addCampaign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+          <Parameter Name="protocol" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addCampaignRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="campaign" Type="int" Mode="In" />
+          <Parameter Name="ptqCurrent" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+          <Parameter Name="score" Type="int" Mode="In" />
+          <Parameter Name="responseInterval" Type="time" Mode="In" />
+          <Parameter Name="straightline" Type="bit" Mode="In" />
+          <Parameter Name="delayInterval" Type="int" Mode="In" />
+          <Parameter Name="ptqNext" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addConfirmationSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq_A" Type="int" Mode="In" />
           <Parameter Name="pptq_B_Reference" Type="int" Mode="In" />
@@ -6008,6 +6061,7 @@
         <Function Name="pr_getLanguageinfoAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getLogicAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -12459,6 +12513,28 @@
             <Parameter Name="active" Mode="In" Type="Boolean" />
             <Parameter Name="partnertypetouchpointquestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="campaign" EntityType="hs3MVCMTQa2Model.campaign" />
+          <EntitySet Name="campaignRule" EntityType="hs3MVCMTQa2Model.campaignRule" />
+          <FunctionImport Name="pr_addCampaign" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="protocol" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addCampaignRule">
+            <Parameter Name="campaign" Mode="In" Type="Int32" />
+            <Parameter Name="ptqCurrent" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="score" Mode="In" Type="Int32" />
+            <Parameter Name="responseInterval" Mode="In" Type="Time" />
+            <Parameter Name="straightline" Mode="In" Type="Boolean" />
+            <Parameter Name="delayInterval" Mode="In" Type="Int32" />
+            <Parameter Name="ptqNext" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getLogicAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLogicAll_Result)" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -19830,6 +19906,44 @@
           <Property Type="Int32" Name="enterprise" Nullable="true" />
           <Property Type="Int32" Name="access" Nullable="true" />
         </ComplexType>
+        <EntityType Name="campaign">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="year" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="Int32" Name="protocol" Nullable="false" />
+        </EntityType>
+        <EntityType Name="campaignRule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="campaign" Nullable="false" />
+          <Property Type="Int32" Name="initTest" Nullable="false" />
+          <Property Type="Int32" Name="ptqCurrent" Nullable="false" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="Int32" Name="statusLogic" Nullable="false" />
+          <Property Type="Int32" Name="score" Nullable="false" />
+          <Property Type="Int32" Name="scoreLogic" Nullable="false" />
+          <Property Type="Int32" Name="responseInterval" Nullable="false" />
+          <Property Type="Int32" Name="responseIntervalLogic" Nullable="false" />
+          <Property Type="Boolean" Name="straightline" Nullable="false" />
+          <Property Type="Int32" Name="delayInterval" Nullable="false" />
+          <Property Type="Int32" Name="delayIntervalLogic" Nullable="false" />
+          <Property Type="Int32" Name="ptqNext" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getLogicAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -25817,6 +25931,52 @@
           <FunctionImportMapping FunctionImportName="pr_bootstrapGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapGroup" />
           <FunctionImportMapping FunctionImportName="pr_bootstrapPartnertype" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapPartnertype" />
           <FunctionImportMapping FunctionImportName="pr_addIndustryFocus" FunctionName="hs3MVCMTQa2Model.Store.pr_addIndustryFocus" />
+          <EntitySetMapping Name="campaign">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.campaign">
+              <MappingFragment StoreEntitySet="campaign">
+                <ScalarProperty Name="protocol" ColumnName="protocol" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="campaignRule">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.campaignRule">
+              <MappingFragment StoreEntitySet="campaignRule">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="ptqNext" ColumnName="ptqNext" />
+                <ScalarProperty Name="delayIntervalLogic" ColumnName="delayIntervalLogic" />
+                <ScalarProperty Name="delayInterval" ColumnName="delayInterval" />
+                <ScalarProperty Name="straightline" ColumnName="straightline" />
+                <ScalarProperty Name="responseIntervalLogic" ColumnName="responseIntervalLogic" />
+                <ScalarProperty Name="responseInterval" ColumnName="responseInterval" />
+                <ScalarProperty Name="scoreLogic" ColumnName="scoreLogic" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="statusLogic" ColumnName="statusLogic" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="ptqCurrent" ColumnName="ptqCurrent" />
+                <ScalarProperty Name="initTest" ColumnName="initTest" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addCampaign" FunctionName="hs3MVCMTQa2Model.Store.pr_addCampaign" />
+          <FunctionImportMapping FunctionImportName="pr_addCampaignRule" FunctionName="hs3MVCMTQa2Model.Store.pr_addCampaignRule" />
+          <FunctionImportMapping FunctionImportName="pr_getLogicAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getLogicAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getLogicAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

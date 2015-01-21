@@ -265,6 +265,8 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLinkedinAuthInfo_person" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_pptqAutoMailMessageLog_autoMailMessage" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_pptqAutoMailMessageLog_partnerPartnertypeTouchpointQuestionnaire" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.campaign" Width="1.5" PointX="1.3948449405817525" PointY="8.72879816998206" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.campaignRule" Width="1.5" PointX="1.8146332659826769" PointY="7.7823144829749662" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

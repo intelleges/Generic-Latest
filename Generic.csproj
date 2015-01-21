@@ -446,6 +446,12 @@
     <Compile Include="calendar.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="campaign.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="campaignRule.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="confirmationSpreadsheetDataLoad.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -457,6 +463,8 @@
     <Compile Include="Controllers\AutoMailMessageController.cs" />
     <Compile Include="Controllers\AutoMailMessagesController.cs" />
     <Compile Include="Controllers\AutoMailTypeController.cs" />
+    <Compile Include="Controllers\CampaignController.cs" />
+    <Compile Include="Controllers\CampaignRuleController.cs" />
     <Compile Include="Controllers\DomainController.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
@@ -604,6 +612,8 @@
     <Compile Include="menuGroup.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\campaign.cs" />
+    <Compile Include="Models\campaignRule.cs" />
     <Compile Include="Models\ComboBox.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
     <Compile Include="Models\enterprise.extension.cs" />
@@ -981,6 +991,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getLanguage_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getLogicAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getMenuAll_Result.cs">
@@ -2956,6 +2969,8 @@
     <Content Include="Views\Touchpoint\EventNotification.cshtml" />
     <Content Include="Views\Questionnaire\QuestionnaireQuestionnaireAutoMail.cshtml" />
     <EmbeddedResource Include="Views\Admin\ChangePassword.cshtml" />
+    <Content Include="Views\Campaign\Create.cshtml" />
+    <Content Include="Views\CampaignRule\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

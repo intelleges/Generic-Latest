@@ -178,6 +178,8 @@ namespace Generic
         public DbSet<confirmationSpreadsheetDataLoad> confirmationSpreadsheetDataLoad { get; set; }
         public DbSet<view_QuestionnaireCMS> view_QuestionnaireCMS { get; set; }
         public DbSet<personLinkedinAuthInfo> personLinkedinAuthInfo { get; set; }
+        public DbSet<campaign> campaign { get; set; }
+        public DbSet<campaignRule> campaignRule { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -14597,6 +14599,81 @@ namespace Generic
                 new ObjectParameter("partnertypetouchpointquestionnaire", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addIndustryFocus", industryParameter, focusParameter, enterpriseParameter, activeParameter, partnertypetouchpointquestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addCampaign(string description, Nullable<int> year, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> protocol)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var protocolParameter = protocol.HasValue ?
+                new ObjectParameter("protocol", protocol) :
+                new ObjectParameter("protocol", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaign", descriptionParameter, yearParameter, sortOrderParameter, activeParameter, protocolParameter);
+        }
+    
+        public virtual int pr_addCampaignRule(Nullable<int> campaign, Nullable<int> ptqCurrent, Nullable<int> status, Nullable<int> score, Nullable<System.TimeSpan> responseInterval, Nullable<bool> straightline, Nullable<int> delayInterval, Nullable<int> ptqNext, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var campaignParameter = campaign.HasValue ?
+                new ObjectParameter("campaign", campaign) :
+                new ObjectParameter("campaign", typeof(int));
+    
+            var ptqCurrentParameter = ptqCurrent.HasValue ?
+                new ObjectParameter("ptqCurrent", ptqCurrent) :
+                new ObjectParameter("ptqCurrent", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var scoreParameter = score.HasValue ?
+                new ObjectParameter("score", score) :
+                new ObjectParameter("score", typeof(int));
+    
+            var responseIntervalParameter = responseInterval.HasValue ?
+                new ObjectParameter("responseInterval", responseInterval) :
+                new ObjectParameter("responseInterval", typeof(System.TimeSpan));
+    
+            var straightlineParameter = straightline.HasValue ?
+                new ObjectParameter("straightline", straightline) :
+                new ObjectParameter("straightline", typeof(bool));
+    
+            var delayIntervalParameter = delayInterval.HasValue ?
+                new ObjectParameter("delayInterval", delayInterval) :
+                new ObjectParameter("delayInterval", typeof(int));
+    
+            var ptqNextParameter = ptqNext.HasValue ?
+                new ObjectParameter("ptqNext", ptqNext) :
+                new ObjectParameter("ptqNext", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addCampaignRule", campaignParameter, ptqCurrentParameter, statusParameter, scoreParameter, responseIntervalParameter, straightlineParameter, delayIntervalParameter, ptqNextParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getLogicAll_Result> pr_getLogicAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLogicAll_Result>("pr_getLogicAll");
         }
     }
 }
