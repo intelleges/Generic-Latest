@@ -14626,7 +14626,12 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaign", descriptionParameter, yearParameter, sortOrderParameter, activeParameter, protocolParameter);
         }
     
-        public virtual int pr_addCampaignRule(Nullable<int> campaign, Nullable<int> ptqCurrent, Nullable<int> status, Nullable<int> score, Nullable<System.TimeSpan> responseInterval, Nullable<bool> straightline, Nullable<int> delayInterval, Nullable<int> ptqNext, Nullable<int> sortOrder, Nullable<bool> active)
+        public virtual ObjectResult<pr_getLogicAll_Result> pr_getLogicAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLogicAll_Result>("pr_getLogicAll");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addCampaignRule(Nullable<int> campaign, Nullable<int> ptqCurrent, Nullable<int> status, Nullable<int> score, Nullable<int> responseInterval, Nullable<bool> straightline, Nullable<int> delayInterval, Nullable<int> ptqNext, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var campaignParameter = campaign.HasValue ?
                 new ObjectParameter("campaign", campaign) :
@@ -14646,7 +14651,7 @@ namespace Generic
     
             var responseIntervalParameter = responseInterval.HasValue ?
                 new ObjectParameter("responseInterval", responseInterval) :
-                new ObjectParameter("responseInterval", typeof(System.TimeSpan));
+                new ObjectParameter("responseInterval", typeof(int));
     
             var straightlineParameter = straightline.HasValue ?
                 new ObjectParameter("straightline", straightline) :
@@ -14668,12 +14673,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addCampaignRule", campaignParameter, ptqCurrentParameter, statusParameter, scoreParameter, responseIntervalParameter, straightlineParameter, delayIntervalParameter, ptqNextParameter, sortOrderParameter, activeParameter);
-        }
-    
-        public virtual ObjectResult<pr_getLogicAll_Result> pr_getLogicAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLogicAll_Result>("pr_getLogicAll");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaignRule", campaignParameter, ptqCurrentParameter, statusParameter, scoreParameter, responseIntervalParameter, straightlineParameter, delayIntervalParameter, ptqNextParameter, sortOrderParameter, activeParameter);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Generic.Controllers
                     var parnerTypeCurrent = db.pr_getPartnerType(model.parnerTypeCurrent).FirstOrDefault();
                     var touchpointNext = db.pr_getTouchpoint(model.touchpointNext).FirstOrDefault();
                     var touchpointCurrent = db.pr_getTouchpoint(model.touchpointCurrent).FirstOrDefault();
-                    db.pr_addCampaignRule(model.campaign, current.id, model.status, model.score, TimeSpan.FromDays(model.responseInterval), model.straightline, model.delayInterval, next.id, null, true);
+                    db.pr_addCampaignRule(model.campaign, current.id, model.status, model.score, model.responseInterval, model.straightline, model.delayInterval, next.id, 1, true);
                     ViewBag.message = string.Format("Congratulations you have successfully added campaign rule that sequences from (current) {0} for {1} to (next) {2} for {3}", parnerTypeCurrent.name, touchpointCurrent.description, parnerTypeNext.name, touchpointNext.description);
                 }
                 else

@@ -4732,7 +4732,7 @@
           <Parameter Name="ptqCurrent" Type="int" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
           <Parameter Name="score" Type="int" Mode="In" />
-          <Parameter Name="responseInterval" Type="time" Mode="In" />
+          <Parameter Name="responseInterval" Type="int" Mode="In" />
           <Parameter Name="straightline" Type="bit" Mode="In" />
           <Parameter Name="delayInterval" Type="int" Mode="In" />
           <Parameter Name="ptqNext" Type="int" Mode="In" />
@@ -12522,19 +12522,19 @@
             <Parameter Name="active" Mode="In" Type="Boolean" />
             <Parameter Name="protocol" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_addCampaignRule">
+          <FunctionImport Name="pr_getLogicAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLogicAll_Result)" />
+          <FunctionImport Name="pr_addCampaignRule" ReturnType="Collection(Decimal)">
             <Parameter Name="campaign" Mode="In" Type="Int32" />
             <Parameter Name="ptqCurrent" Mode="In" Type="Int32" />
             <Parameter Name="status" Mode="In" Type="Int32" />
             <Parameter Name="score" Mode="In" Type="Int32" />
-            <Parameter Name="responseInterval" Mode="In" Type="Time" />
+            <Parameter Name="responseInterval" Mode="In" Type="Int32" />
             <Parameter Name="straightline" Mode="In" Type="Boolean" />
             <Parameter Name="delayInterval" Mode="In" Type="Int32" />
             <Parameter Name="ptqNext" Mode="In" Type="Int32" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <FunctionImport Name="pr_getLogicAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLogicAll_Result)" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -25966,7 +25966,6 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addCampaign" FunctionName="hs3MVCMTQa2Model.Store.pr_addCampaign" />
-          <FunctionImportMapping FunctionImportName="pr_addCampaignRule" FunctionName="hs3MVCMTQa2Model.Store.pr_addCampaignRule" />
           <FunctionImportMapping FunctionImportName="pr_getLogicAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getLogicAll">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getLogicAll_Result">
@@ -25977,6 +25976,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_addCampaignRule" FunctionName="hs3MVCMTQa2Model.Store.pr_addCampaignRule" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
