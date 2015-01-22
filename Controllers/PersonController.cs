@@ -302,11 +302,23 @@ namespace Generic.Controllers
 
                             objamm.subject = "Intelleges Account Created";
                             //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
-                            objamm.text = @"Hello <b>[Receiver Full Name]</b>,<br><br>
+                            if (isInside)
+                                objamm.text = @"Hello <b>[User Email]</b>,<br><br><br>
+Congratulations. We have created your Intelleges Account.<br><br>
+Your user name is : [User Email]<br><br>
+Your current password is: [Temporary Access Code]<br><br>
+To access your intelleges.com account please click here <a href='[Project Url]'>[Project Url]</a>. <br><br>
+To change your existing password select Change Password once you log in.<br><br>
+To protect your privacy, we only send this information to the email address on file for this account. <br><br>
+If you have any questions, please contact your Account Administrator admin@intelleges.com.<br><br>
+Thank you.<br><br>
+Intelleges Team";
+                            else
+                                objamm.text = @"Hello <b>[Receiver Full Name]</b>,<br><br>
 Congratulations. Your Intelleges System Master <b>[System Master FullName]</b> has added you to the Intelleges [Touchpoint Title] Platform.<br>
 Your user name is : [User Email]<br>
 Your current password is: [Temporary Access Code]<br>
-To access your intelleges.com account please click here [Project Url].<br>
+To access your intelleges.com account please click here <a href='[Project Url]'>[Project Url]</a>.<br>
 To change your existing password select Change Password once you log in.<br>
 To protect your privacy, we only send this information to the email address on file for this account. <br>
 If you have any questions, please contact your Account Administrator [System Master Email].<br><br>
