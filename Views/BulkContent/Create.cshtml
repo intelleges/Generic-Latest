@@ -1,0 +1,295 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.bulkContent>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = ViewBag.Project + "Admin";
+}
+<style type="text/css">
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .twocol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .twocol .editor-field {
+        width: 35%;
+        display: inline-block;
+    }
+
+    .threecol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .threecol .editor-field {
+        width: 20%;
+        display: inline-block;
+    }
+
+        .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+            width: 90%;
+            display: inline-block;
+            font-size: 11px;
+        }
+
+    .txtClass {
+        border-radius: 5px;
+    }
+
+    .ddlClass {
+        height: 25px;
+        width: 96% !important;
+        border-radius: 5px;
+    }
+
+    #DueDate {
+        border-radius: 5px;
+        height: 18px;
+    }
+
+
+    .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 20px;
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
+    }
+
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+</style>
+<h2>Create bulk content</h2>
+
+<form action="/BulkContent/Create" method="post" novalidate="novalidate" enctype="multipart/form-data" encoding="multipart/form-data" id="bulkContentForm">
+    @Html.ValidationSummary(true)
+    
+    <fieldset>
+        <legend>bulkContent</legend>
+        <div class="twocol">
+            <div class="editor-label">
+            @Html.LabelFor(model=>model.Industry)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model=>model.Industry, (SelectList)ViewBag.Industry)
+            @Html.ValidationMessageFor(model=>model.Industry)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model=>model.Focus)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model=>model.Focus, (SelectList)ViewBag.Focus)
+            @Html.ValidationMessageFor(model=>model.Focus)
+        </div>
+        </div>
+        <div class="twocol">
+            <div class="editor-label">
+            @Html.LabelFor(model => model.PartnerTypeList, "Partner type")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.PartnerTypeList,(SelectList)ViewBag.PartnerTypeList)
+            @Html.ValidationMessageFor(model => model.PartnerTypeList)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TouchPointList, "Touchpoint")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.TouchPointList, (SelectList)ViewBag.TouchPointList)
+            @Html.ValidationMessageFor(model => model.TouchPointList)
+        </div>
+        </div>
+        <div class="threecol">
+            <div class="editor-label">
+          <label for="questionnaire">Select Questionnaire</label> 
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("questionnaireFile")
+        .Multiple(false).HtmlAttributes(new {data_val="true",data_val_required=" " })
+             )
+            @Html.ValidationMessage("questionnaireFile")
+        </div>
+              <div class="editor-label">
+          <label for="questionnaire">Select Questionnaire CMS</label> 
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("questionnaireCMSFile")
+        .Multiple(false).HtmlAttributes(new {data_val="true",data_val_required=" " })
+             )
+            @Html.ValidationMessage("questionnaireCMSFile")  
+        </div>
+              <div class="editor-label">
+          <label for="questionnaire">Select Invite Automail Message</label> 
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("automailMessageInviteFile")
+        .Multiple(false) .HtmlAttributes(new {data_val="true",data_val_required=" " })
+             )
+            @Html.ValidationMessage("automailMessageInviteFile")  
+        </div>
+        </div>
+        <div class="threecol">
+            <div class="editor-label">
+          <label for="questionnaire">Select AutomailMessage: Complete Confirmation</label> 
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("automailMessageCompleteConfirmation")
+        .Multiple(false)        
+             )           
+        </div>
+              <div class="editor-label">
+          <label for="questionnaire">AutomailMessage: Incomplete Reminder</label> 
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("automailMessageIncompleteReminder")
+        .Multiple(false)        
+             )           
+        </div>
+              <div class="editor-label">
+          <label for="questionnaire">AutomailMessage: 1st Reminder</label> 
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("automailMessageFirstReminder")
+        .Multiple(false)        
+             )           
+        </div>
+        </div>
+        <div class="threecol">
+            <div class="editor-label">
+          <label for="questionnaire">AutomailMessage: 2nd Reminder</label> 
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("automailMessageSecondReminder")
+        .Multiple(false)        
+             )           
+        </div>
+              <div class="editor-label">
+          <label for="questionnaire">AutomailMessage: 3rd Reminder</label> 
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("automailMessageThirdReminder")
+        .Multiple(false)        
+             )           
+        </div>
+              <div class="editor-label">
+          <label for="questionnaire">AutomailMessage: Overdue Reminder</label> 
+        </div>
+        <div class="editor-field">
+            @(Html.Telerik().Upload()
+        .Name("automailMessageOverdueReminder")
+        .Multiple(false)        
+             )           
+        </div>
+        </div>
+        
+
+        
+
+       <p style="float: right; width: 20%;">
+            <input type="submit" value="Save" class="btn" />
+            <input type="button" value="Clear" class="btn" id="btnClear" />
+        </p>
+    </fieldset>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $("#bulkContentForm").submit(function (e) {
+            $("#bulkContentForm input[type=file]").each(function (o) {
+                if (e.isDefaultPrevented()) {
+                    return;
+                }
+                if ($(this).parent().parent().children("ul").length==0) {
+                    alertify.alert("All files should be selected");
+                    e.preventDefault();
+                    //$(this).removeClass("valid");
+                   // $(this).addClass("input-validation-error");
+                    
+                }
+                //else {
+                //    $(this).removeClass("input-validation-error");
+                //    $(this).addClass("valid")
+                //}
+            });
+        });
+        var _loadFocus = function () {
+            $.get("GetFocusList?industry=" + $("#Industry").val()).done(function (data) {
+                if (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $("#Focus").append("<option value='" + data[i].id + "'>" + data[i].description + "</option>");
+                    }
+                    $("#Focus").attr("disabled", false);
+                }
+            });
+        }
+        _loadFocus();
+        $("#Industry").change(function (e) {
+            $("#Focus").empty();
+            if ($("#Industry").val()) {
+                _loadFocus();
+            }
+            else {               
+                $("#Focus").attr("disabled", true);
+            }
+        });
+
+        $("#btnClear").click(function () {
+            $("#touchpointNext").val("");
+            $("#parnerTypeNext").val("");
+            $("#delayInterval").val("");
+            $("#delayIntervalLogic").val("");
+            $("#responseInterval").val("");
+            $("#responseIntervalLogic").val("");
+            $("#score").val("");
+            $("#scoreLogic").val("");
+            $("#status").val("");
+            $("#statusLogic").val("");
+            $("#touchpointCurrent").val("");
+            $("#parnerTypeCurrent").val("");
+            $("#straightline").val("");
+            $("#initTestBool").val("");
+            $("#campaign").val("");            
+        });
+        var message = "@ViewBag.message";
+        if (message) {
+            alertify.alert(message);            
+        }
+    });
+</script>
+
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+}

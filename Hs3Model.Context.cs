@@ -180,6 +180,9 @@ namespace Generic
         public DbSet<personLinkedinAuthInfo> personLinkedinAuthInfo { get; set; }
         public DbSet<campaign> campaign { get; set; }
         public DbSet<campaignRule> campaignRule { get; set; }
+        public DbSet<bulkContent> bulkContent { get; set; }
+        public DbSet<focus> focus { get; set; }
+        public DbSet<industry> industry { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -14674,6 +14677,77 @@ namespace Generic
                 new ObjectParameter("active", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaignRule", campaignParameter, ptqCurrentParameter, statusParameter, scoreParameter, responseIntervalParameter, straightlineParameter, delayIntervalParameter, ptqNextParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addBulkContent(string partnertype, string touchpoint, byte[] questionnaire, byte[] questionnaireCMS, byte[] automailMessageInvite, byte[] automailMessageComplete, byte[] automailMessageIncomplete, byte[] automailMessageRemindOne, byte[] automailMessageRemindTwo, byte[] automailMessageRemindThree, byte[] automailMessageRemindPastDue, Nullable<int> sortOrder, Nullable<int> active)
+        {
+            var partnertypeParameter = partnertype != null ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(string));
+    
+            var touchpointParameter = touchpoint != null ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(string));
+    
+            var questionnaireParameter = questionnaire != null ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(byte[]));
+    
+            var questionnaireCMSParameter = questionnaireCMS != null ?
+                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
+                new ObjectParameter("questionnaireCMS", typeof(byte[]));
+    
+            var automailMessageInviteParameter = automailMessageInvite != null ?
+                new ObjectParameter("automailMessageInvite", automailMessageInvite) :
+                new ObjectParameter("automailMessageInvite", typeof(byte[]));
+    
+            var automailMessageCompleteParameter = automailMessageComplete != null ?
+                new ObjectParameter("automailMessageComplete", automailMessageComplete) :
+                new ObjectParameter("automailMessageComplete", typeof(byte[]));
+    
+            var automailMessageIncompleteParameter = automailMessageIncomplete != null ?
+                new ObjectParameter("automailMessageIncomplete", automailMessageIncomplete) :
+                new ObjectParameter("automailMessageIncomplete", typeof(byte[]));
+    
+            var automailMessageRemindOneParameter = automailMessageRemindOne != null ?
+                new ObjectParameter("automailMessageRemindOne", automailMessageRemindOne) :
+                new ObjectParameter("automailMessageRemindOne", typeof(byte[]));
+    
+            var automailMessageRemindTwoParameter = automailMessageRemindTwo != null ?
+                new ObjectParameter("automailMessageRemindTwo", automailMessageRemindTwo) :
+                new ObjectParameter("automailMessageRemindTwo", typeof(byte[]));
+    
+            var automailMessageRemindThreeParameter = automailMessageRemindThree != null ?
+                new ObjectParameter("automailMessageRemindThree", automailMessageRemindThree) :
+                new ObjectParameter("automailMessageRemindThree", typeof(byte[]));
+    
+            var automailMessageRemindPastDueParameter = automailMessageRemindPastDue != null ?
+                new ObjectParameter("automailMessageRemindPastDue", automailMessageRemindPastDue) :
+                new ObjectParameter("automailMessageRemindPastDue", typeof(byte[]));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addBulkContent", partnertypeParameter, touchpointParameter, questionnaireParameter, questionnaireCMSParameter, automailMessageInviteParameter, automailMessageCompleteParameter, automailMessageIncompleteParameter, automailMessageRemindOneParameter, automailMessageRemindTwoParameter, automailMessageRemindThreeParameter, automailMessageRemindPastDueParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getBulkContent_Result> pr_getBulkContent(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getBulkContent_Result>("pr_getBulkContent", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getBulkContentAll_Result> pr_getBulkContentAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getBulkContentAll_Result>("pr_getBulkContentAll");
         }
     }
 }

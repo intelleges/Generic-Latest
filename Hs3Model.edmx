@@ -12,6 +12,7 @@
           <EntitySet Name="autoMailMessage" EntityType="hs3MVCMTQa2Model.Store.autoMailMessage" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="automailMessagePPTQ" EntityType="hs3MVCMTQa2Model.Store.automailMessagePPTQ" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="autoMailType" EntityType="hs3MVCMTQa2Model.Store.autoMailType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="bulkContent" EntityType="hs3MVCMTQa2Model.Store.bulkContent" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="calendar" EntityType="hs3MVCMTQa2Model.Store.calendar" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="campaign" EntityType="hs3MVCMTQa2Model.Store.campaign" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="campaignRule" EntityType="hs3MVCMTQa2Model.Store.campaignRule" store:Type="Tables" Schema="dbo" />
@@ -32,11 +33,13 @@
           <EntitySet Name="eSignature" EntityType="hs3MVCMTQa2Model.Store.eSignature" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="eventNotification" EntityType="hs3MVCMTQa2Model.Store.eventNotification" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="eventNotificationBounce" EntityType="hs3MVCMTQa2Model.Store.eventNotificationBounce" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="focus" EntityType="hs3MVCMTQa2Model.Store.focus" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="group" EntityType="hs3MVCMTQa2Model.Store.group" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="groupCollection" EntityType="hs3MVCMTQa2Model.Store.groupCollection" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="groupOrgChart" EntityType="hs3MVCMTQa2Model.Store.groupOrgChart" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="groupRiskGoal" EntityType="hs3MVCMTQa2Model.Store.groupRiskGoal" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="hs3Menu_deprecated" EntityType="hs3MVCMTQa2Model.Store.hs3Menu_deprecated" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="industry" EntityType="hs3MVCMTQa2Model.Store.industry" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="key" EntityType="hs3MVCMTQa2Model.Store.key" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="language" EntityType="hs3MVCMTQa2Model.Store.language" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="languageInfo" EntityType="hs3MVCMTQa2Model.Store.languageInfo" store:Type="Tables" Schema="dbo" />
@@ -971,6 +974,25 @@
           <Property Name="active" Type="int" />
           <Property Name="oldId" Type="int" />
         </EntityType>
+        <EntityType Name="bulkContent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="partnertype" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="touchpoint" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="questionnaire" Type="varbinary(max)" Nullable="false" />
+          <Property Name="questionnaireCMS" Type="varbinary(max)" Nullable="false" />
+          <Property Name="automailMessageInvite" Type="varbinary(max)" Nullable="false" />
+          <Property Name="automailMessageComplete" Type="varbinary(max)" Nullable="false" />
+          <Property Name="automailMessageIncomplete" Type="varbinary(max)" Nullable="false" />
+          <Property Name="automailMessageRemindOne" Type="varbinary(max)" Nullable="false" />
+          <Property Name="automailMessageRemindTwo" Type="varbinary(max)" />
+          <Property Name="automailMessageRemindThree" Type="varbinary(max)" />
+          <Property Name="automailMessageRemindPastDue" Type="varbinary(max)" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="calendar">
           <Key>
             <PropertyRef Name="date_id" />
@@ -1227,6 +1249,15 @@
           <Property Name="email" Type="varchar" Nullable="false" MaxLength="255" />
           <Property Name="error" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="focus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="sortorder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="group">
           <Key>
             <PropertyRef Name="id" />
@@ -1294,6 +1325,15 @@
           <Property Name="isDynamicCreated" Type="bit" />
           <Property Name="device" Type="int" />
           <Property Name="enterprise" Type="int" />
+        </EntityType>
+        <EntityType Name="industry">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="key">
           <Key>
@@ -4720,6 +4760,21 @@
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addBulkContent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="varchar" Mode="In" />
+          <Parameter Name="touchpoint" Type="varchar" Mode="In" />
+          <Parameter Name="questionnaire" Type="varbinary" Mode="In" />
+          <Parameter Name="questionnaireCMS" Type="varbinary" Mode="In" />
+          <Parameter Name="automailMessageInvite" Type="varbinary" Mode="In" />
+          <Parameter Name="automailMessageComplete" Type="varbinary" Mode="In" />
+          <Parameter Name="automailMessageIncomplete" Type="varbinary" Mode="In" />
+          <Parameter Name="automailMessageRemindOne" Type="varbinary" Mode="In" />
+          <Parameter Name="automailMessageRemindTwo" Type="varbinary" Mode="In" />
+          <Parameter Name="automailMessageRemindThree" Type="varbinary" Mode="In" />
+          <Parameter Name="automailMessageRemindPastDue" Type="varbinary" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addCampaign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
@@ -5882,6 +5937,10 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getAutoMailTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getBulkContent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getBulkContentAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getCalculatedCostForEnterpriseSubscription" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userCount" Type="int" Mode="In" />
           <Parameter Name="partnerCount" Type="int" Mode="In" />
@@ -12535,6 +12594,28 @@
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <EntitySet Name="bulkContent" EntityType="hs3MVCMTQa2Model.bulkContent" />
+          <FunctionImport Name="pr_addBulkContent" ReturnType="Collection(Decimal)">
+            <Parameter Name="partnertype" Mode="In" Type="String" />
+            <Parameter Name="touchpoint" Mode="In" Type="String" />
+            <Parameter Name="questionnaire" Mode="In" Type="Binary" />
+            <Parameter Name="questionnaireCMS" Mode="In" Type="Binary" />
+            <Parameter Name="automailMessageInvite" Mode="In" Type="Binary" />
+            <Parameter Name="automailMessageComplete" Mode="In" Type="Binary" />
+            <Parameter Name="automailMessageIncomplete" Mode="In" Type="Binary" />
+            <Parameter Name="automailMessageRemindOne" Mode="In" Type="Binary" />
+            <Parameter Name="automailMessageRemindTwo" Mode="In" Type="Binary" />
+            <Parameter Name="automailMessageRemindThree" Mode="In" Type="Binary" />
+            <Parameter Name="automailMessageRemindPastDue" Mode="In" Type="Binary" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getBulkContent" ReturnType="Collection(hs3MVCMTQa2Model.pr_getBulkContent_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getBulkContentAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getBulkContentAll_Result)" />
+          <EntitySet Name="focus" EntityType="hs3MVCMTQa2Model.focus" />
+          <EntitySet Name="industry" EntityType="hs3MVCMTQa2Model.industry" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -19944,6 +20025,75 @@
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <EntityType Name="bulkContent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="partnertype" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="touchpoint" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="questionnaire" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="Binary" Name="questionnaireCMS" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="Binary" Name="automailMessageInvite" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="Binary" Name="automailMessageComplete" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="Binary" Name="automailMessageIncomplete" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="Binary" Name="automailMessageRemindOne" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="Binary" Name="automailMessageRemindTwo" MaxLength="Max" FixedLength="false" />
+          <Property Type="Binary" Name="automailMessageRemindThree" MaxLength="Max" FixedLength="false" />
+          <Property Type="Binary" Name="automailMessageRemindPastDue" MaxLength="Max" FixedLength="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Int32" Name="active" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getBulkContent_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="partnertype" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="touchpoint" Nullable="false" MaxLength="100" />
+          <Property Type="Binary" Name="questionnaire" Nullable="false" />
+          <Property Type="Binary" Name="questionnaireCMS" Nullable="false" />
+          <Property Type="Binary" Name="automailMessageInvite" Nullable="false" />
+          <Property Type="Binary" Name="automailMessageComplete" Nullable="false" />
+          <Property Type="Binary" Name="automailMessageIncomplete" Nullable="false" />
+          <Property Type="Binary" Name="automailMessageRemindOne" Nullable="false" />
+          <Property Type="Binary" Name="automailMessageRemindTwo" Nullable="true" />
+          <Property Type="Binary" Name="automailMessageRemindThree" Nullable="true" />
+          <Property Type="Binary" Name="automailMessageRemindPastDue" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Int32" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getBulkContentAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="partnertype" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="touchpoint" Nullable="false" MaxLength="100" />
+          <Property Type="Binary" Name="questionnaire" Nullable="false" />
+          <Property Type="Binary" Name="questionnaireCMS" Nullable="false" />
+          <Property Type="Binary" Name="automailMessageInvite" Nullable="false" />
+          <Property Type="Binary" Name="automailMessageComplete" Nullable="false" />
+          <Property Type="Binary" Name="automailMessageIncomplete" Nullable="false" />
+          <Property Type="Binary" Name="automailMessageRemindOne" Nullable="false" />
+          <Property Type="Binary" Name="automailMessageRemindTwo" Nullable="true" />
+          <Property Type="Binary" Name="automailMessageRemindThree" Nullable="true" />
+          <Property Type="Binary" Name="automailMessageRemindPastDue" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Int32" Name="active" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="focus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="sortorder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </EntityType>
+        <EntityType Name="industry">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </EntityType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -25977,6 +26127,87 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_addCampaignRule" FunctionName="hs3MVCMTQa2Model.Store.pr_addCampaignRule" />
+          <EntitySetMapping Name="bulkContent">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.bulkContent">
+              <MappingFragment StoreEntitySet="bulkContent">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="automailMessageRemindPastDue" ColumnName="automailMessageRemindPastDue" />
+                <ScalarProperty Name="automailMessageRemindThree" ColumnName="automailMessageRemindThree" />
+                <ScalarProperty Name="automailMessageRemindTwo" ColumnName="automailMessageRemindTwo" />
+                <ScalarProperty Name="automailMessageRemindOne" ColumnName="automailMessageRemindOne" />
+                <ScalarProperty Name="automailMessageIncomplete" ColumnName="automailMessageIncomplete" />
+                <ScalarProperty Name="automailMessageComplete" ColumnName="automailMessageComplete" />
+                <ScalarProperty Name="automailMessageInvite" ColumnName="automailMessageInvite" />
+                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addBulkContent" FunctionName="hs3MVCMTQa2Model.Store.pr_addBulkContent" />
+          <FunctionImportMapping FunctionImportName="pr_getBulkContent" FunctionName="hs3MVCMTQa2Model.Store.pr_getBulkContent">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getBulkContent_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+                <ScalarProperty Name="automailMessageInvite" ColumnName="automailMessageInvite" />
+                <ScalarProperty Name="automailMessageComplete" ColumnName="automailMessageComplete" />
+                <ScalarProperty Name="automailMessageIncomplete" ColumnName="automailMessageIncomplete" />
+                <ScalarProperty Name="automailMessageRemindOne" ColumnName="automailMessageRemindOne" />
+                <ScalarProperty Name="automailMessageRemindTwo" ColumnName="automailMessageRemindTwo" />
+                <ScalarProperty Name="automailMessageRemindThree" ColumnName="automailMessageRemindThree" />
+                <ScalarProperty Name="automailMessageRemindPastDue" ColumnName="automailMessageRemindPastDue" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getBulkContentAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getBulkContentAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getBulkContentAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+                <ScalarProperty Name="automailMessageInvite" ColumnName="automailMessageInvite" />
+                <ScalarProperty Name="automailMessageComplete" ColumnName="automailMessageComplete" />
+                <ScalarProperty Name="automailMessageIncomplete" ColumnName="automailMessageIncomplete" />
+                <ScalarProperty Name="automailMessageRemindOne" ColumnName="automailMessageRemindOne" />
+                <ScalarProperty Name="automailMessageRemindTwo" ColumnName="automailMessageRemindTwo" />
+                <ScalarProperty Name="automailMessageRemindThree" ColumnName="automailMessageRemindThree" />
+                <ScalarProperty Name="automailMessageRemindPastDue" ColumnName="automailMessageRemindPastDue" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="focus">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.focus">
+              <MappingFragment StoreEntitySet="focus">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortorder" ColumnName="sortorder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="industry">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.industry">
+              <MappingFragment StoreEntitySet="industry">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

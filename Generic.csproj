@@ -443,6 +443,9 @@
     <Compile Include="autoMailType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="bulkContent.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="calendar.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -463,6 +466,7 @@
     <Compile Include="Controllers\AutoMailMessageController.cs" />
     <Compile Include="Controllers\AutoMailMessagesController.cs" />
     <Compile Include="Controllers\AutoMailTypeController.cs" />
+    <Compile Include="Controllers\BulkContentController.cs" />
     <Compile Include="Controllers\CampaignController.cs" />
     <Compile Include="Controllers\CampaignRuleController.cs" />
     <Compile Include="Controllers\DomainController.cs" />
@@ -530,6 +534,9 @@
     <Compile Include="eventNotificationBounce.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="focus.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -585,6 +592,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Hs3Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="industry.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="key.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -612,6 +622,7 @@
     <Compile Include="menuGroup.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\bulkContent.cs" />
     <Compile Include="Models\campaign.cs" />
     <Compile Include="Models\campaignRule.cs" />
     <Compile Include="Models\ComboBox.cs" />
@@ -826,6 +837,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAutoMailType_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getBulkContentAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getBulkContent_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCalendarByDate_Result.cs">
@@ -2971,6 +2988,7 @@
     <EmbeddedResource Include="Views\Admin\ChangePassword.cshtml" />
     <Content Include="Views\Campaign\Create.cshtml" />
     <Content Include="Views\CampaignRule\Create.cshtml" />
+    <Content Include="Views\BulkContent\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
