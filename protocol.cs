@@ -17,6 +17,7 @@ namespace Generic
         public protocol()
         {
             this.touchpoint = new HashSet<touchpoint>();
+            this.enterpriseContactUs = new HashSet<enterpriseContactUs>();
         }
     
         public int id { get; set; }
@@ -50,5 +51,6 @@ namespace Generic
         public virtual person person { get; set; }
         public virtual person person1 { get; set; }
         public virtual ICollection<touchpoint> touchpoint { get; set; }
+        public virtual ICollection<enterpriseContactUs> enterpriseContactUs { get; set; }
     }
 }

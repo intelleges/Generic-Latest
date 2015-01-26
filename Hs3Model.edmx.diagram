@@ -270,6 +270,15 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.bulkContent" Width="1.5" PointX="3.8759254514593282" PointY="31.687325790378882" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.focus" Width="1.5" PointX="9.1407187642253565" PointY="5.8866994408363009" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.industry" Width="1.5" PointX="10.602153589298089" PointY="20.353580886662744" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseContactUs" Width="1.5" PointX="1.0814580810635621" PointY="11.186861892783485" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseLandingPagePTQ" Width="1.5" PointX="10.187545196240556" PointY="7.0477210316097931" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.landingPage" Width="1.5" PointX="5.6228825159477456" PointY="26.075822097284636" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_country" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_enterprise" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_group" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_partnerType" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_protocol" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_touchpoint" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

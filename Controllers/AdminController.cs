@@ -53,7 +53,9 @@ namespace Generic.Controllers
             try
             {
                 var enterprises = db.pr_getEnterprise(1);
-
+                var elpptq = db.pr_getEnterpriseLandingPagePTQ(1, (int)LangingPage.Login).FirstOrDefault();
+                if (elpptq != null)
+                    ViewBag.ContactUsText = elpptq.text;
                 ViewBag.Project = "Generic";
                 return View(enterprises.FirstOrDefault());
             }

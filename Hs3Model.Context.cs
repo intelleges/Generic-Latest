@@ -183,6 +183,9 @@ namespace Generic
         public DbSet<bulkContent> bulkContent { get; set; }
         public DbSet<focus> focus { get; set; }
         public DbSet<industry> industry { get; set; }
+        public DbSet<enterpriseContactUs> enterpriseContactUs { get; set; }
+        public DbSet<enterpriseLandingPagePTQ> enterpriseLandingPagePTQ { get; set; }
+        public DbSet<landingPage> landingPage { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -14748,6 +14751,28 @@ namespace Generic
         public virtual ObjectResult<pr_getBulkContentAll_Result> pr_getBulkContentAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getBulkContentAll_Result>("pr_getBulkContentAll");
+        }
+    
+        public virtual ObjectResult<pr_getEnterpriseLandingPagePTQ_Result> pr_getEnterpriseLandingPagePTQ(Nullable<int> enterprise, Nullable<int> landingPage)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var landingPageParameter = landingPage.HasValue ?
+                new ObjectParameter("landingPage", landingPage) :
+                new ObjectParameter("landingPage", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseLandingPagePTQ_Result>("pr_getEnterpriseLandingPagePTQ", enterpriseParameter, landingPageParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEnterpriseLandingPagePTQAll_Result> pr_getEnterpriseLandingPagePTQAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseLandingPagePTQAll_Result>("pr_getEnterpriseLandingPagePTQAll", enterpriseParameter);
         }
     }
 }

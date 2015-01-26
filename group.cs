@@ -18,6 +18,7 @@ namespace Generic
         {
             this.partner = new HashSet<partner>();
             this.person1 = new HashSet<person>();
+            this.enterpriseContactUs = new HashSet<enterpriseContactUs>();
         }
     
         public int id { get; set; }
@@ -38,5 +39,6 @@ namespace Generic
         public virtual person person { get; set; }
         public virtual ICollection<partner> partner { get; set; }
         public virtual ICollection<person> person1 { get; set; }
+        public virtual ICollection<enterpriseContactUs> enterpriseContactUs { get; set; }
     }
 }

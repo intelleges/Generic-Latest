@@ -91,5 +91,6 @@ namespace Generic
         public virtual ICollection<menu> menu1 { get; set; }
         public virtual ICollection<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
         public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
+        public virtual enterpriseContactUs enterpriseContactUs { get; set; }
     }
 }

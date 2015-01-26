@@ -427,7 +427,15 @@
                          <form id="modalformControls" role="form">
                              <img src="~/Contents/IntellegesLogin_files/nextStreetImage.png"/>
                              <p>
-                                Thank you for visiting Intelleges. We welcome your input. To make sure we <b>connect you with the right person at our company</b>, please complete the two fields below and we will send you an email link where you can submit your comments. Intelleges uses any information we receive from you in accordance with our Privacy Policy. If you need to contact us directly please call 917 848 8088. Thanks again for your visit and we look forward to receiving your comments.
+
+                               @if(!string.IsNullOrEmpty(ViewBag.ContactUsText))
+                                 {
+                                 @ViewBag.ContactUsText
+                                 }
+                                 else
+                                 {                                     
+                                <text>Thank you for visiting Intelleges. We welcome your input. To make sure we <b>connect you with the right person at our company</b>, please complete the two fields below and we will send you an email link where you can submit your comments. Intelleges uses any information we receive from you in accordance with our Privacy Policy. If you need to contact us directly please call 917 848 8088. Thanks again for your visit and we look forward to receiving your comments.</text>
+                               }
                              </p>
   <div class="form-group">
 						<label class="control-label" for="inputEmail">Your Email Address</label>

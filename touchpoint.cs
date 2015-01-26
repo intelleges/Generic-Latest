@@ -25,6 +25,7 @@ namespace Generic
             this.questionnaire = new HashSet<questionnaire>();
             this.partnerSpreadsheetDataLoad = new HashSet<partnerSpreadsheetDataLoad>();
             this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
+            this.enterpriseContactUs = new HashSet<enterpriseContactUs>();
         }
     
         public int id { get; set; }
@@ -54,5 +55,6 @@ namespace Generic
         public virtual ICollection<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
         public virtual touchpointTarget touchpointTarget { get; set; }
         public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
+        public virtual ICollection<enterpriseContactUs> enterpriseContactUs { get; set; }
     }
 }

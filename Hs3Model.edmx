@@ -26,6 +26,8 @@
           <EntitySet Name="emailTemplate_deprecated" EntityType="hs3MVCMTQa2Model.Store.emailTemplate_deprecated" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="emailTemplateType_deprecated" EntityType="hs3MVCMTQa2Model.Store.emailTemplateType_deprecated" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="enterprise" EntityType="hs3MVCMTQa2Model.Store.enterprise" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="enterpriseContactUs" EntityType="hs3MVCMTQa2Model.Store.enterpriseContactUs" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="enterpriseLandingPagePTQ" EntityType="hs3MVCMTQa2Model.Store.enterpriseLandingPagePTQ" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="enterpriseMenu" EntityType="hs3MVCMTQa2Model.Store.enterpriseMenu" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="enterpriseObjectName" EntityType="hs3MVCMTQa2Model.Store.enterpriseObjectName" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="enterpriseSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.Store.enterpriseSpreadsheetDataLoad" store:Type="Tables" Schema="dbo" />
@@ -41,6 +43,7 @@
           <EntitySet Name="hs3Menu_deprecated" EntityType="hs3MVCMTQa2Model.Store.hs3Menu_deprecated" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="industry" EntityType="hs3MVCMTQa2Model.Store.industry" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="key" EntityType="hs3MVCMTQa2Model.Store.key" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="landingPage" EntityType="hs3MVCMTQa2Model.Store.landingPage" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="language" EntityType="hs3MVCMTQa2Model.Store.language" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="languageInfo" EntityType="hs3MVCMTQa2Model.Store.languageInfo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="letter" EntityType="hs3MVCMTQa2Model.Store.letter" store:Type="Tables" Schema="dbo" />
@@ -480,6 +483,30 @@
           <AssociationSet Name="FK_country_enterprise" Association="hs3MVCMTQa2Model.Store.FK_country_enterprise">
             <End Role="enterprise" EntitySet="enterprise" />
             <End Role="country" EntitySet="country" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseContactUs_country" Association="hs3MVCMTQa2Model.Store.FK_enterpriseContactUs_country">
+            <End Role="country" EntitySet="country" />
+            <End Role="enterpriseContactUs" EntitySet="enterpriseContactUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseContactUs_enterprise" Association="hs3MVCMTQa2Model.Store.FK_enterpriseContactUs_enterprise">
+            <End Role="enterprise" EntitySet="enterprise" />
+            <End Role="enterpriseContactUs" EntitySet="enterpriseContactUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseContactUs_group" Association="hs3MVCMTQa2Model.Store.FK_enterpriseContactUs_group">
+            <End Role="group" EntitySet="group" />
+            <End Role="enterpriseContactUs" EntitySet="enterpriseContactUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseContactUs_partnerType" Association="hs3MVCMTQa2Model.Store.FK_enterpriseContactUs_partnerType">
+            <End Role="partnerType" EntitySet="partnerType" />
+            <End Role="enterpriseContactUs" EntitySet="enterpriseContactUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseContactUs_protocol" Association="hs3MVCMTQa2Model.Store.FK_enterpriseContactUs_protocol">
+            <End Role="protocol" EntitySet="protocol" />
+            <End Role="enterpriseContactUs" EntitySet="enterpriseContactUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseContactUs_touchpoint" Association="hs3MVCMTQa2Model.Store.FK_enterpriseContactUs_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="enterpriseContactUs" EntitySet="enterpriseContactUs" />
           </AssociationSet>
           <AssociationSet Name="FK_enterpriseMenu_enterprise" Association="hs3MVCMTQa2Model.Store.FK_enterpriseMenu_enterprise">
             <End Role="enterprise" EntitySet="enterprise" />
@@ -1160,6 +1187,27 @@
           <Property Name="archivedDate" Type="date" />
           <Property Name="multiTenantProjectType" Type="int" />
         </EntityType>
+        <EntityType Name="enterpriseContactUs">
+          <Key>
+            <PropertyRef Name="enterprise" />
+          </Key>
+          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="protocol" Type="int" Nullable="false" />
+          <Property Name="touchpoint" Type="int" Nullable="false" />
+          <Property Name="partnertype" Type="int" Nullable="false" />
+          <Property Name="group" Type="int" Nullable="false" />
+          <Property Name="country" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="enterpriseLandingPagePTQ">
+          <Key>
+            <PropertyRef Name="enterprise" />
+            <PropertyRef Name="landingPage" />
+          </Key>
+          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="landingPage" Type="int" Nullable="false" />
+          <Property Name="text" Type="varchar" MaxLength="500" />
+          <Property Name="partnertypeTouchpointQuestionnaire" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="enterpriseMenu">
           <Key>
             <PropertyRef Name="enterprise" />
@@ -1346,6 +1394,15 @@
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="bit" />
           <Property Name="enterprise" Type="int" />
+        </EntityType>
+        <EntityType Name="landingPage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="language">
           <Key>
@@ -3391,6 +3448,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_enterpriseContactUs_country">
+          <End Role="country" Type="hs3MVCMTQa2Model.Store.country" Multiplicity="1" />
+          <End Role="enterpriseContactUs" Type="hs3MVCMTQa2Model.Store.enterpriseContactUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseContactUs">
+              <PropertyRef Name="country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enterpriseContactUs_enterprise">
+          <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="1" />
+          <End Role="enterpriseContactUs" Type="hs3MVCMTQa2Model.Store.enterpriseContactUs" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseContactUs">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enterpriseContactUs_group">
+          <End Role="group" Type="hs3MVCMTQa2Model.Store.group" Multiplicity="1" />
+          <End Role="enterpriseContactUs" Type="hs3MVCMTQa2Model.Store.enterpriseContactUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseContactUs">
+              <PropertyRef Name="group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enterpriseContactUs_partnerType">
+          <End Role="partnerType" Type="hs3MVCMTQa2Model.Store.partnerType" Multiplicity="1" />
+          <End Role="enterpriseContactUs" Type="hs3MVCMTQa2Model.Store.enterpriseContactUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseContactUs">
+              <PropertyRef Name="partnertype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enterpriseContactUs_protocol">
+          <End Role="protocol" Type="hs3MVCMTQa2Model.Store.protocol" Multiplicity="1" />
+          <End Role="enterpriseContactUs" Type="hs3MVCMTQa2Model.Store.enterpriseContactUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="protocol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseContactUs">
+              <PropertyRef Name="protocol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enterpriseContactUs_touchpoint">
+          <End Role="touchpoint" Type="hs3MVCMTQa2Model.Store.touchpoint" Multiplicity="1" />
+          <End Role="enterpriseContactUs" Type="hs3MVCMTQa2Model.Store.enterpriseContactUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseContactUs">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_enterpriseMenu_enterprise">
           <End Role="enterprise" Type="hs3MVCMTQa2Model.Store.enterprise" Multiplicity="1" />
           <End Role="enterpriseMenu" Type="hs3MVCMTQa2Model.Store.enterpriseMenu" Multiplicity="*" />
@@ -4763,15 +4892,15 @@
         <Function Name="pr_addBulkContent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnertype" Type="varchar" Mode="In" />
           <Parameter Name="touchpoint" Type="varchar" Mode="In" />
-          <Parameter Name="questionnaire" Type="varbinary" Mode="In" />
-          <Parameter Name="questionnaireCMS" Type="varbinary" Mode="In" />
-          <Parameter Name="automailMessageInvite" Type="varbinary" Mode="In" />
-          <Parameter Name="automailMessageComplete" Type="varbinary" Mode="In" />
-          <Parameter Name="automailMessageIncomplete" Type="varbinary" Mode="In" />
-          <Parameter Name="automailMessageRemindOne" Type="varbinary" Mode="In" />
-          <Parameter Name="automailMessageRemindTwo" Type="varbinary" Mode="In" />
-          <Parameter Name="automailMessageRemindThree" Type="varbinary" Mode="In" />
-          <Parameter Name="automailMessageRemindPastDue" Type="varbinary" Mode="In" />
+          <Parameter Name="questionnaire" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="questionnaireCMS" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="automailMessageInvite" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="automailMessageComplete" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="automailMessageIncomplete" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="automailMessageRemindOne" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="automailMessageRemindTwo" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="automailMessageRemindThree" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="automailMessageRemindPastDue" Type="varbinary(max)" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="int" Mode="In" />
         </Function>
@@ -6022,6 +6151,13 @@
           <Parameter Name="applicationPath" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_getEnterpriseContactUs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getEnterpriseLandingPagePTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="landingPage" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getEnterpriseLandingPagePTQAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getEnterpriseObjectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -12616,6 +12752,40 @@
           <FunctionImport Name="pr_getBulkContentAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getBulkContentAll_Result)" />
           <EntitySet Name="focus" EntityType="hs3MVCMTQa2Model.focus" />
           <EntitySet Name="industry" EntityType="hs3MVCMTQa2Model.industry" />
+          <EntitySet Name="enterpriseContactUs" EntityType="hs3MVCMTQa2Model.enterpriseContactUs" />
+          <EntitySet Name="enterpriseLandingPagePTQ" EntityType="hs3MVCMTQa2Model.enterpriseLandingPagePTQ" />
+          <EntitySet Name="landingPage" EntityType="hs3MVCMTQa2Model.landingPage" />
+          <AssociationSet Name="FK_enterpriseContactUs_country" Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_country">
+            <End Role="country" EntitySet="country" />
+            <End Role="enterpriseContactUs" EntitySet="enterpriseContactUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseContactUs_enterprise" Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_enterprise">
+            <End Role="enterprise" EntitySet="enterprise" />
+            <End Role="enterpriseContactUs" EntitySet="enterpriseContactUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseContactUs_group" Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_group">
+            <End Role="group" EntitySet="group" />
+            <End Role="enterpriseContactUs" EntitySet="enterpriseContactUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseContactUs_partnerType" Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_partnerType">
+            <End Role="partnerType" EntitySet="partnerType" />
+            <End Role="enterpriseContactUs" EntitySet="enterpriseContactUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseContactUs_protocol" Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_protocol">
+            <End Role="protocol" EntitySet="protocol" />
+            <End Role="enterpriseContactUs" EntitySet="enterpriseContactUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enterpriseContactUs_touchpoint" Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="enterpriseContactUs" EntitySet="enterpriseContactUs" />
+          </AssociationSet>
+          <FunctionImport Name="pr_getEnterpriseLandingPagePTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseLandingPagePTQ_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="landingPage" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEnterpriseLandingPagePTQAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseLandingPagePTQAll_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -12693,6 +12863,7 @@
           <Property Name="active" Type="Boolean" />
           <Property Name="enterprise" Type="Int32" />
           <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_country_enterprise" FromRole="country" ToRole="enterprise" />
+          <NavigationProperty Name="enterpriseContactUs" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_country" FromRole="country" ToRole="enterpriseContactUs" />
         </EntityType>
         <EntityType Name="domain">
           <Key>
@@ -12794,6 +12965,7 @@
           <Property Type="Int32" Name="multiTenantProjectType" />
           <NavigationProperty Name="partnerSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partner__enter__7B863AD4" FromRole="enterprise" ToRole="partnerSpreadsheetDataLoad" />
           <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4" FromRole="enterprise" ToRole="partnumberSpreadsheetDataLoad" />
+          <NavigationProperty Name="enterpriseContactUs" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_enterprise" FromRole="enterprise" ToRole="enterpriseContactUs" />
         </EntityType>
         <EntityType Name="enterpriseObjectName">
           <Key>
@@ -12885,6 +13057,7 @@
           <NavigationProperty Name="person" Relationship="hs3MVCMTQa2Model.FK_group_person" FromRole="group" ToRole="person" />
           <NavigationProperty Name="partner" Relationship="hs3MVCMTQa2Model.partnerGroup" FromRole="group" ToRole="partner" />
           <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.personGroup" FromRole="group" ToRole="person" />
+          <NavigationProperty Name="enterpriseContactUs" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_group" FromRole="group" ToRole="enterpriseContactUs" />
         </EntityType>
         <EntityType Name="groupCollection">
           <Key>
@@ -13441,6 +13614,7 @@
           <NavigationProperty Name="partnerTypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType" FromRole="partnerType" ToRole="partnerTypeTouchpointQuestionnaire" />
           <NavigationProperty Name="partnerSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partner__partn__7C7A5F0D" FromRole="partnerType" ToRole="partnerSpreadsheetDataLoad" />
           <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D" FromRole="partnerType" ToRole="partnumberSpreadsheetDataLoad" />
+          <NavigationProperty Name="enterpriseContactUs" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_partnerType" FromRole="partnerType" ToRole="enterpriseContactUs" />
         </EntityType>
         <EntityType Name="partnerTypeGroupGoal">
           <Key>
@@ -13628,6 +13802,7 @@
           <NavigationProperty Name="person" Relationship="hs3MVCMTQa2Model.FK_protocol_person" FromRole="protocol" ToRole="person" />
           <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK_protocol_person1" FromRole="protocol" ToRole="person" />
           <NavigationProperty Name="touchpoint" Relationship="hs3MVCMTQa2Model.FK_touchpoint_protocol" FromRole="protocol" ToRole="touchpoint" />
+          <NavigationProperty Name="enterpriseContactUs" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_protocol" FromRole="protocol" ToRole="enterpriseContactUs" />
         </EntityType>
         <EntityType Name="protocolTouchpoint">
           <Key>
@@ -13977,6 +14152,7 @@
           <Property Type="Int32" Name="target" />
           <NavigationProperty Name="touchpointTarget" Relationship="hs3MVCMTQa2Model.FK_touchpoint_touchpointTarget" FromRole="touchpoint" ToRole="touchpointTarget" />
           <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" FromRole="touchpoint" ToRole="partnumberSpreadsheetDataLoad" />
+          <NavigationProperty Name="enterpriseContactUs" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_touchpoint" FromRole="touchpoint" ToRole="enterpriseContactUs" />
         </EntityType>
         <EntityType Name="touchpointGroup">
           <Key>
@@ -20094,6 +20270,126 @@
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </EntityType>
+        <EntityType Name="enterpriseContactUs">
+          <Key>
+            <PropertyRef Name="enterprise" />
+          </Key>
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="protocol" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="group" Nullable="false" />
+          <Property Type="Int32" Name="country" Nullable="false" />
+          <NavigationProperty Name="country1" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_country" FromRole="enterpriseContactUs" ToRole="country" />
+          <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_enterprise" FromRole="enterpriseContactUs" ToRole="enterprise" />
+          <NavigationProperty Name="group1" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_group" FromRole="enterpriseContactUs" ToRole="group" />
+          <NavigationProperty Name="partnerType1" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_partnerType" FromRole="enterpriseContactUs" ToRole="partnerType" />
+          <NavigationProperty Name="protocol1" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_protocol" FromRole="enterpriseContactUs" ToRole="protocol" />
+          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_touchpoint" FromRole="enterpriseContactUs" ToRole="touchpoint" />
+        </EntityType>
+        <EntityType Name="enterpriseLandingPagePTQ">
+          <Key>
+            <PropertyRef Name="enterprise" />
+            <PropertyRef Name="landingPage" />
+          </Key>
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="landingPage" Nullable="false" />
+          <Property Type="String" Name="text" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="partnertypeTouchpointQuestionnaire" Nullable="false" />
+        </EntityType>
+        <EntityType Name="landingPage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_enterpriseContactUs_country">
+          <End Type="hs3MVCMTQa2Model.country" Role="country" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.enterpriseContactUs" Role="enterpriseContactUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseContactUs">
+              <PropertyRef Name="country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enterpriseContactUs_enterprise">
+          <End Type="hs3MVCMTQa2Model.enterprise" Role="enterprise" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.enterpriseContactUs" Role="enterpriseContactUs" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseContactUs">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enterpriseContactUs_group">
+          <End Type="hs3MVCMTQa2Model.group" Role="group" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.enterpriseContactUs" Role="enterpriseContactUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseContactUs">
+              <PropertyRef Name="group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enterpriseContactUs_partnerType">
+          <End Type="hs3MVCMTQa2Model.partnerType" Role="partnerType" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.enterpriseContactUs" Role="enterpriseContactUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseContactUs">
+              <PropertyRef Name="partnertype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enterpriseContactUs_protocol">
+          <End Type="hs3MVCMTQa2Model.protocol" Role="protocol" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.enterpriseContactUs" Role="enterpriseContactUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="protocol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseContactUs">
+              <PropertyRef Name="protocol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enterpriseContactUs_touchpoint">
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.enterpriseContactUs" Role="enterpriseContactUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="enterpriseContactUs">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="pr_getEnterpriseLandingPagePTQ_Result">
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="landingPage" Nullable="false" />
+          <Property Type="String" Name="text" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="partnertypeTouchpointQuestionnaire" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getEnterpriseLandingPagePTQAll_Result">
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="landingPage" Nullable="false" />
+          <Property Type="String" Name="text" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="partnertypeTouchpointQuestionnaire" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -26208,6 +26504,58 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="enterpriseContactUs">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterpriseContactUs">
+              <MappingFragment StoreEntitySet="enterpriseContactUs">
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="group" ColumnName="group" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="protocol" ColumnName="protocol" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enterpriseLandingPagePTQ">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterpriseLandingPagePTQ">
+              <MappingFragment StoreEntitySet="enterpriseLandingPagePTQ">
+                <ScalarProperty Name="partnertypeTouchpointQuestionnaire" ColumnName="partnertypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="landingPage" ColumnName="landingPage" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="landingPage">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.landingPage">
+              <MappingFragment StoreEntitySet="landingPage">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_getEnterpriseLandingPagePTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseLandingPagePTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEnterpriseLandingPagePTQ_Result">
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="landingPage" ColumnName="landingPage" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="partnertypeTouchpointQuestionnaire" ColumnName="partnertypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getEnterpriseLandingPagePTQAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseLandingPagePTQAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEnterpriseLandingPagePTQAll_Result">
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="landingPage" ColumnName="landingPage" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="partnertypeTouchpointQuestionnaire" ColumnName="partnertypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -14,6 +14,11 @@ namespace Generic
     
     public partial class country
     {
+        public country()
+        {
+            this.enterpriseContactUs = new HashSet<enterpriseContactUs>();
+        }
+    
         public int id { get; set; }
         public Nullable<int> eplsCountryID { get; set; }
         public string name { get; set; }
@@ -24,5 +29,6 @@ namespace Generic
         public Nullable<int> enterprise { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
+        public virtual ICollection<enterpriseContactUs> enterpriseContactUs { get; set; }
     }
 }
