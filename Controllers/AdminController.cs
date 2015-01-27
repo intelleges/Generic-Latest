@@ -23,7 +23,7 @@ namespace Generic.Controllers
 {
     public class AdminController : Controller
     {
-        private EntitiesDBContext db = new EntitiesDBContext();
+        protected EntitiesDBContext db = new EntitiesDBContext();
         //
         // GET: /Admin/
 
