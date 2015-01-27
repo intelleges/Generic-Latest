@@ -8,7 +8,7 @@
         if ($("#modalformControls .has-error").length == 0) {
             $.ajax({
                 url: _contactUsHost+"Home/ContactUs",                
-                data:{ Email: email, IpAddress: _localAddress, Challenge: Recaptcha.get_challenge(), Response: Recaptcha.get_response() },
+                data: { Email: email, page: 2, IpAddress: _localAddress, Challenge: Recaptcha.get_challenge(), Response: Recaptcha.get_response() },
                 type: "POST"
             }).done(function (data) {
                 if (data !== "")
