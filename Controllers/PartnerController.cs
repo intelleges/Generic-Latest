@@ -2038,5 +2038,30 @@ namespace Generic.Controllers
             }
             return result;
         }
+
+        public ActionResult RailReport()
+        {
+            var currentPersonId = (int)Session["LoggedInUserId"];
+            var person = db.pr_getPerson(currentPersonId).FirstOrDefault();
+            if (person != null)
+            {
+                var result = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer(person.email).ToList();
+                return View(result);
+            }
+            return RedirectToAction("Home", "Admin");
+        }
+        public ActionResult RailReportExel()
+        {
+            var currentPersonId = (int)Session["LoggedInUserId"];
+            var person = db.pr_getPerson(currentPersonId).FirstOrDefault();
+            var values = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer(person.email).ToList();
+            XmlSerializer serializer = new XmlSerializer(typeof(List<pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer_Result>));
+            var stream = new MemoryStream();
+            serializer.Serialize(stream, values);
+            //set stream position to begining
+            stream.Position = 0;
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "RailReport.xls");
+        }
     }
 }

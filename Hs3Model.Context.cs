@@ -14787,5 +14787,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber", pptqParameter, partnumberParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer_Result> pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer_Result>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer", emailParameter);
+        }
     }
 }

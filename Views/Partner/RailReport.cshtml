@@ -1,0 +1,76 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer_Result>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Rail Report";
+}
+
+<h2>RAIL</h2>
+<style>
+    div#RAIL {
+        font-size: 11px;
+    }
+
+    #modal {
+        height: 489px;
+    }
+
+    .ui-dialog {
+        width: 99% !important;
+        left: 0;
+    }
+     .t-grid-content tr > td:hover .menu_block + .display_menu {
+        display: block !important;
+    }
+
+    .display_menu {
+        left: 65px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+
+    .t-grid-content tr > td {
+        overflow: visible !important;
+        position: relative;
+    }
+
+    .display_menu > ul {
+        padding: 0 16px;
+    }
+
+    .display_menu li {
+        list-style: none outside none;
+        width: 143px;
+    }
+</style>
+
+@( Html.Telerik().Grid(Model).Name("RAIL")
+        .ToolBar(commands => commands
+        .Custom()
+        .HtmlAttributes(new { id = "export" })
+        .Text("Export to Excel")
+        .Action("RailReportExel", "partner"))
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.question).Title("Question").Width(400).Encoded(false);
+            columns.Bound(o => o.Sender).Title("Sender").Width(200);
+            columns.Bound(o => o.Reported).Title("Reported Date").Width(100).Template(@<text>@(item.Reported.HasValue?item.Reported.Value.ToString("MM/dd/yyyy"):"")</text>);
+            columns.Bound(o => o.Comment).Title("Comment").Width(400); 
+            columns.Bound(o => o.Status).Title("Status").Width(100);
+        })
+        .DataKeys(keys => keys.Add(o => o.id))
+        .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+        .Sortable(sorting => sorting.Enabled(true))
+
+        .Scrollable(scrolling => scrolling
+        .Enabled(true)
+        .Height(380))
+        .HtmlAttributes(new { @class = "ra" })
+        )

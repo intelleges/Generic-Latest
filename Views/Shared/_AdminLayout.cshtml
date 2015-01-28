@@ -166,6 +166,7 @@
                             <option value="@Url.Content("~/Partner/ResponsesByProtocolTouchpointGroupPartnertype2Download")">Response Detail</option>
                             <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForAgingReport")">Aging Report</option>
                             <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForMailDeliveredReport")">Mail Delivered</option>
+                            <option value="@Url.Content("~/Partner/RailReport")">RAIL Report</option>
                         </select>
 
 
@@ -320,9 +321,12 @@
         $(document).ready(function () {
 
             $("#reports").change(function () {
-                if ($("#reports").val() != '') {
-                    //   window.location.href = $("#reports").val();
-                    window.open($("#reports").val());
+                if ($("#reports").val() != '') {                   
+                    if ($("#reports").val().indexOf("Rail") > 0) {
+                        window.location.assign($("#reports").val());
+                    } else {
+                        window.open($("#reports").val());
+                    }
                 }
             });
 

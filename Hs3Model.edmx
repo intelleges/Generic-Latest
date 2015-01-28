@@ -6405,6 +6405,9 @@
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerQuestionResponseByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
@@ -12793,6 +12796,9 @@
           <FunctionImport Name="pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
             <Parameter Name="partnumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -20398,6 +20404,14 @@
           <Property Type="String" Name="text" Nullable="true" MaxLength="500" />
           <Property Type="Int32" Name="partnertypeTouchpointQuestionnaire" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="question" Nullable="true" />
+          <Property Type="String" Name="Sender" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="Reported" Nullable="true" />
+          <Property Type="String" Name="Comment" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="50" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -26565,6 +26579,18 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="Sender" ColumnName="Sender" />
+                <ScalarProperty Name="Reported" ColumnName="Reported" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
