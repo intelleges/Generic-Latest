@@ -2161,6 +2161,7 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>EditorLocalization.bg-BG.designer.cs</LastGenOutput>
     </Content>
+    <Content Include="Contents\images\LiButton.png" />
     <Content Include="Contents\IntellegesLogin_files\contact-us.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

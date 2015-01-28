@@ -317,7 +317,7 @@
 
             numbers.push(this.id);
         });
-        $.ajax("RemoveStockNumbers", { type: "POST", data: { values: numbers } }).done(function (result) {
+        $.ajax("RemoveStockNumbers", { type: "POST", data: { values: numbers, partnerId: @(Model.id) } }).done(function (result) {
             if (result == "True") {
                 $("#partNumbersGrid input[type='checkbox']:checked").each(function(){                   
                     $(this).parent().parent().remove();
@@ -344,7 +344,7 @@
             removePartNumber: function (id) {
                 alertify.confirm("Are you sure?", function (e) {
                     if (e) {
-                        $.ajax("RemoveStockNumber", { type: "POST", data: { value: id } }).done(function (result) {
+                        $.ajax("RemoveStockNumber", { type: "POST", data: { value: id, partnerId: @(Model.id) } }).done(function (result) {
                             if (result == "True") {
                                 $("input[type='checkbox']#" + id).parent().parent().remove();
                             }

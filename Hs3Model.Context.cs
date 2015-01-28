@@ -14774,5 +14774,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseLandingPagePTQAll_Result>("pr_getEnterpriseLandingPagePTQAll", enterpriseParameter);
         }
+    
+        public virtual int pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber(Nullable<int> pptq, Nullable<int> partnumber)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var partnumberParameter = partnumber.HasValue ?
+                new ObjectParameter("partnumber", partnumber) :
+                new ObjectParameter("partnumber", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber", pptqParameter, partnumberParameter);
+        }
     }
 }

@@ -311,8 +311,6 @@ body {
     }
 
 #forgotPasswordLinq {
-    position: absolute;
-    left: 700px;
-    top: 420px;
+    display: block;
     font-size: 12px;
 }

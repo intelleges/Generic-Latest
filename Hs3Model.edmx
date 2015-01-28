@@ -7952,6 +7952,10 @@
         <Function Name="pr_removePartnumberSiteZcodePPTQQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="partnumber" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removePartnumberSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -12784,7 +12788,11 @@
             <Parameter Name="landingPage" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getEnterpriseLandingPagePTQAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseLandingPagePTQAll_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="partnumber" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -26556,6 +26564,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -44,15 +44,18 @@ namespace Generic.Controllers
 
         }
         [HttpPost]
-        public bool RemoveStockNumbers(string[] values)
+        public bool RemoveStockNumbers(string[] values, int partnerId )
         {
             var result = false;
             try
             {
-                if (values != null)
+                var partnerPPTQ = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
+                
+                if (values != null&&partnerPPTQ!=null)
                 {
                     foreach (var value in values)
-                        db.pr_archivePartnumber(int.Parse(value));
+                        db.pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber(partnerPPTQ.id, int.Parse(value));
+                        //db.pr_archivePartnumber(int.Parse(value));
                     result = true;
                 }
             }
@@ -62,15 +65,17 @@ namespace Generic.Controllers
             return result;
         }
         [HttpPost]
-        public bool RemoveStockNumber(int value)
+        public bool RemoveStockNumber(int value, int partnerId)
         {
             var result = false;
             try
             {
-
-                db.pr_archivePartnumber(value);
-                result = true;
-
+                var partnerPPTQ = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
+                if (partnerPPTQ != null)
+                {
+                    db.pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber(partnerPPTQ.id, value);
+                    result = true;
+                }
             }
             catch
             {
