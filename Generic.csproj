@@ -644,6 +644,7 @@
     <Compile Include="Models\PersonComboModel.cs" />
     <Compile Include="Models\ProductTypeModel.cs" />
     <Compile Include="Models\QuestionnaireModel.cs" />
+    <Compile Include="Models\RailModelView.cs" />
     <Compile Include="Models\SignupModels.cs" />
     <Compile Include="Models\StringContainer.cs" />
     <Compile Include="Models\TouchpointComboModel.cs" />
@@ -1483,6 +1484,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getQuestion_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getRailStatusAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getRailStatus_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getRatingTypeAll_Result.cs">

@@ -14796,5 +14796,53 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer_Result>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer", emailParameter);
         }
+    
+        public virtual ObjectResult<pr_getRailStatus_Result> pr_getRailStatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRailStatus_Result>("pr_getRailStatus", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getRailStatusAll_Result> pr_getRailStatusAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRailStatusAll_Result>("pr_getRailStatusAll");
+        }
+    
+        public virtual int pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue(Nullable<int> partnerPartnertypeTouchpointQuestionnaireQuestionResponse, Nullable<int> value)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseParameter = partnerPartnertypeTouchpointQuestionnaireQuestionResponse.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaireQuestionResponse", partnerPartnertypeTouchpointQuestionnaireQuestionResponse) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaireQuestionResponse", typeof(int));
+    
+            var valueParameter = value.HasValue ?
+                new ObjectParameter("value", value) :
+                new ObjectParameter("value", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue", partnerPartnertypeTouchpointQuestionnaireQuestionResponseParameter, valueParameter);
+        }
+    
+        public virtual int pr_modifyRailStatus(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyRailStatus", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
     }
 }

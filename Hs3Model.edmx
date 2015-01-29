@@ -6810,6 +6810,10 @@
         <Function Name="pr_getQuestionRowIDByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getRailStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getRailStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -7329,6 +7333,10 @@
           <Parameter Name="score" Type="int" Mode="In" />
           <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Type="int" Mode="In" />
+          <Parameter Name="value" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPartnerremitaddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="partner" Type="int" Mode="In" />
@@ -7680,6 +7688,12 @@
         <Function Name="pr_modifyQuestionSkipLogicJumpLogic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="jumpTo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyRailStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_modifyRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -12798,7 +12812,21 @@
             <Parameter Name="partnumber" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer_Result)">
-            <Parameter Name="email" Mode="In" Type="String" />
+          <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRailStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRailStatus_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRailStatusAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRailStatusAll_Result)" />
+          <FunctionImport Name="pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue">
+            <Parameter Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Mode="In" Type="Int32" />
+            <Parameter Name="value" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyRailStatus">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           
         </EntityContainer>
@@ -20412,6 +20440,18 @@
           <Property Type="String" Name="Comment" Nullable="true" />
           <Property Type="String" Name="Status" Nullable="false" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="pr_getRailStatus_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getRailStatusAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -26591,6 +26631,28 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getRailStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getRailStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRailStatus_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getRailStatusAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getRailStatusAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRailStatusAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue" FunctionName="hs3MVCMTQa2Model.Store.pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue" />
+          <FunctionImportMapping FunctionImportName="pr_modifyRailStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyRailStatus" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

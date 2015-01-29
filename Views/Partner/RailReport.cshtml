@@ -1,4 +1,4 @@
-﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer_Result>>
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.Models.RailModelView>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
@@ -26,7 +26,7 @@
     }
 
     .display_menu {
-        left: 65px;
+        left: -125px;
         overflow: visible;
         position: absolute;
         top: -5px;
@@ -46,11 +46,14 @@
 
     .display_menu li {
         list-style: none outside none;
-        width: 143px;
+        width: 90px;
+        color:blue;
+       text-decoration:underline;
+       cursor:pointer;
     }
 </style>
 
-@( Html.Telerik().Grid(Model).Name("RAIL")
+@( Html.Telerik().Grid(Model.Rails).Name("RAIL")
         .ToolBar(commands => commands
         .Custom()
         .HtmlAttributes(new { id = "export" })
@@ -59,11 +62,21 @@
 
         .Columns(columns =>
         {
-            columns.Bound(o => o.question).Title("Question").Width(400).Encoded(false);
+            columns.Bound(o => o.question).Title("Question").Width(200).Encoded(false);
             columns.Bound(o => o.Sender).Title("Sender").Width(200);
             columns.Bound(o => o.Reported).Title("Reported Date").Width(100).Template(@<text>@(item.Reported.HasValue?item.Reported.Value.ToString("MM/dd/yyyy"):"")</text>);
-            columns.Bound(o => o.Comment).Title("Comment").Width(400); 
-            columns.Bound(o => o.Status).Title("Status").Width(100);
+            columns.Bound(o => o.Comment).Title("Comment").Width(250); 
+            columns.Bound(o => o.Status).Title("Status").Width(100).Template(@<text>
+<a href='#' id='@item.id' class="menu_block">@item.Status</a>
+<div class="display_menu" style="display: none;">
+    <ul>
+       @foreach(var status in Model.Statuses)
+       {
+           <li data-statusId="@status.id" data-itemId="@item.id">@status.description</li>
+       }        
+    </ul>
+</div>
+</text>);
         })
         .DataKeys(keys => keys.Add(o => o.id))
         .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
@@ -74,3 +87,15 @@
         .Height(380))
         .HtmlAttributes(new { @class = "ra" })
         )
+<script>
+    $(document).ready(function () {
+        $(".display_menu li").click(function () {
+            var itemId = $(this).data().itemid;
+            $.ajax("ChangeRailsStatus", { type: "POST", data: { statusId: $(this).data().statusid, railId: itemId } }).done(function (result) {
+                if (result) {
+                    $("#" + itemId).text(result.description);
+                }
+            });
+        });
+    });
+</script>

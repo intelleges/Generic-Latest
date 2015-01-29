@@ -2041,13 +2041,22 @@ namespace Generic.Controllers
 
         public ActionResult RailReport()
         {
-            var currentPersonId = (int)Session["LoggedInUserId"];
-            var person = db.pr_getPerson(currentPersonId).FirstOrDefault();
-            if (person != null)
+            try
             {
-                var result = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer(person.email).ToList();
-                return View(result);
+                var currentPersonId = (int)Session["LoggedInUserId"];
+                var person = db.pr_getPerson(currentPersonId).FirstOrDefault();
+                if (person != null)
+                {
+
+                    var result = new RailModelView()
+                    {
+                        Rails = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer(person.email).ToList(),
+                        Statuses = db.pr_getRailStatusAll().ToList()
+                    };
+                    return View(result);
+                }
             }
+            catch { }
             return RedirectToAction("Home", "Admin");
         }
         public ActionResult RailReportExel()
@@ -2062,6 +2071,23 @@ namespace Generic.Controllers
             stream.Position = 0;
             //We return the XML from the memory as a .xls file
             return File(stream, "application/vnd.ms-excel", "RailReport.xls");
+        }
+        [HttpPost]
+        public ActionResult ChangeRailsStatus(int statusId, int railId)
+        {
+            var currentPersonId = (int)Session["LoggedInUserId"];
+            var person = db.pr_getPerson(currentPersonId).FirstOrDefault();
+            var reponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer(person.email).FirstOrDefault(o=>o.id==railId);
+            
+            var newStatus = db.pr_getRailStatus(statusId).FirstOrDefault();
+            if (newStatus != null && reponse != null)
+            {
+                db.pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue(railId, statusId);
+                if (reponse.Sender.ToLower() != person.email.ToLower())
+                    SchedulerServiceHelper.sendEmail("Intelleges RAIL Update Notice", "Please be advised that the status for '" + reponse.Comment + "' has been updated to '" + newStatus.description+"'. If you have any additional questions about this please contact your System Admin.<br> Thank you. <br> Intelleges Rapid Response Team", null, reponse.Sender);
+                return Json(newStatus);
+            }
+            return Json(null);
         }
     }
 }
