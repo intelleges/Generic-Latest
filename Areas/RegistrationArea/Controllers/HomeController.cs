@@ -1355,19 +1355,21 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         //provider.addProviderProtocolCampaignQuestionnaireSurveyQuestionUploadedFile(
                         //    protocol, campaign, questionnaire, survey, question, fileName);
 
+                        using (var context = new EntitiesDBContext())
+                        {
+                            var pptqq = context.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
 
-                        var pptqq = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
 
 
+                            byte[] uploadedFile = new byte[Request.Files[i].InputStream.Length];
+                            Request.Files[i].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
 
-                        byte[] uploadedFile = new byte[Request.Files[i].InputStream.Length];
-                        Request.Files[i].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-
-                        // Binary linqBinary = new Binary(uploadedFile);
-                        pptqq.uploadedFile = uploadedFile;
-                        pptqq.uploadedFileType = Request.Files[i].ContentType;
-                        db.Entry(pptqq).State = EntityState.Modified;
-                        db.SaveChanges();
+                            // Binary linqBinary = new Binary(uploadedFile);
+                            pptqq.uploadedFile = uploadedFile;
+                            pptqq.uploadedFileType = Request.Files[i].ContentType;
+                            context.Entry(pptqq).State = EntityState.Modified;
+                            context.SaveChanges();
+                        }
                        // db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(pptqq.id, questionId, pptqq.response, pptqq.comment, uploadedFile, Request.Files[i].ContentType, pptqq.value, pptqq.score, pptq);
 
                         //int length = uploadFile.ContentLength;
