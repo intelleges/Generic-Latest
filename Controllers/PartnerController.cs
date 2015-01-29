@@ -2084,7 +2084,10 @@ namespace Generic.Controllers
             {
                 db.pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue(railId, statusId);
                 if (reponse.Sender.ToLower() != person.email.ToLower())
-                    SchedulerServiceHelper.sendEmail("Intelleges RAIL Update Notice", "Please be advised that the status for '" + reponse.Comment + "' has been updated to '" + newStatus.description+"'. If you have any additional questions about this please contact your System Admin.<br> Thank you. <br> Intelleges Rapid Response Team", null, reponse.Sender);
+                {
+                    SchedulerServiceHelper.sendEmail("Intelleges RAIL Update Notice", "Please be advised that the status for '" + reponse.Comment + "' has been updated to '" + newStatus.description + "'. If you have any additional questions about this please contact your System Admin.<br> Thank you. <br> Intelleges Rapid Response Team", null, reponse.Sender);
+                    return Json(reponse);
+                }
                 return Json(newStatus);
             }
             return Json(null);

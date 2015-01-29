@@ -90,10 +90,18 @@
 <script>
     $(document).ready(function () {
         $(".display_menu li").click(function () {
-            var itemId = $(this).data().itemid;
+            var ulTag = $(this);
+            var itemId = ulTag.data().itemid;
             $.ajax("ChangeRailsStatus", { type: "POST", data: { statusId: $(this).data().statusid, railId: itemId } }).done(function (result) {
                 if (result) {
-                    $("#" + itemId).text(result.description);
+                    if (typeof (result.Sender) !== "undefined") {
+                        alertify.alert("Congratulations, you have updated the status for " + itemId + " to " + result.Status + " and an email has been sent to " + result.Sender);
+                        $("#" + itemId).text(result.Status);
+                    }
+                    else {
+                        alertify.alert("Congratulations, you have updated the status for " + itemId + " to " + result.description);
+                        $("#" + itemId).text(result.description);
+                    }
                 }
             });
         });

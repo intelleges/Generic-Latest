@@ -16,11 +16,14 @@
                         createCaptcha();
                     });
                 else {
-                    $("#contact_us_dialog").modal('toggle');                    
+                    alertify.alert("Thank you for submitting your contact information, you should receive an email shortly with a link for your comments. Please check your email for an email from contactUs@intelleges.com.", function () {
+                        $("#contact_us_dialog").modal('toggle');
+                    });
+                                    
                     //captcha ok
                 }
             }).fail(function (jqXHR, textStatus, errorThrown) {
-                alert(textStatus);
+                alertify.alert(textStatus);
                 createCaptcha();
             });
         }
