@@ -268,6 +268,7 @@ namespace Generic.Helpers.Utility
                             var splitted = sVariable.Split(new char[] {':' },StringSplitOptions.RemoveEmptyEntries);
                             if (splitted.Length > 1)
                             {
+                                
                                 sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), false, splitted[1]);
                             }
                             else sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), false);
@@ -277,6 +278,7 @@ namespace Generic.Helpers.Utility
                             var splitted = sVariable.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
                             if (splitted.Length > 1)
                             {
+                                
                                 sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), true, splitted[1]);
                             }
                             else sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), true);
@@ -291,12 +293,16 @@ namespace Generic.Helpers.Utility
             return sEmailBody;
         }
 
-        private string sGetRegistrationLink(string accessCode, string projectUrl, bool advanced, string linkText = null)
+        public  string sGetRegistrationLink(string accessCode, string projectUrl, bool advanced, string linkText = null)
         {
             if (string.IsNullOrEmpty(linkText)) linkText = "link";
+            else
+            {
+                linkText = linkText.Replace("]", "");
+            }
             if (advanced)
                 return "<a href='" + projectUrl + "/Registration/?accessCode=" + accessCode + "&advanced=true' >" + linkText + "</a>";
-            else return "<a href='" + projectUrl + "/Registration/?accessCode='" + accessCode + "'>" + linkText + "</a>";
+            else return "<a href='" + projectUrl + "/Registration/?accessCode=" + accessCode + "'>" + linkText + "</a>";
         }
 
         private string sGetProjectUrl(enterprise enterprise)
