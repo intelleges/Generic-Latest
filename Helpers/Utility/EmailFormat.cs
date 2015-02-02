@@ -179,6 +179,8 @@ namespace Generic.Helpers.Utility
                     case "[partner Type]":
                         sValue = this.sGetpartnerType(partner);
                         break;
+                    
+                        
                     case "[touchpoint]":
                         sValue = touchpoint.title;
                         break;
@@ -239,25 +241,7 @@ namespace Generic.Helpers.Utility
                         sValue = receiver.passWord;
                         break;
                     case "[Project Url]":
-                        if (enterprise == null)
-                        {
-                            sValue = "https://www.intelleges.com/mvcmt/Generic";
-                        }
-                        else
-                        {
-                            if (enterprise.multiTenantProjectType == 1)
-                            {
-                                sValue = "https://www.intelleges.com/mvcmt/Generic";
-                            }
-                            else if (enterprise.multiTenantProjectType == 2)
-                            {
-                                sValue = "https://www.intelleges.com/mvcmt/BAA";
-                            }
-                            else
-                            {
-                                sValue = "https://www.intelleges.com/mvcmt/Generic";   
-                            }
-                        }
+                        sValue = this.sGetProjectUrl(enterprise);
                         break;
                     case "[User Inviting Email]":
                         sValue = sender.email;
@@ -279,6 +263,25 @@ namespace Generic.Helpers.Utility
                         break;
 
                     default:
+                        if (sVariable.Contains("[Registration Link Standard"))
+                        {
+                            var splitted = sVariable.Split(new char[] {':' },StringSplitOptions.RemoveEmptyEntries);
+                            if (splitted.Length > 1)
+                            {
+                                sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), false, splitted[1]);
+                            }
+                            else sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), false);
+                        }
+                        else if (sVariable.Contains("[Registration Link Advanced"))
+                        {
+                            var splitted = sVariable.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (splitted.Length > 1)
+                            {
+                                sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), true, splitted[1]);
+                            }
+                            else sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), true);
+                        }
+                        else
                         sValue = "";
                         break;
                 }
@@ -286,6 +289,37 @@ namespace Generic.Helpers.Utility
                 sEmailBody = sEmailBody.Replace(sVariable, sValue);
             }
             return sEmailBody;
+        }
+
+        private string sGetRegistrationLink(string accessCode, string projectUrl, bool advanced, string linkText = null)
+        {
+            if (string.IsNullOrEmpty(linkText)) linkText = "link";
+            if (advanced)
+                return "<a href='" + projectUrl + "/Registration/?accessCode=" + accessCode + "&advanced=true' >" + linkText + "</a>";
+            else return "<a href='" + projectUrl + "/Registration/?accessCode='" + accessCode + "'>" + linkText + "</a>";
+        }
+
+        private string sGetProjectUrl(enterprise enterprise)
+        {
+            if (enterprise == null)
+            {
+                return "https://www.intelleges.com/mvcmt/Generic";
+            }
+            else
+            {
+                if (enterprise.multiTenantProjectType == 1)
+                {
+                    return "https://www.intelleges.com/mvcmt/Generic";
+                }
+                else if (enterprise.multiTenantProjectType == 2)
+                {
+                    return "https://www.intelleges.com/mvcmt/BAA";
+                }
+                else
+                {
+                    return "https://www.intelleges.com/mvcmt/Generic";
+                }
+            }
         }
         private string sGetpersonFullName(person person)
         {
@@ -299,7 +333,7 @@ namespace Generic.Helpers.Utility
 
         private string sGetpersonLastName(person person)
         {
-            return person.lastName; ;
+            return person.lastName; 
         }
 
         private string sGetpersonTitle(person person)

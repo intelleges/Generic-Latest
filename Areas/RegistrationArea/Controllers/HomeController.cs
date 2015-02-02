@@ -30,7 +30,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         //
         // GET: /RegistrationArea/Home/
 
-        public virtual ActionResult Index(string id = "", string accessCode = null)
+        public virtual ActionResult Index(string id = "", string accessCode = null, bool? advanced=null)
         {
 
 
@@ -112,11 +112,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                 }
             }
-
+            if (advanced.HasValue && advanced.Value)
+                return GenerateIndex(accessCode, advanced);
             return View();
         }
-        [HttpPost]
-        public virtual ActionResult Index(string accessCode)
+
+        protected virtual ActionResult GenerateIndex(string accessCode, bool? advanced = null)
         {
             ViewBag.CMS_TITLE = CMS.ACCESS_CODE_TITLE;
             ViewBag.CMS_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;
@@ -125,7 +126,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.CMS_FOOTER_ONE = CMS.ACCESS_CODE_FOOTER_ONE;
             ViewBag.CMS_FOOTER_TWO = CMS.ACCESS_CODE_FOOTER_TWO;
             ViewBag.CMS_SUBMIT_TEXT = "Login";
-           
+
 
             var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             if (ppptq != null)
@@ -227,7 +228,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
 
 
-
+                        if(advanced.HasValue&&advanced.Value)
+                            return RedirectToAction("CorrectContactInformation"); 
                         return RedirectToAction("companyInformation");
                     }
                     else
@@ -247,6 +249,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
 
             return View();
+        }
+        [HttpPost]
+        public virtual ActionResult Index(string accessCode)
+        {
+            return GenerateIndex(accessCode, false);
         }
 
 
