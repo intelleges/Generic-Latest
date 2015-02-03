@@ -1948,6 +1948,7 @@
     <Content Include="Contents\css\styles0.css" />
     <Content Include="Contents\css\styles_sri.css" />
     <Content Include="Contents\css\tabcontent.css" />
+    <Content Include="Contents\images\1Logo.png" />
     <Content Include="Contents\images\addAll_button.gif" />
     <Content Include="Contents\images\addpartners.gif" />
     <Content Include="Contents\images\addprovider_head.jpg" />

@@ -1253,7 +1253,7 @@ a.tt:hover span.bottom{
 }
 .supplytitleblueone{
 	color:#091935;
-	font-size:32px;
+	font-size:26px;
 	font-weight:bold;
 	padding:60px 10px 0 0px;
 	font-family:Arial, Helvetica, sans-serif;
@@ -1495,7 +1495,7 @@ a.tt:hover span.bottom{
 	background:url(../images/login_banner.gif) no-repeat;
 	width:914px;
 	height:218px;
-	margin:0 auto;
+	margin:-30px auto;
 	}
 /* ----- Product page ----- */
 .prorightbox{

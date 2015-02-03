@@ -1513,7 +1513,7 @@ a.tt:hover span.bottom{
 	background:url(../images/login_banner.gif) no-repeat;
 	width:914px;
 	height:218px;
-	margin:0 auto;
+	margin:-30px auto;
 	}
 /* ----- Product page ----- */
 .prorightbox{
