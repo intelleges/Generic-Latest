@@ -555,7 +555,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
 
             ViewBag.questions = objhtml.ToString();
-
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.message = TempData["message"];
+            }
             return View();
         }
 
@@ -565,6 +568,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult QuestionnaireResponse(FormCollection formCollection, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
+            #region Method Body
             if (Session["hs3Registration"] == null)
             {
                 return RedirectToAction("Index");
@@ -599,8 +603,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
             // int errorQuestion = 0;
             //  string errorMessage = "";
             string goEsignature = "";
-
+            var cms = db.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(questionnaireId).FirstOrDefault();
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+
 
 
             jumpToQuestion = 0;
@@ -651,7 +656,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 if (keyName.ToString().Contains("btnSaveForLater"))
                 {
-                    saveForLaterButton = true;
+                    saveForLaterButton = bool.Parse(formCollection["btnSaveForLater"]);
                 }
 
                 if (keyName.ToString().Contains("question_"))
@@ -1106,8 +1111,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (saveForLaterButton == true)
             {
-
-
+                TempData["message"] = "Your answers have been saved";                
                 //#region 20130222 new code
                 //SaveLater(questionnaire, question);
                 //#endregion
@@ -1121,8 +1125,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, page, pageNumber);
             }
 
-
-            return View();
+            #endregion
+          return  Redirect("QuestionnaireResponse?questionIndex=" + questionIndex + "&jumpToQuestion=" + jumpToQuestion + "&page=" + page + "&pageNumber=" + pageNumber);
+            // QuestionnaireResponse(questionIndex, jumpToQuestion, page, errorQuestion, pageNumber, errorMessage);
+            // return View();
         }
 
 
