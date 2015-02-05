@@ -8315,6 +8315,9 @@
         <Function Name="pr_unArchiveTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_unSubscribePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partner" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_validatePasswordByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="emailAddress" Type="varchar" Mode="In" />
           <Parameter Name="password" Type="varchar" Mode="In" />
@@ -12815,7 +12818,7 @@
           <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getRailStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRailStatus_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getRailStatusAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRailStatusAll_Result)" />
           <FunctionImport Name="pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue">
@@ -12827,6 +12830,9 @@
             <Parameter Name="description" Mode="In" Type="String" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unSubscribePartner">
+            <Parameter Name="partner" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -26653,6 +26659,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue" FunctionName="hs3MVCMTQa2Model.Store.pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue" />
           <FunctionImportMapping FunctionImportName="pr_modifyRailStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyRailStatus" />
+          <FunctionImportMapping FunctionImportName="pr_unSubscribePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_unSubscribePartner" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

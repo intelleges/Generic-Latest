@@ -1,0 +1,24 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc.Html
+@{
+    ViewBag.Title = "Unsubscribe";
+    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout(); 
+}
+<style>
+    .logoImg {
+        width:800px;
+    }
+    h2 {
+        text-align: center;
+    }
+</style>
+<img src="~/Contents/images/1Logo.png" class="logoImg"/>
+<div>
+<h2>@ViewBag.account: email address has unsubscribed from Intelleges Data Governance Database</h2>
+    
+ </div>
+<script>
+    $(document).ready(function () {
+        $(".infologinbanner").height(0);
+    });
+</script>

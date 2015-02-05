@@ -12,7 +12,24 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
     <script>       
         jQuery(document).ready(function () {  
+            $("#touchpoint").change(function () {
+                var touchpoint = $("#touchpoint").val();
+                var defaultOption = "<option value>Select Partner Type</option>";
+                if (touchpoint) {
+                    $.getJSON("GetPartnerTypes/" + touchpoint).done(function (result) {
+                        if (result) {
+                            var len = result.length;
+                            var i = 0;                           
+                            for (i = 0; i < len; i++) {
+                                defaultOption += "<option value='" + result[i].id + "'>" + result[i].name + "</option>";
+                            }
 
+                            $('#partnertype').html(defaultOption);
+                        }
+                    });
+                }
+                else $("#partnertype").html(defaultOption);
+            });
             $('#protocol').change(function () {
                 var objProtocolID = $('#protocol').val();
                 var formData = { protocolId: objProtocolID };
@@ -563,13 +580,15 @@
                     @Html.Label("Protocol")
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownList("protocol", null,String.Empty, new {@class="ddlClass" })
+                    @Html.DropDownList("protocol", null,String.Empty, new {@class="ddlClass" ,@data_val="true", @data_val_required=" "})
+                    <span class="field-validation-valid" data-valmsg-for="protocol" data-valmsg-replace="true"></span>
                 </div>
                  <div class="editor-label">
                     @Html.Label("Touchpoint")
                 </div>
                 <div class="editor-field">
-                    <select id="touchpoint" name="touchpoint" class="ddlClass"></select>
+                    <select id="touchpoint" name="touchpoint" class="ddlClass" data-val="true" data-val-required=" "></select>
+                     <span class="field-validation-valid" data-valmsg-for="touchpoint" data-valmsg-replace="true"></span>
                 </div>
                 
                  <div class="editor-label">
@@ -577,38 +596,7 @@
                 </div>
                 <div class="editor-field">
                     @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style="width:100%;"})
-                </div>
-               @* <div class="editor-label">
-                    
-                    @Html.Label("Author")
-                </div>
-                <div class="editor-field">
-
-                    @Html.DropDownList("author", null,String.Empty, new {@class="ddlClass" })
-                    @Html.ValidationMessageFor(model => model.author)
-
-                    
-                </div>*@
-
-
-
-                @* <div class="editor-label">
-                    @Html.LabelFor(model => model.dateApproved)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.dateApproved)
-                    @Html.ValidationMessageFor(model => model.dateApproved)
-                </div>*@
-
-               @* <div class="editor-label">
-                   
-                    @Html.Label("Active")
-                </div>
-                <div class="editor-field">
-                   
-                    @Html.TextBoxFor(model=>model.active,new {@class="txtClass"})
-                    @Html.ValidationMessageFor(model => model.active)
-                </div>*@
+                </div>               
 
                 
 
@@ -616,8 +604,8 @@
                     @Html.Label("Group")
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownList("group", null,String.Empty, new {@class="ddlClass",@style="margin-top: 3%;" })
-
+                    @Html.DropDownList("group", null,String.Empty, new {@class="ddlClass",@style="margin-top: 3%;",@data_val="true", @data_val_required=" " })
+                    <span class="field-validation-valid" data-valmsg-for="group" data-valmsg-replace="true"></span>
                    @* <a href="@Url.Content(" ~ /Group/Create")">Add Group</a>*@
 
                 </div>
@@ -626,7 +614,8 @@
                     @Html.Label("Partner Type")
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownList("partnertype", null,String.Empty, new {@class="ddlClass" })
+                   <select id="partnertype" name="partnertype" class="ddlClass" data-val="true" data-val-required=" "></select>
+                     <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
                     @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Partner Type</a>*@
                 </div>
                <div class="editor-label">
@@ -635,12 +624,12 @@
                 </div>
                 <div class="editor-field">
 
-                    @Html.DropDownList("owner", null,String.Empty, new {@class="ddlClass" })
+                    @Html.DropDownList("owner", null,String.Empty, new {@class="ddlClass",@data_val="true", @data_val_required=" " })
                     @Html.ValidationMessageFor(model => model.owner)
                     @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Owner</a>*@
                 </div>
                 
-                 <div class="editor-label">
+                 @*<div class="editor-label">
                    
                 </div>
                 <div class="editor-field">
@@ -657,7 +646,7 @@
                 </div>
                 <div class="editor-field">
                     <a id="lnkOwner" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Owner</a>
-                </div>
+                </div>*@
                
                
 
@@ -891,3 +880,6 @@
     </fieldset>*@
     }
 
+@section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+}

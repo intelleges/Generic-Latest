@@ -45,13 +45,13 @@ namespace Generic.Helpers.Utility
             return this.sGetResult(sEmailBody, sender, null, partner, null, touchpoint, ptq);
         }
 
-        public string sGetEmailBody(string sEmailBody, person sender, partner partner,enterprise enterprise, touchpoint touchpoint, int ptq)
+        public string sGetEmailBody(string sEmailBody, person sender, partner partner, enterprise enterprise, touchpoint touchpoint, int ptq)
         {
             return this.sGetResult(sEmailBody, sender, null, partner, enterprise, touchpoint, ptq);
         }
-        public string sGetEmailBody(string sEmailBody, person sender, person receiver, touchpoint touchpoint, enterprise enterprise,person systemmaster)
+        public string sGetEmailBody(string sEmailBody, person sender, person receiver, touchpoint touchpoint, enterprise enterprise, person systemmaster)
         {
-            return this.sGetResult(sEmailBody, sender, receiver, null, enterprise, touchpoint,0,systemmaster);
+            return this.sGetResult(sEmailBody, sender, receiver, null, enterprise, touchpoint, 0, systemmaster);
         }
         private string sGetResult(string sEmailBody, person sender, person receiver, partner partner, enterprise enterprise, touchpoint touchpoint, int ptq = 0, person systemmaster = null)
         {
@@ -71,131 +71,131 @@ namespace Generic.Helpers.Utility
             {
                 sVariable = match.ToString();
 
-                switch (sVariable)
+                switch (sVariable.ToLower())
                 {
-                    case "[Receiver Full Name]":
+                    case "[receiver full name]":
                         sValue = this.sGetpersonFullName(receiver);
                         break;
-                    case "[Receiver Title]":
+                    case "[receiver title]":
                         sValue = this.sGetpersonTitle(receiver);
                         break;
-                    case "[Receiver First Name]":
+                    case "[receiver first name]":
                         sValue = this.sGetpersonFirstName(receiver);
                         break;
-                    case "[Receiver Last Name]":
+                    case "[receiver last name]":
                         sValue = this.sGetpersonLastName(receiver);
                         break;
-                    case "[Receiver Phone]":
+                    case "[receiver phone]":
                         sValue = this.sGetpersonPhone(receiver);
                         break;
-                    case "[Receiver Email]":
+                    case "[receiver email]":
                         sValue = this.sGetpersonEmail(receiver);
                         break;
-                    case "[Receiver Role]":
+                    case "[receiver role]":
                         sValue = this.sGetpersonRole(receiver);
                         break;
-                    case "[Receiver Password]":
+                    case "[receiver password]":
                         sValue = this.sGetpersonPassword(receiver);
                         break;
-                    case "[Sender Full Name]":
+                    case "[sender full name]":
                         sValue = this.sGetpersonFullName(sender);
                         break;
-                    case "[Sender Title]":
+                    case "[sender title]":
                         sValue = this.sGetpersonTitle(sender);
                         break;
-                    case "[Sender First Name]":
+                    case "[sender first name]":
                         sValue = this.sGetpersonFirstName(sender);
                         break;
-                    case "[Sender Last Name]":
+                    case "[sender last name]":
                         sValue = this.sGetpersonLastName(sender);
                         break;
-                    case "[Sender Phone]":
+                    case "[sender phone]":
                         sValue = this.sGetpersonPhone(sender);
                         break;
-                    case "[Sender Email]":
+                    case "[sender email]":
                         sValue = this.sGetpersonEmail(sender);
                         break;
-                    case "[Sender Role]":
+                    case "[sender role]":
                         sValue = this.sGetpersonRole(sender);
                         break;
-                    case "[partner Encrypted Id]":
+                    case "[partner encrypted Id]":
                         sValue = this.sGetEncryptedpartnerId(partner);
                         break;
-                    case "[partner Name]":
+                    case "[partner name]":
                         sValue = this.sGetpartnerName(partner);
                         break;
-                    case "[partner Address]":
+                    case "[partner address]":
                         sValue = this.sGetpartnerAddress(partner);
                         break;
-                    case "[partner Contact Full Name]":
+                    case "[partner contact full name]":
                         sValue = this.sGetpartnerContactFullName(partner);
                         break;
-                    case "[partner Contact First Name]":
+                    case "[partner contact first name]":
                         sValue = this.sGetpartnerContactFirstName(partner);
                         break;
-                    case "[partner Contact Last Name]":
+                    case "[partner contact last name]":
                         sValue = this.sGetpartnerContactLastName(partner);
                         break;
-                    case "[partner Contact Email]":
+                    case "[partner contact email]":
                         sValue = this.sGetpartnerContactEmail(partner);
                         break;
-                    case "[partner Contact Title]":
+                    case "[partner contact title]":
                         sValue = this.sGetpartnerContactTitle(partner);
                         break;
-                    case "[partner Contact Phone]":
+                    case "[partner contact phone]":
                         sValue = this.sGetpartnerContactPhone(partner);
                         break;
-                    case "[partner Contact Fax]":
+                    case "[partner contact fax]":
                         sValue = this.sGetpartnerContactFax(partner);
                         break;
-                    case "[partner HRO Full Name]":
+                    case "[partner hro full name]":
                         sValue = this.sGetpartnerHROFullName(partner);
                         break;
-                    case "[partner HRO First Name]":
+                    case "[partner hro first name]":
                         sValue = this.sGetpartnerHROFirstName(partner);
                         break;
-                    case "[partner HRO Last Name]":
+                    case "[partner hro last name]":
                         sValue = this.sGetpartnerHROLastName(partner);
                         break;
-                    case "[partner HRO Email]":
+                    case "[partner hro email]":
                         sValue = this.sGetpartnerHROEmail(partner);
                         break;
-                    case "[partner HRO Phone]":
+                    case "[partner hro phone]":
                         sValue = this.sGetpartnerContactPhone(partner);
                         break;
-                    case "[partner HRO Title]":
+                    case "[partner hro title]":
                         sValue = this.sGetpartnerHROTitle(partner);
                         break;
-                    case "[partner HRO Fax]":
+                    case "[partner hro fax]":
                         sValue = this.sGetpartnerHROFax(partner);
                         break;
-                    case "[partner Access Code]":
-                        sValue = this.sGetpartnerAccessCode(partner, touchpoint,ptq);
+                    case "[partner access code]":
+                        sValue = this.sGetpartnerAccessCode(partner, touchpoint, ptq);
                         break;
-                    case "[partner Code]":
-                        sValue = this.sGetpartnerAccessCode(partner, touchpoint,ptq);
+                    case "[partner code]":
+                        sValue = this.sGetpartnerAccessCode(partner, touchpoint, ptq);
                         sValue = sValue.Substring(1, 4);
                         break;
                     case "[partner Type]":
                         sValue = this.sGetpartnerType(partner);
                         break;
-                    
-                        
+
+
                     case "[touchpoint]":
                         sValue = touchpoint.title;
                         break;
                     case "[enterprise]":
                         sValue = enterprise.description;
                         break;
-                    case "[Protocol]":
+                    case "[protocol]":
                         //sValue = touchpoint.protocol.getProtocol().description;
                         sValue = "";
                         break;
-                    case "[Group]":
+                    case "[group]":
                         break;
-                    case "[Due Date]":
+                    case "[due date]":
                         var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partner.id, ptq).FirstOrDefault();
-                        
+
                         //var t = pptq;
                         //var dueDate = db.pr_getDueDateByPPTQ(pptq.id).FirstOrDefault();
                         if (pptq.dueDate != null)
@@ -204,87 +204,155 @@ namespace Generic.Helpers.Utility
                             sValue = pptq.invitedDate.AddDays(30).ToString("d");
                         //sValue = partner.getDueDateByInitialInvitation(partner, touchpoint).ToShortDateString();
                         break;
-                    case "[Start Date]":
+                    case "[start date]":
                         var _invitedDate = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partner.id, ptq).FirstOrDefault().invitedDate;
                         if (_invitedDate != null)
                             sValue = _invitedDate.ToString("d");
                         else
                             sValue = DateTime.Now.ToShortDateString();
                         break;
-                    case "[partner Owner Full Name]":
+                    case "[partner owner full name]":
                         sValue = this.sGetpartnerOwnerFullName(partner);
                         break;
-                    case "[partner Owner Email]":
+                    case "[partner owner email]":
                         sValue = this.sGetpartnerOwnerEmail(partner);
                         break;
-                    case "[partner Email and Password]":
+                    case "[partner email and password]":
                         sValue = this.sGetpartnerEmailandPassword(partner);
                         break;
 
-                    case "[Enterprise Name]":
+                    case "[enterprise name]":
                         sValue = enterprise.description;
                         break;
 
-                    case "[Touchpoint Title]":
-                        sValue =touchpoint.description;
+                    case "[touchpoint title]":
+                        sValue = touchpoint.description;
                         break;
-                    case "[User Firstname]":
+                    case "[user firstname]":
                         sValue = receiver.firstName;
                         break;
-                    case "[Touchpoint Purpose]":
+                    case "[touchpoint purpose]":
                         sValue = touchpoint.purpose;
                         break;
-                    case "[User Email]":
+                    case "[user email]":
                         sValue = receiver.email;
                         break;
-                    case "[Temporary Access Code]":
+                    case "[temporary access code]":
                         sValue = receiver.passWord;
                         break;
-                    case "[Project Url]":
+                    case "[project url]":
                         sValue = this.sGetProjectUrl(enterprise);
                         break;
-                    case "[User Inviting Email]":
+                    case "[user inviting email]":
                         sValue = sender.email;
                         break;
-                    case "[User Inviting Firstname]":
+                    case "[user inviting firstname]":
                         sValue = sender.firstName;
                         break;
-                    case "[User Inviting Last Name]":
+                    case "[user inviting last name]":
                         sValue = sender.lastName;
                         break;
-                    case "[System Master Email]":
+                    case "[system master email]":
                         sValue = systemmaster.email;
                         break;
-                    case "[System Master FullName]":
+                    case "[system master fullname]":
                         sValue = systemmaster.FullName;
                         break;
-                     case "[HON Internal ID]":
+                    case "[hon internal id]":
                         sValue = partner.name;
                         break;
-
-                    default:
-                        if (sVariable.Contains("[Registration Link Standard"))
+                    case "[partnumber]":
+                        if (HttpContext.Current.Session["partnumber"] != null && HttpContext.Current.Session["partnumber"] != "0" && HttpContext.Current.Session["partnumber"] != "")
                         {
-                            var splitted = sVariable.Split(new char[] {':' },StringSplitOptions.RemoveEmptyEntries);
-                            if (splitted.Length > 1)
+                            int partid = Convert.ToInt32(HttpContext.Current.Session["partnumber"].ToString());
+                            if (partid != 0)
                             {
-                                
-                                sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), false, splitted[1]);
+                                sValue = db.pr_getPartnumber(partid).FirstOrDefault().description;
                             }
-                            else sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), false);
                         }
-                        else if (sVariable.Contains("[Registration Link Advanced"))
+                        break;
+                    case "[next partnumber]":
+                        if (HttpContext.Current.Session["NextPartnumber"] != null)
+                        {
+                            int partid = Convert.ToInt32(HttpContext.Current.Session["NextPartnumber"].ToString());
+                            if (partid != 0)
+                            {
+                                sValue = db.pr_getPartnumber(partid).FirstOrDefault().description;
+                            }
+                        }
+                        break;
+                    case "[first name]":
+                        sValue = partner.firstName;
+                        break;
+                    case "[last name]":
+                        sValue = partner.lastName;
+                        break;
+                    case "[firstname]":
+                        sValue = partner.firstName;
+                        break;
+                    case "[lastname]":
+                        sValue = partner.lastName;
+                        break;
+                    case "[title]":
+                        sValue = partner.title;
+                        break;
+                    case "[email address]":
+                        sValue = partner.email;
+                        break;
+                    case "[phone number]":
+                        sValue = partner.phone;
+                        break;
+                    case "[partner country]":
+                        sValue =db.pr_getCountry(partner.country).FirstOrDefault().name;
+                        break;
+                    case "[partner address one]":
+                        sValue = partner.address1;
+                        break;
+                    case "[partner_city]":
+                        sValue = partner.city;
+                        break;
+                    case "[partner_state]":
+                        sValue =db.pr_getStateByID(partner.state).FirstOrDefault().name;
+                        break;
+                    //case "[partner_state]":
+                    //    sValue = db.pr_getStateByID(partner.state).FirstOrDefault().name;
+                    //    break;
+                    default:
+                        var lowered = sVariable.ToLower();
+                        if (lowered.Contains("[registration link standard"))
                         {
                             var splitted = sVariable.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
                             if (splitted.Length > 1)
                             {
-                                
+
+                                sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), false, splitted[1]);
+                            }
+                            else sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), false);
+                        }
+                        else if (lowered.Contains("[registration link advanced"))
+                        {
+                            var splitted = sVariable.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (splitted.Length > 1)
+                            {
                                 sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), true, splitted[1]);
                             }
                             else sValue = this.sGetRegistrationLink(this.sGetpartnerAccessCode(partner, touchpoint, ptq), this.sGetProjectUrl(enterprise), true);
                         }
+                        else if (lowered.Contains("[unsubscribe"))
+                        {
+                            var splitted = sVariable.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                            sValue = "<a href='" + this.sGetProjectUrl(enterprise) + "/Registration/Home/Unsubscribe/" + partner.id + "'>{0}</a>";
+                            sValue = splitted.Length > 1 ? string.Format(sValue, splitted[1].Replace("]", "")) : "click here";
+                        }
+                        else if (lowered.Contains("[forward to"))
+                        {
+                            var splitted = sVariable.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                            sValue = "<a href='" + this.sGetProjectUrl(enterprise) + "/wrongContact?AccessCode="+this.sGetpartnerAccessCode(partner,touchpoint,ptq)+"'>{0}</a>";
+                            //sValue = "<a href='" + this.sGetProjectUrl(enterprise) + "/Registration/Home/Unsubscribe/" + partner.id + "'>{0}</a>";
+                            sValue = splitted.Length > 1 ? string.Format(sValue, splitted[1].Replace("]", "")) : "click here";
+                        }
                         else
-                        sValue = "";
+                            sValue = sVariable;
                         break;
                 }
                 //replace emailBody's variable with real data
@@ -293,7 +361,7 @@ namespace Generic.Helpers.Utility
             return sEmailBody;
         }
 
-        public  string sGetRegistrationLink(string accessCode, string projectUrl, bool advanced, string linkText = null)
+        public string sGetRegistrationLink(string accessCode, string projectUrl, bool advanced, string linkText = null)
         {
             if (string.IsNullOrEmpty(linkText)) linkText = "link";
             else
@@ -339,7 +407,7 @@ namespace Generic.Helpers.Utility
 
         private string sGetpersonLastName(person person)
         {
-            return person.lastName; 
+            return person.lastName;
         }
 
         private string sGetpersonTitle(person person)
@@ -349,7 +417,7 @@ namespace Generic.Helpers.Utility
 
         private string sGetpersonRole(person person)
         {
-         //   return person.role.getRoleDetail().description;
+            //   return person.role.getRoleDetail().description;
             return "";
         }
 
@@ -479,7 +547,7 @@ namespace Generic.Helpers.Utility
                 address += partner.city + ", ";
                 if (partner.country == 1)
                 {
-                   // address += partner.state.getState().code + " " + partner.zipcode + Environment.NewLine;
+                    // address += partner.state.getState().code + " " + partner.zipcode + Environment.NewLine;
                     address = "";
                 }
                 else
@@ -614,8 +682,8 @@ namespace Generic.Helpers.Utility
         private string sGetpartnerEmailandPassword(partner partner)
         {
             string personnamePassword = null;
-            
-           
+
+
             if (partner.internalID != null)
             {
 
@@ -638,7 +706,7 @@ namespace Generic.Helpers.Utility
         private string sGetpartnerAccessCode(partner partner, touchpoint touchpoint, int ptq)
         {
             EntitiesDBContext db = new EntitiesDBContext();
-            var accesscode = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partner.id,ptq).FirstOrDefault().accesscode;
+            var accesscode = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partner.id, ptq).FirstOrDefault().accesscode;
             db.Dispose();
             //return partner.getAccessCodeBytouchpointpartner(touchpoint).accessCode;
             return accesscode;

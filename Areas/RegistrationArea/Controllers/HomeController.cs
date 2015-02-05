@@ -793,18 +793,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
 
                         //   db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
-                        var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
-                        if (checkpsz.Count == 0)
+                        var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
+                        if (checkpsz == null)
                         {
-                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq).FirstOrDefault();
                         }
                         else
                         {
                             if (responseComment == "")
                             {
-                                responseComment = checkpsz.FirstOrDefault().comment;
+                                responseComment = checkpsz.comment;
                             }
-                            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, pptq);
+                            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.id, questionId, responseId, responseComment, null, null, null, null, pptq);
                         }
                     }
 
@@ -1822,6 +1822,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         }
 
+        public ActionResult Unsubscribe(int id)
+        {
+            var partner = db.pr_getPartner(id).FirstOrDefault();
+            if (partner != null)
+            {
+                db.pr_unSubscribePartner(id);
+                ViewBag.account = partner.email;
+                return View();
+            }
+            return Redirect("https://www.intelleges.com");
+        }
+
         public ActionResult Finish()
         {
             if (Session["hs3Registration"] == null)
@@ -2093,7 +2105,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
             writer.CloseStream = false;
             pdfDoc.Open();
 
-            string htmltext = this.RenderActionResultToString(this.View("QuestionnaireResponsePdfDownload", model));  //name of the view...
+            string htmltext = this.RenderActionResultToString(this.View("QuestionnaireResponsePdfDownload", model));
+            EmailFormat formatter = new EmailFormat();
+             var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptqID);
+            var partner = db.pr_getPartner(quest.partner).FirstOrDefault();
+            htmltext = formatter.sGetEmailBody(htmltext, null, partner, null, quest.partnerTypeTouchpointQuestionnaire1.touchpoint1, quest.partnerTypeTouchpointQuestionnaire);
+            //name of the view...
             var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(htmltext), null);
 
             //Get each array values from parsed elements and add to the PDF document
@@ -2110,7 +2127,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             memStream.Read(buf, 0, buf.Length);
 
 
-            var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptqID);
+           
             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, buf, quest.docFolderAddress, quest.score, quest.loadGroup);
             
             // Send the binary data to the browser.

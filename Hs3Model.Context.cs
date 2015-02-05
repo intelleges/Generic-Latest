@@ -14844,5 +14844,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyRailStatus", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
+    
+        public virtual int pr_unSubscribePartner(Nullable<int> partner)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unSubscribePartner", partnerParameter);
+        }
     }
 }

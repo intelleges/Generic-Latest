@@ -15,6 +15,7 @@ using Google.API.Translate;
 using Generic;
 using System.Text;
 using Generic.Helpers.Questionnaire;
+using Generic.Helpers.Utility;
 
 namespace Generic.DataLayer
 {
@@ -170,7 +171,7 @@ namespace Generic.DataLayer
             showquestionCollectionByquestionnaire(questionnaire, table);
             return table;
         }
-         
+
         private void showPageCollectionByquestionnaire(questionnaire questionnaire, int pageNumber, int pageId, int jumpToquestion, Table table)
         {
             List<page> pageCollection = db.pr_getPageByQuestionnaire(questionnaire.id).ToList();
@@ -313,6 +314,7 @@ namespace Generic.DataLayer
             TableCell tableCell = new TableCell();
             TableRow tableRowsurvey = new TableRow();
             TableCell tableCellsurvey = new TableCell();
+            EmailFormat format = new EmailFormat();
             partnerPartnertypeTouchpointQuestionnaire objpptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(HttpContext.Current.Session["accessCode"].ToString()).FirstOrDefault();
 
             Label label = new Label();
@@ -323,47 +325,11 @@ namespace Generic.DataLayer
 
             //abs21022012
             string strQuestion = question.question1;
-            if (strQuestion != null)
-            {
-                if (strQuestion.Contains("[partnumber]"))
-                {
-                    if (HttpContext.Current.Session["partnumber"] != null && HttpContext.Current.Session["partnumber"] != "0" && HttpContext.Current.Session["partnumber"] != "")
-                    {
-                        int partid = Convert.ToInt32(HttpContext.Current.Session["partnumber"].ToString());
-                        if (partid != 0)
-                        {
-                            string partName = db.pr_getPartnumber(partid).FirstOrDefault().description;
-                            question.question1 = strQuestion.Replace("[partnumber]", partName);
-                        }
-                    }
-                }
-                string strQuestionAgain = question.question1;
-
-                if (strQuestionAgain.Contains("[Partner Name]"))
-                {
-                    if (HttpContext.Current.Session["partner"] != null && HttpContext.Current.Session["partner"] != "0" && HttpContext.Current.Session["partner"] != "")
-                    {
-                        var partnerID = (int)HttpContext.Current.Session["partner"];
-                        var _currentPartner = db.pr_getPartner(partnerID).FirstOrDefault();
-                        question.question1 = strQuestionAgain.Replace("[Partner Name]", _currentPartner.firstName + " " + _currentPartner.lastName);
-                        strQuestionAgain = question.question1;
-                    }
-                }
-                
-
-                if (strQuestionAgain.Contains("[next partnumber]"))
-                {
-                    if (HttpContext.Current.Session["NextPartnumber"] != null)
-                    {
-                        int partid = Convert.ToInt32(HttpContext.Current.Session["NextPartnumber"].ToString());
-                        if (partid != 0)
-                        {
-                            string partName = db.pr_getPartnumber(partid).FirstOrDefault().description;
-                            question.question1 = strQuestionAgain.Replace("[next partnumber]", partName);
-                        }
-                    }
-                }
-            }
+            var partnerID = (int)HttpContext.Current.Session["partner"];
+            var _currentPartner = db.pr_getPartner(partnerID).FirstOrDefault();
+           var _enterprise =  db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+           strQuestion = format.sGetEmailBody(strQuestion, null, _currentPartner, _enterprise, objpptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, objpptq.partnerTypeTouchpointQuestionnaire);
+           question.question1 = strQuestion;
 
 
             if (this.showContentOnly)
@@ -410,7 +376,6 @@ namespace Generic.DataLayer
                 previoussurvey = currentsurvey;
                 labelsurvey.Text = "<b>" + previoussurvey + "</b>";
                 table.Controls.Add(tableRowsurvey);
-
             }
             //show question number
             tableCell.Text = index.ToString();
@@ -624,12 +589,12 @@ namespace Generic.DataLayer
                 pptqResponse = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(question.id, objpptq.id).FirstOrDefault();
             }
 
-         
-           
-           
-             
 
-           
+
+
+
+
+
             surveyForm surveyfrm = new surveyForm();
             string incldComment = "";
             string incldFileUpload = "";
@@ -1080,9 +1045,9 @@ namespace Generic.DataLayer
                     txtbox.Attributes.Add("data-val-required", "Required");
                     txtbox.Attributes.Add("data-val", "true");
                     divn.InnerHtml = incldComment + " ";//"Include comments here: ";
-                   
+
                     divn.Controls.Add(txtbox);
-                    
+
                     tableCell.Controls.AddAt(0, divn);
                     addControlValidator(txtbox.ID, "requiredFieldValidator", tableCell);
 
@@ -1112,7 +1077,7 @@ namespace Generic.DataLayer
 
                     ////add validators to _fileUploadComment
                     controlId = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
-                   // addControlValidatorToFileUpload(controlId, "regularexpressionValidator", innerdiv);
+                    // addControlValidatorToFileUpload(controlId, "regularexpressionValidator", innerdiv);
                     //addControlValidatorToFileUpload(controlId, "customValidator", innerdiv);
                     divn.Controls.AddAt(0, innerdiv);
                     divn.Controls.AddAt(1, innerdivUpload);
@@ -1122,11 +1087,11 @@ namespace Generic.DataLayer
                     validationSpan.Attributes.Add("data-valmsg-replace", "true");
                     innerdivUpload.Controls.Add(validationSpan);
                     //RequiredFieldValidator validator = new RequiredFieldValidator();
-                   // validator.ID = question.id + "_R";
+                    // validator.ID = question.id + "_R";
                     //validator.ControlToValidate = controlId;
                     //validator.ErrorMessage = "Required";//" Required";
-                   // validator.Display = ValidatorDisplay.Dynamic;
-                   // innerdivUpload.Controls.Add(validator);
+                    // validator.Display = ValidatorDisplay.Dynamic;
+                    // innerdivUpload.Controls.Add(validator);
                     tableCell.Controls.AddAt(0, divn);
 
                 }
@@ -1142,7 +1107,7 @@ namespace Generic.DataLayer
                     txtbox.Attributes.Add("required", "");
                     txtbox.Attributes.Add("data-val-required", "Required");
                     txtbox.Attributes.Add("data-val", "true");
-                    divn.Controls.Add(txtbox); 
+                    divn.Controls.Add(txtbox);
 
                     tableCell.Controls.AddAt(0, divn);
                     addControlValidator(txtbox.ID, "requiredFieldValidator", tableCell);
@@ -1382,19 +1347,19 @@ namespace Generic.DataLayer
                     tableCell.Style.Add("font-size", "medium");
                     tableRow.Controls.Add(tableCell);
 
-                  //  tableCell = new TableCell();
-                   // var tableRadio = new Table();
-                   // tableRadio.Font.Size = 10;
-                   // tableRadio.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
-                    radioButtonList = new  Generic.Helpers.UIControl.MyRadioButtonList();//new Generic.Helpers.UIControl.MyRadioButtonList();
+                    //  tableCell = new TableCell();
+                    // var tableRadio = new Table();
+                    // tableRadio.Font.Size = 10;
+                    // tableRadio.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
+                    radioButtonList = new Generic.Helpers.UIControl.MyRadioButtonList();//new Generic.Helpers.UIControl.MyRadioButtonList();
                     radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
                     (radioButtonList as Generic.Helpers.UIControl.MyRadioButtonList).UseValidation = true;
                     radioButtonList.Font.Size = 10;
                     //radioButtonList.Attributes.Add("onchange", "javascript:showdiv();");
                     radioButtonList.Attributes.Add("onClick", "showdivRadioList(this);removevalidation(this.id) ");
 
-                    
-                    
+
+
 
                     radioButtonList.RepeatDirection = RepeatDirection.Vertical;
                     tableCell = new TableCell();
@@ -1411,9 +1376,9 @@ namespace Generic.DataLayer
 
                             radioButtonList.Items[i].Attributes["data-val"] = "true";
                             radioButtonList.Items[i].Attributes["data-val-required"] = "Required";
-                            radioButtonList.Items[i].Attributes["required"] = "";                           
+                            radioButtonList.Items[i].Attributes["required"] = "";
                         }
-                    
+
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                         {
                             radioButtonList.ClearSelection();
@@ -1422,7 +1387,7 @@ namespace Generic.DataLayer
                         tableCell.Controls.Add(radioButtonList);
                     }
 
-                    
+
 
                     tableCell.Controls.Add(radioButtonList);
                     tableCell.ColumnSpan = 2;
@@ -1530,7 +1495,8 @@ namespace Generic.DataLayer
                                         uploadedFileType = x.uploadedFileType
 
                                     }).ToList();
-                            }catch{}
+                            }
+                            catch { }
                         }
                         else if ((int)HttpContext.Current.Session["leveltype"] == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL)
                         {
@@ -1622,7 +1588,7 @@ namespace Generic.DataLayer
 
             return tableRow;
         }
-       
+
         private TableCell getAnswerCell(int surveyId, int questionId, string responseType, string cssClass, Table table)
         {
             question question = new question();
@@ -1681,10 +1647,10 @@ namespace Generic.DataLayer
                     radioButtonList = new Generic.Helpers.UIControl.MyRadioButtonList();
                     radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
                     radioButtonList.Attributes.Add("onClick", "showdivnew(this);removevalidation(this.id) ");
-                   
+
                     radioButtonList.RepeatDirection = RepeatDirection.Horizontal;
                     tableCell = new TableCell();
-                    
+
                     tableCell.HorizontalAlign = HorizontalAlign.Right;
                     tableCell.CssClass = cssClass;
                     tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(15);
@@ -1697,7 +1663,7 @@ namespace Generic.DataLayer
                             radioButtonList.Items[i].Attributes.Add("data-val-required", "Required");
                             radioButtonList.Items[i].Attributes.Add("required", "");
                         }
-                   
+
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                         {
                             if (pptqResponse.response == 74)
@@ -1715,7 +1681,7 @@ namespace Generic.DataLayer
                             radioButtonList.Items[i].Selected = true;
                             radioButtonList.Items[i].Attributes.Add("checked", "true");
                         }
-                        
+
                         tableCell.Controls.Add(radioButtonList);
                     }
                     if (divShowHideFlag == 3)
@@ -1733,7 +1699,7 @@ namespace Generic.DataLayer
         private void addControlValidator(string controlId, string validatorType, TableCell tableCell)
         {
             string requiredtext = " <span class=\"field-validation-valid\" data-valmsg-for=\"" + controlId + "\" data-valmsg-replace=\"true\"></span>";
-          //  string requiredtext = " " + convertLanguageApi("Required");
+            //  string requiredtext = " " + convertLanguageApi("Required");
             if (validatorType == "requiredFieldValidator")
             {
                 RequiredFieldValidator validator = new RequiredFieldValidator();
@@ -1741,7 +1707,7 @@ namespace Generic.DataLayer
                 validator.ErrorMessage = requiredtext;//" Required";
                 validator.Display = ValidatorDisplay.Dynamic;
                 tableCell.Controls.Add(validator);
-        //        tableCell.FindControl("controlId")
+                //        tableCell.FindControl("controlId")
             }
             else if (validatorType == "rangeValidator")
             {
