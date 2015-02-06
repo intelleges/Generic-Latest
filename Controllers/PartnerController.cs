@@ -235,7 +235,7 @@ namespace Generic.Controllers
                 {
                     ViewBag.MessageDetail = "Congratulations, you just added  " + partner.name + " to " + Target[0].title;
                 }
-                
+                ModelState.Clear();
                 return View();
             }
             catch
