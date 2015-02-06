@@ -1537,8 +1537,8 @@
           <Property Name="lastName" Type="varchar" MaxLength="255" />
           <Property Name="title" Type="varchar" MaxLength="255" />
           <Property Name="email" Type="varchar" MaxLength="255" />
-          <Property Name="dunsNumber" Type="varchar" MaxLength="20" />
-          <Property Name="federalID" Type="varchar" MaxLength="20" />
+          <Property Name="dunsNumber" Type="varchar" MaxLength="255" />
+          <Property Name="federalID" Type="varchar" MaxLength="255" />
           <Property Name="status" Type="int" />
           <Property Name="loadHistory" Type="int" />
           <Property Name="owner" Type="int" />
@@ -12832,7 +12832,7 @@
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_unSubscribePartner">
-            <Parameter Name="partner" Mode="In" Type="Int32" />
+          <Parameter Name="partner" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -13301,8 +13301,8 @@
           <Property Name="lastName" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="title" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="email" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="dunsNumber" MaxLength="20" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="federalID" MaxLength="20" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="dunsNumber" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="federalID" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="status" Type="Int32" />
           <Property Name="loadHistory" Type="Int32" />
           <Property Name="owner" Type="Int32" />

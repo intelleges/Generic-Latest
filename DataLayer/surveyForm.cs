@@ -627,7 +627,8 @@ namespace Generic.DataLayer
                 if (pptqResponse != null)
                 {
                     divn.Style.Clear();
-                    txtbox.Text = convertLanguageApi(pptqResponse.comment.ToString());
+                    if (!string.IsNullOrEmpty(pptqResponse.comment))
+                        txtbox.Text = convertLanguageApi(pptqResponse.comment);
                     if (question.commentBoxTxt == "" || question.commentBoxTxt == null)
                         divn.InnerHtml = convertLanguageApi("<span style='font-size:13px'> " + pptqResponse.response1.description.Replace("????", "") + ": </span>") + " ";
                     else divn.InnerHtml = incldComment + " ";
