@@ -110,10 +110,16 @@
                 });
             }
             if ("@ViewBag.Message" == "2") {
-                debugger;      
+                   
                 alertify.alert('@ViewBag.MessageDetail');
                 dataClear();
             }
+            if ("@ViewBag.Message" == "error") {
+               
+                alertify.alert('@ViewBag.MessageDetail');
+                dataClear();
+            }
+
 
             $('#btnInvite').click(function (e) {
                 e.preventDefault();

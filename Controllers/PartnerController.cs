@@ -238,10 +238,11 @@ namespace Generic.Controllers
                 ModelState.Clear();
                 return View();
             }
-            catch
+            catch(Exception ex)
             {
-                ViewBag.Message = "error";
 
+                ViewBag.Message = "error";
+                ViewBag.MessageDetail = ex.ToString();
                 //  alertify-ok"
                 //ViewBag.state = new SelectList(db.state.ToList(), "id", "name", partner.state);
                 //ViewBag.country = new SelectList(db.country.ToList(), "id", "name", partner.country);
