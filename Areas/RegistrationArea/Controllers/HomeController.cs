@@ -754,8 +754,23 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
 
-                        //provider.addProviderProtocolCampaignQuestionnaireSurveyQuestionResponse(
-                        //protocol, campaign, questionnaire, survey, question, response);
+                        //   db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                        //if (answer != "74" && answer != "75")
+                        //{
+                        //    var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
+                        //    if (checkpsz == null)
+                        //    {
+                        //        db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq).FirstOrDefault();
+                        //    }
+                        //    else
+                        //    {
+                        //        if (responseComment == "")
+                        //        {
+                        //            responseComment = checkpsz.comment;
+                        //        }
+                        //        db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.id, questionId, responseId, responseComment, null, null, null, null, pptq);
+                        //    }
+                        //}
                     }
                     else
                     {
@@ -789,7 +804,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
                         else
                         {
-                            responseComment = null;
+                            string strvl = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_onlyTextComment"];
+                            if (!string.IsNullOrEmpty(strvl))
+                            {
+                                responseComment = strvl;
+                            }
+                            else responseComment = null;
                         }
 
                         //   db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);

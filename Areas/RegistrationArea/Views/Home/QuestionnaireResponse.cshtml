@@ -25,7 +25,7 @@
                 <td width="20%" align="right">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                            <td valign="top">
+                            <td valign="middle">
                                 <ul id="qm0" class="qmmc" style="width: 775px;">
                                     <li><a class="qmparent" href=""></a></li>
 <li style="margin-left: 8px;"> <img src="~/Contents/images/1Logo.png" width="95px"/></li>
@@ -445,24 +445,33 @@
                         if (radios[j].checked) {
                             animatedcollapse.addDiv('y' + divname, 'fade=1,height=50px');
                             animatedcollapse.addDiv('n' + divname, 'fade=1,height=50px');
+                            animatedcollapse.addDiv('commented' + divname, 'fade=1,height=50px');
                             animatedcollapse.init();
 
                             if (j == 0) {
                                 //alert('Hi');
                                 animatedcollapse.show('y' + divname);
                                 animatedcollapse.hide('n' + divname);
+                                animatedcollapse.hide('commented' + divname);
                             }
                             else if (j == 1) {
                                 //alert('He');
                                 animatedcollapse.show('n' + divname);
                                 animatedcollapse.hide('y' + divname);
+                                animatedcollapse.hide('commented' + divname);
                             }
                             else {
                                 // alert(sender.id);
                                 //alert(lans);
                                 animatedcollapse.hide('y' + divname);
                                 animatedcollapse.hide('n' + divname);
-
+                                if ($(radios[j]).data("commented") === "True") {
+                                    $('#commented' + divname + ' span').text($("label[for='" +$( radios[j]).prop("id") + "']").text());
+                                    animatedcollapse.show('commented' + divname);
+                                    //animatedcollapse.hide('commented' + divname);
+                                } else {
+                                    animatedcollapse.hide('commented' + divname);
+                                }
                             }
 
                             //                       radioSelected=true;

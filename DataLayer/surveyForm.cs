@@ -614,6 +614,36 @@ namespace Generic.DataLayer
             {
                 incldFileUpload = convertLanguageApi("<span style='font-size:13px'>" + question.commentUploadTxt + "</span>");
             }
+            if (responseTypeDescription == "verticalRadioButton")
+            {
+                HtmlGenericControl divn = new HtmlGenericControl();
+                divn.ID = "commentedDiv_" + question.id.ToString();
+                //divn.Visible = false;
+                divn.Style.Add("display", "none");
+                txtbox = new TextBox();
+
+                txtbox.Width = 600;
+                txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+                if (pptqResponse != null)
+                {
+                    divn.Style.Clear();
+                    txtbox.Text = convertLanguageApi(pptqResponse.comment.ToString());
+                    if (question.commentBoxTxt == "" || question.commentBoxTxt == null)
+                        divn.InnerHtml = convertLanguageApi("<span style='font-size:13px'> " + pptqResponse.response1.description.Replace("????", "") + ": </span>") + " ";
+                    else divn.InnerHtml = incldComment + " ";
+                }
+                else divn.InnerHtml = incldComment + " ";//"Include comments here: ";
+                txtbox.Attributes.Add("required", "");
+                txtbox.Attributes.Add("data-val-required", "Required");
+                txtbox.Attributes.Add("data-val", "true");
+               
+
+                divn.Controls.Add(txtbox);
+
+                tableCell.Controls.AddAt(0, divn);
+                addControlValidator(txtbox.ID, "requiredFieldValidator", tableCell);
+            }
+            #region comment required
             if (question.commentRequired == CommentType.YN_COMMENT_REQUIRED_Y)
             {
                 if (divflag == 1 && divShowHideFlag == 1)
@@ -1009,6 +1039,9 @@ namespace Generic.DataLayer
                     tableCell.Text = "&nbsp";
                 }
             }
+            #endregion
+
+            #region YN_COMMENT_REQUIRED_N
             else if (question.commentRequired == CommentType.YN_COMMENT_REQUIRED_N)
             {
 
@@ -1113,7 +1146,7 @@ namespace Generic.DataLayer
                     addControlValidator(txtbox.ID, "requiredFieldValidator", tableCell);
                 }
             }
-
+            #endregion
 
 
 
@@ -1370,23 +1403,24 @@ namespace Generic.DataLayer
 
                         //tableRadio.Rows.Add(new 
                         //radioButtonList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
-                        radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
+                        var hasAdditionalCommentBox = responseCollection[i].description.Contains("????");
+                        radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description.Replace("????","")), responseCollection[i].id.ToString()));
+                        radioButtonList.Items[i].Attributes["data-commented"] = hasAdditionalCommentBox.ToString();
                         if (question.required == 1)
                         {
-
                             radioButtonList.Items[i].Attributes["data-val"] = "true";
                             radioButtonList.Items[i].Attributes["data-val-required"] = "Required";
-                            radioButtonList.Items[i].Attributes["required"] = "";
+                            radioButtonList.Items[i].Attributes["required"] = "";                            
                         }
 
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                         {
                             radioButtonList.ClearSelection();
                             radioButtonList.Items[i].Selected = true;
-                        }
-                        tableCell.Controls.Add(radioButtonList);
+                            radioButtonList.Items[i].Attributes["checked"] = "";
+                        }                        
                     }
-
+                    //tableCell.Controls.Add(radioButtonList);
 
 
                     tableCell.Controls.Add(radioButtonList);
