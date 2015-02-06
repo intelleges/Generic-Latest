@@ -314,6 +314,12 @@ namespace Generic.Helpers.Utility
                     case "[partner_state]":
                         sValue =db.pr_getStateByID(partner.state).FirstOrDefault().name;
                         break;
+                    case "[partner zip code]":
+                        sValue = partner.zipcode;
+                        break;
+                    case "[company url]":
+                        sValue = partner.federalID;
+                        break;
                     //case "[partner_state]":
                     //    sValue = db.pr_getStateByID(partner.state).FirstOrDefault().name;
                     //    break;
