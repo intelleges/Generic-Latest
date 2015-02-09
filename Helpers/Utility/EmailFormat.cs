@@ -318,7 +318,7 @@ namespace Generic.Helpers.Utility
                         sValue = partner.zipcode;
                         break;
                     case "[company url]":
-                        sValue = partner.federalID;
+                        sValue = partner.dunsNumber;
                         break;
                     //case "[partner_state]":
                     //    sValue = db.pr_getStateByID(partner.state).FirstOrDefault().name;

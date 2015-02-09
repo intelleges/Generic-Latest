@@ -624,11 +624,10 @@ namespace Generic.DataLayer
 
                 txtbox.Width = 600;
                 txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
-                if (pptqResponse != null)
-                {
-                    divn.Style.Clear();
-                    if (!string.IsNullOrEmpty(pptqResponse.comment))
-                        txtbox.Text = convertLanguageApi(pptqResponse.comment);
+                if (pptqResponse != null && !string.IsNullOrEmpty(pptqResponse.comment))
+                {                    
+                     divn.Style.Clear();
+                     txtbox.Text = convertLanguageApi(pptqResponse.comment);                    
                     if (question.commentBoxTxt == "" || question.commentBoxTxt == null)
                         divn.InnerHtml = convertLanguageApi("<span style='font-size:13px'> " + pptqResponse.response1.description.Replace("????", "") + ": </span>") + " ";
                     else divn.InnerHtml = incldComment + " ";
