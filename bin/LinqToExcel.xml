@@ -198,10 +198,91 @@
             <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
             <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
         </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.NamedRange``1(System.String)">
+            <summary>
+            Enables Linq queries against a workbook-scope named range
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="namedRangeName">Name of the workbook-scope named range</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.NamedRange``1(System.String,System.String)">
+            <summary>
+            Enables Linq queries against a named range
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="worksheetName">Name of the worksheet</param>
+            <param name="namedRangeName">Name of the named range</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.NamedRange``1(System.Int32,System.String)">
+            <summary>
+            Enables Linq queries against a named range
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+            <param name="namedRangeName">Name of the named range</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.NamedRange(System.String)">
+            <summary>
+            Enables Linq queries against a workbook-scope named range
+            </summary>
+            <param name="namedRangeName">Name of the workbook-scope named range</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.NamedRange(System.String,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="worksheetName">Name of the worksheet</param>
+            <param name="namedRangeName">Name of the named range</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.NamedRange(System.Int32,System.String)">
+            <summary>
+            Enables Linq queries against an Excel worksheet
+            </summary>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+            <param name="namedRangeName">Name of the named range</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.NamedRangeNoHeader(System.String)">
+            <summary>
+            Enables Linq queries against a workbook-scope named range that does not have a header row
+            </summary>
+            <param name="namedRangeName">Name of the workbook-scope named range</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.NamedRangeNoHeader(System.String,System.String)">
+            <summary>
+            Enables Linq queries against a named range that does not have a header row
+            </summary>
+            <param name="worksheetName">Name of the worksheet</param>
+            <param name="namedRangeName">Name of the named range</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.NamedRangeNoHeader(System.Int32,System.String)">
+            <summary>
+            Enables Linq queries against a named range that does not have a header row
+            </summary>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+            <param name="namedRangeName">Name of the named range</param>
+        </member>
         <member name="M:LinqToExcel.IExcelQueryFactory.GetWorksheetNames">
             <summary>
             Returns a list of worksheet names that the spreadsheet contains
             </summary>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.GetNamedRanges">
+            <summary>
+            Returns a list of workbook-scope named ranges that the spreadsheet contains
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.GetNamedRanges(System.String)">
+            <summary>
+            Returns a list of worksheet-scope named ranges that the worksheet contains
+            </summary>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.IExcelQueryFactory.GetColumnNames(System.String,System.String)">
+            <summary>
+            Returns a list of columns names that a named range contains
+            </summary>
+            <param name="worksheetName">Worksheet name to get the list of column names from</param>
+            <param name="namedRangeName">Named Range name to get the list of column names from</param>
         </member>
         <member name="M:LinqToExcel.IExcelQueryFactory.GetColumnNames(System.String)">
             <summary>
@@ -219,9 +300,21 @@
             Confirms all the worksheet columns are mapped to a property, and if not, throws a StrictMappingException
             </summary>
         </member>
+        <member name="P:LinqToExcel.IExcelQueryFactory.TrimSpaces">
+            <summary>
+            Indicates how to treat leading and trailing spaces in string values.
+            </summary>
+        </member>
         <member name="P:LinqToExcel.IExcelQueryFactory.DatabaseEngine">
             <summary>
             Sets the database engine to use (spreadsheets ending in xlsx, xlsm, xlsb will always use the Ace engine)
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.IExcelQueryFactory.UsePersistentConnection">
+            <summary>
+            If true, uses a single, persistent connection for the lifetime of the factory.
+            If false, a new connection is created for each query
+            Default is false
             </summary>
         </member>
         <member name="M:LinqToExcel.Query.ExcelQueryExecutor.ExecuteScalar``1(Remotion.Data.Linq.QueryModel)">
@@ -251,6 +344,13 @@
             Logs a warning for any property to column mappings that do not exist in the excel worksheet
             </summary>
             <param name="Columns">List of columns in the worksheet</param>
+        </member>
+        <member name="M:LinqToExcel.Query.ExcelQueryExecutor.TrimStringValue(System.Object)">
+            <summary>
+            Trims leading and trailing spaces, based on the value of _args.TrimSpaces
+            </summary>
+            <param name="value">Input string value</param>
+            <returns>Trimmed string value</returns>
         </member>
         <member name="M:LinqToExcel.ExcelQueryFactory.#ctor(System.String)">
             <param name="fileName">Full path to the Excel spreadsheet</param>
@@ -296,11 +396,29 @@
             Returns a list of worksheet names that the spreadsheet contains
             </summary>
         </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.GetNamedRanges">
+            <summary>
+            Returns a list of workbook-scope named ranges that the spreadsheet contains
+            </summary>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.GetNamedRanges(System.String)">
+            <summary>
+            Returns a list of worksheet-scope named ranges that the worksheet contains
+            </summary>
+            <param name="worksheetName">Name of the worksheet</param>
+        </member>
         <member name="M:LinqToExcel.ExcelQueryFactory.GetColumnNames(System.String)">
             <summary>
             Returns a list of columns names that a worksheet contains
             </summary>
             <param name="worksheetName">Worksheet name to get the list of column names from</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.GetColumnNames(System.String,System.String)">
+            <summary>
+            Returns a list of columns names that a worksheet contains
+            </summary>
+            <param name="worksheetName">Worksheet name to get the list of column names from</param>
+            <param name="namedRangeName">Named Range name to get the list of column names from</param>
         </member>
         <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet``1">
             <summary>
@@ -428,6 +546,69 @@
             <param name="endRange">Bottom right cell name of the range (eg 'D4')</param>
             <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
         </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.NamedRange``1(System.String)">
+            <summary>
+            Enables Linq queries against a workbook-scope named range
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="namedRangeName">Name of the workbook-scope named range</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.NamedRange``1(System.String,System.String)">
+            <summary>
+            Enables Linq queries against a worksheet-scope named range
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="worksheetName">Name of the worksheet</param>
+            <param name="namedRangeName">Name of the worksheet-scope named range</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.NamedRange``1(System.Int32,System.String)">
+            <summary>
+            Enables Linq queries against a worksheet-scope named range
+            </summary>
+            <typeparam name="TSheetData">Class type to return row data as</typeparam>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+            <param name="namedRangeName">Name of the worksheet-scope named range</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.NamedRange(System.String)">
+            <summary>
+            Enables Linq queries against a workbook-scope named range
+            </summary>
+            <param name="namedRangeName">Name of the workbook-scope named range</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.NamedRange(System.String,System.String)">
+            <summary>
+            Enables Linq queries against a worksheet-scope named range
+            </summary>
+            <param name="worksheetName">Name of the worksheet</param>
+            <param name="namedRangeName">Name of the worksheet-scope named range</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.NamedRange(System.Int32,System.String)">
+            <summary>
+            Enables Linq queries against a worksheet-scope named range
+            </summary>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+            <param name="namedRangeName">Name of the worksheet-scope named range</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.NamedRangeNoHeader(System.String)">
+            <summary>
+            Enables Linq queries against a workbook-scope named range that does not have a header row
+            </summary>
+            <param name="namedRangeName">Name of the workbook-scope named range</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.NamedRangeNoHeader(System.Int32,System.String)">
+            <summary>
+            Enables Linq queries against a worksheet-scope named range that does not have a header row
+            </summary>
+            <param name="worksheetIndex">Worksheet index ordered by name, not position in the workbook</param>
+            <param name="namedRangeName">Name of the worksheet-scope named range</param>
+        </member>
+        <member name="M:LinqToExcel.ExcelQueryFactory.NamedRangeNoHeader(System.String,System.String)">
+            <summary>
+            Enables Linq queries against a worksheet-scope named range that does not have a header row
+            </summary>
+            <param name="worksheetName">Name of the worksheet</param>
+            <param name="namedRangeName">Name of the worksheet-scope named range</param>
+        </member>
         <member name="M:LinqToExcel.ExcelQueryFactory.Worksheet``1(System.String,System.String)">
             <summary>
             Enables Linq queries against an Excel worksheet
@@ -502,11 +683,28 @@
             Confirms all the worksheet columns are mapped to a property, and if not, throws a StrictMappingException
             </summary>
         </member>
+        <member name="P:LinqToExcel.ExcelQueryFactory.TrimSpaces">
+            <summary>
+            Indicates how to treat leading and trailing spaces in string values.
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.ExcelQueryFactory.ReadOnly">
+            <summary>
+            Opens the excel file in read-only mode
+            </summary>
+        </member>
         <member name="P:LinqToExcel.ExcelQueryFactory.DatabaseEngine">
             <summary>
             Sets the database engine to use 
             (Spreadsheets ending in xlsx, xlsm, and xlsb must use the Ace database engine)
             (If running 64 bit this defaults to ACE (JET doesn't work anyway), if running 32 bit this detaults to JET)
+            </summary>
+        </member>
+        <member name="P:LinqToExcel.ExcelQueryFactory.UsePersistentConnection">
+            <summary>
+            If true, uses a single, persistent connection for the lifetime of the factory.
+            If false, a new connection is created for each query
+            Default is false
             </summary>
         </member>
         <member name="M:LinqToExcel.Extensions.CommonExtensions.SetProperty(System.Object,System.String,System.Object)">
@@ -547,6 +745,31 @@
         <member name="F:LinqToExcel.Query.StrictMappingType.WorksheetStrict">
             <summary>
             All worksheet columns must map to a class property; other class properties are ignored.
+            </summary>
+        </member>
+        <member name="T:LinqToExcel.Query.TrimSpacesType">
+            <summary>
+            Indicates how to treat leading and trailing spaces in string values.
+            </summary>
+        </member>
+        <member name="F:LinqToExcel.Query.TrimSpacesType.None">
+            <summary>
+            Do not perform any trimming.
+            </summary>
+        </member>
+        <member name="F:LinqToExcel.Query.TrimSpacesType.Start">
+            <summary>
+            Trim leading spaces from strings.
+            </summary>
+        </member>
+        <member name="F:LinqToExcel.Query.TrimSpacesType.End">
+            <summary>
+            Trim trailing spaces from strings.
+            </summary>
+        </member>
+        <member name="F:LinqToExcel.Query.TrimSpacesType.Both">
+            <summary>
+            Trim leading and trailing spaces from strings. 
             </summary>
         </member>
         <member name="M:LinqToExcel.Query.WhereClauseExpressionTreeVisitor.VisitUnaryExpression(System.Linq.Expressions.UnaryExpression)">
