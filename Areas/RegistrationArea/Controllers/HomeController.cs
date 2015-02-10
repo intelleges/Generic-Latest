@@ -30,6 +30,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
         //
         // GET: /RegistrationArea/Home/
 
+        public virtual ActionResult Default()
+        {
+            return View();
+        }
+
+
         public virtual ActionResult Index(string id = "", string accessCode = null, bool? advanced=null)
         {
 
@@ -111,6 +117,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 catch (Exception exc)
                 {
                 }
+            }
+            else
+            {
+                ViewBag.message = "wrongstatus";
             }
             if (advanced.HasValue && advanced.Value)
                 return GenerateIndex(accessCode, advanced);
@@ -261,7 +271,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Default");
             }
             partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
             try
@@ -332,7 +342,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Default");
             }
 
             partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
@@ -433,7 +443,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Default");
             }
 
             ViewBag.CMS_PAGE_TITLE = CMS.QUESTIONNAIRE_PAGE_TITLE;
@@ -571,7 +581,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             #region Method Body
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Default");
             }
 
             //[2] = "question_454_1171_fileUploadComment"
@@ -1469,7 +1479,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Default");
             }
             ViewBag.CMS_PAGE_TITLE = CMS.COMPANY_EDIT_PAGE_TITLE;
             ViewBag.CMS_PAGE_SUBTITLE = CMS.COMPANY_EDIT_PAGE_SUBTITLE;
@@ -1557,7 +1567,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Default");
             }
 
             partner objpartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
@@ -1620,7 +1630,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Default");
             }
 
             partner partner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
@@ -1674,7 +1684,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Default");
             }
 
             partner objpartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
@@ -1734,7 +1744,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Default");
             }
             eSignature objeSignature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id).FirstOrDefault();
 
@@ -1783,7 +1793,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Default");
             }
             if (ModelState.IsValid)
             {
@@ -1858,7 +1868,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Default");
             }
 
             var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();

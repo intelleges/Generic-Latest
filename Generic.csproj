@@ -2195,6 +2195,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Areas\RegistrationArea\Views\Home\Unsubscribe.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\Default.cshtml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

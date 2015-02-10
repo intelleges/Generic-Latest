@@ -886,6 +886,7 @@ namespace Generic.Controllers
             return sb.ToString();
         }
 
+        [AllowAnonymous]
         public virtual ActionResult InstanceLogo()
         {
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();

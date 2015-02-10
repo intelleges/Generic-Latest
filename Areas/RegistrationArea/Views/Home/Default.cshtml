@@ -1,0 +1,28 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    ViewBag.Title = "Session time out";
+    Layout= Generic.Helpers.LayoutHelper.GetRegistrationLayout();
+}
+<style>
+    h2 {
+        font-size: 40px;
+        color:rgb(175,175,175);
+    }
+    span {
+        font-size: 20px;       
+    }
+    .infologinbanner {
+        display: none;
+    }
+</style>
+<img src="../../../../Contents/images/1Logo.png" alt="" style="width:180px;"/>
+<h2>Oops, session timed-out</h2>
+
+<span>
+    Sorry, for security reasons we have timed-out your system. If you are completing registration, please return to your invintation email and click on the link you received. Otherwise, please login at login Protal. 
+</span><br />
+<span>
+    Thank you.
+</span>
