@@ -502,6 +502,7 @@
     <Compile Include="Controllers\CampaignRuleController.cs" />
     <Compile Include="Controllers\DomainController.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PartnerController.cs" />
@@ -1980,6 +1981,7 @@
     <Content Include="Contents\css\styles_sri.css" />
     <Content Include="Contents\css\tabcontent.css" />
     <Content Include="Contents\images\1Logo.png" />
+    <Content Include="Contents\images\1Logo_trans.png" />
     <Content Include="Contents\images\addAll_button.gif" />
     <Content Include="Contents\images\addpartners.gif" />
     <Content Include="Contents\images\addprovider_head.jpg" />
@@ -3037,6 +3039,7 @@
     <Content Include="Views\CampaignRule\Create.cshtml" />
     <Content Include="Views\BulkContent\Create.cshtml" />
     <Content Include="Views\Partner\RailReport.cshtml" />
+    <Content Include="Views\Error\PageNotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
