@@ -391,7 +391,7 @@ namespace Generic.Controllers
             return View();
         }
 
-        public ActionResult UploadPartner()
+        public ActionResult UploadPartner(bool defaultTouchpoint=false)
         {
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
 
@@ -400,6 +400,12 @@ namespace Generic.Controllers
             ViewBag.group = new SelectList(db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
 
             //ViewBag.title = db.touchpoint.First().title;
+            if (defaultTouchpoint)
+            {
+                ViewBag.defaultTouchpoint = "true";
+                ViewBag.defaultTouchpointValue = SessionSingleton.Touchpoint;
+                ViewBag.defaultTouchpointName = db.pr_getTouchpoint(SessionSingleton.Touchpoint).FirstOrDefault().title;
+            }
 
             return View();
         }
@@ -407,7 +413,8 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult UploadPartner(int protocol, int partnertype, int touchpoint, int group, HttpPostedFileBase uploadPartner)
         {
-
+            
+            
             if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
             {
                 Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));

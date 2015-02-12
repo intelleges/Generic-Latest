@@ -19,45 +19,47 @@
 <script>
     //jQuery.noConflict();
     jQuery(document).ready(function () {
-
+        var defaultTouchpoint = "@ViewBag.defaultTouchpoint";
         $('#protocol').change(function () {
             var objProtocolID = $('#protocol').val();
             var formData = { protocolId: objProtocolID };
-            if (objProtocolID == "") {
-                var touchpointSelectList = "<option value=''>-Select-</option>";
-                $('#touchpoint').html(touchpointSelectList);
-                return;
-            }
-            $.ajax({
-                url: "@Url.Content("~/touchpoint/GetTouchPointWithTitleByprotocolId")",
-                type: "post",
-            data: formData,
-            success: function (data) {
-                var len = data.Data.length;
-                var i = 0;
-                var touchpointSelectList = "<option value=''></option>";
-                for (i = 0; i < len; i++) {
-                    touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
+            if (defaultTouchpoint === "") {
+                if (objProtocolID == "") {
+                    var touchpointSelectList = "<option value=''>-Select-</option>";
+                    $('#touchpoint').html(touchpointSelectList);
+                    return;
                 }
+                $.ajax({
+                    url: "@Url.Content("~/touchpoint/GetTouchPointWithTitleByprotocolId")",
+                    type: "post",
+                    data: formData,
+                    success: function (data) {
+                        var len = data.Data.length;
+                        var i = 0;
+                        var touchpointSelectList = "<option value=''></option>";
+                        for (i = 0; i < len; i++) {
+                            touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
+                        }
 
-                $('#touchpoint').html(touchpointSelectList);
-                $('#touchpointDiv').show();
+                        $('#touchpoint').html(touchpointSelectList);
+                        $('#touchpointDiv').show();
 
-            },
-            error: function (data) {
-                var touchpointSelectList = "<option value=''> -Select-</option>";
-                $('#touchpoint').html(touchpointSelectList);
+                    },
+                    error: function (data) {
+                        var touchpointSelectList = "<option value=''> -Select-</option>";
+                        $('#touchpoint').html(touchpointSelectList);
+                    }
+                });
+            } else {
+                if (objProtocolID !== "") {
+                    $('#partnertypeDiv').show();
+                }
             }
-        });
-
-
     });
 
 
     $('#touchpoint').change(function () {
         $('#partnertypeDiv').show();
-
-
 
     });
 
@@ -227,7 +229,13 @@
             2. Please select a touchpoint
         </div>
         <div class="editor-field">
-            <select id="touchpoint" name="touchpoint"></select>
+            <select id="touchpoint" name="touchpoint" >
+                @if(!string.IsNullOrEmpty(ViewBag.defaultTouchpoint)) {
+               
+                <option value="@ViewBag.defaultTouchpointValue" selected>@ViewBag.defaultTouchpointName</option>
+                
+                }
+            </select>
 
         </div>
     </div>
