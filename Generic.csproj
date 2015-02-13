@@ -3040,6 +3040,8 @@
     <Content Include="Views\BulkContent\Create.cshtml" />
     <Content Include="Views\Partner\RailReport.cshtml" />
     <Content Include="Views\Error\PageNotFound.cshtml" />
+    <Content Include="Views\Partner\Iterate.cshtml" />
+    <Content Include="Views\Partner\IterateContacts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

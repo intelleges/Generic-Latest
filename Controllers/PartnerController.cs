@@ -2094,5 +2094,16 @@ namespace Generic.Controllers
             }
             return Json(null);
         }
+
+        public ActionResult Iterate()
+        {
+            GenerateCreateDropDownLists();
+            return View();
+        }
+
+        public ActionResult IterateContacts()
+        {            
+            return View();
+        }
     }
 }
