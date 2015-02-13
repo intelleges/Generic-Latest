@@ -410,7 +410,7 @@
         padding: .3em 2px !important;
     }*/
     .big-input {
-        width:58% !important;
+        width:57% !important;
     }
         .big-input input {
              width:336px;
@@ -455,14 +455,14 @@
         background: linear-gradient(to right, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e4f7', endColorstr='#87bcea',GradientType=1 ); /* IE6-9 */
     }
-    #tblPartners img {
+    .img {
         width: 12px;
         height: 12px;
     }
     #tblPartners td {
         font-size: 12px;
     }
-    #tblPartners tr,#tblPartners td div {
+    #tblPartners tr,#tblPartners td .line-wrapper {
         height:6px;
         line-height:6px;
     }
@@ -538,7 +538,7 @@
 
                                 @Html.Label("City")
                             </div>
-                            <div class="editor-field" style="width:38%">
+                            <div class="editor-field" style="width:37%">
 
                                 @Html.TextBoxFor(model => model.city, new { @class = "txtClass", style="width:100%",data_val="true", data_val_required=" " })
                                 @Html.ValidationMessageFor(model => model.city)
@@ -569,7 +569,7 @@
                                 @*@Html.LabelFor(model => model.firstName)*@
                                 @Html.Label("First Name")
                             </div>
-                            <div class="editor-field" style="width:23%">
+                            <div class="editor-field" style="width:22.5%">
                                 @*@Html.EditorFor(model => model.firstName)*@
                                 @Html.TextBoxFor(model => model.firstName, new { @class = "txtClass",data_val="true", data_val_required=" " })
                                 @Html.ValidationMessageFor(model => model.firstName)
@@ -579,7 +579,7 @@
                                 @* @Html.LabelFor(model => model.lastName)*@
                                 @Html.Label("Last Name")
                             </div>
-                            <div class="editor-field" style="width:23%">
+                            <div class="editor-field" style="width:22.5%">
                                 @*@Html.EditorFor(model => model.lastName)*@
                                 @Html.TextBoxFor(model => model.lastName, new { @class = "txtClass",data_val="true", data_val_required=" " })
                                 @Html.ValidationMessageFor(model => model.lastName)
@@ -631,7 +631,7 @@
                             <div class="editor-label">
                                 @Html.Label("Partner Type")
                             </div>
-                            <div class="editor-field" style="width:26%">
+                            <div class="editor-field" style="width:25%">
                                 <select id="partnertype" name="partnertype" class="ddlClass" data-val="true" data-val-required=" " style="width:100%"></select>
                                 <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
                                 @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Partner Type</a>*@
@@ -686,81 +686,80 @@
                                   <tbody>
                                   
                                    <tr>
-                                      <td><div><img class="img-circle gradient-red" /></div></td>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-red" ></div></div></td>
                                       <td><div>firstname lastname</div></td>                                      
                                        <td><div>partnername</div></td>                                       
                                   </tr>
                                        <tr>
-                                      <td><div><img class="img-circle gradient-yellow" /></div></td>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-yellow" ></div></div></td>
+                                      <td><div>firstname lastname</div></td>                                      
+                                       <td><div>partnername</div></td>                                       
+                                  </tr>
+                                        <tr>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-green" ></div></div></td>
                                       <td><div>firstname lastname</div></td>                                      
                                        <td><div>partnername</div></td>                                       
                                   </tr>
                                        <tr>
-                                      <td><div><img class="img-circle gradient-green" /></div></td>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-red" ></div></div></td>
                                       <td><div>firstname lastname</div></td>                                      
                                        <td><div>partnername</div></td>                                       
                                   </tr>
                                        <tr>
-                                      <td><div><img class="img-circle gradient-red" /></div></td>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-yellow" ></div></div></td>
+                                      <td><div>firstname lastname</div></td>                                      
+                                       <td><div>partnername</div></td>                                       
+                                  </tr>
+                                        <tr>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-green" ></div></div></td>
                                       <td><div>firstname lastname</div></td>                                      
                                        <td><div>partnername</div></td>                                       
                                   </tr>
                                        <tr>
-                                      <td><div><img class="img-circle gradient-yellow" /></div></td>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-red" ></div></div></td>
                                       <td><div>firstname lastname</div></td>                                      
                                        <td><div>partnername</div></td>                                       
                                   </tr>
                                        <tr>
-                                      <td><div><img class="img-circle gradient-green" /></div></td>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-yellow" ></div></div></td>
+                                      <td><div>firstname lastname</div></td>                                      
+                                       <td><div>partnername</div></td>                                       
+                                  </tr>
+                                        <tr>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-green" ></div></div></td>
                                       <td><div>firstname lastname</div></td>                                      
                                        <td><div>partnername</div></td>                                       
                                   </tr>
                                        <tr>
-                                      <td><div><img class="img-circle gradient-red" /></div></td>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-red" ></div></div></td>
                                       <td><div>firstname lastname</div></td>                                      
                                        <td><div>partnername</div></td>                                       
                                   </tr>
                                        <tr>
-                                      <td><div><img class="img-circle gradient-yellow" /></div></td>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-yellow" ></div></div></td>
+                                      <td><div>firstname lastname</div></td>                                      
+                                       <td><div>partnername</div></td>                                       
+                                  </tr>
+                                        <tr>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-green" ></div></div></td>
                                       <td><div>firstname lastname</div></td>                                      
                                        <td><div>partnername</div></td>                                       
                                   </tr>
                                        <tr>
-                                      <td><div><img class="img-circle gradient-green" /></div></td>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-red" ></div></div></td>
                                       <td><div>firstname lastname</div></td>                                      
                                        <td><div>partnername</div></td>                                       
                                   </tr>
                                        <tr>
-                                      <td><div><img class="img-circle gradient-red" /></div></td>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-yellow" ></div></div></td>
                                       <td><div>firstname lastname</div></td>                                      
                                        <td><div>partnername</div></td>                                       
                                   </tr>
-                                       <tr>
-                                      <td><div><img class="img-circle gradient-yellow" /></div></td>
+                                        <tr>
+                                      <td><div class="line-wrapper"><div class="img img-circle gradient-green" ></div></div></td>
                                       <td><div>firstname lastname</div></td>                                      
                                        <td><div>partnername</div></td>                                       
                                   </tr>
-                                       <tr>
-                                      <td><div><img class="img-circle gradient-green" /></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                       <tr>
-                                      <td><div><img class="img-circle gradient-red" /></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                       <tr>
-                                      <td><div><img class="img-circle gradient-yellow" /></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                       <tr>
-                                      <td><div><img class="img-circle gradient-green" /></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                      
                                      
                                       </tbody>
                               </table>
@@ -777,7 +776,7 @@
                        .Content(@<text><div class="mytab">
                            <p>It's other</p>
                        </div></text>);
-                  tabstrip.Add().Text("Settings")
+                  tabstrip.Add().Text("Email")
                        .Content(@<text><div class="mytab">
                            <p>It's settings</p>
                        </div></text>);
