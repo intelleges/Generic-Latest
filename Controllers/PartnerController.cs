@@ -2096,14 +2096,71 @@ namespace Generic.Controllers
         }
 
         public ActionResult Iterate()
-        {
-            GenerateCreateDropDownLists();
+        {            
+            ViewBag.state = new SelectList(db.state, "stateCode", "name");
+            ViewBag.country = new SelectList(db.country, "id", "name");
+           // db.pr_getTouchpointAllByEnterprise(SessionSingleton.EnterPriseId).FirstOrDefault().
+            ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "title");
+
+            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
+            ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name"); 
             return View();
         }
+        [HttpPost]
+        public ActionResult IterateAllContacts()
+        {
+            var data = db.partner.Where(o => o.enterprise == Generic.Helpers.CurrentInstance.EnterpriseID).ToList();            
+            return Json(data);
+        }
+        [HttpPost]
+        public ActionResult IterateContacts(string searchText, int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode, string searchType)
+        {
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
-        public ActionResult IterateContacts()
-        {            
-            return View();
+            if (touchpoint != null)
+                arguments += "touchpointID=" + touchpoint + ";";
+            if (group != null)
+                arguments += "groupID=" + group + ";";
+            if (country != null)
+                arguments += "countryID=" + country + ";";
+            if (partnertype != null)
+                arguments += "partnertypeID=" + partnertype + ";";
+
+            if (partnerStatus != null)
+                arguments += "StatusID=" + partnerStatus + ";";
+
+
+            if (txtInternalIdFind != "")
+                arguments += "InternalId=" + txtInternalIdFind + ";";
+
+
+            //string , string , string , string , string , string )
+            if (txtDunsNumberFind != "")
+                arguments += "DunsNumber=" + txtDunsNumberFind + ";";
+            if (txtNameFind != "")
+                arguments += "PartnerName=" + searchText + ";";
+            if (txtFederalIdFind != "")
+                arguments += "FederalId=" + txtFederalIdFind + ";";
+
+            if (accesscode != "")
+                arguments += "accesscode=" + accesscode + ";";
+
+            if (txtContactEmailFind != "")
+                arguments += "ContactEmail=" + txtContactEmailFind + ";";
+            if (txtHROEmailFind != "")
+                arguments += "HROEmail=" + txtHROEmailFind + ";";
+            if (txtScoreFromFind != "")
+                arguments += "ScoreFrom=" + txtScoreFromFind + ";";
+            if (txtScoreToFind != "")
+                arguments += "ScoreTo=" + txtScoreToFind + ";";
+            if (txtAddedFromFind != "")
+                arguments += "AddedFrom=" + txtAddedFromFind + ";";
+            if (txtAddedToFind != "")
+                arguments += "AddedTo=" + txtAddedToFind + ";";
+            if (txtFullTextSearch != "")
+                arguments += "FullTextSearch=" + txtFullTextSearch + ";";
+            var data = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();            
+            return Json(data);
         }
     }
 }

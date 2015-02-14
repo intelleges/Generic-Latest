@@ -12,6 +12,7 @@
 <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+
 <script>
     jQuery(document).ready(function () {
         $("#touchpoint").change(function () {
@@ -214,6 +215,11 @@
         });
 </script>
 <script>
+    var iterate = (function () {
+        return {
+            data: []
+        }
+    })();
     //#region First declaration
     $(document).ready(function () {
         //$("form").submit(function () {
@@ -309,19 +315,173 @@
             }
         }
 
-        $(".mytab input-group input[type='hidden'].form-control").keypress(function (event) {
+        $("#searctText").keypress(function (event) {
             if (event.which == 13) {
                 seacrhPartner();
             }
         });
-
-        function seacrhPartner() {
-          
+        $("#btnSearch").click(function () {
+            seacrhPartner();
+        });
+        function ShowPartnerFindLoader(){
+            $(".loader").show();
         }
+        function HidePartnerFindLoader(){
+            $(".loader").hide();
+        }
+        function rowSelected(row) {
+            $('#tblPartners tbody tr').removeClass("info");
+            $(row).addClass("info");
+            for (var i = 0; i < iterate.data.length; i++) {
+                if(iterate.data[i].id==$(row).data().partnerid){
+                    $("#name").val(iterate.data[i].PartnerName);
+                    $("#internalID").val(iterate.data[i].internalID);
+                    $("#address1").val(iterate.data[i].address);
+                    $("#phone").val(iterate.data[i].phone);
+                    $("#city").val(iterate.data[i].city);
+                    $("#state").val(iterate.data[i].state);
+                    $("#zipcode").val(iterate.data[i].zipcode);
+                    var names = iterate.data[i].Contact.split(' ');
+                    if(names.length>0)
+                        $("#firstName").val(names[0]);
+                    if (names.length > 2)
+                        $("#lastName").val(names[2]);
+                    else if (names.length > 1)
+                        $("#lastName").val(names[1]);
+                    $("#title").val(iterate.data[i].ContactTitle);
+                    $("#email").val(iterate.data[i].ContactEmail);
+                    $("#dunsNumber").val(iterate.data[i].dunsNumber);
+                    $("#group").val(iterate.data[i].groupID);
+                    $("#touchpoint").val(iterate.data[i].touchpointID);
+                    $("#partnertype").val(iterate.data[i].partnertypeID);
+                    break;
+                }
+            }            
+        }
+        function seacrhPartner(load) {
+            if (!load) {
+                var searchText = $("#searctText").val();
+                if (searchText) {
+                    ShowPartnerFindLoader();
+                    $("#tblPartners tbody").empty();
+                    $.ajax({
+                        type: "POST",
+                        url: "IterateContacts",
+                        data: {
+                            searchText: searchText
+                        },
+                        success: function (result) {
+                            if (result) {
+                                if (result.length > 0) {
+                                    iterate.data = result;
+                                    for (var i = 0; i < result.length; i++) {
+                                        addRow(result[i]);
+                                    }
+                                    $('#tblPartners tbody tr').click(function () {
+                                        rowSelected(this);
+                                        // row was clicked
+                                    });
+                                } else {
+                                    addNotFoundRow();
+                                }
+                            }
+                            HidePartnerFindLoader();
+                        }
+                    });
+                }
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "IterateAllContacts",                    
+                    success: function (result) {
+                        $("#tblPartners tbody").empty();
+                        if (result) {                            
+                            if (result.length > 0) {
+                               
+                                for (var i = 0; i < result.length; i++) {
+                                    addRow(result[i],true);
+                                }
+                                $('#tblPartners tbody tr').click(function () {
+                                    rowSelected();
+                                });
+                            } else {
+                                addNotFoundRow();
+                            }
+                        }
+                        HidePartnerFindLoader();
+                    }
+                });
+            }
+        }
+        function addNotFoundRow() {
+            $("#tblPartners tbody").append("<tr><td><div>Partners not found</div></td></tr>");
+        }
+        function addRow(data, all) {
+            if (!all) {
+                var imageClass = "";
+                switch (data.statusID) {
+                    case 6: imageClass = "gradient-red"; break;
+                    case 7: imageClass = "gradient-yellow"; break;
+                    case 8: imageClass = "gradient-green"; break;
+                }
+                $("#tblPartners tbody").append("<tr data-partnerid='" + data.id+ "'><td><div class='line-wrapper'><div class='img img-circle " + imageClass + "' title='" + data.status + "' ></div></div></td><td><div>" + data.Contact + "</div></td><td><div>" + data.PartnerName + "</div></td></tr>");
+            }
+            else {
+                var imageClass = "";
+                switch (data.status) {
+                    case 6: imageClass = "gradient-red"; break;
+                    case 7: imageClass = "gradient-yellow"; break;
+                    case 8: imageClass = "gradient-green"; break;
+                }
+                $("#tblPartners tbody").append("<tr><td><div class='line-wrapper'><div class='img img-circle " + imageClass + "' title='" + data.status + "' ></div></div></td><td><div>" + data.FirstName +" "+data.LastName+ "</div></td><td><div>" + data.name + "</div></td></tr>");
+            }
+        }
+        function nextRow() {
+            if ($(".table tr.info").length > 0) {
+                $(".table tr.info").next().click();
+            } else $(".table tbody tr:first-child").click();
+        }
+        function prevRow() {
+            if ($(".table tr.info").length > 0) {
+                $(".table tr.info").prev().click();
+            } else $(".table tbody tr:last-child").click();
+        }
+
+        $(".clickable").click(function () {
+            if ($(".table tr").length === 0)
+                return;
+            if ($(this).text() === "<<")
+                prevRow();
+            else nextRow();
+        });
+        
+        //seacrhPartner(true);
     });
 </script>
 <!--#region collapse-->
 <style type="text/css">
+    .clickable {
+        cursor:pointer;
+    }
+    .loader {
+        position:absolute;
+        width:100%;
+        height:100%;
+        z-index:50000;
+        background-color:blue;
+        opacity:0.5;
+    }
+        .loader img {
+            top:50%;
+            left:50%;
+        }
+    .hide {
+        display:none;
+    }
+    .show {
+        display:block;
+    }
     .threecol, twocol {
         width: 100%;
         display: inline-block;
@@ -384,7 +544,7 @@
         border-radius: 28px;
         font-family: Arial;
         color: #ffffff;
-        font-size: 20px;
+        font-size: 12px !important;
         padding: 3px 20px 5px 20px !important;
         text-decoration: none;
     }
@@ -467,6 +627,11 @@
         line-height:6px;
     }
 
+    .table  tr {
+        cursor:pointer;
+    }
+    
+
 </style>
 
 <div class="container">
@@ -476,7 +641,7 @@
         <div class="col-xs-6">
             <div class="row">
         <div class="addPartnerDiv">
-            <h2>Iterate </h2>
+            <h2>Iterate <span class="clickable">&lt;&lt;</span> <span style="width:10px"></span> <span class="clickable">&gt;&gt;</span></h2>
         </div>
     </div>
 
@@ -625,14 +790,16 @@
                                 @Html.Label("Touch Point")
                             </div>
                             <div class="editor-field" >
-                                <select id="touchpoint" name="touchpoint" class="ddlClass" data-val="true" data-val-required=" "></select>
+                                @Html.DropDownList("touchpoint", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                                @*<select id="touchpoint" name="touchpoint" class="ddlClass" data-val="true" data-val-required=" "></select>*@
                                 <span class="field-validation-valid" data-valmsg-for="touchpoint" data-valmsg-replace="true"></span>
                             </div>
                             <div class="editor-label">
                                 @Html.Label("Partner Type")
                             </div>
                             <div class="editor-field" style="width:25%">
-                                <select id="partnertype" name="partnertype" class="ddlClass" data-val="true" data-val-required=" " style="width:100%"></select>
+                                 @Html.DropDownList("partnertype", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " ",@style="width:100%" })
+                                @*<select id="partnertype" name="partnertype" class="ddlClass" data-val="true" data-val-required=" " style="width:100%"></select>*@
                                 <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
                                 @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Partner Type</a>*@
                             </div>
@@ -651,11 +818,16 @@
                         </div>
                         @* <div class="threecol">
             </div>*@
-                        <div class="row">
-                            <input type="submit" value="Load" class="btn_b pull-right" />
-                            <input type="button" value="Send" class="btn_b pull-right"  />
-                            <input type="submit" value="Save" class="btn_b pull-right" />
-                            <input type="button" value="Clear" class="btn_b pull-right" id="btnClear" />
+                        <div class="row pull-right" style="margin-top:15px">
+                            <input type="button" value="Clear" class="btn_b " id="btnClear" />
+                            <input type="submit" value="Load" class="btn_b " />
+                             <input type="submit" value="Note" class="btn_b " />
+                             <input type="submit" value="Remind" class="btn_b " />
+                            <input type="submit" value="Reset" class="btn_b " />
+                             <input type="submit" value="Save" class="btn_b " />
+                            <input type="button" value="Send" class="btn_b "  />
+                           
+                            
                         </div>
                     </div>
                 </fieldset>        
@@ -671,95 +843,25 @@
                   tabstrip.Add().Text("Contact")
                       .Selected(true)
                       .Content(@<text><div class="mytab">
+                          <div class="loader hide">
+<img src="../../Images/WallImages/imagepath/ajax-loader.gif" alt="" />
+                          </div>
                           <div class="input-group">
 
 
                               <input type="hidden" name="search_param" value="all" id="search_param">
-                              <input type="text" class="form-control" name="x" placeholder="Search term...">
+                              <input type="text" class="form-control" name="x"  placeholder="Search term..." id="searctText">
                               <span class="input-group-btn">
-                                  <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                  <button class="btn btn-default" type="button" id="btnSearch"><span class="glyphicon glyphicon-search"></span></button>
                               </span>
                               
                           </div>
                           <div style="height:280px;" class="table-responsive">
-                              <table class="table table-striped" id="tblPartners">
+                              <table class="table table-hover" id="tblPartners">
                                   <tbody>
                                   
-                                   <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-red" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                       <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-yellow" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                        <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-green" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                       <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-red" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                       <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-yellow" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                        <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-green" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                       <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-red" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                       <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-yellow" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                        <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-green" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                       <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-red" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                       <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-yellow" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                        <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-green" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                       <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-red" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                       <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-yellow" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
-                                        <tr>
-                                      <td><div class="line-wrapper"><div class="img img-circle gradient-green" ></div></div></td>
-                                      <td><div>firstname lastname</div></td>                                      
-                                       <td><div>partnername</div></td>                                       
-                                  </tr>
+                                  
+                                      
                                      
                                       </tbody>
                               </table>
@@ -789,5 +891,5 @@
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
     @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")   
 }
