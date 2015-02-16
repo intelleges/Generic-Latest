@@ -2095,7 +2095,7 @@ namespace Generic.Controllers
             return Json(null);
         }
 
-        public ActionResult Iterate()
+        public virtual ActionResult Iterate()
         {            
             ViewBag.state = new SelectList(db.state, "stateCode", "name");
             ViewBag.country = new SelectList(db.country, "id", "name");
@@ -2107,13 +2107,13 @@ namespace Generic.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult IterateAllContacts()
+        public virtual ActionResult IterateAllContacts()
         {
             var data = db.partner.Where(o => o.enterprise == Generic.Helpers.CurrentInstance.EnterpriseID).ToList();            
             return Json(data);
         }
         [HttpPost]
-        public ActionResult IterateContacts(string searchText, int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode, string searchType)
+        public virtual ActionResult IterateContacts(string searchText, int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode, string searchType)
         {
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
