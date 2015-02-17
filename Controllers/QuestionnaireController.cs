@@ -16,6 +16,7 @@ using Generic.Helpers.PartnerHelper;
 using System.Data;
 using Generic.Helpers;
 using System.Data.Entity;
+using System.Text.RegularExpressions;
 
 namespace Generic.Controllers
 {
@@ -733,8 +734,13 @@ namespace Generic.Controllers
                             //else 
                             if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
                             {
-                                //try getting skipLogicJump Qid
-                                jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump);
+                                //try getting skipLogicJump Qid                                
+                                if (excelQuestionnaire.skipLogicAnswer == "M")
+                                {
+                                    //lets use answer's codes mapping for multiply answers skip logic
+                                    jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump, GetCodeMapping(db.pr_getResponseByQuestion(questionId).ToList(), responses));
+                                }
+                                else jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump);
 
                                 if (jumpToQIDstr.Length > 0)
                                 {
@@ -895,11 +901,38 @@ namespace Generic.Controllers
             }
         }
 
+        /// <summary>
+        /// Maps countries codes to reponse id
+        /// </summary>
+        /// <param name="responses">list of response objects</param>
+        /// <param name="reponseString">response flat string</param>
+        /// <returns>Mapped collection</returns>
+        private Dictionary<string, int> GetCodeMapping(IEnumerable<response> responses, string reponseString)
+        {
+            Dictionary<string, int> result = new Dictionary<string,int>();
+            var responsesStringArray = reponseString.Split(";");
+            //looking for (UA), (US), (RU) matches
+            Regex reg = new Regex("\\([A-Z][A-Z]\\)");
+            foreach (var resString in responsesStringArray)
+            {
+                var match = reg.Match(resString);
+                if (match.Success)
+                {
+                    var reponse = responses.FirstOrDefault(o => o.description == resString);
+                    if (reponse != null)
+                    {
+                        result.Add(match.Value.Replace("(", "").Replace(")", ""), reponse.id);
+                    }
+                }
+            }
+            return result;
+        }
 
-        private string getskipLogicJumpQuestionIdLogic(int questionId, int QID, string skipLogic, string skipLogicJump)
+        private string getskipLogicJumpQuestionIdLogic(int questionId, int QID, string skipLogic, string skipLogicJump, Dictionary<string, int> codeMapping=null)
         {
             //1=Y&3=Y:15;1=Y&3=N:16;
             //QID is 3
+           
             string retString = "";
             string[] arrySkipLogicJump = skipLogicJump.Split(';');
 
@@ -912,24 +945,29 @@ namespace Generic.Controllers
                     int firstQid = Convert.ToInt32(questionStr[0].ToString());
                     int diff = QID - firstQid;
                     int ActualFristQid = questionId - diff;
-                    int yesnoValue = 0;
+                    var value = "";
                     string[] tempStr = questionStr[1].Split(':');
                     if (tempStr.Length > 0)
                     {
                         questionStr[1] = tempStr[0];
-                        yesnoValue = int.Parse(tempStr[0]);
+                        value = tempStr[0];
                     }
                     if (questionStr[1].ToLower() == "y" || questionStr[1].ToLower() == "yes")
                     {
-                        yesnoValue = 1;
+                        value = "1";
+                    }
+                    //country code mapping can be used for M responseType only
+                    if (codeMapping != null)
+                    {
+                        value = codeMapping.ContainsKey(value) ? codeMapping[value].ToString() : value;
                     }
                     if (j != subSrting.Length - 1)
                     {
-                        retString += ActualFristQid + "=" + yesnoValue + "&";
+                        retString += ActualFristQid + "=" + value + "&";
                     }
                     else
                     {
-                        retString += ActualFristQid + "=" + yesnoValue;
+                        retString += ActualFristQid + "=" + value;
                     }
                 }
                 string[] columnSp = arrySkipLogicJump[i].Split(':');

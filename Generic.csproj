@@ -600,6 +600,7 @@
     <Compile Include="Helpers\CurrentInstance.cs" />
     <Compile Include="Helpers\CustomMembershipProvider.cs" />
     <Compile Include="Helpers\CustomRoleProvider.cs" />
+    <Compile Include="Helpers\ExtentionMethods.cs" />
     <Compile Include="Helpers\HandleErrorAttibute.cs" />
     <Compile Include="Helpers\hs3ModelExtender.cs" />
     <Compile Include="Helpers\LandingPage.cs" />

@@ -480,39 +480,45 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                     if (foundFlage)
                                                     {
                                                         question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
-                                                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
-                                                        // var context = new EntitiesDBContext();
+                                                        var currentQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
+                                                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();                                                        
                                                         int? rId = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
                                                         response responsenew = db.pr_getResponse(rId).FirstOrDefault();
                                                         int check = 0;
-                                                        if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
+                                                        //if skip logic answer type is multiply then check by response.id
+                                                        if (currentQuestion.skipLogicAnswer == SkipLogicAnswer.M)
                                                         {
-                                                            foundFlage = true;
-
-                                                            if (ansLogicStatus == 1 && responsenew.description.ToLower() == "yes")
-                                                            {
-                                                                check = 1;
-                                                            }
-                                                            else if (ansLogicStatus == 0 && responsenew.description.ToLower() == "no")
-                                                            {
-                                                                check = 1;
-                                                            }
-                                                            else if (ansLogicStatus == -1 && responsenew.description.ToLower() == "n/a")
-                                                            {
-                                                                check = 1;
-                                                            }
-                                                            else if (ansLogicStatus == 2 && responsenew.description.ToLower() == "cots")
-                                                            {
-                                                                check = 1;
-                                                            }
+                                                            check = responsenew.id == ansLogicStatus ? 1 : 0;
                                                         }
                                                         else
-                                                        {
-                                                            if (ansLogicStatus == 3 && responsenew != null)
+                                                            if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
                                                             {
-                                                                check = 1;
+                                                                foundFlage = true;
+
+                                                                if (ansLogicStatus == 1 && responsenew.description.ToLower() == "yes")
+                                                                {
+                                                                    check = 1;
+                                                                }
+                                                                else if (ansLogicStatus == 0 && responsenew.description.ToLower() == "no")
+                                                                {
+                                                                    check = 1;
+                                                                }
+                                                                else if (ansLogicStatus == -1 && responsenew.description.ToLower() == "n/a")
+                                                                {
+                                                                    check = 1;
+                                                                }
+                                                                else if (ansLogicStatus == 2 && responsenew.description.ToLower() == "cots")
+                                                                {
+                                                                    check = 1;
+                                                                }
                                                             }
-                                                        }
+                                                            else
+                                                            {
+                                                                if (ansLogicStatus == 3 && responsenew != null)
+                                                                {
+                                                                    check = 1;
+                                                                }
+                                                            }
                                                         if (check == 1)
                                                         {
                                                             if (j == 0)
