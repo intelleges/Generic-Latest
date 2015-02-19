@@ -584,7 +584,10 @@ namespace Generic.Controllers
                             {
                                 objQuestion.skipLogicAnswer = SkipLogicAnswer.A;
                             }
-
+                            else if (excelQuestionnaire.skipLogicAnswer == "D")
+                            {
+                                objQuestion.skipLogicAnswer = SkipLogicAnswer.D;
+                            }
 
                             //objQuestion.skipLogicJump Pending
                             objQuestion.accessLevel = 1;
@@ -735,7 +738,7 @@ namespace Generic.Controllers
                             if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
                             {
                                 //try getting skipLogicJump Qid                                
-                                if (excelQuestionnaire.skipLogicAnswer == "M")
+                                if (excelQuestionnaire.skipLogicAnswer == "D")
                                 {
                                     //lets use answer's codes mapping for multiply answers skip logic
                                     jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump, GetCodeMapping(db.pr_getResponseByQuestion(questionId).ToList(), responses));

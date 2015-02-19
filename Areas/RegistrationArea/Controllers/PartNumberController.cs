@@ -486,7 +486,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                         response responsenew = db.pr_getResponse(rId).FirstOrDefault();
                                                         int check = 0;
                                                         //if skip logic answer type is multiply then check by response.id
-                                                        if (currentQuestion.skipLogicAnswer == SkipLogicAnswer.M)
+                                                        if (currentQuestion.skipLogicAnswer == SkipLogicAnswer.D)
                                                         {
                                                             check = responsenew.id == ansLogicStatus ? 1 : 0;
                                                         }
