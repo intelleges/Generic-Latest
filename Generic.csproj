@@ -3046,6 +3046,12 @@
     <Content Include="Views\Error\PageNotFound.cshtml" />
     <EmbeddedResource Include="Views\Partner\Iterate.cshtml" />
     <Content Include="Views\Partner\IterateContacts.cshtml" />
+    <Content Include="UploadTemplates\addAutomailTemplate.xlsx" />
+    <Content Include="UploadTemplates\addPartnerTemplate.xls" />
+    <Content Include="UploadTemplates\addPartnumberTemplate.xlsx" />
+    <Content Include="UploadTemplates\addQuestionnaireTemplate.xlsx" />
+    <Content Include="UploadTemplates\addUserTemplate.xlsx" />
+    <Content Include="UploadTemplates\addQuestionnaireCMSTemplate.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

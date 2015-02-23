@@ -334,21 +334,22 @@ namespace Generic.Controllers
         public ActionResult DownloadCMSTemplate()
         {
 
-            List<ExcelQuestionnaireCMS> objReport = new List<ExcelQuestionnaireCMS>();
+            //List<ExcelQuestionnaireCMS> objReport = new List<ExcelQuestionnaireCMS>();
 
-            var test = db.pr_getQuestionnaireCMSAll().ToList().Select(x => new ExcelQuestionnaireCMS { ITEM = x.description, TEXT = "", LINK = "" }).ToList();
-            objReport = test;
+           // var test = db.pr_getQuestionnaireCMSAll().ToList().Select(x => new ExcelQuestionnaireCMS { ITEM = x.description, TEXT = "", LINK = "" }).ToList();
+           // objReport = test;
 
-            var stream = new MemoryStream();
-            var serializer = new XmlSerializer(typeof(List<ExcelQuestionnaireCMS>));
+            //var stream = new MemoryStream();
+            //var serializer = new XmlSerializer(typeof(List<ExcelQuestionnaireCMS>));
 
 
             //We turn it into an XML and save it in the memory
-            serializer.Serialize(stream, objReport);
-            stream.Position = 0;
+            //serializer.Serialize(stream, objReport);
+            //stream.Position = 0;
 
             //We return the XML from the memory as a .xls file
-            return File(stream, "application/vnd.ms-excel", "CMSTemplate.xls");
+
+            return File(Server.MapPath("~/UploadTemplates/addQuestionnaireCMSTemplate.xlsx"), "application/vnd.ms-excel", "CMSTemplate.xls");
         }
 
         public ActionResult UploadQuestionnaire()
@@ -443,6 +444,7 @@ namespace Generic.Controllers
                         {
                             if (previousPage != "Page " + excelQuestionnaire.Page.ToString())
                             {
+                                
                                 page objPage = new page();
                                 objPage.description = "Page " + excelQuestionnaire.Page.ToString();
                                 objPage.active = true;
