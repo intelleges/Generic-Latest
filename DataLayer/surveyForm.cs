@@ -1406,11 +1406,13 @@ namespace Generic.DataLayer
                         var hasAdditionalCommentBox = responseCollection[i].description.Contains("????");
                         radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description.Replace("????","")), responseCollection[i].id.ToString()));
                         radioButtonList.Items[i].Attributes["data-commented"] = hasAdditionalCommentBox.ToString();
+                        radioButtonList.Items[i].Attributes["style"] = "font-size:15px;";
                         if (question.required == 1)
                         {
                             radioButtonList.Items[i].Attributes["data-val"] = "true";
                             radioButtonList.Items[i].Attributes["data-val-required"] = "Required";
-                            radioButtonList.Items[i].Attributes["required"] = "";                            
+                            radioButtonList.Items[i].Attributes["required"] = "";  
+                          
                         }
 
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)

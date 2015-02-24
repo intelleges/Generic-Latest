@@ -179,7 +179,12 @@ namespace Generic.Helpers.Utility
                     case "[partner Type]":
                         sValue = this.sGetpartnerType(partner);
                         break;
-
+                    case "[3yearsfromcompleteddate]":
+                        var pptqFromCompeleted = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partner.id, ptq).FirstOrDefault();
+                        if (!pptqFromCompeleted.completedDate.HasValue || pptqFromCompeleted.completedDate < DateTime.Parse("01.01.1920"))
+                            sValue = "NOT COMPLETED";
+                        else sValue = pptqFromCompeleted.completedDate.Value.AddYears(3).ToShortDateString();
+                        break;
 
                     case "[touchpoint]":
                         sValue = touchpoint.title;
