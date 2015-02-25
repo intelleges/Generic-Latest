@@ -677,7 +677,15 @@ namespace Generic.Controllers
                                         objResponse.active = true;
                                         objResponse.description = sArray[i];
                                         objResponse.enterprise = EnterpriseID;
-
+                                        if (responseType.ToLower() == "dropdown")
+                                        {
+                                            Regex reg = new Regex("\\([A-Z][A-Z]\\)");
+                                            var match = reg.Match(objResponse.description);
+                                            if (match.Success)
+                                            {
+                                                objResponse.zcode = match.Value.Replace("(", "").Replace(")","");
+                                            }
+                                        }
                                         objResponse.sortOrder = 1;
                                         db.response.Add(objResponse);
                                         db.SaveChanges();
@@ -687,7 +695,6 @@ namespace Generic.Controllers
                                     }
                                     catch (Exception ex)
                                     {
-
 
                                     }
                                 }
@@ -709,34 +716,7 @@ namespace Generic.Controllers
                             {
                                 excelQuestionnaire.skipLogicJump = null;
                             }
-                            //check if this question is a skipLogicJump question
-                            //update skipLogicJump and skipLogicAnswer
-                            //if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicAnswer) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
-                            //{
-                            //    //try getting skipLogicJump Qid
-                            //    jumpToQID = getskipLogicJumpQuestionId(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicAnswer, excelQuestionnaire.skipLogicJump);
-
-                            //    if (jumpToQID > 0)
-                            //    {
-                            //        hasSkipLogicQuestionId = questionId;
-
-                            //        if (excelQuestionnaire.skipLogicAnswer.ToLower() == "y" || excelQuestionnaire.skipLogicAnswer.ToLower() == "yes")
-                            //        {
-                            //            isSkipLogicAnwerYes = 1;
-                            //        }
-                            //        else
-                            //        {
-                            //            isSkipLogicAnwerYes = 0;
-                            //        }
-
-                            //        db.pr_modifyQuestionSkipLogicJump(questionId, isSkipLogicAnwerYes, jumpToQID);
-                            //    }
-                            //    else
-                            //    {
-                            //        hasSkipLogicQuestionId = 0;
-                            //    }
-                            //}
-                            //else 
+                           
                             if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
                             {
                                 //try getting skipLogicJump Qid                                
