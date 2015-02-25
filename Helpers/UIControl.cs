@@ -77,7 +77,8 @@ System.Web.UI.WebControls.RadioButtonList
                     writer.WriteAttribute("for", this.UniqueID + "_" + i);
                     listItem.Attributes.Render(writer);
                     writer.Write('>');
-                    HttpUtility.HtmlEncode(listItem.Text, writer);
+                    writer.Write(listItem.Text);
+                    //HttpUtility.HtmlEncode(, writer);
                     writer.WriteEndTag("label");
                     if(UseValidation)
                     {

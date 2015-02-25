@@ -16,6 +16,7 @@ using Generic;
 using System.Text;
 using Generic.Helpers.Questionnaire;
 using Generic.Helpers.Utility;
+using System.Text.RegularExpressions;
 
 namespace Generic.DataLayer
 {
@@ -1403,8 +1404,14 @@ namespace Generic.DataLayer
 
                         //tableRadio.Rows.Add(new 
                         //radioButtonList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
-                        var hasAdditionalCommentBox = responseCollection[i].description.Contains("????");
-                        radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description.Replace("????","")), responseCollection[i].id.ToString()));
+                        var optionText = responseCollection[i].description;
+                        var hasAdditionalCommentBox = optionText.Contains("????");
+                        optionText = optionText.Replace("????", "");
+                        Regex reg = new Regex("\\([A-Z][A-Z]\\)");
+                        var match = reg.Match(optionText);
+                        if (match.Success)
+                            optionText = optionText.Replace(match.Value, "");
+                        radioButtonList.Items.Add(new ListItem(optionText, responseCollection[i].id.ToString()));
                         radioButtonList.Items[i].Attributes["data-commented"] = hasAdditionalCommentBox.ToString();
                         radioButtonList.Items[i].Attributes["style"] = "font-size:15px;";
                         if (question.required == 1)
