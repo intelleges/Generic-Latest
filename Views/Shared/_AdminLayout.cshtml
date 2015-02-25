@@ -3,7 +3,7 @@
 @using System.Web.Mvc.Html
 @using Telerik.Web.Mvc.UI;
 @using System.Web.Optimization;
-
+@using Generic.ViewModel
 @{
 
     string EnterpriseName = string.Empty;
@@ -54,310 +54,355 @@
 
 
 <body>
-
-
+    <style>
+        #IteratePartners .t-header a {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    </style>
+   
     @{Html.Telerik().Splitter().Name("Splitter1")
-    .HtmlAttributes(new { style = "height: 600px;" })
+    .HtmlAttributes(new { style = "height: 100%;" })
     .Orientation(SplitterOrientation.Vertical)
     .Panes(vPanes =>
     {
         vPanes.Add()
-
-        .Size("100px")
+        .Size("40%")
+        .MaxSize("50%")
         .Collapsible(true)
         .Collapsed(true)
-        .Content(@<div>Nothing In Top Panel For Now5555</div>);
-
-        vPanes.Add()
-        .Scrollable(false)
-        .Content(Html.Telerik().Splitter().Name("Splitter2")
-        .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; overflow: hidden;" })
-        .Orientation(SplitterOrientation.Horizontal)
-        .Panes(hPanes =>
+        .Resizable(true)
+        .Content(
+        Html.Telerik().Grid<IteratePartnerView>().Name("IteratePartners")      
+        .DataBinding(binding =>
+            binding
+            .Ajax()
+            .Select("AjaxIteratePartners", "Partner")            
+            )
+            .Editable(o=>o.Enabled(true))
+            .DataKeys(o=>o.Add(p=>p.Id))
+            
+            .Columns(columns =>
         {
-            hPanes.Add()
-            .Size("150px")
-            .Collapsible(true).Collapsed(true)
-            .Content(@<p>Inner splitter :: left pane</p>);
+            columns.Bound(o => o.CompanyName).Title("Company name").ClientTemplate(""+
+                "<a href='#' id='Company<#=Id#>' class='menu_block'><#=CompanyName#></a>"+
+                "<div class='display_menu' style='display: none;'>"+
+                    "<ul>   "+                     
+                        "<li ><a href='#'>Call</a></li>"+
+                        "<li><a href='#'>Email</a></li>"+
+                        "<li><a href='#'>Meet</a></li>"+
+                        "<li><a href='#'>Update</a></li>"+
+                        "<li><a href='#'>Remove</a></li>"+
+                        "<li><a href='#'>Note</a></li>"+
+                        "</ul>" +
+                   @" </div>                  
+            ").Width(200);
+                        columns.Bound(o => o.FirstName).Title("First name").Width(200);
+                        columns.Bound(o => o.LastName).Title("Last name").Width(200);
+                        columns.Bound(o => o.Title).Title("Title").Width(200);
+                        columns.Bound(o => o.PhoneNumber).Title("Phone number").Width(50);
+                        columns.Bound(o => o.StatusDescription).Title("Current status").Width(200);
+                        columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList()
+                        .Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style="width:200px;font-size:10px;"})
+                            .BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList()))
+                            .ToHtmlString());
+                            }
+                            )
+                            .Pageable(o=>o.PageSize(50))
+                            .Selectable(o=>o.Enabled(true))
+                            .Sortable()
+                            .HtmlAttributes(new { style = "display:none;font-size:10px;" })                            
+                            .ToHtmlString()
+                            ).HtmlAttributes(new{style="height:20%"}
+                            );
 
-            hPanes.Add()
-            .Content(@<div id="body">
-                @RenderSection("featured", required: false)
-                <header>
-                    <div class="content-wrapper main-content clear-fix">
-                        <div>
-                            <div class="admin-logo">
-                                <p class="site-title">
-                                    @*@Url.Content(" ~ />Admin/Home")*@
-                                    @* <a id="IntellegesLogoHref" href="">@Html.Action("IntellegesLogo", "Admin") </a>*@
-                                    <a id="IntellegesLogoHref"  href="#">@Html.Action("InstanceLogo", "Admin")
-                                    </a>
-                                    <form id="selectlogoForm" enctype="multipart/form-data">
-                                        <input type="file" id="selectlogo" style="display:none;"/>
-                                    </form>
-                                    
-                                </p>
+                            vPanes.Add()
+                            .Scrollable(false)
+                            .Content(Html.Telerik().Splitter().Name("Splitter2")
+                            .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; overflow: hidden;" })
+                            .Orientation(SplitterOrientation.Horizontal)
+                            .Panes(hPanes =>
+                            {
+                            hPanes.Add()
+                            .Size("150px")
+                            .Collapsible(true).Collapsed(true)
+                            .Content(@<p>Inner splitter :: left pane</p>);
+
+                            hPanes.Add()
+                            .Content(@<div id="body">
+                                    @RenderSection("featured", required: false)
+                                    <header>
+                                        <div class="content-wrapper main-content clear-fix">
+                                            <div>
+                                                <div class="admin-logo">
+                                                    <p class="site-title">                                                       
+                                                        <a id="IntellegesLogoHref" href="#">
+                                                            @Html.Action("InstanceLogo", "Admin")
+                                                        </a>
+                                                        <form id="selectlogoForm" enctype="multipart/form-data">
+                                                            <input type="file" id="selectlogo" style="display:none;" />
+                                                        </form>
+
+                                                    </p>
+                                                </div>
+
+                                                <div style="float: left; top: -20px; position: relative; left: 20px;">
+                                                    @* <h1>STANDARD EDITION</h1>*@
+                                                </div>
+                                                <div class="admin-nav-about">
+                                                    <nav>
+                                                        <ul id="menu">
+
+                                                            <li>@Html.ActionLink("Home", "Home", "Admin")</li>
+                                                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                                                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                                                            <li>@Html.ActionLink("Logout", "Logout", "Admin")</li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+
+                                            </div>
+
+                                            @*<div class="clear-fix"></div>*@
+
+                                            <div style="float: right">Hello, @LoginName - @EnterpriseName -- @ProductName, @SubscriptionTypeName, @SubscriptionStatusName</div>
+                                            <div class="clear-fix"></div>
+
+                                            @Html.Action("Menu", "Admin")
+
+
+
+
+                                        </div>
+                                    </header>
+                                    <section class="content-wrapper main-content clear-fix">
+
+
+                                        <div style="margin-top: -20px;">
+
+                                            <a href="@Url.Content("~/Admin/View1")">View 1</a>
+                                            <a href="@Url.Content("~/Admin/View2")">View 2</a>
+                                            <a href="@Url.Content("~/Admin/View3")">View 3</a>
+                                            <a href="@Url.Content("~/Admin/View4")">View 4</a>
+
+                                            <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard</a>
+                                            <a href="@Url.Content("~/Admin/Icons")">Icons</a>
+
+
+                                            <a href="#">Welcome</a>
+
+                                            <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
+
+                                            @* <a href="@Url.Content("~/Admin/Home")">Home Page</a>*@
+                                            <a href="@Url.Content("~/Partner/Iterate")">Iterate</a>
+
+
+
+
+
+                                            <select id="reports" name="reports">
+                                                <option value="">Select Report</option>
+
+                                                @* <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</option>
+                                <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</option>*@
+
+                                                <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForReport3")">Report 3</option>
+                                                <option value="@Url.Content("~/Partner/EventNotificationBounceReportDownload")">Bounce Report</option>
+                                                <option value="@Url.Content("~/Partner/ResponsesByProtocolTouchpointGroupPartnertype2Download")">Response Detail</option>
+                                                <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForAgingReport")">Aging Report</option>
+                                                <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForMailDeliveredReport")">Mail Delivered</option>
+                                                <option value="@Url.Content("~/Partner/RailReport")">RAIL Report</option>
+                                            </select>
+
+
+
+                                            @Html.Action("downloadTemplate", "Admin")
+
+                                        </div>
+
+
+
+                                        @RenderBody()
+                                    </section>
+                                </div>);
+
+                        hPanes.Add()
+                        .Size("20%")
+                        .Collapsible(true).Collapsed(true)
+                        .Content(@<p>Inner splitter :: right pane</p>);
+                        }).ToString());
+
+                        vPanes.Add()
+                        .Size("20%")
+                        .Collapsible(true).Collapsed(true)
+                        .Content(@<footer>
+                            <div class="content-wrapper">
+
+                                <div class="float-left">
+                                    <p>
+                                        <div class="admin-touchpoints">
+                                            Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="float-right">
+                                    <p>&copy; @DateTime.Now.Year - Intelleges</p>
+                                </div>
                             </div>
+                        </footer>);
+                        })
+                        .Render();
+                        }
 
-                            <div style="float: left; top: -20px; position: relative; left: 20px;">
-                                @* <h1>STANDARD EDITION</h1>*@
-                            </div>
-
-
-                            <div class="admin-nav-about">
-                                <nav>
-                                    <ul id="menu">
-
-                                        <li>@Html.ActionLink("Home", "Home", "Admin")</li>
-                                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                                        <li>@Html.ActionLink("Logout", "Logout", "Admin")</li>
-                                    </ul>
-                                </nav>
-                            </div>
-
+                        <div id="popup">
+                            <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
                         </div>
+                        <script src="~/Scripts/jquery-1.8.2.js"></script>
+                        <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+                        <script type="text/javascript">
 
-                        @*<div class="clear-fix"></div>*@
+                            function OpenManualAddModal(url) {
+                                jQuery.noConflict();
+                                $("#popup").dialog({
+                                    autoOpen: true,
+                                    modal: true,
+                                    height: 550,
+                                    width: 900,
+                                    open: function () {
+                                        $("#modal").attr("src", url);
 
-                        <div style="float: right">Hello, @LoginName - @EnterpriseName -- @ProductName, @SubscriptionTypeName, @SubscriptionStatusName</div>
-                        <div class="clear-fix"></div>
+                                    }
+                                });
+                            }
 
-                        @Html.Action("Menu", "Admin")
+                            function CloseManualAddModalWithAlert(alert) {
+                                jQuery.noConflict();
+                                $("#popup").dialog('close');
+                                alertify.alert(alert);
+                            }
 
+                            //function OpenManualAddModalFullWidth(url) {
+                            //    jQuery.noConflict();
+                            //    $("#popup").dialog({
+                            //        autoOpen: true,
+                            //        modal: true,
+                            //        height: 550,
+                            //        width: 100%,
+                            //        open: function () {
+                            //            $("#modal").attr("src", url);
 
+                            //        }
+                            //    });
+                            //}
 
+                            jQuery.noConflict();
+                            $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 
-                    </div>
-                </header>
-                <section class="content-wrapper main-content clear-fix">
+                        </script>
 
+                        @RenderSection("scripts", required: false)
 
-                    <div style="margin-top: -20px;">
-
-                        <a href="@Url.Content("~/Admin/View1")">View 1</a>
-                        <a href="@Url.Content("~/Admin/View2")">View 2</a>
-                        <a href="@Url.Content("~/Admin/View3")">View 3</a>
-                        <a href="@Url.Content("~/Admin/View4")">View 4</a>
-
-                        <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard</a>
-                        <a href="@Url.Content("~/Admin/Icons")">Icons</a>
-
-
-                        <a href="#">Welcome</a>
-
-                        <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
-
-                       @* <a href="@Url.Content("~/Admin/Home")">Home Page</a>*@
-                         <a href="@Url.Content("~/Partner/Iterate")">Iterate</a>
-
-                       
-
-
-
-                        <select id="reports" name="reports">
-                            <option value="">Select Report</option>
-                            
-                           @* <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</option>
-                            <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</option>*@
-                            
-                            <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForReport3")">Report 3</option>
-                              <option value="@Url.Content("~/Partner/EventNotificationBounceReportDownload")">Bounce Report</option>
-                            <option value="@Url.Content("~/Partner/ResponsesByProtocolTouchpointGroupPartnertype2Download")">Response Detail</option>
-                            <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForAgingReport")">Aging Report</option>
-                            <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForMailDeliveredReport")">Mail Delivered</option>
-                            <option value="@Url.Content("~/Partner/RailReport")">RAIL Report</option>
-                        </select>
-
-
-
-                        @Html.Action("downloadTemplate", "Admin")
-
-                    </div>
-
-
-
-                    @RenderBody()
-                </section>
-            </div>);
-
-            hPanes.Add()
-            .Size("20%")
-            .Collapsible(true).Collapsed(true)
-            .Content(@<p>Inner splitter :: right pane</p>);
-        }).ToString());
-
-        vPanes.Add()
-        .Size("20%")
-        .Collapsible(true).Collapsed(true)
-        .Content(@<footer>
-            <div class="content-wrapper">
-
-                <div class="float-left">
-                    <p>
-                        <div class="admin-touchpoints">
-                            Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
-                        </div>
-                    </p>
-                </div>
-
-                <div class="float-right">
-                    <p>&copy; @DateTime.Now.Year - Intelleges</p>
-                </div>
-            </div>
-        </footer>);
-    })
-    .Render();
-    }
-
-    <div id="popup">
-        <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
-    </div>
-    <script src="~/Scripts/jquery-1.8.2.js"></script>
-    <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
-    <script type="text/javascript">
-
-        function OpenManualAddModal(url) {
-            jQuery.noConflict();
-            $("#popup").dialog({
-                autoOpen: true,
-                modal: true,
-                height: 550,
-                width: 900,
-                open: function () {
-                    $("#modal").attr("src", url);
-
-                }
-            });
-        }
-
-        function CloseManualAddModalWithAlert(alert) {
-            jQuery.noConflict();
-            $("#popup").dialog('close');
-            alertify.alert(alert);
-        }
-
-        //function OpenManualAddModalFullWidth(url) {
-        //    jQuery.noConflict();
-        //    $("#popup").dialog({
-        //        autoOpen: true,
-        //        modal: true,
-        //        height: 550,
-        //        width: 100%,
-        //        open: function () {
-        //            $("#modal").attr("src", url);
-
-        //        }
-        //    });
-        //}
-
-        jQuery.noConflict();
-        $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
-
-    </script>
-
-    @RenderSection("scripts", required: false)
-
-    <script type="text/javascript">
-        jQuery.noConflict();
-        jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
-        $(document).ready(function () {
-            var height = $(window).height();
-           // $("#Splitter1").height(height);
-            $("#Splitter1 t-pane").height(height);
-            $("#Splitter2").height(height);
-            $("#Splitter2 t-pane").height(height);
-            $("#modal").height(height);
-            $("#popap").height(height);
-            //logo uploading
-            $("#selectlogoForm").submit(function (e) {
-                var file_data = $('#selectlogo').prop('files')[0];
-                var form_data = new FormData();
-                form_data.append('uploadLogo', file_data);
-                $.ajax({
-                    url: '../Admin/UploadLogo/',
-                    type: 'POST',
-                    data: form_data,
-                    processData: false,
-                    contentType: false,
-                    cache:false
-                }).done(function (data) {
-                    if (data) {
-                        $('#IntellegesLogoHref').html(data);
-                    }
-                });
-                e.preventDefault();
-            });
-            $("#selectlogo").change(function (e) {
-                //submit form if the file selected
-                $("#selectlogoForm").submit();
-            });
-            $('#IntellegesLogoHref').click(function () {
-                @*alertify.set({
-                    labels: {
-                        ok: "No",
-                        cancel: "Yes"
-                    },
-                    buttonFocus: "cancel"
-                });
-                // button labels will be "Accept" and "Deny"
-                alertify.confirm("You are about to leave the Intelleges Compliance Process Automation Platform and visit www.intelleges.com. Is that OK?", function (e) {
-                    if (e) {
-                        window.location.replace("http://@Generic.SessionClass.SessionSingleton.EnterpriseURL");
-
-                    } else {
-                        // user clicked "cancel"
-                        window.location.replace("https://intelleges.com");
-                    }
-                });*@
-                alertify.confirm("Would you like to upload new logo?", function (result) {
-                    if (result) {
-                        $("#selectlogo").click();
-                    }
-                });
-                
-            });
+                        <script type="text/javascript">
+                            jQuery.noConflict();
+                            jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
+                            $(document).ready(function () {                                
+                                var height = $(window).height();
+                                // $("#Splitter1").height(height);
+                                $("#Splitter1 t-pane").height(height);
+                                $("#Splitter2").height(height);
+                                $("#Splitter2 t-pane").height(height);
+                                $("#modal").height(height);
+                                $("#popap").height(height);
+                                //logo uploading
+                                $("#selectlogoForm").submit(function (e) {
+                                    var file_data = $('#selectlogo').prop('files')[0];
+                                    var form_data = new FormData();
+                                    form_data.append('uploadLogo', file_data);
+                                    $.ajax({
+                                        url: '../Admin/UploadLogo/',
+                                        type: 'POST',
+                                        data: form_data,
+                                        processData: false,
+                                        contentType: false,
+                                        cache: false
+                                    }).done(function (data) {
+                                        if (data) {
+                                            $('#IntellegesLogoHref').html(data);
+                                        }
+                                    });
+                                    e.preventDefault();
+                                });
+                                $("#selectlogo").change(function (e) {
+                                    //submit form if the file selected
+                                    $("#selectlogoForm").submit();
+                                });
+                                $('#IntellegesLogoHref').click(function () {
+                        @*alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
         });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to leave the Intelleges Compliance Process Automation Platform and visit www.intelleges.com. Is that OK?", function (e) {
+            if (e) {
+                window.location.replace("http://@Generic.SessionClass.SessionSingleton.EnterpriseURL");
 
-        //
-    </script>
+            } else {
+                // user clicked "cancel"
+                window.location.replace("https://intelleges.com");
+            }
+        });*@
+                                    alertify.confirm("Would you like to upload new logo?", function (result) {
+                                        if (result) {
+                                            $("#selectlogo").click();
+                                        }
+                                    });
+
+                                });
+                            });
+
+                            //
+                        </script>
 
 
-    <script>
+                        <script>
 
-        $(document).ready(function () {
+                            $(document).ready(function () {
 
-            $("#reports").change(function () {
-                if ($("#reports").val() != '') {                   
-                    if ($("#reports").val().indexOf("Rail") > 0) {
-                        window.location.assign($("#reports").val());
-                    } else {
-                        window.open($("#reports").val());
-                    }
-                }
-            });
+                                $("#reports").change(function () {
+                                    if ($("#reports").val() != '') {
+                                        if ($("#reports").val().indexOf("Rail") > 0) {
+                                            window.location.assign($("#reports").val());
+                                        } else {
+                                            window.open($("#reports").val());
+                                        }
+                                    }
+                                });
 
 
-        });
+                            });
 
-    </script>
-   
+                        </script>
 
-    @(Html.Telerik().ScriptRegistrar()
+
+                        @(Html.Telerik().ScriptRegistrar()
     .DefaultGroup(group => group
     .Combined(true)
     .Compress(true)
     )
     .OnDocumentReady(@<text>
-    var splitter = $('#FullScreen').data('tSplitter');
+                            var splitter = $('#FullScreen').data('tSplitter');
 
-        $(window).bind('resize', function() {
-        splitter.resize();
-        });
-    </text>)
-    )
+                            $(window).bind('resize', function() {
+                            splitter.resize();
+                            });
+                    </text>)
+                        )
 
 
-    @Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
+                        @Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
 </body>
 </html>

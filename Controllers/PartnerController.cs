@@ -24,6 +24,14 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
 using System.Text;
 using Generic.Helpers.Questionnaire;
+using DHTMLX.Scheduler;
+using DHTMLX.Scheduler.Data;
+using Google.Apis.Calendar.v3.Data;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Calendar.v3;
+using Google.Apis.Services;
+using DHTMLX.Common;
+using Telerik.Web.Mvc;
 namespace Generic.Controllers
 {
     [Authorize]
@@ -44,18 +52,18 @@ namespace Generic.Controllers
 
         }
         [HttpPost]
-        public bool RemoveStockNumbers(string[] values, int partnerId )
+        public bool RemoveStockNumbers(string[] values, int partnerId)
         {
             var result = false;
             try
             {
                 var partnerPPTQ = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
-                
-                if (values != null&&partnerPPTQ!=null)
+
+                if (values != null && partnerPPTQ != null)
                 {
                     foreach (var value in values)
                         db.pr_removePartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber(partnerPPTQ.id, int.Parse(value));
-                        //db.pr_archivePartnumber(int.Parse(value));
+                    //db.pr_archivePartnumber(int.Parse(value));
                     result = true;
                 }
             }
@@ -93,7 +101,7 @@ namespace Generic.Controllers
                 var resulrValues = db.pr_getPartnumberSiteZcodePPTQByPPTQPartnumber(pptqId, partNumberId).FirstOrDefault();
                 if (resulrValues != null)
                     result = string.Format("Congratulations you have reset partnumber: {0} to status: {1} for site: {2}", resulrValues.partnumber, resulrValues.status, resulrValues.site);
-               
+
             }
             catch
             {
@@ -130,7 +138,7 @@ namespace Generic.Controllers
             // List<country> objCountries = db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
 
             var pptq = partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault();
-            if (pptq!=null)
+            if (pptq != null)
             {
                 ViewBag.partNumbers = db.pr_getPartnumberByPPTQ(pptq.id).ToList();
             }
@@ -170,7 +178,7 @@ namespace Generic.Controllers
 
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";partnerID=" + partner.id + ";";
             var values = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partner.id).ToList();
-            
+
             List<view_EventNotificationData> objevents = db.Database.SqlQuery<view_EventNotificationData>("EXEC pr_dynamicFiltersEventNotification  'view_EventNotificationData' , '" + arguments + "'").ToList();
 
             ViewBag.events = values;
@@ -202,7 +210,7 @@ namespace Generic.Controllers
             ViewBag.state = new SelectList(db.state, "id", "name");
             ViewBag.country = new SelectList(db.country, "id", "name");
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
-            ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");            
+            ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
             ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "firstname");
             ViewBag.owner = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}", v.firstName, v.lastName) }).ToList();
         }
@@ -238,7 +246,7 @@ namespace Generic.Controllers
                 ModelState.Clear();
                 return View();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 ViewBag.Message = "error";
@@ -299,31 +307,31 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult Edit(partner partner)
         {
-            
-            
+
+
             if (ModelState.IsValid)
             {
                 //db.Entry(partner).State = EntityState.Modified;
                 //db.SaveChanges();
                 db.pr_modifyPartner(partner.id, Generic.Helpers.CurrentInstance.EnterpriseID, partner.internalID, partner.name, partner.address1, partner.address2, partner.city, partner.state, partner.province, partner.zipcode, partner.country, partner.phone, partner.fax, partner.firstName, partner.lastName, partner.title, partner.email, partner.dunsNumber, partner.federalID, partner.status, partner.loadHistory, partner.owner, partner.author, partner.dateApproved, partner.active, partner.lastModified);
                 var quest = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partner.id).FirstOrDefault();
-                
-                    try
-                    {                       
-                        var id = (int)Areas.RegistrationArea.Controllers.HomeController.FillPdfHtml(ViewBag, db, Session, Server);
-                        string htmltext = this.RenderActionResultToString(this.View("~/Areas/RegistrationArea/Views/Home/CustomizedQuestionnaireSurveyPdfDownload.cshtml"));
-                        var bytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmltext);                       
-                        db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, bytes, quest.docFolderAddress, quest.score, quest.loadGroup);
-                       
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-               // }
+
+                try
+                {
+                    var id = (int)Areas.RegistrationArea.Controllers.HomeController.FillPdfHtml(ViewBag, db, Session, Server);
+                    string htmltext = this.RenderActionResultToString(this.View("~/Areas/RegistrationArea/Views/Home/CustomizedQuestionnaireSurveyPdfDownload.cshtml"));
+                    var bytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmltext);
+                    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, bytes, quest.docFolderAddress, quest.score, quest.loadGroup);
+
+                }
+                catch (Exception ex)
+                {
+                }
+                // }
                 return Json(new { success = true });
-                
-            }          
-                      
+
+            }
+
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
             ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
             return View(partner);
@@ -391,7 +399,7 @@ namespace Generic.Controllers
             return View();
         }
 
-        public ActionResult UploadPartner(bool defaultTouchpoint=false)
+        public ActionResult UploadPartner(bool defaultTouchpoint = false)
         {
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
 
@@ -413,8 +421,8 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult UploadPartner(int protocol, int partnertype, int touchpoint, int group, HttpPostedFileBase uploadPartner)
         {
-            
-            
+
+
             if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
             {
                 Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
@@ -1365,14 +1373,14 @@ namespace Generic.Controllers
         public ActionResult PartnumberSpreadsheetDataLoadReportDownloadForAgingReport()
         {
             XmlSerializer serializer = null;
-            var stream = new MemoryStream();           
+            var stream = new MemoryStream();
             var levelType = db.pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint(Generic.Helpers.CurrentInstance.EnterpriseID, SessionSingleton.Touchpoint).FirstOrDefault().Value;
             if (levelType == 1)
             {
                 var forLevelOne = db.pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne(Generic.Helpers.CurrentInstance.EnterpriseID, SessionSingleton.Touchpoint).ToList();
                 serializer = new XmlSerializer(typeof(List<pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeOne_Result>));
                 //We turn it into an XML and save it in the memory
-                serializer.Serialize(stream, forLevelOne);                
+                serializer.Serialize(stream, forLevelOne);
             }
             else
             {
@@ -1479,7 +1487,7 @@ namespace Generic.Controllers
                     int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertypeId, touchpointId).LastOrDefault().id;
 
                     var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accesscode).FirstOrDefault();
-                    
+
                     //var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerID, ptq).FirstOrDefault();
                     pptq.invitedDate = DateTime.Now;
                     var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
@@ -1568,7 +1576,7 @@ namespace Generic.Controllers
         {
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
 
-            ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId), "id", "name");           
+            ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId), "id", "name");
 
             ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
 
@@ -1689,12 +1697,12 @@ namespace Generic.Controllers
                     var _partnerId = _pptq.partner;
                     var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
                     var pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault();
-                   
+
                     var pdf = db.pr_getPPTQpdf(pptq.id).FirstOrDefault();
                     var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                     var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                     var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
-                    if (pdf == null || pptq.progress==null)
+                    if (pdf == null || pptq.progress == null)
                     {
                         //if pdf was deleted from db but questinnarie was completed then we created customized pdf again
                         if (pptq.status == 8 && cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONFIRMATION_PAGE_PREVIOUS_TEXT).FirstOrDefault().id).FirstOrDefault().link != null)
@@ -1710,7 +1718,7 @@ namespace Generic.Controllers
                 }
                 else
                     Response.Redirect("~/Registration/Home/PDFConfirmation");
-                   
+
                 ///Registration/Home/PDFConfirmation
                 // return RedirectToAction("PDFConfirmation","Home",new  {area="Registration"});
                 //Response.Redirect("~/Registration/Home/PDFConfirmation");
@@ -2025,7 +2033,7 @@ namespace Generic.Controllers
         [HttpPost]
         public string Remind(string accessCode)
         {
-            
+
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             var result = "Congratulations, you have just sent a reminder to " + pptq.partner1.name + " with access code " + accessCode;
             if (pptq != null)
@@ -2034,7 +2042,7 @@ namespace Generic.Controllers
                     SchedulerServiceHelper.SendFirstReminderByPptq(pptq.id);
                 else
                 {
-                    result = "The status for "+pptq.partner1.name+" with "+accessCode+" access code does not permit reminders at this time. Please contact your system adminitrator.";
+                    result = "The status for " + pptq.partner1.name + " with " + accessCode + " access code does not permit reminders at this time. Please contact your system adminitrator.";
                 }
 
             }
@@ -2079,8 +2087,8 @@ namespace Generic.Controllers
         {
             var currentPersonId = (int)Session["LoggedInUserId"];
             var person = db.pr_getPerson(currentPersonId).FirstOrDefault();
-            var reponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer(person.email).FirstOrDefault(o=>o.id==railId);
-            
+            var reponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer(person.email).FirstOrDefault(o => o.id == railId);
+
             var newStatus = db.pr_getRailStatus(statusId).FirstOrDefault();
             if (newStatus != null && reponse != null)
             {
@@ -2096,22 +2104,147 @@ namespace Generic.Controllers
         }
 
         public virtual ActionResult Iterate()
-        {            
+        {
             ViewBag.state = new SelectList(db.state, "stateCode", "name");
             ViewBag.country = new SelectList(db.country, "id", "name");
-           // db.pr_getTouchpointAllByEnterprise(SessionSingleton.EnterPriseId).FirstOrDefault().
+            // db.pr_getTouchpointAllByEnterprise(SessionSingleton.EnterPriseId).FirstOrDefault().
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "title");
 
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
-            ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name"); 
+            ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
+
+            //Scheduler Initializeer
+            var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
+            ViewBag.Scheduler = scheduler.Render();
             return View();
         }
+
+        /// <summary>
+        /// Method import events from google calendar
+        /// </summary>
+        /// <returns></returns>
+        public ContentResult Data()
+        {
+            var data = new SchedulerAjaxData();
+
+            var iCal = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            data.FromICal(iCal);
+            return data;
+        }
+
+        /// <summary>
+        /// Get Person Ical url
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetPersonIcal()
+        {
+            var iCal = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            return Json(new { Data = iCal }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Method to update the iCal of perosn logged in
+        /// </summary>
+        /// <param name="iCal"></param>
+        /// <returns></returns>
+        public ActionResult ModifyPersonIcal(string iCal)
+        {
+            var moidfyIcal = db.pr_modifyPersonIcal(SessionSingleton.LoggedInUserId, iCal);
+            return Json(new { Data = "success" }, JsonRequestBehavior.AllowGet);
+        }
+      
+
+        /// <summary>
+        /// Method to insert/update/delete the events from the event table
+        /// </summary>
+        /// <param name="modelEvents"></param>
+        /// <param name="formData"></param>
+        /// <returns></returns>
+        public ActionResult Save(FormCollection formData)
+        {
+            var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                            new ClientSecrets
+                            {
+                                ClientId = "650556964933-70jaej6pdd2orhrs5u1fl1msvhg4eise.apps.googleusercontent.com",
+                                ClientSecret = "Gxjf1qZ12YNaeiZui3p2hNZr",
+                            },
+                            new[] { CalendarService.Scope.Calendar },
+                            "user",
+                            CancellationToken.None).Result;
+
+            if (credential != null)
+            {
+
+                // Create the service.
+                var service = new CalendarService(new BaseClientService.Initializer
+                {
+                    HttpClientInitializer = credential,
+                    ApplicationName = "Calendar API Sample",
+                });
+
+
+                //get start date from the form collection
+                var startDate = formData["start_date"];
+                //split string date by separator, here I'm using '/'
+                var arrDate = startDate.Split('/');
+                //now use array to get specific date object
+                var month = Convert.ToInt32(arrDate[0]);
+                var day = Convert.ToInt32(arrDate[1]);
+                //split year and tiem by space
+                var arrYearTime = arrDate[2].Split(' ');
+                var year = Convert.ToInt32(arrYearTime[0]);
+                //split hours and minutes by colon
+                var arrHourMin = arrYearTime[1].Split(':');
+                var hour = Convert.ToInt32(arrHourMin[0]);
+                var min = Convert.ToInt32(arrHourMin[1]);
+
+                //get end date from form collection and split
+                var endDate = formData["end_date"];
+                var arrEndDate = endDate.Split('/');
+                var endMonth = Convert.ToInt32(arrEndDate[0]);
+                var endDay = Convert.ToInt32(arrEndDate[1]);
+                var arrEndYearTime = arrEndDate[2].Split(' ');
+                var endYear = Convert.ToInt32(arrEndYearTime[0]);
+                var arrEndHourMin = arrEndYearTime[1].Split(':');
+                var endHour = Convert.ToInt32(arrEndHourMin[0]);
+                var endMin = Convert.ToInt32(arrEndHourMin[1]);
+
+                //get assignees comma seperated
+                var attendees = formData["attendees"];
+                var arrAttendees = attendees.Split(',');
+                var listEventAttendees = arrAttendees.Select(arrAttendee => new EventAttendee { Email = arrAttendee.Trim() }).ToList();
+
+                var myEvent = new Event
+                {
+                    Summary = formData["text"],
+                    Location = formData["location"],
+                    Start = new EventDateTime
+                    {
+                        DateTime = new DateTime(year, month, day, hour, min, 0),
+                    },
+                    End = new EventDateTime
+                    {
+                        DateTime = new DateTime(endYear, endMonth, endDay, endHour, endMin, 0),
+                    },
+                    Attendees = listEventAttendees,
+                };
+
+                var insertEvent = service.Events.Insert(myEvent, "primary");
+                insertEvent.SendNotifications = true;
+                insertEvent.Execute();
+            }
+            var action = new DataAction(formData);
+
+            return (new AjaxSaveResponse(action));
+        }
+
         [HttpPost]
         public virtual ActionResult IterateAllContacts()
         {
-            var data = db.partner.Where(o => o.enterprise == Generic.Helpers.CurrentInstance.EnterpriseID).ToList();            
+            var data = db.partner.Where(o => o.enterprise == Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
             return Json(data);
         }
+
         [HttpPost]
         public virtual ActionResult IterateContacts(string searchText, int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode, string searchType)
         {
@@ -2159,8 +2292,113 @@ namespace Generic.Controllers
                 arguments += "AddedTo=" + txtAddedToFind + ";";
             if (txtFullTextSearch != "")
                 arguments += "FullTextSearch=" + txtFullTextSearch + ";";
-            var data = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();            
+            var data = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
             return Json(data);
+        }
+
+
+        [HttpPost]
+        public ActionResult UploadPartnerExcelData(HttpPostedFileBase excelFile)
+        {
+            var confirmPartnerCount = 0;
+            if (excelFile != null)
+            {
+                if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
+                }
+
+                if (!Directory.Exists((Server.MapPath("~/uploadedFiles/Partner"))))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/uploadedFiles/Partner"));
+                }
+
+                // The Name of the Upload component is "attachments" 
+                var file = excelFile;
+                // Some browsers send file names with full path. This needs to be stripped.
+                var fileName = Path.GetFileName(file.FileName);
+                var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/Partner"), fileName);
+
+                // The files are not actually saved in this demo
+                file.SaveAs(physicalPath);
+                var sheetname = "Sheet1";
+                var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+                var newPartnerExcel = from a in excelRead.Worksheet<ExcelInteratePartner>(sheetname) select a;
+                
+
+                var uploadConfirmPartner = new List<Tuple<int, string>>();
+
+                foreach (var newPartnerItem in newPartnerExcel.ToList())
+                {
+                    using (var context = new EntitiesDBContext())
+                    {
+                        if (!string.IsNullOrWhiteSpace(newPartnerItem.PARTNER_INTERNAL_ID))
+                        {
+                            try
+                            {
+
+                                var savedPartners = context.pr_addIteratePartner(newPartnerItem.PARTNER_INTERNAL_ID,
+                                    newPartnerItem.PARTNER_NAME, newPartnerItem.PARTNER_ADDRESS_ONE,
+                                    newPartnerItem.PARTNER_ADDRESS_TWO, newPartnerItem.PARTNER_CITY,
+                                    newPartnerItem.PARTNER_STATE, newPartnerItem.PARTNER_ZIPCODE, newPartnerItem.PARTNER_COUNTRY,
+                                    newPartnerItem.PARTNER_DUNS, newPartnerItem.PARTNER_SAP_ID, newPartnerItem.EMPLOYEE_COUNT,
+                                    newPartnerItem.ANNUAL_REVENUE, (int)newPartnerItem.StatusValue, SessionSingleton.PersonId,
+                                    SessionSingleton.PersonId, DateTime.Now, true,
+                                    DateTime.Now, DateTime.Now, SessionSingleton.PersonId
+                                   ).FirstOrDefault();
+
+                                var savedPersons = context.pr_addIteratePerson(newPartnerItem.RO_FIRST_NAME,
+                                    newPartnerItem.RO_LAST_NAME, null,
+                                    newPartnerItem.RO_EMAIL, null,
+                                    null, true,
+                                    DateTime.Now, DateTime.Now, (int)savedPartners
+                                   ).FirstOrDefault();
+                            }
+                            catch (Exception ex)
+                            {
+                                return Content(ex.Message);
+                            }
+                            confirmPartnerCount++;
+                        }
+                    }
+                }
+            }
+
+           // ViewBag.isMessage = 1;
+            //ViewBag.message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions.";
+
+            return Json(new {message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions." }, "text/plain");
+        }
+
+        [GridAction]
+        public ActionResult AjaxIteratePartners()
+        {
+            return Json(new GridModel(db.iteratePartner.ToList().Select(o=>new IteratePartnerView(){CompanyName = o.name,Status=(int)o.status, Title=""})),JsonRequestBehavior.AllowGet);
+        }
+
+        public static IEnumerable<string> GetIteratePartnerStatusList()
+        {
+            return new string[] {"-Select new status-","Busy","Successful Call - Appointment","Successful Call - Call Back","Do Not Call","Hung Up","Left Message","No Answer","No Help","Not In Service","No Message Left (Call Back)","Transferred","Wrong Number","Music Box","Other" }.ToList();
+        }
+
+        [HttpGet]
+        public ActionResult ExportPartnerExcel()
+        {
+            using (var context = new EntitiesDBContext())
+            {
+                //TODO : check SessionSingleton.PersonId is always 0
+                var abc = context.pr_getIteratePartnerAll(SessionSingleton.PersonId).ToList();
+
+                var stream = new MemoryStream();
+                var serializer = new XmlSerializer(typeof(List<pr_getIteratePartnerAll_Result>));
+
+                //We turn it into an XML and save it in the memory
+                serializer.Serialize(stream, abc);
+                stream.Position = 0;
+
+                //We return the XML from the memory as a .xls file
+                return File(stream, "application/vnd.ms-excel", "PartnerList.xls");
+            }
         }
     }
 }

@@ -8,6 +8,99 @@
     ViewBag.Title = "Iterate";
     #endregion
 }
+
+<style type="text/css">
+    html, body {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .dhx_month_body {
+        height: 20px !important;
+    }
+
+    .dhx_cal_date, .dhx_cal_next_button, .dhx_cal_prev_button, .dhx_cal_tab, .dhx_cal_today_button {
+        line-height: 20px !important;
+        height: 20px !important;
+        font-size: 10px !important;
+    }
+
+    .dhx_cal_tab {
+        width: 33px !important;
+    }
+
+    .dhx_cal_prev_button {
+        width: 20px !important;
+        right: 22px !important;
+    }
+
+    .dhx_cal_next_button {
+        right: 1px !important;
+        width: 20px !important;
+    }
+
+    .dhx_cal_tab.dhx_cal_tab_first {
+        left: 0px !important;
+    }
+
+    .dhx_cal_tab[name="week_tab"] {
+        left: 34px !important;
+    }
+
+    .dhx_cal_tab.dhx_cal_tab_last {
+        left: 68px !important;
+    }
+
+    .dhx_cal_today_button {
+        width: 37px !important;
+        right: 166px !important;
+        font-size: 10px !important;
+    }
+
+    .dhx_cal_date {
+        left: 49px !important;
+        font-size: 9px !important;
+    }
+
+    .dhx_cal_navline div, .dhx_cal_date {
+        top: 10px !important;
+    }
+
+    .dhx_cal_navline {
+        height: 40px !important;
+    }
+
+    #IteratePartners tr > td:hover .menu_block + .display_menu {
+        display: block !important;
+    }
+
+    .display_menu {
+        left: 65px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+
+    #IteratePartners tr > td {
+        overflow: visible !important;
+        position: relative;
+    }
+
+    .display_menu > ul {
+        padding: 0 16px;
+    }
+
+    .display_menu li {
+        list-style: none outside none;
+        width: 143px;
+    }
+</style>
+
+
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
@@ -15,6 +108,7 @@
 
 <script>
     jQuery(document).ready(function () {
+        $("#tabstrip a.t-link[href='#tabstrip-5']").append("<i class='glyphicon glyphicon-cog'></i>");
         $("#touchpoint").change(function () {
             var touchpoint = $("#touchpoint").val();
             var defaultOption = "<option value>Select Partner Type</option>";
@@ -43,176 +137,176 @@
             }
             $.ajax({
                 url: "@Url.Content("~/touchpoint/GetTouchPointWithTitleByprotocolId")",
-                    type: "post",
-                    data: formData,
-                    success: function (data) {
-                        var len = data.Data.length;
-                        var i = 0;
-                        var touchpointSelectList = "<option value=''></option>";
-                        for (i = 0; i < len; i++) {
-                            touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
-                        }
-
-                        $('#touchpoint').html(touchpointSelectList);
-                        $('#touchpointDiv').show();
-
-                    },
-                    error: function (data) {
-                        var touchpointSelectList = "<option value=''> -Select-</option>";
-                        $('#touchpoint').html(touchpointSelectList);
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    var len = data.Data.length;
+                    var i = 0;
+                    var touchpointSelectList = "<option value=''></option>";
+                    for (i = 0; i < len; i++) {
+                        touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
                     }
-                });
+
+                    $('#touchpoint').html(touchpointSelectList);
+                    $('#touchpointDiv').show();
+
+                },
+                error: function (data) {
+                    var touchpointSelectList = "<option value=''> -Select-</option>";
+                    $('#touchpoint').html(touchpointSelectList);
+                }
             });
-            if ("@ViewBag.Message" == "1") {
-                debugger;
-                alertify.set({
-                    labels: {
-                        ok: "Invite Later", cancel: "Invite Now"
-                    }
-                });
-                alertify.confirm("", function (e) {
-                    if (e) {
-                        // Click no
-                    } else {
-                        // click yes  
-                        $.ajax({
-                            url: "@Url.Content("~/partner/InvitePartners")",
-                            type: "post",
-                            success: function (data) {
-
-                                alertify.set({
-                                    labels: {
-                                        ok: "ok", cancel: "cancel"
-                                    }
-                                });
-
-                                //dataClear();
-                                alertify.alert(data.Data.message);
-                                $('#alertify-ok').text('OK');
-                                var len = data.EventNotification.length;
-                                $('#btnInviteList').show();
-                                if (len == 0) {
-                                    alertify.alert("Please wait, data processing");
-                                    $('#alertify-ok').text('OK');
-                                } else {
-
-                                    var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
-                                    for (i = 0; i < len; i++)
-                                        events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
-
-
-                                    $('#DivEventNotification').html(events);
-                                }
-
-                            },
-                            error: function (data) {
-
-                            }
-                        });
-                    }
-                });
-            }
-            if ("@ViewBag.Message" == "2") {
-
-                alertify.alert('@ViewBag.MessageDetail');
-                dataClear();
-            }
-            if ("@ViewBag.Message" == "error") {
-
-                alertify.alert('@ViewBag.MessageDetail');
-                dataClear();
-            }
-
-
-            $('#btnInvite').click(function (e) {
-                e.preventDefault();
-            });
-
-            $('#btnInviteList').click(function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: "@Url.Content("~/partner/InvitePartnersList")",
-                    type: "post",
-                    success: function (data) {
-                        var len = data.EventNotification.length;
-
-                        if (len == 0) {
-                            alertify.alert("Please wait, data processing");
-                        } else {
-
-                            var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
-                            for (i = 0; i < len; i++)
-                                events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
-
-
-                            $('#DivEventNotification').html(events);
-                        }
-                    },
-                    error: function (data) {
-                        alertify.alert(data.Data.message);
-                    }
-                });
-            });
-
-            $('#btnInvitelater').click(function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: "@Url.Content("~/partner/InvitePartnersLater")",
-                    type: "post",
-                    success: function (data) {
-                        alertify.alert(data.Data.message);
-
-                    },
-                    error: function (data) {
-                        alertify.alert(data.Data.message);
-                    }
-                });
-            });
-
-            $("#btnClear").click(function (e) {
-                dataClear();
-            });
-
-            function dataClear() {
-                $("#name").val("");
-                $("#internalID").val("");
-                $("#address1").val("");
-                $("#address2").val("");
-                $("#city").val("");
-                $("#state").val("0");
-                $("#province").val("");
-                $("#zipcode").val("");
-                $("#country").val("0");
-                $("#phone").val("");
-                $("#fax").val("");
-                $("#firstName").val("");
-                $("#lastName").val("");
-                $("#title").val("");
-                $("#email").val("");
-                $("#dunsNumber").val("");
-                $("#federalID").val("");
-                $("#owner").val("");
-                $("#author").val("");
-                $("#protocol").val("");
-                $("#touchpoint").val("");
-                $("#partnertype").val("");
-                $("#group").val("");
-                $("#DueDate").val("");
-            }
         });
-        function doSomething() {
+        if ("@ViewBag.Message" == "1") {
+            debugger;
+            alertify.set({
+                labels: {
+                    ok: "Invite Later", cancel: "Invite Now"
+                }
+            });
+            alertify.confirm("", function (e) {
+                if (e) {
+                    // Click no
+                } else {
+                    // click yes
+                    $.ajax({
+                        url: "@Url.Content("~/partner/InvitePartners")",
+                        type: "post",
+                        success: function (data) {
 
+                            alertify.set({
+                                labels: {
+                                    ok: "ok", cancel: "cancel"
+                                }
+                            });
+
+                            //dataClear();
+                            alertify.alert(data.Data.message);
+                            $('#alertify-ok').text('OK');
+                            var len = data.EventNotification.length;
+                            $('#btnInviteList').show();
+                            if (len == 0) {
+                                alertify.alert("Please wait, data processing");
+                                $('#alertify-ok').text('OK');
+                            } else {
+
+                                var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                                for (i = 0; i < len; i++)
+                                    events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+                                $('#DivEventNotification').html(events);
+                            }
+
+                        },
+                        error: function (data) {
+
+                        }
+                    });
+                }
+            });
+        }
+        if ("@ViewBag.Message" == "2") {
+
+            alertify.alert('@ViewBag.MessageDetail');
+            dataClear();
+        }
+        if ("@ViewBag.Message" == "error") {
+
+            alertify.alert('@ViewBag.MessageDetail');
+            dataClear();
         }
 
-        $("#btnConfirm").click(function () {
-            debugger;
-            alertify.alert('you choose Confirm');
+
+        $('#btnInvite').click(function (e) {
+            e.preventDefault();
         });
 
-        $("#btnConfirmlater").click(function () {
-            debugger;
-            alertify.alert('you choose Confirm Later');
+        $('#btnInviteList').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "@Url.Content("~/partner/InvitePartnersList")",
+                type: "post",
+                success: function (data) {
+                    var len = data.EventNotification.length;
+
+                    if (len == 0) {
+                        alertify.alert("Please wait, data processing");
+                    } else {
+
+                        var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                        for (i = 0; i < len; i++)
+                            events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+                        $('#DivEventNotification').html(events);
+                    }
+                },
+                error: function (data) {
+                    alertify.alert(data.Data.message);
+                }
+            });
         });
+
+        $('#btnInvitelater').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "@Url.Content("~/partner/InvitePartnersLater")",
+                type: "post",
+                success: function (data) {
+                    alertify.alert(data.Data.message);
+
+                },
+                error: function (data) {
+                    alertify.alert(data.Data.message);
+                }
+            });
+        });
+
+        $("#btnClear").click(function (e) {
+            dataClear();
+        });
+
+        function dataClear() {
+            $("#name").val("");
+            $("#internalID").val("");
+            $("#address1").val("");
+            $("#address2").val("");
+            $("#city").val("");
+            $("#state").val("0");
+            $("#province").val("");
+            $("#zipcode").val("");
+            $("#country").val("0");
+            $("#phone").val("");
+            $("#fax").val("");
+            $("#firstName").val("");
+            $("#lastName").val("");
+            $("#title").val("");
+            $("#email").val("");
+            $("#dunsNumber").val("");
+            $("#federalID").val("");
+            $("#owner").val("");
+            $("#author").val("");
+            $("#protocol").val("");
+            $("#touchpoint").val("");
+            $("#partnertype").val("");
+            $("#group").val("");
+            $("#DueDate").val("");
+        }
+    });
+    function doSomething() {
+
+    }
+
+    $("#btnConfirm").click(function () {
+        debugger;
+        alertify.alert('you choose Confirm');
+    });
+
+    $("#btnConfirmlater").click(function () {
+        debugger;
+        alertify.alert('you choose Confirm Later');
+    });
 </script>
 <script>
     var iterate = (function () {
@@ -323,17 +417,17 @@
         $("#btnSearch").click(function () {
             seacrhPartner();
         });
-        function ShowPartnerFindLoader(){
+        function ShowPartnerFindLoader() {
             $(".loader").show();
         }
-        function HidePartnerFindLoader(){
+        function HidePartnerFindLoader() {
             $(".loader").hide();
         }
         function rowSelected(row) {
             $('#tblPartners tbody tr').removeClass("info");
             $(row).addClass("info");
             for (var i = 0; i < iterate.data.length; i++) {
-                if(iterate.data[i].id==$(row).data().partnerid){
+                if (iterate.data[i].id == $(row).data().partnerid) {
                     $("#name").val(iterate.data[i].PartnerName);
                     $("#internalID").val(iterate.data[i].internalID);
                     $("#address1").val(iterate.data[i].address);
@@ -342,7 +436,7 @@
                     $("#state").val(iterate.data[i].state);
                     $("#zipcode").val(iterate.data[i].zipcode);
                     var names = iterate.data[i].Contact.split(' ');
-                    if(names.length>0)
+                    if (names.length > 0)
                         $("#firstName").val(names[0]);
                     if (names.length > 2)
                         $("#lastName").val(names[2]);
@@ -356,7 +450,7 @@
                     $("#partnertype").val(iterate.data[i].partnertypeID);
                     break;
                 }
-            }            
+            }
         }
         function seacrhPartner(load) {
             if (!load) {
@@ -393,14 +487,14 @@
             else {
                 $.ajax({
                     type: "POST",
-                    url: "IterateAllContacts",                    
+                    url: "IterateAllContacts",
                     success: function (result) {
                         $("#tblPartners tbody").empty();
-                        if (result) {                            
+                        if (result) {
                             if (result.length > 0) {
-                               
+
                                 for (var i = 0; i < result.length; i++) {
-                                    addRow(result[i],true);
+                                    addRow(result[i], true);
                                 }
                                 $('#tblPartners tbody tr').click(function () {
                                     rowSelected();
@@ -425,7 +519,7 @@
                     case 7: imageClass = "gradient-yellow"; break;
                     case 8: imageClass = "gradient-green"; break;
                 }
-                $("#tblPartners tbody").append("<tr data-partnerid='" + data.id+ "'><td><div class='line-wrapper'><div class='img img-circle " + imageClass + "' title='" + data.status + "' ></div></div></td><td><div>" + data.Contact + "</div></td><td><div>" + data.PartnerName + "</div></td></tr>");
+                $("#tblPartners tbody").append("<tr data-partnerid='" + data.id + "'><td><div class='line-wrapper'><div class='img img-circle " + imageClass + "' title='" + data.status + "' ></div></div></td><td><div>" + data.Contact + "</div></td><td><div>" + data.PartnerName + "</div></td></tr>");
             }
             else {
                 var imageClass = "";
@@ -434,7 +528,7 @@
                     case 7: imageClass = "gradient-yellow"; break;
                     case 8: imageClass = "gradient-green"; break;
                 }
-                $("#tblPartners tbody").append("<tr><td><div class='line-wrapper'><div class='img img-circle " + imageClass + "' title='" + data.status + "' ></div></div></td><td><div>" + data.FirstName +" "+data.LastName+ "</div></td><td><div>" + data.name + "</div></td></tr>");
+                $("#tblPartners tbody").append("<tr><td><div class='line-wrapper'><div class='img img-circle " + imageClass + "' title='" + data.status + "' ></div></div></td><td><div>" + data.FirstName + " " + data.LastName + "</div></td><td><div>" + data.name + "</div></td></tr>");
             }
         }
         function nextRow() {
@@ -455,33 +549,38 @@
                 prevRow();
             else nextRow();
         });
-        
+
         //seacrhPartner(true);
     });
 </script>
 <!--#region collapse-->
 <style type="text/css">
     .clickable {
-        cursor:pointer;
+        cursor: pointer;
     }
+
     .loader {
-        position:absolute;
-        width:100%;
-        height:100%;
-        z-index:50000;
-        background-color:blue;
-        opacity:0.5;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 50000;
+        background-color: blue;
+        opacity: 0.5;
     }
+
         .loader img {
-            top:50%;
-            left:50%;
+            top: 50%;
+            left: 50%;
         }
+
     .hide {
-        display:none;
+        display: none;
     }
+
     .show {
-        display:block;
+        display: block;
     }
+
     .threecol, twocol {
         width: 100%;
         display: inline-block;
@@ -567,14 +666,16 @@
         margin-bottom: 13px;
     }
     /*.container .t-link {
-        padding: .3em 2px !important;
-    }*/
+            padding: .3em 2px !important;
+        }*/
     .big-input {
-        width:57% !important;
+        width: 57% !important;
     }
+
         .big-input input {
-             width:336px;
+            width: 336px;
         }
+
     .gradient-red {
         background: #ed943b; /* Old browsers */
         background: -moz-linear-gradient(left, #ed943b 4%, #e56d38 52%, #ce5033 100%); /* FF3.6+ */
@@ -585,6 +686,7 @@
         background: linear-gradient(to right, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed943b', endColorstr='#ce5033',GradientType=1 ); /* IE6-9 */
     }
+
     .gradient-yellow {
         background: #fceabb; /* Old browsers */
         background: -moz-linear-gradient(left, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%); /* FF3.6+ */
@@ -595,6 +697,7 @@
         background: linear-gradient(to right, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', endColorstr='#fbdf93',GradientType=1 ); /* IE6-9 */
     }
+
     .gradient-green {
         background: #c9de96; /* Old browsers */
         background: -moz-linear-gradient(left, #c9de96 0%, #8ab66b 44%, #398235 100%); /* FF3.6+ */
@@ -605,6 +708,7 @@
         background: linear-gradient(to right, #c9de96 0%,#8ab66b 44%,#398235 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=1 ); /* IE6-9 */
     }
+
     .gradient-blue {
         background: #d0e4f7; /* Old browsers */
         background: -moz-linear-gradient(left, #d0e4f7 0%, #73b1e7 24%, #0a77d5 50%, #539fe1 79%, #87bcea 100%); /* FF3.6+ */
@@ -615,35 +719,43 @@
         background: linear-gradient(to right, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e4f7', endColorstr='#87bcea',GradientType=1 ); /* IE6-9 */
     }
+
     .img {
         width: 12px;
         height: 12px;
     }
+
     #tblPartners td {
         font-size: 12px;
     }
-    #tblPartners tr,#tblPartners td .line-wrapper {
-        height:6px;
-        line-height:6px;
+
+        #tblPartners tr, #tblPartners td .line-wrapper {
+            height: 6px;
+            line-height: 6px;
+        }
+
+    .table tr {
+        cursor: pointer;
     }
 
-    .table  tr {
-        cursor:pointer;
+    .excelBtn {
+        background-size: 100% auto;
+        background-image: url("../../Contents/images/xlsx-1567.png");
+        height: 32px;
+        width: 32px;
     }
-    
-
 </style>
 
 <div class="container">
-    
+
     <div class="row">
 
         <div class="col-xs-6">
             <div class="row">
-        <div class="addPartnerDiv">
-            <h2>Iterate <span class="clickable">&lt;&lt;</span> <span style="width:10px"></span> <span class="clickable">&gt;&gt;</span></h2>
-        </div>
-    </div>
+                <div class="addPartnerDiv">
+                    <h2>Iterate <span class="clickable">&lt;&lt;</span> <span style="width:10px"></span> <span class="clickable">&gt;&gt;</span></h2>
+                </div>
+            </div>
 
             @using (Html.BeginForm())
             {
@@ -661,7 +773,7 @@
                             </div>
                             <div class="editor-field big-input">
                                 @*@Html.EditorFor(model => model.name)*@
-                                @Html.TextBoxFor(model => model.name, new { @class = "txtClass",data_val="true", data_val_required=" " })
+                                @Html.TextBoxFor(model => model.name, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.name)
                             </div>
                             <!-- #endregion-->
@@ -673,7 +785,7 @@
                             </div>
                             <div class="editor-field">
                                 @*@Html.EditorFor(model => model.internalID)*@
-                                @Html.TextBoxFor(model => model.internalID, new { @class = "txtClass",data_val="true", data_val_required=" " })
+                                @Html.TextBoxFor(model => model.internalID, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.internalID)
                             </div>
                         </div>
@@ -684,19 +796,19 @@
                                 @Html.Label("Address")
                             </div>
                             <div class="editor-field big-input">
-                                @Html.TextBoxFor(model => model.address1, new { @class = "txtClass",data_val="true", data_val_required=" " })
+                                @Html.TextBoxFor(model => model.address1, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.address1)
-                            </div>                            
-                             <div class="editor-label">
+                            </div>
+                            <div class="editor-label">
                                 @*@Html.LabelFor(model => model.phone)*@
                                 @Html.Label("Phone")
                             </div>
                             <div class="editor-field">
                                 @*@Html.EditorFor(model => model.phone)*@
-                                @Html.TextBoxFor(model => model.phone, new { @class = "txtClass",data_val="true", data_val_required=" " })
+                                @Html.TextBoxFor(model => model.phone, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.phone)
                             </div>
-                            
+
                         </div>
                         <div class="row bottom-buffer">
                             <div class="editor-label">
@@ -705,7 +817,7 @@
                             </div>
                             <div class="editor-field" style="width:37%">
 
-                                @Html.TextBoxFor(model => model.city, new { @class = "txtClass", style="width:100%",data_val="true", data_val_required=" " })
+                                @Html.TextBoxFor(model => model.city, new { @class = "txtClass", style = "width:100%", data_val = "true", data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.city)
                             </div>
                             <div class="editor-label" style="width: 8%;">
@@ -713,10 +825,10 @@
                                 @Html.Label("State")
                             </div>
                             <div class="editor-field" style="width:10%">
-                                @Html.DropDownList("state", null, String.Empty, new { @class = "ddlClass", style="width:100%",data_val="true", data_val_required=" " })
+                                @Html.DropDownList("state", null, String.Empty, new { @class = "ddlClass", style = "width:100%", data_val = "true", data_val_required = " " })
 
                                 @Html.ValidationMessageFor(model => model.state)
-                            </div>                           
+                            </div>
 
                             <div class="editor-label" style="margin-left:4px;">
                                 @*@Html.LabelFor(model => model.zipcode)*@
@@ -724,11 +836,11 @@
                             </div>
                             <div class="editor-field">
                                 @*@Html.EditorFor(model => model.zipcode)*@
-                                @Html.TextBoxFor(model => model.zipcode, new { @class = "txtClass",data_val="true", data_val_required=" " })
+                                @Html.TextBoxFor(model => model.zipcode, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.zipcode)
                             </div>
                         </div>
-                      
+
                         <div class="row bottom-buffer">
                             <div class="editor-label">
                                 @*@Html.LabelFor(model => model.firstName)*@
@@ -736,7 +848,7 @@
                             </div>
                             <div class="editor-field" style="width:22.5%">
                                 @*@Html.EditorFor(model => model.firstName)*@
-                                @Html.TextBoxFor(model => model.firstName, new { @class = "txtClass",data_val="true", data_val_required=" " })
+                                @Html.TextBoxFor(model => model.firstName, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.firstName)
                             </div>
 
@@ -746,7 +858,7 @@
                             </div>
                             <div class="editor-field" style="width:22.5%">
                                 @*@Html.EditorFor(model => model.lastName)*@
-                                @Html.TextBoxFor(model => model.lastName, new { @class = "txtClass",data_val="true", data_val_required=" " })
+                                @Html.TextBoxFor(model => model.lastName, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.lastName)
                             </div>
 
@@ -756,7 +868,7 @@
                             </div>
                             <div class="editor-field">
                                 @*@Html.EditorFor(model => model.title)*@
-                                @Html.TextBoxFor(model => model.title, new { @class = "txtClass",data_val="true", data_val_required=" " })
+                                @Html.TextBoxFor(model => model.title, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.title)
                             </div>
                         </div>
@@ -767,7 +879,7 @@
                             </div>
                             <div class="editor-field big-input">
 
-                                @Html.TextBoxFor(model => model.email, new { @class = "txtClass",data_val="true", data_val_required=" ", data_val_email=" " })
+                                @Html.TextBoxFor(model => model.email, new { @class = "txtClass", data_val = "true", data_val_required = " ", data_val_email = " " })
                                 @Html.ValidationMessageFor(model => model.email)
                             </div>
                             <!-- #endregion-->
@@ -778,18 +890,18 @@
                             </div>
                             <div class="editor-field">
                                 @*@Html.EditorFor(model => model.dunsNumber)*@
-                                @Html.TextBoxFor(model => model.dunsNumber, new { @class = "txtClass",data_val="true", data_val_required=" " })
+                                @Html.TextBoxFor(model => model.dunsNumber, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.dunsNumber)
                             </div>
 
-                           
+
                         </div>
-                        
+
                         <div class="row bottom-buffer">
                             <div class="editor-label">
                                 @Html.Label("Touch Point")
                             </div>
-                            <div class="editor-field" >
+                            <div class="editor-field">
                                 @Html.DropDownList("touchpoint", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
                                 @*<select id="touchpoint" name="touchpoint" class="ddlClass" data-val="true" data-val-required=" "></select>*@
                                 <span class="field-validation-valid" data-valmsg-for="touchpoint" data-valmsg-replace="true"></span>
@@ -798,10 +910,10 @@
                                 @Html.Label("Partner Type")
                             </div>
                             <div class="editor-field" style="width:25%">
-                                 @Html.DropDownList("partnertype", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " ",@style="width:100%" })
+                                @Html.DropDownList("partnertype", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " ", @style = "width:100%" })
                                 @*<select id="partnertype" name="partnertype" class="ddlClass" data-val="true" data-val-required=" " style="width:100%"></select>*@
                                 <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
-                                @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Partner Type</a>*@
+                                @*<a href="@Url.Content(" ~ />PartnerType/Create")">Add Partner Type</a>*@
                             </div>
                             <div class="editor-label" style="margin-left: 0.5%;">
                                 @Html.Label("Group")
@@ -809,87 +921,167 @@
                             <div class="editor-field">
                                 @Html.DropDownList("group", null, String.Empty, new { @class = "ddlClass", @style = "margin-top: 3%;", @data_val = "true", @data_val_required = " " })
                                 <span class="field-validation-valid" data-valmsg-for="group" data-valmsg-replace="true"></span>
-                                @* <a href="@Url.Content(" ~ /Group/Create")">Add Group</a>*@
+                                @* <a href="@Url.Content(" ~ />Group/Create")">Add Group</a>*@
 
                             </div>
 
-                            
-                            
+
+
                         </div>
                         @* <div class="threecol">
-            </div>*@
+                            </div>*@
                         <div class="row pull-right" style="margin-top:15px">
                             <input type="button" value="Clear" class="btn_b " id="btnClear" />
                             <input type="submit" value="Load" class="btn_b " />
-                             <input type="submit" value="Note" class="btn_b " />
-                             <input type="submit" value="Remind" class="btn_b " />
+                            <input type="submit" value="Note" class="btn_b " />
+                            <input type="submit" value="Remind" class="btn_b " />
                             <input type="submit" value="Reset" class="btn_b " />
-                             <input type="submit" value="Save" class="btn_b " />
-                            <input type="button" value="Send" class="btn_b "  />
-                           
-                            
+                            <input type="submit" value="Save" class="btn_b " />
+                            <input type="button" value="Send" class="btn_b " />
+
+
                         </div>
                     </div>
-                </fieldset>        
-   
+                    <input type="hidden" id="hdnICal" />
+                </fieldset>
+
             }
         </div>
         <div class="col-xs-6">
             @(Html.Telerik().TabStrip()
-              .Name("tabstrip").HtmlAttributes(new  {style="margin-top: 25px;width:350px" })
-              .Items(tabstrip =>
-              {
+                .Name("tabstrip").HtmlAttributes(new { style = "margin-top: 25px;width:350px" })
+                .Items(tabstrip =>
+                {
 
-                  tabstrip.Add().Text("Contact")
-                      .Selected(true)
-                      .Content(@<text><div class="mytab">
-                          <div class="loader hide">
-<img src="../../Images/WallImages/imagepath/ajax-loader.gif" alt="" />
-                          </div>
-                          <div class="input-group">
+                    tabstrip.Add().Text("Contact")
+                    .Selected(true)
+                    .Content(@<text>
+                        <div class="mytab">
+                            <div class="loader hide">
+                                <img src="../../Images/WallImages/imagepath/ajax-loader.gif" alt="" />
+                            </div>
+                            <div class="input-group">
 
 
-                              <input type="hidden" name="search_param" value="all" id="search_param">
-                              <input type="text" class="form-control" name="x"  placeholder="Search term..." id="searctText">
-                              <span class="input-group-btn">
-                                  <button class="btn btn-default" type="button" id="btnSearch"><span class="glyphicon glyphicon-search"></span></button>
-                              </span>
-                              
-                          </div>
-                          <div style="height:280px;" class="table-responsive">
-                              <table class="table table-hover" id="tblPartners">
-                                  <tbody>
-                                  
-                                  
-                                      
-                                     
-                                      </tbody>
-                              </table>
-                                  </div>
-                      </div>
-            </text>);
+                                <input type="hidden" name="search_param" value="all" id="search_param">
+                                <input type="text" class="form-control" name="x" placeholder="Search term..." id="searctText">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnSearch"><span class="glyphicon glyphicon-search"></span></button>
+                                </span>
 
-                  tabstrip.Add().Text("Calendar")
-                     .Content(@<text><div class="mytab">
-                         <p>It's calendar</p>
-                     </div></text>);
+                            </div>
+                            <div style="height:280px;" class="table-responsive">
+                                <table class="table table-hover" id="tblPartners">
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </text>);
 
-                  tabstrip.Add().Text("SMS")
-                       .Content(@<text><div class="mytab">
-                           <p>It's other</p>
-                       </div></text>);
-                  tabstrip.Add().Text("Email")
-                       .Content(@<text><div class="mytab">
-                           <p>It's settings</p>
-                       </div></text>);
-              })
-                        )
+                    tabstrip.Add().Text("Calendar")
+                    .Content(@<text>
+                            <div class="mytab">
+                                @Html.Raw(ViewBag.Scheduler)
+                            </div>
+                    </text>);
+
+                    tabstrip.Add().Text("SMS")
+                    .Content(@<text>
+                            <div class="mytab">
+                                <p>It's other</p>
+                            </div>
+                    </text>);
+                    tabstrip.Add().Text("Email")
+                    .Content(@<text>
+                            <div class="mytab">
+                                <p>It's settings</p>
+                            </div>
+                    </text>);
+                    tabstrip.Add()
+                         .Content(@<text>
+                            <div class="mytab">
+                                <div class="row">
+                                    <div class="col-md-6"><p>Calendar - Ical (Gmail)</p></div>
+                                    <div class="col-md-6 text-right">
+                                        <div id="setiCal" class="dhx_cal_today_button pull-right">Set</div>
+                                        <div id="getiCal" class="dhx_cal_today_button  pull-right">Get</div>
+                                    </div>
+
+                                    <div class="col-md-12" style="overflow:auto">
+                                        <a class="excelBtn" href="/Partner/ExportPartnerExcel" style="float:left;" title="Export to Excel"></a>
+                                        @(Html.Telerik().Upload()
+                                            .Name("excelFile")
+                                            .Multiple(false)
+                                            .Async(a => a.Save("UploadPartnerExcelData", "Partner")
+                                                .AutoUpload(false))
+                                            .ClientEvents(e => e.OnError("onError")
+                                                                                .OnSuccess("onSuccess")).HtmlAttributes(new { style = "float:left;font-size:12px;" })
+                                        )
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </text>);
+                })
+            )
 
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function onSuccess(e) {
+        alertify.alert(e.response.message);
+        //$("#topCallapsePanel").html("")
+    }
+    function onError(e) {
+        var err = e.XMLHttpRequest.responseText;
+        alertify.alert("There was server error:" + err);
+    }
+
+    $(document).ready(function () {
+        $("#IteratePartners").show();
+
+        $("#excelFile").closest(".k-upload-button")
+                        .find("span")
+                        .text("Select file to upload");
+
+        //Initialize the scheduler
+        $(document).on('click', '.t-link[href="#tabstrip-2"', function () {
+            $('.dhx_cal_tab_last').click();
+        });
+        $(document).on('click', '#getiCal', function () {
+            $.ajax({
+                url: "@Url.Content("~/Partner/GetPersonIcal")",
+                type: "POST",
+                success: function (data) {
+                    alertify.alert(data.Data);
+                    document.getElementById('hdnICal').value = text;
+                },
+                error: function (data) {
+                }
+            });
+        });
+        $(document).on('click', '#setiCal', function () {
+            var text = prompt("Enter Calendar Url", "");
+            //var iCal = document.getElementById('hdnICal').value;
+            if (text) {
+                $.ajax({
+                    url: "@Url.Content("~/Partner/ModifyPersonIcal")",
+                    type: "POST",
+                    data: { iCal: text },
+                    success: function (data) {
+                        alertify.alert(data.Data);
+                    },
+                    error: function (data) {
+                    }
+                });
+            } else alertify.alert("Please enter valid calendar URI.");
+        });
+    });
+</script>
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
     @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")   
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
 }
