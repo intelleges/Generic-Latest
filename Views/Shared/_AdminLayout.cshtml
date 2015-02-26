@@ -191,7 +191,13 @@
                         hPanes.Add()
                         .Size("20%")
                         .Collapsible(true).Collapsed(true)
-                        .Content(@<p>Inner splitter :: right pane</p>);
+                        .Content(@<div class="container">
+                            @Html.ActionLink("Add Stack","AuthorizeEverNote","Partner")
+                            @Html.ActionLink("Add Notebook","AuthorizeEverNote","Partner")
+                            @Html.ActionLink("Add Note","AuthorizeEverNote","Partner")
+                                  </div> 
+    
+    );
                         }).ToString());
 
                         vPanes.Add()

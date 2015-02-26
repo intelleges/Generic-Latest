@@ -43,12 +43,19 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="AjaxControlToolkit">
       <HintPath>..\..\..\..\..\Desktop\MVCMT\Generic\bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AsyncOAuth">
+      <HintPath>..\packages\AsyncOAuth.0.7.0\lib\AsyncOAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="AsyncOAuth.Evernote.Simple">
+      <HintPath>..\packages\AsyncOAuth.Evernote.Simple.0.2.0.0\lib\net45\AsyncOAuth.Evernote.Simple.dll</HintPath>
     </Reference>
     <Reference Include="ChargifyNET, Version=1.1.5506.24411, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -60,6 +67,9 @@
     <Reference Include="ConvertApi, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ConvertApi.1.3\lib\net20\ConvertApi.dll</HintPath>
+    </Reference>
+    <Reference Include="CsQuery">
+      <HintPath>..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
     </Reference>
     <Reference Include="DHTMLX">
       <HintPath>..\packages\DHTMLX.Scheduler.NET.3.2.0.3\lib\DHTMLX.dll</HintPath>
@@ -85,12 +95,24 @@
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
+    <Reference Include="en-html2enml">
+      <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.7\lib\net40\en-html2enml.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Evernote">
+      <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.7\lib\net40\Evernote.dll</HintPath>
+    </Reference>
+    <Reference Include="EvernoteOAuthNet">
+      <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.7\lib\net40\EvernoteOAuthNet.dll</HintPath>
+    </Reference>
+    <Reference Include="EvernoteSDK">
+      <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.7\lib\net40\EvernoteSDK.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis">
       <HintPath>..\packages\Google.Apis.1.9.0\lib\net40\Google.Apis.dll</HintPath>
@@ -195,6 +217,9 @@
     <Reference Include="Pechkin">
       <HintPath>..\packages\Pechkin.0.5.8.1\lib\net40\Pechkin.dll</HintPath>
     </Reference>
+    <Reference Include="PreMailer.Net">
+      <HintPath>..\packages\PreMailer.Net.1.2.7\lib\net40\PreMailer.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Recaptcha, Version=1.0.5.0, Culture=neutral, PublicKeyToken=9afc4d65b28c38c2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\recaptcha.1.0.5.0\lib\.NetFramework 4.0\Recaptcha.dll</HintPath>
@@ -213,6 +238,9 @@
     </Reference>
     <Reference Include="SendGridMail">
       <HintPath>..\..\..\..\..\Desktop\MVCMT\Generic\bin\SendGridMail.dll</HintPath>
+    </Reference>
+    <Reference Include="SgmlReaderDll">
+      <HintPath>..\packages\SgmlReader.1.8.11\lib\4.0\SgmlReaderDll.dll</HintPath>
     </Reference>
     <Reference Include="SimpleExcelExport">
       <HintPath>..\packages\SimpleExcelExport.0.0.1.7\lib\net35\SimpleExcelExport.dll</HintPath>
@@ -291,6 +319,9 @@
     </Reference>
     <Reference Include="Telerik.Web.Mvc">
       <HintPath>..\packages\TelerikMvcExtensions.2013.2.611\lib\net40\Telerik.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Thrift">
+      <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.7\lib\net40\Thrift.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <HintPath>..\..\..\..\..\Desktop\MVCMT\Generic\bin\WebGrease.dll</HintPath>
@@ -631,13 +662,16 @@
     <Compile Include="groupRiskGoal.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AsyncEvernoteAuthorizer.cs" />
     <Compile Include="Helpers\ClientJavascriptHelper.cs" />
     <Compile Include="Helpers\CurrentInstance.cs" />
     <Compile Include="Helpers\CustomMembershipProvider.cs" />
     <Compile Include="Helpers\CustomRoleProvider.cs" />
+    <Compile Include="Helpers\EvernoteAuthorizer.cs" />
     <Compile Include="Helpers\ExtentionMethods.cs" />
     <Compile Include="Helpers\HandleErrorAttibute.cs" />
     <Compile Include="Helpers\hs3ModelExtender.cs" />
+    <Compile Include="Helpers\IEvernoteCredentials.cs" />
     <Compile Include="Helpers\LandingPage.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
     <Compile Include="Helpers\PartnerHelper.cs" />
@@ -645,6 +679,7 @@
     <Compile Include="Helpers\PersonHelper.cs" />
     <Compile Include="Helpers\QuestionnaireHelper.cs" />
     <Compile Include="Helpers\SchedulerServiceHelper.cs" />
+    <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Helpers\UIControl.cs" />
     <Compile Include="Helpers\Utility\EmailFormat.cs" />
     <Compile Include="Helpers\Utility\SendGridEvents.cs" />
@@ -1045,6 +1080,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getEventNotification_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getEvernoteNotebookAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getEvernoteNotebook_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getFocusByIndustry_Result.cs">

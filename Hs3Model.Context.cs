@@ -15273,5 +15273,148 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeIteratestatus", idParameter);
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEvernoteNotebook(string evernoteNotebook, Nullable<int> person, Nullable<int> partner, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var evernoteNotebookParameter = evernoteNotebook != null ?
+                new ObjectParameter("EvernoteNotebook", evernoteNotebook) :
+                new ObjectParameter("EvernoteNotebook", typeof(string));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEvernoteNotebook", evernoteNotebookParameter, personParameter, partnerParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_addEvernoteOAuthCredentialByEnterprise(Nullable<int> enterprise, string evernoteOAuthCredential)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var evernoteOAuthCredentialParameter = evernoteOAuthCredential != null ?
+                new ObjectParameter("evernoteOAuthCredential", evernoteOAuthCredential) :
+                new ObjectParameter("evernoteOAuthCredential", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addEvernoteOAuthCredentialByEnterprise", enterpriseParameter, evernoteOAuthCredentialParameter);
+        }
+    
+        public virtual int pr_addEvernoteStackByPerson(Nullable<int> person, string evernoteStack)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var evernoteStackParameter = evernoteStack != null ?
+                new ObjectParameter("evernoteStack", evernoteStack) :
+                new ObjectParameter("evernoteStack", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addEvernoteStackByPerson", personParameter, evernoteStackParameter);
+        }
+    
+        public virtual int pr_archiveEvernoteNotebook(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveEvernoteNotebook", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEvernoteNotebook_Result> pr_getEvernoteNotebook(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEvernoteNotebook_Result>("pr_getEvernoteNotebook", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEvernoteNotebookAll_Result> pr_getEvernoteNotebookAll(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEvernoteNotebookAll_Result>("pr_getEvernoteNotebookAll", personParameter);
+        }
+    
+        public virtual ObjectResult<string> pr_getEvernoteOAuthCredentialByEnterprise(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getEvernoteOAuthCredentialByEnterprise", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<string> pr_getEvernoteStackByPerson(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getEvernoteStackByPerson", personParameter);
+        }
+    
+        public virtual int pr_modifyEvernoteNotebook(Nullable<int> id, string evernoteNotebook, Nullable<int> person, Nullable<int> partner, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var evernoteNotebookParameter = evernoteNotebook != null ?
+                new ObjectParameter("EvernoteNotebook", evernoteNotebook) :
+                new ObjectParameter("EvernoteNotebook", typeof(string));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEvernoteNotebook", idParameter, evernoteNotebookParameter, personParameter, partnerParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeEvernoteNotebook(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEvernoteNotebook", idParameter);
+        }
+    
+        public virtual int pr_unArchiveEvernoteNotebook(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveEvernoteNotebook", idParameter);
+        }
     }
 }

@@ -32,13 +32,25 @@ using Google.Apis.Calendar.v3;
 using Google.Apis.Services;
 using DHTMLX.Common;
 using Telerik.Web.Mvc;
+using AsyncOAuth.Evernote.Simple;
+using System.Configuration;
+using Thrift.Transport;
+using Thrift.Protocol;
+using Evernote.EDAM.UserStore;
+using Evernote.EDAM.NoteStore;
+using Evernote.EDAM.Type;
+
 namespace Generic.Controllers
 {
     [Authorize]
     public class PartnerController : Controller
     {
+        /// <summary>
+        /// The Simple Authorizer
+        /// </summary>
+        readonly Generic.Helpers.EvernoteAuthorizer _evernoteAuthorizer = new Generic.Helpers.EvernoteAuthorizer(ConfigurationManager.AppSettings["Evernote.Url"], ConfigurationManager.AppSettings["Evernote.Key"], ConfigurationManager.AppSettings["Evernote.Secret"]);
         private EntitiesDBContext db = new EntitiesDBContext();
-
+       
         //
         // GET: /Partner/
         //1170	All	../Partner/index	1142	89	True	1	2
@@ -2152,7 +2164,7 @@ namespace Generic.Controllers
             var moidfyIcal = db.pr_modifyPersonIcal(SessionSingleton.LoggedInUserId, iCal);
             return Json(new { Data = "success" }, JsonRequestBehavior.AllowGet);
         }
-      
+
 
         /// <summary>
         /// Method to insert/update/delete the events from the event table
@@ -2236,6 +2248,115 @@ namespace Generic.Controllers
             var action = new DataAction(formData);
 
             return (new AjaxSaveResponse(action));
+        }
+
+        /// <summary>
+        /// Authorize the user with evernote login
+        /// </summary>
+        /// <param name="reauth"></param>
+        /// <returns></returns>
+        public ActionResult AuthorizeEverNote(bool reauth = false)
+        {
+            // Allow for reauth
+            if (reauth)
+                SessionHelper.Clear();
+
+            // First of all, check to see if the user is already registered, in which case tell them that
+            if (SessionHelper.EvernoteCredentials != null)
+                return Redirect(Url.Action("AlreadyAuthorized"));
+
+            // Evernote will redirect the user to this URL once they have authorized your application
+            var callBackUrl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ObtainTokenCredentials");
+
+            // Generate a request token - this needs to be persisted till the callback
+            var requestToken = Generic.Helpers.EvernoteAuthorizer.GetRequestToken(callBackUrl);
+
+            // Persist the token
+            SessionHelper.RequestToken = requestToken;
+
+            // Redirect the user to Evernote so they can authorize the app
+            var callForwardUrl = Generic.Helpers.EvernoteAuthorizer.BuildAuthorizeUrl(requestToken);
+            return Redirect(callForwardUrl);
+        }
+
+        /// <summary>
+        /// This action is the callback that Evernote will redirect to after 
+        /// the call to Authorize above
+        /// </summary>
+        /// <param name="oauth_verifier"></param>
+        /// <returns></returns>
+        public ActionResult ObtainTokenCredentials(string oauth_verifier)
+        {
+            // Use the verifier to get all the user details we need and
+            // store them in EvernoteCredentials
+            var credentials = Generic.Helpers.EvernoteAuthorizer.ParseAccessToken(oauth_verifier, SessionHelper.RequestToken);
+            if (credentials != null)
+            {
+                SessionHelper.EvernoteCredentials = credentials;
+                return Redirect(Url.Action("Authorized"));
+            }
+            else
+            {
+                return Redirect(Url.Action("Unauthorized"));
+            }
+        }
+
+        /// <summary>
+        /// Show the user if they are authorized
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Authorized()
+        {
+            var authToken = SessionHelper.EvernoteCredentials.AuthToken;
+            var evernoteHost = "sandbox.evernote.com";
+
+            var userStoreUrl = new Uri("https://" + evernoteHost + "/edam/user");
+            var userStoreTransport = new THttpClient(userStoreUrl);
+            var userStoreProtocol = new TBinaryProtocol(userStoreTransport);
+            var userStore = new UserStore.Client(userStoreProtocol);
+
+            var noteStoreUrl = userStore.getNoteStoreUrl(authToken);
+
+            var noteStoreTransport = new THttpClient(new Uri(noteStoreUrl));
+            var noteStoreProtocol = new TBinaryProtocol(noteStoreTransport);
+            var noteStore = new NoteStore.Client(noteStoreProtocol);
+
+            // create new stack and notebook for new user
+            var newNotebook = new Notebook();
+            newNotebook.Stack = "Add Later";
+            newNotebook.Name = "WDC Notebook";
+            var response = noteStore.createNotebook(authToken, newNotebook);
+
+            //Newly added notebook guid when add notes
+            //var guid = response.Guid;
+
+            //get all notebooks then identify login user and put notes to particular user stack->notebook
+            var notebooks = noteStore.listNotebooks(authToken);
+            // To create a new note, simply create a new Note object and fill in 
+            // attributes such as the note's title.
+            var note = new Note();
+            note.Title = "Test note for John.";
+            note.NotebookGuid = response.Guid;
+
+            // The content of an Evernote note is represented using Evernote Markup Language
+            // (ENML). The full ENML specification can be found in the Evernote API Overview
+            // at http://dev.evernote.com/documentation/cloud/chapters/ENML.php
+            note.Content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">" +
+                "<en-note>Added note to show John, its working.<br/>" +
+                "</en-note>";
+
+            // Finally, send the new note to Evernote using the createNote method
+            // The new Note object that is returned will contain server-generated
+            // attributes such as the new note's unique GUID.
+            var createdNote = noteStore.createNote(authToken, note);
+
+            return Content("Notes added successfully!");
+        }
+
+        public ActionResult Unauthorized()
+        {
+            return Content("You are unautorized");
         }
 
         [HttpPost]
@@ -2324,7 +2445,7 @@ namespace Generic.Controllers
                 var sheetname = "Sheet1";
                 var excelRead = new ExcelQueryFactory(physicalPath.ToString());
                 var newPartnerExcel = from a in excelRead.Worksheet<ExcelInteratePartner>(sheetname) select a;
-                
+
 
                 var uploadConfirmPartner = new List<Tuple<int, string>>();
 
@@ -2364,10 +2485,10 @@ namespace Generic.Controllers
                 }
             }
 
-           // ViewBag.isMessage = 1;
+            // ViewBag.isMessage = 1;
             //ViewBag.message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions.";
 
-            return Json(new {message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions." }, "text/plain");
+            return Json(new { message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions." }, "text/plain");
         }
 
         [GridAction]
@@ -2379,6 +2500,7 @@ namespace Generic.Controllers
         public static IEnumerable<string> GetIteratePartnerStatusList()
         {
             return new string[] {"-Select new status-","Busy","Successful Call - Appointment","Successful Call - Call Back","Do Not Call","Hung Up","Left Message","No Answer","No Help","Not In Service","No Message Left (Call Back)","Transferred","Wrong Number","Music Box","Other" }.ToList();
+            return new string[] { "-Select new status-", "Busy", "Successful Call - Appointment", "Successful Call - Call Back", "Do Not Call", "Hung Up", "Left Message", "No Answer", "No Help", "Not In Service", "No Message Left (Call Back)", "Transferred", "Wrong Number", "Music Box", "Other" }.ToList();
         }
 
         [HttpGet]
