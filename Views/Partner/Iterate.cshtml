@@ -1,7 +1,9 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<Generic.partner>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
-@using Telerik.Web.Mvc.UI;
+@using Telerik.Web.Mvc.UI
+@using Generic.ViewModel
+
 @{
     #region My
     Layout = LayoutHelper.GetLayout();
@@ -71,7 +73,7 @@
         height: 40px !important;
     }
 
-    #IteratePartners tr > td:hover .menu_block + .display_menu {
+    #IteratePartners tr > td:hover .menu_block + .F {
         display: block !important;
     }
 
@@ -314,6 +316,55 @@
             data: []
         }
     })();
+
+    //fill Iteration form on IteratePartners Grid RowSelect
+    function loadSelectedRowData(e) {
+        var partnerGrid = $("#IteratePartners").data("tGrid");
+        var row = e.row;
+        var selectedItem = partnerGrid.dataItem(row);        
+        $('#iteratePrev').data('rowIndex', row.rowIndex - 1);
+        $('#iterateNext').data('rowIndex', row.rowIndex + 1);
+
+        //TODO : update next code
+        $("#name").val(selectedItem.CompanyName);
+        $("#internalID").val("");
+        $("#address1").val("");
+        $("#address2").val("");
+        $("#city").val("");
+        $("#state").val("0");
+        $("#province").val("");
+        $("#zipcode").val("");
+        $("#country").val("0");
+        $("#phone").val(selectedItem.PhoneNumber);
+        $("#fax").val("");
+        $("#firstName").val(selectedItem.FirstName);
+        $("#lastName").val(selectedItem.LastName);
+        $("#title").val(selectedItem.Title);
+        $("#email").val("");
+        $("#dunsNumber").val("");
+        $("#federalID").val("");
+        $("#owner").val("");
+        $("#author").val("");
+        $("#protocol").val("");
+        $("#touchpoint").val("");
+        $("#partnertype").val("");
+        $("#group").val("");
+        $("#DueDate").val("");
+    }
+    function Grid_onDataBound(e) {
+        //var row = e.row;
+        //var dataItem = e.dataItem;
+        //var partnerGrid = $("#IteratePartners").data("tGrid");
+        //$("#IteratePartners tr").each(function () {
+        //    var data = partnerGrid.dataItem(this);
+        //    var comboBox = $(this).children("td:last").find("input");
+        //    if (comboBox.length > 0) {
+        //        comboBox.prop("id", "ddlStatus" + data.Id);
+        //        comboBox.prop("name", "ddlStatus" + data.Id);
+        //    }
+        //});
+        
+    }
     //#region First declaration
     $(document).ready(function () {
         //$("form").submit(function () {
@@ -543,12 +594,20 @@
         }
 
         $(".clickable").click(function () {
-            if ($(".table tr").length === 0)
-                return;
+            //if ($(".table tr").length === 0)
+               // return;
             if ($(this).text() === "<<")
-                prevRow();
-            else nextRow();
+                $("#IteratePartners tr.t-state-selected").prev().click();//prevRow();
+             else $("#IteratePartners tr.t-state-selected").next().click();// nextRow();
         });
+
+       // $('#iteratePrev').on('click', function (e) {
+           // e.preventDefault();
+            //var rowIndex = $(this).data('rowIndex');
+            //var partnerGrid = $("#IteratePartners").data("tGrid");
+           // $("#IteratePartners tr.t-state-selected").prev().click();
+            //var selectedItem = partnerGrid.$rows().index(e.row)
+       // });
 
         //seacrhPartner(true);
     });
@@ -753,197 +812,197 @@
         <div class="col-xs-6">
             <div class="row">
                 <div class="addPartnerDiv">
-                    <h2>Iterate <span class="clickable">&lt;&lt;</span> <span style="width:10px"></span> <span class="clickable">&gt;&gt;</span></h2>
+                    <h2>Iterate <span class="clickable" id="iteratePrev">&lt;&lt;</span> <span style="width:10px"></span> <span class="clickable" id="iterateNext">&gt;&gt;</span></h2>
                 </div>
             </div>
 
             @using (Html.BeginForm())
             {
-                @Html.ValidationSummary(true)
+            @Html.ValidationSummary(true)
 
-                <fieldset>
-                    <legend>partner</legend>
-                    <div id="addPartner" class="addPartnerDiv">
-                        <div class="row bottom-buffer">
-                            @Html.HiddenFor(model => model.id)
-                            <!-- #region Name-->
+            <fieldset>
+                <legend>partner</legend>
+                <div id="addPartner" class="addPartnerDiv">
+                    <div class="row bottom-buffer">
+                        @Html.HiddenFor(model => model.id)
+                        <!-- #region Name-->
 
-                            <div class="editor-label">
-                                @Html.Label("Name")
-                            </div>
-                            <div class="editor-field big-input">
-                                @*@Html.EditorFor(model => model.name)*@
-                                @Html.TextBoxFor(model => model.name, new { @class = "txtClass", data_val = "true", data_val_required = " " })
-                                @Html.ValidationMessageFor(model => model.name)
-                            </div>
-                            <!-- #endregion-->
-                            <!-- #region Internal ID-->
-
-                            <div class="editor-label">
-                                @*@Html.LabelFor(model => model.internalID)*@
-                                @Html.Label("ID")
-                            </div>
-                            <div class="editor-field">
-                                @*@Html.EditorFor(model => model.internalID)*@
-                                @Html.TextBoxFor(model => model.internalID, new { @class = "txtClass", data_val = "true", data_val_required = " " })
-                                @Html.ValidationMessageFor(model => model.internalID)
-                            </div>
+                        <div class="editor-label">
+                            @Html.Label("Name")
                         </div>
-
-
-                        <div class="row bottom-buffer">
-                            <div class="editor-label">
-                                @Html.Label("Address")
-                            </div>
-                            <div class="editor-field big-input">
-                                @Html.TextBoxFor(model => model.address1, new { @class = "txtClass", data_val = "true", data_val_required = " " })
-                                @Html.ValidationMessageFor(model => model.address1)
-                            </div>
-                            <div class="editor-label">
-                                @*@Html.LabelFor(model => model.phone)*@
-                                @Html.Label("Phone")
-                            </div>
-                            <div class="editor-field">
-                                @*@Html.EditorFor(model => model.phone)*@
-                                @Html.TextBoxFor(model => model.phone, new { @class = "txtClass", data_val = "true", data_val_required = " " })
-                                @Html.ValidationMessageFor(model => model.phone)
-                            </div>
-
+                        <div class="editor-field big-input">
+                            @*@Html.EditorFor(model => model.name)*@
+                            @Html.TextBoxFor(model => model.name, new { @class = "txtClass", data_val = "true", data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.name)
                         </div>
-                        <div class="row bottom-buffer">
-                            <div class="editor-label">
+                        <!-- #endregion-->
+                        <!-- #region Internal ID-->
 
-                                @Html.Label("City")
-                            </div>
-                            <div class="editor-field" style="width:37%">
-
-                                @Html.TextBoxFor(model => model.city, new { @class = "txtClass", style = "width:100%", data_val = "true", data_val_required = " " })
-                                @Html.ValidationMessageFor(model => model.city)
-                            </div>
-                            <div class="editor-label" style="width: 8%;">
-                                @*@Html.LabelFor(model => model.state)*@
-                                @Html.Label("State")
-                            </div>
-                            <div class="editor-field" style="width:10%">
-                                @Html.DropDownList("state", null, String.Empty, new { @class = "ddlClass", style = "width:100%", data_val = "true", data_val_required = " " })
-
-                                @Html.ValidationMessageFor(model => model.state)
-                            </div>
-
-                            <div class="editor-label" style="margin-left:4px;">
-                                @*@Html.LabelFor(model => model.zipcode)*@
-                                @Html.Label("Zip Code")
-                            </div>
-                            <div class="editor-field">
-                                @*@Html.EditorFor(model => model.zipcode)*@
-                                @Html.TextBoxFor(model => model.zipcode, new { @class = "txtClass", data_val = "true", data_val_required = " " })
-                                @Html.ValidationMessageFor(model => model.zipcode)
-                            </div>
+                        <div class="editor-label">
+                            @*@Html.LabelFor(model => model.internalID)*@
+                            @Html.Label("ID")
                         </div>
-
-                        <div class="row bottom-buffer">
-                            <div class="editor-label">
-                                @*@Html.LabelFor(model => model.firstName)*@
-                                @Html.Label("First Name")
-                            </div>
-                            <div class="editor-field" style="width:22.5%">
-                                @*@Html.EditorFor(model => model.firstName)*@
-                                @Html.TextBoxFor(model => model.firstName, new { @class = "txtClass", data_val = "true", data_val_required = " " })
-                                @Html.ValidationMessageFor(model => model.firstName)
-                            </div>
-
-                            <div class="editor-label">
-                                @* @Html.LabelFor(model => model.lastName)*@
-                                @Html.Label("Last Name")
-                            </div>
-                            <div class="editor-field" style="width:22.5%">
-                                @*@Html.EditorFor(model => model.lastName)*@
-                                @Html.TextBoxFor(model => model.lastName, new { @class = "txtClass", data_val = "true", data_val_required = " " })
-                                @Html.ValidationMessageFor(model => model.lastName)
-                            </div>
-
-                            <div class="editor-label" style="margin-left: 4px;">
-                                @*@Html.LabelFor(model => model.title)*@
-                                @Html.Label("Title")
-                            </div>
-                            <div class="editor-field">
-                                @*@Html.EditorFor(model => model.title)*@
-                                @Html.TextBoxFor(model => model.title, new { @class = "txtClass", data_val = "true", data_val_required = " " })
-                                @Html.ValidationMessageFor(model => model.title)
-                            </div>
-                        </div>
-                        <div class="row bottom-buffer">
-                            <div class="editor-label">
-
-                                @Html.Label("Email")
-                            </div>
-                            <div class="editor-field big-input">
-
-                                @Html.TextBoxFor(model => model.email, new { @class = "txtClass", data_val = "true", data_val_required = " ", data_val_email = " " })
-                                @Html.ValidationMessageFor(model => model.email)
-                            </div>
-                            <!-- #endregion-->
-
-                            <div class="editor-label">
-                                @* @Html.LabelFor(model => model.dunsNumber)*@
-                                @Html.Label("URL")
-                            </div>
-                            <div class="editor-field">
-                                @*@Html.EditorFor(model => model.dunsNumber)*@
-                                @Html.TextBoxFor(model => model.dunsNumber, new { @class = "txtClass", data_val = "true", data_val_required = " " })
-                                @Html.ValidationMessageFor(model => model.dunsNumber)
-                            </div>
-
-
-                        </div>
-
-                        <div class="row bottom-buffer">
-                            <div class="editor-label">
-                                @Html.Label("Touch Point")
-                            </div>
-                            <div class="editor-field">
-                                @Html.DropDownList("touchpoint", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
-                                @*<select id="touchpoint" name="touchpoint" class="ddlClass" data-val="true" data-val-required=" "></select>*@
-                                <span class="field-validation-valid" data-valmsg-for="touchpoint" data-valmsg-replace="true"></span>
-                            </div>
-                            <div class="editor-label">
-                                @Html.Label("Partner Type")
-                            </div>
-                            <div class="editor-field" style="width:25%">
-                                @Html.DropDownList("partnertype", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " ", @style = "width:100%" })
-                                @*<select id="partnertype" name="partnertype" class="ddlClass" data-val="true" data-val-required=" " style="width:100%"></select>*@
-                                <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
-                                @*<a href="@Url.Content(" ~ />PartnerType/Create")">Add Partner Type</a>*@
-                            </div>
-                            <div class="editor-label" style="margin-left: 0.5%;">
-                                @Html.Label("Group")
-                            </div>
-                            <div class="editor-field">
-                                @Html.DropDownList("group", null, String.Empty, new { @class = "ddlClass", @style = "margin-top: 3%;", @data_val = "true", @data_val_required = " " })
-                                <span class="field-validation-valid" data-valmsg-for="group" data-valmsg-replace="true"></span>
-                                @* <a href="@Url.Content(" ~ />Group/Create")">Add Group</a>*@
-
-                            </div>
-
-
-
-                        </div>
-                        @* <div class="threecol">
-                            </div>*@
-                        <div class="row pull-right" style="margin-top:15px">
-                            <input type="button" value="Clear" class="btn_b " id="btnClear" />
-                            <input type="submit" value="Load" class="btn_b " />
-                            <input type="submit" value="Note" class="btn_b " />
-                            <input type="submit" value="Remind" class="btn_b " />
-                            <input type="submit" value="Reset" class="btn_b " />
-                            <input type="submit" value="Save" class="btn_b " />
-                            <input type="button" value="Send" class="btn_b " />
-
-
+                        <div class="editor-field">
+                            @*@Html.EditorFor(model => model.internalID)*@
+                            @Html.TextBoxFor(model => model.internalID, new { @class = "txtClass", data_val = "true", data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.internalID)
                         </div>
                     </div>
-                    <input type="hidden" id="hdnICal" />
-                </fieldset>
+
+
+                    <div class="row bottom-buffer">
+                        <div class="editor-label">
+                            @Html.Label("Address")
+                        </div>
+                        <div class="editor-field big-input">
+                            @Html.TextBoxFor(model => model.address1, new { @class = "txtClass", data_val = "true", data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.address1)
+                        </div>
+                        <div class="editor-label">
+                            @*@Html.LabelFor(model => model.phone)*@
+                            @Html.Label("Phone")
+                        </div>
+                        <div class="editor-field">
+                            @*@Html.EditorFor(model => model.phone)*@
+                            @Html.TextBoxFor(model => model.phone, new { @class = "txtClass", data_val = "true", data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.phone)
+                        </div>
+
+                    </div>
+                    <div class="row bottom-buffer">
+                        <div class="editor-label">
+
+                            @Html.Label("City")
+                        </div>
+                        <div class="editor-field" style="width:37%">
+
+                            @Html.TextBoxFor(model => model.city, new { @class = "txtClass", style = "width:100%", data_val = "true", data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.city)
+                        </div>
+                        <div class="editor-label" style="width: 8%;">
+                            @*@Html.LabelFor(model => model.state)*@
+                            @Html.Label("State")
+                        </div>
+                        <div class="editor-field" style="width:10%">
+                            @Html.DropDownList("state", null, String.Empty, new { @class = "ddlClass", style = "width:100%", data_val = "true", data_val_required = " " })
+
+                            @Html.ValidationMessageFor(model => model.state)
+                        </div>
+
+                        <div class="editor-label" style="margin-left:4px;">
+                            @*@Html.LabelFor(model => model.zipcode)*@
+                            @Html.Label("Zip Code")
+                        </div>
+                        <div class="editor-field">
+                            @*@Html.EditorFor(model => model.zipcode)*@
+                            @Html.TextBoxFor(model => model.zipcode, new { @class = "txtClass", data_val = "true", data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.zipcode)
+                        </div>
+                    </div>
+
+                    <div class="row bottom-buffer">
+                        <div class="editor-label">
+                            @*@Html.LabelFor(model => model.firstName)*@
+                            @Html.Label("First Name")
+                        </div>
+                        <div class="editor-field" style="width:22.5%">
+                            @*@Html.EditorFor(model => model.firstName)*@
+                            @Html.TextBoxFor(model => model.firstName, new { @class = "txtClass", data_val = "true", data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.firstName)
+                        </div>
+
+                        <div class="editor-label">
+                            @* @Html.LabelFor(model => model.lastName)*@
+                            @Html.Label("Last Name")
+                        </div>
+                        <div class="editor-field" style="width:22.5%">
+                            @*@Html.EditorFor(model => model.lastName)*@
+                            @Html.TextBoxFor(model => model.lastName, new { @class = "txtClass", data_val = "true", data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.lastName)
+                        </div>
+
+                        <div class="editor-label" style="margin-left: 4px;">
+                            @*@Html.LabelFor(model => model.title)*@
+                            @Html.Label("Title")
+                        </div>
+                        <div class="editor-field">
+                            @*@Html.EditorFor(model => model.title)*@
+                            @Html.TextBoxFor(model => model.title, new { @class = "txtClass", data_val = "true", data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.title)
+                        </div>
+                    </div>
+                    <div class="row bottom-buffer">
+                        <div class="editor-label">
+
+                            @Html.Label("Email")
+                        </div>
+                        <div class="editor-field big-input">
+
+                            @Html.TextBoxFor(model => model.email, new { @class = "txtClass", data_val = "true", data_val_required = " ", data_val_email = " " })
+                            @Html.ValidationMessageFor(model => model.email)
+                        </div>
+                        <!-- #endregion-->
+
+                        <div class="editor-label">
+                            @* @Html.LabelFor(model => model.dunsNumber)*@
+                            @Html.Label("URL")
+                        </div>
+                        <div class="editor-field">
+                            @*@Html.EditorFor(model => model.dunsNumber)*@
+                            @Html.TextBoxFor(model => model.dunsNumber, new { @class = "txtClass", data_val = "true", data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.dunsNumber)
+                        </div>
+
+
+                    </div>
+
+                    <div class="row bottom-buffer">
+                        <div class="editor-label">
+                            @Html.Label("Touch Point")
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("touchpoint", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                            @*<select id="touchpoint" name="touchpoint" class="ddlClass" data-val="true" data-val-required=" "></select>*@
+                            <span class="field-validation-valid" data-valmsg-for="touchpoint" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="editor-label">
+                            @Html.Label("Partner Type")
+                        </div>
+                        <div class="editor-field" style="width:25%">
+                            @Html.DropDownList("partnertype", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " ", @style = "width:100%" })
+                            @*<select id="partnertype" name="partnertype" class="ddlClass" data-val="true" data-val-required=" " style="width:100%"></select>*@
+                            <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
+                            @*<a href="@Url.Content(" ~ />PartnerType/Create")">Add Partner Type</a>*@
+                        </div>
+                        <div class="editor-label" style="margin-left: 0.5%;">
+                            @Html.Label("Group")
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("group", null, String.Empty, new { @class = "ddlClass", @style = "margin-top: 3%;", @data_val = "true", @data_val_required = " " })
+                            <span class="field-validation-valid" data-valmsg-for="group" data-valmsg-replace="true"></span>
+                            @* <a href="@Url.Content(" ~ />Group/Create")">Add Group</a>*@
+
+                        </div>
+
+
+
+                    </div>
+                    @* <div class="threecol">
+                        </div>*@
+                    <div class="row pull-right" style="margin-top:15px">
+                        <input type="button" value="Clear" class="btn_b " id="btnClear" />
+                        <input type="submit" value="Load" class="btn_b " />
+                        <input type="submit" value="Note" class="btn_b " />
+                        <input type="submit" value="Remind" class="btn_b " />
+                        <input type="submit" value="Reset" class="btn_b " />
+                        <input type="submit" value="Save" class="btn_b " />
+                        <input type="button" value="Send" class="btn_b " />
+
+
+                    </div>
+                </div>
+                <input type="hidden" id="hdnICal" />
+            </fieldset>
 
             }
         </div>
@@ -956,72 +1015,72 @@
                     tabstrip.Add().Text("Contact")
                     .Selected(true)
                     .Content(@<text>
-                        <div class="mytab">
-                            <div class="loader hide">
-                                <img src="../../Images/WallImages/imagepath/ajax-loader.gif" alt="" />
-                            </div>
-                            <div class="input-group">
+                <div class="mytab">
+                    <div class="loader hide">
+                        <img src="../../Images/WallImages/imagepath/ajax-loader.gif" alt="" />
+                    </div>
+                    <div class="input-group">
 
 
-                                <input type="hidden" name="search_param" value="all" id="search_param">
-                                <input type="text" class="form-control" name="x" placeholder="Search term..." id="searctText">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" id="btnSearch"><span class="glyphicon glyphicon-search"></span></button>
-                                </span>
+                        <input type="hidden" name="search_param" value="all" id="search_param">
+                        <input type="text" class="form-control" name="x" placeholder="Search term..." id="searctText">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="btnSearch"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
 
-                            </div>
-                            <div style="height:280px;" class="table-responsive">
-                                <table class="table table-hover" id="tblPartners">
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
+                    </div>
+                    <div style="height:280px;" class="table-responsive">
+                        <table class="table table-hover" id="tblPartners">
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
                     </text>);
 
                     tabstrip.Add().Text("Calendar")
                     .Content(@<text>
-                            <div class="mytab">
-                                @Html.Raw(ViewBag.Scheduler)
-                            </div>
+                <div class="mytab">
+                    @Html.Raw(ViewBag.Scheduler)
+                </div>
                     </text>);
 
                     tabstrip.Add().Text("SMS")
                     .Content(@<text>
-                            <div class="mytab">
-                                <p>It's other</p>
-                            </div>
+                <div class="mytab">
+                    <p>It's other</p>
+                </div>
                     </text>);
                     tabstrip.Add().Text("Email")
                     .Content(@<text>
-                            <div class="mytab">
-                                <p>It's settings</p>
-                            </div>
+                <div class="mytab">
+                    <p>It's settings</p>
+                </div>
                     </text>);
                     tabstrip.Add()
                          .Content(@<text>
-                            <div class="mytab">
-                                <div class="row">
-                                    <div class="col-md-6"><p>Calendar - Ical (Gmail)</p></div>
-                                    <div class="col-md-6 text-right">
-                                        <div id="setiCal" class="dhx_cal_today_button pull-right">Set</div>
-                                        <div id="getiCal" class="dhx_cal_today_button  pull-right">Get</div>
-                                    </div>
+                <div class="mytab">
+                    <div class="row">
+                        <div class="col-md-6"><p>Calendar - Ical (Gmail)</p></div>
+                        <div class="col-md-6 text-right">
+                            <div id="setiCal" class="dhx_cal_today_button pull-right">Set</div>
+                            <div id="getiCal" class="dhx_cal_today_button  pull-right">Get</div>
+                        </div>
 
-                                    <div class="col-md-12" style="overflow:auto">
-                                        <a class="excelBtn" href="/Partner/ExportPartnerExcel" style="float:left;" title="Export to Excel"></a>
-                                        @(Html.Telerik().Upload()
+                        <div class="col-md-12" style="overflow:auto">
+                            <a class="excelBtn" href="/Partner/ExportPartnerExcel" style="float:left;" title="Export to Excel"></a>
+                            @(Html.Telerik().Upload()
                                             .Name("excelFile")
                                             .Multiple(false)
                                             .Async(a => a.Save("UploadPartnerExcelData", "Partner")
                                                 .AutoUpload(false))
                                             .ClientEvents(e => e.OnError("onError")
                                                                                 .OnSuccess("onSuccess")).HtmlAttributes(new { style = "float:left;font-size:12px;" })
-                                        )
+                            )
 
 
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                </div>
                         </text>);
                 })
             )
@@ -1080,6 +1139,36 @@
         });
     });
 </script>
+
+@section splitterTop {
+    @{
+        var counter = 1;
+    }
+    @Html.Telerik().Grid(new List<IteratePartnerView>()).Name("IteratePartners").DataBinding(binding=>binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o=>o.Enabled(true)).DataKeys(o=>o.Add(p=>p.Id)).Columns(columns=>{
+        columns.Bound(o => o.CompanyName).Title("Company name").Template(@<text>
+    <a href='#' id='Company @item.Id' class='menu_block'>@item.CompanyName</a>
+    <div class='display_menu' style='display: none;'>
+        <ul>
+            <li><a href='#'>Call</a></li>
+            <li><a href='#'>Email</a></li>
+            <li><a href='#'>Meet</a></li>
+            <li><a href='#'>Update</a></li>
+            <li><a href='#'>Remove</a></li>
+            <li><a href='#'>Note</a></li>
+        </ul>
+    </div>
+</text>).Width(200);
+        columns.Bound(o => o.FirstName).Title("First name").Width(200);
+        columns.Bound(o => o.LastName).Title("Last name").Width(200);
+        columns.Bound(o => o.Title).Title("Title").Width(200);
+        columns.Bound(o => o.PhoneNumber).Title("Phone number").Width(50);
+        columns.Bound(o => o.StatusDescription).Title("Current status").Width(200);
+        columns.Bound(o => o.LastContact).Title("Last Contact").Width(100);
+        columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
+        columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
+            }
+                                    ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "display:none;font-size:10px;" })   
+}
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
     @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")

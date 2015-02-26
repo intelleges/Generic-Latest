@@ -60,6 +60,8 @@ namespace Generic.ViewModel
         public string PhoneNumber { get; set; }
         public int Status { get; set; }
         public string Title { get; set; }
+        public string LastContact { get; set; }
+        public string NewContact { get; set; }
         public string StatusDescription
         {
             get

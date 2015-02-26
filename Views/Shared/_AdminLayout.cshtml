@@ -60,7 +60,10 @@
             padding: 0 !important;
         }
     </style>
-   
+   @{
+       var renderedTop = RenderSection("splitterTop",false);
+       var gridHtml = renderedTop != null ? renderedTop.ToHtmlString() : "";
+   }
     @{Html.Telerik().Splitter().Name("Splitter1")
     .HtmlAttributes(new { style = "height: 100%;" })
     .Orientation(SplitterOrientation.Vertical)
@@ -72,48 +75,7 @@
         .Collapsible(true)
         .Collapsed(true)
         .Resizable(true)
-        .Content("<div>Nothing In Top Panel For Now5555</div>" +
-        Html.Telerik().Grid<IteratePartnerView>().Name("IteratePartners")      
-        .DataBinding(binding =>
-            binding
-            .Ajax()
-            .Select("AjaxIteratePartners", "Partner")            
-            )
-            .Editable(o=>o.Enabled(true))
-            .DataKeys(o=>o.Add(p=>p.Id))
-            
-            .Columns(columns =>
-        {
-            columns.Bound(o => o.CompanyName).Title("Company name").ClientTemplate(""+
-                "<a href='#' id='Company<#=Id#>' class='menu_block'><#=CompanyName#></a>"+
-                "<div class='display_menu' style='display: none;'>"+
-                    "<ul>   "+                     
-                        "<li ><a href='#'>Call</a></li>"+
-                        "<li><a href='#'>Email</a></li>"+
-                        "<li><a href='#'>Meet</a></li>"+
-                        "<li><a href='#'>Update</a></li>"+
-                        "<li><a href='#'>Remove</a></li>"+
-                        "<li><a href='#'>Note</a></li>"+
-                        "</ul>" +
-                   @" </div>                  
-            ").Width(200);
-                        columns.Bound(o => o.FirstName).Title("First name").Width(200);
-                        columns.Bound(o => o.LastName).Title("Last name").Width(200);
-                        columns.Bound(o => o.Title).Title("Title").Width(200);
-                        columns.Bound(o => o.PhoneNumber).Title("Phone number").Width(50);
-                        columns.Bound(o => o.StatusDescription).Title("Current status").Width(200);
-                        columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList()
-                        .Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style="width:200px;font-size:10px;"})
-                            .BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList()))
-                            .ToHtmlString());
-                            }
-                            )
-                            .Pageable(o=>o.PageSize(50))
-                            .Selectable(o=>o.Enabled(true))
-                            .Sortable()
-                            .HtmlAttributes(new { style = "display:none;font-size:10px;" })                            
-                            .ToHtmlString()
-                            ).HtmlAttributes(new{style="height:20%"}
+        .Content(gridHtml).HtmlAttributes(new { style = "height:20%" }
                             );
 
                             vPanes.Add()
@@ -367,9 +329,10 @@
                             //
                         </script>
 
+    
 
                         <script>
-
+                            
                             $(document).ready(function () {
 
                                 $("#reports").change(function () {

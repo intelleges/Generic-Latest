@@ -2373,7 +2373,7 @@ namespace Generic.Controllers
         [GridAction]
         public ActionResult AjaxIteratePartners()
         {
-            return Json(new GridModel(db.iteratePartner.ToList().Select(o=>new IteratePartnerView(){CompanyName = o.name,Status=(int)o.status, Title=""})),JsonRequestBehavior.AllowGet);
+            return Json(new GridModel(db.iteratePartner.ToList().Select(o=>new IteratePartnerView(){CompanyName = o.name,Status=(int)o.status, Title="",Id=o.id})),JsonRequestBehavior.AllowGet);
         }
 
         public static IEnumerable<string> GetIteratePartnerStatusList()
