@@ -357,7 +357,7 @@
             if ($(this).text() === "Note") {
                 var partnerGrid = $("#IteratePartners").data("tGrid");
 
-                var rowData = partnerGrid.dataItem($(this).parents("tr:first-of-type")[0]);
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
                 //data can be used for whatever it needed
                 var partnerName = rowData.CompanyName;
                 var partnerId = rowData;
