@@ -351,19 +351,18 @@
         $("#group").val("");
         $("#DueDate").val("");
     }
-    function Grid_onDataBound(e) {
-        //var row = e.row;
-        //var dataItem = e.dataItem;
-        //var partnerGrid = $("#IteratePartners").data("tGrid");
-        //$("#IteratePartners tr").each(function () {
-        //    var data = partnerGrid.dataItem(this);
-        //    var comboBox = $(this).children("td:last").find("input");
-        //    if (comboBox.length > 0) {
-        //        comboBox.prop("id", "ddlStatus" + data.Id);
-        //        comboBox.prop("name", "ddlStatus" + data.Id);
-        //    }
-        //});
-        
+    function Grid_onDataBound(e) {        
+        $(".display_menu ul li a").click(function () {
+            //note menu item click
+            if ($(this).text() === "Note") {
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+
+                var rowData = partnerGrid.dataItem($(this).parents("tr:first-of-type")[0]);
+                //data can be used for whatever it needed
+                var partnerName = rowData.CompanyName;
+                var partnerId = rowData;
+            }
+        });
     }
     //#region First declaration
     $(document).ready(function () {
