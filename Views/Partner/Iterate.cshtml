@@ -73,7 +73,7 @@
         height: 40px !important;
     }
 
-    #IteratePartners tr > td:hover .menu_block + .F {
+    #IteratePartners tr > td:hover .menu_block + .display_menu {
         display: block !important;
     }
 
@@ -1145,8 +1145,8 @@
         var counter = 1;
     }
     @Html.Telerik().Grid(new List<IteratePartnerView>()).Name("IteratePartners").DataBinding(binding=>binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o=>o.Enabled(true)).DataKeys(o=>o.Add(p=>p.Id)).Columns(columns=>{
-        columns.Bound(o => o.CompanyName).Title("Company name").Template(@<text>
-    <a href='#' id='Company @item.Id' class='menu_block'>@item.CompanyName</a>
+        columns.Bound(o => o.CompanyName).Title("Company name").ClientTemplate(@"
+    <a href='#' id='Company<#=Id#>' class='menu_block'><#=CompanyName#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
             <li><a href='#'>Call</a></li>
@@ -1157,7 +1157,7 @@
             <li><a href='#'>Note</a></li>
         </ul>
     </div>
-</text>).Width(200);
+").Width(200);
         columns.Bound(o => o.FirstName).Title("First name").Width(200);
         columns.Bound(o => o.LastName).Title("Last name").Width(200);
         columns.Bound(o => o.Title).Title("Title").Width(200);
