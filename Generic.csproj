@@ -51,8 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="AsyncOAuth">
-      <HintPath>..\packages\AsyncOAuth.0.7.0\lib\AsyncOAuth.dll</HintPath>
+    <Reference Include="AsyncOAuth, Version=0.8.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AsyncOAuth.0.8.4\lib\AsyncOAuth.dll</HintPath>
     </Reference>
     <Reference Include="AsyncOAuth.Evernote.Simple">
       <HintPath>..\packages\AsyncOAuth.Evernote.Simple.0.2.0.0\lib\net45\AsyncOAuth.Evernote.Simple.dll</HintPath>
