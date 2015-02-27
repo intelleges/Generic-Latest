@@ -1070,6 +1070,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 Session["site"] = nextSite.site;
                 Session["NextPartnumber"] = nextSite.partnumber;
             }
+            else
+            {                
+                Session["NextPartnumber"] = null;
+            }
         }
 
 
