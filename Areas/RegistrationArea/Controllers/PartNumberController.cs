@@ -1365,24 +1365,24 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 pptq = dbConext.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
                 var mlist = dbConext.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq).ToList();
                 foreach (var item in mlist)
-                {
-                    if (item.zcode.Count(x => x == 'Z') == item.zcode.Length)
+                    if (item.status != 4)
                     {
-                        item.status = Status.NOT_STARTED;
+                        if (item.zcode.Count(x => x == 'Z') == item.zcode.Length)
+                        {
+                            item.status = Status.NOT_STARTED;
 
+                        }
+                        else if (item.zcode.Count(x => x == 'Z') < 2)
+                        {
+                            item.status = Status.COMPLETED;
+                        }
+                        else
+                        {
+                            item.status = Status.INCOMPLETE;
+                        }
+                        dbConext.Entry(item).State = EntityState.Modified;
+                        dbConext.SaveChanges();
                     }
-                    else if (item.zcode.Count(x => x == 'Z') < 2)
-                    {
-                        item.status = Status.COMPLETED;
-                    }
-                    else
-                    {
-                        item.status = Status.INCOMPLETE;
-                    }
-                    dbConext.Entry(item).State = EntityState.Modified;
-                    dbConext.SaveChanges();
-                }
-                
             }
             using (var dbConext = new EntitiesDBContext())
             {
