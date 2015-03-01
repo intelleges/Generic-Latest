@@ -127,17 +127,17 @@
                             <tbody>
                                 <tr height="25" valign="top">
                                     <td colspan="2" style="font-size: 18px; font-weight: bold;" align="center">
-                                        <span id="lblThankYou">
+                                        <div id="lblThankYou">
 
                                             @if(!((bool)ViewBag.isCompletedSurvey))
                                             {
-                                                @ViewBag.CONFIRMATION_PAGE_SIGNOFF_STATEMENT
+                                               @Html.Raw(ViewBag.CONFIRMATION_PAGE_SIGNOFF_STATEMENT)
                                             } 
                                             else
                                             {
-                                                @ViewBag.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT
+                                                @Html.Raw(ViewBag.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT)
                                             }
-                                        </span>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
