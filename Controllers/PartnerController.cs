@@ -39,10 +39,13 @@ using Thrift.Protocol;
 using Evernote.EDAM.UserStore;
 using Evernote.EDAM.NoteStore;
 using Evernote.EDAM.Type;
+using System.Web.Http.Cors;
+using Telerik.Web.Mvc.UI;
 
 namespace Generic.Controllers
 {
     [Authorize]
+    [EnableCors(origins: "http://localhost:51090", headers: "*", methods: "*")]
     public class PartnerController : Controller
     {
         /// <summary>
@@ -50,7 +53,7 @@ namespace Generic.Controllers
         /// </summary>
         readonly Generic.Helpers.EvernoteAuthorizer _evernoteAuthorizer = new Generic.Helpers.EvernoteAuthorizer(ConfigurationManager.AppSettings["Evernote.Url"], ConfigurationManager.AppSettings["Evernote.Key"], ConfigurationManager.AppSettings["Evernote.Secret"]);
         private EntitiesDBContext db = new EntitiesDBContext();
-       
+
         //
         // GET: /Partner/
         //1170	All	../Partner/index	1142	89	True	1	2
@@ -2250,11 +2253,19 @@ namespace Generic.Controllers
             return (new AjaxSaveResponse(action));
         }
 
+
+        [HttpPost]
+        public ActionResult Notes(string partnerId, string partnerName)
+        {
+           
+            return RedirectToAction("AuthorizeEverNote");
+        }
         /// <summary>
         /// Authorize the user with evernote login
         /// </summary>
         /// <param name="reauth"></param>
         /// <returns></returns>
+        //[HttpPost]
         public ActionResult AuthorizeEverNote(bool reauth = false)
         {
             // Allow for reauth
@@ -2276,7 +2287,9 @@ namespace Generic.Controllers
 
             // Redirect the user to Evernote so they can authorize the app
             var callForwardUrl = Generic.Helpers.EvernoteAuthorizer.BuildAuthorizeUrl(requestToken);
-            return Redirect(callForwardUrl);
+            // return Content("testing");
+            return Json(callForwardUrl, JsonRequestBehavior.AllowGet);
+            //return Redirect(callForwardUrl);
         }
 
         /// <summary>
@@ -2293,7 +2306,9 @@ namespace Generic.Controllers
             if (credentials != null)
             {
                 SessionHelper.EvernoteCredentials = credentials;
-                return Redirect(Url.Action("Authorized"));
+                if (SessionSingleton.NeedAddEverNote)
+                    AddNote(TempData["PartnerName"].ToString(), TempData["noteTitle"].ToString(), TempData["noteText"].ToString());
+                return Redirect(Url.Action("Iterate"));
             }
             else
             {
@@ -2302,10 +2317,59 @@ namespace Generic.Controllers
         }
 
         /// <summary>
-        /// Show the user if they are authorized
+        /// Returns Current Evernote Notebooks Tree List
         /// </summary>
         /// <returns></returns>
-        public ActionResult Authorized()
+        public ActionResult EvernoteNotebooksList()
+        {
+            
+            var result = new List<TreeViewItemModel>();
+            if (SessionHelper.EvernoteCredentials != null)
+            {
+                var authToken = SessionHelper.EvernoteCredentials.AuthToken;
+                var noteStore = GetNoteStore();
+
+                var notebooks = noteStore.listNotebooks(authToken);
+                var stacks = notebooks.GroupBy(o => o.Stack,p=>p,(key,values)=>new {Key=key,NoteBooks=values.ToList()});
+                //var user = GetUserStore().getUser(authToken);
+
+
+                result = stacks.Select(o => new TreeViewItemModel()
+                {
+                    Text = o.Key ?? "Default",
+                    Items = o.NoteBooks.Select(p => new TreeViewItemModel()
+                    {
+                        Text=p.Name
+                    }).ToList()
+                }).ToList();
+
+            }
+            else
+            {
+                result.Add(new TreeViewItemModel() { Text = "Authorize to get notebooks" });
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Returns current evernote notestore
+        /// </summary>
+        /// <returns></returns>
+        private NoteStore.Client GetNoteStore()
+        {
+            var authToken = SessionHelper.EvernoteCredentials.AuthToken;
+            var userStore = GetUserStore();
+            var noteStoreUrl = userStore.getNoteStoreUrl(authToken);
+            var noteStoreTransport = new THttpClient(new Uri(noteStoreUrl));
+            var noteStoreProtocol = new TBinaryProtocol(noteStoreTransport);
+            var noteStore = new NoteStore.Client(noteStoreProtocol);
+            return noteStore;
+        }
+        /// <summary>
+        /// Returns current evernote user store
+        /// </summary>
+        /// <returns></returns>
+        private UserStore.Client GetUserStore()
         {
             var authToken = SessionHelper.EvernoteCredentials.AuthToken;
             var evernoteHost = "sandbox.evernote.com";
@@ -2313,45 +2377,80 @@ namespace Generic.Controllers
             var userStoreUrl = new Uri("https://" + evernoteHost + "/edam/user");
             var userStoreTransport = new THttpClient(userStoreUrl);
             var userStoreProtocol = new TBinaryProtocol(userStoreTransport);
-            var userStore = new UserStore.Client(userStoreProtocol);
+            return new UserStore.Client(userStoreProtocol);
+        }
 
-            var noteStoreUrl = userStore.getNoteStoreUrl(authToken);
-
-            var noteStoreTransport = new THttpClient(new Uri(noteStoreUrl));
-            var noteStoreProtocol = new TBinaryProtocol(noteStoreTransport);
-            var noteStore = new NoteStore.Client(noteStoreProtocol);
-
-            // create new stack and notebook for new user
+        private Notebook CreateNoteBook(string name)
+        {
+            var authToken = SessionHelper.EvernoteCredentials.AuthToken;
+            var noteStore = GetNoteStore();
             var newNotebook = new Notebook();
-            newNotebook.Stack = "Add Later";
-            newNotebook.Name = "WDC Notebook";
-            var response = noteStore.createNotebook(authToken, newNotebook);
+            string stack = db.pr_getEvernoteStackByPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            if (string.IsNullOrEmpty(stack))
+            {
+                //default stack name could be changed, but it shouldn't be current user id because stack name is displayable value
+                stack = "Iterate partners";
+                db.pr_addEvernoteStackByPerson(SessionSingleton.LoggedInUserId, stack);                
+            }
+            newNotebook.Stack = stack;
+            newNotebook.Name = name;
+            return noteStore.createNotebook(authToken, newNotebook);
+        }
 
-            //Newly added notebook guid when add notes
-            //var guid = response.Guid;
-
-            //get all notebooks then identify login user and put notes to particular user stack->notebook
-            var notebooks = noteStore.listNotebooks(authToken);
+        private Note CreateNote(string title, string text, string noteBookId)
+        {
+            var authToken = SessionHelper.EvernoteCredentials.AuthToken;
             // To create a new note, simply create a new Note object and fill in 
             // attributes such as the note's title.
             var note = new Note();
-            note.Title = "Test note for John.";
-            note.NotebookGuid = response.Guid;
-
+            note.Title = title;
+            note.NotebookGuid = noteBookId;
             // The content of an Evernote note is represented using Evernote Markup Language
             // (ENML). The full ENML specification can be found in the Evernote API Overview
             // at http://dev.evernote.com/documentation/cloud/chapters/ENML.php
             note.Content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                 "<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">" +
-                "<en-note>Added note to show John, its working.<br/>" +
+                "<en-note>"+text+"<br/>" +
                 "</en-note>";
-
             // Finally, send the new note to Evernote using the createNote method
             // The new Note object that is returned will contain server-generated
             // attributes such as the new note's unique GUID.
-            var createdNote = noteStore.createNote(authToken, note);
+             return GetNoteStore().createNote(authToken, note);
+        }
 
-            return Content("Notes added successfully!");
+        /// <summary>
+        /// Show the user if they are authorized
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult AddNote(string partnerName, string noteTitle, string noteText)
+        {
+
+            if (SessionHelper.EvernoteCredentials != null)
+            {
+                var authToken = SessionHelper.EvernoteCredentials.AuthToken;
+
+                //find existed notebook for partner
+                Notebook notebook = GetNoteStore().listNotebooks(authToken).FirstOrDefault(o => o.Name == partnerName.ToString());
+
+                if (notebook == null)
+                {
+                    // create notebook for new user
+                    notebook = CreateNoteBook(partnerName.ToString());
+                }
+
+                var createdNote = CreateNote(noteTitle, noteText, notebook.Guid);
+                SessionSingleton.NeedAddEverNote = false;
+                return Json("done");
+            }
+            else
+            {
+                TempData["noteTitle"] = noteTitle;
+                TempData["PartnerName"] = partnerName;
+                TempData["noteText"] = noteText;
+                SessionSingleton.NeedAddEverNote = true;
+                return AuthorizeEverNote();
+            }
         }
 
         public ActionResult Unauthorized()
@@ -2494,12 +2593,12 @@ namespace Generic.Controllers
         [GridAction]
         public ActionResult AjaxIteratePartners()
         {
-            return Json(new GridModel(db.iteratePartner.ToList().Select(o=>new IteratePartnerView(){CompanyName = o.name,Status=(int)o.status, Title="",Id=o.id})),JsonRequestBehavior.AllowGet);
+            return Json(new GridModel(db.iteratePartner.ToList().Select(o => new IteratePartnerView() { CompanyName = o.name, Status = (int)o.status, Title = "", Id = o.id })), JsonRequestBehavior.AllowGet);
         }
 
         public static IEnumerable<string> GetIteratePartnerStatusList()
         {
-            return new string[] {"-Select new status-","Busy","Successful Call - Appointment","Successful Call - Call Back","Do Not Call","Hung Up","Left Message","No Answer","No Help","Not In Service","No Message Left (Call Back)","Transferred","Wrong Number","Music Box","Other" }.ToList();
+            return new string[] { "-Select new status-", "Busy", "Successful Call - Appointment", "Successful Call - Call Back", "Do Not Call", "Hung Up", "Left Message", "No Answer", "No Help", "Not In Service", "No Message Left (Call Back)", "Transferred", "Wrong Number", "Music Box", "Other" }.ToList();
             return new string[] { "-Select new status-", "Busy", "Successful Call - Appointment", "Successful Call - Call Back", "Do Not Call", "Hung Up", "Left Message", "No Answer", "No Help", "Not In Service", "No Message Left (Call Back)", "Transferred", "Wrong Number", "Music Box", "Other" }.ToList();
         }
 

@@ -27,6 +27,18 @@ namespace Generic.SessionClass
             }
         }
 
+        public static bool NeedAddEverNote
+        {
+            get
+            {
+                return (System.Web.HttpContext.Current.Session["NeedAddEverNote"] != null) ? (bool)System.Web.HttpContext.Current.Session["NeedAddEverNote"] : false;
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["NeedAddEverNote"] = value;
+            }
+        }
+
         public static int? EnterPriseId
         {
             get

@@ -19,11 +19,13 @@ namespace Generic.Models
         public static T RetrieveFromSession<T>(string key) where T : class
         {
             return HttpContext.Current.Session[key] as T;
+
         }
 
         public static void Clear()
         {
             HttpContext.Current.Session.Clear();
         }
+        
     }
 }

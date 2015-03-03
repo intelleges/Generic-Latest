@@ -107,7 +107,6 @@
 <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-
 <script>
     jQuery(document).ready(function () {
         $("#tabstrip a.t-link[href='#tabstrip-5']").append("<i class='glyphicon glyphicon-cog'></i>");
@@ -353,6 +352,7 @@
     }
     function Grid_onDataBound(e) {        
         $(".display_menu ul li a").click(function () {
+            debugger;
             //note menu item click
             if ($(this).text() === "Note") {
                 var partnerGrid = $("#IteratePartners").data("tGrid");
@@ -360,10 +360,39 @@
                 var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
                 //data can be used for whatever it needed
                 var partnerName = rowData.CompanyName;
-                var partnerId = rowData;
+                var partnerId = rowData.Id;
+                
+                $.ajax({
+                    type: "POST",
+                    dataType: 'json',
+                    url: "AddNote",
+                    data: {
+                        partnerName: partnerName,
+                        noteTitle: "Test note",
+                        noteText: "Test note for John"
+                    },
+                    success: function (result) {
+                        debugger;
+                        if (result!=="done") {                            
+                            window.location.href = result;
+                        }
+                        else {
+                            var splitter = $("#Splitter2").data("tSplitter");
+                            var pane = $("#Splitter2 > .t-pane")[2]; // the 3d pane
+                            splitter.expand(pane);
+                            var evernotestree = $('#evernotesTree').data('tTreeView');
+                            //refresh data
+                            evernotestree.ajaxRequest();
+                        }
+//                        HidePartnerFindLoader();
+                    }
+                });
+
             }
         });
     }
+
+  
     //#region First declaration
     $(document).ready(function () {
         //$("form").submit(function () {
@@ -1168,6 +1197,17 @@
             }
                                     ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "display:none;font-size:10px;" })   
 }
+
+@section rightSplitter{
+    <div>
+        @*<a href="@Url.Content("~/Partner/AuthorizeEverNote")">Add Stack</a>
+        <a href="@Url.Content("~/Partner/AuthorizeEverNote")">Add Notebook</a>*@
+        <a href="@Url.Content("~/Partner/AuthorizeEverNote")">Add Note</a>
+    </div>
+    <span>Evetnotes</span>   
+    @Html.Telerik().TreeView().Name("evernotesTree").DataBinding(config=>config.Ajax().Select("EvernoteNotebooksList","Partner"))
+}
+
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
     @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")
