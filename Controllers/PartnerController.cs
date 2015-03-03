@@ -60,11 +60,8 @@ namespace Generic.Controllers
         public virtual ActionResult Index()
         {
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
-
             Session["partnersearch"] = arguments;
             return RedirectToAction("FindPartnerResult");
-
-
         }
         [HttpPost]
         public bool RemoveStockNumbers(string[] values, int partnerId)
@@ -322,8 +319,6 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult Edit(partner partner)
         {
-
-
             if (ModelState.IsValid)
             {
                 //db.Entry(partner).State = EntityState.Modified;
@@ -2118,7 +2113,7 @@ namespace Generic.Controllers
             return Json(null);
         }
 
-        public virtual ActionResult Iterate()
+        public virtual ActionResult Iterate(bool? showNotes)
         {
             ViewBag.state = new SelectList(db.state, "stateCode", "name");
             ViewBag.country = new SelectList(db.country, "id", "name");
@@ -2131,6 +2126,7 @@ namespace Generic.Controllers
             //Scheduler Initializeer
             var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
             ViewBag.Scheduler = scheduler.Render();
+            ViewBag.showNotes = showNotes;
             return View();
         }
 
@@ -2308,7 +2304,7 @@ namespace Generic.Controllers
                 SessionHelper.EvernoteCredentials = credentials;
                 if (SessionSingleton.NeedAddEverNote)
                     AddNote(TempData["PartnerName"].ToString(), TempData["noteTitle"].ToString(), TempData["noteText"].ToString());
-                return Redirect(Url.Action("Iterate"));
+                return Redirect(Url.Action("Iterate", new { showNotes = "True" }));
             }
             else
             {
@@ -2337,9 +2333,11 @@ namespace Generic.Controllers
                 result = stacks.Select(o => new TreeViewItemModel()
                 {
                     Text = o.Key ?? "Default",
+                    ImageUrl="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAqklEQVR42mMoqGkLKaxtew7E/6H4W0Ft2xkQBrLfwsXr2pIZsAGg5EOQgoK6ttjQ0FXMDKQCqA0fQGyyXINsAFmuQTMAzi6ub9MCspciuQYbPoDTACB9FeiSaVn19Tx4LH8I0/QNiwEfYDZhcfF/dAP+U9OAb5Qa8H9ADHhFtgF4JMk24BW6AQV1rd7g5FzXHojXADTDPuBLhWA1NW2LcBtQ03YejwG3YeoA0MZlTRgfDacAAAAASUVORK5CYII=",
                     Items = o.NoteBooks.Select(p => new TreeViewItemModel()
                     {
-                        Text=p.Name
+                        Text=p.Name,
+                        ImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAVUlEQVR42mNgGFSguL5Nq7C2bSkQ/ycCH8AwACh4tbCuPZAYy4BqH2IT/IBuE5o8XGzUgCFlQEFdq3dBbdsZUPogywBseHAYAPTWRmwGPCHCgM/IegAsqyv9CNAK4AAAAABJRU5ErkJggg=="
                     }).ToList()
                 }).ToList();
 

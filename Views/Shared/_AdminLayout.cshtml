@@ -83,6 +83,7 @@
         .Content(Html.Telerik().Splitter().Name("Splitter2")
         .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; overflow: hidden;" })
         .Orientation(SplitterOrientation.Horizontal)
+        .ClientEvents(events => events.OnLoad("onSplitter2Load"))
         .Panes(hPanes =>
         {
             hPanes.Add()
@@ -227,7 +228,9 @@
     <script src="~/Scripts/jquery-1.8.2.js"></script>
     <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
     <script type="text/javascript">
-
+        function onSplitter2Load(e) {
+            @RenderSection("onSplitter2Load",false)
+        }
         function OpenManualAddModal(url) {
             jQuery.noConflict();
             $("#popup").dialog({

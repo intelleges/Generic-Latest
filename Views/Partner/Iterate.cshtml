@@ -310,9 +310,19 @@
     });
 </script>
 <script>
+    // For todays date;
+    Date.prototype.today = function () {
+        return ((this.getDate() < 10) ? "0" : "") + this.getDate() + "/" + (((this.getMonth() + 1) < 10) ? "0" : "") + (this.getMonth() + 1) + "/" + this.getFullYear();
+    }
+
+    // For the time now
+    Date.prototype.timeNow = function () {
+        return ((this.getHours() < 10) ? "0" : "") + this.getHours() + ":" + ((this.getMinutes() < 10) ? "0" : "") + this.getMinutes() + ":" + ((this.getSeconds() < 10) ? "0" : "") + this.getSeconds();
+    }
     var iterate = (function () {
         return {
-            data: []
+            data: [],
+            selectedPartner:""
         }
     })();
 
@@ -350,57 +360,76 @@
         $("#group").val("");
         $("#DueDate").val("");
     }
+    function AddNote(title, text, partner) {
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            url: "AddNote",
+            async:false,
+            data: {
+                partnerName: partner,
+                noteTitle: title,
+                noteText: text
+            },
+            success: function (result) {                
+                if (result !== "done") {
+                    window.location.href = result;
+                }
+                else {
+                    
+                    var evernotestree = $('#evernotesTree').data('tTreeView');
+                    //refresh data
+                    evernotestree.ajaxRequest();
+                    showNotesPanel();
+                }
+                //                        HidePartnerFindLoader();
+            }
+        });
+    }
+    function showNotesPanel() {
+        var splitter = $("#Splitter2").data("tSplitter");
+        var pane = $("#Splitter2 > .t-pane")[2]; // the 3d pane
+        splitter.expand(pane);
+    }
     function Grid_onDataBound(e) {        
         $(".display_menu ul li a").click(function () {
-            debugger;
+           // debugger;
             //note menu item click
             if ($(this).text() === "Note") {
                 var partnerGrid = $("#IteratePartners").data("tGrid");
-
                 var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
                 //data can be used for whatever it needed
                 var partnerName = rowData.CompanyName;
                 var partnerId = rowData.Id;
-                
-                $.ajax({
-                    type: "POST",
-                    dataType: 'json',
-                    url: "AddNote",
-                    data: {
-                        partnerName: partnerName,
-                        noteTitle: "Test note",
-                        noteText: "Test note for John"
-                    },
-                    success: function (result) {
-                        debugger;
-                        if (result!=="done") {                            
-                            window.location.href = result;
-                        }
-                        else {
-                            var splitter = $("#Splitter2").data("tSplitter");
-                            var pane = $("#Splitter2 > .t-pane")[2]; // the 3d pane
-                            splitter.expand(pane);
-                            var evernotestree = $('#evernotesTree').data('tTreeView');
-                            //refresh data
-                            evernotestree.ajaxRequest();
-                        }
-//                        HidePartnerFindLoader();
-                    }
+                iterate.selectedPartner = partnerName;
+                var date = new Date();
+                $("#noteTitle").val(date.today() + "@@" + date.timeNow());                
+                $("#addNoteDialog").show("show", function () {
+                    $("#noteTitle").focus();
                 });
-
             }
         });
     }
-
+    @section onSplitter2Load{
+    if ('@ViewBag.showNotes' === "True") {
+        showNotesPanel();
+    }
+    }
+    
   
     //#region First declaration
     $(document).ready(function () {
-        //$("form").submit(function () {
-        //    return validateControl();
+        
+        $("#addEverNote").click(function () {
 
-        //});
-        //#endregion
-        //#region validation
+        });
+        $("#addNoteDialog").submit(function (e) {
+            e.preventDefault();
+            AddNote($("#noteTitle").val(), $("#noteText").val(), iterate.selectedPartner);
+            $("#addNoteDialog").hide();
+        });
+
+
         function validateControl() {
 
             if ($("#name").val() == "") {
@@ -834,7 +863,35 @@
 </style>
 
 <div class="container">
-
+    <div class="modal fade" id="addNoteDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Add new partner's note </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalGetPassword">                       
+                        <div class="form-group">
+                            <label class="control-label" for="noteTitle">Title</label>
+                            <input id="noteTitle" name="noteTitle" class="form-control" type="text" placeholder="Please Enter Note's' Title" data-val-required="*" data-val="true" />
+                            <span data-valmsg-replace="true" data-valmsg-for="noteTitle" class="field-validation-valid help-inline" />                           
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="noteText">Text</label>
+                            <textarea id="noteText" name="noteText" class="form-control" placeholder="Please Enter Note's' Title" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="noteText" class="field-validation-valid help-inline" /> 
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="GetPassword">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
 
         <div class="col-xs-6">
@@ -1182,7 +1239,7 @@
             <li><a href='#'>Meet</a></li>
             <li><a href='#'>Update</a></li>
             <li><a href='#'>Remove</a></li>
-            <li><a href='#'>Note</a></li>
+            <li><a href='#' data-toggle='modal' data-target='#addNoteDialog'>Note</a></li>
         </ul>
     </div>
 ").Width(200);
@@ -1200,9 +1257,16 @@
 
 @section rightSplitter{
     <div>
+        @if(Generic.Models.SessionHelper.EvernoteCredentials!=null)
+        { 
         @*<a href="@Url.Content("~/Partner/AuthorizeEverNote")">Add Stack</a>
         <a href="@Url.Content("~/Partner/AuthorizeEverNote")">Add Notebook</a>*@
-        <a href="@Url.Content("~/Partner/AuthorizeEverNote")">Add Note</a>
+        <a href="#" id="addEverNote">Add Note</a>
+        }
+        else
+        {
+            <a href="@Url.Content("~/Partner/AuthorizeEverNote")">Evernote Sign in</a>
+        }
     </div>
     <span>Evetnotes</span>   
     @Html.Telerik().TreeView().Name("evernotesTree").DataBinding(config=>config.Ajax().Select("EvernoteNotebooksList","Partner"))
