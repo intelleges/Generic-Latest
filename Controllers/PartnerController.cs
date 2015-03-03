@@ -2370,7 +2370,7 @@ namespace Generic.Controllers
         private UserStore.Client GetUserStore()
         {
             var authToken = SessionHelper.EvernoteCredentials.AuthToken;
-            var evernoteHost = "sandbox.evernote.com";
+            var evernoteHost = "www.evernote.com";
 
             var userStoreUrl = new Uri("https://" + evernoteHost + "/edam/user");
             var userStoreTransport = new THttpClient(userStoreUrl);
