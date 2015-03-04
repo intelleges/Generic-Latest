@@ -1174,6 +1174,17 @@
     </div>
 </div>
 <script type="text/javascript">
+    function evernotesTree_onSelect(e) {
+        if (e.item) {
+            if ("Authorize to get notebooks" === $(this).data("tTreeView").getItemText(e.item)) {
+                $.get("AuthorizeEverNote", function (result) {
+                    if (result) {
+                        window.location.href = result;
+                    }
+                });
+            }
+        }
+    }
     function onSuccess(e) {
         alertify.alert(e.response.message);
         //$("#topCallapsePanel").html("")
@@ -1265,7 +1276,7 @@
         }
        
     </div>     
-    @Html.Telerik().TreeView().Name("evernotesTree").DataBinding(config=>config.Ajax().Select("EvernoteNotebooksList","Partner"))
+    @Html.Telerik().TreeView().Name("evernotesTree").DataBinding(config => config.Ajax().Select("EvernoteNotebooksList", "Partner")).ClientEvents(events => events.OnSelect("evernotesTree_onSelect"))
 }
 
 @section scripts{
