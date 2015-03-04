@@ -1267,8 +1267,7 @@
         {
             <a href="@Url.Content("~/Partner/AuthorizeEverNote")">Evernote Sign in</a>
         }
-    </div>
-    <span>Evetnotes</span>   
+    </div>     
     @Html.Telerik().TreeView().Name("evernotesTree").DataBinding(config=>config.Ajax().Select("EvernoteNotebooksList","Partner"))
 }
 
