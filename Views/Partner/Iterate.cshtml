@@ -1260,13 +1260,10 @@
         @if(Generic.Models.SessionHelper.EvernoteCredentials!=null)
         { 
         @*<a href="@Url.Content("~/Partner/AuthorizeEverNote")">Add Stack</a>
-        <a href="@Url.Content("~/Partner/AuthorizeEverNote")">Add Notebook</a>*@
-        <a href="#" id="addEverNote">Add Note</a>
+    <a href="@Url.Content("~/Partner/AuthorizeEverNote")">Add Notebook</a>
+    <a href="#" id="addEverNote">Add Note</a>*@
         }
-        else
-        {
-            <a href="@Url.Content("~/Partner/AuthorizeEverNote")">Evernote Sign in</a>
-        }
+       
     </div>     
     @Html.Telerik().TreeView().Name("evernotesTree").DataBinding(config=>config.Ajax().Select("EvernoteNotebooksList","Partner"))
 }
