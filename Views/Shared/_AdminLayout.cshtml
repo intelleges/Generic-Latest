@@ -46,7 +46,7 @@
     <link href="@Url.Content("~/Content/themes/base/alertify.default.css")" rel="stylesheet" />
     @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
     .Add("telerik.common.css")
-    .Add("telerik.rtl.css")
+            .Add("telerik.vista.css")
     .Combined(true)
     .Compress(true)))
 
@@ -64,6 +64,7 @@
         var renderedTop = RenderSection("splitterTop", false);
         var gridHtml = renderedTop != null ? renderedTop.ToHtmlString() : "";
     }
+
     @{Html.Telerik().Splitter().Name("Splitter1")
     .HtmlAttributes(new { style = "height: 100%;" })
     .Orientation(SplitterOrientation.Vertical)
@@ -186,13 +187,14 @@
 
 
                         @RenderBody()
+                       
                     </section>
                 </div>);
 
             hPanes.Add()
             .Size("20%")
             .Collapsible(true).Collapsed(true)
-            .Content(@<div id="rightSplitter" class="container">               
+            .Content(@<div id="rightSplitter" >               
     @RenderSection("rightSplitter",false)
             </div>
 
@@ -221,12 +223,12 @@
     })
                         .Render();
     }
-
+   
     <div id="popup">
         <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
     </div>
-    <script src="~/Scripts/jquery-1.8.2.js"></script>
-    <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     <script type="text/javascript">
         function onSplitter2Load(e) {
             @RenderSection("onSplitter2Load",false)
@@ -271,7 +273,7 @@
     </script>
    
 
-    @RenderSection("scripts", required: false)
+    
 
     <script type="text/javascript">
         jQuery.noConflict();
@@ -357,23 +359,24 @@
         });
 
     </script>
-
-
+    
+    @RenderSection("scripts", required: false)
     @(Html.Telerik().ScriptRegistrar()
-    .DefaultGroup(group => group
-    .Combined(true)
-    .Compress(true)
-    )
+    //.DefaultGroup(group => group
+    //            .Add("~/Scripts/jquery-1.9.1.min.js")
+    //.Combined(true)
+    //.Compress(true)
+   // ).jQuery(false)
     .OnDocumentReady(@<text>
-        var splitter = $('#FullScreen').data('tSplitter');
+        @*var splitter = $('#FullScreen').data('tSplitter');
 
         $(window).bind('resize', function() {
         splitter.resize();
-        });
+        });*@
     </text>)
     )
+    
 
-
-    @Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css"))
+    
 </body>
 </html>

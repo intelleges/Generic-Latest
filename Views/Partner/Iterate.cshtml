@@ -105,8 +105,7 @@
 
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+
 <script>
     jQuery(document).ready(function () {
         $("#tabstrip a.t-link[href='#tabstrip-5']").append("<i class='glyphicon glyphicon-cog'></i>");
@@ -403,9 +402,11 @@
                 var partnerId = rowData.Id;
                 iterate.selectedPartner = partnerName;
                 var date = new Date();
-                $("#noteTitle").val(date.today() + "@@" + date.timeNow());                
+                $("#noteText").val(date.today() + "@@" + date.timeNow());
+                $("#noteTitle").val(partnerName);
+                $("#noteTitle").attr("disabled", true);
                 $("#addNoteDialog").show("show", function () {
-                    $("#noteTitle").focus();
+                    $("#noteText").focus();
                 });
             }
         });
@@ -1194,6 +1195,10 @@
         alertify.alert("There was server error:" + err);
     }
 
+    function onNodeDropped(e) {
+        console.log(1);
+    }
+
     $(document).ready(function () {
         $("#IteratePartners").show();
 
@@ -1267,20 +1272,27 @@
 }
 
 @section rightSplitter{
-    <div>
-        @if(Generic.Models.SessionHelper.EvernoteCredentials!=null)
-        { 
-        @*<a href="@Url.Content("~/Partner/AuthorizeEverNote")">Add Stack</a>
-    <a href="@Url.Content("~/Partner/AuthorizeEverNote")">Add Notebook</a>
-    <a href="#" id="addEverNote">Add Note</a>*@
-        }
-       
-    </div>     
-    @Html.Telerik().TreeView().Name("evernotesTree").DataBinding(config => config.Ajax().Select("EvernoteNotebooksList", "Partner")).ClientEvents(events => events.OnSelect("evernotesTree_onSelect"))
+    @*
+    
+        .Items(items =>
+        {
+            items.Add().Text("Item 1");
+            items.Add().Text("Item 2");
+            items.Add().Text("Item 3").Items(is1 =>
+            {
+                is1.Add().Text("Item 3.1");
+                is1.Add().Text("Item 3.2");
+                is1.Add().Text("Item 3.3");
+            });
+        }))
+    *@
+    @Html.Telerik().TreeView().Name("evernotesTree").DragAndDrop(true).ExpandAll(true).ClientEvents(events =>
+        events.OnSelect("evernotesTree_onSelect")).DataBinding(config => config.Ajax().Select("EvernoteNotebooksList", "Partner"))
 }
 
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+    @*@System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")*@
     @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+   
 }
