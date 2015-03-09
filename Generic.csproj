@@ -47,9 +47,9 @@
     <Reference Include="AjaxControlToolkit">
       <HintPath>..\..\..\..\..\Desktop\MVCMT\Generic\bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Antlr3.Runtime.dll</HintPath>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="AsyncOAuth, Version=0.8.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -330,8 +330,9 @@
     <Reference Include="Thrift">
       <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.7\lib\net40\Thrift.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease">
-      <HintPath>..\..\..\..\..\Desktop\MVCMT\Generic\bin\WebGrease.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -578,6 +579,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\jsTree3Controller.cs" />
     <Compile Include="Controllers\PartnerController.cs" />
     <Compile Include="Controllers\PartnerTypeController.cs" />
     <Compile Include="Controllers\QuestionnaireController.cs" />
@@ -757,6 +759,7 @@
     <Compile Include="Models\ComboBox.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
     <Compile Include="Models\enterprise.extension.cs" />
+    <Compile Include="Models\jsTree3Node.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\person.extension.cs" />
@@ -2520,8 +2523,17 @@
     <Content Include="Scripts\evernoteApi\jsOAuth-1.3.6.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery-migrate-1.2.1.js" />
+    <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.min.js" />
+    <Content Include="Scripts\jsTree3\jstree.js" />
+    <Content Include="Scripts\jsTree3\jstree.min.js" />
+    <Content Include="Scripts\jsTree3\themes\default\32px.png" />
+    <Content Include="Scripts\jsTree3\themes\default\40px.png" />
+    <Content Include="Scripts\jsTree3\themes\default\style.css" />
+    <Content Include="Scripts\jsTree3\themes\default\style.min.css" />
+    <Content Include="Scripts\jsTree3\themes\default\throbber.gif" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\validator.js" />
     <Content Include="Scripts\validator.min.js" />
@@ -3315,33 +3327,36 @@
     <Content Include="Views\Person\FindPersonResult.cshtml" />
     <Content Include="Views\Group\FindGroupResult.cshtml" />
     <Content Include="Views\Protocol\FindProtocolResult.cshtml" />
-    <Content Include="Views\Questionnaire\FindQuestionnaireResult.cshtml" />
-    <Content Include="Views\Touchpoint\FindTouchpointResult.cshtml" />
-    <Content Include="Views\Partner\RemovePartner.cshtml" />
+    <EmbeddedResource Include="Views\Questionnaire\FindQuestionnaireResult.cshtml" />
+    <EmbeddedResource Include="Views\Touchpoint\FindTouchpointResult.cshtml" />
+    <EmbeddedResource Include="Views\Partner\RemovePartner.cshtml" />
     <Content Include="Views\Person\RemovePerson.cshtml" />
     <Content Include="Views\Group\RemoveGroup.cshtml" />
     <EmbeddedResource Include="Views\Protocol\RemoveProtocol.cshtml" />
-    <Content Include="Views\Touchpoint\RemoveTouchpoint.cshtml" />
-    <Content Include="Views\Questionnaire\Edit.cshtml" />
-    <Content Include="Views\Questionnaire\QuestionnaireDetailView.cshtml" />
-    <Content Include="Views\Questionnaire\QuestionnaireQuestionnaireCMS.cshtml" />
-    <Content Include="Views\Partner\ConfirmPartner.cshtml" />
-    <Content Include="Views\Touchpoint\EventNotification.cshtml" />
-    <Content Include="Views\Questionnaire\QuestionnaireQuestionnaireAutoMail.cshtml" />
+    <EmbeddedResource Include="Views\Touchpoint\RemoveTouchpoint.cshtml" />
+    <EmbeddedResource Include="Views\Questionnaire\Edit.cshtml" />
+    <EmbeddedResource Include="Views\Questionnaire\QuestionnaireDetailView.cshtml" />
+    <EmbeddedResource Include="Views\Questionnaire\QuestionnaireQuestionnaireCMS.cshtml" />
+    <EmbeddedResource Include="Views\Partner\ConfirmPartner.cshtml" />
+    <EmbeddedResource Include="Views\Touchpoint\EventNotification.cshtml" />
+    <EmbeddedResource Include="Views\Questionnaire\QuestionnaireQuestionnaireAutoMail.cshtml" />
     <EmbeddedResource Include="Views\Admin\ChangePassword.cshtml" />
     <Content Include="Views\Campaign\Create.cshtml" />
     <Content Include="Views\CampaignRule\Create.cshtml" />
     <Content Include="Views\BulkContent\Create.cshtml" />
-    <Content Include="Views\Partner\RailReport.cshtml" />
+    <EmbeddedResource Include="Views\Partner\RailReport.cshtml" />
     <Content Include="Views\Error\PageNotFound.cshtml" />
     <EmbeddedResource Include="Views\Partner\Iterate.cshtml" />
-    <Content Include="Views\Partner\IterateContacts.cshtml" />
+    <EmbeddedResource Include="Views\Partner\IterateContacts.cshtml" />
     <Content Include="UploadTemplates\addAutomailTemplate.xlsx" />
     <Content Include="UploadTemplates\addPartnerTemplate.xls" />
     <Content Include="UploadTemplates\addPartnumberTemplate.xlsx" />
     <Content Include="UploadTemplates\addQuestionnaireTemplate.xlsx" />
     <Content Include="UploadTemplates\addUserTemplate.xlsx" />
     <Content Include="UploadTemplates\addQuestionnaireCMSTemplate.xlsx" />
+    <Content Include="Views\Shared\_jsTreeDemo.cshtml" />
+    <Content Include="Views\jsTree3\Demo.cshtml" />
+    <Content Include="Views\jsTree3\AJAXDemo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

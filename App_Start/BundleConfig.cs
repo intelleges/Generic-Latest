@@ -9,7 +9,7 @@ namespace Generic
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                     "~/Scripts/jquery-1.9.1.js", "~/Scripts/alertify.js", "~/Scripts/jquery.blockUI.js"));
+                     "~/Scripts/jquery-1.9.1.js", "~/Scripts/jquery-migrate-1.2.1.js", "~/Scripts/alertify.js", "~/Scripts/jquery.blockUI.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-1.9.2.js"));
@@ -44,8 +44,9 @@ namespace Generic
                         "~/Content/themes/base/jquery.ui.theme.css"));
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css"));
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js", "~/Scripts/jquery.validate.js", "~/Scripts/validator.js", "~/Scripts/alertify.js"));
+            bundles.Add(new StyleBundle("~/Content/jstree").Include("~/Scripts/jsTree3/themes/default/style.css"));
 
-
+            bundles.Add(new ScriptBundle("~/bundles/jstree").Include("~/Scripts/jsTree3/jstree.js"));
         }
     }
 }

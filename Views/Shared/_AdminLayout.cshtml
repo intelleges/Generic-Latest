@@ -41,6 +41,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryui")
+    @RenderSection("header",false)
     <link rel="stylesheet" href="@Url.Content("~/Content/tw-bs.css")" />
     <link href="@Url.Content("~/Content/themes/base/alertify.core.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/themes/base/alertify.default.css")" rel="stylesheet" />
@@ -227,14 +228,14 @@
     <div id="popup">
         <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
     </div>
-    @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryui")
+   @* @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")*@
     <script type="text/javascript">
         function onSplitter2Load(e) {
             @RenderSection("onSplitter2Load",false)
         }
         function OpenManualAddModal(url) {
-            jQuery.noConflict();
+           // jQuery.noConflict();
             $("#popup").dialog({
                 autoOpen: true,
                 modal: true,
@@ -248,7 +249,7 @@
         }
 
         function CloseManualAddModalWithAlert(alert) {
-            jQuery.noConflict();
+           // jQuery.noConflict();
             $("#popup").dialog('close');
             alertify.alert(alert);
         }
@@ -266,9 +267,11 @@
         //        }
         //    });
         //}
-
-        jQuery.noConflict();
-        $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+        $(function () {
+            //jQuery.noConflict();
+            $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+        });
+       
 
     </script>
    
@@ -276,8 +279,8 @@
     
 
     <script type="text/javascript">
-        jQuery.noConflict();
-        jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
+        //jQuery.noConflict();
+        //jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
         $(document).ready(function () {
             var height = $(window).height();
             // $("#Splitter1").height(height);
@@ -361,18 +364,18 @@
     </script>
     
     @RenderSection("scripts", required: false)
-    @(Html.Telerik().ScriptRegistrar()
+    @(Html.Telerik().ScriptRegistrar().jQuery(false).jQueryValidation(false)
     //.DefaultGroup(group => group
     //            .Add("~/Scripts/jquery-1.9.1.min.js")
     //.Combined(true)
     //.Compress(true)
    // ).jQuery(false)
     .OnDocumentReady(@<text>
-        @*var splitter = $('#FullScreen').data('tSplitter');
+        var splitter = $('#FullScreen').data('tSplitter');
 
         $(window).bind('resize', function() {
         splitter.resize();
-        });*@
+        });
     </text>)
     )
     

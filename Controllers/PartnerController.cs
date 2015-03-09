@@ -41,6 +41,7 @@ using Evernote.EDAM.NoteStore;
 using Evernote.EDAM.Type;
 using System.Web.Http.Cors;
 using Telerik.Web.Mvc.UI;
+using jsTree3.Models;
 
 namespace Generic.Controllers
 {
@@ -2312,6 +2313,19 @@ namespace Generic.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult UpdateNote(string title, string id, string newNoteBookId)
+        {
+            if (SessionHelper.EvernoteCredentials != null)
+            {
+                var authToken = SessionHelper.EvernoteCredentials.AuthToken;
+                var noteStore = GetNoteStore();
+                noteStore.updateNote(authToken, new Note() { Guid = id, Title = title, NotebookGuid = newNoteBookId });
+                return Json(true);
+            }
+            return Json(false);
+        }
+
         /// <summary>
         /// Returns Current Evernote Notebooks Tree List
         /// </summary>
@@ -2319,21 +2333,23 @@ namespace Generic.Controllers
         public ActionResult EvernoteNotebooksList()
         {
             
-            var result = new List<TreeViewItemModel>();
+            //var result = new List<TreeViewItemModel>();
             if (SessionHelper.EvernoteCredentials != null)
             {
                 var authToken = SessionHelper.EvernoteCredentials.AuthToken;
                 var noteStore = GetNoteStore();
 
                 var notebooks = noteStore.listNotebooks(authToken);
-                var notesCount = noteStore.findNoteCounts(authToken, new NoteFilter()
+                //var notesCount = noteStore.findNoteCounts(authToken, new NoteFilter()
+                //{
+                //    Inactive = false
+                //}, true);
+               
+                var allnotes = noteStore.findNotesMetadata(authToken, new NoteFilter()
                 {
-                    Inactive = false
-                }, true);
-                var allnotes = noteStore.findNotes(authToken, new NoteFilter()
-                {
-                    Inactive=false
-                }, 0, notesCount.NotebookCounts.Count);
+                    Inactive = false                    
+                }, 0, 10000, new NotesMetadataResultSpec() { IncludeCreated=true,IncludeNotebookGuid=true,IncludeTitle=true,IncludeAttributes=true});
+               
                 
                 //noteStore.
                 var stacks = notebooks.GroupBy(o => o.Stack,p=>p,(key,values)=>new {Key=key,NoteBooks=values.ToList()});
@@ -2341,32 +2357,40 @@ namespace Generic.Controllers
 
                 var dictImage = new Dictionary<string, string>();
                 dictImage.Add("style", "width:16px;height:16px");
-                result = stacks.Select(o => new TreeViewItemModel()
+                var result = stacks.Select(o => new JsTree3Node()
                 {
-                    Text = o.Key ?? "Default",
-                    ImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAqklEQVR42mMoqGkLKaxtew7E/6H4W0Ft2xkQBrLfwsXr2pIZsAGg5EOQgoK6ttjQ0FXMDKQCqA0fQGyyXINsAFmuQTMAzi6ub9MCspciuQYbPoDTACB9FeiSaVn19Tx4LH8I0/QNiwEfYDZhcfF/dAP+U9OAb5Qa8H9ADHhFtgF4JMk24BW6AQV1rd7g5FzXHojXADTDPuBLhWA1NW2LcBtQ03YejwG3YeoA0MZlTRgfDacAAAAASUVORK5CYII=",
-                    Items = o.NoteBooks.Select(p => new TreeViewItemModel()
+                    text = o.Key ?? "Default",
+                    type="root",
+                    state=new State(true,false,false),
+                     icon= "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAqklEQVR42mMoqGkLKaxtew7E/6H4W0Ft2xkQBrLfwsXr2pIZsAGg5EOQgoK6ttjQ0FXMDKQCqA0fQGyyXINsAFmuQTMAzi6ub9MCspciuQYbPoDTACB9FeiSaVn19Tx4LH8I0/QNiwEfYDZhcfF/dAP+U9OAb5Qa8H9ADHhFtgF4JMk24BW6AQV1rd7g5FzXHojXADTDPuBLhWA1NW2LcBtQ03YejwG3YeoA0MZlTRgfDacAAAAASUVORK5CYII=",
+                    children = o.NoteBooks.Select(p => new JsTree3Node()
                     {
-                        Text = p.Name,
-                        ImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAVUlEQVR42mNgGFSguL5Nq7C2bSkQ/ycCH8AwACh4tbCuPZAYy4BqH2IT/IBuE5o8XGzUgCFlQEFdq3dBbdsZUPogywBseHAYAPTWRmwGPCHCgM/IegAsqyv9CNAK4AAAAABJRU5ErkJggg==",
-                        Value=p.Guid,
-                        Items = allnotes.Notes.Where(c => c.NotebookGuid == p.Guid).Select(d => new TreeViewItemModel()
+                        text = p.Name,
+                        type = "notebook",
+                        icon= "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAVUlEQVR42mNgGFSguL5Nq7C2bSkQ/ycCH8AwACh4tbCuPZAYy4BqH2IT/IBuE5o8XGzUgCFlQEFdq3dBbdsZUPogywBseHAYAPTWRmwGPCHCgM/IegAsqyv9CNAK4AAAAABJRU5ErkJggg==",
+                        id = p.Guid,
+                        state = new State(false, false, false),
+                        children = allnotes.Notes.Where(c => c.NotebookGuid == p.Guid).Select(d => new JsTree3Node()
                         {
-                            Text=d.Title,
-                            ImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAABaklEQVRIS+2WvUrEQBCAbxMUrNTGZzgLRUhnI9ecryL+1PZ29iL3FPbaiI1dQtBCfQYL7QSPGL+R22NddpON4bZyIUXmZ7+dyWxm1MBaO6w0Tc8Rj3iWbL35Xtf1K+9nRVFcNNmJTpkGM8g9spU2Rwt4CewYWe3z+wXKsuwawzEnvVNKHeR5/uJzxnaMTuz1mmB/6LO3QZ+zdG3i9NwUFdGvkeI3y8YLs0E/oVdVtV6W5Xtb+ojKlSonbBGgAamXb3ZkHnQhIAEAOzGrsS/ogT23XCmW0ge0oXW9QHI9KIpVE5QkyYiKvRIZBTXfvy/IFYyiSL46gXDwpsZBeCSCbZHragyOKBqo7R759J0jigYKTN382+iDdY4oGiha6qKBAlOnz/N/j8IbX58LG9zKGyBDdE88U/51y742ETycuEAUz5A+NKFN7KG/AbTvBP113HJAP5g7dpk7SidIhF0GSAdgiuwWyKkJEbtv8T5gKvBv2R8AAAAASUVORK5CYII=",
-                            Value=p.Guid,
-                            ImageHtmlAttributes = dictImage
-                            
+                            type="note",
+                            text = d.Title,
+                            icon="glyphicon glyphicon-file",
+                           //"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAABaklEQVRIS+2WvUrEQBCAbxMUrNTGZzgLRUhnI9ecryL+1PZ29iL3FPbaiI1dQtBCfQYL7QSPGL+R22NddpON4bZyIUXmZ7+dyWxm1MBaO6w0Tc8Rj3iWbL35Xtf1K+9nRVFcNNmJTpkGM8g9spU2Rwt4CewYWe3z+wXKsuwawzEnvVNKHeR5/uJzxnaMTuz1mmB/6LO3QZ+zdG3i9NwUFdGvkeI3y8YLs0E/oVdVtV6W5Xtb+ojKlSonbBGgAamXb3ZkHnQhIAEAOzGrsS/ogT23XCmW0ge0oXW9QHI9KIpVE5QkyYiKvRIZBTXfvy/IFYyiSL46gXDwpsZBeCSCbZHragyOKBqo7R759J0jigYKTN382+iDdY4oGiha6qKBAlOnz/N/j8IbX58LG9zKGyBDdE88U/51y742ETycuEAUz5A+NKFN7KG/AbTvBP113HJAP5g7dpk7SidIhF0GSAdgiuwWyKkJEbtv8T5gKvBv2R8AAAAASUVORK5CYII=",
+                            id = d.Guid//,                            li_attr = new { style = "width:16px;height:16px" }
+                            //ImageHtmlAttributes = dictImage
+                            , state = new State(false, false, false),
                         }).ToList()
                     }).ToList()
                 }).ToList();
-
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                result.Add(new TreeViewItemModel() { Text = "Authorize to get notebooks" });
+                
+               var result =new[]{new  { text = "Authorize to get notebooks",icon="glyphicon glyphicon-flash" }};
+               return Json(result, JsonRequestBehavior.AllowGet);
             }
-            return Json(result, JsonRequestBehavior.AllowGet);
+           
         }
 
         /// <summary>

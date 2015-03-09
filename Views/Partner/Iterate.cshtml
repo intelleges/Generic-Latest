@@ -321,7 +321,8 @@
     var iterate = (function () {
         return {
             data: [],
-            selectedPartner:""
+            selectedPartner: "",
+            globalVars: {}
         }
     })();
 
@@ -375,10 +376,10 @@
                     window.location.href = result;
                 }
                 else {
-                    
-                    var evernotestree = $('#evernotesTree').data('tTreeView');
+                    $("#evernotesDiv").jstree(true).refresh();
+                    //var evernotestree = $('#evernotesTree').data('tTreeView');
                     //refresh data
-                    evernotestree.ajaxRequest();
+                    //evernotestree.ajaxRequest();
                     showNotesPanel();
                 }
                 //                        HidePartnerFindLoader();
@@ -1207,7 +1208,7 @@
                         .text("Select file to upload");
 
         //Initialize the scheduler
-        $(document).on('click', '.t-link[href="#tabstrip-2"', function () {
+        $(document).on('click', '.t-link[href="#tabstrip-2"]', function () {
             $('.dhx_cal_tab_last').click();
         });
         $(document).on('click', '#getiCal', function () {
@@ -1238,6 +1239,7 @@
                 });
             } else alertify.alert("Please enter valid calendar URI.");
         });
+
     });
 </script>
 
@@ -1270,29 +1272,100 @@
             }
                                     ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "display:none;font-size:10px;" })   
 }
-
 @section rightSplitter{
-    @*
+    @Html.ActionLink("Add Stack","AuthorizeEverNote","Partner")
+    @Html.ActionLink("Add Notebook","AuthorizeEverNote","Partner")
+    @Html.ActionLink("Add Note","AuthorizeEverNote","Partner")
+<div id="evernotesDiv">
     
-        .Items(items =>
-        {
-            items.Add().Text("Item 1");
-            items.Add().Text("Item 2");
-            items.Add().Text("Item 3").Items(is1 =>
-            {
-                is1.Add().Text("Item 3.1");
-                is1.Add().Text("Item 3.2");
-                is1.Add().Text("Item 3.3");
+</div>
+    
+}
+@section scripts{
+   @* @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+    @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")*@
+   <script src="/Scripts/bootstrap.js"></script>
+   <script src="/Scripts/validator.js"></script>
+
+    <script>
+        $(function () {           
+            $("#evernotesDiv").jstree({
+                "core": {
+                    "check_callback": function (operation, node, node_parent, node_position, more) {
+                        if (operation == 'move_node') {
+                           // console.log(node_parent);
+                            if (node_parent.type == 'notebook') {
+                                return true;
+                            } else
+                                return false;
+                        }
+                        return true;
+                    },
+                    "data": {
+                        "url": "EvernoteNotebooksList",
+                        "data": "json"
+                    }
+                },
+                "dnd": {
+                    "is_draggable": function (node) {
+                        console.log('is_draggable called: ', node[0]);
+                        if (node[0].type != 'note') {                          
+                            return false;
+                        }
+                        return true;
+                    }
+                },
+                "types": {
+                    "root": {
+                       
+                    },
+                    "notebook": {
+                        
+                    },
+                    "note": {
+                        
+                    }
+                },
+                                "plugins": ["dnd","types"]
             });
-        }))
-    *@
-    @Html.Telerik().TreeView().Name("evernotesTree").DragAndDrop(true).ExpandAll(true).ClientEvents(events =>
-        events.OnSelect("evernotesTree_onSelect")).DataBinding(config => config.Ajax().Select("EvernoteNotebooksList", "Partner"))
+            $(document).on("dnd_stop.vakata", function (event, data, element) {
+                if (data) {
+                    $.post("UpdateNote", {
+                        title: iterate.globalVars.nodeText,
+                        id: iterate.globalVars.nodeId,
+                        newNoteBookId: iterate.globalVars.parentNode
+                    },
+                        function (result) {
+                           // alert(result);
+                        });
+                }
+            });
+            $('#evernotesDiv').on("move_node.jstree", function (e, data) {
+                //data.node, data.parent, data.old_parent is what you need
+                iterate.globalVars.parentNode = data.parent;
+                iterate.globalVars.nodeText = data.node.text;
+                iterate.globalVars.nodeId = data.node.id;
+                //console.log(data);
+               // alert(data.node.id);
+               // alert(data.parent);
+            });
+            $("#evernotesDiv").on("select_node.jstree", function (event, data) {
+                if (data) {
+                    if (data.node.text === "Authorize to get notebooks") {
+                        $.get("AuthorizeEverNote", function (result) {
+                            if (result) {
+                                window.location.href = result;
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    </script>
 }
 
-@section scripts{
-    @*@System.Web.Optimization.Scripts.Render("~/bundles/jquery")
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")*@
-    @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")
-   
+@section header{
+    @System.Web.Optimization.Styles.Render("~/Content/jstree")
+@System.Web.Optimization.Scripts.Render("~/bundles/jstree")    
 }
