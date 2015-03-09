@@ -1273,9 +1273,9 @@
                                     ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "display:none;font-size:10px;" })   
 }
 @section rightSplitter{
-    @Html.ActionLink("Add Stack","AuthorizeEverNote","Partner")
+   @* @Html.ActionLink("Add Stack","AuthorizeEverNote","Partner")
     @Html.ActionLink("Add Notebook","AuthorizeEverNote","Partner")
-    @Html.ActionLink("Add Note","AuthorizeEverNote","Partner")
+    @Html.ActionLink("Add Note","AuthorizeEverNote","Partner")*@
 <div id="evernotesDiv">
     
 </div>
