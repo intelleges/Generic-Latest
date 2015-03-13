@@ -1270,6 +1270,9 @@
         columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(100);
         columns.Bound(o => o.previousContact).Title("Previous Contact").Width(100);
         columns.Bound(o => o.previousContactDate).Title("Previous Contact Date").Width(100);
+        columns.Bound(o => o.nextAction).Title("Next Action").Width(100);
+        columns.Bound(o => o.nextActionDate).Title("Next Action Date").Width(100);
+        columns.Bound(o => o.notes).Title("Notes").Width(100);
         ////columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
         ////columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
             }
