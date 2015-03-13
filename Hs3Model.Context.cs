@@ -14964,7 +14964,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePartner", internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, lastModifiedParameter, personParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addIteratePerson(string firstname, string lastname, string title, string email, string phone, string fax, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> iteratePartner)
+        public virtual ObjectResult<Nullable<decimal>> pr_addIteratePerson(string firstname, string lastname, string title, string email, string phone, string fax, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> iteratePartner, Nullable<int> lastContact, Nullable<System.DateTime> lastContactDate, Nullable<int> previousContact, Nullable<System.DateTime> previousContactDate, Nullable<int> nextAction, Nullable<System.DateTime> nextActionDate, Nullable<bool> notes)
         {
             var firstnameParameter = firstname != null ?
                 new ObjectParameter("firstname", firstname) :
@@ -15006,7 +15006,35 @@ namespace Generic
                 new ObjectParameter("iteratePartner", iteratePartner) :
                 new ObjectParameter("iteratePartner", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePerson", firstnameParameter, lastnameParameter, titleParameter, emailParameter, phoneParameter, faxParameter, activeParameter, dateAddedParameter, lastModifiedParameter, iteratePartnerParameter);
+            var lastContactParameter = lastContact.HasValue ?
+                new ObjectParameter("lastContact", lastContact) :
+                new ObjectParameter("lastContact", typeof(int));
+    
+            var lastContactDateParameter = lastContactDate.HasValue ?
+                new ObjectParameter("lastContactDate", lastContactDate) :
+                new ObjectParameter("lastContactDate", typeof(System.DateTime));
+    
+            var previousContactParameter = previousContact.HasValue ?
+                new ObjectParameter("previousContact", previousContact) :
+                new ObjectParameter("previousContact", typeof(int));
+    
+            var previousContactDateParameter = previousContactDate.HasValue ?
+                new ObjectParameter("previousContactDate", previousContactDate) :
+                new ObjectParameter("previousContactDate", typeof(System.DateTime));
+    
+            var nextActionParameter = nextAction.HasValue ?
+                new ObjectParameter("nextAction", nextAction) :
+                new ObjectParameter("nextAction", typeof(int));
+    
+            var nextActionDateParameter = nextActionDate.HasValue ?
+                new ObjectParameter("nextActionDate", nextActionDate) :
+                new ObjectParameter("nextActionDate", typeof(System.DateTime));
+    
+            var notesParameter = notes.HasValue ?
+                new ObjectParameter("notes", notes) :
+                new ObjectParameter("notes", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePerson", firstnameParameter, lastnameParameter, titleParameter, emailParameter, phoneParameter, faxParameter, activeParameter, dateAddedParameter, lastModifiedParameter, iteratePartnerParameter, lastContactParameter, lastContactDateParameter, previousContactParameter, previousContactDateParameter, nextActionParameter, nextActionDateParameter, notesParameter);
         }
     
         public virtual ObjectResult<pr_getIteratePartner_Result> pr_getIteratePartner(Nullable<int> id)
@@ -15025,20 +15053,6 @@ namespace Generic
                 new ObjectParameter("person", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerAll_Result>("pr_getIteratePartnerAll", personParameter);
-        }
-    
-        public virtual ObjectResult<pr_getIteratePerson_Result> pr_getIteratePerson(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePerson_Result>("pr_getIteratePerson", idParameter);
-        }
-    
-        public virtual ObjectResult<pr_getIteratePersonAll_Result> pr_getIteratePersonAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePersonAll_Result>("pr_getIteratePersonAll");
         }
     
         public virtual int pr_modifyIteratePartner(Nullable<int> id, string internalID, string name, string address1, string address2, string city, string state, string zipcode, string country, string dunsnumber, string federalID, Nullable<int> numberOfEmployees, Nullable<int> annualRevenue, Nullable<int> status, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> person)
@@ -15130,7 +15144,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePartner", idParameter, internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, lastModifiedParameter, personParameter);
         }
     
-        public virtual int pr_modifyIteratePerson(Nullable<int> id, string firstname, string lastname, string title, string email, string phone, string fax, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> iteratePartner)
+        public virtual int pr_modifyIteratePerson(Nullable<int> id, string firstname, string lastname, string title, string email, string phone, string fax, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> iteratePartner, Nullable<int> lastContact, Nullable<System.DateTime> lastContactDate, Nullable<int> previousContact, Nullable<System.DateTime> previousContactDate, Nullable<int> nextAction, Nullable<System.DateTime> nextActionDate, Nullable<bool> notes)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -15176,7 +15190,35 @@ namespace Generic
                 new ObjectParameter("iteratePartner", iteratePartner) :
                 new ObjectParameter("iteratePartner", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePerson", idParameter, firstnameParameter, lastnameParameter, titleParameter, emailParameter, phoneParameter, faxParameter, activeParameter, dateAddedParameter, lastModifiedParameter, iteratePartnerParameter);
+            var lastContactParameter = lastContact.HasValue ?
+                new ObjectParameter("lastContact", lastContact) :
+                new ObjectParameter("lastContact", typeof(int));
+    
+            var lastContactDateParameter = lastContactDate.HasValue ?
+                new ObjectParameter("lastContactDate", lastContactDate) :
+                new ObjectParameter("lastContactDate", typeof(System.DateTime));
+    
+            var previousContactParameter = previousContact.HasValue ?
+                new ObjectParameter("previousContact", previousContact) :
+                new ObjectParameter("previousContact", typeof(int));
+    
+            var previousContactDateParameter = previousContactDate.HasValue ?
+                new ObjectParameter("previousContactDate", previousContactDate) :
+                new ObjectParameter("previousContactDate", typeof(System.DateTime));
+    
+            var nextActionParameter = nextAction.HasValue ?
+                new ObjectParameter("nextAction", nextAction) :
+                new ObjectParameter("nextAction", typeof(int));
+    
+            var nextActionDateParameter = nextActionDate.HasValue ?
+                new ObjectParameter("nextActionDate", nextActionDate) :
+                new ObjectParameter("nextActionDate", typeof(System.DateTime));
+    
+            var notesParameter = notes.HasValue ?
+                new ObjectParameter("notes", notes) :
+                new ObjectParameter("notes", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePerson", idParameter, firstnameParameter, lastnameParameter, titleParameter, emailParameter, phoneParameter, faxParameter, activeParameter, dateAddedParameter, lastModifiedParameter, iteratePartnerParameter, lastContactParameter, lastContactDateParameter, previousContactParameter, previousContactDateParameter, nextActionParameter, nextActionDateParameter, notesParameter);
         }
     
         public virtual int pr_removeIteratePartner(Nullable<int> id)
@@ -15415,6 +15457,48 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveEvernoteNotebook", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIteratePerson_Result> pr_getIteratePerson(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePerson_Result>("pr_getIteratePerson", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIteratePersonAll_Result> pr_getIteratePersonAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePersonAll_Result>("pr_getIteratePersonAll");
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerPerson_Result> pr_getIteratePartnerPerson(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPerson_Result>("pr_getIteratePartnerPerson", personParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIteratePersonNextAction_Result> pr_getIteratePersonNextAction()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePersonNextAction_Result>("pr_getIteratePersonNextAction");
+        }
+    
+        public virtual ObjectResult<pr_getIteratePersonStatus_Result> pr_getIteratePersonStatus()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePersonStatus_Result>("pr_getIteratePersonStatus");
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerPerson2_Result> pr_getIteratePartnerPerson2(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPerson2_Result>("pr_getIteratePartnerPerson2", personParameter);
         }
     }
 }

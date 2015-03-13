@@ -335,7 +335,7 @@
         $('#iterateNext').data('rowIndex', row.rowIndex + 1);
 
         //TODO : update next code
-        $("#name").val(selectedItem.CompanyName);
+        $("#name").val(selectedItem.name);
         $("#internalID").val("");
         $("#address1").val("");
         $("#address2").val("");
@@ -344,11 +344,11 @@
         $("#province").val("");
         $("#zipcode").val("");
         $("#country").val("0");
-        $("#phone").val(selectedItem.PhoneNumber);
+        $("#phone").val(selectedItem.phone);
         $("#fax").val("");
-        $("#firstName").val(selectedItem.FirstName);
-        $("#lastName").val(selectedItem.LastName);
-        $("#title").val(selectedItem.Title);
+        $("#firstName").val(selectedItem.firstname);
+        $("#lastName").val(selectedItem.lastname);
+        $("#title").val(selectedItem.title);
         $("#email").val("");
         $("#dunsNumber").val("");
         $("#federalID").val("");
@@ -399,8 +399,8 @@
                 var partnerGrid = $("#IteratePartners").data("tGrid");
                 var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
                 //data can be used for whatever it needed
-                var partnerName = rowData.CompanyName;
-                var partnerId = rowData.Id;
+                var partnerName = rowData.name;
+                var partnerId = rowData.ID;
                 iterate.selectedPartner = partnerName;
                 var date = new Date();
                 $("#noteText").val(date.today() + "@@" + date.timeNow());
@@ -1247,12 +1247,12 @@
     @{
         var counter = 1;
     }
-    @Html.Telerik().Grid(new List<IteratePartnerView>()).Name("IteratePartners").DataBinding(binding=>binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o=>o.Enabled(true)).DataKeys(o=>o.Add(p=>p.Id)).Columns(columns=>{
-        columns.Bound(o => o.CompanyName).Title("Company name").ClientTemplate(@"
-    <a href='#' id='Company<#=Id#>' class='menu_block'><#=CompanyName#></a>
+    @Html.Telerik().Grid(new List<Generic.pr_getIteratePartnerPerson2_Result>()).Name("IteratePartners").DataBinding(binding=>binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o=>o.Enabled(true)).DataKeys(o=>o.Add(p=>p.ID)).Columns(columns=>{
+        columns.Bound(o => o.name).Title("Company name").ClientTemplate(@"
+    <a href='#' id='Company<#=ID#>' class='menu_block'><#=name#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
-            <li><a href='#'>Call</a></li>
+            <li><a href='#' onclick='TwilioCall(<#=ID#>);'>Call</a></li>
             <li><a href='#'>Email</a></li>
             <li><a href='#'>Meet</a></li>
             <li><a href='#'>Update</a></li>
@@ -1261,14 +1261,17 @@
         </ul>
     </div>
 ").Width(200);
-        columns.Bound(o => o.FirstName).Title("First name").Width(200);
-        columns.Bound(o => o.LastName).Title("Last name").Width(200);
-        columns.Bound(o => o.Title).Title("Title").Width(200);
-        columns.Bound(o => o.PhoneNumber).Title("Phone number").Width(50);
-        columns.Bound(o => o.StatusDescription).Title("Current status").Width(200);
-        columns.Bound(o => o.LastContact).Title("Last Contact").Width(100);
-        columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
-        columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
+        columns.Bound(o => o.firstname).Title("First name").Width(100);
+        columns.Bound(o => o.lastname).Title("Last name").Width(100);
+        columns.Bound(o => o.title).Title("Title").Width(200);
+        columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
+        //columns.Bound(o => o.StatusDescription).Title("Current status").Width(200);
+        columns.Bound(o => o.lastContact).Title("Last Contact").Width(100);
+        columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(100);
+        columns.Bound(o => o.previousContact).Title("Previous Contact").Width(100);
+        columns.Bound(o => o.previousContactDate).Title("Previous Contact Date").Width(100);
+        ////columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
+        ////columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
             }
                                     ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "display:none;font-size:10px;" })   
 }
@@ -1362,6 +1365,25 @@
                 }
             });
         });
+
+
+
+        function TwilioCall(Id) {
+            alert(Id);
+            //var ID = $('#protocol').val();
+            var ID = { TID: Id };
+            $.ajax({
+                url: "@Url.Content("~/Partner/UpdateTwilioCallStatus")",
+                type: "post",
+                data: ID,
+                success: function (data) {
+                    alert('Sucess');
+                },
+                error: function (data) {
+                    alert('Error');
+                }
+            });
+        }
     </script>
 }
 

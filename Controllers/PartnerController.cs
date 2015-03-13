@@ -2587,6 +2587,8 @@ namespace Generic.Controllers
                 var excelRead = new ExcelQueryFactory(physicalPath.ToString());
                 var newPartnerExcel = from a in excelRead.Worksheet<ExcelInteratePartner>(sheetname) select a;
 
+                var statuses = db.pr_getIteratePersonStatus().ToList();
+                var nextActions = db.pr_getIteratePersonNextAction().ToList();
 
                 var uploadConfirmPartner = new List<Tuple<int, string>>();
 
@@ -2604,17 +2606,19 @@ namespace Generic.Controllers
                                     newPartnerItem.PARTNER_ADDRESS_TWO, newPartnerItem.PARTNER_CITY,
                                     newPartnerItem.PARTNER_STATE, newPartnerItem.PARTNER_ZIPCODE, newPartnerItem.PARTNER_COUNTRY,
                                     newPartnerItem.PARTNER_DUNS, newPartnerItem.PARTNER_SAP_ID, newPartnerItem.EMPLOYEE_COUNT,
-                                    newPartnerItem.ANNUAL_REVENUE, (int)newPartnerItem.StatusValue, SessionSingleton.PersonId,
-                                    SessionSingleton.PersonId, DateTime.Now, true,
-                                    DateTime.Now, DateTime.Now, SessionSingleton.PersonId
+                                    newPartnerItem.ANNUAL_REVENUE, (int)newPartnerItem.StatusValue, SessionSingleton.LoggedInUserId,
+                                    SessionSingleton.LoggedInUserId, DateTime.Now, true,
+                                    DateTime.Now, DateTime.Now, SessionSingleton.LoggedInUserId
                                    ).FirstOrDefault();
+                                var lastContact =!string.IsNullOrEmpty(newPartnerItem.LAST_CONTACT)? ExcelInteratePartner.GetStatusId(statuses,newPartnerItem.LAST_CONTACT):1;
+                                var previosContact = !string.IsNullOrEmpty(newPartnerItem.PREVIOUS_CONTACT)?ExcelInteratePartner.GetStatusId(statuses,newPartnerItem.PREVIOUS_CONTACT):1;
+                                var nextAction = !string.IsNullOrEmpty(newPartnerItem.NEXT_ACTION)?ExcelInteratePartner.GetNextActionId(nextActions,newPartnerItem.NEXT_ACTION):1;
 
                                 var savedPersons = context.pr_addIteratePerson(newPartnerItem.RO_FIRST_NAME,
-                                    newPartnerItem.RO_LAST_NAME, null,
-                                    newPartnerItem.RO_EMAIL, null,
-                                    null, true,
-                                    DateTime.Now, DateTime.Now, (int)savedPartners
-                                   ).FirstOrDefault();
+                                    newPartnerItem.RO_LAST_NAME, newPartnerItem.PARTNER_POC_TITLE,
+                                    newPartnerItem.RO_EMAIL, newPartnerItem.PARTNER_POC_PHONE_NUMBER,
+                                    newPartnerItem.PARTNER_CONTACT_FAX, true,
+                                    DateTime.Now, DateTime.Now, (int)savedPartners, lastContact, newPartnerItem.LAST_CONTACT_DATE, previosContact, newPartnerItem.PREVIOUS_CONTACT_DATE, nextAction, newPartnerItem.NEXT_ACTION_DATE, newPartnerItem.NOTES == "Y" ? true : false).FirstOrDefault();
                             }
                             catch (Exception ex)
                             {
@@ -2635,7 +2639,16 @@ namespace Generic.Controllers
         [GridAction]
         public ActionResult AjaxIteratePartners()
         {
-            return Json(new GridModel(db.iteratePartner.ToList().Select(o => new IteratePartnerView() { CompanyName = o.name, Status = (int)o.status, Title = "", Id = o.id })), JsonRequestBehavior.AllowGet);
+            try
+            {
+                var result = db.pr_getIteratePartnerPerson2(SessionSingleton.LoggedInUserId).ToList();
+                
+                return Json(new GridModel(result), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new GridModel());
+            }
         }
 
         public static IEnumerable<string> GetIteratePartnerStatusList()
@@ -2650,18 +2663,33 @@ namespace Generic.Controllers
             using (var context = new EntitiesDBContext())
             {
                 //TODO : check SessionSingleton.PersonId is always 0
-                var abc = context.pr_getIteratePartnerAll(SessionSingleton.PersonId).ToList();
-
+               // var abc = context.pr_getIteratePartnerAll(SessionSingleton.PersonId).ToList();
+                var result = db.pr_getIteratePartnerPerson(SessionSingleton.LoggedInUserId).Select(o => new IteratePartnerView() { CompanyName = o.name, Status = (int)o.status, Title = o.title, Id = o.id, FirstName = o.firstname, LastName = o.lastname, PhoneNumber = o.phone, LastContact = o.lastModified, NewContact = o.personLastModified }).ToList();
                 var stream = new MemoryStream();
-                var serializer = new XmlSerializer(typeof(List<pr_getIteratePartnerAll_Result>));
+                var serializer = new XmlSerializer(typeof(List<IteratePartnerView>));
 
                 //We turn it into an XML and save it in the memory
-                serializer.Serialize(stream, abc);
+                serializer.Serialize(stream, result);
                 stream.Position = 0;
 
                 //We return the XML from the memory as a .xls file
                 return File(stream, "application/vnd.ms-excel", "PartnerList.xls");
             }
         }
+
+
+        public ActionResult UpdateTwilioCallStatus(int TID)
+        {
+            //var touchpoint = db.pr_getTouchpointByProtocol(protocolId).Where(x => x.active == 1).Select(x => new { x.id, x.title }).ToList();
+            var touchpoint = TID;
+            iteratePartner _Obj = db.iteratePartner.Where(i => i.id == TID).FirstOrDefault();
+            if (_Obj != null)
+            {
+                //_Obj.person = DateTime.Now; 
+            }
+            ViewBag.touchpoints = touchpoint;
+            return Json(new { Data = touchpoint }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

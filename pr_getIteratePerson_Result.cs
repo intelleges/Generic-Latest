@@ -24,5 +24,12 @@ namespace Generic
         public Nullable<System.DateTime> dateAdded { get; set; }
         public Nullable<System.DateTime> lastModified { get; set; }
         public int iteratePartner { get; set; }
+        public Nullable<int> lastContact { get; set; }
+        public Nullable<System.DateTime> lastContactDate { get; set; }
+        public Nullable<int> previousContact { get; set; }
+        public Nullable<System.DateTime> previousContactDate { get; set; }
+        public Nullable<int> nextAction { get; set; }
+        public Nullable<System.DateTime> nextActionDate { get; set; }
+        public Nullable<bool> notes { get; set; }
     }
 }

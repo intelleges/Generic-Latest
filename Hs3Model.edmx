@@ -1413,7 +1413,7 @@
           <Property Name="dateApproved" Type="date" />
           <Property Name="active" Type="bit" />
           <Property Name="dateAdded" Type="date" />
-          <Property Name="lastModified" Type="date" />
+          <Property Name="lastModified" Type="datetime" />
           <Property Name="person" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="iteratePerson">
@@ -1431,6 +1431,13 @@
           <Property Name="dateAdded" Type="date" />
           <Property Name="lastModified" Type="date" />
           <Property Name="iteratePartner" Type="int" Nullable="false" />
+          <Property Name="lastContact" Type="int" />
+          <Property Name="lastContactDate" Type="datetime" />
+          <Property Name="previousContact" Type="int" />
+          <Property Name="previousContactDate" Type="datetime" />
+          <Property Name="nextAction" Type="int" />
+          <Property Name="nextActionDate" Type="date" />
+          <Property Name="notes" Type="bit" />
         </EntityType>
         <EntityType Name="iterateStatus">
           <Key>
@@ -5211,13 +5218,13 @@
           <Parameter Name="dateAdded" Type="date" Mode="In" />
           <Parameter Name="lastModified" Type="date" Mode="In" />
           <Parameter Name="iteratePartner" Type="int" Mode="In" />
-        </Function>
-        <Function Name="pr_addIteratestatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="code" Type="varchar" Mode="In" />
-          <Parameter Name="description" Type="varchar" Mode="In" />
-          <Parameter Name="nextAction" Type="varchar" Mode="In" />
-          <Parameter Name="sortOrder" Type="int" Mode="In" />
-          <Parameter Name="active" Type="bit" Mode="In" />
+          <Parameter Name="lastContact" Type="int" Mode="In" />
+          <Parameter Name="lastContactDate" Type="datetime" Mode="In" />
+          <Parameter Name="previousContact" Type="int" Mode="In" />
+          <Parameter Name="previousContactDate" Type="datetime" Mode="In" />
+          <Parameter Name="nextAction" Type="int" Mode="In" />
+          <Parameter Name="nextActionDate" Type="date" Mode="In" />
+          <Parameter Name="notes" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_addKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="object" Type="varchar" Mode="In" />
@@ -6380,10 +6387,18 @@
         <Function Name="pr_getIteratePartnerAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getIteratePartnerPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getIteratePartnerPerson2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getIteratePersonAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getIteratePersonNextAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getIteratePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getIteratestatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -7423,6 +7438,13 @@
           <Parameter Name="dateAdded" Type="date" Mode="In" />
           <Parameter Name="lastModified" Type="date" Mode="In" />
           <Parameter Name="iteratePartner" Type="int" Mode="In" />
+          <Parameter Name="lastContact" Type="int" Mode="In" />
+          <Parameter Name="lastContactDate" Type="datetime" Mode="In" />
+          <Parameter Name="previousContact" Type="int" Mode="In" />
+          <Parameter Name="previousContactDate" Type="datetime" Mode="In" />
+          <Parameter Name="nextAction" Type="int" Mode="In" />
+          <Parameter Name="nextActionDate" Type="date" Mode="In" />
+          <Parameter Name="notes" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_modifyIteratestatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -13111,6 +13133,13 @@
             <Parameter Name="dateAdded" Mode="In" Type="DateTime" />
             <Parameter Name="lastModified" Mode="In" Type="DateTime" />
             <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
+            <Parameter Name="lastContact" Mode="In" Type="Int32" />
+            <Parameter Name="lastContactDate" Mode="In" Type="DateTime" />
+            <Parameter Name="previousContact" Mode="In" Type="Int32" />
+            <Parameter Name="previousContactDate" Mode="In" Type="DateTime" />
+            <Parameter Name="nextAction" Mode="In" Type="Int32" />
+            <Parameter Name="nextActionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="notes" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_getIteratePartner" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartner_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -13118,10 +13147,6 @@
           <FunctionImport Name="pr_getIteratePartnerAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerAll_Result)" >
           <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getIteratePerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePerson_Result)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getIteratePersonAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePersonAll_Result)" />
           <FunctionImport Name="pr_modifyIteratePartner">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="internalID" Mode="In" Type="String" />
@@ -13157,6 +13182,13 @@
             <Parameter Name="dateAdded" Mode="In" Type="DateTime" />
             <Parameter Name="lastModified" Mode="In" Type="DateTime" />
             <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
+            <Parameter Name="lastContact" Mode="In" Type="Int32" />
+            <Parameter Name="lastContactDate" Mode="In" Type="DateTime" />
+            <Parameter Name="previousContact" Mode="In" Type="Int32" />
+            <Parameter Name="previousContactDate" Mode="In" Type="DateTime" />
+            <Parameter Name="nextAction" Mode="In" Type="Int32" />
+            <Parameter Name="nextActionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="notes" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeIteratePartner">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -13203,19 +13235,19 @@
             <Parameter Name="evernoteStack" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveEvernoteNotebook">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getEvernoteNotebook" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEvernoteNotebook_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getEvernoteNotebookAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEvernoteNotebookAll_Result)">
-            <Parameter Name="person" Mode="In" Type="Int32" />
+          <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getEvernoteOAuthCredentialByEnterprise" ReturnType="Collection(String)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getEvernoteStackByPerson" ReturnType="Collection(String)">
-            <Parameter Name="person" Mode="In" Type="Int32" />
+          <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyEvernoteNotebook">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -13226,10 +13258,22 @@
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeEvernoteNotebook">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveEvernoteNotebook">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIteratePerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePerson_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIteratePersonAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePersonAll_Result)" />
+          <FunctionImport Name="pr_getIteratePartnerPerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerPerson_Result)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIteratePersonNextAction" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePersonNextAction_Result)" />
+          <FunctionImport Name="pr_getIteratePersonStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePersonStatus_Result)" />
+          <FunctionImport Name="pr_getIteratePartnerPerson2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerPerson2_Result)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -20878,7 +20922,7 @@
           <Property Name="dateApproved" Type="DateTime" Precision="0" />
           <Property Name="active" Type="Boolean" />
           <Property Name="dateAdded" Type="DateTime" Precision="0" />
-          <Property Name="lastModified" Type="DateTime" Precision="0" />
+          <Property Name="lastModified" Type="DateTime" Precision="3" />
           <Property Name="person" Type="Int32" Nullable="false" />
           <NavigationProperty Name="iteratePerson" Relationship="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" FromRole="iteratePartner" ToRole="iteratePerson" />
         </EntityType>
@@ -20898,6 +20942,13 @@
           <Property Name="lastModified" Type="DateTime" Precision="0" />
           <Property Name="iteratePartner" Type="Int32" Nullable="false" />
           <NavigationProperty Name="iteratePartner1" Relationship="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" FromRole="iteratePerson" ToRole="iteratePartner" />
+          <Property Type="Int32" Name="lastContact" />
+          <Property Type="DateTime" Name="lastContactDate" Precision="3" />
+          <Property Type="Int32" Name="previousContact" />
+          <Property Type="DateTime" Name="previousContactDate" Precision="3" />
+          <Property Type="Int32" Name="nextAction" />
+          <Property Type="DateTime" Name="nextActionDate" Precision="0" />
+          <Property Type="Boolean" Name="notes" />
         </EntityType>
         <Association Name="FK_iteratePerson_iteratePartner">
           <End Type="hs3MVCMTQa2Model.iteratePartner" Role="iteratePartner" Multiplicity="1" />
@@ -20957,32 +21008,6 @@
           <Property Type="DateTime" Name="lastModified" Nullable="true" />
           <Property Type="Int32" Name="person" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="pr_getIteratePerson_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="email" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="active" Nullable="false" />
-          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
-          <Property Type="DateTime" Name="lastModified" Nullable="true" />
-          <Property Type="Int32" Name="iteratePartner" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="pr_getIteratePersonAll_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="email" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="active" Nullable="false" />
-          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
-          <Property Type="DateTime" Name="lastModified" Nullable="true" />
-          <Property Type="Int32" Name="iteratePartner" Nullable="false" />
-        </ComplexType>
         <EntityType Name="iterateStatus">
           <Key>
             <PropertyRef Name="id" />
@@ -21025,6 +21050,111 @@
           <Property Type="Int32" Name="partner" Nullable="false" />
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePerson_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" />
+          <Property Type="Int32" Name="iteratePartner" Nullable="false" />
+          <Property Type="Int32" Name="lastContact" Nullable="true" />
+          <Property Type="DateTime" Name="lastContactDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="previousContact" Nullable="true" />
+          <Property Type="DateTime" Name="previousContactDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="nextAction" Nullable="true" />
+          <Property Type="DateTime" Name="nextActionDate" Nullable="true" />
+          <Property Type="Boolean" Name="notes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePersonAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" />
+          <Property Type="Int32" Name="iteratePartner" Nullable="false" />
+          <Property Type="Int32" Name="lastContact" Nullable="true" />
+          <Property Type="DateTime" Name="lastContactDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="previousContact" Nullable="true" />
+          <Property Type="DateTime" Name="previousContactDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="nextAction" Nullable="true" />
+          <Property Type="DateTime" Name="nextActionDate" Nullable="true" />
+          <Property Type="Boolean" Name="notes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePartnerPerson_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="state" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="country" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="dunsnumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="federalID" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="numberOfEmployees" Nullable="true" />
+          <Property Type="Int32" Name="annualRevenue" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="Int32" Name="owner" Nullable="true" />
+          <Property Type="Int32" Name="author" Nullable="true" />
+          <Property Type="DateTime" Name="dateApproved" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="personID" Nullable="false" />
+          <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="personActive" Nullable="false" />
+          <Property Type="DateTime" Name="personDateAdded" Nullable="true" />
+          <Property Type="DateTime" Name="personLastModified" Nullable="true" />
+          <Property Type="Int32" Name="iteratePartner" Nullable="false" />
+          <Property Type="Int32" Name="lastContact" Nullable="true" />
+          <Property Type="DateTime" Name="lastContactDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="previousContact" Nullable="true" />
+          <Property Type="DateTime" Name="previousContactDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="nextAction" Nullable="true" />
+          <Property Type="DateTime" Name="nextActionDate" Nullable="true" />
+          <Property Type="Boolean" Name="notes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePersonNextAction_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nextAction" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePersonStatus_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePartnerPerson2_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="iteratepartnerid" Nullable="false" />
+          <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="lastContact" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="lastContactDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="previousContact" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="previousContactDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="nextAction" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="nextActionDate" Nullable="true" />
+          <Property Type="Boolean" Name="notes" Nullable="true" />
         </ComplexType>
         
       </Schema>
@@ -27260,6 +27390,13 @@
           <EntitySetMapping Name="iteratePerson">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iteratePerson">
               <MappingFragment StoreEntitySet="iteratePerson">
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="previousContactDate" ColumnName="previousContactDate" />
+                <ScalarProperty Name="previousContact" ColumnName="previousContact" />
+                <ScalarProperty Name="lastContactDate" ColumnName="lastContactDate" />
+                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
                 <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
                 <ScalarProperty Name="lastModified" ColumnName="lastModified" />
                 <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
@@ -27330,40 +27467,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePerson">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePerson_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="firstname" ColumnName="firstname" />
-                <ScalarProperty Name="lastname" ColumnName="lastname" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="fax" ColumnName="fax" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
-                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
-                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getIteratePersonAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePersonAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePersonAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="firstname" ColumnName="firstname" />
-                <ScalarProperty Name="lastname" ColumnName="lastname" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="fax" ColumnName="fax" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
-                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
-                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIteratePartner" />
           <FunctionImportMapping FunctionImportName="pr_modifyIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIteratePerson" />
           <FunctionImportMapping FunctionImportName="pr_removeIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_removeIteratePartner" />
@@ -27380,7 +27483,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_addIteratestatus" FunctionName="hs3MVCMTQa2Model.Store.pr_addIteratestatus" />
           <FunctionImportMapping FunctionImportName="pr_getIteratestatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratestatus">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratestatus_Result">
@@ -27440,6 +27542,135 @@
           <FunctionImportMapping FunctionImportName="pr_modifyEvernoteNotebook" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEvernoteNotebook" />
           <FunctionImportMapping FunctionImportName="pr_removeEvernoteNotebook" FunctionName="hs3MVCMTQa2Model.Store.pr_removeEvernoteNotebook" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveEvernoteNotebook" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveEvernoteNotebook" />
+          <FunctionImportMapping FunctionImportName="pr_getIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePerson">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePerson_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
+                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
+                <ScalarProperty Name="lastContactDate" ColumnName="lastContactDate" />
+                <ScalarProperty Name="previousContact" ColumnName="previousContact" />
+                <ScalarProperty Name="previousContactDate" ColumnName="previousContactDate" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePersonAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePersonAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePersonAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
+                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
+                <ScalarProperty Name="lastContactDate" ColumnName="lastContactDate" />
+                <ScalarProperty Name="previousContact" ColumnName="previousContact" />
+                <ScalarProperty Name="previousContactDate" ColumnName="previousContactDate" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerPerson">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerPerson_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
+                <ScalarProperty Name="federalID" ColumnName="federalID" />
+                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
+                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="personID" ColumnName="personID" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="personActive" ColumnName="personActive" />
+                <ScalarProperty Name="personDateAdded" ColumnName="personDateAdded" />
+                <ScalarProperty Name="personLastModified" ColumnName="personLastModified" />
+                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
+                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
+                <ScalarProperty Name="lastContactDate" ColumnName="lastContactDate" />
+                <ScalarProperty Name="previousContact" ColumnName="previousContact" />
+                <ScalarProperty Name="previousContactDate" ColumnName="previousContactDate" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePersonNextAction" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePersonNextAction">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePersonNextAction_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePersonStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePersonStatus_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerPerson2" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerPerson2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerPerson2_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="iteratepartnerid" ColumnName="iteratepartnerid" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
+                <ScalarProperty Name="lastContactDate" ColumnName="lastContactDate" />
+                <ScalarProperty Name="previousContact" ColumnName="previousContact" />
+                <ScalarProperty Name="previousContactDate" ColumnName="previousContactDate" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

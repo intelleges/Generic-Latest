@@ -35,22 +35,31 @@ namespace Generic.ViewModel
     }
     public enum InteratePartnerStatus
     {
-        NotSet,
-        Busy,
-        Do_Not_Call,
-        HangUp,
-        LeftMessage,
-        MusicBox,
-        NoAnswer,
-        NoHelp,
-        No_Message_Left_Call_Back,//No Message Left (Call Back)
-        Successful_Call_Call_Back,//Successful Call - Call Back
-       Successful_Call_Appointment, //Successful Call - Appointment
-        Not_In_Service,//Not In Service
-        Other,//Other
-        Transferred,//Transferred
-        Wrong_Number//Wrong Number
+        NotSet=0,
+        Busy=1,
+        Do_Not_Call=4,
+        HangUp=5,
+        LeftMessage=6,
+        MusicBox=13,
+        NoAnswer=7,
+        NoHelp=8,
+        No_Message_Left_Call_Back=10,//No Message Left (Call Back)
+        Successful_Call_Call_Back=3,//Successful Call - Call Back
+       Successful_Call_Appointment=2, //Successful Call - Appointment
+        Not_In_Service=9,//Not In Service
+        Other=14,//Other
+        Transferred=11,//Transferred
+        Wrong_Number=12//Wrong Number
     };
+
+    public enum InteratePartnerNextStatus
+    {
+        //Call Back
+        /*Set Appointment
+         * 
+         */
+    };
+
     public class IteratePartnerView
     {
         public int Id { get; set; }
@@ -60,8 +69,8 @@ namespace Generic.ViewModel
         public string PhoneNumber { get; set; }
         public int Status { get; set; }
         public string Title { get; set; }
-        public string LastContact { get; set; }
-        public string NewContact { get; set; }
+        public DateTime? LastContact { get; set; }
+        public DateTime? NewContact { get; set; }
         public string StatusDescription
         {
             get
@@ -69,7 +78,10 @@ namespace Generic.ViewModel
                 return ExcelInteratePartner.GetStatusString((InteratePartnerStatus)Status);
             }
         }
+        
     }
+    
+
     public class ExcelInteratePartner
     {
         #region FiledSet
@@ -98,41 +110,63 @@ namespace Generic.ViewModel
         public string RO_LAST_NAME { get; set; }
         public string RO_EMAIL { get; set; }
         public string DUE_DATE { get; set; }
-        public string STATUS { get; set; }
-        public string NEXT_STEP { get; set; }
+        public string CURRENT_STATUS { get; set; }
+        public string NEXT_ACTION { get; set; }
         public int ANNUAL_REVENUE { get; set; }
         public int EMPLOYEE_COUNT { get; set; }
+
+        public string LAST_CONTACT { get; set; }
+        public DateTime LAST_CONTACT_DATE { get; set; }
+        public string PREVIOUS_CONTACT { get; set; }
+        public DateTime PREVIOUS_CONTACT_DATE { get; set; }       
+        public DateTime NEXT_ACTION_DATE { get; set; }
+        public string NOTES { get; set; }
         #endregion
 
         public InteratePartnerStatus StatusValue
         {
             get
             {
-                if (!string.IsNullOrEmpty(STATUS))
+                return ExcelInteratePartner.GetStatusValue(CURRENT_STATUS);
+            }
+        }
+
+        public static int GetStatusId(List<pr_getIteratePersonStatus_Result> source, string status)
+        {
+            return source.Where(o => o.description == status).Select(o => o.id).FirstOrDefault();
+        }
+
+        public static int GetNextActionId(List<pr_getIteratePersonNextAction_Result> source, string nextAction)
+        {
+            return source.Where(o => o.nextAction == nextAction).Select(o => o.id).FirstOrDefault();
+        }
+
+        public static InteratePartnerStatus GetStatusValue(string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                switch (value.ToLower())
                 {
-                    switch (STATUS.ToLower())
-                    {
-                        case "busy": return InteratePartnerStatus.Busy; break;
-                        case "do not call": return InteratePartnerStatus.Do_Not_Call; break;
-                        case "hang up": return InteratePartnerStatus.HangUp; break;
-                        case "left message": return InteratePartnerStatus.LeftMessage; break;
-                        case "music box": return InteratePartnerStatus.MusicBox; break;
-                        case "no answer": return InteratePartnerStatus.NoAnswer; break;
-                        case "no help": return InteratePartnerStatus.NoHelp; break;
-                        case "no message left (call back)": return InteratePartnerStatus.No_Message_Left_Call_Back; break;
-                        case "not in service": return InteratePartnerStatus.Not_In_Service; break;
-                        case "other": return InteratePartnerStatus.Other; break;
-                        case "successful call - appointment": return InteratePartnerStatus.Successful_Call_Appointment; break;
-                        case "successful call - call back": return InteratePartnerStatus.Successful_Call_Call_Back; break;
-                        case "transferred": return InteratePartnerStatus.Transferred; break;
-                        case "wrong number": return InteratePartnerStatus.Wrong_Number; break;
-                        default: return InteratePartnerStatus.NotSet; break;
-                    }
+                    case "busy": return InteratePartnerStatus.Busy; break;
+                    case "do not call": return InteratePartnerStatus.Do_Not_Call; break;
+                    case "hang up": return InteratePartnerStatus.HangUp; break;
+                    case "left message": return InteratePartnerStatus.LeftMessage; break;
+                    case "music box": return InteratePartnerStatus.MusicBox; break;
+                    case "no answer": return InteratePartnerStatus.NoAnswer; break;
+                    case "no help": return InteratePartnerStatus.NoHelp; break;
+                    case "no message left (call back)": return InteratePartnerStatus.No_Message_Left_Call_Back; break;
+                    case "not in service": return InteratePartnerStatus.Not_In_Service; break;
+                    case "other": return InteratePartnerStatus.Other; break;
+                    case "successful call - appointment": return InteratePartnerStatus.Successful_Call_Appointment; break;
+                    case "successful call - call back": return InteratePartnerStatus.Successful_Call_Call_Back; break;
+                    case "transferred": return InteratePartnerStatus.Transferred; break;
+                    case "wrong number": return InteratePartnerStatus.Wrong_Number; break;
+                    default: return InteratePartnerStatus.NotSet; break;
                 }
-                else
-                {
-                    return InteratePartnerStatus.NotSet;
-                }
+            }
+            else
+            {
+                return InteratePartnerStatus.NotSet;
             }
         }
 
