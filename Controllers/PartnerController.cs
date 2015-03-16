@@ -2438,7 +2438,7 @@ namespace Generic.Controllers
                 db.pr_addEvernoteStackByPerson(SessionSingleton.LoggedInUserId, stack);                
             }
             newNotebook.Stack = stack;
-            newNotebook.Name = name;
+            newNotebook.Name = "fDefault";
             return noteStore.createNotebook(authToken, newNotebook);
         }
 
@@ -2520,7 +2520,7 @@ namespace Generic.Controllers
                 var authToken = SessionHelper.EvernoteCredentials.AuthToken;
 
                 //find existed notebook for partner
-                Notebook notebook = GetNoteStore().listNotebooks(authToken).FirstOrDefault(o => o.Name == "fCustomer");
+                Notebook notebook = GetNoteStore().listNotebooks(authToken).FirstOrDefault(o => o.Name == "fDefault");
                 //var g = db.pr_getIteratePartner(int.Parse(partnerId)).FirstOrDefault();
                 var pId = int.Parse(partnerId);
                 var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == pId);
