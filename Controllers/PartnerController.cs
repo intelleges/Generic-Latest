@@ -2494,6 +2494,16 @@ namespace Generic.Controllers
             }
             return Json("");
         }
+
+        [HttpPost]
+        public ActionResult GetIteratePartnerByNote(Guid noteId)
+        {
+            var iParner = db.iteratePartner.FirstOrDefault(o => o.note == noteId);
+            if(iParner!=null)
+                return Json(new { partnerId = iParner.id, partnerName = iParner.name, finded = true});
+            else
+                return Json(new {  finded = false });
+        }
         
         private Note AppendNote(string text, Guid noteId)
         {
@@ -2525,7 +2535,7 @@ namespace Generic.Controllers
                 var authToken = SessionHelper.EvernoteCredentials.AuthToken;
 
                 //find existed notebook for partner
-                Notebook notebook = GetNoteStore().listNotebooks(authToken).FirstOrDefault(o => o.Name == "fDefault");
+                Notebook notebook = GetNoteStore().listNotebooks(authToken).FirstOrDefault(o => o.Name == "zDefault");
                 //var g = db.pr_getIteratePartner(int.Parse(partnerId)).FirstOrDefault();
                 var pId = int.Parse(partnerId);
                 var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == pId);

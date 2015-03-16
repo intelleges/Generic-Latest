@@ -437,38 +437,41 @@
                 var partnerId = rowData.ID;
                 iterate.selectedPartnerId = partnerId;
                 iterate.selectedPartner = partnerName;
-                
-                $.post("GetEvernoteText", { partnerId: iterate.selectedPartnerId }).done(function (e) {
-                    if (e.text) {
-                        var date = new Date();
-                        if (e.text !== "none") {                          
-                            
-                            CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "---</div>" + e.text, {
-                                callback: function () {
-                                    $("#noteTitle").val(partnerName);
-                                    $("#noteTitle").attr("disabled", true);
-                                    $("#addNoteDialog").modal("toggle");
-                                }
-                            });
-                        } else {
-                            CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "---</div>", {
-                                callback: function () {
-                                    $("#noteTitle").val(partnerName);
-                                    $("#noteTitle").attr("disabled", true);
-                                    $("#addNoteDialog").modal("toggle");
-                                }
-                            });
-                        }
-                    } else {
-                        window.location.href = e;
-                    }
-                   
-                });
+                showNoteEditor(iterate.selectedPartnerId, partnerName);               
                 
             }
         });
     }
    
+    function showNoteEditor(partnerId, partnerName) {
+        $.post("GetEvernoteText", { partnerId:partnerId }).done(function (e) {
+            if (e.text) {
+                var date = new Date();
+                if (e.text !== "none") {
+
+                    CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "---</div>" + e.text, {
+                        callback: function () {
+                            $("#noteTitle").val(partnerName);
+                            $("#noteTitle").attr("disabled", true);
+                            $("#addNoteDialog").modal("toggle");
+                        }
+                    });
+                } else {
+                    CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "---</div>", {
+                        callback: function () {
+                            $("#noteTitle").val(partnerName);
+                            $("#noteTitle").attr("disabled", true);
+                            $("#addNoteDialog").modal("toggle");
+                        }
+                    });
+                }
+            } else {
+                window.location.href = e;
+            }
+
+        });
+    }
+
     @section onSplitter2Load{
     if ('@ViewBag.showNotes' === "True") {
         showNotesPanel();
@@ -1402,6 +1405,21 @@
                     }
                 },
                                 "plugins": ["dnd","types"]
+            }).bind("redraw.jstree", function (event, data) {
+                //after redraw bind dblclick
+                $("#evernotesDiv").delegate("a", "dblclick", function (e) {
+                    //if nodes type=== "note" then show note
+                    if ($("#evernotesDiv").data("jstree").get_type($(this).parent()) === "note") {
+                        $.post("GetIteratePartnerByNote", { noteId: $(this).parent().attr("id") }).done(function (result) {
+                            if (result.finded) {
+                                iterate.selectedPartnerId = result.partnerId;
+                                iterate.selectedPartner = result.partnerName;
+                                showNoteEditor(result.partnerId, result.partnerName);
+                            }
+                            else alertify.alert("There is no iterate partner for selected note");
+                        });
+                    }                        
+                });
             });
             $(document).on("dnd_stop.vakata", function (event, data, element) {
                 if (data) {
@@ -1435,6 +1453,9 @@
                     }
                 }
             });
+
+           
+            
         });
 
         //code commeted due to update.
