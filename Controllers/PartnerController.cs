@@ -2443,7 +2443,7 @@ namespace Generic.Controllers
                 db.pr_addEvernoteStackByPerson(SessionSingleton.LoggedInUserId, stack);                
             }
             newNotebook.Stack = stack;
-            newNotebook.Name = "fDefault";
+            newNotebook.Name = "zDefault";
             return noteStore.createNotebook(authToken, newNotebook);
         }
 
