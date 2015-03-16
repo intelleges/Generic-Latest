@@ -65,31 +65,31 @@
         var renderedTop = RenderSection("splitterTop", false);
         var gridHtml = renderedTop != null ? renderedTop.ToHtmlString() : "";
     }
-
+    <div style="height:100%;width:100%">
     @{Html.Telerik().Splitter().Name("Splitter1")
-    .HtmlAttributes(new { style = "height: 100%;" })
+    .HtmlAttributes(new { style = "height: 100%;width: 100%;" })
     .Orientation(SplitterOrientation.Vertical)
     .Panes(vPanes =>
     {
         vPanes.Add()
         .Size("40%")
-        .MaxSize("50%")
+        //.MaxSize("50%")
         .Collapsible(true)
-        .Collapsed(true)
-        .Resizable(true)
-        .Content(gridHtml).HtmlAttributes(new { style = "height:20%" }
-                            );
+        .Collapsed(true)   
+        .Resizable(false)     
+        .Content(gridHtml);
 
         vPanes.Add()
         .Scrollable(false)
+        .Size("100%")
         .Content(Html.Telerik().Splitter().Name("Splitter2")
-        .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; overflow: hidden;" })
+        .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; " })
         .Orientation(SplitterOrientation.Horizontal)
         .ClientEvents(events => events.OnLoad("onSplitter2Load"))
         .Panes(hPanes =>
         {
             hPanes.Add()
-            .Size("150px")
+            .Size("20%")
             .Collapsible(true).Collapsed(true)
             .Content(@<p>Inner splitter :: left pane</p>);
 
@@ -194,7 +194,7 @@
 
             hPanes.Add()
             .Size("20%")
-            .Collapsible(true).Collapsed(true)
+            .Collapsible(true).Collapsed(true).Scrollable(true).Resizable(false)
             .Content(@<div id="rightSplitter" >               
     @RenderSection("rightSplitter",false)
             </div>
@@ -224,7 +224,7 @@
     })
                         .Render();
     }
-   
+   </div>
     <div id="popup">
         <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
     </div>
@@ -283,13 +283,13 @@
         //jQuery.noConflict();
         //jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
         $(document).ready(function () {
-            var height = $(window).height();
+            var height = $(document).height();
             // $("#Splitter1").height(height);
-            $("#Splitter1 t-pane").height(height);
-            $("#Splitter2").height(height);
-            $("#Splitter2 t-pane").height(height);
-            $("#modal").height(height);
-            $("#popap").height(height);
+            //$("#Splitter1 t-pane").height(height);
+            //$("#Splitter2").height(height);
+            //$("#Splitter2 t-pane").height(height);
+            //$("#modal").height(height);
+            //$("#popap").height(height);
             //logo uploading
             $("#selectlogoForm").submit(function (e) {
                 var file_data = $('#selectlogo').prop('files')[0];
@@ -372,11 +372,11 @@
     //.Compress(true)
    // ).jQuery(false)
     .OnDocumentReady(@<text>
-        var splitter = $('#FullScreen').data('tSplitter');
-
-        $(window).bind('resize', function() {
-        splitter.resize();
-        });
+       @* var splitter = $('#Splitter2').data('tSplitter');
+splitter.size(".t-pane", $(window).height()+"px");
+       $(window).bind('resize', function() {
+        splitter.size(".t-pane", $(window).height()+"px");
+       });*@
     </text>)
     )
     

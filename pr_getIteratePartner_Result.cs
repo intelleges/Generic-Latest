@@ -29,10 +29,11 @@ namespace Generic
         public Nullable<int> status { get; set; }
         public Nullable<int> owner { get; set; }
         public Nullable<int> author { get; set; }
-        public Nullable<int> dateApproved { get; set; }
+        public Nullable<System.DateTime> dateApproved { get; set; }
         public Nullable<bool> active { get; set; }
         public Nullable<System.DateTime> dateAdded { get; set; }
         public Nullable<System.DateTime> lastModified { get; set; }
         public int person { get; set; }
+        public Nullable<System.Guid> note { get; set; }
     }
 }

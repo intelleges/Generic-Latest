@@ -42,6 +42,7 @@
           <EntitySet Name="groupRiskGoal" EntityType="hs3MVCMTQa2Model.Store.groupRiskGoal" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="hs3Menu_deprecated" EntityType="hs3MVCMTQa2Model.Store.hs3Menu_deprecated" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="industry" EntityType="hs3MVCMTQa2Model.Store.industry" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="iterateAction" EntityType="hs3MVCMTQa2Model.Store.iterateAction" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="iteratePartner" EntityType="hs3MVCMTQa2Model.Store.iteratePartner" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="iteratePerson" EntityType="hs3MVCMTQa2Model.Store.iteratePerson" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="iterateStatus" EntityType="hs3MVCMTQa2Model.Store.iterateStatus" store:Type="Tables" Schema="dbo" />
@@ -1390,6 +1391,15 @@
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="iterateAction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="iteratePartner">
           <Key>
             <PropertyRef Name="id" />
@@ -1415,6 +1425,7 @@
           <Property Name="dateAdded" Type="date" />
           <Property Name="lastModified" Type="datetime" />
           <Property Name="person" Type="int" Nullable="false" />
+          <Property Name="note" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="iteratePerson">
           <Key>
@@ -1436,7 +1447,7 @@
           <Property Name="previousContact" Type="int" />
           <Property Name="previousContactDate" Type="datetime" />
           <Property Name="nextAction" Type="int" />
-          <Property Name="nextActionDate" Type="date" />
+          <Property Name="nextActionDate" Type="datetime" />
           <Property Name="notes" Type="bit" />
         </EntityType>
         <EntityType Name="iterateStatus">
@@ -5185,6 +5196,11 @@
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="partnertypetouchpointquestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="internalID" Type="varchar" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
@@ -5204,8 +5220,9 @@
           <Parameter Name="dateApproved" Type="date" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="dateAdded" Type="date" Mode="In" />
-          <Parameter Name="lastModified" Type="date" Mode="In" />
+          <Parameter Name="lastModified" Type="datetime" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="note" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="pr_addIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="firstname" Type="varchar" Mode="In" />
@@ -5924,6 +5941,18 @@
         <Function Name="pr_archiveHs3Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveIteratestatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archiveKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6095,6 +6124,9 @@
         </Function>
         <Function Name="pr_checkPartnumberStatusCountByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_clearIterateAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_doLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="varchar" Mode="In" />
@@ -6381,16 +6413,21 @@
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getIndustryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getIterateActionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getIteratePartnerAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="person" Type="int" Mode="In" />
-        </Function>
+        <Function Name="pr_getIteratePartnerAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getIteratePartnerPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getIteratePartnerPerson2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getIteratePartnerPerson3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -7403,6 +7440,12 @@
           <Parameter Name="device" Type="int" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="internalID" Type="varchar" Mode="In" />
@@ -7423,8 +7466,9 @@
           <Parameter Name="dateApproved" Type="date" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="dateAdded" Type="date" Mode="In" />
-          <Parameter Name="lastModified" Type="date" Mode="In" />
+          <Parameter Name="lastModified" Type="datetime" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="note" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="pr_modifyIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -8150,6 +8194,9 @@
         <Function Name="pr_removeHs3Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8442,6 +8489,18 @@
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveHs3Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveIteratestatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -13094,34 +13153,7 @@
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="ical" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="iteratePartner" EntityType="hs3MVCMTQa2Model.iteratePartner" />
           <EntitySet Name="iteratePerson" EntityType="hs3MVCMTQa2Model.iteratePerson" />
-          <AssociationSet Name="FK_iteratePerson_iteratePartner" Association="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner">
-            <End Role="iteratePartner" EntitySet="iteratePartner" />
-            <End Role="iteratePerson" EntitySet="iteratePerson" />
-          </AssociationSet>
-          <FunctionImport Name="pr_addIteratePartner" ReturnType="Collection(Decimal)">
-            <Parameter Name="internalID" Mode="In" Type="String" />
-            <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="address1" Mode="In" Type="String" />
-            <Parameter Name="address2" Mode="In" Type="String" />
-            <Parameter Name="city" Mode="In" Type="String" />
-            <Parameter Name="state" Mode="In" Type="String" />
-            <Parameter Name="zipcode" Mode="In" Type="String" />
-            <Parameter Name="country" Mode="In" Type="String" />
-            <Parameter Name="dunsnumber" Mode="In" Type="String" />
-            <Parameter Name="federalID" Mode="In" Type="String" />
-            <Parameter Name="numberOfEmployees" Mode="In" Type="Int32" />
-            <Parameter Name="annualRevenue" Mode="In" Type="Int32" />
-            <Parameter Name="status" Mode="In" Type="Int32" />
-            <Parameter Name="owner" Mode="In" Type="Int32" />
-            <Parameter Name="author" Mode="In" Type="Int32" />
-            <Parameter Name="dateApproved" Mode="In" Type="DateTime" />
-            <Parameter Name="active" Mode="In" Type="Boolean" />
-            <Parameter Name="dateAdded" Mode="In" Type="DateTime" />
-            <Parameter Name="lastModified" Mode="In" Type="DateTime" />
-            <Parameter Name="person" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_addIteratePerson" ReturnType="Collection(Decimal)">
             <Parameter Name="firstname" Mode="In" Type="String" />
             <Parameter Name="lastname" Mode="In" Type="String" />
@@ -13140,35 +13172,6 @@
             <Parameter Name="nextAction" Mode="In" Type="Int32" />
             <Parameter Name="nextActionDate" Mode="In" Type="DateTime" />
             <Parameter Name="notes" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getIteratePartner" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartner_Result)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getIteratePartnerAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerAll_Result)" >
-          <Parameter Name="person" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_modifyIteratePartner">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="internalID" Mode="In" Type="String" />
-            <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="address1" Mode="In" Type="String" />
-            <Parameter Name="address2" Mode="In" Type="String" />
-            <Parameter Name="city" Mode="In" Type="String" />
-            <Parameter Name="state" Mode="In" Type="String" />
-            <Parameter Name="zipcode" Mode="In" Type="String" />
-            <Parameter Name="country" Mode="In" Type="String" />
-            <Parameter Name="dunsnumber" Mode="In" Type="String" />
-            <Parameter Name="federalID" Mode="In" Type="String" />
-            <Parameter Name="numberOfEmployees" Mode="In" Type="Int32" />
-            <Parameter Name="annualRevenue" Mode="In" Type="Int32" />
-            <Parameter Name="status" Mode="In" Type="Int32" />
-            <Parameter Name="owner" Mode="In" Type="Int32" />
-            <Parameter Name="author" Mode="In" Type="Int32" />
-            <Parameter Name="dateApproved" Mode="In" Type="DateTime" />
-            <Parameter Name="active" Mode="In" Type="Boolean" />
-            <Parameter Name="dateAdded" Mode="In" Type="DateTime" />
-            <Parameter Name="lastModified" Mode="In" Type="DateTime" />
-            <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyIteratePerson">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -13189,9 +13192,6 @@
             <Parameter Name="nextAction" Mode="In" Type="Int32" />
             <Parameter Name="nextActionDate" Mode="In" Type="DateTime" />
             <Parameter Name="notes" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="pr_removeIteratePartner">
-          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeIteratePerson">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -13267,14 +13267,122 @@
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getIteratePersonAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePersonAll_Result)" />
+          <FunctionImport Name="pr_getIteratePersonNextAction" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePersonNextAction_Result)" />
+          <FunctionImport Name="pr_getIteratePersonStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePersonStatus_Result)" />
+          <FunctionImport Name="pr_clearIterateAll">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addIterateAction" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addIteratePartner" ReturnType="Collection(Decimal)">
+            <Parameter Name="internalID" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="address1" Mode="In" Type="String" />
+            <Parameter Name="address2" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="String" />
+            <Parameter Name="zipcode" Mode="In" Type="String" />
+            <Parameter Name="country" Mode="In" Type="String" />
+            <Parameter Name="dunsnumber" Mode="In" Type="String" />
+            <Parameter Name="federalID" Mode="In" Type="String" />
+            <Parameter Name="numberOfEmployees" Mode="In" Type="Int32" />
+            <Parameter Name="annualRevenue" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="owner" Mode="In" Type="Int32" />
+            <Parameter Name="author" Mode="In" Type="Int32" />
+            <Parameter Name="dateApproved" Mode="In" Type="DateTime" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="dateAdded" Mode="In" Type="DateTime" />
+            <Parameter Name="lastModified" Mode="In" Type="DateTime" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="note" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveIterateAction">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveIteratePartner">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveIteratePerson">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveIteratestatus">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIterateAction" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIterateAction_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIterateActionAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIterateActionAll_Result)" />
+          <FunctionImport Name="pr_getIteratePartner" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartner_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIteratePartnerAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerAll_Result)" />
           <FunctionImport Name="pr_getIteratePartnerPerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerPerson_Result)">
           <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getIteratePersonNextAction" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePersonNextAction_Result)" />
-          <FunctionImport Name="pr_getIteratePersonStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePersonStatus_Result)" />
           <FunctionImport Name="pr_getIteratePartnerPerson2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerPerson2_Result)">
-            <Parameter Name="person" Mode="In" Type="Int32" />
+          <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="pr_getIteratePartnerPerson3" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerPerson3_Result)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyIterateAction">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyIteratePartner">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="internalID" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="address1" Mode="In" Type="String" />
+            <Parameter Name="address2" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="String" />
+            <Parameter Name="zipcode" Mode="In" Type="String" />
+            <Parameter Name="country" Mode="In" Type="String" />
+            <Parameter Name="dunsnumber" Mode="In" Type="String" />
+            <Parameter Name="federalID" Mode="In" Type="String" />
+            <Parameter Name="numberOfEmployees" Mode="In" Type="Int32" />
+            <Parameter Name="annualRevenue" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="owner" Mode="In" Type="Int32" />
+            <Parameter Name="author" Mode="In" Type="Int32" />
+            <Parameter Name="dateApproved" Mode="In" Type="DateTime" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="dateAdded" Mode="In" Type="DateTime" />
+            <Parameter Name="lastModified" Mode="In" Type="DateTime" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="note" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeIterateAction">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeIteratePartner">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveIterateAction">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveIteratePartner">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveIteratePerson">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveIteratestatus">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="iterateAction" EntityType="hs3MVCMTQa2Model.iterateAction" />
+          <EntitySet Name="iteratePartner" EntityType="hs3MVCMTQa2Model.iteratePartner" />
+          <AssociationSet Name="FK_iteratePerson_iteratePartner" Association="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner">
+            <End Role="iteratePartner" EntitySet="iteratePartner" />
+            <End Role="iteratePerson" EntitySet="iteratePerson" />
+          </AssociationSet>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -20899,33 +21007,6 @@
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
-        <EntityType Name="iteratePartner">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="internalID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="state" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="zipcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="country" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="dunsnumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="federalID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="numberOfEmployees" Type="Int32" />
-          <Property Name="annualRevenue" Type="Int32" />
-          <Property Name="status" Type="Int32" />
-          <Property Name="owner" Type="Int32" />
-          <Property Name="author" Type="Int32" />
-          <Property Name="dateApproved" Type="DateTime" Precision="0" />
-          <Property Name="active" Type="Boolean" />
-          <Property Name="dateAdded" Type="DateTime" Precision="0" />
-          <Property Name="lastModified" Type="DateTime" Precision="3" />
-          <Property Name="person" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="iteratePerson" Relationship="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" FromRole="iteratePartner" ToRole="iteratePerson" />
-        </EntityType>
         <EntityType Name="iteratePerson">
           <Key>
             <PropertyRef Name="id" />
@@ -20941,73 +21022,15 @@
           <Property Name="dateAdded" Type="DateTime" Precision="0" />
           <Property Name="lastModified" Type="DateTime" Precision="0" />
           <Property Name="iteratePartner" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="iteratePartner1" Relationship="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" FromRole="iteratePerson" ToRole="iteratePartner" />
           <Property Type="Int32" Name="lastContact" />
           <Property Type="DateTime" Name="lastContactDate" Precision="3" />
           <Property Type="Int32" Name="previousContact" />
           <Property Type="DateTime" Name="previousContactDate" Precision="3" />
           <Property Type="Int32" Name="nextAction" />
-          <Property Type="DateTime" Name="nextActionDate" Precision="0" />
+          <Property Type="DateTime" Name="nextActionDate" Precision="3" />
           <Property Type="Boolean" Name="notes" />
+          <NavigationProperty Name="iteratePartner1" Relationship="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" FromRole="iteratePerson" ToRole="iteratePartner" />
         </EntityType>
-        <Association Name="FK_iteratePerson_iteratePartner">
-          <End Type="hs3MVCMTQa2Model.iteratePartner" Role="iteratePartner" Multiplicity="1" />
-          <End Type="hs3MVCMTQa2Model.iteratePerson" Role="iteratePerson" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="iteratePartner">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="iteratePerson">
-              <PropertyRef Name="iteratePartner" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="pr_getIteratePartner_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="internalID" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="name" Nullable="true" MaxLength="300" />
-          <Property Type="String" Name="address1" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="address2" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="city" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="state" Nullable="true" MaxLength="2" />
-          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="country" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="dunsnumber" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="federalID" Nullable="true" MaxLength="20" />
-          <Property Type="Int32" Name="numberOfEmployees" Nullable="true" />
-          <Property Type="Int32" Name="annualRevenue" Nullable="true" />
-          <Property Type="Int32" Name="status" Nullable="true" />
-          <Property Type="Int32" Name="owner" Nullable="true" />
-          <Property Type="Int32" Name="author" Nullable="true" />
-          <Property Type="Int32" Name="dateApproved" Nullable="true" />
-          <Property Type="Boolean" Name="active" Nullable="true" />
-          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
-          <Property Type="DateTime" Name="lastModified" Nullable="true" />
-          <Property Type="Int32" Name="person" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="pr_getIteratePartnerAll_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="internalID" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="name" Nullable="true" MaxLength="300" />
-          <Property Type="String" Name="address1" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="address2" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="city" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="state" Nullable="true" MaxLength="2" />
-          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="country" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="dunsnumber" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="federalID" Nullable="true" MaxLength="20" />
-          <Property Type="Int32" Name="numberOfEmployees" Nullable="true" />
-          <Property Type="Int32" Name="annualRevenue" Nullable="true" />
-          <Property Type="Int32" Name="status" Nullable="true" />
-          <Property Type="Int32" Name="owner" Nullable="true" />
-          <Property Type="Int32" Name="author" Nullable="true" />
-          <Property Type="Int32" Name="dateApproved" Nullable="true" />
-          <Property Type="Boolean" Name="active" Nullable="true" />
-          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
-          <Property Type="DateTime" Name="lastModified" Nullable="true" />
-          <Property Type="Int32" Name="person" Nullable="false" />
-        </ComplexType>
         <EntityType Name="iterateStatus">
           <Key>
             <PropertyRef Name="id" />
@@ -21091,6 +21114,74 @@
           <Property Type="DateTime" Name="nextActionDate" Nullable="true" />
           <Property Type="Boolean" Name="notes" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getIteratePersonNextAction_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nextAction" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePersonStatus_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_getIterateAction_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getIterateActionAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePartner_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="state" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="country" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="dunsnumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="federalID" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="numberOfEmployees" Nullable="true" />
+          <Property Type="Int32" Name="annualRevenue" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="Int32" Name="owner" Nullable="true" />
+          <Property Type="Int32" Name="author" Nullable="true" />
+          <Property Type="DateTime" Name="dateApproved" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Guid" Name="note" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePartnerAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="state" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="country" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="dunsnumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="federalID" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="numberOfEmployees" Nullable="true" />
+          <Property Type="Int32" Name="annualRevenue" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="Int32" Name="owner" Nullable="true" />
+          <Property Type="Int32" Name="author" Nullable="true" />
+          <Property Type="DateTime" Name="dateApproved" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Guid" Name="note" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="pr_getIteratePartnerPerson_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="internalID" Nullable="true" MaxLength="100" />
@@ -21113,6 +21204,7 @@
           <Property Type="DateTime" Name="dateAdded" Nullable="true" />
           <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Guid" Name="note" Nullable="true" />
           <Property Type="Int32" Name="personID" Nullable="false" />
           <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
@@ -21129,16 +21221,8 @@
           <Property Type="Int32" Name="previousContact" Nullable="true" />
           <Property Type="DateTime" Name="previousContactDate" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="nextAction" Nullable="true" />
-          <Property Type="DateTime" Name="nextActionDate" Nullable="true" />
+          <Property Type="DateTime" Name="nextActionDate" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="notes" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="pr_getIteratePersonNextAction_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="nextAction" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="pr_getIteratePersonStatus_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="pr_getIteratePartnerPerson2_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -21153,9 +21237,99 @@
           <Property Type="String" Name="previousContact" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="previousContactDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="nextAction" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="nextActionDate" Nullable="true" />
+          <Property Type="DateTime" Name="nextActionDate" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="notes" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getIteratePartnerPerson3_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="state" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="country" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="dunsnumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="federalID" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="numberOfEmployees" Nullable="true" />
+          <Property Type="Int32" Name="annualRevenue" Nullable="true" />
+          <Property Type="Guid" Name="note" Nullable="true" />
+          <Property Type="String" Name="owner" Nullable="false" MaxLength="401" />
+          <Property Type="String" Name="author" Nullable="false" MaxLength="401" />
+          <Property Type="DateTime" Name="dateApproved" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="personID" Nullable="false" />
+          <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="personActive" Nullable="false" />
+          <Property Type="DateTime" Name="personDateAdded" Nullable="true" />
+          <Property Type="DateTime" Name="personLastModified" Nullable="true" />
+          <Property Type="Int32" Name="iteratePartner" Nullable="false" />
+          <Property Type="String" Name="lastContact" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="lastContactDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="previousContact" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="previousContactDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="nextAction" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="nextActionDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="notes" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="iterateAction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </EntityType>
+        <EntityType Name="iteratePartner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="internalID" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="name" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="address1" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="address2" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="city" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="state" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="zipcode" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="country" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="dunsnumber" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="federalID" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="numberOfEmployees" />
+          <Property Type="Int32" Name="annualRevenue" />
+          <Property Type="Int32" Name="status" />
+          <Property Type="Int32" Name="owner" />
+          <Property Type="Int32" Name="author" />
+          <Property Type="DateTime" Name="dateApproved" Precision="0" />
+          <Property Type="Boolean" Name="active" />
+          <Property Type="DateTime" Name="dateAdded" Precision="0" />
+          <Property Type="DateTime" Name="lastModified" Precision="3" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Guid" Name="note" />
+          <NavigationProperty Name="iteratePerson" Relationship="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" FromRole="iteratePartner" ToRole="iteratePerson" />
+        </EntityType>
+        <Association Name="FK_iteratePerson_iteratePartner">
+          <End Type="hs3MVCMTQa2Model.iteratePartner" Role="iteratePartner" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.iteratePerson" Role="iteratePerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="iteratePartner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="iteratePerson">
+              <PropertyRef Name="iteratePartner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -27360,33 +27534,6 @@
           <FunctionImportMapping FunctionImportName="pr_unSubscribePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_unSubscribePartner" />
           <FunctionImportMapping FunctionImportName="pr_getPersonIcal" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonIcal" />
           <FunctionImportMapping FunctionImportName="pr_modifyPersonIcal" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonIcal" />
-          <EntitySetMapping Name="iteratePartner">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iteratePartner">
-              <MappingFragment StoreEntitySet="iteratePartner">
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
-                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
-                <ScalarProperty Name="author" ColumnName="author" />
-                <ScalarProperty Name="owner" ColumnName="owner" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
-                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
-                <ScalarProperty Name="federalID" ColumnName="federalID" />
-                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
-                <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="address2" ColumnName="address2" />
-                <ScalarProperty Name="address1" ColumnName="address1" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="internalID" ColumnName="internalID" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="iteratePerson">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iteratePerson">
               <MappingFragment StoreEntitySet="iteratePerson">
@@ -27411,65 +27558,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_addIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_addIteratePartner" />
           <FunctionImportMapping FunctionImportName="pr_addIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_addIteratePerson" />
-          <FunctionImportMapping FunctionImportName="pr_getIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartner">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartner_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="internalID" ColumnName="internalID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="address1" ColumnName="address1" />
-                <ScalarProperty Name="address2" ColumnName="address2" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
-                <ScalarProperty Name="federalID" ColumnName="federalID" />
-                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
-                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="owner" ColumnName="owner" />
-                <ScalarProperty Name="author" ColumnName="author" />
-                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
-                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
-                <ScalarProperty Name="person" ColumnName="person" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="internalID" ColumnName="internalID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="address1" ColumnName="address1" />
-                <ScalarProperty Name="address2" ColumnName="address2" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
-                <ScalarProperty Name="federalID" ColumnName="federalID" />
-                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
-                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="owner" ColumnName="owner" />
-                <ScalarProperty Name="author" ColumnName="author" />
-                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
-                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
-                <ScalarProperty Name="person" ColumnName="person" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_modifyIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIteratePartner" />
           <FunctionImportMapping FunctionImportName="pr_modifyIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIteratePerson" />
-          <FunctionImportMapping FunctionImportName="pr_removeIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_removeIteratePartner" />
           <FunctionImportMapping FunctionImportName="pr_removeIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_removeIteratePerson" />
           <EntitySetMapping Name="iterateStatus">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iterateStatus">
@@ -27590,6 +27680,105 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePersonNextAction" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePersonNextAction">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePersonNextAction_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePersonStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePersonStatus_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_clearIterateAll" FunctionName="hs3MVCMTQa2Model.Store.pr_clearIterateAll" />
+          <FunctionImportMapping FunctionImportName="pr_addIterateAction" FunctionName="hs3MVCMTQa2Model.Store.pr_addIterateAction" />
+          <FunctionImportMapping FunctionImportName="pr_addIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_addIteratePartner" />
+          <FunctionImportMapping FunctionImportName="pr_archiveIterateAction" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveIterateAction" />
+          <FunctionImportMapping FunctionImportName="pr_archiveIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveIteratePartner" />
+          <FunctionImportMapping FunctionImportName="pr_archiveIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveIteratePerson" />
+          <FunctionImportMapping FunctionImportName="pr_archiveIteratestatus" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveIteratestatus" />
+          <FunctionImportMapping FunctionImportName="pr_getIterateAction" FunctionName="hs3MVCMTQa2Model.Store.pr_getIterateAction">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIterateAction_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIterateActionAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getIterateActionAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIterateActionAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartner">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartner_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
+                <ScalarProperty Name="federalID" ColumnName="federalID" />
+                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
+                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="note" ColumnName="note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
+                <ScalarProperty Name="federalID" ColumnName="federalID" />
+                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
+                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="note" ColumnName="note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getIteratePartnerPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerPerson">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerPerson_Result">
@@ -27607,6 +27796,72 @@
                 <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
                 <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="personID" ColumnName="personID" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="personActive" ColumnName="personActive" />
+                <ScalarProperty Name="personDateAdded" ColumnName="personDateAdded" />
+                <ScalarProperty Name="personLastModified" ColumnName="personLastModified" />
+                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
+                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
+                <ScalarProperty Name="lastContactDate" ColumnName="lastContactDate" />
+                <ScalarProperty Name="previousContact" ColumnName="previousContact" />
+                <ScalarProperty Name="previousContactDate" ColumnName="previousContactDate" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerPerson2" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerPerson2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerPerson2_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="iteratepartnerid" ColumnName="iteratepartnerid" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
+                <ScalarProperty Name="lastContactDate" ColumnName="lastContactDate" />
+                <ScalarProperty Name="previousContact" ColumnName="previousContact" />
+                <ScalarProperty Name="previousContactDate" ColumnName="previousContactDate" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerPerson3" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerPerson3">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerPerson3_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
+                <ScalarProperty Name="federalID" ColumnName="federalID" />
+                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
+                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
+                <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="owner" ColumnName="owner" />
                 <ScalarProperty Name="author" ColumnName="author" />
                 <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
@@ -27635,42 +27890,52 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getIteratePersonNextAction" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePersonNextAction">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePersonNextAction_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getIteratePersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePersonStatus">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePersonStatus_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
+          <FunctionImportMapping FunctionImportName="pr_modifyIterateAction" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIterateAction" />
+          <FunctionImportMapping FunctionImportName="pr_modifyIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIteratePartner" />
+          <FunctionImportMapping FunctionImportName="pr_removeIterateAction" FunctionName="hs3MVCMTQa2Model.Store.pr_removeIterateAction" />
+          <FunctionImportMapping FunctionImportName="pr_removeIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_removeIteratePartner" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveIterateAction" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveIterateAction" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveIteratePartner" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveIteratePerson" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveIteratestatus" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveIteratestatus" />
+          <EntitySetMapping Name="iterateAction">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iterateAction">
+              <MappingFragment StoreEntitySet="iterateAction">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="description" ColumnName="description" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerPerson2" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerPerson2">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerPerson2_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="iteratePartner">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iteratePartner">
+              <MappingFragment StoreEntitySet="iteratePartner">
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
+                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
+                <ScalarProperty Name="federalID" ColumnName="federalID" />
+                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="iteratepartnerid" ColumnName="iteratepartnerid" />
-                <ScalarProperty Name="firstname" ColumnName="firstname" />
-                <ScalarProperty Name="lastname" ColumnName="lastname" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
-                <ScalarProperty Name="lastContactDate" ColumnName="lastContactDate" />
-                <ScalarProperty Name="previousContact" ColumnName="previousContact" />
-                <ScalarProperty Name="previousContactDate" ColumnName="previousContactDate" />
-                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
-                <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
-                <ScalarProperty Name="notes" ColumnName="notes" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

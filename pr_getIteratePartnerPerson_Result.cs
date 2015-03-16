@@ -34,6 +34,7 @@ namespace Generic
         public Nullable<System.DateTime> dateAdded { get; set; }
         public Nullable<System.DateTime> lastModified { get; set; }
         public int person { get; set; }
+        public Nullable<System.Guid> note { get; set; }
         public int personID { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }

@@ -279,10 +279,11 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_partnerType" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_protocol" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_touchpoint" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.iteratePartner" Width="1.5" PointX="13.375" PointY="20.125" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.iteratePerson" Width="1.5" PointX="15.625" PointY="21" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.iterateStatus" Width="1.5" PointX="19.375" PointY="3.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.iterateAction" Width="1.5" PointX="4.47225713193056" PointY="21.127051258984512" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.iteratePartner" Width="1.5" PointX="7.15287849267613" PointY="18.8295812545482" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

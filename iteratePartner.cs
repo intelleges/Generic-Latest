@@ -40,6 +40,7 @@ namespace Generic
         public Nullable<System.DateTime> dateAdded { get; set; }
         public Nullable<System.DateTime> lastModified { get; set; }
         public int person { get; set; }
+        public Nullable<System.Guid> note { get; set; }
     
         public virtual ICollection<iteratePerson> iteratePerson { get; set; }
     }

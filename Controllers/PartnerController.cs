@@ -42,6 +42,7 @@ using Evernote.EDAM.Type;
 using System.Web.Http.Cors;
 using Telerik.Web.Mvc.UI;
 using jsTree3.Models;
+using System.Xml.Linq;
 
 namespace Generic.Controllers
 {
@@ -2304,7 +2305,9 @@ namespace Generic.Controllers
             {
                 SessionHelper.EvernoteCredentials = credentials;
                 if (SessionSingleton.NeedAddEverNote)
-                    AddNote(TempData["PartnerName"].ToString(), TempData["noteTitle"].ToString(), TempData["noteText"].ToString());
+                    AddNote(TempData["PartnerName"].ToString(), TempData["noteTitle"].ToString(), TempData["noteText"].ToString(), TempData["partnerId"].ToString());
+                else if (SessionSingleton.NeedGetEvernoteText)
+                    GetEvernoteText(int.Parse(TempData["partnerId"].ToString()));
                 return Redirect(Url.Action("Iterate", new { showNotes = "True" }));
             }
             else
@@ -2452,12 +2455,55 @@ namespace Generic.Controllers
             // at http://dev.evernote.com/documentation/cloud/chapters/ENML.php
             note.Content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                 "<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">" +
-                "<en-note>"+text+"<br/>" +
+                "<en-note><div>"+text+"</div><br/>" +
                 "</en-note>";
             // Finally, send the new note to Evernote using the createNote method
             // The new Note object that is returned will contain server-generated
             // attributes such as the new note's unique GUID.
              return GetNoteStore().createNote(authToken, note);
+        }
+        [HttpPost]
+        public ActionResult GetEvernoteText(int partnerId)
+        {
+            if (SessionHelper.EvernoteCredentials != null)
+            {
+                var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
+                if (iPartner != null && iPartner.note.HasValue)
+                {
+                    var note = GetNoteStore().getNote(SessionHelper.EvernoteCredentials.AuthToken, iPartner.note.Value.ToString(), true, false, false, false);
+                    if (note != null)
+                    {
+                        var doc = XDocument.Parse(note.Content);
+                        return Json(new { text = doc.Element(XName.Get("en-note")).ToString().Replace("<en-note>", "").Replace("</en-note>", "") });
+                    }
+                    else return Json(new { text = "none" });
+                }
+                else return Json(new { text = "none" });
+                SessionSingleton.NeedGetEvernoteText = false;
+            }
+            else
+            {
+                TempData["partnerId"] = partnerId;
+                SessionSingleton.NeedGetEvernoteText = true;
+                return AuthorizeEverNote();
+            }
+            return Json("");
+        }
+        
+        private Note AppendNote(string text, Guid noteId)
+        {
+            var store = GetNoteStore();
+            var note = store.getNote(SessionHelper.EvernoteCredentials.AuthToken, noteId.ToString(), true, false, false, false);
+            var doc = System.Xml.Linq.XDocument.Parse(note.Content);
+            var elem = doc.Element(XName.Get("en-note"));
+            elem.RemoveAll();
+            foreach (var node in XElement.Parse("<root>" + text.Replace("&nbsp;", "") + "</root>").Elements())
+            {
+                elem.Add(node);
+            } 
+            note.Content = doc.ToString();
+            store.updateNote(SessionHelper.EvernoteCredentials.AuthToken, note);
+            return note;
         }
 
         /// <summary>
@@ -2465,7 +2511,8 @@ namespace Generic.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult AddNote(string partnerName, string noteTitle, string noteText)
+        [ValidateInput(false)]
+        public ActionResult AddNote(string partnerName, string noteTitle, string noteText, string partnerId)
         {
 
             if (SessionHelper.EvernoteCredentials != null)
@@ -2473,15 +2520,27 @@ namespace Generic.Controllers
                 var authToken = SessionHelper.EvernoteCredentials.AuthToken;
 
                 //find existed notebook for partner
-                Notebook notebook = GetNoteStore().listNotebooks(authToken).FirstOrDefault(o => o.Name == partnerName.ToString());
-
+                Notebook notebook = GetNoteStore().listNotebooks(authToken).FirstOrDefault(o => o.Name == "fCustomer");
+                //var g = db.pr_getIteratePartner(int.Parse(partnerId)).FirstOrDefault();
+                var pId = int.Parse(partnerId);
+                var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == pId);
+                var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == pId);
                 if (notebook == null)
                 {
                     // create notebook for new user
                     notebook = CreateNoteBook(partnerName.ToString());
                 }
-
-                var createdNote = CreateNote(noteTitle, noteText, notebook.Guid);
+                if (iPartner.note == null)
+                {
+                    var note = CreateNote(noteTitle, noteText, notebook.Guid);
+                    iPerson.notes = true;
+                    iPartner.note = Guid.Parse(note.Guid);                   
+                    db.Entry(iPartner).State = EntityState.Modified;
+                    db.Entry(iPerson).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else 
+                    AppendNote(noteText, iPartner.note.Value);
                 SessionSingleton.NeedAddEverNote = false;
                 return Json("done");
             }
@@ -2490,6 +2549,7 @@ namespace Generic.Controllers
                 TempData["noteTitle"] = noteTitle;
                 TempData["PartnerName"] = partnerName;
                 TempData["noteText"] = noteText;
+                TempData["partnerId"] = partnerId;
                 SessionSingleton.NeedAddEverNote = true;
                 return AuthorizeEverNote();
             }
@@ -2600,25 +2660,27 @@ namespace Generic.Controllers
                         {
                             try
                             {
-
+                                int EMPLOYEE_COUNT=0, ANNUAL_REVENUE=0;
+                                int.TryParse(newPartnerItem.EMPLOYEE_COUNT,out EMPLOYEE_COUNT);
+                                int.TryParse(newPartnerItem.ANNUAL_REVENUE, out ANNUAL_REVENUE);
                                 var savedPartners = context.pr_addIteratePartner(newPartnerItem.PARTNER_INTERNAL_ID,
                                     newPartnerItem.PARTNER_NAME, newPartnerItem.PARTNER_ADDRESS_ONE,
                                     newPartnerItem.PARTNER_ADDRESS_TWO, newPartnerItem.PARTNER_CITY,
                                     newPartnerItem.PARTNER_STATE, newPartnerItem.PARTNER_ZIPCODE, newPartnerItem.PARTNER_COUNTRY,
-                                    newPartnerItem.PARTNER_DUNS, newPartnerItem.PARTNER_SAP_ID, newPartnerItem.EMPLOYEE_COUNT,
-                                    newPartnerItem.ANNUAL_REVENUE, (int)newPartnerItem.StatusValue, SessionSingleton.LoggedInUserId,
+                                    newPartnerItem.PARTNER_DUNS, newPartnerItem.PARTNER_SAP_ID, EMPLOYEE_COUNT,
+                                    ANNUAL_REVENUE, (int)newPartnerItem.StatusValue, SessionSingleton.LoggedInUserId,
                                     SessionSingleton.LoggedInUserId, DateTime.Now, true,
-                                    DateTime.Now, DateTime.Now, SessionSingleton.LoggedInUserId
+                                    DateTime.Now, DateTime.Now, SessionSingleton.LoggedInUserId,null
                                    ).FirstOrDefault();
                                 var lastContact =!string.IsNullOrEmpty(newPartnerItem.LAST_CONTACT)? ExcelInteratePartner.GetStatusId(statuses,newPartnerItem.LAST_CONTACT):1;
                                 var previosContact = !string.IsNullOrEmpty(newPartnerItem.PREVIOUS_CONTACT)?ExcelInteratePartner.GetStatusId(statuses,newPartnerItem.PREVIOUS_CONTACT):1;
                                 var nextAction = !string.IsNullOrEmpty(newPartnerItem.NEXT_ACTION)?ExcelInteratePartner.GetNextActionId(nextActions,newPartnerItem.NEXT_ACTION):1;
-
+                                DateTime LAST_CONTACT_DATE, PREVIOUS_CONTACT_DATE, NEXT_ACTION_DATE;
                                 var savedPersons = context.pr_addIteratePerson(newPartnerItem.RO_FIRST_NAME,
                                     newPartnerItem.RO_LAST_NAME, newPartnerItem.PARTNER_POC_TITLE,
                                     newPartnerItem.RO_EMAIL, newPartnerItem.PARTNER_POC_PHONE_NUMBER,
                                     newPartnerItem.PARTNER_CONTACT_FAX, true,
-                                    DateTime.Now, DateTime.Now, (int)savedPartners, lastContact, newPartnerItem.LAST_CONTACT_DATE, previosContact, newPartnerItem.PREVIOUS_CONTACT_DATE, nextAction, newPartnerItem.NEXT_ACTION_DATE, newPartnerItem.NOTES == "Y" ? true : false).FirstOrDefault();
+                                    DateTime.Now, DateTime.Now, (int)savedPartners, lastContact, DateTime.TryParse(newPartnerItem.LAST_CONTACT_DATE, out LAST_CONTACT_DATE) ? LAST_CONTACT_DATE : (DateTime?)null, previosContact, DateTime.TryParse(newPartnerItem.PREVIOUS_CONTACT_DATE, out PREVIOUS_CONTACT_DATE) ? PREVIOUS_CONTACT_DATE : (DateTime?)null, nextAction, DateTime.TryParse(newPartnerItem.NEXT_ACTION_DATE, out NEXT_ACTION_DATE) ? NEXT_ACTION_DATE : (DateTime?)null, newPartnerItem.NOTES == "Y" ? true : false).FirstOrDefault();
                             }
                             catch (Exception ex)
                             {
@@ -2651,6 +2713,21 @@ namespace Generic.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult ClearIterateData()
+        {
+            bool result = false;
+            try
+            {
+                db.pr_clearIterateAll(SessionSingleton.LoggedInUserId);
+                result = true;
+            }
+            catch
+            {
+            }
+            return Json(result);
+        }
+
         public static IEnumerable<string> GetIteratePartnerStatusList()
         {
             return new string[] { "-Select new status-", "Busy", "Successful Call - Appointment", "Successful Call - Call Back", "Do Not Call", "Hung Up", "Left Message", "No Answer", "No Help", "Not In Service", "No Message Left (Call Back)", "Transferred", "Wrong Number", "Music Box", "Other" }.ToList();
@@ -2664,9 +2741,36 @@ namespace Generic.Controllers
             {
                 //TODO : check SessionSingleton.PersonId is always 0
                // var abc = context.pr_getIteratePartnerAll(SessionSingleton.PersonId).ToList();
-                var result = db.pr_getIteratePartnerPerson(SessionSingleton.LoggedInUserId).Select(o => new IteratePartnerView() { CompanyName = o.name, Status = (int)o.status, Title = o.title, Id = o.id, FirstName = o.firstname, LastName = o.lastname, PhoneNumber = o.phone, LastContact = o.lastModified, NewContact = o.personLastModified }).ToList();
+
+                var result = db.pr_getIteratePartnerPerson3(SessionSingleton.LoggedInUserId).Select(o => new ExcelInteratePartner() { PARTNER_NAME = o.name, 
+                    ANNUAL_REVENUE = o.annualRevenue.ToString(),
+                    PARTNER_POC_TITLE = o.title,
+                    PARTNER_INTERNAL_ID = o.internalID,
+                    PARTNER_POC_FIRST_NAME = o.firstname,
+                    PARTNER_POC_LAST_NAME = o.lastname,
+                    PARTNER_POC_PHONE_NUMBER = o.phone,
+                    LAST_CONTACT = o.lastContact,
+                    PREVIOUS_CONTACT = o.previousContact, 
+                    LAST_CONTACT_DATE = o.lastContactDate.ToString(),
+                                                                                                                                      PREVIOUS_CONTACT_DATE = o.previousContactDate.ToString(),
+                    NEXT_ACTION = o.nextAction,
+                                                                                                                                      NEXT_ACTION_DATE = o.nextActionDate.ToString(),
+                    EMPLOYEE_COUNT = o.numberOfEmployees.ToString(), 
+                    NOTES = o.notes.HasValue ? (o.notes.Value ? "Y" : "N") : "N",
+                    PARTNER_CITY = o.city, PARTNER_ADDRESS_ONE = o.address1,
+                    PARTNER_ADDRESS_TWO = o.address2,
+                    PARTNER_POC_EMAIL_ADDRESS = o.email,
+                    PARTNER_COUNTRY = o.country,
+                    PARTNER_CONTACT_FAX = o.fax,
+                    PARTNER_DUNS = o.dunsnumber,
+                    PARTNER_SAP_ID = o.federalID, 
+                    PARTNER_STATE = o.state,
+                    PARTNER_ZIPCODE = o.zipcode,
+                    RO_EMAIL = o.email, 
+                    RO_FIRST_NAME=o.firstname,
+                 RO_LAST_NAME=o.lastname}).ToList();
                 var stream = new MemoryStream();
-                var serializer = new XmlSerializer(typeof(List<IteratePartnerView>));
+                var serializer = new XmlSerializer(typeof(List<ExcelInteratePartner>));
 
                 //We turn it into an XML and save it in the memory
                 serializer.Serialize(stream, result);

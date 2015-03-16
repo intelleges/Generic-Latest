@@ -186,9 +186,10 @@ namespace Generic
         public DbSet<enterpriseContactUs> enterpriseContactUs { get; set; }
         public DbSet<enterpriseLandingPagePTQ> enterpriseLandingPagePTQ { get; set; }
         public DbSet<landingPage> landingPage { get; set; }
-        public DbSet<iteratePartner> iteratePartner { get; set; }
         public DbSet<iteratePerson> iteratePerson { get; set; }
         public DbSet<iterateStatus> iterateStatus { get; set; }
+        public DbSet<iterateAction> iterateAction { get; set; }
+        public DbSet<iteratePartner> iteratePartner { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -14879,91 +14880,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonIcal", personParameter, icalParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addIteratePartner(string internalID, string name, string address1, string address2, string city, string state, string zipcode, string country, string dunsnumber, string federalID, Nullable<int> numberOfEmployees, Nullable<int> annualRevenue, Nullable<int> status, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> person)
-        {
-            var internalIDParameter = internalID != null ?
-                new ObjectParameter("internalID", internalID) :
-                new ObjectParameter("internalID", typeof(string));
-    
-            var nameParameter = name != null ?
-                new ObjectParameter("name", name) :
-                new ObjectParameter("name", typeof(string));
-    
-            var address1Parameter = address1 != null ?
-                new ObjectParameter("address1", address1) :
-                new ObjectParameter("address1", typeof(string));
-    
-            var address2Parameter = address2 != null ?
-                new ObjectParameter("address2", address2) :
-                new ObjectParameter("address2", typeof(string));
-    
-            var cityParameter = city != null ?
-                new ObjectParameter("city", city) :
-                new ObjectParameter("city", typeof(string));
-    
-            var stateParameter = state != null ?
-                new ObjectParameter("state", state) :
-                new ObjectParameter("state", typeof(string));
-    
-            var zipcodeParameter = zipcode != null ?
-                new ObjectParameter("zipcode", zipcode) :
-                new ObjectParameter("zipcode", typeof(string));
-    
-            var countryParameter = country != null ?
-                new ObjectParameter("country", country) :
-                new ObjectParameter("country", typeof(string));
-    
-            var dunsnumberParameter = dunsnumber != null ?
-                new ObjectParameter("dunsnumber", dunsnumber) :
-                new ObjectParameter("dunsnumber", typeof(string));
-    
-            var federalIDParameter = federalID != null ?
-                new ObjectParameter("federalID", federalID) :
-                new ObjectParameter("federalID", typeof(string));
-    
-            var numberOfEmployeesParameter = numberOfEmployees.HasValue ?
-                new ObjectParameter("numberOfEmployees", numberOfEmployees) :
-                new ObjectParameter("numberOfEmployees", typeof(int));
-    
-            var annualRevenueParameter = annualRevenue.HasValue ?
-                new ObjectParameter("annualRevenue", annualRevenue) :
-                new ObjectParameter("annualRevenue", typeof(int));
-    
-            var statusParameter = status.HasValue ?
-                new ObjectParameter("status", status) :
-                new ObjectParameter("status", typeof(int));
-    
-            var ownerParameter = owner.HasValue ?
-                new ObjectParameter("owner", owner) :
-                new ObjectParameter("owner", typeof(int));
-    
-            var authorParameter = author.HasValue ?
-                new ObjectParameter("author", author) :
-                new ObjectParameter("author", typeof(int));
-    
-            var dateApprovedParameter = dateApproved.HasValue ?
-                new ObjectParameter("dateApproved", dateApproved) :
-                new ObjectParameter("dateApproved", typeof(System.DateTime));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
-    
-            var dateAddedParameter = dateAdded.HasValue ?
-                new ObjectParameter("dateAdded", dateAdded) :
-                new ObjectParameter("dateAdded", typeof(System.DateTime));
-    
-            var lastModifiedParameter = lastModified.HasValue ?
-                new ObjectParameter("lastModified", lastModified) :
-                new ObjectParameter("lastModified", typeof(System.DateTime));
-    
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePartner", internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, lastModifiedParameter, personParameter);
-        }
-    
         public virtual ObjectResult<Nullable<decimal>> pr_addIteratePerson(string firstname, string lastname, string title, string email, string phone, string fax, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> iteratePartner, Nullable<int> lastContact, Nullable<System.DateTime> lastContactDate, Nullable<int> previousContact, Nullable<System.DateTime> previousContactDate, Nullable<int> nextAction, Nullable<System.DateTime> nextActionDate, Nullable<bool> notes)
         {
             var firstnameParameter = firstname != null ?
@@ -15035,113 +14951,6 @@ namespace Generic
                 new ObjectParameter("notes", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePerson", firstnameParameter, lastnameParameter, titleParameter, emailParameter, phoneParameter, faxParameter, activeParameter, dateAddedParameter, lastModifiedParameter, iteratePartnerParameter, lastContactParameter, lastContactDateParameter, previousContactParameter, previousContactDateParameter, nextActionParameter, nextActionDateParameter, notesParameter);
-        }
-    
-        public virtual ObjectResult<pr_getIteratePartner_Result> pr_getIteratePartner(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartner_Result>("pr_getIteratePartner", idParameter);
-        }
-    
-        public virtual ObjectResult<pr_getIteratePartnerAll_Result> pr_getIteratePartnerAll(Nullable<int> person)
-        {
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerAll_Result>("pr_getIteratePartnerAll", personParameter);
-        }
-    
-        public virtual int pr_modifyIteratePartner(Nullable<int> id, string internalID, string name, string address1, string address2, string city, string state, string zipcode, string country, string dunsnumber, string federalID, Nullable<int> numberOfEmployees, Nullable<int> annualRevenue, Nullable<int> status, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> person)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var internalIDParameter = internalID != null ?
-                new ObjectParameter("internalID", internalID) :
-                new ObjectParameter("internalID", typeof(string));
-    
-            var nameParameter = name != null ?
-                new ObjectParameter("name", name) :
-                new ObjectParameter("name", typeof(string));
-    
-            var address1Parameter = address1 != null ?
-                new ObjectParameter("address1", address1) :
-                new ObjectParameter("address1", typeof(string));
-    
-            var address2Parameter = address2 != null ?
-                new ObjectParameter("address2", address2) :
-                new ObjectParameter("address2", typeof(string));
-    
-            var cityParameter = city != null ?
-                new ObjectParameter("city", city) :
-                new ObjectParameter("city", typeof(string));
-    
-            var stateParameter = state != null ?
-                new ObjectParameter("state", state) :
-                new ObjectParameter("state", typeof(string));
-    
-            var zipcodeParameter = zipcode != null ?
-                new ObjectParameter("zipcode", zipcode) :
-                new ObjectParameter("zipcode", typeof(string));
-    
-            var countryParameter = country != null ?
-                new ObjectParameter("country", country) :
-                new ObjectParameter("country", typeof(string));
-    
-            var dunsnumberParameter = dunsnumber != null ?
-                new ObjectParameter("dunsnumber", dunsnumber) :
-                new ObjectParameter("dunsnumber", typeof(string));
-    
-            var federalIDParameter = federalID != null ?
-                new ObjectParameter("federalID", federalID) :
-                new ObjectParameter("federalID", typeof(string));
-    
-            var numberOfEmployeesParameter = numberOfEmployees.HasValue ?
-                new ObjectParameter("numberOfEmployees", numberOfEmployees) :
-                new ObjectParameter("numberOfEmployees", typeof(int));
-    
-            var annualRevenueParameter = annualRevenue.HasValue ?
-                new ObjectParameter("annualRevenue", annualRevenue) :
-                new ObjectParameter("annualRevenue", typeof(int));
-    
-            var statusParameter = status.HasValue ?
-                new ObjectParameter("status", status) :
-                new ObjectParameter("status", typeof(int));
-    
-            var ownerParameter = owner.HasValue ?
-                new ObjectParameter("owner", owner) :
-                new ObjectParameter("owner", typeof(int));
-    
-            var authorParameter = author.HasValue ?
-                new ObjectParameter("author", author) :
-                new ObjectParameter("author", typeof(int));
-    
-            var dateApprovedParameter = dateApproved.HasValue ?
-                new ObjectParameter("dateApproved", dateApproved) :
-                new ObjectParameter("dateApproved", typeof(System.DateTime));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
-    
-            var dateAddedParameter = dateAdded.HasValue ?
-                new ObjectParameter("dateAdded", dateAdded) :
-                new ObjectParameter("dateAdded", typeof(System.DateTime));
-    
-            var lastModifiedParameter = lastModified.HasValue ?
-                new ObjectParameter("lastModified", lastModified) :
-                new ObjectParameter("lastModified", typeof(System.DateTime));
-    
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePartner", idParameter, internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, lastModifiedParameter, personParameter);
         }
     
         public virtual int pr_modifyIteratePerson(Nullable<int> id, string firstname, string lastname, string title, string email, string phone, string fax, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> iteratePartner, Nullable<int> lastContact, Nullable<System.DateTime> lastContactDate, Nullable<int> previousContact, Nullable<System.DateTime> previousContactDate, Nullable<int> nextAction, Nullable<System.DateTime> nextActionDate, Nullable<bool> notes)
@@ -15219,15 +15028,6 @@ namespace Generic
                 new ObjectParameter("notes", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePerson", idParameter, firstnameParameter, lastnameParameter, titleParameter, emailParameter, phoneParameter, faxParameter, activeParameter, dateAddedParameter, lastModifiedParameter, iteratePartnerParameter, lastContactParameter, lastContactDateParameter, previousContactParameter, previousContactDateParameter, nextActionParameter, nextActionDateParameter, notesParameter);
-        }
-    
-        public virtual int pr_removeIteratePartner(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeIteratePartner", idParameter);
         }
     
         public virtual int pr_removeIteratePerson(Nullable<int> id)
@@ -15473,15 +15273,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePersonAll_Result>("pr_getIteratePersonAll");
         }
     
-        public virtual ObjectResult<pr_getIteratePartnerPerson_Result> pr_getIteratePartnerPerson(Nullable<int> person)
-        {
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPerson_Result>("pr_getIteratePartnerPerson", personParameter);
-        }
-    
         public virtual ObjectResult<pr_getIteratePersonNextAction_Result> pr_getIteratePersonNextAction()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePersonNextAction_Result>("pr_getIteratePersonNextAction");
@@ -15492,6 +15283,194 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePersonStatus_Result>("pr_getIteratePersonStatus");
         }
     
+        public virtual int pr_clearIterateAll(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_clearIterateAll", personParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addIterateAction(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIterateAction", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addIteratePartner(string internalID, string name, string address1, string address2, string city, string state, string zipcode, string country, string dunsnumber, string federalID, Nullable<int> numberOfEmployees, Nullable<int> annualRevenue, Nullable<int> status, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> person, Nullable<System.Guid> note)
+        {
+            var internalIDParameter = internalID != null ?
+                new ObjectParameter("internalID", internalID) :
+                new ObjectParameter("internalID", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var address1Parameter = address1 != null ?
+                new ObjectParameter("address1", address1) :
+                new ObjectParameter("address1", typeof(string));
+    
+            var address2Parameter = address2 != null ?
+                new ObjectParameter("address2", address2) :
+                new ObjectParameter("address2", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("city", city) :
+                new ObjectParameter("city", typeof(string));
+    
+            var stateParameter = state != null ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(string));
+    
+            var zipcodeParameter = zipcode != null ?
+                new ObjectParameter("zipcode", zipcode) :
+                new ObjectParameter("zipcode", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("country", country) :
+                new ObjectParameter("country", typeof(string));
+    
+            var dunsnumberParameter = dunsnumber != null ?
+                new ObjectParameter("dunsnumber", dunsnumber) :
+                new ObjectParameter("dunsnumber", typeof(string));
+    
+            var federalIDParameter = federalID != null ?
+                new ObjectParameter("federalID", federalID) :
+                new ObjectParameter("federalID", typeof(string));
+    
+            var numberOfEmployeesParameter = numberOfEmployees.HasValue ?
+                new ObjectParameter("numberOfEmployees", numberOfEmployees) :
+                new ObjectParameter("numberOfEmployees", typeof(int));
+    
+            var annualRevenueParameter = annualRevenue.HasValue ?
+                new ObjectParameter("annualRevenue", annualRevenue) :
+                new ObjectParameter("annualRevenue", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var ownerParameter = owner.HasValue ?
+                new ObjectParameter("owner", owner) :
+                new ObjectParameter("owner", typeof(int));
+    
+            var authorParameter = author.HasValue ?
+                new ObjectParameter("author", author) :
+                new ObjectParameter("author", typeof(int));
+    
+            var dateApprovedParameter = dateApproved.HasValue ?
+                new ObjectParameter("dateApproved", dateApproved) :
+                new ObjectParameter("dateApproved", typeof(System.DateTime));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var dateAddedParameter = dateAdded.HasValue ?
+                new ObjectParameter("dateAdded", dateAdded) :
+                new ObjectParameter("dateAdded", typeof(System.DateTime));
+    
+            var lastModifiedParameter = lastModified.HasValue ?
+                new ObjectParameter("lastModified", lastModified) :
+                new ObjectParameter("lastModified", typeof(System.DateTime));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var noteParameter = note.HasValue ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePartner", internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, lastModifiedParameter, personParameter, noteParameter);
+        }
+    
+        public virtual int pr_archiveIterateAction(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveIterateAction", idParameter);
+        }
+    
+        public virtual int pr_archiveIteratePartner(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveIteratePartner", idParameter);
+        }
+    
+        public virtual int pr_archiveIteratePerson(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveIteratePerson", idParameter);
+        }
+    
+        public virtual int pr_archiveIteratestatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveIteratestatus", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIterateAction_Result> pr_getIterateAction(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIterateAction_Result>("pr_getIterateAction", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIterateActionAll_Result> pr_getIterateActionAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIterateActionAll_Result>("pr_getIterateActionAll");
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartner_Result> pr_getIteratePartner(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartner_Result>("pr_getIteratePartner", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerAll_Result> pr_getIteratePartnerAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerAll_Result>("pr_getIteratePartnerAll");
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerPerson_Result> pr_getIteratePartnerPerson(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPerson_Result>("pr_getIteratePartnerPerson", personParameter);
+        }
+    
         public virtual ObjectResult<pr_getIteratePartnerPerson2_Result> pr_getIteratePartnerPerson2(Nullable<int> person)
         {
             var personParameter = person.HasValue ?
@@ -15499,6 +15478,183 @@ namespace Generic
                 new ObjectParameter("person", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPerson2_Result>("pr_getIteratePartnerPerson2", personParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerPerson3_Result> pr_getIteratePartnerPerson3(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPerson3_Result>("pr_getIteratePartnerPerson3", personParameter);
+        }
+    
+        public virtual int pr_modifyIterateAction(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIterateAction", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyIteratePartner(Nullable<int> id, string internalID, string name, string address1, string address2, string city, string state, string zipcode, string country, string dunsnumber, string federalID, Nullable<int> numberOfEmployees, Nullable<int> annualRevenue, Nullable<int> status, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> person, Nullable<System.Guid> note)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var internalIDParameter = internalID != null ?
+                new ObjectParameter("internalID", internalID) :
+                new ObjectParameter("internalID", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var address1Parameter = address1 != null ?
+                new ObjectParameter("address1", address1) :
+                new ObjectParameter("address1", typeof(string));
+    
+            var address2Parameter = address2 != null ?
+                new ObjectParameter("address2", address2) :
+                new ObjectParameter("address2", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("city", city) :
+                new ObjectParameter("city", typeof(string));
+    
+            var stateParameter = state != null ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(string));
+    
+            var zipcodeParameter = zipcode != null ?
+                new ObjectParameter("zipcode", zipcode) :
+                new ObjectParameter("zipcode", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("country", country) :
+                new ObjectParameter("country", typeof(string));
+    
+            var dunsnumberParameter = dunsnumber != null ?
+                new ObjectParameter("dunsnumber", dunsnumber) :
+                new ObjectParameter("dunsnumber", typeof(string));
+    
+            var federalIDParameter = federalID != null ?
+                new ObjectParameter("federalID", federalID) :
+                new ObjectParameter("federalID", typeof(string));
+    
+            var numberOfEmployeesParameter = numberOfEmployees.HasValue ?
+                new ObjectParameter("numberOfEmployees", numberOfEmployees) :
+                new ObjectParameter("numberOfEmployees", typeof(int));
+    
+            var annualRevenueParameter = annualRevenue.HasValue ?
+                new ObjectParameter("annualRevenue", annualRevenue) :
+                new ObjectParameter("annualRevenue", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var ownerParameter = owner.HasValue ?
+                new ObjectParameter("owner", owner) :
+                new ObjectParameter("owner", typeof(int));
+    
+            var authorParameter = author.HasValue ?
+                new ObjectParameter("author", author) :
+                new ObjectParameter("author", typeof(int));
+    
+            var dateApprovedParameter = dateApproved.HasValue ?
+                new ObjectParameter("dateApproved", dateApproved) :
+                new ObjectParameter("dateApproved", typeof(System.DateTime));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var dateAddedParameter = dateAdded.HasValue ?
+                new ObjectParameter("dateAdded", dateAdded) :
+                new ObjectParameter("dateAdded", typeof(System.DateTime));
+    
+            var lastModifiedParameter = lastModified.HasValue ?
+                new ObjectParameter("lastModified", lastModified) :
+                new ObjectParameter("lastModified", typeof(System.DateTime));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var noteParameter = note.HasValue ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePartner", idParameter, internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, lastModifiedParameter, personParameter, noteParameter);
+        }
+    
+        public virtual int pr_removeIterateAction(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeIterateAction", idParameter);
+        }
+    
+        public virtual int pr_removeIteratePartner(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeIteratePartner", idParameter);
+        }
+    
+        public virtual int pr_unArchiveIterateAction(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveIterateAction", idParameter);
+        }
+    
+        public virtual int pr_unArchiveIteratePartner(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveIteratePartner", idParameter);
+        }
+    
+        public virtual int pr_unArchiveIteratePerson(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveIteratePerson", idParameter);
+        }
+    
+        public virtual int pr_unArchiveIteratestatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveIteratestatus", idParameter);
         }
     }
 }

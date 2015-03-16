@@ -264,7 +264,18 @@
         });
 
         $("#btnClear").click(function (e) {
-            dataClear();
+            alertify.confirm("Please confirm you wish you clear all Iterate records", function (result) {
+                if (result) {
+                    $.post("ClearIterateData").done(function (postResult) {
+                        alertify.alert("All iterates removed");
+                        $("#IteratePartners").data("tGrid").ajaxRequest();
+                    });
+                } 
+            });
+            
+        });
+        $("#btnDownload").click(function (e) {
+            window.location.href = "ExportPartnerExcel";
         });
 
         function dataClear() {
@@ -311,12 +322,14 @@
 <script>
     // For todays date;
     Date.prototype.today = function () {
-        return ((this.getDate() < 10) ? "0" : "") + this.getDate() + "/" + (((this.getMonth() + 1) < 10) ? "0" : "") + (this.getMonth() + 1) + "/" + this.getFullYear();
+        return this.toLocaleDateString("en-US");
+       // return ((this.getDate() < 10) ? "0" : "") + this.getDate() + "/" + (((this.getMonth() + 1) < 10) ? "0" : "") + (this.getMonth() + 1) + "/" + this.getFullYear();
     }
 
     // For the time now
     Date.prototype.timeNow = function () {
-        return ((this.getHours() < 10) ? "0" : "") + this.getHours() + ":" + ((this.getMinutes() < 10) ? "0" : "") + this.getMinutes() + ":" + ((this.getSeconds() < 10) ? "0" : "") + this.getSeconds();
+        return this.toLocaleTimeString("en-US");
+       // return ((this.getHours() < 10) ? "0" : "") + this.getHours() + ":" + ((this.getMinutes() < 10) ? "0" : "") + this.getMinutes() + ":" + ((this.getSeconds() < 10) ? "0" : "") + this.getSeconds();
     }
     var iterate = (function () {
         return {
@@ -360,37 +373,58 @@
         $("#group").val("");
         $("#DueDate").val("");
     }
-    function AddNote(title, text, partner) {
-        $.ajax({
-            type: "POST",
-            dataType: 'json',
-            url: "AddNote",
-            async:false,
-            data: {
-                partnerName: partner,
-                noteTitle: title,
-                noteText: text
-            },
-            success: function (result) {                
-                if (result !== "done") {
-                    window.location.href = result;
-                }
-                else {
-                    $("#evernotesDiv").jstree(true).refresh();
-                    //var evernotestree = $('#evernotesTree').data('tTreeView');
-                    //refresh data
-                    //evernotestree.ajaxRequest();
-                    showNotesPanel();
-                }
-                //                        HidePartnerFindLoader();
+    function AddNote(title, text, partner, partnerId) {
+        $.post("AddNote", {
+            partnerName: partner,
+            noteTitle: title,
+            noteText: text,
+            partnerId: partnerId
+        }).done(function (result) {
+            if (result !== "done") {
+                window.location.href = result;
+            }
+            else {
+                $("#addNoteDialog").modal("hide");
+                $("#evernotesDiv").jstree(true).refresh();
+                //var evernotestree = $('#evernotesTree').data('tTreeView');
+                //refresh data
+                $("#IteratePartners").data("tGrid").ajaxRequest();
+                showNotesPanel();
             }
         });
+        //$.ajax({
+        //    type: "POST",
+        //    dataType: 'json',
+        //    url: "AddNote",
+        //    async:true,
+        //    data: {
+        //        partnerName: partner,
+        //        noteTitle: title,
+        //        noteText: text,
+        //        partnerId:partnerId
+        //    },
+        //    success: function (result) {                
+                
+        //        //                        HidePartnerFindLoader();
+        //    }
+        //});
     }
     function showNotesPanel() {
         var splitter = $("#Splitter2").data("tSplitter");
         var pane = $("#Splitter2 > .t-pane")[2]; // the 3d pane
         splitter.expand(pane);
     }
+    //The magic code to add show/hide custom event triggers
+    //(function ($) {
+    //    $.each(['show', 'hide'], function (i, ev) {
+    //        var el = $.fn[ev];
+    //        $.fn[ev] = function () {
+    //            this.trigger(ev);
+    //            return el.apply(this, arguments);
+    //        };
+    //    });
+    //})(jQuery);
+    
     function Grid_onDataBound(e) {        
         $(".display_menu ul li a").click(function () {
            // debugger;
@@ -401,17 +435,40 @@
                 //data can be used for whatever it needed
                 var partnerName = rowData.name;
                 var partnerId = rowData.ID;
+                iterate.selectedPartnerId = partnerId;
                 iterate.selectedPartner = partnerName;
-                var date = new Date();
-                $("#noteText").val(date.today() + "@@" + date.timeNow());
-                $("#noteTitle").val(partnerName);
-                $("#noteTitle").attr("disabled", true);
-                $("#addNoteDialog").show("show", function () {
-                    $("#noteText").focus();
+                
+                $.post("GetEvernoteText", { partnerId: iterate.selectedPartnerId }).done(function (e) {
+                    if (e.text) {
+                        var date = new Date();
+                        if (e.text !== "none") {                          
+                            
+                            CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "---</div>" + e.text, {
+                                callback: function () {
+                                    $("#noteTitle").val(partnerName);
+                                    $("#noteTitle").attr("disabled", true);
+                                    $("#addNoteDialog").modal("toggle");
+                                }
+                            });
+                        } else {
+                            CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "---</div>", {
+                                callback: function () {
+                                    $("#noteTitle").val(partnerName);
+                                    $("#noteTitle").attr("disabled", true);
+                                    $("#addNoteDialog").modal("toggle");
+                                }
+                            });
+                        }
+                    } else {
+                        window.location.href = e;
+                    }
+                   
                 });
+                
             }
         });
     }
+   
     @section onSplitter2Load{
     if ('@ViewBag.showNotes' === "True") {
         showNotesPanel();
@@ -421,14 +478,16 @@
   
     //#region First declaration
     $(document).ready(function () {
-        
+        $("#btnLoad").click(function () {
+            //$(".t-button.t-upload-button").click();
+            $("#excelFile").click();
+        });
         $("#addEverNote").click(function () {
-
+            //AddNote($("#noteTitle").val(), $("#noteText").val(), iterate.selectedPartner, iterate.selectedPartnerId);
         });
         $("#addNoteDialog").submit(function (e) {
             e.preventDefault();
-            AddNote($("#noteTitle").val(), $("#noteText").val(), iterate.selectedPartner);
-            $("#addNoteDialog").hide();
+            AddNote($("#noteTitle").val(), $("#noteText").val(), iterate.selectedPartner, iterate.selectedPartnerId);            
         });
 
 
@@ -668,7 +727,7 @@
             //var selectedItem = partnerGrid.$rows().index(e.row)
        // });
 
-        //seacrhPartner(true);
+        //seacrhPartner(true);        
     });
 </script>
 <!--#region collapse-->
@@ -885,9 +944,14 @@
                             <label class="control-label" for="noteText">Text</label>
                             <textarea id="noteText" name="noteText" class="form-control" placeholder="Please Enter Note's' Title" data-val-required="*" data-val="true"></textarea>
                             <span data-valmsg-replace="true" data-valmsg-for="noteText" class="field-validation-valid help-inline" /> 
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                CKEDITOR.replace('noteText');
+            </script>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary" name="GetPassword">Submit</button>
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -1077,12 +1141,14 @@
                     @* <div class="threecol">
                         </div>*@
                     <div class="row pull-right" style="margin-top:15px">
+                        
+                        <input type="button" value="Upload" class="btn_b " id="btnLoad"/>
+                        <input type="button" value="Download" class="btn_b " id="btnDownload" />
                         <input type="button" value="Clear" class="btn_b " id="btnClear" />
-                        <input type="submit" value="Load" class="btn_b " />
-                        <input type="submit" value="Note" class="btn_b " />
-                        <input type="submit" value="Remind" class="btn_b " />
-                        <input type="submit" value="Reset" class="btn_b " />
-                        <input type="submit" value="Save" class="btn_b " />
+                        @*<input type="submit" value="Note" class="btn_b " />
+                        <input type="submit" value="Remind" class="btn_b " />*@
+                        <input type="button" value="Reset" class="btn_b " />
+                        <input type="button" value="Save" class="btn_b " />
                         <input type="button" value="Send" class="btn_b " />
 
 
@@ -1159,7 +1225,7 @@
                                             .Name("excelFile")
                                             .Multiple(false)
                                             .Async(a => a.Save("UploadPartnerExcelData", "Partner")
-                                                .AutoUpload(false))
+                                                .AutoUpload(true))
                                             .ClientEvents(e => e.OnError("onError")
                                                                                 .OnSuccess("onSuccess")).HtmlAttributes(new { style = "float:left;font-size:12px;" })
                             )
@@ -1187,8 +1253,9 @@
             }
         }
     }
-    function onSuccess(e) {
+    function onSuccess(e) {       
         alertify.alert(e.response.message);
+        $("#IteratePartners").data("tGrid").ajaxRequest();
         //$("#topCallapsePanel").html("")
     }
     function onError(e) {
@@ -1252,17 +1319,17 @@
     <a href='#' id='Company<#=ID#>' class='menu_block'><#=name#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
-            <li><a href='#' onclick='TwilioCall(<#=ID#>);'>Call</a></li>
+            <li><a href='#' onclick='TwilioCall(<#=ID#>);'>Call/Next Call</a></li>
             <li><a href='#'>Email</a></li>
             <li><a href='#'>Meet</a></li>
             <li><a href='#'>Update</a></li>
             <li><a href='#'>Remove</a></li>
 <li><a href='#'>Nurture</a></li>
-            <li><a href='#' data-toggle='modal' data-target='#addNoteDialog'>Note</a></li>
+            <li><a href='#'>Note</a></li>
         </ul>
     </div>
-").Width(200);
-        columns.Bound(o => o.firstname).Title("First name").Width(100);
+").Width(230);
+        columns.Bound(o => o.firstname).Title("First name").Width(80);
         columns.Bound(o => o.lastname).Title("Last name").Width(100);
         columns.Bound(o => o.title).Title("Title").Width(100);
         columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
@@ -1271,9 +1338,9 @@
         columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(100);
         columns.Bound(o => o.previousContact).Title("Previous Contact").Width(100);
         columns.Bound(o => o.previousContactDate).Title("Previous Contact Date").Width(100);
-        columns.Bound(o => o.nextAction).Title("Next Action").Width(100);
-        columns.Bound(o => o.nextActionDate).Title("Next Action Date").Width(100);
-        columns.Bound(o => o.notes).Title("Notes").Width(100);
+        columns.Bound(o => o.nextAction).Title("Next Action").Width(120);
+        columns.Bound(o => o.nextActionDate).Title("Next Action Date").Width(120);
+        columns.Bound(o => o.notes).Title("Notes").Width(50);
         ////columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
         ////columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
             }
@@ -1393,5 +1460,6 @@
 
 @section header{
     @System.Web.Optimization.Styles.Render("~/Content/jstree")
-@System.Web.Optimization.Scripts.Render("~/bundles/jstree")    
+@System.Web.Optimization.Scripts.Render("~/bundles/jstree") 
+    <script src="//cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>   
 }

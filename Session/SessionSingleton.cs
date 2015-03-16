@@ -208,5 +208,17 @@ namespace Generic.SessionClass
                 System.Web.HttpContext.Current.Session["AccessSecretToken"] = value;
             }
         }
+
+        public static bool NeedGetEvernoteText
+        {
+            get
+            {
+                return (System.Web.HttpContext.Current.Session["NeedGetEvernoteText"] != null) ? (bool)System.Web.HttpContext.Current.Session["NeedGetEvernoteText"] : false;
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["NeedGetEvernoteText"] = value;
+            }
+        }
     }
 }

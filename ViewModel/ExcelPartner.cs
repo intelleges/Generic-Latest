@@ -48,7 +48,7 @@ namespace Generic.ViewModel
        Successful_Call_Appointment=2, //Successful Call - Appointment
         Not_In_Service=9,//Not In Service
         Other=14,//Other
-        Transferred=11,//Transferred
+        Transferred=11,//Transferredme to you wrote this 
         Wrong_Number=12//Wrong Number
     };
 
@@ -112,14 +112,14 @@ namespace Generic.ViewModel
         public string DUE_DATE { get; set; }
         public string CURRENT_STATUS { get; set; }
         public string NEXT_ACTION { get; set; }
-        public int ANNUAL_REVENUE { get; set; }
-        public int EMPLOYEE_COUNT { get; set; }
+        public string ANNUAL_REVENUE { get; set; }
+        public string EMPLOYEE_COUNT { get; set; }
 
         public string LAST_CONTACT { get; set; }
-        public DateTime LAST_CONTACT_DATE { get; set; }
+        public string LAST_CONTACT_DATE { get; set; }
         public string PREVIOUS_CONTACT { get; set; }
-        public DateTime PREVIOUS_CONTACT_DATE { get; set; }       
-        public DateTime NEXT_ACTION_DATE { get; set; }
+        public string PREVIOUS_CONTACT_DATE { get; set; }       
+        public string NEXT_ACTION_DATE { get; set; }
         public string NOTES { get; set; }
         #endregion
 
