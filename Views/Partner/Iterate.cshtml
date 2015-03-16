@@ -1319,7 +1319,7 @@
     <a href='#' id='Company<#=ID#>' class='menu_block'><#=name#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
-            <li><a href='#' onclick='TwilioCall(<#=ID#>);'>Call/Next Call</a></li>
+          <li><a href='#' onclick='TwilioCall(<#=ID#>);'>Call/Next Call</a></li>
             <li><a href='#'>Email</a></li>
             <li><a href='#'>Meet</a></li>
             <li><a href='#'>Update</a></li>
@@ -1437,9 +1437,9 @@
             });
         });
 
+        //code commeted due to update.
 
-
-        function TwilioCall(Id) {
+        @*function TwilioCall(Id) {
             alert(Id);
             //var ID = $('#protocol').val();
             var ID = { TID: Id };
@@ -1454,7 +1454,29 @@
                     alert('Error');
                 }
             });
+        }*@
+
+        //Rewritten update.
+        function TwilioCall(Id) {
+            var url = '@Url.Action("CallPartnerNow", "Partner")'
+            jQuery.ajax({
+                type: "post",
+                url: url,
+                data: JSON.stringify({ "id": $('#ID').val(), "phone": $('#PhoneNumber').text() }), //pass according to needs.
+                cache: false,
+                async: true,
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (result) {
+                    location.reload();
+                },
+                error: function (header, status, e) {
+                    location.reload();
+
+                }
+            });
         }
+
     </script>
 }
 

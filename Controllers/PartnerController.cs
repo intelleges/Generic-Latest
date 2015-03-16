@@ -44,6 +44,11 @@ using Telerik.Web.Mvc.UI;
 using jsTree3.Models;
 using System.Xml.Linq;
 
+#region Twilio References
+using Twilio;
+using Twilio.Mvc;
+#endregion
+
 namespace Generic.Controllers
 {
     [Authorize]
@@ -2781,7 +2786,7 @@ namespace Generic.Controllers
             }
         }
 
-
+        //code done earlier b4 rewriting
         public ActionResult UpdateTwilioCallStatus(int TID)
         {
             //var touchpoint = db.pr_getTouchpointByProtocol(protocolId).Where(x => x.active == 1).Select(x => new { x.id, x.title }).ToList();
@@ -2793,6 +2798,41 @@ namespace Generic.Controllers
             }
             ViewBag.touchpoints = touchpoint;
             return Json(new { Data = touchpoint }, JsonRequestBehavior.AllowGet);
+        }
+
+       
+
+        [HttpPost]
+        public ActionResult CallPartnerNow()
+        {
+
+            string accountSid = ConfigurationManager.AppSettings["accountSidTwilio"].ToString(); //account sid
+            string authToken = ConfigurationManager.AppSettings["authTokenTwilio"].ToString(); //auth token
+            string StoreSid = "";
+            string phoneNumberFrom = "+19178180225";// dialer's phone and pass according to needs.
+            string phoneNumberTo = "+19178488088"; //Recipient phone as phone.pass from above
+            var client = new TwilioRestClient(accountSid, authToken);
+            var options = new CallOptions();
+            options.To = phoneNumberTo;
+            options.From = phoneNumberFrom;
+            options.Url = ConfigurationManager.AppSettings["Twilio.URL"].ToString(); //url for twilio
+            options.Method = "GET";
+            options.FallbackMethod = "GET";
+            options.StatusCallbackMethod = "GET";
+            options.Record = true;
+            var call = client.InitiateOutboundCall(options);
+
+            if (call.RestException == null)
+            {
+                StoreSid = call.Sid;
+            }
+            else
+            {
+                Response.Write(string.Format("Error: {0}", call.RestException.Message));
+                StoreSid = "-";
+            }
+
+            return View();
         }
 
     }
