@@ -433,11 +433,9 @@
                 var partnerGrid = $("#IteratePartners").data("tGrid");
                 var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
                 //data can be used for whatever it needed
-                var partnerName = rowData.name;
-                var partnerId = rowData.ID;
-                iterate.selectedPartnerId = partnerId;
-                iterate.selectedPartner = partnerName;
-                showNoteEditor(iterate.selectedPartnerId, partnerName);               
+                iterate.selectedPartnerId = rowData.id;
+                iterate.selectedPartner = rowData.name;
+                showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);
                 
             }
         });
