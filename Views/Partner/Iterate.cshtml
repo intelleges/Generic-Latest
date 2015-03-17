@@ -349,22 +349,22 @@
 
         //TODO : update next code
         $("#name").val(selectedItem.name);
-        $("#internalID").val("");
-        $("#address1").val("");
-        $("#address2").val("");
-        $("#city").val("");
-        $("#state").val("0");
+        $("#internalID").val(selectedItem.internalID);
+        $("#address1").val(selectedItem.address1);
+        $("#address2").val(selectedItem.address2);
+        $("#city").val(selectedItem.city);
+        $("#state").val(selectedItem.state);
         $("#province").val("");
-        $("#zipcode").val("");
-        $("#country").val("0");
+        $("#zipcode").val(selectedItem.zipcode);
+        $("#country").text(selectedItem.country);
         $("#phone").val(selectedItem.phone);
-        $("#fax").val("");
+        $("#fax").val(selectedItem.fax);
         $("#firstName").val(selectedItem.firstname);
         $("#lastName").val(selectedItem.lastname);
         $("#title").val(selectedItem.title);
-        $("#email").val("");
-        $("#dunsNumber").val("");
-        $("#federalID").val("");
+        $("#email").val(selectedItem.email);
+        $("#dunsNumber").val(selectedItem.dunsnumber);
+        $("#federalID").val(selectedItem.federalID);
         $("#owner").val("");
         $("#author").val("");
         $("#protocol").val("");
@@ -1109,7 +1109,32 @@
 
 
                     </div>
+                    @*<div class="row bottom-buffer">
+                        <div class="editor-label">
+                            @Html.Label("Next Action")
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("nextaction", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                           
+                            <span class="field-validation-valid" data-valmsg-for="touchpoint" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="editor-label">
+                            @Html.Label("Next Action Date")
+                        </div>
+                        <div class="editor-field" style="width:25%">
+                            @Html.Telerik().DateTimePickerFor(model => model.dateApproved).HtmlAttributes(new { style="width:100%"})                    
 
+                            <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
+                           
+                        </div>
+                        <div class="editor-label" style="margin-left: 0.5%;">
+                            @Html.Label("Partner Status")
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("partnerstatus", null, String.Empty, new { @class = "ddlClass", @style = "margin-top: 3%;", @data_val = "true", @data_val_required = " " })
+                            <span class="field-validation-valid" data-valmsg-for="group" data-valmsg-replace="true"></span> 
+                        </div>
+                    </div>*@
                     <div class="row bottom-buffer">
                         <div class="editor-label">
                             @Html.Label("Touch Point")
@@ -1317,12 +1342,12 @@
     @{
         var counter = 1;
     }
-    @Html.Telerik().Grid(new List<Generic.pr_getIteratePartnerPerson2_Result>()).Name("IteratePartners").DataBinding(binding=>binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o=>o.Enabled(true)).DataKeys(o=>o.Add(p=>p.ID)).Columns(columns=>{
+    @Html.Telerik().Grid(new List<Generic.pr_getIteratePartnerPerson3_Result>()).Name("IteratePartners").DataBinding(binding=>binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o=>o.Enabled(true)).DataKeys(o=>o.Add(p=>p.id)).Columns(columns=>{
         columns.Bound(o => o.name).Title("Company name").ClientTemplate(@"
-    <a href='#' id='Company<#=ID#>' class='menu_block'><#=name#></a>
+    <a href='#' id='Company<#=id#>' class='menu_block'><#=name#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
-          <li><a href='#' onclick='TwilioCall(<#=ID#>);'>Call/Next Call</a></li>
+          <li><a href='#' onclick='TwilioCall(<#=id#>);'>Call/Next Call</a></li>
             <li><a href='#'>Email</a></li>
             <li><a href='#'>Meet</a></li>
             <li><a href='#'>Update</a></li>
@@ -1409,6 +1434,7 @@
                 //after redraw bind dblclick
                 $("#evernotesDiv").delegate("a", "dblclick", function (e) {
                     //if nodes type=== "note" then show note
+                    e.preventDefault();
                     if ($("#evernotesDiv").data("jstree").get_type($(this).parent()) === "note") {
                         $.post("GetIteratePartnerByNote", { noteId: $(this).parent().attr("id") }).done(function (result) {
                             if (result.finded) {
@@ -1457,25 +1483,7 @@
            
             
         });
-
-        //code commeted due to update.
-
-        @*function TwilioCall(Id) {
-            alert(Id);
-            //var ID = $('#protocol').val();
-            var ID = { TID: Id };
-            $.ajax({
-                url: "@Url.Content("~/Partner/UpdateTwilioCallStatus")",
-                type: "post",
-                data: ID,
-                success: function (data) {
-                    alert('Sucess');
-                },
-                error: function (data) {
-                    alert('Error');
-                }
-            });
-        }*@
+        
 
         //Rewritten update.
         function TwilioCall(Id) {

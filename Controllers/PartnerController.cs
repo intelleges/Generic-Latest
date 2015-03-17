@@ -2122,13 +2122,15 @@ namespace Generic.Controllers
 
         public virtual ActionResult Iterate(bool? showNotes)
         {
-            ViewBag.state = new SelectList(db.state, "stateCode", "name");
-            ViewBag.country = new SelectList(db.country, "id", "name");
+            ViewBag.state = new SelectList(db.state.ToList(), "stateCode", "name");
+            ViewBag.country = new SelectList(db.country.ToList(), "id", "name");
             // db.pr_getTouchpointAllByEnterprise(SessionSingleton.EnterPriseId).FirstOrDefault().
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "title");
 
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
+            ViewBag.nextaction = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
+            ViewBag.partnerstatus = new SelectList(db.pr_getIteratePartnerStatusAll().ToList(), "id", "description");
 
             //Scheduler Initializeer
             var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
@@ -2718,8 +2720,8 @@ namespace Generic.Controllers
         {
             try
             {
-                var result = db.pr_getIteratePartnerPerson2(SessionSingleton.LoggedInUserId).ToList();
-                
+                var result = db.pr_getIteratePartnerPerson3(SessionSingleton.LoggedInUserId).ToList();
+               
                 return Json(new GridModel(result), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

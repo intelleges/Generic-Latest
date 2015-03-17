@@ -15656,5 +15656,40 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveIteratestatus", idParameter);
         }
+    
+        public virtual ObjectResult<pr_getIteratePartnerStatus_Result> pr_getIteratePartnerStatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerStatus_Result>("pr_getIteratePartnerStatus", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerStatusAll_Result> pr_getIteratePartnerStatusAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerStatusAll_Result>("pr_getIteratePartnerStatusAll");
+        }
+    
+        public virtual int pr_modifyIteratePartnerStatus(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePartnerStatus", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
     }
 }
