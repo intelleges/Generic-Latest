@@ -101,10 +101,11 @@
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Evernote">
       <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.7\lib\net40\Evernote.dll</HintPath>
@@ -2385,6 +2386,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Hs3Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Hs3Model.Context.cs</LastGenOutput>
+      <DependentUpon>Hs3Model.edmx</DependentUpon>
+    </Content>
+    <Content Include="Hs3Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Hs3Model.cs</LastGenOutput>
+      <DependentUpon>Hs3Model.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -3617,18 +3628,8 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Hs3Model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Hs3Model.edmx</DependentUpon>
-      <LastGenOutput>Hs3Model.Context.cs</LastGenOutput>
-    </Content>
     <Content Include="Hs3Model.edmx.diagram">
       <DependentUpon>Hs3Model.edmx</DependentUpon>
-    </Content>
-    <Content Include="Hs3Model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Hs3Model.edmx</DependentUpon>
-      <LastGenOutput>Hs3Model.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

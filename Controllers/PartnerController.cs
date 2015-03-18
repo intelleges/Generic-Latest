@@ -2129,7 +2129,7 @@ namespace Generic.Controllers
 
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
-            ViewBag.nextaction = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
+            ViewBag.nextaction = new SelectList(db.pr_getIteratePersonNextAction().ToList(), "id", "nextAction");
             ViewBag.partnerstatus = new SelectList(db.pr_getIteratePartnerStatusAll().ToList(), "id", "description");
 
             //Scheduler Initializeer
@@ -2326,12 +2326,33 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult UpdateNote(string title, string id, string newNoteBookId)
         {
+            int iterateStatus = 0, partnerId = 0;
+            bool statusUpdated = false;
+            var gId = Guid.Parse(id);
             if (SessionHelper.EvernoteCredentials != null)
             {
                 var authToken = SessionHelper.EvernoteCredentials.AuthToken;
                 var noteStore = GetNoteStore();
+                var noteBook = noteStore.getNotebook(authToken, newNoteBookId);
+                if (noteBook != null)
+                {
+                    var statuses = db.pr_getIteratePartnerStatusAll().ToList();
+                    var newStatus = statuses.FirstOrDefault(o => o.description == noteBook.Name);
+                    if (newStatus != null)
+                    {
+                        db.pr_modifyIteratePartnerStatusByNote(gId, newStatus.id);
+                        iterateStatus = newStatus.id;
+                        var partner = db.iteratePartner.FirstOrDefault(o => o.note == gId);
+                        if (partner != null)
+                        {
+                            partnerId = partner.id;
+                            statusUpdated = true;
+                        }                        
+                    }
+                }
                 noteStore.updateNote(authToken, new Note() { Guid = id, Title = title, NotebookGuid = newNoteBookId });
-                return Json(true);
+                if (statusUpdated)
+                    return Json(new { iteratestatusid = iterateStatus, partnerid = partnerId });
             }
             return Json(false);
         }
@@ -2445,7 +2466,7 @@ namespace Generic.Controllers
                 db.pr_addEvernoteStackByPerson(SessionSingleton.LoggedInUserId, stack);                
             }
             newNotebook.Stack = stack;
-            newNotebook.Name = "zDefault";
+            newNotebook.Name = DefaultNoteBook;
             return noteStore.createNotebook(authToken, newNotebook);
         }
 
@@ -2522,7 +2543,7 @@ namespace Generic.Controllers
             store.updateNote(SessionHelper.EvernoteCredentials.AuthToken, note);
             return note;
         }
-
+        const string DefaultNoteBook = "zDefault";
         /// <summary>
         /// Show the user if they are authorized
         /// </summary>
@@ -2537,7 +2558,7 @@ namespace Generic.Controllers
                 var authToken = SessionHelper.EvernoteCredentials.AuthToken;
 
                 //find existed notebook for partner
-                Notebook notebook = GetNoteStore().listNotebooks(authToken).FirstOrDefault(o => o.Name == "zDefault");
+                Notebook notebook = GetNoteStore().listNotebooks(authToken).FirstOrDefault(o => o.Name == DefaultNoteBook);
                 //var g = db.pr_getIteratePartner(int.Parse(partnerId)).FirstOrDefault();
                 var pId = int.Parse(partnerId);
                 var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == pId);
@@ -2551,7 +2572,8 @@ namespace Generic.Controllers
                 {
                     var note = CreateNote(noteTitle, noteText, notebook.Guid);
                     iPerson.notes = true;
-                    iPartner.note = Guid.Parse(note.Guid);                   
+                    iPartner.note = Guid.Parse(note.Guid);
+                    iPartner.status = db.pr_getIteratePartnerStatusAll().FirstOrDefault(o => o.description == DefaultNoteBook).id;
                     db.Entry(iPartner).State = EntityState.Modified;
                     db.Entry(iPerson).State = EntityState.Modified;
                     db.SaveChanges();
@@ -2635,7 +2657,19 @@ namespace Generic.Controllers
             return Json(data);
         }
 
+        public class NextActionEqulityComparer : IEqualityComparer<pr_getIteratePersonNextAction_Result>
+        {
 
+            public bool Equals(pr_getIteratePersonNextAction_Result x, pr_getIteratePersonNextAction_Result y)
+            {
+                return x.nextAction == y.nextAction;
+            }
+
+            public int GetHashCode(pr_getIteratePersonNextAction_Result obj)
+            {
+                return obj.nextAction.GetHashCode();
+            }
+        }
         [HttpPost]
         public ActionResult UploadPartnerExcelData(HttpPostedFileBase excelFile)
         {
@@ -2664,36 +2698,35 @@ namespace Generic.Controllers
                 var excelRead = new ExcelQueryFactory(physicalPath.ToString());
                 var newPartnerExcel = from a in excelRead.Worksheet<ExcelInteratePartner>(sheetname) select a;
 
-                var statuses = db.pr_getIteratePersonStatus().ToList();
-                var nextActions = db.pr_getIteratePersonNextAction().ToList();
-
-                var uploadConfirmPartner = new List<Tuple<int, string>>();
+                //dictionaries initialization
+                var statuses = db.pr_getIteratePersonStatus().ToList().ToDictionary(o => o.description, p => p.id);
+                var nextActions = db.pr_getIteratePersonNextAction().ToList().Distinct(new NextActionEqulityComparer()).ToDictionary(o=>o.nextAction,p=>p.id);
+                var partnerStatuses = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.description, p => p.id);               
 
                 foreach (var newPartnerItem in newPartnerExcel.ToList())
-                {
-                    using (var context = new EntitiesDBContext())
-                    {
+                {                    
                         if (!string.IsNullOrWhiteSpace(newPartnerItem.PARTNER_INTERNAL_ID))
                         {
                             try
                             {
+                                var partnerStatus = !string.IsNullOrEmpty(newPartnerItem.CURRENT_STATUS) && partnerStatuses.ContainsKey(newPartnerItem.CURRENT_STATUS) ? partnerStatuses[newPartnerItem.CURRENT_STATUS] : 8;
                                 int EMPLOYEE_COUNT=0, ANNUAL_REVENUE=0;
                                 int.TryParse(newPartnerItem.EMPLOYEE_COUNT,out EMPLOYEE_COUNT);
                                 int.TryParse(newPartnerItem.ANNUAL_REVENUE, out ANNUAL_REVENUE);
-                                var savedPartners = context.pr_addIteratePartner(newPartnerItem.PARTNER_INTERNAL_ID,
+                                var savedPartners = db.pr_addIteratePartner(newPartnerItem.PARTNER_INTERNAL_ID,
                                     newPartnerItem.PARTNER_NAME, newPartnerItem.PARTNER_ADDRESS_ONE,
                                     newPartnerItem.PARTNER_ADDRESS_TWO, newPartnerItem.PARTNER_CITY,
                                     newPartnerItem.PARTNER_STATE, newPartnerItem.PARTNER_ZIPCODE, newPartnerItem.PARTNER_COUNTRY,
                                     newPartnerItem.PARTNER_DUNS, newPartnerItem.PARTNER_SAP_ID, EMPLOYEE_COUNT,
-                                    ANNUAL_REVENUE, (int)newPartnerItem.StatusValue, SessionSingleton.LoggedInUserId,
+                                    ANNUAL_REVENUE, partnerStatus, SessionSingleton.LoggedInUserId,
                                     SessionSingleton.LoggedInUserId, DateTime.Now, true,
                                     DateTime.Now, DateTime.Now, SessionSingleton.LoggedInUserId,null
                                    ).FirstOrDefault();
-                                var lastContact =!string.IsNullOrEmpty(newPartnerItem.LAST_CONTACT)? ExcelInteratePartner.GetStatusId(statuses,newPartnerItem.LAST_CONTACT):1;
-                                var previosContact = !string.IsNullOrEmpty(newPartnerItem.PREVIOUS_CONTACT)?ExcelInteratePartner.GetStatusId(statuses,newPartnerItem.PREVIOUS_CONTACT):1;
-                                var nextAction = !string.IsNullOrEmpty(newPartnerItem.NEXT_ACTION)?ExcelInteratePartner.GetNextActionId(nextActions,newPartnerItem.NEXT_ACTION):1;
+                                var lastContact = !string.IsNullOrEmpty(newPartnerItem.LAST_CONTACT) && statuses.ContainsKey(newPartnerItem.LAST_CONTACT) ? statuses[newPartnerItem.LAST_CONTACT] : 1;
+                                var previosContact = !string.IsNullOrEmpty(newPartnerItem.PREVIOUS_CONTACT) && statuses.ContainsKey(newPartnerItem.PREVIOUS_CONTACT) ? statuses[newPartnerItem.PREVIOUS_CONTACT] : 1;
+                                var nextAction = !string.IsNullOrEmpty(newPartnerItem.NEXT_ACTION) && nextActions.ContainsKey(newPartnerItem.NEXT_ACTION) ? nextActions[newPartnerItem.NEXT_ACTION] : 1;
                                 DateTime LAST_CONTACT_DATE, PREVIOUS_CONTACT_DATE, NEXT_ACTION_DATE;
-                                var savedPersons = context.pr_addIteratePerson(newPartnerItem.RO_FIRST_NAME,
+                                var savedPersons = db.pr_addIteratePerson(newPartnerItem.RO_FIRST_NAME,
                                     newPartnerItem.RO_LAST_NAME, newPartnerItem.PARTNER_POC_TITLE,
                                     newPartnerItem.RO_EMAIL, newPartnerItem.PARTNER_POC_PHONE_NUMBER,
                                     newPartnerItem.PARTNER_CONTACT_FAX, true,
@@ -2703,14 +2736,12 @@ namespace Generic.Controllers
                             {
                                 return Content(ex.Message);
                             }
-                            confirmPartnerCount++;
-                        }
+                            confirmPartnerCount++;                       
                     }
                 }
             }
 
-            // ViewBag.isMessage = 1;
-            //ViewBag.message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions.";
+            
 
             return Json(new { message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions." }, "text/plain");
         }
@@ -2754,38 +2785,44 @@ namespace Generic.Controllers
         [HttpGet]
         public ActionResult ExportPartnerExcel()
         {
-            using (var context = new EntitiesDBContext())
-            {
+            var partnerStatuses = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.id, p => p.description); 
+           // using (var context = new EntitiesDBContext())
+         //   {
                 //TODO : check SessionSingleton.PersonId is always 0
                // var abc = context.pr_getIteratePartnerAll(SessionSingleton.PersonId).ToList();
 
-                var result = db.pr_getIteratePartnerPerson3(SessionSingleton.LoggedInUserId).Select(o => new ExcelInteratePartner() { PARTNER_NAME = o.name, 
-                    ANNUAL_REVENUE = o.annualRevenue.ToString(),
-                    PARTNER_POC_TITLE = o.title,
-                    PARTNER_INTERNAL_ID = o.internalID,
-                    PARTNER_POC_FIRST_NAME = o.firstname,
-                    PARTNER_POC_LAST_NAME = o.lastname,
-                    PARTNER_POC_PHONE_NUMBER = o.phone,
-                    LAST_CONTACT = o.lastContact,
-                    PREVIOUS_CONTACT = o.previousContact, 
-                    LAST_CONTACT_DATE = o.lastContactDate.ToString(),
-                                                                                                                                      PREVIOUS_CONTACT_DATE = o.previousContactDate.ToString(),
-                    NEXT_ACTION = o.nextAction,
-                                                                                                                                      NEXT_ACTION_DATE = o.nextActionDate.ToString(),
-                    EMPLOYEE_COUNT = o.numberOfEmployees.ToString(), 
-                    NOTES = o.notes.HasValue ? (o.notes.Value ? "Y" : "N") : "N",
-                    PARTNER_CITY = o.city, PARTNER_ADDRESS_ONE = o.address1,
-                    PARTNER_ADDRESS_TWO = o.address2,
-                    PARTNER_POC_EMAIL_ADDRESS = o.email,
-                    PARTNER_COUNTRY = o.country,
-                    PARTNER_CONTACT_FAX = o.fax,
-                    PARTNER_DUNS = o.dunsnumber,
-                    PARTNER_SAP_ID = o.federalID, 
-                    PARTNER_STATE = o.state,
-                    PARTNER_ZIPCODE = o.zipcode,
-                    RO_EMAIL = o.email, 
-                    RO_FIRST_NAME=o.firstname,
-                 RO_LAST_NAME=o.lastname}).ToList();
+            var result = db.pr_getIteratePartnerPerson3(SessionSingleton.LoggedInUserId).Select(o => new ExcelInteratePartner()
+            {
+                PARTNER_NAME = o.name,
+                ANNUAL_REVENUE = o.annualRevenue.ToString(),
+                PARTNER_POC_TITLE = o.title,
+                PARTNER_INTERNAL_ID = o.internalID,
+                PARTNER_POC_FIRST_NAME = o.firstname,
+                PARTNER_POC_LAST_NAME = o.lastname,
+                PARTNER_POC_PHONE_NUMBER = o.phone,
+                LAST_CONTACT = o.lastContact,
+                PREVIOUS_CONTACT = o.previousContact,
+                LAST_CONTACT_DATE = o.lastContactDate.ToString(),
+                PREVIOUS_CONTACT_DATE = o.previousContactDate.ToString(),
+                NEXT_ACTION = o.nextAction,
+                NEXT_ACTION_DATE = o.nextActionDate.ToString(),
+                EMPLOYEE_COUNT = o.numberOfEmployees.ToString(),
+                NOTES = o.notes.HasValue ? (o.notes.Value ? "Y" : "N") : "N",
+                PARTNER_CITY = o.city,
+                PARTNER_ADDRESS_ONE = o.address1,
+                PARTNER_ADDRESS_TWO = o.address2,
+                PARTNER_POC_EMAIL_ADDRESS = o.email,
+                PARTNER_COUNTRY = o.country,
+                PARTNER_CONTACT_FAX = o.fax,
+                PARTNER_DUNS = o.dunsnumber,
+                PARTNER_SAP_ID = o.federalID,
+                PARTNER_STATE = o.state,
+                PARTNER_ZIPCODE = o.zipcode,
+                RO_EMAIL = o.email,
+                RO_FIRST_NAME = o.firstname,
+                RO_LAST_NAME = o.lastname,
+                CURRENT_STATUS = o.iteratePartnerStatus.HasValue ? partnerStatuses[o.iteratePartnerStatus.Value] : ""
+            }).ToList();
                 var stream = new MemoryStream();
                 var serializer = new XmlSerializer(typeof(List<ExcelInteratePartner>));
 
@@ -2795,7 +2832,7 @@ namespace Generic.Controllers
 
                 //We return the XML from the memory as a .xls file
                 return File(stream, "application/vnd.ms-excel", "PartnerList.xls");
-            }
+           // }
         }
 
         //code done earlier b4 rewriting
@@ -2847,5 +2884,44 @@ namespace Generic.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public ActionResult SaveIteratePartner(int partnerid,string name, string id, string address, string phone, string city, string state, string zipcode, string firstName, string lastName, string title,string email, string url, int? na, DateTime? nad, int? partnerStatus )
+        {
+            try
+            {
+                var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerid);
+                if (iPartner != null)
+                {
+                    var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == partnerid);
+                    if (iPerson != null)
+                    {
+                        iPartner.name = name;
+                        iPartner.internalID = id;
+                        iPartner.address1 = address;
+                        iPerson.phone = phone;
+                        iPartner.city = city;
+                        iPartner.state = state;
+                        iPartner.zipcode = zipcode;
+                        iPerson.firstname = firstName;
+                        iPerson.lastname = lastName;
+                        iPerson.title = title;
+                        iPerson.email = email;
+                        iPartner.dunsnumber = url;
+                        iPerson.nextAction = na;
+                        iPerson.nextActionDate = nad;
+                        iPartner.status = partnerStatus;
+                        db.Entry(iPartner).State = EntityState.Modified;
+                        db.Entry(iPerson).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return Json(true);
+                    }
+                }
+            }
+            catch
+            {
+            }
+            return Json(false);
+        }
     }
 }

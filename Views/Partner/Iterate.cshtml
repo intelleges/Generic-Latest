@@ -274,6 +274,34 @@
             });
             
         });
+        $("#btnSave").click(function () { 
+            if(iterate.selectedPartnerId){
+                $.post("SaveIteratePartner", {
+                    partnerid:iterate.selectedPartnerId,
+                    name: $("#name").val(),
+                    id: $("#internalID").val(),
+                    address: $("#address1").val(),
+                    phone: $("#phone").val(),
+                    city: $("#city").val(),
+                    state: $("#state").val(),
+                    zipcode: $("#zipcode").val(),
+                    firstName: $("#firstName").val(),
+                    lastName: $("#lastName").val(),
+                    title: $("#title").val(),
+                    email: $("#email").val(),
+                    url: $("#dunsNumber").val(),
+                    na: $("#nextaction").val(),
+                    nad: $("#nad").data("tDateTimePicker").value().toISOString(),
+                    partnerStatus: $("#partnerstatus").val()
+                }).done(function (result) {
+                    if (result) {
+                        iterate.saved = true;
+                        $("#IteratePartners").data("tGrid").ajaxRequest();
+                        $("#evernotesDiv").jstree(true).refresh();                       
+                    }
+                });
+            }
+        });
         $("#btnDownload").click(function (e) {
             window.location.href = "ExportPartnerExcel";
         });
@@ -343,7 +371,10 @@
     function loadSelectedRowData(e) {
         var partnerGrid = $("#IteratePartners").data("tGrid");
         var row = e.row;
-        var selectedItem = partnerGrid.dataItem(row);        
+        var selectedItem = partnerGrid.dataItem(row);
+        
+        iterate.selectedPartnerId = selectedItem.id;
+        iterate.selectedPartner = selectedItem.name;
         $('#iteratePrev').data('rowIndex', row.rowIndex - 1);
         $('#iterateNext').data('rowIndex', row.rowIndex + 1);
 
@@ -365,14 +396,47 @@
         $("#email").val(selectedItem.email);
         $("#dunsNumber").val(selectedItem.dunsnumber);
         $("#federalID").val(selectedItem.federalID);
-        $("#owner").val("");
-        $("#author").val("");
-        $("#protocol").val("");
-        $("#touchpoint").val("");
-        $("#partnertype").val("");
-        $("#group").val("");
-        $("#DueDate").val("");
+        //$("#owner").val("");
+        //$("#author").val("");
+        //$("#protocol").val("");
+        //$("#touchpoint").val("");
+        //$("#partnertype").val("");
+        //$("#group").val("");
+        //$("#DueDate").val("");
+        $("#partnerstatus").val(selectedItem.iteratePartnerStatus);
+        $("#nad").data("tDateTimePicker").value(selectedItem.nextActionDate);
+        $("#nextaction").val(selectedItem.nextActionID);
     }
+    function clearFields() {
+        $("#name").val("");
+        $("#internalID").val("");
+        $("#address1").val("");
+        $("#address2").val("");
+        $("#city").val("");
+        $("#state").val("0");
+        $("#province").val("");
+        $("#zipcode").val("");
+       // $("#country").text(selectedItem.country);
+        $("#phone").val("");
+        $("#fax").val("");
+        $("#firstName").val("");
+        $("#lastName").val("");
+        $("#title").val("");
+        $("#email").val("");
+        $("#dunsNumber").val("");
+        $("#federalID").val("");
+        //$("#owner").val("");
+        //$("#author").val("");
+        //$("#protocol").val("");
+        //$("#touchpoint").val("");
+        //$("#partnertype").val("");
+        //$("#group").val("");
+        //$("#DueDate").val("");
+        $("#partnerstatus").val("0");
+        $("#nad").data("tDateTimePicker").value("");
+        $("#nextaction").val("0");
+    }
+
     function AddNote(title, text, partner, partnerId) {
         $.post("AddNote", {
             partnerName: partner,
@@ -414,31 +478,31 @@
         var pane = $("#Splitter2 > .t-pane")[2]; // the 3d pane
         splitter.expand(pane);
     }
-    //The magic code to add show/hide custom event triggers
-    //(function ($) {
-    //    $.each(['show', 'hide'], function (i, ev) {
-    //        var el = $.fn[ev];
-    //        $.fn[ev] = function () {
-    //            this.trigger(ev);
-    //            return el.apply(this, arguments);
-    //        };
-    //    });
-    //})(jQuery);
     
-    function Grid_onDataBound(e) {        
-        $(".display_menu ul li a").click(function () {
-           // debugger;
-            //note menu item click
+    
+    function Grid_onDataBound(e) {
+        
+        $(".display_menu ul li a").click(function (e) {           
+            //note menu item click            
             if ($(this).text() === "Note") {
+                e.preventDefault();
                 var partnerGrid = $("#IteratePartners").data("tGrid");
                 var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
                 //data can be used for whatever it needed
                 iterate.selectedPartnerId = rowData.id;
                 iterate.selectedPartner = rowData.name;
-                showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);
-                
+                showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);                
             }
         });
+        if (iterate.saved) {
+            $($("#Company" + iterate.selectedPartnerId).parents("tr")[0]).click();
+            iterate.saved = false;
+
+        }
+        else {
+            iterate.selectedPartnerId = 0;
+            clearFields();
+        }
     }
    
     function showNoteEditor(partnerId, partnerName) {
@@ -1107,9 +1171,9 @@
 
 
                     </div>
-                    @*<div class="row bottom-buffer">
+                    <div class="row bottom-buffer">
                         <div class="editor-label">
-                            @Html.Label("Next Action")
+                            @Html.Label("NA")
                         </div>
                         <div class="editor-field">
                             @Html.DropDownList("nextaction", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
@@ -1117,22 +1181,22 @@
                             <span class="field-validation-valid" data-valmsg-for="touchpoint" data-valmsg-replace="true"></span>
                         </div>
                         <div class="editor-label">
-                            @Html.Label("Next Action Date")
+                            @Html.Label("NAD")
                         </div>
                         <div class="editor-field" style="width:25%">
-                            @Html.Telerik().DateTimePickerFor(model => model.dateApproved).HtmlAttributes(new { style="width:100%"})                    
+                            @Html.Telerik().DateTimePicker().Name("nad").HtmlAttributes(new { style="width:100%"})                    
 
                             <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
                            
                         </div>
                         <div class="editor-label" style="margin-left: 0.5%;">
-                            @Html.Label("Partner Status")
+                            @Html.Label("PS")
                         </div>
                         <div class="editor-field">
                             @Html.DropDownList("partnerstatus", null, String.Empty, new { @class = "ddlClass", @style = "margin-top: 3%;", @data_val = "true", @data_val_required = " " })
                             <span class="field-validation-valid" data-valmsg-for="group" data-valmsg-replace="true"></span> 
                         </div>
-                    </div>*@
+                    </div>
                     <div class="row bottom-buffer">
                         <div class="editor-label">
                             @Html.Label("Touch Point")
@@ -1174,7 +1238,7 @@
                         @*<input type="submit" value="Note" class="btn_b " />
                         <input type="submit" value="Remind" class="btn_b " />*@
                         <input type="button" value="Reset" class="btn_b " />
-                        <input type="button" value="Save" class="btn_b " />
+                        <input type="button" value="Save" class="btn_b " id="btnSave"/>
                         <input type="button" value="Send" class="btn_b " />
 
 
@@ -1362,8 +1426,8 @@
         //columns.Bound(o => o.StatusDescription).Title("Current status").Width(200);
         columns.Bound(o => o.lastContact).Title("Last Contact").Width(100);
         columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(100);
-        columns.Bound(o => o.previousContact).Title("Previous Contact").Width(100);
-        columns.Bound(o => o.previousContactDate).Title("Previous Contact Date").Width(100);
+        columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100);
+        columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(100);
         columns.Bound(o => o.nextAction).Title("Next Action").Width(120);
         columns.Bound(o => o.nextActionDate).Title("Next Action Date").Width(120);
         columns.Bound(o => o.notes).Title("Notes").Width(50);
@@ -1430,20 +1494,21 @@
                                 "plugins": ["dnd","types"]
             }).bind("redraw.jstree", function (event, data) {
                 //after redraw bind dblclick
-                $("#evernotesDiv").delegate("a", "dblclick", function (e) {
-                    //if nodes type=== "note" then show note
-                    e.preventDefault();
-                    if ($("#evernotesDiv").data("jstree").get_type($(this).parent()) === "note") {
-                        $.post("GetIteratePartnerByNote", { noteId: $(this).parent().attr("id") }).done(function (result) {
-                            if (result.finded) {
-                                iterate.selectedPartnerId = result.partnerId;
-                                iterate.selectedPartner = result.partnerName;
-                                showNoteEditor(result.partnerId, result.partnerName);
-                            }
-                            else alertify.alert("There is no iterate partner for selected note");
-                        });
-                    }                        
-                });
+                $("#evernotesDiv").off("dblclick", "a");
+                    $("#evernotesDiv").delegate("a", "dblclick", function (e) {
+                        //if nodes type=== "note" then show note
+                        e.preventDefault();
+                        if ($("#evernotesDiv").data("jstree").get_type($(this).parent()) === "note") {
+                            $.post("GetIteratePartnerByNote", { noteId: $(this).parent().attr("id") }).done(function (result) {
+                                if (result.finded) {
+                                    iterate.selectedPartnerId = result.partnerId;
+                                    iterate.selectedPartner = result.partnerName;
+                                    showNoteEditor(result.partnerId, result.partnerName);
+                                }
+                                else alertify.alert("There is no iterate partner for selected note");
+                            });
+                        }
+                    });                
             });
             $(document).on("dnd_stop.vakata", function (event, data, element) {
                 if (data) {
@@ -1453,7 +1518,15 @@
                         newNoteBookId: iterate.globalVars.parentNode
                     },
                         function (result) {
-                           // alert(result);
+                            if (result.iteratestatusid) {
+                                var grid = $("#IteratePartners").data("tGrid");
+                                var nItem = grid.dataSource.find(result.partnerid);
+                                if (nItem) {
+                                    grid.dataSource.find(result.partnerid).iteratePartnerStatus = result.iteratestatusid;
+                                    if (iterate.selectedPartnerId === result.partnerid)
+                                        $("#partnerstatus").val(result.iteratestatusid);
+                                }
+                            }
                         });
                 }
             });

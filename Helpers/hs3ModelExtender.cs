@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Generic
 {
-    public partial class EntitiesDBContext : DbContext
+    public partial class  hs3MVCMTQa2Entities: DbContext
     {
 
         public override int SaveChanges()
@@ -41,5 +41,9 @@ namespace Generic
 
         public DbSet<enterprise> enterprises { get; set; }
 
+    }
+
+    public class EntitiesDBContext : hs3MVCMTQa2Entities
+    {
     }
 }
