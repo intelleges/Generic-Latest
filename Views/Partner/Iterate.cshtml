@@ -480,41 +480,7 @@
     }
     
     
-    function Grid_onDataBound(e) {
-        //create context menu
-        context.destroy("#IteratePartners table tbody");
-        context.attach("#IteratePartners table tbody", [
-            {
-                text: "Call/Next Call"
-            },
-            {
-                text: "Email"
-            },
-            {
-                text: "Meet"
-            },
-            {
-                text: "Update",
-                subMenu: [
-                    {
-                        text:"Partner Status"
-                    },
-            {
-                text: "Person Status"
-            }
-                ]
-
-            },
-            {
-                text: "Remove"
-            },
-            {
-                text: "Nurture"
-            },
-            {
-                text: "Note"
-            }
-        ]);
+    function Grid_onDataBound(e) {        
         
         $(".display_menu ul li a").click(function (e) {           
             //note menu item click            
