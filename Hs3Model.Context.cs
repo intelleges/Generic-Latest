@@ -15703,5 +15703,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPerson3_Result>("pr_getIteratePartnerPerson3", personParameter);
         }
+    
+        public virtual ObjectResult<pr_getIterateNextAction_Result> pr_getIterateNextAction()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIterateNextAction_Result>("pr_getIterateNextAction");
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerStatusByLastContact_Result> pr_getIteratePartnerStatusByLastContact(Nullable<int> iteratepartner, Nullable<int> lastcontact)
+        {
+            var iteratepartnerParameter = iteratepartner.HasValue ?
+                new ObjectParameter("iteratepartner", iteratepartner) :
+                new ObjectParameter("iteratepartner", typeof(int));
+    
+            var lastcontactParameter = lastcontact.HasValue ?
+                new ObjectParameter("lastcontact", lastcontact) :
+                new ObjectParameter("lastcontact", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerStatusByLastContact_Result>("pr_getIteratePartnerStatusByLastContact", iteratepartnerParameter, lastcontactParameter);
+        }
     }
 }

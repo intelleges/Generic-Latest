@@ -5460,6 +5460,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getIterateActionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getIterateNextAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5477,6 +5478,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getIteratePartnerStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getIteratePartnerStatusByLastContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="iteratepartner" Type="int" Mode="In" />
+          <Parameter Name="lastcontact" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -13392,7 +13397,12 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getIteratePartnerPerson3" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerPerson3_Result)">
-            <Parameter Name="person" Mode="In" Type="Int32" />
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIterateNextAction" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIterateNextAction_Result)" />
+          <FunctionImport Name="pr_getIteratePartnerStatusByLastContact" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerStatusByLastContact_Result)">
+            <Parameter Name="iteratepartner" Mode="In" Type="Int32" />
+            <Parameter Name="lastcontact" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -21334,6 +21344,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="DateTime" Name="dateAdded" Nullable="true" />
           <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="iteratePartnerStatus" Nullable="true" />
+          <Property Type="String" Name="iteratePartnerStatusDescription" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="person" Nullable="false" />
           <Property Type="Int32" Name="personID" Nullable="false" />
           <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
@@ -21354,6 +21365,16 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="nextAction" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="nextActionDate" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="notes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getIterateNextAction_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="nextAction" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Int32" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePartnerStatusByLastContact_Result">
+          <Property Type="Int32" Name="LastContact" Nullable="false" />
+          <Property Type="Int32" Name="PartnerStatus" Nullable="false" />
         </ComplexType>
         
       </Schema>
@@ -27962,6 +27983,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
                 <ScalarProperty Name="lastModified" ColumnName="lastModified" />
                 <ScalarProperty Name="iteratePartnerStatus" ColumnName="iteratePartnerStatus" />
+                <ScalarProperty Name="iteratePartnerStatusDescription" ColumnName="iteratePartnerStatusDescription" />
                 <ScalarProperty Name="person" ColumnName="person" />
                 <ScalarProperty Name="personID" ColumnName="personID" />
                 <ScalarProperty Name="firstname" ColumnName="firstname" />
@@ -27982,6 +28004,24 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="nextAction" ColumnName="nextAction" />
                 <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIterateNextAction" FunctionName="hs3MVCMTQa2Model.Store.pr_getIterateNextAction">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIterateNextAction_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerStatusByLastContact" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerStatusByLastContact">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerStatusByLastContact_Result">
+                <ScalarProperty Name="LastContact" ColumnName="LastContact" />
+                <ScalarProperty Name="PartnerStatus" ColumnName="PartnerStatus" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

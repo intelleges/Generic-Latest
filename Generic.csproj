@@ -1154,6 +1154,9 @@
     <Compile Include="pr_getIterateAction_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getIterateNextAction_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getIteratePartnerAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1167,6 +1170,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getIteratePartnerStatusAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getIteratePartnerStatusByLastContact_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getIteratePartnerStatus_Result.cs">
@@ -2373,6 +2379,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\contextjs.bootstrap.css" />
+    <Content Include="Content\contextjs.standalone.css" />
     <Content Include="Content\tw-bs.css" />
     <Content Include="Areas\RegistrationArea\Views\Home\Unsubscribe.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\Default.cshtml" />
@@ -2399,6 +2407,7 @@
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\context.js" />
     <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler.css" />
     <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler.js" />
     <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler_classic.css" />

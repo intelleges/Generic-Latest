@@ -2129,7 +2129,7 @@ namespace Generic.Controllers
 
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
-            ViewBag.nextaction = new SelectList(db.pr_getIteratePersonNextAction().ToList(), "id", "nextAction");
+            ViewBag.nextaction = new SelectList(db.pr_getIterateNextAction().ToList(), "id", "nextAction");
             ViewBag.partnerstatus = new SelectList(db.pr_getIteratePartnerStatusAll().ToList(), "id", "description");
 
             //Scheduler Initializeer
@@ -2327,6 +2327,7 @@ namespace Generic.Controllers
         public ActionResult UpdateNote(string title, string id, string newNoteBookId)
         {
             int iterateStatus = 0, partnerId = 0;
+            string iterateStatusDesc = "";
             bool statusUpdated = false;
             var gId = Guid.Parse(id);
             if (SessionHelper.EvernoteCredentials != null)
@@ -2342,6 +2343,7 @@ namespace Generic.Controllers
                     {
                         db.pr_modifyIteratePartnerStatusByNote(gId, newStatus.id);
                         iterateStatus = newStatus.id;
+                        iterateStatusDesc = newStatus.description;
                         var partner = db.iteratePartner.FirstOrDefault(o => o.note == gId);
                         if (partner != null)
                         {
@@ -2350,9 +2352,12 @@ namespace Generic.Controllers
                         }                        
                     }
                 }
+                if(string.IsNullOrEmpty(title))
+                    noteStore.updateNote(authToken, new Note() { Guid = id, NotebookGuid = newNoteBookId });
+                else
                 noteStore.updateNote(authToken, new Note() { Guid = id, Title = title, NotebookGuid = newNoteBookId });
                 if (statusUpdated)
-                    return Json(new { iteratestatusid = iterateStatus, partnerid = partnerId });
+                    return Json(new { iteratestatusid = iterateStatus, partnerid = partnerId, iteratestatusdescription = iterateStatusDesc });
             }
             return Json(false);
         }
@@ -2657,19 +2662,7 @@ namespace Generic.Controllers
             return Json(data);
         }
 
-        public class NextActionEqulityComparer : IEqualityComparer<pr_getIteratePersonNextAction_Result>
-        {
-
-            public bool Equals(pr_getIteratePersonNextAction_Result x, pr_getIteratePersonNextAction_Result y)
-            {
-                return x.nextAction == y.nextAction;
-            }
-
-            public int GetHashCode(pr_getIteratePersonNextAction_Result obj)
-            {
-                return obj.nextAction.GetHashCode();
-            }
-        }
+       
         [HttpPost]
         public ActionResult UploadPartnerExcelData(HttpPostedFileBase excelFile)
         {
@@ -2700,7 +2693,7 @@ namespace Generic.Controllers
 
                 //dictionaries initialization
                 var statuses = db.pr_getIteratePersonStatus().ToList().ToDictionary(o => o.description, p => p.id);
-                var nextActions = db.pr_getIteratePersonNextAction().ToList().Distinct(new NextActionEqulityComparer()).ToDictionary(o=>o.nextAction,p=>p.id);
+                var nextActions = db.pr_getIterateNextAction().ToList().ToDictionary(o => o.nextAction, p => p.id);
                 var partnerStatuses = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.description, p => p.id);               
 
                 foreach (var newPartnerItem in newPartnerExcel.ToList())
@@ -2922,6 +2915,83 @@ namespace Generic.Controllers
             {
             }
             return Json(false);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeiteratePartnerStatus(int partnerId, int partnerStatusId)
+        {
+            var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
+            if (iPartner != null)
+            {
+                if (iPartner.note != null)
+                    if (SessionHelper.EvernoteCredentials != null)
+                    {
+
+                        var newsStatus = db.pr_getIteratePartnerStatus(partnerStatusId).FirstOrDefault();
+                        if (newsStatus != null)
+                        {
+                            var authToken = SessionHelper.EvernoteCredentials.AuthToken;
+                            var noteStore = GetNoteStore();
+
+                            var notebooks = noteStore.listNotebooks(authToken);
+                            var existNoteBook = notebooks.FirstOrDefault(o => o.Name == newsStatus.description);
+                            if (existNoteBook == null)
+                                existNoteBook = CreateNoteBook(newsStatus.description);
+                            var note = noteStore.getNote(authToken, iPartner.note.Value.ToString(), true, true, true, true);
+                            note.NotebookGuid = existNoteBook.Guid;
+                            noteStore.updateNote(authToken, note);
+                        }
+                    }
+                    else return AuthorizeEverNote();
+                
+                iPartner.status = partnerStatusId;
+                db.Entry(iPartner).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return Json(true);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeIteratePartnerNextAction(int partnerId, int nextActionId)
+        {
+             var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
+             if (iPartner != null)
+             {
+                 var iPerson = iPartner.iteratePerson.FirstOrDefault();
+                 if (iPerson != null)
+                 {
+                     iPerson.nextAction = nextActionId;
+                     db.Entry(iPerson).State = EntityState.Modified;
+                     db.SaveChanges();
+                 }
+             }
+            return Json(true);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeIteratePartnerLastContact(int partnerId, int lastContactId)
+        {
+            var result = db.pr_getIteratePartnerStatusByLastContact(partnerId, lastContactId).FirstOrDefault();
+            var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
+            if (iPartner != null)
+            {
+                var iPerson = iPartner.iteratePerson.FirstOrDefault();
+                if (iPerson != null)
+                {
+                    iPerson.previousContact = iPerson.lastContact;
+                    iPerson.lastContact = lastContactId;
+                    iPerson.previousContactDate = iPerson.lastContactDate;
+                    iPerson.lastContactDate = DateTime.Now;
+                    db.Entry(iPerson).State = EntityState.Modified;
+                    db.SaveChanges();
+                    if (result!=null&&result.PartnerStatus != 0)
+                    {
+                        return ChangeiteratePartnerStatus(partnerId, result.PartnerStatus);
+                    }
+                    
+                }
+            }
+            return Json(true);
         }
     }
 }

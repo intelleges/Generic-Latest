@@ -481,6 +481,40 @@
     
     
     function Grid_onDataBound(e) {
+        //create context menu
+        context.destroy("#IteratePartners table tbody");
+        context.attach("#IteratePartners table tbody", [
+            {
+                text: "Call/Next Call"
+            },
+            {
+                text: "Email"
+            },
+            {
+                text: "Meet"
+            },
+            {
+                text: "Update",
+                subMenu: [
+                    {
+                        text:"Partner Status"
+                    },
+            {
+                text: "Person Status"
+            }
+                ]
+
+            },
+            {
+                text: "Remove"
+            },
+            {
+                text: "Nurture"
+            },
+            {
+                text: "Note"
+            }
+        ]);
         
         $(".display_menu ul li a").click(function (e) {           
             //note menu item click            
@@ -1398,6 +1432,47 @@
         });
 
     });
+    function changeStatus(id, status) {
+        $.post("ChangeiteratePartnerStatus", {
+            partnerId: id,
+            partnerStatusId: status
+        }).done(function (result) {
+            if (result===true) {
+                $("#IteratePartners").data("tGrid").ajaxRequest();
+                $("#evernotesDiv").jstree(true).refresh();
+                clearFields();
+            }
+            else {
+                window.location.href = result;
+            }
+        });
+    }
+    function changeNextAction(id, nextAction) {
+        $.post("ChangeIteratePartnerNextAction", {
+            partnerId: id,
+            nextActionId: nextAction
+        }).done(function (result) {
+            if (result) {
+                $("#IteratePartners").data("tGrid").ajaxRequest();
+                clearFields();
+            }
+        });
+    }
+    function changeLastContact(id, lastContact) {
+        $.post("ChangeIteratePartnerLastContact", {
+            partnerId: id,
+            lastContactId: lastContact
+        }).done(function (result) {
+            if (result===true) {
+                $("#IteratePartners").data("tGrid").ajaxRequest();
+                $("#evernotesDiv").jstree(true).refresh();
+                clearFields();
+            }
+            else {
+                window.location.href = result;
+            }
+        });
+    }
 </script>
 
 @section splitterTop {
@@ -1423,18 +1498,66 @@
         columns.Bound(o => o.lastname).Title("Last name").Width(100);
         columns.Bound(o => o.title).Title("Title").Width(100);
         columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
-        //columns.Bound(o => o.StatusDescription).Title("Current status").Width(200);
-        columns.Bound(o => o.lastContact).Title("Last Contact").Width(100);
+        columns.Bound(o => o.iteratePartnerStatusDescription).Title("PS").Width(100).ClientTemplate(@"
+<a href='#' id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatusDescription#></a>
+    <div class='display_menu' style='display: none;'>
+        <ul>
+          <li><a href='#' onclick='changeStatus(<#=id#>,1);'>aCold Leads</a></li>
+            <li><a href='#' onclick='changeStatus(<#=id#>,2);'>cCurrentProspects</a></li>
+<li><a href='#' onclick='changeStatus(<#=id#>,3);'>dAppointment Scheduled</a></li>
+<li><a href='#' onclick='changeStatus(<#=id#>,4);'>eNeeds Follow Up</a></li>
+<li><a href='#' onclick='changeStatus(<#=id#>,5);'>fCustomer</a></li>
+<li><a href='#' onclick='changeStatus(<#=id#>,6);'>gDrip/Nurture</a></li>
+<li><a href='#' onclick='changeStatus(<#=id#>,7);'>hDead</a></li>
+<li><a href='#' onclick='changeStatus(<#=id#>,8);'>zDefault</a></li>
+        </ul>
+    </div>
+");
+        columns.Bound(o => o.lastContact).Title("Last Contact").Width(100).ClientTemplate(@"
+<a href='#' id='LC<#=id#>' class='menu_block'><#=lastContact#></a>
+    <div class='display_menu' style='display: none;'>
+        <ul>
+          <li><a href='#' onclick='changeLastContact(<#=id#>,1);'>Busy</a></li>
+            <li><a href='#' onclick='changeLastContact(<#=id#>,2);'>Successful Call - Appointment</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,3);'>Successful Call - Call Back</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,4);'>Do Not Call</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,5);'>Hung Up</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,6);'>Left Message</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,7);'>No Answer</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,8);'>No Help</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,9);'>Not In Service</a></li>
+ <li><a href='#' onclick='changeLastContact(<#=id#>,10);'>No Message Left (Call Back)</a></li>
+ <li><a href='#' onclick='changeLastContact(<#=id#>,11);'>Transferred</a></li>
+ <li><a href='#' onclick='changeLastContact(<#=id#>,12);'>Wrong Number</a></li>
+ <li><a href='#' onclick='changeLastContact(<#=id#>,13);'>Music Box</a></li>
+ <li><a href='#' onclick='changeLastContact(<#=id#>,14);'>Other</a></li>
+ <li><a href='#' onclick='changeLastContact(<#=id#>,15);'>No Touchpoint</a></li>
+        </ul>
+    </div>
+");
         columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(100);
         columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100);
         columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(100);
-        columns.Bound(o => o.nextAction).Title("Next Action").Width(120);
+        columns.Bound(o => o.nextAction).Title("Next Action").Width(120).ClientTemplate(@"
+<a href='#' id='NA<#=id#>' class='menu_block'><#=nextAction#></a>
+    <div class='display_menu' style='display: none;'>
+        <ul>
+          <li><a href='#' onclick='changeNextAction(<#=id#>,1);'>Call Back</a></li>
+            <li><a href='#' onclick='changeNextAction(<#=id#>,2);'>Set Appointment</a></li>
+<li><a href='#' onclick='changeNextAction(<#=id#>,4);'>Remove</a></li>
+<li><a href='#' onclick='changeNextAction(<#=id#>,5);'>Email Follow-up</a></li>
+<li><a href='#' onclick='changeNextAction(<#=id#>,9);'>Update POC</a></li>
+<li><a href='#' onclick='changeNextAction(<#=id#>,15);'>Call</a></li>
+        </ul>
+    </div>
+") ;
         columns.Bound(o => o.nextActionDate).Title("Next Action Date").Width(120);
         columns.Bound(o => o.notes).Title("Notes").Width(50);
         ////columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
         ////columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
             }
-                                    ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "display:none;font-size:10px;" })   
+                                    ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "display:none;font-size:10px;" }) 
+   
 }
 @section rightSplitter{
    @* @Html.ActionLink("Add Stack","AuthorizeEverNote","Partner")
@@ -1451,7 +1574,7 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")*@
    <script src="/Scripts/bootstrap.js"></script>
    <script src="/Scripts/validator.js"></script>
-
+<script src="http://lab.jakiestfu.com/contextjs/context.js"></script>
     <script>
         $(function () {           
             $("#evernotesDiv").jstree({
@@ -1523,6 +1646,7 @@
                                 var nItem = grid.dataSource.find(result.partnerid);
                                 if (nItem) {
                                     grid.dataSource.find(result.partnerid).iteratePartnerStatus = result.iteratestatusid;
+                                    grid.dataSource.find(result.partnerid).iteratePartnerStatusDescription = result.iteratestatusdescription;
                                     if (iterate.selectedPartnerId === result.partnerid)
                                         $("#partnerstatus").val(result.iteratestatusid);
                                 }
@@ -1535,9 +1659,7 @@
                 iterate.globalVars.parentNode = data.parent;
                 iterate.globalVars.nodeText = data.node.text;
                 iterate.globalVars.nodeId = data.node.id;
-                //console.log(data);
-               // alert(data.node.id);
-               // alert(data.parent);
+               
             });
             $("#evernotesDiv").on("select_node.jstree", function (event, data) {
                 if (data) {
@@ -1584,4 +1706,5 @@
     @System.Web.Optimization.Styles.Render("~/Content/jstree")
 @System.Web.Optimization.Scripts.Render("~/bundles/jstree") 
     <script src="//cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>   
+<link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
 }
