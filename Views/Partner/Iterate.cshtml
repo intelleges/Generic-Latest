@@ -1460,7 +1460,7 @@
         </ul>
     </div>
 ").Width(230);
-        columns.Bound(o => o.nextAction).Title("Next Action").Width(120).ClientTemplate(@"
+        columns.Bound(o => o.nextAction).Title("Next Action").Width(160).ClientTemplate(@"
 <a href='#' id='NA<#=id#>' class='menu_block'><#=nextAction#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
@@ -1499,7 +1499,7 @@
         </ul>
     </div>
 ");
-        columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(100);
+        columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(110);
         columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100);
         columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(100);
         columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
@@ -1520,7 +1520,7 @@
 ");
         
         
-        columns.Bound(o => o.notes).Title("Notes").Width(50);
+        columns.Bound(o => o.NotesDescription).Title("Notes").Width(30);
         ////columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
         ////columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
             }

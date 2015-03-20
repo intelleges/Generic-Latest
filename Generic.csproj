@@ -785,6 +785,7 @@
     <Compile Include="Models\person.extension.cs" />
     <Compile Include="Models\PersonComboModel.cs" />
     <Compile Include="Models\ProductTypeModel.cs" />
+    <Compile Include="Models\pr_getIteratePartnerPerson3_Result.cs" />
     <Compile Include="Models\QuestionnaireModel.cs" />
     <Compile Include="Models\RailModelView.cs" />
     <Compile Include="Models\SignupModels.cs" />
