@@ -2133,9 +2133,9 @@ namespace Generic.Controllers
             ViewBag.partnerstatus = new SelectList(db.pr_getIteratePartnerStatusAll().ToList(), "id", "description");
 
             //Scheduler Initializeer
-            var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
-            ViewBag.Scheduler = scheduler.Render();
-            ViewBag.showNotes = showNotes;
+            //var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
+            //ViewBag.Scheduler = scheduler.Render();
+            //ViewBag.showNotes = showNotes;
             return View();
         }
 
@@ -2143,24 +2143,24 @@ namespace Generic.Controllers
         /// Method import events from google calendar
         /// </summary>
         /// <returns></returns>
-        public ContentResult Data()
-        {
-            var data = new SchedulerAjaxData();
+        //public ContentResult Data()
+        //{
+        //    var data = new SchedulerAjaxData();
 
-            var iCal = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
-            data.FromICal(iCal);
-            return data;
-        }
+        //    var iCal = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+        //    data.FromICal(iCal);
+        //    return data;
+        //}
 
         /// <summary>
         /// Get Person Ical url
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetPersonIcal()
-        {
-            var iCal = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
-            return Json(new { Data = iCal }, JsonRequestBehavior.AllowGet);
-        }
+        //public ActionResult GetPersonIcal()
+        //{
+        //    var iCal = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+        //    return Json(new { Data = iCal }, JsonRequestBehavior.AllowGet);
+        //}
 
         /// <summary>
         /// Method to update the iCal of perosn logged in
