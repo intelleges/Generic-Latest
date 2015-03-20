@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Response>
+  <Gather action="handle-user-input.php" numDigits="1">
+    <Say voice="woman">Welcome to TPS.</Say>
+    <Say voice="woman">Kyle Kononowitz press 1.</Say>
+    <Say voice="woman">John Betancourt press 2.</Say>
+    <Say voice="woman">Daryl Davis press 3.</Say>
+    <Say voice="woman">Vishal Patel press 4.</Say>
+    <Say voice="woman">Technical Support press 5.</Say>
+    <Say voice="woman">Sales press 6.</Say>
+    <Say voice="woman">Billing Issues press 7.</Say>
+    <Say voice="woman">Otherwise press 0 for a live operator.</Say>
+  </Gather>
+  <!-- If customer doesn't input anything, prompt and try again. -->
+  <Say>Sorry, I didn't get your response.</Say>
+  <Redirect>handle-incoming-call.xml</Redirect>
+</Response>
