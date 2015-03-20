@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Response>
-  <Gather action="handle-user-input.php" numDigits="1">
+  <Gather action="handle-user-input.cshtml" numDigits="1">
     <Say voice="woman">Welcome to TPS.</Say>
     <Say voice="woman">Kyle Kononowitz press 1.</Say>
     <Say voice="woman">John Betancourt press 2.</Say>
@@ -13,5 +13,5 @@
   </Gather>
   <!-- If customer doesn't input anything, prompt and try again. -->
   <Say>Sorry, I didn't get your response.</Say>
-  <Redirect>handle-incoming-call.xml</Redirect>
+  <Redirect>https://www.intelleges.com/VoiceResponse/incoming-calls.xml</Redirect>
 </Response>
