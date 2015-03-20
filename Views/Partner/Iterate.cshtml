@@ -1439,6 +1439,11 @@
             }
         });
     }
+    function callIfNeed(partnerId, nextActionId) {
+        if (nextActionId === 1 || nextActionId === 15) {
+            TwilioCall(partnerId);
+        }
+    }
 </script>
 
 @section splitterTop {
@@ -1461,7 +1466,10 @@
     </div>
 ").Width(230);
         columns.Bound(o => o.nextAction).Title("Next Action").Width(160).ClientTemplate(@"
-<a href='#' id='NA<#=id#>' class='menu_block'><#=nextAction#></a>
+<a href='#' id='NA<#=id#>' class='menu_block' ondblclick='callIfNeed(<#=id#>,<#=nextActionID#>)'><#=nextAction#></a>
+");
+        columns.Bound(o => o.NextActionDateDisplay).Title("Next Action Date").Width(130).ClientTemplate(@"
+<a href='#' id='NAD<#=id#>' class='menu_block'><#=NextActionDateDisplay#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
           <li><a href='#' onclick='changeNextAction(<#=id#>,1);'>Call Back</a></li>
@@ -1473,7 +1481,6 @@
         </ul>
     </div>
 ");
-        columns.Bound(o => o.nextActionDate).Title("Next Action Date").Width(120);
         columns.Bound(o => o.firstname).Title("First name").Width(80);
         columns.Bound(o => o.lastname).Title("Last name").Width(100);
         columns.Bound(o => o.title).Title("Title").Width(100);
@@ -1499,11 +1506,11 @@
         </ul>
     </div>
 ");
-        columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(110);
+        columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(120);
         columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100);
-        columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(100);
+        columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(120);
         columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
-        columns.Bound(o => o.iteratePartnerStatusDescription).Title("PS").Width(100).ClientTemplate(@"
+        columns.Bound(o => o.iteratePartnerStatusDescription).Title("Status").Width(100).ClientTemplate(@"
 <a href='#' id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatusDescription#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
@@ -1520,11 +1527,11 @@
 ");
         
         
-        columns.Bound(o => o.NotesDescription).Title("Notes").Width(30);
+        columns.Bound(o => o.NotesDescription).Title("N").Width(15);
         ////columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
         ////columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
             }
-                                    ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "display:none;font-size:10px;" }) 
+                                    ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "font-size:10px;" })
    
 }
 @section rightSplitter{

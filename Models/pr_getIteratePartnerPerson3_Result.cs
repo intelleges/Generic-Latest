@@ -14,5 +14,12 @@ namespace Generic
                 return notes.HasValue && notes.Value ? "Y" : "N";
             }
         }
+        public string NextActionDateDisplay
+        {
+            get
+            {
+                return nextActionDate.HasValue ? nextActionDate.Value.ToShortDateString() + " " + nextActionDate.Value.ToLongTimeString() : "";
+            }
+        }
     }
 }
