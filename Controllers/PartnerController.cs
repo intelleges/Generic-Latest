@@ -2961,6 +2961,24 @@ namespace Generic.Controllers
                  if (iPerson != null)
                  {
                      iPerson.nextAction = nextActionId;
+                     if (nextActionId == 1)
+                     {
+                         var date = DateTime.Now;
+                         switch(date.DayOfWeek)
+                         {
+                             case DayOfWeek.Friday:
+                                 date = date.AddDays(3);
+                                 break;
+                             case DayOfWeek.Saturday:
+                                 date = date.AddDays(2);
+
+                                 break;
+                             default:
+                                 date = date.AddDays(1);
+                                 break;
+                         }
+                         iPerson.nextActionDate = date;
+                     }
                      db.Entry(iPerson).State = EntityState.Modified;
                      db.SaveChanges();
                  }
