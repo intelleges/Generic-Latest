@@ -76,9 +76,21 @@
     #IteratePartners tr > td:hover .menu_block + .display_menu {
         display: block !important;
     }
-
+     #IteratePartners tr > td:hover .menu_block + .display_menu_right {
+        display: block !important;
+    }
+     
     .display_menu {
         left: 65px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+    .display_menu_right {
+        left: -178px;
         overflow: visible;
         position: absolute;
         top: -5px;
@@ -97,6 +109,14 @@
     }
 
     .display_menu li {
+        list-style: none outside none;
+        width: 143px;
+    }
+    .display_menu_right > ul {
+        padding: 0 16px;
+    }
+
+    .display_menu_right li {
         list-style: none outside none;
         width: 143px;
     }
@@ -1416,7 +1436,8 @@
     function changeNextAction(id, nextAction) {
         $.post("ChangeIteratePartnerNextAction", {
             partnerId: id,
-            nextActionId: nextAction
+            nextActionId: nextAction,
+            localDate:new Date().toISOString()
         }).done(function (result) {
             if (result) {
                 $("#IteratePartners").data("tGrid").ajaxRequest();
@@ -1520,7 +1541,7 @@
         columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
         columns.Bound(o => o.iteratePartnerStatusDescription).Title("Status").Width(100).ClientTemplate(@"
 <a href='#' id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatusDescription#></a>
-    <div class='display_menu' style='display: none;'>
+    <div class='display_menu_right' style='display: none;'>
         <ul>
           <li><a href='#' onclick='changeStatus(<#=id#>,1);'>aCold Leads</a></li>
             <li><a href='#' onclick='changeStatus(<#=id#>,2);'>cCurrentProspects</a></li>
@@ -1626,13 +1647,15 @@
                         function (result) {
                             if (result.iteratestatusid) {
                                 var grid = $("#IteratePartners").data("tGrid");
-                                var nItem = grid.dataSource.find(result.partnerid);
-                                if (nItem) {
-                                    grid.dataSource.find(result.partnerid).iteratePartnerStatus = result.iteratestatusid;
-                                    grid.dataSource.find(result.partnerid).iteratePartnerStatusDescription = result.iteratestatusdescription;
-                                    if (iterate.selectedPartnerId === result.partnerid)
-                                        $("#partnerstatus").val(result.iteratestatusid);
-                                }
+                                grid.ajaxRequest();
+                                //var nItem = grid.dataSource.find(result.partnerid);
+                                //if (nItem) {
+                                //    grid.dataSource.find(result.partnerid).iteratePartnerStatus = result.iteratestatusid;
+                                //    grid.dataSource.find(result.partnerid).iteratePartnerStatusDescription = result.iteratestatusdescription;
+                                    
+                                //}
+                                if (iterate.selectedPartnerId === result.partnerid)
+                                    $("#partnerstatus").val(result.iteratestatusid);
                             }
                         });
                 }

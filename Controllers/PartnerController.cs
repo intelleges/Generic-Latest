@@ -2952,7 +2952,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangeIteratePartnerNextAction(int partnerId, int nextActionId)
+        public ActionResult ChangeIteratePartnerNextAction(int partnerId, int nextActionId, DateTime localDate)
         {
              var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
              if (iPartner != null)
@@ -2963,7 +2963,7 @@ namespace Generic.Controllers
                      iPerson.nextAction = nextActionId;
                      if (nextActionId == 1)
                      {
-                         var date = DateTime.Now;
+                         var date = localDate;
                          switch(date.DayOfWeek)
                          {
                              case DayOfWeek.Friday:
