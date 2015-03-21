@@ -1435,12 +1435,12 @@
     }
     function changeNextAction(id, nextAction) {
         var d = new Date();
-        var offset = d.getTimezoneOffset();
-        var dt = new Date(d.getTime() - (offset * 60000));
+        //var offset = d.getTimezoneOffset();
+        //var dt = new Date(d.getTime() - (offset * 60000));
         $.post("ChangeIteratePartnerNextAction", {
             partnerId: id,
             nextActionId: nextAction,
-            localDate: dt.toISOString()
+            localDate: d.toISOString()
         }).done(function (result) {
             if (result) {
                 $("#IteratePartners").data("tGrid").ajaxRequest();
