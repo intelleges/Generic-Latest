@@ -1693,11 +1693,9 @@
             jQuery.ajax({
                 type: "post",
                 url: url,
-                data: JSON.stringify({ "id": $('#ID').val(), "phone": $('#PhoneNumber').text() }), //pass according to needs.
+                data: { id: $('#ID').val(), phone: $('#PhoneNumber').text() }, //pass according to needs.
                 cache: false,
-                async: true,
-                dataType: 'json',
-                contentType: "application/json",
+                async: true,                
                 success: function (result) {
                   
                 },
