@@ -1487,7 +1487,7 @@
     <a href='#' id='Company<#=id#>' class='menu_block'><#=name#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
-          <li><a href='#' onclick='TwilioCall(<#=id#>);'>Call/Next Call</a></li>
+          <li><a href='#' onclick='TwilioCall(<#=id#>,this);'>Call/Next Call</a></li>
             <li><a href='#'>Email</a></li>
             <li><a href='#'>Meet</a></li>
             <li><a href='#'>Update</a></li>
@@ -1688,14 +1688,16 @@
         
 
         //Rewritten update.
-        function TwilioCall(Id) {
-            var url = '@Url.Action("CallPartnerNow", "Partner")'
+        function TwilioCall(Id,row) {
+            var url = '@Url.Action("CallPartnerNow", "Partner")';
+            var partnerGrid = $("#IteratePartners").data("tGrid");
+            var rowData = partnerGrid.dataItem($(row).parents("tr")[0]);
             jQuery.ajax({
                 type: "post",
                 url: url,
-                data: { id: $('#ID').val(), phone: $('#PhoneNumber').text() }, //pass according to needs.
+                data: { id: rowData.id, phone:rowData.phone }, //pass according to needs.
                 cache: false,
-                async: true,                
+                async: true,
                 success: function (result) {
                   
                 },

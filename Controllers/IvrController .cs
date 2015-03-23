@@ -9,8 +9,10 @@ using Twilio.TwiML.Mvc;
 
 namespace Generic.Controllers
 {
+    [AllowAnonymous]
     public class IvrController : TwilioController
     {
+
         public ActionResult Index()
         {
             UrlHelper helper = new UrlHelper(HttpContext.Request.RequestContext);
@@ -22,7 +24,7 @@ namespace Generic.Controllers
 
         public ActionResult IncomingCall(int digits)
         {
-            return View();
+            return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Dial timeout=\"10\" record=\"true\">" + number + "</Dial></Response>", "text/xml");
         }
 
         [HttpGet]
