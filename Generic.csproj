@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6193A658-4E79-440C-9FC9-79A15396B705}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Generic</RootNamespace>
@@ -596,6 +596,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IvrController .cs" />
     <Compile Include="Controllers\jsTree3Controller.cs" />
     <Compile Include="Controllers\PartnerController.cs" />
     <Compile Include="Controllers\PartnerTypeController.cs" />
@@ -3358,6 +3359,9 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="VoiceResponse\incoming-calls.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="wallet.ico" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -3425,6 +3429,8 @@
     <Content Include="Views\Shared\_jsTreeDemo.cshtml" />
     <Content Include="Views\jsTree3\Demo.cshtml" />
     <Content Include="Views\jsTree3\AJAXDemo.cshtml" />
+    <Content Include="Views\Ivr\Index.cshtml" />
+    <Content Include="Views\Ivr\IncomingCall.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3845,7 +3851,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>56627</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:51090/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

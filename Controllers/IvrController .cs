@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using Twilio.TwiML;
 using Twilio.TwiML.Mvc;
 
@@ -17,6 +18,18 @@ namespace Generic.Controllers
             var twiml = new TwilioResponse();
            // twiml.Play(helper.ContentAbsolute("~/Content/Audio/greeting.mp3"));
             return TwiML(twiml);
+        }
+
+        public ActionResult IncomingCall(int digits)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult VoiceXml(string number)
+        {
+
+            return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Dial timeout=\"10\" record=\"true\">"+number+"</Dial></Response>", "text/xml");
         }
     }
 }

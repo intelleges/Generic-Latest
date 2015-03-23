@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+@{
+   Response.ContentType = "text/xml";
+   
+   var twiml = new Twilio.TwiML.TwilioResponse();
+
+   //@start snippet
+   int user_pushed = int.Parse(Request["Digits"]);
+   //@end snippet
+   
+if (user_pushed == 0)
+{
+       twiml.Say("Taking you back to the main menu");
+       twiml.Redirect("handle-incoming-call.xml", "GET");
+}
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>IncomingCall</title>
+</head>
+<body>
+    <div>
+        
+    </div>
+</body>
+</html>

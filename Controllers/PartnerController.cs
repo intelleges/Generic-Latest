@@ -69,6 +69,7 @@ namespace Generic.Controllers
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
             Session["partnersearch"] = arguments;
             return RedirectToAction("FindPartnerResult");
+
         }
         [HttpPost]
         public bool RemoveStockNumbers(string[] values, int partnerId)
@@ -2845,36 +2846,39 @@ namespace Generic.Controllers
        
 
         [HttpPost]
-        public ActionResult CallPartnerNow()
+        public ActionResult CallPartnerNow(int partnerId)
         {
-
-            string accountSid = ConfigurationManager.AppSettings["accountSidTwilio"].ToString(); //account sid
-            string authToken = ConfigurationManager.AppSettings["authTokenTwilio"].ToString(); //auth token
-            string StoreSid = "";
-            string phoneNumberFrom = "+19178180225";// dialer's phone and pass according to needs.
-            string phoneNumberTo = "+19178488088"; //Recipient phone as phone.pass from above
-            var client = new TwilioRestClient(accountSid, authToken);
-            var options = new CallOptions();
-            options.To = phoneNumberTo;
-            options.From = phoneNumberFrom;
-            options.Url = ConfigurationManager.AppSettings["Twilio.URL"].ToString(); //url for twilio
-            options.Method = "GET";
-            options.FallbackMethod = "GET";
-            options.StatusCallbackMethod = "GET";
-            options.Record = true;
-            var call = client.InitiateOutboundCall(options);
-
-            if (call.RestException == null)
+            var iPartner = db.pr_getIteratePartner(partnerId).FirstOrDefault();
+            if (iPartner != null)
             {
-                StoreSid = call.Sid;
-            }
-            else
-            {
-                Response.Write(string.Format("Error: {0}", call.RestException.Message));
-                StoreSid = "-";
-            }
+                string accountSid = ConfigurationManager.AppSettings["accountSidTwilio"].ToString(); //account sid
+                string authToken = ConfigurationManager.AppSettings["authTokenTwilio"].ToString(); //auth token
+                string StoreSid = "";
+                string phoneNumberFrom = "+19178180225";// dialer's phone and pass according to needs.
+                string phoneNumberTo = "+19178488088"; //Recipient phone as phone.pass from above
+                var client = new TwilioRestClient(accountSid, authToken);
+                var options = new CallOptions();
+                options.To = phoneNumberTo;
+                options.From = phoneNumberFrom;
+                options.Url = Request.Url.GetLeftPart(UriPartial.Authority) + ConfigurationManager.AppSettings["Twilio.URL"].ToString(); //url for twilio
+                options.Method = "GET";
+                options.FallbackMethod = "GET";
+                options.StatusCallbackMethod = "GET";
+                options.Record = true;
+                var call = client.InitiateOutboundCall(options);
 
-            return View();
+                if (call.RestException == null)
+                {
+                    StoreSid = call.Sid;
+                }
+                else
+                {
+                    //Response.Write(string.Format("Error: {0}", call.RestException.Message));
+                    return Json(call.RestException.Message);
+                    StoreSid = "-";
+                }
+            }
+            return Json(true);
         }
 
 
