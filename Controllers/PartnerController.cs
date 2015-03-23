@@ -2846,9 +2846,9 @@ namespace Generic.Controllers
        
 
         [HttpPost]
-        public ActionResult CallPartnerNow(int partnerId)
+        public ActionResult CallPartnerNow(int id)
         {
-            var iPartner = db.pr_getIteratePartner(partnerId).FirstOrDefault();
+            var iPartner = db.pr_getIteratePartner(id).FirstOrDefault();
             if (iPartner != null)
             {
                 string accountSid = ConfigurationManager.AppSettings["accountSidTwilio"].ToString(); //account sid
