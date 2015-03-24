@@ -22,9 +22,30 @@ namespace Generic.Controllers
             return TwiML(twiml);
         }
 
-        public ActionResult IncomingCall(int digits)
+        public ActionResult IncomingCall(int? digits)
         {
-            return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Dial timeout=\"10\" record=\"true\">" + digits + "</Dial></Response>", "text/xml");
+            if (digits.HasValue)
+            {
+                switch (digits.Value)
+                {
+                    case 1:
+                        return VoiceXml("2128515412");                        
+                        break;
+                    default:
+                        return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Redirect method=\"POST\">https://www.intelleges.com/mvcmt/Generic/Ivr/IncomingCallXml</Redirect></Response>", "text/xml");
+                        break;
+                }
+            }
+            else
+               return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Redirect method=\"POST\">https://www.intelleges.com/mvcmt/Generic/Ivr/IncomingCallXml</Redirect></Response>", "text/xml");
+            
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public ActionResult IncomingCallXml()
+        {
+            return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response>   <Gather action=\"/https://www.intelleges.com/mvcmt/Generic/Ivr/IncomingCall\" timeout=\"10\" finishOnKey=\"*\" numDigits=\"1\">       <Say>Hello, Thanks for Calling Intelleges the communications platform that empowers you to accomplish your business objectives. </Say>       <Say> If you are looking for Kyle Kononowitz press 1 </Say>   </Gather></Response>", "text/xml");
         }
 
         [HttpGet]
