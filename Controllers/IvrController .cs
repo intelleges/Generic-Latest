@@ -24,7 +24,7 @@ namespace Generic.Controllers
 
         public ActionResult IncomingCall(int digits)
         {
-            return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Dial timeout=\"10\" record=\"true\">" + number + "</Dial></Response>", "text/xml");
+            return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Dial timeout=\"10\" record=\"true\">" + digits + "</Dial></Response>", "text/xml");
         }
 
         [HttpGet]
