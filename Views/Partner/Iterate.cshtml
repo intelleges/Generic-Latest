@@ -513,6 +513,17 @@
                 iterate.selectedPartner = rowData.name;
                 showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);                
             }
+            if ($(this).text() === "Email") {
+                e.preventDefault();
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = rowData.id;
+                iterate.selectedPartner = rowData.name;
+                $("#emailSubject").val("");
+                CKEDITOR.instances.emailText.setData("");
+                $("#emailDialog").modal("toggle");
+            }
         });
         if (iterate.saved) {
             $($("#Company" + iterate.selectedPartnerId).parents("tr")[0]).click();
@@ -573,6 +584,20 @@
         $("#addNoteDialog").submit(function (e) {
             e.preventDefault();
             AddNote($("#noteTitle").val(), $("#noteText").val(), iterate.selectedPartner, iterate.selectedPartnerId);            
+        });
+        //send email to partner
+        $("#emailDialog").submit(function (e) {
+            e.preventDefault();
+            $.post("SendIteratePartnerEmail", {
+                partnerId: iterate.selectedPartnerId,
+                subject: $("#emailSubject").val(),
+                text: $("#emailText").val()
+            }).done(function (result) {
+                if (result) {
+                    alertify.alert(result);
+                }
+                $("#emailDialog").modal("toggle");
+            });
         });
 
 
@@ -1043,6 +1068,40 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="emailDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">E-Mail to partner</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="madalEmailForm">
+                        <div class="form-group">
+                            <label class="control-label" for="emailSubject">Subject</label>
+                            <input id="emailSubject" name="emailSubject" class="form-control" type="text" placeholder="Please Enter subject" data-val-required="*" data-val="true" />
+                            <span data-valmsg-replace="true" data-valmsg-for="emailSubject" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="emailText">Text</label>
+                            <textarea id="emailText" name="emailText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="emailText" class="field-validation-valid help-inline" />
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                CKEDITOR.replace('emailText');
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="submit">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
 
         <div class="col-xs-6">
@@ -1492,7 +1551,7 @@
             <li><a href='#'>Meet</a></li>
             <li><a href='#'>Update</a></li>
             <li><a href='#'>Remove</a></li>
-<li><a href='#'>Nurture</a></li>
+<li><a href='#'>Nurture/Remind</a></li>
             <li><a href='#'>Note</a></li>
         </ul>
     </div>

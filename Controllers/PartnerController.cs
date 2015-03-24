@@ -3023,5 +3023,26 @@ namespace Generic.Controllers
             }
             return Json(true);
         }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SendIteratePartnerEmail(int partnerId, string subject, string text)
+        {
+            try
+            {
+                var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == partnerId);
+                var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+                if (iPerson != null && !string.IsNullOrEmpty(iPerson.email) && currentPerson != null)
+                {
+                    SchedulerServiceHelper.sendEmail(subject, text, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName));
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+            return Json(false);
+            //SendEmail.
+        }
     }
 }

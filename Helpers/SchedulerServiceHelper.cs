@@ -329,6 +329,30 @@ namespace Generic.Helpers
             }
             return returnValue;
         }
+        public static void sendEmail(string subject, string body, string sendto, MailAddress sendFrom)
+        {
+            var mail = SendGrid.GetInstance();
+
+            var credentials = new NetworkCredential("johnbetancourt", "o5QLb0z8");
+            Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
+
+
+            additionalArguments.Add("ApplicationName", "MVCMT");
+            mail.AddUniqueIdentifiers(additionalArguments);
+            // Create an SMTP transport for sending email.
+            var transportSMTP = SMTP.GetInstance(credentials);
+
+            mail.AddTo(sendto);
+            mail.From = sendFrom;
+
+            mail.Subject = subject;
+
+            body = body.Replace("\n", "<br />");
+            body = body.Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
+            mail.Html = body;
+            transportSMTP.Deliver(mail);
+
+        }
         public static void sendEmail(string subject, string body, string filepath, string sendto)
         {
 
