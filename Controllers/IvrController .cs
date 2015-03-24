@@ -41,8 +41,7 @@ namespace Generic.Controllers
             
         }
 
-        [HttpPost]
-        [HttpGet]
+        [HttpPost]        
         public ActionResult IncomingCallXml()
         {
             return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response>   <Gather action=\"/https://www.intelleges.com/mvcmt/Generic/Ivr/IncomingCall\" timeout=\"10\" finishOnKey=\"*\" numDigits=\"1\">       <Say>Hello, Thanks for Calling Intelleges the communications platform that empowers you to accomplish your business objectives. </Say>       <Say> If you are looking for Kyle Kononowitz press 1 </Say>   </Gather></Response>", "text/xml");
