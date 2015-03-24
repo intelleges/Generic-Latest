@@ -1463,9 +1463,9 @@
             }
         });
     }
-    function callIfNeed(partnerId, nextActionId) {
+    function callIfNeed(partnerId, nextActionId, row) {
         if (nextActionId === 1 || nextActionId === 15) {
-            TwilioCall(partnerId);
+            TwilioCall(partnerId, row);
         }
     }
     function shownote(sender,partnerId) {
@@ -1498,7 +1498,7 @@
     </div>
 ").Width(230);
         columns.Bound(o => o.nextAction).Title("Next Action").Width(160).ClientTemplate(@"
-<a href='#' id='NA<#=id#>' class='menu_block' ondblclick='callIfNeed(<#=id#>,<#=nextActionID#>)'><#=nextAction#></a>
+<a href='#' id='NA<#=id#>' class='menu_block' ondblclick='callIfNeed(<#=id#>,<#=nextActionID#>, this)'><#=nextAction#></a>
 ");
         columns.Bound(o => o.NextActionDateDisplay).Title("Next Action Date").Width(130).ClientTemplate(@"
 <a href='#' id='NAD<#=id#>' class='menu_block'><#=NextActionDateDisplay#></a>
