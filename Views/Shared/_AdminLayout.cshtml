@@ -94,7 +94,7 @@
             .Content(@<p>Inner splitter :: left pane</p>);
 
             hPanes.Add()
-            .Content(@<div id="body">
+            .Content(@<div id="body" style="height:100%;width:100%">
                     @RenderSection("featured", required: false)
                     <header>
                         <div class="content-wrapper main-content clear-fix">
@@ -225,7 +225,7 @@
                         .Render();
     }
    </div>
-    <div id="popup">
+    <div id="popup" style="display:none;">
         <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
     </div>
    @* @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
@@ -283,12 +283,12 @@
         //jQuery.noConflict();
         //jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
         $(document).ready(function () {
-            var height = $(document).height();
+            //var height = $(window).height();
             // $("#Splitter1").height(height);
             //$("#Splitter1 t-pane").height(height);
             //$("#Splitter2").height(height);
             //$("#Splitter2 t-pane").height(height);
-            //$("#modal").height(height);
+            //$("#modal").height(height-$("#body header").height());
             //$("#popap").height(height);
             //logo uploading
             $("#selectlogoForm").submit(function (e) {

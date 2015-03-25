@@ -524,6 +524,19 @@
                 CKEDITOR.instances.emailText.setData("");
                 $("#emailDialog").modal("toggle");
             }
+            if ($(this).text() === "Nurture/Remind") {
+                e.preventDefault();
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                $.post("NurtureRemindIteratePartner", {
+                    internalId: rowData.internalID,
+                    email: rowData.email,
+                    partnerId: rowData.id,
+                    personId:rowData.personID
+                }).done(function (result) {
+
+                });
+            }
         });
         if (iterate.saved) {
             $($("#Company" + iterate.selectedPartnerId).parents("tr")[0]).click();
@@ -877,7 +890,7 @@
         display: inline-block;
     }
 
-    .twocol .editor-label {
+    /*.twocol .editor-label {
         width: 10%;
         display: inline-block;
         font-size: 11px;
@@ -898,21 +911,22 @@
         width: 20%;
         display: inline-block;
     }
-
+*/
     .editor-field label, .editor-field input, .editor-field select, .editor-field input, .editor-field select {
-        width: 90%;
+        width: 100%;
         display: inline-block;
         font-size: 11px;
     }
 
     .txtClass {
+        width:100%;
         border-radius: 5px;
         border-color: rgb(169, 169, 169);
     }
 
     .ddlClass {
         height: 25px;
-        /*width: 96% !important;*/
+        width: 100% !important;
         border-radius: 5px;
     }
 
@@ -1037,7 +1051,7 @@
     }
 </style>
 
-<div class="container">
+<div class="container-fluid">
     <div class="modal fade" id="addNoteDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1048,21 +1062,21 @@
                     <h4 class="modal-title" id="gpsLabel">Add new partner's note </h4>
                 </div>
                 <div class="modal-body">
-                    <form id="modalGetPassword">                       
+                    <form id="modalGetPassword">
                         <div class="form-group">
                             <label class="control-label" for="noteTitle">Title</label>
                             <input id="noteTitle" name="noteTitle" class="form-control" type="text" placeholder="Please Enter Note's' Title" data-val-required="*" data-val="true" />
-                            <span data-valmsg-replace="true" data-valmsg-for="noteTitle" class="field-validation-valid help-inline" />                           
+                            <span data-valmsg-replace="true" data-valmsg-for="noteTitle" class="field-validation-valid help-inline" />
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="noteText">Text</label>
                             <textarea id="noteText" name="noteText" class="form-control" placeholder="Please Enter Note's' Title" data-val-required="*" data-val="true"></textarea>
-                            <span data-valmsg-replace="true" data-valmsg-for="noteText" class="field-validation-valid help-inline" /> 
+                            <span data-valmsg-replace="true" data-valmsg-for="noteText" class="field-validation-valid help-inline" />
                             <script>
                                 // Replace the <textarea id="editor1"> with a CKEditor
                                 // instance, using default configuration.
                                 CKEDITOR.replace('noteText');
-            </script>
+                            </script>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
@@ -1099,17 +1113,17 @@
                             </script>
                         </div>
                         <div class="form-group">
-                            <div class="row" >
+                            <div class="row">
                                 <div class="col-xs-9">
                                     <button type="submit" class="btn btn-primary" name="submit">Send</button>
                                 </div>
                                 <div class="col-xs-3">
                                     <div class="checkbox">
-                                        <label style="font-size: 14px;"><input type="checkbox" id="ccSender" name="ccSender" checked/>cc Sender</label>
+                                        <label style="font-size: 14px;"><input type="checkbox" id="ccSender" name="ccSender" checked />cc Sender</label>
                                     </div>
-                                    </div>
+                                </div>
                             </div>
-                            
+
                         </div>
                     </form>
                 </div>
@@ -1118,7 +1132,7 @@
     </div>
     <div class="row">
 
-        <div class="col-xs-6">
+        <div class="col-xs-7">
             <div class="row">
                 <div class="addPartnerDiv">
                     <h2>Iterate <span class="clickable" id="iteratePrev">&lt;&lt;</span> <span style="width:10px"></span> <span class="clickable" id="iterateNext">&gt;&gt;</span></h2>
@@ -1133,45 +1147,46 @@
                 <legend>partner</legend>
                 <div id="addPartner" class="addPartnerDiv">
                     <div class="row bottom-buffer">
-                        @Html.HiddenFor(model => model.id)
-                        <!-- #region Name-->
+                        @Html.HiddenFor(model => model.id)                       
+                        <div class="col-xs-1">
+                            <div class="editor-field">
+                                @Html.Label("Name")
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.name, new { @class = "txtClass", data_val = "true", data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.name)
+                            </div>
+                            </div>
+                            <div class="col-xs-1">
+                                <div class="editor-field">
+                                    @Html.Label("ID")
+                                </div>
+                            </div>
+                        <div class="col-xs-3">
+                            <div class="editor-field">
 
-                        <div class="editor-label">
-                            @Html.Label("Name")
+                                @Html.TextBoxFor(model => model.internalID, new { @class = "txtClass", data_val = "true", data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.internalID)
+                            </div>
+                            </div>
                         </div>
-                        <div class="editor-field big-input">
-                            @*@Html.EditorFor(model => model.name)*@
-                            @Html.TextBoxFor(model => model.name, new { @class = "txtClass", data_val = "true", data_val_required = " " })
-                            @Html.ValidationMessageFor(model => model.name)
-                        </div>
-                        <!-- #endregion-->
-                        <!-- #region Internal ID-->
-
-                        <div class="editor-label">
-                            @*@Html.LabelFor(model => model.internalID)*@
-                            @Html.Label("ID")
-                        </div>
-                        <div class="editor-field">
-                            @*@Html.EditorFor(model => model.internalID)*@
-                            @Html.TextBoxFor(model => model.internalID, new { @class = "txtClass", data_val = "true", data_val_required = " " })
-                            @Html.ValidationMessageFor(model => model.internalID)
-                        </div>
-                    </div>
 
 
                     <div class="row bottom-buffer">
-                        <div class="editor-label">
+                        <div class="col-xs-1 editor-field">
                             @Html.Label("Address")
                         </div>
-                        <div class="editor-field big-input">
+                        <div class="col-xs-7 editor-field">
                             @Html.TextBoxFor(model => model.address1, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                             @Html.ValidationMessageFor(model => model.address1)
                         </div>
-                        <div class="editor-label">
+                        <div class="col-xs-1 editor-field">
                             @*@Html.LabelFor(model => model.phone)*@
                             @Html.Label("Phone")
                         </div>
-                        <div class="editor-field">
+                        <div class="col-xs-3 editor-field">
                             @*@Html.EditorFor(model => model.phone)*@
                             @Html.TextBoxFor(model => model.phone, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                             @Html.ValidationMessageFor(model => model.phone)
@@ -1179,30 +1194,30 @@
 
                     </div>
                     <div class="row bottom-buffer">
-                        <div class="editor-label">
+                        <div class="col-xs-1 editor-field">
 
                             @Html.Label("City")
                         </div>
-                        <div class="editor-field" style="width:37%">
+                        <div class="col-xs-3 editor-field">
 
                             @Html.TextBoxFor(model => model.city, new { @class = "txtClass", style = "width:100%", data_val = "true", data_val_required = " " })
                             @Html.ValidationMessageFor(model => model.city)
                         </div>
-                        <div class="editor-label" style="width: 8%;">
+                        <div class="col-xs-1 editor-field" >
                             @*@Html.LabelFor(model => model.state)*@
                             @Html.Label("State")
                         </div>
-                        <div class="editor-field" style="width:10%">
+                        <div class="col-xs-3 editor-field" >
                             @Html.DropDownList("state", null, String.Empty, new { @class = "ddlClass", style = "width:100%", data_val = "true", data_val_required = " " })
 
                             @Html.ValidationMessageFor(model => model.state)
                         </div>
 
-                        <div class="editor-label" style="margin-left:4px;">
+                        <div class="col-xs-2 editor-field">
                             @*@Html.LabelFor(model => model.zipcode)*@
                             @Html.Label("Zip Code")
                         </div>
-                        <div class="editor-field">
+                        <div class="col-xs-2 editor-field">
                             @*@Html.EditorFor(model => model.zipcode)*@
                             @Html.TextBoxFor(model => model.zipcode, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                             @Html.ValidationMessageFor(model => model.zipcode)
@@ -1210,53 +1225,53 @@
                     </div>
 
                     <div class="row bottom-buffer">
-                        <div class="editor-label">
+                        <div class="col-xs-1 editor-field">
                             @*@Html.LabelFor(model => model.firstName)*@
                             @Html.Label("First Name")
                         </div>
-                        <div class="editor-field" style="width:22.5%">
+                        <div class="col-xs-3 editor-field">
                             @*@Html.EditorFor(model => model.firstName)*@
                             @Html.TextBoxFor(model => model.firstName, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                             @Html.ValidationMessageFor(model => model.firstName)
                         </div>
 
-                        <div class="editor-label">
+                        <div class="col-xs-1 editor-field">
                             @* @Html.LabelFor(model => model.lastName)*@
                             @Html.Label("Last Name")
                         </div>
-                        <div class="editor-field" style="width:22.5%">
+                        <div class="col-xs-3 editor-field" >
                             @*@Html.EditorFor(model => model.lastName)*@
                             @Html.TextBoxFor(model => model.lastName, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                             @Html.ValidationMessageFor(model => model.lastName)
                         </div>
 
-                        <div class="editor-label" style="margin-left: 4px;">
+                        <div class="col-xs-1 editor-field" >
                             @*@Html.LabelFor(model => model.title)*@
                             @Html.Label("Title")
                         </div>
-                        <div class="editor-field">
+                        <div class="col-xs-3 editor-field">
                             @*@Html.EditorFor(model => model.title)*@
                             @Html.TextBoxFor(model => model.title, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                             @Html.ValidationMessageFor(model => model.title)
                         </div>
                     </div>
                     <div class="row bottom-buffer">
-                        <div class="editor-label">
+                        <div class="col-xs-1 editor-field">
 
                             @Html.Label("Email")
                         </div>
-                        <div class="editor-field big-input">
+                        <div class="col-xs-5 editor-field">
 
                             @Html.TextBoxFor(model => model.email, new { @class = "txtClass", data_val = "true", data_val_required = " ", data_val_email = " " })
                             @Html.ValidationMessageFor(model => model.email)
                         </div>
                         <!-- #endregion-->
 
-                        <div class="editor-label">
+                        <div class="col-xs-1 editor-field">
                             @* @Html.LabelFor(model => model.dunsNumber)*@
                             @Html.Label("URL")
                         </div>
-                        <div class="editor-field">
+                        <div class="col-xs-5 editor-field">
                             @*@Html.EditorFor(model => model.dunsNumber)*@
                             @Html.TextBoxFor(model => model.dunsNumber, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                             @Html.ValidationMessageFor(model => model.dunsNumber)
@@ -1265,54 +1280,54 @@
 
                     </div>
                     <div class="row bottom-buffer">
-                        <div class="editor-label">
+                        <div class="col-xs-1 editor-field">
                             @Html.Label("NA")
                         </div>
-                        <div class="editor-field">
+                        <div class="col-xs-3 editor-field">
                             @Html.DropDownList("nextaction", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
-                           
+
                             <span class="field-validation-valid" data-valmsg-for="touchpoint" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="editor-label">
+                        <div class="col-xs-1 editor-field">
                             @Html.Label("NAD")
                         </div>
-                        <div class="editor-field" style="width:25%">
-                            @Html.Telerik().DateTimePicker().Name("nad").HtmlAttributes(new { style="width:100%"})                    
+                        <div class="col-xs-3 editor-field" >
+                            @Html.Telerik().DateTimePicker().Name("nad").HtmlAttributes(new { style = "width:100%" })
 
                             <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
-                           
+
                         </div>
-                        <div class="editor-label" style="margin-left: 0.5%;">
+                        <div class="col-xs-1 editor-field" >
                             @Html.Label("PS")
                         </div>
-                        <div class="editor-field">
-                            @Html.DropDownList("partnerstatus", null, String.Empty, new { @class = "ddlClass", @style = "margin-top: 3%;", @data_val = "true", @data_val_required = " " })
-                            <span class="field-validation-valid" data-valmsg-for="group" data-valmsg-replace="true"></span> 
+                        <div class="col-xs-3 editor-field">
+                            @Html.DropDownList("partnerstatus", null, String.Empty, new { @class = "ddlClass",  @data_val = "true", @data_val_required = " " })
+                            <span class="field-validation-valid" data-valmsg-for="group" data-valmsg-replace="true"></span>
                         </div>
                     </div>
                     <div class="row bottom-buffer">
-                        <div class="editor-label">
-                            @Html.Label("Touch Point")
+                        <div class="col-xs-1 editor-field">
+                            @Html.Label("TP")
                         </div>
-                        <div class="editor-field">
+                        <div class="col-xs-3 editor-field">
                             @Html.DropDownList("touchpoint", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
                             @*<select id="touchpoint" name="touchpoint" class="ddlClass" data-val="true" data-val-required=" "></select>*@
                             <span class="field-validation-valid" data-valmsg-for="touchpoint" data-valmsg-replace="true"></span>
                         </div>
-                        <div class="editor-label">
-                            @Html.Label("Partner Type")
+                        <div class="col-xs-1 editor-field">
+                            @Html.Label("PT")
                         </div>
-                        <div class="editor-field" style="width:25%">
+                        <div class="col-xs-3 editor-field" >
                             @Html.DropDownList("partnertype", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " ", @style = "width:100%" })
                             @*<select id="partnertype" name="partnertype" class="ddlClass" data-val="true" data-val-required=" " style="width:100%"></select>*@
                             <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
                             @*<a href="@Url.Content(" ~ />PartnerType/Create")">Add Partner Type</a>*@
                         </div>
-                        <div class="editor-label" style="margin-left: 0.5%;">
+                        <div class="col-xs-1 editor-field" >
                             @Html.Label("Group")
                         </div>
-                        <div class="editor-field">
-                            @Html.DropDownList("group", null, String.Empty, new { @class = "ddlClass", @style = "margin-top: 3%;", @data_val = "true", @data_val_required = " " })
+                        <div class="col-xs-3 editor-field">
+                            @Html.DropDownList("group", null, String.Empty, new { @class = "ddlClass",  @data_val = "true", @data_val_required = " " })
                             <span class="field-validation-valid" data-valmsg-for="group" data-valmsg-replace="true"></span>
                             @* <a href="@Url.Content(" ~ />Group/Create")">Add Group</a>*@
 
@@ -1324,14 +1339,14 @@
                     @* <div class="threecol">
                         </div>*@
                     <div class="row pull-right" style="margin-top:15px">
-                        
-                        <input type="button" value="Upload" class="btn_b " id="btnLoad"/>
+
+                        <input type="button" value="Upload" class="btn_b " id="btnLoad" />
                         <input type="button" value="Download" class="btn_b " id="btnDownload" />
                         <input type="button" value="Clear" class="btn_b " id="btnClear" />
                         @*<input type="submit" value="Note" class="btn_b " />
-                        <input type="submit" value="Remind" class="btn_b " />*@
+                            <input type="submit" value="Remind" class="btn_b " />*@
                         <input type="button" value="Reset" class="btn_b " />
-                        <input type="button" value="Save" class="btn_b " id="btnSave"/>
+                        <input type="button" value="Save" class="btn_b " id="btnSave" />
                         <input type="button" value="Send" class="btn_b " />
 
 
@@ -1342,9 +1357,9 @@
 
             }
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-4">
             @(Html.Telerik().TabStrip()
-                .Name("tabstrip").HtmlAttributes(new { style = "margin-top: 25px;width:350px" })
+                        .Name("tabstrip").HtmlAttributes(new { style = "margin-top: 25px;width:380px" })
                 .Items(tabstrip =>
                 {
 

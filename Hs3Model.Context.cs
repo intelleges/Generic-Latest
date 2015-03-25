@@ -15721,5 +15721,52 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerStatusByLastContact_Result>("pr_getIteratePartnerStatusByLastContact", iteratepartnerParameter, lastcontactParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQAndEmail_Result> pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQAndEmail(Nullable<int> ptq, string email)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQAndEmail_Result>("pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQAndEmail", ptqParameter, emailParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQinternalIDAndEmail_Result> pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQinternalIDAndEmail(Nullable<int> ptq, string internalID, string email)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var internalIDParameter = internalID != null ?
+                new ObjectParameter("internalID", internalID) :
+                new ObjectParameter("internalID", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQinternalIDAndEmail_Result>("pr_getPartnerPartnertypeTouchpointQuestionnaireByPTQinternalIDAndEmail", ptqParameter, internalIDParameter, emailParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerPartnertypeTouchpointQuestionnaireByTouchpointInternalIDAndEmail_Result> pr_getPartnerPartnertypeTouchpointQuestionnaireByTouchpointInternalIDAndEmail(Nullable<int> touchpoint, string internalID, string email)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var internalIDParameter = internalID != null ?
+                new ObjectParameter("internalID", internalID) :
+                new ObjectParameter("internalID", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnaireByTouchpointInternalIDAndEmail_Result>("pr_getPartnerPartnertypeTouchpointQuestionnaireByTouchpointInternalIDAndEmail", touchpointParameter, internalIDParameter, emailParameter);
+        }
     }
 }

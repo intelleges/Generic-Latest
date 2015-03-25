@@ -3053,5 +3053,10 @@ namespace Generic.Controllers
             return Json(false);
             //SendEmail.
         }
+
+        public ActionResult NurtureRemindIteratePartner(string internalId, string email, int partnerId, int personId)
+        {
+            return Json(false);
+        }
     }
 }
