@@ -3026,7 +3026,7 @@ namespace Generic.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult SendIteratePartnerEmail(int partnerId, string subject, string text)
+        public ActionResult SendIteratePartnerEmail(int partnerId, string subject, string text, DateTime userDate, bool ccSender)
         {
             try
             {
@@ -3034,7 +3034,16 @@ namespace Generic.Controllers
                 var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
                 if (iPerson != null && !string.IsNullOrEmpty(iPerson.email) && currentPerson != null)
                 {
-                    SchedulerServiceHelper.sendEmail(subject, text, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName));
+                    SchedulerServiceHelper.sendEmail(subject, text, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender);
+
+                    iPerson.nextAction = (int)InteratePartnerStatus.EmailSent;
+                    iPerson.previousContact = iPerson.lastContact;
+                    iPerson.lastContact = (int)InteratePartnerStatus.EmailSent;
+                    iPerson.lastContactDate = userDate;
+                    iPerson.previousContactDate = userDate;
+                    iPerson.nextActionDate = userDate.AddDays(3);
+                    db.Entry(iPerson).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
             }
             catch (Exception ex)

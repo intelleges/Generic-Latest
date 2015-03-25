@@ -49,7 +49,10 @@ namespace Generic.ViewModel
         Not_In_Service=9,//Not In Service
         Other=14,//Other
         Transferred=11,//Transferredme to you wrote this 
-        Wrong_Number=12//Wrong Number
+        Wrong_Number=12,//Wrong Number
+        NoTouchpoint=15,
+        None=16,
+        EmailSent=17
     };
 
     public enum InteratePartnerNextStatus

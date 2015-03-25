@@ -591,10 +591,14 @@
             $.post("SendIteratePartnerEmail", {
                 partnerId: iterate.selectedPartnerId,
                 subject: $("#emailSubject").val(),
-                text: $("#emailText").val()
+                text: $("#emailText").val(),
+                userDate: new Date().toISOString(),
+                ccSender: $("#ccSender").prop("checked")
             }).done(function (result) {
                 if (result) {
                     alertify.alert(result);
+                } else {
+                    $("#IteratePartners").data("tGrid").ajaxRequest();
                 }
                 $("#emailDialog").modal("toggle");
             });
@@ -1095,7 +1099,17 @@
                             </script>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary" name="submit">Send</button>
+                            <div class="row" >
+                                <div class="col-xs-9">
+                                    <button type="submit" class="btn btn-primary" name="submit">Send</button>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="checkbox">
+                                        <label style="font-size: 14px;"><input type="checkbox" id="ccSender" name="ccSender" checked/>cc Sender</label>
+                                    </div>
+                                    </div>
+                            </div>
+                            
                         </div>
                     </form>
                 </div>

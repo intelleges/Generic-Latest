@@ -329,7 +329,7 @@ namespace Generic.Helpers
             }
             return returnValue;
         }
-        public static void sendEmail(string subject, string body, string sendto, MailAddress sendFrom)
+        public static void sendEmail(string subject, string body, string sendto, MailAddress sendFrom, bool ccSender)
         {
             var mail = SendGrid.GetInstance();
 
@@ -343,6 +343,8 @@ namespace Generic.Helpers
             var transportSMTP = SMTP.GetInstance(credentials);
 
             mail.AddTo(sendto);
+            if (ccSender)
+                mail.AddCc(sendFrom.Address);
             mail.From = sendFrom;
 
             mail.Subject = subject;
