@@ -528,13 +528,20 @@
                 e.preventDefault();
                 var partnerGrid = $("#IteratePartners").data("tGrid");
                 var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                iterate.selectedPersonId = rowData.personID;
+                iterate.selectedPartnerId = rowData.id;
                 $.post("NurtureRemindIteratePartner", {
                     internalId: rowData.internalID,
                     email: rowData.email,
                     partnerId: rowData.id,
                     personId:rowData.personID
                 }).done(function (result) {
-
+                    if (result !== "NOT_RELATED") {
+                        alertify.alert(result);
+                    }
+                    else {
+                        $("#nurturePartner").modal("toggle");
+                    }
                 });
             }
         });
@@ -616,7 +623,19 @@
                 $("#emailDialog").modal("toggle");
             });
         });
-
+        $("#nurturePartner").submit(function (e) {
+            e.preventDefault();
+            $.post("CreateAndInviteIteratePartner", {
+                partnerId: iterate.selectedPartnerId,
+                personId: iterate.selectedPersonId,
+                partnertype: $("#partnerType").val(),
+                group: $("#partnerGroup").val()
+            }).done(function (result) {
+                if (result) {
+                    alertify.alert(result);
+                }
+            })
+        });
 
         function validateControl() {
 
@@ -1124,6 +1143,40 @@
                                 </div>
                             </div>
 
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="nurturePartner" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Select partner type and group </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalGetPassword">
+                        <div class="form-group">
+                            <label class="control-label" for="partnerType">Partner Type</label>
+                           
+                            @Html.DropDownList("partnerType", (IEnumerable<SelectListItem>)ViewBag.currentUserPartnerType, new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="partnerType" class="field-validation-valid help-inline" />
+                            
+                            
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="partnerGroup">Partner Group</label>
+                            @Html.DropDownList("partnerGroup", (IEnumerable<SelectListItem>)ViewBag.group, new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="partnerGroup" class="field-validation-valid help-inline" />
+                            
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                         </div>
                     </form>
                 </div>

@@ -880,11 +880,11 @@ namespace Generic.Controllers
         }
 
 
-        public string Invite(int partnerId)
+        public string Invite(int partnerId, int ptq)
         {
 
 
-            int ptq = 30;// db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
+            //int ptq = 30; db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
             // db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire
             // db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire()
 
@@ -2132,7 +2132,7 @@ namespace Generic.Controllers
             ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
             ViewBag.nextaction = new SelectList(db.pr_getIterateNextAction().ToList(), "id", "nextAction");
             ViewBag.partnerstatus = new SelectList(db.pr_getIteratePartnerStatusAll().ToList(), "id", "description");
-
+            ViewBag.currentUserPartnerType = new SelectList(db.pr_getPartnertypeByTouchpoint(db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault().campaign).ToList(), "id", "name");
             //Scheduler Initializeer
             //var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
             //ViewBag.Scheduler = scheduler.Render();
@@ -3056,7 +3056,54 @@ namespace Generic.Controllers
 
         public ActionResult NurtureRemindIteratePartner(string internalId, string email, int partnerId, int personId)
         {
-            return Json(false);
+            var currentUser = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            if (currentUser != null && currentUser.campaign.HasValue)
+            {
+                var pptqId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByTouchpointInternalIDAndEmail(currentUser.campaign, internalId, email).FirstOrDefault();
+                if(pptqId!=null)
+                {
+                    return Json(Remind(pptqId.accesscode));
+                }
+                else
+                {
+                    return Json("NOT_RELATED");
+                }
+            }
+            
+            return Json("Current user should be related with any touchpoint");
+        }
+
+
+       
+
+        public ActionResult CreateAndInviteIteratePartner(int partnerId, int personId, int partnertype, int group)
+        {
+            try
+            {
+                var currentUser = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+                if (currentUser != null && currentUser.campaign.HasValue)
+                {
+                    //then create new partner
+                    string loadGroup = db.pr_getAccesscode().FirstOrDefault();
+                    var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
+                    var iPerson = db.iteratePerson.FirstOrDefault(o => o.id == personId);
+                    var partner = new partner();
+                    partner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
+                    //TODO: STATE from string to INT, also country
+                    int? PartnerId = db.pr_addPartnerSpreadsheetDataLoad(iPartner.internalID, iPartner.dunsnumber, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, "", iPartner.zipcode, "", iPerson.firstname, iPerson.lastname, iPerson.title, iPerson.phone, iPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, currentUser.campaign, currentUser.id, (int)PartnerStatus.Loaded, loadGroup, DateTime.Now.AddDays(4), group).ToList().FirstOrDefault();
+                    if (PartnerId.HasValue)
+                    {
+                        var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, currentUser.campaign).FirstOrDefault();
+                        Invite(PartnerId.Value, ptq.id);
+                        return Json("Partner is related and invited");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+            return Json("Can't relate partner");
         }
     }
 }
