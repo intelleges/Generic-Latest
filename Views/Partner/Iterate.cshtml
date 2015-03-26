@@ -632,6 +632,7 @@
                 group: $("#partnerGroup").val()
             }).done(function (result) {
                 if (result) {
+                    $("#nurturePartner").modal("toggle");
                     alertify.alert(result);
                 }
             })

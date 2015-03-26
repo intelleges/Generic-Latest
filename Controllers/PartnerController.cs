@@ -3090,13 +3090,12 @@ namespace Generic.Controllers
                     var partner = new partner();
                     partner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
                     //TODO: STATE from string to INT, also country
-                    int? PartnerId = db.pr_addPartnerSpreadsheetDataLoad(iPartner.internalID, iPartner.dunsnumber, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, "", iPartner.zipcode, "", iPerson.firstname, iPerson.lastname, iPerson.title, iPerson.phone, iPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, currentUser.campaign, currentUser.id, (int)PartnerStatus.Loaded, loadGroup, DateTime.Now.AddDays(4), group).ToList().FirstOrDefault();
-                    if (PartnerId.HasValue)
-                    {
-                        var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, currentUser.campaign).FirstOrDefault();
-                        Invite(PartnerId.Value, ptq.id);
-                        return Json("Partner is related and invited");
-                    }
+                    db.pr_addPartnerSpreadsheetDataLoad(iPartner.internalID, iPartner.dunsnumber, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, "", iPartner.zipcode, "", iPerson.firstname, iPerson.lastname, iPerson.title, iPerson.phone, iPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, currentUser.campaign, currentUser.id, (int)PartnerStatus.Loaded, loadGroup, DateTime.Now.AddDays(4), group).ToList().FirstOrDefault();
+                    var dbPartner = db.pr_getPartnerByEmailAndInternalID(CurrentInstance.EnterpriseID, iPerson.email, iPartner.internalID).FirstOrDefault();
+                    var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, currentUser.campaign).FirstOrDefault();
+                    Invite(dbPartner.id, ptq.id);
+                    return Json("Partner is invited");
+
                 }
             }
             catch (Exception ex)
