@@ -2338,8 +2338,9 @@ namespace Generic.Controllers
                 var noteBook = noteStore.getNotebook(authToken, newNoteBookId);
                 if (noteBook != null)
                 {
+                    var noteBookGuid = Guid.Parse(noteBook.Guid);
                     var statuses = db.pr_getIteratePartnerStatusAll().ToList();
-                    var newStatus = statuses.FirstOrDefault(o => o.description == noteBook.Name);
+                    var newStatus = statuses.FirstOrDefault(o => o.notebook == noteBookGuid);
                     if (newStatus != null)
                     {
                         db.pr_modifyIteratePartnerStatusByNote(gId, newStatus.id);
@@ -2350,7 +2351,7 @@ namespace Generic.Controllers
                         {
                             partnerId = partner.id;
                             statusUpdated = true;
-                        }                        
+                        }
                     }
                 }
                 if(string.IsNullOrEmpty(title))
@@ -2501,18 +2502,19 @@ namespace Generic.Controllers
         {
             if (SessionHelper.EvernoteCredentials != null)
             {
+                var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
                 var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
                 if (iPartner != null && iPartner.note.HasValue)
                 {
                     var note = GetNoteStore().getNote(SessionHelper.EvernoteCredentials.AuthToken, iPartner.note.Value.ToString(), true, false, false, false);
                     if (note != null)
                     {
-                        var doc = XDocument.Parse(note.Content);
-                        return Json(new { text = doc.Element(XName.Get("en-note")).ToString().Replace("<en-note>", "").Replace("</en-note>", "") });
+                        var doc = XDocument.Parse(note.Content.Replace("&nbsp;", "&#160;"));
+                        return Json(new { text = doc.Element(XName.Get("en-note")).ToString().Replace("<en-note>", "").Replace("</en-note>", ""), email = currentPerson.email });
                     }
-                    else return Json(new { text = "none" });
+                    else return Json(new { text = "none", email = currentPerson.email });
                 }
-                else return Json(new { text = "none" });
+                else return Json(new { text = "none", email = currentPerson.email });
                 SessionSingleton.NeedGetEvernoteText = false;
             }
             else
@@ -3093,9 +3095,36 @@ namespace Generic.Controllers
                     db.pr_addPartnerSpreadsheetDataLoad(iPartner.internalID, iPartner.dunsnumber, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, "", iPartner.zipcode, "", iPerson.firstname, iPerson.lastname, iPerson.title, iPerson.phone, iPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, currentUser.campaign, currentUser.id, (int)PartnerStatus.Loaded, loadGroup, DateTime.Now.AddDays(4), group).ToList().FirstOrDefault();
                     var dbPartner = db.pr_getPartnerByEmailAndInternalID(CurrentInstance.EnterpriseID, iPerson.email, iPartner.internalID).FirstOrDefault();
                     var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, currentUser.campaign).FirstOrDefault();
-                    Invite(dbPartner.id, ptq.id);
-                    return Json("Partner is invited");
 
+                    Invite(dbPartner.id, ptq.id);
+                    iPerson.previousContact = iPerson.lastContact;
+                    iPerson.previousContactDate = iPerson.lastContactDate;
+                    iPerson.lastContact = (int)InteratePartnerStatus.EmailSent;
+                    iPerson.lastContactDate = DateTime.Now;
+                    db.Entry(iPerson).State = EntityState.Modified;
+                    db.SaveChanges();
+                    var newStatus = db.pr_getIteratePartnerStatusAll().Where(o => o.description == "gDrip/Nurture").FirstOrDefault();
+                    if (iPartner.note != null)
+                    {
+                        if (SessionHelper.EvernoteCredentials != null)
+                        {
+                            var store = GetNoteStore();
+                            var note = store.getNote(SessionHelper.EvernoteCredentials.AuthToken, iPartner.note.ToString(), false, false, false, false);
+                            UpdateNote(note.Title, note.Guid, newStatus.notebook.ToString());
+                        }
+                        else return Json("Please Authorize Notes Tree"); 
+                    }
+                    else
+                    {
+                        iPartner.status = newStatus.id;
+                        db.Entry(iPartner).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                   
+                    
+                    
+                    
+                    return Json("Partner is invited");
                 }
             }
             catch (Exception ex)

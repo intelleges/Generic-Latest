@@ -6539,6 +6539,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_modifyIteratePartnerStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="notebook" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
@@ -13403,6 +13404,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_modifyIteratePartnerStatus">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="notebook" Mode="In" Type="Guid" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
@@ -21349,6 +21351,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="Guid" Name="notebook" Nullable="true" />
         </ComplexType>
         <ComplexType Name="pr_getIteratePartnerPerson3_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -28036,6 +28039,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="notebook" ColumnName="notebook" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

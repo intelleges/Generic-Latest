@@ -15661,7 +15661,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerStatusAll_Result>("pr_getIteratePartnerStatusAll");
         }
     
-        public virtual int pr_modifyIteratePartnerStatus(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        public virtual int pr_modifyIteratePartnerStatus(Nullable<int> id, string description, Nullable<System.Guid> notebook, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -15671,6 +15671,10 @@ namespace Generic
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
     
+            var notebookParameter = notebook.HasValue ?
+                new ObjectParameter("notebook", notebook) :
+                new ObjectParameter("notebook", typeof(System.Guid));
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
@@ -15679,7 +15683,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePartnerStatus", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePartnerStatus", idParameter, descriptionParameter, notebookParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual int pr_modifyIteratePartnerStatusByNote(Nullable<System.Guid> note, Nullable<int> status)

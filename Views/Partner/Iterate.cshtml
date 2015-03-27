@@ -562,7 +562,7 @@
                 var date = new Date();
                 if (e.text !== "none") {
 
-                    CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "---</div>" + e.text, {
+                    CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "---" + e.email+ "---</div>" + e.text, {
                         callback: function () {
                             $("#noteTitle").val(partnerName);
                             $("#noteTitle").attr("disabled", true);
@@ -570,7 +570,7 @@
                         }
                     });
                 } else {
-                    CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "---</div>", {
+                    CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "---" + e.email + "---</div>", {
                         callback: function () {
                             $("#noteTitle").val(partnerName);
                             $("#noteTitle").attr("disabled", true);
@@ -633,6 +633,8 @@
             }).done(function (result) {
                 if (result) {
                     $("#nurturePartner").modal("toggle");
+                    $("#IteratePartners").data("tGrid").ajaxRequest();
+                    $("#evernotesDiv").jstree(true).refresh();
                     alertify.alert(result);
                 }
             })
