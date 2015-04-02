@@ -40,7 +40,7 @@ namespace Generic.Session
         public IntellegesAuthorizationCodeMvcApp(Controller controller, FlowMetadata flowData, string stateUri)
             : base(
             flowData.Flow,
-            new Uri(controller.Request.Url.GetLeftPart(UriPartial.Authority) + flowData.AuthCallback).ToString(),
+            new Uri(controller.Request.Url.GetLeftPart(UriPartial.Authority) + "/mvcmt/Generic" + flowData.AuthCallback).ToString(),
             stateUri)
         {
             this.controller = controller;
