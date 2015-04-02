@@ -458,12 +458,14 @@
     }
 
     function AddNote(title, text, partner, partnerId) {
+        $("#addNoteDialog button[type='submit'], #addNoteDialog button[type='button']").prop("disabled", true);
         $.post("AddNote", {
             partnerName: partner,
             noteTitle: title,
             noteText: text,
             partnerId: partnerId
         }).done(function (result) {
+            $("#addNoteDialog button[type='submit'], #addNoteDialog button[type='button']").prop("disabled", false);
             if (result !== "done") {
                 window.location.href = result;
             }
@@ -498,6 +500,14 @@
         var pane = $("#Splitter2 > .t-pane")[2]; // the 3d pane
         splitter.expand(pane);
     }
+    function checkoAuth() {
+        $.post("IteratePartnerCheckoAuth").done(function (result) {
+            if (result !== true) {
+                alertify.alert("Please wait for authentification");
+                window.location.href = result;
+            }
+        });
+    }
     
     
     function Grid_onDataBound(e) {        
@@ -522,6 +532,7 @@
                 iterate.selectedPartner = rowData.name;
                 $("#emailSubject").val("");
                 CKEDITOR.instances.emailText.setData("");
+                checkoAuth();
                 $("#emailDialog").modal("toggle");
             }
             if ($(this).text() === "Nurture/Remind") {
@@ -557,12 +568,13 @@
     }
    
     function showNoteEditor(partnerId, partnerName) {
+        checkoAuth();
         $.post("GetEvernoteText", { partnerId:partnerId }).done(function (e) {
             if (e.text) {
                 var date = new Date();
                 if (e.text !== "none") {
 
-                    CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "---" + e.email+ "---</div>" + e.text, {
+                    CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "-note added - by " + e.email + "</div>" + e.text, {
                         callback: function () {
                             $("#noteTitle").val(partnerName);
                             $("#noteTitle").attr("disabled", true);
@@ -570,7 +582,7 @@
                         }
                     });
                 } else {
-                    CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "---" + e.email + "---</div>", {
+                    CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "-note added - by " + e.email + "</div>", {
                         callback: function () {
                             $("#noteTitle").val(partnerName);
                             $("#noteTitle").attr("disabled", true);
@@ -608,6 +620,7 @@
         //send email to partner
         $("#emailDialog").submit(function (e) {
             e.preventDefault();
+            $("#emailDialog input[type='submit'], #emailDialog input[type='button']").prop("disabled", true);
             $.post("SendIteratePartnerEmail", {
                 partnerId: iterate.selectedPartnerId,
                 subject: $("#emailSubject").val(),
@@ -615,12 +628,21 @@
                 userDate: new Date().toISOString(),
                 ccSender: $("#ccSender").prop("checked")
             }).done(function (result) {
-                if (result) {
+                $("#emailDialog button[type='submit'], #emailDialog button[type='button']").prop("disabled", false);
+                if (result.error) {
+                    $("#emailDialog").modal("toggle");
                     alertify.alert(result);
                 } else {
-                    $("#IteratePartners").data("tGrid").ajaxRequest();
+                    if (result === "done") {
+                        $("#IteratePartners").data("tGrid").ajaxRequest();
+                        $("#evernotesDiv").jstree(true).refresh();
+                        $("#emailDialog").modal("toggle");
+                    }
+                    else {
+                        window.location.href = result;
+                    }
                 }
-                $("#emailDialog").modal("toggle");
+                
             });
         });
         $("#nurturePartner").submit(function (e) {

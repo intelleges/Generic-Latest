@@ -15308,7 +15308,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIterateAction", descriptionParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addIteratePartner(string internalID, string name, string address1, string address2, string city, string state, string zipcode, string country, string dunsnumber, string federalID, Nullable<int> numberOfEmployees, Nullable<int> annualRevenue, Nullable<int> status, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> person, Nullable<System.Guid> note)
+        public virtual ObjectResult<Nullable<decimal>> pr_addIteratePartner(string internalID, string name, string address1, string address2, string city, string state, string zipcode, string country, string dunsnumber, string federalID, Nullable<int> numberOfEmployees, Nullable<int> annualRevenue, Nullable<int> status, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<System.DateTime> emailLastUpdate, Nullable<int> person, Nullable<System.Guid> note)
         {
             var internalIDParameter = internalID != null ?
                 new ObjectParameter("internalID", internalID) :
@@ -15386,6 +15386,10 @@ namespace Generic
                 new ObjectParameter("lastModified", lastModified) :
                 new ObjectParameter("lastModified", typeof(System.DateTime));
     
+            var emailLastUpdateParameter = emailLastUpdate.HasValue ?
+                new ObjectParameter("emailLastUpdate", emailLastUpdate) :
+                new ObjectParameter("emailLastUpdate", typeof(System.DateTime));
+    
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
@@ -15394,7 +15398,7 @@ namespace Generic
                 new ObjectParameter("note", note) :
                 new ObjectParameter("note", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePartner", internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, lastModifiedParameter, personParameter, noteParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePartner", internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, lastModifiedParameter, emailLastUpdateParameter, personParameter, noteParameter);
         }
     
         public virtual int pr_archiveIterateAction(Nullable<int> id)
@@ -15500,7 +15504,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIterateAction", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual int pr_modifyIteratePartner(Nullable<int> id, string internalID, string name, string address1, string address2, string city, string state, string zipcode, string country, string dunsnumber, string federalID, Nullable<int> numberOfEmployees, Nullable<int> annualRevenue, Nullable<int> status, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<int> person, Nullable<System.Guid> note)
+        public virtual int pr_modifyIteratePartner(Nullable<int> id, string internalID, string name, string address1, string address2, string city, string state, string zipcode, string country, string dunsnumber, string federalID, Nullable<int> numberOfEmployees, Nullable<int> annualRevenue, Nullable<int> status, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> emailLastUpdate, Nullable<System.DateTime> lastModified, Nullable<int> person, Nullable<System.Guid> note)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -15578,6 +15582,10 @@ namespace Generic
                 new ObjectParameter("dateAdded", dateAdded) :
                 new ObjectParameter("dateAdded", typeof(System.DateTime));
     
+            var emailLastUpdateParameter = emailLastUpdate.HasValue ?
+                new ObjectParameter("emailLastUpdate", emailLastUpdate) :
+                new ObjectParameter("emailLastUpdate", typeof(System.DateTime));
+    
             var lastModifiedParameter = lastModified.HasValue ?
                 new ObjectParameter("lastModified", lastModified) :
                 new ObjectParameter("lastModified", typeof(System.DateTime));
@@ -15590,7 +15598,7 @@ namespace Generic
                 new ObjectParameter("note", note) :
                 new ObjectParameter("note", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePartner", idParameter, internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, lastModifiedParameter, personParameter, noteParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePartner", idParameter, internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, emailLastUpdateParameter, lastModifiedParameter, personParameter, noteParameter);
         }
     
         public virtual int pr_removeIterateAction(Nullable<int> id)

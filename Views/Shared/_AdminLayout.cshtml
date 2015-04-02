@@ -231,7 +231,7 @@
    @* @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")*@
     <script type="text/javascript">
-        $.blockUI.defaults.css = {};
+        
         function onSplitter2Load(e) {
             @RenderSection("onSplitter2Load",false)
         }
@@ -269,6 +269,7 @@
         //    });
         //}
         $(function () {
+            $.blockUI.defaults.css = {};
             //jQuery.noConflict();
             $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
         });

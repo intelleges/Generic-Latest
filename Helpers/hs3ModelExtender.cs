@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
@@ -9,8 +10,7 @@ using System.Web;
 namespace Generic
 {
     public partial class  hs3MVCMTQa2Entities: DbContext
-    {
-
+    {       
         public override int SaveChanges()
         {
             try
@@ -45,5 +45,6 @@ namespace Generic
 
     public class EntitiesDBContext : hs3MVCMTQa2Entities
     {
+       
     }
 }

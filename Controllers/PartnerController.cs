@@ -47,6 +47,12 @@ using System.Xml.Linq;
 #region Twilio References
 using Twilio;
 using Twilio.Mvc;
+using Google.Apis.Auth.OAuth2.Mvc;
+using Generic.Session;
+using System.Threading.Tasks;
+using Google.Apis.Gmail.v1;
+using Google.Apis.Gmail.v1.Data;
+using HtmlAgilityPack;
 #endregion
 
 namespace Generic.Controllers
@@ -1318,7 +1324,8 @@ namespace Generic.Controllers
         {
             DataTable dataTable = new DataTable();
 
-            SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString);
+            SqlConnection conn = new SqlConnection("data source=50.56.237.192;initial catalog=hs3MVCMTQa2;user id=dev;password=I>pkP8s|n1;");
+            
             conn.Open();
             SqlCommand command = new SqlCommand("pr_getResponsesByProtocolTouchpointGroupPartnertype2", conn);
             command.CommandType = CommandType.StoredProcedure;
@@ -1337,8 +1344,9 @@ namespace Generic.Controllers
         {
             DataTable dataTable = new DataTable();
 
-            SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString);
+            SqlConnection conn = new SqlConnection("data source=50.56.237.192;initial catalog=hs3MVCMTQa2;user id=dev;password=I>pkP8s|n1;");
             conn.Open();
+            //db.pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ
             SqlCommand command = new SqlCommand("[honeywellBAA].[pr_getcustomizedLSMWReport]", conn);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@enterprise", SqlDbType.VarChar).Value = Generic.Helpers.CurrentInstance.EnterpriseID;
@@ -1392,6 +1400,7 @@ namespace Generic.Controllers
         {
             XmlSerializer serializer = null;
             var stream = new MemoryStream();
+            db.Database.CommandTimeout = 180;
             var levelType = db.pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint(Generic.Helpers.CurrentInstance.EnterpriseID, SessionSingleton.Touchpoint).FirstOrDefault().Value;
             if (levelType == 1)
             {
@@ -2121,7 +2130,7 @@ namespace Generic.Controllers
             return Json(null);
         }
 
-        public virtual ActionResult Iterate(bool? showNotes)
+        public virtual async Task<ActionResult> Iterate(bool? showNotes)
         {
             ViewBag.state = new SelectList(db.state.ToList(), "stateCode", "name");
             ViewBag.country = new SelectList(db.country.ToList(), "id", "name");
@@ -2133,11 +2142,13 @@ namespace Generic.Controllers
             ViewBag.nextaction = new SelectList(db.pr_getIterateNextAction().ToList(), "id", "nextAction");
             ViewBag.partnerstatus = new SelectList(db.pr_getIteratePartnerStatusAll().ToList(), "id", "description");
             ViewBag.currentUserPartnerType = new SelectList(db.pr_getPartnertypeByTouchpoint(db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault().campaign).ToList(), "id", "name");
+
             //Scheduler Initializeer
             //var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
-            //ViewBag.Scheduler = scheduler.Render();
-            //ViewBag.showNotes = showNotes;
+            // ViewBag.Scheduler = scheduler.Render();
+            ViewBag.showNotes = showNotes;
             return View();
+
         }
 
         /// <summary>
@@ -2272,7 +2283,7 @@ namespace Generic.Controllers
         /// <param name="reauth"></param>
         /// <returns></returns>
         //[HttpPost]
-        public ActionResult AuthorizeEverNote(bool reauth = false)
+        public JsonResult AuthorizeEverNote(bool reauth = false)
         {
             // Allow for reauth
             if (reauth)
@@ -2280,7 +2291,7 @@ namespace Generic.Controllers
 
             // First of all, check to see if the user is already registered, in which case tell them that
             if (SessionHelper.EvernoteCredentials != null)
-                return Redirect(Url.Action("AlreadyAuthorized"));
+                return Json(Url.Action("AlreadyAuthorized"));
 
             // Evernote will redirect the user to this URL once they have authorized your application
             var callBackUrl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ObtainTokenCredentials");
@@ -2509,7 +2520,7 @@ namespace Generic.Controllers
                     var note = GetNoteStore().getNote(SessionHelper.EvernoteCredentials.AuthToken, iPartner.note.Value.ToString(), true, false, false, false);
                     if (note != null)
                     {
-                        var doc = XDocument.Parse(note.Content.Replace("&nbsp;", "&#160;"));
+                        var doc = XDocument.Parse(note.Content.Replace("&nbsp;", "&#160;").Replace("&lrm;","&#8206;"));
                         return Json(new { text = doc.Element(XName.Get("en-note")).ToString().Replace("<en-note>", "").Replace("</en-note>", ""), email = currentPerson.email });
                     }
                     else return Json(new { text = "none", email = currentPerson.email });
@@ -2536,21 +2547,277 @@ namespace Generic.Controllers
                 return Json(new {  finded = false });
         }
         
-        private Note AppendNote(string text, Guid noteId)
+        private Note AppendNote(string text, Guid noteId, bool rewrite=true)
         {
-            var store = GetNoteStore();
-            var note = store.getNote(SessionHelper.EvernoteCredentials.AuthToken, noteId.ToString(), true, false, false, false);
-            var doc = System.Xml.Linq.XDocument.Parse(note.Content);
-            var elem = doc.Element(XName.Get("en-note"));
-            elem.RemoveAll();
-            foreach (var node in XElement.Parse("<root>" + text.Replace("&nbsp;", "") + "</root>").Elements())
+            try
             {
-                elem.Add(node);
-            } 
-            note.Content = doc.ToString();
-            store.updateNote(SessionHelper.EvernoteCredentials.AuthToken, note);
-            return note;
+                var store = GetNoteStore();
+                var note = store.getNote(SessionHelper.EvernoteCredentials.AuthToken, noteId.ToString(), true, false, false, false);
+                //var doc = System.Xml.Linq.XDocument.Parse(note.Content);
+                var indexNote = note.Content.IndexOf("<en-note>");
+                // elem = doc.Element(XName.Get("en-note"));
+                //elem.RemoveAll();
+                //foreach (var node in XElement.Parse("<root>" + text.Replace("&nbsp;", "") + "</root>").Elements())
+                //{
+                //    elem.Add(node);
+                //} 
+                if (!rewrite)
+                    note.Content = new string(note.Content.Take(indexNote + 9).ToArray()) + text + new string(note.Content.Skip(indexNote + 9).ToArray());
+                else note.Content = new string(note.Content.Take(indexNote + 9).ToArray()) + text + "</en-note>";
+                store.updateNote(SessionHelper.EvernoteCredentials.AuthToken, note);
+                return note;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
+
+        /// <summary>
+        /// Email's to Evernote Notes Synchronisation
+        /// </summary>
+        /// <param name="gCreadentials">gmail credentials</param>
+        /// <param name="iPartner">iterate partner </param>
+        /// <param name="iPerson">iterate person</param>
+        private void SyncEmailAndNotes(UserCredential gCreadentials, iteratePartner iPartner, iteratePerson iPerson)
+        {
+            List<Google.Apis.Gmail.v1.Data.Message> result = new List<Google.Apis.Gmail.v1.Data.Message>();
+            var gService = new GmailService(new BaseClientService.Initializer { HttpClientInitializer = gCreadentials, ApplicationName = "Intelleges Inc." });
+            
+            var listRequest = gService.Users.Messages.List("me");
+            if (!iPartner.emailLastUpdate.HasValue)
+                listRequest.Q = string.Format("in:inbox from:{0} after:{1}", iPerson.email, DateTime.Now.AddMonths(-3).ToString("yyyy/MM/dd"));
+            else
+            {
+                listRequest.Q = string.Format("in:inbox from:{0} after:{1}", iPerson.email, iPartner.emailLastUpdate.Value.ToString("yyyy/MM/dd"));
+            }
+
+            do
+            {
+                try
+                {
+                    ListMessagesResponse list = listRequest.Execute();
+                    result.AddRange(list.Messages);
+                    listRequest.PageToken = list.NextPageToken;
+                }
+                catch (Exception ex)
+                {
+
+                }
+            } while (!String.IsNullOrEmpty(listRequest.PageToken));
+            Stack<string> futureNotes = new Stack<string>();
+            foreach (var message in result)
+            {
+                try
+                {
+                    var messageRequiest = gService.Users.Messages.Get("me", message.Id);
+                    messageRequiest.Format = UsersResource.MessagesResource.GetRequest.FormatEnum.Raw;
+                    var loadMessage = messageRequiest.Execute();
+                    var bytes = Base64UrlDecode(loadMessage.Raw);
+                    OpenPop.Mime.Message mes = new OpenPop.Mime.Message(bytes);
+                    if (!iPartner.emailLastUpdate.HasValue)
+                        iPartner.emailLastUpdate = mes.Headers.DateSent;
+                    else
+                    {
+                        if (iPartner.emailLastUpdate.Value < mes.Headers.DateSent)
+                            iPartner.emailLastUpdate = mes.Headers.DateSent;
+                    }
+                    OpenPop.Mime.MessagePart plainVersion = mes.FindFirstHtmlVersion();
+                    if (plainVersion != null)
+                    {
+                        plainVersion = mes.FindFirstHtmlVersion();
+                        futureNotes.Push("<hr/><div>" + mes.Headers.DateSent.ToShortDateString() + "@@" + mes.Headers.DateSent.ToLongTimeString() + "- email received - from " + iPerson.email + "</div>" + SafeMailText(plainVersion.GetBodyAsText(), true));
+                    }
+                    else
+                    {
+                        plainVersion = mes.FindFirstPlainTextVersion();
+                        futureNotes.Push("<hr/><div>" + mes.Headers.DateSent.ToShortDateString() + "@@" + mes.Headers.DateSent.ToLongTimeString() + "- email received - from " + iPerson.email + "</div>" + SafeMailText(plainVersion.GetBodyAsText(), false) );
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            foreach (var note in futureNotes)
+                AppendNote(note, iPartner.note.Value, false);
+            db.Entry(iPartner).State = EntityState.Modified;
+            db.SaveChanges();
+            //list.
+            
+        }
+        /// <summary>
+        /// Clears previous emails and removes invalid characters
+        /// </summary>
+        /// <param name="mailText"></param>
+        /// <returns></returns>
+        private string SafeMailText(string mailText, bool isHtml)
+        {
+            if (!isHtml)
+            {
+                StringBuilder builder = new StringBuilder();
+                using (var strem = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(mailText))))
+                {
+                    while (!strem.EndOfStream)
+                    {
+                        var mailLine = strem.ReadLine();
+                        if (!mailLine.StartsWith(">") && !mailLine.StartsWith("<"))
+                            builder.AppendLine("<div>" + mailLine.Replace("<", "&lt;").Replace("&", "&amp;").Replace(">", "&gt;").Replace("'", "&apos;").Replace("\"", "&quot;") + "</div>");
+                    }
+                }
+                return builder.ToString();
+            }
+            else
+            {
+                HtmlDocument doc = new HtmlDocument();
+                doc.OptionWriteEmptyNodes = true;
+                doc.OptionUseIdAttribute = false;
+                doc.OptionOutputAsXml = true;
+                if (mailText.IndexOf("<body") == -1)
+                {
+                    mailText = "<body>" + mailText + "</body>";
+                }
+                if (mailText.IndexOf("<html>") == -1)
+                {
+                    mailText = "<html>" + mailText + "</html>";
+                }
+                doc.LoadHtml(mailText);
+                //let's remove all prohibited elements and attributes for Evernote Markup Language
+                RemoveNode(doc, "script");
+                RemoveNode(doc, "applet");
+                RemoveNode(doc, "base");
+                RemoveNode(doc, "basefont");
+                RemoveNode(doc, "bgsound");
+                //body
+                RemoveNode(doc, "blink");
+                RemoveNode(doc, "button");
+                RemoveNode(doc, "dir");
+                RemoveNode(doc, "embed");
+                RemoveNode(doc, "fieldset");
+                RemoveNode(doc, "form");
+                RemoveNode(doc, "frame");
+                RemoveNode(doc, "frameset");
+                RemoveNode(doc, "head");
+                //html
+                RemoveNode(doc, "iframe");
+                RemoveNode(doc, "ilayer");
+                RemoveNode(doc, "input");
+                RemoveNode(doc, "isindex");
+                RemoveNode(doc, "label");
+                RemoveNode(doc, "layer");
+                RemoveNode(doc, "legend");
+                RemoveNode(doc, "link");
+                RemoveNode(doc, "menu");
+                RemoveNode(doc, "meta");
+                RemoveNode(doc, "noframes");
+                RemoveNode(doc, "noscript");
+                RemoveNode(doc, "object");
+                RemoveNode(doc, "optgroup");
+                RemoveNode(doc, "option");
+                RemoveNode(doc, "param");
+                RemoveNode(doc, "plaintext");
+                RemoveNode(doc, "marquee");
+                RemoveNode(doc, "script");
+                RemoveNode(doc, "select");
+                RemoveNode(doc, "style");
+                RemoveNode(doc, "textarea");
+                RemoveNode(doc, "xml");
+                RemoveAttributes(doc, "id");
+                RemoveAttributes(doc, "class");
+                RemoveAttributes(doc, "onclick");
+                RemoveAttributes(doc, "ondblclick");
+                RemoveAttributes(doc, "on");
+                RemoveAttributes(doc, "accesskey");
+                RemoveAttributes(doc, "data");
+                RemoveAttributes(doc, "dynsrc");
+                RemoveAttributes(doc, "tabindex");
+                RemoveAttributes(doc, "data-externalstyle");
+                RemoveAttributes(doc, "data-signatureblock");
+                RemoveDataAttributesFromNodes(doc);
+                StringBuilder result = new StringBuilder();
+                StringWriter sw = new StringWriter(result);
+                doc.Save(sw);
+                sw.Flush();
+                return sw.ToString().Replace("<html>", "").Replace("</html>", "").Replace("<body>", "").Replace("</body>", "").Replace("<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>", "").Replace("<body dir=\"ltr\">", "").Replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "").Replace("<?xml version=\"1.0\" encoding=\"Windows-1252\"?>", "").Replace("<?xml version=\"1.0\" encoding=\"ASCII\"?>", "");
+            }
+        }
+
+        /// <summary>
+        /// Removes all 
+        /// </summary>
+        /// <param name="doc"></param>
+        private void RemoveDataAttributesFromNodes(HtmlDocument doc)
+        {
+            var nodes = doc.DocumentNode.SelectNodes(@"//*[@*[starts-with(name(),'data-')]]");
+            
+            if (nodes != null)
+            {
+                foreach (HtmlNode node in nodes)
+                {
+                    foreach (var attr in node.Attributes.Cast<HtmlAttribute>().Where(o => o.Name.Contains("data-")))
+                        node.Attributes.Remove(attr);
+                }
+            }
+        }
+        /// <summary>
+        /// Removes all nodes from html
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="nodeName"></param>
+        private void RemoveNode(HtmlDocument doc, string nodeName)
+        {
+            var nodes = doc.DocumentNode.SelectNodes(@"//" + nodeName);
+            if (nodes != null)
+            {
+                var separateCollection = nodes.ToList();
+                foreach (HtmlNode script in separateCollection)
+                {
+
+                    //if (script.Attributes["language"] != null)
+                    //  script.Attributes.Remove("language");
+                    doc.DocumentNode.SelectSingleNode(script.XPath).Remove();
+                }
+            }
+        }
+        /// <summary>
+        /// Removes attribute from all nodes in html document
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="attrName"></param>
+        private void RemoveAttributes(HtmlDocument doc, string attrName)
+        {
+            var nodes = doc.DocumentNode.SelectNodes(@"//*[@" + attrName+"]");
+            if (nodes != null)
+            {
+                foreach (HtmlNode node in nodes)
+                {
+                    if (node.Attributes[attrName] != null)
+                        node.Attributes.Remove(attrName);
+                }
+            }
+        }
+        /// <summary>
+        /// Decodes string from Base64Url to byte array
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        private byte[] Base64UrlDecode(string arg)
+        {
+            string s = arg;
+            s = s.Replace('-', '+'); // 62nd char of encoding
+            s = s.Replace('_', '/'); // 63rd char of encoding
+            switch (s.Length % 4) // Pad with trailing '='s
+            {
+                case 0: break; // No pad chars in this case
+                case 2: s += "=="; break; // Two pad chars
+                case 3: s += "="; break; // One pad char
+                default: throw new System.Exception(
+                "Illegal base64url string!");
+            }
+            return Convert.FromBase64String(s); // Standard base64 decoder
+        }
+
         const string DefaultNoteBook = "zDefault";
         /// <summary>
         /// Show the user if they are authorized
@@ -2558,38 +2825,50 @@ namespace Generic.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult AddNote(string partnerName, string noteTitle, string noteText, string partnerId)
+        public async Task<ActionResult> AddNote(string partnerName, string noteTitle, string noteText, string partnerId)
         {
 
             if (SessionHelper.EvernoteCredentials != null)
             {
-                var authToken = SessionHelper.EvernoteCredentials.AuthToken;
+                var googleResult = await new IntellegesAuthorizationCodeMvcApp(this, new AppFlowMetadata(), Request.Url.GetLeftPart(UriPartial.Authority)+"/Partner/Iterate").AuthorizeAsync(CancellationToken.None);
+                if (googleResult.Credential != null)
+                {
 
-                //find existed notebook for partner
-                Notebook notebook = GetNoteStore().listNotebooks(authToken).FirstOrDefault(o => o.Name == DefaultNoteBook);
-                //var g = db.pr_getIteratePartner(int.Parse(partnerId)).FirstOrDefault();
-                var pId = int.Parse(partnerId);
-                var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == pId);
-                var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == pId);
-                if (notebook == null)
-                {
-                    // create notebook for new user
-                    notebook = CreateNoteBook(partnerName.ToString());
+                    var authToken = SessionHelper.EvernoteCredentials.AuthToken;
+                    //find existed notebook for partner
+                    Notebook notebook = GetNoteStore().listNotebooks(authToken).FirstOrDefault(o => o.Name == DefaultNoteBook);
+                    var pId = int.Parse(partnerId);
+                    var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == pId);
+                    var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == pId);
+                    if (notebook == null)
+                    {
+                        // create notebook for new user
+                        notebook = CreateNoteBook(partnerName.ToString());
+                    }
+                    if (iPartner.note == null)
+                    {
+                        var note = CreateNote(noteTitle, noteText, notebook.Guid);
+                        iPerson.notes = true;
+                        iPartner.note = Guid.Parse(note.Guid);
+                        iPartner.status = db.pr_getIteratePartnerStatusAll().FirstOrDefault(o => o.description == DefaultNoteBook).id;
+                        db.Entry(iPartner).State = EntityState.Modified;
+                        db.Entry(iPerson).State = EntityState.Modified;
+                        db.SaveChanges();
+                        SyncEmailAndNotes(googleResult.Credential, iPartner, iPerson);
+                    }
+                    else
+                    {
+                        AppendNote(noteText, iPartner.note.Value);
+                        SyncEmailAndNotes(googleResult.Credential, iPartner, iPerson);
+                    }
+                    SessionSingleton.NeedAddEverNote = false;
+                    
+                    return Json("done");
                 }
-                if (iPartner.note == null)
+                else
                 {
-                    var note = CreateNote(noteTitle, noteText, notebook.Guid);
-                    iPerson.notes = true;
-                    iPartner.note = Guid.Parse(note.Guid);
-                    iPartner.status = db.pr_getIteratePartnerStatusAll().FirstOrDefault(o => o.description == DefaultNoteBook).id;
-                    db.Entry(iPartner).State = EntityState.Modified;
-                    db.Entry(iPerson).State = EntityState.Modified;
-                    db.SaveChanges();
+                    return Json(googleResult.RedirectUri);
                 }
-                else 
-                    AppendNote(noteText, iPartner.note.Value);
-                SessionSingleton.NeedAddEverNote = false;
-                return Json("done");
             }
             else
             {
@@ -2716,7 +2995,7 @@ namespace Generic.Controllers
                                     newPartnerItem.PARTNER_DUNS, newPartnerItem.PARTNER_SAP_ID, EMPLOYEE_COUNT,
                                     ANNUAL_REVENUE, partnerStatus, SessionSingleton.LoggedInUserId,
                                     SessionSingleton.LoggedInUserId, DateTime.Now, true,
-                                    DateTime.Now, DateTime.Now, SessionSingleton.LoggedInUserId,null
+                                    DateTime.Now, DateTime.Now,null, SessionSingleton.LoggedInUserId,null
                                    ).FirstOrDefault();
                                 var lastContact = !string.IsNullOrEmpty(newPartnerItem.LAST_CONTACT) && statuses.ContainsKey(newPartnerItem.LAST_CONTACT) ? statuses[newPartnerItem.LAST_CONTACT] : 1;
                                 var previosContact = !string.IsNullOrEmpty(newPartnerItem.PREVIOUS_CONTACT) && statuses.ContainsKey(newPartnerItem.PREVIOUS_CONTACT) ? statuses[newPartnerItem.PREVIOUS_CONTACT] : 1;
@@ -3028,11 +3307,12 @@ namespace Generic.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult SendIteratePartnerEmail(int partnerId, string subject, string text, DateTime userDate, bool ccSender)
+        public async Task<ActionResult> SendIteratePartnerEmail(int partnerId, string subject, string text, DateTime userDate, bool ccSender)
         {
             try
             {
                 var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == partnerId);
+                
                 var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
                 if (iPerson != null && !string.IsNullOrEmpty(iPerson.email) && currentPerson != null)
                 {
@@ -3046,18 +3326,20 @@ namespace Generic.Controllers
                     iPerson.nextActionDate = userDate.AddDays(3);
                     db.Entry(iPerson).State = EntityState.Modified;
                     db.SaveChanges();
+                    var addResult = await AddNote(iPerson.iteratePartner1.name, iPerson.iteratePartner1.name, "<div>" + userDate.ToShortDateString() + "@" + userDate.ToLongTimeString() + " email sent - by "+currentPerson.email+" </div>" + text, iPerson.iteratePartner1.id.ToString());
+                    return addResult;
                 }
             }
             catch (Exception ex)
             {
-                return Json(ex.Message);
+                return Json(new { error = ex.Message });
             }
-            return Json(false);
-            //SendEmail.
+            return Json("done");
         }
 
         public ActionResult NurtureRemindIteratePartner(string internalId, string email, int partnerId, int personId)
-        {
+        {            
+
             var currentUser = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
             if (currentUser != null && currentUser.campaign.HasValue)
             {
@@ -3133,5 +3415,15 @@ namespace Generic.Controllers
             }
             return Json("Can't relate partner");
         }
+
+        public async Task<ActionResult> IteratePartnerCheckoAuth()
+        {
+            if (SessionHelper.EvernoteCredentials == null) return AuthorizeEverNote();
+            var googleResult = await new IntellegesAuthorizationCodeMvcApp(this, new AppFlowMetadata(), Request.Url.GetLeftPart(UriPartial.Authority) + "/Partner/Iterate").AuthorizeAsync(CancellationToken.None);
+            if (googleResult.Credential == null)
+                return Json(googleResult.RedirectUri);
+            return Json(true);
+        }
     }
+    
 }

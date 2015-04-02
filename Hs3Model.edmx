@@ -484,6 +484,7 @@
           <Property Name="active" Type="bit" />
           <Property Name="dateAdded" Type="date" />
           <Property Name="lastModified" Type="datetime" />
+          <Property Name="emailLastUpdate" Type="datetime" />
           <Property Name="person" Type="int" Nullable="false" />
           <Property Name="note" Type="uniqueidentifier" />
         </EntityType>
@@ -4264,6 +4265,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="dateAdded" Type="date" Mode="In" />
           <Parameter Name="lastModified" Type="datetime" Mode="In" />
+          <Parameter Name="emailLastUpdate" Type="datetime" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
           <Parameter Name="note" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -6532,6 +6534,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="dateApproved" Type="date" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="dateAdded" Type="date" Mode="In" />
+          <Parameter Name="emailLastUpdate" Type="datetime" Mode="In" />
           <Parameter Name="lastModified" Type="datetime" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
           <Parameter Name="note" Type="uniqueidentifier" Mode="In" />
@@ -13314,6 +13317,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="active" Mode="In" Type="Boolean" />
             <Parameter Name="dateAdded" Mode="In" Type="DateTime" />
             <Parameter Name="lastModified" Mode="In" Type="DateTime" />
+            <Parameter Name="emailLastUpdate" Mode="In" Type="DateTime" />
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="note" Mode="In" Type="Guid" />
           </FunctionImport>
@@ -13369,6 +13373,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="dateApproved" Mode="In" Type="DateTime" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
             <Parameter Name="dateAdded" Mode="In" Type="DateTime" />
+            <Parameter Name="emailLastUpdate" Mode="In" Type="DateTime" />
             <Parameter Name="lastModified" Mode="In" Type="DateTime" />
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="note" Mode="In" Type="Guid" />
@@ -21327,6 +21332,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="person" Nullable="false" />
           <Property Type="Guid" Name="note" />
           <NavigationProperty Name="iteratePerson" Relationship="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" FromRole="iteratePartner" ToRole="iteratePerson" />
+          <Property Name="emailLastUpdate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_iteratePerson_iteratePartner">
           <End Type="hs3MVCMTQa2Model.iteratePartner" Role="iteratePartner" Multiplicity="1" />
@@ -27997,6 +28003,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="iteratePartner">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iteratePartner">
               <MappingFragment StoreEntitySet="iteratePartner">
+                <ScalarProperty Name="emailLastUpdate" ColumnName="emailLastUpdate" />
                 <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="person" ColumnName="person" />
                 <ScalarProperty Name="lastModified" ColumnName="lastModified" />

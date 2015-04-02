@@ -42,6 +42,7 @@ namespace Generic
         public Nullable<System.DateTime> lastModified { get; set; }
         public int person { get; set; }
         public Nullable<System.Guid> note { get; set; }
+        public Nullable<System.DateTime> emailLastUpdate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<iteratePerson> iteratePerson { get; set; }
