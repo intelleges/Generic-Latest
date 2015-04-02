@@ -22,7 +22,7 @@ namespace Generic.Session
                     ClientSecret = "wCnMK0SbVKHxpuv0fWmee4ug"
                 },
                 Scopes = new[] { GmailService.Scope.GmailReadonly },
-                DataStore = new FileDataStore("Drive.Api.Auth.Store") 
+                DataStore = new FileDataStore(System.Web.HttpContext.Current.Server.MapPath("/App_Data/MyGoogleStorage")) 
             });
         public override Google.Apis.Auth.OAuth2.Flows.IAuthorizationCodeFlow Flow
         {

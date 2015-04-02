@@ -3458,7 +3458,7 @@
     <Content Include="Views\Ivr\IncomingCall.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\MyGoogleStorage\" />
     <Folder Include="Areas\RegistrationArea\Models\" />
     <Folder Include="Filters\" />
     <Folder Include="Views\AuthCallback\" />
