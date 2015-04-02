@@ -501,11 +501,17 @@
         splitter.expand(pane);
     }
     function checkoAuth() {
-        $.post("IteratePartnerCheckoAuth").done(function (result) {
+        $.ajax({
+            url: "IteratePartnerCheckoAuth",
+            async: false,
+            type:"POST"
+        }).done(function (result) {
             if (result !== true) {
                 alertify.alert("Please wait for authentification");
                 window.location.href = result;
+                return false;
             }
+            return true;
         });
     }
     
@@ -532,7 +538,7 @@
                 iterate.selectedPartner = rowData.name;
                 $("#emailSubject").val("");
                 CKEDITOR.instances.emailText.setData("");
-                checkoAuth();
+                if (!checkoAuth()) return;
                 $("#emailDialog").modal("toggle");
             }
             if ($(this).text() === "Nurture/Remind") {
@@ -568,7 +574,7 @@
     }
    
     function showNoteEditor(partnerId, partnerName) {
-        checkoAuth();
+        if (!checkoAuth()) return;
         $.post("GetEvernoteText", { partnerId:partnerId }).done(function (e) {
             if (e.text) {
                 var date = new Date();
