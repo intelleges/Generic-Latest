@@ -1,4 +1,5 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<Generic.partner>
+
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI
@@ -383,7 +384,9 @@
         return {
             data: [],
             selectedPartner: "",
-            globalVars: {}
+            globalVars: {
+                allNotesIds:[]
+            }
         }
     })();
 
@@ -476,6 +479,7 @@
                 //refresh data
                 $("#IteratePartners").data("tGrid").ajaxRequest();
                 showNotesPanel();
+                loadNotesIds();
             }
         });
         //$.ajax({
@@ -608,10 +612,18 @@
         showNotesPanel();
     }
     }
+    function loadNotesIds() {
+        $.post("getIteratePartnerNoteIds").done(function (result) {
+            if (result) {
+                iterate.globalVars.allNotesIds = result;                
+            }
+        });
+    }
     
   
     //#region First declaration
     $(document).ready(function () {
+        loadNotesIds();
         $("#btnLoad").click(function () {
             //$(".t-button.t-upload-button").click();
             $("#excelFile").click();
@@ -1777,6 +1789,11 @@
                     "is_draggable": function (node) {
                         console.log('is_draggable called: ', node[0]);
                         if (node[0].type != 'note') {                          
+                            return false;
+                            console.log('node isnt note ');
+                        }
+                        if (iterate.globalVars.allNotesIds.indexOf(node[0].id) < 0) {
+                            console.log('notesId doesnt contain current node ',iterate.globalVars.allNotesIds, node[0].id);
                             return false;
                         }
                         return true;

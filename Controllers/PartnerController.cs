@@ -3424,6 +3424,13 @@ namespace Generic.Controllers
                 return Json(googleResult.RedirectUri);
             return Json(true);
         }
+
+        [HttpPost]
+        public ActionResult getIteratePartnerNoteIds()
+        {
+            var result = db.pr_getIteratePartnerPerson3(SessionSingleton.LoggedInUserId).ToList();
+            return Json(result.Select(o => o.note).ToList().Distinct());
+        }
     }
     
 }
