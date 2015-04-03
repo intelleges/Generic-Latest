@@ -2315,7 +2315,7 @@ namespace Generic.Controllers
         /// </summary>
         /// <param name="oauth_verifier"></param>
         /// <returns></returns>
-        public ActionResult ObtainTokenCredentials(string oauth_verifier)
+        public async Task<ActionResult> ObtainTokenCredentials(string oauth_verifier)
         {
             // Use the verifier to get all the user details we need and
             // store them in EvernoteCredentials
@@ -2324,7 +2324,7 @@ namespace Generic.Controllers
             {
                 SessionHelper.EvernoteCredentials = credentials;
                 if (SessionSingleton.NeedAddEverNote)
-                    AddNote(TempData["PartnerName"].ToString(), TempData["noteTitle"].ToString(), TempData["noteText"].ToString(), TempData["partnerId"].ToString());
+                    await AddNote(TempData["PartnerName"].ToString(), TempData["noteTitle"].ToString(), TempData["noteText"].ToString(), TempData["partnerId"].ToString());
                 else if (SessionSingleton.NeedGetEvernoteText)
                     GetEvernoteText(int.Parse(TempData["partnerId"].ToString()));
                 return Redirect(Url.Action("Iterate", new { showNotes = "True" }));
@@ -2830,7 +2830,7 @@ namespace Generic.Controllers
 
             if (SessionHelper.EvernoteCredentials != null)
             {
-                var googleResult = await new IntellegesAuthorizationCodeMvcApp(this, new AppFlowMetadata(), Request.Url.GetLeftPart(UriPartial.Authority)+"/Partner/Iterate").AuthorizeAsync(CancellationToken.None);
+                var googleResult = await new IntellegesAuthorizationCodeMvcApp(this, new AppFlowMetadata(), Request.Url.GetLeftPart(UriPartial.Authority)+Url.Action("Iterate","Partner")).AuthorizeAsync(CancellationToken.None);
                 if (googleResult.Credential != null)
                 {
 
@@ -3419,7 +3419,7 @@ namespace Generic.Controllers
         public async Task<ActionResult> IteratePartnerCheckoAuth()
         {
             if (SessionHelper.EvernoteCredentials == null) return AuthorizeEverNote();
-            var googleResult = await new IntellegesAuthorizationCodeMvcApp(this, new AppFlowMetadata(), Request.Url.GetLeftPart(UriPartial.Authority) + "/Partner/Iterate").AuthorizeAsync(CancellationToken.None);
+            var googleResult = await new IntellegesAuthorizationCodeMvcApp(this, new AppFlowMetadata(), Request.Url.GetLeftPart(UriPartial.Authority) +Url.Action("Iterate", "Partner")).AuthorizeAsync(CancellationToken.None);
             if (googleResult.Credential == null)
                 return Json(googleResult.RedirectUri);
             return Json(true);
