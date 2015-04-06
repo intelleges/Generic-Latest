@@ -23,6 +23,10 @@
         height: 20px !important;
     }
 
+    #IteratePartners .t-filter-options.t-group.t-popup{
+        width:155px !important;
+    }
+
     .dhx_cal_date, .dhx_cal_next_button, .dhx_cal_prev_button, .dhx_cal_tab, .dhx_cal_today_button {
         line-height: 20px !important;
         height: 20px !important;
@@ -1683,7 +1687,7 @@
 ").Width(230);
         columns.Bound(o => o.nextAction).Title("Next Action").Width(160).ClientTemplate(@"
 <a href='#' id='NA<#=id#>' class='menu_block' ondblclick='callIfNeed(<#=id#>,<#=nextActionID#>, this)'><#=nextAction#></a>
-");
+").Filterable(false);
         columns.Bound(o => o.NextActionDateDisplay).Title("Next Action Date").Width(130).ClientTemplate(@"
 <a href='#' id='NAD<#=id#>' class='menu_block'><#=NextActionDateDisplay#></a>
     <div class='display_menu' style='display: none;'>
@@ -1697,9 +1701,9 @@
         </ul>
     </div>
 ");
-        columns.Bound(o => o.firstname).Title("First name").Width(80);
+        columns.Bound(o => o.firstname).Title("First name").Width(80).Filterable(false);
         columns.Bound(o => o.lastname).Title("Last name").Width(100);
-        columns.Bound(o => o.title).Title("Title").Width(100);
+        columns.Bound(o => o.title).Title("Title").Width(100).Filterable(false);
         columns.Bound(o => o.lastContact).Title("Last Contact").Width(100).ClientTemplate(@"
 <a href='#' id='LC<#=id#>' class='menu_block'><#=lastContact#></a>
     <div class='display_menu' style='display: none;'>
@@ -1721,10 +1725,10 @@
  <li><a href='#' onclick='changeLastContact(<#=id#>,15);'>No Touchpoint</a></li>
         </ul>
     </div>
-");
-        columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(120);
-        columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100);
-        columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(120);
+").Filterable(false);
+        columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(120).Filterable(false);
+        columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100).Filterable(false);
+        columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(120).Filterable(false);
         columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
         columns.Bound(o => o.iteratePartnerStatusDescription).Title("Status").Width(100).ClientTemplate(@"
 <a href='#' id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatusDescription#></a>
@@ -1740,14 +1744,14 @@
 <li><a href='#' onclick='changeStatus(<#=id#>,8);'>zDefault</a></li>
         </ul>
     </div>
-");
+").Filterable(false);
 
 
-        columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate("<a href='#' id='note<#=id#>' class='menu_block' onclick='shownote(this,<#=id#>)'><#=NotesDescription#></a>");
+        columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate("<a href='#' id='note<#=id#>' class='menu_block' onclick='shownote(this,<#=id#>)'><#=NotesDescription#></a>").Filterable(false);
         ////columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
         ////columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
             }
-                                    ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "font-size:10px;" })
+                                            ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "font-size:10px;" }).Filterable(o => o.Filters(filters => filters.Add(filter => filter.nextActionDate).IsLessThan(DateTime.Now.Date.AddDays(1)).And().IsGreaterThanOrEqualTo(DateTime.Now.Date)).ShowOrOption())
    
 }
 @section rightSplitter{
