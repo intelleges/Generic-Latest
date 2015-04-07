@@ -3004,7 +3004,7 @@ namespace Generic.Controllers
                                 DateTime LAST_CONTACT_DATE, PREVIOUS_CONTACT_DATE, NEXT_ACTION_DATE;
                                 var savedPersons = db.pr_addIteratePerson(newPartnerItem.PARTNER_POC_FIRST_NAME,
                                     newPartnerItem.PARTNER_POC_LAST_NAME, newPartnerItem.PARTNER_POC_TITLE,
-                                    newPartnerItem.RO_EMAIL, newPartnerItem.PARTNER_POC_PHONE_NUMBER,
+                                    newPartnerItem.PARTNER_POC_EMAIL_ADDRESS, newPartnerItem.PARTNER_POC_PHONE_NUMBER,
                                     newPartnerItem.PARTNER_CONTACT_FAX, true,
                                     DateTime.Now, DateTime.Now, (int)savedPartners, lastContact, DateTime.TryParse(newPartnerItem.LAST_CONTACT_DATE, out LAST_CONTACT_DATE) ? LAST_CONTACT_DATE : (DateTime?)null, previosContact, DateTime.TryParse(newPartnerItem.PREVIOUS_CONTACT_DATE, out PREVIOUS_CONTACT_DATE) ? PREVIOUS_CONTACT_DATE : (DateTime?)null, nextAction, DateTime.TryParse(newPartnerItem.NEXT_ACTION_DATE, out NEXT_ACTION_DATE) ? NEXT_ACTION_DATE : (DateTime?)null, newPartnerItem.NOTES == "Y" ? true : false).FirstOrDefault();
                             }
@@ -3093,8 +3093,7 @@ namespace Generic.Controllers
                 PARTNER_DUNS = o.dunsnumber,
                 PARTNER_SAP_ID = o.federalID,
                 PARTNER_STATE = o.state,
-                PARTNER_ZIPCODE = o.zipcode,
-                RO_EMAIL = o.email,
+                PARTNER_ZIPCODE = o.zipcode,                
                 RO_FIRST_NAME = o.firstname,
                 RO_LAST_NAME = o.lastname,
                 CURRENT_STATUS = o.iteratePartnerStatus.HasValue ? partnerStatuses[o.iteratePartnerStatus.Value] : ""

@@ -1780,7 +1780,7 @@
         columns.Bound(o => o.title).Title("Title").Width(100).Filterable(false).ClientTemplate(@"
         <a href='#' id='title<#=id#>' class='menu_block title'><#=title#></a>
 <div class='display_menu' style='display: none;width:200px;'>
-       <span style='width:100%'> <#=address2#> - <a href='http://<#=federalID#>'><#=federalID#></a></span>
+       <span style='width:100%'><p><#=title#></p> <#=address2#> - <a href='http://<#=federalID#>'><#=federalID#></a></span>
     </div>
 ");
         columns.Bound(o => o.lastContact).Title("Last Contact").Width(100).ClientTemplate(@"
