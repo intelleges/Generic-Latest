@@ -80,7 +80,7 @@
 
     #IteratePartners tr > td:hover .menu_block + .display_menu {
         display: block !important;
-    }
+    }    
      #IteratePartners tr > td:hover .menu_block + .display_menu_right {
         display: block !important;
     }
@@ -103,6 +103,7 @@
         border: 1px solid #ddd;
         z-index: 100;
     }
+    
 
     #IteratePartners tr > td {
         overflow: visible !important;
@@ -376,20 +377,20 @@
     // For todays date;
     Date.prototype.today = function () {
         return this.toLocaleDateString("en-US");
-       // return ((this.getDate() < 10) ? "0" : "") + this.getDate() + "/" + (((this.getMonth() + 1) < 10) ? "0" : "") + (this.getMonth() + 1) + "/" + this.getFullYear();
+        // return ((this.getDate() < 10) ? "0" : "") + this.getDate() + "/" + (((this.getMonth() + 1) < 10) ? "0" : "") + (this.getMonth() + 1) + "/" + this.getFullYear();
     }
 
     // For the time now
     Date.prototype.timeNow = function () {
         return this.toLocaleTimeString("en-US");
-       // return ((this.getHours() < 10) ? "0" : "") + this.getHours() + ":" + ((this.getMinutes() < 10) ? "0" : "") + this.getMinutes() + ":" + ((this.getSeconds() < 10) ? "0" : "") + this.getSeconds();
+        // return ((this.getHours() < 10) ? "0" : "") + this.getHours() + ":" + ((this.getMinutes() < 10) ? "0" : "") + this.getMinutes() + ":" + ((this.getSeconds() < 10) ? "0" : "") + this.getSeconds();
     }
     var iterate = (function () {
         return {
             data: [],
             selectedPartner: "",
             globalVars: {
-                allNotesIds:[]
+                allNotesIds: []
             }
         }
     })();
@@ -399,7 +400,7 @@
         var partnerGrid = $("#IteratePartners").data("tGrid");
         var row = e.row;
         var selectedItem = partnerGrid.dataItem(row);
-        
+
         iterate.selectedPartnerId = selectedItem.id;
         iterate.selectedPartner = selectedItem.name;
         $('#iteratePrev').data('rowIndex', row.rowIndex - 1);
@@ -443,7 +444,7 @@
         $("#state").val("0");
         $("#province").val("");
         $("#zipcode").val("");
-       // $("#country").text(selectedItem.country);
+        // $("#country").text(selectedItem.country);
         $("#phone").val("");
         $("#fax").val("");
         $("#firstName").val("");
@@ -497,8 +498,8 @@
         //        noteText: text,
         //        partnerId:partnerId
         //    },
-        //    success: function (result) {                
-                
+        //    success: function (result) {
+
         //        //                        HidePartnerFindLoader();
         //    }
         //});
@@ -509,25 +510,26 @@
         splitter.expand(pane);
     }
     function checkoAuth() {
+        var checkResult = false;
         $.ajax({
             url: "IteratePartnerCheckoAuth",
             async: false,
-            type:"POST"
+            type: "POST"
         }).done(function (result) {
             if (result !== true) {
                 alertify.alert("Please wait for authentification");
                 window.location.href = result;
-                return false;
-            }           
+                checkResult= false;
+            } else checkResult = true;
         });
-        return true;
+        return checkResult;
     }
-    
-    
-    function Grid_onDataBound(e) {        
-        
-        $(".display_menu ul li a").click(function (e) {           
-            //note menu item click            
+
+
+    function Grid_onDataBound(e) {
+
+        $(".display_menu ul li a").click(function (e) {
+            //note menu item click
             if ($(this).text() === "Note") {
                 e.preventDefault();
                 var partnerGrid = $("#IteratePartners").data("tGrid");
@@ -535,7 +537,7 @@
                 //data can be used for whatever it needed
                 iterate.selectedPartnerId = rowData.id;
                 iterate.selectedPartner = rowData.name;
-                showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);                
+                showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);
             }
             if ($(this).text() === "Email") {
                 e.preventDefault();
@@ -559,7 +561,7 @@
                     internalId: rowData.internalID,
                     email: rowData.email,
                     partnerId: rowData.id,
-                    personId:rowData.personID
+                    personId: rowData.personID
                 }).done(function (result) {
                     if (result !== "NOT_RELATED") {
                         alertify.alert(result);
@@ -568,6 +570,13 @@
                         $("#nurturePartner").modal("toggle");
                     }
                 });
+            }
+            if ($(this).text() === "Add") {
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = rowData.id;
+                $("#newIteratePartner").modal("toggle");
             }
         });
         if (iterate.saved) {
@@ -580,10 +589,10 @@
             clearFields();
         }
     }
-   
+
     function showNoteEditor(partnerId, partnerName) {
         if (!checkoAuth()) return;
-        $.post("GetEvernoteText", { partnerId:partnerId }).done(function (e) {
+        $.post("GetEvernoteText", { partnerId: partnerId }).done(function (e) {
             if (e.text) {
                 var date = new Date();
                 if (e.text !== "none") {
@@ -615,16 +624,19 @@
     if ('@ViewBag.showNotes' === "True") {
         showNotesPanel();
     }
+    if ('@ViewBag.gmailAuth' === "True") {
+        checkoAuth();
     }
-    function loadNotesIds() {
-        $.post("getIteratePartnerNoteIds").done(function (result) {
-            if (result) {
-                iterate.globalVars.allNotesIds = result;                
-            }
-        });
     }
-    
-  
+        function loadNotesIds() {
+            $.post("getIteratePartnerNoteIds").done(function (result) {
+                if (result) {
+                    iterate.globalVars.allNotesIds = result;
+                }
+            });
+        }
+
+
     //#region First declaration
     $(document).ready(function () {
         loadNotesIds();
@@ -637,8 +649,29 @@
         });
         $("#addNoteDialog").submit(function (e) {
             e.preventDefault();
-            AddNote($("#noteTitle").val(), $("#noteText").val(), iterate.selectedPartner, iterate.selectedPartnerId);            
+            AddNote($("#noteTitle").val(), $("#noteText").val(), iterate.selectedPartner, iterate.selectedPartnerId);
         });
+        $("#newIteratePartner").submit(function (e) {
+            e.preventDefault();
+            $("#newIteratePartner :input").prop("disable", true);
+            $.post("AddNewIteratePartner", {
+                partnerId: iterate.selectedPartnerId,
+                firstName: $("#newIteratePartner #firstName").val(),
+                lastName: $("#newIteratePartner #lastName").val(),
+                phoneNumber: $("#newIteratePartner #phoneNumber").val(),
+                email: $("#newIteratePartner #email").val(),
+                title: $("#newIteratePartner #title").val()
+            }).done(function (result) {
+                $("#newIteratePartner").modal("toggle");
+                $("#newIteratePartner :input").prop("disable", false);
+                $("#IteratePartners").data("tGrid").ajaxRequest();
+            }).fail(function () {
+                alertify.alert("There was an error during adding operation. Please try again later.");
+                $("#newIteratePartner :input").prop("disable", false);
+            });
+            
+        });
+        
         //send email to partner
         $("#emailDialog").submit(function (e) {
             e.preventDefault();
@@ -664,7 +697,7 @@
                         window.location.href = result;
                     }
                 }
-                
+
             });
         });
         $("#nurturePartner").submit(function (e) {
@@ -684,6 +717,7 @@
             })
         });
 
+        //#region partnerspanel
         function validateControl() {
 
             if ($("#name").val() == "") {
@@ -730,8 +764,7 @@
             if ($("#owner").val() == "") {
                 alertify.alert("Owner is required");
                 return false;
-            }
-            //#endregion
+            }           
 
             if ($("#address1").val() === "" && $("#address2").val() === "") {
                 alertify.alert("Address is required");
@@ -770,7 +803,6 @@
                 return false;
             }
         }
-
         $("#searctText").keypress(function (event) {
             if (event.which == 13) {
                 seacrhPartner();
@@ -906,24 +938,15 @@
 
         $(".clickable").click(function () {
             //if ($(".table tr").length === 0)
-               // return;
+            // return;
             if ($(this).text() === "<<")
                 $("#IteratePartners tr.t-state-selected").prev().click();//prevRow();
-             else $("#IteratePartners tr.t-state-selected").next().click();// nextRow();
-        });
-
-       // $('#iteratePrev').on('click', function (e) {
-           // e.preventDefault();
-            //var rowIndex = $(this).data('rowIndex');
-            //var partnerGrid = $("#IteratePartners").data("tGrid");
-           // $("#IteratePartners tr.t-state-selected").prev().click();
-            //var selectedItem = partnerGrid.$rows().index(e.row)
-       // });
-
-        //seacrhPartner(true);        
+            else $("#IteratePartners tr.t-state-selected").next().click();// nextRow();
+        });        
+        //#endregion
     });
 </script>
-<!--#region collapse-->
+
 <style type="text/css">
     .clickable {
         cursor: pointer;
@@ -1230,6 +1253,50 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="newIteratePartner" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Add new partner to iterate </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalGetPassword">
+                        <div class="form-group">
+                            <label class="control-label" for="firstName">First Name</label>
+                            @Html.TextBox("firstName", "", new { @class = "form-control", data_val_required = "*", data_val = "true"})                            
+                            <span data-valmsg-replace="true" data-valmsg-for="firstName" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="lastName">Last Name</label>
+                            @Html.TextBox("lastName", "", new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="lastName" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="title">Title</label>
+                            @Html.TextBox("title", "", new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="title" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="phoneNumber">Phone Number</label>
+                            @Html.TextBox("phoneNumber", "", new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="phoneNumber" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="email">Email</label>
+                            @Html.TextBox("email", "", new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="email" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
 
         <div class="col-xs-7">
@@ -1436,8 +1503,7 @@
 
 
                     </div>
-                    @* <div class="threecol">
-                        </div>*@
+                    
                     <div class="row pull-right" style="margin-top:15px">
 
                         <input type="button" value="Upload" class="btn_b " id="btnLoad" />
@@ -1539,6 +1605,7 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
     function evernotesTree_onSelect(e) {
         if (e.item) {
@@ -1666,6 +1733,7 @@
     }
 </script>
 
+<!--#region splitter Top-->
 @section splitterTop {
     @{
         var counter = 1;
@@ -1679,9 +1747,10 @@
             <li><a href='#'>Email</a></li>
             <li><a href='#'>Meet</a></li>
             <li><a href='#'>Update</a></li>
-            <li><a href='#'>Remove</a></li>
+            <li><a href='#' onclick='changeLastContact(<#=id#>,4);'>Remove</a></li>
 <li><a href='#'>Nurture/Remind</a></li>
             <li><a href='#'>Note</a></li>
+            <li><a href='#'>Add</a></li>
         </ul>
     </div>
 ").Width(230);
@@ -1703,7 +1772,12 @@
 ");
         columns.Bound(o => o.firstname).Title("First name").Width(80).Filterable(false);
         columns.Bound(o => o.lastname).Title("Last name").Width(100);
-        columns.Bound(o => o.title).Title("Title").Width(100).Filterable(false);
+        columns.Bound(o => o.title).Title("Title").Width(100).Filterable(false).ClientTemplate(@"
+        <a href='#' id='title<#=id#>' class='menu_block'><#=title#></a>
+<div class='display_menu' style='display: none;width:200px;'>
+       <span style='width:100%'> <#=address2#> - <a href='http://<#=federalID#>'><#=federalID#></a></span>
+    </div>
+");
         columns.Bound(o => o.lastContact).Title("Last Contact").Width(100).ClientTemplate(@"
 <a href='#' id='LC<#=id#>' class='menu_block'><#=lastContact#></a>
     <div class='display_menu' style='display: none;'>
@@ -1754,6 +1828,8 @@
                                             ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "font-size:10px;" }).Filterable(o => o.Filters(filters => filters.Add(filter => filter.nextActionDate).IsLessThan(DateTime.Now.Date.AddDays(1)).And().IsGreaterThanOrEqualTo(DateTime.Now.Date)).ShowOrOption())
    
 }
+<!--#endregion-->
+
 @section rightSplitter{
    @* @Html.ActionLink("Add Stack","AuthorizeEverNote","Partner")
     @Html.ActionLink("Add Notebook","AuthorizeEverNote","Partner")
@@ -1763,10 +1839,8 @@
 </div>
     
 }
-@section scripts{
-   @* @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-    @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")*@
+@section scripts{   
+@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
    <script src="/Scripts/bootstrap.js"></script>
    <script src="/Scripts/validator.js"></script>
 <script src="http://lab.jakiestfu.com/contextjs/context.js"></script>

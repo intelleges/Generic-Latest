@@ -11,6 +11,7 @@ using System.Web;
 
 namespace Generic.Session
 {
+    
     public class AppFlowMetadata:FlowMetadata
     {
        
@@ -18,8 +19,13 @@ namespace Generic.Session
             {
                 ClientSecrets = new ClientSecrets
                 {
+#if GOOGLE_MAIL_TEST
+                    ClientId = "120860466613-vqrcsq84le24s8q5en4g10eauke25qkl.apps.googleusercontent.com",
+                    ClientSecret = "byJ8P88Bb1FeRFXVvBvka13I"
+#else 
                     ClientId = "120860466613-n6euab0n23g3ommaqb6luu0r1405etrt.apps.googleusercontent.com",
                     ClientSecret = "wCnMK0SbVKHxpuv0fWmee4ug"
+#endif
                 },
                 Scopes = new[] { GmailService.Scope.GmailReadonly },
                 DataStore = new FileDataStore(System.Web.HttpContext.Current.Server.MapPath("/App_Data/MyGoogleStorage")) 

@@ -2130,7 +2130,7 @@ namespace Generic.Controllers
             return Json(null);
         }
 
-        public virtual async Task<ActionResult> Iterate(bool? showNotes)
+        public virtual async Task<ActionResult> Iterate(bool? showNotes, bool needGmailAuth = false)
         {
             ViewBag.state = new SelectList(db.state.ToList(), "stateCode", "name");
             ViewBag.country = new SelectList(db.country.ToList(), "id", "name");
@@ -2147,6 +2147,7 @@ namespace Generic.Controllers
             //var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
             // ViewBag.Scheduler = scheduler.Render();
             ViewBag.showNotes = showNotes;
+            ViewBag.gmailAuth = needGmailAuth;
             return View();
 
         }
@@ -2283,7 +2284,7 @@ namespace Generic.Controllers
         /// <param name="reauth"></param>
         /// <returns></returns>
         //[HttpPost]
-        public JsonResult AuthorizeEverNote(bool reauth = false)
+        public JsonResult AuthorizeEverNote(bool reauth = false, bool goToGMailAuth=false)
         {
             // Allow for reauth
             if (reauth)
@@ -2294,7 +2295,7 @@ namespace Generic.Controllers
                 return Json(Url.Action("AlreadyAuthorized"));
 
             // Evernote will redirect the user to this URL once they have authorized your application
-            var callBackUrl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ObtainTokenCredentials");
+            var callBackUrl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ObtainTokenCredentials", new { gmailAuth = goToGMailAuth });
 
             // Generate a request token - this needs to be persisted till the callback
             var requestToken = Generic.Helpers.EvernoteAuthorizer.GetRequestToken(callBackUrl);
@@ -2315,7 +2316,7 @@ namespace Generic.Controllers
         /// </summary>
         /// <param name="oauth_verifier"></param>
         /// <returns></returns>
-        public async Task<ActionResult> ObtainTokenCredentials(string oauth_verifier)
+        public async Task<ActionResult> ObtainTokenCredentials(string oauth_verifier, bool gmailAuth=false)
         {
             // Use the verifier to get all the user details we need and
             // store them in EvernoteCredentials
@@ -2327,7 +2328,7 @@ namespace Generic.Controllers
                     await AddNote(TempData["PartnerName"].ToString(), TempData["noteTitle"].ToString(), TempData["noteText"].ToString(), TempData["partnerId"].ToString());
                 else if (SessionSingleton.NeedGetEvernoteText)
                     GetEvernoteText(int.Parse(TempData["partnerId"].ToString()));
-                return Redirect(Url.Action("Iterate", new { showNotes = "True" }));
+                return  Redirect(Url.Action("Iterate", new { showNotes = "True", needGmailAuth = gmailAuth }));
             }
             else
             {
@@ -3418,8 +3419,8 @@ namespace Generic.Controllers
 
         public async Task<ActionResult> IteratePartnerCheckoAuth()
         {
-            if (SessionHelper.EvernoteCredentials == null) return AuthorizeEverNote();
-            var googleResult = await new IntellegesAuthorizationCodeMvcApp(this, new AppFlowMetadata(), Request.Url.GetLeftPart(UriPartial.Authority) +Url.Action("Iterate", "Partner")).AuthorizeAsync(CancellationToken.None);
+            var googleResult = await new IntellegesAuthorizationCodeMvcApp(this, new AppFlowMetadata(), Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("Iterate", "Partner")).AuthorizeAsync(CancellationToken.None);
+            if (SessionHelper.EvernoteCredentials == null && googleResult.Credential == null) return AuthorizeEverNote(goToGMailAuth:true);            
             if (googleResult.Credential == null)
                 return Json(googleResult.RedirectUri);
             return Json(true);
@@ -3430,6 +3431,24 @@ namespace Generic.Controllers
         {
             var result = db.pr_getIteratePartnerPerson3(SessionSingleton.LoggedInUserId).ToList();
             return Json(result.Select(o => o.note).ToList().Distinct());
+        }
+
+        public ActionResult AddNewIteratePartner(int partnerId, string firstName, string lastName,string title, string phoneNumber, string email)
+        {
+            try
+            {            
+                //InteratePartnerStatus
+                var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
+                var iPerson = iPartner.iteratePerson.FirstOrDefault();
+                var partnerStatuses = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.description, p => p.id);
+               var addedPartner = db.pr_addIteratePartner(iPartner.internalID,iPartner.name,iPartner.address1,iPartner.address2, iPartner.city,iPartner.state, iPartner.zipcode, iPartner.country,iPartner.dunsnumber,iPartner.federalID, iPartner.numberOfEmployees,iPartner.annualRevenue,partnerStatuses["zDefault"],SessionSingleton.LoggedInUserId,SessionSingleton.LoggedInUserId,iPartner.dateApproved,true,DateTime.Now,null,null,SessionSingleton.LoggedInUserId,null).FirstOrDefault();
+               db.pr_addIteratePerson(firstName, lastName, title, email, phoneNumber, iPerson.fax, true, DateTime.Now, null, (int)addedPartner, 1, DateTime.Now.AddDays(-3), 1, DateTime.Now.AddDays(-3), 1, DateTime.Now, false);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json("Error:"+ex.Message);
+            }
         }
     }
     
