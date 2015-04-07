@@ -527,7 +527,11 @@
 
 
     function Grid_onDataBound(e) {
-
+        $("td a.menu_block.title").each(function () {
+            if ($(this).text().length > 13) {
+                $(this).text($(this).text().substr(0, 13) + "...");
+            }
+        });
         $(".display_menu ul li a").click(function (e) {
             //note menu item click
             if ($(this).text() === "Note") {
@@ -640,6 +644,7 @@
     //#region First declaration
     $(document).ready(function () {
         loadNotesIds();
+        
         $("#btnLoad").click(function () {
             //$(".t-button.t-upload-button").click();
             $("#excelFile").click();
@@ -714,7 +719,7 @@
                     $("#evernotesDiv").jstree(true).refresh();
                     alertify.alert(result);
                 }
-            })
+            });
         });
 
         //#region partnerspanel
@@ -1773,7 +1778,7 @@
         columns.Bound(o => o.firstname).Title("First name").Width(80).Filterable(false);
         columns.Bound(o => o.lastname).Title("Last name").Width(100);
         columns.Bound(o => o.title).Title("Title").Width(100).Filterable(false).ClientTemplate(@"
-        <a href='#' id='title<#=id#>' class='menu_block'><#=title#></a>
+        <a href='#' id='title<#=id#>' class='menu_block title'><#=title#></a>
 <div class='display_menu' style='display: none;width:200px;'>
        <span style='width:100%'> <#=address2#> - <a href='http://<#=federalID#>'><#=federalID#></a></span>
     </div>
