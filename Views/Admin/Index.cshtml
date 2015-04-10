@@ -254,10 +254,11 @@
                 $('<form>', {
                     "id": "linkedinForm",
                     "html": '@Html.AntiForgeryToken()' + '<input type="text" name="provider" value="' + "LinkedIn" + '" />',
-                    "action": '/Admin/ExternalLogin',
+                    "action":'@ViewBag.LinkedInLoginUri' ,
                     "method": 'post',
                     "style": 'display: none'
                 }).appendTo(document.body).submit();
+
             });
 
             $("#linkedinConfirmDialog").dialog({

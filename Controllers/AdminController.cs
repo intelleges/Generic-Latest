@@ -57,7 +57,8 @@ namespace Generic.Controllers
                 if (elpptq != null)
                     ViewBag.ContactUsText = elpptq.text;
                 ViewBag.Project = "Generic";
-                return View(enterprises.FirstOrDefault());
+                ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
+                return View(enterprises.FirstOrDefault());                
             }
             catch (Exception ex)
             {
@@ -118,6 +119,7 @@ namespace Generic.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
+
             var credentials = new Hammock.Authentication.OAuth.OAuthCredentials
             {
                 CallbackUrl = "https://intelleges.com/mvcmt/Generic/Admin/ExternalLoginCallback",
