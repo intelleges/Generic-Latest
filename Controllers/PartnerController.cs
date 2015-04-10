@@ -3465,6 +3465,19 @@ namespace Generic.Controllers
                 return Json("Error:"+ex.Message);
             }
         }
+
+        public ActionResult GetIterateDataChart()
+        {
+            try
+            {
+                var data = db.pr_getDailyCallCount(SessionSingleton.LoggedInUserId).ToList().Select(o => new object[] { o.description, o.total });
+                return Json(data);
+            }
+            catch (Exception ex)
+            {
+                return Json(false);
+            }
+        }
     }
     
 }

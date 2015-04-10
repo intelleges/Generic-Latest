@@ -956,6 +956,9 @@
     .clickable {
         cursor: pointer;
     }
+    #iterateDiagramGrid .t-grid-header .t-header .t-link{
+        height:25px !important;
+    }
 
     .loader {
         position: absolute;
@@ -1740,10 +1743,12 @@
 
 @section leftSplitter{
     @Html.Telerik().Grid(new List<Generic.pr_getDailyCallCount_Result>()).Name("iterateDiagramGrid").DataBinding(binding => binding.Ajax().Select("GetIterateDiagramGrid", "Partner")).Columns(col =>
-{   
+{
+    col.Bound(o => o.firstname);
+    col.Bound(o => o.lastname);
     col.Bound(o => o.description);
     col.Bound(o => o.total);
-})
+}).HtmlAttributes(new { style = "font-size:10px;" })
 <div id="donutchart" style="width: 400px; height: 300px;"></div>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
@@ -1760,18 +1765,24 @@
         //]);
 
         //Html.Raw(ViewBag.pieChartData)
-        var data = google.visualization.arrayToDataTable([['Status','Count'],['ZDefault-No Touchpoint',30],['ZDefault-Wrong Number',70]]);
+        $.post("GetIterateDataChart").done(function (result) {
+            if (result) {
+                result.unshift(['Status', 'Count']);
+                var data = google.visualization.arrayToDataTable(result);
 
 
-        var options = {
-            title: 'Response Rate',
-            pieHole: 0.4,
-            chartArea: { left: 3, top: 50, width: "72%", height: "60%" },
-            slices: { 0: { color: 'orange' }, 1: { color: 'green' }, 2: { color: 'blue' }, 3: { color: 'grey' } }
-        };
+                var options = {
+                    title: 'Iterates Status Rate',
+                    pieHole: 0.4,
+                    chartArea: { left: 3, top: 50, width: "72%", height: "60%" },
+                    slices: { 0: { color: 'orange' }, 1: { color: 'green' }, 2: { color: 'blue' }, 3: { color: 'grey' } }
+                };
 
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
+                var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                chart.draw(data, options);
+            }
+        });
+        
     }
 </script>
 }
