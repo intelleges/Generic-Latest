@@ -659,14 +659,14 @@
         $("#newIteratePartner").submit(function (e) {
             e.preventDefault();
             $("#newIteratePartner :input").prop("disable", true);
-            $.post("AddNewIteratePartner", {
+            $.ajax({url:"AddNewIteratePartner", data:{
                 partnerId: iterate.selectedPartnerId,
                 firstName: $("#newIteratePartner #firstName").val(),
                 lastName: $("#newIteratePartner #lastName").val(),
                 phoneNumber: $("#newIteratePartner #phoneNumber").val(),
                 email: $("#newIteratePartner #email").val(),
                 title: $("#newIteratePartner #title").val()
-            }).done(function (result) {
+            }, method:"POST",async:true}).done(function (result) {
                 $("#newIteratePartner").modal("toggle");
                 $("#newIteratePartner :input").prop("disable", false);
                 $("#IteratePartners").data("tGrid").ajaxRequest();
@@ -1737,6 +1737,44 @@
         showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);
     }
 </script>
+
+@section leftSplitter{
+    @Html.Telerik().Grid(new List<Generic.pr_getDailyCallCount_Result>()).Name("iterateDiagramGrid").DataBinding(binding => binding.Ajax().Select("GetIterateDiagramGrid", "Partner")).Columns(col =>
+{   
+    col.Bound(o => o.description);
+    col.Bound(o => o.total);
+})
+<div id="donutchart" style="width: 400px; height: 300px;"></div>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        //var data = google.visualization.arrayToDataTable([
+        //  ['Task', 'Hours per Day'],
+        //  ['Work', 11],
+        //  ['Eat', 2],
+        //  ['Commute', 2],
+        //  ['Watch TV', 2],
+        //  ['Sleep', 7]
+        //]);
+
+        //Html.Raw(ViewBag.pieChartData)
+        var data = google.visualization.arrayToDataTable([['Status','Count'],['ZDefault-No Touchpoint',30],['ZDefault-Wrong Number',70]]);
+
+
+        var options = {
+            title: 'Response Rate',
+            pieHole: 0.4,
+            chartArea: { left: 3, top: 50, width: "72%", height: "60%" },
+            slices: { 0: { color: 'orange' }, 1: { color: 'green' }, 2: { color: 'blue' }, 3: { color: 'grey' } }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+    }
+</script>
+}
 
 <!--#region splitter Top-->
 @section splitterTop {

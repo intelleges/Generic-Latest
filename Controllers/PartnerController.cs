@@ -3028,13 +3028,26 @@ namespace Generic.Controllers
             try
             {
                 var result = db.pr_getIteratePartnerPerson3(SessionSingleton.LoggedInUserId).ToList();
-               
+                if (SessionSingleton.AddIteratePartnerId.HasValue)
+                {
+                    var topItem = result.FirstOrDefault(o => o.id == SessionSingleton.AddIteratePartnerId.Value);
+                    result.Remove(topItem);
+                    result.Insert(0, topItem);
+                    SessionSingleton.AddIteratePartnerId = null;
+                }
                 return Json(new GridModel(result), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new GridModel());
             }
+        }
+
+        [GridAction]
+        public ActionResult GetIterateDiagramGrid()
+        {
+            var result = db.pr_getDailyCallCount(SessionSingleton.LoggedInUserId).ToList();
+            return Json(new GridModel(result), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -3153,7 +3166,9 @@ namespace Generic.Controllers
                 options.Method = "GET";
                 options.FallbackMethod = "GET";
                 options.StatusCallbackMethod = "GET";
-                options.Record = true;
+                //options.Record = true;
+                options.Timeout = 120;
+                
                 var call = client.InitiateOutboundCall(options);
 
                 if (call.RestException == null)
@@ -3442,6 +3457,7 @@ namespace Generic.Controllers
                 var partnerStatuses = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.description, p => p.id);
                var addedPartner = db.pr_addIteratePartner(iPartner.internalID,iPartner.name,iPartner.address1,iPartner.address2, iPartner.city,iPartner.state, iPartner.zipcode, iPartner.country,iPartner.dunsnumber,iPartner.federalID, iPartner.numberOfEmployees,iPartner.annualRevenue,partnerStatuses["zDefault"],SessionSingleton.LoggedInUserId,SessionSingleton.LoggedInUserId,iPartner.dateApproved,true,DateTime.Now,null,null,SessionSingleton.LoggedInUserId,null).FirstOrDefault();
                db.pr_addIteratePerson(firstName, lastName, title, email, phoneNumber, iPerson.fax, true, DateTime.Now, null, (int)addedPartner, 1, DateTime.Now.AddDays(-3), 1, DateTime.Now.AddDays(-3), 1, DateTime.Now, false);
+               SessionSingleton.AddIteratePartnerId = (int)addedPartner;
                 return Json(true);
             }
             catch (Exception ex)

@@ -7,6 +7,8 @@ namespace Generic.SessionClass
 {
     public class SessionSingleton
     {
+
+
         public SessionSingleton()
         {
         }
@@ -36,6 +38,18 @@ namespace Generic.SessionClass
             set
             {
                 System.Web.HttpContext.Current.Session["NeedAddEverNote"] = value;
+            }
+        }
+
+        public static int? AddIteratePartnerId
+        {
+            get
+            {
+                return (System.Web.HttpContext.Current.Session["AddIteratePartnerId"] != null) ? (int?)System.Web.HttpContext.Current.Session["AddIteratePartnerId"] : null;
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["AddIteratePartnerId"] = value;
             }
         }
 

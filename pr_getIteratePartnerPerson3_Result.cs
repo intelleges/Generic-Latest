@@ -33,6 +33,7 @@ namespace Generic
         public Nullable<bool> active { get; set; }
         public Nullable<System.DateTime> dateAdded { get; set; }
         public Nullable<System.DateTime> lastModified { get; set; }
+        public Nullable<System.DateTime> emailLastUpdate { get; set; }
         public Nullable<int> iteratePartnerStatus { get; set; }
         public string iteratePartnerStatusDescription { get; set; }
         public int person { get; set; }

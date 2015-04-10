@@ -66,7 +66,7 @@
         var gridHtml = renderedTop != null ? renderedTop.ToHtmlString() : "";
     }
     <div style="height:100%;width:100%">
-    @{Html.Telerik().Splitter().Name("Splitter1")
+        @{Html.Telerik().Splitter().Name("Splitter1")
     .HtmlAttributes(new { style = "height: 100%;width: 100%;" })
     .Orientation(SplitterOrientation.Vertical)
     .Panes(vPanes =>
@@ -89,12 +89,16 @@
         .Panes(hPanes =>
         {
             hPanes.Add()
-            .Size("20%")
+            .Size("35%")
             .Collapsible(true).Collapsed(true)
-            .Content(@<p>Inner splitter :: left pane</p>);
+            .Content(@<div>
+                
+                @RenderSection("leftSplitter", required: false)
+        </div>
+                );
 
-            hPanes.Add()
-            .Content(@<div id="body" >
+                hPanes.Add()
+                .Content(@<div id="body">
                     @RenderSection("featured", required: false)
                     <header>
                         <div class="content-wrapper main-content clear-fix">
@@ -188,55 +192,55 @@
 
 
                         @RenderBody()
-                       
+
                     </section>
                 </div>);
 
-            hPanes.Add()
-            .Size("20%")
-            .Collapsible(true).Collapsed(true).Scrollable(true).Resizable(false)
-            .Content(@<div id="rightSplitter" >               
-    @RenderSection("rightSplitter",false)
-            </div>
+                hPanes.Add()
+                .Size("20%")
+                .Collapsible(true).Collapsed(true).Scrollable(true).Resizable(false)
+                .Content(@<div id="rightSplitter">
+                    @RenderSection("rightSplitter", false)
+                </div>
 
-);
-        }).ToString());
+                );
+                }).ToString());
 
-        vPanes.Add()
-        .Size("20%")
-        .Collapsible(true).Collapsed(true)
-        .Content(@<footer>
-            <div class="content-wrapper">
+                vPanes.Add()
+                .Size("20%")
+                .Collapsible(true).Collapsed(true)
+                .Content(@<footer>
+                    <div class="content-wrapper">
 
-                <div class="float-left">
-                    <p>
-                        <div class="admin-touchpoints">
-                            Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
+                        <div class="float-left">
+                            <p>
+                                <div class="admin-touchpoints">
+                                    Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
+                                </div>
+                            </p>
                         </div>
-                    </p>
-                </div>
 
-                <div class="float-right">
-                    <p>&copy; @DateTime.Now.Year - Intelleges</p>
-                </div>
+                        <div class="float-right">
+                            <p>&copy; @DateTime.Now.Year - Intelleges</p>
+                        </div>
+                    </div>
+                </footer>);
+                })
+                .Render();
+                }
             </div>
-        </footer>);
-    })
-                        .Render();
-    }
-   </div>
     <div id="popup" style="display:none;">
         <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
     </div>
-   @* @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryui")*@
+    @* @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")*@
     <script type="text/javascript">
-        
+
         function onSplitter2Load(e) {
             @RenderSection("onSplitter2Load",false)
         }
         function OpenManualAddModal(url) {
-           // jQuery.noConflict();
+            // jQuery.noConflict();
             $("#popup").dialog({
                 autoOpen: true,
                 modal: true,
@@ -250,7 +254,7 @@
         }
 
         function CloseManualAddModalWithAlert(alert) {
-           // jQuery.noConflict();
+            // jQuery.noConflict();
             $("#popup").dialog('close');
             alertify.alert(alert);
         }
@@ -273,12 +277,12 @@
             //jQuery.noConflict();
             $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
         });
-       
+
 
     </script>
-   
 
-    
+
+
 
     <script type="text/javascript">
         //jQuery.noConflict();
@@ -364,24 +368,24 @@
         });
 
     </script>
-    
+
     @RenderSection("scripts", required: false)
     @(Html.Telerik().ScriptRegistrar().jQuery(false).jQueryValidation(false)
-    //.DefaultGroup(group => group
-    //            .Add("~/Scripts/jquery-1.9.1.min.js")
-    //.Combined(true)
-    //.Compress(true)
-   // ).jQuery(false)
+            //.DefaultGroup(group => group
+            //            .Add("~/Scripts/jquery-1.9.1.min.js")
+            //.Combined(true)
+            //.Compress(true)
+            // ).jQuery(false)
     .OnDocumentReady(@<text>
-       @* var splitter = $('#Splitter2').data('tSplitter');
-splitter.size(".t-pane", $(window).height()+"px");
-       $(window).bind('resize', function() {
-        splitter.size(".t-pane", $(window).height()+"px");
-       });*@
+                @* var splitter = $('#Splitter2').data('tSplitter');
+                    splitter.size(".t-pane", $(window).height()+"px");
+                           $(window).bind('resize', function() {
+                            splitter.size(".t-pane", $(window).height()+"px");
+                           });*@
     </text>)
     )
-    
 
-    
+
+
 </body>
 </html>
