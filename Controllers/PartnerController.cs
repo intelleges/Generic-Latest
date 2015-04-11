@@ -2166,7 +2166,7 @@ namespace Generic.Controllers
             var daysGone = db.pr_getDailyCountAll(SessionSingleton.LoggedInUserId).Count();
             ViewBag.DaysGone = daysGone;
             ViewBag.DaysLeft = 250 - daysGone;
-            ViewBag.TodaySuccessfulCall_Close_Needed = ViewBag.YearSuccessfulCall_Close_Needed / ViewBag.DaysLeft;
+            
             var a1 = db.pr_getTotalCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 2);
             if (a1 != null)
             {
@@ -2195,6 +2195,7 @@ namespace Generic.Controllers
                 ViewBag.AppointmenttoCloseRatio = 0;
             }
             //
+            ViewBag.TodaySuccessfulCall_Close_Needed = ViewBag.YearSuccessfulCall_Close_Needed / ViewBag.DaysLeft;
             ViewBag.YearSuccessfulCallAppointmentNeeded = ViewBag.AppointmenttoCloseRatio * ViewBag.YearSuccessfulCall_Close_Needed;
             ViewBag.YearSuccessfulCallConnectNeeded = ViewBag.ConnecttoCloseRatio * ViewBag.YearSuccessfulCall_Close_Needed;
             ViewBag.TodaySuccessfulCallConnectNeeded = ViewBag.TodaySuccessfulCall_Close_Needed * ViewBag.ConnecttoCloseRatio;
