@@ -2136,7 +2136,6 @@ namespace Generic.Controllers
             ViewBag.country = new SelectList(db.country.ToList(), "id", "name");
             // db.pr_getTouchpointAllByEnterprise(SessionSingleton.EnterPriseId).FirstOrDefault().
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "title");
-
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
             ViewBag.nextaction = new SelectList(db.pr_getIterateNextAction().ToList(), "id", "nextAction");
@@ -2148,8 +2147,82 @@ namespace Generic.Controllers
             // ViewBag.Scheduler = scheduler.Render();
             ViewBag.showNotes = showNotes;
             ViewBag.gmailAuth = needGmailAuth;
-            return View();
+            var allTodaysCalls = db.pr_getDailyCallTotal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            var allClosedTodayCallsItem = db.pr_getTotalCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 20);
+            var allConectYearCallsItem = db.pr_getTotalCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 3);
+            if (allConectYearCallsItem != null)
+            {
+                ViewBag.YearSuccessfulCallConnectActual = allConectYearCallsItem.total;
+            }
+            else ViewBag.YearSuccessfulCallConnectActual = 0;
+            var allConectTodayCallsItem = db.pr_getDailyCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 3);
+            if (allConectTodayCallsItem != null)
+            {
+                ViewBag.TodaySuccessfulCallConnectActual = allConectTodayCallsItem.total;
+            }
+            else ViewBag.TodaySuccessfulCallConnectActual = 0;
 
+            ViewBag.YearsCallsActual = db.pr_getTotalCall(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            var daysGone = db.pr_getDailyCountAll(SessionSingleton.LoggedInUserId).Count();
+            ViewBag.DaysGone = daysGone;
+            ViewBag.DaysLeft = 250 - daysGone;
+            ViewBag.TodaySuccessfulCall_Close_Needed = ViewBag.YearSuccessfulCall_Close_Needed / ViewBag.DaysLeft;
+            var a1 = db.pr_getTotalCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 2);
+            if (a1 != null)
+            {
+                ViewBag.YearSuccessfulCallAppointmentActual = a1.total;
+            }
+            else
+            {
+                ViewBag.YearSuccessfulCallAppointmentActual = 0;
+            }
+            if (allClosedTodayCallsItem != null)
+            {
+                ViewBag.ActualEarned = allClosedTodayCallsItem.total * 0.23 * 135 * 12;
+                ViewBag.YearSuccessfulCall_Close_Actual = allClosedTodayCallsItem.total;
+                ViewBag.YearSuccessfulCall_Close_Needed = 355 - allClosedTodayCallsItem.total;
+                ViewBag.CalltoCloseRatio = ViewBag.YearsCallsActual/ViewBag.YearSuccessfulCall_Close_Actual;
+                ViewBag.ConnecttoCloseRatio = ViewBag.YearSuccessfulCallConnectActual / ViewBag.YearSuccessfulCall_Close_Actual;
+                ViewBag.AppointmenttoCloseRatio = ViewBag.YearSuccessfulCallAppointmentActual / ViewBag.YearSuccessfulCall_Close_Actual;
+            }
+            else
+            {
+                ViewBag.ActualEarned = 0;
+                ViewBag.YearSuccessfulCall_Close_Actual = 0;
+                ViewBag.YearSuccessfulCall_Close_Needed = 355;
+                ViewBag.CalltoCloseRatio=0;
+                ViewBag.ConnecttoCloseRatio = 0;
+                ViewBag.AppointmenttoCloseRatio = 0;
+            }
+            //
+            ViewBag.YearSuccessfulCallAppointmentNeeded = ViewBag.AppointmenttoCloseRatio * ViewBag.YearSuccessfulCall_Close_Needed;
+            ViewBag.YearSuccessfulCallConnectNeeded = ViewBag.ConnecttoCloseRatio * ViewBag.YearSuccessfulCall_Close_Needed;
+            ViewBag.TodaySuccessfulCallConnectNeeded = ViewBag.TodaySuccessfulCall_Close_Needed * ViewBag.ConnecttoCloseRatio;
+            ViewBag.TodayCalls_Needed = ViewBag.TodaySuccessfulCall_Close_Needed * ViewBag.CalltoCloseRatio;
+            ViewBag.TodayCalls_Actual = db.pr_getDailyCallTotal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            ViewBag.TodayDEFICIT = ViewBag.TodayCalls_Needed - ViewBag.TodayCalls_Actual;
+            ViewBag.YearCalls_Needed = ViewBag.CalltoCloseRatio * ViewBag.DaysLeft;
+            var dailyCallCount = db.pr_getDailyCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 20);
+            if (dailyCallCount != null)
+            {
+                ViewBag.TodaySuccessfulCall_Close_Actual = dailyCallCount.total;
+            }
+            else ViewBag.TodaySuccessfulCall_Close_Actual = 0;
+            var dailyAppCallCount = db.pr_getDailyCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 20);
+            if (dailyAppCallCount != null)
+            {
+                ViewBag.TodaySuccessfulCallAppointmentActual = dailyAppCallCount.total;
+            }
+            else ViewBag.TodaySuccessfulCallAppointmentActual = 0;
+            ViewBag.TodaySuccessfulCallAppointmentNeeded = ViewBag.AppointmenttoCloseRatio * ViewBag.TodaySuccessfulCall_Close_Needed;
+            var commissionGoal = db.pr_getTotalCommissionGoal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            if (commissionGoal != null)
+                ViewBag.commissionGoal = commissionGoal.commissionGoal;
+            else ViewBag.commissionGoal = 0;
+
+            //db.pr_getTotalCommissionGoal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            ViewBag.TotalCallsToday = allTodaysCalls;
+            return View();
         }
 
         /// <summary>
@@ -3470,7 +3543,7 @@ namespace Generic.Controllers
         {
             try
             {
-                var data = db.pr_getDailyCallCount(SessionSingleton.LoggedInUserId).ToList().Select(o => new object[] { o.description, o.total });
+                var data = db.pr_getDailyCallCount(SessionSingleton.LoggedInUserId).ToList().Select(o => new object[] { o.lastContact, o.total });
                 return Json(data);
             }
             catch (Exception ex)

@@ -5326,6 +5326,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getDailyCallCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getDailyCallTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getDailyCountAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getDashboardCountForReferenceByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ptq" Type="int" Mode="In" />
         </Function>
@@ -6261,6 +6267,15 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_getTemplateAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getTotalCall" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getTotalCallCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getTotalCommissionGoal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -13442,7 +13457,22 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="note" Mode="In" Type="Guid" />
           </FunctionImport>
+          <FunctionImport Name="pr_getTotalCallCount" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTotalCallCount_Result)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTotalCommissionGoal" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTotalCommissionGoal_Result)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getDailyCallTotal" ReturnType="Collection(Int32)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getDailyCountAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getDailyCountAll_Result)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="pr_getDailyCallCount" ReturnType="Collection(hs3MVCMTQa2Model.pr_getDailyCallCount_Result)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTotalCall" ReturnType="Collection(Int32)">
             <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           
@@ -21474,10 +21504,41 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="DateTime" Name="nextActionDate" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="notes" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getTotalCallCount_Result">
+          <Property Type="String" Name="firstname" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastname" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="statusID" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="lastContactID" Nullable="false" />
+          <Property Type="String" Name="lastcontact" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+          <Property Type="Decimal" Name="actualEarned" Nullable="true" Precision="20" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="pr_getTotalCommissionGoal_Result">
+          <Property Type="Decimal" Name="commissionGoal" Nullable="true" Precision="13" Scale="2" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Boolean" Name="iterate" Nullable="true" />
+          <Property Type="Guid" Name="evernoteStack" Nullable="true" />
+          <Property Type="String" Name="ical" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="emailFooter" Nullable="true" />
+          <Property Type="String" Name="callingNumber" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="alternateCallingNumber1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="alternateCallingNumber2" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="annualGoal" Nullable="true" />
+          <Property Type="Int32" Name="sellType" Nullable="true" />
+          <Property Type="String" Name="purpose" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getDailyCountAll_Result">
+          <Property Type="String" Name="call_date" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="pr_getDailyCallCount_Result">
           <Property Type="String" Name="firstname" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="lastname" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="description" Nullable="true" MaxLength="103" />
+          <Property Type="Int32" Name="statusID" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="lastContactID" Nullable="false" />
+          <Property Type="String" Name="lastContact" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="call_date" Nullable="true" MaxLength="10" />
           <Property Type="Int32" Name="total" Nullable="true" />
         </ComplexType>
@@ -28199,17 +28260,62 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_addIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_addIteratePerson" />
           <FunctionImportMapping FunctionImportName="pr_addIteratePartner" FunctionName="hs3MVCMTQa2Model.Store.pr_addIteratePartner" />
-          <FunctionImportMapping FunctionImportName="pr_getDailyCallCount" FunctionName="hs3MVCMTQa2Model.Store.pr_getDailyCallCount">
+          <FunctionImportMapping FunctionImportName="pr_getTotalCallCount" FunctionName="hs3MVCMTQa2Model.Store.pr_getTotalCallCount">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getDailyCallCount_Result">
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTotalCallCount_Result">
                 <ScalarProperty Name="firstname" ColumnName="firstname" />
                 <ScalarProperty Name="lastname" ColumnName="lastname" />
-                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="statusID" ColumnName="statusID" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="lastContactID" ColumnName="lastContactID" />
+                <ScalarProperty Name="lastcontact" ColumnName="lastcontact" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="actualEarned" ColumnName="actualEarned" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getTotalCommissionGoal" FunctionName="hs3MVCMTQa2Model.Store.pr_getTotalCommissionGoal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTotalCommissionGoal_Result">
+                <ScalarProperty Name="commissionGoal" ColumnName="commissionGoal" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="iterate" ColumnName="iterate" />
+                <ScalarProperty Name="evernoteStack" ColumnName="evernoteStack" />
+                <ScalarProperty Name="ical" ColumnName="ical" />
+                <ScalarProperty Name="emailFooter" ColumnName="emailFooter" />
+                <ScalarProperty Name="callingNumber" ColumnName="callingNumber" />
+                <ScalarProperty Name="alternateCallingNumber1" ColumnName="alternateCallingNumber1" />
+                <ScalarProperty Name="alternateCallingNumber2" ColumnName="alternateCallingNumber2" />
+                <ScalarProperty Name="annualGoal" ColumnName="annualGoal" />
+                <ScalarProperty Name="sellType" ColumnName="sellType" />
+                <ScalarProperty Name="purpose" ColumnName="purpose" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getDailyCallTotal" FunctionName="hs3MVCMTQa2Model.Store.pr_getDailyCallTotal" />
+          <FunctionImportMapping FunctionImportName="pr_getDailyCountAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getDailyCountAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getDailyCountAll_Result">
                 <ScalarProperty Name="call_date" ColumnName="call_date" />
                 <ScalarProperty Name="total" ColumnName="total" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getDailyCallCount" FunctionName="hs3MVCMTQa2Model.Store.pr_getDailyCallCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getDailyCallCount_Result">
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="statusID" ColumnName="statusID" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="lastContactID" ColumnName="lastContactID" />
+                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
+                <ScalarProperty Name="call_date" ColumnName="call_date" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getTotalCall" FunctionName="hs3MVCMTQa2Model.Store.pr_getTotalCall" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

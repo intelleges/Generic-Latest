@@ -15781,6 +15781,42 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePartner", internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, lastModifiedParameter, emailLastUpdateParameter, personParameter, noteParameter);
         }
     
+        public virtual ObjectResult<pr_getTotalCallCount_Result> pr_getTotalCallCount(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTotalCallCount_Result>("pr_getTotalCallCount", personParameter);
+        }
+    
+        public virtual ObjectResult<pr_getTotalCommissionGoal_Result> pr_getTotalCommissionGoal(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTotalCommissionGoal_Result>("pr_getTotalCommissionGoal", personParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getDailyCallTotal(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getDailyCallTotal", personParameter);
+        }
+    
+        public virtual ObjectResult<pr_getDailyCountAll_Result> pr_getDailyCountAll(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDailyCountAll_Result>("pr_getDailyCountAll", personParameter);
+        }
+    
         public virtual ObjectResult<pr_getDailyCallCount_Result> pr_getDailyCallCount(Nullable<int> person)
         {
             var personParameter = person.HasValue ?
@@ -15788,6 +15824,15 @@ namespace Generic
                 new ObjectParameter("person", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDailyCallCount_Result>("pr_getDailyCallCount", personParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getTotalCall(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getTotalCall", personParameter);
         }
     }
 }

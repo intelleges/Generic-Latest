@@ -15,7 +15,10 @@ namespace Generic
     {
         public string firstname { get; set; }
         public string lastname { get; set; }
-        public string description { get; set; }
+        public int statusID { get; set; }
+        public string status { get; set; }
+        public int lastContactID { get; set; }
+        public string lastContact { get; set; }
         public string call_date { get; set; }
         public Nullable<int> total { get; set; }
     }

@@ -23,8 +23,8 @@
         height: 20px !important;
     }
 
-    #IteratePartners .t-filter-options.t-group.t-popup{
-        width:155px !important;
+    #IteratePartners .t-filter-options.t-group.t-popup {
+        width: 155px !important;
     }
 
     .dhx_cal_date, .dhx_cal_next_button, .dhx_cal_prev_button, .dhx_cal_tab, .dhx_cal_today_button {
@@ -80,11 +80,12 @@
 
     #IteratePartners tr > td:hover .menu_block + .display_menu {
         display: block !important;
-    }    
-     #IteratePartners tr > td:hover .menu_block + .display_menu_right {
+    }
+
+    #IteratePartners tr > td:hover .menu_block + .display_menu_right {
         display: block !important;
     }
-     
+
     .display_menu {
         left: 65px;
         overflow: visible;
@@ -94,6 +95,7 @@
         border: 1px solid #ddd;
         z-index: 100;
     }
+
     .display_menu_right {
         left: -178px;
         overflow: visible;
@@ -103,7 +105,7 @@
         border: 1px solid #ddd;
         z-index: 100;
     }
-    
+
 
     #IteratePartners tr > td {
         overflow: visible !important;
@@ -118,6 +120,7 @@
         list-style: none outside none;
         width: 143px;
     }
+
     .display_menu_right > ul {
         padding: 0 16px;
     }
@@ -296,14 +299,14 @@
                         alertify.alert("All iterates removed");
                         $("#IteratePartners").data("tGrid").ajaxRequest();
                     });
-                } 
+                }
             });
-            
+
         });
-        $("#btnSave").click(function () { 
-            if(iterate.selectedPartnerId){
+        $("#btnSave").click(function () {
+            if (iterate.selectedPartnerId) {
                 $.post("SaveIteratePartner", {
-                    partnerid:iterate.selectedPartnerId,
+                    partnerid: iterate.selectedPartnerId,
                     name: $("#name").val(),
                     id: $("#internalID").val(),
                     address: $("#address1").val(),
@@ -323,7 +326,7 @@
                     if (result) {
                         iterate.saved = true;
                         $("#IteratePartners").data("tGrid").ajaxRequest();
-                        $("#evernotesDiv").jstree(true).refresh();                       
+                        $("#evernotesDiv").jstree(true).refresh();
                     }
                 });
             }
@@ -519,7 +522,7 @@
             if (result !== true) {
                 alertify.alert("Please wait for authentification");
                 window.location.href = result;
-                checkResult= false;
+                checkResult = false;
             } else checkResult = true;
         });
         return checkResult;
@@ -632,19 +635,19 @@
         checkoAuth();
     }
     }
-        function loadNotesIds() {
-            $.post("getIteratePartnerNoteIds").done(function (result) {
-                if (result) {
-                    iterate.globalVars.allNotesIds = result;
-                }
-            });
-        }
+    function loadNotesIds() {
+        $.post("getIteratePartnerNoteIds").done(function (result) {
+            if (result) {
+                iterate.globalVars.allNotesIds = result;
+            }
+        });
+    }
 
 
     //#region First declaration
     $(document).ready(function () {
         loadNotesIds();
-        
+
         $("#btnLoad").click(function () {
             //$(".t-button.t-upload-button").click();
             $("#excelFile").click();
@@ -659,14 +662,16 @@
         $("#newIteratePartner").submit(function (e) {
             e.preventDefault();
             $("#newIteratePartner :input").prop("disable", true);
-            $.ajax({url:"AddNewIteratePartner", data:{
-                partnerId: iterate.selectedPartnerId,
-                firstName: $("#newIteratePartner #firstName").val(),
-                lastName: $("#newIteratePartner #lastName").val(),
-                phoneNumber: $("#newIteratePartner #phoneNumber").val(),
-                email: $("#newIteratePartner #email").val(),
-                title: $("#newIteratePartner #title").val()
-            }, method:"POST",async:true}).done(function (result) {
+            $.ajax({
+                url: "AddNewIteratePartner", data: {
+                    partnerId: iterate.selectedPartnerId,
+                    firstName: $("#newIteratePartner #firstName").val(),
+                    lastName: $("#newIteratePartner #lastName").val(),
+                    phoneNumber: $("#newIteratePartner #phoneNumber").val(),
+                    email: $("#newIteratePartner #email").val(),
+                    title: $("#newIteratePartner #title").val()
+                }, method: "POST", async: true
+            }).done(function (result) {
                 $("#newIteratePartner").modal("toggle");
                 $("#newIteratePartner :input").prop("disable", false);
                 $("#IteratePartners").data("tGrid").ajaxRequest();
@@ -674,9 +679,9 @@
                 alertify.alert("There was an error during adding operation. Please try again later.");
                 $("#newIteratePartner :input").prop("disable", false);
             });
-            
+
         });
-        
+
         //send email to partner
         $("#emailDialog").submit(function (e) {
             e.preventDefault();
@@ -769,7 +774,7 @@
             if ($("#owner").val() == "") {
                 alertify.alert("Owner is required");
                 return false;
-            }           
+            }
 
             if ($("#address1").val() === "" && $("#address2").val() === "") {
                 alertify.alert("Address is required");
@@ -947,205 +952,206 @@
             if ($(this).text() === "<<")
                 $("#IteratePartners tr.t-state-selected").prev().click();//prevRow();
             else $("#IteratePartners tr.t-state-selected").next().click();// nextRow();
-        });        
+        });
         //#endregion
     });
 </script>
 
 <style type="text/css">
-    .clickable {
-        cursor: pointer;
-    }
-    #iterateDiagramGrid .t-grid-header .t-header .t-link{
-        height:25px !important;
-    }
-
-    .loader {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: 50000;
-        background-color: blue;
-        opacity: 0.5;
-    }
-
-        .loader img {
-            top: 50%;
-            left: 50%;
+        .clickable {
+            cursor: pointer;
         }
 
-    .hide {
-        display: none;
-    }
+        #iterateDiagramGrid .t-grid-header .t-header .t-link {
+            height: 25px !important;
+        }
 
-    .show {
-        display: block;
-    }
+        .loader {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 50000;
+            background-color: blue;
+            opacity: 0.5;
+        }
 
-    .threecol, twocol {
-        width: 100%;
-        display: inline-block;
-    }
+            .loader img {
+                top: 50%;
+                left: 50%;
+            }
 
-    /*.twocol .editor-label {
-        width: 10%;
-        display: inline-block;
-        font-size: 11px;
-    }
+        .hide {
+            display: none;
+        }
 
-    .twocol .editor-field, .row .editor-field {
-        width: 35%;
-        display: inline-block;
-    }
+        .show {
+            display: block;
+        }
 
-    .threecol .editor-label, .row .editor-label {
-        width: 10%;
-        display: inline-block;
-        font-size: 11px;
-    }
+        .threecol, twocol {
+            width: 100%;
+            display: inline-block;
+        }
 
-    .threecol .editor-field, .row .editor-field {
-        width: 20%;
-        display: inline-block;
-    }
-*/
-    .editor-field label, .editor-field input, .editor-field select, .editor-field input, .editor-field select {
-        width: 100%;
-        display: inline-block;
-        font-size: 11px;
-    }
+        /*.twocol .editor-label {
+            width: 10%;
+            display: inline-block;
+            font-size: 11px;
+        }
 
-    .txtClass {
-        width:100%;
-        border-radius: 5px;
-        border-color: rgb(169, 169, 169);
-    }
+        .twocol .editor-field, .row .editor-field {
+            width: 35%;
+            display: inline-block;
+        }
 
-    .ddlClass {
-        height: 25px;
-        width: 100% !important;
-        border-radius: 5px;
-    }
+        .threecol .editor-label, .row .editor-label {
+            width: 10%;
+            display: inline-block;
+            font-size: 11px;
+        }
 
-    #DueDate {
-        border-radius: 5px;
-        /*height: 18px;*/
-    }
+        .threecol .editor-field, .row .editor-field {
+            width: 20%;
+            display: inline-block;
+        }
+    */
+        .editor-field label, .editor-field input, .editor-field select, .editor-field input, .editor-field select {
+            width: 100%;
+            display: inline-block;
+            font-size: 11px;
+        }
+
+        .txtClass {
+            width: 100%;
+            border-radius: 5px;
+            border-color: rgb(169, 169, 169);
+        }
+
+        .ddlClass {
+            height: 25px;
+            width: 100% !important;
+            border-radius: 5px;
+        }
+
+        #DueDate {
+            border-radius: 5px;
+            /*height: 18px;*/
+        }
 
 
-    .btn_b {
-        background: #3498db;
-        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-        background-image: -o-linear-gradient(top, #3498db, #2980b9);
-        background-image: linear-gradient(to bottom, #3498db, #2980b9);
-        -webkit-border-radius: 12;
-        -moz-border-radius: 12;
-        border-radius: 28px;
-        font-family: Arial;
-        color: #ffffff;
-        font-size: 12px !important;
-        padding: 3px 20px 5px 20px !important;
-        text-decoration: none;
-    }
-
-        .btn_b:hover {
-            background: #3cb0fd;
-            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+        .btn_b {
+            background: #3498db;
+            background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+            background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+            background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+            background-image: -o-linear-gradient(top, #3498db, #2980b9);
+            background-image: linear-gradient(to bottom, #3498db, #2980b9);
+            -webkit-border-radius: 12;
+            -moz-border-radius: 12;
+            border-radius: 28px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 12px !important;
+            padding: 3px 20px 5px 20px !important;
             text-decoration: none;
         }
 
-    .mytab {
-        height: 320px;
-    }
+            .btn_b:hover {
+                background: #3cb0fd;
+                background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+                text-decoration: none;
+            }
 
-    .bottom-buffer {
-        margin-bottom: 13px;
-    }
-    /*.container .t-link {
-            padding: .3em 2px !important;
-        }*/
-    .big-input {
-        width: 57% !important;
-    }
-
-        .big-input input {
-            width: 336px;
+        .mytab {
+            height: 320px;
         }
 
-    .gradient-red {
-        background: #ed943b; /* Old browsers */
-        background: -moz-linear-gradient(left, #ed943b 4%, #e56d38 52%, #ce5033 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, right top, color-stop(4%,#ed943b), color-stop(52%,#e56d38), color-stop(100%,#ce5033)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(left, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(left, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(left, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* IE10+ */
-        background: linear-gradient(to right, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed943b', endColorstr='#ce5033',GradientType=1 ); /* IE6-9 */
-    }
-
-    .gradient-yellow {
-        background: #fceabb; /* Old browsers */
-        background: -moz-linear-gradient(left, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#fceabb), color-stop(50%,#fccd4d), color-stop(51%,#f8b500), color-stop(100%,#fbdf93)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(left, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(left, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(left, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* IE10+ */
-        background: linear-gradient(to right, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', endColorstr='#fbdf93',GradientType=1 ); /* IE6-9 */
-    }
-
-    .gradient-green {
-        background: #c9de96; /* Old browsers */
-        background: -moz-linear-gradient(left, #c9de96 0%, #8ab66b 44%, #398235 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#c9de96), color-stop(44%,#8ab66b), color-stop(100%,#398235)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(left, #c9de96 0%,#8ab66b 44%,#398235 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(left, #c9de96 0%,#8ab66b 44%,#398235 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(left, #c9de96 0%,#8ab66b 44%,#398235 100%); /* IE10+ */
-        background: linear-gradient(to right, #c9de96 0%,#8ab66b 44%,#398235 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=1 ); /* IE6-9 */
-    }
-
-    .gradient-blue {
-        background: #d0e4f7; /* Old browsers */
-        background: -moz-linear-gradient(left, #d0e4f7 0%, #73b1e7 24%, #0a77d5 50%, #539fe1 79%, #87bcea 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#d0e4f7), color-stop(24%,#73b1e7), color-stop(50%,#0a77d5), color-stop(79%,#539fe1), color-stop(100%,#87bcea)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(left, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(left, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(left, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* IE10+ */
-        background: linear-gradient(to right, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e4f7', endColorstr='#87bcea',GradientType=1 ); /* IE6-9 */
-    }
-
-    .img {
-        width: 12px;
-        height: 12px;
-    }
-
-    #tblPartners td {
-        font-size: 12px;
-    }
-
-        #tblPartners tr, #tblPartners td .line-wrapper {
-            height: 6px;
-            line-height: 6px;
+        .bottom-buffer {
+            margin-bottom: 13px;
+        }
+        /*.container .t-link {
+                padding: .3em 2px !important;
+            }*/
+        .big-input {
+            width: 57% !important;
         }
 
-    .table tr {
-        cursor: pointer;
-    }
+            .big-input input {
+                width: 336px;
+            }
 
-    .excelBtn {
-        background-size: 100% auto;
-        background-image: url("../../Contents/images/xlsx-1567.png");
-        height: 32px;
-        width: 32px;
-    }
+        .gradient-red {
+            background: #ed943b; /* Old browsers */
+            background: -moz-linear-gradient(left, #ed943b 4%, #e56d38 52%, #ce5033 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(4%,#ed943b), color-stop(52%,#e56d38), color-stop(100%,#ce5033)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(left, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(left, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(left, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* IE10+ */
+            background: linear-gradient(to right, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed943b', endColorstr='#ce5033',GradientType=1 ); /* IE6-9 */
+        }
+
+        .gradient-yellow {
+            background: #fceabb; /* Old browsers */
+            background: -moz-linear-gradient(left, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(0%,#fceabb), color-stop(50%,#fccd4d), color-stop(51%,#f8b500), color-stop(100%,#fbdf93)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(left, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(left, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(left, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* IE10+ */
+            background: linear-gradient(to right, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', endColorstr='#fbdf93',GradientType=1 ); /* IE6-9 */
+        }
+
+        .gradient-green {
+            background: #c9de96; /* Old browsers */
+            background: -moz-linear-gradient(left, #c9de96 0%, #8ab66b 44%, #398235 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(0%,#c9de96), color-stop(44%,#8ab66b), color-stop(100%,#398235)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(left, #c9de96 0%,#8ab66b 44%,#398235 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(left, #c9de96 0%,#8ab66b 44%,#398235 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(left, #c9de96 0%,#8ab66b 44%,#398235 100%); /* IE10+ */
+            background: linear-gradient(to right, #c9de96 0%,#8ab66b 44%,#398235 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=1 ); /* IE6-9 */
+        }
+
+        .gradient-blue {
+            background: #d0e4f7; /* Old browsers */
+            background: -moz-linear-gradient(left, #d0e4f7 0%, #73b1e7 24%, #0a77d5 50%, #539fe1 79%, #87bcea 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(0%,#d0e4f7), color-stop(24%,#73b1e7), color-stop(50%,#0a77d5), color-stop(79%,#539fe1), color-stop(100%,#87bcea)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(left, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(left, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(left, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* IE10+ */
+            background: linear-gradient(to right, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e4f7', endColorstr='#87bcea',GradientType=1 ); /* IE6-9 */
+        }
+
+        .img {
+            width: 12px;
+            height: 12px;
+        }
+
+        #tblPartners td {
+            font-size: 12px;
+        }
+
+            #tblPartners tr, #tblPartners td .line-wrapper {
+                height: 6px;
+                line-height: 6px;
+            }
+
+        .table tr {
+            cursor: pointer;
+        }
+
+        .excelBtn {
+            background-size: 100% auto;
+            background-image: url("../../Contents/images/xlsx-1567.png");
+            height: 32px;
+            width: 32px;
+        }
 </style>
 
 <div class="container-fluid">
@@ -1240,18 +1246,18 @@
                     <form id="modalGetPassword">
                         <div class="form-group">
                             <label class="control-label" for="partnerType">Partner Type</label>
-                           
+
                             @Html.DropDownList("partnerType", (IEnumerable<SelectListItem>)ViewBag.currentUserPartnerType, new { @class = "form-control", data_val_required = "*", data_val = "true" })
                             <span data-valmsg-replace="true" data-valmsg-for="partnerType" class="field-validation-valid help-inline" />
-                            
-                            
-                            
+
+
+
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="partnerGroup">Partner Group</label>
                             @Html.DropDownList("partnerGroup", (IEnumerable<SelectListItem>)ViewBag.group, new { @class = "form-control", data_val_required = "*", data_val = "true" })
                             <span data-valmsg-replace="true" data-valmsg-for="partnerGroup" class="field-validation-valid help-inline" />
-                            
+
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
@@ -1274,7 +1280,7 @@
                     <form id="modalGetPassword">
                         <div class="form-group">
                             <label class="control-label" for="firstName">First Name</label>
-                            @Html.TextBox("firstName", "", new { @class = "form-control", data_val_required = "*", data_val = "true"})                            
+                            @Html.TextBox("firstName", "", new { @class = "form-control", data_val_required = "*", data_val = "true"})
                             <span data-valmsg-replace="true" data-valmsg-for="firstName" class="field-validation-valid help-inline" />
                         </div>
                         <div class="form-group">
@@ -1310,7 +1316,15 @@
         <div class="col-xs-7">
             <div class="row">
                 <div class="addPartnerDiv">
-                    <h2>Iterate <span class="clickable" id="iteratePrev">&lt;&lt;</span> <span style="width:10px"></span> <span class="clickable" id="iterateNext">&gt;&gt;</span></h2>
+                    <table>
+                        <tr>
+                            <td>
+                                <h2>Iterate <span class="clickable" id="iteratePrev">&lt;&lt;</span> <span style="width:10px"></span> <span class="clickable" id="iterateNext">&gt;&gt;</span></h2></span>
+                            </td>
+                            <td><span style="font-size:25px;margin-left: 150px;">Total calls today: @ViewBag.TotalCallsToday</span></td>
+                        </tr>
+                    </table>
+
                 </div>
             </div>
 
@@ -1322,7 +1336,7 @@
                 <legend>partner</legend>
                 <div id="addPartner" class="addPartnerDiv">
                     <div class="row bottom-buffer">
-                        @Html.HiddenFor(model => model.id)                       
+                        @Html.HiddenFor(model => model.id)
                         <div class="col-xs-1">
                             <div class="editor-field">
                                 @Html.Label("Name")
@@ -1333,20 +1347,20 @@
                                 @Html.TextBoxFor(model => model.name, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.name)
                             </div>
+                        </div>
+                        <div class="col-xs-1">
+                            <div class="editor-field">
+                                @Html.Label("ID")
                             </div>
-                            <div class="col-xs-1">
-                                <div class="editor-field">
-                                    @Html.Label("ID")
-                                </div>
-                            </div>
+                        </div>
                         <div class="col-xs-3">
                             <div class="editor-field">
 
                                 @Html.TextBoxFor(model => model.internalID, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.internalID)
                             </div>
-                            </div>
                         </div>
+                    </div>
 
 
                     <div class="row bottom-buffer">
@@ -1378,11 +1392,11 @@
                             @Html.TextBoxFor(model => model.city, new { @class = "txtClass", style = "width:100%", data_val = "true", data_val_required = " " })
                             @Html.ValidationMessageFor(model => model.city)
                         </div>
-                        <div class="col-xs-1 editor-field" >
+                        <div class="col-xs-1 editor-field">
                             @*@Html.LabelFor(model => model.state)*@
                             @Html.Label("State")
                         </div>
-                        <div class="col-xs-3 editor-field" >
+                        <div class="col-xs-3 editor-field">
                             @Html.DropDownList("state", null, String.Empty, new { @class = "ddlClass", style = "width:100%", data_val = "true", data_val_required = " " })
 
                             @Html.ValidationMessageFor(model => model.state)
@@ -1414,13 +1428,13 @@
                             @* @Html.LabelFor(model => model.lastName)*@
                             @Html.Label("Last Name")
                         </div>
-                        <div class="col-xs-3 editor-field" >
+                        <div class="col-xs-3 editor-field">
                             @*@Html.EditorFor(model => model.lastName)*@
                             @Html.TextBoxFor(model => model.lastName, new { @class = "txtClass", data_val = "true", data_val_required = " " })
                             @Html.ValidationMessageFor(model => model.lastName)
                         </div>
 
-                        <div class="col-xs-1 editor-field" >
+                        <div class="col-xs-1 editor-field">
                             @*@Html.LabelFor(model => model.title)*@
                             @Html.Label("Title")
                         </div>
@@ -1466,13 +1480,13 @@
                         <div class="col-xs-1 editor-field">
                             @Html.Label("NAD")
                         </div>
-                        <div class="col-xs-3 editor-field" >
+                        <div class="col-xs-3 editor-field">
                             @Html.Telerik().DateTimePicker().Name("nad").HtmlAttributes(new { style = "width:100%" })
 
                             <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
 
                         </div>
-                        <div class="col-xs-1 editor-field" >
+                        <div class="col-xs-1 editor-field">
                             @Html.Label("PS")
                         </div>
                         <div class="col-xs-3 editor-field">
@@ -1492,13 +1506,13 @@
                         <div class="col-xs-1 editor-field">
                             @Html.Label("PT")
                         </div>
-                        <div class="col-xs-3 editor-field" >
+                        <div class="col-xs-3 editor-field">
                             @Html.DropDownList("partnertype", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " ", @style = "width:100%" })
                             @*<select id="partnertype" name="partnertype" class="ddlClass" data-val="true" data-val-required=" " style="width:100%"></select>*@
                             <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
                             @*<a href="@Url.Content(" ~ />PartnerType/Create")">Add Partner Type</a>*@
                         </div>
-                        <div class="col-xs-1 editor-field" >
+                        <div class="col-xs-1 editor-field">
                             @Html.Label("Group")
                         </div>
                         <div class="col-xs-3 editor-field">
@@ -1511,7 +1525,7 @@
 
 
                     </div>
-                    
+
                     <div class="row pull-right" style="margin-top:15px">
 
                         <input type="button" value="Upload" class="btn_b " id="btnLoad" />
@@ -1626,7 +1640,7 @@
             }
         }
     }
-    function onSuccess(e) {       
+    function onSuccess(e) {
         alertify.alert(e.response.message);
         $("#IteratePartners").data("tGrid").ajaxRequest();
         //$("#topCallapsePanel").html("")
@@ -1746,12 +1760,424 @@
 {
     col.Bound(o => o.firstname);
     col.Bound(o => o.lastname);
-    col.Bound(o => o.description);
+    col.Bound(o => o.lastContact);
     col.Bound(o => o.total);
 }).HtmlAttributes(new { style = "font-size:10px;" })
-<div id="donutchart" style="width: 400px; height: 300px;"></div>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript">
+    <div id="donutchart" style="width: 100%; height: 200px;"></div>
+    <div>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>
+                        Scope
+                    </th>
+                    <th>
+                        Metric
+                    </th>
+                    <th>
+                        Today
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        Year
+                    </td>
+                    <td>
+                        Commission Goal
+
+                    </td>
+                    <td style="color:red;">
+                        $@ViewBag.commissionGoal
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Year
+                    </td>
+                    <td>
+                        Actual Earned
+
+                    </td>
+                    <td>
+                        $@ViewBag.ActualEarned
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Year
+                    </td>
+                    <td>
+                        Days Left
+
+
+                    </td>
+                    <td>
+                        @ViewBag.DaysLeft
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Year
+                    </td>
+                    <td>
+                        Days Gone
+
+
+                    </td>
+                    <td>
+                        @ViewBag.DaysGone
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Year
+                    </td>
+                    <td>
+                        Successful Call - Close (Needed)
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.YearSuccessfulCall_Close_Needed
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Year
+                    </td>
+                    <td>
+                        Successful Call - Close (Actual)
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.YearSuccessfulCall_Close_Actual
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Today
+                    </td>
+                    <td>
+                        Successful Call - Close (Needed)
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.TodaySuccessfulCall_Close_Needed
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Today
+                    </td>
+                    <td>
+                        Successful Call - Close (Actual)
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.TodaySuccessfulCall_Close_Actual
+
+
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td>
+                        Today
+                    </td>
+                    <td>
+                        Calls  (Needed)
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.TodayCalls_Needed
+
+
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td>
+                        Today
+                    </td>
+                    <td>
+                        Calls  (Actual)
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.TodayCalls_Actual
+
+
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td>
+                        Today
+                    </td>
+                    <td>
+                        DEFICIT
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.TodayDEFICIT
+
+
+
+                    </td>
+                </tr>
+                <tr >
+                    <td>
+                        Year
+                    </td>
+                    <td>
+                        Calls  (Needed)
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.YearCalls_Needed
+
+
+                    </td>
+                </tr>
+                <tr >
+                    <td>
+                        Year
+                    </td>
+                    <td>
+                        Calls  (Actual)
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.YearsCallsActual
+
+
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td>
+                        Today
+                    </td>
+                    <td>
+                        Successful Call - Connect (Needed)
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.TodaySuccessfulCallConnectNeeded
+
+
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td>
+                        Today
+                    </td>
+                    <td>
+                        Successful Call - Connect (Actual)
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.TodaySuccessfulCallConnectActual
+
+
+                    </td>
+                </tr>
+                <tr >
+                    <td>
+                        Year
+                    </td>
+                    <td>
+                        Successful Call - Connect (Needed)
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.YearSuccessfulCallConnectNeeded
+
+
+                    </td>
+                </tr>
+                <tr >
+                    <td>
+                        Year
+                    </td>
+                    <td>
+                        Successful Call - Connect (Actual)
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.YearSuccessfulCallConnectActual
+
+
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td>
+                        Today
+                    </td>
+                    <td>
+                        Successful Call - Appointment (Needed)
+
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.TodaySuccessfulCallAppointmentNeeded
+
+
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td>
+                        Today
+                    </td>
+                    <td>
+                        Successful Call - Appointment (Actual)
+
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.TodaySuccessfulCallAppointmentActual
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Year
+                    </td>
+                    <td>
+                        Successful Call - Appointment (Needed)
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.YearSuccessfulCallAppointmentNeeded
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Year
+                    </td>
+                    <td>
+                        Successful Call - Appointment (Actual)
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.YearSuccessfulCallAppointmentActual
+
+
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td>
+                        
+                    </td>
+                    <td>
+                        Call-to-Close Ratio
+
+
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.CalltoCloseRatio
+
+
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td>
+                        
+                    </td>
+                    <td>
+                        Connect-to-Close Ratio
+                    </td>
+                    <td>
+                        @ViewBag.ConnecttoCloseRatio
+
+
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td>
+                        
+                    </td>
+                    <td>
+                        Appointment-to-Close Ratio
+
+
+
+
+
+
+                    </td>
+                    <td>
+                        @ViewBag.AppointmenttoCloseRatio
+
+
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
     google.load("visualization", "1", { packages: ["corechart"] });
     google.setOnLoadCallback(drawChart);
     function drawChart() {
@@ -1782,9 +2208,9 @@
                 chart.draw(data, options);
             }
         });
-        
+
     }
-</script>
+    </script>
 }
 
 <!--#region splitter Top-->
@@ -1792,8 +2218,9 @@
     @{
         var counter = 1;
     }
-    @Html.Telerik().Grid(new List<Generic.pr_getIteratePartnerPerson3_Result>()).Name("IteratePartners").DataBinding(binding=>binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o=>o.Enabled(true)).DataKeys(o=>o.Add(p=>p.id)).Columns(columns=>{
-        columns.Bound(o => o.name).Title("Company name").ClientTemplate(@"
+    @Html.Telerik().Grid(new List<Generic.pr_getIteratePartnerPerson3_Result>()).Name("IteratePartners").DataBinding(binding => binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o => o.Enabled(true)).DataKeys(o => o.Add(p => p.id)).Columns(columns =>
+{
+    columns.Bound(o => o.name).Title("Company name").ClientTemplate(@"
     <a href='#' id='Company<#=id#>' class='menu_block'><#=name#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
@@ -1808,10 +2235,10 @@
         </ul>
     </div>
 ").Width(230);
-        columns.Bound(o => o.nextAction).Title("Next Action").Width(160).ClientTemplate(@"
+    columns.Bound(o => o.nextAction).Title("Next Action").Width(160).ClientTemplate(@"
 <a href='#' id='NA<#=id#>' class='menu_block' ondblclick='callIfNeed(<#=id#>,<#=nextActionID#>, this)'><#=nextAction#></a>
 ").Filterable(false);
-        columns.Bound(o => o.NextActionDateDisplay).Title("Next Action Date").Width(130).ClientTemplate(@"
+    columns.Bound(o => o.NextActionDateDisplay).Title("Next Action Date").Width(130).ClientTemplate(@"
 <a href='#' id='NAD<#=id#>' class='menu_block'><#=NextActionDateDisplay#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
@@ -1824,15 +2251,15 @@
         </ul>
     </div>
 ");
-        columns.Bound(o => o.firstname).Title("First name").Width(80).Filterable(false);
-        columns.Bound(o => o.lastname).Title("Last name").Width(100);
-        columns.Bound(o => o.title).Title("Title").Width(100).Filterable(false).ClientTemplate(@"
+    columns.Bound(o => o.firstname).Title("First name").Width(80).Filterable(false);
+    columns.Bound(o => o.lastname).Title("Last name").Width(100);
+    columns.Bound(o => o.title).Title("Title").Width(100).Filterable(false).ClientTemplate(@"
         <a href='#' id='title<#=id#>' class='menu_block title'><#=title#></a>
 <div class='display_menu' style='display: none;width:200px;'>
        <span style='width:100%'><p><#=title#></p> <#=address2#> - <a href='http://<#=federalID#>'><#=federalID#></a></span>
     </div>
 ");
-        columns.Bound(o => o.lastContact).Title("Last Contact").Width(100).ClientTemplate(@"
+    columns.Bound(o => o.lastContact).Title("Last Contact").Width(100).ClientTemplate(@"
 <a href='#' id='LC<#=id#>' class='menu_block'><#=lastContact#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
@@ -1854,11 +2281,11 @@
         </ul>
     </div>
 ").Filterable(false);
-        columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(120).Filterable(false);
-        columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100).Filterable(false);
-        columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(120).Filterable(false);
-        columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
-        columns.Bound(o => o.iteratePartnerStatusDescription).Title("Status").Width(100).ClientTemplate(@"
+    columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(120).Filterable(false);
+    columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100).Filterable(false);
+    columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(120).Filterable(false);
+    columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
+    columns.Bound(o => o.iteratePartnerStatusDescription).Title("Status").Width(100).ClientTemplate(@"
 <a href='#' id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatusDescription#></a>
     <div class='display_menu_right' style='display: none;'>
         <ul>
@@ -1875,36 +2302,35 @@
 ").Filterable(false);
 
 
-        columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate("<a href='#' id='note<#=id#>' class='menu_block' onclick='shownote(this,<#=id#>)'><#=NotesDescription#></a>").Filterable(false);
-        ////columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
-        ////columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
-            }
+    columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate("<a href='#' id='note<#=id#>' class='menu_block' onclick='shownote(this,<#=id#>)'><#=NotesDescription#></a>").Filterable(false);
+    ////columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
+    ////columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
+}
                                             ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "font-size:10px;" }).Filterable(o => o.Filters(filters => filters.Add(filter => filter.nextActionDate).IsLessThan(DateTime.Now.Date.AddDays(1)).And().IsGreaterThanOrEqualTo(DateTime.Now.Date)).ShowOrOption())
-   
+
 }
 <!--#endregion-->
-
 @section rightSplitter{
-   @* @Html.ActionLink("Add Stack","AuthorizeEverNote","Partner")
-    @Html.ActionLink("Add Notebook","AuthorizeEverNote","Partner")
-    @Html.ActionLink("Add Note","AuthorizeEverNote","Partner")*@
-<div id="evernotesDiv">
-    
-</div>
-    
+    @* @Html.ActionLink("Add Stack","AuthorizeEverNote","Partner")
+        @Html.ActionLink("Add Notebook","AuthorizeEverNote","Partner")
+        @Html.ActionLink("Add Note","AuthorizeEverNote","Partner")*@
+    <div id="evernotesDiv">
+
+    </div>
+
 }
-@section scripts{   
-@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-   <script src="/Scripts/bootstrap.js"></script>
-   <script src="/Scripts/validator.js"></script>
-<script src="http://lab.jakiestfu.com/contextjs/context.js"></script>
+@section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/validator.js"></script>
+    <script src="http://lab.jakiestfu.com/contextjs/context.js"></script>
     <script>
-        $(function () {           
+        $(function () {
             $("#evernotesDiv").jstree({
                 "core": {
                     "check_callback": function (operation, node, node_parent, node_position, more) {
                         if (operation == 'move_node') {
-                           // console.log(node_parent);
+                            // console.log(node_parent);
                             if (node_parent.type == 'notebook') {
                                 return true;
                             } else
@@ -1920,12 +2346,12 @@
                 "dnd": {
                     "is_draggable": function (node) {
                         console.log('is_draggable called: ', node[0]);
-                        if (node[0].type != 'note') {                          
+                        if (node[0].type != 'note') {
                             return false;
                             console.log('node isnt note ');
                         }
                         if (iterate.globalVars.allNotesIds.indexOf(node[0].id) < 0) {
-                            console.log('notesId doesnt contain current node ',iterate.globalVars.allNotesIds, node[0].id);
+                            console.log('notesId doesnt contain current node ', iterate.globalVars.allNotesIds, node[0].id);
                             return false;
                         }
                         return true;
@@ -1933,33 +2359,33 @@
                 },
                 "types": {
                     "root": {
-                       
+
                     },
                     "notebook": {
-                        
+
                     },
                     "note": {
-                        
+
                     }
                 },
-                                "plugins": ["dnd","types"]
+                "plugins": ["dnd", "types"]
             }).bind("redraw.jstree", function (event, data) {
                 //after redraw bind dblclick
                 $("#evernotesDiv").off("dblclick", "a");
-                    $("#evernotesDiv").delegate("a", "dblclick", function (e) {
-                        //if nodes type=== "note" then show note
-                        e.preventDefault();
-                        if ($("#evernotesDiv").data("jstree").get_type($(this).parent()) === "note") {
-                            $.post("GetIteratePartnerByNote", { noteId: $(this).parent().attr("id") }).done(function (result) {
-                                if (result.finded) {
-                                    iterate.selectedPartnerId = result.partnerId;
-                                    iterate.selectedPartner = result.partnerName;
-                                    showNoteEditor(result.partnerId, result.partnerName);
-                                }
-                                else alertify.alert("There is no iterate partner for selected note");
-                            });
-                        }
-                    });                
+                $("#evernotesDiv").delegate("a", "dblclick", function (e) {
+                    //if nodes type=== "note" then show note
+                    e.preventDefault();
+                    if ($("#evernotesDiv").data("jstree").get_type($(this).parent()) === "note") {
+                        $.post("GetIteratePartnerByNote", { noteId: $(this).parent().attr("id") }).done(function (result) {
+                            if (result.finded) {
+                                iterate.selectedPartnerId = result.partnerId;
+                                iterate.selectedPartner = result.partnerName;
+                                showNoteEditor(result.partnerId, result.partnerName);
+                            }
+                            else alertify.alert("There is no iterate partner for selected note");
+                        });
+                    }
+                });
             });
             $(document).on("dnd_stop.vakata", function (event, data, element) {
                 if (data) {
@@ -1976,7 +2402,7 @@
                                 //if (nItem) {
                                 //    grid.dataSource.find(result.partnerid).iteratePartnerStatus = result.iteratestatusid;
                                 //    grid.dataSource.find(result.partnerid).iteratePartnerStatusDescription = result.iteratestatusdescription;
-                                    
+
                                 //}
                                 if (iterate.selectedPartnerId === result.partnerid)
                                     $("#partnerstatus").val(result.iteratestatusid);
@@ -1989,7 +2415,7 @@
                 iterate.globalVars.parentNode = data.parent;
                 iterate.globalVars.nodeText = data.node.text;
                 iterate.globalVars.nodeId = data.node.id;
-               
+
             });
             $("#evernotesDiv").on("select_node.jstree", function (event, data) {
                 if (data) {
@@ -2003,24 +2429,24 @@
                 }
             });
 
-           
-            
+
+
         });
-        
+
 
         //Rewritten update.
-        function TwilioCall(Id,row) {
+        function TwilioCall(Id, row) {
             var url = '@Url.Action("CallPartnerNow", "Partner")';
             var partnerGrid = $("#IteratePartners").data("tGrid");
             var rowData = partnerGrid.dataItem($(row).parents("tr")[0]);
             jQuery.ajax({
                 type: "post",
                 url: url,
-                data: { id: rowData.id, phone:rowData.phone }, //pass according to needs.
+                data: { id: rowData.id, phone: rowData.phone }, //pass according to needs.
                 cache: false,
                 async: true,
                 success: function (result) {
-                  
+
                 },
                 error: function (header, status, e) {
                     //location.reload();
@@ -2034,7 +2460,7 @@
 
 @section header{
     @System.Web.Optimization.Styles.Render("~/Content/jstree")
-@System.Web.Optimization.Scripts.Render("~/bundles/jstree") 
-    <script src="//cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>   
-<link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
+    @System.Web.Optimization.Scripts.Render("~/bundles/jstree")
+    <script src="//cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
+    <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
 }
