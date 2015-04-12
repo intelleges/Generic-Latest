@@ -682,6 +682,12 @@
 
         });
 
+        $("#emailFooterDialogForm").submit(function (e) {
+            e.preventDefault();
+            $.post("EditEmailFooter", { text: $("#emailFooterDialogForm #emailFooter").val()}).done(function (result) {
+                $("#emailFooterDialog").modal("toggle");
+            });
+        });
         //send email to partner
         $("#emailDialog").submit(function (e) {
             e.preventDefault();
@@ -1311,6 +1317,30 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="emailFooterDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">E-Mail Footer</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="emailFooterDialogForm">
+                        <div class="form-group">
+                            <label class="control-label" for="emailFooter">Footer Text</label>
+                            <textarea id="emailFooter" name="emailFooter" class="form-control" placeholder="Please Enter Footer Text" data-val-required="*" data-val="true" rows="5"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="emailFooter" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="submit">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
 
         <div class="col-xs-7">
@@ -1590,31 +1620,31 @@
                     </text>);
                     tabstrip.Add()
                          .Content(@<text>
-                <div class="mytab">
-                    <div class="row">
-                        <div class="col-md-6"><p>Calendar - Ical (Gmail)</p></div>
-                        <div class="col-md-6 text-right">
-                            <div id="setiCal" class="dhx_cal_today_button pull-right">Set</div>
-                            <div id="getiCal" class="dhx_cal_today_button  pull-right">Get</div>
-                        </div>
+            <div class="mytab">
+                <div class="row">
+                    <div class="col-md-6"><p>Calendar - Ical (Gmail)</p></div>
+                    <div class="col-md-6 text-right">
+                        <div id="setiCal" class="dhx_cal_today_button pull-right">Set</div>
+                        <div id="getiCal" class="dhx_cal_today_button  pull-right">Get</div>
+                    </div>
 
-                        <div class="col-md-12" style="overflow:auto">
-                            <a class="excelBtn" href="/Partner/ExportPartnerExcel" style="float:left;" title="Export to Excel"></a>
-                            @(Html.Telerik().Upload()
+                    <div class="col-md-12" style="overflow:auto">
+                        <a class="excelBtn" href="/Partner/ExportPartnerExcel" style="float:left;" title="Export to Excel"></a>
+                        @(Html.Telerik().Upload()
                                             .Name("excelFile")
                                             .Multiple(false)
                                             .Async(a => a.Save("UploadPartnerExcelData", "Partner")
                                                 .AutoUpload(true))
                                             .ClientEvents(e => e.OnError("onError")
                                                                                 .OnSuccess("onSuccess")).HtmlAttributes(new { style = "float:left;font-size:12px;" })
-                            )
+                        )
 
 
-                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">Stuff Script</div>
-                       @(Html.Telerik().Upload()
+                </div>
+                <div class="row">
+                    <div class="col-md-4">Stuff Script</div>
+                    @(Html.Telerik().Upload()
                                             .Name("stuffScriptUpload")
                                             .Multiple(false)
                                                     .Async(a => a.Save("UploadStuffScript", "Partner")
@@ -1622,8 +1652,12 @@
                                             .ClientEvents(e => e.OnError("onError")
                                                                                 .OnSuccess("onSuccess")).HtmlAttributes(new { style = "float:left;font-size:12px;" })
                     )
-                    </div>
                 </div>
+                <div class="row">
+                    <input type="button" value="Email footer" onclick="editEmailFooter()" class="btn btn-primary" style="font-size:14px;margin-left: 10px;"/>
+                   
+                </div>
+            </div>
                         </text>);
                 })
             )
@@ -1633,6 +1667,17 @@
 </div>
 
 <script type="text/javascript">
+    function editEmailFooter() {
+        $.post("getEmailFooter").done(function (result) {
+            if (result) {
+                $('#emailFooterDialogForm #emailFooter').val(result);
+            } else {
+                $('#emailFooterDialogForm #emailFooter').val("");
+            }
+            $("#emailFooterDialog").modal("toggle");
+        });
+        
+    }
     function evernotesTree_onSelect(e) {
         if (e.item) {
             if ("Authorize to get notebooks" === $(this).data("tTreeView").getItemText(e.item)) {

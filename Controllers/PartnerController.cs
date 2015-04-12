@@ -3419,10 +3419,11 @@ namespace Generic.Controllers
             try
             {
                 var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == partnerId);
-                
+                var staff = db.pr_getPersonStuff(SessionSingleton.LoggedInUserId).FirstOrDefault();
                 var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
                 if (iPerson != null && !string.IsNullOrEmpty(iPerson.email) && currentPerson != null)
                 {
+                    if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
                     SchedulerServiceHelper.sendEmail(subject, text, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender);
 
                     iPerson.nextAction = (int)InteratePartnerStatus.EmailSent;
@@ -3585,6 +3586,22 @@ namespace Generic.Controllers
 
             }
             return Redirect(Url.Action("Iterate", "Partner"));
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult EditEmailFooter(string text)
+        {
+            db.pr_modifyPersonStuffFooter(SessionSingleton.LoggedInUserId, text);
+            return Json(true);
+        }
+
+        public ActionResult getEmailFooter()
+        {            
+            var staff = db.pr_getPersonStuff(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            if (staff!=null)
+            return Json(staff.emailFooter);
+            return Json(false);
         }
     }
     

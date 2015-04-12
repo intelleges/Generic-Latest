@@ -4629,6 +4629,18 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_addPersonStuff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="iterate" Type="bit" Mode="In" />
+          <Parameter Name="evernoteStack" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ical" Type="varchar" Mode="In" />
+          <Parameter Name="emailFooter" Type="varchar(max)" Mode="In" />
+          <Parameter Name="callingNumber" Type="varchar" Mode="In" />
+          <Parameter Name="alternateCallingNumber1" Type="varchar" Mode="In" />
+          <Parameter Name="alternateCallingNumber2" Type="varchar" Mode="In" />
+          <Parameter Name="annualGoal" Type="int" Mode="In" />
+          <Parameter Name="sellType" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addPersonStuffScript" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
           <Parameter Name="script" Type="image" Mode="In" />
@@ -5958,6 +5970,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getPersonRoleByRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="role" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPersonStuff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPersonStuffScript" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
@@ -6916,6 +6931,22 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_modifyPersonStatusByLoadHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="loadHistory" Type="int" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPersonStuff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="iterate" Type="bit" Mode="In" />
+          <Parameter Name="evernoteStack" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ical" Type="varchar" Mode="In" />
+          <Parameter Name="emailFooter" Type="varchar(max)" Mode="In" />
+          <Parameter Name="callingNumber" Type="varchar" Mode="In" />
+          <Parameter Name="alternateCallingNumber1" Type="varchar" Mode="In" />
+          <Parameter Name="alternateCallingNumber2" Type="varchar" Mode="In" />
+          <Parameter Name="annualGoal" Type="int" Mode="In" />
+          <Parameter Name="sellType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPersonStuffFooter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="emailFooter" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="pr_modifyPersonTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
@@ -13487,7 +13518,38 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="script" Mode="In" Type="Binary" />
           </FunctionImport>
           <FunctionImport Name="pr_getPersonStuffScript" ReturnType="Collection(Binary)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPersonStuff" ReturnType="Collection(Int32)">
             <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="iterate" Mode="In" Type="Boolean" />
+            <Parameter Name="evernoteStack" Mode="In" Type="Guid" />
+            <Parameter Name="ical" Mode="In" Type="String" />
+            <Parameter Name="emailFooter" Mode="In" Type="String" />
+            <Parameter Name="callingNumber" Mode="In" Type="String" />
+            <Parameter Name="alternateCallingNumber1" Mode="In" Type="String" />
+            <Parameter Name="alternateCallingNumber2" Mode="In" Type="String" />
+            <Parameter Name="annualGoal" Mode="In" Type="Int32" />
+            <Parameter Name="sellType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonStuff" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonStuff_Result)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonStuff">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="iterate" Mode="In" Type="Boolean" />
+            <Parameter Name="evernoteStack" Mode="In" Type="Guid" />
+            <Parameter Name="ical" Mode="In" Type="String" />
+            <Parameter Name="emailFooter" Mode="In" Type="String" />
+            <Parameter Name="callingNumber" Mode="In" Type="String" />
+            <Parameter Name="alternateCallingNumber1" Mode="In" Type="String" />
+            <Parameter Name="alternateCallingNumber2" Mode="In" Type="String" />
+            <Parameter Name="annualGoal" Mode="In" Type="Int32" />
+            <Parameter Name="sellType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonStuffFooter">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="emailFooter" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -21556,6 +21618,20 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="call_date" Nullable="true" MaxLength="10" />
           <Property Type="Int32" Name="total" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getPersonStuff_Result">
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Boolean" Name="iterate" Nullable="true" />
+          <Property Type="Guid" Name="evernoteStack" Nullable="true" />
+          <Property Type="String" Name="ical" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="emailFooter" Nullable="true" />
+          <Property Type="String" Name="callingNumber" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="alternateCallingNumber1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="alternateCallingNumber2" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="annualGoal" Nullable="true" />
+          <Property Type="Int32" Name="sellType" Nullable="true" />
+          <Property Type="String" Name="purpose" Nullable="true" />
+          <Property Type="Binary" Name="script" Nullable="true" MaxLength="Max" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -28332,6 +28408,27 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_getTotalCall" FunctionName="hs3MVCMTQa2Model.Store.pr_getTotalCall" />
           <FunctionImportMapping FunctionImportName="pr_addPersonStuffScript" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonStuffScript" />
           <FunctionImportMapping FunctionImportName="pr_getPersonStuffScript" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonStuffScript" />
+          <FunctionImportMapping FunctionImportName="pr_addPersonStuff" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonStuff" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonStuff" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonStuff">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonStuff_Result">
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="iterate" ColumnName="iterate" />
+                <ScalarProperty Name="evernoteStack" ColumnName="evernoteStack" />
+                <ScalarProperty Name="ical" ColumnName="ical" />
+                <ScalarProperty Name="emailFooter" ColumnName="emailFooter" />
+                <ScalarProperty Name="callingNumber" ColumnName="callingNumber" />
+                <ScalarProperty Name="alternateCallingNumber1" ColumnName="alternateCallingNumber1" />
+                <ScalarProperty Name="alternateCallingNumber2" ColumnName="alternateCallingNumber2" />
+                <ScalarProperty Name="annualGoal" ColumnName="annualGoal" />
+                <ScalarProperty Name="sellType" ColumnName="sellType" />
+                <ScalarProperty Name="purpose" ColumnName="purpose" />
+                <ScalarProperty Name="script" ColumnName="script" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonStuff" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonStuff" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonStuffFooter" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonStuffFooter" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

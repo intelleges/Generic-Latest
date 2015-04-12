@@ -15856,5 +15856,117 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<byte[]>("pr_getPersonStuffScript", personParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_addPersonStuff(Nullable<int> person, Nullable<bool> iterate, Nullable<System.Guid> evernoteStack, string ical, string emailFooter, string callingNumber, string alternateCallingNumber1, string alternateCallingNumber2, Nullable<int> annualGoal, Nullable<int> sellType)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var iterateParameter = iterate.HasValue ?
+                new ObjectParameter("iterate", iterate) :
+                new ObjectParameter("iterate", typeof(bool));
+    
+            var evernoteStackParameter = evernoteStack.HasValue ?
+                new ObjectParameter("evernoteStack", evernoteStack) :
+                new ObjectParameter("evernoteStack", typeof(System.Guid));
+    
+            var icalParameter = ical != null ?
+                new ObjectParameter("ical", ical) :
+                new ObjectParameter("ical", typeof(string));
+    
+            var emailFooterParameter = emailFooter != null ?
+                new ObjectParameter("emailFooter", emailFooter) :
+                new ObjectParameter("emailFooter", typeof(string));
+    
+            var callingNumberParameter = callingNumber != null ?
+                new ObjectParameter("callingNumber", callingNumber) :
+                new ObjectParameter("callingNumber", typeof(string));
+    
+            var alternateCallingNumber1Parameter = alternateCallingNumber1 != null ?
+                new ObjectParameter("alternateCallingNumber1", alternateCallingNumber1) :
+                new ObjectParameter("alternateCallingNumber1", typeof(string));
+    
+            var alternateCallingNumber2Parameter = alternateCallingNumber2 != null ?
+                new ObjectParameter("alternateCallingNumber2", alternateCallingNumber2) :
+                new ObjectParameter("alternateCallingNumber2", typeof(string));
+    
+            var annualGoalParameter = annualGoal.HasValue ?
+                new ObjectParameter("annualGoal", annualGoal) :
+                new ObjectParameter("annualGoal", typeof(int));
+    
+            var sellTypeParameter = sellType.HasValue ?
+                new ObjectParameter("sellType", sellType) :
+                new ObjectParameter("sellType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPersonStuff", personParameter, iterateParameter, evernoteStackParameter, icalParameter, emailFooterParameter, callingNumberParameter, alternateCallingNumber1Parameter, alternateCallingNumber2Parameter, annualGoalParameter, sellTypeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonStuff_Result> pr_getPersonStuff(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonStuff_Result>("pr_getPersonStuff", personParameter);
+        }
+    
+        public virtual int pr_modifyPersonStuff(Nullable<int> person, Nullable<bool> iterate, Nullable<System.Guid> evernoteStack, string ical, string emailFooter, string callingNumber, string alternateCallingNumber1, string alternateCallingNumber2, Nullable<int> annualGoal, Nullable<int> sellType)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var iterateParameter = iterate.HasValue ?
+                new ObjectParameter("iterate", iterate) :
+                new ObjectParameter("iterate", typeof(bool));
+    
+            var evernoteStackParameter = evernoteStack.HasValue ?
+                new ObjectParameter("evernoteStack", evernoteStack) :
+                new ObjectParameter("evernoteStack", typeof(System.Guid));
+    
+            var icalParameter = ical != null ?
+                new ObjectParameter("ical", ical) :
+                new ObjectParameter("ical", typeof(string));
+    
+            var emailFooterParameter = emailFooter != null ?
+                new ObjectParameter("emailFooter", emailFooter) :
+                new ObjectParameter("emailFooter", typeof(string));
+    
+            var callingNumberParameter = callingNumber != null ?
+                new ObjectParameter("callingNumber", callingNumber) :
+                new ObjectParameter("callingNumber", typeof(string));
+    
+            var alternateCallingNumber1Parameter = alternateCallingNumber1 != null ?
+                new ObjectParameter("alternateCallingNumber1", alternateCallingNumber1) :
+                new ObjectParameter("alternateCallingNumber1", typeof(string));
+    
+            var alternateCallingNumber2Parameter = alternateCallingNumber2 != null ?
+                new ObjectParameter("alternateCallingNumber2", alternateCallingNumber2) :
+                new ObjectParameter("alternateCallingNumber2", typeof(string));
+    
+            var annualGoalParameter = annualGoal.HasValue ?
+                new ObjectParameter("annualGoal", annualGoal) :
+                new ObjectParameter("annualGoal", typeof(int));
+    
+            var sellTypeParameter = sellType.HasValue ?
+                new ObjectParameter("sellType", sellType) :
+                new ObjectParameter("sellType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonStuff", personParameter, iterateParameter, evernoteStackParameter, icalParameter, emailFooterParameter, callingNumberParameter, alternateCallingNumber1Parameter, alternateCallingNumber2Parameter, annualGoalParameter, sellTypeParameter);
+        }
+    
+        public virtual int pr_modifyPersonStuffFooter(Nullable<int> person, string emailFooter)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var emailFooterParameter = emailFooter != null ?
+                new ObjectParameter("emailFooter", emailFooter) :
+                new ObjectParameter("emailFooter", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonStuffFooter", personParameter, emailFooterParameter);
+        }
     }
 }
