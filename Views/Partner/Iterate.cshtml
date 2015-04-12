@@ -1316,7 +1316,7 @@
         <div class="col-xs-7">
             <div class="row">
                 <div class="addPartnerDiv">
-                    <h2>Iterate <span class="clickable" id="iteratePrev">&lt;&lt;</span> <span style="width:10px"></span> <span class="clickable" id="iterateNext">&gt;&gt;</span><span style="font-size:20px;margin-left:20px;">Calls: @ViewBag.TotalCallsToday</span></h2>
+                    <h2>Iterate <span class="clickable" id="iteratePrev">&lt;&lt;</span> <span style="width:10px"></span> <span class="clickable" id="iterateNext">&gt;&gt;</span><span style="font-size:20px;margin-left:20px;cursor:pointer;" id="callsTotal"><a href="@Url.Action("GetPersonStuffScript","Partner")" target="_blank">Calls: </a> @ViewBag.TotalCallsToday</span></h2>
 
                 </div>
             </div>
@@ -1612,6 +1612,17 @@
 
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-4">Stuff Script</div>
+                       @(Html.Telerik().Upload()
+                                            .Name("stuffScriptUpload")
+                                            .Multiple(false)
+                                                    .Async(a => a.Save("UploadStuffScript", "Partner")
+                                                .AutoUpload(true))
+                                            .ClientEvents(e => e.OnError("onError")
+                                                                                .OnSuccess("onSuccess")).HtmlAttributes(new { style = "float:left;font-size:12px;" })
+                    )
+                    </div>
                 </div>
                         </text>);
                 })
@@ -1649,7 +1660,7 @@
 
     $(document).ready(function () {
         $("#IteratePartners").show();
-
+       
         $("#excelFile").closest(".k-upload-button")
                         .find("span")
                         .text("Select file to upload");

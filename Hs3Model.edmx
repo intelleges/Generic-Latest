@@ -4629,6 +4629,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_addPersonStuffScript" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="script" Type="image" Mode="In" />
+        </Function>
         <Function Name="pr_addPPTQautoMailMessageLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
           <Parameter Name="autoMailMessage" Type="int" Mode="In" />
@@ -5953,6 +5957,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_getPersonRoleByRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="role" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonStuffScript" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPPTQautoMailMessagelog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -13473,6 +13480,13 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getTotalCall" ReturnType="Collection(Int32)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPersonStuffScript">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="script" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonStuffScript" ReturnType="Collection(Binary)">
             <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           
@@ -28316,6 +28330,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getTotalCall" FunctionName="hs3MVCMTQa2Model.Store.pr_getTotalCall" />
+          <FunctionImportMapping FunctionImportName="pr_addPersonStuffScript" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonStuffScript" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonStuffScript" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonStuffScript" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

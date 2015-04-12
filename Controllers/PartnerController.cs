@@ -3096,6 +3096,24 @@ namespace Generic.Controllers
             return Json(new { message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions." }, "text/plain");
         }
 
+        [HttpPost]
+        public ActionResult UploadStuffScript(HttpPostedFileBase stuffScriptUpload)
+        {
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    stuffScriptUpload.InputStream.CopyTo(stream);
+                    db.pr_addPersonStuffScript(SessionSingleton.LoggedInUserId, stream.ToArray());
+                    return Json(new { message = "Congratulations, you have uploaded Stuff script." }, "text/plain");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Content(ex.Message);
+            }
+        }
+
         [GridAction]
         public ActionResult AjaxIteratePartners()
         {
@@ -3551,6 +3569,22 @@ namespace Generic.Controllers
             {
                 return Json(false);
             }
+        }
+        public ActionResult GetPersonStuffScript()
+        {
+            try
+            {
+                var data = db.pr_getPersonStuffScript(SessionSingleton.LoggedInUserId).FirstOrDefault();
+                if (data != null)
+                {
+                    return File(data, "application/pdf");
+                }
+            }
+            catch
+            {
+
+            }
+            return Redirect(Url.Action("Iterate", "Partner"));
         }
     }
     

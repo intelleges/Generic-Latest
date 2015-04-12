@@ -15834,5 +15834,27 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getTotalCall", personParameter);
         }
+    
+        public virtual int pr_addPersonStuffScript(Nullable<int> person, byte[] script)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var scriptParameter = script != null ?
+                new ObjectParameter("script", script) :
+                new ObjectParameter("script", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPersonStuffScript", personParameter, scriptParameter);
+        }
+    
+        public virtual ObjectResult<byte[]> pr_getPersonStuffScript(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<byte[]>("pr_getPersonStuffScript", personParameter);
+        }
     }
 }
