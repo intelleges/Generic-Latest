@@ -3419,12 +3419,18 @@ namespace Generic.Controllers
             try
             {
                 var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == partnerId);
+                var iPartner = db.iteratePartner.FirstOrDefault(o=>o.id==partnerId);
                 var staff = db.pr_getPersonStuff(SessionSingleton.LoggedInUserId).FirstOrDefault();
                 var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+                var currentEnterprise = db.enterprise.FirstOrDefault(o=>o.id==SessionSingleton.MyEnterPriseId);
                 if (iPerson != null && !string.IsNullOrEmpty(iPerson.email) && currentPerson != null)
                 {
+                    
+                    EmailFormat formatter = new EmailFormat();
+                    
                     if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
-                    SchedulerServiceHelper.sendEmail(subject, text, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender);
+                    var resultBody = formatter.sGetEmailBody(text, iPartner, iPerson, currentPerson, currentEnterprise);
+                    SchedulerServiceHelper.sendEmail(subject, resultBody, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender);
 
                     iPerson.nextAction = (int)InteratePartnerStatus.EmailSent;
                     iPerson.previousContact = iPerson.lastContact;

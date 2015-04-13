@@ -53,6 +53,90 @@ namespace Generic.Helpers.Utility
         {
             return this.sGetResult(sEmailBody, sender, receiver, null, enterprise, touchpoint, 0, systemmaster);
         }
+
+        public string sGetEmailBody(string sEmailBody, iteratePartner partner, iteratePerson person, person currentPerson, enterprise currentEnterprise)
+        {
+            EntitiesDBContext db = new EntitiesDBContext();
+            Regex regex = new Regex(@"\[(.*?)\]");
+            //comment add sebody
+            if (sEmailBody == "" || sEmailBody == null)
+            {
+                sEmailBody = "Survey has been completed";
+            }
+            MatchCollection collection = regex.Matches(sEmailBody);
+            string sVariable = "";
+            string sValue = "";
+            foreach (Match match in collection)
+            {
+                sVariable = match.ToString();
+                switch (sVariable.ToLower())
+                {
+                    case "[personfirstname]":
+                        sValue = currentPerson.firstName;
+                        break;
+                    case "[personfullname]":
+                        sValue = currentPerson.FullName;
+                        break;
+                    case "[persontitle]":
+                        sValue = currentPerson.title;
+                        break;
+                    case "[enterpriseapplicationpath]":
+                        sValue = currentEnterprise.applicationPath;
+                        break;
+                    case "[enterprisecompanyname]":
+                        sValue = currentEnterprise.companyName;
+                        break;
+                    case "[linkedinlink]":
+                        //sValue = currentEnterprise.companyName;
+                        break;
+                    case "[twitterlink]":
+                        //sValue = currentEnterprise.companyName;
+                        break;
+                    case "[personphone]":
+                        sValue = currentPerson.phone;
+                        break;
+                    case "[personemail]":
+                        sValue = currentPerson.email;
+                        break;
+                    case "[iteratepersontitle]":
+                        sValue = person.title;
+                        break;
+                    case "[iteratepartnername]":
+                        sValue = partner.name;
+                        break;                   
+                    default:
+                        if (sVariable.Contains("[forward to"))
+                        {
+                            var splitted = sVariable.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (splitted.Length > 1)
+                            {
+
+                                sValue = "";
+                            }
+                            else sValue = "";
+                        }
+                        else if (sVariable.Contains("[unsubscribe"))
+                        {
+                            var splitted = sVariable.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (splitted.Length > 1)
+                            {
+
+                                sValue = "";
+                            }
+                            else sValue = "";
+
+                        } else 
+                            sValue = sVariable;
+                        break;
+                }
+                //replace emailBody's variable with real data
+                sEmailBody = sEmailBody.Replace(sVariable, sValue);
+            }
+            return sEmailBody;
+        }
+
+
+
         private string sGetResult(string sEmailBody, person sender, person receiver, partner partner, enterprise enterprise, touchpoint touchpoint, int ptq = 0, person systemmaster = null)
         {
             EntitiesDBContext db = new EntitiesDBContext();
