@@ -355,6 +355,36 @@ namespace Generic.Helpers
             transportSMTP.Deliver(mail);
 
         }
+        public static void sendEmail(string subject, string body, string sendto, MailAddress sendFrom, bool ccSender,HttpFileCollectionBase attachments)
+        {
+            var mail = SendGrid.GetInstance();
+
+            var credentials = new NetworkCredential("johnbetancourt", "o5QLb0z8");
+            Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
+
+
+            additionalArguments.Add("ApplicationName", "MVCMT");
+            mail.AddUniqueIdentifiers(additionalArguments);
+            // Create an SMTP transport for sending email.
+            var transportSMTP = SMTP.GetInstance(credentials);
+
+            mail.AddTo(sendto);
+            if (ccSender)
+                mail.AddCc(sendFrom.Address);
+            mail.From = sendFrom;
+
+            mail.Subject = subject;
+            foreach (string file in attachments)
+            {
+                mail.AddAttachment(attachments[file].InputStream, attachments[file].FileName);
+            }
+
+            body = body.Replace("\n", "<br />");
+            body = body.Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
+            mail.Html = body;
+            transportSMTP.Deliver(mail);
+
+        }
         public static void sendEmail(string subject, string body, string filepath, string sendto)
         {
 

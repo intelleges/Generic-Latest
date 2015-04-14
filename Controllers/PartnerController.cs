@@ -3414,7 +3414,7 @@ namespace Generic.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<ActionResult> SendIteratePartnerEmail(int partnerId, string subject, string text, DateTime userDate, bool ccSender)
+        public async Task<ActionResult> SendIteratePartnerEmail(int partnerId, string subject, string text, DateTime userDate, bool ccSender )
         {
             try
             {
@@ -3430,7 +3430,7 @@ namespace Generic.Controllers
                     
                     if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
                     var resultBody = formatter.sGetEmailBody(text, iPartner, iPerson, currentPerson, currentEnterprise);
-                    SchedulerServiceHelper.sendEmail(subject, resultBody, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender);
+                    SchedulerServiceHelper.sendEmail(subject, resultBody, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files);
 
                     iPerson.nextAction = (int)InteratePartnerStatus.EmailSent;
                     iPerson.previousContact = iPerson.lastContact;
