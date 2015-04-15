@@ -993,6 +993,34 @@ namespace Generic.Controllers
             return detail;
         }
 
-
+        public virtual ActionResult RemiderChartData()
+        {
+            var result = new List<object[]>();
+            result.Add(new object[] { "Group", "Bounce", "Click", "Deferred", "Delivered", "Dropped", "Open", "Processed" });
+            var data = db.pr_getEventNotificationByProtocolTouchpointCategoryCount("xxx").ToList();
+            var grouped = data.GroupBy(o => o.description, p => p);
+            if (!grouped.Any(o=>o.Key=="Invite"))
+            {
+                result.Add(new object[] {"Invite",0,0,0,0,0,0,0 });
+            }
+            if (!grouped.Any(o => o.Key == "Iterate"))
+            {
+                result.Add(new object[] { "Iterate", 0, 0, 0, 0, 0, 0, 0 });
+            }
+            if (!grouped.Any(o => o.Key == "Reminder"))
+            {
+                result.Add(new object[] { "Reminder", 0, 0, 0, 0, 0, 0, 0 });
+            }
+            foreach(var group in grouped)
+            {
+                var values = new List<object>();
+                values.Add(group.Key);
+                values.AddRange(group.OrderBy(p => p.@event).Select(o => (object)o.total).ToArray());
+                result.Add(values.ToArray());
+            }
+            return Json(result.ToArray());
+        }
     }
+
+     
 }

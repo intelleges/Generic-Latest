@@ -5430,6 +5430,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getEventNotificationByLoadGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getEventNotificationByProtocolTouchpointCategoryCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="protocoltouchpoint" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getEventNotificationByProtocolTouchpointCategoryDailyCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="protocoltouchpoint" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getEventNotificationDelivered" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
@@ -13551,6 +13557,12 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="emailFooter" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="pr_getEventNotificationByProtocolTouchpointCategoryDailyCount" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByProtocolTouchpointCategoryDailyCount_Result)">
+          <Parameter Name="protocoltouchpoint" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEventNotificationByProtocolTouchpointCategoryCount" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByProtocolTouchpointCategoryCount_Result)">
+            <Parameter Name="protocoltouchpoint" Mode="In" Type="String" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -21632,6 +21644,18 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="purpose" Nullable="true" />
           <Property Type="Binary" Name="script" Nullable="true" MaxLength="Max" />
         </ComplexType>
+        <ComplexType Name="pr_getEventNotificationByProtocolTouchpointCategoryDailyCount_Result">
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="protocoltouchpoint" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Column1" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getEventNotificationByProtocolTouchpointCategoryCount_Result">
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="protocoltouchpoint" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -28429,6 +28453,26 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyPersonStuff" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonStuff" />
           <FunctionImportMapping FunctionImportName="pr_modifyPersonStuffFooter" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonStuffFooter" />
+          <FunctionImportMapping FunctionImportName="pr_getEventNotificationByProtocolTouchpointCategoryDailyCount" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationByProtocolTouchpointCategoryDailyCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationByProtocolTouchpointCategoryDailyCount_Result">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="protocoltouchpoint" ColumnName="protocoltouchpoint" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getEventNotificationByProtocolTouchpointCategoryCount" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationByProtocolTouchpointCategoryCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationByProtocolTouchpointCategoryCount_Result">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="protocoltouchpoint" ColumnName="protocoltouchpoint" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -28443,7 +28487,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
         <DesignerProperty Name="UseLegacyProvider" Value="True" />

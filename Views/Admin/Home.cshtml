@@ -8,7 +8,7 @@
 }
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-    google.load("visualization", "1", { packages: ["corechart"] });
+    google.load("visualization", "1", { packages: ["corechart","bar"] });
     google.setOnLoadCallback(drawChart);
     function drawChart() {
         //var data = google.visualization.arrayToDataTable([
@@ -21,18 +21,37 @@
         //]);
 
 
-        var data = google.visualization.arrayToDataTable([@Html.Raw(ViewBag.pieChartData)]);
+        var pieChartData = google.visualization.arrayToDataTable([@Html.Raw(ViewBag.pieChartData)]);
 
 
-        var options = {
+        var pieChartOptions = {
             title: 'Response Rate',
             pieHole: 0.4,
-            chartArea: { left: 3, top: 50, width: "72%", height: "60%" },
+            chartArea: { left: 3, top: 50, width: "95%", height: "80%" },
             slices: { 0: { color: 'orange' }, 1: { color: 'green' }, 2: { color: 'blue' }, 3: { color: 'grey' } }
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
+        var donutchart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        donutchart.draw(pieChartData, pieChartOptions);
+        $.post("RemiderChartData").done(function (result) {
+           /* [
+                      ['Group', 'Bounce', 'Click', 'Deferred', 'Delivered', 'Dropped', 'Open', 'Processed'],
+                      ['Invite', 1000, 400, 200, 1000, 400, 200, 1000],
+                      ['Iterate', 1170, 460, 250, 1170, 460, 250, 1170],
+                      ['Reminder', 660, 1120, 300, 660, 1120, 300, 660]
+            ]*/
+            var data = google.visualization.arrayToDataTable(result);
+
+            var options = {
+                title: 'Reminders sent',
+                chartArea: { top: 50, width: "65%", height: "70%", left: 60 }
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('columnchart_material'));
+
+            chart.draw(data, options);
+        });
+        
     }
 </script>
 
@@ -41,9 +60,28 @@
 
 
 
+<style>
+.page {
+  
+  
+  
+  height:500px;              
+  float: left;
+}
 
-<div style="float: left">
-    <div id="donutchart" style="width: 700px; height: 500px;"></div>
+.pageHolder{
+  
+  width: 100%;
+}
+div.pageHolder-footer{
+    clear: left;
+    height: 0;
+}
+</style>
+<div class="pageHolder">
+    <div id="donutchart" class="page" style="width:50%;"></div>
+    <div id="columnchart_material" class="page" style="width:50%;"></div>
+    <div class='pageHolder-footer'></div>
 </div>
 
 <div id="divPTQ" style="width:100%;float:left;">

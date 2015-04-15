@@ -1128,6 +1128,12 @@
     <Compile Include="pr_getEventNotificationByLoadGroup_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getEventNotificationByProtocolTouchpointCategoryCount_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getEventNotificationByProtocolTouchpointCategoryDailyCount_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getEventNotificationDelivered_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

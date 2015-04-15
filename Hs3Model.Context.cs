@@ -15968,5 +15968,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonStuffFooter", personParameter, emailFooterParameter);
         }
+    
+        public virtual ObjectResult<pr_getEventNotificationByProtocolTouchpointCategoryDailyCount_Result> pr_getEventNotificationByProtocolTouchpointCategoryDailyCount(string protocoltouchpoint)
+        {
+            var protocoltouchpointParameter = protocoltouchpoint != null ?
+                new ObjectParameter("protocoltouchpoint", protocoltouchpoint) :
+                new ObjectParameter("protocoltouchpoint", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationByProtocolTouchpointCategoryDailyCount_Result>("pr_getEventNotificationByProtocolTouchpointCategoryDailyCount", protocoltouchpointParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEventNotificationByProtocolTouchpointCategoryCount_Result> pr_getEventNotificationByProtocolTouchpointCategoryCount(string protocoltouchpoint)
+        {
+            var protocoltouchpointParameter = protocoltouchpoint != null ?
+                new ObjectParameter("protocoltouchpoint", protocoltouchpoint) :
+                new ObjectParameter("protocoltouchpoint", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationByProtocolTouchpointCategoryCount_Result>("pr_getEventNotificationByProtocolTouchpointCategoryCount", protocoltouchpointParameter);
+        }
     }
 }
