@@ -33,26 +33,53 @@
 
         var donutchart = new google.visualization.PieChart(document.getElementById('donutchart'));
         donutchart.draw(pieChartData, pieChartOptions);
-        $.post("RemiderChartData").done(function (result) {
-           /* [
-                      ['Group', 'Bounce', 'Click', 'Deferred', 'Delivered', 'Dropped', 'Open', 'Processed'],
-                      ['Invite', 1000, 400, 200, 1000, 400, 200, 1000],
-                      ['Iterate', 1170, 460, 250, 1170, 460, 250, 1170],
-                      ['Reminder', 660, 1120, 300, 660, 1120, 300, 660]
-            ]*/
-            var data = google.visualization.arrayToDataTable(result);
+        //$.post("RemiderChartData").done(function (result) {
+           /* */
+           
+        //});
+        var data = google.visualization.arrayToDataTable([
+                     ['Group', 'Bounce', 'Click', 'Deferred', 'Delivered', 'Dropped', 'Open', 'Processed'],
+                     ['Invite', 1000, 400, 200, 1000, 400, 200, 1000],
+                     ['Iterate', 1170, 460, 250, 1170, 460, 250, 1170],
+                     ['Reminder', 660, 1120, 300, 660, 1120, 300, 660]
+        ]);
 
-            var options = {
-                title: 'Reminders sent',
-                chartArea: { top: 50, width: "65%", height: "70%", left: 60 }
-            };
+        var options = {
+            title: 'Reminders sent',
+            chartArea: { top: 50, width: "65%", height: "70%", left: 60 }
+        };
 
-            var chart = new google.visualization.BarChart(document.getElementById('columnchart_material'));
+        var chart = new google.visualization.BarChart(document.getElementById('columnchart_material'));
 
-            chart.draw(data, options);
-        });
-        
+        chart.draw(data, options);
+        var datadaily = google.visualization.arrayToDataTable([
+                     ['Group', 'Bounce', 'Click', 'Deferred', 'Delivered', 'Dropped', 'Open', 'Processed'],
+                     ['Invite', 20, 30, 50, 90, 10, 10, 27],
+                     ['Iterate', 70, 10, 15, 45, 42, 26, 20],
+                     ['Reminder', 12, 25, 42, 32, 11, 45, 55]
+        ]);
+
+        var optionsdaily = {
+            title: 'Reminders sent daily',
+            chartArea: { top: 50, width: "65%", height: "70%", left: 60 }
+        };
+
+        var chartdaily = new google.visualization.BarChart(document.getElementById('columnchart_material_daily'));
+
+        chartdaily.draw(datadaily, optionsdaily);
+        $("#columnchart_material_daily").hide();
     }
+    $(document).ready(function () {
+        $("#statusButton").click(function () {
+            if ($("#columnchart_material_daily").css("display") === "none") {
+                $("#columnchart_material").hide();
+                $("#columnchart_material_daily").show();
+            } else {
+                $("#columnchart_material_daily").hide();
+                $("#columnchart_material").show();
+            }
+        });
+    });
 </script>
 
 @*<h2>Hello, @ViewBag.enterpriseName, Admin</h2>*@
@@ -77,10 +104,22 @@ div.pageHolder-footer{
     clear: left;
     height: 0;
 }
+.circleButton {
+    width: 20px !important;
+    height: 20px !important;
+    background-color: green !important;
+    border: solid 1px green !important;
+    border-radius: 50%;
+    z-index:100;
+}
 </style>
+<div style="position:absolute;top: 12%;left: 85%;z-index:100;">
+    <input type="button" class="circleButton" id="statusButton" title="Click to switch daily/all remiders chart"/>
+</div>
 <div class="pageHolder">
     <div id="donutchart" class="page" style="width:50%;"></div>
     <div id="columnchart_material" class="page" style="width:50%;"></div>
+    <div id="columnchart_material_daily" class="page" style="width:50%;"></div>
     <div class='pageHolder-footer'></div>
 </div>
 

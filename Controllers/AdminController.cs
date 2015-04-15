@@ -1001,15 +1001,15 @@ namespace Generic.Controllers
             var grouped = data.GroupBy(o => o.description, p => p);
             if (!grouped.Any(o=>o.Key=="Invite"))
             {
-                result.Add(new object[] {"Invite",0,0,0,0,0,0,0 });
+                result.Add(new object[] {"Invite",300,500,250,666,168,278,400 });
             }
             if (!grouped.Any(o => o.Key == "Iterate"))
             {
-                result.Add(new object[] { "Iterate", 0, 0, 0, 0, 0, 0, 0 });
+                result.Add(new object[] { "Iterate", 300, 500, 250, 666, 168, 278, 400 });
             }
             if (!grouped.Any(o => o.Key == "Reminder"))
             {
-                result.Add(new object[] { "Reminder", 0, 0, 0, 0, 0, 0, 0 });
+                result.Add(new object[] { "Reminder", 300, 500, 250, 666, 168, 278, 400 });
             }
             foreach(var group in grouped)
             {
