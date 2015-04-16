@@ -6142,6 +6142,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getReminderListByCountryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getReminderListByCountryAll2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getReminderListIncompleteByCountryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getReminderScheduledTaskHeartBeat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -13561,8 +13562,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="protocoltouchpoint" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getEventNotificationByProtocolTouchpointCategoryCount" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByProtocolTouchpointCategoryCount_Result)">
-            <Parameter Name="protocoltouchpoint" Mode="In" Type="String" />
+          <Parameter Name="protocoltouchpoint" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="pr_getReminderScheduledTaskHeartBeat" ReturnType="Collection(Int32)" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -28473,6 +28475,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getReminderScheduledTaskHeartBeat" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderScheduledTaskHeartBeat" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

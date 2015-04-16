@@ -1020,6 +1020,11 @@ namespace Generic.Controllers
             }
             return Json(result.ToArray());
         }
+
+        public virtual ActionResult CheckScheduleStatus()
+        {
+            return Json(db.pr_getReminderScheduledTaskHeartBeat().FirstOrDefault() > 0);
+        }
     }
 
      

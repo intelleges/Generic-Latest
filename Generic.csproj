@@ -2429,6 +2429,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\contextjs.bootstrap.css" />
     <Content Include="Content\contextjs.standalone.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\tw-bs.css" />
     <Content Include="Areas\RegistrationArea\Views\Home\Unsubscribe.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\Default.cshtml" />

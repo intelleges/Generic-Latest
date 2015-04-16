@@ -1221,12 +1221,15 @@
                 <div class="modal-body">
                     <form id="madalEmailForm" >
                         <div class="form-group">
+                           
                             <label class="control-label" for="emailSubject">Subject</label>
                             <input id="emailSubject" name="emailSubject" class="form-control" type="text" placeholder="Please Enter subject" data-val-required="*" data-val="true" />
                             <span data-valmsg-replace="true" data-valmsg-for="emailSubject" class="field-validation-valid help-inline" />
+
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="emailText">Text</label>
+                            <input type="button" class="circleButton" id="btnTips" title="toogle email tips" style="margin-left:500px;padding-bottom: 3px;"/>
                             <textarea id="emailText" name="emailText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
                             <span data-valmsg-replace="true" data-valmsg-for="emailText" class="field-validation-valid help-inline" />
                             <script>
@@ -1723,7 +1726,16 @@
 
     $(document).ready(function () {
         $("#IteratePartners").show();
-
+        $("#btnTips").click(function () {
+            var tip = "<ol><li>[Salutation: Hello FirstName]<br></li><li>[Appreciation: Thanks for meeting, taking my call, inviting me to your home, etc.]<br></li><li>[Information/Problem: Please let me know if you are free to meet; I am not what you decided, etc.]<br></li><li>[Organization: I am attaching a date/some dates for a teleconference, etc.]<br></li><li>[Anticipation: I am looking forward to meeting]<br></li><li>[Re-Appreciation: Thanks again for your help/time/efforts]<br></li><li>[Appellation: David, Steve, Sam Smith]<br></li><li>[Exhortation: Let&#39;s get this done/Go Team/Have a Great Day!!!!]<br></li></ol>";
+            if (!iterate.globalVars.tipsShowed) {                
+                CKEDITOR.instances.emailText.setData(tip);
+                iterate.globalVars.tipsShowed = true;
+            } else {
+                CKEDITOR.instances.emailText.setData("");
+                iterate.globalVars.tipsShowed = false;
+            }
+        });
         $("#excelFile").closest(".k-upload-button")
                         .find("span")
                         .text("Select file to upload");

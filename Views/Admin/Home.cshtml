@@ -45,7 +45,7 @@
         ]);
 
         var options = {
-            title: 'Reminders sent',
+            title: 'Invite, Iterate, Reminders Sent',
             chartArea: { top: 50, width: "65%", height: "70%", left: 60 }
         };
 
@@ -60,7 +60,7 @@
         ]);
 
         var optionsdaily = {
-            title: 'Reminders sent daily',
+            title: 'Invite, Iterate, Reminders Sent Daily',
             chartArea: { top: 50, width: "65%", height: "70%", left: 60 }
         };
 
@@ -70,14 +70,27 @@
         $("#columnchart_material_daily").hide();
     }
     $(document).ready(function () {
-        $("#statusButton").click(function () {
+        var statusButtonOffset = 30;
+        var statusButtonInitialOffset = 250;
+        $("#statusButton").click(function () {            
             if ($("#columnchart_material_daily").css("display") === "none") {
                 $("#columnchart_material").hide();
                 $("#columnchart_material_daily").show();
+                $("#btnStatusPanel").offset({ left: $("#btnStatusPanel").offset().left + statusButtonOffset });
             } else {
                 $("#columnchart_material_daily").hide();
                 $("#columnchart_material").show();
+                $("#btnStatusPanel").offset({ left: $("#btnStatusPanel").offset().left - statusButtonOffset });
             }
+        });
+        $("#btnStatusPanel").offset({ left: $("#columnchart_material").position().left + statusButtonInitialOffset, top: $("#templates").offset().top + $("#templates").height() });
+        
+        $.post("CheckScheduleStatus").done(function (result) {
+            if (!result) {
+                $("#statusButton").css("background-color", "red");
+                $("#statusButton").css("border", "solid 1px green");
+                $("#statusButton").attr("title", "Reminders was not sent (click to toggle daily/all chart)");
+            } 
         });
     });
 </script>
@@ -104,20 +117,13 @@ div.pageHolder-footer{
     clear: left;
     height: 0;
 }
-.circleButton {
-    width: 20px !important;
-    height: 20px !important;
-    background-color: green !important;
-    border: solid 1px green !important;
-    border-radius: 50%;
-    z-index:100;
-}
 </style>
-<div style="position:absolute;top: 12%;left: 85%;z-index:100;">
-    <input type="button" class="circleButton" id="statusButton" title="Click to switch daily/all remiders chart"/>
-</div>
+
 <div class="pageHolder">
     <div id="donutchart" class="page" style="width:50%;"></div>
+    <div id="btnStatusPanel" class="absolutStatusPanel">
+        <input type="button" class="circleButton" id="statusButton" title="Reminders was sent (click to toggle daily/all chart)" />
+    </div>
     <div id="columnchart_material" class="page" style="width:50%;"></div>
     <div id="columnchart_material_daily" class="page" style="width:50%;"></div>
     <div class='pageHolder-footer'></div>

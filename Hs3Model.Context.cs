@@ -15986,5 +15986,10 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationByProtocolTouchpointCategoryCount_Result>("pr_getEventNotificationByProtocolTouchpointCategoryCount", protocoltouchpointParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getReminderScheduledTaskHeartBeat()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getReminderScheduledTaskHeartBeat");
+        }
     }
 }
