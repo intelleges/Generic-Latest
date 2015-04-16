@@ -55,6 +55,44 @@
 
 
 <body>
+    <div class="tw-bs">
+        <div class="container">
+            <div class="modal fade" id="addIteratePerson" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                            </button>
+                            <h4 class="modal-title" id="gpsLabel">Add Iterate Point of Contact</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addIteratePersonForm">
+                                <h4>
+                                    Select the Person You Wish to Add Iterate POC Data To
+                                </h4>
+                                <div class="form-group">
+                                    <label class="control-label" for="activeUsers">Active Users</label>
+
+                                    @*@Html.DropDownList("partnerType", null, new { @class = "form-control", data_val_required = "*", data_val = "true" })*@
+                                    <span data-valmsg-replace="true" data-valmsg-for="partnerType" class="field-validation-valid help-inline" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="partnerGroup">Partner Group</label>
+                                    @*@Html.DropDownList("partnerGroup", (IEnumerable<SelectListItem>)ViewBag.group, new { @class = "form-control", data_val_required = "*", data_val = "true" })*@
+                                    <span data-valmsg-replace="true" data-valmsg-for="partnerGroup" class="field-validation-valid help-inline" />
+
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <style>
         #IteratePartners .t-header a {
             margin: 0 !important;
@@ -285,6 +323,9 @@
 
 
     <script type="text/javascript">
+        function openAddIteratePersonModal() {
+            $("#addIteratePerson").modal("toggle");
+        }
         //jQuery.noConflict();
         //jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
         $(document).ready(function () {
@@ -368,7 +409,7 @@
         });
 
     </script>
-
+    <script src="/Scripts/bootstrap.js"></script>
     @RenderSection("scripts", required: false)
     @(Html.Telerik().ScriptRegistrar().jQuery(false).jQueryValidation(false)
             //.DefaultGroup(group => group
