@@ -66,7 +66,7 @@ namespace Generic.Controllers
                     defaultNumber++;
                 }
             }
-            gatherElement.Add(GetSay("Or press 0 to repeat the message"));
+            //gatherElement.Add(GetSay("Or press 0 to repeat the message"));
             rootElement.Add(gatherElement);
             doc.Add(rootElement);
             string result = "";
@@ -92,7 +92,7 @@ namespace Generic.Controllers
         public ActionResult VoiceXml(string number)
         {
 
-            return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Dial timeout=\"10\" record=\"true\">"+number+"</Dial></Response>", "text/xml");
+            return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Dial timeout=\"30\" record=\"true\">"+number+"</Dial></Response>", "text/xml");
         }
     }
 }
