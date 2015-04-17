@@ -1,0 +1,174 @@
+﻿<error errorId="cbcf2f80-7a59-48ba-95fb-48ec6d63ac30" application="/LM/W3SVC/3/ROOT" host="CAROLYNOLLIOBET" type="System.InvalidOperationException" message="There is no ViewData item of type 'IEnumerable&lt;SelectListItem&gt;' that has the key 'partnerType'." source="System.Web.Mvc" detail="System.InvalidOperationException: There is no ViewData item of type 'IEnumerable&lt;SelectListItem&gt;' that has the key 'partnerType'.&#xD;&#xA;   at System.Web.Mvc.Html.SelectExtensions.GetSelectData(HtmlHelper htmlHelper, String name)&#xD;&#xA;   at System.Web.Mvc.Html.SelectExtensions.SelectInternal(HtmlHelper htmlHelper, ModelMetadata metadata, String optionLabel, String name, IEnumerable`1 selectList, Boolean allowMultiple, IDictionary`2 htmlAttributes)&#xD;&#xA;   at System.Web.Mvc.Html.SelectExtensions.DropDownListHelper(HtmlHelper htmlHelper, ModelMetadata metadata, String expression, IEnumerable`1 selectList, String optionLabel, IDictionary`2 htmlAttributes)&#xD;&#xA;   at System.Web.Mvc.Html.SelectExtensions.DropDownList(HtmlHelper htmlHelper, String name, IEnumerable`1 selectList, String optionLabel, IDictionary`2 htmlAttributes)&#xD;&#xA;   at System.Web.Mvc.Html.SelectExtensions.DropDownList(HtmlHelper htmlHelper, String name, IEnumerable`1 selectList, Object htmlAttributes)&#xD;&#xA;   at ASP._Page_Views_Shared__AdminLayout_cshtml.Execute() in c:\Users\standard\genericlatest1\Generic\Views\Shared\_AdminLayout.cshtml:line 75&#xD;&#xA;   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy()&#xD;&#xA;   at System.Web.Mvc.WebViewPage.ExecutePageHierarchy()&#xD;&#xA;   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)&#xD;&#xA;   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer)&#xD;&#xA;   at System.Web.WebPages.WebPageBase.&lt;&gt;c__DisplayClass3.&lt;RenderPageCore&gt;b__2(TextWriter writer)&#xD;&#xA;   at System.Web.WebPages.HelperResult.WriteTo(TextWriter writer)&#xD;&#xA;   at System.Web.WebPages.WebPageExecutingBase.WriteTo(TextWriter writer, HelperResult content)&#xD;&#xA;   at System.Web.WebPages.WebPageBase.Write(HelperResult result)&#xD;&#xA;   at System.Web.WebPages.WebPageBase.RenderSurrounding(String partialViewName, Action`1 body)&#xD;&#xA;   at System.Web.WebPages.WebPageBase.PopContext()&#xD;&#xA;   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)&#xD;&#xA;   at System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)&#xD;&#xA;   at System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)&#xD;&#xA;   at System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass21.&lt;&gt;c__DisplayClass2b.&lt;BeginInvokeAction&gt;b__1c()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass21.&lt;BeginInvokeAction&gt;b__1e(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Controller.&lt;BeginExecuteCore&gt;b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Controller.&lt;BeginExecute&gt;b__15(IAsyncResult asyncResult, Controller controller)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.&lt;BeginProcessRequest&gt;b__5(IAsyncResult asyncResult, ProcessRequestState innerState)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)&#xD;&#xA;   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()&#xD;&#xA;   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)" user="john@intelleges.com" time="2015-04-15T21:53:50.1839417Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CACHE_CONTROL:max-age=0&#xD;&#xA;HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_ACCEPT:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate, sdch&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en-US,en;q=0.8&#xD;&#xA;HTTP_COOKIE:ASP.NET_SessionId=akbp4rj1owewp4x1bm1bdb5m; __RequestVerificationToken_L2hvbmV5d2VsbF9iYWE1=6EmYAOFa9chiRNfED5vQklGn36Wca-uero_GKicheUsF4Z3y4qaBWBHe29hoZOKZ21I_NwgnArk-FrO7V5pn4DFgPF1cJ5ECmxT8x6ctXhE1; __RequestVerificationToken=gx5vPcvxY4M1_IlLULOhQQNFKobGBqlrVPUz2OCtIZER_UUPEV9HkE9s1fBn_mW03fcrwCjr6ye1d-4staBqB2rcBoc1; .ASPXAUTH=D35B36AE1C537D52DF6AD62784535972F4E0415DD11C3330453ECA9CC4B111BA97025AB736EADF232E84888EB8D87BB176C04804EB4CB5DB8505FB02109B3A18F27939C966C70FC2276E980936A59D84E85FC8FB83343A553353E516C4CD79173107DA9B7334E7A7083BD7FCABE6FD367225910F&#xD;&#xA;HTTP_HOST:localhost:51090&#xD;&#xA;HTTP_REFERER:http://localhost:51090/&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Cache-Control: max-age=0&#xD;&#xA;Connection: keep-alive&#xD;&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xD;&#xA;Accept-Encoding: gzip, deflate, sdch&#xD;&#xA;Accept-Language: en-US,en;q=0.8&#xD;&#xA;Cookie: ASP.NET_SessionId=akbp4rj1owewp4x1bm1bdb5m; __RequestVerificationToken_L2hvbmV5d2VsbF9iYWE1=6EmYAOFa9chiRNfED5vQklGn36Wca-uero_GKicheUsF4Z3y4qaBWBHe29hoZOKZ21I_NwgnArk-FrO7V5pn4DFgPF1cJ5ECmxT8x6ctXhE1; __RequestVerificationToken=gx5vPcvxY4M1_IlLULOhQQNFKobGBqlrVPUz2OCtIZER_UUPEV9HkE9s1fBn_mW03fcrwCjr6ye1d-4staBqB2rcBoc1; .ASPXAUTH=D35B36AE1C537D52DF6AD62784535972F4E0415DD11C3330453ECA9CC4B111BA97025AB736EADF232E84888EB8D87BB176C04804EB4CB5DB8505FB02109B3A18F27939C966C70FC2276E980936A59D84E85FC8FB83343A553353E516C4CD79173107DA9B7334E7A7083BD7FCABE6FD367225910F&#xD;&#xA;Host: localhost:51090&#xD;&#xA;Referer: http://localhost:51090/&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/3/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="C:\Users\standard\genericlatest1\Generic\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="Forms" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="john@intelleges.com" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="john@intelleges.com" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="john@intelleges.com" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="3" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/3" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/Admin/Home" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="C:\Users\standard\genericlatest1\Generic\Admin\Home" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="60077" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/Admin/Home" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="51090" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/8.0" />
+    </item>
+    <item name="URL">
+      <value string="/Admin/Home" />
+    </item>
+    <item name="HTTP_CACHE_CONTROL">
+      <value string="max-age=0" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate, sdch" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en-US,en;q=0.8" />
+    </item>
+    <item name="HTTP_COOKIE">
+      <value string="ASP.NET_SessionId=akbp4rj1owewp4x1bm1bdb5m; __RequestVerificationToken_L2hvbmV5d2VsbF9iYWE1=6EmYAOFa9chiRNfED5vQklGn36Wca-uero_GKicheUsF4Z3y4qaBWBHe29hoZOKZ21I_NwgnArk-FrO7V5pn4DFgPF1cJ5ECmxT8x6ctXhE1; __RequestVerificationToken=gx5vPcvxY4M1_IlLULOhQQNFKobGBqlrVPUz2OCtIZER_UUPEV9HkE9s1fBn_mW03fcrwCjr6ye1d-4staBqB2rcBoc1; .ASPXAUTH=D35B36AE1C537D52DF6AD62784535972F4E0415DD11C3330453ECA9CC4B111BA97025AB736EADF232E84888EB8D87BB176C04804EB4CB5DB8505FB02109B3A18F27939C966C70FC2276E980936A59D84E85FC8FB83343A553353E516C4CD79173107DA9B7334E7A7083BD7FCABE6FD367225910F" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:51090" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:51090/" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36" />
+    </item>
+  </serverVariables>
+  <cookies>
+    <item name="ASP.NET_SessionId">
+      <value string="akbp4rj1owewp4x1bm1bdb5m" />
+    </item>
+    <item name="__RequestVerificationToken_L2hvbmV5d2VsbF9iYWE1">
+      <value string="6EmYAOFa9chiRNfED5vQklGn36Wca-uero_GKicheUsF4Z3y4qaBWBHe29hoZOKZ21I_NwgnArk-FrO7V5pn4DFgPF1cJ5ECmxT8x6ctXhE1" />
+    </item>
+    <item name="__RequestVerificationToken">
+      <value string="gx5vPcvxY4M1_IlLULOhQQNFKobGBqlrVPUz2OCtIZER_UUPEV9HkE9s1fBn_mW03fcrwCjr6ye1d-4staBqB2rcBoc1" />
+    </item>
+    <item name=".ASPXAUTH">
+      <value string="D35B36AE1C537D52DF6AD62784535972F4E0415DD11C3330453ECA9CC4B111BA97025AB736EADF232E84888EB8D87BB176C04804EB4CB5DB8505FB02109B3A18F27939C966C70FC2276E980936A59D84E85FC8FB83343A553353E516C4CD79173107DA9B7334E7A7083BD7FCABE6FD367225910F" />
+    </item>
+  </cookies>
+</error>

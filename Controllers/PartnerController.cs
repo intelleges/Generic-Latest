@@ -24,13 +24,12 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
 using System.Text;
 using Generic.Helpers.Questionnaire;
-using DHTMLX.Scheduler;
-using DHTMLX.Scheduler.Data;
-using Google.Apis.Calendar.v3.Data;
+//using DHTMLX.Scheduler;
+//using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Services;
-using DHTMLX.Common;
+//using DHTMLX.Common;
 using Telerik.Web.Mvc;
 using AsyncOAuth.Evernote.Simple;
 using System.Configuration;
@@ -53,6 +52,8 @@ using System.Threading.Tasks;
 using Google.Apis.Gmail.v1;
 using Google.Apis.Gmail.v1.Data;
 using HtmlAgilityPack;
+using System.Net;
+using Google.Apis.Calendar.v3.Data;
 #endregion
 
 namespace Generic.Controllers
@@ -2145,6 +2146,7 @@ namespace Generic.Controllers
             //Scheduler Initializeer
             //var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
             // ViewBag.Scheduler = scheduler.Render();
+            ViewBag.SchedulerICallUri = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
             ViewBag.showNotes = showNotes;
             ViewBag.gmailAuth = needGmailAuth;
             var allTodaysCalls = db.pr_getDailyCallTotal(SessionSingleton.LoggedInUserId).FirstOrDefault();
@@ -2230,24 +2232,37 @@ namespace Generic.Controllers
         /// Method import events from google calendar
         /// </summary>
         /// <returns></returns>
-        //public ContentResult Data()
-        //{
-        //    var data = new SchedulerAjaxData();
+        public ActionResult Data()
+        {
+            //var data = new SchedulerAjaxData();
 
-        //    var iCal = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
-        //    data.FromICal(iCal);
-        //    return data;
-        //}
+            var iCal = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            if (iCal != null)
+            {
+                var request = WebRequest.Create(iCal);
+                var response = request.GetResponse();
+                using (var stream = response.GetResponseStream())
+                {
+                    var mStream = new MemoryStream();
+                    stream.CopyTo(mStream);
+                    var result = Encoding.UTF8.GetString(mStream.ToArray());
+                    return Content(result, "text/plain");
+                }
+            }
+            else return Json(false);
+            //data.FromICal(iCal);
+            //return data;
+        }
 
         /// <summary>
         /// Get Person Ical url
         /// </summary>
         /// <returns></returns>
-        //public ActionResult GetPersonIcal()
-        //{
-        //    var iCal = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
-        //    return Json(new { Data = iCal }, JsonRequestBehavior.AllowGet);
-        //}
+        public ActionResult GetPersonIcal()
+        {
+            var iCal = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            return Json(new { Data = iCal }, JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// Method to update the iCal of perosn logged in
@@ -2317,10 +2332,20 @@ namespace Generic.Controllers
                 var endMin = Convert.ToInt32(arrEndHourMin[1]);
 
                 //get assignees comma seperated
+                List<EventAttendee> listEventAttendees=null;
                 var attendees = formData["attendees"];
-                var arrAttendees = attendees.Split(',');
-                var listEventAttendees = arrAttendees.Select(arrAttendee => new EventAttendee { Email = arrAttendee.Trim() }).ToList();
-
+                if (attendees != null)
+                {
+                    var arrAttendees = attendees.Split(',');
+                    listEventAttendees = arrAttendees.Select(arrAttendee => new EventAttendee { Email = arrAttendee.Trim() }).ToList();
+                }
+                else
+                {
+                    var attendee = formData["attendee"];
+                    listEventAttendees = new List<EventAttendee>();
+                    if (attendee!=null)
+                    listEventAttendees.Add(new EventAttendee() { Email = attendee.Trim() });
+                }
                 var myEvent = new Event
                 {
                     Summary = formData["text"],
@@ -2340,9 +2365,9 @@ namespace Generic.Controllers
                 insertEvent.SendNotifications = true;
                 insertEvent.Execute();
             }
-            var action = new DataAction(formData);
+            //var action = new DataAction(formData);
 
-            return (new AjaxSaveResponse(action));
+            return Json(true);
         }
 
 

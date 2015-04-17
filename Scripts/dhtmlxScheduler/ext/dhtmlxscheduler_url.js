@@ -1,9 +1,11 @@
 /*
- dhtmlxScheduler.Net v.3.2.0 Professional Evaluation
+dhtmlxScheduler v.4.3.0 Stardard
 
-This software is covered by DHTMLX Evaluation License. Contact sales@dhtmlx.com to get Commercial or Enterprise license. Usage without proper license is prohibited.
+This software is covered by GPL license. You also can obtain Commercial or Enterprise license to use it in non-GPL project - please contact sales@dhtmlx.com. Usage without proper license is prohibited.
 
 (c) Dinamenta, UAB.
 */
-Scheduler.plugin(function(e){e.attachEvent("onTemplatesReady",function(){var t=!0,a=e.date.str_to_date("%Y-%m-%d"),n=e.date.date_to_str("%Y-%m-%d");e.attachEvent("onBeforeViewChange",function(e,i,r,s){if(t){t=!1;for(var d={},o=(document.location.hash||"").replace("#","").split(","),_=0;_<o.length;_++){var l=o[_].split("=");2==l.length&&(d[l[0]]=l[1])}if(d.date||d.mode){try{this.setCurrentView(d.date?a(d.date):null,d.mode||null)}catch(c){this.setCurrentView(d.date?a(d.date):null,r)}return!1}}var h="#date="+n(s||i)+",mode="+(r||e);
-return document.location.hash=h,!0})})});
+scheduler._get_url_nav=function(){for(var e={},t=(document.location.hash||"").replace("#","").split(","),r=0;r<t.length;r++){var s=t[r].split("=");2==s.length&&(e[s[0]]=s[1])}return e},scheduler.attachEvent("onTemplatesReady",function(){function e(e){a=e,scheduler.getEvent(e)&&scheduler.showEvent(e)}var t=!0,r=scheduler.date.str_to_date("%Y-%m-%d"),s=scheduler.date.date_to_str("%Y-%m-%d"),a=scheduler._get_url_nav().event||null;scheduler.attachEvent("onAfterEventDisplay",function(){return a=null,!0
+}),scheduler.attachEvent("onBeforeViewChange",function(n,i,d,l){if(t){t=!1;var _=scheduler._get_url_nav();if(_.event)try{if(scheduler.getEvent(_.event))return e(_.event),!1;var o=scheduler.attachEvent("onXLE",function(){e(_.event),scheduler.detachEvent(o)})}catch(c){}if(_.date||_.mode){try{this.setCurrentView(_.date?r(_.date):null,_.mode||null)}catch(c){this.setCurrentView(_.date?r(_.date):null,d)}return!1}}var h=["date="+s(l||i),"mode="+(d||n)];a&&h.push("event="+a);var u="#"+h.join(",");return document.location.hash=u,!0
+})});
+//# sourceMappingURL=../sources/ext/dhtmlxscheduler_url.js.map
