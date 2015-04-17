@@ -57,15 +57,21 @@ font-size: 100% !important;
         <li><a href="javascript:openRemovePopup(@ViewBag.questionnaire,'@item.questionnaireCMS')">Remove</a></li>
         <li><a href="javascript:openArchivePopup(@ViewBag.questionnaire,'@item.questionnaireCMS')">Archive</a></li>
         <li><a href="javascript:openViewDetailPopup(@ViewBag.questionnaire)">View Detail</a></li>
-
-
+        <li><a href="javascript:uploadFile(@ViewBag.questionnaire ,@item.questionnaireCMS)">Upload document</a></li>
+       
+        
     </ul>
 </div>
-</text>);
+</text>).Filterable(false);
             columns.Bound(o => o.description).Title("Description").Width(100);
-            columns.Bound(o => o.text).Title("Text").Width(100);
-            columns.Bound(o => o.link).Title("Link").Width(100);
-            columns.Bound(o => o.doc).Title("Download").Width(100).Template(@<text><a href='#'>Download</a></text>);
+            columns.Bound(o => o.text).Title("Text").Width(100).Filterable(false).Template(@<text>
+                <a href='#' class='menu_block title'>@item.text</a>
+                <div class='display_menu' style='display: none;width:200px;'>
+                    <span style='width:100%'><p>@item.text</p></span>
+                </div>
+            </text>);
+            columns.Bound(o => o.link).Title("Link").Width(100).Filterable(false);
+            columns.Bound(o => o.doc).Title("Download").Width(100).Template(@<text><a href='#'>Download</a></text>).Filterable(false);
             
 
 
@@ -77,11 +83,14 @@ font-size: 100% !important;
         .Scrollable(scrolling => scrolling
            .Enabled(true)
            .Height(380))
-           .HtmlAttributes(new { @class = "ra" })
+           .HtmlAttributes(new { @class = "ra" }).Filterable(conf=>conf.Enabled(true))
 
 
 
 )
+<form id="hiddenUploaderForm" enctype="multipart/form-data"  >
+    <input type="file" id="hiddenUploaderInput" style="display:none;" />
+</form>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -126,8 +135,45 @@ font-size: 100% !important;
         $('#popup').bind('dialogclose', function (event) {
             window.location.replace(window.location.href);
         });
+        $("td a.menu_block.title").each(function () {
+            if ($(this).text().length > 20) {
+                $(this).text($(this).text().substr(0, 20) + "...");
+            }
+        });
+        $("#hiddenUploaderForm").submit(function (e) {
+            e.preventDefault();
+            var formdata = new FormData(); //FormData object
+            var fileInput = $("#hiddenUploaderInput").prop("files")[0];
+            formdata.append('file', fileInput);
+            formdata.append('cmsId', selectedCms);
+            formdata.append('selectedQ', selectedQ);
+            $.ajax({
+                url:"@Url.Action("UploadQDoc","Questionnaire")" ,
+                type: 'POST',
+                data: formdata,
+                processData: false,
+                contentType: false,
+                cache: false
+            }).done(function (data) {
+                if (data) {
+                    //$('#IntellegesLogoHref').html(data);
+                    alertify.alert(data);
+                }
+            });
+        });
+        $("#hiddenUploaderInput").change(function (e) {
+            $("#hiddenUploaderForm").submit();
+        });
     });
-
+    var selectedQ = null;
+    var selectedCms = null;
+    function uploadFile(q,cms) {
+        selectedQ = q;
+        selectedCms = cms;
+        $("#hiddenUploaderInput").click();
+    }
+    
+    
     function CloseMe() {
         $("#genericPopup").dialog('close');
         //$(".t-icon .t-refresh").trigger('click');

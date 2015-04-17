@@ -1255,9 +1255,28 @@ namespace Generic.Controllers
 
         }
         protected override void Dispose(bool disposing)
-        {
+        {            
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public virtual ActionResult UploadQDoc(int selectedQ,int cmsId,  HttpPostedFileBase file)
+        {
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(stream);
+                    var questObj = db.pr_getQuestionnaireQuestionnaireCMS(selectedQ, cmsId).FirstOrDefault();
+                    db.pr_modifyQuestionnaireQuestionnaireCMS(selectedQ, cmsId, questObj.text, questObj.link, stream.ToArray());
+                }
+                return Json("Document successfully uploaded");
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+
+            }
         }
     }
 }

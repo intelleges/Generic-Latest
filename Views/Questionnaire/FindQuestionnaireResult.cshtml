@@ -32,7 +32,7 @@
         .Columns(columns =>
         {
 
-            columns.Bound(o => o.name).Title("Name").Width(100).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
+            columns.Bound(o => o.name).Title("Name").Width(100).Template(@<text><a href='#' id='@item.name' class="menu_block title">@item.name</a>
 <div class="display_menu" style="display: none;">
     <ul>
         <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
@@ -49,7 +49,12 @@
 </text>);
             columns.Bound(o => o.Author).Title("Author").Width(100);
             columns.Bound(o => o.Protocol).Title("Protocol").Width(100);
-            columns.Bound(o => o.description).Title("Description").Width(100);
+            columns.Bound(o => o.description).Title("Description").Width(100).Template(@<text>
+                <a href='#' class='menu_block title'>@item.description</a>
+                <div class='display_menu' style='display: none;width:200px;'>
+                    <span style='width:100%'><p>@item.description</p></span>
+                </div>
+            </text>);
             columns.Bound(o => o.Locked).Title("Locked").Width(100);
             columns.Bound(o => o.Incomplete).Title("Incomplete").Width(100);
             columns.Bound(o => o.No_Response).Title("No Response").Width(100);
@@ -109,13 +114,18 @@
 <script src="~/Scripts/jquery-1.8.2.js"></script>
 <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
 <script type="text/javascript">
-    $(function () {
+    $(function () {        
         jQuery.noConflict();
         $("#EmailDialog").dialog({
             autoOpen: false
         });
         $('#popup').bind('dialogclose', function (event) {
             window.location.replace(window.location.href);
+        });
+        $("td a.menu_block.title").each(function () {
+            if ($(this).text().length > 12) {
+                $(this).text($(this).text().substr(0, 12) + "...");
+            }
         });
     });
 
