@@ -559,8 +559,11 @@
                         result = "NOON - ";
                     }
                     else
+                        if (cMoment.isBetween(startMoment, moment(startMoment).hours(5).minutes(59).seconds(59))) {
+                            result = "EARLY MORNING - ";
+                        } else
                         //00:01 am - 11:59 am
-                    if (cMoment.isBetween(startMoment, moment(startMoment).hours(11).minutes(59).seconds(59))) {
+                            if (cMoment.isBetween(moment(startMoment).hours(6), moment(startMoment).hours(11).minutes(59).seconds(59))) {
                         result = "MORNING - ";
                     } else {
                         //00.01 PM -5.59 PM 
