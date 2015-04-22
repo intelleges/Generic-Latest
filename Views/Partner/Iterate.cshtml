@@ -535,6 +535,49 @@
                 $(this).text($(this).text().substr(0, 13) + "...");
             }
         });
+        //append time zone information
+        $(".address2").each(function () {
+            var text = $(this).text();
+            var result="";
+            if (text && text.length>2) {
+                text = text.substr(0, 3);
+                var offset = 0;
+                var cMoment = moment();
+                switch (text) {
+                    case "EST": offset = -5 * 60;
+                        break;
+                    case "CST": offset = -6 * 60; break;
+                    case "MST": offset = -7 * 60; break;
+                    case "PST": offset = -8 * 60; break;
+                default:break;
+                }
+                if (offset != 0) {
+                    cMoment.utcOffset(offset);
+                    var startMoment = moment(cMoment).startOf("day");
+                    //=12.00 PM
+                    if (cMoment.isSame(moment(startMoment).hours(12))) {
+                        result = "NOON - ";
+                    }
+                    else
+                        //00:01 am - 11:59 am
+                    if (cMoment.isBetween(startMoment, moment(startMoment).hours(11).minutes(59).seconds(59))) {
+                        result = "MORNING - ";
+                    } else {
+                        //00.01 PM -5.59 PM 
+                        if (cMoment.isBetween(moment(startMoment).hours(12), moment(startMoment).hours(17).minutes(59).seconds(59))) {
+                            result = "AFTERNOON - ";
+                        } else
+                            //06.00 PM -11.59 PM 
+                            if (cMoment.isBetween(moment(startMoment).hours(18), moment(startMoment).hours(23).minutes(59).seconds(59))) {
+                            result = "EVENING - ";
+                        }
+                    }
+                }
+                if (result) {
+                    $(this).text(result + " " + $(this).text());
+                }
+            }
+        });
         $(".display_menu ul li a").click(function (e) {
             //note menu item click
             if ($(this).text() === "Note") {
@@ -2360,7 +2403,7 @@
     columns.Bound(o => o.title).Title("Title").Width(100).Filterable(false).ClientTemplate(@"
         <a href='#' id='title<#=id#>' class='menu_block title'><#=title#></a>
 <div class='display_menu' style='display: none;width:200px;'>
-       <span style='width:100%'><p><#=title#></p> <#=address2#> - <a href='http://<#=federalID#>'><#=federalID#></a></span>
+       <span style='width:100%'><p><#=title#></p> <span class='address2'><#=address2#></span> - <a href='http://<#=federalID#>'><#=federalID#></a></span>
     </div>
 ");
     columns.Bound(o => o.lastContact).Title("Last Contact").Width(100).ClientTemplate(@"
@@ -2569,6 +2612,7 @@
     <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
 <link href="~/Content/dhtmlxscheduler/dhtmlxscheduler.css" rel="stylesheet" />
 <script src="~/Scripts/dhtmlxScheduler/dhtmlxscheduler.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
 
 
 }
