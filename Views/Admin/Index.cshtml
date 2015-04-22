@@ -531,12 +531,12 @@
         <div class="main-content">
 
 
-            <div style="display: block;" id="welcdiv">
+            @*<div style="display: block;" id="welcdiv">
 
-                @* <iframe id="frameYoutube1" class="youtube-image" src="https://www.youtube.com/embed/2U6KsI6z3wg" allowfullscreen="" frameborder="0" height="240" width="400"></iframe>*@
+                
 
                 <div class="main-content-left homepage-main-content-left" style="height: 230px;">
-                    @*   <img src="@Url.Content("~/Contents/IntellegesLogin_files/nextStreetImage.png")" style="width: 452px;" />*@
+                    
                     <span>Founded in 2000, Intelleges has developed a cloud based service that solves the challenge of collecting data and documents from internal sites, customers, suppliers, and other product and service providers. 
 
 Intelleges simplifies Compliance, Safety, Security and Quality Assurance efforts by streamlining the entire process simply and easily. 
@@ -546,7 +546,7 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
                     </span>
 
                 </div>
-            </div>
+            </div>*@
             
 
             <div style="display: block;" id="homepagediv">
@@ -618,7 +618,7 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
 	        <p id="linkedinConfirmDialogText"/>
         </div>
 
-        <div id="linkedinSelectEnterpriseDialog" title="Selecting enterprise">
+        <div id="linkedinSelectEnterpriseDialog" title="Selecting enterprise" style="display:none">
             <form id="linkedinSelectEnterpriseDialogForm" action="~/Admin/LoginByEnterprise" method="post" enctype="multipart/form-data">
                 <input type="hidden" id="tempstorage" name="email" />
 	            <p>Select enterprise: </p>
