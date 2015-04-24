@@ -487,6 +487,7 @@
           <Property Name="emailLastUpdate" Type="datetime" />
           <Property Name="person" Type="int" Nullable="false" />
           <Property Name="note" Type="uniqueidentifier" />
+          <Property Name="pptq" Type="int" />
         </EntityType>
         <EntityType Name="iteratePerson">
           <Key>
@@ -4268,6 +4269,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="emailLastUpdate" Type="datetime" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
           <Parameter Name="note" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="accessCode" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_addIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="firstname" Type="varchar" Mode="In" />
@@ -5795,6 +5797,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPartnumberSiteZcodeByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPartnumberSiteZcodeByPPTQ2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPartnumberSiteZcodeByPPTQForUI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -13501,6 +13506,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="emailLastUpdate" Mode="In" Type="DateTime" />
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="note" Mode="In" Type="Guid" />
+            <Parameter Name="accessCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getTotalCallCount" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTotalCallCount_Result)">
           <Parameter Name="person" Mode="In" Type="Int32" />
@@ -13565,6 +13571,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="protocoltouchpoint" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getReminderScheduledTaskHeartBeat" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="pr_getPartnumberSiteZcodeByPPTQ2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberSiteZcodeByPPTQ2_Result)">
+            <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -21459,6 +21468,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Guid" Name="note" />
           <NavigationProperty Name="iteratePerson" Relationship="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" FromRole="iteratePartner" ToRole="iteratePerson" />
           <Property Name="emailLastUpdate" Type="DateTime" Precision="3" />
+          <Property Name="pptq" Type="Int32" />
         </EntityType>
         <Association Name="FK_iteratePerson_iteratePartner">
           <End Type="hs3MVCMTQa2Model.iteratePartner" Role="iteratePartner" Multiplicity="1" />
@@ -21657,6 +21667,18 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="protocoltouchpoint" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getPartnumberSiteZcodeByPPTQ2_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="partnumber" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="site" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="zcode" Nullable="false" MaxLength="32" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="lastDateModified" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="LSMW" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="ProductContent" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="COUNTRY" Nullable="false" MaxLength="8" />
+          <Property Type="Int32" Name="partnerPartnertypeTouchpointQuestionnaire" Nullable="false" />
         </ComplexType>
         
       </Schema>
@@ -28192,6 +28214,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="iteratePartner">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iteratePartner">
               <MappingFragment StoreEntitySet="iteratePartner">
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
                 <ScalarProperty Name="emailLastUpdate" ColumnName="emailLastUpdate" />
                 <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="person" ColumnName="person" />
@@ -28476,6 +28499,22 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getReminderScheduledTaskHeartBeat" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderScheduledTaskHeartBeat" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodeByPPTQ2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodeByPPTQ2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberSiteZcodeByPPTQ2_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="lastDateModified" ColumnName="lastDateModified" />
+                <ScalarProperty Name="LSMW" ColumnName="LSMW" />
+                <ScalarProperty Name="ProductContent" ColumnName="ProductContent" />
+                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+                <ScalarProperty Name="partnerPartnertypeTouchpointQuestionnaire" ColumnName="partnerPartnertypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -15688,7 +15688,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePerson", firstnameParameter, lastnameParameter, titleParameter, emailParameter, phoneParameter, faxParameter, activeParameter, dateAddedParameter, lastModifiedParameter, iteratePartnerParameter, lastContactParameter, lastContactDateParameter, previousContactParameter, previousContactDateParameter, nextActionParameter, nextActionDateParameter, notesParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addIteratePartner(string internalID, string name, string address1, string address2, string city, string state, string zipcode, string country, string dunsnumber, string federalID, Nullable<int> numberOfEmployees, Nullable<int> annualRevenue, Nullable<int> status, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<System.DateTime> emailLastUpdate, Nullable<int> person, Nullable<System.Guid> note)
+        public virtual ObjectResult<Nullable<decimal>> pr_addIteratePartner(string internalID, string name, string address1, string address2, string city, string state, string zipcode, string country, string dunsnumber, string federalID, Nullable<int> numberOfEmployees, Nullable<int> annualRevenue, Nullable<int> status, Nullable<int> owner, Nullable<int> author, Nullable<System.DateTime> dateApproved, Nullable<bool> active, Nullable<System.DateTime> dateAdded, Nullable<System.DateTime> lastModified, Nullable<System.DateTime> emailLastUpdate, Nullable<int> person, Nullable<System.Guid> note, string accessCode)
         {
             var internalIDParameter = internalID != null ?
                 new ObjectParameter("internalID", internalID) :
@@ -15778,7 +15778,11 @@ namespace Generic
                 new ObjectParameter("note", note) :
                 new ObjectParameter("note", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePartner", internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, lastModifiedParameter, emailLastUpdateParameter, personParameter, noteParameter);
+            var accessCodeParameter = accessCode != null ?
+                new ObjectParameter("accessCode", accessCode) :
+                new ObjectParameter("accessCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePartner", internalIDParameter, nameParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, dunsnumberParameter, federalIDParameter, numberOfEmployeesParameter, annualRevenueParameter, statusParameter, ownerParameter, authorParameter, dateApprovedParameter, activeParameter, dateAddedParameter, lastModifiedParameter, emailLastUpdateParameter, personParameter, noteParameter, accessCodeParameter);
         }
     
         public virtual ObjectResult<pr_getTotalCallCount_Result> pr_getTotalCallCount(Nullable<int> person)
@@ -15990,6 +15994,15 @@ namespace Generic
         public virtual ObjectResult<Nullable<int>> pr_getReminderScheduledTaskHeartBeat()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getReminderScheduledTaskHeartBeat");
+        }
+    
+        public virtual ObjectResult<pr_getPartnumberSiteZcodeByPPTQ2_Result> pr_getPartnumberSiteZcodeByPPTQ2(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodeByPPTQ2_Result>("pr_getPartnumberSiteZcodeByPPTQ2", partnerPartnertypeTouchpointQuestionnaireParameter);
         }
     }
 }

@@ -3095,8 +3095,8 @@ namespace Generic.Controllers
                                     newPartnerItem.PARTNER_DUNS, newPartnerItem.PARTNER_SAP_ID, EMPLOYEE_COUNT,
                                     ANNUAL_REVENUE, partnerStatus, SessionSingleton.LoggedInUserId,
                                     SessionSingleton.LoggedInUserId, DateTime.Now, true,
-                                    DateTime.Now, DateTime.Now,null, SessionSingleton.LoggedInUserId,null
-                                   ).FirstOrDefault();
+                                    DateTime.Now, DateTime.Now,null, SessionSingleton.LoggedInUserId,null,
+                                   newPartnerItem.ACCESS_CODE).FirstOrDefault();
                                 var lastContact = !string.IsNullOrEmpty(newPartnerItem.LAST_CONTACT) && statuses.ContainsKey(newPartnerItem.LAST_CONTACT) ? statuses[newPartnerItem.LAST_CONTACT] : 1;
                                 var previosContact = !string.IsNullOrEmpty(newPartnerItem.PREVIOUS_CONTACT) && statuses.ContainsKey(newPartnerItem.PREVIOUS_CONTACT) ? statuses[newPartnerItem.PREVIOUS_CONTACT] : 1;
                                 var nextAction = !string.IsNullOrEmpty(newPartnerItem.NEXT_ACTION) && nextActions.ContainsKey(newPartnerItem.NEXT_ACTION) ? nextActions[newPartnerItem.NEXT_ACTION] : 1;
@@ -3223,10 +3223,12 @@ namespace Generic.Controllers
                 PARTNER_DUNS = o.dunsnumber,
                 PARTNER_SAP_ID = o.federalID,
                 PARTNER_STATE = o.state,
-                PARTNER_ZIPCODE = o.zipcode,                
+                PARTNER_ZIPCODE = o.zipcode,
                 RO_FIRST_NAME = o.firstname,
                 RO_LAST_NAME = o.lastname,
-                CURRENT_STATUS = o.iteratePartnerStatus.HasValue ? partnerStatuses[o.iteratePartnerStatus.Value] : ""
+                CURRENT_STATUS = o.iteratePartnerStatus.HasValue ? partnerStatuses[o.iteratePartnerStatus.Value] : "",
+                ACCESS_CODE = !string.IsNullOrEmpty(o.address2) && o.address2.Split(" - ").Length>2?o.address2.Split(" - ")[2]:""
+               
             }).ToList();
                 var stream = new MemoryStream();
                 var serializer = new XmlSerializer(typeof(List<ExcelInteratePartner>));
@@ -3579,7 +3581,7 @@ namespace Generic.Controllers
                 var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
                 var iPerson = iPartner.iteratePerson.FirstOrDefault();
                 var partnerStatuses = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.description, p => p.id);
-               var addedPartner = db.pr_addIteratePartner(iPartner.internalID,iPartner.name,iPartner.address1,iPartner.address2, iPartner.city,iPartner.state, iPartner.zipcode, iPartner.country,iPartner.dunsnumber,iPartner.federalID, iPartner.numberOfEmployees,iPartner.annualRevenue,partnerStatuses["zDefault"],SessionSingleton.LoggedInUserId,SessionSingleton.LoggedInUserId,iPartner.dateApproved,true,DateTime.Now,null,null,SessionSingleton.LoggedInUserId,null).FirstOrDefault();
+               var addedPartner = db.pr_addIteratePartner(iPartner.internalID,iPartner.name,iPartner.address1,iPartner.address2, iPartner.city,iPartner.state, iPartner.zipcode, iPartner.country,iPartner.dunsnumber,iPartner.federalID, iPartner.numberOfEmployees,iPartner.annualRevenue,partnerStatuses["zDefault"],SessionSingleton.LoggedInUserId,SessionSingleton.LoggedInUserId,iPartner.dateApproved,true,DateTime.Now,null,null,SessionSingleton.LoggedInUserId,null,null).FirstOrDefault();
                db.pr_addIteratePerson(firstName, lastName, title, email, phoneNumber, iPerson.fax, true, DateTime.Now, null, (int)addedPartner, 1, DateTime.Now.AddDays(-3), 1, DateTime.Now.AddDays(-3), 1, DateTime.Now, false);
                SessionSingleton.AddIteratePartnerId = (int)addedPartner;
                 return Json(true);
@@ -3633,6 +3635,40 @@ namespace Generic.Controllers
             if (staff!=null)
             return Json(staff.emailFooter);
             return Json(false);
+        }
+
+        [HttpPost]
+        public ActionResult CheckIteratePartnerAccessCodePartnNumber(pr_getIteratePartnerPerson3_Result iPartner)
+        {
+            if (iPartner != null)
+            {
+                var accessCode = !string.IsNullOrEmpty(iPartner.address2) && iPartner.address2.Split(" - ").Length > 2 ? iPartner.address2.Split(" - ")[2] : "";
+                if(!string.IsNullOrEmpty(accessCode))
+                {
+                    var ptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                    if (ptq != null)
+                    {
+                        if (ptq.partnerTypeTouchpointQuestionnaire1.questionnaire1.levelType == 2)
+                        {
+                            Session["CheckIteratePartnerAccessCodePartnNumberPtq"] = ptq.id;
+                            return Json(true);
+                        }
+                    }
+                }
+
+            }
+            return Json(false);
+        }
+
+         [GridAction]
+        public ActionResult AjaxPartNumbersGrid()
+        {
+            var result = new List<pr_getPartnumberSiteZcodeByPPTQ2_Result>();
+            if (Session["CheckIteratePartnerAccessCodePartnNumberPtq"] != null)
+            {
+                result = db.pr_getPartnumberSiteZcodeByPPTQ2(int.Parse(Session["CheckIteratePartnerAccessCodePartnNumberPtq"].ToString())).ToList();
+            }
+            return Json(new GridModel(result), JsonRequestBehavior.AllowGet);
         }
     }
     

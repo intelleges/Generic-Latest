@@ -121,9 +121,10 @@ namespace Generic.ViewModel
         public string LAST_CONTACT { get; set; }
         public string LAST_CONTACT_DATE { get; set; }
         public string PREVIOUS_CONTACT { get; set; }
-        public string PREVIOUS_CONTACT_DATE { get; set; }       
+        public string PREVIOUS_CONTACT_DATE { get; set; }
         public string NEXT_ACTION_DATE { get; set; }
         public string NOTES { get; set; }
+        public string ACCESS_CODE { get; set; }
         #endregion
 
         public InteratePartnerStatus StatusValue

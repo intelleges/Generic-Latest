@@ -103,7 +103,7 @@
         var renderedTop = RenderSection("splitterTop", false);
         var gridHtml = renderedTop != null ? renderedTop.ToHtmlString() : "";
     }
-    <div style="height:100%;width:100%">
+    
         @{Html.Telerik().Splitter().Name("Splitter1")
     .HtmlAttributes(new { style = "height: 100%;width: 100%;" })
     .Orientation(SplitterOrientation.Vertical)
@@ -130,8 +130,8 @@
             .Size("35%")
             .Collapsible(true).Collapsed(true)
             .Content(@<div>
+                @RenderSection("leftSplitter", false)
                 
-                @RenderSection("leftSplitter", required: false)
         </div>
                 );
 
@@ -245,9 +245,10 @@
                 }).ToString());
 
                 vPanes.Add()
-                .Size("20%")
+                .Size("50%")
                 .Collapsible(true).Collapsed(true)
                 .Content(@<footer>
+                              @RenderSection("bottomSplitter", required: false)
                     <div class="content-wrapper">
 
                         <div class="float-left">
@@ -266,7 +267,7 @@
                 })
                 .Render();
                 }
-            </div>
+            
     <div id="popup" style="display:none;">
         <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
     </div>

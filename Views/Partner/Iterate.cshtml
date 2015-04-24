@@ -13,6 +13,9 @@
 }
 
 <style type="text/css">
+    #nad{
+        font-size: 11px !important; 
+    }
     html, body {
         height: 100%;
         padding: 0;
@@ -406,6 +409,7 @@
 
         iterate.selectedPartnerId = selectedItem.id;
         iterate.selectedPartner = selectedItem.name;
+        iterate.selectedPartnerData = selectedItem;
         $('#iteratePrev').data('rowIndex', row.rowIndex - 1);
         $('#iterateNext').data('rowIndex', row.rowIndex + 1);
 
@@ -427,6 +431,10 @@
         $("#email").val(selectedItem.email);
         $("#dunsNumber").val(selectedItem.dunsnumber);
         $("#federalID").val(selectedItem.federalID);
+        var accessCode = selectedItem.address2 && selectedItem.address2.split(" - ").length > 2 ? selectedItem.address2.split(" - ")[2] : "";
+        if (accessCode) {
+            $("#AccessCode").text("Access Code: " + accessCode);
+        }
         //$("#owner").val("");
         //$("#author").val("");
         //$("#protocol").val("");
@@ -511,6 +519,14 @@
         var splitter = $("#Splitter2").data("tSplitter");
         var pane = $("#Splitter2 > .t-pane")[2]; // the 3d pane
         splitter.expand(pane);
+    }
+    function showBottomPanel() {        
+        var splitterFirst = $("#Splitter1").data("tSplitter");
+        var pane = $("#Splitter1 > .t-pane")[2]; // the bottom pane
+        var firstPane = $("#Splitter1 > .t-pane")[0]; // the top pane
+        splitterFirst.expand(pane);
+        splitterFirst.collapse(firstPane);
+        $("body").scrollTop($("body")[0].scrollHeight);
     }
     function checkoAuth() {
         var checkResult = false;
@@ -1413,7 +1429,7 @@
         <div class="col-xs-7">
             <div class="row">
                 <div class="addPartnerDiv">
-                    <h2>Iterate <span class="clickable" id="iteratePrev">&lt;&lt;</span> <span style="width:10px"></span> <span class="clickable" id="iterateNext">&gt;&gt;</span><span style="font-size:20px;margin-left:20px;cursor:pointer;" id="callsTotal"><a href="@Url.Action("GetPersonStuffScript","Partner")" target="_blank">Calls: </a> @ViewBag.TotalCallsToday</span></h2>
+                    <h2>Iterate <span class="clickable" id="iteratePrev">&lt;&lt;</span> <span style="width:10px"></span> <span class="clickable" id="iterateNext">&gt;&gt;</span><span style="font-size:20px;margin-left:20px;cursor:pointer;" id="callsTotal"><a href="@Url.Action("GetPersonStuffScript","Partner")" target="_blank">Calls: </a> @ViewBag.TotalCallsToday</span><span style="font-size:18px;margin-top: 10px;cursor:pointer;float:right" id="AccessCode"></span></h2>
 
                 </div>
             </div>
@@ -1811,6 +1827,19 @@
             } else {
                 CKEDITOR.instances.emailText.setData("");
                 iterate.globalVars.tipsShowed = false;
+            }
+        });
+        $("#AccessCode").click(function () {
+            if (iterate.selectedPartnerData) {               
+                $.post("CheckIteratePartnerAccessCodePartnNumber", { iPartner: iterate.selectedPartnerData }).done(function (result) {
+                    if (result) {
+                        $("#partNumbersGridPanel").show();                        
+                        $("#partNumbersGrid").data("tGrid").ajaxRequest();
+                        showBottomPanel();
+                    } else {
+                        $("#partNumbersGridPanel").hide();
+                    }
+                });
             }
         });
         $("#excelFile").closest(".k-upload-button")
@@ -2363,6 +2392,7 @@
     </script>
 }
 
+
 <!--#region splitter Top-->
 @section splitterTop {
     @{
@@ -2460,6 +2490,49 @@
 
 }
 <!--#endregion-->
+
+@section bottomSplitter{
+    <style>
+        #partNumbersGrid .t-header a {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    </style>
+    <div id="partNumbersGridPanel" style="display:none;">
+    @( Html.Telerik().Grid(new List<Generic.pr_getPartnumberSiteZcodeByPPTQ2_Result>()).Name("partNumbersGrid").DataBinding(conf => conf.Ajax().Select("AjaxPartNumbersGrid", "Partner"))
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.partnumber).Title("Part number").Width(100);
+            @*.Template(@<text>
+                    <a href="#" id="@item.partnumber" class="menu_block">
+                        @item.partnumber
+                    </a>
+                    <div class="display_menu" style="display: none;top: -10px;left: 110px;height: 60px;width: 120px;">
+                        <ul style="margin-top: 5px;">
+                            <li><a href="javascript:DetailsDialog.removePartNumber(@item.id)">Remove</a></li>
+                            <li><a href="javascript:DetailsDialog.resetPartNumber(@item.partner,@item.id)">Reset</a></li>
+                        </ul>
+                    </div>
+                </text>);*@
+
+            columns.Bound(o => o.site).Title("Site").Width(220);
+            columns.Bound(o => o.zcode).Title("ZCode").Width(220);
+            columns.Bound(o => o.status).Title("Status").Width(100);
+            columns.Bound(o => o.lastDateModified).Title("Last Date Modified").Width(120);
+            columns.Bound(o => o.LSMW).Title("LSMW").Width(80);
+            columns.Bound(o => o.COUNTRY).Title("Country of Orign").Width(120);
+            columns.Bound(o => o.ProductContent).Title("Product Content").Width(100);
+        })
+        .Sortable(sorting => sorting.Enabled(true))
+
+        .Scrollable(scrolling => scrolling
+           .Enabled(true)
+           )
+           .HtmlAttributes(new { @class = "ra" }).Footer(false).HtmlAttributes(new { style = "width:100%;" })
+    )
+</div>
+
+}
 @section rightSplitter{
     @* @Html.ActionLink("Add Stack","AuthorizeEverNote","Partner")
         @Html.ActionLink("Add Notebook","AuthorizeEverNote","Partner")
