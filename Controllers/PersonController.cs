@@ -323,27 +323,7 @@ To change your existing password select Change Password once you log in.<br>
 To protect your privacy, we only send this information to the email address on file for this account. <br>
 If you have any questions, please contact your Account Administrator [System Master Email].<br><br>
 Thank you.<br>
-Intelleges Team";
-                            //                        objamm.text = @"Hello [Receiver Full Name],<br>
-                            //
-                            //You have a new account at Intelleges for [Enterprise Name] [Touchpoint Title].<br>
-                            //
-                            //As you know the purpose of this system is to help us [Touchpoint Purpose].<br>
-                            //
-                            //Your username is [User Email]. The administrator has set your password [Temporary Access Code].<br>
-                            //
-                            //You can sign in to Intelleges services at:<br>
-                            //
-                            //[Project Url]<br>
-                            //
-                            //Note: you will need to change your password once you login.<br>
-                            //
-                            //If you have any questions please contact me [User Inviting Email] or contact your system master [System Master Email]<br>
-                            //
-                            //Thanks in advance.<br>
-                            //
-                            //[User Inviting Firstname] [User Inviting Last Name]<br>
-                            //[Enterprise Name]";
+Intelleges Team";                          
 
 
                             Email email = new Email(objamm);

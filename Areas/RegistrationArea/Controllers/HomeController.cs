@@ -426,7 +426,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     return RedirectToAction("QuestionnaireResponse", "PartNumber");
                 else return RedirectToAction("ESignature");
             }
-            else if (objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL)
+            else if (objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL||objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.SUBSCRIPTION)
             {
                 return RedirectToAction("QuestionnaireResponse");
             }
@@ -678,22 +678,23 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         array = keyName.ToString().Split(splitter);
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
+                        // = array[3];
 
-                        int? responseId = null;
-                        string responseComment = string.Empty;
-                        try
-                        {
-                            responseId = int.Parse(answer);
-                        }
-                        catch
-                        {
-                            responseComment = answer;
-                        }
+                        //int? responseId = null;
+                        string responseComment = answer;
+                        //try
+                       // {
+                            //responseId = int.Parse(answer);
+                        //}
+                       // catch
+                       // {
+                       //     responseComment = answer;
+                       // }
 
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
                         if (checkpsz.Count == 0)
                         {
-                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, null, responseComment, null, null, null, null, pptq);
                         }
                         else
                         {
@@ -702,7 +703,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 responseComment = checkpsz.FirstOrDefault().comment;
                             }
 
-                            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, pptq);
+                            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, null, responseComment, null, null, null, null, pptq);
                         }
 
                         // db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
@@ -1866,6 +1867,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return Redirect("https://www.intelleges.com");
         }
 
+        /// <summary>
+        /// Some help methods for SUBSCRIPTION questionnarie responses
+        /// </summary>
+        
+
         public ActionResult Finish()
         {
             if (Session["hs3Registration"] == null)
@@ -1887,15 +1893,125 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 enterprise _enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
                 if (isCompletedSurvey)
                 {
-                    var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, ptq.id).FirstOrDefault();
+                    if (ppptq_cms.partnerTypeTouchpointQuestionnaire1.questionnaire1.levelType == Generic.Helpers.Questionnaire.LevelType.SUBSCRIPTION)
+                    {
+                        var questions = db.pr_getQuestionByQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire1.questionnaire).ToList();
+                        var responses = ppptq_cms.partnerPartnertypeTouchpointQuestionnaireQuestionResponse.ToList();
 
-                    var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
-                    Email email = new Email(amm);
-                    EmailFormat emailFormat = new EmailFormat();
-                    email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, _enterprise, objtouchpoint, ptq.id);
-                    email.emailTo = objPartner.email;
-                    SendEmail objSendEmail = new SendEmail();
-                    objSendEmail.sendEmail(email);
+                        var description = questions.FirstOrDefault(o => o.title == "description");
+                        var website = questions.FirstOrDefault(o => o.title == "website");
+                        var companyName = questions.FirstOrDefault(o => o.title == "companyName");
+                        var department = questions.FirstOrDefault(o => o.title == "department");
+                        var userCount = questions.FirstOrDefault(o => o.title == "userCount");
+                        var respCount = questions.FirstOrDefault(o => o.title == "respCount");
+                        var partNumber = questions.FirstOrDefault(o => o.title == "partNumber");
+                        var productType = questions.FirstOrDefault(o => o.title == "productType");
+                        var subscriptionType = questions.FirstOrDefault(o => o.title == "subscriptionType");
+                        var projectType = questions.FirstOrDefault(o => o.title == "projectType");
+                        var tStartDate = questions.FirstOrDefault(o => o.title == "tStartDate");
+                        var lstartDate = questions.FirstOrDefault(o => o.title == "lstartDate");
+                        var licenseType = questions.FirstOrDefault(o => o.title == "licenseType");
+                        var firstname = questions.FirstOrDefault(o => o.title == "firstname");
+                        var lasname = questions.FirstOrDefault(o => o.title == "lasname");
+                        var internalID = questions.FirstOrDefault(o => o.title == "internalID");
+                        var title = questions.FirstOrDefault(o => o.title == "title");
+                        var email = questions.FirstOrDefault(o => o.title == "email");
+                        var address1 = questions.FirstOrDefault(o => o.title == "address1");
+                        var address2 = questions.FirstOrDefault(o => o.title == "address2");
+                        var city = questions.FirstOrDefault(o => o.title == "city");
+                        var state = questions.FirstOrDefault(o => o.title == "state");
+                        var zipcode = questions.FirstOrDefault(o => o.title == "zipcode");
+                        var country = questions.FirstOrDefault(o => o.title == "country");
+                        var phone = questions.FirstOrDefault(o => o.title == "phone");
+
+
+                        var result = db.pr_addEnterprise(responses.GetDropDownResponse(description), 1, true, null, null, responses.GetTextResponse<string>(companyName), responses.GetTextResponse<string>(department), responses.GetTextResponse<int>(userCount), responses.GetTextResponse<int>(respCount), responses.GetTextResponse<int>(partNumber), responses.GetDropDownProductTypeResponse(productType, db), responses.GetDropDownSubscriptionTypeResponse(subscriptionType, db), responses.GetTextResponse<DateTime>(tStartDate), responses.GetTextResponse<DateTime>(tStartDate).AddMonths(1), responses.GetTextResponse<DateTime>(lstartDate), responses.GetTextResponse <DateTime>(lstartDate).AddMonths(6), 0, 1, null, null, 1).FirstOrDefault();
+                        if (result.HasValue)
+                        {
+                            //SessionSingleton.EnterPriseId = (int)result.Value;
+
+                            db.pr_addEnterpriseSystemInfo(DateTime.Now.AddYears(1), 20, responses.GetTextResponse<string>(companyName), string.Empty, responses.GetTextResponse<string>(website), string.Empty, 1, string.Empty, false, (int)result.Value).FirstOrDefault();
+                            using (var context = new EntitiesDBContext())
+                            {
+                                Session["pr_bootstrapAgencyId"] = context.pr_bootstrapAgency((int)result).FirstOrDefault();
+                                var roleId = context.pr_bootstrapRole((int)result).FirstOrDefault();
+                                var ptId = context.pr_bootstrapPartnertype((int)result).FirstOrDefault();
+                                context.pr_bootstrapEnterprise((int)result);
+                            }
+                            ViewBag.saved = "true";
+                            var manager = db.pr_getPersonByEnterprise2(1).FirstOrDefault();
+                            var campaign = db.pr_getTouchpointAllByEnterprise(1).FirstOrDefault();
+                            var password = db.pr_getAccesscode().FirstOrDefault();
+                            //return RedirectToAction("CreatePerson", "Person");
+                            var personId = db.pr_addPerson((int)result, manager.id, (int)PersonHelper.PersonStatus.Invited, 0, 0, campaign.id, responses.GetTextResponse<string>(internalID), string.Empty, string.Empty, responses.GetTextResponse<string>(firstname), responses.GetTextResponse<string>(lasname), responses.GetTextResponse<string>(title), string.Empty, responses.GetTextResponse<string>(email), password, responses.GetTextResponse<string>(email), responses.GetTextResponse<string>(address1), responses.GetTextResponse<string>(address2), responses.GetTextResponse<string>(city), 1, responses.GetTextResponse<string>(zipcode), 1, responses.GetTextResponse<string>(phone), string.Empty, 1, 1, 200, null, false, null).FirstOrDefault();
+                            
+                            using (var context = new EntitiesDBContext())
+                            {
+                                context.pr_addPersonRole((int)personId, 1);
+                                var menuCount = context.pr_bootstrapSystemMasterMenu(1).FirstOrDefault();
+                                var protocol = context.pr_bootstrapProtocol((int)result, (int)personId, int.Parse(Session["pr_bootstrapAgencyId"].ToString())).FirstOrDefault();
+                                var touchpoint = context.pr_bootstrapTouchpoint(int.Parse(protocol.ToString()), (int)personId).FirstOrDefault();
+                                var group = context.pr_bootstrapGroup((int)result, (int)personId).FirstOrDefault();
+                                context.pr_modifyPersonTouchpoint((int)personId, int.Parse(touchpoint.ToString()));
+                                context.pr_addPersonGroup(int.Parse(group.ToString()), (int)personId);
+                                var sysinfo = context.enterpriseSystemInfo.FirstOrDefault(o => o.enterprise == (int)result);
+                                context.pr_modifyEnterpriseSystemInfo(sysinfo.id, sysinfo.systemExpiry, sysinfo.licenseLimit, sysinfo.companyName, responses.GetTextResponse<string>(firstname) + " " + responses.GetTextResponse<string>(lasname), sysinfo.companyWebSite, responses.GetTextResponse<string>(email), sysinfo.isCurrentDataBase, sysinfo.logoImage, sysinfo.configured, sysinfo.enterprise);
+
+                            }
+                            var objSystemMaster = db.pr_getPerson((int)personId).FirstOrDefault();
+
+                            enterprise objEnterprise = db.pr_getEnterprise((int)result).FirstOrDefault();
+
+
+                            autoMailMessage objamm = new autoMailMessage();
+
+                            objamm.subject = "Intelleges Account Created";
+                            //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
+
+                            objamm.text = @"Hello <b>[User Email]</b>,<br><br><br>
+Congratulations. We have created your Intelleges Account.<br><br>
+Your user name is : [User Email]<br><br>
+Your current password is: [Temporary Access Code]<br><br>
+To access your intelleges.com account please click here <a href='[Project Url]'>[Project Url]</a>. <br><br>
+To change your existing password select Change Password once you log in.<br><br>
+To protect your privacy, we only send this information to the email address on file for this account. <br><br>
+If you have any questions, please contact your Account Administrator admin@intelleges.com.<br><br>
+Thank you.<br><br>
+Intelleges Team";
+                            var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, ptq.id).FirstOrDefault();
+                            if (amm != null)
+                            {
+                                objamm.text += "<br><br><br><br>" + amm.text;
+                            }
+
+                            Email mail = new Email(objamm);
+                            ///person objInvitingUser = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+
+                            touchpoint objCurrentTouchpoint = db.pr_getTouchpoint(objSystemMaster.campaign).FirstOrDefault();
+
+                            EmailFormat emailFormat = new EmailFormat();
+                            mail.subject = emailFormat.sGetEmailBody(mail.subject, objSystemMaster, objSystemMaster, objCurrentTouchpoint, objEnterprise, objSystemMaster);
+                            //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
+                            mail.body = emailFormat.sGetEmailBody(mail.body, objSystemMaster, objSystemMaster, objCurrentTouchpoint, objEnterprise, objSystemMaster);
+                            //  email.body = objamm.text;
+                            mail.emailTo = objSystemMaster.email;
+                            SendEmail objSendEmail = new SendEmail();
+                            objSendEmail.sendEmail(mail);
+
+                        }
+                    }
+                    else
+                    {
+                        var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, ptq.id).FirstOrDefault();
+
+                        var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
+                        Email email = new Email(amm);
+                        EmailFormat emailFormat = new EmailFormat();
+                        email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, _enterprise, objtouchpoint, ptq.id);
+                        email.emailTo = objPartner.email;
+                        SendEmail objSendEmail = new SendEmail();
+                        objSendEmail.sendEmail(email);
+                    }
                 }
                 else
                 {
@@ -2038,17 +2154,24 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         private void QuestionnaireMenuLinks(List<questionnaireQuestionnaireCMS> cms, List<pr_getQuestionnaireCMSAll_Result> questionnairCMSAll)
         {
-            ViewBag.QUESTIONNAIRE_PDF = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PDF).FirstOrDefault().id).FirstOrDefault().text.PadRight(15).Substring(0, 15);
-            //"~/Registration/Home/FileDownloadCMS?CMSName=" + CMS.QUESTIONNAIRE_PDF
-            //"~/Registration/Home/FileDownloadCMS?CMSName=" + CMS.QUESTIONNAIRE_DOC_OTHER
-            //"~/Registration/Home/FileDownloadCMS?CMSName=" + CMS.QUESTIONNAIRE_FAQ
-            ViewBag.QUESTIONNAIRE_FAQ = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_FAQ).FirstOrDefault().id).FirstOrDefault().text.PadRight(15).Substring(0, 15);
-            ViewBag.QUESTIONNAIRE_DOC_OTHER = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER).FirstOrDefault().id).FirstOrDefault().text.PadRight(15);
-            ViewBag.QUESTIONNAIRE_VIDEO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_VIDEO).FirstOrDefault().id).FirstOrDefault().text.PadRight(15);
-            ViewBag.CONTACT_US_EMAIL = replaceBlank(cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_US_EMAIL).FirstOrDefault().id).FirstOrDefault().text.PadRight(15));
-            ViewBag.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK = replaceBlank(cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_US_EMAIL).FirstOrDefault().id).FirstOrDefault().link);
+            try
+            {
+                ViewBag.QUESTIONNAIRE_PDF = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PDF).FirstOrDefault().id).FirstOrDefault().text.PadRight(15).Substring(0, 15);
+                //"~/Registration/Home/FileDownloadCMS?CMSName=" + CMS.QUESTIONNAIRE_PDF
+                //"~/Registration/Home/FileDownloadCMS?CMSName=" + CMS.QUESTIONNAIRE_DOC_OTHER
+                //"~/Registration/Home/FileDownloadCMS?CMSName=" + CMS.QUESTIONNAIRE_FAQ
+                ViewBag.QUESTIONNAIRE_FAQ = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_FAQ).FirstOrDefault().id).FirstOrDefault().text.PadRight(15).Substring(0, 15);
+                ViewBag.QUESTIONNAIRE_DOC_OTHER = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER).FirstOrDefault().id).FirstOrDefault().text.PadRight(15);
+                ViewBag.QUESTIONNAIRE_VIDEO = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_VIDEO).FirstOrDefault().id).FirstOrDefault().text.PadRight(15);
+                ViewBag.CONTACT_US_EMAIL = replaceBlank(cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_US_EMAIL).FirstOrDefault().id).FirstOrDefault().text.PadRight(15));
+                ViewBag.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK = replaceBlank(cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_US_EMAIL).FirstOrDefault().id).FirstOrDefault().link);
 
-            ViewBag.QUESTIONNAIRE_VIDEO_LINK = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_US_EMAIL).FirstOrDefault().id).FirstOrDefault().link;
+                ViewBag.QUESTIONNAIRE_VIDEO_LINK = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONTACT_US_EMAIL).FirstOrDefault().id).FirstOrDefault().link;
+            }
+            catch
+            {
+
+            }
 
         }
         public FileContentResult FileDownloadCMS(string CMSName)

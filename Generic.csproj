@@ -716,6 +716,7 @@
     <Compile Include="Helpers\PartNumberHelper.cs" />
     <Compile Include="Helpers\PersonHelper.cs" />
     <Compile Include="Helpers\QuestionnaireHelper.cs" />
+    <Compile Include="Helpers\ResponsesExtensions.cs" />
     <Compile Include="Helpers\SchedulerServiceHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Helpers\UIControl.cs" />
