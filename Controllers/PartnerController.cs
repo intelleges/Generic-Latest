@@ -3669,6 +3669,53 @@ namespace Generic.Controllers
             }
             return Json(new GridModel(result), JsonRequestBehavior.AllowGet);
         }
+
+         [HttpPost]
+         public ActionResult IteratePartnerSubscription(int iPartnerId)
+         {
+             try
+             {
+                 var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == iPartnerId);
+                 var iPerson = iPartner.iteratePerson.FirstOrDefault();
+                 if (iPartner != null)
+                 {
+                     var loadGroup = db.pr_getAccesscode().FirstOrDefault();
+                     int? PartnerId = db.pr_addPartnerSpreadsheetDataLoad(iPartner.internalID, iPartner.dunsnumber, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, "1", iPartner.zipcode, "1", iPerson.firstname, iPerson.lastname, iPerson.title, iPerson.phone, iPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, 1, 3111, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DateTime.Now.AddDays(2), 1).ToList().FirstOrDefault();
+                     var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(1, 3111).FirstOrDefault();
+                     var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault();
+                     if (pptq!=null)
+                     Invite(pptq.partner, ptq.id);
+                     else return Json(new { error = "DB error during partner creation" });
+                     //Create(new partner() { 
+                     //    active=true,
+                     //    address1 = iPartner.address1,
+                     //    address2 = iPartner.address2,
+                     //    author = SessionSingleton.LoggedInUserId,
+                     //    city = iPartner.city,
+                     //    country = 1,
+                     //    dunsNumber = iPartner.dunsnumber,
+                     //    email = iPerson.email,
+                     //    enterprise = SessionSingleton.EnterPriseId,
+                     //    federalID = iPartner.federalID,
+                     //    firstName = iPerson.firstname,                     
+                     //    internalID = iPartner.internalID,
+                     //    lastName = iPerson.lastname,
+                     //    loadHistory=0,
+                     //    name = iPartner.name,
+                     //    owner = SessionSingleton.LoggedInUserId,
+                     //    phone = iPerson.phone,
+
+                     //}, 1102, 1, 3111, 1, DateTime.Now.AddDays(2));
+                     return Json(true);
+                 }
+                 else 
+                     return Json(new { error = "There is no a such iterate partner in DB. Please connect to your administrator." });
+             }
+             catch (Exception ex)
+             {
+                 return Json(new { error = ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message });
+             }
+         }
     }
     
 }

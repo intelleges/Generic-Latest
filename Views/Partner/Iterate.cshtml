@@ -310,20 +310,20 @@
             if (iterate.selectedPartnerId) {
                 $.post("SaveIteratePartner", {
                     partnerid: iterate.selectedPartnerId,
-                    name: $("#name").val(),
-                    id: $("#internalID").val(),
-                    address: $("#address1").val(),
-                    phone: $("#phone").val(),
-                    city: $("#city").val(),
-                    state: $("#state").val(),
-                    zipcode: $("#zipcode").val(),
-                    firstName: $("#firstName").val(),
-                    lastName: $("#lastName").val(),
-                    title: $("#title").val(),
-                    email: $("#email").val(),
-                    url: $("#dunsNumber").val(),
-                    na: $("#nextaction").val(),
-                    nad: $("#nad").data("tDateTimePicker").value().toISOString(),
+                    name: $("#addPartner #name").val(),
+                    id: $("#addPartner #internalID").val(),
+                    address: $("#addPartner #address1").val(),
+                    phone: $("#addPartner #phone").val(),
+                    city: $("#addPartner #city").val(),
+                    state: $("#addPartner #state").val(),
+                    zipcode: $("#addPartner #zipcode").val(),
+                    firstName: $("#addPartner #firstName").val(),
+                    lastName: $("#addPartner #lastName").val(),
+                    title: $("#addPartner #title").val(),
+                    email: $("#addPartner #email").val(),
+                    url: $("#addPartner #dunsNumber").val(),
+                    na: $("#addPartner #nextaction").val(),
+                    nad: $("#addPartner #nad").data("tDateTimePicker").value().toISOString(),
                     partnerStatus: $("#partnerstatus").val()
                 }).done(function (result) {
                     if (result) {
@@ -415,23 +415,23 @@
         $('#iterateNext').data('rowIndex', row.rowIndex + 1);
 
         //TODO : update next code
-        $("#name").val(selectedItem.name);
-        $("#internalID").val(selectedItem.internalID);
-        $("#address1").val(selectedItem.address1);
-        $("#address2").val(selectedItem.address2);
-        $("#city").val(selectedItem.city);
-        $("#state").val(selectedItem.state);
-        $("#province").val("");
-        $("#zipcode").val(selectedItem.zipcode);
-        $("#country").text(selectedItem.country);
-        $("#phone").val(selectedItem.phone);
-        $("#fax").val(selectedItem.fax);
-        $("#firstName").val(selectedItem.firstname);
-        $("#lastName").val(selectedItem.lastname);
-        $("#title").val(selectedItem.title);
-        $("#email").val(selectedItem.email);
-        $("#dunsNumber").val(selectedItem.dunsnumber);
-        $("#federalID").val(selectedItem.federalID);
+        $("#addPartner #name").val(selectedItem.name);
+        $("#addPartner #internalID").val(selectedItem.internalID);
+        $("#addPartner #address1").val(selectedItem.address1);
+        $("#addPartner #address2").val(selectedItem.address2);
+        $("#addPartner #city").val(selectedItem.city);
+        $("#addPartner #state").val(selectedItem.state);
+        $("#addPartner #province").val("");
+        $("#addPartner #zipcode").val(selectedItem.zipcode);
+        $("#addPartner #country").text(selectedItem.country);
+        $("#addPartner #phone").val(selectedItem.phone);
+        $("#addPartner #fax").val(selectedItem.fax);
+        $("#addPartner #firstName").val(selectedItem.firstname);
+        $("#addPartner #lastName").val(selectedItem.lastname);
+        $("#addPartner #title").val(selectedItem.title);
+        $("#addPartner #email").val(selectedItem.email);
+        $("#addPartner #dunsNumber").val(selectedItem.dunsnumber);
+        $("#addPartner #federalID").val(selectedItem.federalID);
         var accessCode = selectedItem.address2 && selectedItem.address2.split(" - ").length > 2 ? selectedItem.address2.split(" - ")[2] : "";
         if (accessCode) {
             $("#AccessCode").text("Access Code: " + accessCode);
@@ -647,6 +647,24 @@
                 //data can be used for whatever it needed
                 iterate.selectedPartnerId = rowData.id;
                 $("#newIteratePartner").modal("toggle");
+            }
+            if ($(this).text() === "Sample\\Subscribe") {
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = rowData.id;
+                alertify.confirm("Please confirm that "+rowData.firstname+" "+rowData.lastname+" has agreed to a free 30 day license (subscription/free trial) for Intelleges Standard Edition Product", function (e) {
+                    if (e) {
+                        $.post("IteratePartnerSubscription", { iPartnerId: rowData.id }).done(function (result) {
+                            if (!result.error) {
+                                alertify.alert("Partner Invited");
+                            } else {
+                                alertify.alert(result.error);
+                            }
+                        });
+                    }
+                });              
+               
             }
         });
         if (iterate.saved) {
@@ -2411,7 +2429,7 @@
             <li><a href='#'>Update</a></li>
             <li><a href='#' onclick='changeLastContact(<#=id#>,4);'>Remove</a></li>
 <li><a href='#'>Nurture/Remind</a></li>
-<li><a href='#'  onclick='alertify.alert(iterate.underDevelopment);'>Sample/Subscription</a></li>
+<li><a href='#'  >Sample\\Subscribe</a></li>
             <li><a href='#'>Note</a></li>
             <li><a href='#'>Add</a></li>
         </ul>
