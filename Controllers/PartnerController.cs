@@ -897,10 +897,12 @@ namespace Generic.Controllers
 
             var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerId, ptq).FirstOrDefault();
             pptq.invitedDate = DateTime.Now;
+            pptq.status = (int)PartnerStatus.Invited_NoResponse;
+            db.Entry(pptq).State = EntityState.Modified;
             var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
             pptq.invitedBy = person.id;
             db.Entry(pptq).State = EntityState.Modified;
-            db.SaveChanges();
+            
 
             var objpartner = db.pr_getPartner(partnerId).FirstOrDefault();
             objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
