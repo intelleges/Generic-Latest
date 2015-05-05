@@ -1978,7 +1978,9 @@ To protect your privacy, we only send this information to the email address on f
 If you have any questions, please contact your Account Administrator admin@intelleges.com.<br><br>
 Thank you.<br><br>
 Intelleges Team";
+
                             var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, ptq.id).FirstOrDefault();
+
                             if (amm != null)
                             {
                                 objamm.text += "<br><br><br><br>" + amm.text;
@@ -1992,7 +1994,7 @@ Intelleges Team";
                             EmailFormat emailFormat = new EmailFormat();
                             mail.subject = emailFormat.sGetEmailBody(mail.subject, objSystemMaster, objSystemMaster, objCurrentTouchpoint, objEnterprise, objSystemMaster);
                             //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
-                            mail.body = emailFormat.sGetEmailBody(mail.body, objSystemMaster, objSystemMaster, objCurrentTouchpoint, objEnterprise, objSystemMaster);
+                            mail.body = emailFormat.sGetEmailBody(mail.body, objSystemMaster, objSystemMaster, ppptq_cms.partner1 ,objCurrentTouchpoint, objEnterprise, objSystemMaster,ptq.id);
                             //  email.body = objamm.text;
                             mail.emailTo = objSystemMaster.email;
                             SendEmail objSendEmail = new SendEmail();
