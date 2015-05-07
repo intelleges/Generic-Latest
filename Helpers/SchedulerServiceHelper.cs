@@ -332,8 +332,13 @@ namespace Generic.Helpers
         public static void sendEmail(string subject, string body, string sendto, MailAddress sendFrom, bool ccSender)
         {
             var mail = SendGrid.GetInstance();
+            key objSendGridPassword=null;
+            using (var db = new EntitiesDBContext())
+            {
+                objSendGridPassword = db.pr_getKeyAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
+            }
 
-            var credentials = new NetworkCredential("johnbetancourt", "o5QLb0z8");
+            var credentials = new NetworkCredential(objSendGridPassword.username, objSendGridPassword.password);
             Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
 
 
@@ -355,11 +360,17 @@ namespace Generic.Helpers
             transportSMTP.Deliver(mail);
 
         }
-        public static void sendEmail(string subject, string body, string sendto, MailAddress sendFrom, bool ccSender,HttpFileCollectionBase attachments)
+        public static void sendEmail(string subject, string body, string sendto, MailAddress sendFrom, bool ccSender, HttpFileCollectionBase attachments)
         {
             var mail = SendGrid.GetInstance();
 
-            var credentials = new NetworkCredential("johnbetancourt", "o5QLb0z8");
+            key objSendGridPassword = null;
+            using (var db = new EntitiesDBContext())
+            {
+                objSendGridPassword = db.pr_getKeyAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
+            }
+
+            var credentials = new NetworkCredential(objSendGridPassword.username, objSendGridPassword.password);
             Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
 
 
@@ -390,8 +401,14 @@ namespace Generic.Helpers
 
 
             var mail = SendGrid.GetInstance();
-           
-            var credentials = new NetworkCredential("johnbetancourt", "o5QLb0z8");
+
+            key objSendGridPassword = null;
+            using (var db = new EntitiesDBContext())
+            {
+                objSendGridPassword = db.pr_getKeyAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
+            }
+
+            var credentials = new NetworkCredential(objSendGridPassword.username, objSendGridPassword.password);
             Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
 
 

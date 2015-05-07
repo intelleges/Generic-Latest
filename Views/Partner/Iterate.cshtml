@@ -797,7 +797,7 @@
                 $("#emailDialog button[type='submit'], #emailDialog button[type='button']").prop("disabled", false);
                 if (result.error) {
                     $("#emailDialog").modal("toggle");
-                    alertify.alert(result);
+                    alertify.alert(result.error);
                 } else {
                     if (result === "done") {
                         $("#IteratePartners").data("tGrid").ajaxRequest();

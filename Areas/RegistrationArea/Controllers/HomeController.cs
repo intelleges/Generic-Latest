@@ -22,6 +22,7 @@ using System.Text;
 using System.Data.Entity;
 using Pechkin;
 using Generic.Helpers.PartNumberHelper;
+using System.Configuration;
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class HomeController : Controller
@@ -1870,7 +1871,61 @@ namespace Generic.Areas.RegistrationArea.Controllers
         /// <summary>
         /// Some help methods for SUBSCRIPTION questionnarie responses
         /// </summary>
-        
+
+        private void BootstrapDefaultQuestionnarie(int enterpriseId, int personId)
+        {
+            var defaultID = int.Parse(ConfigurationManager.AppSettings["DefaultPartnerTypeTouchpointQuestionnaireID"]);
+            var defaultPtq = db.pr_getPartnertypeTouchpointQuestionnaire(defaultID).FirstOrDefault();
+            if (defaultPtq != null)
+            {
+                var defPartnerType = db.partnerType.FirstOrDefault(o=>o.enterprise==enterpriseId);
+                var dtp = db.touchpoint.FirstOrDefault(o => o.person == personId);
+
+                //var pt = db.pr_addPartnerType(defaultPtq.partnerType1.name, defaultPtq.partnerType1.alias, defaultPtq.partnerType1.description, defaultPtq.partnerType1.partnerClass, enterpriseId, defaultPtq.partnerType1.sortOrder, 1).FirstOrDefault();
+                //var protocol = db.pr_addProtocol(defaultPtq.touchpoint1.protocol1.)
+                //var touchpoint = db.pr_addTouchpoint()
+                var questionnarie = db.pr_addQuestionnaire(defaultPtq.questionnaire1.title, defaultPtq.questionnaire1.description, defaultPtq.questionnaire1.footer, defaultPtq.questionnaire1.locked, defaultPtq.questionnaire1.sortOrder, 1, defaultPtq.questionnaire1.multiLanguage, enterpriseId, personId, defPartnerType.id, defaultPtq.questionnaire1.letter, defaultPtq.questionnaire1.levelType).FirstOrDefault();
+
+                var newptq = db.pr_addPartnertypeTouchpointQuestionnaire(defPartnerType.id, dtp.id, (int)questionnarie, 0, true).FirstOrDefault();
+                var questions = db.pr_getQuestionByQuestionnaire((int)questionnarie).ToList();
+                
+                foreach(var page in db.pr_getPageByQuestionnaire(defaultPtq.questionnaire1.id).ToList())
+                {
+                    var pid = db.pr_addPage(page.description, page.sortOrder, page.active).FirstOrDefault();
+                    db.pr_addQuestionnairePage((int)questionnarie, (int)pid);
+                    foreach(var surveySet in db.pr_getSurveysetByPage(page.id).ToList())
+                    {
+                        var ss= db.pr_addSurveyset(surveySet.description, surveySet.sortOrder, true, 1).FirstOrDefault();
+                        db.pr_addPageSurveyset((int)pid, (int)ss);
+                    }
+                }
+                var existSurvey = new Dictionary<int,int>();
+                var existSurveySet = new Dictionary<int, int>();
+                var existPage = new Dictionary<int, int>();
+                foreach(var question in questions)
+                {
+                    var qId = db.pr_addQuestion(question.question1, question.name, question.title, question.tag, question.responseType, question.required, question.weight, question.skipLogicAnswer, question.skipLogicJump, question.accessLevel, question.commentRequired, question.commentBoxTxt, question.commentUploadTxt, question.commentType, question.spinOffQuestionnaire, question.spinOffQID, question.emailAlert, question.emailAlertList, question.updated, question.sortOrder, question.active, enterpriseId).FirstOrDefault();
+                    foreach(var survey in question.survey)
+                    {
+                        if (!existSurvey.ContainsKey(survey.id))
+                        {
+                            var ns = db.pr_addSurvey(survey.description, survey.name, survey.display, 1, true, DateTime.Now, null).FirstOrDefault();
+                            existSurvey.Add(survey.id,(int)ns);
+                        }
+                        db.pr_addSurveyQuestion(existSurvey[survey.id], (int)qId);
+                        foreach(var surveySet in survey.surveyset)
+                        {
+                            if (!existSurveySet.ContainsKey(surveySet.id))
+                            {
+                                var ss = db.pr_addSurveyset(surveySet.description, surveySet.sortOrder, true, 1).FirstOrDefault();
+                                existSurveySet.Add(surveySet.id, (int)ss);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
         public ActionResult Finish()
         {
@@ -1966,6 +2021,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             autoMailMessage objamm = new autoMailMessage();
 
                             objamm.subject = "Intelleges Account Created";
+
                             //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
 
                             objamm.text = @"Hello <b>[User Email]</b>,<br><br><br>
@@ -1999,7 +2055,6 @@ Intelleges Team";
                             mail.emailTo = objSystemMaster.email;
                             SendEmail objSendEmail = new SendEmail();
                             objSendEmail.sendEmail(mail);
-
                         }
                     }
                     else

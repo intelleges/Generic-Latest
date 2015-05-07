@@ -54,6 +54,7 @@ using Google.Apis.Gmail.v1.Data;
 using HtmlAgilityPack;
 using System.Net;
 using Google.Apis.Calendar.v3.Data;
+using System.Data.Entity.Core.EntityClient;
 #endregion
 
 namespace Generic.Controllers
@@ -1326,8 +1327,8 @@ namespace Generic.Controllers
         public DataTable getResponsesByProtocolCampaignGroupProviderType2(int protocol, int touchpoint)
         {
             DataTable dataTable = new DataTable();
-
-            SqlConnection conn = new SqlConnection("data source=50.56.237.192;initial catalog=hs3MVCMTQa2;user id=dev;password=I>pkP8s|n1;");
+            EntityConnectionStringBuilder cs = new EntityConnectionStringBuilder(ConfigurationManager.ConnectionStrings["EntitiesDBContext"].ConnectionString);
+            SqlConnection conn = new SqlConnection(cs.ProviderConnectionString);
             
             conn.Open();
             SqlCommand command = new SqlCommand("pr_getResponsesByProtocolTouchpointGroupPartnertype2", conn);
@@ -1346,8 +1347,9 @@ namespace Generic.Controllers
         public DataTable getCustomizedLSMWReport()
         {
             DataTable dataTable = new DataTable();
+            EntityConnectionStringBuilder cs = new EntityConnectionStringBuilder(ConfigurationManager.ConnectionStrings["EntitiesDBContext"].ConnectionString);
 
-            SqlConnection conn = new SqlConnection("data source=50.56.237.192;initial catalog=hs3MVCMTQa2;user id=dev;password=I>pkP8s|n1;");
+            SqlConnection conn = new SqlConnection(cs.ProviderConnectionString);
             conn.Open();
             //db.pr_getcustomizedLSMWReportByPartnumberSiteZcodePPTQ
             SqlCommand command = new SqlCommand("[honeywellBAA].[pr_getcustomizedLSMWReport]", conn);
