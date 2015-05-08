@@ -6076,6 +6076,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getQuestionnaireByAccesscode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getQuestionnaireByFooter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="footer" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getQuestionnaireByPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="page" Type="int" Mode="In" />
         </Function>
@@ -6144,7 +6147,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getReminderListAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="pr_getReminderListByCountryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getReminderListByCountryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Remind" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_getReminderListByCountryAll2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getReminderListIncompleteByCountryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getReminderScheduledTaskHeartBeat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -12695,7 +12700,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getReminderListIncompleteByCountryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListIncompleteByCountryAll_Result)" />
-          <FunctionImport Name="pr_getReminderListByCountryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListByCountryAll_Result)" />
+          <FunctionImport Name="pr_getReminderListByCountryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListByCountryAll_Result)" >
+            <Parameter Name="Remind" Mode="In" Type="Boolean" />
+          </FunctionImport>
           <FunctionImport Name="pr_dynamicFilters">
             <Parameter Name="table" Mode="In" Type="String" />
             <Parameter Name="argsList" Mode="In" Type="String" />
@@ -13572,7 +13579,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImport>
           <FunctionImport Name="pr_getReminderScheduledTaskHeartBeat" ReturnType="Collection(Int32)" />
           <FunctionImport Name="pr_getPartnumberSiteZcodeByPPTQ2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberSiteZcodeByPPTQ2_Result)">
-            <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireByFooter" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByFooter_Result)">
+            <Parameter Name="footer" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -21680,6 +21690,21 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="COUNTRY" Nullable="false" MaxLength="8" />
           <Property Type="Int32" Name="partnerPartnertypeTouchpointQuestionnaire" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireByFooter_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="footer" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="locked" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="multiLanguage" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="partnerType" Nullable="false" />
+          <Property Type="Int32" Name="letter" Nullable="true" />
+          <Property Type="Int32" Name="levelType" Nullable="true" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -28512,6 +28537,25 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="ProductContent" ColumnName="ProductContent" />
                 <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
                 <ScalarProperty Name="partnerPartnertypeTouchpointQuestionnaire" ColumnName="partnerPartnertypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireByFooter" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireByFooter">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireByFooter_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="footer" ColumnName="footer" />
+                <ScalarProperty Name="locked" ColumnName="locked" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="multiLanguage" ColumnName="multiLanguage" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+                <ScalarProperty Name="letter" ColumnName="letter" />
+                <ScalarProperty Name="levelType" ColumnName="levelType" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

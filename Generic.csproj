@@ -1660,6 +1660,9 @@
     <Compile Include="pr_getQuestionnaireByAccesscode_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getQuestionnaireByFooter_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getQuestionnaireByPage_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

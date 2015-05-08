@@ -1868,57 +1868,91 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return Redirect("https://www.intelleges.com");
         }
 
+        public ActionResult CopyQuestionnarie(int enterpriseId, int personId, int ptqId)
+        {
+            try
+            {
+                BootstrapDefaultQuestionnarie(enterpriseId, personId, ptqId);
+            }
+            catch(Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+            return Json("Completed", JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// Some help methods for SUBSCRIPTION questionnarie responses
         /// </summary>
 
-        private void BootstrapDefaultQuestionnarie(int enterpriseId, int personId)
+        private void BootstrapDefaultQuestionnarie(int enterpriseId, int personId, int ptqId)
         {
-            var defaultID = int.Parse(ConfigurationManager.AppSettings["DefaultPartnerTypeTouchpointQuestionnaireID"]);
-            var defaultPtq = db.pr_getPartnertypeTouchpointQuestionnaire(defaultID).FirstOrDefault();
+           // var defaultID = int.Parse(ConfigurationManager.AppSettings["DefaultPartnerTypeTouchpointQuestionnaireID"]);
+            var defaultPtq = db.pr_getPartnertypeTouchpointQuestionnaire(ptqId).FirstOrDefault();
             if (defaultPtq != null)
             {
-                var defPartnerType = db.partnerType.FirstOrDefault(o=>o.enterprise==enterpriseId);
-                var dtp = db.touchpoint.FirstOrDefault(o => o.person == personId);
-
-                //var pt = db.pr_addPartnerType(defaultPtq.partnerType1.name, defaultPtq.partnerType1.alias, defaultPtq.partnerType1.description, defaultPtq.partnerType1.partnerClass, enterpriseId, defaultPtq.partnerType1.sortOrder, 1).FirstOrDefault();
-                //var protocol = db.pr_addProtocol(defaultPtq.touchpoint1.protocol1.)
-                //var touchpoint = db.pr_addTouchpoint()
-                var questionnarie = db.pr_addQuestionnaire(defaultPtq.questionnaire1.title, defaultPtq.questionnaire1.description, defaultPtq.questionnaire1.footer, defaultPtq.questionnaire1.locked, defaultPtq.questionnaire1.sortOrder, 1, defaultPtq.questionnaire1.multiLanguage, enterpriseId, personId, defPartnerType.id, defaultPtq.questionnaire1.letter, defaultPtq.questionnaire1.levelType).FirstOrDefault();
-
-                var newptq = db.pr_addPartnertypeTouchpointQuestionnaire(defPartnerType.id, dtp.id, (int)questionnarie, 0, true).FirstOrDefault();
-                var questions = db.pr_getQuestionByQuestionnaire((int)questionnarie).ToList();
+                //var defPartnerType = db.pr_addPartnerType(defaultPtq.partnerType1.name, defaultPtq.partnerType1.alias, defaultPtq.partnerType1.description, defaultPtq.partnerType1.partnerClass, enterpriseId, defaultPtq.partnerType1.sortOrder, 1).FirstOrDefault();
+                var defPartnerType = db.partnerType.FirstOrDefault(o=>o.enterprise==enterpriseId).id;
+                var defaultProtocol = db.pr_getProtocolAll(enterpriseId).FirstOrDefault().id;
+                var dtp = db.pr_addTouchpoint(defaultProtocol, personId, personId, personId, defaultPtq.touchpoint1.title, defaultPtq.touchpoint1.description, defaultPtq.touchpoint1.purpose, defaultPtq.touchpoint1.target, defaultPtq.touchpoint1.abbreviation, DateTime.Now, DateTime.Now.AddMonths(12), defaultPtq.touchpoint1.automaticReminder, defaultPtq.touchpoint1.sortOrder, 1).FirstOrDefault();
+                //var dtp = db.touchpoint.FirstOrDefault(o => o.person == personId);
+               
+                var questionnarie =Convert.ToInt32(db.pr_addQuestionnaire(defaultPtq.questionnaire1.title, defaultPtq.questionnaire1.description, defaultPtq.questionnaire1.footer, defaultPtq.questionnaire1.locked, defaultPtq.questionnaire1.sortOrder, 1, defaultPtq.questionnaire1.multiLanguage, enterpriseId, personId, (int)defPartnerType, defaultPtq.questionnaire1.letter, defaultPtq.questionnaire1.levelType).FirstOrDefault());
+               
+                var newptq = Convert.ToInt32(db.pr_addPartnertypeTouchpointQuestionnaire((int)defPartnerType, (int)dtp, (int)questionnarie, 0, true).FirstOrDefault());
+                //copy automailmessages
+                foreach (var message in defaultPtq.autoMailMessage)
+                    db.pr_addAutomailMessage(message.subject, message.text, message.footer1, message.footer2, message.sendDateCalcFactor, message.sendDateSet, message.mailType, (int)newptq).FirstOrDefault();
                 
-                foreach(var page in db.pr_getPageByQuestionnaire(defaultPtq.questionnaire1.id).ToList())
-                {
-                    var pid = db.pr_addPage(page.description, page.sortOrder, page.active).FirstOrDefault();
-                    db.pr_addQuestionnairePage((int)questionnarie, (int)pid);
-                    foreach(var surveySet in db.pr_getSurveysetByPage(page.id).ToList())
-                    {
-                        var ss= db.pr_addSurveyset(surveySet.description, surveySet.sortOrder, true, 1).FirstOrDefault();
-                        db.pr_addPageSurveyset((int)pid, (int)ss);
-                    }
-                }
+                //copy QuestionnaireCMS
+                foreach (var cms in defaultPtq.questionnaire1.questionnaireQuestionnaireCMS)
+                    db.pr_addQuestionnaireQuestionnaireCMS((int)questionnarie, cms.questionnaireCMS, cms.text, cms.link, cms.doc);
+            
+                var questions = db.pr_getQuestionByQuestionnaire((int)defaultPtq.questionnaire).ToList();
+                
+                
                 var existSurvey = new Dictionary<int,int>();
                 var existSurveySet = new Dictionary<int, int>();
                 var existPage = new Dictionary<int, int>();
                 foreach(var question in questions)
                 {
-                    var qId = db.pr_addQuestion(question.question1, question.name, question.title, question.tag, question.responseType, question.required, question.weight, question.skipLogicAnswer, question.skipLogicJump, question.accessLevel, question.commentRequired, question.commentBoxTxt, question.commentUploadTxt, question.commentType, question.spinOffQuestionnaire, question.spinOffQID, question.emailAlert, question.emailAlertList, question.updated, question.sortOrder, question.active, enterpriseId).FirstOrDefault();
+                   
+                    var qId = Convert.ToInt32(db.pr_addQuestion(question.question1, question.name, question.title, question.tag, question.responseType, question.required, question.weight, question.skipLogicAnswer, question.skipLogicJump, question.accessLevel, question.commentRequired, question.commentBoxTxt, question.commentUploadTxt, question.commentType, question.spinOffQuestionnaire, question.spinOffQID, question.emailAlert, question.emailAlertList, question.updated, question.sortOrder, question.active, enterpriseId).FirstOrDefault()
+                        );
+                    if (!string.IsNullOrEmpty(question.skipLogicJump))
+                    {
+                        db.pr_modifyQuestionSkipLogicJumpLogic((int)qId, question.skipLogicJump.Replace(question.id.ToString(), ((int)qId).ToString()));
+                    }
+                    foreach (var qres in question.questionResponse)
+                    {
+                        db.pr_addQuestionResponse((int)qId, qres.response);
+                    }
+                    //foreach (var answer in question.resp)
                     foreach(var survey in question.survey)
                     {
                         if (!existSurvey.ContainsKey(survey.id))
                         {
-                            var ns = db.pr_addSurvey(survey.description, survey.name, survey.display, 1, true, DateTime.Now, null).FirstOrDefault();
-                            existSurvey.Add(survey.id,(int)ns);
+                            var ns = Convert.ToInt32(db.pr_addSurvey(survey.description, survey.name, survey.display, 1, true, DateTime.Now, DateTime.Now).FirstOrDefault());
+                            existSurvey.Add(survey.id, (int)ns);
                         }
                         db.pr_addSurveyQuestion(existSurvey[survey.id], (int)qId);
                         foreach(var surveySet in survey.surveyset)
                         {
                             if (!existSurveySet.ContainsKey(surveySet.id))
                             {
-                                var ss = db.pr_addSurveyset(surveySet.description, surveySet.sortOrder, true, 1).FirstOrDefault();
+                                var ss = Convert.ToInt32(db.pr_addSurveyset(surveySet.description, surveySet.sortOrder, true, 1).FirstOrDefault());
                                 existSurveySet.Add(surveySet.id, (int)ss);
+                            }
+                            db.pr_addSurveysetSurvey(existSurveySet[surveySet.id], existSurvey[survey.id]);
+                            foreach(var page in surveySet.page)
+                            {
+                                if(!existPage.ContainsKey(page.id))
+                                {
+                                    var sp = Convert.ToInt32(db.pr_addPage(page.description, page.sortOrder, true).FirstOrDefault());
+                                    existPage.Add(page.id, (int)sp);
+                                    db.pr_addQuestionnairePage((int)questionnarie, (int)sp);
+                                }
+                                db.pr_addPageSurveyset(existPage[page.id], existSurveySet[surveySet.id]);
                             }
                         }
                     }
@@ -2011,8 +2045,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 context.pr_addPersonGroup(int.Parse(group.ToString()), (int)personId);
                                 var sysinfo = context.enterpriseSystemInfo.FirstOrDefault(o => o.enterprise == (int)result);
                                 context.pr_modifyEnterpriseSystemInfo(sysinfo.id, sysinfo.systemExpiry, sysinfo.licenseLimit, sysinfo.companyName, responses.GetTextResponse<string>(firstname) + " " + responses.GetTextResponse<string>(lasname), sysinfo.companyWebSite, responses.GetTextResponse<string>(email), sysinfo.isCurrentDataBase, sysinfo.logoImage, sysinfo.configured, sysinfo.enterprise);
-
                             }
+                            var defaultQuest = db.pr_getQuestionnaireByFooter(responses.GetDropDownZCodeResponse(description)).FirstOrDefault();
+                            if (defaultQuest != null)
+                            {
+                                var ptqObj = db.pr_getPartnertypeTouchpointQuestionnaireByQuestionnaire(defaultQuest.id).FirstOrDefault();
+                                BootstrapDefaultQuestionnarie((int)result.Value, (int)personId, ptqObj.id);
+                            }
+                            
                             var objSystemMaster = db.pr_getPerson((int)personId).FirstOrDefault();
 
                             enterprise objEnterprise = db.pr_getEnterprise((int)result).FirstOrDefault();

@@ -27,7 +27,7 @@ namespace Generic.Helpers
                 // pr_getReminderListByCountryAll
                 // pr_getReminderListIncompleteByCountryAll
 
-                var reminderList = db.pr_getReminderListByCountryAll().ToList();
+                var reminderList = db.pr_getReminderListByCountryAll(true).ToList();
                 var reminderIncompleteList = db.pr_getReminderListIncompleteByCountryAll().ToList();
 
                 foreach (var item in reminderList)
@@ -536,12 +536,15 @@ namespace Generic.Helpers
         {
             var htmlBody=string.Format(@"<br/><br/>
 Hello {0} {1},<br/><br/>
-Your current password is: {2}<br/><br/>To set a new password for your intelleges.com account 
+Your current password is: {2}<br/><br/>
+To set a new password for your intelleges.com account 
 login with your existing password and select Change 
-Password.<br/><br/>To protect your privacy, we only send this information to 
+Password.<br/><br/>
+To protect your privacy, we only send this information to 
 the email address on file for this account. <br/><br/>
 If you have any questions, please contact your Account 
-Administrator.<br/><br/>Thank you.<br/>
+Administrator.<br/><br/>
+Thank you.<br/>
 Intelleges Team
 ",person.firstName,person.lastName,person.passWord);
             sendEmail("Intelleges Account Request", htmlBody, "", emailTo);
@@ -550,12 +553,15 @@ Intelleges Team
         {
             var htmlBody = string.Format(@"<br/><br/>
 Hello {0} {1},<br/><br/>
-Your current password has changed.<br/><br/>To set a new password for your intelleges.com account 
+Your current password has changed.<br/><br/>
+To set a new password for your intelleges.com account 
 login with your existing password and select Change 
-Password.<br/><br/>To protect your privacy, we only send this information to 
+Password.<br/><br/>
+To protect your privacy, we only send this information to 
 the email address on file for this account. <br/><br/>
 If you have any questions, please contact your Account 
-Administrator.<br/><br/>Thank you.<br/>
+Administrator.<br/><br/>
+Thank you.<br/>
 Intelleges Team
 ", person.firstName, person.lastName, person.passWord);
             sendEmail("Intelleges Account Request", htmlBody, "", emailTo);

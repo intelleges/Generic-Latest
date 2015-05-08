@@ -70,6 +70,11 @@ namespace Generic.Helpers
             return value;
         }
 
+        public static string GetDropDownZCodeResponse(this List<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> list, question questionObj)
+        {
+           return list.FirstOrDefault(o => o.question == questionObj.id).response1.zcode;            
+        }
+
         public static int GetDropDownProductTypeResponse(this List<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> list, question questionObj, EntitiesDBContext context)
         {
             var description = list.GetDropDownResponse(questionObj);            

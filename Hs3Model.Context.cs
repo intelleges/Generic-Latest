@@ -13227,9 +13227,13 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListIncompleteByCountryAll_Result>("pr_getReminderListIncompleteByCountryAll");
         }
     
-        public virtual ObjectResult<pr_getReminderListByCountryAll_Result> pr_getReminderListByCountryAll()
+        public virtual ObjectResult<pr_getReminderListByCountryAll_Result> pr_getReminderListByCountryAll(Nullable<bool> remind)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListByCountryAll_Result>("pr_getReminderListByCountryAll");
+            var remindParameter = remind.HasValue ?
+                new ObjectParameter("Remind", remind) :
+                new ObjectParameter("Remind", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListByCountryAll_Result>("pr_getReminderListByCountryAll", remindParameter);
         }
     
         public virtual int pr_dynamicFilters(string table, string argsList)
@@ -16003,6 +16007,15 @@ namespace Generic
                 new ObjectParameter("partnerPartnertypeTouchpointQuestionnaire", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberSiteZcodeByPPTQ2_Result>("pr_getPartnumberSiteZcodeByPPTQ2", partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireByFooter_Result> pr_getQuestionnaireByFooter(string footer)
+        {
+            var footerParameter = footer != null ?
+                new ObjectParameter("footer", footer) :
+                new ObjectParameter("footer", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireByFooter_Result>("pr_getQuestionnaireByFooter", footerParameter);
         }
     }
 }
