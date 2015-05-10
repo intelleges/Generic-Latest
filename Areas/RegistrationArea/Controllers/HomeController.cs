@@ -1868,18 +1868,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return Redirect("https://www.intelleges.com");
         }
 
-        public ActionResult CopyQuestionnarie(int enterpriseId, int personId, int ptqId)
-        {
-            try
-            {
-                BootstrapDefaultQuestionnarie(enterpriseId, personId, ptqId);
-            }
-            catch(Exception ex)
-            {
-                return Json(ex.Message, JsonRequestBehavior.AllowGet);
-            }
-            return Json("Completed", JsonRequestBehavior.AllowGet);
-        }
+        //public ActionResult CopyQuestionnarie(int enterpriseId, int personId, int ptqId)
+        //{
+        //    try
+        //    {
+        //        BootstrapDefaultQuestionnarie(enterpriseId, personId, ptqId);
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        return Json(ex.Message, JsonRequestBehavior.AllowGet);
+        //    }
+        //    return Json("Completed", JsonRequestBehavior.AllowGet);
+        //}
 
         /// <summary>
         /// Some help methods for SUBSCRIPTION questionnarie responses
@@ -1914,6 +1914,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var existSurvey = new Dictionary<int,int>();
                 var existSurveySet = new Dictionary<int, int>();
                 var existPage = new Dictionary<int, int>();
+                var existSurveySetSurvey = new HashSet<string>();
+                var existSurveyPage = new HashSet<string>();
+                
                 foreach(var question in questions)
                 {
                    
@@ -1943,7 +1946,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 var ss = Convert.ToInt32(db.pr_addSurveyset(surveySet.description, surveySet.sortOrder, true, 1).FirstOrDefault());
                                 existSurveySet.Add(surveySet.id, (int)ss);
                             }
-                            db.pr_addSurveysetSurvey(existSurveySet[surveySet.id], existSurvey[survey.id]);
+                            if (!existSurveySetSurvey.Contains(existSurveySet[surveySet.id].ToString() + "*" + existSurvey[survey.id].ToString()))
+                            {
+                                db.pr_addSurveysetSurvey(existSurveySet[surveySet.id], existSurvey[survey.id]);
+                                existSurveySetSurvey.Add(existSurveySet[surveySet.id].ToString() + "*" + existSurvey[survey.id].ToString());
+                            }
                             foreach(var page in surveySet.page)
                             {
                                 if(!existPage.ContainsKey(page.id))
@@ -1952,7 +1959,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                     existPage.Add(page.id, (int)sp);
                                     db.pr_addQuestionnairePage((int)questionnarie, (int)sp);
                                 }
-                                db.pr_addPageSurveyset(existPage[page.id], existSurveySet[surveySet.id]);
+                                if (!existSurveyPage.Contains(existPage[page.id].ToString() + "*" + existSurveySet[surveySet.id].ToString()))
+                                {
+                                    db.pr_addPageSurveyset(existPage[page.id], existSurveySet[surveySet.id]);
+                                    existSurveyPage.Add(existPage[page.id].ToString() + "*" + existSurveySet[surveySet.id].ToString());
+                                }
                             }
                         }
                     }
