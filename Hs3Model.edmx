@@ -1501,6 +1501,38 @@
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="int" />
         </EntityType>
+        <EntityType Name="questionnaireLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qid" Type="int" Nullable="false" />
+          <Property Name="page" Type="int" Nullable="false" />
+          <Property Name="surveySet" Type="varchar(max)" Nullable="false" />
+          <Property Name="survey" Type="varchar(max)" Nullable="false" />
+          <Property Name="question" Type="varchar(max)" Nullable="false" />
+          <Property Name="response" Type="varchar(max)" Nullable="false" />
+          <Property Name="comment" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="required" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="length" Type="int" Nullable="false" />
+          <Property Name="titleLength" Type="int" Nullable="false" />
+          <Property Name="yValue" Type="int" Nullable="false" />
+          <Property Name="nValue" Type="int" Nullable="false" />
+          <Property Name="otherValue" Type="int" Nullable="false" />
+          <Property Name="qWeight" Type="int" Nullable="false" />
+          <Property Name="skipLogic" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="skipLogicAnswer" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="skipLogicJump" Type="varchar(max)" Nullable="false" />
+          <Property Name="commentBoxMessageText" Type="varchar(max)" Nullable="false" />
+          <Property Name="uploadMessageText" Type="varchar(max)" Nullable="false" />
+          <Property Name="commentType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="spinOffQuestionnaire" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="spinOffID" Type="int" Nullable="false" />
+          <Property Name="emailAlert" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="emailAlertList" Type="varchar(max)" Nullable="false" />
+          <Property Name="questionnaire" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="questionnairePage">
           <Key>
             <PropertyRef Name="questionnaire" />
@@ -4760,6 +4792,34 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addQuestionnaireLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="qid" Type="int" Mode="In" />
+          <Parameter Name="page" Type="int" Mode="In" />
+          <Parameter Name="surveySet" Type="varchar(max)" Mode="In" />
+          <Parameter Name="survey" Type="varchar(max)" Mode="In" />
+          <Parameter Name="question" Type="varchar(max)" Mode="In" />
+          <Parameter Name="response" Type="varchar(max)" Mode="In" />
+          <Parameter Name="comment" Type="varchar" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="required" Type="varchar" Mode="In" />
+          <Parameter Name="length" Type="int" Mode="In" />
+          <Parameter Name="titleLength" Type="int" Mode="In" />
+          <Parameter Name="yValue" Type="int" Mode="In" />
+          <Parameter Name="nValue" Type="int" Mode="In" />
+          <Parameter Name="otherValue" Type="int" Mode="In" />
+          <Parameter Name="qWeight" Type="int" Mode="In" />
+          <Parameter Name="skipLogic" Type="varchar" Mode="In" />
+          <Parameter Name="skipLogicAnswer" Type="varchar" Mode="In" />
+          <Parameter Name="skipLogicJump" Type="varchar(max)" Mode="In" />
+          <Parameter Name="commentBoxMessageText" Type="varchar(max)" Mode="In" />
+          <Parameter Name="uploadMessageText" Type="varchar(max)" Mode="In" />
+          <Parameter Name="commentType" Type="varchar" Mode="In" />
+          <Parameter Name="spinOffQuestionnaire" Type="varchar" Mode="In" />
+          <Parameter Name="spinOffID" Type="int" Mode="In" />
+          <Parameter Name="emailAlert" Type="varchar" Mode="In" />
+          <Parameter Name="emailAlertList" Type="varchar(max)" Mode="In" />
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addQuestionnairePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
           <Parameter Name="page" Type="int" Mode="In" />
@@ -6109,6 +6169,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getQuestionnaireLevelTypeyEnterpriseAndDefaultTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getQuestionnaireLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getQuestionnaireQuestionnaireCMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
@@ -7489,6 +7552,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_removeQuestionnaireLevelType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeQuestionnaireLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeQuestionnairePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
           <Parameter Name="page" Type="int" Mode="In" />
@@ -8007,6 +8073,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="questionnaireCMS" EntityType="Self.questionnaireCMS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireLevel" EntityType="Self.questionnaireLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireLevelType" EntityType="Self.questionnaireLevelType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="questionnaireLoad" EntityType="Self.questionnaireLoad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnairePage" EntityType="Self.questionnairePage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireQuestionnaireCMS" EntityType="Self.questionnaireQuestionnaireCMS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireRule" EntityType="Self.questionnaireRule" Schema="dbo" store:Type="Tables" />
@@ -12701,7 +12768,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImport>
           <FunctionImport Name="pr_getReminderListIncompleteByCountryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListIncompleteByCountryAll_Result)" />
           <FunctionImport Name="pr_getReminderListByCountryAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListByCountryAll_Result)" >
-            <Parameter Name="Remind" Mode="In" Type="Boolean" />
+          <Parameter Name="Remind" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_dynamicFilters">
             <Parameter Name="table" Mode="In" Type="String" />
@@ -13582,7 +13649,42 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireByFooter" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByFooter_Result)">
-            <Parameter Name="footer" Mode="In" Type="String" />
+          <Parameter Name="footer" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="questionnaireLoads" EntityType="hs3MVCMTQa2Model.questionnaireLoad" />
+          <FunctionImport Name="pr_addQuestionnaireLoad" ReturnType="Collection(Decimal)">
+            <Parameter Name="qid" Mode="In" Type="Int32" />
+            <Parameter Name="page" Mode="In" Type="Int32" />
+            <Parameter Name="surveySet" Mode="In" Type="String" />
+            <Parameter Name="survey" Mode="In" Type="String" />
+            <Parameter Name="question" Mode="In" Type="String" />
+            <Parameter Name="response" Mode="In" Type="String" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="required" Mode="In" Type="String" />
+            <Parameter Name="length" Mode="In" Type="Int32" />
+            <Parameter Name="titleLength" Mode="In" Type="Int32" />
+            <Parameter Name="yValue" Mode="In" Type="Int32" />
+            <Parameter Name="nValue" Mode="In" Type="Int32" />
+            <Parameter Name="otherValue" Mode="In" Type="Int32" />
+            <Parameter Name="qWeight" Mode="In" Type="Int32" />
+            <Parameter Name="skipLogic" Mode="In" Type="String" />
+            <Parameter Name="skipLogicAnswer" Mode="In" Type="String" />
+            <Parameter Name="skipLogicJump" Mode="In" Type="String" />
+            <Parameter Name="commentBoxMessageText" Mode="In" Type="String" />
+            <Parameter Name="uploadMessageText" Mode="In" Type="String" />
+            <Parameter Name="commentType" Mode="In" Type="String" />
+            <Parameter Name="spinOffQuestionnaire" Mode="In" Type="String" />
+            <Parameter Name="spinOffID" Mode="In" Type="Int32" />
+            <Parameter Name="emailAlert" Mode="In" Type="String" />
+            <Parameter Name="emailAlertList" Mode="In" Type="String" />
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireLoad" EntitySet="questionnaireLoads" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireLoad)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeQuestionnaireLoad">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -21705,6 +21807,67 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="letter" Nullable="true" />
           <Property Type="Int32" Name="levelType" Nullable="true" />
         </ComplexType>
+        <EntityType Name="questionnaireLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qid" Type="Int32" Nullable="false" />
+          <Property Name="page" Type="Int32" Nullable="false" />
+          <Property Name="surveySet" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="survey" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="question" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="response" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="comment" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="required" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="length" Type="Int32" Nullable="false" />
+          <Property Name="titleLength" Type="Int32" Nullable="false" />
+          <Property Name="yValue" Type="Int32" Nullable="false" />
+          <Property Name="nValue" Type="Int32" Nullable="false" />
+          <Property Name="otherValue" Type="Int32" Nullable="false" />
+          <Property Name="qWeight" Type="Int32" Nullable="false" />
+          <Property Name="skipLogic" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="skipLogicAnswer" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="skipLogicJump" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="commentBoxMessageText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="uploadMessageText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="commentType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="spinOffQuestionnaire" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="spinOffID" Type="Int32" Nullable="false" />
+          <Property Name="emailAlert" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="emailAlertList" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="questionnaire" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getQuestionnaireLoad_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="qid" Nullable="false" />
+          <Property Type="Int32" Name="page" Nullable="false" />
+          <Property Type="String" Name="surveySet" Nullable="false" />
+          <Property Type="String" Name="survey" Nullable="false" />
+          <Property Type="String" Name="question" Nullable="false" />
+          <Property Type="String" Name="response" Nullable="false" />
+          <Property Type="String" Name="comment" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="required" Nullable="false" MaxLength="2" />
+          <Property Type="Int32" Name="length" Nullable="false" />
+          <Property Type="Int32" Name="titleLength" Nullable="false" />
+          <Property Type="Int32" Name="yValue" Nullable="false" />
+          <Property Type="Int32" Name="nValue" Nullable="false" />
+          <Property Type="Int32" Name="otherValue" Nullable="false" />
+          <Property Type="Int32" Name="qWeight" Nullable="false" />
+          <Property Type="String" Name="skipLogic" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="skipLogicAnswer" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="skipLogicJump" Nullable="false" />
+          <Property Type="String" Name="commentBoxMessageText" Nullable="false" />
+          <Property Type="String" Name="uploadMessageText" Nullable="false" />
+          <Property Type="String" Name="commentType" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="spinOffQuestionnaire" Nullable="false" MaxLength="2" />
+          <Property Type="Int32" Name="spinOffID" Nullable="false" />
+          <Property Type="String" Name="emailAlert" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="emailAlertList" Nullable="false" />
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -28559,6 +28722,43 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="questionnaireLoads">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireLoad">
+              <MappingFragment StoreEntitySet="questionnaireLoad">
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="emailAlertList" ColumnName="emailAlertList" />
+                <ScalarProperty Name="emailAlert" ColumnName="emailAlert" />
+                <ScalarProperty Name="spinOffID" ColumnName="spinOffID" />
+                <ScalarProperty Name="spinOffQuestionnaire" ColumnName="spinOffQuestionnaire" />
+                <ScalarProperty Name="commentType" ColumnName="commentType" />
+                <ScalarProperty Name="uploadMessageText" ColumnName="uploadMessageText" />
+                <ScalarProperty Name="commentBoxMessageText" ColumnName="commentBoxMessageText" />
+                <ScalarProperty Name="skipLogicJump" ColumnName="skipLogicJump" />
+                <ScalarProperty Name="skipLogicAnswer" ColumnName="skipLogicAnswer" />
+                <ScalarProperty Name="skipLogic" ColumnName="skipLogic" />
+                <ScalarProperty Name="qWeight" ColumnName="qWeight" />
+                <ScalarProperty Name="otherValue" ColumnName="otherValue" />
+                <ScalarProperty Name="nValue" ColumnName="nValue" />
+                <ScalarProperty Name="yValue" ColumnName="yValue" />
+                <ScalarProperty Name="titleLength" ColumnName="titleLength" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="required" ColumnName="required" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="survey" ColumnName="survey" />
+                <ScalarProperty Name="surveySet" ColumnName="surveySet" />
+                <ScalarProperty Name="page" ColumnName="page" />
+                <ScalarProperty Name="qid" ColumnName="qid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addQuestionnaireLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireLoad" />
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireLoad">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireLoad" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

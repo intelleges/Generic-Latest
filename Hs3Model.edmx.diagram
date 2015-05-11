@@ -284,6 +284,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.iterateAction" Width="1.5" PointX="4.47225713193056" PointY="21.127051258984512" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.iteratePartner" Width="1.5" PointX="7.15287849267613" PointY="18.8295812545482" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireLoad" Width="1.5" PointX="21.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

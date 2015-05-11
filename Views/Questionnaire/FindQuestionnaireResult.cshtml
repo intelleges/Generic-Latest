@@ -36,6 +36,7 @@
 <div class="display_menu" style="display: none;">
     <ul>
         <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+        <li><a href="@Url.Action("Download", "Questionnaire", new { questionnaireId = item.id})">Download</a></li>
         <li><a href="javascript:openRemovePopup(@item.id,'@item.Author')">Remove</a></li>
         <li><a href="javascript:openArchivePopup(@item.id,'@item.Author')">Archive</a></li>
         <li><a href="~/Questionnaire/QuestionnaireDetailView/@item.id">View Detail</a></li>

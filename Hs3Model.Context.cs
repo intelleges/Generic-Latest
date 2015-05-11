@@ -189,6 +189,7 @@ namespace Generic
         public virtual DbSet<iterateStatus> iterateStatus { get; set; }
         public virtual DbSet<iterateAction> iterateAction { get; set; }
         public virtual DbSet<iteratePartner> iteratePartner { get; set; }
+        public virtual DbSet<questionnaireLoad> questionnaireLoads { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -16016,6 +16017,142 @@ namespace Generic
                 new ObjectParameter("footer", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireByFooter_Result>("pr_getQuestionnaireByFooter", footerParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireLoad(Nullable<int> qid, Nullable<int> page, string surveySet, string survey, string question, string response, string comment, string title, string required, Nullable<int> length, Nullable<int> titleLength, Nullable<int> yValue, Nullable<int> nValue, Nullable<int> otherValue, Nullable<int> qWeight, string skipLogic, string skipLogicAnswer, string skipLogicJump, string commentBoxMessageText, string uploadMessageText, string commentType, string spinOffQuestionnaire, Nullable<int> spinOffID, string emailAlert, string emailAlertList, Nullable<int> questionnaire)
+        {
+            var qidParameter = qid.HasValue ?
+                new ObjectParameter("qid", qid) :
+                new ObjectParameter("qid", typeof(int));
+    
+            var pageParameter = page.HasValue ?
+                new ObjectParameter("page", page) :
+                new ObjectParameter("page", typeof(int));
+    
+            var surveySetParameter = surveySet != null ?
+                new ObjectParameter("surveySet", surveySet) :
+                new ObjectParameter("surveySet", typeof(string));
+    
+            var surveyParameter = survey != null ?
+                new ObjectParameter("survey", survey) :
+                new ObjectParameter("survey", typeof(string));
+    
+            var questionParameter = question != null ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(string));
+    
+            var responseParameter = response != null ?
+                new ObjectParameter("response", response) :
+                new ObjectParameter("response", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var requiredParameter = required != null ?
+                new ObjectParameter("required", required) :
+                new ObjectParameter("required", typeof(string));
+    
+            var lengthParameter = length.HasValue ?
+                new ObjectParameter("length", length) :
+                new ObjectParameter("length", typeof(int));
+    
+            var titleLengthParameter = titleLength.HasValue ?
+                new ObjectParameter("titleLength", titleLength) :
+                new ObjectParameter("titleLength", typeof(int));
+    
+            var yValueParameter = yValue.HasValue ?
+                new ObjectParameter("yValue", yValue) :
+                new ObjectParameter("yValue", typeof(int));
+    
+            var nValueParameter = nValue.HasValue ?
+                new ObjectParameter("nValue", nValue) :
+                new ObjectParameter("nValue", typeof(int));
+    
+            var otherValueParameter = otherValue.HasValue ?
+                new ObjectParameter("otherValue", otherValue) :
+                new ObjectParameter("otherValue", typeof(int));
+    
+            var qWeightParameter = qWeight.HasValue ?
+                new ObjectParameter("qWeight", qWeight) :
+                new ObjectParameter("qWeight", typeof(int));
+    
+            var skipLogicParameter = skipLogic != null ?
+                new ObjectParameter("skipLogic", skipLogic) :
+                new ObjectParameter("skipLogic", typeof(string));
+    
+            var skipLogicAnswerParameter = skipLogicAnswer != null ?
+                new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
+                new ObjectParameter("skipLogicAnswer", typeof(string));
+    
+            var skipLogicJumpParameter = skipLogicJump != null ?
+                new ObjectParameter("skipLogicJump", skipLogicJump) :
+                new ObjectParameter("skipLogicJump", typeof(string));
+    
+            var commentBoxMessageTextParameter = commentBoxMessageText != null ?
+                new ObjectParameter("commentBoxMessageText", commentBoxMessageText) :
+                new ObjectParameter("commentBoxMessageText", typeof(string));
+    
+            var uploadMessageTextParameter = uploadMessageText != null ?
+                new ObjectParameter("uploadMessageText", uploadMessageText) :
+                new ObjectParameter("uploadMessageText", typeof(string));
+    
+            var commentTypeParameter = commentType != null ?
+                new ObjectParameter("commentType", commentType) :
+                new ObjectParameter("commentType", typeof(string));
+    
+            var spinOffQuestionnaireParameter = spinOffQuestionnaire != null ?
+                new ObjectParameter("spinOffQuestionnaire", spinOffQuestionnaire) :
+                new ObjectParameter("spinOffQuestionnaire", typeof(string));
+    
+            var spinOffIDParameter = spinOffID.HasValue ?
+                new ObjectParameter("spinOffID", spinOffID) :
+                new ObjectParameter("spinOffID", typeof(int));
+    
+            var emailAlertParameter = emailAlert != null ?
+                new ObjectParameter("emailAlert", emailAlert) :
+                new ObjectParameter("emailAlert", typeof(string));
+    
+            var emailAlertListParameter = emailAlertList != null ?
+                new ObjectParameter("emailAlertList", emailAlertList) :
+                new ObjectParameter("emailAlertList", typeof(string));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireLoad", qidParameter, pageParameter, surveySetParameter, surveyParameter, questionParameter, responseParameter, commentParameter, titleParameter, requiredParameter, lengthParameter, titleLengthParameter, yValueParameter, nValueParameter, otherValueParameter, qWeightParameter, skipLogicParameter, skipLogicAnswerParameter, skipLogicJumpParameter, commentBoxMessageTextParameter, uploadMessageTextParameter, commentTypeParameter, spinOffQuestionnaireParameter, spinOffIDParameter, emailAlertParameter, emailAlertListParameter, questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<questionnaireLoad> pr_getQuestionnaireLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireLoad>("pr_getQuestionnaireLoad", idParameter);
+        }
+    
+        public virtual ObjectResult<questionnaireLoad> pr_getQuestionnaireLoad(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireLoad>("pr_getQuestionnaireLoad", mergeOption, idParameter);
+        }
+    
+        public virtual int pr_removeQuestionnaireLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaireLoad", idParameter);
         }
     }
 }

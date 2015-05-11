@@ -86,7 +86,11 @@
                     type: "POST",
                     data: formData,
                     success: function (data) {
-                        alertify.alert('Congratulations you successfully uploaded your questionnaire. Please select Questionnaire View to Upload your CMS and Automail Messages.');
+                        if (data.error) {
+                            alertify.alert(data.error);
+                        } else {
+                            alertify.alert('Congratulations you successfully uploaded your questionnaire. Please select Questionnaire View to Upload your CMS and Automail Messages.');
+                        }
                     },
                     error: function (data) {
                         console.log(data.statusText);
