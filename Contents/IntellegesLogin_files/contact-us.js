@@ -8,7 +8,7 @@
         if ($("#modalformControls .has-error").length == 0) {
             $.ajax({
                 url: _contactUsHost+"Home/ContactUs",                
-                data: { Email: email, page: 2, IpAddress: _localAddress, Challenge: Recaptcha.get_challenge(), Response: Recaptcha.get_response() },
+                data: { Email: email, page: 2, IpAddress: _localAddress, Challenge: Recaptcha.get_challenge(), Response: Recaptcha.get_response(), enterpriseId: enterpriseId },
                 type: "POST"
             }).done(function (data) {
                 if (data !== "")
@@ -68,5 +68,9 @@
             });
         }
     });
+    if (enterpriseId !== 1) {
+        $("#contact_us_dialog").modal('toggle');
+        createCaptcha();
+    }
 }
 )();

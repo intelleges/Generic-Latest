@@ -103,8 +103,8 @@
             $(".loginwelcome").hide();
             $("#homepagediv").hide();
         }
-
-        $(document).ready(function () {
+        var enterpriseId = @ViewBag.EnterpriseId ;
+        $(document).ready(function () {            
 
             $('#scrollbar1').tinyscrollbar();
             $('#scrollbar2').tinyscrollbar();
@@ -631,7 +631,8 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
     @Scripts.Render("~/Scripts/jquery.validate.min.js")
     @Scripts.Render("~/Scripts/validator.min.js")
     @Scripts.Render("~/Scripts/alertify.js")
+    @Scripts.Render("https://www.google.com/recaptcha/api/js/recaptcha_ajax.js")
     <script src="@Url.Content("~/Contents/IntellegesLogin_files/contact-us.js")"></script>
-     @Scripts.Render("https://www.google.com/recaptcha/api/js/recaptcha_ajax.js")
+     
 </body>
 </html>

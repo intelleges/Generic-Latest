@@ -47,18 +47,19 @@ namespace Generic.Controllers
         /// Login Form
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult Index()
+        public virtual ActionResult Index(int? contactUs=1)
         {
 
             try
             {
-                var enterprises = db.pr_getEnterprise(1);
-                var elpptq = db.pr_getEnterpriseLandingPagePTQ(1, (int)LangingPage.Login).FirstOrDefault();
+                var enterprises = db.pr_getEnterprise(contactUs);
+                var elpptq = db.pr_getEnterpriseLandingPagePTQ(contactUs, (int)LangingPage.Login).FirstOrDefault();
                 if (elpptq != null)
                     ViewBag.ContactUsText = elpptq.text;
                 ViewBag.Project = "Generic";
                 ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
-                return View(enterprises.FirstOrDefault());                
+                ViewBag.EnterpriseId = contactUs;
+                return View(enterprises.FirstOrDefault());
             }
             catch (Exception ex)
             {
