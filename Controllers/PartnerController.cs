@@ -1327,15 +1327,16 @@ namespace Generic.Controllers
         {
             DataTable dataTable = new DataTable();
             EntityConnectionStringBuilder cs = new EntityConnectionStringBuilder(ConfigurationManager.ConnectionStrings["EntitiesDBContext"].ConnectionString);
-            SqlConnection conn = new SqlConnection(cs.ProviderConnectionString);
+            SqlConnection conn = new SqlConnection(cs.ProviderConnectionString);           
             
-            conn.Open();
             SqlCommand command = new SqlCommand("pr_getResponsesByProtocolTouchpointGroupPartnertype2", conn);
+            command.CommandTimeout = 120;
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@protocol", SqlDbType.VarChar).Value = protocol;
             command.Parameters.Add("@touchpoint", SqlDbType.VarChar).Value = touchpoint;
             command.Parameters.Add("@group", SqlDbType.VarChar).Value = DBNull.Value;
             command.Parameters.Add("@partnertype", SqlDbType.VarChar).Value = DBNull.Value;
+            conn.Open();
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
             sqlDataAdapter.Fill(dataTable);
             conn.Close();
@@ -3718,6 +3719,90 @@ namespace Generic.Controllers
              {
                  return Json(new { error = ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message });
              }
+         }
+
+        public class TwillioCallRecord
+        {
+            public DateTime? DATE_CREATED { get; set; }
+            public DateTime? DATE_UPDATED { get; set; }
+            public string DIRECTION { get; set; }
+            public int? DURATION { get; set; }
+            public DateTime? START_TIME { get; set; }
+            public DateTime? END_TIME { get; set; }
+            public decimal? PRICE { get; set; }
+            //public string CALL_TO { get; set; }
+            public string FROM_NAME { get; set; }
+            public string STATUS { get; set; }
+        }
+        public ActionResult GetTwillioCallsHistory()
+         {
+             var person = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+             if (person != null)
+             {
+                 string accountSid = ConfigurationManager.AppSettings["accountSidTwilio"].ToString(); //account sid
+                 string authToken = ConfigurationManager.AppSettings["authTokenTwilio"].ToString(); //auth token
+
+                 //string StoreSid = "";
+                 //string phoneNumberFrom = "+19178180225";// dialer's phone and pass according to needs.
+                 //string phoneNumberTo = PreparePhoneString(currentUser.phone); //Recipient phone as phone.pass from above
+                 var client = new TwilioRestClient(accountSid, authToken);
+                 var request = new CallListRequest();
+                 request.To = PreparePhoneString(person.phone);
+                 request.From = "19178180225";
+                 //request.
+                 request.Count = 1000;
+                 request.PageNumber = 0;
+                 var call = client.ListCalls(request);
+                 List<TwillioCallRecord> callsToReturn = new List<TwillioCallRecord>();
+                 if (call.Calls != null)
+                 {
+
+                     callsToReturn.AddRange(call.Calls.Select(o => new TwillioCallRecord() {  DATE_CREATED = o.DateCreated, DATE_UPDATED = o.DateUpdated, DIRECTION = o.Direction, DURATION = o.Duration, END_TIME = o.EndTime, FROM_NAME = person.FullName, PRICE = o.Price, STATUS = o.Status, START_TIME = o.StartTime }));
+                     request.PageNumber++;
+                     while (call.NumPages > request.PageNumber)
+                     {
+                         call = client.ListCalls(request);
+                         callsToReturn.AddRange(call.Calls.Select(o => new TwillioCallRecord() { DATE_CREATED = o.DateCreated, DATE_UPDATED = o.DateUpdated, DIRECTION = o.Direction, DURATION = o.Duration, END_TIME = o.EndTime, FROM_NAME = person.FullName, PRICE = o.Price, STATUS = o.Status, START_TIME = o.StartTime }));
+                         request.PageNumber++;
+                     }
+                 }
+                 
+               // client.Calls
+                 var stream = new MemoryStream();
+                 var serializer = new XmlSerializer(typeof(List<TwillioCallRecord>));
+
+                
+                 //We turn it into an XML and save it in the memory
+                 serializer.Serialize(stream, callsToReturn);
+                 stream.Position = 0;
+
+                 //We return the XML from the memory as a .xls file
+                 return File(stream, "application/vnd.ms-excel", "CallsList.xls");
+                 //var options = new CallOptions();
+                 //options.To = phoneNumberTo;
+                 //options.From = phoneNumberFrom;
+                 //options.Url = Request.Url.GetLeftPart(UriPartial.Authority) + ConfigurationManager.AppSettings["Twilio.URL"].ToString() + "?number=" + PreparePhoneString(iPerson.phone); //url for twilio
+                 //options.Method = "GET";
+                 //options.FallbackMethod = "GET";
+                 //options.StatusCallbackMethod = "GET";
+                 ////options.Record = true;
+                 //options.Timeout = 120;
+
+                 //var call = client.InitiateOutboundCall(options);
+
+                 //if (call.RestException == null)
+                 //{
+                 //    StoreSid = call.Sid;
+                 //}
+                 //else
+                 //{
+                 //    //Response.Write(string.Format("Error: {0}", call.RestException.Message));
+                 //    return Json(call.RestException.Message);
+                 //    StoreSid = "-";
+                 //}
+             }
+             else
+                 return Json(new { error = "There is no a such a person" });
          }
     }
     
