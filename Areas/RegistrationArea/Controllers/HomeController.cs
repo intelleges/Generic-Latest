@@ -1868,18 +1868,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return Redirect("https://www.intelleges.com");
         }
 
-        //public ActionResult CopyQuestionnarie(int enterpriseId, int personId, int ptqId)
-        //{
-        //    try
-        //    {
-        //        BootstrapDefaultQuestionnarie(enterpriseId, personId, ptqId);
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        return Json(ex.Message, JsonRequestBehavior.AllowGet);
-        //    }
-        //    return Json("Completed", JsonRequestBehavior.AllowGet);
-        //}
+        public ActionResult CopyQuestionnarie(int enterpriseId, int personId, int ptqId)
+        {
+            try
+            {
+                BootstrapDefaultQuestionnarie(enterpriseId, personId, ptqId);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+            return Json("Completed", JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// Some help methods for SUBSCRIPTION questionnarie responses

@@ -782,10 +782,10 @@ tr.pager td {
     background-color: green !important;
     border: solid 1px green !important;
     border-radius: 50%;
-    z-index:100;
+    z-index:2;
 }
 .absolutStatusPanel{
     position:absolute;
     top: 160px;
-    z-index:100;
+    z-index:2;
 }
