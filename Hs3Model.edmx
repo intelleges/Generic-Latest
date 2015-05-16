@@ -5242,6 +5242,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="protocol" Type="int" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_checkDuplicateIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_checkPartnumberBadZcodeCountByZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="zcode" Type="varchar" Mode="In" />
         </Function>
@@ -13684,7 +13689,12 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeQuestionnaireLoad">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_checkDuplicateIteratePerson" ReturnType="Collection(Int32)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -28759,6 +28769,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_getQuestionnaireLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireLoad">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireLoad" />
+          <FunctionImportMapping FunctionImportName="pr_checkDuplicateIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_checkDuplicateIteratePerson" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

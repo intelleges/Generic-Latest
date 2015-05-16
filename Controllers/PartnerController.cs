@@ -3053,6 +3053,7 @@ namespace Generic.Controllers
         public ActionResult UploadPartnerExcelData(HttpPostedFileBase excelFile)
         {
             var confirmPartnerCount = 0;
+            var exitsInternalIds = new List<string>();
             if (excelFile != null)
             {
                 if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
@@ -3081,48 +3082,56 @@ namespace Generic.Controllers
                 var statuses = db.pr_getIteratePersonStatus().ToList().ToDictionary(o => o.description, p => p.id);
                 var nextActions = db.pr_getIterateNextAction().ToList().ToDictionary(o => o.nextAction, p => p.id);
                 var partnerStatuses = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.description, p => p.id);               
-
+                
                 foreach (var newPartnerItem in newPartnerExcel.ToList())
                 {                    
                         if (!string.IsNullOrWhiteSpace(newPartnerItem.PARTNER_INTERNAL_ID))
                         {
-                            try
+                            if (db.pr_checkDuplicateIteratePerson(SessionSingleton.MyEnterPriseId, newPartnerItem.PARTNER_POC_EMAIL_ADDRESS, newPartnerItem.PARTNER_POC_PHONE_NUMBER).FirstOrDefault() == 0)
                             {
-                                var partnerStatus = !string.IsNullOrEmpty(newPartnerItem.CURRENT_STATUS) && partnerStatuses.ContainsKey(newPartnerItem.CURRENT_STATUS) ? partnerStatuses[newPartnerItem.CURRENT_STATUS] : 8;
-                                int EMPLOYEE_COUNT=0, ANNUAL_REVENUE=0;
-                                int.TryParse(newPartnerItem.EMPLOYEE_COUNT,out EMPLOYEE_COUNT);
-                                int.TryParse(newPartnerItem.ANNUAL_REVENUE, out ANNUAL_REVENUE);
-                                var savedPartners = db.pr_addIteratePartner(newPartnerItem.PARTNER_INTERNAL_ID,
-                                    newPartnerItem.PARTNER_NAME, newPartnerItem.PARTNER_ADDRESS_ONE,
-                                    newPartnerItem.PARTNER_ADDRESS_TWO, newPartnerItem.PARTNER_CITY,
-                                    newPartnerItem.PARTNER_STATE, newPartnerItem.PARTNER_ZIPCODE, newPartnerItem.PARTNER_COUNTRY,
-                                    newPartnerItem.PARTNER_DUNS, newPartnerItem.PARTNER_SAP_ID, EMPLOYEE_COUNT,
-                                    ANNUAL_REVENUE, partnerStatus, SessionSingleton.LoggedInUserId,
-                                    SessionSingleton.LoggedInUserId, DateTime.Now, true,
-                                    DateTime.Now, DateTime.Now,null, SessionSingleton.LoggedInUserId,null,
-                                   newPartnerItem.ACCESS_CODE).FirstOrDefault();
-                                var lastContact = !string.IsNullOrEmpty(newPartnerItem.LAST_CONTACT) && statuses.ContainsKey(newPartnerItem.LAST_CONTACT) ? statuses[newPartnerItem.LAST_CONTACT] : 1;
-                                var previosContact = !string.IsNullOrEmpty(newPartnerItem.PREVIOUS_CONTACT) && statuses.ContainsKey(newPartnerItem.PREVIOUS_CONTACT) ? statuses[newPartnerItem.PREVIOUS_CONTACT] : 1;
-                                var nextAction = !string.IsNullOrEmpty(newPartnerItem.NEXT_ACTION) && nextActions.ContainsKey(newPartnerItem.NEXT_ACTION) ? nextActions[newPartnerItem.NEXT_ACTION] : 1;
-                                DateTime LAST_CONTACT_DATE, PREVIOUS_CONTACT_DATE, NEXT_ACTION_DATE;
-                                var savedPersons = db.pr_addIteratePerson(newPartnerItem.PARTNER_POC_FIRST_NAME,
-                                    newPartnerItem.PARTNER_POC_LAST_NAME, newPartnerItem.PARTNER_POC_TITLE,
-                                    newPartnerItem.PARTNER_POC_EMAIL_ADDRESS, newPartnerItem.PARTNER_POC_PHONE_NUMBER,
-                                    newPartnerItem.PARTNER_CONTACT_FAX, true,
-                                    DateTime.Now, DateTime.Now, (int)savedPartners, lastContact, DateTime.TryParse(newPartnerItem.LAST_CONTACT_DATE, out LAST_CONTACT_DATE) ? LAST_CONTACT_DATE : (DateTime?)null, previosContact, DateTime.TryParse(newPartnerItem.PREVIOUS_CONTACT_DATE, out PREVIOUS_CONTACT_DATE) ? PREVIOUS_CONTACT_DATE : (DateTime?)null, nextAction, DateTime.TryParse(newPartnerItem.NEXT_ACTION_DATE, out NEXT_ACTION_DATE) ? NEXT_ACTION_DATE : (DateTime?)null, newPartnerItem.NOTES == "Y" ? true : false).FirstOrDefault();
+                                try
+                                {
+                                    var partnerStatus = !string.IsNullOrEmpty(newPartnerItem.CURRENT_STATUS) && partnerStatuses.ContainsKey(newPartnerItem.CURRENT_STATUS) ? partnerStatuses[newPartnerItem.CURRENT_STATUS] : 8;
+                                    int EMPLOYEE_COUNT = 0, ANNUAL_REVENUE = 0;
+                                    int.TryParse(newPartnerItem.EMPLOYEE_COUNT, out EMPLOYEE_COUNT);
+                                    int.TryParse(newPartnerItem.ANNUAL_REVENUE, out ANNUAL_REVENUE);
+                                    var savedPartners = db.pr_addIteratePartner(newPartnerItem.PARTNER_INTERNAL_ID,
+                                        newPartnerItem.PARTNER_NAME, newPartnerItem.PARTNER_ADDRESS_ONE,
+                                        newPartnerItem.PARTNER_ADDRESS_TWO, newPartnerItem.PARTNER_CITY,
+                                        newPartnerItem.PARTNER_STATE, newPartnerItem.PARTNER_ZIPCODE, newPartnerItem.PARTNER_COUNTRY,
+                                        newPartnerItem.PARTNER_DUNS, newPartnerItem.PARTNER_SAP_ID, EMPLOYEE_COUNT,
+                                        ANNUAL_REVENUE, partnerStatus, SessionSingleton.LoggedInUserId,
+                                        SessionSingleton.LoggedInUserId, DateTime.Now, true,
+                                        DateTime.Now, DateTime.Now, null, SessionSingleton.LoggedInUserId, null,
+                                       newPartnerItem.ACCESS_CODE).FirstOrDefault();
+                                    var lastContact = !string.IsNullOrEmpty(newPartnerItem.LAST_CONTACT) && statuses.ContainsKey(newPartnerItem.LAST_CONTACT) ? statuses[newPartnerItem.LAST_CONTACT] : 1;
+                                    var previosContact = !string.IsNullOrEmpty(newPartnerItem.PREVIOUS_CONTACT) && statuses.ContainsKey(newPartnerItem.PREVIOUS_CONTACT) ? statuses[newPartnerItem.PREVIOUS_CONTACT] : 1;
+                                    var nextAction = !string.IsNullOrEmpty(newPartnerItem.NEXT_ACTION) && nextActions.ContainsKey(newPartnerItem.NEXT_ACTION) ? nextActions[newPartnerItem.NEXT_ACTION] : 1;
+                                    DateTime LAST_CONTACT_DATE, PREVIOUS_CONTACT_DATE, NEXT_ACTION_DATE;
+                                    var savedPersons = db.pr_addIteratePerson(newPartnerItem.PARTNER_POC_FIRST_NAME,
+                                        newPartnerItem.PARTNER_POC_LAST_NAME, newPartnerItem.PARTNER_POC_TITLE,
+                                        newPartnerItem.PARTNER_POC_EMAIL_ADDRESS, newPartnerItem.PARTNER_POC_PHONE_NUMBER,
+                                        newPartnerItem.PARTNER_CONTACT_FAX, true,
+                                        DateTime.Now, DateTime.Now, (int)savedPartners, lastContact, DateTime.TryParse(newPartnerItem.LAST_CONTACT_DATE, out LAST_CONTACT_DATE) ? LAST_CONTACT_DATE : (DateTime?)null, previosContact, DateTime.TryParse(newPartnerItem.PREVIOUS_CONTACT_DATE, out PREVIOUS_CONTACT_DATE) ? PREVIOUS_CONTACT_DATE : (DateTime?)null, nextAction, DateTime.TryParse(newPartnerItem.NEXT_ACTION_DATE, out NEXT_ACTION_DATE) ? NEXT_ACTION_DATE : (DateTime?)null, newPartnerItem.NOTES == "Y" ? true : false).FirstOrDefault();
+                                }
+                                catch (Exception ex)
+                                {
+                                    return Content(ex.Message);
+                                }
+                                confirmPartnerCount++;
                             }
-                            catch (Exception ex)
+                            else
                             {
-                                return Content(ex.Message);
+                                exitsInternalIds.Add(newPartnerItem.PARTNER_NAME);
                             }
-                            confirmPartnerCount++;
+                            
                     }
                 }
             }
 
             
-
-            return Json(new { message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions." }, "text/plain");
+            //var message = exitsInternalIds.Count>0?message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions. But "
+            return Json(new { message = "Congratulations, you have uploaded " + confirmPartnerCount + " partner confirmation actions.", existsCount = exitsInternalIds.Count, exitsList = exitsInternalIds }, "text/plain");
         }
 
         [HttpPost]

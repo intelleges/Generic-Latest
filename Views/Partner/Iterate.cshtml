@@ -1443,6 +1443,32 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="IterateUploadingErrorDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="iuedfHeader">E-Mail Footer</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="IterateUploadingErrorDialogForm">
+                        <div class="form-group">
+                            
+
+                        </div>
+                        <div class="form-group">
+                            <textarea id="IterateUploadingErrorDialogFormFooter" name="IterateUploadingErrorDialogFormFooter" class="form-control" readonly rows="8"></textarea>
+                        </div>
+                        @*<div class="form-group">
+                            <button type="button" class="btn btn-primary" name="submit">Close</button>
+                        </div>*@
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
 
         <div class="col-xs-7">
@@ -1823,7 +1849,16 @@
         }
     }
     function onSuccess(e) {
-        alertify.alert(e.response.message);
+        alertify.alert(e.response.message, function () {
+            if (e.response.existsCount > 0) {
+                $("#iuedfHeader").text("These " + e.response.existsCount + " DUPLICATE Partners WERE NOT ADDED to Iterate.");
+                for (var i = 0; i < e.response.existsCount; i++) {
+                    $("#IterateUploadingErrorDialogFormFooter").text($("#IterateUploadingErrorDialogFormFooter").text() + "\n" + e.response.exitsList[i]);
+                }
+                $("#IterateUploadingErrorDialog").modal("toggle");
+                //
+            }
+        });
         $("#IteratePartners").data("tGrid").ajaxRequest();
         //$("#topCallapsePanel").html("")
     }

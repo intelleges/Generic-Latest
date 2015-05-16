@@ -16154,5 +16154,22 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaireLoad", idParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_checkDuplicateIteratePerson(Nullable<int> enterprise, string email, string phone)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("phone", phone) :
+                new ObjectParameter("phone", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_checkDuplicateIteratePerson", enterpriseParameter, emailParameter, phoneParameter);
+        }
     }
 }
