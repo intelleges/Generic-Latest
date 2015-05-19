@@ -23,6 +23,7 @@ using System.Data.Entity;
 using Pechkin;
 using Generic.Helpers.PartNumberHelper;
 using System.Configuration;
+using System.Text.RegularExpressions;
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class HomeController : Controller
@@ -438,6 +439,48 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         }
 
+        private void ResolveAndSendEmailAlert(int questionId, int pptqId,int answerId=-1, string text = "")
+        {
+            var question = db.pr_getQuestion(questionId).FirstOrDefault();
+            var answer = db.pr_getResponse(answerId).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
+            var qresponse = pptq.partnerPartnertypeTouchpointQuestionnaireQuestionResponse.FirstOrDefault(o => o.question == questionId);
+            if (question != null && !string.IsNullOrEmpty(question.emailAlertList) && question.emailAlertList.ToLower() != "none" && question.emailAlertList.ToUpper() != "N" && pptq != null && qresponse != null)
+            {
+                if (answer != null)
+                {
+                    var choices = question.emailAlertList.Split(new char[] { ',' });
+                    foreach (var choiceStr in choices)
+                    {
+                        var keyPair = choiceStr.Split(new char[] { ':' });
+                        if (keyPair.Length > 1 && keyPair[0].ToLower() == answer.zcode.ToLower())
+                        {
+                            SendEmailAlert(pptq.partner1.name, answer.description, question.question1, pptq.accesscode, qresponse.comment, keyPair[1]);
+                        }
+                    }
+                }
+                else
+                {
+                    SendEmailAlert(pptq.partner1.name, text, question.question1, pptq.accesscode, qresponse.comment, question.emailAlertList);
+                }
+            }
+        }
+        private void SendEmailAlert(string partnerName, string answer, string question, string accessCode, string comment, string emailTo)
+        {
+            autoMailMessage objamm = new autoMailMessage();
+            objamm.subject = "Intelleges: Email Alert";
+            objamm.text = partnerName + " answered '" + answer + "' to " + question + " for access code " + accessCode;
+            if (!string.IsNullOrEmpty(comment))
+            {
+                objamm.text += " with comment '" + comment + "'.";
+            }
+            else objamm.text += ".";
+            Email mail = new Email(objamm);
+            mail.type = "emailAlert";
+            mail.emailTo = emailTo;
+            SendEmail objSendEmail = new SendEmail();
+            objSendEmail.sendEmail(mail);
+        }
 
         public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
@@ -637,34 +680,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                     questionId = int.Parse(array[1]);
                     surveyId = int.Parse(array[2]);
-
-
-                    //question = new Question(new Id(questionId));
-                    //response = new Response(int.Parse(answer));
-                    //survey = new Survey(new Id(surveyId));
-                    //question.response = response;
-                    //survey.question = question;
-
-                    ////to be confirmed
-                    //provider.removeProviderProtocolCampaignQuestionnaireSurveyQuestion(protocol, campaign,
-                    //    questionnaire, survey, question);
                 }
-                //if (Request.Form.Keys[i].Contains("_languageBtn"))
-                //{
-                //    string str = Request.Form.Keys[i].ToString();
-                //    int indexdol = str.IndexOf('$');
-                //    int indexunder = str.IndexOf('_');
-                //    indexunder = indexunder - indexdol;
-                //    indexdol += 1;
-                //    indexunder = indexunder - 1;
-                //    string langName = str.Substring(indexdol, indexunder);
-                //    Session["languageused"] = langName;
-                //    Response.Redirect(Request.Url.ToString());
-                //}
-
-
-
-
                 if (keyName.ToString().Contains("btnSaveForLater"))
                 {
                     saveForLaterButton = bool.Parse(formCollection["btnSaveForLater"]);
@@ -674,24 +690,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     //    ++questionIndex;
 
+                    #region text question
                     if (keyName.ToString().Contains("_text"))
                     {
                         array = keyName.ToString().Split(splitter);
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
-                        // = array[3];
-
-                        //int? responseId = null;
                         string responseComment = answer;
-                        //try
-                       // {
-                            //responseId = int.Parse(answer);
-                        //}
-                       // catch
-                       // {
-                       //     responseComment = answer;
-                       // }
-
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
                         if (checkpsz.Count == 0)
                         {
@@ -706,19 +711,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, null, responseComment, null, null, null, null, pptq);
                         }
-
-                        // db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                        ResolveAndSendEmailAlert(questionId, pptq, text: responseComment);
                     }
+                    #endregion
+                    #region checkbox question
                     else if (keyName.ToString().Contains("_checkBox"))
                     {
                         array = keyName.ToString().Split(splitter);
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
                         answer = array[3];
-
-
-
-
                         if (formCollection[keyName.ToString()].ToLower() == "on")
                         {
                             int? responseId = null;
@@ -746,46 +748,25 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, pptq);
                             }
 
-
-                            //   db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
-
+                            ResolveAndSendEmailAlert(questionId, pptq,answerId:responseId.HasValue?responseId.Value:-1, text: responseComment);
                         }
                     }
+                    #endregion
                     else if (keyName.ToString().Contains("_Commenttext"))
                     {
                         array = keyName.ToString().Split(splitter);
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
-
-                        //provider.addProviderProtocolCampaignQuestionnaireSurveyQuestionResponse(
-                        //    protocol, campaign, questionnaire, survey, question, response);
                     }
                     else if (keyName.ToString().Contains("_onlyTextComment"))
                     {
                         array = keyName.ToString().Split(splitter);
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
-
-                        //   db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
-                        //if (answer != "74" && answer != "75")
-                        //{
-                        //    var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
-                        //    if (checkpsz == null)
-                        //    {
-                        //        db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq).FirstOrDefault();
-                        //    }
-                        //    else
-                        //    {
-                        //        if (responseComment == "")
-                        //        {
-                        //            responseComment = checkpsz.comment;
-                        //        }
-                        //        db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.id, questionId, responseId, responseComment, null, null, null, null, pptq);
-                        //    }
-                        //}
                     }
+                    #region other types
                     else
-                    {
+                    {                        
                         array = keyName.ToString().Split(splitter);
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
@@ -795,14 +776,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         catch { }
                         if (answer == "74")
                         {
-
                             string strvl = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_Commenttext"];
                             if (strvl != null)
                             {
-                                responseComment = strvl;
-                                //response.description = surveyfrm.convertLanguageToEnglish(strvl);
+                                responseComment = strvl;                                
                             }
-
                         }
                         else if (answer == "75")
                         {
@@ -823,8 +801,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
                             else responseComment = null;
                         }
-
-                        //   db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, pptq);
+                        
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
                         if (checkpsz == null)
                         {
@@ -838,51 +815,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
                             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.id, questionId, responseId, responseComment, null, null, null, null, pptq);
                         }
+                        ResolveAndSendEmailAlert(questionId, pptq, answerId: responseId.HasValue ? responseId.Value : -1, text: responseComment);
                     }
-
+                    #endregion
                     objQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
 
 
 
                     //JB skip logic handling begins
-
                     if (answer == "74" || answer == "75" || answer == "76" || answer != "")
                     {
                         if (objQuestion.skipLogicJump != null)
                         {
-                            //if (objQuestion.skipLogicAnswer != null)
-                            //{
-                            //    if (answer == "74")
-                            //    {
-
-
-                            //        if (objQuestion.skipLogicJump.Contains("&"))
-                            //        {
-                            //        }
-                            //        else
-                            //        {
-                            //            jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                            //        }
-                            //    }
-                            //    else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer != null) && answer != "" && answer != "75")
-
-                            //        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                            //    else
-                            //    {
-                            //        jumpToQuestion = 0;
-                            //    }
-                            //}
-                            //else
-
-                            //{
-                            //    if (answer == "74" && (objQuestion.commentType == 5 || objQuestion.commentType == 3))
-                            //    {
-                            //        if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer != null))
-                            //            jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                            //        else
-                            //            jumpToQuestion = 0;
-
-                            //    }
                             if (objQuestion.skipLogicAnswer != null)
                             {
 
@@ -910,14 +854,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                 gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
                                             }
                                             string answerStatus = "";
-                                            //if (ansLogicStatus == 1)
-                                            //{
-                                            //    answerStatus = "74";
-                                            //}
-                                            //else
-                                            //{
-                                            //    answerStatus = "1";
-                                            //}
+                                            
                                             Boolean foundFlage = false;
 
                                             for (int l = 0; l < formCollection.Keys.Count; ++l)
@@ -929,47 +866,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                     questionId = int.Parse(array[1]);
                                                     surveyId = int.Parse(array[2]);
                                                     answer = formCollection[l];
-
-                                                    //if (questionId == gotoQuestionId)
-                                                    //{
-                                                    //    Response.Redirect("eSignature");
-                                                    //}
                                                     if (questionId == questionidLogic)
                                                     {
-
                                                         foundFlage = true;
-
-                                                        //if (answer == "74" || answer == "75" || answer == "76")
-                                                        //{
-                                                        //    foundFlage = true;
-                                                        //    if (answer == answerStatus)
-                                                        //    {
-                                                        //        if (j == 0)
-                                                        //        {
-                                                        //            logicOneStatus = true;
-                                                        //        }
-                                                        //        else if (j == 1)
-                                                        //        {
-                                                        //            logicTwoStatus = true;
-                                                        //        }
-                                                        //    }
-                                                        //    else if (answerStatus == "1")
-                                                        //    {
-                                                        //        if (answer == "75" || answer == "76")
-                                                        //        {
-                                                        //            if (j == 0)
-                                                        //            {
-                                                        //                logicOneStatus = true;
-                                                        //            }
-                                                        //            else if (j == 1)
-                                                        //            {
-                                                        //                logicTwoStatus = true;
-                                                        //            }
-                                                        //        }
-                                                        //    }
-                                                        //    break;
-                                                        //}
-
                                                     }
                                                 }
                                             }
@@ -1086,7 +985,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     }
                 }
             }
-
+            
             // save uploaded files
             // jumpToQuestion = 
             saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);

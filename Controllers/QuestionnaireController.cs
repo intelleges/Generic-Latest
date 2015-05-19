@@ -399,7 +399,7 @@ namespace Generic.Controllers
                        Title = question.title,
                        titleLength = question.titleLength,
                        UploadMessageText = question.uploadMessageText,
-                       yValue = question.yValue                       
+                       yValue = question.yValue
                    };
                     result.Add(qObj);
                 }
@@ -985,7 +985,7 @@ namespace Generic.Controllers
                                 {
                                     //create new response instant
                                     responseId = j;
-
+                                    
                                     //add record to questionResponse table
 
                                     db.pr_addQuestionResponse(questionId, responseId);

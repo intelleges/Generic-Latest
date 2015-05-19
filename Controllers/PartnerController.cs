@@ -1327,7 +1327,7 @@ namespace Generic.Controllers
         {
             DataTable dataTable = new DataTable();
             EntityConnectionStringBuilder cs = new EntityConnectionStringBuilder(ConfigurationManager.ConnectionStrings["EntitiesDBContext"].ConnectionString);
-            SqlConnection conn = new SqlConnection(cs.ProviderConnectionString);           
+            SqlConnection conn = new SqlConnection(cs.ProviderConnectionString);
             
             SqlCommand command = new SqlCommand("pr_getResponsesByProtocolTouchpointGroupPartnertype2", conn);
             command.CommandTimeout = 120;

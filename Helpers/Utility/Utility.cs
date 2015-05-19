@@ -80,11 +80,18 @@ namespace Generic.Helpers.Utility
                 //mail.AddTo(email.providerLogin.email);
                 //receiver = email.providerLogin.email;
             }
+            if (email.type == "emailAlert")
+            {
+                var emails = email.emailTo.Split(new char[]{';'});
+                foreach(var emailTo in emails)
+                {
+                    mail.AddTo(emailTo);
+                }
+            }
             else
             {
                 mail.AddTo(email.emailTo);
                 receiver = email.emailTo;
-
             }
             //  string extension = mail.AddFileAttachment(email.attachment);
 
