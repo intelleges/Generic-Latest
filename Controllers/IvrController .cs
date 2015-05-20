@@ -23,28 +23,36 @@ namespace Generic.Controllers
             return TwiML(twiml);
         }
 
-        public ActionResult IncomingCall(int? digits)
+        public ActionResult IncomingCall(string digits)
         {
-            if (digits.HasValue)
+            if (!string.IsNullOrEmpty(digits))
             {
-                using (var db = new EntitiesDBContext())
+                int digit = 0;
+                if (int.TryParse(digits, out digit))
                 {
-                    var callList = db.pr_getPersonAll(1).ToList();
-                    if (callList.Count < digits.Value || digits.Value == 0)
-                        return VoiceXml("9178488088");
-                    else
+                    using (var db = new EntitiesDBContext())
                     {
-                        var callPerson = callList.Take(digits.Value).Last();
-                        if (callPerson != null)
+                        var callList = db.pr_getPersonAll(1).ToList();
+                        if (callList.Count < digit || digit == 0 || digit == 9)
+                            return VoiceXml("9178488088");
+                        else
                         {
-                            return VoiceXml(callPerson.phone.Replace("-", "").Replace(" ", ""));
+                            var callPerson = callList.Take(digit).Last();
+                            if (callPerson != null)
+                            {
+                                return VoiceXml(callPerson.phone.Replace("-", "").Replace(" ", ""));
+                            }
+                            else return VoiceXml("9178488088");
                         }
-                        else return VoiceXml("9178488088");
-                    }                   
+                    }
+                }
+                else
+                {
+                    return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Redirect method=\"POST\">https://www.intelleges.com/mvcmt/Generic/Ivr/IncomingCallXml</Redirect></Response>", "text/xml");
                 }
             }
             else
-               return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Redirect method=\"POST\">https://www.intelleges.com/mvcmt/Generic/Ivr/IncomingCallXml</Redirect></Response>", "text/xml");
+                return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Redirect method=\"POST\">https://www.intelleges.com/mvcmt/Generic/Ivr/IncomingCallXml</Redirect></Response>", "text/xml");
             
         }
 
@@ -56,17 +64,19 @@ namespace Generic.Controllers
             XElement rootElement = new XElement(XName.Get("Response"));
             var gatherElement = new XElement("Gather",new XAttribute("action","IncomingCall"),new XAttribute("timeout",10),new XAttribute("finishOnKey","*"),new XAttribute("numDigits",1) );
             gatherElement.Add(GetSay("Hello, Thanks for Calling Intelleges the communications platform that empowers you to accomplish your business objectives."));
+            gatherElement.Add(GetSay("If you need an operator dial 0"));
             var defaultNumber = 1;
             using (var db = new EntitiesDBContext())
             {
-                foreach (var person in db.pr_getPersonAll(1).ToList())
+                foreach (var person in db.pr_getPersonAll(1).ToList().Take(7))
                 {
                     var text = defaultNumber == 1 ? string.Format("If you are looking for {0} press 1", person.FullName) : string.Format("{0} press {1}", person.FullName, defaultNumber);
                     gatherElement.Add(GetSay(text));
                     defaultNumber++;
                 }
             }
-            //gatherElement.Add(GetSay("Or press 0 to repeat the message"));
+            gatherElement.Add(GetSay("If you need tech support dial 9"));
+            gatherElement.Add(GetSay("If you would like to hear this message again dial asterisk"));
             rootElement.Add(gatherElement);
             doc.Add(rootElement);
             string result = "";
@@ -79,7 +89,6 @@ namespace Generic.Controllers
                 }
             }
             return Content(result, "text/xml");
-            //return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response>   <Gather action=\"IncomingCall\" timeout=\"10\" finishOnKey=\"*\" numDigits=\"1\">       <Say voice=\"woman\">Hello, Thanks for Calling Intelleges the communications platform that empowers you to accomplish your business objectives. </Say>       <Say voice=\"woman\">  </Say><Say voice=\"woman\">John Betancourt press 2 </Say> <Say voice=\"woman\">Daryl Davis press 3 </Say><Say voice=\"woman\">Vishal Patel press 4 </Say><Say voice=\"woman\">Technical Support press 5 </Say><Say voice=\"woman\">Sales press 6 </Say><Say voice=\"woman\">Billing Issues press 7 </Say><Say voice=\"woman\">Otherwise press 0 for a live operator </Say>  </Gather></Response>", "text/xml");
         }
 
         private XElement GetSay(string text)
