@@ -59,7 +59,6 @@ namespace Generic.Controllers
         [HttpPost]        
         public ActionResult IncomingCallXml()
         {
-
             XDocument doc = new XDocument();
             XElement rootElement = new XElement(XName.Get("Response"));
             var gatherElement = new XElement("Gather",new XAttribute("action","IncomingCall"),new XAttribute("timeout",20),new XAttribute("finishOnKey","#"),new XAttribute("numDigits",1) );

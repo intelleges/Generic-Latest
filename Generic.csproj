@@ -28,7 +28,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;GOOGLE_MAIL_TEST1</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;GOOGLE_MAIL_TEST</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
@@ -777,6 +777,7 @@
     <Compile Include="loadHistory.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="LocalXhtmlXmlResolver.cs" />
     <Compile Include="menu.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2604,6 +2605,9 @@
     <Content Include="Scripts\dhtmlxScheduler\sources\ext\dhtmlxscheduler_agenda_view.js.map" />
     <Content Include="Scripts\dhtmlxScheduler\sources\ext\dhtmlxscheduler_active_links.js.map" />
     <Content Include="Scripts\dhtmlxScheduler\sources\dhtmlxscheduler.js.map" />
+    <Content Include="DTD\xhtml-lat1.ent" />
+    <Content Include="DTD\xhtml-symbol.ent" />
+    <Content Include="DTD\xhtml-special.ent" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

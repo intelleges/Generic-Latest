@@ -2624,8 +2624,9 @@ namespace Generic.Controllers
                     var note = GetNoteStore().getNote(SessionHelper.EvernoteCredentials.AuthToken, iPartner.note.Value.ToString(), true, false, false, false);
                     if (note != null)
                     {
-                        var doc = XDocument.Parse(note.Content.Replace("&nbsp;", "&#160;").Replace("&lrm;","&#8206;"));
-                        return Json(new { text = doc.Element(XName.Get("en-note")).ToString().Replace("<en-note>", "").Replace("</en-note>", ""), email = currentPerson.email });
+                        var doc = XDocumentExtension.LoadWithLocalXhtmlXmlResolver(note.Content);
+                        //var doc = XDocument.Parse(.Replace("&nbsp;", "&#160;").Replace("&lrm;","&#8206;"));
+                        return Json(new { text = doc.Element(XName.Get("en-note", "http://xml.evernote.com/pub/enml2.dtd")).ToString().Replace("<en-note>", "").Replace("</en-note>", ""), email = currentPerson.email });
                     }
                     else return Json(new { text = "none", email = currentPerson.email });
                 }
