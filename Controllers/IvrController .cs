@@ -62,8 +62,7 @@ namespace Generic.Controllers
             XDocument doc = new XDocument();
             XElement rootElement = new XElement(XName.Get("Response"));
             var gatherElement = new XElement("Gather",new XAttribute("action","IncomingCall"),new XAttribute("timeout",20),new XAttribute("finishOnKey","#"),new XAttribute("numDigits",1) );
-            gatherElement.Add(GetSay("Hello, Thanks for Calling Intelleges the communications platform that empowers you to accomplish your business objectives."));
-            gatherElement.Add(GetSay("If you need an operator dial 0"));
+            gatherElement.Add(GetSay("Hello, Thanks for Calling Intelleges the communications platform that empowers you to accomplish your business objectives."));            
             var defaultNumber = 1;
             using (var db = new EntitiesDBContext())
             {
@@ -74,6 +73,7 @@ namespace Generic.Controllers
                     defaultNumber++;
                 }
             }
+            gatherElement.Add(GetSay("If you need an operator dial 0"));
             gatherElement.Add(GetSay("If you need tech support dial 9"));
             gatherElement.Add(GetSay("If you would like to hear this message again press an asterisk"));
             gatherElement.Add(GetSay("If you would like to finish this call press #"));
