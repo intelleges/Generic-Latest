@@ -2434,6 +2434,8 @@
     <Content Include="Contents\images\LiButton.png" />
     <Content Include="Contents\images\xlsx-1567.png" />
     <Content Include="Contents\IntellegesLogin_files\contact-us.js" />
+    <Content Include="Content\bootstrap-duallistbox.css" />
+    <Content Include="Content\bootstrap-duallistbox.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -2700,6 +2702,8 @@
     <Content Include="Scripts\jquery-ui-1.9.0.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.min.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.bootstrap-duallistbox.js" />
+    <Content Include="Scripts\jquery.bootstrap-duallistbox.min.js" />
     <Content Include="Scripts\jsTree3\jstree.js" />
     <Content Include="Scripts\jsTree3\jstree.min.js" />
     <Content Include="Scripts\jsTree3\themes\default\32px.png" />
@@ -3467,6 +3471,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="VoiceResponse\incoming-calls.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -3539,6 +3544,7 @@
     <Content Include="Views\jsTree3\AJAXDemo.cshtml" />
     <Content Include="Views\Ivr\Index.cshtml" />
     <Content Include="Views\Ivr\IncomingCall.cshtml" />
+    <Content Include="Views\Questionnaire\EditQuestionDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

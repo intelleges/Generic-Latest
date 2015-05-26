@@ -192,10 +192,64 @@ namespace Generic.Controllers
 
         public ActionResult QuestionnaireDetailView(int id = 0)
         {
+            ViewBag.questionnaireId = id;
             List<question> questionnairedetail = db.pr_getQuestionByQuestionnaire(id).ToList();
             return View(questionnairedetail);
-
         }
+        [HttpPost]
+        public ActionResult GetQuestionnaireResponsesWithSelectedQuestion(int question, int questionnaire)
+        {
+            try
+            {
+                var questionnarieResponses = db.pr_getResponseByQuestionnaire(questionnaire).ToList().Distinct(new ResponseComparer());
+                var questionResponses = db.pr_getResponseByQuestion(question).Select(o => o.id).ToList();
+                return Json(questionnarieResponses.Select(o => new { value = o.id, text = o.description, selected = questionResponses.Contains(o.id) }));
+            }
+            catch
+            {
+                return Json(new { error = "" });
+            }
+        }
+        [HttpPost]
+        public ActionResult AddNewResponse(string text, string code, int question)
+        {
+            var id = db.pr_addResponse(text, code, 1, true, Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            return Json(new { value = (int)id, text = text });
+        }
+
+        public ActionResult SaveQuestionResponses(int[] currentValues,int question )
+        {
+            try
+            {
+                var questionResponses = db.pr_getResponseByQuestion(question).Select(o => o.id).ToList();
+                var responseToDetach = questionResponses.Where(o => !currentValues.Contains(o)).ToList();
+                var responseToAttach = currentValues.Where(o => !questionResponses.Contains(o)).ToList();
+                foreach (var response in responseToDetach)
+                    db.pr_removeQuestionResponse(question, response);
+                foreach (var response in responseToAttach)
+                    db.pr_addQuestionResponse(question, response);
+                return Json(true);
+            }
+            catch(Exception ex)
+            {
+                return Json(new { error = ex.InnerException != null ? ex.InnerException.Message : ex.Message });
+            }
+        }
+
+        class ResponseComparer : IEqualityComparer<pr_getResponseByQuestionnaire_Result>
+        {
+
+            public bool Equals(pr_getResponseByQuestionnaire_Result x, pr_getResponseByQuestionnaire_Result y)
+            {
+                return x.id == y.id;
+            }
+
+            public int GetHashCode(pr_getResponseByQuestionnaire_Result obj)
+            {
+                return obj.id.GetHashCode();
+            }
+        }
+
         public ActionResult QuestionnaireQuestionnaireCMS(int id = 0)
         {
             //  List<ExcelQuestionnaireQuestionnireCMS> questionnairedetail = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(id).ToList();
@@ -329,6 +383,30 @@ namespace Generic.Controllers
             return View(questionnaire);
         }
 
+        public ActionResult EditQuestionDetail(int? id)
+        {
+            var question = db.pr_getQuestion(id).FirstOrDefault();
+            if (question==null)
+                return HttpNotFound();
+            LoadResponseTypes(question.responseType);
+            return View(question);
+        }
+        [HttpPost]
+        public ActionResult EditQuestionDetail(question question)
+        {
+            //var question = db.pr_getQuestion(id).FirstOrDefault();
+            //if (question == null)
+               // return HttpNotFound();
+            //LoadResponseTypes(question.responseType);
+            return View(question);
+        }
+
+        private void LoadResponseTypes(int? responseType)
+        {
+            
+            var items = typeof(ResponseType).GetFields().Where(o => o.IsLiteral).Select(o => new { Name = o.Name, Id = (int)o.GetRawConstantValue() }).ToList();
+            ViewBag.ResponseTypes = new SelectList(items, "Id", "Name", responseType);
+        }
 
         //[AllowAnonymous]
         public ActionResult DownloadCMSTemplate()
@@ -704,7 +782,7 @@ namespace Generic.Controllers
                             {
                                 responses = excelQuestionnaire.Response.Substring(9, excelQuestionnaire.Response.Length - 9).Trim();
                                 responseType = "CheckBox";
-                            }
+                            }                            
                     
                             //get response type
                             switch (excelQuestionnaire.Response.ToLower())

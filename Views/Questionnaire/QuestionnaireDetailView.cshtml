@@ -7,6 +7,9 @@
     ViewBag.Title = "Questionnaire Detail View";
 }
 
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-duallistbox.min.css" rel="stylesheet" />
 <style>
     div#QuestionnaireDetailViewGrid {
         font-size: 11px;
@@ -23,14 +26,63 @@
 </style>
 
 
-@*.@( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
-.ToolBar(commands => commands
-                .Custom()
-                    .HtmlAttributes(new { id = "export" })
-                    .Text("Export to Excel")
-                    .Action("ExportExcelQuestionnaireDetail", "Questionnaire"))*@
+<div class="container-fluid">
+    <div class="modal fade" id="nurturePartner" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Modify actual responses </h4>
+                </div>
+                <div class="modal-body">
+                   
+                    <form id="modalGetPassword">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-8"><input id="responseText" name="responseText" class="form-control" type="text" placeholder="Response text" data-val-required="*" data-val="true" /></div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <input id="responseZCode" name="responseZCode" class="form-control" type="text" placeholder="ZCode" data-val-required="*" data-val="true" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="submit" title="Add new response">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
 
-@( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")    
+                        </div>
+                        <span data-valmsg-replace="true" data-valmsg-for="responseText" class="field-validation-valid help-inline"></span>
+                        <span data-valmsg-replace="true" data-valmsg-for="responseZCode" class="field-validation-valid help-inline"></span>
+                        <div class="form-group" style="padding:13px;">
+                            <div class="row">
+                                
+                                <select class="form-control" multiple="multiple" size="10" id="responseList" name="responseList"></select>
+                                <script>
+                                    var responseListDualListBox;
+                                    $(function () {
+                                        responseListDualListBox = $('#responseList').bootstrapDualListbox({
+                                            nonSelectedListLabel: 'Available responses',
+                                            selectedListLabel: 'Current Responses',
+                                            preserveSelectionOnMove: 'moved',
+                                            moveOnSelect: false,
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-default btn-block" id="saveResponseList">Save</button>
+                    </form>                  
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
 .ToolBar(commands =>
     {
     commands.Template("<a class='t-button ' href='/Questionnaire/ExportExcelQuestionnaireDetail/"+ this.ViewContext.RouteData.Values["id"]+"' id='export'>Export to Excel</a>        <input style='display:none;' type='file' id='file' name='file' /><a class='t-button ' id='btn-upload' href='#'>Upload</a>");
@@ -44,11 +96,9 @@
     <ul>
         <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
         <li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>
+        <li><a href="javascript:editResponse(@item.id,'@item.name')">Edit Response</a></li>
         <li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>
         <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-
-       
-
     </ul>
 </div>
 </text>);
@@ -118,66 +168,109 @@
         width: 143px;
     }
 </style>
-<script src="~/Scripts/jquery-1.8.2.js"></script>
-<script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+
 <script type="text/javascript">
+    var currentQuestionId;
+    function editResponse(question,name) {
+        currentQuestionId=question;
+        var questionnaireId = @ViewBag.questionnaireId;
+        $.post('@Url.Action("GetQuestionnaireResponsesWithSelectedQuestion","Questionnaire")',{questionnaire:questionnaireId,question:question}).done(function(result) {
+            if(result.error) {
+                alertify.alert("Sorry you can't change response for this question");
+            } else {
+                $("#responseList").html('');
+                for(var i=0;i<result.length;i++){
+                    var element = "<option value='"+result[i].value+"' "+(result[i].selected?"selected='selected'":"")+">"+result[i].text+"</option>";
+                    $("#responseList").append(element);
+                }
+                responseListDualListBox.bootstrapDualListbox('refresh');
+                $("#nurturePartner").modal("toggle");
+            }
+        });        
+    }
     $(function () {
-        jQuery.noConflict();
+        //jQuery.noConflict();
         $("#EmailDialog").dialog({
             autoOpen: false
         });
         $('#popup').bind('dialogclose', function (event) {
             window.location.replace(window.location.href);
         });
-    });
-
-    function CloseMe() {
-        $("#genericPopup").dialog('close');
-        //$(".t-icon .t-refresh").trigger('click');
-
-        window.location.replace(window.location.href);
-    }
-    function OpenEmailDialog(ac) {
-        jQuery.noConflict();
-
-        $.get("/WrongContact/Index", { accessCode: ac }, function (data) {
-
-            $("#EmailDialog").html(data);
-            $("#EmailDialog").dialog({
-                width: 1200,
-                height: 1000,
+        
+        $("#modalGetPassword").submit(function(e){
+            e.preventDefault();
+            $.post('@Url.Action("AddNewResponse","Questionnaire")',{text:$("#responseText").val(),code:$("#responseZCode").val(),question:currentQuestionId}).done(function(result){
+                if(result.error){
+                    alertify.alert(result.error);
+                } else {
+                    var element = "<option value='"+result.value+"'>"+result.text+"</option>";
+                    $("#responseList").append(element);
+                    responseListDualListBox.bootstrapDualListbox('refresh');
+                    $("#responseText").val("");
+                    $("#responseZCode").val("");
+                }
             });
-            $("#EmailDialog").dialog('open');
         });
-    }
-    $('#menu_block').hover(function () {
-        // alert("call");
-        $('#display_menu').show();
-    }, function () {
-        $('#display_menu').hide();
-    })
-
-    $('#menu_block').mouseenter(function () {
-        $('#display_menu').show();
-    }).mouseleave(function () {
-
-        $('#display_menu').hide();
-
+        $("#saveResponseList").click(function(){
+            var list = [];
+            $("#bootstrap-duallistbox-selected-list_responseList option").each(function(){
+                list.push($(this).val());
+            });
+            $.post('@Url.Action("SaveQuestionResponses","Questionnaire")',{currentValues:list, question:currentQuestionId}).done(function(result){
+                if(result.error){
+                    alertify.alert(result.error);
+                } else {
+                    $("#nurturePartner").modal("toggle");
+                }
+            });
+        });
     });
+
+    //function CloseMe() {
+    //    $("#genericPopup").dialog('close');
+    //    //$(".t-icon .t-refresh").trigger('click');
+
+    //    window.location.replace(window.location.href);
+    //}
+    //function OpenEmailDialog(ac) {
+    //    //jQuery.noConflict();
+
+    //    $.get("/WrongContact/Index", { accessCode: ac }, function (data) {
+
+    //        $("#EmailDialog").html(data);
+    //        $("#EmailDialog").dialog({
+    //            width: 1200,
+    //            height: 1000,
+    //        });
+    //        $("#EmailDialog").dialog('open');
+    //    });
+    //}
+    //$('#menu_block').hover(function () {
+    //    // alert("call");
+    //    $('#display_menu').show();
+    //}, function () {
+    //    $('#display_menu').hide();
+    //})
+
+    //$('#menu_block').mouseenter(function () {
+    //    $('#display_menu').show();
+    //}).mouseleave(function () {
+
+    //    $('#display_menu').hide();
+
+    //});
 
     function openEditPopup(id) {
         $.get("@Url.Content("~/Questionnaire/EditQuestionDetail/")" + id, function (data) {
+            $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
+            $("#genericPopup").dialog('open');
             $("#genericPopup").html(data);
         });
 
-        $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
-        $("#genericPopup").dialog('open');
+        
     }
 
     function openRemovePopup(id, name) {
-
-
-
         alertify.set({
             labels: {
                 ok: "No",
@@ -199,15 +292,10 @@
 
             }
         });
-
-
     }
 
 
     function openArchivePopup(id, name) {
-
-
-
         alertify.set({
             labels: {
                 ok: "No",
@@ -251,4 +339,11 @@
     });
 
 </script>
+
+@section scripts{
+@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/validator.js"></script>
+<script src="~/Scripts/jquery.bootstrap-duallistbox.min.js"></script>
+}
 

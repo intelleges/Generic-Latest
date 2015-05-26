@@ -1,0 +1,121 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.question>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    ViewBag.Title = "Question Edit";
+    Layout = null;
+}
+
+    <div class="container">
+
+    @using (Html.BeginForm("EditQuestionDetail", "Questionnaire", FormMethod.Post, new { id = "editQuestion", @style = "margin-left:100px;" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(o => o.question1, "Question Text")
+            @Html.TextBoxFor(o => o.question1, new { @class = "form-control", @style = "width:900px" })
+        </div>
+        <div class="form-group">
+            @Html.Label("ResponseTypes", "Response types")
+            @Html.EnumDropDownListFor(o=>o.responseType1)
+            @Html.DropDownList("ResponseTypes", (SelectList)ViewBag.ResponseTypes, new { @class = "form-control" })
+        </div>
+        <div class="row" style="display:@(Model.responseType.HasValue&&Model.responseType==10?"block":"none")" id="responses">
+            @Html.Label("responseTable", "Answers")
+            <div class="row">
+                <button class="btn btn-default add" type="button">Add</button>
+            </div>
+            <table class="table table-hover" id="responseTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>ZCode</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in Model.questionResponse)
+                {
+                <tr>
+                    <td>@row.response1.description</td>
+                    <td>@row.response1.zcode</td>
+                    <td><button type="button" class="btn btn-danger edit">Edit</button></td>
+                    <td><button type="button" class="btn btn-danger remove">Remove</button></td>
+                </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+        <button type="submit" class="btn btn-danger">Save</button>
+    }
+</div>
+<div id="editAnswer">
+    <div class="row">
+        <form>
+            <div class="form-group">
+               <label>
+                   Name
+               </label>                
+                @Html.TextBox("answerName","", new { @class = "form-control", @style = "width:900px" })
+            </div>
+            <div class="form-group">
+                <label>
+                    ZCode
+                </label>
+                @Html.TextBox("answerZCode", "", new { @class = "form-control", @style = "width:900px" })
+            </div>
+            <div class="form-group">
+                <label>Skip Logic</label>
+                <input type="checkbox" id="skipLogic"/>
+            </div>
+            <div class="form-group" id="skipLogicPanel">
+                <label>Select question to jump</label>
+                @Html.DropDownList()
+            </div>
+            <button type="button" id="saveeditAnswer">Save</button>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#editQuestion").submit(function (e) {
+            e.preventDefault();
+            $("#genericPopup").dialog('close');
+            //$.post("EditQuestionDetail",)
+        });
+        $("#ResponseTypes").change(function () {
+            if ($("#ResponseTypes").val() == 10) {
+                $("#responses").show();
+            } else {
+                $("#responses").hide();
+            }
+        });
+        $(".add").click(function () {
+            $("#editAnswer").dialog({ height: 300, width:300, title: "Edit answer" });
+            $("#genericPopup").dialog('open');
+        });
+        $(".edit").click(function () {
+
+        });
+        $(".remove").click(function () {
+
+        });
+        $("#saveeditAnswer").click(function () {
+
+        });
+        $("#skipLogic").change(function () {
+            $("#skipLogicPanel").toggle(this.checked);
+            //if (this.checked) {
+            //    .show();
+            //} else {
+            //    $("#skipLogicPanel").hide();
+            //}
+        })
+    });   
+</script>
+    
+    
+
