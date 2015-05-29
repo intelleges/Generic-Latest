@@ -17,5 +17,6 @@ namespace Generic
         public string description { get; set; }
         public int sortOrder { get; set; }
         public bool active { get; set; }
+        public Nullable<System.Guid> notebook { get; set; }
     }
 }

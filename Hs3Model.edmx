@@ -21609,6 +21609,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="Guid" Name="notebook" Nullable="true" />
         </ComplexType>
         <ComplexType Name="pr_getIteratePartnerStatusAll_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -28446,6 +28447,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="notebook" ColumnName="notebook" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

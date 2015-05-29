@@ -545,6 +545,15 @@
         return checkResult;
     }
 
+    function Grid_onRowDataBound(e){
+        var row = e.row;
+        var data = e.dataItem;
+        $("#partnerstatus option").each(function(){
+            if($(this).val()){
+                $("#PSU"+data.id).append("<li><a href='#' onclick='changeStatus(" + data.id + "," + $(this).val() + ");'>" + $(this).text() + "</a></li>");
+            }
+        });
+    }
 
     function Grid_onDataBound(e) {
         $("td a.menu_block.title").each(function () {
@@ -1825,6 +1834,8 @@
     </div>
 </div>
 
+
+
 <script type="text/javascript">
     function editEmailFooter() {
         $.post("getEmailFooter").done(function (result) {
@@ -2520,32 +2531,38 @@
     columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100).Filterable(false);
     columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(120).Filterable(false);
     columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
-    columns.Bound(o => o.iteratePartnerStatusDescription).Title("Status").Width(100).ClientTemplate(@"
-<a href='#' id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatusDescription#></a>
-    <div class='display_menu_right' style='display: none;'>
-        <ul>
-          <li><a href='#' onclick='changeStatus(<#=id#>,1);'>aCold Leads</a></li>
-            <li><a href='#' onclick='changeStatus(<#=id#>,2);'>cCurrentProspects</a></li>
-<li><a href='#' onclick='changeStatus(<#=id#>,3);'>dAppointment Scheduled</a></li>
-<li><a href='#' onclick='changeStatus(<#=id#>,4);'>eNeeds Follow Up</a></li>
-<li><a href='#' onclick='changeStatus(<#=id#>,5);'>fCustomer</a></li>
-<li><a href='#' onclick='changeStatus(<#=id#>,6);'>gDrip/Nurture</a></li>
-<li><a href='#' onclick='changeStatus(<#=id#>,7);'>hDead</a></li>
-<li><a href='#' onclick='changeStatus(<#=id#>,8);'>zDefault</a></li>
-        </ul>
-    </div>
-").Filterable(false);
+    columns.Bound(o => o.iteratePartnerStatusDescription).Title("Status").Width(100).ClientTemplate("<a id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatusDescription#></a><div class='display_menu_right' style='display: none;'><ul id='PSU<#=id#>'></ul></div>")
+        @*Template(@<text>
+    <a href='#' id='@("PS" + item.id)' class='menu_block'>@item.iteratePartnerStatusDescription</a>
+<div class='display_menu_right' style='display: none;'>
+    @(((SelectList)ViewBag.partnerstatus).Aggregate("", (total, next) => total += "<li><a href='#' onclick='changeStatus(" + item.id + "," + next.Value + ");'>" + next.Text + "</a></li>"))
+</div>
+
+</text>)*@
+
+//        result =>
+
+//       @"
+//<a href='#' id='PS" + result.id + "' class='menu_block'>" + result.iteratePartnerStatusDescription + @"</a>
+//            <div class='display_menu_right' style='display: none;'>
+//                <ul>"+((SelectList)ViewBag.partnerstatus).Aggregate("",(total,next)=>total+="<li><a href='#' onclick='changeStatus("+result.id+","+next.Value+");'>"+next.Text+"</a></li>")
+//                +@"</ul>
+//            </div>"
+//    )
+        //        ClientTemplate(@"
+
+        //")
+ .Filterable(false);
 
 
     columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate("<a href='#' id='note<#=id#>' class='menu_block' onclick='shownote(this,<#=id#>)'><#=NotesDescription#></a>").Filterable(false);
     ////columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
     ////columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
 }
-                                            ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound")).HtmlAttributes(new { style = "font-size:10px;" }).Filterable(o => o.Filters(filters => filters.Add(filter => filter.nextActionDate).IsLessThan(DateTime.Now.Date.AddDays(1)).And().IsGreaterThanOrEqualTo(DateTime.Now.Date)).ShowOrOption())
+                                            ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound").OnRowDataBound("Grid_onRowDataBound")).HtmlAttributes(new { style = "font-size:10px;" }).Filterable(o => o.Filters(filters => filters.Add(filter => filter.nextActionDate).IsLessThan(DateTime.Now.Date.AddDays(1)).And().IsGreaterThanOrEqualTo(DateTime.Now.Date)).ShowOrOption())
 
 }
 <!--#endregion-->
-
 @section bottomSplitter{
     <style>
         #partNumbersGrid .t-header a {
@@ -2554,7 +2571,7 @@
         }
     </style>
     <div id="partNumbersGridPanel" style="display:none;">
-    @( Html.Telerik().Grid(new List<Generic.pr_getPartnumberSiteZcodeByPPTQ2_Result>()).Name("partNumbersGrid").DataBinding(conf => conf.Ajax().Select("AjaxPartNumbersGrid", "Partner"))
+        @( Html.Telerik().Grid(new List<Generic.pr_getPartnumberSiteZcodeByPPTQ2_Result>()).Name("partNumbersGrid").DataBinding(conf => conf.Ajax().Select("AjaxPartNumbersGrid", "Partner"))
         .Columns(columns =>
         {
             columns.Bound(o => o.partnumber).Title("Part number").Width(100);
@@ -2584,8 +2601,8 @@
            .Enabled(true)
            )
            .HtmlAttributes(new { @class = "ra" }).Footer(false).HtmlAttributes(new { style = "width:100%;" })
-    )
-</div>
+        )
+    </div>
 
 }
 @section rightSplitter{
@@ -2741,9 +2758,9 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/jstree")
     <script src="//cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
     <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
-<link href="~/Content/dhtmlxscheduler/dhtmlxscheduler.css" rel="stylesheet" />
-<script src="~/Scripts/dhtmlxScheduler/dhtmlxscheduler.js"></script>
-<script src="~/Scripts/moment.min.js"></script>
+    <link href="~/Content/dhtmlxscheduler/dhtmlxscheduler.css" rel="stylesheet" />
+    <script src="~/Scripts/dhtmlxScheduler/dhtmlxscheduler.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
 
 
 }

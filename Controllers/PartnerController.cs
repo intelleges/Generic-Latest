@@ -67,7 +67,7 @@ namespace Generic.Controllers
         /// The Simple Authorizer
         /// </summary>
         readonly Generic.Helpers.EvernoteAuthorizer _evernoteAuthorizer = new Generic.Helpers.EvernoteAuthorizer(ConfigurationManager.AppSettings["Evernote.Url"], ConfigurationManager.AppSettings["Evernote.Key"], ConfigurationManager.AppSettings["Evernote.Secret"]);
-        private EntitiesDBContext db = new EntitiesDBContext();
+        private EntitiesDBContext db = new EntitiesDBContext();       
 
         //
         // GET: /Partner/
@@ -3343,11 +3343,12 @@ namespace Generic.Controllers
                         iPerson.email = email;
                         iPartner.dunsnumber = url;
                         iPerson.nextAction = na;
-                        iPerson.nextActionDate = nad;
-                        iPartner.status = partnerStatus;
+                        iPerson.nextActionDate = nad;                        
                         db.Entry(iPartner).State = EntityState.Modified;
                         db.Entry(iPerson).State = EntityState.Modified;
                         db.SaveChanges();
+                        if (partnerStatus.HasValue&&iPartner.status != partnerStatus)
+                            ChangeiteratePartnerStatus(iPartner.id, partnerStatus.Value);
                         return Json(true);
                     }
                 }
@@ -3375,7 +3376,7 @@ namespace Generic.Controllers
                             var noteStore = GetNoteStore();
 
                             var notebooks = noteStore.listNotebooks(authToken);
-                            var existNoteBook = notebooks.FirstOrDefault(o => o.Name == newsStatus.description);
+                            var existNoteBook = notebooks.FirstOrDefault(o =>Guid.Parse(o.Guid) == newsStatus.notebook);
                             if (existNoteBook == null)
                                 existNoteBook = CreateNoteBook(newsStatus.description);
                             var note = noteStore.getNote(authToken, iPartner.note.Value.ToString(), true, true, true, true);
