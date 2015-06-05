@@ -457,7 +457,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         {
                             var emaillist = keyPair[1].Split(new char[]{';'});
                             foreach(var email in emaillist)
-                                SendEmailAlert(pptq.partner1.name, answer.description, question.question1, pptq.accesscode, qresponse.comment, email);
+                                SendEmailAlert(pptq.partner1, answer.description, question.question1, pptq.accesscode, qresponse.comment, email);
                         }
                     }
                 }
@@ -465,7 +465,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     var emaillist = question.emailAlertList.Split(new char[] { ';' });
                     foreach (var email in emaillist)
-                        SendEmailAlert(pptq.partner1.name, text, question.question1, pptq.accesscode, qresponse.comment, email);
+                        SendEmailAlert(pptq.partner1, text, question.question1, pptq.accesscode, qresponse.comment, email);
                 }
             }
 
@@ -486,11 +486,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
             }
         }
-        private void SendEmailAlert(string partnerName, string answer, string question, string accessCode, string comment, string emailTo)
+        private void SendEmailAlert(partner partnerName, string answer, string question, string accessCode, string comment, string emailTo)
         {
             autoMailMessage objamm = new autoMailMessage();
             objamm.subject = "Intelleges: Email Alert";
-            objamm.text = partnerName + " answered '" + answer + "' to " + question + " for access code " + accessCode;
+            objamm.text = partnerName.name + "("+partnerName.email+") answered '" + answer + "' to '" + question + "' for access code " + accessCode;
             if (!string.IsNullOrEmpty(comment))
             {
                 objamm.text += " with comment '" + comment + "'.";
