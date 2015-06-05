@@ -213,22 +213,168 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult AddNewResponse(string text, string code, int question)
         {
-            var id = db.pr_addResponse(text, code, 1, true, Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-            return Json(new { value = (int)id, text = text });
+            var nresp = new ResponseItem() { id = Guid.NewGuid(), text = text, code = code };
+            //var id = db.pr_addResponse(text, code, 1, true, Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            AddedResponses.Add(nresp);
+            return Json(nresp);
+        }
+        class ResponseItem
+        {
+            public Guid id
+            {
+                get;set;
+            }
+            public string text{get;set;}
+            public string code {get;set;}
         }
 
-        public ActionResult SaveQuestionResponses(int[] currentValues,int question )
+        List<ResponseItem> AddedResponses
+        {
+            get
+            {
+                if(Session["AddedResponses"]==null)
+                {
+                    Session["AddedResponses"] = new List<ResponseItem>();
+                }
+                return (List<ResponseItem>)Session["AddedResponses"];
+            }
+        }
+        
+
+        private int BootstrapDefaultQuestionnarie(string touchpointName, int ptqId)
+        {
+            var enterpriseId = Helpers.CurrentInstance.EnterpriseID;
+            var personId = SessionSingleton.LoggedInUserId;
+            // var defaultID = int.Parse(ConfigurationManager.AppSettings["DefaultPartnerTypeTouchpointQuestionnaireID"]);
+            var defaultPtq = db.pr_getPartnertypeTouchpointQuestionnaire(ptqId).FirstOrDefault();
+            
+            if (defaultPtq != null)
+            {
+                //var defPartnerType = db.pr_addPartnerType(defaultPtq.partnerType1.name, defaultPtq.partnerType1.alias, defaultPtq.partnerType1.description, defaultPtq.partnerType1.partnerClass, enterpriseId, defaultPtq.partnerType1.sortOrder, 1).FirstOrDefault();
+                var defPartnerType = db.partnerType.FirstOrDefault(o => o.enterprise == enterpriseId).id;
+                var defaultProtocol = db.pr_getProtocolAll(enterpriseId).FirstOrDefault().id;
+                var dtp = db.pr_addTouchpoint(defaultProtocol, personId, personId, personId, touchpointName, touchpointName, defaultPtq.touchpoint1.purpose, defaultPtq.touchpoint1.target, defaultPtq.touchpoint1.abbreviation, DateTime.Now, DateTime.Now.AddMonths(12), defaultPtq.touchpoint1.automaticReminder, defaultPtq.touchpoint1.sortOrder, 1).FirstOrDefault();
+                //create new Campaign for this issue
+                db.pr_addCampaign(touchpointName + " Campaign", DateTime.Now.Year, DateTime.Now, null, personId, personId, 1, true, (int)dtp, 1).FirstOrDefault();
+                //var dtp = db.touchpoint.FirstOrDefault(o => o.person == personId);
+
+                var questionnarie = Convert.ToInt32(db.pr_addQuestionnaire(defaultPtq.questionnaire1.title + touchpointName, defaultPtq.questionnaire1.description, defaultPtq.questionnaire1.footer, defaultPtq.questionnaire1.locked, defaultPtq.questionnaire1.sortOrder, 1, defaultPtq.questionnaire1.multiLanguage, enterpriseId, personId, (int)defPartnerType, defaultPtq.questionnaire1.letter, defaultPtq.questionnaire1.levelType).FirstOrDefault());
+
+                var newptq = Convert.ToInt32(db.pr_addPartnertypeTouchpointQuestionnaire((int)defPartnerType, (int)dtp, (int)questionnarie, 0, true).FirstOrDefault());
+                //copy automailmessages
+                foreach (var message in defaultPtq.autoMailMessage)
+                    db.pr_addAutomailMessage(message.subject, message.text, message.footer1, message.footer2, message.sendDateCalcFactor, message.sendDateSet, message.mailType, (int)newptq).FirstOrDefault();
+
+                //copy QuestionnaireCMS
+                foreach (var cms in defaultPtq.questionnaire1.questionnaireQuestionnaireCMS)
+                    db.pr_addQuestionnaireQuestionnaireCMS((int)questionnarie, cms.questionnaireCMS, cms.text, cms.link, cms.doc);
+
+                var questions = db.pr_getQuestionByQuestionnaire((int)defaultPtq.questionnaire).ToList();
+
+
+                var existSurvey = new Dictionary<int, int>();
+                var existSurveySet = new Dictionary<int, int>();
+                var existPage = new Dictionary<int, int>();
+                var existSurveySetSurvey = new HashSet<string>();
+                var existSurveyPage = new HashSet<string>();
+
+                foreach (var question in questions)
+                {
+
+                    var qId = Convert.ToInt32(db.pr_addQuestion(question.question1, question.name, question.title, question.tag, question.responseType, question.required, question.weight, question.skipLogicAnswer, question.skipLogicJump, question.accessLevel, question.commentRequired, question.commentBoxTxt, question.commentUploadTxt, question.commentType, question.spinOffQuestionnaire, question.spinOffQID, question.emailAlert, question.emailAlertList, question.updated, question.sortOrder, question.active, enterpriseId).FirstOrDefault()
+                        );
+                    if (!string.IsNullOrEmpty(question.skipLogicJump))
+                    {
+                        db.pr_modifyQuestionSkipLogicJumpLogic((int)qId, question.skipLogicJump.Replace(question.id.ToString(), ((int)qId).ToString()));
+                    }
+                    foreach (var qres in question.questionResponse)
+                    {
+                        db.pr_addQuestionResponse((int)qId, qres.response);
+                    }
+                    //foreach (var answer in question.resp)
+                    foreach (var survey in question.survey)
+                    {
+                        if (!existSurvey.ContainsKey(survey.id))
+                        {
+                            var ns = Convert.ToInt32(db.pr_addSurvey(survey.description, survey.name, survey.display, 1, true, DateTime.Now, DateTime.Now).FirstOrDefault());
+                            existSurvey.Add(survey.id, (int)ns);
+                        }
+                        db.pr_addSurveyQuestion(existSurvey[survey.id], (int)qId);
+                        foreach (var surveySet in survey.surveyset)
+                        {
+                            if (!existSurveySet.ContainsKey(surveySet.id))
+                            {
+                                var ss = Convert.ToInt32(db.pr_addSurveyset(surveySet.description, surveySet.sortOrder, true, 1).FirstOrDefault());
+                                existSurveySet.Add(surveySet.id, (int)ss);
+                            }
+                            if (!existSurveySetSurvey.Contains(existSurveySet[surveySet.id].ToString() + "*" + existSurvey[survey.id].ToString()))
+                            {
+                                db.pr_addSurveysetSurvey(existSurveySet[surveySet.id], existSurvey[survey.id]);
+                                existSurveySetSurvey.Add(existSurveySet[surveySet.id].ToString() + "*" + existSurvey[survey.id].ToString());
+                            }
+                            foreach (var page in surveySet.page)
+                            {
+                                if (!existPage.ContainsKey(page.id))
+                                {
+                                    var sp = Convert.ToInt32(db.pr_addPage(page.description, page.sortOrder, true).FirstOrDefault());
+                                    existPage.Add(page.id, (int)sp);
+                                    db.pr_addQuestionnairePage((int)questionnarie, (int)sp);
+                                }
+                                if (!existSurveyPage.Contains(existPage[page.id].ToString() + "*" + existSurveySet[surveySet.id].ToString()))
+                                {
+                                    db.pr_addPageSurveyset(existPage[page.id], existSurveySet[surveySet.id]);
+                                    existSurveyPage.Add(existPage[page.id].ToString() + "*" + existSurveySet[surveySet.id].ToString());
+                                }
+                            }
+                        }
+                    }
+                }
+                return newptq;
+            }
+            return -1;
+        }
+
+        public ActionResult SaveQuestionResponses(string[] currentValues,int question)
         {
             try
             {
+                int val=0;
+                Guid nVal;
+                var cv = currentValues.Where(o => int.TryParse(o, out val)).Select(o=>int.Parse(o)).ToArray();
                 var questionResponses = db.pr_getResponseByQuestion(question).Select(o => o.id).ToList();
-                var responseToDetach = questionResponses.Where(o => !currentValues.Contains(o)).ToList();
-                var responseToAttach = currentValues.Where(o => !questionResponses.Contains(o)).ToList();
+                var responseToDetach = questionResponses.Where(o => !cv.Contains(o)).ToList();
+                var responseToAttach = cv.Where(o => !questionResponses.Contains(o)).ToList();
                 foreach (var response in responseToDetach)
                     db.pr_removeQuestionResponse(question, response);
                 foreach (var response in responseToAttach)
+                {
                     db.pr_addQuestionResponse(question, response);
-                return Json(true);
+                }
+                var cvNew = currentValues.Where(o => Guid.TryParse(o, out nVal)).Select(o => Guid.Parse(o)).ToArray();
+                foreach (var responseId in cvNew)
+                {
+                    var response = AddedResponses.FirstOrDefault(o => o.id == responseId);
+                    if (response != null)
+                    {
+                        var id = (int?)db.pr_addResponse(response.text, response.code, 1, true, Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                        db.pr_addQuestionResponse(question, id);
+                        var currentPtq = db.pr_getPartnertypeTouchpointQuestionnaireByQuestion(question).FirstOrDefault();
+                        //question tag for change ptq who selects this respnse
+                        
+                        
+                        var newptq = BootstrapDefaultQuestionnarie(response.text, currentPtq.id);
+                        if (newptq != -1)
+                        {
+                            var questionObj = db.pr_getQuestion(question).FirstOrDefault();
+                            questionObj.tag = "autochangeptq:" + id + "-" + newptq;
+                            db.Entry(questionObj).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                         
+                    }
+                }
+                AddedResponses.Clear();
+                return Json(new { error = "Campaign, Touchpoint and Questionnaire were successefully created for new responses" });
             }
             catch(Exception ex)
             {
@@ -596,7 +742,7 @@ namespace Generic.Controllers
                     qObj.Surveyset = questionSurveySet.description;
                     var page = questionSurveySet.page.FirstOrDefault();
                     var pageIndexArr = page.description.Split(new char[] { ' ' });
-                    qObj.Page = int.Parse(pageIndexArr[1]);                    
+                    qObj.Page = int.Parse(pageIndexArr[1]);
                     result.Add(qObj);
                 }
             }
@@ -920,7 +1066,8 @@ namespace Generic.Controllers
                             else if (excelQuestionnaire.CommentType == "YN_NO_COMMENT")
                             {
                                 objQuestion.commentType = CommentType.YN_NO_COMMENT;
-                            }
+                            } else if (excelQuestionnaire.CommentType == "DROPDOWN_COMMENT")
+                                objQuestion.commentType = CommentType.DROPDOWN_COMMENT;
                             else
                             {
                                 objQuestion.commentType = 0;

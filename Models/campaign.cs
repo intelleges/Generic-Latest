@@ -13,11 +13,7 @@ namespace Generic
         public sealed class campaignMetadata
         {
             [Required(ErrorMessage = " ")]
-            public string description { get; set; }
-            [Required(ErrorMessage = " ")]
-            public int year { get; set; }
-            [Required(ErrorMessage = " ")]
-            public int protocol { get; set; }
+            public string description { get; set; }            
         }
     }
 }

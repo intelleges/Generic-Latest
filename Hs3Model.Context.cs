@@ -190,6 +190,7 @@ namespace Generic
         public virtual DbSet<iterateAction> iterateAction { get; set; }
         public virtual DbSet<iteratePartner> iteratePartner { get; set; }
         public virtual DbSet<questionnaireLoad> questionnaireLoads { get; set; }
+        public virtual DbSet<campaignStatu> campaignStatus { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -14615,7 +14616,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addIndustryFocus", industryParameter, focusParameter, enterpriseParameter, activeParameter, partnertypetouchpointquestionnaireParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addCampaign(string description, Nullable<int> year, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> protocol)
+        public virtual ObjectResult<Nullable<decimal>> pr_addCampaign(string description, Nullable<int> year, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> author, Nullable<int> owner, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> touchpoint, Nullable<int> status)
         {
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
@@ -14625,6 +14626,22 @@ namespace Generic
                 new ObjectParameter("year", year) :
                 new ObjectParameter("year", typeof(int));
     
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("startDate", startDate) :
+                new ObjectParameter("startDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var authorParameter = author.HasValue ?
+                new ObjectParameter("author", author) :
+                new ObjectParameter("author", typeof(int));
+    
+            var ownerParameter = owner.HasValue ?
+                new ObjectParameter("owner", owner) :
+                new ObjectParameter("owner", typeof(int));
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
@@ -14633,11 +14650,15 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            var protocolParameter = protocol.HasValue ?
-                new ObjectParameter("protocol", protocol) :
-                new ObjectParameter("protocol", typeof(int));
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaign", descriptionParameter, yearParameter, sortOrderParameter, activeParameter, protocolParameter);
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaign", descriptionParameter, yearParameter, startDateParameter, endDateParameter, authorParameter, ownerParameter, sortOrderParameter, activeParameter, touchpointParameter, statusParameter);
         }
     
         public virtual ObjectResult<pr_getLogicAll_Result> pr_getLogicAll()
@@ -16170,6 +16191,268 @@ namespace Generic
                 new ObjectParameter("phone", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_checkDuplicateIteratePerson", enterpriseParameter, emailParameter, phoneParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addCampaignStatus(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaignStatus", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<campaign> pr_getCampaign(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<campaign>("pr_getCampaign", idParameter);
+        }
+    
+        public virtual ObjectResult<campaign> pr_getCampaign(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<campaign>("pr_getCampaign", mergeOption, idParameter);
+        }
+    
+        public virtual ObjectResult<campaign> pr_getCampaignAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<campaign>("pr_getCampaignAll");
+        }
+    
+        public virtual ObjectResult<campaign> pr_getCampaignAll(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<campaign>("pr_getCampaignAll", mergeOption);
+        }
+    
+        public virtual ObjectResult<pr_getCampaignRule_Result> pr_getCampaignRule(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignRule_Result>("pr_getCampaignRule", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCampaignRuleAll_Result> pr_getCampaignRuleAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignRuleAll_Result>("pr_getCampaignRuleAll");
+        }
+    
+        public virtual ObjectResult<pr_getCampaignStatus_Result> pr_getCampaignStatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignStatus_Result>("pr_getCampaignStatus", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCampaignStatusAll_Result> pr_getCampaignStatusAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignStatusAll_Result>("pr_getCampaignStatusAll");
+        }
+    
+        public virtual int pr_modifyCampaign(Nullable<int> id, string description, Nullable<int> year, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> author, Nullable<int> owner, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> touchpoint, Nullable<int> status)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("startDate", startDate) :
+                new ObjectParameter("startDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var authorParameter = author.HasValue ?
+                new ObjectParameter("author", author) :
+                new ObjectParameter("author", typeof(int));
+    
+            var ownerParameter = owner.HasValue ?
+                new ObjectParameter("owner", owner) :
+                new ObjectParameter("owner", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCampaign", idParameter, descriptionParameter, yearParameter, startDateParameter, endDateParameter, authorParameter, ownerParameter, sortOrderParameter, activeParameter, touchpointParameter, statusParameter);
+        }
+    
+        public virtual int pr_modifyCampaignRule(Nullable<int> id, Nullable<int> campaign, Nullable<int> ptqCurrent, Nullable<int> status, Nullable<int> score, Nullable<System.TimeSpan> responseInterval, Nullable<bool> straightline, Nullable<int> delayInterval, Nullable<int> ptqNext, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var campaignParameter = campaign.HasValue ?
+                new ObjectParameter("campaign", campaign) :
+                new ObjectParameter("campaign", typeof(int));
+    
+            var ptqCurrentParameter = ptqCurrent.HasValue ?
+                new ObjectParameter("ptqCurrent", ptqCurrent) :
+                new ObjectParameter("ptqCurrent", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var scoreParameter = score.HasValue ?
+                new ObjectParameter("score", score) :
+                new ObjectParameter("score", typeof(int));
+    
+            var responseIntervalParameter = responseInterval.HasValue ?
+                new ObjectParameter("responseInterval", responseInterval) :
+                new ObjectParameter("responseInterval", typeof(System.TimeSpan));
+    
+            var straightlineParameter = straightline.HasValue ?
+                new ObjectParameter("straightline", straightline) :
+                new ObjectParameter("straightline", typeof(bool));
+    
+            var delayIntervalParameter = delayInterval.HasValue ?
+                new ObjectParameter("delayInterval", delayInterval) :
+                new ObjectParameter("delayInterval", typeof(int));
+    
+            var ptqNextParameter = ptqNext.HasValue ?
+                new ObjectParameter("ptqNext", ptqNext) :
+                new ObjectParameter("ptqNext", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCampaignRule", idParameter, campaignParameter, ptqCurrentParameter, statusParameter, scoreParameter, responseIntervalParameter, straightlineParameter, delayIntervalParameter, ptqNextParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyCampaignStatus(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCampaignStatus", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeCampaign(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeCampaign", idParameter);
+        }
+    
+        public virtual int pr_removeCampaignRule(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeCampaignRule", idParameter);
+        }
+    
+        public virtual int pr_removeCampaignStatus(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeCampaignStatus", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnertypeTouchpointQuestionnaireByQuestion_Result> pr_getPartnertypeTouchpointQuestionnaireByQuestion(Nullable<int> question)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnertypeTouchpointQuestionnaireByQuestion_Result>("pr_getPartnertypeTouchpointQuestionnaireByQuestion", questionParameter);
+        }
+    
+        public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_replacePTQforPPTQ(Nullable<int> pptq, Nullable<int> oldPTQ, Nullable<int> newPTQ)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var oldPTQParameter = oldPTQ.HasValue ?
+                new ObjectParameter("oldPTQ", oldPTQ) :
+                new ObjectParameter("oldPTQ", typeof(int));
+    
+            var newPTQParameter = newPTQ.HasValue ?
+                new ObjectParameter("newPTQ", newPTQ) :
+                new ObjectParameter("newPTQ", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_replacePTQforPPTQ", pptqParameter, oldPTQParameter, newPTQParameter);
+        }
+    
+        public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_replacePTQforPPTQ(Nullable<int> pptq, Nullable<int> oldPTQ, Nullable<int> newPTQ, MergeOption mergeOption)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var oldPTQParameter = oldPTQ.HasValue ?
+                new ObjectParameter("oldPTQ", oldPTQ) :
+                new ObjectParameter("oldPTQ", typeof(int));
+    
+            var newPTQParameter = newPTQ.HasValue ?
+                new ObjectParameter("newPTQ", newPTQ) :
+                new ObjectParameter("newPTQ", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_replacePTQforPPTQ", mergeOption, pptqParameter, oldPTQParameter, newPTQParameter);
         }
     }
 }

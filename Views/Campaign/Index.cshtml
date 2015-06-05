@@ -1,0 +1,196 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.campaign>>
+@using System.Web.Mvc.Html
+@using System.Collections.Generic
+@using Generic
+@using System.Web.Optimization
+@using Telerik.Web.Mvc.UI;
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = ViewBag.enterpriseName + " Campaigns";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-duallistbox.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2015.1.318/kendo.bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2015.1.318/kendo.common-bootstrap.min.css" rel="stylesheet" />
+
+
+<style>
+    #campaigns .t-header .t-link{
+        font-size:14px !important;
+    }
+     #campaigns tr > td:hover .menu_block + .display_menu {
+        display: block !important;
+    }
+
+    #campaigns tr > td:hover .menu_block + .display_menu_right {
+        display: block !important;
+    }
+
+    .display_menu {
+        left: 30px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+</style>
+<p>
+    
+    @Html.ActionLink("Create New Campaign", "Create")
+</p>
+
+@Html.Telerik().Grid(Model).Columns(columns =>
+{
+    columns.Bound(o => o.description).Title("Name").Template(@<text>
+<a href="@Url.Action("Edit",new{id=item.id})" class="menu_block" title="click to edit">
+    @item.description
+</a>
+<div class="display_menu" style="display: none;top: -10px;height: 120px;width: 150px;">
+    <ul style="margin-top: 5px;">
+        <li><a href="@Url.Action("Edit",new{id=item.id})">Edit</a></li>
+        <li><a href="javascript:estimate(@item.id)">Estimate</a></li>
+        <li><a href="@Url.Action("Edit",new{id=item.id})">Setup end date</a></li>
+        <li><a href="@Url.Action("Edit",new{id=item.id})">Complete</a></li>
+        <li><a href="@Url.Action("Edit",new{id=item.id})">Close</a></li>
+    </ul>
+</div>
+</text>
+    );
+    //columns.Bound(o => o.touchpoint).Title("Touchpoint ID");
+    //columns.Bound(o => o.camplaignStatus.description).Title("Status");
+    columns.Bound(o => o.startDate).Title("Start Date");
+    columns.Bound(o => o.endDate).Title("End Date");
+}).Name("campaigns")
+
+<div class="container-fluid">
+    <div class="modal fade" id="nurturePartner" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Create Estimation </h4>
+                </div>
+                <div class="modal-body">
+
+                    <form id="modalGetPassword">
+                        <div class="form-group">
+                            @Html.Label("ptqList", "Questionnaire")
+                            @Html.Telerik().DropDownList().Name("ptqList").DataBinding(conf => conf.Ajax().Select("CurrentPtqList", "Campaign")).DropDownHtmlAttributes(new { style = "width:500px;white-space:nowrap;" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("partnerFind", "Partners for estimation")
+                            <div class="form-group">
+                                <select id="partnerFind" name="partnerFind" style="width:100%" required data-required-msg="At least one partner required"></select>
+                                @*@Html.Telerik().AutoComplete().Name("partnerFind").DataBinding(conf => conf.Ajax().Select("SearchPartner", "Campaign")).HtmlAttributes(new { placeholder = "Partner Search" }).AutoFill(true).Filterable(o => o.FilterMode(AutoCompleteFilterMode.Contains).MinimumChars(3)).ClientEvents(events => events.OnOpen("ComboBox_OnOpen"))*@
+                                @*.Multiple()*@
+                                @*<input id="responseZCode" name="responseZCode" class="form-control" type="text" placeholder="ZCode" data-val-required="*" data-val="true" />
+            <span class="input-group-btn">
+                <button class="btn btn-default glyphicon glyphicon-plus" type="button" title="Add partner" id="addPartner"></button>
+            </span>*@
+                            </div>
+                        </div>
+                        <table class="table table-hover" id="selectedPartners">
+                            <thead></thead>
+                            <tbody></tbody>
+                        </table>
+                        <span data-valmsg-replace="true" data-valmsg-for="responseZCode" class="field-validation-valid help-inline"></span>
+
+                        <button type="button" class="btn btn-default btn-block" id="saveResponseList">Create</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //var $campaign = $(function () {
+    //    return {
+    //        variables: {
+    //            partnerFindSelectedPartner:null
+    //        }
+    //    }
+    //})();
+    var currentId = null;
+    function estimate(id) {
+        $("#nurturePartner").modal("toggle");
+        $("#ptqList").data("tDropDownList").reload();
+        currentId = id;
+        //$("#partnerFind").data("tAutoComplete").text("");
+    }
+   
+    function ComboBox_OnOpen() {
+        $("#partnerFind").data("tAutoComplete").dropDown.$items.click(function () {
+            var currentItem = $(this);
+        });
+    }
+    $(document).ready(function () {
+        $("#partnerFind").addClass("form-control");
+        $(".t-widget.t-dropdown.t-header").css("width", "100%");
+        $("#addPartner").click(function () {
+            var value = $("#partnerFind").data("tAutoComplete").value();
+            if ($campaign.variables.partnerFindSelectedPartner) {
+                $("#selectedPartners tbody").append("<tr id='" + $campaign.variables.partnerFindSelectedPartner.Value + "'><td>" + $campaign.variables.partnerFindSelectedPartner.Text + "</td><td><button class='btn glyphicon glyphicon-minus remove-partner'></button></td></tr>");
+            }
+
+        });
+        var partnerFind = $("#partnerFind").kendoMultiSelect({
+            placeholder: "Select partners...",
+            dataTextField: "FullName",
+            dataValueField: "id",
+            autoBind: false,
+            dataSource: {
+                type: "json",
+                serverFiltering: false,
+                transport: {
+                    read: {
+                        url: "@Url.Action("SearchPartner")"
+                }
+            }
+        }
+        }).data("kendoMultiSelect");
+        // Get reference to the validator
+        var validator = $("#partnerFind").kendoValidator().data("kendoValidator");
+
+        // Bind validation to blur
+        $("input", partnerFind.wrapper).on("blur", function () {
+            validator.validate();
+        });
+        $("#saveResponseList").click(function () {
+            if ($("#partnerFind").data("kendoMultiSelect").value() && $("#partnerFind").data("kendoMultiSelect").value().length>0) {
+                $.post("@Url.Action("CreateEstimationQuestionnaire")", { qid: $("#ptqList").data("tDropDownList").value(), partners: $("#partnerFind").data("kendoMultiSelect").value(), campaign: currentId }).done(function (result) {
+                    if (!result.error) {
+                        alertify.alert("Estimation questionnaire is created and inventations are sent");
+                        $("#nurturePartner").modal("toggle");
+                    } else {
+                        alertify.alert(result.error);
+                    }
+                });
+            } else {
+                validator.validate();
+            }
+        });
+        
+        //partnerFind.input.addClass("form-control");
+        //partnerFind.input.width(500);
+        
+    });
+    
+
+</script>
+
+@section scripts{
+    
+    @*@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")*@
+    @*<script src="/Scripts/bootstrap.js"></script>*@
+    <script src="/Scripts/validator.js"></script>    
+
+
+}

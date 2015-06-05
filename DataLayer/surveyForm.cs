@@ -1278,7 +1278,7 @@ namespace Generic.DataLayer
                     textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                     textBox.Width = 600;
 
-                    if (pptqResponse.comment != null && pptqResponse.comment.Length > 0)
+                    if (pptqResponse != null&&pptqResponse.comment != null && pptqResponse.comment.Length > 0)
                     {
 
                         textBox.Text = convertLanguageApi(pptqResponse.comment);
@@ -1350,7 +1350,7 @@ namespace Generic.DataLayer
                     tableCell.HorizontalAlign = HorizontalAlign.Left;
                     string selectval = convertLanguageApi("Please select one");
                     dropDownList.Items.Add(new ListItem(selectval, ""));
-
+                    dropDownList.Attributes.Add("onChange", "showdropdowndiv(this);");
                     for (int i = 0; i < responseCollection.Count; i++)
                     {
                         //dropDownList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));

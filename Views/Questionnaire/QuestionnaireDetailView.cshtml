@@ -203,7 +203,7 @@
                 if(result.error){
                     alertify.alert(result.error);
                 } else {
-                    var element = "<option value='"+result.value+"'>"+result.text+"</option>";
+                    var element = "<option value='"+result.id+"'>"+result.text+"</option>";
                     $("#responseList").append(element);
                     responseListDualListBox.bootstrapDualListbox('refresh');
                     $("#responseText").val("");
@@ -219,9 +219,10 @@
             $.post('@Url.Action("SaveQuestionResponses","Questionnaire")',{currentValues:list, question:currentQuestionId}).done(function(result){
                 if(result.error){
                     alertify.alert(result.error);
-                } else {
-                    $("#nurturePartner").modal("toggle");
-                }
+                    if(!result.hasError){
+                        $("#nurturePartner").modal("toggle");
+                    }
+                } 
             });
         });
     });

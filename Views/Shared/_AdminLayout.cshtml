@@ -38,10 +38,17 @@
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
-    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jquery")*@
+    <script src="~/Scripts/kendo/2015.1.318/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Scripts/alertify.js"></script>
+    <script src="~/Scripts/jquery.blockUI.js"></script>
+    <script src="~/Scripts/kendo/2015.1.318/kendo.ui.core.min.js"></script>
+    @*<script src="~/Scripts/kendo/2015.1.318/kendo.core.min.js"></script>*@
+    
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryui")
-    @RenderSection("header",false)
+    @RenderSection("header", false)
     <link rel="stylesheet" href="@Url.Content("~/Content/tw-bs.css")" />
     <link href="@Url.Content("~/Content/themes/base/alertify.core.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/themes/base/alertify.default.css")" rel="stylesheet" />
@@ -103,8 +110,8 @@
         var renderedTop = RenderSection("splitterTop", false);
         var gridHtml = renderedTop != null ? renderedTop.ToHtmlString() : "";
     }
-    
-        @{Html.Telerik().Splitter().Name("Splitter1")
+
+    @{Html.Telerik().Splitter().Name("Splitter1")
     .HtmlAttributes(new { style = "height: 100%;width: 100%;" })
     .Orientation(SplitterOrientation.Vertical)
     .Panes(vPanes =>
@@ -131,12 +138,12 @@
             .Collapsible(true).Collapsed(true)
             .Content(@<div>
                 @RenderSection("leftSplitter", false)
-                
-        </div>
-                );
 
-                hPanes.Add()
-                .Content(@<div id="body">
+            </div>
+);
+
+            hPanes.Add()
+            .Content(@<div id="body">
                     @RenderSection("featured", required: false)
                     <header>
                         <div class="content-wrapper main-content clear-fix">
@@ -190,7 +197,8 @@
                             <a href="@Url.Content("~/Admin/View1")">View 1</a>
                             <a href="@Url.Content("~/Admin/View2")">View 2</a>
                             <a href="@Url.Content("~/Admin/View3")">View 3</a>
-                            <a href="@Url.Content("~/Admin/View4")">View 4</a>
+                            @* <a href="@Url.Content("~/Admin/View4")">View 4</a>*@
+                            <a href="@Url.Content("~/Campaign/Index")">Campaigns</a>
 
                             <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard</a>
                             <a href="@Url.Content("~/Admin/Icons")">Icons</a>
@@ -235,40 +243,40 @@
                     </section>
                 </div>);
 
-                hPanes.Add()
-                .Size("20%")
-                .Collapsible(true).Collapsed(true).Scrollable(true).Resizable(false)
-                .Content(@<div id="rightSplitter">
-                    @RenderSection("rightSplitter", false)
+            hPanes.Add()
+            .Size("20%")
+            .Collapsible(true).Collapsed(true).Scrollable(true).Resizable(false)
+            .Content(@<div id="rightSplitter">
+                @RenderSection("rightSplitter", false)
+            </div>
+
+);
+        }).ToString());
+
+        vPanes.Add()
+        .Size("50%")
+        .Collapsible(true).Collapsed(true)
+        .Content(@<footer>
+            @RenderSection("bottomSplitter", required: false)
+            <div class="content-wrapper">
+
+                <div class="float-left">
+                    <p>
+                        <div class="admin-touchpoints">
+                            Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
+                        </div>
+                    </p>
                 </div>
 
-                );
-                }).ToString());
-
-                vPanes.Add()
-                .Size("50%")
-                .Collapsible(true).Collapsed(true)
-                .Content(@<footer>
-                              @RenderSection("bottomSplitter", required: false)
-                    <div class="content-wrapper">
-
-                        <div class="float-left">
-                            <p>
-                                <div class="admin-touchpoints">
-                                    Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
-                                </div>
-                            </p>
-                        </div>
-
-                        <div class="float-right">
-                            <p>&copy; @DateTime.Now.Year - Intelleges</p>
-                        </div>
-                    </div>
-                </footer>);
-                })
+                <div class="float-right">
+                    <p>&copy; @DateTime.Now.Year - Intelleges</p>
+                </div>
+            </div>
+        </footer>);
+    })
                 .Render();
-                }
-            
+    }
+
     <div id="popup" style="display:none;">
         <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
     </div>

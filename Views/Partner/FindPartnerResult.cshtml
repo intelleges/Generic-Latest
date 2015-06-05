@@ -20,6 +20,9 @@
         width: 99% !important;
         left: 0;
     }
+    .modal-dialog{
+        z-index:1050;
+    }
 </style>
 
 @( Html.Telerik().Grid(Model).Name("PartnerGrid")
@@ -51,6 +54,7 @@
         { 
             <li ><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
         }
+        <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
     </ul>
 </div>
 </text>);
@@ -136,11 +140,11 @@
         width: 143px;
     }
 </style>
-<script src="~/Scripts/jquery-1.8.2.js"></script>
-<script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+@*<script src="~/Scripts/jquery-1.8.2.js"></script>
+<script src="~/Scripts/jquery-ui-1.9.2.js"></script>*@
 <script type="text/javascript">
     $(function () {
-        jQuery.noConflict();
+        //jQuery.noConflict();
         $("#EmailDialog").dialog({
             autoOpen: false
         });
@@ -149,7 +153,15 @@
             window.location.replace(window.location.href);
         });
 
+
+
     });
+    var currentPTQAccessCode = null;
+    function changePTQ(accessCode) {
+        currentPTQAccessCode = accessCode;
+        $("#ptqList").data("tDropDownList").reload();
+        $("#changePtqDialog").modal("toggle");
+    }
 
     function CloseMe() {
         $("#genericPopup").dialog('close');
@@ -159,7 +171,7 @@
     }
 
     function remind(accessCodeValue) {
-        $.post("Remind", { accessCode: accessCodeValue }).done(function (result) {
+        $.post("Remind", { accessCode: accessCodeValue }).done(function (result) {you
             if (result) {
                 alertify.alert(result);
             }
@@ -168,7 +180,7 @@
 
 
     function OpenEmailDialog(ac) {
-        jQuery.noConflict();
+        //jQuery.noConflict();
 
         $.get("@Url.Content("~/WrongContact/Index")", { accessCode: ac }, function (data) {
 
@@ -295,6 +307,37 @@
                 }
             }
     
-   
+    $(function () {
+        $(".t-widget.t-dropdown.t-header").css("width", "100%");
+    });
+    $("#changePtqBtn").click(function () {
+        
+    })
 </script>
+<div class="tw-bs">
+    <div class="container-fluid">
+        <div class="modal fade" id="changePtqDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Change  Partner type Touchpoint Questionnaire </h4>
+                    </div>
+                    <div class="modal-body">
 
+                        <form id="changePtqForm">
+                            <div class="form-group">
+                                @Html.Label("ptqList", "Questionnaire")
+                                @Html.Telerik().DropDownList().Name("ptqList").DataBinding(conf => conf.Ajax().Select("CurrentPtqList", "Campaign")).DropDownHtmlAttributes(new { style = "width:500px;white-space:nowrap;" })
+                            </div>
+                            <button type="button" class="btn btn-default btn-block" id="changePtqBtn">Save</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

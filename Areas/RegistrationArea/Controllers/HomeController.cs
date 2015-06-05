@@ -455,13 +455,34 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var keyPair = choiceStr.Split(new char[] { ':' });
                         if (keyPair.Length > 1 && keyPair[0].ToLower() == answer.zcode.ToLower())
                         {
-                            SendEmailAlert(pptq.partner1.name, answer.description, question.question1, pptq.accesscode, qresponse.comment, keyPair[1]);
+                            var emaillist = keyPair[1].Split(new char[]{';'});
+                            foreach(var email in emaillist)
+                                SendEmailAlert(pptq.partner1.name, answer.description, question.question1, pptq.accesscode, qresponse.comment, email);
                         }
                     }
                 }
                 else
                 {
-                    SendEmailAlert(pptq.partner1.name, text, question.question1, pptq.accesscode, qresponse.comment, question.emailAlertList);
+                    var emaillist = question.emailAlertList.Split(new char[] { ';' });
+                    foreach (var email in emaillist)
+                        SendEmailAlert(pptq.partner1.name, text, question.question1, pptq.accesscode, qresponse.comment, email);
+                }
+            }
+
+            if (question != null && !string.IsNullOrEmpty(question.tag) && answer!=null)
+            {
+                var splitted = question.tag.Split(new char[] { ':' });
+                if (splitted.Length > 1) 
+                {
+                    switch (splitted[0])
+                    {
+                        case "autochangeptq":
+                            var check = splitted[1].Split(new char[] { '-' });
+                            if (int.Parse(check[0]) == answerId)
+                                Session["autochangeptq"] = check[1];
+                            break;
+                        default: break;
+                    }
                 }
             }
         }
@@ -1892,6 +1913,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 enterprise _enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
                 if (isCompletedSurvey)
                 {
+                    #region subscriptionType action
                     if (ppptq_cms.partnerTypeTouchpointQuestionnaire1.questionnaire1.levelType == Generic.Helpers.Questionnaire.LevelType.SUBSCRIPTION)
                     {
                         var questions = db.pr_getQuestionByQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire1.questionnaire).ToList();
@@ -2007,6 +2029,7 @@ Intelleges Team";
                             objSendEmail.sendEmail(mail);
                         }
                     }
+                    #endregion
                     else
                     {
                         var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, ptq.id).FirstOrDefault();
@@ -2018,6 +2041,13 @@ Intelleges Team";
                         email.emailTo = objPartner.email;
                         SendEmail objSendEmail = new SendEmail();
                         objSendEmail.sendEmail(email);
+                    }
+                    //change ptq if required
+                    if( Session["autochangeptq"]!=null)
+                    {
+                        var nextPtq = int.Parse(Session["autochangeptq"].ToString());
+                        db.pr_replacePTQforPPTQ(ppptq_cms.id, ppptq_cms.partnerTypeTouchpointQuestionnaire, nextPtq).FirstOrDefault();
+                        Session["autochangeptq"] = null;
                     }
                 }
                 else

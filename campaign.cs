@@ -19,6 +19,13 @@ namespace Generic
         public int year { get; set; }
         public int sortOrder { get; set; }
         public bool active { get; set; }
-        public int protocol { get; set; }
+        public Nullable<System.DateTime> startDate { get; set; }
+        public Nullable<System.DateTime> endDate { get; set; }
+        public Nullable<int> author { get; set; }
+        public Nullable<int> owner { get; set; }
+        public int touchpoint { get; set; }
+        public Nullable<int> status { get; set; }
+    
+        public virtual touchpoint touchpoint1 { get; set; }
     }
 }

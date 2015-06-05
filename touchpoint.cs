@@ -27,6 +27,7 @@ namespace Generic
             this.partnerSpreadsheetDataLoad = new HashSet<partnerSpreadsheetDataLoad>();
             this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
             this.enterpriseContactUs = new HashSet<enterpriseContactUs>();
+            this.campaigns = new HashSet<campaign>();
         }
     
         public int id { get; set; }
@@ -67,5 +68,7 @@ namespace Generic
         public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<enterpriseContactUs> enterpriseContactUs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<campaign> campaigns { get; set; }
     }
 }

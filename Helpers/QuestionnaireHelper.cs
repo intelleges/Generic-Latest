@@ -28,6 +28,7 @@ namespace Generic.Helpers.Questionnaire
 
         public const int YN_COMMENT_REQUIRED_Y = 1;
         public const int YN_COMMENT_REQUIRED_N = 0;
+        public const int DROPDOWN_COMMENT = 8;
 
         // old system
         //        commentType 4 = File  Upload

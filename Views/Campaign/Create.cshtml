@@ -70,7 +70,7 @@
         border-radius: 28px;
         font-family: Arial;
         color: #ffffff;
-        font-size: 20px;
+        font-size: 15px;
         padding: 3px 20px 5px 20px !important;
         text-decoration: none;
     }
@@ -85,7 +85,11 @@
             text-decoration: none;
         }
 </style>
-@using (Html.BeginForm("Create", "Campaign", "POST"))
+<p>
+
+    @Html.ActionLink("Back to list", "Index")
+</p>
+@using(Html.BeginForm("Create", "Campaign", FormMethod.Post, new {id="createCampaignForm"}))
 {
     @Html.ValidationSummary(true)
 
@@ -93,15 +97,15 @@
         <legend>Create New Campaign</legend>
         <div class="threecol">
             <div class="editor-label">
-            @Html.LabelFor(model => model.protocol, "Protocol")
+            @Html.LabelFor(model => model.touchpoint, "Touchpoint")
         </div>
         <div class="editor-field">
             @Html.DropDownListFor(
-    x => x.protocol, 
-    (SelectList)ViewBag.protocol, 
-    "<select protocol>"
+    x => x.touchpoint, 
+    (SelectList)ViewBag.protocol,
+ "<select touchpoint>"
 )            
-            @Html.ValidationMessageFor(model => model.protocol)
+            @Html.ValidationMessageFor(model => model.touchpoint)
         </div>
             <div class="editor-label">
             @Html.LabelFor(model => model.description,"Description")
@@ -118,19 +122,48 @@
             @Html.ValidationMessageFor(model => model.year)
         </div>
         </div>
-        <p style="float: right; width: 20%;">
-            <input type="submit" value="Save" class="btn" />
-            <input type="button" value="Clear" class="btn" id="btnClear" />
-        </p>
-    </fieldset>
+        <div class="threecol">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.startDate, "Start Date")
+            </div>
+            <div class="editor-field">
+               @Html.Telerik().DatePickerFor(model => model.startDate)
+                @Html.ValidationMessageFor(model => model.startDate)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.endDate, "End Date")
+            </div>
+            <div class="editor-field">
+                @Html.Telerik().DatePickerFor(model => model.endDate)               
+               
+                @Html.ValidationMessageFor(model => model.endDate)
+            </div>
+            
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.status, "Status")
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownListFor(
+x => x.status,
+(SelectList)ViewBag.status,
+    "<select status>"
+)
+                    @Html.ValidationMessageFor(model => model.status)
+                </div>
+            </div>
+
+            <p style="float: right; width: 20%;">
+                <button type="submit" value="Save" class="btn" >Save</button>
+                <button type="button" value="Clear" class="btn" id="btnClear" >Clear</button>
+            </p>
+</fieldset>
 }
 
 <script>
     $(document).ready(function () { 
         $("#btnClear").click(function () {
-            $("#protocol").val("");
-            $("#year").val("")
-            $("#description").val("")
+            $("#createCampaignForm input").val("");
+            $("#createCampaignForm select").val("");
         });
         var message = "@ViewBag.message";
         if (message) {
