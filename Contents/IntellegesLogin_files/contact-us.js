@@ -68,7 +68,7 @@
             });
         }
     });
-    if (enterpriseId !== 1) {
+    if (enterpriseId !== 1 && enterpriseId!==1122) {
         $("#contact_us_dialog").modal('toggle');
         createCaptcha();
     }
