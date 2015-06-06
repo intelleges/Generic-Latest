@@ -20,6 +20,7 @@ using System.Text.RegularExpressions;
 
 namespace Generic.Controllers
 {
+    [Authorize]
     public class QuestionnaireController : Controller
     {
         private EntitiesDBContext db = new EntitiesDBContext();
@@ -190,6 +191,7 @@ namespace Generic.Controllers
             return RedirectToAction("UploadAutoMailMessage", "AutoMailMessage");
         }
 
+        [Authorize]
         public ActionResult QuestionnaireDetailView(int id = 0)
         {
             ViewBag.questionnaireId = id;

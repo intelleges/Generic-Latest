@@ -21,6 +21,7 @@ using WebMatrix.WebData;
 
 namespace Generic.Controllers
 {
+   
     public class AdminController : Controller
     {
         protected EntitiesDBContext db = new EntitiesDBContext();
@@ -47,11 +48,12 @@ namespace Generic.Controllers
         /// Login Form
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult Index(int? contactUs=1)
+        public virtual ActionResult Index(int? contactUs=1, string returnUrl=null)
         {
 
             try
             {
+                ViewBag.returnUrl = returnUrl;
                 var enterprises = db.pr_getEnterprise(contactUs);
                 var elpptq = db.pr_getEnterpriseLandingPagePTQ(contactUs, (int)LangingPage.Login).FirstOrDefault();
                 if (elpptq != null)
@@ -382,7 +384,7 @@ namespace Generic.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public virtual ActionResult Index(string userName, string password)
+        public virtual ActionResult Index(string userName, string password, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -390,13 +392,7 @@ namespace Generic.Controllers
                 if (MembershipService.ValidateUser(userName, password))
                 {
                     FormsAuthentication.SetAuthCookie(userName, false);
-                    //if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                    //    && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                    //{
-                    //    return Redirect(returnUrl);
-                    //}
-                    //else
-                    //{
+                   
                     person person = db.pr_doLogin(userName, password).FirstOrDefault();
                     SessionSingleton.LoggedInUserId = person.id;
                     SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
@@ -411,15 +407,22 @@ namespace Generic.Controllers
                         SessionSingleton.EnterpriseURL = "#";
                     }
                     Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
-
-                    if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
+                    if (Url.IsLocalUrl(returnUrl))
                     {
-                        return RedirectToAction("ResetPassword", "Person");
+                        return Redirect(returnUrl);
                     }
                     else
                     {
-                        return RedirectToAction("Home", "Admin");
+                        if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
+                        {
+                            return RedirectToAction("ResetPassword", "Person");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Home", "Admin");
+                        }
                     }
+                    
                     //}
                 }
                 else
@@ -917,7 +920,7 @@ namespace Generic.Controllers
             return PartialView("_templatesPartial");
         }
 
-
+        [Authorize]
         public ActionResult TouchpointCombobox(TouchpointComboModel model)
         {
             model.AutoCompleteAttributes.Width = model.AutoCompleteAttributes.Width ?? 200;

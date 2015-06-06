@@ -563,6 +563,7 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
                 <div class="main-content-right homepage-main-content-right" style="height: 230px;">
 
                     <form id="loginForm" action="~/Admin/Index" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
                          <p style="display: block;" class="align-text-with loginwelcome">
                                 Please sign in. If you don't have an Intelleges ID, you can create one by contacting your Hs3 Administrator.    
                             </p>

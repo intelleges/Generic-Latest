@@ -14,7 +14,7 @@ namespace Generic.Helpers
             {
                 if (System.Web.HttpContext.Current.Session["EnterpriseId"] == null)
                 {
-                     System.Web.HttpContext.Current.Response.Redirect("~/Admin/Index");
+                    return 1;
                 }
 
 

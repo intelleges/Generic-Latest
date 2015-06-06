@@ -442,6 +442,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
         private void ResolveAndSendEmailAlert(int questionId, int pptqId,int answerId=-1, string text = "")
         {
             var question = db.pr_getQuestion(questionId).FirstOrDefault();
+            var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByQuestion(question.id).FirstOrDefault();
+            
             var answer = db.pr_getResponse(answerId).FirstOrDefault();
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
             var qresponse = pptq.partnerPartnertypeTouchpointQuestionnaireQuestionResponse.FirstOrDefault(o => o.question == questionId);
@@ -457,7 +459,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         {
                             var emaillist = keyPair[1].Split(new char[]{';'});
                             foreach(var email in emaillist)
-                                SendEmailAlert(pptq.partner1, answer.description, question.question1, pptq.accesscode, qresponse.comment, email);
+                                SendEmailAlert(pptq.partner1, answer.description, question.question1, pptq.accesscode, qresponse.comment, email, ptq.questionnaire, question.id);
                         }
                     }
                 }
@@ -465,7 +467,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     var emaillist = question.emailAlertList.Split(new char[] { ';' });
                     foreach (var email in emaillist)
-                        SendEmailAlert(pptq.partner1, text, question.question1, pptq.accesscode, qresponse.comment, email);
+                        SendEmailAlert(pptq.partner1, text, question.question1, pptq.accesscode, qresponse.comment, email, ptq.questionnaire, question.id);
                 }
             }
 
@@ -486,14 +488,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
             }
         }
-        private void SendEmailAlert(partner partnerName, string answer, string question, string accessCode, string comment, string emailTo)
+        private void SendEmailAlert(partner partnerName, string answer, string question, string accessCode, string comment, string emailTo, int ptqId, int questionId)
         {
             autoMailMessage objamm = new autoMailMessage();
             objamm.subject = "Intelleges: Email Alert";
             objamm.text = partnerName.name + "("+partnerName.email+") answered '" + answer + "' to '" + question + "' for access code " + accessCode;
             if (!string.IsNullOrEmpty(comment))
             {
-                objamm.text += " with comment '" + comment + "'.";
+
+
+                objamm.text += " with comment '" + comment + "'.<br><a href='" +new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailView", "Questionnaire", new { id = ptqId, ModifyResponse = questionId, area = String.Empty })).ToString() + "'>Add to dropdown</a><br><a href='https://www.intelleges.com/mvcmt/Generic/Home/Index'>Assign to dropdown</a>";
             }
             else objamm.text += ".";
             Email mail = new Email(objamm);

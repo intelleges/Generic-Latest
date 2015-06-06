@@ -24,8 +24,10 @@
     Generic.Controllers.PersonController objPersonController = new Generic.Controllers.PersonController();
 
     Generic.person objPerson = objPersonController.GetPerson(User.Identity.Name);
+    if (objPerson!=null)
+    { 
     LoginName = objPerson.firstName + " " + objPerson.lastName;
-
+    }
 
 }
 
@@ -263,7 +265,14 @@
                 <div class="float-left">
                     <p>
                         <div class="admin-touchpoints">
-                            Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")
+                            @try
+                            {
+                                <text>Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")</text>
+                            }
+                            catch { }
+
+                            
+                            
                         </div>
                     </p>
                 </div>
@@ -443,4 +452,5 @@
 
 
 </body>
+
 </html>

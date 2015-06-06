@@ -37,7 +37,7 @@
                     <h4 class="modal-title" id="gpsLabel">Modify actual responses </h4>
                 </div>
                 <div class="modal-body">
-                   
+
                     <form id="modalGetPassword">
                         <div class="form-group">
                             <div class="row">
@@ -57,7 +57,7 @@
                         <span data-valmsg-replace="true" data-valmsg-for="responseZCode" class="field-validation-valid help-inline"></span>
                         <div class="form-group" style="padding:13px;">
                             <div class="row">
-                                
+
                                 <select class="form-control" multiple="multiple" size="10" id="responseList" name="responseList"></select>
                                 <script>
                                     var responseListDualListBox;
@@ -74,8 +74,8 @@
                         </div>
 
                         <button type="button" class="btn btn-default btn-block" id="saveResponseList">Save</button>
-                    </form>                  
-                    
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -85,23 +85,23 @@
 @( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
 .ToolBar(commands =>
     {
-    commands.Template("<a class='t-button ' href='/Questionnaire/ExportExcelQuestionnaireDetail/"+ this.ViewContext.RouteData.Values["id"]+"' id='export'>Export to Excel</a>        <input style='display:none;' type='file' id='file' name='file' /><a class='t-button ' id='btn-upload' href='#'>Upload</a>");
+        commands.Template("<a class='t-button ' href='/Questionnaire/ExportExcelQuestionnaireDetail/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a>        <input style='display:none;' type='file' id='file' name='file' /><a class='t-button ' id='btn-upload' href='#'>Upload</a>");
     })
 
         .Columns(columns =>
         {
 
             columns.Bound(o => o.name).Title("Name").Width(800).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
-<div class="display_menu" style="display: none;">
-    <ul>
-        <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-        <li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>
-        <li><a href="javascript:editResponse(@item.id,'@item.name')">Edit Response</a></li>
-        <li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>
-        <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-    </ul>
-</div>
-</text>);
+            <div class="display_menu" style="display: none;">
+                <ul>
+                    <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+                    <li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>
+                    <li><a href="javascript:editResponse(@item.id,'@item.name')">Edit Response</a></li>
+                    <li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>
+                    <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+                </ul>
+            </div>
+            </text>);
             columns.Bound(o => o.question1).Title("Question").Width(800);
             columns.Bound(o => o.title).Title("Title").Width(100);
             columns.Bound(o => o.tag).Title("Tag").Width(100);
@@ -120,7 +120,7 @@
             columns.Bound(o => o.emailAlert).Title("Email Alert").Width(100);
             columns.Bound(o => o.emailAlertList).Title("Email Aler tList").Width(100);
             columns.Bound(o => o.updated).Title("Updated").Width(100);
-           
+
 
         })
         .DataKeys(keys => keys.Add(o => o.id))
@@ -186,7 +186,15 @@
                 responseListDualListBox.bootstrapDualListbox('refresh');
                 $("#nurturePartner").modal("toggle");
             }
-        });        
+        });
+    }
+    @if(Request["ModifyResponse"]!=null)
+    {
+        <text>
+    $(function(){
+        editResponse(@Request["ModifyResponse"].ToString(),'');
+    });
+    </text>
     }
     $(function () {
         //jQuery.noConflict();
@@ -196,7 +204,7 @@
         $('#popup').bind('dialogclose', function (event) {
             window.location.replace(window.location.href);
         });
-        
+
         $("#modalGetPassword").submit(function(e){
             e.preventDefault();
             $.post('@Url.Action("AddNewResponse","Questionnaire")',{text:$("#responseText").val(),code:$("#responseZCode").val(),question:currentQuestionId}).done(function(result){
@@ -222,7 +230,7 @@
                     if(!result.hasError){
                         $("#nurturePartner").modal("toggle");
                     }
-                } 
+                }
             });
         });
     });
@@ -268,7 +276,7 @@
             $("#genericPopup").html(data);
         });
 
-        
+
     }
 
     function openRemovePopup(id, name) {
@@ -342,9 +350,9 @@
 </script>
 
 @section scripts{
-@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-<script src="/Scripts/bootstrap.js"></script>
-<script src="/Scripts/validator.js"></script>
-<script src="~/Scripts/jquery.bootstrap-duallistbox.min.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/validator.js"></script>
+    <script src="~/Scripts/jquery.bootstrap-duallistbox.min.js"></script>
 }
 
