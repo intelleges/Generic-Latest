@@ -80,6 +80,30 @@ namespace Generic.Controllers
 
         }
         [HttpPost]
+        public ActionResult SendTextMessage(int partnerId, string text)
+        {
+            //var iPartner = db.pr_getIteratePartner(partnerId).FirstOrDefault();
+            var iPerson = db.iteratePerson.FirstOrDefault(o=>o.iteratePartner==partnerId);
+            if (string.IsNullOrEmpty(text))
+                return Json(new { error = "Sms message text cannot be empty" });
+            if (iPerson != null)
+            {
+                if (string.IsNullOrEmpty(iPerson.phone)) return Json(new { error = "Current partner's phone number is empty. Sms message wasn't sent" });
+                string accountSid = ConfigurationManager.AppSettings["accountSidTwilio"].ToString(); //account sid
+                string authToken = ConfigurationManager.AppSettings["authTokenTwilio"].ToString(); //auth token                
+                string phoneNumberFrom = "+19178180225";// dialer's phone and pass according to needs.
+                string phoneNumberTo = PreparePhoneString(iPerson.phone); //Recipient phone as phone.pass from above
+                var client = new TwilioRestClient(accountSid, authToken);
+                var sms = client.SendSmsMessage(phoneNumberFrom, phoneNumberTo, text);
+                if (sms.RestException != null)
+                    return Json(new { error = sms.RestException.Message });
+                else return Json("Sms was sent");
+            }
+            else
+                return Json(new { error = "There is no a such partner in data base." });
+            return Json(true);
+        }
+        [HttpPost]
         public bool RemoveStockNumbers(string[] values, int partnerId)
         {
             var result = false;

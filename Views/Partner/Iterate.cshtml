@@ -675,6 +675,13 @@
                 });              
                
             }
+            if ($(this).text() === "Text") {
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = rowData.id;
+                $("#textMessageDialog").modal("toggle");
+            }
         });
         if (iterate.saved) {
             $($("#Company" + iterate.selectedPartnerId).parents("tr")[0]).click();
@@ -748,6 +755,17 @@
         $("#addNoteDialog").submit(function (e) {
             e.preventDefault();
             AddNote($("#noteTitle").val(), $("#noteText").val(), iterate.selectedPartner, iterate.selectedPartnerId);
+        });
+        $("#textMessageDialogForm").submit(function (e) {
+            e.preventDefault();
+            $.post("SendTextMessage", { text: $("#textMessageDialogForm #msgText").val(), partnerId: iterate.selectedPartnerId }).done(function (result) {
+                if (result.error) {
+                    alertify.alert(result.error);
+                } else {
+                    alertify.alert(result);
+                    $("#textMessageDialog").modal("toggle");
+                }
+            });
         });
         $("#newIteratePartner").submit(function (e) {
             e.preventDefault();
@@ -1473,6 +1491,30 @@
                         @*<div class="form-group">
                             <button type="button" class="btn btn-primary" name="submit">Close</button>
                         </div>*@
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="textMessageDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">SMS Message Sending</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="textMessageDialogForm">
+                        <div class="form-group">
+                            <label class="control-label" for="msgText">Message Text</label>
+                            <textarea id="msgText" name="msgText" class="form-control" placeholder="Please Enter Footer Text" data-val-required="*" data-val="true" rows="5"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="msgText" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="submit">Send</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -2477,6 +2519,7 @@
 <li><a href='#'>Nurture/Remind</a></li>
 <li><a href='#'  >Sample\\Subscribe</a></li>
             <li><a href='#'>Note</a></li>
+<li><a href='#'>Text</a></li>
             <li><a href='#'>Add</a></li>
         </ul>
     </div>
