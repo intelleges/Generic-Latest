@@ -192,10 +192,19 @@ namespace Generic.Controllers
         }
 
         [Authorize]
-        public ActionResult QuestionnaireDetailView(int id = 0)
+        public ActionResult QuestionnaireDetailView(int id, int? ptqId, int? questionId, int? partnerId, int? responseId)
         {
             ViewBag.questionnaireId = id;
             List<question> questionnairedetail = db.pr_getQuestionByQuestionnaire(id).ToList();
+            if (questionId.HasValue && partnerId.HasValue && responseId.HasValue)
+            {
+                var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByQuestionnaire(id).FirstOrDefault();
+                var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerId, ptq.id).FirstOrDefault();
+                var pptqResponse = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq.id).FirstOrDefault();
+                var question = db.pr_getQuestion(questionId).FirstOrDefault();
+                var response = db.pr_getResponse(responseId).FirstOrDefault();
+                ViewBag.ResponseDialogText = pptq.partner1.name + "(" + pptq.partner1.email + ") answered '" + response.description + "' to '" + question.title + "' for access code '" + pptq.accesscode + "' with comment '" + pptqResponse.comment+"'";
+            }
             return View(questionnairedetail);
         }
         [HttpPost]
@@ -831,50 +840,50 @@ namespace Generic.Controllers
 
                     foreach (var excelQuestionnaire in questionnaireinExcel)
                     {
-                        try
-                        {
-                            var id = db.pr_addQuestionnaireLoad(excelQuestionnaire.QID, excelQuestionnaire.Page, excelQuestionnaire.Surveyset, excelQuestionnaire.Survey, excelQuestionnaire.Question, excelQuestionnaire.Response, excelQuestionnaire.Comment, excelQuestionnaire.Title, excelQuestionnaire.Required, excelQuestionnaire.Length, excelQuestionnaire.titleLength, excelQuestionnaire.yValue, excelQuestionnaire.nValue, excelQuestionnaire.otherValue, excelQuestionnaire.qWeight, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicAnswer, excelQuestionnaire.skipLogicJump, excelQuestionnaire.CommentBoxMessageText, excelQuestionnaire.UploadMessageText, excelQuestionnaire.CommentType, excelQuestionnaire.snipOffQuestionnaire, excelQuestionnaire.spinoffid, excelQuestionnaire.emailalert, excelQuestionnaire.emailalertlist, questionnaireId).FirstOrDefault();
-                            questionnaireLoads.Add((int)id);
-                        }
-                        catch (Exception ex)
-                        {
+                        //try
+                        //{
+                        //    var id = db.pr_addQuestionnaireLoad(excelQuestionnaire.QID, excelQuestionnaire.Page, excelQuestionnaire.Surveyset, excelQuestionnaire.Survey, excelQuestionnaire.Question, excelQuestionnaire.Response, excelQuestionnaire.Comment, excelQuestionnaire.Title, excelQuestionnaire.Required, excelQuestionnaire.Length, excelQuestionnaire.titleLength, excelQuestionnaire.yValue, excelQuestionnaire.nValue, excelQuestionnaire.otherValue, excelQuestionnaire.qWeight, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicAnswer, excelQuestionnaire.skipLogicJump, excelQuestionnaire.CommentBoxMessageText, excelQuestionnaire.UploadMessageText, excelQuestionnaire.CommentType, excelQuestionnaire.snipOffQuestionnaire, excelQuestionnaire.spinoffid, excelQuestionnaire.emailalert, excelQuestionnaire.emailalertlist, questionnaireId).FirstOrDefault();
+                        //    questionnaireLoads.Add((int)id);
+                        //}
+                        //catch (Exception ex)
+                        //{
                            
-                            foreach (var qLoad in questionnaireLoads)
-                                db.pr_removeQuestionnaireLoad(qLoad);
-                            var questionsToRemove = db.question.Where(o=>questionSet.Contains(o.id)).ToList();
-                            foreach(var qToRemove in questionsToRemove)
-                            {
-                                foreach(var survey in qToRemove.survey.ToList())
-                                {
-                                    db.pr_removeSurveyQuestion(survey.id,qToRemove.id);
-                                    foreach(var surveySetoRemove in survey.surveyset.ToList())
-                                    {
-                                        db.pr_removeSurveysetSurvey(surveySetoRemove.id, survey.id);
-                                        foreach(var pageToRemove in surveySetoRemove.page.ToList())
-                                        {
-                                            db.pr_removePageSurveyset(pageToRemove.id, surveySetoRemove.id);
-                                            db.pr_removePage(pageToRemove.id);
-                                        }
-                                        db.pr_removeSurveyset(surveySetoRemove.id);
-                                    }
-                                    db.pr_removeSurvey(survey.id);
-                                }
-                                foreach(var response in qToRemove.questionResponse.ToList())
-                                {
-                                    db.pr_removeQuestionResponse(qToRemove.id, response.response);
-                                    if (!new int[] { 74, 75, 76, 77 }.Contains(response.response))
-                                        db.pr_removeResponse(response.response);
-                                }
-                                db.pr_removeQuestion(qToRemove.id);
-                            }
-                            db.pr_removePartnertypeTouchpointQuestionnaire(objPartnertypeTouchpointQuestionnaire.id);
-                            db.pr_removeQuestionnaire(questionnaireId);
-                            ViewBag.protocol = new SelectList(db.pr_getProtocolAll(EnterpriseID), "id", "name");
-                            ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
-                            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");
-                            ViewBag.level = new SelectList(db.pr_getQuestionnaireLevelTypeByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
-                            return Json(new { error = "Error in QID:" + excelQuestionnaire.QID + ";" + (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) });
-                        }
+                        //    foreach (var qLoad in questionnaireLoads)
+                        //        db.pr_removeQuestionnaireLoad(qLoad);
+                        //    var questionsToRemove = db.question.Where(o=>questionSet.Contains(o.id)).ToList();
+                        //    foreach(var qToRemove in questionsToRemove)
+                        //    {
+                        //        foreach(var survey in qToRemove.survey.ToList())
+                        //        {
+                        //            db.pr_removeSurveyQuestion(survey.id,qToRemove.id);
+                        //            foreach(var surveySetoRemove in survey.surveyset.ToList())
+                        //            {
+                        //                db.pr_removeSurveysetSurvey(surveySetoRemove.id, survey.id);
+                        //                foreach(var pageToRemove in surveySetoRemove.page.ToList())
+                        //                {
+                        //                    db.pr_removePageSurveyset(pageToRemove.id, surveySetoRemove.id);
+                        //                    db.pr_removePage(pageToRemove.id);
+                        //                }
+                        //                db.pr_removeSurveyset(surveySetoRemove.id);
+                        //            }
+                        //            db.pr_removeSurvey(survey.id);
+                        //        }
+                        //        foreach(var response in qToRemove.questionResponse.ToList())
+                        //        {
+                        //            db.pr_removeQuestionResponse(qToRemove.id, response.response);
+                        //            if (!new int[] { 74, 75, 76, 77 }.Contains(response.response))
+                        //                db.pr_removeResponse(response.response);
+                        //        }
+                        //        db.pr_removeQuestion(qToRemove.id);
+                        //    }
+                        //    db.pr_removePartnertypeTouchpointQuestionnaire(objPartnertypeTouchpointQuestionnaire.id);
+                        //    db.pr_removeQuestionnaire(questionnaireId);
+                        //    ViewBag.protocol = new SelectList(db.pr_getProtocolAll(EnterpriseID), "id", "name");
+                        //    ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
+                        //    ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");
+                        //    ViewBag.level = new SelectList(db.pr_getQuestionnaireLevelTypeByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+                        //    return Json(new { error = "Error in QID:" + excelQuestionnaire.QID + ";" + (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) });
+                        //}
                         responses = null; responseType = string.Empty;
                         if (excelQuestionnaire.Page < 1 || excelQuestionnaire.Surveyset.Length < 1 || excelQuestionnaire.Survey.Length < 1 || excelQuestionnaire.Question.Length < 1 || excelQuestionnaire.Response.Length < 1 || excelQuestionnaire.Title.Length < 1 || excelQuestionnaire.Required.Length < 1)
                         {
