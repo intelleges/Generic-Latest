@@ -459,7 +459,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         {
                             var emaillist = keyPair[1].Split(new char[]{';'});
                             foreach(var email in emaillist)
-                                SendEmailAlert(pptq.partner1, answer.description, question.question1, pptq.accesscode, qresponse.comment, email, ptq.questionnaire, question.id);
+                                SendEmailAlert(pptq.partner1, answer.description, question.question1, pptq.accesscode, text, email, ptq.questionnaire, question.id);
                         }
                     }
                 }
@@ -467,7 +467,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     var emaillist = question.emailAlertList.Split(new char[] { ';' });
                     foreach (var email in emaillist)
-                        SendEmailAlert(pptq.partner1, text, question.question1, pptq.accesscode, qresponse.comment, email, ptq.questionnaire, question.id);
+                        SendEmailAlert(pptq.partner1, text, question.question1, pptq.accesscode, text, email, ptq.questionnaire, question.id);
                 }
             }
 
