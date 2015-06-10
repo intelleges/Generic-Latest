@@ -496,8 +496,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             if (!string.IsNullOrEmpty(comment))
             {
 
-
-                objamm.text += " with comment '" + comment + "'.<br><a href='" +new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailView", "Questionnaire", new { id = ptqId, ModifyResponse = questionId, area = String.Empty })).ToString() + "'>Add to dropdown</a><br><a href='https://www.intelleges.com/mvcmt/Generic/Home/Index'>Assign to dropdown</a>";
+                var url = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailView", "Questionnaire", new { id = ptqId, ModifyResponse = questionId, area = String.Empty })).ToString();
+                objamm.text += " with comment '" + comment + "'.<br><a href='" + url + "'>Add to dropdown</a><br><a href='" + url + "'>Assign to dropdown</a>";
             }
             else objamm.text += ".";
             Email mail = new Email(objamm);
