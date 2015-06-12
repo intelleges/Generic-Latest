@@ -38,7 +38,7 @@
         if (message !== "") {
             alertify.alert(message);//"");
         }
-
+        
         $("#btnSaveForLater").click(function (e) {
 
             window.location.replace("Saveforlater");
@@ -64,14 +64,27 @@
 </script>
 <style>
     .dropdownchange {
-    width:100px;
+    width:100%;
+    font-size:9px;
+    height:23px;
+    margin-bottom: 6px;
     }
-
+    #partnumberStatusSelectList{
+        width:80px;
+    }
     #siteSelectList {
-     width:265px;
+     width:319px;
     }
     #partNumberSelectList {
-         width:150px;
+         width: 260px;
+    }
+    
+    .dropdowns table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+    .dropdowns table td{
+        padding:0; margin:0;
     }
      .field-validation-error {
 font-size: 14PX;
@@ -102,7 +115,7 @@ li { margin-top: 10px; margin-bottom: 10px; margin-left: 10px; float: left; back
     jQuery.noConflict();
     jQuery(document).ready(function () {
 
-       
+        $('[data-toggle="popover"]').tooltip();
         $('.dropdownchange').change(function () {
             var objpartNumberID = $('#partNumberSelectList').val();
             var objsiteID = $('#siteSelectList').val();
@@ -627,7 +640,7 @@ li { margin-top: 10px; margin-bottom: 10px; margin-left: 10px; float: left; back
                                 <table cellpadding="2" cellspacing="0" border="0" valign="center">
                                     <tr>
                                         <td>
-                                            <span style="font-size: 12px;">Status</span>&nbsp;
+                                            
                               
 
                                  
@@ -719,42 +732,44 @@ li { margin-top: 10px; margin-bottom: 10px; margin-left: 10px; float: left; back
 
 
                               
-
-
-                                @Html.Raw(ViewBag.questions)
-
-
-                                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td align="right"></td>
-                                        <td>&nbsp;
-                                        </td>
-                                        <td align="right">
-                                            <span id="lblErrormsg" class="redheader"></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"></td>
-                                        <td>&nbsp;
-                                        </td>
-                                        <td align="right">
-                                            <input type="submit" name="btnBack" id="btnBack" value="@ViewBag.CMS_PAGE_PREVIOUS_TEXT" onclick="javascript: history.go(-1); return false;" style="border-width: 0px;" />
-                                            <input type="submit" name="btnSubmit" id="btnSubmit" value="@ViewBag.CMS_PAGE_NEXT_TEXT"  style="border-width: 0px;" />
-                                        </td>
-                                    </tr>
-
-                                </table>
-
-                                <div align="right" style="padding-top: 25px;">
-                                    <input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
-                                    <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
-                                    <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
-                                       <input type="hidden" name="Page" value="@Request.QueryString["Page"]" /> 
-                                      <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" /> 
+                                <div class="tw-bs">
+                                    <div class="container">
+                                        @Html.Raw(ViewBag.questions)
+                                    </div>
                                 </div>
+                                    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td align="right"></td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td align="right">
+                                                <span id="lblErrormsg" class="redheader"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"></td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td align="right">
+                                                <input type="submit" name="btnBack" id="btnBack" value="@ViewBag.CMS_PAGE_PREVIOUS_TEXT" onclick="javascript: history.go(-1); return false;" style="border-width: 0px;" />
+                                                <input type="submit" name="btnSubmit" id="btnSubmit" value="@ViewBag.CMS_PAGE_NEXT_TEXT" style="border-width: 0px;" />
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                    <div align="right" style="padding-top: 25px;">
+                                        <input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
+                                        <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
+                                        <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
+                                        <input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
+                                        <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
+                                    </div>
 
 
-                            </div>
+                                </div>
                         </div>
 
 

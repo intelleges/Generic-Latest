@@ -1486,6 +1486,9 @@
     <Compile Include="pr_getPartnumberByPPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnumberDetail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnumberSiteZcodeByPPTQ2_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

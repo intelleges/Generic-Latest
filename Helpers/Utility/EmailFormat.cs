@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Generic.Helpers.Utility
 {
@@ -361,7 +362,12 @@ namespace Generic.Helpers.Utility
                             int partid = Convert.ToInt32(HttpContext.Current.Session["partnumber"].ToString());
                             if (partid != 0)
                             {
-                                sValue = db.pr_getPartnumber(partid).FirstOrDefault().description;
+                                var partnumber = db.pr_getPartnumber(partid).FirstOrDefault();
+                                var details = db.pr_getPartnumberDetail(partid).FirstOrDefault();
+                                if (details != null)
+                                    sValue = string.Format("<a href='#' data-toggle='popover' title='{1}' data-placement='top'>{0}</a>", partnumber.description, HttpUtility.HtmlEncode(details.description));
+                                else sValue = partnumber.description;
+                              
                             }
                         }
                         break;

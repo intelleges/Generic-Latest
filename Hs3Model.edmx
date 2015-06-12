@@ -4533,6 +4533,62 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="dueDate" Type="datetime" Mode="In" />
           <Parameter Name="group" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addPartnerSpreadsheetDataLoadOLD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partner_internal_id" Type="varchar" Mode="In" />
+          <Parameter Name="partner_sap_id" Type="varchar" Mode="In" />
+          <Parameter Name="partner_name" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_address_one" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_address_two" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_city" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_state" Type="varchar" Mode="In" />
+          <Parameter Name="partner_zipcode" Type="varchar" Mode="In" />
+          <Parameter Name="partner_country" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_first_name" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_last_name" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_title" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_phone_number" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_email_address" Type="varchar" Mode="In" />
+          <Parameter Name="ro_first_name" Type="varchar" Mode="In" />
+          <Parameter Name="ro_last_name" Type="varchar" Mode="In" />
+          <Parameter Name="ro_email" Type="varchar" Mode="In" />
+          <Parameter Name="date_loaded" Type="datetime" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="partnerSpreadsheetDataLoadStatus" Type="int" Mode="In" />
+          <Parameter Name="loadGroup" Type="varchar" Mode="In" />
+          <Parameter Name="dueDate" Type="datetime" Mode="In" />
+          <Parameter Name="group" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addPartnerSpreadsheetDataLoadqq" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partner_internal_id" Type="varchar" Mode="In" />
+          <Parameter Name="partner_sap_id" Type="varchar" Mode="In" />
+          <Parameter Name="partner_name" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_address_one" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_address_two" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_city" Type="varchar(max)" Mode="In" />
+          <Parameter Name="partner_state" Type="varchar" Mode="In" />
+          <Parameter Name="partner_zipcode" Type="varchar" Mode="In" />
+          <Parameter Name="partner_country" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_first_name" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_last_name" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_title" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_phone_number" Type="varchar" Mode="In" />
+          <Parameter Name="partner_poc_email_address" Type="varchar" Mode="In" />
+          <Parameter Name="ro_first_name" Type="varchar" Mode="In" />
+          <Parameter Name="ro_last_name" Type="varchar" Mode="In" />
+          <Parameter Name="ro_email" Type="varchar" Mode="In" />
+          <Parameter Name="date_loaded" Type="datetime" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="partnerSpreadsheetDataLoadStatus" Type="int" Mode="In" />
+          <Parameter Name="loadGroup" Type="varchar" Mode="In" />
+          <Parameter Name="dueDate" Type="datetime" Mode="In" />
+          <Parameter Name="group" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addPartnerType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="name" Type="varchar" Mode="In" />
           <Parameter Name="alias" Type="varchar" Mode="In" />
@@ -4565,6 +4621,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="questionnaire" Type="int" Mode="In" />
           <Parameter Name="partner_internal_id" Type="varchar" Mode="In" />
           <Parameter Name="partner_poc_email_address" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_addPartnumberDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnumber" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="pr_addPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnumber" Type="int" Mode="In" />
@@ -4618,6 +4678,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="loadGroup" Type="varchar" Mode="In" />
           <Parameter Name="dueDate" Type="date" Mode="In" />
           <Parameter Name="group" Type="int" Mode="In" />
+          <Parameter Name="partnumberDetail" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="pr_addPartnumberSpreadsheetDataLoadstatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -5899,6 +5960,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_getPartnumberCountByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPartnumberDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnumber" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPartnumberSiteZcodeByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
@@ -12407,42 +12471,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="internalID" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="partnumberSpreadsheetDataLoadStatus" EntityType="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoadStatus" />
-          <FunctionImport Name="pr_addPartnumberSpreadsheetDataLoad" ReturnType="Collection(Int32)">
-            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
-            <Parameter Name="partner_sap_id" Mode="In" Type="String" />
-            <Parameter Name="partner_name" Mode="In" Type="String" />
-            <Parameter Name="partner_address_one" Mode="In" Type="String" />
-            <Parameter Name="partner_address_two" Mode="In" Type="String" />
-            <Parameter Name="partner_city" Mode="In" Type="String" />
-            <Parameter Name="partner_state" Mode="In" Type="String" />
-            <Parameter Name="partner_zipcode" Mode="In" Type="String" />
-            <Parameter Name="partner_country" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_first_name" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_last_name" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_title" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_phone_number" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_email_address" Mode="In" Type="String" />
-            <Parameter Name="internal_site_id" Mode="In" Type="String" />
-            <Parameter Name="sap_site" Mode="In" Type="String" />
-            <Parameter Name="sap_plant_code" Mode="In" Type="String" />
-            <Parameter Name="site_name" Mode="In" Type="String" />
-            <Parameter Name="part_number_sap" Mode="In" Type="String" />
-            <Parameter Name="part_number_internal" Mode="In" Type="String" />
-            <Parameter Name="sub_commodity_owner" Mode="In" Type="String" />
-            <Parameter Name="center_of_excellence" Mode="In" Type="String" />
-            <Parameter Name="ro_first_name" Mode="In" Type="String" />
-            <Parameter Name="ro_last_name" Mode="In" Type="String" />
-            <Parameter Name="ro_email" Mode="In" Type="String" />
-            <Parameter Name="date_loaded" Mode="In" Type="DateTime" />
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-            <Parameter Name="partnertype" Mode="In" Type="Int32" />
-            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
-            <Parameter Name="person" Mode="In" Type="Int32" />
-            <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
-            <Parameter Name="loadGroup" Mode="In" Type="String" />
-            <Parameter Name="dueDate" Mode="In" Type="DateTime" />
-            <Parameter Name="group" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_addPartnumberSpreadsheetDataLoadstatus" ReturnType="Collection(Decimal)">
             <Parameter Name="description" Mode="In" Type="String" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
@@ -13857,6 +13885,106 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="pptq" Mode="In" Type="Int32" />
             <Parameter Name="oldPTQ" Mode="In" Type="Int32" />
             <Parameter Name="newPTQ" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPartnerSpreadsheetDataLoadOLD" ReturnType="Collection(Int32)">
+            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
+            <Parameter Name="partner_sap_id" Mode="In" Type="String" />
+            <Parameter Name="partner_name" Mode="In" Type="String" />
+            <Parameter Name="partner_address_one" Mode="In" Type="String" />
+            <Parameter Name="partner_address_two" Mode="In" Type="String" />
+            <Parameter Name="partner_city" Mode="In" Type="String" />
+            <Parameter Name="partner_state" Mode="In" Type="String" />
+            <Parameter Name="partner_zipcode" Mode="In" Type="String" />
+            <Parameter Name="partner_country" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_first_name" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_last_name" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_title" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_phone_number" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_email_address" Mode="In" Type="String" />
+            <Parameter Name="ro_first_name" Mode="In" Type="String" />
+            <Parameter Name="ro_last_name" Mode="In" Type="String" />
+            <Parameter Name="ro_email" Mode="In" Type="String" />
+            <Parameter Name="date_loaded" Mode="In" Type="DateTime" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="partnerSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
+            <Parameter Name="loadGroup" Mode="In" Type="String" />
+            <Parameter Name="dueDate" Mode="In" Type="DateTime" />
+            <Parameter Name="group" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPartnerSpreadsheetDataLoadqq" ReturnType="Collection(Int32)">
+            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
+            <Parameter Name="partner_sap_id" Mode="In" Type="String" />
+            <Parameter Name="partner_name" Mode="In" Type="String" />
+            <Parameter Name="partner_address_one" Mode="In" Type="String" />
+            <Parameter Name="partner_address_two" Mode="In" Type="String" />
+            <Parameter Name="partner_city" Mode="In" Type="String" />
+            <Parameter Name="partner_state" Mode="In" Type="String" />
+            <Parameter Name="partner_zipcode" Mode="In" Type="String" />
+            <Parameter Name="partner_country" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_first_name" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_last_name" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_title" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_phone_number" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_email_address" Mode="In" Type="String" />
+            <Parameter Name="ro_first_name" Mode="In" Type="String" />
+            <Parameter Name="ro_last_name" Mode="In" Type="String" />
+            <Parameter Name="ro_email" Mode="In" Type="String" />
+            <Parameter Name="date_loaded" Mode="In" Type="DateTime" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="partnerSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
+            <Parameter Name="loadGroup" Mode="In" Type="String" />
+            <Parameter Name="dueDate" Mode="In" Type="DateTime" />
+            <Parameter Name="group" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPartnumberDetail" ReturnType="Collection(Int32)">
+            <Parameter Name="partnumber" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPartnumberSpreadsheetDataLoad" ReturnType="Collection(Int32)">
+            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
+            <Parameter Name="partner_sap_id" Mode="In" Type="String" />
+            <Parameter Name="partner_name" Mode="In" Type="String" />
+            <Parameter Name="partner_address_one" Mode="In" Type="String" />
+            <Parameter Name="partner_address_two" Mode="In" Type="String" />
+            <Parameter Name="partner_city" Mode="In" Type="String" />
+            <Parameter Name="partner_state" Mode="In" Type="String" />
+            <Parameter Name="partner_zipcode" Mode="In" Type="String" />
+            <Parameter Name="partner_country" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_first_name" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_last_name" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_title" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_phone_number" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_email_address" Mode="In" Type="String" />
+            <Parameter Name="internal_site_id" Mode="In" Type="String" />
+            <Parameter Name="sap_site" Mode="In" Type="String" />
+            <Parameter Name="sap_plant_code" Mode="In" Type="String" />
+            <Parameter Name="site_name" Mode="In" Type="String" />
+            <Parameter Name="part_number_sap" Mode="In" Type="String" />
+            <Parameter Name="part_number_internal" Mode="In" Type="String" />
+            <Parameter Name="sub_commodity_owner" Mode="In" Type="String" />
+            <Parameter Name="center_of_excellence" Mode="In" Type="String" />
+            <Parameter Name="ro_first_name" Mode="In" Type="String" />
+            <Parameter Name="ro_last_name" Mode="In" Type="String" />
+            <Parameter Name="ro_email" Mode="In" Type="String" />
+            <Parameter Name="date_loaded" Mode="In" Type="DateTime" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
+            <Parameter Name="loadGroup" Mode="In" Type="String" />
+            <Parameter Name="dueDate" Mode="In" Type="DateTime" />
+            <Parameter Name="group" Mode="In" Type="Int32" />
+            <Parameter Name="partnumberDetail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnumberDetail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberDetail_Result)">
+            <Parameter Name="partnumber" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -22169,6 +22297,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="priority" Nullable="true" />
           <Property Type="String" Name="loadGroup" Nullable="true" MaxLength="8" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnumberDetail_Result">
+          <Property Type="Int32" Name="partnumber" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -26779,7 +26911,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_addPartnumberSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberSpreadsheetDataLoad" />
           <FunctionImportMapping FunctionImportName="pr_addPartnumberSpreadsheetDataLoadstatus" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberSpreadsheetDataLoadstatus" />
           <FunctionImportMapping FunctionImportName="pr_archivePartnumberSpreadsheetDataLoadstatus" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePartnumberSpreadsheetDataLoadstatus" />
           <FunctionImportMapping FunctionImportName="pr_getAccesscode2" FunctionName="hs3MVCMTQa2Model.Store.pr_getAccesscode2" />
@@ -29165,6 +29296,18 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_replacePTQforPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_replacePTQforPPTQ">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPartnerSpreadsheetDataLoadOLD" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerSpreadsheetDataLoadOLD" />
+          <FunctionImportMapping FunctionImportName="pr_addPartnerSpreadsheetDataLoadqq" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerSpreadsheetDataLoadqq" />
+          <FunctionImportMapping FunctionImportName="pr_addPartnumberDetail" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberDetail" />
+          <FunctionImportMapping FunctionImportName="pr_addPartnumberSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberSpreadsheetDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnumberDetail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnumberDetail_Result">
+                <ScalarProperty Name="partnumber" ColumnName="partnumber" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>

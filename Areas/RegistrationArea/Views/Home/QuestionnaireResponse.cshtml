@@ -10,7 +10,9 @@
 
 
 @*<script type="text/javascript" src="@Url.Content("~/Content/ProgressBar/progressbar.js")"></script>*@
-
+@section styles {
+    
+}
 <link href="~/Content/ProgressBar/skins/tiny-green/progressbar.css" rel="stylesheet" />
 <link href="~/Content/ProgressBar/skins/default/progressbar.css" rel="stylesheet" />
 
@@ -132,6 +134,7 @@
     </table>
 }
 
+
 <div class="supplycon">
     <div align="center" class="redheader">
 
@@ -169,9 +172,11 @@
 
                             @using (Html.BeginForm("QuestionnaireResponse", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "QuestionnaireResponse" }))
                             {
-                                @Html.Raw(ViewBag.questions)
-                                              
-                                      
+                                
+                                    @Html.Raw(ViewBag.questions)
+                                
+
+
                                 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:-15px;">
                                     <tr>
                                         <td align="right"></td>
@@ -216,6 +221,7 @@
 </div>
 
 @section scripts{
+
     <script type="text/javascript" src="@Url.Content("~/contents/js/animatedcollapse.js")"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -223,7 +229,9 @@
         if (message !== "") {
             alertify.alert(message);
             //alert(message);
+
         }
+        
         var percentage = $('#barpercent').val();
         progressBar(percentage, $('#progressBar'));
 
@@ -253,7 +261,7 @@
 	</script>
 
 <script type="text/javascript">
-
+    
     function showdiv(sender) {
         alert(sender.name);
 
@@ -505,4 +513,5 @@
         }
     }
 </script>
+
 }

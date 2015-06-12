@@ -5,6 +5,7 @@
     
     Layout = Generic.Helpers.LayoutHelper.GetMasterLayout();   
 }
+
 <style>
     .footer {
         background-color: white!important;
@@ -25,10 +26,11 @@
 <link rel="stylesheet" href="@Url.Content("~/Contents/RegistrationStyle/divwindow/css/dhtmlwindow.css")" type="text/css" />
 <script type="text/javascript" src="https://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js">s</script>
 <link href="@Url.Content("~/Contents/css/gfdynamicfeedcontroller.css")" type="text/css" rel="stylesheet" />
-
+@RenderSection("styles",false)
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jqueryui")
+
 <script>
     $(document).ready(function () {
         $("td.supplyright, td.supplyleft").each(function (item) {
