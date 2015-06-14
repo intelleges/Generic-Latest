@@ -16698,5 +16698,31 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberDetail_Result>("pr_getPartnumberDetail", partnumberParameter);
         }
+    
+        public virtual int pr_modifyPersonLastLoginDate(Nullable<int> person, Nullable<System.DateTime> loginTime)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var loginTimeParameter = loginTime.HasValue ?
+                new ObjectParameter("loginTime", loginTime) :
+                new ObjectParameter("loginTime", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonLastLoginDate", personParameter, loginTimeParameter);
+        }
+    
+        public virtual int pr_modifyPersonLastLogoutDate(Nullable<int> person, Nullable<System.DateTime> loginTime)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var loginTimeParameter = loginTime.HasValue ?
+                new ObjectParameter("loginTime", loginTime) :
+                new ObjectParameter("loginTime", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonLastLogoutDate", personParameter, loginTimeParameter);
+        }
     }
 }

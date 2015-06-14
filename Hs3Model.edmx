@@ -7116,6 +7116,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="isArchived" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPersonLastLoginDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="loginTime" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyPersonLastLogoutDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="loginTime" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPersonLinkedinAuthInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="token" Type="nvarchar" Mode="In" />
@@ -13984,7 +13992,15 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="partnumberDetail" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnumberDetail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnumberDetail_Result)">
-            <Parameter Name="partnumber" Mode="In" Type="Int32" />
+          <Parameter Name="partnumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonLastLoginDate">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="loginTime" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonLastLogoutDate">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="loginTime" Mode="In" Type="DateTime" />
           </FunctionImport>
           
         </EntityContainer>
@@ -29309,6 +29325,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonLastLoginDate" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonLastLoginDate" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonLastLogoutDate" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonLastLogoutDate" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

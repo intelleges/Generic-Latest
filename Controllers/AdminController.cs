@@ -394,6 +394,13 @@ namespace Generic.Controllers
                     FormsAuthentication.SetAuthCookie(userName, false);
                    
                     person person = db.pr_doLogin(userName, password).FirstOrDefault();
+                    var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now);
+                    if (res == null)
+                    {
+                      //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
+                        ViewBag.Message = "You failed to update login date & time";
+                    }
+
                     SessionSingleton.LoggedInUserId = person.id;
                     SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
                     SessionSingleton.MyEnterPriseId = person.enterprise;
@@ -442,7 +449,8 @@ namespace Generic.Controllers
 
             //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
             //FormsAuthentication.RedirectToLoginPage();
-
+  
+            db.pr_modifyPersonLastLogoutDate( SessionSingleton.LoggedInUserId, DateTime.Now);
             FormsAuthentication.SignOut();
             Session.Abandon();
 
