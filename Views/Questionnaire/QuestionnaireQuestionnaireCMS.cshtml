@@ -50,7 +50,7 @@ font-size: 100% !important;
 .Columns(columns =>
         {
 
-            columns.Bound(o => o.questionnaireCMS).Title("CMS").Width(70).Template(@<text><a href='#' id='@item.questionnaireCMS' class="menu_block">@item.questionnaireCMS</a>
+            columns.Bound(o => o.questionnaireCMS).Title("CMS").Width(50).Template(@<text><a href='#' id='@item.questionnaireCMS' class="menu_block">@item.questionnaireCMS</a>
 <div class="display_menu" style="display: none;">
     <ul>
         <li><a href="javascript:openEditPopup(@ViewBag.questionnaire)">Edit/Correct</a></li>
@@ -64,14 +64,14 @@ font-size: 100% !important;
 </div>
 </text>).Filterable(false);
             columns.Bound(o => o.description).Title("Description").Width(100);
-            columns.Bound(o => o.text).Title("Text").Width(100).Filterable(false).Template(@<text>
+            columns.Bound(o => o.text).Title("Text").Width(80).Filterable(false).Template(@<text>
                 <a href='#' class='menu_block title'>@item.text</a>
                 <div class='display_menu' style='display: none;width:200px;'>
                     <span style='width:100%'><p>@item.text</p></span>
                 </div>
             </text>);
             columns.Bound(o => o.link).Title("Link").Width(100).Filterable(false);
-            columns.Bound(o => o.doc).Title("Download").Width(100).Template(@<text><a href='#'>Download</a></text>).Filterable(false);
+            columns.Bound(o => o.doc).Title("Download").Width(50).Template(@<text><a href='#'>Download</a></text>).Filterable(false);
             
 
 

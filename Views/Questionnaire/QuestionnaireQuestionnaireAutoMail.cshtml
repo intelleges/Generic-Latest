@@ -41,9 +41,9 @@ top: 2px;
 })
 .Columns(columns =>
         {
-            columns.Bound(o => o.subject).Title("Subject").Width(100);
-            columns.Bound(o => o.text).Title("Text AutoMail").Width(100);
-            columns.Bound(o => o.mailType).Title("Mail Type").Width(100);
+            columns.Bound(o => o.subject).Title("Subject").Width(80);
+            columns.Bound(o => o.text).Title("Text AutoMail").Width(195);
+            columns.Bound(o => o.mailType).Title("Mail Type").Width(25);
         })
         .DataKeys(keys => keys.Add(o => o.id))
         .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))

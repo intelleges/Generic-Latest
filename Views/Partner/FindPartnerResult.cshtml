@@ -67,13 +67,13 @@
             columns.Bound(o => o.owner).Title("Owner").Width(100);
             columns.Bound(o => o.Country).Title("Country").Width(100);
             columns.Bound(o => o.city).Title("City").Width(100);
-            columns.Bound(o => o.state).Title("State").Width(100);
+            columns.Bound(o => o.state).Title("State").Width(50);
 
             columns.Bound(o => o.address).Title("Address").Width(200);
             columns.Bound(o => o.zipcode).Title("Zipcode").Width(100);
 
-            columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(100);
-            columns.Bound(o => o.Partnertype).Title("Partnertype").Width(100);
+            columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(150);
+            columns.Bound(o => o.Partnertype).Title("Partnertype").Width(150);
             columns.Bound(o => o.Group).Title("Group").Width(100);
             columns.Bound(o => o.AccessCode).Title("AccessCode").Width(100).Template(@<text>
 <a href='#' id='@item.AccessCode' class="menu_block">@item.AccessCode</a><div class="display_menu" style="display: none;">
@@ -90,7 +90,7 @@
     </ul>
 </div>
 </text>);
-            columns.Bound(o => o.status).Title("Status").Width(200);
+            columns.Bound(o => o.status).Title("Status").Width(150);
 
 
         })
