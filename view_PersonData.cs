@@ -16,9 +16,9 @@ namespace Generic
     {
         public int id { get; set; }
         public Nullable<int> enterprise { get; set; }
-        public string firstname { get; set; }
-        public string lastname { get; set; }
-        public string internalID { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string internalId { get; set; }
         public string title { get; set; }
         public string email { get; set; }
         public string Country { get; set; }
@@ -30,9 +30,6 @@ namespace Generic
         public Nullable<int> Group_Count { get; set; }
         public Nullable<int> Role_Count { get; set; }
         public Nullable<int> active { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string internalId { get; set; }
         public Nullable<System.DateTime> resetDate { get; set; }
         public Nullable<System.DateTime> archivedDate { get; set; }
     }

@@ -1002,9 +1002,9 @@ Thanks in advance.<br>
                 objPersonViewModel.enterprise = iview_PersonDataData.enterprise;
                 objPersonViewModel.id = iview_PersonDataData.id;
                 objPersonViewModel.Touchpoint = iview_PersonDataData.Touchpoint;
-                objPersonViewModel.firstname = iview_PersonDataData.firstname;
+                objPersonViewModel.firstName = iview_PersonDataData.firstName;
                 objPersonViewModel.title = iview_PersonDataData.title;
-                objPersonViewModel.internalID = iview_PersonDataData.internalID;
+                objPersonViewModel.internalId = iview_PersonDataData.internalId;
                 objPersonViewModel.email = iview_PersonDataData.email;
                 objPersonViewModel.Country = iview_PersonDataData.Country;
                 objPersonViewModel.State = iview_PersonDataData.State;

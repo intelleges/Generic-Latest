@@ -164,7 +164,6 @@ namespace Generic
         public virtual DbSet<view_EnterpriseData> view_EnterpriseData { get; set; }
         public virtual DbSet<view_GroupData> view_GroupData { get; set; }
         public virtual DbSet<view_PartnerData> view_PartnerData { get; set; }
-        public virtual DbSet<view_PersonData> view_PersonData { get; set; }
         public virtual DbSet<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
         public virtual DbSet<ConfirmPartnerActionType> ConfirmPartnerActionType { get; set; }
         public virtual DbSet<tmpPartnerConfirm> tmpPartnerConfirm { get; set; }
@@ -191,6 +190,7 @@ namespace Generic
         public virtual DbSet<iteratePartner> iteratePartner { get; set; }
         public virtual DbSet<questionnaireLoad> questionnaireLoads { get; set; }
         public virtual DbSet<campaignStatu> campaignStatus { get; set; }
+        public virtual DbSet<view_PersonData> view_PersonData { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {

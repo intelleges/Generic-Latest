@@ -12971,7 +12971,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="argsList" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="view_PartnerData" EntityType="hs3MVCMTQa2Model.view_PartnerData" />
-          <EntitySet Name="view_PersonData" EntityType="hs3MVCMTQa2Model.view_PersonData" />
           <EntitySet Name="partnumberSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad" />
           <AssociationSet Name="FK__partnumbe__enter__7B863AD4" Association="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4">
             <End Role="enterprise" EntitySet="enterprise" />
@@ -14006,6 +14005,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="loginTime" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <EntitySet Name="view_PersonData" EntityType="hs3MVCMTQa2Model.view_PersonData" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -20695,37 +20695,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Boolean" Name="active" />
           <Property Type="String" Name="dunsNumber" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="view_PersonData">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="firstname" />
-            <PropertyRef Name="lastname" />
-            <PropertyRef Name="email" />
-            <PropertyRef Name="firstName" />
-            <PropertyRef Name="lastName" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="Int32" Name="enterprise" />
-          <Property Type="String" Name="firstname" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="lastname" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="internalID" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="title" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="email" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Country" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="State" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="Touchpoint" />
-          <Property Type="String" Name="Default_Touchpoint" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="personStatusID" />
-          <Property Type="String" Name="Person_Status" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="Group_Count" />
-          <Property Type="Int32" Name="Role_Count" />
-          <Property Type="Int32" Name="active" />
-          <Property Name="firstName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="lastName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="internalId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="resetDate" Type="DateTime" Precision="3" />
-          <Property Name="archivedDate" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="partnumberSpreadsheetDataLoad">
           <Key>
             <PropertyRef Name="id" />
@@ -22328,6 +22297,32 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="partnumber" Nullable="false" />
           <Property Type="String" Name="description" Nullable="false" />
         </ComplexType>
+        <EntityType Name="view_PersonData">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="firstName" />
+            <PropertyRef Name="lastName" />
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="enterprise" Type="Int32" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="internalId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Touchpoint" Type="Int32" />
+          <Property Name="Default_Touchpoint" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="personStatusID" Type="Int32" />
+          <Property Name="Person_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Group_Count" Type="Int32" />
+          <Property Name="Role_Count" Type="Int32" />
+          <Property Name="active" Type="Int32" />
+          <Property Name="resetDate" Type="DateTime" Precision="3" />
+          <Property Name="archivedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -27733,30 +27728,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="view_PersonData">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_PersonData">
-              <MappingFragment StoreEntitySet="view_PersonData">
-                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
-                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
-                <ScalarProperty Name="internalId" ColumnName="internalId" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="Role_Count" ColumnName="Role_Count" />
-                <ScalarProperty Name="Group_Count" ColumnName="Group_Count" />
-                <ScalarProperty Name="Person_Status" ColumnName="Person_Status" />
-                <ScalarProperty Name="personStatusID" ColumnName="personStatusID" />
-                <ScalarProperty Name="Default_Touchpoint" ColumnName="Default_Touchpoint" />
-                <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="partnumberSpreadsheetDataLoad">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnumberSpreadsheetDataLoad">
               <MappingFragment StoreEntitySet="partnumberSpreadsheetDataLoad">
@@ -29340,6 +29311,30 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyPersonLastLoginDate" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonLastLoginDate" />
           <FunctionImportMapping FunctionImportName="pr_modifyPersonLastLogoutDate" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonLastLogoutDate" />
+          <EntitySetMapping Name="view_PersonData">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_PersonData">
+              <MappingFragment StoreEntitySet="view_PersonData">
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="Role_Count" ColumnName="Role_Count" />
+                <ScalarProperty Name="Group_Count" ColumnName="Group_Count" />
+                <ScalarProperty Name="Person_Status" ColumnName="Person_Status" />
+                <ScalarProperty Name="personStatusID" ColumnName="personStatusID" />
+                <ScalarProperty Name="Default_Touchpoint" ColumnName="Default_Touchpoint" />
+                <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

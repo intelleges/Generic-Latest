@@ -58,19 +58,19 @@
                     .Action("ExportExcel", "person"))
         .Columns(columns =>
         {
-            columns.Bound(o => o.internalID).Title("Internal ID").Width(100).Encoded(false).Template(@<text><a href='#' id='@item.internalID' class="menu_block">@item.internalID</a>
+            columns.Bound(o => o.internalId).Title("Internal ID").Width(100).Encoded(false).Template(@<text><a href='#' id='@item.internalId' class="menu_block">@item.internalId</a>
             <div class="display_menu" style="display: none;">
                 <ul>
                     <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-                    <li><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.firstname @item.lastname')">Remove</a></li>
-                    <li><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.firstname @item.lastname')">Archive</a></li>
+                    <li><a href="javascript:openRemovePopup(@item.id,'@item.internalId','@item.firstName @item.lastName')">Remove</a></li>
+                    <li><a href="javascript:openArchivePopup(@item.id,'@item.internalId','@item.firstName @item.lastName')">Archive</a></li>
                     <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
                     @* <li><a href="@item.Expr1" target="_blank">Complete</a></li>*@
                 </ul>
             </div>
             </text>);
-            columns.Bound(o => o.firstname).Title("Firstname").Width(100);
-            columns.Bound(o => o.lastname).Title("Lastname").Width(100);
+            columns.Bound(o => o.firstName).Title("firstName").Width(100);
+            columns.Bound(o => o.lastName).Title("lastName").Width(100);
             //columns.Bound(o => o.title).Title("Title").Width(100);
             //columns.Bound(o => o.email).Title("Email").Width(100);
             //columns.Bound(o => o.State).Title("State").Width(100);
@@ -85,7 +85,7 @@
             //columns.Bound(o => o.Role).Title("Role").Width(100);
 
         })
-                .DataKeys(keys => keys.Add(o => o.internalID))
+                .DataKeys(keys => keys.Add(o => o.internalId))
                 .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
                 .Sortable(sorting => sorting.Enabled(true))
                 .Scrollable(scrolling => scrolling
@@ -160,7 +160,7 @@
 
     });
 
-    function openRemovePopup(id, internalid, name) {
+    function openRemovePopup(id, internalId, name) {
 
 
 
@@ -172,7 +172,7 @@
             buttonFocus: "cancel"
         });
         // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Remove " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+        alertify.confirm("You are about to Remove " + internalId + " : " + name + ". Are you sure you want to do this?", function (e) {
             if (e) {
                 // Click no
             } else {
@@ -190,7 +190,7 @@
     }
 
 
-    function openArchivePopup(id, internalid, name) {
+    function openArchivePopup(id, internalId, name) {
 
 
 
@@ -202,7 +202,7 @@
             buttonFocus: "cancel"
         });
         // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Archive " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+        alertify.confirm("You are about to Archive " + internalId + " : " + name + ". Are you sure you want to do this?", function (e) {
             if (e) {
                 // Click no
             } else {
