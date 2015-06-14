@@ -50,7 +50,7 @@
 
 </style>
 
-@( Html.Telerik().Grid(Model).Name("PersonGrid")
+    @( Html.Telerik().Grid(Model).Name("PersonGrid")
 .ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "export" })
@@ -59,25 +59,25 @@
         .Columns(columns =>
         {
             columns.Bound(o => o.internalID).Title("Internal ID").Width(100).Encoded(false).Template(@<text><a href='#' id='@item.internalID' class="menu_block">@item.internalID</a>
-<div class="display_menu" style="display: none;">
-    <ul>
-        <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-        <li><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.firstname @item.lastname')">Remove</a></li>
-        <li><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.firstname @item.lastname')">Archive</a></li>
-        <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-       @* <li><a href="@item.Expr1" target="_blank">Complete</a></li>*@
-    </ul>
-</div>
-</text>);
-            columns.Bound(o => o.firstname).Title("Firstname").Width(200);
-            columns.Bound(o => o.lastname).Title("Lastname").Width(200);
-            //columns.Bound(o => o.title).Title("Title").Width(100);            
+            <div class="display_menu" style="display: none;">
+                <ul>
+                    <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+                    <li><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.firstname @item.lastname')">Remove</a></li>
+                    <li><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.firstname @item.lastname')">Archive</a></li>
+                    <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+                    @* <li><a href="@item.Expr1" target="_blank">Complete</a></li>*@
+                </ul>
+            </div>
+            </text>);
+            columns.Bound(o => o.firstname).Title("Firstname").Width(100);
+            columns.Bound(o => o.lastname).Title("Lastname").Width(100);
+            //columns.Bound(o => o.title).Title("Title").Width(100);
             //columns.Bound(o => o.email).Title("Email").Width(100);
             //columns.Bound(o => o.State).Title("State").Width(100);
-            
+            columns.Bound(o => o.archivedDate).Title("Last Login").Width(150);
             columns.Bound(o => o.title).Title("Title").Width(150);
             columns.Bound(o => o.email).Title("Email").Width(200);
-            columns.Bound(o => o.Country).Title("Country").Width(200);           
+            columns.Bound(o => o.Country).Title("Country").Width(200);
             columns.Bound(o => o.Default_Touchpoint).Title("Touchpoint").Width(100);
             columns.Bound(o => o.Person_Status).Title("Status").Width(100);
             columns.Bound(o => o.Group_Count).Title("Group Count").Width(100);
@@ -85,18 +85,19 @@
             //columns.Bound(o => o.Role).Title("Role").Width(100);
 
         })
-        .DataKeys(keys => keys.Add(o => o.internalID))
-        .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
-        .Sortable(sorting => sorting.Enabled(true))
+                .DataKeys(keys => keys.Add(o => o.internalID))
+                .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+                .Sortable(sorting => sorting.Enabled(true))
+                .Scrollable(scrolling => scrolling
+                   .Enabled(true)
+                   .Height(380))
+                   .HtmlAttributes(new { @class = "ra"})
+                   
 
-        .Scrollable(scrolling => scrolling
-           .Enabled(true)
-           .Height(380))
-           .HtmlAttributes(new { @class = "ra" })
 
 
+    )
 
-)
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>

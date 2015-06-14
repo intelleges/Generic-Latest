@@ -30,5 +30,10 @@ namespace Generic
         public Nullable<int> Group_Count { get; set; }
         public Nullable<int> Role_Count { get; set; }
         public Nullable<int> active { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string internalId { get; set; }
+        public Nullable<System.DateTime> resetDate { get; set; }
+        public Nullable<System.DateTime> archivedDate { get; set; }
     }
 }

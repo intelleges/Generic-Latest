@@ -2321,15 +2321,15 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PersonData' does not have a p
         <EntityType Name="view_PersonData">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="firstname" />
-            <PropertyRef Name="lastname" />
+            <PropertyRef Name="firstName" />
+            <PropertyRef Name="lastName" />
             <PropertyRef Name="email" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="enterprise" Type="int" />
-          <Property Name="firstname" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="lastname" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="internalID" Type="varchar" MaxLength="20" />
+          <Property Name="firstName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="internalId" Type="varchar" MaxLength="20" />
           <Property Name="title" Type="varchar" MaxLength="50" />
           <Property Name="email" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Country" Type="varchar" MaxLength="200" />
@@ -2341,6 +2341,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PersonData' does not have a p
           <Property Name="Group_Count" Type="int" />
           <Property Name="Role_Count" Type="int" />
           <Property Name="active" Type="int" />
+          <Property Name="resetDate" Type="datetime" />
+          <Property Name="archivedDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_ProtocolData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -8467,9 +8469,9 @@ FROM [dbo].[view_PartnerData] AS [view_PartnerData]</DefiningQuery>
             <DefiningQuery>SELECT 
 [view_PersonData].[id] AS [id], 
 [view_PersonData].[enterprise] AS [enterprise], 
-[view_PersonData].[firstname] AS [firstname], 
-[view_PersonData].[lastname] AS [lastname], 
-[view_PersonData].[internalID] AS [internalID], 
+[view_PersonData].[firstName] AS [firstName], 
+[view_PersonData].[lastName] AS [lastName], 
+[view_PersonData].[internalId] AS [internalId], 
 [view_PersonData].[title] AS [title], 
 [view_PersonData].[email] AS [email], 
 [view_PersonData].[Country] AS [Country], 
@@ -8480,7 +8482,9 @@ FROM [dbo].[view_PartnerData] AS [view_PartnerData]</DefiningQuery>
 [view_PersonData].[Person_Status] AS [Person_Status], 
 [view_PersonData].[Group_Count] AS [Group_Count], 
 [view_PersonData].[Role_Count] AS [Role_Count], 
-[view_PersonData].[active] AS [active]
+[view_PersonData].[active] AS [active], 
+[view_PersonData].[resetDate] AS [resetDate], 
+[view_PersonData].[archivedDate] AS [archivedDate]
 FROM [dbo].[view_PersonData] AS [view_PersonData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_ProtocolData" EntityType="Self.view_ProtocolData" store:Type="Views" store:Schema="dbo">
@@ -20697,6 +20701,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <PropertyRef Name="firstname" />
             <PropertyRef Name="lastname" />
             <PropertyRef Name="email" />
+            <PropertyRef Name="firstName" />
+            <PropertyRef Name="lastName" />
           </Key>
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="Int32" Name="enterprise" />
@@ -20714,6 +20720,11 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="Group_Count" />
           <Property Type="Int32" Name="Role_Count" />
           <Property Type="Int32" Name="active" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="internalId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="resetDate" Type="DateTime" Precision="3" />
+          <Property Name="archivedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="partnumberSpreadsheetDataLoad">
           <Key>
@@ -27725,6 +27736,11 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="view_PersonData">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_PersonData">
               <MappingFragment StoreEntitySet="view_PersonData">
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="Role_Count" ColumnName="Role_Count" />
                 <ScalarProperty Name="Group_Count" ColumnName="Group_Count" />
@@ -27736,9 +27752,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="internalID" ColumnName="internalID" />
-                <ScalarProperty Name="lastname" ColumnName="lastname" />
-                <ScalarProperty Name="firstname" ColumnName="firstname" />
                 <ScalarProperty Name="enterprise" ColumnName="enterprise" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
