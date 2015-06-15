@@ -6,21 +6,22 @@
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Person";
 }
-
+<script type="text/javascript">
+    function formatter(value) {
+        return value.substring(0, 10);
+    }
+</script>
 
 <style>
-    div#PersonGrid
-    {
+    div#PersonGrid {
         font-size: 11px;
     }
 
-    #modal
-    {
+    #modal {
         height: 489px;
     }
 
-    .ui-dialog
-    {
+    .ui-dialog {
         width: 99% !important;
         left: 0;
     }
@@ -39,18 +40,17 @@
         z-index: 100;
     }
 
-    .display_menu > ul {
-        padding: 0 16px;
-    }
+        .display_menu > ul {
+            padding: 0 16px;
+        }
 
         .display_menu li {
             list-style: none outside none;
-            width:143px;
+            width: 143px;
         }
-
 </style>
 
-    @( Html.Telerik().Grid(Model).Name("PersonGrid")
+@( Html.Telerik().Grid(Model).Name("PersonGrid")
 .ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "export" })
@@ -58,7 +58,18 @@
                     .Action("ExportExcel", "person"))
         .Columns(columns =>
         {
-            columns.Bound(o => o.internalId).Title("Internal ID").Width(100).Encoded(false).Template(@<text><a href='#' id='@item.internalId' class="menu_block">@item.internalId</a>
+            columns.Bound(o => o.internalId).Title("Internal ID").Width(100).Encoded(false).Template(@<text>
+             @{
+                 var columnData = item.internalId;
+                      var width = 10;
+            var visibleText = string.Empty;
+            if(columnData != null)
+            {
+                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+            }
+
+                <a href='#' id='@item.internalId' class="menu_block" title="@columnData">@visibleText</a>
+            }
             <div class="display_menu" style="display: none;">
                 <ul>
                     <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
@@ -69,34 +80,127 @@
                 </ul>
             </div>
             </text>);
-            columns.Bound(o => o.firstName).Title("firstName").Width(100);
-            columns.Bound(o => o.lastName).Title("lastName").Width(100);
+            columns.Bound(o => o.firstName).Title("firstName").Width(100).Template(@<text>
+        @{
+            var columnData = item.firstName;
+               var width = 12;
+            var visibleText = string.Empty;
+            if(columnData != null)
+            {
+                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+            }
+
+            <p title="@columnData">@visibleText</p>
+
+        }
+            </text>);
+            columns.Bound(o => o.lastName).Title("lastName").Width(100).Template(@<text>
+        @{
+            var columnData = item.lastName;
+              var width = 12;
+            var visibleText = string.Empty;
+            if(columnData != null)
+            {
+                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+            }
+
+            <p title="@columnData">@visibleText</p>
+
+        }
+            </text>);
             //columns.Bound(o => o.title).Title("Title").Width(100);
             //columns.Bound(o => o.email).Title("Email").Width(100);
             //columns.Bound(o => o.State).Title("State").Width(100);
-            columns.Bound(o => o.archivedDate).Title("Last Login").Width(150);
-            columns.Bound(o => o.title).Title("Title").Width(150);
-            columns.Bound(o => o.email).Title("Email").Width(200);
-            columns.Bound(o => o.Country).Title("Country").Width(100);
-            columns.Bound(o => o.Default_Touchpoint).Title("Touchpoint").Width(150);
-            columns.Bound(o => o.Person_Status).Title("Status").Width(100);
+            columns.Bound(o => o.archivedDate).Format("{0:MM/dd/yyyy}").Title("Last Login").Width(80);
+            columns.Bound(o => o.title).Title("Title").Width(150).Template(@<text>
+                @{
+                    var columnData = item.title;
+                      var width = 20;
+            var visibleText = string.Empty;
+            if(columnData != null)
+            {
+                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+            }
+                   
+                    <p title="@columnData">@visibleText</p>
+                 
+                }            
+            </text>);
+            columns.Bound(o => o.email).Title("Email").Width(200).Template(@<text>
+        
+            @{
+                var columnData = item.email;
+                  var width = 30;
+            var visibleText = string.Empty;
+            if(columnData != null)
+            {
+                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+            }
+                <p title="@columnData">@visibleText</p>
+            }
+          
+      
+            </text>);
+            columns.Bound(o => o.Country).Title("Country").Width(100).Template(@<text>
+
+        @{
+            var columnData = item.Country;
+               var width = 13;
+            var visibleText = string.Empty;
+            if(columnData != null)
+            {
+                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+            }
+            <p title="@columnData">@visibleText</p>
+        }
+
+
+            </text>);
+            columns.Bound(o => o.Default_Touchpoint).Title("Touchpoint").Width(150).Template(@<text>
+        @{
+            var columnData = item.Default_Touchpoint;
+            var width = 20;
+            var visibleText = string.Empty;
+            if(columnData != null)
+            {
+                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+            }
+
+            <p title="@columnData">@visibleText</p>
+
+        }
+            </text>);
+            columns.Bound(o => o.Person_Status).Title("Status").Width(100).Template(@<text>
+        @{
+            var columnData = item.Person_Status;
+            var width = 13;
+            var visibleText = string.Empty;
+            if(columnData != null)
+            {
+                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+            }
+
+            <p title="@columnData">@visibleText</p>
+
+        }
+            </text>);
             columns.Bound(o => o.Group_Count).Title("Group Count").Width(100);
             columns.Bound(o => o.Role_Count).Title("Role Count").Width(100);
             //columns.Bound(o => o.Role).Title("Role").Width(100);
 
         })
-                .DataKeys(keys => keys.Add(o => o.internalId))
-                .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
-                .Sortable(sorting => sorting.Enabled(true))
-                .Scrollable(scrolling => scrolling
-                   .Enabled(true)
-                   .Height(380))
-                   .HtmlAttributes(new { @class = "ra"})
-                   
+                            .DataKeys(keys => keys.Add(o => o.internalId))
+                            .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+                            .Sortable(sorting => sorting.Enabled(true))
+                            .Scrollable(scrolling => scrolling
+                               .Enabled(true)
+                               .Height(380))
+                                                       .HtmlAttributes(new { @class = "ra"})
 
 
 
-    )
+
+)
 
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>

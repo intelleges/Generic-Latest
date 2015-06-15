@@ -2524,7 +2524,7 @@
         </ul>
     </div>
 ").Width(230);
-    columns.Bound(o => o.nextAction).Title("Next Action").Width(160).ClientTemplate(@"
+    columns.Bound(o => o.nextAction).Title("Next Action").Width(120).ClientTemplate(@"
 <a href='#' id='NA<#=id#>' class='menu_block' ondblclick='callIfNeed(<#=id#>,<#=nextActionID#>, this)'><#=nextAction#></a>
 ").Filterable(false);
     columns.Bound(o => o.NextActionDateDisplay).Title("Next Action Date").Width(130).ClientTemplate(@"
@@ -2542,7 +2542,7 @@
 ");
     columns.Bound(o => o.firstname).Title("First name").Width(80).Filterable(false);
     columns.Bound(o => o.lastname).Title("Last name").Width(100);
-    columns.Bound(o => o.title).Title("Title").Width(100).Filterable(false).ClientTemplate(@"
+    columns.Bound(o => o.title).Title("Title").Width(90).Filterable(false).ClientTemplate(@"
         <a href='#' id='title<#=id#>' class='menu_block title'><#=title#></a>
 <div class='display_menu' style='display: none;width:200px;'>
        <span style='width:100%'><p><#=title#></p> <span class='address2'><#=address2#></span> - <a href='http://<#=federalID#>'><#=federalID#></a></span>
