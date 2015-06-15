@@ -171,7 +171,8 @@
     }
 
     function remind(accessCodeValue) {
-        $.post("Remind", { accessCode: accessCodeValue }).done(function (result) {you
+       $.post("Remind", { accessCode: accessCodeValue }).done(function (result) {
+         
             if (result) {
                 alertify.alert(result);
             }
