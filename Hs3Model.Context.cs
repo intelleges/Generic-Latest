@@ -16699,7 +16699,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnumberDetail_Result>("pr_getPartnumberDetail", partnumberParameter);
         }
     
-        public virtual int pr_modifyPersonLastLoginDate(Nullable<int> person, Nullable<System.DateTime> loginTime)
+        public virtual int pr_modifyPersonLastLoginDate(Nullable<int> person, Nullable<System.DateTime> loginTime, string computerID)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
@@ -16709,7 +16709,11 @@ namespace Generic
                 new ObjectParameter("loginTime", loginTime) :
                 new ObjectParameter("loginTime", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonLastLoginDate", personParameter, loginTimeParameter);
+            var computerIDParameter = computerID != null ?
+                new ObjectParameter("computerID", computerID) :
+                new ObjectParameter("computerID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonLastLoginDate", personParameter, loginTimeParameter, computerIDParameter);
         }
     
         public virtual int pr_modifyPersonLastLogoutDate(Nullable<int> person, Nullable<System.DateTime> loginTime)

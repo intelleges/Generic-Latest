@@ -394,7 +394,12 @@ namespace Generic.Controllers
                     FormsAuthentication.SetAuthCookie(userName, false);
                    
                     person person = db.pr_doLogin(userName, password).FirstOrDefault();
-                    var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now);
+                    var ip = Request.UserHostAddress;
+                    string[] computer_name = System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
+                    String ecn = System.Environment.MachineName;
+                    var computerName = computer_name[0].ToString();
+                    var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
+                    
                     if (res == null)
                     {
                       //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
