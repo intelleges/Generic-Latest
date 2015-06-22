@@ -7,13 +7,13 @@
 
     <link href="~/Content/themes/base/alertify.core.css" rel="stylesheet" />
     <link href="~/Content/themes/base/alertify.default.css" rel="stylesheet" />
-    <script>
+    @*<script>
     var jq171 = jQuery.noConflict();
-    </script>
+    </script>*@
       @Scripts.Render("~/bundles/jquery")
-    <script>
+    @*<script>
     var jq191 = jQuery.noConflict();
-    </script>
+    </script>*@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryui")
 
@@ -22,6 +22,20 @@
 
 <script>
     $(function () {
+        jQuery.validator.unobtrusive.adapters.add(
+  'filesize', ['filesize'], function (options) {
+      options.rules['filesize'] = {
+          filesize: options.params.filesize
+      };
+      options.messages['filesize'] = options.message;
+  }
+);
+        jQuery.validator.addMethod('filesize', function (value, element, param) {
+            // param = size (en bytes) 
+            // element = element to validate (<input>)
+            // value = value of the element (file name)
+            return this.optional(element) || (element.files[0].size <= param.filesize)
+        });
         jQuery.validator.unobtrusive.adapters.add('fileextensions', ['fileextensions'], function (options) {
             // Set up test parameters
             var params = {
@@ -35,7 +49,7 @@
                 options.messages['fileextensions'] = options.message;
             }
         });
-        $.validator.addMethod("fileextensions", function (value, element, param) {
+        jQuery.validator.addMethod("fileextensions", function (value, element, param) {
             var extension = getFileExtension(value);
             //doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx
             var validExtension = $.inArray(extension, param.fileextensions) !== -1;

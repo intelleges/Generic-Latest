@@ -559,6 +559,14 @@ namespace Generic.DataLayer
             tableCell.ColumnSpan = 3;
             TextBox txtbox = new TextBox();
             FileUpload fileupload = new FileUpload();
+            fileupload.Attributes.Add("required", "");
+            fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
+            fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
+            fileupload.Attributes.Add("fileextensions", "");
+            fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+            fileupload.Attributes.Add("data-val-required", "Required");
+            fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+            fileupload.Attributes.Add("data-val", "true");
             response response = new response();
 
             partnerPartnertypeTouchpointQuestionnaireQuestionResponse pptqResponse = new partnerPartnertypeTouchpointQuestionnaireQuestionResponse();
@@ -658,8 +666,14 @@ namespace Generic.DataLayer
                     txtbox.Text = convertLanguageApi(pptqResponse.comment.ToString());
                     fileupload = new FileUpload(); // textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text"; for referance
                     string uploadedFile = "";// question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
-
-
+                    fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
+                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
+                    fileupload.Attributes.Add("required", "");
+                    fileupload.Attributes.Add("fileextensions", "");
+                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-required", "Required");
+                    fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val", "true");
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
 
@@ -773,6 +787,14 @@ namespace Generic.DataLayer
                     txtbox = new TextBox();
                     txtbox.Width = 600;
                     fileupload = new FileUpload();
+                    fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
+                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
+                    fileupload.Attributes.Add("required", "");
+                    fileupload.Attributes.Add("fileextensions", "");
+                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-required", "Required");
+                    fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val", "true");
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
 
@@ -868,6 +890,14 @@ namespace Generic.DataLayer
                     txtbox = new TextBox();
                     txtbox.Width = 600;
                     fileupload = new FileUpload();
+                    fileupload.Attributes.Add("required", "");
+                    fileupload.Attributes.Add("fileextensions", "");
+                    fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
+                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
+                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-required", "Required");
+                    fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val", "true");
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
 
@@ -955,6 +985,16 @@ namespace Generic.DataLayer
                     txtbox = new TextBox();
                     txtbox.Width = 600;
                     fileupload = new FileUpload();
+                    fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
+                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
+                    fileupload.Attributes.Add("required", "");
+                    fileupload.Attributes.Add("fileextensions", "");
+                    fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
+                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
+                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-required", "Required");
+                    fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val", "true");
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                     //div.InnerHtml = "Comments  ";
@@ -1096,6 +1136,8 @@ namespace Generic.DataLayer
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     fileupload.Attributes.Add("required", "");
                     fileupload.Attributes.Add("fileextensions", "");
+                    fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
+                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
                     fileupload.Attributes.Add("data-val-required", "Required");
                     fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
