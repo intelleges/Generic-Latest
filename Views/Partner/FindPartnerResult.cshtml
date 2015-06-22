@@ -24,7 +24,27 @@
         z-index:1050;
     }
 </style>
+<div class="tw-bs">
+    <div class="container">
+        <div class="modal fade" id="emailDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Print existing documents</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="madalEmailForm">
 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @( Html.Telerik().Grid(Model).Name("PartnerGrid")
         .ToolBar(commands => commands
         .Custom()
@@ -65,6 +85,7 @@
             <li ><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
         }
         <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
+        <li><a href="javascript:printDocs('@item.AccessCode')">Docs</a></li>
     </ul>
 </div>
 </text>);
@@ -336,6 +357,19 @@
 @*<script src="~/Scripts/jquery-1.8.2.js"></script>
 <script src="~/Scripts/jquery-ui-1.9.2.js"></script>*@
 <script type="text/javascript">
+    function printDocs(accessCode) {
+        $.post("ShowDocs", { accessCode: accessCode }).done(function (result) {
+            if (result.length) {
+                $("#madalEmailForm").html("");
+                for (var i = 0; i < result.length; i++) {
+                    $("#madalEmailForm").append("<p><a href='@Url.Action("DownloadPdf", "Partner")/" + result[i].id + "/?accessCode=" + accessCode + "' target='_blank'>" + result[i].title + "</p>");
+                }
+                $("#emailDialog").modal("toggle");
+            } else {
+                alertify.alert('There are no available documents for this partner.');
+            }
+        });
+    }
     $(function () {
         //jQuery.noConflict();
         $("#EmailDialog").dialog({

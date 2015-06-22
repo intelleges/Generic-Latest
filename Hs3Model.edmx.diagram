@@ -287,6 +287,7 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.touchpointcampaign" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.campaignStatu" Width="1.5" PointX="13.375" PointY="13.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PersonData" Width="1.5" PointX="18.375" PointY="17.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.reminderScheduledTaskHeartBeat" Width="1.5" PointX="20.375" PointY="17.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

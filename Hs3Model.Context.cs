@@ -191,6 +191,7 @@ namespace Generic
         public virtual DbSet<questionnaireLoad> questionnaireLoads { get; set; }
         public virtual DbSet<campaignStatu> campaignStatus { get; set; }
         public virtual DbSet<view_PersonData> view_PersonData { get; set; }
+        public virtual DbSet<reminderScheduledTaskHeartBeat> reminderScheduledTaskHeartBeats { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -16727,6 +16728,36 @@ namespace Generic
                 new ObjectParameter("loginTime", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonLastLogoutDate", personParameter, loginTimeParameter);
+        }
+    
+        public virtual ObjectResult<pr_addReminderScheduledTaskHeartBeat_Result> pr_addReminderScheduledTaskHeartBeat(Nullable<System.DateTime> pingTimeStamp, Nullable<int> pingRecordsProcessed)
+        {
+            var pingTimeStampParameter = pingTimeStamp.HasValue ?
+                new ObjectParameter("pingTimeStamp", pingTimeStamp) :
+                new ObjectParameter("pingTimeStamp", typeof(System.DateTime));
+    
+            var pingRecordsProcessedParameter = pingRecordsProcessed.HasValue ?
+                new ObjectParameter("pingRecordsProcessed", pingRecordsProcessed) :
+                new ObjectParameter("pingRecordsProcessed", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_addReminderScheduledTaskHeartBeat_Result>("pr_addReminderScheduledTaskHeartBeat", pingTimeStampParameter, pingRecordsProcessedParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerDocs_Result> pr_getPartnerDocs(Nullable<int> partner, Nullable<int> questionnaire, Nullable<int> ptq)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerDocs_Result>("pr_getPartnerDocs", partnerParameter, questionnaireParameter, ptqParameter);
         }
     }
 }

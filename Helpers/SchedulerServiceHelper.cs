@@ -17,9 +17,10 @@ namespace Generic.Helpers
     {
         public static bool init()
         {
-
+            
             try
             {
+                var pingTimeStamp = DateTime.Now;
                 EntitiesDBContext db = new EntitiesDBContext();
                 //CurrentInstance.EnterpriseID = 2;
 
@@ -29,12 +30,12 @@ namespace Generic.Helpers
 
                 var reminderList = db.pr_getReminderListByCountryAll(true).ToList();
                 var reminderIncompleteList = db.pr_getReminderListIncompleteByCountryAll().ToList();
-
+                int pingRecordsProcessed = 0;
                 foreach (var item in reminderList)
                 {
                     //  if (item.name == "Sukhbir Singh")
-                    if (item.enterprise == 3)
-                    {
+                    //if (item.enterprise == 1) srdjan
+                    //{ srdjan
                         //Console.WriteLine(item.name);
 
 
@@ -53,9 +54,12 @@ namespace Generic.Helpers
                         //db.SaveChanges();
 
                         var amm = db.pr_getAutomailMessage(item.automailmessage).FirstOrDefault();
+                    if(amm != null)
+                    {
                         amm.text.Replace("[partner Access Code]", pptq.accesscode);
+                    }
 
-                        var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(pptq.accesscode, pptq.loadGroup).FirstOrDefault();
+                  // srdjan     var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(pptq.accesscode, pptq.loadGroup).FirstOrDefault();
 
                         //if (objpartnerByAccessCode != null)
                         //{
@@ -83,8 +87,9 @@ namespace Generic.Helpers
                         //objSendEmail.sendEmail(email);
                         try
                         {
-                            sendEmails(email, (int)item.enterprise, db);
-                            db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
+                          sendEmails(email, (int)item.enterprise, db);
+                          db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
+                          pingRecordsProcessed = pingRecordsProcessed + 1;
                         }
                         catch (Exception ex)
                         {
@@ -94,14 +99,14 @@ namespace Generic.Helpers
 
                         }
                         // sendEmail(item.subject, "", "", "john@intelleges.com");
-                    }
+                 ////srdjan   }
                 }
 
                 foreach (var item in reminderIncompleteList)
                 {
                     //  if (item.name == "Sukhbir Singh")
-                    if (item.enterprise == 3)
-                    {
+             ////srdjan       if (item.enterprise == 1)
+                ////srdjan    {
                         //Console.WriteLine(item.name);
 
 
@@ -120,9 +125,12 @@ namespace Generic.Helpers
                         //db.SaveChanges();
 
                         var amm = db.pr_getAutomailMessage(item.automailmessage).FirstOrDefault();
+                    if(amm != null)
+                    {
                         amm.text.Replace("[partner Access Code]", pptq.accesscode);
+                    }
 
-                        var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(pptq.accesscode, pptq.loadGroup).FirstOrDefault();
+                   // srdjan    var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(pptq.accesscode, pptq.loadGroup).FirstOrDefault();
 
                         //if (objpartnerByAccessCode != null)
                         //{
@@ -148,8 +156,9 @@ namespace Generic.Helpers
                         //objSendEmail.sendEmail(email);
                         try
                         {
-                            sendEmails(email, (int)item.enterprise, db);
-                            db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
+                         sendEmails(email, (int)item.enterprise, db);
+                         db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
+                         pingRecordsProcessed = pingRecordsProcessed + 1;
                         }
                         catch (Exception ex)
                         {
@@ -159,17 +168,20 @@ namespace Generic.Helpers
 
                         }
                         // sendEmail(item.subject, "", "", "john@intelleges.com");
-                    }
+                ////srdjan    }
+                       
                 }
-
+                db.pr_addReminderScheduledTaskHeartBeat(pingTimeStamp, pingRecordsProcessed);
                 return true;
             }
-            catch (Exception)
+            catch (Exception exep)
             {
+              var t = exep.Message;
                 return false;
                 
             }
 
+           
             //DataTable dt = DataAccessScheduler.getDailyReport();
 
             ////if the directory already exists
@@ -201,6 +213,7 @@ namespace Generic.Helpers
 
             var mail = SendGrid.GetInstance();
             var credentials = new NetworkCredential(objSendGridPassword.username, objSendGridPassword.password);
+            
 
             Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
             additionalArguments.Add("ApplicationName", "MVCMT");
@@ -217,8 +230,8 @@ namespace Generic.Helpers
 
 
 
-            var transportSMTP = SMTP.GetInstance(credentials);
-
+          //  var transportSMTP = SMTP.GetInstance(credentials);
+            var transportSMTP = SMTP.GetInstance(credentials, "smtp.sendgrid.net", 587);
 
 
             if (email.type == "user")
@@ -250,6 +263,7 @@ namespace Generic.Helpers
             }
             else
             {
+               // email.emailTo = "office@softwarexpert.net";
                 mail.AddTo(email.emailTo);
                 receiver = email.emailTo;
 
@@ -274,6 +288,8 @@ namespace Generic.Helpers
             try
             {
                 transportSMTP.Deliver(mail);
+             //   SendEmail objSendEmail = new SendEmail();
+               // objSendEmail.sendEmail(email);
                 //mail.SetHtmlBody(email.body);
 
 
@@ -519,8 +535,8 @@ namespace Generic.Helpers
                 email.emailTo = objpartner.email;
                 try
                 {
-                    sendEmails(email, (int)objpartner.enterprise, db);
-                    db.pr_addPPTQautoMailMessageLog(pptqId, message.id);
+                  sendEmails(email, (int)objpartner.enterprise, db);
+                  db.pr_addPPTQautoMailMessageLog(pptqId, message.id);
                 }
                 catch (Exception ex)
                 {
@@ -547,7 +563,7 @@ Administrator.<br/><br/>
 Thank you.<br/>
 Intelleges Team
 ",person.firstName,person.lastName,person.passWord);
-            sendEmail("Intelleges Account Request", htmlBody, "", emailTo);
+        sendEmail("Intelleges Account Request", htmlBody, "", emailTo);
         }
         public static void SendPasswordChangedNotification(person person, string emailTo)
         {
@@ -564,7 +580,7 @@ Administrator.<br/><br/>
 Thank you.<br/>
 Intelleges Team
 ", person.firstName, person.lastName, person.passWord);
-            sendEmail("Intelleges Account Request", htmlBody, "", emailTo);
+         sendEmail("Intelleges Account Request", htmlBody, "", emailTo);
         }
     }
 }

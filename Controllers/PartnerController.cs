@@ -179,8 +179,21 @@ namespace Generic.Controllers
             }
             return result;
         }
+        [HttpPost]
+        public ActionResult ShowDocs(string accessCode)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var result = db.pr_getPartnerDocs(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire1.questionnaire, pptq.partnerTypeTouchpointQuestionnaire).Where(o=>o.uploadedfile!=null).ToList();
+            return Json(result.Select(o => new { id = o.id, title = o.title }).ToArray());
+        }
 
-
+        [HttpGet]
+        public ActionResult DownloadPdf(int id, string accessCode)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var result = db.pr_getPartnerDocs(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire1.questionnaire, pptq.partnerTypeTouchpointQuestionnaire).Where(o => o.id == id&&o.uploadedfile!=null).FirstOrDefault();
+            return File(result.uploadedfile, result.uploadedFileType);
+        }
         //
         // GET: /Partner/Details/5
 
