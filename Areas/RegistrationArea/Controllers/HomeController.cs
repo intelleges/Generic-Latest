@@ -456,20 +456,15 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
                         var keyPair = choiceStr.Split(new char[] { ':' });
                         if (keyPair.Length > 1 && keyPair[0].ToLower() == answer.zcode.ToLower())
-                        {
-                            //var emaillist = keyPair[1].Split(new char[]{';'});
-                            //foreach(var email in )
+                        {                            
                             SendEmailAlert(pptq.partner1, answer.description, question.question1, pptq.accesscode, text, keyPair[1], ptq.questionnaire, question.id, answerId);
                                 
                         }
                     }
                 }
                 else
-                {
-                    //var emaillist = question.emailAlertList.Split(new char[] { ';' });
-                    //foreach (var email in emaillist)
-                    SendEmailAlert(pptq.partner1, text, question.question1, pptq.accesscode, text, question.emailAlertList, ptq.questionnaire, question.id);
-                        
+                {                    
+                    SendEmailAlert(pptq.partner1, text, question.question1, pptq.accesscode, text, question.emailAlertList, ptq.questionnaire, question.id);                        
                 }
             }
 
@@ -497,11 +492,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objamm.text = partnerName.name + "("+partnerName.email+") answered '" + answer + "' to '" + question + "' for access code " + accessCode;
             if (!string.IsNullOrEmpty(comment))
             {
-
-
                 objamm.text += " with comment '" + comment + "'.";
-                var url = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailView", "Questionnaire", new { id = ptqId, ModifyResponse = questionId, area = String.Empty, ptqId = ptqId, questionId = questionId, partnerId = partnerName.id, responseId = responseId })).ToString();
-                objamm.text += "<br><a href='" + url + "'>Add to dropdown</a><br><a href='" + url + "'>Assign to dropdown</a>";
+                //should only happens when other is selected in dropdown: from John
+                if (answer.ToLower().Contains("other"))
+                {
+                    var url = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailView", "Questionnaire", new { id = ptqId, ModifyResponse = questionId, area = String.Empty, ptqId = ptqId, questionId = questionId, partnerId = partnerName.id, responseId = responseId })).ToString();
+                    objamm.text += "<br><a href='" + url + "'>Add to dropdown</a><br><a href='" + url + "'>Assign to dropdown</a>";
+                }
             }
             else objamm.text += ".";
             Email mail = new Email(objamm);
