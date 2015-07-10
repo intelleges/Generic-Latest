@@ -791,9 +791,15 @@ namespace Generic.Controllers
                     var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
                     //  excelRead.AddMapping<ExcelPartner>(x => x.internalID, "Internal ID");
-
-                    var questionnaireinExcel = from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a;
-
+                    IQueryable<ExcelQuestionnaire> questionnaireinExcel = null;
+                    try
+                    {
+                        questionnaireinExcel = from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a;
+                    }
+                    catch (NullReferenceException ex)
+                    {
+                        throw new Exception("Please select all blank rows, right click, and select delete and try again.");
+                    }
                     //validateQuestionnaire
 
                     questionnaire objQuestionnaire = new questionnaire();
