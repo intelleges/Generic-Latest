@@ -191,20 +191,23 @@
 
         
         var splitter = $("#Splitter1").data("tSplitter");
+
         if (splitter == null || splitter == undefined)
         {
             return;
         }
         var pane = $("#Splitter1 > .t-pane")[0]; // the first pane
+        
         if (window.location.href.indexOf('PartNumber') == -1) {
             splitter.collapse(pane);
         }
         else if (localStorage["collapsed"] == 1) {
             splitter.collapse(pane);
         }
-        else {
-            splitter.expand(pane);
-        }
+        $(pane).height($(window).height());
+        //else {
+        //    splitter.expand(pane);
+        //}
 
     }
     $(document).ready(function () {
