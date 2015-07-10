@@ -791,10 +791,10 @@ namespace Generic.Controllers
                     var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
                     //  excelRead.AddMapping<ExcelPartner>(x => x.internalID, "Internal ID");
-                    IQueryable<ExcelQuestionnaire> questionnaireinExcel = null;
+                    List<ExcelQuestionnaire> questionnaireinExcel = null;
                     try
                     {
-                        questionnaireinExcel = from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a;
+                        questionnaireinExcel = (from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a).ToList();
                     }
                     catch (NullReferenceException ex)
                     {
@@ -891,6 +891,9 @@ namespace Generic.Controllers
                         //    return Json(new { error = "Error in QID:" + excelQuestionnaire.QID + ";" + (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) });
                         //}
                         responses = null; responseType = string.Empty;
+                        if (string.IsNullOrEmpty(excelQuestionnaire.Response))
+                            throw new Exception("Response value for question with ID " + excelQuestionnaire.QID + " is empty. Please edit spreadsheet and reupload it");
+                        
                         if (excelQuestionnaire.Page < 1 || excelQuestionnaire.Surveyset.Length < 1 || excelQuestionnaire.Survey.Length < 1 || excelQuestionnaire.Question.Length < 1 || excelQuestionnaire.Response.Length < 1 || excelQuestionnaire.Title.Length < 1 || excelQuestionnaire.Required.Length < 1)
                         {
                             //  || excelQuestionnaire.Comment.Length < 1
