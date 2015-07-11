@@ -763,9 +763,13 @@ namespace Generic.Controllers
 
                 ViewBag.pieChartData = pieChartData;
             }
-            if (SchedulerServiceHelper.init(2))
+
+            if(SessionSingleton.LoggedInUserId == 3)
             {
-                ViewData["schedulerMessage"] = "Scheduler Service has been successfully processed";
+                if (SchedulerServiceHelper.init(2))
+                {
+                    ViewData["schedulerMessage"] = "Scheduler Service has been successfully processed";
+                }
             }
 
             return View();
