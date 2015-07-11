@@ -15,9 +15,9 @@ namespace Generic.Helpers
 {
     public static class SchedulerServiceHelper
     {
-        public static bool init()
+        public static bool init(int manualOrAutomatic)
         {
-            int manualOrAutomatic = 1; 
+            
             try
             {
                 var pingTimeStamp = DateTime.Now;

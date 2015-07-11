@@ -763,7 +763,7 @@ namespace Generic.Controllers
 
                 ViewBag.pieChartData = pieChartData;
             }
-            if (SchedulerServiceHelper.init())
+            if (SchedulerServiceHelper.init(2))
             {
                 ViewData["schedulerMessage"] = "Scheduler Service has been successfully processed";
             }
