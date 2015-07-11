@@ -23,13 +23,14 @@ namespace Generic.Helpers
                 var pingTimeStamp = DateTime.Now;
                 EntitiesDBContext db = new EntitiesDBContext();
                 //CurrentInstance.EnterpriseID = 2;
-
+               
                 //System.Web.HttpContext.Current.Session["EnterpriseId"] = 2;
                 // pr_getReminderListByCountryAll
                 // pr_getReminderListIncompleteByCountryAll
 
                 var reminderList = db.pr_getReminderListByCountryAll(true).ToList();
                 var reminderIncompleteList = db.pr_getReminderListIncompleteByCountryAll().ToList();
+                Dictionary<int?, int> countPtq = new Dictionary<int?, int>();
                 int pingRecordsProcessed = 0;
                 foreach (var item in reminderList)
                 {
@@ -80,16 +81,20 @@ namespace Generic.Helpers
 
                         email.emailTo = objpartner.email;
 
-                        //  email.emailTo = "goldykhurmi@gmail.com";
-
-
-                        // SendEmail objSendEmail = new SendEmail();
-                        //objSendEmail.sendEmail(email);
+                       
                         try
                         {
                           sendEmails(email, (int)item.enterprise, db);
                           db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
                           pingRecordsProcessed = pingRecordsProcessed + 1;
+                          if(!countPtq.ContainsKey(item.ptq))
+                          {
+                              countPtq.Add(item.ptq, 1);
+                          }
+                          else
+                          {
+                              countPtq[item.ptq] += 1;
+                          }
                         }
                         catch (Exception ex)
                         {
@@ -98,11 +103,10 @@ namespace Generic.Helpers
                             System.IO.File.AppendAllText(System.IO.Path.Combine(@"C:\reminder_Logs", "Logs.txt"), text);
 
                         }
-                        // sendEmail(item.subject, "", "", "john@intelleges.com");
-                 ////srdjan   }
+                     
                 }
-
-             //   foreach (var item in reminderIncompleteList)
+                #region Ignored
+                //   foreach (var item in reminderIncompleteList)
              //   {
              //       //  if (item.name == "Sukhbir Singh")
              //////srdjan       if (item.enterprise == 1)
@@ -169,8 +173,14 @@ namespace Generic.Helpers
              //           }
              //           // sendEmail(item.subject, "", "", "john@intelleges.com");
              //   ////srdjan    }
-                       
-             //   }
+
+                //   }
+                #endregion
+
+                foreach (var o in countPtq)
+                {
+                    db.pr_addPTQSendDateReminderCount(o.Key, o.Value, pingTimeStamp);
+                }
                 db.pr_addReminderScheduledTaskHeartBeat(pingTimeStamp, pingRecordsProcessed, manualOrAutomatic);
                 return true;
             }
