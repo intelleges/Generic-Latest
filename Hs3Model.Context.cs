@@ -16730,7 +16730,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonLastLogoutDate", personParameter, loginTimeParameter);
         }
     
-        public virtual ObjectResult<pr_addReminderScheduledTaskHeartBeat_Result> pr_addReminderScheduledTaskHeartBeat(Nullable<System.DateTime> pingTimeStamp, Nullable<int> pingRecordsProcessed)
+        public virtual ObjectResult<pr_addReminderScheduledTaskHeartBeat_Result> pr_addReminderScheduledTaskHeartBeat(Nullable<System.DateTime> pingTimeStamp, Nullable<int> pingRecordsProcessed, Nullable<int> type)
         {
             var pingTimeStampParameter = pingTimeStamp.HasValue ?
                 new ObjectParameter("pingTimeStamp", pingTimeStamp) :
@@ -16740,7 +16740,11 @@ namespace Generic
                 new ObjectParameter("pingRecordsProcessed", pingRecordsProcessed) :
                 new ObjectParameter("pingRecordsProcessed", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_addReminderScheduledTaskHeartBeat_Result>("pr_addReminderScheduledTaskHeartBeat", pingTimeStampParameter, pingRecordsProcessedParameter);
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_addReminderScheduledTaskHeartBeat_Result>("pr_addReminderScheduledTaskHeartBeat", pingTimeStampParameter, pingRecordsProcessedParameter, typeParameter);
         }
     
         public virtual ObjectResult<pr_getPartnerDocs_Result> pr_getPartnerDocs(Nullable<int> partner, Nullable<int> questionnaire, Nullable<int> ptq)

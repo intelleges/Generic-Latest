@@ -17,5 +17,6 @@ namespace Generic
         public int id { get; set; }
         public System.DateTime pingTimeStamp { get; set; }
         public int pingRecordsProcessed { get; set; }
+        public Nullable<int> type { get; set; }
     }
 }

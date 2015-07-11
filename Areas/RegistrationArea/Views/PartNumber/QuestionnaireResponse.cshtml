@@ -112,10 +112,10 @@ li { margin-top: 10px; margin-bottom: 10px; margin-left: 10px; float: left; back
 
 
 <script>
-    jQuery.noConflict();
+    
     jQuery(document).ready(function () {
 
-        $('[data-toggle="popover"]').tooltip();
+        //$('[data-toggle="popover"]').tooltip();
         $('.dropdownchange').change(function () {
             var objpartNumberID = $('#partNumberSelectList').val();
             var objsiteID = $('#siteSelectList').val();
@@ -496,9 +496,6 @@ li { margin-top: 10px; margin-bottom: 10px; margin-left: 10px; float: left; back
     }
 </script>
 
-<script>
-    $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
-</script>
 
 @section Bottom{
     <div class="">

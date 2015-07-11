@@ -1646,6 +1646,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="pingTimeStamp" Type="datetime" Nullable="false" />
           <Property Name="pingRecordsProcessed" Type="int" Nullable="false" />
+          <Property Name="type" Type="int" />
         </EntityType>
         <EntityType Name="response">
           <Key>
@@ -4972,6 +4973,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_addReminderScheduledTaskHeartBeat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pingTimeStamp" Type="datetime" Mode="In" />
           <Parameter Name="pingRecordsProcessed" Type="int" Mode="In" />
+          <Parameter Name="type" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -14030,6 +14032,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_addReminderScheduledTaskHeartBeat" ReturnType="Collection(hs3MVCMTQa2Model.pr_addReminderScheduledTaskHeartBeat_Result)">
             <Parameter Name="pingTimeStamp" Mode="In" Type="DateTime" />
             <Parameter Name="pingRecordsProcessed" Mode="In" Type="Int32" />
+            <Parameter Name="type" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerDocs" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerDocs_Result)">
             <Parameter Name="partner" Mode="In" Type="Int32" />
@@ -22360,6 +22363,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="pingTimeStamp" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="pingRecordsProcessed" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="Int32" />
         </EntityType>
         <ComplexType Name="pr_addReminderScheduledTaskHeartBeat_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -29387,6 +29391,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="reminderScheduledTaskHeartBeats">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.reminderScheduledTaskHeartBeat">
               <MappingFragment StoreEntitySet="reminderScheduledTaskHeartBeat">
+                <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="pingRecordsProcessed" ColumnName="pingRecordsProcessed" />
                 <ScalarProperty Name="pingTimeStamp" ColumnName="pingTimeStamp" />
                 <ScalarProperty Name="id" ColumnName="id" />

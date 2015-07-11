@@ -17,7 +17,7 @@ namespace Generic.Helpers
     {
         public static bool init()
         {
-            
+            int manualOrAutomatic = 1; 
             try
             {
                 var pingTimeStamp = DateTime.Now;
@@ -171,7 +171,7 @@ namespace Generic.Helpers
                 ////srdjan    }
                        
                 }
-                db.pr_addReminderScheduledTaskHeartBeat(pingTimeStamp, pingRecordsProcessed);
+                db.pr_addReminderScheduledTaskHeartBeat(pingTimeStamp, pingRecordsProcessed, manualOrAutomatic);
                 return true;
             }
             catch (Exception exep)
