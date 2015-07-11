@@ -1981,6 +1981,9 @@
     <Compile Include="ptqGroup.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ptqSendDateReminderCount.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="query.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

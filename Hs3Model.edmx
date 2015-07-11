@@ -1414,6 +1414,15 @@
           <Property Name="partnertype" Type="int" Nullable="false" />
           <Property Name="goal" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="ptqSendDateReminderCount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ptq" Type="int" Nullable="false" />
+          <Property Name="reminderCount" Type="int" Nullable="false" />
+          <Property Name="sendDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="query">
           <Key>
             <PropertyRef Name="id" />
@@ -4831,6 +4840,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="ptq" Type="int" Mode="In" />
           <Parameter Name="group" Type="int" Mode="In" />
           <Parameter Name="goal" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addPTQSendDateReminderCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ptq" Type="int" Mode="In" />
+          <Parameter Name="reminderCount" Type="int" Mode="In" />
+          <Parameter Name="sendDate" Type="datetime" Mode="In" />
         </Function>
         <Function Name="pr_addQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Question" Type="varchar(max)" Mode="In" />
@@ -8250,6 +8264,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="protocol" EntityType="Self.protocol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="protocolTouchpoint" EntityType="Self.protocolTouchpoint" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ptqGroup" EntityType="Self.ptqGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ptqSendDateReminderCount" EntityType="Self.ptqSendDateReminderCount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="query" EntityType="Self.query" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="queryFieldQuestion" EntityType="Self.queryFieldQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="question" EntityType="Self.question" Schema="dbo" store:Type="Tables" />
@@ -14038,6 +14053,12 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="partner" Mode="In" Type="Int32" />
             <Parameter Name="questionnaire" Mode="In" Type="Int32" />
             <Parameter Name="ptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="ptqSendDateReminderCounts" EntityType="hs3MVCMTQa2Model.ptqSendDateReminderCount" />
+          <FunctionImport Name="pr_addPTQSendDateReminderCount" ReturnType="Collection(Decimal)">
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="reminderCount" Mode="In" Type="Int32" />
+            <Parameter Name="sendDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           
         </EntityContainer>
@@ -22376,6 +22397,15 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Binary" Name="uploadedfile" Nullable="true" MaxLength="Max" />
           <Property Type="String" Name="uploadedFileType" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="ptqSendDateReminderCount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ptq" Type="Int32" Nullable="false" />
+          <Property Name="reminderCount" Type="Int32" Nullable="false" />
+          <Property Name="sendDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -29417,6 +29447,17 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="ptqSendDateReminderCounts">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.ptqSendDateReminderCount">
+              <MappingFragment StoreEntitySet="ptqSendDateReminderCount">
+                <ScalarProperty Name="sendDate" ColumnName="sendDate" />
+                <ScalarProperty Name="reminderCount" ColumnName="reminderCount" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPTQSendDateReminderCount" FunctionName="hs3MVCMTQa2Model.Store.pr_addPTQSendDateReminderCount" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

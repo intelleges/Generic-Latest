@@ -192,6 +192,7 @@ namespace Generic
         public virtual DbSet<campaignStatu> campaignStatus { get; set; }
         public virtual DbSet<view_PersonData> view_PersonData { get; set; }
         public virtual DbSet<reminderScheduledTaskHeartBeat> reminderScheduledTaskHeartBeats { get; set; }
+        public virtual DbSet<ptqSendDateReminderCount> ptqSendDateReminderCounts { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -16762,6 +16763,23 @@ namespace Generic
                 new ObjectParameter("ptq", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerDocs_Result>("pr_getPartnerDocs", partnerParameter, questionnaireParameter, ptqParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPTQSendDateReminderCount(Nullable<int> ptq, Nullable<int> reminderCount, Nullable<System.DateTime> sendDate)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var reminderCountParameter = reminderCount.HasValue ?
+                new ObjectParameter("reminderCount", reminderCount) :
+                new ObjectParameter("reminderCount", typeof(int));
+    
+            var sendDateParameter = sendDate.HasValue ?
+                new ObjectParameter("sendDate", sendDate) :
+                new ObjectParameter("sendDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPTQSendDateReminderCount", ptqParameter, reminderCountParameter, sendDateParameter);
         }
     }
 }
