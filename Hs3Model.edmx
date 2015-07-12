@@ -6359,6 +6359,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getReminderListByCountryAll2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getReminderListIncompleteByCountryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getReminderScheduledTaskHeartBeat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getReminderSentCountAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="applicationName" Type="varchar" Mode="In" />
+          <Parameter Name="protocolTouchpoint" Type="varchar" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getReminderSentCountDaily" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="currentDate" Type="date" Mode="In" />
+          <Parameter Name="applicationName" Type="varchar" Mode="In" />
+          <Parameter Name="protocolTouchpoint" Type="varchar" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6531,6 +6542,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_getTouchpointByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="group" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getTouchpointByPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getTouchpointByProtocol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="protocol" Type="int" Mode="In" />
@@ -14059,6 +14073,20 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="ptq" Mode="In" Type="Int32" />
             <Parameter Name="reminderCount" Mode="In" Type="Int32" />
             <Parameter Name="sendDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getReminderSentCountAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderSentCountAll_Result)">
+            <Parameter Name="applicationName" Mode="In" Type="String" />
+            <Parameter Name="protocolTouchpoint" Mode="In" Type="String" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getReminderSentCountDaily" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderSentCountDaily_Result)">
+            <Parameter Name="currentDate" Mode="In" Type="DateTime" />
+            <Parameter Name="applicationName" Mode="In" Type="String" />
+            <Parameter Name="protocolTouchpoint" Mode="In" Type="String" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTouchpointByPerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTouchpointByPerson_Result)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -22406,6 +22434,32 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="reminderCount" Type="Int32" Nullable="false" />
           <Property Name="sendDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <ComplexType Name="pr_getReminderSentCountAll_Result">
+          <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getReminderSentCountDaily_Result">
+          <Property Type="DateTime" Name="runDate" Nullable="true" />
+          <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getTouchpointByPerson_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="protocol" Nullable="true" />
+          <Property Type="Int32" Name="person" Nullable="true" />
+          <Property Type="Int32" Name="sponsor" Nullable="true" />
+          <Property Type="Int32" Name="admin" Nullable="true" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="true" />
+          <Property Type="String" Name="abbreviation" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="purpose" Nullable="true" />
+          <Property Type="Int32" Name="target" Nullable="true" />
+          <Property Type="DateTime" Name="startDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="endDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="automaticReminder" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -29458,6 +29512,44 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addPTQSendDateReminderCount" FunctionName="hs3MVCMTQa2Model.Store.pr_addPTQSendDateReminderCount" />
+          <FunctionImportMapping FunctionImportName="pr_getReminderSentCountAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderSentCountAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getReminderSentCountAll_Result">
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getReminderSentCountDaily" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderSentCountDaily">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getReminderSentCountDaily_Result">
+                <ScalarProperty Name="runDate" ColumnName="runDate" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getTouchpointByPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointByPerson">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTouchpointByPerson_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="protocol" ColumnName="protocol" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="sponsor" ColumnName="sponsor" />
+                <ScalarProperty Name="admin" ColumnName="admin" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
+                <ScalarProperty Name="purpose" ColumnName="purpose" />
+                <ScalarProperty Name="target" ColumnName="target" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="automaticReminder" ColumnName="automaticReminder" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

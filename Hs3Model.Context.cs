@@ -16781,5 +16781,52 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPTQSendDateReminderCount", ptqParameter, reminderCountParameter, sendDateParameter);
         }
+    
+        public virtual ObjectResult<pr_getReminderSentCountAll_Result> pr_getReminderSentCountAll(string applicationName, string protocolTouchpoint, Nullable<int> enterprise)
+        {
+            var applicationNameParameter = applicationName != null ?
+                new ObjectParameter("applicationName", applicationName) :
+                new ObjectParameter("applicationName", typeof(string));
+    
+            var protocolTouchpointParameter = protocolTouchpoint != null ?
+                new ObjectParameter("protocolTouchpoint", protocolTouchpoint) :
+                new ObjectParameter("protocolTouchpoint", typeof(string));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderSentCountAll_Result>("pr_getReminderSentCountAll", applicationNameParameter, protocolTouchpointParameter, enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getReminderSentCountDaily_Result> pr_getReminderSentCountDaily(Nullable<System.DateTime> currentDate, string applicationName, string protocolTouchpoint, Nullable<int> enterprise)
+        {
+            var currentDateParameter = currentDate.HasValue ?
+                new ObjectParameter("currentDate", currentDate) :
+                new ObjectParameter("currentDate", typeof(System.DateTime));
+    
+            var applicationNameParameter = applicationName != null ?
+                new ObjectParameter("applicationName", applicationName) :
+                new ObjectParameter("applicationName", typeof(string));
+    
+            var protocolTouchpointParameter = protocolTouchpoint != null ?
+                new ObjectParameter("protocolTouchpoint", protocolTouchpoint) :
+                new ObjectParameter("protocolTouchpoint", typeof(string));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderSentCountDaily_Result>("pr_getReminderSentCountDaily", currentDateParameter, applicationNameParameter, protocolTouchpointParameter, enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getTouchpointByPerson_Result> pr_getTouchpointByPerson(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTouchpointByPerson_Result>("pr_getTouchpointByPerson", personParameter);
+        }
     }
 }

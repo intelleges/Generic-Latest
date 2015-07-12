@@ -34,14 +34,14 @@
         var donutchart = new google.visualization.PieChart(document.getElementById('donutchart'));
         donutchart.draw(pieChartData, pieChartOptions);
         //$.post("RemiderChartData").done(function (result) {
-           /* */
-           
+        /* */
+
         //});
         var data = google.visualization.arrayToDataTable([
                      ['Group', 'Bounce', 'Click', 'Deferred', 'Delivered', 'Dropped', 'Open', 'Processed'],
                      ['Invite', 1000, 400, 200, 1000, 400, 200, 1000],
                      ['Iterate', 1170, 460, 250, 1170, 460, 250, 1170],
-                     ['Reminder', 660, 1120, 300, 660, 1120, 300, 660]
+                     ['Reminder',  @ViewBag.dataAll["bounce"], @ViewBag.dataAll["click"], @ViewBag.dataAll["deferred"], @ViewBag.dataAll["delivered"], @ViewBag.dataAll["dropped"], @ViewBag.dataAll["open"], @ViewBag.dataAll["processed"]]
         ]);
 
         var options = {
@@ -56,7 +56,7 @@
                      ['Group', 'Bounce', 'Click', 'Deferred', 'Delivered', 'Dropped', 'Open', 'Processed'],
                      ['Invite', 20, 30, 50, 90, 10, 10, 27],
                      ['Iterate', 70, 10, 15, 45, 42, 26, 20],
-                     ['Reminder', 12, 25, 42, 32, 11, 45, 55]
+                     ['Reminder', @ViewBag.dataToday["bounce"], @ViewBag.dataToday["click"], @ViewBag.dataToday["deferred"], @ViewBag.dataToday["delivered"], @ViewBag.dataToday["dropped"], @ViewBag.dataToday["open"], @ViewBag.dataToday["processed"]]
         ]);
 
         var optionsdaily = {
@@ -73,7 +73,7 @@
         $("#Menu").css("z-index", 101);
         var statusButtonOffset = 30;
         var statusButtonInitialOffset = 250;
-        $("#statusButton").click(function () {            
+        $("#statusButton").click(function () {
             if ($("#columnchart_material_daily").css("display") === "none") {
                 $("#columnchart_material").hide();
                 $("#columnchart_material_daily").show();
@@ -85,13 +85,13 @@
             }
         });
         $("#btnStatusPanel").offset({ left: $("#columnchart_material").position().left + statusButtonInitialOffset, top: $("#templates").offset().top + $("#templates").height() });
-        
+
         $.post("CheckScheduleStatus").done(function (result) {
             if (!result) {
                 $("#statusButton").css("background-color", "red");
                 $("#statusButton").css("border", "solid 1px green");
                 $("#statusButton").attr("title", "Reminders was not sent (click to toggle daily/all chart)");
-            } 
+            }
         });
     });
 </script>

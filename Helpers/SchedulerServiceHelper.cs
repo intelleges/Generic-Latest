@@ -226,7 +226,7 @@ namespace Generic.Helpers
             
 
             Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
-            additionalArguments.Add("ApplicationName", "MVCMT");
+            additionalArguments.Add("ApplicationName", "MVCMT - R");
             additionalArguments.Add("enterprise", enterpriseId.ToString());
             additionalArguments.Add("loadgroup", email.loadgroup);
             additionalArguments.Add("accesscode", email.accesscode);
