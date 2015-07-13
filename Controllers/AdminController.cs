@@ -504,8 +504,8 @@ namespace Generic.Controllers
                     ViewBag.pieChartData = pieChartData;
                    
                     var y = db.pr_getTouchpointByPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
-                    var dataAll = db.pr_getReminderSentCountAll("MVCMT - R", y.title, Generic.Helpers.CurrentInstance.EnterpriseID);
-                    var dataToday = db.pr_getReminderSentCountDaily(DateTime.Now, "MVCMT - R",y.title, Generic.Helpers.CurrentInstance.EnterpriseID);
+                    var dataAll = db.pr_getReminderSentCountAll("MVCMT - R", y.description, Generic.Helpers.CurrentInstance.EnterpriseID);
+                    var dataToday = db.pr_getReminderSentCountDaily(DateTime.Now, "MVCMT - R",y.description, Generic.Helpers.CurrentInstance.EnterpriseID);
 
                     Dictionary<string , int?> dataAllDictionary = new Dictionary<string,int?>();
                     dataAllDictionary.Add("bounce", 0);
