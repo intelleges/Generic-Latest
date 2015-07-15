@@ -515,7 +515,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 return RedirectToAction("Default");
             }
-
+            #region CMS
             ViewBag.CMS_PAGE_TITLE = CMS.QUESTIONNAIRE_PAGE_TITLE;
             ViewBag.CMS_PAGE_SUBTITLE = CMS.QUESTIONNAIRE_PAGE_SUBTITLE;
             ViewBag.CMS_PAGE_PANEL_ONE = CMS.QUESTIONNAIRE_PAGE_PANEL_ONE;
@@ -585,7 +585,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
                 catch { }
             }
-
+            #endregion
 
 
 
@@ -639,11 +639,200 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 ViewBag.message = TempData["message"];
             }
+            getZcodeByProviderProtocolCampaignQuestionnaire();
             return View();
         }
 
+        public void getZcodeByProviderProtocolCampaignQuestionnaire()
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+            //var psz = new object[] { new { partnumber } };// db.pr_getPartnumberSiteZcodeByPPTQForUI(pptq.id).ToList().Where(x => x.status == "Completed");
+
+            ////List<CustomizedLSMW> customizedLSMW = (List<CustomizedLSMW>)Session["CustomizedLSMW"];
 
 
+            string labeltext = "";
+            //if (psz.Count() > 0)
+            //{
+                labeltext += "<table cellpadding='2' cellspacing='0' border='1' style='width: 100%;'>";
+                labeltext += "<tr><td>Access Code</td><td colspan=\"3\">Zcode</td><td>SCORE</td><td>PRIORITY</td><td>DUE DATE</td><td>COMPLETED DATE</td></tr>";
+            //    //
+            //    foreach (var dr in psz)
+            //    {
+                    labeltext += "<tr>";
+            //        try
+            //        {
+                    labeltext += "<td>" + pptq.accesscode + "</td><td colspan=\"3\">" + pptq.zcode + "</td><td>" + pptq.score + "</td><td>" + pptq.priority + "</td><td>" + pptq.dueDate??"" + "</td><td>" + pptq.completedDate??"" + "</td>";
+            //                //+ "<td>"+customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().LIFNR + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().MATNR + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().WERKS + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().ZPOST + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().ZCFLAG + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().COMPLETED_DATE.ToString("MM-dd-yyyy") + "</td>";
+            //        }
+            //        catch
+            //        {
+            //            labeltext += "<td>" + dr.site + "</td><td>" + dr.zcode + "</td><td></td><td></td><td></td><td></td><td></td><td></td>";
+            //        }
+                    labeltext += "</tr>";
+            //    }
+                labeltext += "</table>";
+            //}
+
+
+
+
+
+
+            ViewBag.zcodeList = labeltext;
+
+
+        }
+
+        private string ZcodeModify(int questionnaireId, int questionId, int? responseId)
+        {
+            var result = "";
+            var responseTypesQuestionnaire = (List<responseType>)Session["responseTypesQuestionnaire"];
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+           
+            var allQuestions = db.pr_getQuestionByQuestionnaire(questionnaireId).ToList();
+            string zcode = pptq.zcode ?? allQuestions.Aggregate("",(r,t)=>r+="ZZ");
+            int questionNo = 0;
+            foreach (var item in allQuestions)
+            {
+                questionNo++;
+
+                if (questionId == item.id)
+                {
+                    break;
+                }
+            }
+            string NewZcodePart1 = zcode.Substring(0, (questionNo * 2) - 2);
+
+            //get zcode according to answer
+            var responseZcode = db.pr_getResponse(responseId).FirstOrDefault();
+
+            var objQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
+
+            if (objQuestion.responseType == ResponseType.DROPDOWN)
+            {
+                if (responseZcode.zcode != null)
+                {
+                    Session["CountryCode"] = responseZcode.zcode;
+                }
+            }
+
+            string NewZcodePart2_CurrentQuestion = "--";
+            if (responseZcode != null)
+            {
+                if (responseZcode.zcode != null)
+                {
+                    NewZcodePart2_CurrentQuestion = responseZcode.zcode;
+                }
+            }
+
+            if (responseTypesQuestionnaire.Where(r => r.id == questionId).FirstOrDefault().description == "text")
+            {
+                NewZcodePart2_CurrentQuestion = ZCode.XX_Comment_Only_Question;
+            }
+
+            string NewZcodePart3 = zcode.Substring((questionNo * 2), zcode.Length - (questionNo * 2));
+            //3    45
+            //zzzz zz zz
+            //0 4
+            //6 L-6
+            var zzcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
+            var count = db.pr_checkPartnumberBadZcodeCountByZcode(zzcode).FirstOrDefault();
+            if (count > 0)
+            {
+                result = "Please try again, if problem persists, please contact your system administrator by clicking on contact us button.<br>Thank you.";
+                zzcode = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
+                pptq.zcode = zzcode;
+                using (var contect = new EntitiesDBContext())
+                {
+                    var pnszCodepptq = contect.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptq.id);
+                    pnszCodepptq.zcode = zzcode;
+                    pnszCodepptq.status = Status.NOT_STARTED;
+                    contect.Entry(pnszCodepptq).State = EntityState.Modified;
+                    contect.SaveChanges();
+                }
+            }
+            else
+            {
+                pptq.zcode = zzcode;
+
+
+                using (var contect = new EntitiesDBContext())
+                {
+                    var pnszCodepptq = contect.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptq.id);
+                    pnszCodepptq.zcode = zzcode;
+                    contect.Entry(pnszCodepptq).State = EntityState.Modified;
+                    contect.SaveChanges();
+                }
+            }
+            return result;
+        }
+
+        private string ZcodeModifyForSkip(int questionnaireId, int questionId, int jumpToQuestion)
+        {
+            var result = "";
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+            var allQuestions = db.pr_getQuestionByQuestionnaire(questionnaireId).ToList();
+            string zcode = pptq.zcode ?? allQuestions.Aggregate("", (r, t) => r += "ZZ");
+            int questionNo = 1;
+            foreach (var item in allQuestions)
+            {
+                questionNo++;
+
+                if (questionId == item.id)
+                {
+                    break;
+                }
+            }
+            string NewZcodePart1 = zcode.Substring(0, (questionNo * 2) - 2);
+
+            //get zcode according to answer
+
+            string NewZcodePart2_CurrentQuestion = "";
+            for (int i = 0; i < jumpToQuestion - questionId - 1; i++)
+            {
+                NewZcodePart2_CurrentQuestion += ZCode.YY_Skipped;
+
+            }
+
+            //2    6 -> 3 4 5
+
+            string NewZcodePart3 = zcode.Substring((questionNo * 2) + (jumpToQuestion - questionId - 2) * 2, zcode.Length - ((questionNo * 2) + (jumpToQuestion - questionId - 2) * 2));
+            //3    45
+            //zzzz zzzzzz zzzzzz
+            //0 4
+            //6 L-6
+            var zzcode = NewZcodePart1 + NewZcodePart2_CurrentQuestion + NewZcodePart3;
+            var count = db.pr_checkPartnumberBadZcodeCountByZcode(zzcode).FirstOrDefault();
+            if (count > 0)
+            {
+                result = "Please try again, if problem persists, please contact your system administrator by clicking on contact us button.<br>Thank you.";
+                zzcode = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
+                pptq.zcode = zzcode;
+                using (var contect = new EntitiesDBContext())
+                {
+                    var pnszCodepptq = contect.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptq.id);
+                    pnszCodepptq.zcode = zzcode;
+                    pnszCodepptq.status = Status.NOT_STARTED;
+                    contect.Entry(pnszCodepptq).State = EntityState.Modified;
+                    contect.SaveChanges();
+                }
+            }
+            else
+            {
+                pptq.zcode = zzcode;
+
+
+                using (var context = new EntitiesDBContext())
+                {
+                    var pnszcodepptq = context.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptq.id);
+                    pnszcodepptq.zcode = zzcode;
+                    context.Entry(pnszcodepptq).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+            }
+            return result;
+        }
 
         [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult QuestionnaireResponse(FormCollection formCollection, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
@@ -738,6 +927,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, null, responseComment, null, null, null, null, pptq);
                         }
                         ResolveAndSendEmailAlert(questionId, pptq, text: responseComment);
+                        ZcodeModify(questionnaireId, questionId, null);
                     }
                     #endregion
                     #region checkbox question
@@ -775,6 +965,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
 
                             ResolveAndSendEmailAlert(questionId, pptq,answerId:responseId.HasValue?responseId.Value:-1, text: responseComment);
+                            ZcodeModify(questionnaireId, questionId, responseId);
                         }
                     }
                     #endregion
@@ -842,6 +1033,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.id, questionId, responseId, responseComment, null, null, null, null, pptq);
                         }
                         ResolveAndSendEmailAlert(questionId, pptq, answerId: responseId.HasValue ? responseId.Value : -1, text: responseComment);
+                        ZcodeModify(questionnaireId, questionId, responseId);
                     }
                     #endregion
                     objQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
@@ -1042,7 +1234,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //{
             //    var value = formCollection[keyName.ToString()];
             //}
-
+            if(jumpToQuestion!=0)
+            {
+                ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion);
+            }
             if (questionId == jumpToQuestion)
             {
                 goEsignature = "true";
