@@ -54,7 +54,7 @@
 
         .Columns(columns =>
         {
-            columns.Bound(o => o.internalID).Title("Internal ID").Width(80).Encoded(false);
+            columns.Bound(o => o.internalID).Title("Internal ID").Width(150).Encoded(false);
             columns.Bound(o => o.PartnerName).Title("Partner Name").Width(250).Template(@<text>
                 @{
 
@@ -103,8 +103,37 @@
         }
 
 
-            </text>); 
-            columns.Bound(o => o.phone).Title("Phone").Width(100);
+            </text>);
+            columns.Bound(o => o.AccessCode).Title("AccessCode").Width(90).Template(@<text>
+
+        @{
+            var columnData = item.AccessCode;
+            var width = 8;
+            var visibleText = string.Empty;
+            if (columnData != null)
+            {
+                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+            }
+
+            <a href='#' id='@item.AccessCode' class="menu_block" title="@columnData">@visibleText</a><div class="display_menu" style="display: none;">
+
+
+
+                <ul>
+                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'>
+                        <a href="javascript:remind('@item.AccessCode')">
+                            Remind
+                        </a>
+                    </li>
+                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Re-Invite (intelleges.com)</a></li>
+                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Re-Invite (racix.net)</a></li>
+                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Rescind</a></li>
+                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Remove</a></li>
+                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Retrieve</a></li>
+                </ul>
+            </div>
+        }
+            </text>);            
             columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="OpenManualAddModal('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>);
 
             columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(100).Template(@<text>
@@ -259,37 +288,8 @@
         }
 
 
-            </text>); 
-            columns.Bound(o => o.AccessCode).Title("AccessCode").Width(90).Template(@<text>
-
-           @{
-               var columnData = item.AccessCode;
-            var width = 8;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-
-            <a href='#' id='@item.AccessCode' class="menu_block" title="@columnData">@visibleText</a><div class="display_menu" style="display: none;">
-              
-
-
-                <ul>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'>
-                        <a href="javascript:remind('@item.AccessCode')">
-                            Remind
-                        </a>
-                    </li>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Re-Invite (intelleges.com)</a></li>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Re-Invite (racix.net)</a></li>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Rescind</a></li>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Remove</a></li>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Retrieve</a></li>
-                </ul>
-            </div>
-}
-</text>);
+            </text>);
+            columns.Bound(o => o.phone).Title("Phone").Width(100);
             columns.Bound(o => o.status).Title("Status").Width(150).Template(@<text>
 
         @{

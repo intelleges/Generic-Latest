@@ -10,14 +10,24 @@ using Generic.Helpers.Utility;
 using Generic.Models;
 using SendGridMail;
 using SendGridMail.Transport;
+using System.Diagnostics;
 
 namespace Generic.Helpers
 {
     public static class SchedulerServiceHelper
     {
+        public static string sSource;
+        static string sLog;
+        static string sEvent;
+
+
         public static bool init(int manualOrAutomatic)
         {
-            
+
+            sSource = "mvcSheduler";
+            sLog = "Application";
+         
+
             try
             {
                 var pingTimeStamp = DateTime.Now;
@@ -98,7 +108,13 @@ namespace Generic.Helpers
                         }
                         catch (Exception ex)
                         {
+                            if (!EventLog.SourceExists(sSource))
+                            {
+                                EventLog.CreateEventSource(sSource, sLog);
+                            }
 
+                            sEvent = ex.StackTrace;
+                            EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 1);
                             string text = "\r\n \r\n Error in First foreach loop : " + ex.StackTrace;
                             System.IO.File.AppendAllText(System.IO.Path.Combine(@"C:\reminder_Logs", "Logs.txt"), text);
 
@@ -186,6 +202,14 @@ namespace Generic.Helpers
             }
             catch (Exception exep)
             {
+                if (!EventLog.SourceExists(sSource))
+                {
+                    EventLog.CreateEventSource(sSource, sLog);
+                }
+
+                sEvent = exep.StackTrace;
+                EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 2);
+
               var t = exep.Message;
                 return false;
                 
@@ -339,6 +363,14 @@ namespace Generic.Helpers
 
             catch (Exception ex)
             {
+                if (!EventLog.SourceExists(sSource))
+                {
+                    EventLog.CreateEventSource(sSource, sLog);
+                }
+
+                sEvent = ex.StackTrace;
+                EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 3);
+
                 if (email.type == "provider")
                 {
                     //        returnValue = receiver + ": " + addErrorMessage(ex.Message.ToString(), email.provider.id.id);
@@ -478,7 +510,13 @@ namespace Generic.Helpers
 
             catch (Exception ex)
             {
+                if (!EventLog.SourceExists(sSource))
+                {
+                    EventLog.CreateEventSource(sSource, sLog);
+                }
 
+                sEvent = ex.StackTrace;
+                EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 4);
             }
 
         }
@@ -513,8 +551,15 @@ namespace Generic.Helpers
                 oExcelWriter.Close();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                if (!EventLog.SourceExists(sSource))
+                {
+                    EventLog.CreateEventSource(sSource, sLog);
+                }
+
+                sEvent = ex.StackTrace;
+                EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 5);
                 return false;
             }
         }
@@ -550,6 +595,14 @@ namespace Generic.Helpers
                 }
                 catch (Exception ex)
                 {
+                    if (!EventLog.SourceExists(sSource))
+                    {
+                        EventLog.CreateEventSource(sSource, sLog);
+                    }
+
+                    sEvent = ex.StackTrace;
+                    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 6);
+
                     string text = "\r\n \r\n Error in First foreach loop : " + ex.StackTrace;
                     System.IO.File.AppendAllText(System.IO.Path.Combine(@"C:\reminder_Logs", "Logs.txt"), text);
                 }
