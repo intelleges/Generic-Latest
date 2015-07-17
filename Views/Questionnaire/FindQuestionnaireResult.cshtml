@@ -32,7 +32,7 @@
         .Columns(columns =>
         {
 
-            columns.Bound(o => o.name).Title("Name").Width(100).Template(@<text><a href='#' id='@item.name' class="menu_block title">@item.name</a>
+            columns.Bound(o => o.name).Title("Name").Width(200).Template(@<text><a href='#' id='@item.name' class="menu_block title">@item.name</a>
 <div class="display_menu" style="display: none;">
     <ul>
         <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
@@ -48,17 +48,17 @@
     </ul>
 </div>
 </text>);
-            columns.Bound(o => o.Author).Title("Author").Width(100);
+            columns.Bound(o => o.Author).Title("Author").Width(150);
             columns.Bound(o => o.Protocol).Title("Protocol").Width(150);
-            columns.Bound(o => o.description).Title("Description").Width(100).Template(@<text>
+            @*columns.Bound(o => o.description).Title("Description").Width(100).Template(@<text>
                 <a href='#' class='menu_block title'>@item.description</a>
                 <div class='display_menu' style='display: none;width:200px;'>
                     <span style='width:100%'><p>@item.description</p></span>
                 </div>
-            </text>);
+            </text>);*@
             columns.Bound(o => o.Locked).Title("Locked").Width(55);
-            columns.Bound(o => o.Incomplete).Title("Incomplete").Width(100);
-            columns.Bound(o => o.No_Response).Title("No Response").Width(100);
+            columns.Bound(o => o.Incomplete).Title("RI").Width(50);
+            columns.Bound(o => o.No_Response).Title("NR").Width(50);
             columns.Bound(o => o.CMS).Title("CMS").Width(50);
             columns.Bound(o => o.Completed).Title("Completed").Width(90);
             columns.Bound(o => o.enterprise).Title("enterprise").Width(65);
@@ -124,8 +124,8 @@
             window.location.replace(window.location.href);
         });
         $("td a.menu_block.title").each(function () {
-            if ($(this).text().length > 12) {
-                $(this).text($(this).text().substr(0, 12) + "...");
+            if ($(this).text().length > 30) {
+                $(this).text($(this).text().substr(0, 30) + "...");
             }
         });
     });
