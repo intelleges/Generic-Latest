@@ -46,8 +46,25 @@
         if ('@ViewBag.ID' != '0' && '@ViewBag.ID' != '') {
             debugger;
             alertify.alert('You have successfully added the @ViewBag.Name Protocol to Intelleges with an expiry of @ViewBag.EndDate');
+            clearForm();
         }
     });
+
+    function clearForm() {
+        $("#name").val("");
+        $("#description").val("");
+        $("#background").val("");
+        $("#keyBenefits").val("");
+        $("#abbreviation").val("");
+        $("#summary").val("");
+        $("#startDate").val("");
+        $("#endDate").val("");
+        $("#riskBenefits").val("");
+        $("#keyWords").val("");
+        $("#purpose").val("");
+        $("#domain").val("0");
+        $("#agency").val("0");
+    }
 </script>
 <style type="text/css">
     .threecol, twocol {

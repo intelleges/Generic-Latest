@@ -69,6 +69,27 @@
         }
 </style>
 <script>
+    function clearForm() {
+        $("#companyName").val("");
+        $(".t-upload-files.t-reset").find("li").remove();
+        $("#description").val("");
+        $("#userMax").val("");
+        $("#partnerMax").val("");
+        $("#partnumberMax").val("");
+        $("#product").val("");
+        $("#subscriptionType").val("");
+        $("#freeTrialStartDate").val("");
+        $("#freeTrialEndDate").val("");
+        $("#licenseStartDate").val("");
+        $("#licenseEndDate").val("");
+        $("#monthlyFee").val("");
+        $("#subscriptionStatus").val("");
+        $("#multiTenantProjectType").val("");
+        $("#systemExpiry").val("");
+        $("#licenseLimit").val("");
+        $("#companyWebSite").val("");
+    }
+
     $(document).ready(function () {
         @if(Model!=null)
         {
@@ -79,6 +100,9 @@
                 if(choise){
                     window.location.href="../Person/Create?enterpriseId=@Model.id";
                 }
+                
+                    clearForm();
+                
             });
         }
         else{
