@@ -6,7 +6,43 @@
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Enterprise";
 }
+<style>
+    div#EnterpriceGrid {
+        font-size: 11px;
+    }
 
+    #modal {
+        height: 489px;
+    }
+
+    .ui-dialog {
+        width: 99% !important;
+        left: 0;
+    }
+
+    .t-grid-content tr > td:hover .menu_block + .display_menu {
+        display: block !important;
+    }
+
+    .display_menu {
+        left: 65px;
+        overflow: visible;
+        position: absolute;
+        margin-top: -45px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+
+        .display_menu > ul {
+            padding: 0 16px;
+        }
+
+        .display_menu li {
+            list-style: none outside none;
+            width: 143px;
+        }
+</style>
 <h2>Index</h2>
 
 
@@ -23,11 +59,11 @@
         {
             columns.Bound(o => o.description).Width(100);
 
-            columns.Bound(o => o.sortOrder).Width(100);
+            //columns.Bound(o => o.sortOrder).Width(100);
 
-            columns.Bound(o => o.active).Width(100);
+            //columns.Bound(o => o.active).Width(100);
 
-            columns.Bound(o => o.logo).Width(100);
+            //columns.Bound(o => o.logo).Width(100);
 
             columns.Bound(o => o.applicationPath).Width(100);
 
@@ -37,9 +73,9 @@
 
             columns.Bound(o => o.archivedDate).Width(100);
 
-            columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit").Width(100);
-            columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details").Width(100); ;
-            columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete").Width(100);
+            //columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit").Width(100);
+            //columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details").Width(100); ;
+            //columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete").Width(100);
              
             
         })
