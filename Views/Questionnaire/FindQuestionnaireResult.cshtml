@@ -48,23 +48,18 @@
     </ul>
 </div>
 </text>);
-            columns.Bound(o => o.Author).Title("Author").Width(100);
-            columns.Bound(o => o.Protocol).Title("Protocol").Width(150);
-            @*columns.Bound(o => o.description).Title("Description").Width(100).Template(@<text>
-                <a href='#' class='menu_block title'>@item.description</a>
-                <div class='display_menu' style='display: none;width:200px;'>
-                    <span style='width:100%'><p>@item.description</p></span>
-                </div>
-            </text>);*@
-            columns.Bound(o => o.Locked).Title("Locked").Width(55);
-            columns.Bound(o => o.Incomplete).Title("RI").Width(30);
-            columns.Bound(o => o.No_Response).Title("NR").Width(30);
-            columns.Bound(o => o.CMS).Title("CMS").Width(50);
-            columns.Bound(o => o.Completed).Title("RC").Width(30);
-            columns.Bound(o => o.enterprise).Title("enterprise").Width(65);
-            columns.Bound(o => o.PartnerType).Title("PartnerType").Width(150);
-            columns.Bound(o => o.Reminders).Title("Reminders").Width(65);
             columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(200);
+            columns.Bound(o => o.PartnerType).Title("PartnerType").Width(150);
+            columns.Bound(o => o.Locked).Title("Locked").Width(55);
+            columns.Bound(o => o.CMS).Title("CMS").Width(50);
+            columns.Bound(o => o.Reminders).Title("Remind").Width(65);
+            columns.Bound(o => o.Author).Title("Author").Width(100);
+            columns.Bound(o => o.No_Response).Title("N/R").Width(30);
+            columns.Bound(o => o.Incomplete).Title("R/I").Width(30);         
+           
+            columns.Bound(o => o.Completed).Title("R/C").Width(30);           
+            
+            
 
         })
         .DataKeys(keys => keys.Add(o => o.id))
