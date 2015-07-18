@@ -251,13 +251,13 @@
             });
 
             $("#linkedinLoginBtn").on("click", function () {
-                $('<form>', {
+                @*$('<form>', {
                     "id": "linkedinForm",
                     "html": '@Html.AntiForgeryToken()' + '<input type="text" name="provider" value="' + "LinkedIn" + '" />',
                     "action":'@ViewBag.LinkedInLoginUri' ,
                     "method": 'post',
                     "style": 'display: none'
-                }).appendTo(document.body).submit();
+                }).appendTo(document.body).submit();*@
 
             });
 
