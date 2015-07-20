@@ -801,12 +801,14 @@
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\partner.cs" />
+    <Compile Include="Models\PartnerExternalDocModel.cs" />
     <Compile Include="Models\person.extension.cs" />
     <Compile Include="Models\PersonComboModel.cs" />
     <Compile Include="Models\ProductTypeModel.cs" />
     <Compile Include="Models\pr_getIteratePartnerPerson3_Result.cs" />
     <Compile Include="Models\QuestionnaireModel.cs" />
     <Compile Include="Models\RailModelView.cs" />
+    <Compile Include="Models\ShowDocsModel.cs" />
     <Compile Include="Models\SignupModels.cs" />
     <Compile Include="Models\StringContainer.cs" />
     <Compile Include="Models\TouchpointComboModel.cs" />
@@ -937,6 +939,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pptqAutoMailMessageLog.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pptqDoc.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pptqGroup.cs">
@@ -1640,6 +1645,15 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPPTQByStatus_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPPTQDocAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPPTQDocByPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPPTQDoc_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPPTQGroupByGroup_Result.cs">
@@ -4499,6 +4513,7 @@
     <Content Include="Views\Campaign\Index.cshtml" />
     <Content Include="Views\Campaign\Edit.cshtml" />
     <Content Include="Views\Merck\ContactUs.cshtml" />
+    <Content Include="Views\Partner\PartnerDocuments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

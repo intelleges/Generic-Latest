@@ -43,13 +43,9 @@
             width: 143px;
         }
 </style>
-<h2>Index</h2>
 
 
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<br/>
 
 
 
@@ -57,7 +53,7 @@
 @( Html.Telerik().Grid(Model).Name("EnterpriceGrid")
         .Columns(columns =>
         {
-            columns.Bound(o => o.description).Width(100);
+            columns.Bound(o => o.description).Title("Enterprise").Width(100);
 
             //columns.Bound(o => o.sortOrder).Width(100);
 
@@ -65,13 +61,13 @@
 
             //columns.Bound(o => o.logo).Width(100);
 
-            columns.Bound(o => o.applicationPath).Width(100);
+            //columns.Bound(o => o.applicationPath).Width(100);
 
-            columns.Bound(o => o.companyName).Width(100);
+            columns.Bound(o => o.companyName).Title("Company Name").Width(100);
+          
+            //columns.Bound(o => o.instanceName).Width(100);
 
-            columns.Bound(o => o.instanceName).Width(100);
-
-            columns.Bound(o => o.archivedDate).Width(100);
+            //columns.Bound(o => o.archivedDate).Width(100);
 
             //columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit").Width(100);
             //columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details").Width(100); ;

@@ -193,6 +193,7 @@ namespace Generic
         public virtual DbSet<view_PersonData> view_PersonData { get; set; }
         public virtual DbSet<reminderScheduledTaskHeartBeat> reminderScheduledTaskHeartBeats { get; set; }
         public virtual DbSet<ptqSendDateReminderCount> ptqSendDateReminderCounts { get; set; }
+        public virtual DbSet<pptqDoc> pptqDocs { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -16827,6 +16828,151 @@ namespace Generic
                 new ObjectParameter("person", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTouchpointByPerson_Result>("pr_getTouchpointByPerson", personParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPPTQDoc(Nullable<int> pptq, string title, string description, byte[] doc, Nullable<int> doctype, Nullable<System.DateTime> uploadDateTime, Nullable<int> uploadedBy, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var docParameter = doc != null ?
+                new ObjectParameter("doc", doc) :
+                new ObjectParameter("doc", typeof(byte[]));
+    
+            var doctypeParameter = doctype.HasValue ?
+                new ObjectParameter("doctype", doctype) :
+                new ObjectParameter("doctype", typeof(int));
+    
+            var uploadDateTimeParameter = uploadDateTime.HasValue ?
+                new ObjectParameter("uploadDateTime", uploadDateTime) :
+                new ObjectParameter("uploadDateTime", typeof(System.DateTime));
+    
+            var uploadedByParameter = uploadedBy.HasValue ?
+                new ObjectParameter("uploadedBy", uploadedBy) :
+                new ObjectParameter("uploadedBy", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPPTQDoc", pptqParameter, titleParameter, descriptionParameter, docParameter, doctypeParameter, uploadDateTimeParameter, uploadedByParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archivePPTQDoc(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePPTQDoc", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQDoc_Result> pr_getPPTQDoc(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQDoc_Result>("pr_getPPTQDoc", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQDocAll_Result> pr_getPPTQDocAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQDocAll_Result>("pr_getPPTQDocAll");
+        }
+    
+        public virtual int pr_modifyPPTQDoc(Nullable<int> id, Nullable<int> pptq, string title, string description, byte[] doc, Nullable<int> doctype, Nullable<System.DateTime> uploadDateTime, Nullable<int> uploadedBy, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var docParameter = doc != null ?
+                new ObjectParameter("doc", doc) :
+                new ObjectParameter("doc", typeof(byte[]));
+    
+            var doctypeParameter = doctype.HasValue ?
+                new ObjectParameter("doctype", doctype) :
+                new ObjectParameter("doctype", typeof(int));
+    
+            var uploadDateTimeParameter = uploadDateTime.HasValue ?
+                new ObjectParameter("uploadDateTime", uploadDateTime) :
+                new ObjectParameter("uploadDateTime", typeof(System.DateTime));
+    
+            var uploadedByParameter = uploadedBy.HasValue ?
+                new ObjectParameter("uploadedBy", uploadedBy) :
+                new ObjectParameter("uploadedBy", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPPTQDoc", idParameter, pptqParameter, titleParameter, descriptionParameter, docParameter, doctypeParameter, uploadDateTimeParameter, uploadedByParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removePPTQDoc(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePPTQDoc", idParameter);
+        }
+    
+        public virtual int pr_unArchivePPTQDoc(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePPTQDoc", idParameter);
+        }
+    
+        public virtual ObjectResult<pptqDoc> pr_getPPTQDocByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pptqDoc>("pr_getPPTQDocByPPTQ", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pptqDoc> pr_getPPTQDocByPPTQ(Nullable<int> pptq, MergeOption mergeOption)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pptqDoc>("pr_getPPTQDocByPPTQ", mergeOption, pptqParameter);
         }
     }
 }

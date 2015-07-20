@@ -20,8 +20,15 @@
         width: 99% !important;
         left: 0;
     }
-    .modal-dialog{
-        z-index:1050;
+
+    .modal-dialog {
+        z-index: 1050;
+    }
+    #partnersDocGrid {
+        font-size: 11px;
+    }
+    #partnersDocGrid .t-header{
+        padding: .8em .8em !important;
     }
 </style>
 <div class="tw-bs">
@@ -36,9 +43,14 @@
                         <h4 class="modal-title" id="gpsLabel">Print existing documents</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="madalEmailForm">
-
-                        </form>
+                        @*<button class="buttons glyphicon glyphicon-plus float-right" title="Add new document"></button>*@
+                        @*<form>
+                            <div class="form-group">
+                                <label for="uploadedFile">Upload  file</label>
+                                <input type="file" class="form-control" id="uploadedFile" />
+                            </div>
+                        </form>*@
+                        
                     </div>
                 </div>
             </div>
@@ -65,30 +77,30 @@
             {
                 visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
             }
-                    <a href='#' id='@item.PartnerName' class="menu_block" title="@columnData">@visibleText</a>
+            <a href='#' id='@item.PartnerName' class="menu_block" title="@columnData">@visibleText</a>
                 }
-<div class="display_menu" style="display: none;">
-    <ul>
-       
-        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
-        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
-        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="@item.Expr1" target="_blank">Complete</a></li>
-           
-        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF('@item.status','@item.AccessCode')">Print PDF</a></li>
-        
-        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintHTML('@item.status','@item.AccessCode')">Print HTML</a></li>
-        @if(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
-            
-        { 
-            <li ><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
+                <div class="display_menu" style="display: none;">
+                    <ul>
+
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="@item.Expr1" target="_blank">Complete</a></li>
+
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF('@item.status','@item.AccessCode')">Print PDF</a></li>
+
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintHTML('@item.status','@item.AccessCode')">Print HTML</a></li>
+                        @if(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
+
+        {
+                            <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
         }
-        <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
-        <li><a href="javascript:printDocs('@item.AccessCode')">Docs</a></li>
-    </ul>
-</div>
-</text>);
+                        <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
+                        <li>@Html.ActionLink("Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>
+                    </ul>
+                </div>
+            </text>);
             columns.Bound(o => o.Contact).Title("Contact").Width(150).Template(@<text>
 
         @{
@@ -133,7 +145,7 @@
                 </ul>
             </div>
         }
-            </text>);            
+            </text>);
             columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="OpenManualAddModal('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>);
 
             columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(100).Template(@<text>
@@ -292,7 +304,7 @@
             columns.Bound(o => o.phone).Title("Phone").Width(100);
             columns.Bound(o => o.status).Title("Status").Width(150).Template(@<text>
 
-        @{
+                @{
             var columnData = item.status;
             var width = 20;
             var visibleText = string.Empty;
@@ -301,7 +313,7 @@
                 visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
             }
             <p title="@columnData">@visibleText</p>
-        }
+                }
 
 
             </text>); ;
@@ -353,22 +365,39 @@
         list-style: none outside none;
         width: 143px;
     }
+
+    #madalEmailForm .table td[colspan='5'] {
+        text-align: center;
+    }
 </style>
 @*<script src="~/Scripts/jquery-1.8.2.js"></script>
-<script src="~/Scripts/jquery-ui-1.9.2.js"></script>*@
+    <script src="~/Scripts/jquery-ui-1.9.2.js"></script>*@
 <script type="text/javascript">
     function printDocs(accessCode) {
-        $.post("ShowDocs", { accessCode: accessCode }).done(function (result) {
-            if (result.length) {
+        
+        //var grid = $("#partnersDocGrid").data("tGrid");
+        // grid.ajax.selectUrl = "/Partner/ShowDocs/?accessCode=" + accessCode;
+        //grid.ajaxRequest();
+        grid.rebind({ accessCode: accessCode });
+        //$("#emailDialog").modal("toggle");
+        @*$.post("ShowDocs", { accessCode: accessCode }).done(function (result) {
+            //if (result.length) {
                 $("#madalEmailForm").html("");
-                for (var i = 0; i < result.length; i++) {
-                    $("#madalEmailForm").append("<p><a href='@Url.Action("DownloadPdf", "Partner")/" + result[i].id + "/?accessCode=" + accessCode + "' target='_blank'>" + result[i].title + "</p>");
+                $("#madalEmailForm").append("<table class='table table-hover'></table>");
+                $("#madalEmailForm table").append("<th><td>Title</td><td>Doc Type</td><td>Upload Date</td><td>Uploaded by</td></th>");
+                if (!result.length) {
+                    $("#madalEmailForm table").append("<tr><td colspan='5'>There is no any documents</td></tr>");
                 }
-                $("#emailDialog").modal("toggle");
-            } else {
-                alertify.alert('There are no available documents for this partner.');
-            }
-        });
+
+                for (var i = 0; i < result.length; i++) {
+                    //$("#madalEmailForm table").append("<tr><td></td><td></td><td></td><td></td><td></td></tr>");
+                   // $("#madalEmailForm").append("<p><a href='@Url.Action("DownloadPdf", "Partner")/" + result[i].id + "/?accessCode=" + accessCode + "' target='_blank'>" + result[i].title + "</p>");
+                }
+
+           // } else {
+               // alertify.alert('There are no available documents for this partner.');
+           // }
+        });*@
     }
     $(function () {
         //jQuery.noConflict();
@@ -398,8 +427,8 @@
     }
 
     function remind(accessCodeValue) {
-       $.post("Remind", { accessCode: accessCodeValue }).done(function (result) {
-         
+        $.post("Remind", { accessCode: accessCodeValue }).done(function (result) {
+
             if (result) {
                 alertify.alert(result);
             }
@@ -412,134 +441,134 @@
 
         $.get("@Url.Content("~/WrongContact/Index")", { accessCode: ac }, function (data) {
 
-                    $("#EmailDialog").html(data);
-                    $("#EmailDialog").dialog({
-                        width: 1200,
-                        height: 1000,
-                    });
-                    $("#EmailDialog").dialog('open');
-                });
-            }
-            $('#menu_block').hover(function () {
-                // alert("call");
-                $('#display_menu').show();
-            }, function () {
-                $('#display_menu').hide();
-            })
-
-            $('#menu_block').mouseenter(function () {
-                $('#display_menu').show();
-            }).mouseleave(function () {
-
-                $('#display_menu').hide();
-
+            $("#EmailDialog").html(data);
+            $("#EmailDialog").dialog({
+                width: 1200,
+                height: 1000,
             });
+            $("#EmailDialog").dialog('open');
+        });
+    }
+    $('#menu_block').hover(function () {
+        // alert("call");
+        $('#display_menu').show();
+    }, function () {
+        $('#display_menu').hide();
+    })
 
-            function openEditPopup(id) {
-                $.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
-                    $("#genericPopup").html(data);
+    $('#menu_block').mouseenter(function () {
+        $('#display_menu').show();
+    }).mouseleave(function () {
+
+        $('#display_menu').hide();
+
+    });
+
+    function openEditPopup(id) {
+        $.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
+            $("#genericPopup").html(data);
+        });
+
+        $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
+        $("#genericPopup").dialog('open');
+    }
+
+    function openRemovePopup(id, internalid, name) {
+
+
+
+        alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
+        });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to Remove " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+            if (e) {
+                // Click no
+            } else {
+                // click yes
+
+                $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
+                    // $(".t-icon .t-refresh").trigger('click');
+                    window.location.replace(window.location.href);
                 });
 
-                $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
-                $("#genericPopup").dialog('open');
             }
-
-            function openRemovePopup(id, internalid, name) {
-
+        });
 
 
-                alertify.set({
-                    labels: {
-                        ok: "No",
-                        cancel: "Yes"
-                    },
-                    buttonFocus: "cancel"
-                });
-                // button labels will be "Accept" and "Deny"
-                alertify.confirm("You are about to Remove " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
-                    if (e) {
-                        // Click no
-                    } else {
-                        // click yes
-
-                        $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
-                            // $(".t-icon .t-refresh").trigger('click');
-                            window.location.replace(window.location.href);
-                        });
-
-                    }
-                });
+    }
 
 
-            }
-
-
-            function openArchivePopup(id, internalid, name) {
+    function openArchivePopup(id, internalid, name) {
 
 
 
-                alertify.set({
-                    labels: {
-                        ok: "No",
-                        cancel: "Yes"
-                    },
-                    buttonFocus: "cancel"
-                });
-                // button labels will be "Accept" and "Deny"
-                alertify.confirm("You are about to Archive " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
-                    if (e) {
-                        // Click no
-                    } else {
-                        // click yes
+        alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
+        });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to Archive " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+            if (e) {
+                // Click no
+            } else {
+                // click yes
 
-                        $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
-                            // $(".t-icon .t-refresh").trigger('click');
-                            window.location.replace(window.location.href);
-                        });
-
-                    }
+                $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
+                    // $(".t-icon .t-refresh").trigger('click');
+                    window.location.replace(window.location.href);
                 });
 
+            }
+        });
 
-            }
 
-            function openViewDetailPopup(id) {
-                $("#genericPopup").html("<p>Loading Data...</p>");
-                $.get("@Url.Content("~/Partner/Details/")" + id, function (data) {
-                    $("#genericPopup").html(data);
-                });
-                $("#genericPopup").dialog({ height: 600, title: "View Detail" });
-                $("#genericPopup").dialog('open');
-            }
+    }
 
-            function openCompletePopup(accesscode) {
-                $("#genericPopup").html("<p>Loading Data...</p>");
-                $.get("@Url.Content("~/Registration?Accesscode=")" + accesscode, function (data) {
-                    $("#genericPopup").html(data);
-                });
-                $("#genericPopup").dialog({ height: 600, title: "Complete" });
-                $("#genericPopup").dialog('open');
-            }
-            function checkToPrintPDF(status, accesscode) {
-                if (status.toLowerCase() == 'responded/complete') {
-                    window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
-                } else {
-                    alert("it's not responded yet");
-                }
-            }
-            function checkToPrintHTML(status, accesscode) {
-                if (status.toLowerCase() == 'responded/complete') {
-                    window.location.href = "@Url.Content("~/Partner/PrintHTML/?accesscode=")" + accesscode;
-                } else {
-                    alert("it's not responded yet");
-                }
-            }
-    
+    function openViewDetailPopup(id) {
+        $("#genericPopup").html("<p>Loading Data...</p>");
+        $.get("@Url.Content("~/Partner/Details/")" + id, function (data) {
+            $("#genericPopup").html(data);
+        });
+        $("#genericPopup").dialog({ height: 600, title: "View Detail" });
+        $("#genericPopup").dialog('open');
+    }
+
+    function openCompletePopup(accesscode) {
+        $("#genericPopup").html("<p>Loading Data...</p>");
+        $.get("@Url.Content("~/Registration?Accesscode=")" + accesscode, function (data) {
+            $("#genericPopup").html(data);
+        });
+        $("#genericPopup").dialog({ height: 600, title: "Complete" });
+        $("#genericPopup").dialog('open');
+    }
+    function checkToPrintPDF(status, accesscode) {
+        if (status.toLowerCase() == 'responded/complete') {
+            window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
+        } else {
+            alert("it's not responded yet");
+        }
+    }
+    function checkToPrintHTML(status, accesscode) {
+        if (status.toLowerCase() == 'responded/complete') {
+            window.location.href = "@Url.Content("~/Partner/PrintHTML/?accesscode=")" + accesscode;
+        } else {
+            alert("it's not responded yet");
+        }
+    }
+
     $(function () {
         $(".t-widget.t-dropdown.t-header").css("width", "100%");
     });
     $("#changePtqBtn").click(function () {
-        
+
     })
 </script>
 <div class="tw-bs">

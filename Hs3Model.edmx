@@ -1326,6 +1326,21 @@
           <Property Name="autoMailMessage" Type="int" Nullable="false" />
           <Property Name="sendDate" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="pptqDoc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pptq" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="doc" Type="varbinary(max)" Nullable="false" />
+          <Property Name="doctype" Type="int" Nullable="false" />
+          <Property Name="uploadDateTime" Type="datetime" Nullable="false" />
+          <Property Name="uploadedBy" Type="int" Nullable="false" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="pptqGroup">
           <Key>
             <PropertyRef Name="pptq" />
@@ -4788,6 +4803,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="pptq" Type="int" Mode="In" />
           <Parameter Name="autoMailMessage" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addPPTQDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="doc" Type="varbinary" Mode="In" />
+          <Parameter Name="doctype" Type="int" Mode="In" />
+          <Parameter Name="uploadDateTime" Type="datetime" Mode="In" />
+          <Parameter Name="uploadedBy" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addPPTQGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
           <Parameter Name="group" Type="int" Mode="In" />
@@ -5234,6 +5260,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archivePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archivePPTQDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -6204,6 +6233,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_getPPTQByStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPPTQDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPPTQDocAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getPPTQDocByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPPTQGroupByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="group" Type="int" Mode="In" />
@@ -7230,6 +7266,18 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="person" Type="int" Mode="In" />
           <Parameter Name="touchpoint" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPPTQDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="doc" Type="varbinary" Mode="In" />
+          <Parameter Name="doctype" Type="int" Mode="In" />
+          <Parameter Name="uploadDateTime" Type="datetime" Mode="In" />
+          <Parameter Name="uploadedBy" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPPTQStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
           <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
@@ -7725,6 +7773,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_removePPTQautoMailMessagelog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removePPTQDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removePPTQGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PPTQ" Type="int" Mode="In" />
           <Parameter Name="group" Type="int" Mode="In" />
@@ -7977,6 +8028,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchivePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchivePPTQDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -8272,6 +8326,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="personSearchCount" EntityType="Self.personSearchCount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personStatus" EntityType="Self.personStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pptqAutoMailMessageLog" EntityType="Self.pptqAutoMailMessageLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pptqDoc" EntityType="Self.pptqDoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pptqGroup" EntityType="Self.pptqGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pptqGroupType" EntityType="Self.pptqGroupType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
@@ -14086,7 +14141,47 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getTouchpointByPerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTouchpointByPerson_Result)">
-            <Parameter Name="person" Mode="In" Type="Int32" />
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="pptqDocs" EntityType="hs3MVCMTQa2Model.pptqDoc" />
+          <FunctionImport Name="pr_addPPTQDoc" ReturnType="Collection(Decimal)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="doc" Mode="In" Type="Binary" />
+            <Parameter Name="doctype" Mode="In" Type="Int32" />
+            <Parameter Name="uploadDateTime" Mode="In" Type="DateTime" />
+            <Parameter Name="uploadedBy" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archivePPTQDoc">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQDoc" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQDoc_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQDocAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQDocAll_Result)" />
+          <FunctionImport Name="pr_modifyPPTQDoc">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="doc" Mode="In" Type="Binary" />
+            <Parameter Name="doctype" Mode="In" Type="Int32" />
+            <Parameter Name="uploadDateTime" Mode="In" Type="DateTime" />
+            <Parameter Name="uploadedBy" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePPTQDoc">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchivePPTQDoc">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQDocByPPTQ" EntitySet="pptqDocs" ReturnType="Collection(hs3MVCMTQa2Model.pptqDoc)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -22460,6 +22555,57 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Int32" Name="active" Nullable="true" />
         </ComplexType>
+        <EntityType Name="pptqDoc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pptq" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="doc" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="doctype" Type="Int32" Nullable="false" />
+          <Property Name="uploadDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="uploadedBy" Type="Int32" Nullable="false" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getPPTQDoc_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="true" />
+          <Property Type="Binary" Name="doc" Nullable="false" />
+          <Property Type="Int32" Name="doctype" Nullable="false" />
+          <Property Type="DateTime" Name="uploadDateTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="uploadedBy" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPPTQDocAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="true" />
+          <Property Type="Binary" Name="doc" Nullable="false" />
+          <Property Type="Int32" Name="doctype" Nullable="false" />
+          <Property Type="DateTime" Name="uploadDateTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="uploadedBy" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPPTQDocByPPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="true" />
+          <Property Type="Binary" Name="doc" Nullable="false" />
+          <Property Type="Int32" Name="doctype" Nullable="false" />
+          <Property Type="DateTime" Name="uploadDateTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="uploadedBy" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -29549,6 +29695,61 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="active" ColumnName="active" />
               </ComplexTypeMapping>
             </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="pptqDocs">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.pptqDoc">
+              <MappingFragment StoreEntitySet="pptqDoc">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="uploadedBy" ColumnName="uploadedBy" />
+                <ScalarProperty Name="uploadDateTime" ColumnName="uploadDateTime" />
+                <ScalarProperty Name="doctype" ColumnName="doctype" />
+                <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPPTQDoc" FunctionName="hs3MVCMTQa2Model.Store.pr_addPPTQDoc" />
+          <FunctionImportMapping FunctionImportName="pr_archivePPTQDoc" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePPTQDoc" />
+          <FunctionImportMapping FunctionImportName="pr_getPPTQDoc" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQDoc">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQDoc_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="doctype" ColumnName="doctype" />
+                <ScalarProperty Name="uploadDateTime" ColumnName="uploadDateTime" />
+                <ScalarProperty Name="uploadedBy" ColumnName="uploadedBy" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPPTQDocAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQDocAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQDocAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="doctype" ColumnName="doctype" />
+                <ScalarProperty Name="uploadDateTime" ColumnName="uploadDateTime" />
+                <ScalarProperty Name="uploadedBy" ColumnName="uploadedBy" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyPPTQDoc" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPPTQDoc" />
+          <FunctionImportMapping FunctionImportName="pr_removePPTQDoc" FunctionName="hs3MVCMTQa2Model.Store.pr_removePPTQDoc" />
+          <FunctionImportMapping FunctionImportName="pr_unArchivePPTQDoc" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePPTQDoc" />
+          <FunctionImportMapping FunctionImportName="pr_getPPTQDocByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQDocByPPTQ">
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>

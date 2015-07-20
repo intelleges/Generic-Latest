@@ -179,12 +179,110 @@ namespace Generic.Controllers
             }
             return result;
         }
-        [HttpPost]
-        public ActionResult ShowDocs(string accessCode)
+
+
+        public ActionResult ExportInternalDocs(string accessCode)
         {
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-            var result = db.pr_getPartnerDocs(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire1.questionnaire, pptq.partnerTypeTouchpointQuestionnaire).Where(o=>o.uploadedfile!=null).ToList();
-            return Json(result.Select(o => new { id = o.id, title = o.title }).ToArray());
+            List<ShowDocsModel> result = new List<ShowDocsModel>();
+            if (pptq != null)
+                result = db.pr_getPPTQDocByPPTQ(pptq.id).ToList().Select(o => new ShowDocsModel(o)).ToList();
+
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<ShowDocsModel>));
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, result);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "ExportInternalDocs.xls");
+        }
+
+        public ActionResult ExportExternalDocs(string accessCode)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var result = db.pr_getPartnerDocs(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire1.questionnaire, pptq.partnerTypeTouchpointQuestionnaire).Where(o => o.uploadedfile != null).ToList().Select(o => new PartnerExternalDocModel(o, pptq.partner1.email)).ToList();
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<PartnerExternalDocModel>));
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, result);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "ExportExternalDocs.xls");
+        }
+
+        public ActionResult PartnerDocuments(string accessCode)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var result = db.pr_getPartnerDocs(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire1.questionnaire, pptq.partnerTypeTouchpointQuestionnaire).Where(o => o.uploadedfile != null).ToList().Select(o => new PartnerExternalDocModel(o, pptq.partner1.email)).ToList();
+            return View(result);
+        }
+
+
+
+        [HttpPost]
+        public ActionResult PartnerDocuments(string accessCode, HttpPostedFileBase file)
+        {
+            var fileType = PartnerDocType.Undefined;
+            switch(file.ContentType)
+            {
+                case "application/pdf": fileType = PartnerDocType.PDF; break;
+                case "application/msword":
+                    fileType = PartnerDocType.WORD;
+                    break;
+                case "application/vnd.openxmlformats-officedocument.wordprocessingml.document": fileType = PartnerDocType.WORD; break;
+                case "application/vnd.openxmlformats-officedocument.wordprocessingml.template": fileType = PartnerDocType.WORD; break;
+                case "application/vnd.ms-word.document.macroEnabled.12": fileType = PartnerDocType.WORD; break;
+                case "application/vnd.ms-word.template.macroEnabled.12": fileType = PartnerDocType.WORD; break;
+                case "application/vnd.ms-excel": fileType = PartnerDocType.EXCEL; break;
+                case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": fileType = PartnerDocType.EXCEL; break;
+                case "application/vnd.openxmlformats-officedocument.spreadsheetml.template": fileType = PartnerDocType.EXCEL; break;
+                case "application/vnd.ms-excel.sheet.macroEnabled.12": fileType = PartnerDocType.EXCEL; break;
+                case "application/vnd.ms-excel.template.macroEnabled.12": fileType = PartnerDocType.EXCEL; break;
+                case "application/vnd.ms-excel.addin.macroEnabled.12": fileType = PartnerDocType.EXCEL; break;
+                case "application/vnd.ms-excel.sheet.binary.macroEnabled.12": fileType = PartnerDocType.EXCEL; break;
+                case "application/vnd.ms-powerpoint": fileType = PartnerDocType.PowerPoint; break;
+                case "application/vnd.openxmlformats-officedocument.presentationml.presentation": fileType = PartnerDocType.PowerPoint; break; 
+                case "application/vnd.openxmlformats-officedocument.presentationml.template": fileType = PartnerDocType.PowerPoint; break; 
+                case "application/vnd.openxmlformats-officedocument.presentationml.slideshow": fileType = PartnerDocType.PowerPoint; break; 
+                case "application/vnd.ms-powerpoint.addin.macroEnabled.12": fileType = PartnerDocType.PowerPoint; break; 
+                case "application/vnd.ms-powerpoint.presentation.macroEnabled.12": fileType = PartnerDocType.PowerPoint; break; 
+                case "application/vnd.ms-powerpoint.slideshow.macroEnabled.12": fileType = PartnerDocType.PowerPoint; break; 
+                default:
+                    if (file.ContentType.StartsWith("text"))
+                    {
+                        fileType = PartnerDocType.TEXT;
+                    }
+                    if (file.ContentType.StartsWith("image"))
+                    {
+                        fileType = PartnerDocType.IMAGE;
+                    }
+                    break;
+            }
+            //HttpPostedFileBase newDocFile = Request.Files["file"];
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var result = db.pr_getPartnerDocs(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire1.questionnaire, pptq.partnerTypeTouchpointQuestionnaire).Where(o => o.uploadedfile != null).ToList().Select(o => new PartnerExternalDocModel(o, pptq.partner1.email)).ToList();
+            using (var stream =new MemoryStream()){
+                file.InputStream.CopyTo(stream);
+                stream.Seek(0,SeekOrigin.Begin);
+                var added = db.pr_addPPTQDoc(pptq.id, file.FileName, file.FileName, stream.ToArray(), (int)fileType, DateTime.Now, SessionSingleton.LoggedInUserId, 1, true).FirstOrDefault();
+            }
+            return View(result);
+        }
+
+        [GridAction]
+        public ActionResult ShowDocs(string accessCode)
+        {
+            
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            List<ShowDocsModel> result = new List<ShowDocsModel>();
+            if(pptq!=null)
+                result = db.pr_getPPTQDocByPPTQ(pptq.id).ToList().Select(o=>new ShowDocsModel(o)).ToList();
+            
+            return View(new GridModel(result));
         }
 
         [HttpGet]
