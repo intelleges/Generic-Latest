@@ -797,6 +797,7 @@
     <Compile Include="Models\campaignRule.cs" />
     <Compile Include="Models\ComboBox.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
+    <Compile Include="Models\ContractModel.cs" />
     <Compile Include="Models\enterprise.extension.cs" />
     <Compile Include="Models\jsTree3Node.cs" />
     <Compile Include="Models\MenuModel.cs" />

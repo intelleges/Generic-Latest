@@ -1,4 +1,4 @@
-﻿@inherits System.Web.Mvc.WebViewPage<Generic.enterprise>
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.Models.ContractModel>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
@@ -40,7 +40,7 @@
         width: 20px;
         display: inline-block;
     }
-      select#subscriptionStatus, #subscriptionType {
+      select#subscriptionStatus, #subscriptionType, #multiTenantProjectType, #GroupId, #protocol {
         width: 185px;
         height:25px;
     }
@@ -106,9 +106,9 @@
             <text>
         var saved = @(ViewBag.saved) ;
         if(saved){
-            alertify.confirm("Congratulations you just added @Model.companyName @Model.instanceName.<br> Would you like to add the System Master for this Account?", function(choise){
+            alertify.confirm("Congratulations you just added @Model.customerName .<br> Would you like to add the System Master for this Account?", function(choise){
                 if(choise){
-                    window.location.href="../Person/Create?enterpriseId=@Model.id";
+                    @*window.location.href="../Person/Create?enterpriseId=@Model.id";*@
                 }
 
                     clearForm();
@@ -116,7 +116,7 @@
             });
         }
         else{
-            alertify.alert("Enterprise saving error");
+            alertify.alert("Contract saving error");
         }
         </text>
         }
@@ -179,44 +179,44 @@
                 <label for="customerName">Customer Name</label>
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
+                @Html.EditorFor(model => model.customerName)
+                @Html.ValidationMessageFor(model => model.customerName)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">Contract Number</label>
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
+                @Html.EditorFor(model => model.contractNumber)
+                @Html.ValidationMessageFor(model => model.contractNumber)
             </div>
            <div class="editor-label">
                 <label for="contractManager">Contract Manager Name</label>
             </div>
             <div class="editor-field" >
                @Html.DropDownList("subscriptionStatus", "Contract Manager Name")
-            @Html.ValidationMessageFor(model => model.subscriptionStatus)
+            @Html.ValidationMessageFor(model => model.contractManagerName)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">Program Name</label>
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
+                @Html.EditorFor(model => model.programName)
+                @Html.ValidationMessageFor(model => model.programName)
             </div>
             
             <div class="editor-label">
                 <label for="contractNumber">Sequence Number</label>
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
+                @Html.EditorFor(model => model.sequenceNumber)
+                @Html.ValidationMessageFor(model => model.sequenceNumber)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">Master Contract No.</label>
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
+                @Html.EditorFor(model => model.masterContractNo)
+                @Html.ValidationMessageFor(model => model.masterContractNo)
             </div>
             <br/>
             <div class="editor-label">
@@ -224,115 +224,115 @@
         </div>
             <div class="editor-field">
                 @Html.DropDownList("subscriptionType", string.Empty)
-                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+                @Html.ValidationMessageFor(model => model.contractType)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">Prime Contract No.</label>
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
+                @Html.EditorFor(model => model.primeContractNo)
+                @Html.ValidationMessageFor(model => model.primeContractNo)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">SAP Order No.</label>
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
+                @Html.EditorFor(model => model.SAPOrderNo)
+                @Html.ValidationMessageFor(model => model.SAPOrderNo)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">Customer Account Administrator</label>
             </div>
             <div class="editor-field">
                 @Html.DropDownList("subscriptionType", "Customer Account Administrator")
-                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+                @Html.ValidationMessageFor(model => model.customerAccountAdministrator)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">First Name</label>
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">Last Name</label>
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">Govt. Contract Officer POC</label>
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
+                @Html.EditorFor(model => model.GovContractOfficerPOC)
+                @Html.ValidationMessageFor(model => model.GovContractOfficerPOC)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">GCP-POC Email</label>
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
+                @Html.EditorFor(model => model.GCPPOCEmail)
+                @Html.ValidationMessageFor(model => model.GCPPOCEmail)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">Phone</label>
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
+                @Html.EditorFor(model => model.Phone)
+                @Html.ValidationMessageFor(model => model.Phone)
             </div>
             <div class="editor-label">
                 <label for="systemExpiry">Contract Avard Date</label>
             </div>
             <div class="editor-field">
-               @Html.Telerik().DatePickerFor(model => model.systemExpiry)
+               @Html.Telerik().DatePickerFor(model => model.contractAvardDate)
 
-            @Html.ValidationMessageFor(model => model.systemExpiry)
+            @Html.ValidationMessageFor(model => model.contractAvardDate)
             </div>
             <div class="editor-label">
                 <label for="systemExpiry">Entry Date</label>
             </div>
             <div class="editor-field">
-                @Html.Telerik().DatePickerFor(model => model.systemExpiry)
+                @Html.Telerik().DatePickerFor(model => model.entryDate)
 
-                @Html.ValidationMessageFor(model => model.systemExpiry)
+                @Html.ValidationMessageFor(model => model.entryDate)
             </div>
             <div class="editor-label">
                 <label for="systemExpiry">Contract End Date</label>
             </div>
             <div class="editor-field">
-                @Html.Telerik().DatePickerFor(model => model.systemExpiry)
+                @Html.Telerik().DatePickerFor(model => model.contractEndDate)
 
-                @Html.ValidationMessageFor(model => model.systemExpiry)
+                @Html.ValidationMessageFor(model => model.contractEndDate)
             </div><br/><br/>
             <div class="editor-label">
                 <label for="contractNumber">Protocol</label>
             </div>
             <div class="editor-field">
-                @Html.DropDownList("subscriptionType", string.Empty)
-                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+                @Html.DropDownList("protocol", string.Empty)
+                @Html.ValidationMessageFor(model => model.FirstName)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">Touchpoint</label>
             </div>
             <div class="editor-field">
                 @Html.DropDownList("subscriptionType", string.Empty)
-                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+                @Html.ValidationMessageFor(model => model.FirstName)
             </div>
             <div class="editor-label">
                 <label for="contractNumber">Group</label>
             </div>
             <div class="editor-field">
-                @Html.DropDownList("subscriptionType", string.Empty)
-                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+                @Html.DropDownList("GroupId", string.Empty)
+                @Html.ValidationMessageFor(model => model.FirstName)
             </div><br/><br/>
             <div class="editor-label">
                 <label for="contractNumber">Product Type</label>
             </div>
             <div class="editor-field">
-                @Html.DropDownList("subscriptionType", string.Empty)
-                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+                @Html.DropDownList("multiTenantProjectType", string.Empty)
+                @Html.ValidationMessageFor(model => model.FirstName)
             </div>
         </div>
      
