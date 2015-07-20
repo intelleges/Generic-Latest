@@ -604,6 +604,7 @@
     <Compile Include="Controllers\BulkContentController.cs" />
     <Compile Include="Controllers\CampaignController.cs" />
     <Compile Include="Controllers\CampaignRuleController.cs" />
+    <Compile Include="Controllers\ContractController.cs" />
     <Compile Include="Controllers\DomainController.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -4514,6 +4515,7 @@
     <Content Include="Views\Campaign\Edit.cshtml" />
     <Content Include="Views\Merck\ContactUs.cshtml" />
     <Content Include="Views\Partner\PartnerDocuments.cshtml" />
+    <Content Include="Views\Contract\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

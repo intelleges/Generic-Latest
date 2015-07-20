@@ -1,0 +1,358 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.enterprise>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Create Contract";
+}
+
+<h2>Create Contract</h2>
+<style type="text/css">
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .twocol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .twocol .editor-field {
+        width: 35%;
+        display: inline-block;
+    }
+
+    .threecol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .threecol .editor-field {
+        width: 20%;
+        display: inline-block;
+    }
+
+     .threecol .editor-field-short {
+        width: 20px;
+        display: inline-block;
+    }
+      select#subscriptionStatus, #subscriptionType {
+        width: 185px;
+        height:25px;
+    }
+
+        .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+            width: 90%;
+            display: inline-block;
+            font-size: 11px;
+        }
+
+    .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 20px;
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
+    }
+
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+</style>
+<script>
+    function clearForm() {
+        $("#companyName").val("");
+        $(".t-upload-files.t-reset").find("li").remove();
+        $("#description").val("");
+        $("#userMax").val("");
+        $("#partnerMax").val("");
+        $("#partnumberMax").val("");
+        $("#product").val("");
+        $("#subscriptionType").val("");
+        $("#freeTrialStartDate").val("");
+        $("#freeTrialEndDate").val("");
+        $("#licenseStartDate").val("");
+        $("#licenseEndDate").val("");
+        $("#monthlyFee").val("");
+        $("#subscriptionStatus").val("");
+        $("#multiTenantProjectType").val("");
+        $("#systemExpiry").val("");
+        $("#licenseLimit").val("");
+        $("#companyWebSite").val("");
+    }
+
+    $(document).ready(function () {
+        @if(Model!=null)
+        {
+            <text>
+        var saved = @(ViewBag.saved) ;
+        if(saved){
+            alertify.confirm("Congratulations you just added @Model.companyName @Model.instanceName.<br> Would you like to add the System Master for this Account?", function(choise){
+                if(choise){
+                    window.location.href="../Person/Create?enterpriseId=@Model.id";
+                }
+
+                    clearForm();
+
+            });
+        }
+        else{
+            alertify.alert("Enterprise saving error");
+        }
+        </text>
+        }
+        $("#btnClear").click(function () {
+            $("#companyName").val("");
+            $(".t-upload-files.t-reset").find("li").remove();
+            $("#description").val("");
+            $("#userMax").val("");
+            $("#partnerMax").val("");
+            $("#partnumberMax").val("");
+            $("#product").val("");
+            $("#subscriptionType").val("");
+            $("#freeTrialStartDate").val("");
+            $("#freeTrialEndDate").val("");
+            $("#licenseStartDate").val("");
+            $("#licenseEndDate").val("");
+            $("#monthlyFee").val("");
+            $("#subscriptionStatus").val("");
+            $("#multiTenantProjectType").val("");
+            $("#systemExpiry").val("");
+            $("#licenseLimit").val("");
+            $("#companyWebSite").val("");
+
+        });
+        var _addValidation = function (elem) {
+            elem.attr("data-val", "true");
+            elem.attr("data-val-required", " ");
+        };
+        _addValidation($("#systemExpiry"));
+        _addValidation($("#licenseLimit"));
+        _addValidation($("#companyWebSite"));
+        _addValidation($("#companyName"));
+        _addValidation($("#description"));
+        _addValidation($("#userMax"));
+        _addValidation($("#partnerMax"));
+        _addValidation($("#partnumberMax"));
+        _addValidation($("#product"));
+        _addValidation($("#subscriptionType"));
+        _addValidation($("#freeTrialStartDate"));
+        _addValidation($("#freeTrialEndDate"));
+        _addValidation($("#licenseStartDate"));
+        _addValidation($("#licenseEndDate"));
+        _addValidation($("#monthlyFee"));
+        _addValidation($("#multiTenantProjectType"));
+        _addValidation($("#subscriptionStatus"));
+        //_addValidation($("#uploadlogo"));
+
+    });
+</script>
+
+@using (Html.BeginForm("Create", "Contract", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        <legend>Contract</legend>
+        <div class="threecol">
+            <div class="editor-label">
+                <label for="customerName">Customer Name</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">Contract Number</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+           <div class="editor-label">
+                <label for="contractManager">Contract Manager Name</label>
+            </div>
+            <div class="editor-field" >
+               @Html.DropDownList("subscriptionStatus", "Contract Manager Name")
+            @Html.ValidationMessageFor(model => model.subscriptionStatus)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">Program Name</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+            
+            <div class="editor-label">
+                <label for="contractNumber">Sequence Number</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">Master Contract No.</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+            <br/>
+            <div class="editor-label">
+            <label for="contractManager">Contract Type</label>
+        </div>
+            <div class="editor-field">
+                @Html.DropDownList("subscriptionType", string.Empty)
+                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">Prime Contract No.</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">SAP Order No.</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">Customer Account Administrator</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("subscriptionType", "Customer Account Administrator")
+                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">First Name</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">Last Name</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">Govt. Contract Officer POC</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">GCP-POC Email</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">Phone</label>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.companyName)
+                @Html.ValidationMessageFor(model => model.companyName)
+            </div>
+            <div class="editor-label">
+                <label for="systemExpiry">Contract Avard Date</label>
+            </div>
+            <div class="editor-field">
+               @Html.Telerik().DatePickerFor(model => model.systemExpiry)
+
+            @Html.ValidationMessageFor(model => model.systemExpiry)
+            </div>
+            <div class="editor-label">
+                <label for="systemExpiry">Entry Date</label>
+            </div>
+            <div class="editor-field">
+                @Html.Telerik().DatePickerFor(model => model.systemExpiry)
+
+                @Html.ValidationMessageFor(model => model.systemExpiry)
+            </div>
+            <div class="editor-label">
+                <label for="systemExpiry">Contract End Date</label>
+            </div>
+            <div class="editor-field">
+                @Html.Telerik().DatePickerFor(model => model.systemExpiry)
+
+                @Html.ValidationMessageFor(model => model.systemExpiry)
+            </div><br/><br/>
+            <div class="editor-label">
+                <label for="contractNumber">Protocol</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("subscriptionType", string.Empty)
+                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">Touchpoint</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("subscriptionType", string.Empty)
+                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+            </div>
+            <div class="editor-label">
+                <label for="contractNumber">Group</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("subscriptionType", string.Empty)
+                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+            </div><br/><br/>
+            <div class="editor-label">
+                <label for="contractNumber">Product Type</label>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("subscriptionType", string.Empty)
+                @Html.ValidationMessageFor(model => model.subscriptionStatus)
+            </div>
+        </div>
+     
+        
+        
+     
+        
+      
+
+        <p style="float: right; width: 20%;">
+            <input type="submit" value="Save" class="btn" />
+            <input type="button" value="Clear" class="btn" id="btnClear" />
+        </p>
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+}
+
+
