@@ -1088,6 +1088,14 @@ namespace Generic.Controllers
                                 objQuestion.commentType = CommentType.YN_NO_COMMENT;
                             } else if (excelQuestionnaire.CommentType == "DROPDOWN_COMMENT")
                                 objQuestion.commentType = CommentType.DROPDOWN_COMMENT;
+                            else if (excelQuestionnaire.CommentType == "YN_DUEDATE_Y")
+                                objQuestion.commentType = CommentType.YN_DUEDATE_Y;
+                            else if (excelQuestionnaire.CommentType == "YN_DUEDATE_N")
+                                objQuestion.commentType = CommentType.YN_DUEDATE_N;
+                            else if (excelQuestionnaire.CommentType == "YN_ALERT_Y")
+                                objQuestion.commentType = CommentType.YN_ALERT_Y;
+                            else if (excelQuestionnaire.CommentType == "YN_ALERT_N")
+                                objQuestion.commentType = CommentType.YN_ALERT_N;
                             else
                             {
                                 objQuestion.commentType = 0;

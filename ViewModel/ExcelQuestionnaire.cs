@@ -16,6 +16,7 @@ namespace Generic.ViewModel
         public string Comment { get; set; }
         public string CommentBoxMessageText { get; set; }
         public string UploadMessageText { get; set; }
+        public string CalendarMessageText { get; set; }
         public string CommentType { get; set; }
         public string snipOffQuestionnaire { get; set; }
         public int spinoffid { get; set; }

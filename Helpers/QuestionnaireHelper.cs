@@ -30,6 +30,11 @@ namespace Generic.Helpers.Questionnaire
         public const int YN_COMMENT_REQUIRED_N = 0;
         public const int DROPDOWN_COMMENT = 8;
 
+        public const int YN_DUEDATE_Y = 9;
+        public const int YN_DUEDATE_N = 10;
+        public const int YN_ALERT_Y = 11;
+        public const int YN_ALERT_N = 12;
+
         // old system
         //        commentType 4 = File  Upload
         //commentType 1 = Warning

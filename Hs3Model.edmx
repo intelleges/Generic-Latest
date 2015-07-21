@@ -14181,7 +14181,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPPTQDocByPPTQ" EntitySet="pptqDocs" ReturnType="Collection(hs3MVCMTQa2Model.pptqDoc)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
