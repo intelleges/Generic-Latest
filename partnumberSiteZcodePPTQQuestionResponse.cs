@@ -20,12 +20,14 @@ namespace Generic
         public string comment { get; set; }
         public byte[] uploadedFile { get; set; }
         public string uploadedFileType { get; set; }
+        public Nullable<System.DateTime> actionDate { get; set; }
         public Nullable<int> value { get; set; }
         public string score { get; set; }
         public int partNumberSiteZcodePPTQ { get; set; }
+        public Nullable<System.DateTime> timestamp { get; set; }
     
-        public virtual question question1 { get; set; }
-        public virtual partNumberSiteZcodePPTQ partNumberSiteZcodePPTQ1 { get; set; }
+        public virtual partNumberSiteZcodePPTQ partnumberSiteZcodePPTQ1 { get; set; }
         public virtual response response1 { get; set; }
+        public virtual question question1 { get; set; }
     }
 }

@@ -284,7 +284,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
                             if (checkpsz.Count == 0)
                             {
-                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null,null, null, PartNumberSiteZcodepptq.id);
                             }
                             else
                             {
@@ -292,7 +292,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 if (checkpszObj != null)
                                 {
                                     var checkpszId = checkpszObj.id;
-                                    db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                    db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null,null, null, null, null, PartNumberSiteZcodepptq.id);
                                 }
                             }
                             meesage= ZcodeModify(questionnaireId, questionId, responseId, PartNumberSiteZcodepptq);
@@ -324,7 +324,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
                                 if (checkpsz.Count == 0)
                                 {
-                                    db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                    db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null,null, null, null, PartNumberSiteZcodepptq.id);
                                 }
                                 else
                                 {
@@ -332,7 +332,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                     if (checkpszObj != null)
                                     {
                                         var checkpszId = checkpszObj.id;
-                                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null,null, null, null, PartNumberSiteZcodepptq.id);
                                     }
                                 }
 
@@ -397,7 +397,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
                             if (checkpsz.Count == 0)
                             {
-                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null,null, null, PartNumberSiteZcodepptq.id);
                             }
                             else
                             {
@@ -408,7 +408,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                     var checkpszId = checkpszObj.id;
                                     try
                                     {
-                                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null,null, null, null, PartNumberSiteZcodepptq.id);
                                     }
                                     catch (Exception ex)
                                     {
@@ -989,7 +989,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         Request.Files[i].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
 
 
-                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(pptqq.id, questionId, pptqq.response, pptqq.comment, uploadedFile, Request.Files[i].ContentType, pptqq.value, pptqq.score, pptq);
+                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(pptqq.id, questionId, pptqq.response, pptqq.comment, uploadedFile, Request.Files[i].ContentType,null, pptqq.value, pptqq.score, pptq);
 
 
 

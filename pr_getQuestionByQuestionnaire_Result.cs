@@ -21,13 +21,14 @@ namespace Generic
         public Nullable<int> responseType { get; set; }
         public Nullable<int> required { get; set; }
         public Nullable<int> weight { get; set; }
-        public Nullable<bool> skipLogicAnswer { get; set; }
+        public Nullable<int> skipLogicAnswer { get; set; }
         public string skipLogicJump { get; set; }
         public Nullable<int> accessLevel { get; set; }
         public Nullable<int> commentRequired { get; set; }
         public string commentBoxTxt { get; set; }
         public string commentUploadTxt { get; set; }
         public Nullable<int> commentType { get; set; }
+        public string calendarMessageTxt { get; set; }
         public string spinOffQuestionnaire { get; set; }
         public Nullable<int> spinOffQID { get; set; }
         public string emailAlert { get; set; }

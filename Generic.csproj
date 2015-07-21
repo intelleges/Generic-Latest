@@ -683,12 +683,6 @@
     <Compile Include="focus.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestion_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1521,6 +1515,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnumberSiteZcodePPTQQuestionResponseByAccessCode_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnumberSiteZcodePPTQQuestionResponseByPartnumberSiteZcodePPTQ_Result.cs">

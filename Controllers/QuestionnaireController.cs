@@ -292,18 +292,18 @@ namespace Generic.Controllers
                 foreach (var question in questions)
                 {
 
-                    var qId = Convert.ToInt32(db.pr_addQuestion(question.question1, question.name, question.title, question.tag, question.responseType, question.required, question.weight, question.skipLogicAnswer, question.skipLogicJump, question.accessLevel, question.commentRequired, question.commentBoxTxt, question.commentUploadTxt, question.commentType, question.spinOffQuestionnaire, question.spinOffQID, question.emailAlert, question.emailAlertList, question.updated, question.sortOrder, question.active, enterpriseId).FirstOrDefault()
+                    var qId = Convert.ToInt32(db.pr_addQuestion(question.Question, question.name, question.title, question.tag, question.responseType, question.required, question.weight, question.skipLogicAnswer, question.skipLogicJump, question.accessLevel, question.commentRequired, question.commentBoxTxt, question.commentUploadTxt,question.calendarMessageTxt, question.commentType, question.spinOffQuestionnaire, question.spinOffQID, question.emailAlert, question.emailAlertList, question.updated, question.sortOrder, question.active, enterpriseId).FirstOrDefault()
                         );
                     if (!string.IsNullOrEmpty(question.skipLogicJump))
                     {
                         db.pr_modifyQuestionSkipLogicJumpLogic((int)qId, question.skipLogicJump.Replace(question.id.ToString(), ((int)qId).ToString()));
                     }
-                    foreach (var qres in question.questionResponse)
+                    foreach (var qres in question.questionResponses)
                     {
                         db.pr_addQuestionResponse((int)qId, qres.response);
                     }
                     //foreach (var answer in question.resp)
-                    foreach (var survey in question.survey)
+                    foreach (var survey in question.surveys)
                     {
                         if (!existSurvey.ContainsKey(survey.id))
                         {
@@ -653,9 +653,9 @@ namespace Generic.Controllers
                         spinoffid = question.spinOffQID.HasValue ? question.spinOffQID.Value : 0,
                         snipOffQuestionnaire = question.spinOffQuestionnaire,
                         Title = question.title,
-                        Question = question.question1,
+                        Question = question.Question,
                         titleLength = question.title.Length,
-                        Length = question.question1.Length,
+                        Length = question.Question.Length,
                         skipLogic = question.skipLogicAnswer.HasValue && !string.IsNullOrEmpty(question.skipLogicJump) ? "Y" : "N",
                         otherValue = -1,
                         yValue = 1,
@@ -683,11 +683,11 @@ namespace Generic.Controllers
                     switch (question.responseType)
                     {
                         case 3:
-                            if (question.questionResponse.Count == 2)
+                            if (question.questionResponses.Count == 2)
                             {
                                 qObj.Response = "Y/N";
                             }
-                            else if (question.questionResponse.Any(o => o.response1.id == 77))
+                            else if (question.questionResponses.Any(o => o.response1.id == 77))
                             {
                                 qObj.Response = "Y/N/COTS";
                             }
@@ -700,29 +700,29 @@ namespace Generic.Controllers
                         case 6: qObj.Response = "NUMBER"; break;
                         case 7: qObj.Response = "COMMENT"; break;
                         case 10: qObj.Response = "DROPDOWN";
-                            if (question.questionResponse.Count > 0)
+                            if (question.questionResponses.Count > 0)
                             {
                                 qObj.Response += ":";
-                                foreach (var response in question.questionResponse)
+                                foreach (var response in question.questionResponses)
                                 {
                                     qObj.Response += response.response1.description + ";";
                                 }
                             }
                             break;
                         case 11: qObj.Response = "LIST";
-                            if (question.questionResponse.Count > 0)
+                            if (question.questionResponses.Count > 0)
                             {
                                 qObj.Response += ":";
-                                foreach (var response in question.questionResponse)
+                                foreach (var response in question.questionResponses)
                                 {
                                     qObj.Response += response.response1.description + ";";
                                 }
                             } break;
                         case 12: qObj.Response = "CHECKBOX";
-                            if (question.questionResponse.Count > 0)
+                            if (question.questionResponses.Count > 0)
                             {
                                 qObj.Response += ":";
-                                foreach (var response in question.questionResponse)
+                                foreach (var response in question.questionResponses)
                                 {
                                     qObj.Response += response.response1.description + ";";
                                 }
@@ -741,13 +741,13 @@ namespace Generic.Controllers
                         case SkipLogicAnswer.D: qObj.skipLogicAnswer = "D"; break;
                         default: qObj.skipLogicAnswer = "N"; break;
                     }
-                    if (!string.IsNullOrEmpty(question.skipLogicJump) && question.questionResponse.Count > 0 && question.skipLogicAnswer == SkipLogicAnswer.D)
+                    if (!string.IsNullOrEmpty(question.skipLogicJump) && question.questionResponses.Count > 0 && question.skipLogicAnswer == SkipLogicAnswer.D)
                     {
-                        foreach (var response in question.questionResponse)
+                        foreach (var response in question.questionResponses)
                             question.skipLogicJump = question.skipLogicJump.Replace(response.response.ToString(), response.response1.zcode);
                     }
 
-                    var questionSurvey = question.survey.FirstOrDefault();
+                    var questionSurvey = question.surveys.FirstOrDefault();
                     qObj.Survey = questionSurvey.description;
                     var questionSurveySet = questionSurvey.surveyset.FirstOrDefault();
                     qObj.Surveyset = questionSurveySet.description;
@@ -1025,12 +1025,13 @@ namespace Generic.Controllers
 
                             question objQuestion = new question();
 
-                            objQuestion.question1 = excelQuestionnaire.Question;
+                            objQuestion.Question = excelQuestionnaire.Question;
                             objQuestion.name = excelQuestionnaire.Question;
                             objQuestion.title = excelQuestionnaire.Title;
                             objQuestion.tag = string.Empty;
                             objQuestion.responseType = responseTypeId;
                             objQuestion.required = isRequired;
+                            objQuestion.calendarMessageTxt = excelQuestionnaire.CalendarMessageText;
 
                             if (excelQuestionnaire.skipLogicAnswer == "N")
                             {
@@ -1118,7 +1119,7 @@ namespace Generic.Controllers
                                 objQuestion.sortOrder = 1;
                                 objQuestion.active = true;
                                 objQuestion.enterprise = EnterpriseID;
-                                db.question.Add(objQuestion);
+                                db.questions.Add(objQuestion);
                                 db.SaveChanges();
                                 questionSet.Add(objQuestion.id);
                             }

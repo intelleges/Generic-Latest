@@ -325,21 +325,21 @@ namespace Generic.DataLayer
 
 
             //abs21022012
-            string strQuestion = question.question1;
+            string strQuestion = question.Question;
             var partnerID = (int)HttpContext.Current.Session["partner"];
             var _currentPartner = db.pr_getPartner(partnerID).FirstOrDefault();
            var _enterprise =  db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
            strQuestion = format.sGetEmailBody(strQuestion, null, _currentPartner, _enterprise, objpptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, objpptq.partnerTypeTouchpointQuestionnaire);
-           question.question1 = strQuestion;
+           question.Question = strQuestion;
 
 
             if (this.showContentOnly)
             {
-                label.Text = question.question1 + " " + getRuleByquestion(question.id);
+                label.Text = question.Question + " " + getRuleByquestion(question.id);
             }
             else
             {
-                label.Text = question.question1;
+                label.Text = question.Question;
 
                 //add error message to the end of the question
                 if (question.id == this.errorquestion)
@@ -390,8 +390,8 @@ namespace Generic.DataLayer
 
             if (this.showContentOnly)
             {
-                tableCell.Controls.Add(showButton(question.id.ToString(), question.question1, "lookUp"));
-                tableCell.Controls.Add(showButton(question.id.ToString(), question.question1, "validation"));
+                tableCell.Controls.Add(showButton(question.id.ToString(), question.Question, "lookUp"));
+                tableCell.Controls.Add(showButton(question.id.ToString(), question.Question, "validation"));
             }
 
             //show question 

@@ -17,15 +17,15 @@ namespace Generic
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public question()
         {
-            this.questionResponse = new HashSet<questionResponse>();
-            this.questionResponse1 = new HashSet<questionResponse>();
-            this.questionTranslation = new HashSet<questionTranslation>();
-            this.survey = new HashSet<survey>();
-            this.partnumberSiteZcodePPTQQuestionResponse = new HashSet<partnumberSiteZcodePPTQQuestionResponse>();
+            this.partnumberSiteZcodePPTQQuestionResponses = new HashSet<partnumberSiteZcodePPTQQuestionResponse>();
+            this.questionResponses = new HashSet<questionResponse>();
+            this.questionResponses1 = new HashSet<questionResponse>();
+            this.questionTranslations = new HashSet<questionTranslation>();
+            this.surveys = new HashSet<survey>();
         }
     
         public int id { get; set; }
-        public string question1 { get; set; }
+        public string Question { get; set; }
         public string name { get; set; }
         public string title { get; set; }
         public string tag { get; set; }
@@ -39,6 +39,7 @@ namespace Generic
         public string commentBoxTxt { get; set; }
         public string commentUploadTxt { get; set; }
         public Nullable<int> commentType { get; set; }
+        public string calendarMessageTxt { get; set; }
         public string spinOffQuestionnaire { get; set; }
         public Nullable<int> spinOffQID { get; set; }
         public string emailAlert { get; set; }
@@ -48,16 +49,16 @@ namespace Generic
         public Nullable<bool> active { get; set; }
         public Nullable<int> enterprise { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<partnumberSiteZcodePPTQQuestionResponse> partnumberSiteZcodePPTQQuestionResponses { get; set; }
         public virtual responseType responseType1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<questionResponse> questionResponse { get; set; }
+        public virtual ICollection<questionResponse> questionResponses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<questionResponse> questionResponse1 { get; set; }
+        public virtual ICollection<questionResponse> questionResponses1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<questionTranslation> questionTranslation { get; set; }
+        public virtual ICollection<questionTranslation> questionTranslations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<survey> survey { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<partnumberSiteZcodePPTQQuestionResponse> partnumberSiteZcodePPTQQuestionResponse { get; set; }
+        public virtual ICollection<survey> surveys { get; set; }
     }
 }

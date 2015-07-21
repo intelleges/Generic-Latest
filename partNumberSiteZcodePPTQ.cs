@@ -17,7 +17,7 @@ namespace Generic
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public partNumberSiteZcodePPTQ()
         {
-            this.partnumberSiteZcodePPTQQuestionResponse = new HashSet<partnumberSiteZcodePPTQQuestionResponse>();
+            this.partnumberSiteZcodePPTQQuestionResponses = new HashSet<partnumberSiteZcodePPTQQuestionResponse>();
         }
     
         public int id { get; set; }
@@ -32,6 +32,6 @@ namespace Generic
         public virtual partnumberStatus partnumberStatus { get; set; }
         public virtual site site1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<partnumberSiteZcodePPTQQuestionResponse> partnumberSiteZcodePPTQQuestionResponse { get; set; }
+        public virtual ICollection<partnumberSiteZcodePPTQQuestionResponse> partnumberSiteZcodePPTQQuestionResponses { get; set; }
     }
 }

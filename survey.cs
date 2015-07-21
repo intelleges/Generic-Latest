@@ -17,8 +17,8 @@ namespace Generic
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public survey()
         {
-            this.question = new HashSet<question>();
             this.surveyset = new HashSet<surveyset>();
+            this.questions = new HashSet<question>();
         }
     
         public int id { get; set; }
@@ -31,8 +31,8 @@ namespace Generic
         public System.DateTime lastModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<question> question { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<surveyset> surveyset { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<question> questions { get; set; }
     }
 }

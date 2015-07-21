@@ -17,7 +17,7 @@ namespace Generic
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public responseType()
         {
-            this.question = new HashSet<question>();
+            this.questions = new HashSet<question>();
         }
     
         public int id { get; set; }
@@ -27,6 +27,6 @@ namespace Generic
         public Nullable<int> enterprise { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<question> question { get; set; }
+        public virtual ICollection<question> questions { get; set; }
     }
 }

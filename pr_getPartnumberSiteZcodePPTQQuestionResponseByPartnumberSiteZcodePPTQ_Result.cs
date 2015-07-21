@@ -15,12 +15,14 @@ namespace Generic
     {
         public int id { get; set; }
         public int question { get; set; }
-        public int response { get; set; }
+        public Nullable<int> response { get; set; }
         public string comment { get; set; }
         public byte[] uploadedFile { get; set; }
         public string uploadedFileType { get; set; }
+        public Nullable<System.DateTime> actionDate { get; set; }
         public Nullable<int> value { get; set; }
         public string score { get; set; }
         public int partNumberSiteZcodePPTQ { get; set; }
+        public Nullable<System.DateTime> timestamp { get; set; }
     }
 }

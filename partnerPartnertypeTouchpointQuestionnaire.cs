@@ -18,10 +18,10 @@ namespace Generic
         public partnerPartnertypeTouchpointQuestionnaire()
         {
             this.eSignature = new HashSet<eSignature>();
-            this.partnerPartnertypeTouchpointQuestionnaireQuestionResponse = new HashSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>();
             this.partNumberSiteZcodePPTQ = new HashSet<partNumberSiteZcodePPTQ>();
             this.automailMessagePPTQ = new HashSet<automailMessagePPTQ>();
             this.pptqAutoMailMessageLog = new HashSet<pptqAutoMailMessageLog>();
+            this.partnerPartnertypeTouchpointQuestionnaireQuestionResponses = new HashSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>();
         }
     
         public int id { get; set; }
@@ -47,13 +47,13 @@ namespace Generic
         public virtual partnerTypeTouchpointQuestionnaire partnerTypeTouchpointQuestionnaire1 { get; set; }
         public virtual person person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponse { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<partNumberSiteZcodePPTQ> partNumberSiteZcodePPTQ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<automailMessagePPTQ> automailMessagePPTQ { get; set; }
         public virtual partnerStatus partnerStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pptqAutoMailMessageLog> pptqAutoMailMessageLog { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponses { get; set; }
     }
 }

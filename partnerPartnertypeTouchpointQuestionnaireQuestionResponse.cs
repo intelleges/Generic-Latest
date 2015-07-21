@@ -19,10 +19,12 @@ namespace Generic
         public Nullable<int> response { get; set; }
         public string comment { get; set; }
         public byte[] uploadedFile { get; set; }
+        public string uploadedFileType { get; set; }
+        public Nullable<System.DateTime> actionDate { get; set; }
         public Nullable<int> value { get; set; }
         public Nullable<int> score { get; set; }
         public Nullable<int> partnerPartnerTypeTouchpointQuestionnaire { get; set; }
-        public string uploadedFileType { get; set; }
+        public Nullable<System.DateTime> timestamp { get; set; }
     
         public virtual partnerPartnertypeTouchpointQuestionnaire partnerPartnertypeTouchpointQuestionnaire1 { get; set; }
         public virtual response response1 { get; set; }

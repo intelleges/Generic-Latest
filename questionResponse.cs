@@ -17,8 +17,8 @@ namespace Generic
         public int question { get; set; }
         public int response { get; set; }
     
+        public virtual response response1 { get; set; }
         public virtual question question1 { get; set; }
         public virtual question question2 { get; set; }
-        public virtual response response1 { get; set; }
     }
 }
