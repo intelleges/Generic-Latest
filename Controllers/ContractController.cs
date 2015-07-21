@@ -28,6 +28,9 @@ namespace Generic.Controllers
             ViewBag.GovtContractOfficerPOC = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}", v.firstName, v.lastName) }).ToList();
             ViewBag.GCPPOCEmail = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0}",v.email) }).ToList();
             ViewBag.contractManagerName = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}", v.firstName, v.lastName) }).ToList();
+            ViewBag.customerAccountAdministrator = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}", v.firstName, v.lastName) }).ToList();
+            ViewBag.contractType = new SelectList(db.subscriptionType.ToList(), "id", "description");
+            ViewBag.touchpointContracts = new SelectList(db.subscriptionType.ToList(), "id", "description");
             return View();
         }
     }

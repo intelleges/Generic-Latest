@@ -40,7 +40,7 @@
         width: 20px;
         display: inline-block;
     }
-      select#subscriptionStatus, #subscriptionType, #multiTenantProjectType, #GroupId, #protocol, #GovtContractOfficerPOC, #GCPPOCEmail, #contractManagerName {
+      select#subscriptionStatus, #subscriptionType, #multiTenantProjectType, #GroupId, #protocol, #GovtContractOfficerPOC, #GCPPOCEmail, #contractManagerName, #customerAccountAdministrator, #contractType, #touchpointContracts {
         width: 185px;
         height:25px;
     }
@@ -80,27 +80,35 @@
 </style>
 <script>
     function clearForm() {
-        $("#companyName").val("");
-        $(".t-upload-files.t-reset").find("li").remove();
-        $("#description").val("");
-        $("#userMax").val("");
-        $("#partnerMax").val("");
-        $("#partnumberMax").val("");
-        $("#product").val("");
-        $("#subscriptionType").val("");
-        $("#freeTrialStartDate").val("");
-        $("#freeTrialEndDate").val("");
-        $("#licenseStartDate").val("");
-        $("#licenseEndDate").val("");
-        $("#monthlyFee").val("");
-        $("#subscriptionStatus").val("");
+        $("#customerName").val("");
+        $("#contractNumber").val("");
+        $("#contractManagerName").val("");
+        $("#programName").val("");
+        $("#sequenceNumber").val("");
+        $("#masterContractNo").val("");
+        $("#contractType").val("");
+        $("#primeContractNo").val("");
+        $("#SAPOrderNo").val("");
+        $("#customerAccountAdministrator").val("");
+        $("#FirstName").val("");
+        $("#LastName").val("");
+        $("#GovtContractOfficerPOC").val("");
+        $("#GCPPOCEmail").val("");
+        $("#Phone").val("");
+        $("#contractAvardDate").val("");
+        $("#entryDate").val("");
+        $("#contractEndDate").val("");
+        $("#protocol").val("");
+        $("#touchpointContracts").val("");
+        $("#GroupId").val("");
         $("#multiTenantProjectType").val("");
-        $("#systemExpiry").val("");
-        $("#licenseLimit").val("");
-        $("#companyWebSite").val("");
     }
 
     $(document).ready(function () {
+        $("form").submit(function () {
+            return validateControl();
+
+        });
         @if(Model!=null)
         {
             <text>
@@ -121,26 +129,96 @@
         </text>
         }
         $("#btnClear").click(function () {
-            $("#companyName").val("");
-            $(".t-upload-files.t-reset").find("li").remove();
-            $("#description").val("");
-            $("#userMax").val("");
-            $("#partnerMax").val("");
-            $("#partnumberMax").val("");
-            $("#product").val("");
-            $("#subscriptionType").val("");
-            $("#freeTrialStartDate").val("");
-            $("#freeTrialEndDate").val("");
-            $("#licenseStartDate").val("");
-            $("#licenseEndDate").val("");
-            $("#monthlyFee").val("");
-            $("#subscriptionStatus").val("");
-            $("#multiTenantProjectType").val("");
-            $("#systemExpiry").val("");
-            $("#licenseLimit").val("");
-            $("#companyWebSite").val("");
-
+            clearForm();
         });
+
+       
+        function validateControl() {
+          
+            //if ($("#name").val() == "") {
+            //    alertify.alert("Name is required");
+            //    return false;
+            //}
+            //if ($("#internalID").val() == "") {
+            //    alertify.alert("internalID is required");
+            //    return false;
+            //}               
+
+            //if ($("#firstName").val() == "") {
+            //    alertify.alert("First Name is required");
+            //    return false;
+            //}
+            //if ($("#lastName").val() == "") {
+            //    alertify.alert("Last Name is required");
+            //    return false;
+            //}
+            //if ($("#email").val() == "") {
+            //    alertify.alert("Email is required");
+            //    return false;
+            //}
+            //if ($("#protocol").val() == "") {
+            //    alertify.alert("Protocol is required");
+            //    return false;
+            //}
+            //if ($("#touchpoint").val() == "") {
+            //    alertify.alert("Touchpoint is required");
+            //    return false;
+            //}
+            //if ($("#DueDate").val() == "") {
+            //    alertify.alert("Due Date is required");
+            //    return false;
+            //}
+            //if ($("#group").val() == "") {
+            //    alertify.alert("Group is required");
+            //    return false;
+            //}
+            //if ($("#partnertype").val() == "") {
+            //    alertify.alert("Partner type is required");
+            //    return false;
+            //}
+            //if ($("#owner").val() == "") {
+            //    alertify.alert("Owner is required");
+            //    return false;
+            //}                
+            ////#endregion
+
+            //if ($("#address1").val() === "" && $("#address2").val() === "") {
+            //    alertify.alert("Address is required");
+            //    return false;
+            //}
+            //if ($("#city").val() === "" ) {
+            //    alertify.alert("City is required");
+            //    return false;
+            //}
+            //if ($("#state").val() === "") {
+            //    alertify.alert("State is required");
+            //    return false;
+            //}
+            //if ($("#zipcode").val() === "") {
+            //    alertify.alert("Zip Code is required");
+            //    return false;
+            //}
+            //if ($("#country").val() === "") {
+            //    alertify.alert("Country is required");
+            //    return false;
+            //}
+            //if ($("#phone").val() === "") {
+            //    alertify.alert("Phone is required");
+            //    return false;
+            //}
+            //if ($("#title").val() === "") {
+            //    alertify.alert("Title is required");
+            //    return false;
+            //}
+            //if ($("#dunsNumber").val() === "") {
+            //    alertify.alert("DUNS Number is required");
+            //    return false;
+            //}
+            //if ($("#dunsNumber").val() === "") {
+            //    alertify.alert("DUNS Number is required");
+            //    return false;
+            //}
+        }
         var _addValidation = function (elem) {
             elem.attr("data-val", "true");
             elem.attr("data-val-required", " ");
@@ -190,14 +268,14 @@
                 @Html.ValidationMessageFor(model => model.contractNumber)
             </div>
            <div class="editor-label">
-                <label for="contractManager">Contract Manager Name</label>
+                <label for="contractManagerName">Contract Manager Name</label>
             </div>
             <div class="editor-field" >
                @Html.DropDownList("contractManagerName", "Contract Manager Name")
             @Html.ValidationMessageFor(model => model.contractManagerName)
             </div>
             <div class="editor-label">
-                <label for="contractNumber">Program Name</label>
+                <label for="programName">Program Name</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.programName)
@@ -205,14 +283,14 @@
             </div>
             
             <div class="editor-label">
-                <label for="contractNumber">Sequence Number</label>
+                <label for="sequenceNumber">Sequence Number</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.sequenceNumber)
                 @Html.ValidationMessageFor(model => model.sequenceNumber)
             </div>
             <div class="editor-label">
-                <label for="contractNumber">Master Contract No.</label>
+                <label for="masterContractNo">Master Contract No.</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.masterContractNo)
@@ -220,70 +298,70 @@
             </div>
             <br/>
             <div class="editor-label">
-            <label for="contractManager">Contract Type</label>
+            <label for="contractType">Contract Type</label>
         </div>
             <div class="editor-field">
-                @Html.DropDownList("subscriptionType", string.Empty)
+                @Html.DropDownList("contractType", "Contract Type")
                 @Html.ValidationMessageFor(model => model.contractType)
             </div>
             <div class="editor-label">
-                <label for="contractNumber">Prime Contract No.</label>
+                <label for="primeContractNo">Prime Contract No.</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.primeContractNo)
                 @Html.ValidationMessageFor(model => model.primeContractNo)
             </div>
             <div class="editor-label">
-                <label for="contractNumber">SAP Order No.</label>
+                <label for="SAPOrderNo">SAP Order No.</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.SAPOrderNo)
                 @Html.ValidationMessageFor(model => model.SAPOrderNo)
             </div>
             <div class="editor-label">
-                <label for="contractNumber">Customer Account Administrator</label>
+                <label for="customerAccountAdministrator">Customer Account Administrator</label>
             </div>
             <div class="editor-field">
-                @Html.DropDownList("subscriptionType", "Customer Account Administrator")
+                @Html.DropDownList("customerAccountAdministrator", "Customer Account Administrator")
                 @Html.ValidationMessageFor(model => model.customerAccountAdministrator)
             </div>
             <div class="editor-label">
-                <label for="contractNumber">First Name</label>
+                <label for="FirstName">First Name</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.FirstName)
                 @Html.ValidationMessageFor(model => model.FirstName)
             </div>
             <div class="editor-label">
-                <label for="contractNumber">Last Name</label>
+                <label for="LastName">Last Name</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.LastName)
                 @Html.ValidationMessageFor(model => model.LastName)
             </div>
             <div class="editor-label">
-                <label for="contractNumber">Govt. Contract Officer POC</label>
+                <label for="GovtContractOfficerPOC">Govt. Contract Officer POC</label>
             </div>
             <div class="editor-field">
                 @Html.DropDownList("GovtContractOfficerPOC", "Govt. Contract Officer POC")
                 @Html.ValidationMessageFor(model => model.GovContractOfficerPOC)
             </div>
             <div class="editor-label">
-                <label for="contractNumber">GCP-POC Email</label>
+                <label for="GCPPOCEmail">GCP-POC Email</label>
             </div>
             <div class="editor-field">
                 @Html.DropDownList("GCPPOCEmail", "GCP-POC Email")
                 @Html.ValidationMessageFor(model => model.GCPPOCEmail)
             </div>
             <div class="editor-label">
-                <label for="contractNumber">Phone</label>
+                <label for="Phone">Phone</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.Phone)
                 @Html.ValidationMessageFor(model => model.Phone)
             </div>
             <div class="editor-label">
-                <label for="systemExpiry">Contract Award Date</label>
+                <label for="contractAvardDate">Contract Award Date</label>
             </div>
             <div class="editor-field">
                @Html.Telerik().DatePickerFor(model => model.contractAvardDate)
@@ -291,7 +369,7 @@
             @Html.ValidationMessageFor(model => model.contractAvardDate)
             </div>
             <div class="editor-label">
-                <label for="systemExpiry">Entry Date</label>
+                <label for="entryDate">Entry Date</label>
             </div>
             <div class="editor-field">
                 @Html.Telerik().DatePickerFor(model => model.entryDate)
@@ -299,7 +377,7 @@
                 @Html.ValidationMessageFor(model => model.entryDate)
             </div>
             <div class="editor-label">
-                <label for="systemExpiry">Contract End Date</label>
+                <label for="contractEndDate">Contract End Date</label>
             </div>
             <div class="editor-field">
                 @Html.Telerik().DatePickerFor(model => model.contractEndDate)
@@ -307,31 +385,31 @@
                 @Html.ValidationMessageFor(model => model.contractEndDate)
             </div><br/><br/>
             <div class="editor-label">
-                <label for="contractNumber">Protocol</label>
+                <label for="protocol">Protocol</label>
             </div>
             <div class="editor-field">
-                @Html.DropDownList("protocol", string.Empty)
+                @Html.DropDownList("protocol", "Protocol")
                 @Html.ValidationMessageFor(model => model.FirstName)
             </div>
             <div class="editor-label">
-                <label for="contractNumber">Touchpoint</label>
+                <label for="touchpointContracts">Touchpoint</label>
             </div>
             <div class="editor-field">
-                @Html.DropDownList("subscriptionType", string.Empty)
+                @Html.DropDownList("touchpointContracts", "Touchpoint")
                 @Html.ValidationMessageFor(model => model.FirstName)
             </div>
             <div class="editor-label">
-                <label for="contractNumber">Group</label>
+                <label for="Group">Group</label>
             </div>
             <div class="editor-field">
-                @Html.DropDownList("GroupId", string.Empty)
+                @Html.DropDownList("GroupId", "Group")
                 @Html.ValidationMessageFor(model => model.FirstName)
             </div><br/><br/>
             <div class="editor-label">
-                <label for="contractNumber">Product Type</label>
+                <label for="multiTenantProjectType">Product Type</label>
             </div>
             <div class="editor-field">
-                @Html.DropDownList("multiTenantProjectType", string.Empty)
+                @Html.DropDownList("multiTenantProjectType", "Product Type")
                 @Html.ValidationMessageFor(model => model.FirstName)
             </div>
         </div>
