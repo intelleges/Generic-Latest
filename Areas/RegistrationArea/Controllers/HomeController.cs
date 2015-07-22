@@ -981,6 +981,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
                     }
+                    else if (keyName.ToString().Contains("_duedateAlert"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+                    }
+                    else if (keyName.ToString().Contains("_duedate"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+                    }
                     #region other types
                     else
                     {                        
@@ -1018,11 +1030,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
                             else responseComment = null;
                         }
-                        
+                        string stralert = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedateAlert"];
+                        if (!string.IsNullOrEmpty(stralert))
+                        {
+                            responseComment = stralert;
+                        }                        
+                        else responseComment = null;
+                        var strDueDate = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedate"];
+                        DateTime? dueDate = !string.IsNullOrEmpty(strDueDate) ? DateTime.Parse(strDueDate) :(DateTime?) null;
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
                         if (checkpsz == null)
                         {
-                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null,null, null, null, pptq).FirstOrDefault();
+                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, dueDate, null, null, pptq).FirstOrDefault();
                         }
                         else
                         {
@@ -1030,7 +1049,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             {
                                 responseComment = checkpsz.comment;
                             }
-                            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.id, questionId, responseId, responseComment, null,null, null, null, null, pptq);
+                            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.id, questionId, responseId, responseComment, null, null, dueDate, null, null, pptq);
                         }
                         ResolveAndSendEmailAlert(questionId, pptq, answerId: responseId.HasValue ? responseId.Value : -1, text: responseComment);
                         ZcodeModify(questionnaireId, questionId, responseId);

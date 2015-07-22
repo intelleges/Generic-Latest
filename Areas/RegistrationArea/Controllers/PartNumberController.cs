@@ -357,6 +357,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             surveyId = int.Parse(array[2]);
 
                         }
+                        else if (keyName.ToString().Contains("_duedateAlert"))
+                        {
+                            array = keyName.ToString().Split(splitter);
+                            questionId = int.Parse(array[1]);
+                            surveyId = int.Parse(array[2]);
+                        }
+                        else if (keyName.ToString().Contains("_duedate"))
+                        {
+                            array = keyName.ToString().Split(splitter);
+                            questionId = int.Parse(array[1]);
+                            surveyId = int.Parse(array[2]);
+                        }
                         else
                         {
                             array = keyName.ToString().Split(splitter);
@@ -390,14 +402,21 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             {
                                 responseComment = null;
                             }
-
+                            string stralert = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedateAlert"];
+                            if (!string.IsNullOrEmpty(stralert))
+                            {
+                                responseComment = stralert;
+                            }
+                            else responseComment = null;
+                            var strDueDate = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedate"];
+                            DateTime? dueDate = !string.IsNullOrEmpty(strDueDate) ? DateTime.Parse(strDueDate) : (DateTime?)null;
                              //var context = new EntitiesDBContext();
                             var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();
 
                             var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
                             if (checkpsz.Count == 0)
                             {
-                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null,null, null, PartNumberSiteZcodepptq.id);
+                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, dueDate, null, null, PartNumberSiteZcodepptq.id);
                             }
                             else
                             {
@@ -408,7 +427,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                     var checkpszId = checkpszObj.id;
                                     try
                                     {
-                                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null,null, null, null, PartNumberSiteZcodepptq.id);
+                                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, dueDate, null, null, PartNumberSiteZcodepptq.id);
                                     }
                                     catch (Exception ex)
                                     {

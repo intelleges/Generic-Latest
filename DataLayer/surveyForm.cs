@@ -607,6 +607,7 @@ namespace Generic.DataLayer
             surveyForm surveyfrm = new surveyForm();
             string incldComment = "";
             string incldFileUpload = "";
+            string inclDueDate = "";
             if (question.commentBoxTxt == "" || question.commentBoxTxt == null)
             {
                 incldComment = convertLanguageApi("<span style='font-size:13px'> Include comments here: </span>");
@@ -614,6 +615,14 @@ namespace Generic.DataLayer
             else
             {
                 incldComment = convertLanguageApi("<span style='font-size:13px'>" + question.commentBoxTxt + "</span>");
+            }
+            if (question.calendarMessageTxt == "" || question.calendarMessageTxt == null)
+            {
+                inclDueDate = convertLanguageApi("<span style='font-size:13px'> Please enter due date: </span>");
+            }
+            else
+            {
+                inclDueDate = convertLanguageApi("<span style='font-size:13px'>" + question.calendarMessageTxt + "</span>");
             }
             if (question.commentUploadTxt == "" || question.commentUploadTxt == null)
             {
@@ -1192,7 +1201,57 @@ namespace Generic.DataLayer
             #endregion
 
 
-
+            if (question.commentType == CommentType.YN_DUEDATE_N || question.commentType == CommentType.YN_DUEDATE_Y || question.commentType == CommentType.YN_ALERT_N || question.commentType == CommentType.YN_ALERT_Y)
+            {
+                var divPrefix = question.commentType == CommentType.YN_DUEDATE_N || question.commentType == CommentType.YN_ALERT_N ? "n" : "y";
+                HtmlGenericControl divn = new HtmlGenericControl();
+                divn.ID = divPrefix+"Div_" + question.id.ToString();
+                //divn.Visible = false;
+                divn.Style.Add("display", "none");
+                Table tb = new Table();
+                TableRow headerRow = new TableRow();
+                var dueHeaderCell  = new TableHeaderCell();
+                dueHeaderCell.Text = inclDueDate;
+                headerRow.Cells.Add(dueHeaderCell);
+                TableRow controlRow = new TableRow();
+                var duedateCtrlCell = new TableCell();
+                duedateCtrlCell.Attributes.Add("style", "vertical-align:middle");
+                txtbox = new TextBox();
+                txtbox.Width = 100;
+                txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedate";
+                txtbox.Attributes.Add("required", "");
+                txtbox.Attributes.Add("data-val-required", "Required");
+                txtbox.Attributes.Add("data-val-dpDate", "Enter valid date value");
+                txtbox.Attributes.Add("data-val", "true");
+                txtbox.Attributes.Add("class", "duedate dpDate");
+                txtbox.Attributes.Add("style", "vertical-align:top");
+                //divn.InnerHtml = inclDueDate + " ";//"Include comments here: ";
+                duedateCtrlCell.Controls.Add(txtbox);
+                controlRow.Cells.Add(duedateCtrlCell);
+                //divn.Controls.Add(txtbox);
+                if (question.commentType == CommentType.YN_ALERT_N || question.commentType == CommentType.YN_ALERT_Y)
+                {
+                    var textNew = new TextBox();
+                    textNew.Width = 400;
+                    textNew.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedateAlert";
+                    textNew.Attributes.Add("required", "");
+                    textNew.Attributes.Add("data-val-required", "Required");
+                    //textNew.Attributes.Add("data-val-date", "Enter valid date value");
+                    textNew.Attributes.Add("data-val", "true");
+                    textNew.Attributes.Add("style", "vertical-align:top");
+                    var alertHeaderCell = new TableHeaderCell();
+                    alertHeaderCell.Text = "<span style='font-size:13px;'>Please enter the alert text</span>";
+                    headerRow.Cells.Add(alertHeaderCell);
+                    var alertCtrlCell = new TableHeaderCell();
+                    alertCtrlCell.Controls.Add(textNew);
+                    controlRow.Cells.Add(alertCtrlCell);
+                    //divn.Controls.Add(textNew);
+                }
+                tb.Rows.Add(headerRow);
+                tb.Rows.Add(controlRow);
+                divn.Controls.Add(tb);
+                tableCell.Controls.AddAt(0, divn);
+            }
 
 
 

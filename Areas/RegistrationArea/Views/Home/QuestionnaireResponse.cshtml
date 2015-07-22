@@ -223,12 +223,20 @@
 </div>
 
 @section scripts{
-
     <script type="text/javascript" src="@Url.Content("~/contents/js/animatedcollapse.js")"></script>
 @*<script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
     <script type="text/javascript">
-        
+        $(function () {
+            $(".duedate").datepicker({
+                showOn: "button",
+                buttonImage: "../../Contents/images/calendar_button.gif",
+                buttonImageOnly: true,
+                buttonText: "Select date",
+                minDate: Date.parse("1900-01-01"),
+                maxDate: Date.parse("2100-01-01")
+            });
+        });
         $(document).ready(function () {            
             var message = '@ViewBag.message';
         if (message !== "") {
@@ -237,6 +245,8 @@
 
         }
         
+        
+       
         var percentage = $('#barpercent').val();
         progressBar(percentage, $('#progressBar'));
 

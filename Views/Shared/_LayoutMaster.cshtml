@@ -7,6 +7,7 @@
 
     <link href="~/Content/themes/base/alertify.core.css" rel="stylesheet" />
     <link href="~/Content/themes/base/alertify.default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
     @*<script>
     var jq171 = jQuery.noConflict();
     </script>*@
@@ -15,56 +16,13 @@
     var jq191 = jQuery.noConflict();
     </script>*@
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jqueryui")
+    
+    @*<script src="~/Scripts/jquery.ui.datepicker.validation.min.js"></script>*@
+    
+     
+    
 
-     @Scripts.Render("~/bundles/jqueryval")
 
-
-<script>
-    $(function () {
-        jQuery.validator.unobtrusive.adapters.add(
-  'filesize', ['filesize'], function (options) {
-      options.rules['filesize'] = {
-          filesize: options.params.filesize
-      };
-      options.messages['filesize'] = options.message;
-  }
-);
-        jQuery.validator.addMethod('filesize', function (value, element, param) {
-            // param = size (en bytes) 
-            // element = element to validate (<input>)
-            // value = value of the element (file name)
-            return this.optional(element) || (element.files[0].size <= param.filesize)
-        });
-        jQuery.validator.unobtrusive.adapters.add('fileextensions', ['fileextensions'], function (options) {
-            // Set up test parameters
-            var params = {
-                fileextensions: options.params.fileextensions.split(',')
-            };
-
-            // Match parameters to the method to execute
-            options.rules['fileextensions'] = params;
-            if (options.message) {
-                // If there is a message, set it for the rule
-                options.messages['fileextensions'] = options.message;
-            }
-        });
-        jQuery.validator.addMethod("fileextensions", function (value, element, param) {
-            var extension = getFileExtension(value);
-            //doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx
-            var validExtension = $.inArray(extension, param.fileextensions) !== -1;
-            return validExtension;
-        });
-
-        function getFileExtension(fileName) {
-            var extension = (/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName) : undefined;
-            if (extension != undefined) {
-                return extension[0];
-            }
-            return extension;
-        };
-    }(jQuery));
-        </script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width" />
 <link rel="icon" href="@Url.Content("~/Contents/images/favicon.ico")" type="image/ico" />
@@ -189,7 +147,58 @@ type="text/javascript"></script>
 
         
     </body>
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(function () {
+        //jQuery.validator.unobtrusive.adapters.add("dpdate", function (options) {
+        //    options.rules['dpdate'] = true;
+        //    options.messages["dpdate"] = options.message;
+        //});
+        jQuery.validator.unobtrusive.adapters.add(
+  'filesize', ['filesize'], function (options) {
+      options.rules['filesize'] = {
+          filesize: options.params.filesize
+      };
+      options.messages['filesize'] = options.message;
+  }
+);        
+        jQuery.validator.addMethod('filesize', function (value, element, param) {
+            // param = size (en bytes)
+            // element = element to validate (<input>)
+            // value = value of the element (file name)
+            return this.optional(element) || (element.files[0].size <= param.filesize)
+        });
+        jQuery.validator.unobtrusive.adapters.add('fileextensions', ['fileextensions'], function (options) {
+            // Set up test parameters
+            var params = {
+                fileextensions: options.params.fileextensions.split(',')
+            };
 
+            // Match parameters to the method to execute
+            options.rules['fileextensions'] = params;
+            if (options.message) {
+                // If there is a message, set it for the rule
+                options.messages['fileextensions'] = options.message;
+            }
+        });
+        jQuery.validator.addMethod("fileextensions", function (value, element, param) {
+            var extension = getFileExtension(value);
+            //doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx
+            var validExtension = $.inArray(extension, param.fileextensions) !== -1;
+            return validExtension;
+        });
+
+        function getFileExtension(fileName) {
+            var extension = (/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName) : undefined;
+            if (extension != undefined) {
+                return extension[0];
+            }
+            return extension;
+        };
+    }(jQuery));
+</script>
+<script src="~/Scripts/jquery.ui.datepicker.validation.min.js"></script>
 
 </html>
 
