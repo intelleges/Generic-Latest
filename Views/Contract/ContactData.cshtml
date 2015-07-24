@@ -1,0 +1,157 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.Models.ContactDataModel>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Contract Data Grids";
+}
+
+
+<style>
+    .t-grid-content tr > td:hover .menu_block + .display_menu {
+        display: block !important;
+    }
+
+    .display_menu {
+        left: 65px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+
+    .t-grid-content tr > td {
+        overflow: visible !important;
+        position: relative;
+    }
+
+    .display_menu > ul {
+        padding: 0 16px;
+    }
+
+    .display_menu li {
+        list-style: none outside none;
+        width: 143px;
+    }
+
+    #partnersExternalDocsGrid, #partnersInternalDocGrid {
+        font-size: 11px;
+    }
+
+    #modal {
+        height: 489px;
+    }
+
+    .ui-dialog {
+        width: 99% !important;
+        left: 0;
+    }
+
+    .btnprocess {
+        height: 21px !important;
+        line-height: 4px !important;
+        font-size: 100% !important;
+    }
+
+    .input_size {
+        font-size: 11px !important;
+        padding: 1px !important;
+        position: relative;
+        top: 2px;
+    }
+
+    div#contactDataTouchpointsGrid, div#contactDataZCodesGrid, div#contactDataAlertsGrid {
+        font-size: 10px;
+    }
+
+    .vertical {
+        writing-mode: tb-rl;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+        white-space: nowrap;
+        display: block;
+        bottom: 0;
+        width: 20px;
+        height: 20px;
+    }
+    .gridTitle{
+        float: right;
+        font-size:16px;
+    }
+</style>
+<div>
+    @(Html.Telerik().Grid(Model.Touchpoints).Name("contactDataTouchpointsGrid").Pageable(pager => pager.PageSize(13).Total(200).Enabled(true)).Columns(cols =>
+{
+    cols.Bound(o => o.AccessCode).Width(60);
+    cols.Bound(o => o.Email).Width(150);
+    cols.Bound(o => o.Assigned).Width(70).Template(@<text>
+        @item.Assigned.ToShortDateString()
+    </text>);
+    cols.Bound(o => o.DueDate).Width(70).Template(@<text>
+            @item.DueDate.ToShortDateString()
+    </text>);
+    cols.Bound(o => o.Touchpoint).Width(150);
+    cols.Bound(o => o.Status).Width(50);
+    cols.Bound(o => o.Loadgroup).Width(50);
+})
+                                        .Sortable(sorting => sorting.Enabled(true))
+
+                                        .Scrollable(scrolling => scrolling
+                                        .Enabled(true)
+                                        .Height(100)).ToolBar(commands =>
+                    {
+                        commands.Template("<form method='post' enctype='multipart/form-data' action='" + @Url.Action("ExportExternalDocs", "Partner", new { accessCode = Request["accessCode"] }) + "'><a class='t-button' href='" + @Url.Action("ExportExternalDocs", "Partner", new { accessCode = Request["accessCode"] }) + "' id='export'>Export to Excel</a><span class='gridTitle'>Touchpoint</span></form>");
+                    })
+    )    
+</div>
+
+@(Html.Telerik().Grid(Model.ZCodes).Name("contactDataZCodesGrid").Pageable(pager => pager.PageSize(13).Total(200).Enabled(true)).Columns(cols =>
+{
+    cols.Bound(o => o.AccessCode).Width(60);
+    cols.Bound(o => o.WorkBreakdownStructure).Width(120);
+    cols.Bound(o => o.CompletedDate).Width(80).Template(@<text>
+        @item.CompletedDate.ToShortDateString()
+    </text>);
+    cols.Bound(o => o.Status).Width(50);
+    cols.Bound(o => o.zCode).Width(100).Title("ZCode");
+    cols.Bound(o => o.AssignedBy).Width(110);
+    cols.Bound(o => o.CompletedBy).Width(150);
+})
+                        .Sortable(sorting => sorting.Enabled(true))
+
+                        .Scrollable(scrolling => scrolling
+                        .Enabled(true)
+                        .Height(100)).ToolBar(commands =>
+    {
+        commands.Template("<form method='post' enctype='multipart/form-data' action='" + @Url.Action("ExportExternalDocs", "Partner", new { accessCode = Request["accessCode"] }) + "'><a class='t-button' href='" + @Url.Action("ExportExternalDocs", "Partner", new { accessCode = Request["accessCode"] }) + "' id='export'>Export to Excel</a><span class='gridTitle'>ZCode</span></form>");
+    })
+)
+@(Html.Telerik().Grid(Model.Alerts).Name("contactDataAlertsGrid").Pageable(pager => pager.PageSize(13).Total(200).Enabled(true)).Columns(cols =>
+{
+    cols.Bound(o => o.AccessCode).Width(60);
+    cols.Bound(o => o.zCode).Width(100).Title("ZCode");
+    cols.Bound(o => o.Assigned).Width(80).Template(@<text>
+        @item.Assigned.ToShortDateString()
+    </text>);
+    cols.Bound(o => o.DueDate).Width(80).Template(@<text>
+        @item.DueDate.ToShortDateString()
+    </text>);
+    cols.Bound(o => o.Alert).Width(50);
+    cols.Bound(o => o.Author).Width(150);
+    cols.Bound(o => o.Status).Width(50);
+})
+                        .Sortable(sorting => sorting.Enabled(true))
+
+                        .Scrollable(scrolling => scrolling
+                        .Enabled(true)
+                        .Height(100)).ToolBar(commands =>
+    {
+        commands.Template("<form method='post' enctype='multipart/form-data' action='" + @Url.Action("ExportExternalDocs", "Partner", new { accessCode = Request["accessCode"] }) + "'><a class='t-button' href='" + @Url.Action("ExportExternalDocs", "Partner", new { accessCode = Request["accessCode"] }) + "' id='export'>Export to Excel</a> <span class='gridTitle'>Alert</span></form>");
+    })
+)

@@ -1,0 +1,133 @@
+﻿@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Contract Approval";
+}
+<style>
+    .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;        
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
+        font-size:12px !important;
+    }
+
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+    .btnprocess {
+        height: 21px !important;
+line-height: 4px !important;
+font-size: 11px !important;
+    }
+     .input_size {
+        font-size: 11px!important;
+        padding: 1px!important;
+        position: relative;
+        top: 2px;
+    }
+</style>
+<h2>Contract Approval, Review, Edit - @ViewBag.contactType</h2>
+<form id="uploadForm" >
+    <input type="file" name="file_Uploader" id="file_Uploader" class="input_size" style="font-size: 11px;" />
+    <button type="submit" class="btnprocess t-button" style="font-size: 11px;">Upload</button>
+</form>
+    <div class="tw-bs">
+        <div class="container-fluid">
+            <div class="row">
+                <form id="modalGetPassword">                    
+                    <div class="form-group" style="padding:13px;">
+                        <div class="row">
+                            <select class="form-control" multiple="multiple" size="10" id="responseList" name="responseList">
+                                <option>
+                                    john@intelleges.com
+                                </option>
+                                <option>
+                                    john1@intelleges.com
+                                </option>
+                                <option>
+                                    john2@intelleges.com
+                                </option>
+                                <option>
+                                    john3@intelleges.com
+                                </option>
+                            </select>
+                            <script>
+                                var responseListDualListBox;
+                                $(function () {
+                                    responseListDualListBox = $('#responseList').bootstrapDualListbox({
+                                        nonSelectedListLabel: 'User List',
+                                        selectedListLabel: 'Reviewer List',
+                                        preserveSelectionOnMove: 'moved',
+                                        moveOnSelect: false
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </div>
+
+                    
+                </form>
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
+<p style="float: right;">
+    <input type="button" value="Save" class="btn" id="saveResponseList" />
+    <input type="button" value="Clear" class="btn" id="btnClear" />
+    <input type="button" value="Skip" class="btn" id="btnClear" />
+</p>
+    <script>
+    $(function () {
+        $("#saveResponseList").click(function () {
+            var contactType = '@ViewBag.contactType';
+            var str = "";
+            $("#bootstrap-duallistbox-selected-list_responseList option").each(function () {
+                str += $(this).text() + ",";
+            });
+            if (str.length > 0) {
+                str = str.substr(0, str.length - 1);
+            }
+            alertify.confirm("You've selected next users: " + str + ". Do you wish to continue?", function (decision) {
+                if (decision) {
+                    switch (contactType) {
+                        case "Simple":
+                            window.location.href = "../Contract/ContractApproval?ContractId=@ViewBag.contactId&contactType=Complex";
+                            break;
+                        case "Complex":
+                            window.location.href = "../Contract/ContractApproval?ContractId=@ViewBag.contactId&contactType=Conflict of Interest";
+                            break;
+                        case "Conflict of Interest":
+                            window.location.href = "../Contract/ContactData?ContractId=@ViewBag.contactId";
+                            break;
+                    }
+                }
+            });
+
+        });
+    });
+    </script>
+    @section scripts{
+
+        <script src="~/Scripts/jquery.bootstrap-duallistbox.min.js"></script>
+    }
+
+

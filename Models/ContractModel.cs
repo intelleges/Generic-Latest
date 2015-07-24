@@ -27,5 +27,6 @@ namespace Generic.Models
         public string GovContractOfficerPOC { get; set; }
         public string GCPPOCEmail { get; set; }
         public string Phone { get; set; }
+        public Nullable<int> ContractId { get; set; }
     }
 }

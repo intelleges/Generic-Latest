@@ -116,10 +116,11 @@
         if(saved){
             alertify.confirm("Congratulations you just added @Model.customerName .<br> Would you like to add the System Master for this Account?", function(choise){
                 if(choise){
-                    @*window.location.href="../Person/Create?enterpriseId=@Model.id";*@
+                    @*@Model.ContractId = 100;*@
+                    window.location.href="../Contract/ContractApproval?ContractId=100&contactType=Simple";
                 }
 
-                    clearForm();
+                clearForm();
 
             });
         }
@@ -135,119 +136,119 @@
        
         function validateControl() {
           
-            //if ($("#name").val() == "") {
-            //    alertify.alert("Name is required");
-            //    return false;
-            //}
-            //if ($("#internalID").val() == "") {
-            //    alertify.alert("internalID is required");
-            //    return false;
-            //}               
+            if ($("#customerName").val() == "") {
+                alertify.alert("Customer Name is required");
+                return false;
+            }
 
-            //if ($("#firstName").val() == "") {
-            //    alertify.alert("First Name is required");
-            //    return false;
-            //}
-            //if ($("#lastName").val() == "") {
-            //    alertify.alert("Last Name is required");
-            //    return false;
-            //}
-            //if ($("#email").val() == "") {
-            //    alertify.alert("Email is required");
-            //    return false;
-            //}
-            //if ($("#protocol").val() == "") {
-            //    alertify.alert("Protocol is required");
-            //    return false;
-            //}
-            //if ($("#touchpoint").val() == "") {
-            //    alertify.alert("Touchpoint is required");
-            //    return false;
-            //}
-            //if ($("#DueDate").val() == "") {
-            //    alertify.alert("Due Date is required");
-            //    return false;
-            //}
-            //if ($("#group").val() == "") {
-            //    alertify.alert("Group is required");
-            //    return false;
-            //}
-            //if ($("#partnertype").val() == "") {
-            //    alertify.alert("Partner type is required");
-            //    return false;
-            //}
-            //if ($("#owner").val() == "") {
-            //    alertify.alert("Owner is required");
-            //    return false;
-            //}                
-            ////#endregion
+            if ($("#programName").val() == "") {
+                alertify.alert("Program Name is required");
+                return false;
+            }
 
-            //if ($("#address1").val() === "" && $("#address2").val() === "") {
-            //    alertify.alert("Address is required");
-            //    return false;
-            //}
-            //if ($("#city").val() === "" ) {
-            //    alertify.alert("City is required");
-            //    return false;
-            //}
-            //if ($("#state").val() === "") {
-            //    alertify.alert("State is required");
-            //    return false;
-            //}
-            //if ($("#zipcode").val() === "") {
-            //    alertify.alert("Zip Code is required");
-            //    return false;
-            //}
-            //if ($("#country").val() === "") {
-            //    alertify.alert("Country is required");
-            //    return false;
-            //}
-            //if ($("#phone").val() === "") {
-            //    alertify.alert("Phone is required");
-            //    return false;
-            //}
-            //if ($("#title").val() === "") {
-            //    alertify.alert("Title is required");
-            //    return false;
-            //}
-            //if ($("#dunsNumber").val() === "") {
-            //    alertify.alert("DUNS Number is required");
-            //    return false;
-            //}
-            //if ($("#dunsNumber").val() === "") {
-            //    alertify.alert("DUNS Number is required");
-            //    return false;
-            //}
+            if ($("#sequenceNumber").val() == "") {
+                alertify.alert("Sequence Number is required");
+                return false;
+            }
+
+            if ($("#masterContractNo").val() == "") {
+                alertify.alert("Master Contract No is required");
+                return false;
+            }
+
+            if ($("#primeContractNo").val() == "") {
+                alertify.alert("Prime Contract No. is required");
+                return false;
+            } 
+
+            if ($("#SAPOrderNo").val() == "") {
+                alertify.alert("SAP Order No is required");
+                return false;
+            }
+           
+            if ($("#customerAccountAdministrator").val() == "Customer Account Administrator" || $("#customerAccountAdministrator").val() == "") {
+                alertify.alert("Customer Account Administrator is required");
+                return false;
+            }
+            if ($("#FirstName").val() == "") {
+                alertify.alert("First Name is required");
+                return false;
+            }
+
+            if ($("#LastName").val() == "") {
+                alertify.alert("Last Name is required");
+                return false;
+            }
+            if ($("#GovContractOfficerPOC").val() == "Govt. Contract Officer POC" || $("#GovContractOfficerPOC").val() == "") {
+                alertify.alert("Gov Contract Officer POC is required");
+                return false;
+            }
+
+            if ($("#GCPPOCEmail").val() == "") {
+                alertify.alert("GCP-POC Email is required");
+                return false;
+            }
+
+            if ($("#Phone").val() == "") {
+                alertify.alert("Phone is required");
+                return false;
+            }
+
+            if ($("#contractAvardDate").val() == "") {
+               alertify.alert("Contract Award Date is required");
+                return false;
+            }
+
+            if ($("#entryDate").val() == "") {
+                alertify.alert("Entry Date is required");
+                return false;
+            }        
+
+           
+
+            
+            if ($("#contractEndDate").val() == "") {
+                alertify.alert("Contract End Date is required");
+                return false;
+            }
+
+          
+
+         
+
+          
+           
         }
         var _addValidation = function (elem) {
             elem.attr("data-val", "true");
             elem.attr("data-val-required", " ");
         };
-        _addValidation($("#systemExpiry"));
-        _addValidation($("#licenseLimit"));
-        _addValidation($("#companyWebSite"));
-        _addValidation($("#companyName"));
-        _addValidation($("#description"));
-        _addValidation($("#userMax"));
-        _addValidation($("#partnerMax"));
-        _addValidation($("#partnumberMax"));
-        _addValidation($("#product"));
-        _addValidation($("#subscriptionType"));
-        _addValidation($("#freeTrialStartDate"));
-        _addValidation($("#freeTrialEndDate"));
-        _addValidation($("#licenseStartDate"));
-        _addValidation($("#licenseEndDate"));
-        _addValidation($("#monthlyFee"));
-        _addValidation($("#multiTenantProjectType"));
-        _addValidation($("#subscriptionStatus"));
-        //_addValidation($("#uploadlogo"));
+     
+        
+
+        _addValidation($("#customerName"));
+        _addValidation($("#primeContractNo"));
+        _addValidation($("#programName"));
+        _addValidation($("#contractAvardDate"));
+        _addValidation($("#entryDate"));
+        _addValidation($("#sequenceNumber"));
+        _addValidation($("#masterContractNo"));
+        _addValidation($("#customerAccountAdministrator"));
+        _addValidation($("#contractEndDate"));
+        _addValidation($("#SAPOrderNo"));
+        _addValidation($("#FirstName"));
+        _addValidation($("#LastName"));
+        _addValidation($("#GovContractOfficerPOC"));
+        _addValidation($("#GCPPOCEmail"));
+        _addValidation($("#Phone"));
+       
 
     });
 </script>
 
 @using (Html.BeginForm("Create", "Contract", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.ValidationSummary(true)
+    @*@Html.ValidationSummary(true)*@
 
     <fieldset>
 
@@ -258,28 +259,28 @@
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.customerName)
-                @Html.ValidationMessageFor(model => model.customerName)
+                @*@Html.ValidationMessageFor(model => model.customerName)*@
             </div>
             <div class="editor-label">
                 <label for="contractNumber">Contract Number</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.contractNumber)
-                @Html.ValidationMessageFor(model => model.contractNumber)
+                @*@Html.ValidationMessageFor(model => model.contractNumber)*@
             </div>
            <div class="editor-label">
                 <label for="contractManagerName">Contract Manager Name</label>
             </div>
             <div class="editor-field" >
                @Html.DropDownList("contractManagerName", "Contract Manager Name")
-            @Html.ValidationMessageFor(model => model.contractManagerName)
+              @*@Html.ValidationMessageFor(model => model.contractManagerName)*@
             </div>
             <div class="editor-label">
                 <label for="programName">Program Name</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.programName)
-                @Html.ValidationMessageFor(model => model.programName)
+                @*@Html.ValidationMessageFor(model => model.programName)*@
             </div>
             
             <div class="editor-label">
@@ -287,14 +288,14 @@
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.sequenceNumber)
-                @Html.ValidationMessageFor(model => model.sequenceNumber)
+                @*@Html.ValidationMessageFor(model => model.sequenceNumber)*@
             </div>
             <div class="editor-label">
                 <label for="masterContractNo">Master Contract No.</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.masterContractNo)
-                @Html.ValidationMessageFor(model => model.masterContractNo)
+                @*@Html.ValidationMessageFor(model => model.masterContractNo)*@
             </div>
             <br/>
             <div class="editor-label">
@@ -302,63 +303,63 @@
         </div>
             <div class="editor-field">
                 @Html.DropDownList("contractType", "Contract Type")
-                @Html.ValidationMessageFor(model => model.contractType)
+                @*@Html.ValidationMessageFor(model => model.contractType)*@
             </div>
             <div class="editor-label">
                 <label for="primeContractNo">Prime Contract No.</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.primeContractNo)
-                @Html.ValidationMessageFor(model => model.primeContractNo)
+                @*@Html.ValidationMessageFor(model => model.primeContractNo)*@
             </div>
             <div class="editor-label">
                 <label for="SAPOrderNo">SAP Order No.</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.SAPOrderNo)
-                @Html.ValidationMessageFor(model => model.SAPOrderNo)
+                @*@Html.ValidationMessageFor(model => model.SAPOrderNo)*@
             </div>
             <div class="editor-label">
                 <label for="customerAccountAdministrator">Customer Account Administrator</label>
             </div>
             <div class="editor-field">
                 @Html.DropDownList("customerAccountAdministrator", "Customer Account Administrator")
-                @Html.ValidationMessageFor(model => model.customerAccountAdministrator)
+               @*@Html.ValidationMessageFor(model => model.customerAccountAdministrator)*@
             </div>
             <div class="editor-label">
                 <label for="FirstName">First Name</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.FirstName)
-                @Html.ValidationMessageFor(model => model.FirstName)
+                @*@Html.ValidationMessageFor(model => model.FirstName)*@
             </div>
             <div class="editor-label">
                 <label for="LastName">Last Name</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.LastName)
-                @Html.ValidationMessageFor(model => model.LastName)
+                @*@Html.ValidationMessageFor(model => model.LastName)*@
             </div>
             <div class="editor-label">
                 <label for="GovtContractOfficerPOC">Govt. Contract Officer POC</label>
             </div>
             <div class="editor-field">
                 @Html.DropDownList("GovtContractOfficerPOC", "Govt. Contract Officer POC")
-                @Html.ValidationMessageFor(model => model.GovContractOfficerPOC)
+                @*@Html.ValidationMessageFor(model => model.GovContractOfficerPOC)*@
             </div>
             <div class="editor-label">
                 <label for="GCPPOCEmail">GCP-POC Email</label>
             </div>
             <div class="editor-field">
                 @Html.DropDownList("GCPPOCEmail", "GCP-POC Email")
-                @Html.ValidationMessageFor(model => model.GCPPOCEmail)
+                @*@Html.ValidationMessageFor(model => model.GCPPOCEmail)*@
             </div>
             <div class="editor-label">
                 <label for="Phone">Phone</label>
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.Phone)
-                @Html.ValidationMessageFor(model => model.Phone)
+                @*@Html.ValidationMessageFor(model => model.Phone)*@
             </div>
             <div class="editor-label">
                 <label for="contractAvardDate">Contract Award Date</label>
@@ -366,7 +367,7 @@
             <div class="editor-field">
                @Html.Telerik().DatePickerFor(model => model.contractAvardDate)
 
-            @Html.ValidationMessageFor(model => model.contractAvardDate)
+            @*@Html.ValidationMessageFor(model => model.contractAvardDate)*@
             </div>
             <div class="editor-label">
                 <label for="entryDate">Entry Date</label>
@@ -374,7 +375,7 @@
             <div class="editor-field">
                 @Html.Telerik().DatePickerFor(model => model.entryDate)
 
-                @Html.ValidationMessageFor(model => model.entryDate)
+                @*@Html.ValidationMessageFor(model => model.entryDate)*@
             </div>
             <div class="editor-label">
                 <label for="contractEndDate">Contract End Date</label>
@@ -382,35 +383,35 @@
             <div class="editor-field">
                 @Html.Telerik().DatePickerFor(model => model.contractEndDate)
 
-                @Html.ValidationMessageFor(model => model.contractEndDate)
+                @*@Html.ValidationMessageFor(model => model.contractEndDate)*@
             </div><br/><br/>
             <div class="editor-label">
                 <label for="protocol">Protocol</label>
             </div>
             <div class="editor-field">
                 @Html.DropDownList("protocol", "Protocol")
-                @Html.ValidationMessageFor(model => model.FirstName)
+                @*@Html.ValidationMessageFor(model => model.FirstName)*@
             </div>
             <div class="editor-label">
                 <label for="touchpointContracts">Touchpoint</label>
             </div>
             <div class="editor-field">
                 @Html.DropDownList("touchpointContracts", "Touchpoint")
-                @Html.ValidationMessageFor(model => model.FirstName)
+                @*@Html.ValidationMessageFor(model => model.FirstName)*@
             </div>
             <div class="editor-label">
                 <label for="Group">Group</label>
             </div>
             <div class="editor-field">
                 @Html.DropDownList("GroupId", "Group")
-                @Html.ValidationMessageFor(model => model.FirstName)
+                @*@Html.ValidationMessageFor(model => model.FirstName)*@
             </div><br/><br/>
             <div class="editor-label">
                 <label for="multiTenantProjectType">Product Type</label>
             </div>
             <div class="editor-field">
                 @Html.DropDownList("multiTenantProjectType", "Product Type")
-                @Html.ValidationMessageFor(model => model.FirstName)
+                @*@Html.ValidationMessageFor(model => model.FirstName)*@
             </div>
         </div>
      

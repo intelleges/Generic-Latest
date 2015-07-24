@@ -791,6 +791,10 @@
     <Compile Include="Models\campaignRule.cs" />
     <Compile Include="Models\ComboBox.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
+    <Compile Include="Models\ContactDataAlertModel.cs" />
+    <Compile Include="Models\ContactDataModel.cs" />
+    <Compile Include="Models\ContactDataTouchpoint.cs" />
+    <Compile Include="Models\ContactDataZcodeModel.cs" />
     <Compile Include="Models\ContractModel.cs" />
     <Compile Include="Models\enterprise.extension.cs" />
     <Compile Include="Models\jsTree3Node.cs" />
@@ -2992,6 +2996,7 @@
     <Content Include="Content\kendo\2015.2.624\fonts\DejaVu\DejaVuSans-BoldOblique.ttf" />
     <Content Include="Content\kendo\2015.2.624\fonts\DejaVu\DejaVuSans-Bold.ttf" />
     <Content Include="Content\kendo\2015.2.624\fonts\DejaVu\DejaVuSans.ttf" />
+    <Content Include="DummyData\dummyData.xlsx" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -4516,6 +4521,8 @@
     <Content Include="Views\Merck\ContactUs.cshtml" />
     <Content Include="Views\Partner\PartnerDocuments.cshtml" />
     <Content Include="Views\Contract\Create.cshtml" />
+    <Content Include="Views\Contract\ContractApproval.cshtml" />
+    <Content Include="Views\Contract\ContactData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
