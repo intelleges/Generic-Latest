@@ -2252,14 +2252,16 @@ Intelleges Team";
                     else
                     {
                         var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, ptq.id).FirstOrDefault();
-
-                        var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
-                        Email email = new Email(amm);
-                        EmailFormat emailFormat = new EmailFormat();
-                        email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, _enterprise, objtouchpoint, ptq.id);
-                        email.emailTo = objPartner.email;
-                        SendEmail objSendEmail = new SendEmail();
-                        objSendEmail.sendEmail(email);
+                        if (amm != null)
+                        {
+                            var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
+                            Email email = new Email(amm);
+                            EmailFormat emailFormat = new EmailFormat();
+                            email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, _enterprise, objtouchpoint, ptq.id);
+                            email.emailTo = objPartner.email;
+                            SendEmail objSendEmail = new SendEmail();
+                            objSendEmail.sendEmail(email);
+                        }
                     }
                     //change ptq if required
                     if( Session["autochangeptq"]!=null)

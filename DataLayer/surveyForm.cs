@@ -1209,9 +1209,11 @@ namespace Generic.DataLayer
                 //divn.Visible = false;
                 divn.Style.Add("display", "none");
                 Table tb = new Table();
+                tb.Attributes.Add("style","width:100%");
                 TableRow headerRow = new TableRow();
                 var dueHeaderCell  = new TableHeaderCell();
                 dueHeaderCell.Text = inclDueDate;
+                dueHeaderCell.Attributes.Add("style", "text-align:left;");
                 headerRow.Cells.Add(dueHeaderCell);
                 TableRow controlRow = new TableRow();
                 var duedateCtrlCell = new TableCell();
@@ -1232,7 +1234,7 @@ namespace Generic.DataLayer
                 if (question.commentType == CommentType.YN_ALERT_N || question.commentType == CommentType.YN_ALERT_Y)
                 {
                     var textNew = new TextBox();
-                    textNew.Width = 400;
+                    textNew.Width = 500;
                     textNew.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedateAlert";
                     textNew.Attributes.Add("required", "");
                     textNew.Attributes.Add("data-val-required", "Required");
@@ -1241,8 +1243,10 @@ namespace Generic.DataLayer
                     textNew.Attributes.Add("style", "vertical-align:top");
                     var alertHeaderCell = new TableHeaderCell();
                     alertHeaderCell.Text = "<span style='font-size:13px;'>Please enter the alert text</span>";
+                    alertHeaderCell.Attributes.Add("style", "text-align:left;");
                     headerRow.Cells.Add(alertHeaderCell);
                     var alertCtrlCell = new TableHeaderCell();
+                    alertCtrlCell.Attributes.Add("style", "text-align:left;");
                     alertCtrlCell.Controls.Add(textNew);
                     controlRow.Cells.Add(alertCtrlCell);
                     //divn.Controls.Add(textNew);

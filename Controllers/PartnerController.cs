@@ -1074,283 +1074,130 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult UploadPartNumber(int protocol, int partnertype, int touchpoint, int group, HttpPostedFileBase uploadPartNumber)
         {
-
-            if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
+            using (var scope = db.Database.BeginTransaction())
             {
-                Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
-            }
-
-            if (!Directory.Exists((Server.MapPath("~/uploadedFiles/uploadPartNumber"))))
-            {
-                Directory.CreateDirectory(Server.MapPath("~/uploadedFiles/uploadPartNumber"));
-            }
-
-            // The Name of the Upload component is "attachments" 
-            var file = uploadPartNumber;
-
-            // Some browsers send file names with full path. This needs to be stripped.
-            var fileName = Path.GetFileName(file.FileName);
-            var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/uploadPartNumber"), fileName);
-
-            // The files are not actually saved in this demo
-            file.SaveAs(physicalPath);
-
-            int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
-
-            string sheetname = "upload";
-            var excelRead = new ExcelQueryFactory(physicalPath.ToString());
-
-            excelRead.AddMapping<ExcelPartnumber>(x => x.internalID, "PARTNER_INTERNAL_ID");
-            excelRead.AddMapping<ExcelPartnumber>(x => x.dunsNumber, "PARTNER_SAP_ID");
-            excelRead.AddMapping<ExcelPartnumber>(x => x.name, "PARTNER_NAME");
-            excelRead.AddMapping<ExcelPartnumber>(x => x.address1, "PARTNER_ADDRESS_ONE");
-            excelRead.AddMapping<ExcelPartnumber>(x => x.address2, "PARTNER_ADDRESS_TWO");
-            excelRead.AddMapping<ExcelPartnumber>(x => x.city, "PARTNER_CITY");
-            excelRead.AddMapping<ExcelPartnumber>(x => x.StateName, "PARTNER_STATE");
-
-            excelRead.AddMapping<ExcelPartnumber>(x => x.zipcode, "PARTNER_ZIPCODE");
-            excelRead.AddMapping<ExcelPartnumber>(x => x.CountryName, "PARTNER_COUNTRY");
-            excelRead.AddMapping<ExcelPartnumber>(x => x.phone, "PARTNER_POC_PHONE_NUMBER");
-
-            excelRead.AddMapping<ExcelPartnumber>(x => x.email, "PARTNER_POC_EMAIL_ADDRESS");
-            excelRead.AddMapping<ExcelPartnumber>(x => x.firstName, "PARTNER_POC_FIRST_NAME");
-            excelRead.AddMapping<ExcelPartnumber>(x => x.lastName, "PARTNER_POC_LAST_NAME");
-            excelRead.AddMapping<ExcelPartnumber>(x => x.title, "PARTNER_POC_TITLE");
-            excelRead.AddMapping<ExcelPartnumber>(x => x.PARTNUMBER_DETAIL, "PARTNUMBER_DETAIL");
-
-
-
-
-
-
-            //  var columnnames = excelRead.GetColumnNames(sheetname);
-            var partnerinExcel = from a in excelRead.Worksheet<ExcelPartnumber>(sheetname) select a;
-
-            //partnerTypeTouchpointQuestionnaire objptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype).ToList().Where(x => x.touchpoint == touchpoint).FirstOrDefault();
-
-            //int i = 1;
-
-            List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
-
-            //uploadedpartners.Add(new Tuple<int, string>(1, "1"));
-            //uploadedpartners.ToList().FirstOrDefault().Item1;
-
-            string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-            int countpartNumbers = partnerinExcel.Count();
-            int recordNumber = 1;
-            foreach (var partnumbersItem in partnerinExcel.ToList())
-            {
-                if (partnumbersItem.internalID != null)
+                int recordNumber = 1;
+                try
                 {
-                    if (partnumbersItem.PARTNER_SAP_ID == null || partnumbersItem.dunsNumber == null || partnumbersItem.PART_NUMBER_INTERNAL == null || partnumbersItem.PART_NUMBER_SAP == null)
+                    if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
                     {
-                        ErrorView objerrorView = new ErrorView();
-                        objerrorView.errorMessage = "Record " + recordNumber.ToString() + " of " + countpartNumbers + " has invalid values.";
-                        return PartialView("_Error", objerrorView);
+                        Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
                     }
-                }
-                recordNumber++;
-            }
 
-            foreach (var partnumbers in partnerinExcel.ToList())
-            {
-
-                var objstateSpreadSheet = db.pr_getStateByStateCode(partnumbers.StateName).FirstOrDefault();
-                string stateIdSpreadSheet = null;
-                if (objstateSpreadSheet != null)
-                {
-                    stateIdSpreadSheet = objstateSpreadSheet.id.ToString();
-                }
-
-                var objCountrySpreadSheet = db.pr_getCountryByName(partnumbers.CountryName).FirstOrDefault();
-                string countryIdSpreadsheet = null;
-                if (objCountrySpreadSheet != null)
-                {
-                    countryIdSpreadsheet = objCountrySpreadSheet.id.ToString();
-                }
-
-                if (partnumbers.internalID != null)
-                {
-                    using (var context = new EntitiesDBContext())
+                    if (!Directory.Exists((Server.MapPath("~/uploadedFiles/uploadPartNumber"))))
                     {
-
-                        var PartnerID = context.pr_addPartnumberSpreadsheetDataLoad(partnumbers.internalID, partnumbers.dunsNumber, partnumbers.name, partnumbers.address1, partnumbers.address2, partnumbers.city, stateIdSpreadSheet, partnumbers.zipcode, countryIdSpreadsheet, partnumbers.firstName, partnumbers.lastName, partnumbers.title, partnumbers.phone, partnumbers.email, partnumbers.INTERNAL_SITE_ID, partnumbers.SAP_SITE, partnumbers.SAP_PLANT_CODE, partnumbers.SITE_NAME, partnumbers.PART_NUMBER_SAP, partnumbers.PART_NUMBER_INTERNAL, partnumbers.SUB_COMMODITY_OWNER, partnumbers.CENTER_OF_EXCELLENCE, partnumbers.RO_FIRST_NAME, partnumbers.RO_LAST_NAME, partnumbers.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup, partnumbers.DUE_DATE, group, partnumbers.PARTNUMBER_DETAIL).ToList().FirstOrDefault();
-                        uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerID.ToString()), partnumbers.PARTNER_SAP_ID));
+                        Directory.CreateDirectory(Server.MapPath("~/uploadedFiles/uploadPartNumber"));
                     }
+
+                    // The Name of the Upload component is "attachments" 
+                    var file = uploadPartNumber;
+
+                    // Some browsers send file names with full path. This needs to be stripped.
+                    var fileName = Path.GetFileName(file.FileName);
+                    var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/uploadPartNumber"), fileName);
+
+                    // The files are not actually saved in this demo
+                    file.SaveAs(physicalPath);
+
+                    int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
+
+                    string sheetname = "upload";
+                    var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.internalID, "PARTNER_INTERNAL_ID");
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.dunsNumber, "PARTNER_SAP_ID");
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.name, "PARTNER_NAME");
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.address1, "PARTNER_ADDRESS_ONE");
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.address2, "PARTNER_ADDRESS_TWO");
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.city, "PARTNER_CITY");
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.StateName, "PARTNER_STATE");
+
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.zipcode, "PARTNER_ZIPCODE");
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.CountryName, "PARTNER_COUNTRY");
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.phone, "PARTNER_POC_PHONE_NUMBER");
+
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.email, "PARTNER_POC_EMAIL_ADDRESS");
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.firstName, "PARTNER_POC_FIRST_NAME");
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.lastName, "PARTNER_POC_LAST_NAME");
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.title, "PARTNER_POC_TITLE");
+                    excelRead.AddMapping<ExcelPartnumber>(x => x.PARTNUMBER_DETAIL, "PARTNUMBER_DETAIL");
+
+
+
+
+
+
+                    //  var columnnames = excelRead.GetColumnNames(sheetname);
+                    var partnerinExcel = from a in excelRead.Worksheet<ExcelPartnumber>(sheetname) select a;
+
+                    //partnerTypeTouchpointQuestionnaire objptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype).ToList().Where(x => x.touchpoint == touchpoint).FirstOrDefault();
+
+                    //int i = 1;
+
+                    List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
+
+                    //uploadedpartners.Add(new Tuple<int, string>(1, "1"));
+                    //uploadedpartners.ToList().FirstOrDefault().Item1;
+
+                    string loadGroup = db.pr_getAccesscode().FirstOrDefault();
+                    int countpartNumbers = partnerinExcel.Count();
+                    
+                    
+
+                    foreach (var partnumbers in partnerinExcel.ToList())
+                    {
+                        if (partnumbers.internalID != null)
+                        {
+                            if (partnumbers.PARTNER_SAP_ID == null || partnumbers.dunsNumber == null || partnumbers.PART_NUMBER_INTERNAL == null || partnumbers.PART_NUMBER_SAP == null || partnumbers.PARTNUMBER_DETAIL == null)
+                            {
+                                ErrorView objerrorView = new ErrorView();
+                                objerrorView.errorMessage = "Record " + recordNumber.ToString() + " of " + countpartNumbers + " has invalid values.";
+                                return PartialView("_Error", objerrorView);
+                            }
+
+
+                            var objstateSpreadSheet = db.pr_getStateByStateCode(partnumbers.StateName).FirstOrDefault();
+                            string stateIdSpreadSheet = null;
+                            if (objstateSpreadSheet != null)
+                            {
+                                stateIdSpreadSheet = objstateSpreadSheet.id.ToString();
+                            }
+
+                            var objCountrySpreadSheet = db.pr_getCountryByName(partnumbers.CountryName).FirstOrDefault();
+                            string countryIdSpreadsheet = null;
+                            if (objCountrySpreadSheet != null)
+                            {
+                                countryIdSpreadsheet = objCountrySpreadSheet.id.ToString();
+                            }
+
+                            if (partnumbers.internalID != null)
+                            {
+                                //using (var context = new EntitiesDBContext())
+                                //{
+                                    var PartnerID = db.pr_addPartnumberSpreadsheetDataLoad(partnumbers.internalID, partnumbers.dunsNumber, partnumbers.name, partnumbers.address1, partnumbers.address2, partnumbers.city, stateIdSpreadSheet, partnumbers.zipcode, countryIdSpreadsheet, partnumbers.firstName, partnumbers.lastName, partnumbers.title, partnumbers.phone, partnumbers.email, partnumbers.INTERNAL_SITE_ID, partnumbers.SAP_SITE, partnumbers.SAP_PLANT_CODE, partnumbers.SITE_NAME, partnumbers.PART_NUMBER_SAP, partnumbers.PART_NUMBER_INTERNAL, partnumbers.SUB_COMMODITY_OWNER, partnumbers.CENTER_OF_EXCELLENCE, partnumbers.RO_FIRST_NAME, partnumbers.RO_LAST_NAME, partnumbers.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup, partnumbers.DUE_DATE, group, partnumbers.PARTNUMBER_DETAIL).ToList().FirstOrDefault();
+                                    uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerID.ToString()), partnumbers.PARTNER_SAP_ID));
+                               // }
+                            }
+                            recordNumber++;
+                        }
+                    }
+
+
+                    Session["uploadedpartnerList"] = uploadedpartners;
+                    Session["partnertype"] = partnertype;
+                    Session["touchpoint"] = touchpoint;
+                    Session["loadgroup"] = loadGroup;
+
+                    ViewBag.Message = "1";
+                    scope.Commit();
                 }
-
-                //if (partnumbers.internalID != null)
-                //{
-                //    partner checkPartner = new partner();
-                //    using (var context = new EntitiesDBContext())
-                //    {
-                //        checkPartner = db.pr_getPartnerByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, partnumbers.email).FirstOrDefault();
-
-                //    }
-                //    int partnerID = 0;
-                //    if (checkPartner == null)
-                //    {
-                //        partner objPartner = new partner();i have 
-
-                //        objPartner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
-                //        objPartner.active = true;
-                //        objPartner.internalID = partnumbers.internalID;
-                //        objPartner.name = partnumbers.name;
-                //        objPartner.address1 = partnumbers.address1;
-                //        objPartner.address2 = partnumbers.address2;
-                //        objPartner.city = partnumbers.city;
-                //        var objstate = db.pr_getStateByStateCode(partnumbers.StateName).FirstOrDefault();
-                //        if (objstate != null)
-                //        {
-                //            objPartner.state = objstate.id;
-                //        }
-
-                //        objPartner.province = partnumbers.province;
-                //        objPartner.zipcode = partnumbers.zipcode;
-
-                //        var objCountry = db.pr_getCountryByName(partnumbers.CountryName).FirstOrDefault();
-                //        if (objCountry != null)
-                //        {
-                //            objPartner.country = objCountry.id;
-                //        }
-
-
-                //        objPartner.phone = partnumbers.phone;
-                //        objPartner.fax = partnumbers.fax;
-                //        objPartner.email = partnumbers.email;
-                //        objPartner.firstName = partnumbers.firstName;
-                //        objPartner.lastName = partnumbers.lastName;
-                //        objPartner.title = partnumbers.title;
-                //        objPartner.dunsNumber = partnumbers.dunsNumber;
-                //        objPartner.federalID = partnumbers.federalID;
-                //        objPartner.dunsNumber = partnumbers.dunsNumber;
-                //        objPartner.active = true;
-                //        objPartner.enterprise = EnterpriseID;
-                //        db.partner.Add(objPartner);
-                //        db.SaveChanges();
-
-                //        uploadedpartners.Add(objPartner.id);
-                //        partnerID = objPartner.id;
-                //    }
-                //    else
-                //    {
-                //        partnerID = checkPartner.id;
-                //        uploadedpartners.Add(partnerID);
-                //    }
-
-                //    string accessCode = db.pr_getAccesscode().FirstOrDefault();
-
-                //    int pqt = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
-                //    int pptqID = 0;
-                //    using (var context = new EntitiesDBContext())
-                //    {
-                //        context.Configuration.ValidateOnSaveEnabled = true;
-                //        var pptq = new partnerPartnertypeTouchpointQuestionnaire();
-                //        var objCheckpptq = context.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerID, pqt).FirstOrDefault();
-                //        if (objCheckpptq == null)
-                //        {
-
-                //            pptq.partner = partnerID;
-                //            pptq.partnerTypeTouchpointQuestionnaire = pqt;
-                //            pptq.invitedBy = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
-                //            pptq.accesscode = accessCode;
-                //            pptq.invitedDate = DateTime.Now;
-                //            pptq.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
-                //            context.partnerPartnertypeTouchpointQuestionnaire.Add(pptq);
-                //            context.SaveChanges();
-                //            pptqID = pptq.id;
-                //        }
-                //        else
-                //        {
-                //            pptqID = objCheckpptq.id;
-                //        }
-                //        //try
-                //        //{
-                //        //    context.SaveChanges();
-                //        //}
-                //        //catch (OptimisticConcurrencyException)
-                //        //{
-
-                //        //   // context.Refresh(RefreshMode.ClientWins, db.Articles);
-                //        //    context.SaveChanges();
-                //        //}
-
-                //       // context.pr_addPartnerPartnertypeTouchpointQuestionnaire(partnerID, pqt, accessCode, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, DateTime.Now, null, null, null, null, null, null);
-                //    }
-
-                //    var checkSite = db.pr_getSiteByInternalID(EnterpriseID, partnumbers.INTERNAL_SITE_ID).FirstOrDefault();
-                //    int siteID = 0;
-                //    if (checkSite == null)
-                //    {
-                //        using (var context = new EntitiesDBContext())
-                //        {
-                //            site objsite = new site();
-                //            objsite.description = partnumbers.SITE_NAME;
-                //            objsite.sapID = partnumbers.SAP_SITE;
-                //            objsite.internalID = partnumbers.INTERNAL_SITE_ID;
-                //            objsite.sortOrder = 1;
-                //            objsite.active = true;
-                //            objsite.enterprise = EnterpriseID;
-                //            context.site.Add(objsite);
-                //            context.SaveChanges();
-                //            siteID = objsite.id;
-                //        }
-
-                //    }
-                //    else
-                //    {
-                //        siteID = checkSite.id;
-                //    }
-
-                //    int partNumberID = 0;
-
-                //    var checkPartNumber = db.pr_getPartnumberByInternalID(EnterpriseID, partnumbers.PART_NUMBER_INTERNAL).FirstOrDefault();
-
-                //    if (checkPartNumber == null)
-                //    {
-                //        partnumber objPartNumber = new partnumber();
-                //        objPartNumber.sapID = partnumbers.PART_NUMBER_SAP;
-                //        objPartNumber.description = partnumbers.PART_NUMBER_SAP;
-                //        objPartNumber.internalId = partnumbers.PART_NUMBER_INTERNAL;
-                //        objPartNumber.active = true;
-                //        objPartNumber.partner = partnerID;
-                //        db.partnumber.Add(objPartNumber);
-                //        db.SaveChanges();
-                //        partNumberID = objPartNumber.id;
-
-                //    }
-                //    else
-                //    {
-                //        partNumberID = checkPartNumber.id;
-                //    }
-                //    using (var context2 = new EntitiesDBContext())
-                //    {
-                //      //  context2.Configuration.ValidateOnSaveEnabled = true;
-                //        context2.pr_addPartnumberSiteZcodePPTQ(partNumberID, siteID, string.Empty, Helpers.PartNumberHelper.Status.NOT_STARTED , pptqID);
-                //    }
-
-
-
-
-
-
-                //  }
+                catch (Exception ex)
+                {
+                    ErrorView objerrorView = new ErrorView();
+                    objerrorView.errorMessage = "During proccessing record #" + recordNumber.ToString() + " was raised error " + ex.InnerException!=null?ex.Message+" "+ex.InnerException.Message:ex.Message;
+                    return PartialView("_Error", objerrorView);
+                }
             }
-
-            //List<partner> objPartners = db.pr_getPartnerForPartnumberEmailSendByLoadGroup(loadGroup).ToList();
-            //foreach (partner item in objPartners)
-            //{
-            //    uploadedpartners.Add(item.id);
-            //}
-
-
-            Session["uploadedpartnerList"] = uploadedpartners;
-            Session["partnertype"] = partnertype;
-            Session["touchpoint"] = touchpoint;
-            Session["loadgroup"] = loadGroup;
-
-            ViewBag.Message = "1";
-
 
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");

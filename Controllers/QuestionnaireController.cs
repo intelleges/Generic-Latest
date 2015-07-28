@@ -773,517 +773,522 @@ namespace Generic.Controllers
             int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
             if (ModelState.IsValid)
             {
-
-                try
+                using (var scope = db.Database.BeginTransaction())
                 {
-                    #region part1
-                    person objPerson = db.pr_getPersonByEmail(EnterpriseID, User.Identity.Name).FirstOrDefault();
-
-                    string protocolTitle = protocolName;
-                    string touchpointTitle = touchpointName;
-                    string providerTypTitle = partnertypeName;
-                    string questionnaireTitle = protocolTitle + " " + touchpointTitle + " " + providerTypTitle;
-
-
-                    var fileName = TempData["fileName"];
-                    var physicalPath = TempData["physicalPath"];
-                    string sheetname = "surveyQuestion";
-                    var excelRead = new ExcelQueryFactory(physicalPath.ToString());
-
-                    //  excelRead.AddMapping<ExcelPartner>(x => x.internalID, "Internal ID");
-                    List<ExcelQuestionnaire> questionnaireinExcel = null;
                     try
                     {
-                        questionnaireinExcel = (from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a).ToList();
-                    }
-                    catch (NullReferenceException ex)
-                    {
-                        throw new Exception("Please select all blank rows, right click, and select delete and try again.");
-                    }
-                    //validateQuestionnaire
+                        #region part1
+                        person objPerson = db.pr_getPersonByEmail(EnterpriseID, User.Identity.Name).FirstOrDefault();
 
-                    questionnaire objQuestionnaire = new questionnaire();
-                    objQuestionnaire.description = questionnaireTitle;
-                    objQuestionnaire.enterprise = EnterpriseID;
-                    objQuestionnaire.letter = 0;
-                    objQuestionnaire.title = questionnaireTitle;
-                    objQuestionnaire.person = objPerson.id;
-                    objQuestionnaire.partnerType = partnertype;
-                    objQuestionnaire.multiLanguage = 0;
-                    objQuestionnaire.active = 1;
-                    objQuestionnaire.levelType = level;
-                    db.Entry(objQuestionnaire).State = EntityState.Added;
-                    db.SaveChanges();
-                    int questionnaireId = objQuestionnaire.id;
-
-                    Session["QuestionnaireId"] = questionnaireId;
-                    Session["protocolId"] = protocol;
-                    Session["touchpointId"] = touchpoint;
-                    Session["partnertypeId"] = partnertype;
-                    Session["level"] = level;
-
-                    partnerTypeTouchpointQuestionnaire objPartnertypeTouchpointQuestionnaire = new partnerTypeTouchpointQuestionnaire();
-                    objPartnertypeTouchpointQuestionnaire.partnerType = partnertype;
-                    objPartnertypeTouchpointQuestionnaire.touchpoint = touchpoint;
-                    objPartnertypeTouchpointQuestionnaire.questionnaire = questionnaireId;
-                    db.partnerTypeTouchpointQuestionnaire.Add(objPartnertypeTouchpointQuestionnaire);
-                    db.SaveChanges();
-
-                    string previousPage = string.Empty, previousSurveySet = string.Empty, previousSurvey = string.Empty,
-                        responses = string.Empty, responseType = string.Empty, jumpToQIDstr = string.Empty;
-
-                    int pageId = 0, surveySetId = 0, surveyId = 0, responseTypeId = 0, isRequired = 0,
-                        isRequiredComment = 0, jumpToQID = 0, hasSkipLogicQuestionId = 0, isSkipLogicAnwerYes = 0,
-                        k = 0, responseId = 0, questionValue = 0;
-
-                    var questionnaireLoads = new HashSet<int>();
-                    var questionSet = new HashSet<int>();
-                    var responseSet = new HashSet<int>();
-                    var surveySet = new HashSet<int>();
-                    var surveySetSets = new HashSet<int>();
-                    var pagesSet = new HashSet<int>();
+                        string protocolTitle = protocolName;
+                        string touchpointTitle = touchpointName;
+                        string providerTypTitle = partnertypeName;
+                        string questionnaireTitle = protocolTitle + " " + touchpointTitle + " " + providerTypTitle;
 
 
-                    foreach (var excelQuestionnaire in questionnaireinExcel)
-                    {
-                        //try
-                        //{
-                        //    var id = db.pr_addQuestionnaireLoad(excelQuestionnaire.QID, excelQuestionnaire.Page, excelQuestionnaire.Surveyset, excelQuestionnaire.Survey, excelQuestionnaire.Question, excelQuestionnaire.Response, excelQuestionnaire.Comment, excelQuestionnaire.Title, excelQuestionnaire.Required, excelQuestionnaire.Length, excelQuestionnaire.titleLength, excelQuestionnaire.yValue, excelQuestionnaire.nValue, excelQuestionnaire.otherValue, excelQuestionnaire.qWeight, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicAnswer, excelQuestionnaire.skipLogicJump, excelQuestionnaire.CommentBoxMessageText, excelQuestionnaire.UploadMessageText, excelQuestionnaire.CommentType, excelQuestionnaire.snipOffQuestionnaire, excelQuestionnaire.spinoffid, excelQuestionnaire.emailalert, excelQuestionnaire.emailalertlist, questionnaireId).FirstOrDefault();
-                        //    questionnaireLoads.Add((int)id);
-                        //}
-                        //catch (Exception ex)
-                        //{
-                           
-                        //    foreach (var qLoad in questionnaireLoads)
-                        //        db.pr_removeQuestionnaireLoad(qLoad);
-                        //    var questionsToRemove = db.question.Where(o=>questionSet.Contains(o.id)).ToList();
-                        //    foreach(var qToRemove in questionsToRemove)
-                        //    {
-                        //        foreach(var survey in qToRemove.survey.ToList())
-                        //        {
-                        //            db.pr_removeSurveyQuestion(survey.id,qToRemove.id);
-                        //            foreach(var surveySetoRemove in survey.surveyset.ToList())
-                        //            {
-                        //                db.pr_removeSurveysetSurvey(surveySetoRemove.id, survey.id);
-                        //                foreach(var pageToRemove in surveySetoRemove.page.ToList())
-                        //                {
-                        //                    db.pr_removePageSurveyset(pageToRemove.id, surveySetoRemove.id);
-                        //                    db.pr_removePage(pageToRemove.id);
-                        //                }
-                        //                db.pr_removeSurveyset(surveySetoRemove.id);
-                        //            }
-                        //            db.pr_removeSurvey(survey.id);
-                        //        }
-                        //        foreach(var response in qToRemove.questionResponse.ToList())
-                        //        {
-                        //            db.pr_removeQuestionResponse(qToRemove.id, response.response);
-                        //            if (!new int[] { 74, 75, 76, 77 }.Contains(response.response))
-                        //                db.pr_removeResponse(response.response);
-                        //        }
-                        //        db.pr_removeQuestion(qToRemove.id);
-                        //    }
-                        //    db.pr_removePartnertypeTouchpointQuestionnaire(objPartnertypeTouchpointQuestionnaire.id);
-                        //    db.pr_removeQuestionnaire(questionnaireId);
-                        //    ViewBag.protocol = new SelectList(db.pr_getProtocolAll(EnterpriseID), "id", "name");
-                        //    ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
-                        //    ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");
-                        //    ViewBag.level = new SelectList(db.pr_getQuestionnaireLevelTypeByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
-                        //    return Json(new { error = "Error in QID:" + excelQuestionnaire.QID + ";" + (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) });
-                        //}
-                        responses = null; responseType = string.Empty;
-                        if (string.IsNullOrEmpty(excelQuestionnaire.Response))
-                            throw new Exception("Response value for question with ID " + excelQuestionnaire.QID + " is empty. Please edit spreadsheet and reupload it");
-                        
-                        if (excelQuestionnaire.Page < 1 || excelQuestionnaire.Surveyset.Length < 1 || excelQuestionnaire.Survey.Length < 1 || excelQuestionnaire.Question.Length < 1 || excelQuestionnaire.Response.Length < 1 || excelQuestionnaire.Title.Length < 1 || excelQuestionnaire.Required.Length < 1)
+                        var fileName = TempData["fileName"];
+                        var physicalPath = TempData["physicalPath"];
+                        string sheetname = "surveyQuestion";
+                        var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+
+                        //  excelRead.AddMapping<ExcelPartner>(x => x.internalID, "Internal ID");
+                        List<ExcelQuestionnaire> questionnaireinExcel = null;
+                        try
                         {
-                            //  || excelQuestionnaire.Comment.Length < 1
-
-                            //skip this row.
-                            //no useful anymore
+                            questionnaireinExcel = (from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a).Where(o => !string.IsNullOrEmpty(o.Response) && !string.IsNullOrEmpty(o.Question)).ToList();
                         }
-                        else
+                        catch (NullReferenceException ex)
                         {
-                            if (previousPage != "Page " + excelQuestionnaire.Page.ToString())
+                            throw new Exception("Please select all blank rows, right click, and select delete and try again.");
+                        }
+                        //validateQuestionnaire
+
+                        questionnaire objQuestionnaire = new questionnaire();
+                        objQuestionnaire.description = questionnaireTitle;
+                        objQuestionnaire.enterprise = EnterpriseID;
+                        objQuestionnaire.letter = 0;
+                        objQuestionnaire.title = questionnaireTitle;
+                        objQuestionnaire.person = objPerson.id;
+                        objQuestionnaire.partnerType = partnertype;
+                        objQuestionnaire.multiLanguage = 0;
+                        objQuestionnaire.active = 1;
+                        objQuestionnaire.levelType = level;
+                        db.Entry(objQuestionnaire).State = EntityState.Added;
+                        db.SaveChanges();
+                        int questionnaireId = objQuestionnaire.id;
+
+                        Session["QuestionnaireId"] = questionnaireId;
+                        Session["protocolId"] = protocol;
+                        Session["touchpointId"] = touchpoint;
+                        Session["partnertypeId"] = partnertype;
+                        Session["level"] = level;
+
+                        partnerTypeTouchpointQuestionnaire objPartnertypeTouchpointQuestionnaire = new partnerTypeTouchpointQuestionnaire();
+                        objPartnertypeTouchpointQuestionnaire.partnerType = partnertype;
+                        objPartnertypeTouchpointQuestionnaire.touchpoint = touchpoint;
+                        objPartnertypeTouchpointQuestionnaire.questionnaire = questionnaireId;
+                        db.partnerTypeTouchpointQuestionnaire.Add(objPartnertypeTouchpointQuestionnaire);
+                        db.SaveChanges();
+
+                        string previousPage = string.Empty, previousSurveySet = string.Empty, previousSurvey = string.Empty,
+                            responses = string.Empty, responseType = string.Empty, jumpToQIDstr = string.Empty;
+
+                        int pageId = 0, surveySetId = 0, surveyId = 0, responseTypeId = 0, isRequired = 0,
+                            isRequiredComment = 0, jumpToQID = 0, hasSkipLogicQuestionId = 0, isSkipLogicAnwerYes = 0,
+                            k = 0, responseId = 0, questionValue = 0;
+
+                        var questionnaireLoads = new HashSet<int>();
+                        var questionSet = new HashSet<int>();
+                        var responseSet = new HashSet<int>();
+                        var surveySet = new HashSet<int>();
+                        var surveySetSets = new HashSet<int>();
+                        var pagesSet = new HashSet<int>();
+
+
+                        foreach (var excelQuestionnaire in questionnaireinExcel)
+                        {
+                            //try
+                            //{
+                            //    var id = db.pr_addQuestionnaireLoad(excelQuestionnaire.QID, excelQuestionnaire.Page, excelQuestionnaire.Surveyset, excelQuestionnaire.Survey, excelQuestionnaire.Question, excelQuestionnaire.Response, excelQuestionnaire.Comment, excelQuestionnaire.Title, excelQuestionnaire.Required, excelQuestionnaire.Length, excelQuestionnaire.titleLength, excelQuestionnaire.yValue, excelQuestionnaire.nValue, excelQuestionnaire.otherValue, excelQuestionnaire.qWeight, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicAnswer, excelQuestionnaire.skipLogicJump, excelQuestionnaire.CommentBoxMessageText, excelQuestionnaire.UploadMessageText, excelQuestionnaire.CommentType, excelQuestionnaire.snipOffQuestionnaire, excelQuestionnaire.spinoffid, excelQuestionnaire.emailalert, excelQuestionnaire.emailalertlist, questionnaireId).FirstOrDefault();
+                            //    questionnaireLoads.Add((int)id);
+                            //}
+                            //catch (Exception ex)
+                            //{
+
+                            //    foreach (var qLoad in questionnaireLoads)
+                            //        db.pr_removeQuestionnaireLoad(qLoad);
+                            //    var questionsToRemove = db.question.Where(o=>questionSet.Contains(o.id)).ToList();
+                            //    foreach(var qToRemove in questionsToRemove)
+                            //    {
+                            //        foreach(var survey in qToRemove.survey.ToList())
+                            //        {
+                            //            db.pr_removeSurveyQuestion(survey.id,qToRemove.id);
+                            //            foreach(var surveySetoRemove in survey.surveyset.ToList())
+                            //            {
+                            //                db.pr_removeSurveysetSurvey(surveySetoRemove.id, survey.id);
+                            //                foreach(var pageToRemove in surveySetoRemove.page.ToList())
+                            //                {
+                            //                    db.pr_removePageSurveyset(pageToRemove.id, surveySetoRemove.id);
+                            //                    db.pr_removePage(pageToRemove.id);
+                            //                }
+                            //                db.pr_removeSurveyset(surveySetoRemove.id);
+                            //            }
+                            //            db.pr_removeSurvey(survey.id);
+                            //        }
+                            //        foreach(var response in qToRemove.questionResponse.ToList())
+                            //        {
+                            //            db.pr_removeQuestionResponse(qToRemove.id, response.response);
+                            //            if (!new int[] { 74, 75, 76, 77 }.Contains(response.response))
+                            //                db.pr_removeResponse(response.response);
+                            //        }
+                            //        db.pr_removeQuestion(qToRemove.id);
+                            //    }
+                            //    db.pr_removePartnertypeTouchpointQuestionnaire(objPartnertypeTouchpointQuestionnaire.id);
+                            //    db.pr_removeQuestionnaire(questionnaireId);
+                            //    ViewBag.protocol = new SelectList(db.pr_getProtocolAll(EnterpriseID), "id", "name");
+                            //    ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
+                            //    ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");
+                            //    ViewBag.level = new SelectList(db.pr_getQuestionnaireLevelTypeByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+                            //    return Json(new { error = "Error in QID:" + excelQuestionnaire.QID + ";" + (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) });
+                            //}
+                            responses = null; responseType = string.Empty;
+                            if (string.IsNullOrEmpty(excelQuestionnaire.Response))
+                                throw new Exception("Response value for question with ID " + excelQuestionnaire.QID + " is empty. Please edit spreadsheet and reupload it");
+
+                            if (excelQuestionnaire.Page < 1 || excelQuestionnaire.Surveyset.Length < 1 || excelQuestionnaire.Survey.Length < 1 || excelQuestionnaire.Question.Length < 1 || excelQuestionnaire.Response.Length < 1 || excelQuestionnaire.Title.Length < 1 || excelQuestionnaire.Required.Length < 1)
                             {
-                                page objPage = new page();
-                                objPage.description = "Page " + excelQuestionnaire.Page.ToString();
-                                objPage.active = true;
-                                objPage.sortOrder = 1;
-                                db.page.Add(objPage);
+                                //  || excelQuestionnaire.Comment.Length < 1
 
-                                db.SaveChanges();
-
-                                pageId = objPage.id;
-                                if (!pagesSet.Contains(pageId))
-                                pagesSet.Add(pageId);
-                                db.pr_addQuestionnairePage(questionnaireId, pageId);
-                                previousPage = objPage.description;
-
-                                addSurvetSet(ref previousSurveySet, ref previousSurvey, pageId, ref surveySetId, ref surveyId, excelQuestionnaire,surveySetSets,surveySet);
+                                //skip this row.
+                                //no useful anymore
                             }
+                            else
+                            {
+                                if (previousPage != "Page " + excelQuestionnaire.Page.ToString())
+                                {
+                                    page objPage = new page();
+                                    objPage.description = "Page " + excelQuestionnaire.Page.ToString();
+                                    objPage.active = true;
+                                    objPage.sortOrder = 1;
+                                    db.page.Add(objPage);
 
-                            //add a new SurveySet if the previous suveySet and current surveySet are not the same
-                            if (previousSurveySet != excelQuestionnaire.Surveyset && previousPage == "Page " + excelQuestionnaire.Page.ToString())
-                            {
-                                addSurvetSet(ref previousSurveySet, ref previousSurvey, pageId, ref surveySetId, ref surveyId, excelQuestionnaire, surveySetSets, surveySet);
-                            }
+                                    db.SaveChanges();
 
-                            //add a new survey if the previous survey and current survey are not the same
-                            if (previousSurvey != excelQuestionnaire.Survey && previousPage == "Page " + excelQuestionnaire.Page.ToString() && previousSurveySet == excelQuestionnaire.Surveyset)
-                            {
-                                addSurvey(ref previousSurvey, surveySetId, ref surveyId, excelQuestionnaire,surveySet);
-                            }
+                                    pageId = objPage.id;
+                                    if (!pagesSet.Contains(pageId))
+                                        pagesSet.Add(pageId);
+                                    db.pr_addQuestionnairePage(questionnaireId, pageId);
+                                    previousPage = objPage.description;
 
-                            if (excelQuestionnaire.Response.ToLower().Contains("list:"))
-                            {
-                                responses = excelQuestionnaire.Response.Substring(5, excelQuestionnaire.Response.Length - 5).Trim();
-                                responseType = "List";
-                            }
-                            else if (excelQuestionnaire.Response.ToLower().Contains("dropdown:"))
-                            {
-                                responses = excelQuestionnaire.Response.Substring(9, excelQuestionnaire.Response.Length - 9).Trim();
-                                responseType = "DropDown";
-                            }
-                            else if (excelQuestionnaire.Response.ToLower().Contains("checkbox:"))
-                            {
-                                responses = excelQuestionnaire.Response.Substring(9, excelQuestionnaire.Response.Length - 9).Trim();
-                                responseType = "CheckBox";
-                            }                            
-                    
-                            //get response type
-                            switch (excelQuestionnaire.Response.ToLower())
-                            {
-                                case "y/n/na":
-                                    responseTypeId = 3;
-                                    break;
-                                case "y/n":
-                                    responseTypeId = 3;
-                                    break;
-                                case "y/n/cots":
-                                    responseTypeId = 3;
-                                    break;
-                                case "text":
-                                    responseTypeId = 4;
-                                    break;
-                                case "number":
-                                    responseTypeId = 6;
-                                    break;
-                                case "comment":
-                                    responseTypeId = 7;
-                                    break;
-                                case "dropdown":
-                                    responseTypeId = 10;
-                                    break;
-                                case "list":
-                                    responseTypeId = 11;
-                                    break;
-                                case "checkbox":
-                                    responseTypeId = 12;
-                                    break;
-                                case "upload":
-                                    responseTypeId = 13;
-                                    break;
-                                case "text/upload":
-                                    responseTypeId = 14;
-                                    break;
-                                default:
-                                    if (responseType.ToLower().Substring(0, 4) == "list")
-                                    {
-                                        responseTypeId = 11;
-                                    }
-                                    else if (responseType.ToLower().Substring(0, 8) == "dropdown")
-                                    {
+                                    addSurvetSet(ref previousSurveySet, ref previousSurvey, pageId, ref surveySetId, ref surveyId, excelQuestionnaire, surveySetSets, surveySet);
+                                }
+
+                                //add a new SurveySet if the previous suveySet and current surveySet are not the same
+                                if (previousSurveySet != excelQuestionnaire.Surveyset && previousPage == "Page " + excelQuestionnaire.Page.ToString())
+                                {
+                                    addSurvetSet(ref previousSurveySet, ref previousSurvey, pageId, ref surveySetId, ref surveyId, excelQuestionnaire, surveySetSets, surveySet);
+                                }
+
+                                //add a new survey if the previous survey and current survey are not the same
+                                if (previousSurvey != excelQuestionnaire.Survey && previousPage == "Page " + excelQuestionnaire.Page.ToString() && previousSurveySet == excelQuestionnaire.Surveyset)
+                                {
+                                    addSurvey(ref previousSurvey, surveySetId, ref surveyId, excelQuestionnaire, surveySet);
+                                }
+
+                                if (excelQuestionnaire.Response.ToLower().Contains("list:"))
+                                {
+                                    responses = excelQuestionnaire.Response.Substring(5, excelQuestionnaire.Response.Length - 5).Trim();
+                                    responseType = "List";
+                                }
+                                else if (excelQuestionnaire.Response.ToLower().Contains("dropdown:"))
+                                {
+                                    responses = excelQuestionnaire.Response.Substring(9, excelQuestionnaire.Response.Length - 9).Trim();
+                                    responseType = "DropDown";
+                                }
+                                else if (excelQuestionnaire.Response.ToLower().Contains("checkbox:"))
+                                {
+                                    responses = excelQuestionnaire.Response.Substring(9, excelQuestionnaire.Response.Length - 9).Trim();
+                                    responseType = "CheckBox";
+                                }
+
+                                //get response type
+                                switch (excelQuestionnaire.Response.ToLower())
+                                {
+                                    case "y/n/na":
+                                        responseTypeId = 3;
+                                        break;
+                                    case "y/n":
+                                        responseTypeId = 3;
+                                        break;
+                                    case "y/n/cots":
+                                        responseTypeId = 3;
+                                        break;
+                                    case "text":
+                                        responseTypeId = 4;
+                                        break;
+                                    case "number":
+                                        responseTypeId = 6;
+                                        break;
+                                    case "comment":
+                                        responseTypeId = 7;
+                                        break;
+                                    case "dropdown":
                                         responseTypeId = 10;
-                                    }
-                                    else if (responseType.ToLower().Substring(0, 8) == "checkbox")
-                                    {
+                                        break;
+                                    case "list":
+                                        responseTypeId = 11;
+                                        break;
+                                    case "checkbox":
                                         responseTypeId = 12;
-                                    }
-                                    break;
-                            }
-                            if (excelQuestionnaire.Required.ToLower() == "y" || excelQuestionnaire.Required.ToLower() == "yes" || excelQuestionnaire.Required.ToLower() == "1")
-                            {
-                                isRequired = 1;
-                            }
-                            else
-                            {
-                                isRequired = 0;
-                            }
-                            if (excelQuestionnaire.Comment == null)
-                            {
-                                excelQuestionnaire.Comment = "N";
-                            }
-
-                            if (excelQuestionnaire.Comment.ToLower() == "y" || excelQuestionnaire.Comment.ToLower() == "yes" || excelQuestionnaire.Comment.ToLower() == "1")
-                            {
-                                isRequiredComment = 1;
-                            }
-                            else
-                            {
-                                isRequiredComment = 0;
-                            }
-
-                            question objQuestion = new question();
-
-                            objQuestion.Question = excelQuestionnaire.Question;
-                            objQuestion.name = excelQuestionnaire.Question;
-                            objQuestion.title = excelQuestionnaire.Title;
-                            objQuestion.tag = string.Empty;
-                            objQuestion.responseType = responseTypeId;
-                            objQuestion.required = isRequired;
-                            objQuestion.calendarMessageTxt = excelQuestionnaire.CalendarMessageText;
-
-                            if (excelQuestionnaire.skipLogicAnswer == "N")
-                            {
-                                objQuestion.skipLogicAnswer = SkipLogicAnswer.N;
-                            }
-                            else if (excelQuestionnaire.skipLogicAnswer == "Y")
-                            {
-                                objQuestion.skipLogicAnswer = SkipLogicAnswer.Y;
-                            }
-                            else if (excelQuestionnaire.skipLogicAnswer == "M")
-                            {
-                                objQuestion.skipLogicAnswer = SkipLogicAnswer.M;
-                            }
-                            else if (excelQuestionnaire.skipLogicAnswer == "A")
-                            {
-                                objQuestion.skipLogicAnswer = SkipLogicAnswer.A;
-                            }
-                            else if (excelQuestionnaire.skipLogicAnswer == "D")
-                            {
-                                objQuestion.skipLogicAnswer = SkipLogicAnswer.D;
-                            }
-
-                            //objQuestion.skipLogicJump Pending
-                            objQuestion.accessLevel = 1;
-                            objQuestion.commentRequired = isRequiredComment;
-                            objQuestion.commentBoxTxt = excelQuestionnaire.CommentBoxMessageText;
-                            //objQuestion.commentUploadTxt
-
-                            if (excelQuestionnaire.CommentType == "YN_WARNING_N")
-                            {
-                                objQuestion.commentType = CommentType.YN_WARNING_N;
-                            }
-                            else if (excelQuestionnaire.CommentType == "YN_WARNING_Y")
-                            {
-                                objQuestion.commentType = CommentType.YN_WARNING_Y;
-                            }
-                            else if (excelQuestionnaire.CommentType == "YN_COMMENT_Y")
-                            {
-                                objQuestion.commentType = CommentType.YN_COMMENT_Y;
-                            }
-                            else if (excelQuestionnaire.CommentType == "YN_COMMENT_N")
-                            {
-                                objQuestion.commentType = CommentType.YN_COMMENT_N;
-                            }
-                            else if (excelQuestionnaire.CommentType == "YN_UPLOAD_Y")
-                            {
-                                objQuestion.commentType = CommentType.YN_UPLOAD_Y;
-                            }
-                            else if (excelQuestionnaire.CommentType == "YN_UPLOAD_N")
-                            {
-                                objQuestion.commentType = CommentType.YN_UPLOAD_N;
-                            }
-                            else if (excelQuestionnaire.CommentType == "YN_NO_COMMENT")
-                            {
-                                objQuestion.commentType = CommentType.YN_NO_COMMENT;
-                            } else if (excelQuestionnaire.CommentType == "DROPDOWN_COMMENT")
-                                objQuestion.commentType = CommentType.DROPDOWN_COMMENT;
-                            else if (excelQuestionnaire.CommentType == "YN_DUEDATE_Y")
-                                objQuestion.commentType = CommentType.YN_DUEDATE_Y;
-                            else if (excelQuestionnaire.CommentType == "YN_DUEDATE_N")
-                                objQuestion.commentType = CommentType.YN_DUEDATE_N;
-                            else if (excelQuestionnaire.CommentType == "YN_ALERT_Y")
-                                objQuestion.commentType = CommentType.YN_ALERT_Y;
-                            else if (excelQuestionnaire.CommentType == "YN_ALERT_N")
-                                objQuestion.commentType = CommentType.YN_ALERT_N;
-                            else
-                            {
-                                objQuestion.commentType = 0;
-                            }
-
-                            try
-                            {
-                                objQuestion.spinOffQuestionnaire = excelQuestionnaire.snipOffQuestionnaire.Substring(0, 1);
-                            }
-                            catch { }
-                            objQuestion.spinOffQID = excelQuestionnaire.spinoffid;
-                            try
-                            {
-                                objQuestion.emailAlert = excelQuestionnaire.emailalert.Substring(0, 1);
-                            }
-                            catch { }
-                            try
-                            {
-                                objQuestion.emailAlertList = excelQuestionnaire.emailalertlist;
-                                objQuestion.sortOrder = 1;
-                                objQuestion.active = true;
-                                objQuestion.enterprise = EnterpriseID;
-                                db.questions.Add(objQuestion);
-                                db.SaveChanges();
-                                questionSet.Add(objQuestion.id);
-                            }
-                            catch (Exception ex)
-                            {
-
-
-                            }
-                            int questionId = objQuestion.id;
-                            if (responseType.ToLower() == "list" || responseType.ToLower() == "dropdown"
-                                    || responseType.ToLower() == "checkbox")
-                            {
-
-
-                                //add responses
-
-                                string[] sArray = new string[200];
-                                char[] splitter = { ';' };
-                                int id = 0;
-                                sArray = responses.Split(splitter);
-
-                                for (int i = 0; i < sArray.Length; i++)
-                                {
-                                    //add Response
-                                    try
-                                    {
-                                        response objResponse = new response();
-                                        objResponse.active = true;
-                                        objResponse.description = sArray[i];
-                                        objResponse.enterprise = EnterpriseID;
-                                        if (responseType.ToLower() == "dropdown")
+                                        break;
+                                    case "upload":
+                                        responseTypeId = 13;
+                                        break;
+                                    case "text/upload":
+                                        responseTypeId = 14;
+                                        break;
+                                    default:
+                                        if (responseType.ToLower().Substring(0, 4) == "list")
                                         {
-                                            Regex reg = new Regex("\\([A-Z][A-Z]\\)");
-                                            var match = reg.Match(objResponse.description);
-                                            if (match.Success)
-                                            {
-                                                objResponse.zcode = match.Value.Replace("(", "").Replace(")","");
-                                            }
+                                            responseTypeId = 11;
                                         }
-                                        objResponse.sortOrder = 1;
-                                        db.response.Add(objResponse);
-                                        db.SaveChanges();
-                                        int responsesId = objResponse.id;
-                                        responseSet.Add(responsesId);
-                                        //addQuestionResponse
-                                        db.pr_addQuestionResponse(questionId, responsesId);
-                                    }
-                                    catch (Exception ex)
-                                    {
-
-                                    }
+                                        else if (responseType.ToLower().Substring(0, 8) == "dropdown")
+                                        {
+                                            responseTypeId = 10;
+                                        }
+                                        else if (responseType.ToLower().Substring(0, 8) == "checkbox")
+                                        {
+                                            responseTypeId = 12;
+                                        }
+                                        break;
                                 }
-                            }
-
-                            db.pr_addSurveyQuestion(surveyId, questionId);
-
-                            if (excelQuestionnaire.skipLogicAnswer == "NULL")
-                            {
-                                excelQuestionnaire.skipLogicAnswer = null;
-                            }
-
-                            if (excelQuestionnaire.skipLogic == "NULL")
-                            {
-                                excelQuestionnaire.skipLogic = null;
-                            }
-
-                            if (excelQuestionnaire.skipLogicJump == "NULL")
-                            {
-                                excelQuestionnaire.skipLogicJump = null;
-                            }
-                    #endregion
-                            if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
-                            {
-                                //try getting skipLogicJump Qid                                
-                                if (excelQuestionnaire.skipLogicAnswer == "D")
+                                if (excelQuestionnaire.Required.ToLower() == "y" || excelQuestionnaire.Required.ToLower() == "yes" || excelQuestionnaire.Required.ToLower() == "1")
                                 {
-                                    //lets use answer's codes mapping for multiply answers skip logic
-                                    jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump, GetCodeMapping(db.pr_getResponseByQuestion(questionId).ToList(), responses));
-                                }
-                                else jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump);
-
-                                if (jumpToQIDstr.Length > 0)
-                                {
-                                    hasSkipLogicQuestionId = questionId;
-
-                                    db.pr_modifyQuestionSkipLogicJumpLogic(questionId, jumpToQIDstr);
+                                    isRequired = 1;
                                 }
                                 else
                                 {
-                                    hasSkipLogicQuestionId = 0;
+                                    isRequired = 0;
                                 }
-                            }
-                            if (excelQuestionnaire.Response.ToLower() == "y/n/cots")
-                            {
-                                db.pr_addQuestionResponse(questionId, 74);
-                                db.pr_addQuestionResponse(questionId, 75);
-                                db.pr_addQuestionResponse(questionId, 77);
-                            }
-                            //if the responseType is "Y/N" then add question weight and responseValue for the question
-                            if (excelQuestionnaire.Response.ToLower() == "y/n" || excelQuestionnaire.Response.ToLower() == "y/n/na")
-                            {
-                                //sp_addProtocolCampaignQuestionWeight
-                                //   db.pr_addtouchpointQuestionWeight(touchpointId, questionId, excelQuestionnaire.qWeight);
-
-                                //add questionResponse
-                                if (excelQuestionnaire.Response.ToLower() == "y/n")
+                                if (excelQuestionnaire.Comment == null)
                                 {
-                                    k = 75;
+                                    excelQuestionnaire.Comment = "N";
+                                }
+
+                                if (excelQuestionnaire.Comment.ToLower() == "y" || excelQuestionnaire.Comment.ToLower() == "yes" || excelQuestionnaire.Comment.ToLower() == "1")
+                                {
+                                    isRequiredComment = 1;
                                 }
                                 else
                                 {
-                                    k = 76;
+                                    isRequiredComment = 0;
                                 }
-                               
 
-                                for (int j = 74; j <= k; ++j)
+                                question objQuestion = new question();
+
+                                objQuestion.Question = excelQuestionnaire.Question;
+                                objQuestion.name = excelQuestionnaire.Question;
+                                objQuestion.title = excelQuestionnaire.Title;
+                                objQuestion.tag = string.Empty;
+                                objQuestion.responseType = responseTypeId;
+                                objQuestion.required = isRequired;
+                                objQuestion.calendarMessageTxt = excelQuestionnaire.CalendarMessageText;
+
+                                if (excelQuestionnaire.skipLogicAnswer == "N")
                                 {
-                                    //create new response instant
-                                    responseId = j;
-                                    
-                                    //add record to questionResponse table
+                                    objQuestion.skipLogicAnswer = SkipLogicAnswer.N;
+                                }
+                                else if (excelQuestionnaire.skipLogicAnswer == "Y")
+                                {
+                                    objQuestion.skipLogicAnswer = SkipLogicAnswer.Y;
+                                }
+                                else if (excelQuestionnaire.skipLogicAnswer == "M")
+                                {
+                                    objQuestion.skipLogicAnswer = SkipLogicAnswer.M;
+                                }
+                                else if (excelQuestionnaire.skipLogicAnswer == "A")
+                                {
+                                    objQuestion.skipLogicAnswer = SkipLogicAnswer.A;
+                                }
+                                else if (excelQuestionnaire.skipLogicAnswer == "D")
+                                {
+                                    objQuestion.skipLogicAnswer = SkipLogicAnswer.D;
+                                }
 
-                                    db.pr_addQuestionResponse(questionId, responseId);
+                                //objQuestion.skipLogicJump Pending
+                                objQuestion.accessLevel = 1;
+                                objQuestion.commentRequired = isRequiredComment;
+                                objQuestion.commentBoxTxt = excelQuestionnaire.CommentBoxMessageText;
+                                //objQuestion.commentUploadTxt
 
-                                    switch (responseId)
+                                if (excelQuestionnaire.CommentType == "YN_WARNING_N")
+                                {
+                                    objQuestion.commentType = CommentType.YN_WARNING_N;
+                                }
+                                else if (excelQuestionnaire.CommentType == "YN_WARNING_Y")
+                                {
+                                    objQuestion.commentType = CommentType.YN_WARNING_Y;
+                                }
+                                else if (excelQuestionnaire.CommentType == "YN_COMMENT_Y")
+                                {
+                                    objQuestion.commentType = CommentType.YN_COMMENT_Y;
+                                }
+                                else if (excelQuestionnaire.CommentType == "YN_COMMENT_N")
+                                {
+                                    objQuestion.commentType = CommentType.YN_COMMENT_N;
+                                }
+                                else if (excelQuestionnaire.CommentType == "YN_UPLOAD_Y")
+                                {
+                                    objQuestion.commentType = CommentType.YN_UPLOAD_Y;
+                                }
+                                else if (excelQuestionnaire.CommentType == "YN_UPLOAD_N")
+                                {
+                                    objQuestion.commentType = CommentType.YN_UPLOAD_N;
+                                }
+                                else if (excelQuestionnaire.CommentType == "YN_NO_COMMENT")
+                                {
+                                    objQuestion.commentType = CommentType.YN_NO_COMMENT;
+                                }
+                                else if (excelQuestionnaire.CommentType == "DROPDOWN_COMMENT")
+                                    objQuestion.commentType = CommentType.DROPDOWN_COMMENT;
+                                else if (excelQuestionnaire.CommentType == "YN_DUEDATE_Y")
+                                    objQuestion.commentType = CommentType.YN_DUEDATE_Y;
+                                else if (excelQuestionnaire.CommentType == "YN_DUEDATE_N")
+                                    objQuestion.commentType = CommentType.YN_DUEDATE_N;
+                                else if (excelQuestionnaire.CommentType == "YN_ALERT_Y")
+                                    objQuestion.commentType = CommentType.YN_ALERT_Y;
+                                else if (excelQuestionnaire.CommentType == "YN_ALERT_N")
+                                    objQuestion.commentType = CommentType.YN_ALERT_N;
+                                else
+                                {
+                                    objQuestion.commentType = 0;
+                                }
+
+                                try
+                                {
+                                    objQuestion.spinOffQuestionnaire = excelQuestionnaire.snipOffQuestionnaire.Substring(0, 1);
+                                }
+                                catch { }
+                                objQuestion.spinOffQID = excelQuestionnaire.spinoffid;
+                                try
+                                {
+                                    objQuestion.emailAlert = excelQuestionnaire.emailalert.Substring(0, 1);
+                                }
+                                catch { }
+                                try
+                                {
+                                    objQuestion.emailAlertList = excelQuestionnaire.emailalertlist;
+                                    objQuestion.sortOrder = 1;
+                                    objQuestion.active = true;
+                                    objQuestion.enterprise = EnterpriseID;
+                                    db.questions.Add(objQuestion);
+                                    db.SaveChanges();
+                                    questionSet.Add(objQuestion.id);
+                                }
+                                catch (Exception ex)
+                                {
+
+
+                                }
+                                int questionId = objQuestion.id;
+                                if (responseType.ToLower() == "list" || responseType.ToLower() == "dropdown"
+                                        || responseType.ToLower() == "checkbox")
+                                {
+
+
+                                    //add responses
+
+                                    string[] sArray = new string[200];
+                                    char[] splitter = { ';' };
+                                    int id = 0;
+                                    sArray = responses.Split(splitter);
+
+                                    for (int i = 0; i < sArray.Length; i++)
                                     {
-                                        case 74:
-                                            questionValue = excelQuestionnaire.yValue;
-                                            break;
-                                        case 75:
-                                            questionValue = excelQuestionnaire.nValue;
-                                            break;
-                                        case 76:
-                                            questionValue = excelQuestionnaire.naValue;
-                                            break;
-                                        default:
-                                            break;
+                                        //add Response
+                                        try
+                                        {
+                                            response objResponse = new response();
+                                            objResponse.active = true;
+                                            objResponse.description = sArray[i];
+                                            objResponse.enterprise = EnterpriseID;
+                                            if (responseType.ToLower() == "dropdown")
+                                            {
+                                                Regex reg = new Regex("\\([A-Z][A-Z]\\)");
+                                                var match = reg.Match(objResponse.description);
+                                                if (match.Success)
+                                                {
+                                                    objResponse.zcode = match.Value.Replace("(", "").Replace(")", "");
+                                                }
+                                            }
+                                            objResponse.sortOrder = 1;
+                                            db.response.Add(objResponse);
+                                            db.SaveChanges();
+                                            int responsesId = objResponse.id;
+                                            responseSet.Add(responsesId);
+                                            //addQuestionResponse
+                                            db.pr_addQuestionResponse(questionId, responsesId);
+                                        }
+                                        catch (Exception ex)
+                                        {
+
+                                        }
+                                    }
+                                }
+
+                                db.pr_addSurveyQuestion(surveyId, questionId);
+
+                                if (excelQuestionnaire.skipLogicAnswer == "NULL")
+                                {
+                                    excelQuestionnaire.skipLogicAnswer = null;
+                                }
+
+                                if (excelQuestionnaire.skipLogic == "NULL")
+                                {
+                                    excelQuestionnaire.skipLogic = null;
+                                }
+
+                                if (excelQuestionnaire.skipLogicJump == "NULL")
+                                {
+                                    excelQuestionnaire.skipLogicJump = null;
+                                }
+                        #endregion
+                                if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
+                                {
+                                    //try getting skipLogicJump Qid                                
+                                    if (excelQuestionnaire.skipLogicAnswer == "D")
+                                    {
+                                        //lets use answer's codes mapping for multiply answers skip logic
+                                        jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump, GetCodeMapping(db.pr_getResponseByQuestion(questionId).ToList(), responses));
+                                    }
+                                    else jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump);
+
+                                    if (jumpToQIDstr.Length > 0)
+                                    {
+                                        hasSkipLogicQuestionId = questionId;
+
+                                        db.pr_modifyQuestionSkipLogicJumpLogic(questionId, jumpToQIDstr);
+                                    }
+                                    else
+                                    {
+                                        hasSkipLogicQuestionId = 0;
+                                    }
+                                }
+                                if (excelQuestionnaire.Response.ToLower() == "y/n/cots")
+                                {
+                                    db.pr_addQuestionResponse(questionId, 74);
+                                    db.pr_addQuestionResponse(questionId, 75);
+                                    db.pr_addQuestionResponse(questionId, 77);
+                                }
+                                //if the responseType is "Y/N" then add question weight and responseValue for the question
+                                if (excelQuestionnaire.Response.ToLower() == "y/n" || excelQuestionnaire.Response.ToLower() == "y/n/na")
+                                {
+                                    //sp_addProtocolCampaignQuestionWeight
+                                    //   db.pr_addtouchpointQuestionWeight(touchpointId, questionId, excelQuestionnaire.qWeight);
+
+                                    //add questionResponse
+                                    if (excelQuestionnaire.Response.ToLower() == "y/n")
+                                    {
+                                        k = 75;
+                                    }
+                                    else
+                                    {
+                                        k = 76;
                                     }
 
-                                    //add questionResponseValues
-                                    //  db.pr_addTouchpointQuestionResponseValue(touchpointId, questionId, responseId, questionValue);
 
+                                    for (int j = 74; j <= k; ++j)
+                                    {
+                                        //create new response instant
+                                        responseId = j;
+
+                                        //add record to questionResponse table
+
+                                        db.pr_addQuestionResponse(questionId, responseId);
+
+                                        switch (responseId)
+                                        {
+                                            case 74:
+                                                questionValue = excelQuestionnaire.yValue;
+                                                break;
+                                            case 75:
+                                                questionValue = excelQuestionnaire.nValue;
+                                                break;
+                                            case 76:
+                                                questionValue = excelQuestionnaire.naValue;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+
+                                        //add questionResponseValues
+                                        //  db.pr_addTouchpointQuestionResponseValue(touchpointId, questionId, responseId, questionValue);
+
+                                    }
                                 }
                             }
                         }
+                        
+                        scope.Commit();
+                        return RedirectToAction("UploadCMS");
                     }
-
-                    return RedirectToAction("UploadCMS");
-                }
-                catch (Exception ex)
-                {
-                    try
+                    catch (Exception ex)
                     {
-                        ViewBag.Error = ex.InnerException.Message;
+                        try
+                        {
+                            ViewBag.Error = ex.InnerException.Message;
+                        }
+                        catch
+                        {
+                            ViewBag.Error = ex.Message;
+                        }
+                        ViewBag.protocol = new SelectList(db.pr_getProtocolAll(EnterpriseID), "id", "name");
+                        ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
+                        ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");
+                        ViewBag.level = new SelectList(db.pr_getQuestionnaireLevelTypeByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+                        return Json(new { error = (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) });
                     }
-                    catch
-                    {
-                        ViewBag.Error = ex.Message;
-                    }
-                    ViewBag.protocol = new SelectList(db.pr_getProtocolAll(EnterpriseID), "id", "name");
-                    ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
-                    ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");
-                    ViewBag.level = new SelectList(db.pr_getQuestionnaireLevelTypeByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
-                    return Json(new { error = (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) });
+                    
                 }
                 //var fileFolderName = ViewData["FileFolderName"];
             }

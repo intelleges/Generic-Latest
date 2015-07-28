@@ -114,7 +114,14 @@ li { margin-top: 10px; margin-bottom: 10px; margin-left: 10px; float: left; back
 <script>
     
     jQuery(document).ready(function () {
-
+        $(".duedate").datepicker({
+            showOn: "button",
+            buttonImage: "../../Contents/images/calendar_button.gif",
+            buttonImageOnly: true,
+            buttonText: "Select date",
+            minDate: Date.parse("1900-01-01"),
+            maxDate: Date.parse("2100-01-01")
+        });
         //$('[data-toggle="popover"]').tooltip();
         $('.dropdownchange').change(function () {
             var objpartNumberID = $('#partNumberSelectList').val();
