@@ -77,5 +77,12 @@ namespace Generic.Controllers
              ViewBag.contractType = new SelectList(db.subscriptionType.ToList(), "id", "description");
              ViewBag.touchpointContracts = new SelectList(db.subscriptionType.ToList(), "id", "description");
          }
+
+        [HttpPost]
+        public ActionResult UploadContractFile(HttpPostedFileBase file)
+        {
+            //db.pr_addQuestionnaireQuestionnaireCMS()
+            return Json(true);
+        }
     }
 }

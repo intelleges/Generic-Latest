@@ -45,7 +45,7 @@ font-size: 11px !important;
     }
 </style>
 <h2>Contract Approval, Review, Edit - @ViewBag.contactType</h2>
-<form id="uploadForm" >
+<form id="uploadForm" action="/Contract/ContractApproval" method="post" enctype="multipart/form-data">
     <input type="file" name="file_Uploader" id="file_Uploader" class="input_size" style="font-size: 11px;" />
     <button type="submit" class="btnprocess t-button" style="font-size: 11px;">Upload</button>
 </form>
@@ -122,6 +122,24 @@ font-size: 11px !important;
                 }
             });
 
+        });
+        $("#uploadForm").submit(function (e) {
+            e.preventDefault();
+            var data = new FormData();
+            $.each($("#file_Uploader")[0].files, function (i, file) {
+                data.append('file', file);
+            });
+            $.ajax({
+                url: '/Contract/UploadContractFile',
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success: function (data) {
+                    alert(data);
+                }
+            });
         });
     });
     </script>
