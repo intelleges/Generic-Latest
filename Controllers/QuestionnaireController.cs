@@ -795,7 +795,7 @@ namespace Generic.Controllers
                         List<ExcelQuestionnaire> questionnaireinExcel = null;
                         try
                         {
-                            questionnaireinExcel = (from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a).Where(o => !string.IsNullOrEmpty(o.Response) && !string.IsNullOrEmpty(o.Question)).ToList();
+                            questionnaireinExcel = (from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a).ToList().Where(o=>!string.IsNullOrEmpty(o.Response)&&!string.IsNullOrEmpty(o.Question)).ToList();
                         }
                         catch (NullReferenceException ex)
                         {
@@ -1059,7 +1059,7 @@ namespace Generic.Controllers
                                 objQuestion.accessLevel = 1;
                                 objQuestion.commentRequired = isRequiredComment;
                                 objQuestion.commentBoxTxt = excelQuestionnaire.CommentBoxMessageText;
-                                //objQuestion.commentUploadTxt
+                                objQuestion.commentUploadTxt = excelQuestionnaire.UploadMessageText;
 
                                 if (excelQuestionnaire.CommentType == "YN_WARNING_N")
                                 {
