@@ -34,7 +34,9 @@ namespace Generic.Helpers.Questionnaire
         public const int YN_DUEDATE_N = 10;
         public const int YN_ALERT_Y = 11;
         public const int YN_ALERT_N = 12;
-
+        public const int YN_CHECKBOX_Y = 13;
+        public const int YN_CHECKBOX_N = 14;
+        public const int XX_CHECKBOX_X = 15;
         // old system
         //        commentType 4 = File  Upload
         //commentType 1 = Warning

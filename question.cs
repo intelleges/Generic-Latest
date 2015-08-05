@@ -34,6 +34,7 @@ namespace Generic
         public Nullable<int> weight { get; set; }
         public Nullable<int> skipLogicAnswer { get; set; }
         public string skipLogicJump { get; set; }
+        public string subCheckBoxChoice { get; set; }
         public Nullable<int> accessLevel { get; set; }
         public Nullable<int> commentRequired { get; set; }
         public string commentBoxTxt { get; set; }

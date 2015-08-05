@@ -1477,6 +1477,7 @@
           <Property Name="weight" Type="int" />
           <Property Name="skipLogicAnswer" Type="int" />
           <Property Name="skipLogicJump" Type="varchar(max)" />
+          <Property Name="subCheckBoxChoice" Type="varchar(max)" />
           <Property Name="accessLevel" Type="int" />
           <Property Name="commentRequired" Type="int" />
           <Property Name="commentBoxTxt" Type="varchar" MaxLength="500" />
@@ -4889,6 +4890,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="weight" Type="int" Mode="In" />
           <Parameter Name="skipLogicAnswer" Type="int" Mode="In" />
           <Parameter Name="skipLogicJump" Type="varchar(max)" Mode="In" />
+          <Parameter Name="subCheckBoxChoice" Type="varchar(max)" Mode="In" />
           <Parameter Name="accessLevel" Type="int" Mode="In" />
           <Parameter Name="commentRequired" Type="int" Mode="In" />
           <Parameter Name="commentBoxTxt" Type="varchar" Mode="In" />
@@ -7353,6 +7355,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="weight" Type="int" Mode="In" />
           <Parameter Name="skipLogicAnswer" Type="int" Mode="In" />
           <Parameter Name="skipLogicJump" Type="varchar" Mode="In" />
+          <Parameter Name="subCheckBoxChoice" Type="varchar(max)" Mode="In" />
           <Parameter Name="accessLevel" Type="int" Mode="In" />
           <Parameter Name="commentRequired" Type="int" Mode="In" />
           <Parameter Name="commentBoxTxt" Type="varchar" Mode="In" />
@@ -14017,57 +14020,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getPPTQDocByPPTQ" EntitySet="pptqDocs" ReturnType="Collection(hs3MVCMTQa2Model.pptqDoc)">
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_addQuestion" ReturnType="Collection(Decimal)">
-            <Parameter Name="Question" Mode="In" Type="String" />
-            <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="title" Mode="In" Type="String" />
-            <Parameter Name="tag" Mode="In" Type="String" />
-            <Parameter Name="responseType" Mode="In" Type="Int32" />
-            <Parameter Name="required" Mode="In" Type="Int32" />
-            <Parameter Name="weight" Mode="In" Type="Int32" />
-            <Parameter Name="skipLogicAnswer" Mode="In" Type="Int32" />
-            <Parameter Name="skipLogicJump" Mode="In" Type="String" />
-            <Parameter Name="accessLevel" Mode="In" Type="Int32" />
-            <Parameter Name="commentRequired" Mode="In" Type="Int32" />
-            <Parameter Name="commentBoxTxt" Mode="In" Type="String" />
-            <Parameter Name="commentUploadTxt" Mode="In" Type="String" />
-            <Parameter Name="calendarMessageTxt" Mode="In" Type="String" />
-            <Parameter Name="commentType" Mode="In" Type="Int32" />
-            <Parameter Name="spinOffQuestionnaire" Mode="In" Type="String" />
-            <Parameter Name="spinOffQID" Mode="In" Type="Int32" />
-            <Parameter Name="emailAlert" Mode="In" Type="String" />
-            <Parameter Name="emailAlertList" Mode="In" Type="String" />
-            <Parameter Name="updated" Mode="In" Type="Int32" />
-            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-            <Parameter Name="active" Mode="In" Type="Boolean" />
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_modifyQuestion">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="Question" Mode="In" Type="String" />
-            <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="title" Mode="In" Type="String" />
-            <Parameter Name="tag" Mode="In" Type="String" />
-            <Parameter Name="responseType" Mode="In" Type="Int32" />
-            <Parameter Name="required" Mode="In" Type="Int32" />
-            <Parameter Name="weight" Mode="In" Type="Int32" />
-            <Parameter Name="skipLogicAnswer" Mode="In" Type="Int32" />
-            <Parameter Name="skipLogicJump" Mode="In" Type="String" />
-            <Parameter Name="accessLevel" Mode="In" Type="Int32" />
-            <Parameter Name="commentRequired" Mode="In" Type="Int32" />
-            <Parameter Name="commentBoxTxt" Mode="In" Type="String" />
-            <Parameter Name="commentUploadTxt" Mode="In" Type="String" />
-            <Parameter Name="calendarMessageTxt" Mode="In" Type="String" />
-            <Parameter Name="commentType" Mode="In" Type="Int32" />
-            <Parameter Name="spinOffQuestionnaire" Mode="In" Type="String" />
-            <Parameter Name="spinOffQID" Mode="In" Type="Int32" />
-            <Parameter Name="emailAlert" Mode="In" Type="String" />
-            <Parameter Name="emailAlertList" Mode="In" Type="String" />
-            <Parameter Name="updated" Mode="In" Type="Int32" />
-            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-            <Parameter Name="active" Mode="In" Type="Boolean" />
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponses" EntityType="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
           <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire">
             <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
@@ -14187,6 +14139,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="score" Mode="In" Type="String" />
             <Parameter Name="partNumberSiteZcodePPTQ" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="pr_getQuestionByQuestionnaire" EntitySet="questions" ReturnType="Collection(hs3MVCMTQa2Model.question)">
+          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
           <EntitySet Name="questions" EntityType="hs3MVCMTQa2Model.question" />
           <AssociationSet Name="FK_partnumberSiteZcodePPTQQuestionResponse_question" Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_question">
             <End Role="question" EntitySet="questions" />
@@ -14212,8 +14167,58 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <End Role="question" EntitySet="questions" />
             <End Role="survey" EntitySet="survey" />
           </AssociationSet>
-          <FunctionImport Name="pr_getQuestionByQuestionnaire" EntitySet="questions" ReturnType="Collection(hs3MVCMTQa2Model.question)">
-            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          <FunctionImport Name="pr_addQuestion" ReturnType="Collection(Decimal)">
+            <Parameter Name="Question" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="tag" Mode="In" Type="String" />
+            <Parameter Name="responseType" Mode="In" Type="Int32" />
+            <Parameter Name="required" Mode="In" Type="Int32" />
+            <Parameter Name="weight" Mode="In" Type="Int32" />
+            <Parameter Name="skipLogicAnswer" Mode="In" Type="Int32" />
+            <Parameter Name="skipLogicJump" Mode="In" Type="String" />
+            <Parameter Name="subCheckBoxChoice" Mode="In" Type="String" />
+            <Parameter Name="accessLevel" Mode="In" Type="Int32" />
+            <Parameter Name="commentRequired" Mode="In" Type="Int32" />
+            <Parameter Name="commentBoxTxt" Mode="In" Type="String" />
+            <Parameter Name="commentUploadTxt" Mode="In" Type="String" />
+            <Parameter Name="calendarMessageTxt" Mode="In" Type="String" />
+            <Parameter Name="commentType" Mode="In" Type="Int32" />
+            <Parameter Name="spinOffQuestionnaire" Mode="In" Type="String" />
+            <Parameter Name="spinOffQID" Mode="In" Type="Int32" />
+            <Parameter Name="emailAlert" Mode="In" Type="String" />
+            <Parameter Name="emailAlertList" Mode="In" Type="String" />
+            <Parameter Name="updated" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyQuestion">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="Question" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="tag" Mode="In" Type="String" />
+            <Parameter Name="responseType" Mode="In" Type="Int32" />
+            <Parameter Name="required" Mode="In" Type="Int32" />
+            <Parameter Name="weight" Mode="In" Type="Int32" />
+            <Parameter Name="skipLogicAnswer" Mode="In" Type="Int32" />
+            <Parameter Name="skipLogicJump" Mode="In" Type="String" />
+            <Parameter Name="subCheckBoxChoice" Mode="In" Type="String" />
+            <Parameter Name="accessLevel" Mode="In" Type="Int32" />
+            <Parameter Name="commentRequired" Mode="In" Type="Int32" />
+            <Parameter Name="commentBoxTxt" Mode="In" Type="String" />
+            <Parameter Name="commentUploadTxt" Mode="In" Type="String" />
+            <Parameter Name="calendarMessageTxt" Mode="In" Type="String" />
+            <Parameter Name="commentType" Mode="In" Type="Int32" />
+            <Parameter Name="spinOffQuestionnaire" Mode="In" Type="String" />
+            <Parameter Name="spinOffQID" Mode="In" Type="Int32" />
+            <Parameter Name="emailAlert" Mode="In" Type="String" />
+            <Parameter Name="emailAlertList" Mode="In" Type="String" />
+            <Parameter Name="updated" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -22528,6 +22533,32 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="partNumberSiteZcodePPTQ" Nullable="false" />
           <Property Type="DateTime" Name="timestamp" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getQuestionByQuestionnaire_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="question" Nullable="true" />
+          <Property Type="String" Name="name" Nullable="true" />
+          <Property Type="String" Name="title" Nullable="false" />
+          <Property Type="String" Name="tag" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="responseType" Nullable="true" />
+          <Property Type="Int32" Name="required" Nullable="true" />
+          <Property Type="Int32" Name="weight" Nullable="true" />
+          <Property Type="Int32" Name="skipLogicAnswer" Nullable="true" />
+          <Property Type="String" Name="skipLogicJump" Nullable="true" />
+          <Property Type="Int32" Name="accessLevel" Nullable="true" />
+          <Property Type="Int32" Name="commentRequired" Nullable="true" />
+          <Property Type="String" Name="commentBoxTxt" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="commentUploadTxt" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="commentType" Nullable="true" />
+          <Property Type="String" Name="calendarMessageTxt" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="spinOffQuestionnaire" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="spinOffQID" Nullable="true" />
+          <Property Type="String" Name="emailAlert" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="emailAlertList" Nullable="true" />
+          <Property Type="Int32" Name="updated" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+        </ComplexType>
         <EntityType Name="question">
           <Key>
             <PropertyRef Name="id" />
@@ -22542,6 +22573,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="weight" Type="Int32" />
           <Property Name="skipLogicAnswer" Type="Int32" />
           <Property Name="skipLogicJump" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="subCheckBoxChoice" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="accessLevel" Type="Int32" />
           <Property Name="commentRequired" Type="Int32" />
           <Property Name="commentBoxTxt" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
@@ -22627,32 +22659,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <End Type="hs3MVCMTQa2Model.question" Role="question" Multiplicity="*" />
           <End Type="hs3MVCMTQa2Model.survey" Role="survey" Multiplicity="*" />
         </Association>
-        <ComplexType Name="pr_getQuestionByQuestionnaire_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="question" Nullable="true" />
-          <Property Type="String" Name="name" Nullable="true" />
-          <Property Type="String" Name="title" Nullable="false" />
-          <Property Type="String" Name="tag" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="responseType" Nullable="true" />
-          <Property Type="Int32" Name="required" Nullable="true" />
-          <Property Type="Int32" Name="weight" Nullable="true" />
-          <Property Type="Int32" Name="skipLogicAnswer" Nullable="true" />
-          <Property Type="String" Name="skipLogicJump" Nullable="true" />
-          <Property Type="Int32" Name="accessLevel" Nullable="true" />
-          <Property Type="Int32" Name="commentRequired" Nullable="true" />
-          <Property Type="String" Name="commentBoxTxt" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="commentUploadTxt" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="commentType" Nullable="true" />
-          <Property Type="String" Name="calendarMessageTxt" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="spinOffQuestionnaire" Nullable="true" MaxLength="1" />
-          <Property Type="Int32" Name="spinOffQID" Nullable="true" />
-          <Property Type="String" Name="emailAlert" Nullable="true" MaxLength="1" />
-          <Property Type="String" Name="emailAlertList" Nullable="true" />
-          <Property Type="Int32" Name="updated" Nullable="true" />
-          <Property Type="Int32" Name="sortOrder" Nullable="true" />
-          <Property Type="Boolean" Name="active" Nullable="true" />
-          <Property Type="Int32" Name="enterprise" Nullable="true" />
-        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -29561,8 +29567,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_unArchivePPTQDoc" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePPTQDoc" />
           <FunctionImportMapping FunctionImportName="pr_getPPTQDocByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQDocByPPTQ">
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_addQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestion" />
-          <FunctionImportMapping FunctionImportName="pr_modifyQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestion" />
           <EntitySetMapping Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponses">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
               <MappingFragment StoreEntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
@@ -29746,6 +29750,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_resetPartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber" FunctionName="hs3MVCMTQa2Model.Store.pr_resetPartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber" />
           <FunctionImportMapping FunctionImportName="pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
           <FunctionImportMapping FunctionImportName="pr_modifyPartnumberSiteZcodePPTQQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnumberSiteZcodePPTQQuestionResponse" />
+          <FunctionImportMapping FunctionImportName="pr_getQuestionByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionByQuestionnaire">
+          </FunctionImportMapping>
           <EntitySetMapping Name="questions">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.question">
               <MappingFragment StoreEntitySet="question">
@@ -29763,6 +29769,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="commentBoxTxt" ColumnName="commentBoxTxt" />
                 <ScalarProperty Name="commentRequired" ColumnName="commentRequired" />
                 <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="subCheckBoxChoice" ColumnName="subCheckBoxChoice" />
                 <ScalarProperty Name="skipLogicJump" ColumnName="skipLogicJump" />
                 <ScalarProperty Name="skipLogicAnswer" ColumnName="skipLogicAnswer" />
                 <ScalarProperty Name="weight" ColumnName="weight" />
@@ -29784,8 +29791,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               <ScalarProperty Name="id" ColumnName="question" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="pr_getQuestionByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionByQuestionnaire">
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_addQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestion" />
+          <FunctionImportMapping FunctionImportName="pr_modifyQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestion" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

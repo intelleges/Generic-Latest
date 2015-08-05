@@ -8,7 +8,13 @@
 }
 
 
-
+<style>
+    .fullWidth{
+    height:100% !important;
+    font-size: 16px;
+    margin-left: 41px !important;
+}
+</style>
 @*<script type="text/javascript" src="@Url.Content("~/Content/ProgressBar/progressbar.js")"></script>*@
 @section styles {
     
@@ -329,6 +335,13 @@
         });
         //var logic
     }
+    function showIfNeeded(divname,id, code) {
+        if ($("#" + id + " option:selected").text().indexOf(code, 0) !== -1) {
+            $(divname).show();
+        } else {
+            $(divname).hide();
+        }
+    }
     function showdropdowndiv(sender) {
         var expr = new RegExp("\\([A-Z][A-Z]\\)");
         var s = $(sender).prop("id");
@@ -337,11 +350,11 @@
         var divname = "#nDiv_" + result;
         
         var arr = expr.exec($(divname + " span").text());
-        if (arr.length > 0) {
-            if ($("#" + s + " option:selected").text().indexOf(arr[0], 0) !== -1) {
-                $(divname).show();
-            } else {
-                $(divname).hide();
+        if (arr && arr.length > 0) {
+            showIfNeeded(divname, s, arr[0]);            
+        } else {
+            if ($(divname).data("code")) {
+                showIfNeeded(divname, s, "(" + $(divname).data("code") + ")");                
             }
         }
     }
@@ -525,6 +538,17 @@
                 }
             }
 
+        }
+    }
+    function showDivByCode(sender) {
+        var s = $(sender).prop("id");
+        var parts = s.split("_");
+        var result = parts[parts.length - 2];
+        var divname = "#nDiv_" + result;
+        if (('('+$(divname).data("code")+')') === $('#' + sender.id+ ' input:checked').data("code")) {
+            $(divname).show();
+        } else {
+            $(divname).hide();
         }
     }
 </script>

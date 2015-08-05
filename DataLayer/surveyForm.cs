@@ -1199,7 +1199,54 @@ namespace Generic.DataLayer
                 }
             }
             #endregion
-
+            if (question.commentType == CommentType.XX_CHECKBOX_X || question.commentType == CommentType.YN_CHECKBOX_N || question.commentType == CommentType.YN_CHECKBOX_Y)
+            {
+                Generic.Helpers.UIControl.ExtendedChechBoxList list = new Generic.Helpers.UIControl.ExtendedChechBoxList();
+                list.UseValidation = true;
+                list.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_checkboxList";
+                HtmlGenericControl divn = new HtmlGenericControl("div");
+                divn.Attributes["class"] = "fullWidth";
+                var indexChB = 0;
+                var answersVsResponse = question.subCheckBoxChoice.Split(":".ToArray());
+                if (answersVsResponse.Length > 1)
+                {
+                    divn.ID = "nDiv_" + question.id.ToString();
+                    divn.Attributes["data-code"] = answersVsResponse[0];
+                    foreach (var answer in answersVsResponse[1].Split(";".ToArray()))
+                    {
+                        var listBoxItem = new ListItem(answer, indexChB.ToString());
+                        listBoxItem.Attributes.Add("required", "");
+                        listBoxItem.Attributes.Add("data-val-required", "Please select at least one option");
+                        listBoxItem.Attributes.Add("data-val", "true");
+                        list.Items.Add(listBoxItem);
+                        indexChB++;
+                    }
+                }
+                else
+                {
+                    divn.ID = (question.commentType == CommentType.YN_CHECKBOX_N ? "n" : "y") + "Div_" + question.id.ToString();
+                    foreach (var answer in answersVsResponse[0].Split(";".ToArray()))
+                    {
+                        var listBoxItem = new ListItem(answer, indexChB.ToString());
+                        listBoxItem.Attributes.Add("required", "");
+                        listBoxItem.Attributes.Add("data-val-required", "Please select at least one option");
+                        listBoxItem.Attributes.Add("data-val", "true");
+                        list.Items.Add(listBoxItem);
+                        indexChB++;
+                    }
+                        
+                }
+                divn.Style.Add("display", "none");
+                divn.Style.Add("margin-left","30px");
+                divn.Controls.Add(list);
+                //var cell = new TableCell();
+                //cell.Attributes["style"] = "width:5%;border-spacing:0;padding-right:5px;font-size:medium;";
+                //cell.Text = "&nbsp;";
+                //tableCell.ColumnSpan = 2;
+                //tableCell.HorizontalAlign = HorizontalAlign.Left;
+                //tableRow.Controls.AddAt(0,cell);
+                tableCell.Controls.Add(divn);
+            }
 
             if (question.commentType == CommentType.YN_DUEDATE_N || question.commentType == CommentType.YN_DUEDATE_Y || question.commentType == CommentType.YN_ALERT_N || question.commentType == CommentType.YN_ALERT_Y)
             {
@@ -1495,7 +1542,7 @@ namespace Generic.DataLayer
                     (radioButtonList as Generic.Helpers.UIControl.MyRadioButtonList).UseValidation = true;
                     radioButtonList.Font.Size = 10;
                     //radioButtonList.Attributes.Add("onchange", "javascript:showdiv();");
-                    radioButtonList.Attributes.Add("onClick", "showdivRadioList(this);removevalidation(this.id) ");
+                    radioButtonList.Attributes.Add("onClick", "showdivRadioList(this);removevalidation(this.id);showDivByCode(this) ");
 
 
 
@@ -1515,8 +1562,13 @@ namespace Generic.DataLayer
                         Regex reg = new Regex("\\([A-Z][A-Z]\\)");
                         var match = reg.Match(optionText);
                         if (match.Success)
+                        {
                             optionText = optionText.Replace(match.Value, "");
+                            
+                        }
                         radioButtonList.Items.Add(new ListItem(optionText, responseCollection[i].id.ToString()));
+                        if (match.Success)
+                        radioButtonList.Items[i].Attributes.Add("data-code", match.Value);
                         radioButtonList.Items[i].Attributes["data-commented"] = hasAdditionalCommentBox.ToString();
                         radioButtonList.Items[i].Attributes["style"] = "font-size:15px;";
                         if (question.required == 1)

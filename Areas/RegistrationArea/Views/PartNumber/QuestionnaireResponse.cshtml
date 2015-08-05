@@ -105,7 +105,11 @@ padding: 60px 10px 0 0px !important;
 position: relative;
 top: 8px;
 }
-
+    .fullWidth {
+        height: 100% !important;
+        font-size: 16px;
+        margin-left: 41px !important;
+    }
 /*.menucontainer { width: 700px; margin: 0 auto; } .menucontainer li { display: inline-block; margin: 10px; } .menucontainer a { display: block; padding: 5px; }
 li { margin-top: 10px; margin-bottom: 10px; margin-left: 10px; float: left; background: none repeat scroll 0 0 #EEEEEE; height: 30px; line-height: 30px; }*/
 </style>
@@ -499,6 +503,40 @@ li { margin-top: 10px; margin-bottom: 10px; margin-left: 10px; float: left; back
                 }
             }
 
+        }
+    }
+    function showIfNeeded(divname, id, code) {
+        if ($("#" + id + " option:selected").text().indexOf(code, 0) !== -1) {
+            $(divname).show();
+        } else {
+            $(divname).hide();
+        }
+    }
+    function showdropdowndiv(sender) {
+        var expr = new RegExp("\\([A-Z][A-Z]\\)");
+        var s = $(sender).prop("id");
+        var parts = s.split("_");
+        var result = parts[parts.length - 2];
+        var divname = "#nDiv_" + result;
+
+        var arr = expr.exec($(divname + " span").text());
+        if (arr && arr.length > 0) {
+            showIfNeeded(divname, s, arr[0]);
+        } else {
+            if ($(divname).data("code")) {
+                showIfNeeded(divname, s, "(" + $(divname).data("code") + ")");
+            }
+        }
+    }
+    function showDivByCode(sender) {
+        var s = $(sender).prop("id");
+        var parts = s.split("_");
+        var result = parts[parts.length - 2];
+        var divname = "#nDiv_" + result;
+        if (('(' + $(divname).data("code") + ')') === $('#' + sender.id + ' input:checked').data("code")) {
+            $(divname).show();
+        } else {
+            $(divname).hide();
         }
     }
 </script>

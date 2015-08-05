@@ -106,5 +106,90 @@ System.Web.UI.WebControls.RadioButtonList
                // writer.WriteEndTag("table");
             }
         }
+
+        public class ExtendedChechBoxList:System.Web.UI.WebControls.CheckBoxList
+        {           
+            public bool UseValidation { get; set; }
+            protected override void Render(HtmlTextWriter writer)
+            {
+                var attr = this.Attributes;
+                int i = 0;
+                
+                foreach (ListItem listItem in Items)
+                {
+                    if (i == 0)
+                    {
+                        writer.WriteBeginTag("table");
+                        writer.WriteAttribute("ID", this.UniqueID);
+                        try
+                        {
+                            writer.WriteAttribute("onclick", attr["onclick"]);
+                        }
+                        catch { }
+                        try
+                        {
+                            writer.WriteAttribute("checked", attr["checked"]);
+
+                        }
+                        catch { }
+                        writer.Write('>');
+                        writer.WriteBeginTag("tbody"); writer.Write('>');
+                        if (this.RepeatDirection == System.Web.UI.WebControls.RepeatDirection.Horizontal)
+                        {
+                            writer.WriteBeginTag("tr");
+                            writer.Write('>');
+                        }
+                        writer.WriteBeginTag("tfooter"); writer.Write('>');
+                        if (UseValidation)
+                        {
+                            writer.WriteBeginTag("tr");
+                            writer.Write('>');
+                            writer.WriteBeginTag("span");
+                            writer.WriteAttribute("class", "field-validation-valid");
+                            writer.WriteAttribute("data-valmsg-for", this.UniqueID + "_" + i);
+                            writer.WriteAttribute("data-valmsg-replace", "true");
+                            writer.Write('>');
+                            writer.WriteEndTag("span");
+                            writer.WriteEndTag("tr");
+                        }
+                    }
+                    if (this.RepeatDirection == System.Web.UI.WebControls.RepeatDirection.Vertical)
+                    {
+                        writer.WriteBeginTag("tr");
+                        writer.Write('>');
+                    }
+                    writer.WriteBeginTag("td"); writer.Write('>');
+                    writer.WriteBeginTag("input");
+                    writer.WriteAttribute("ID", this.UniqueID + "_" + i);
+                    writer.WriteAttribute("type", "checkbox");
+                    writer.WriteAttribute("name", this.UniqueID);
+                    writer.WriteAttribute("value", listItem.Value, true);
+                    listItem.Attributes.Render(writer);
+                    writer.Write('>');
+                    writer.WriteEndTag("input");
+                    writer.WriteBeginTag("label");
+                    writer.WriteAttribute("for", this.UniqueID + "_" + i);
+                    listItem.Attributes.Render(writer);
+                    writer.Write('>');
+                    writer.Write(listItem.Text);
+                    //HttpUtility.HtmlEncode(, writer);
+                    writer.WriteEndTag("label");                    
+                    if (i < Items.Count - 1)
+                    {
+                        writer.RenderBeginTag(HtmlTextWriterTag.Br);
+                        writer.WriteEndTag("td");
+                    }
+                    if (this.RepeatDirection == System.Web.UI.WebControls.RepeatDirection.Vertical)
+                        writer.WriteEndTag("tr");
+                    writer.WriteLine();
+                    i++;
+                }
+                if (this.RepeatDirection == System.Web.UI.WebControls.RepeatDirection.Horizontal)
+                    writer.WriteEndTag("tr");
+                writer.WriteEndTag("tbody");
+                writer.WriteEndTag("table");
+                // writer.WriteEndTag("table");
+            }
+        }
     }
 }

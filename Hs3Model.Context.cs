@@ -16345,204 +16345,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pptqDoc>("pr_getPPTQDocByPPTQ", mergeOption, pptqParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addQuestion(string question, string name, string title, string tag, Nullable<int> responseType, Nullable<int> required, Nullable<int> weight, Nullable<int> skipLogicAnswer, string skipLogicJump, Nullable<int> accessLevel, Nullable<int> commentRequired, string commentBoxTxt, string commentUploadTxt, string calendarMessageTxt, Nullable<int> commentType, string spinOffQuestionnaire, Nullable<int> spinOffQID, string emailAlert, string emailAlertList, Nullable<int> updated, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
-        {
-            var questionParameter = question != null ?
-                new ObjectParameter("Question", question) :
-                new ObjectParameter("Question", typeof(string));
-    
-            var nameParameter = name != null ?
-                new ObjectParameter("name", name) :
-                new ObjectParameter("name", typeof(string));
-    
-            var titleParameter = title != null ?
-                new ObjectParameter("title", title) :
-                new ObjectParameter("title", typeof(string));
-    
-            var tagParameter = tag != null ?
-                new ObjectParameter("tag", tag) :
-                new ObjectParameter("tag", typeof(string));
-    
-            var responseTypeParameter = responseType.HasValue ?
-                new ObjectParameter("responseType", responseType) :
-                new ObjectParameter("responseType", typeof(int));
-    
-            var requiredParameter = required.HasValue ?
-                new ObjectParameter("required", required) :
-                new ObjectParameter("required", typeof(int));
-    
-            var weightParameter = weight.HasValue ?
-                new ObjectParameter("weight", weight) :
-                new ObjectParameter("weight", typeof(int));
-    
-            var skipLogicAnswerParameter = skipLogicAnswer.HasValue ?
-                new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
-                new ObjectParameter("skipLogicAnswer", typeof(int));
-    
-            var skipLogicJumpParameter = skipLogicJump != null ?
-                new ObjectParameter("skipLogicJump", skipLogicJump) :
-                new ObjectParameter("skipLogicJump", typeof(string));
-    
-            var accessLevelParameter = accessLevel.HasValue ?
-                new ObjectParameter("accessLevel", accessLevel) :
-                new ObjectParameter("accessLevel", typeof(int));
-    
-            var commentRequiredParameter = commentRequired.HasValue ?
-                new ObjectParameter("commentRequired", commentRequired) :
-                new ObjectParameter("commentRequired", typeof(int));
-    
-            var commentBoxTxtParameter = commentBoxTxt != null ?
-                new ObjectParameter("commentBoxTxt", commentBoxTxt) :
-                new ObjectParameter("commentBoxTxt", typeof(string));
-    
-            var commentUploadTxtParameter = commentUploadTxt != null ?
-                new ObjectParameter("commentUploadTxt", commentUploadTxt) :
-                new ObjectParameter("commentUploadTxt", typeof(string));
-    
-            var calendarMessageTxtParameter = calendarMessageTxt != null ?
-                new ObjectParameter("calendarMessageTxt", calendarMessageTxt) :
-                new ObjectParameter("calendarMessageTxt", typeof(string));
-    
-            var commentTypeParameter = commentType.HasValue ?
-                new ObjectParameter("commentType", commentType) :
-                new ObjectParameter("commentType", typeof(int));
-    
-            var spinOffQuestionnaireParameter = spinOffQuestionnaire != null ?
-                new ObjectParameter("spinOffQuestionnaire", spinOffQuestionnaire) :
-                new ObjectParameter("spinOffQuestionnaire", typeof(string));
-    
-            var spinOffQIDParameter = spinOffQID.HasValue ?
-                new ObjectParameter("spinOffQID", spinOffQID) :
-                new ObjectParameter("spinOffQID", typeof(int));
-    
-            var emailAlertParameter = emailAlert != null ?
-                new ObjectParameter("emailAlert", emailAlert) :
-                new ObjectParameter("emailAlert", typeof(string));
-    
-            var emailAlertListParameter = emailAlertList != null ?
-                new ObjectParameter("emailAlertList", emailAlertList) :
-                new ObjectParameter("emailAlertList", typeof(string));
-    
-            var updatedParameter = updated.HasValue ?
-                new ObjectParameter("updated", updated) :
-                new ObjectParameter("updated", typeof(int));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
-    
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestion", questionParameter, nameParameter, titleParameter, tagParameter, responseTypeParameter, requiredParameter, weightParameter, skipLogicAnswerParameter, skipLogicJumpParameter, accessLevelParameter, commentRequiredParameter, commentBoxTxtParameter, commentUploadTxtParameter, calendarMessageTxtParameter, commentTypeParameter, spinOffQuestionnaireParameter, spinOffQIDParameter, emailAlertParameter, emailAlertListParameter, updatedParameter, sortOrderParameter, activeParameter, enterpriseParameter);
-        }
-    
-        public virtual int pr_modifyQuestion(Nullable<int> id, string question, string name, string title, string tag, Nullable<int> responseType, Nullable<int> required, Nullable<int> weight, Nullable<int> skipLogicAnswer, string skipLogicJump, Nullable<int> accessLevel, Nullable<int> commentRequired, string commentBoxTxt, string commentUploadTxt, string calendarMessageTxt, Nullable<int> commentType, string spinOffQuestionnaire, Nullable<int> spinOffQID, string emailAlert, string emailAlertList, Nullable<int> updated, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var questionParameter = question != null ?
-                new ObjectParameter("Question", question) :
-                new ObjectParameter("Question", typeof(string));
-    
-            var nameParameter = name != null ?
-                new ObjectParameter("name", name) :
-                new ObjectParameter("name", typeof(string));
-    
-            var titleParameter = title != null ?
-                new ObjectParameter("title", title) :
-                new ObjectParameter("title", typeof(string));
-    
-            var tagParameter = tag != null ?
-                new ObjectParameter("tag", tag) :
-                new ObjectParameter("tag", typeof(string));
-    
-            var responseTypeParameter = responseType.HasValue ?
-                new ObjectParameter("responseType", responseType) :
-                new ObjectParameter("responseType", typeof(int));
-    
-            var requiredParameter = required.HasValue ?
-                new ObjectParameter("required", required) :
-                new ObjectParameter("required", typeof(int));
-    
-            var weightParameter = weight.HasValue ?
-                new ObjectParameter("weight", weight) :
-                new ObjectParameter("weight", typeof(int));
-    
-            var skipLogicAnswerParameter = skipLogicAnswer.HasValue ?
-                new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
-                new ObjectParameter("skipLogicAnswer", typeof(int));
-    
-            var skipLogicJumpParameter = skipLogicJump != null ?
-                new ObjectParameter("skipLogicJump", skipLogicJump) :
-                new ObjectParameter("skipLogicJump", typeof(string));
-    
-            var accessLevelParameter = accessLevel.HasValue ?
-                new ObjectParameter("accessLevel", accessLevel) :
-                new ObjectParameter("accessLevel", typeof(int));
-    
-            var commentRequiredParameter = commentRequired.HasValue ?
-                new ObjectParameter("commentRequired", commentRequired) :
-                new ObjectParameter("commentRequired", typeof(int));
-    
-            var commentBoxTxtParameter = commentBoxTxt != null ?
-                new ObjectParameter("commentBoxTxt", commentBoxTxt) :
-                new ObjectParameter("commentBoxTxt", typeof(string));
-    
-            var commentUploadTxtParameter = commentUploadTxt != null ?
-                new ObjectParameter("commentUploadTxt", commentUploadTxt) :
-                new ObjectParameter("commentUploadTxt", typeof(string));
-    
-            var calendarMessageTxtParameter = calendarMessageTxt != null ?
-                new ObjectParameter("calendarMessageTxt", calendarMessageTxt) :
-                new ObjectParameter("calendarMessageTxt", typeof(string));
-    
-            var commentTypeParameter = commentType.HasValue ?
-                new ObjectParameter("commentType", commentType) :
-                new ObjectParameter("commentType", typeof(int));
-    
-            var spinOffQuestionnaireParameter = spinOffQuestionnaire != null ?
-                new ObjectParameter("spinOffQuestionnaire", spinOffQuestionnaire) :
-                new ObjectParameter("spinOffQuestionnaire", typeof(string));
-    
-            var spinOffQIDParameter = spinOffQID.HasValue ?
-                new ObjectParameter("spinOffQID", spinOffQID) :
-                new ObjectParameter("spinOffQID", typeof(int));
-    
-            var emailAlertParameter = emailAlert != null ?
-                new ObjectParameter("emailAlert", emailAlert) :
-                new ObjectParameter("emailAlert", typeof(string));
-    
-            var emailAlertListParameter = emailAlertList != null ?
-                new ObjectParameter("emailAlertList", emailAlertList) :
-                new ObjectParameter("emailAlertList", typeof(string));
-    
-            var updatedParameter = updated.HasValue ?
-                new ObjectParameter("updated", updated) :
-                new ObjectParameter("updated", typeof(int));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
-    
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestion", idParameter, questionParameter, nameParameter, titleParameter, tagParameter, responseTypeParameter, requiredParameter, weightParameter, skipLogicAnswerParameter, skipLogicJumpParameter, accessLevelParameter, commentRequiredParameter, commentBoxTxtParameter, commentUploadTxtParameter, calendarMessageTxtParameter, commentTypeParameter, spinOffQuestionnaireParameter, spinOffQIDParameter, emailAlertParameter, emailAlertListParameter, updatedParameter, sortOrderParameter, activeParameter, enterpriseParameter);
-        }
-    
         public virtual ObjectResult<Nullable<decimal>> pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<System.DateTime> actionDate, Nullable<int> value, Nullable<int> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
         {
             var questionParameter = question.HasValue ?
@@ -16916,6 +16718,212 @@ namespace Generic
                 new ObjectParameter("questionnaire", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<question>("pr_getQuestionByQuestionnaire", mergeOption, questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestion(string question, string name, string title, string tag, Nullable<int> responseType, Nullable<int> required, Nullable<int> weight, Nullable<int> skipLogicAnswer, string skipLogicJump, string subCheckBoxChoice, Nullable<int> accessLevel, Nullable<int> commentRequired, string commentBoxTxt, string commentUploadTxt, string calendarMessageTxt, Nullable<int> commentType, string spinOffQuestionnaire, Nullable<int> spinOffQID, string emailAlert, string emailAlertList, Nullable<int> updated, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        {
+            var questionParameter = question != null ?
+                new ObjectParameter("Question", question) :
+                new ObjectParameter("Question", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var tagParameter = tag != null ?
+                new ObjectParameter("tag", tag) :
+                new ObjectParameter("tag", typeof(string));
+    
+            var responseTypeParameter = responseType.HasValue ?
+                new ObjectParameter("responseType", responseType) :
+                new ObjectParameter("responseType", typeof(int));
+    
+            var requiredParameter = required.HasValue ?
+                new ObjectParameter("required", required) :
+                new ObjectParameter("required", typeof(int));
+    
+            var weightParameter = weight.HasValue ?
+                new ObjectParameter("weight", weight) :
+                new ObjectParameter("weight", typeof(int));
+    
+            var skipLogicAnswerParameter = skipLogicAnswer.HasValue ?
+                new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
+                new ObjectParameter("skipLogicAnswer", typeof(int));
+    
+            var skipLogicJumpParameter = skipLogicJump != null ?
+                new ObjectParameter("skipLogicJump", skipLogicJump) :
+                new ObjectParameter("skipLogicJump", typeof(string));
+    
+            var subCheckBoxChoiceParameter = subCheckBoxChoice != null ?
+                new ObjectParameter("subCheckBoxChoice", subCheckBoxChoice) :
+                new ObjectParameter("subCheckBoxChoice", typeof(string));
+    
+            var accessLevelParameter = accessLevel.HasValue ?
+                new ObjectParameter("accessLevel", accessLevel) :
+                new ObjectParameter("accessLevel", typeof(int));
+    
+            var commentRequiredParameter = commentRequired.HasValue ?
+                new ObjectParameter("commentRequired", commentRequired) :
+                new ObjectParameter("commentRequired", typeof(int));
+    
+            var commentBoxTxtParameter = commentBoxTxt != null ?
+                new ObjectParameter("commentBoxTxt", commentBoxTxt) :
+                new ObjectParameter("commentBoxTxt", typeof(string));
+    
+            var commentUploadTxtParameter = commentUploadTxt != null ?
+                new ObjectParameter("commentUploadTxt", commentUploadTxt) :
+                new ObjectParameter("commentUploadTxt", typeof(string));
+    
+            var calendarMessageTxtParameter = calendarMessageTxt != null ?
+                new ObjectParameter("calendarMessageTxt", calendarMessageTxt) :
+                new ObjectParameter("calendarMessageTxt", typeof(string));
+    
+            var commentTypeParameter = commentType.HasValue ?
+                new ObjectParameter("commentType", commentType) :
+                new ObjectParameter("commentType", typeof(int));
+    
+            var spinOffQuestionnaireParameter = spinOffQuestionnaire != null ?
+                new ObjectParameter("spinOffQuestionnaire", spinOffQuestionnaire) :
+                new ObjectParameter("spinOffQuestionnaire", typeof(string));
+    
+            var spinOffQIDParameter = spinOffQID.HasValue ?
+                new ObjectParameter("spinOffQID", spinOffQID) :
+                new ObjectParameter("spinOffQID", typeof(int));
+    
+            var emailAlertParameter = emailAlert != null ?
+                new ObjectParameter("emailAlert", emailAlert) :
+                new ObjectParameter("emailAlert", typeof(string));
+    
+            var emailAlertListParameter = emailAlertList != null ?
+                new ObjectParameter("emailAlertList", emailAlertList) :
+                new ObjectParameter("emailAlertList", typeof(string));
+    
+            var updatedParameter = updated.HasValue ?
+                new ObjectParameter("updated", updated) :
+                new ObjectParameter("updated", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestion", questionParameter, nameParameter, titleParameter, tagParameter, responseTypeParameter, requiredParameter, weightParameter, skipLogicAnswerParameter, skipLogicJumpParameter, subCheckBoxChoiceParameter, accessLevelParameter, commentRequiredParameter, commentBoxTxtParameter, commentUploadTxtParameter, calendarMessageTxtParameter, commentTypeParameter, spinOffQuestionnaireParameter, spinOffQIDParameter, emailAlertParameter, emailAlertListParameter, updatedParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+        }
+    
+        public virtual int pr_modifyQuestion(Nullable<int> id, string question, string name, string title, string tag, Nullable<int> responseType, Nullable<int> required, Nullable<int> weight, Nullable<int> skipLogicAnswer, string skipLogicJump, string subCheckBoxChoice, Nullable<int> accessLevel, Nullable<int> commentRequired, string commentBoxTxt, string commentUploadTxt, string calendarMessageTxt, Nullable<int> commentType, string spinOffQuestionnaire, Nullable<int> spinOffQID, string emailAlert, string emailAlertList, Nullable<int> updated, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var questionParameter = question != null ?
+                new ObjectParameter("Question", question) :
+                new ObjectParameter("Question", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var tagParameter = tag != null ?
+                new ObjectParameter("tag", tag) :
+                new ObjectParameter("tag", typeof(string));
+    
+            var responseTypeParameter = responseType.HasValue ?
+                new ObjectParameter("responseType", responseType) :
+                new ObjectParameter("responseType", typeof(int));
+    
+            var requiredParameter = required.HasValue ?
+                new ObjectParameter("required", required) :
+                new ObjectParameter("required", typeof(int));
+    
+            var weightParameter = weight.HasValue ?
+                new ObjectParameter("weight", weight) :
+                new ObjectParameter("weight", typeof(int));
+    
+            var skipLogicAnswerParameter = skipLogicAnswer.HasValue ?
+                new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
+                new ObjectParameter("skipLogicAnswer", typeof(int));
+    
+            var skipLogicJumpParameter = skipLogicJump != null ?
+                new ObjectParameter("skipLogicJump", skipLogicJump) :
+                new ObjectParameter("skipLogicJump", typeof(string));
+    
+            var subCheckBoxChoiceParameter = subCheckBoxChoice != null ?
+                new ObjectParameter("subCheckBoxChoice", subCheckBoxChoice) :
+                new ObjectParameter("subCheckBoxChoice", typeof(string));
+    
+            var accessLevelParameter = accessLevel.HasValue ?
+                new ObjectParameter("accessLevel", accessLevel) :
+                new ObjectParameter("accessLevel", typeof(int));
+    
+            var commentRequiredParameter = commentRequired.HasValue ?
+                new ObjectParameter("commentRequired", commentRequired) :
+                new ObjectParameter("commentRequired", typeof(int));
+    
+            var commentBoxTxtParameter = commentBoxTxt != null ?
+                new ObjectParameter("commentBoxTxt", commentBoxTxt) :
+                new ObjectParameter("commentBoxTxt", typeof(string));
+    
+            var commentUploadTxtParameter = commentUploadTxt != null ?
+                new ObjectParameter("commentUploadTxt", commentUploadTxt) :
+                new ObjectParameter("commentUploadTxt", typeof(string));
+    
+            var calendarMessageTxtParameter = calendarMessageTxt != null ?
+                new ObjectParameter("calendarMessageTxt", calendarMessageTxt) :
+                new ObjectParameter("calendarMessageTxt", typeof(string));
+    
+            var commentTypeParameter = commentType.HasValue ?
+                new ObjectParameter("commentType", commentType) :
+                new ObjectParameter("commentType", typeof(int));
+    
+            var spinOffQuestionnaireParameter = spinOffQuestionnaire != null ?
+                new ObjectParameter("spinOffQuestionnaire", spinOffQuestionnaire) :
+                new ObjectParameter("spinOffQuestionnaire", typeof(string));
+    
+            var spinOffQIDParameter = spinOffQID.HasValue ?
+                new ObjectParameter("spinOffQID", spinOffQID) :
+                new ObjectParameter("spinOffQID", typeof(int));
+    
+            var emailAlertParameter = emailAlert != null ?
+                new ObjectParameter("emailAlert", emailAlert) :
+                new ObjectParameter("emailAlert", typeof(string));
+    
+            var emailAlertListParameter = emailAlertList != null ?
+                new ObjectParameter("emailAlertList", emailAlertList) :
+                new ObjectParameter("emailAlertList", typeof(string));
+    
+            var updatedParameter = updated.HasValue ?
+                new ObjectParameter("updated", updated) :
+                new ObjectParameter("updated", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestion", idParameter, questionParameter, nameParameter, titleParameter, tagParameter, responseTypeParameter, requiredParameter, weightParameter, skipLogicAnswerParameter, skipLogicJumpParameter, subCheckBoxChoiceParameter, accessLevelParameter, commentRequiredParameter, commentBoxTxtParameter, commentUploadTxtParameter, calendarMessageTxtParameter, commentTypeParameter, spinOffQuestionnaireParameter, spinOffQIDParameter, emailAlertParameter, emailAlertListParameter, updatedParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
     }
 }
