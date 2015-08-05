@@ -993,6 +993,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
                     }
+                    else if (keyName.ToString().Contains("_checkboxList"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+                    }
                     #region other types
                     else
                     {                        
@@ -1030,14 +1036,39 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
                             else responseComment = null;
                         }
-                        string stralert = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedateAlert"];
-                        if (!string.IsNullOrEmpty(stralert))
+                        var checkBoxes = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_checkboxList"];
+                        if (checkBoxes != null)
                         {
-                            responseComment = stralert;
-                        }                        
-                        else responseComment = null;
+                            var chechkedList = checkBoxes.Split(",".ToArray()).Select(o => int.Parse(o));
+                            var question = db.pr_getQuestion(questionId).FirstOrDefault();
+                            if (question != null)
+                            {
+                                var lenght = 0;
+                                var resMap = question.subCheckBoxChoice.Split(":".ToArray());
+                                if (resMap.Length > 1)
+                                    lenght = resMap[1].Split(";".ToArray()).Length;
+                                else lenght = resMap[0].Split(";".ToArray()).Length;
+                                for (int i = 0; i < lenght; i++)
+                                    if (chechkedList.Contains(i))
+                                        responseComment += "1";
+                                    else responseComment += "0";
+
+                            }
+                        }
+                        DateTime? dueDate = null;
                         var strDueDate = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedate"];
-                        DateTime? dueDate = !string.IsNullOrEmpty(strDueDate) ? DateTime.Parse(strDueDate) :(DateTime?) null;
+                        if (!string.IsNullOrEmpty(strDueDate))
+                        {
+                            dueDate = !string.IsNullOrEmpty(strDueDate) ? DateTime.Parse(strDueDate) : (DateTime?)null;
+                            string stralert = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedateAlert"];
+                            if (!string.IsNullOrEmpty(stralert))
+                            {
+                                responseComment = stralert;
+                            }
+                            else responseComment = null;
+                        }
+                        
+                       
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
                         if (checkpsz == null)
                         {
