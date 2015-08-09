@@ -1,5 +1,11 @@
-﻿using System;
+﻿using Generic.Helpers;
+using Google.Apis.Services;
+using LightInject;
+using LightInject.Mvc;
+using LightInject.Web;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -15,9 +21,18 @@ namespace Generic
     {
         protected void Application_Start()
         {
+            var container = new ServiceContainer();
+            container.RegisterControllers();
+            //register other services
+            container.Register<IDatabaseTranslationService, DatabaseTranslationService>(new PerScopeLifetime());
+            container.Register<IGoogleTranslatorHelper, GoogleTranslatorHelper>(new PerScopeLifetime());
+            container.RegisterInstance(typeof(Google.Apis.Translate.v2.TranslateService), new Google.Apis.Translate.v2.TranslateService(new BaseClientService.Initializer()
+            {
+                ApiKey = ConfigurationManager.AppSettings["GoogleTranslateApiKey"]
+            }));
+            container.EnableMvc();
+
             Helpers.CurrentInstance.IsGeneric = 1;
-
-
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

@@ -113,6 +113,9 @@
             https://developers.google.com/accounts/docs/OAuth2ServiceAccount#formingheader.
             </summary>
         </member>
+        <member name="M:Google.Apis.Auth.OAuth2.ServiceAccountCredential.ConvertPKCS8ToRSAParameters(System.String)">
+            <summary>Converts the PKCS8 private key to RSA parameters. This method uses the Bouncy Castle library.</summary>
+        </member>
         <member name="M:Google.Apis.Auth.OAuth2.ServiceAccountCredential.GetSerializedPayload">
             <summary>
             Creates a serialized claim set as specified in 
@@ -155,6 +158,9 @@
         </member>
         <member name="M:Google.Apis.Auth.OAuth2.ServiceAccountCredential.Initializer.#ctor(System.String,System.String)">
             <summary>Constructs a new initializer using the given id and the token server URL.</summary>
+        </member>
+        <member name="M:Google.Apis.Auth.OAuth2.ServiceAccountCredential.Initializer.FromPrivateKey(System.String)">
+            <summary>Extracts the <see cref="P:Google.Apis.Auth.OAuth2.ServiceAccountCredential.Initializer.Key"/> from the given PKCS8 private key.</summary>
         </member>
         <member name="M:Google.Apis.Auth.OAuth2.ServiceAccountCredential.Initializer.FromCertificate(System.Security.Cryptography.X509Certificates.X509Certificate2)">
             <summary>Extracts a <see cref="P:Google.Apis.Auth.OAuth2.ServiceAccountCredential.Initializer.Key"/> from the given certificate.</summary>

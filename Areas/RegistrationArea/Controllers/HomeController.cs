@@ -29,12 +29,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
     public class HomeController : Controller
     {
         private EntitiesDBContext db = new EntitiesDBContext();
+        IGoogleTranslatorHelper _translator;
         //
         // GET: /RegistrationArea/Home/
 
         public virtual ActionResult Default()
         {
             return View();
+        }
+
+        public HomeController(IGoogleTranslatorHelper translator)
+        {
+            _translator = translator;
         }
 
 
@@ -56,7 +62,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
             var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-
+            var cmsId=0;
             if (ppptq_cms != null)
             {
                 Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(db.pr_getPartner(ppptq_cms.partner).FirstOrDefault().enterprise.ToString());
@@ -66,7 +72,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
                 try
                 {
-                    var cms_Title = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_TITLE).id);
+                    cmsId =questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_TITLE).id;
+                    var cms_Title = cms.FirstOrDefault(x => x.questionnaireCMS == cmsId);
+                    //var cms_Title = _translator.Translate(ptq.questionnaire, TranslationType.CMS, "ru", cmsId);// cms.FirstOrDefault(x => );
                     if (cms_Title != null)
                     {
                         ViewBag.CMS_TITLE = cms_Title.text;

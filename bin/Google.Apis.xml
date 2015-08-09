@@ -635,6 +635,9 @@
             Caller is responsible for closing the <paramref name="contentStream"/>.
             </remarks>
         </member>
+        <member name="F:Google.Apis.Upload.ResumableUpload`1.chunkSize">
+            <summary>Change this value ONLY for testing purposes!</summary>
+        </member>
         <member name="M:Google.Apis.Upload.ResumableUpload`1.UpdateProgress(Google.Apis.Upload.ResumableUpload{`0}.ResumableUploadProgress)">
             <summary>
             Updates the current progress and call the <see cref="E:Google.Apis.Upload.ResumableUpload`1.ProgressChanged"/> event to notify listeners.
@@ -850,7 +853,7 @@
             The version with two types contains both a request object and a response object.
             </summary>
             <remarks>
-            See: http://code.google.com/apis/gdata/docs/resumable_upload.html for
+            See: https://developers.google.com/gdata/docs/resumable_upload for
             information on the protocol.
             </remarks>
             <typeparam name="TRequest">

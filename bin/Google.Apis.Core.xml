@@ -340,7 +340,7 @@
             <summary>Returns <c>true</c> if the response contains one of the redirect status codes.</summary>
         </member>
         <member name="M:Google.Apis.Http.HttpExtenstions.SetEmptyContent(System.Net.Http.HttpRequestMessage)">
-            <summary>Sets an empty HTTP content.</summary>
+            <summary>A Google.Apis utility method for setting an empty HTTP content.</summary>
         </member>
         <member name="T:Google.Apis.Http.CreateHttpClientArgs">
             <summary>Arguments for creating a HTTP client.</summary>
@@ -749,8 +749,8 @@
         </member>
         <member name="T:Google.Apis.Testing.VisibleForTestOnly">
             <summary>
-            Marker Attribute to indicate a Method/Class/Property has been made more visible for
-            purpose of testing. Mark as internal and makr the testing assembly as friend using
+            Marker Attribute to indicate a Method/Class/Property has been made more visible for purpose of testing.
+            Mark the method as public, without making the testing assembly as friend using
             <code>[assembly: InternalsVisibleTo("Full.Name.Of.Testing.Assembly")]</code>
             </summary>
         </member>
@@ -939,11 +939,15 @@
             <summary>Returns the version of the core library.</summary>
         </member>
         <member name="M:Google.Apis.Util.Utilities.ThrowIfNull``1(``0,System.String)">
-            <summary>Throws an <see cref="T:System.ArgumentNullException"/> if the object is null.</summary>
+            <summary>
+            A Google.Apis utility method for throwing an <see cref="T:System.ArgumentNullException"/> if the object is
+            <c>null</c>.
+            </summary>
         </member>
         <member name="M:Google.Apis.Util.Utilities.ThrowIfNullOrEmpty(System.String,System.String)">
             <summary>
-            Throws an <see cref="T:System.ArgumentNullException"/> if the string is <c>null</c> or empty.
+            A Google.Apis utility method for throwing an <see cref="T:System.ArgumentNullException"/> if the string is
+            <c>null</c> or empty.
             </summary>
             <returns>The original string.</returns>
         </member>
@@ -951,10 +955,17 @@
             <summary>Returns <c>true</c> in case the enumerable is <c>null</c> or empty.</summary>
         </member>
         <member name="M:Google.Apis.Util.Utilities.GetCustomAttribute``1(System.Reflection.MemberInfo)">
-            <summary>Returns the first matching custom attribute (or <c>null</c>) of the specified member.</summary>
+            <summary>
+            A Google.Apis utility method for returning the first matching custom attribute (or <c>null</c>) of the specified member.
+            </summary>
         </member>
         <member name="M:Google.Apis.Util.Utilities.GetStringValue(System.Enum)">
             <summary>Returns the defined string value of an Enum.</summary>
+        </member>
+        <member name="M:Google.Apis.Util.Utilities.GetEnumStringValue(System.Enum)">
+            <summary>
+            Returns the defined string value of an Enum. Use for test purposes or in other Google.Apis projects.
+            </summary>
         </member>
         <member name="M:Google.Apis.Util.Utilities.ConvertToString(System.Object)">
             <summary>

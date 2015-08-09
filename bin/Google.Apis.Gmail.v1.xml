@@ -163,6 +163,12 @@
         <member name="P:Google.Apis.Gmail.v1.Data.Message.Id">
             <summary>The immutable ID of the message.</summary>
         </member>
+        <member name="P:Google.Apis.Gmail.v1.Data.Message.InternalDate">
+            <summary>The internal message creation timestamp (epoch ms), which determines ordering in the inbox. For
+            normal SMTP-received email, this represents the time the message was originally accepted by Google, which is
+            more reliable than the Date header. However, for API-migrated mail, it can be configured by client to be
+            based on the Date header.</summary>
+        </member>
         <member name="P:Google.Apis.Gmail.v1.Data.Message.LabelIds">
             <summary>List of IDs of labels applied to this message.</summary>
         </member>
@@ -299,6 +305,42 @@
         <member name="P:Google.Apis.Gmail.v1.Data.Thread.ETag">
             <summary>The ETag of the item.</summary>
         </member>
+        <member name="T:Google.Apis.Gmail.v1.Data.WatchRequest">
+            <summary>Set up or update a new push notification watch on this user's mailbox.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.Data.WatchRequest.LabelFilterAction">
+            <summary>Filtering behavior of labelIds list specified.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.Data.WatchRequest.LabelIds">
+            <summary>List of label_ids to restrict notifications about. By default, if unspecified, all changes are
+            pushed out. If specified then dictates which labels are required for a push notification to be
+            generated.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.Data.WatchRequest.TopicName">
+             <summary>A fully qualified Google Cloud Pub/Sub API topic name to publish the events to. This topic name
+             **must** already exist in Cloud Pub/Sub and you **must** have already granted gmail "publish" permission on
+             it. For example, "projects/my-project-identifier/topics/my-topic-name" (using the new Cloud Pub/Sub
+             "v1beta2" topic naming format).
+            
+             Note that the "my-project-identifier" portion must exactly match your Google developer project id (the one
+             executing this watch request).</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.Data.WatchRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.Gmail.v1.Data.WatchResponse">
+            <summary>Push notification watch response.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.Data.WatchResponse.Expiration">
+            <summary>When Gmail will stop sending notifications for mailbox updates (epoch millis). Call watch again
+            before this time to renew the watch.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.Data.WatchResponse.HistoryId">
+            <summary>The ID of the mailbox's current history record.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.Data.WatchResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
         <member name="T:Google.Apis.Gmail.v1.GmailService">
             <summary>The Gmail Service.</summary>
         </member>
@@ -338,6 +380,12 @@
         </member>
         <member name="F:Google.Apis.Gmail.v1.GmailService.Scope.GmailCompose">
             <summary>Manage drafts and send emails</summary>
+        </member>
+        <member name="F:Google.Apis.Gmail.v1.GmailService.Scope.GmailInsert">
+            <summary>Insert mail into your mailbox</summary>
+        </member>
+        <member name="F:Google.Apis.Gmail.v1.GmailService.Scope.GmailLabels">
+            <summary>Manage mailbox labels</summary>
         </member>
         <member name="F:Google.Apis.Gmail.v1.GmailService.Scope.GmailModify">
             <summary>View and modify but not delete your email</summary>
@@ -397,6 +445,17 @@
         </member>
         <member name="M:Google.Apis.Gmail.v1.UsersResource.GetProfile(System.String)">
             <summary>Gets the current user's Gmail profile.</summary>
+            <param name="userId">The user's email address. The special value me can be used to indicate the authenticated
+            user.</param>
+        </member>
+        <member name="M:Google.Apis.Gmail.v1.UsersResource.Stop(System.String)">
+            <summary>Stop receiving push notifications for the given user mailbox.</summary>
+            <param name="userId">The user's email address. The special value me can be used to indicate the authenticated
+            user.</param>
+        </member>
+        <member name="M:Google.Apis.Gmail.v1.UsersResource.Watch(Google.Apis.Gmail.v1.Data.WatchRequest,System.String)">
+            <summary>Set up or update a push notification watch on the given user mailbox.</summary>
+            <param name="body">The body of the request.</param>
             <param name="userId">The user's email address. The special value me can be used to indicate the authenticated
             user.</param>
         </member>
@@ -841,10 +900,10 @@
             startHistoryId should be obtained from the historyId of a message, thread, or previous list
             response. History IDs increase chronologically but are not contiguous with random gaps in between
             valid IDs. Supplying an invalid or out of date startHistoryId typically returns an HTTP 404 error
-            code. A historyId is typically valid for at least a week, but in some circumstances may be valid for
-            only a few hours. If you receive an HTTP 404 error response, your application should perform a full
-            sync. If you receive no nextPageToken in the response, there are no updates to retrieve and you can
-            store the returned historyId for a future request.</summary>
+            code. A historyId is typically valid for at least a week, but in some rare circumstances may be
+            valid for only a few hours. If you receive an HTTP 404 error response, your application should
+            perform a full sync. If you receive no nextPageToken in the response, there are no updates to
+            retrieve and you can store the returned historyId for a future request.</summary>
         </member>
         <member name="P:Google.Apis.Gmail.v1.UsersResource.HistoryResource.ListRequest.MethodName">
             <summary>Gets the method name.</summary>
@@ -1408,6 +1467,11 @@
             user.</summary>
             [default: me]
         </member>
+        <member name="P:Google.Apis.Gmail.v1.UsersResource.MessagesResource.InsertRequest.Deleted">
+            <summary>Mark the email as permanently deleted (not TRASH) and only visible in Google Apps Vault to
+            a Vault administrator. Only used for Google Apps for Work accounts.</summary>
+            [default: false]
+        </member>
         <member name="P:Google.Apis.Gmail.v1.UsersResource.MessagesResource.InsertRequest.InternalDateSource">
             <summary>Source for Gmail's internal date of the message.</summary>
             [default: receivedTime]
@@ -1464,6 +1528,11 @@
             <summary>The user's email address. The special value me can be used to indicate the authenticated
             user.</summary>
             [default: me]
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.UsersResource.MessagesResource.InsertMediaUpload.Deleted">
+            <summary>Mark the email as permanently deleted (not TRASH) and only visible in Google Apps Vault to
+            a Vault administrator. Only used for Google Apps for Work accounts.</summary>
+            [default: false]
         </member>
         <member name="P:Google.Apis.Gmail.v1.UsersResource.MessagesResource.InsertMediaUpload.InternalDateSource">
             <summary>Source for Gmail's internal date of the message.</summary>
@@ -1933,6 +2002,58 @@
             <summary>Gets the HTTP method.</summary>
         </member>
         <member name="P:Google.Apis.Gmail.v1.UsersResource.GetProfileRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="T:Google.Apis.Gmail.v1.UsersResource.StopRequest">
+            <summary>Stop receiving push notifications for the given user mailbox.</summary>
+        </member>
+        <member name="M:Google.Apis.Gmail.v1.UsersResource.StopRequest.#ctor(Google.Apis.Services.IClientService,System.String)">
+            <summary>Constructs a new Stop request.</summary>
+        </member>
+        <member name="M:Google.Apis.Gmail.v1.UsersResource.StopRequest.InitParameters">
+            <summary>Initializes Stop parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.UsersResource.StopRequest.UserId">
+            <summary>The user's email address. The special value me can be used to indicate the authenticated
+            user.</summary>
+            [default: me]
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.UsersResource.StopRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.UsersResource.StopRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.UsersResource.StopRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="T:Google.Apis.Gmail.v1.UsersResource.WatchRequest">
+            <summary>Set up or update a push notification watch on the given user mailbox.</summary>
+        </member>
+        <member name="M:Google.Apis.Gmail.v1.UsersResource.WatchRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.Gmail.v1.Data.WatchRequest,System.String)">
+            <summary>Constructs a new Watch request.</summary>
+        </member>
+        <member name="M:Google.Apis.Gmail.v1.UsersResource.WatchRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="M:Google.Apis.Gmail.v1.UsersResource.WatchRequest.InitParameters">
+            <summary>Initializes Watch parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.UsersResource.WatchRequest.UserId">
+            <summary>The user's email address. The special value me can be used to indicate the authenticated
+            user.</summary>
+            [default: me]
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.UsersResource.WatchRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.UsersResource.WatchRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.UsersResource.WatchRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.Gmail.v1.UsersResource.WatchRequest.RestPath">
             <summary>Gets the REST path.</summary>
         </member>
     </members>

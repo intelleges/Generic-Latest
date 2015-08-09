@@ -1017,6 +1017,7 @@ namespace Generic.Controllers
                                 objQuestion.commentBoxTxt = excelQuestionnaire.CommentBoxMessageText;
                                 objQuestion.commentUploadTxt = excelQuestionnaire.UploadMessageText;
                                 objQuestion.subCheckBoxChoice = excelQuestionnaire.SubCheckBoxChoice;
+                                if(!string.IsNullOrEmpty(excelQuestionnaire.CommentType))
                                 excelQuestionnaire.CommentType = excelQuestionnaire.CommentType.ToUpper();
                                 if (excelQuestionnaire.CommentType == "YN_WARNING_N")
                                 {
