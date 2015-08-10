@@ -48,8 +48,15 @@ namespace Generic.Helpers
                 var question = _db.pr_getQuestion(id).FirstOrDefault();
                 if (question != null)
                 {
-                    result = GoogleTranslate(question.Question, lang);
-                    _dbservice.SetQuestionTranslation(id, result, lang);
+                    if (lang == "en" || string.IsNullOrEmpty(question.Question))
+                    {
+                        result = question.Question;
+                    }
+                    else
+                    {
+                        result = GoogleTranslate(question.Question, lang);
+                        _dbservice.SetQuestionTranslation(id, result, lang);
+                    }
                 }
             }
             return result;
@@ -87,8 +94,15 @@ namespace Generic.Helpers
                 var response = _db.pr_getResponse(id).FirstOrDefault();
                 if (response != null)
                 {
-                    result = GoogleTranslate(response.description, lang);
-                    _dbservice.SetResponseTranslation(id, result, lang);
+                    if (lang == "en" || string.IsNullOrEmpty(response.description))
+                    {
+                        result = response.description;
+                    }
+                    else
+                    {
+                        result = GoogleTranslate(response.description, lang);
+                        _dbservice.SetResponseTranslation(id, result, lang);
+                    }
                 }
             }
             return result;
