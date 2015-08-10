@@ -134,8 +134,7 @@
                         <td>
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
-                                    <td height="25" colspan="2" class="infotitlebg">Contact Information <span class="infotitlenormal">(please verify your contact information
-                                                            is Correct)</span>
+                                    <td height="25" colspan="2" class="infotitlebg">@ViewBag.CONTACT_INFORMATION_TEXT<span class="infotitlenormal">(@ViewBag.VERIFY_CONTACT_TEXT_INFORMATION)</span>
                                     </td>
                                 </tr>
                                 <div id="panelinformation">
@@ -149,7 +148,7 @@
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="148" align="right" class="esigncont">First Name*:
+                                                    <td width="148" align="right" class="esigncont">@ViewBag.FIRST_NAME *:
                                                     </td>
                                                     <td class="tCenterColumn">&nbsp;
                                                     </td>
@@ -164,7 +163,7 @@
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="right" class="esigncont">Last Name*:
+                                                    <td align="right" class="esigncont">@ViewBag.LAST_NAME*:
                                                     </td>
                                                     <td>&nbsp;
                                                     </td>
@@ -179,7 +178,7 @@
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="right" class="esigncont">Title*:
+                                                    <td align="right" class="esigncont">@ViewBag.TITLE_TEXT *:
                                                     </td>
                                                     <td>&nbsp;
                                                     </td>
@@ -194,7 +193,7 @@
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="148" align="right" class="esigncont">Email*:
+                                                    <td width="148" align="right" class="esigncont">@ViewBag.EMAIL_TEXT*:
                                                     </td>
                                                     <td class="tCenterColumn">&nbsp;
                                                     </td>
@@ -209,7 +208,7 @@
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="right" class="esigncont">Phone*:
+                                                    <td align="right" class="esigncont">@ViewBag.PHONE_TEXT*:
                                                     </td>
                                                     <td>&nbsp;
                                                     </td>
@@ -224,7 +223,7 @@
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="right" class="esigncont">Fax:
+                                                    <td align="right" class="esigncont">@ViewBag.FAX_TEXT:
                                                     </td>
                                                     <td>&nbsp;
                                                     </td>
@@ -286,7 +285,7 @@
     </tr>
     <tr>
         <td>
-            <span style="color: #8faebb;">*Required Fields</span>
+            <span style="color: #8faebb;">*@ViewBag.REQUIRED_FIELDS</span>
         </td>
     </tr>
 </table>

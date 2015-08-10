@@ -15,12 +15,19 @@ using Generic.Helpers.PartnerHelper;
 using Generic.Helpers.PartNumberHelper;
 using Generic.Helpers.Questionnaire;
 using Generic.Models;
+using Generic.Helpers;
 
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class PartNumberController : Controller
     {
         private EntitiesDBContext db = new EntitiesDBContext();
+        IGoogleTranslatorHelper _translator;
+
+        public PartNumberController(IGoogleTranslatorHelper translator)
+        {
+            _translator = translator;
+        }
         //
         // GET: /RegistrationArea/PartNumber/
         
@@ -53,7 +60,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Length >= 20 ? CMS.QUESTIONNAIRE_VIDEO.Substring(0, 20) : CMS.QUESTIONNAIRE_VIDEO;
             ViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Length >= 20 ? CMS.CONTACT_US_EMAIL.Substring(0, 20) : CMS.CONTACT_US_EMAIL;
 
-
+            int cmsId = 0;
             var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
             if (ppptq_cms != null)
             {
@@ -62,58 +69,81 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
                 try
                 {
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_TITLE).id;
+                    
                     var cms_PageTitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_TITLE).id);
                     if (cms_PageTitle != null)
-                        ViewBag.CMS_PAGE_TITLE = cms_PageTitle.text;
+                        ViewBag.CMS_PAGE_TITLE = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_TITLE).id;
                     var cms_PageSubtitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_SUBTITLE).id);
                     if (cms_PageSubtitle != null)
-                        ViewBag.CMS_PAGE_SUBTITLE = cms_PageSubtitle.text;
+                        ViewBag.CMS_PAGE_SUBTITLE = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_PANEL_ONE).id;
                     var cms_PagePanelOne = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_PANEL_ONE).id);
                     if (cms_PagePanelOne != null)
-                        ViewBag.CMS_PAGE_PANEL_ONE = cms_PagePanelOne.text;
+                        ViewBag.CMS_PAGE_PANEL_ONE = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_TITLE).id;
                     var cms_PagePanelTwo = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_PANEL_TWO).id);
                     if (cms_PagePanelTwo != null)
-                        ViewBag.CMS_PAGE_PANEL_TWO = cms_PagePanelTwo.text;
+                        ViewBag.CMS_PAGE_PANEL_TWO = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_PREVIOUS_TEXT).id;
                     var cms_PagePreviousText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_PREVIOUS_TEXT).id);
                     if (cms_PagePreviousText != null)
-                        ViewBag.CMS_PAGE_PREVIOUS_TEXT = cms_PagePreviousText.text;
+                        ViewBag.CMS_PAGE_PREVIOUS_TEXT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_NEXT_TEXT).id;
                     var cms_PageNextText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_NEXT_TEXT).id);
                     if (cms_PageNextText != null)
-                        ViewBag.CMS_PAGE_NEXT_TEXT = cms_PageNextText.text;
+                        ViewBag.CMS_PAGE_NEXT_TEXT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
 
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.SAVE_FOR_LATER_TEXT).id;
                     var cms_SaveForLater = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.SAVE_FOR_LATER_TEXT).id);
                     if (cms_SaveForLater != null)
-                        ViewBag.SAVE_FOR_LATER_TEXT = cms_SaveForLater.text;
+                        ViewBag.SAVE_FOR_LATER_TEXT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
 
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PDF).id;
                     var cms_quiestionnare = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PDF).id);
                     if (cms_quiestionnare != null)
-                        ViewBag.QUESTIONNAIRE_PDF = cms_quiestionnare.text;
+                        ViewBag.QUESTIONNAIRE_PDF = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
 
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_FAQ).id;
                     var cms_QuestionnareFAQ = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_FAQ).id);
                     if (cms_QuestionnareFAQ != null)
-                        ViewBag.QUESTIONNAIRE_FAQ = cms_QuestionnareFAQ.text;
+                        ViewBag.QUESTIONNAIRE_FAQ = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER).id;
                     var cms_questionnare_doc = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER).id);
                     if (cms_questionnare_doc != null)
-                        ViewBag.QUESTIONNAIRE_DOC_OTHER = cms_questionnare_doc.text;
+                        ViewBag.QUESTIONNAIRE_DOC_OTHER = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_VIDEO).id;
                     var cms_Questionnare_video = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_VIDEO).id);
                     if (cms_Questionnare_video != null)
-                        ViewBag.QUESTIONNAIRE_VIDEO = cms_Questionnare_video.text;
+                        ViewBag.QUESTIONNAIRE_VIDEO = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_US_EMAIL).id;
                     var cms_ContactEmail = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_US_EMAIL).id);
                     if (cms_ContactEmail != null)
-                        ViewBag.CONTACT_US_EMAIL = cms_ContactEmail.text;
+                        ViewBag.CONTACT_US_EMAIL = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_US_EMAIL).id;
                     var cms_ContactEmailLink = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_US_EMAIL).id);
                     if (cms_ContactEmailLink != null)
                         ViewBag.CONTACT_US_EMAIL_LINK = cms_ContactEmailLink.link;
 
-                    //
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_PN).id;
                     var cms_QUESTIONNAIRE_PAGE_PN = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_PN).id);
                     if (cms_QUESTIONNAIRE_PAGE_PN != null)
-                        ViewBag.QUESTIONNAIRE_PAGE_PN = cms_QUESTIONNAIRE_PAGE_PN.text;
+                        ViewBag.QUESTIONNAIRE_PAGE_PN = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
 
-                    //
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_SITE).id;
                     var cms_QUESTIONNAIRE_PAGE_SITE = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_SITE).id);
                     if (cms_QUESTIONNAIRE_PAGE_SITE != null)
-                        ViewBag.QUESTIONNAIRE_PAGE_SITE = cms_QUESTIONNAIRE_PAGE_SITE.text;
+                        ViewBag.QUESTIONNAIRE_PAGE_SITE = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
 
 
 
@@ -154,7 +184,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             partner objpartner = new partner();
             protocol objprotocol = new protocol();
 
-            surveyForm objSurveyForm = new surveyForm(objprotocol, objtouchpoint, objpartner, objQuestionnaire);
+            surveyForm objSurveyForm = new surveyForm(objprotocol, objtouchpoint, objpartner, objQuestionnaire,_translator,HomeController.CurrentLanguage);
             objSurveyForm.questionIndex = questionIndex;
             objSurveyForm.questionClass = "brownbg  brownbgarrow";
             objSurveyForm.answerClass = "brownbg";

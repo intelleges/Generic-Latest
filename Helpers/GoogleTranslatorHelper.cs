@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace Generic.Helpers
@@ -12,10 +13,13 @@ namespace Generic.Helpers
         Google.Apis.Translate.v2.TranslateService _gService;
         private EntitiesDBContext _db = new EntitiesDBContext();
         IDatabaseTranslationService _dbservice;
-        public GoogleTranslatorHelper(IDatabaseTranslationService dbservice, Google.Apis.Translate.v2.TranslateService gService)
+        public GoogleTranslatorHelper(IDatabaseTranslationService dbservice)
         {
             _dbservice = dbservice;
-            _gService = gService;
+            _gService = new Google.Apis.Translate.v2.TranslateService(new BaseClientService.Initializer()
+            {
+                ApiKey = ConfigurationManager.AppSettings["GoogleTranslateApiKey"]
+            });
         }
 
         public string Translate(int id, TranslationType type, string lang, int cmsId=0)
@@ -52,7 +56,7 @@ namespace Generic.Helpers
         }
         private string TranslateCMS(int id, string lang, int cmsId)
         {
-            string result = "";
+            string result = null;
             if (_dbservice.HasTranslation(id, TranslationType.CMS, lang))
                 result = _dbservice.GetCmsItemTranslation(id, lang, cmsId);
             else
@@ -60,8 +64,15 @@ namespace Generic.Helpers
                 var cmsItem = _db.pr_getQuestionnaireQuestionnaireCMS(id, cmsId).FirstOrDefault();
                 if (cmsItem != null)
                 {
-                    result = GoogleTranslate(cmsItem.text, lang);
-                    _dbservice.SetCmsItemTranslation(id, result, lang, cmsId);
+                    if (lang == "en"||string.IsNullOrEmpty(cmsItem.text))
+                    {
+                        result = cmsItem.text;
+                    }
+                    else
+                    {
+                        result = GoogleTranslate(cmsItem.text, lang);
+                        _dbservice.SetCmsItemTranslation(id, result, lang, cmsId);
+                    }
                 }
             }
             return result;
@@ -85,6 +96,12 @@ namespace Generic.Helpers
 
         private string GoogleTranslate(string text, string lang)
         {
+            Regex reg = new Regex("\\([A-Z][A-Z]\\)");
+            var match = reg.Match(text);
+            if (match.Success)
+            {
+                text = text.Replace(match.Value, "<span class=\"notranslate\">"+match.Value+"</span>");
+            }
             var response = _gService.Translations.List(text, lang).Execute();
             return response.Translations.FirstOrDefault().TranslatedText;
         }
@@ -98,6 +115,19 @@ namespace Generic.Helpers
                 _db.Dispose();
             if (_dbservice != null)
                 _dbservice.Dispose();
+        }
+
+
+        public string Translate(string text, string lang)
+        {
+            
+            if (!string.IsNullOrEmpty(text) && !string.IsNullOrEmpty(lang))
+            {
+                if (lang.ToLower() == "en")
+                    return text;
+                return GoogleTranslate(text, lang);
+            }
+            return "";
         }
     }
 }

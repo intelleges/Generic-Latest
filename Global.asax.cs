@@ -25,11 +25,8 @@ namespace Generic
             container.RegisterControllers();
             //register other services
             container.Register<IDatabaseTranslationService, DatabaseTranslationService>(new PerScopeLifetime());
-            container.Register<IGoogleTranslatorHelper, GoogleTranslatorHelper>(new PerScopeLifetime());
-            container.RegisterInstance(typeof(Google.Apis.Translate.v2.TranslateService), new Google.Apis.Translate.v2.TranslateService(new BaseClientService.Initializer()
-            {
-                ApiKey = ConfigurationManager.AppSettings["GoogleTranslateApiKey"]
-            }));
+            container.Register<IGoogleTranslatorHelper, GoogleTranslatorHelper>(new PerScopeLifetime());            
+            container.EnablePerWebRequestScope();
             container.EnableMvc();
 
             Helpers.CurrentInstance.IsGeneric = 1;

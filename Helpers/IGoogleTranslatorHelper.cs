@@ -9,5 +9,6 @@ namespace Generic.Helpers
     public interface IGoogleTranslatorHelper:IDisposable
     {
         string Translate(int id, TranslationType type, string lang, int cmsId = 0);
+        string Translate(string text, string lang);
     }
 }

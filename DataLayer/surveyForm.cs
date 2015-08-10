@@ -17,6 +17,7 @@ using System.Text;
 using Generic.Helpers.Questionnaire;
 using Generic.Helpers.Utility;
 using System.Text.RegularExpressions;
+using Generic.Helpers;
 
 namespace Generic.DataLayer
 {
@@ -27,8 +28,9 @@ namespace Generic.DataLayer
     public class surveyForm
     {
         EntitiesDBContext db = new EntitiesDBContext();
-
+        IGoogleTranslatorHelper _translator;
         static int divShowHideFlag = 3;
+        string _currentLanguage;
         public surveyForm()
         {
             //
@@ -36,13 +38,15 @@ namespace Generic.DataLayer
             //
         }
 
-        public surveyForm(protocol protocol, touchpoint touchpoint, partner partner, questionnaire questionnaire)
+        public surveyForm(protocol protocol, touchpoint touchpoint, partner partner, questionnaire questionnaire, IGoogleTranslatorHelper translator, string currentLanguage)
         {
 
             this.protocol = protocol;
             this.touchpoint = touchpoint;
             this.partner = partner;
             this.questionnaire = questionnaire;
+            _translator = translator;
+            _currentLanguage=  currentLanguage;
         }
 
         private int questionCount;
@@ -323,9 +327,9 @@ namespace Generic.DataLayer
             int divflag = 0;
             //question.question = convertLanguageApi(question.question);
 
-
+            
             //abs21022012
-            string strQuestion = question.Question;
+            string strQuestion = _translator.Translate(question.id, TranslationType.Question, _currentLanguage);
             var partnerID = (int)HttpContext.Current.Session["partner"];
             var _currentPartner = db.pr_getPartner(partnerID).FirstOrDefault();
            var _enterprise =  db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
@@ -362,7 +366,7 @@ namespace Generic.DataLayer
                 answerCssClass = this.alternativeAnswerClass;
             }
             //        currentsurvey = survey.description;
-            currentsurvey = surveyset.description;
+            currentsurvey = _translator.Translate(surveyset.description, _currentLanguage);
             //show survey 
             tableCellsurvey = new TableCell();
             tableCellsurvey.CssClass = "brownbgtop";
@@ -610,27 +614,27 @@ namespace Generic.DataLayer
             string inclDueDate = "";
             if (question.commentBoxTxt == "" || question.commentBoxTxt == null)
             {
-                incldComment = convertLanguageApi("<span style='font-size:13px'> Include comments here: </span>");
+                incldComment = convertLanguageApi("<span style='font-size:13px'> "+_translator.Translate("Include comments here",_currentLanguage)+": </span>");
             }
             else
             {
-                incldComment = convertLanguageApi("<span style='font-size:13px'>" + question.commentBoxTxt + "</span>");
+                incldComment = convertLanguageApi("<span style='font-size:13px'>" + _translator.Translate(question.commentBoxTxt, _currentLanguage) + "</span>");
             }
             if (question.calendarMessageTxt == "" || question.calendarMessageTxt == null)
             {
-                inclDueDate = convertLanguageApi("<span style='font-size:13px'> Please enter due date: </span>");
+                inclDueDate = convertLanguageApi("<span style='font-size:13px'> "+_translator.Translate("Please enter due date:",_currentLanguage)+" </span>");
             }
             else
             {
-                inclDueDate = convertLanguageApi("<span style='font-size:13px'>" + question.calendarMessageTxt + "</span>");
+                inclDueDate = convertLanguageApi("<span style='font-size:13px'>" + _translator.Translate(question.calendarMessageTxt, _currentLanguage) + "</span>");
             }
             if (question.commentUploadTxt == "" || question.commentUploadTxt == null)
             {
-                incldFileUpload = convertLanguageApi("<span style='font-size:13px'> Upload written procedures here: </span>");
+                incldFileUpload = convertLanguageApi("<span style='font-size:13px'>" + _translator.Translate("Upload written procedures here:", _currentLanguage) + " </span>");
             }
             else
             {
-                incldFileUpload = convertLanguageApi("<span style='font-size:13px'>" + question.commentUploadTxt + "</span>");
+                incldFileUpload = convertLanguageApi("<span style='font-size:13px'>" + _translator.Translate(question.commentUploadTxt, _currentLanguage) + "</span>");
             }
             if (responseTypeDescription == "verticalRadioButton")
             {
@@ -647,12 +651,12 @@ namespace Generic.DataLayer
                      divn.Style.Clear();
                      txtbox.Text = convertLanguageApi(pptqResponse.comment);                    
                     if (question.commentBoxTxt == "" || question.commentBoxTxt == null)
-                        divn.InnerHtml = convertLanguageApi("<span style='font-size:13px'> " + pptqResponse.response1.description.Replace("????", "") + ": </span>") + " ";
+                        divn.InnerHtml = convertLanguageApi("<span style='font-size:13px'> " + _translator.Translate(pptqResponse.response1.id, TranslationType.Response, _currentLanguage).Replace("????", "") + ": </span>") + " ";
                     else divn.InnerHtml = incldComment + " ";
                 }
                 else divn.InnerHtml = incldComment + " ";//"Include comments here: ";
                 txtbox.Attributes.Add("required", "");
-                txtbox.Attributes.Add("data-val-required", "Required");
+                txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
                 txtbox.Attributes.Add("data-val", "true");
                
 
@@ -675,13 +679,13 @@ namespace Generic.DataLayer
                     txtbox.Text = convertLanguageApi(pptqResponse.comment.ToString());
                     fileupload = new FileUpload(); // textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text"; for referance
                     string uploadedFile = "";// question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
-                    fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
+                    fileupload.Attributes.Add("data-val-filesize", _translator.Translate("Maximum file size is 2MB", _currentLanguage));
                     fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("required", "");
                     fileupload.Attributes.Add("fileextensions", "");
                     fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
                     fileupload.Attributes.Add("data-val-required", "Required");
-                    fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types",_currentLanguage)+" : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
                     fileupload.Attributes.Add("data-val", "true");
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
@@ -714,7 +718,7 @@ namespace Generic.DataLayer
                         //tableRow = new TableRow();
                         //table.Controls.Add(tableRow);
 
-                        innerdivUpload.InnerHtml = "<br/> " + incldFileUpload + "<font color='blue'> " + convertLanguageApi("Uploaded file ") + Path.GetFileName(uploadedFile) + "</font>";
+                        innerdivUpload.InnerHtml = "<br/> " + incldFileUpload + "<font color='blue'> " + _translator.Translate("Uploaded file", _currentLanguage) + Path.GetFileName(uploadedFile) + "</font>";
 
                     }
                     else
@@ -740,7 +744,7 @@ namespace Generic.DataLayer
                         RequiredFieldValidator validator = new RequiredFieldValidator();
                         validator.ID = question.id + "_R";
                         validator.ControlToValidate = controlId;
-                        validator.ErrorMessage = "Required";//" Required";
+                        validator.ErrorMessage = _translator.Translate("Required", _currentLanguage);//" Required";
                         validator.Display = ValidatorDisplay.Dynamic;
                         innerdiv.Controls.Add(validator);
                         div.Controls.AddAt(0, innerdiv);
@@ -751,7 +755,7 @@ namespace Generic.DataLayer
                         RequiredFieldValidator validator = new RequiredFieldValidator();
                         validator.ID = question.id + "_R";
                         validator.ControlToValidate = controlId;
-                        validator.ErrorMessage = "Required";//" Required";
+                        validator.ErrorMessage = _translator.Translate("Required", _currentLanguage);//" Required";
                         validator.Display = ValidatorDisplay.Dynamic;
                         innerdiv.Controls.Add(validator);
                         div.Controls.AddAt(0, innerdiv);
@@ -796,13 +800,13 @@ namespace Generic.DataLayer
                     txtbox = new TextBox();
                     txtbox.Width = 600;
                     fileupload = new FileUpload();
-                    fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
+                    fileupload.Attributes.Add("data-val-filesize", _translator.Translate("Maximum file size is 2MB", _currentLanguage));
                     fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("required", "");
                     fileupload.Attributes.Add("fileextensions", "");
                     fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
-                    fileupload.Attributes.Add("data-val-required", "Required");
-                    fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
                     fileupload.Attributes.Add("data-val", "true");
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
@@ -842,7 +846,7 @@ namespace Generic.DataLayer
                         RequiredFieldValidator validator = new RequiredFieldValidator();
                         validator.ID = question.id + "_R";
                         validator.ControlToValidate = controlId;
-                        validator.ErrorMessage = "Required";//" Required";
+                        validator.ErrorMessage = _translator.Translate("Required", _currentLanguage);//" Required";
                         validator.Display = ValidatorDisplay.Dynamic;
                         innerdiv.Controls.Add(validator);
                         div.Controls.AddAt(0, innerdiv);
@@ -853,7 +857,7 @@ namespace Generic.DataLayer
                         RequiredFieldValidator validator = new RequiredFieldValidator();
                         validator.ID = question.id + "_R";
                         validator.ControlToValidate = controlId;
-                        validator.ErrorMessage = "Required";//" Required";
+                        validator.ErrorMessage = _translator.Translate("Required", _currentLanguage);//" Required";
                         validator.Display = ValidatorDisplay.Dynamic;
                         innerdiv.Controls.Add(validator);
                         div.Controls.AddAt(0, innerdiv);
@@ -899,13 +903,14 @@ namespace Generic.DataLayer
                     txtbox = new TextBox();
                     txtbox.Width = 600;
                     fileupload = new FileUpload();
+                   
+                    fileupload.Attributes.Add("data-val-filesize", _translator.Translate("Maximum file size is 2MB", _currentLanguage));
+                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("required", "");
                     fileupload.Attributes.Add("fileextensions", "");
-                    fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
-                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
-                    fileupload.Attributes.Add("data-val-required", "Required");
-                    fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
                     fileupload.Attributes.Add("data-val", "true");
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
@@ -943,7 +948,7 @@ namespace Generic.DataLayer
                         RequiredFieldValidator validator = new RequiredFieldValidator();
                         validator.ID = question.id + "_R";
                         validator.ControlToValidate = controlId;
-                        validator.ErrorMessage = "Required";//" Required";
+                        validator.ErrorMessage = _translator.Translate("Required", _currentLanguage);//" Required";
                         validator.Display = ValidatorDisplay.Dynamic;
                         innerdiv.Controls.Add(validator);
                         div.Controls.AddAt(0, innerdiv);
@@ -954,7 +959,7 @@ namespace Generic.DataLayer
                         RequiredFieldValidator validator = new RequiredFieldValidator();
                         validator.ID = question.id + "_R";
                         validator.ControlToValidate = controlId;
-                        validator.ErrorMessage = "Required";//" Required";
+                        validator.ErrorMessage = _translator.Translate("Required", _currentLanguage);//" Required";
                         validator.Display = ValidatorDisplay.Dynamic;
                         innerdiv.Controls.Add(validator);
                         div.Controls.AddAt(0, innerdiv);
@@ -994,15 +999,14 @@ namespace Generic.DataLayer
                     txtbox = new TextBox();
                     txtbox.Width = 600;
                     fileupload = new FileUpload();
-                    fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
+                    fileupload.Attributes.Add("data-val-filesize", _translator.Translate("Maximum file size is 2MB", _currentLanguage));
                     fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("required", "");
                     fileupload.Attributes.Add("fileextensions", "");
-                    fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
-                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
-                    fileupload.Attributes.Add("data-val-required", "Required");
-                    fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+
                     fileupload.Attributes.Add("data-val", "true");
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
@@ -1034,7 +1038,7 @@ namespace Generic.DataLayer
                         RequiredFieldValidator validator = new RequiredFieldValidator();
                         validator.ID = question.id + "_R";
                         validator.ControlToValidate = controlId;
-                        validator.ErrorMessage = "Required";//" Required";
+                        validator.ErrorMessage = _translator.Translate("Required", _currentLanguage);//" Required";
                         validator.Display = ValidatorDisplay.Dynamic;
                         innerdiv.Controls.Add(validator);
                         // addControlValidator(controlId, "requiredFieldValidator", tableCell);
@@ -1046,7 +1050,7 @@ namespace Generic.DataLayer
                         RequiredFieldValidator validator = new RequiredFieldValidator();
                         validator.ID = question.id + "_R";
                         validator.ControlToValidate = controlId;
-                        validator.ErrorMessage = "Required";//" Required";
+                        validator.ErrorMessage = _translator.Translate("Required", _currentLanguage);//" Required";
                         validator.Display = ValidatorDisplay.Dynamic;
                         innerdiv.Controls.Add(validator);
                         div.Controls.AddAt(0, innerdiv);
@@ -1125,7 +1129,7 @@ namespace Generic.DataLayer
                     txtbox.Width = 600;
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                     txtbox.Attributes.Add("required", "");
-                    txtbox.Attributes.Add("data-val-required", "Required");
+                    txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
                     txtbox.Attributes.Add("data-val", "true");
                     divn.InnerHtml = incldComment + " ";//"Include comments here: ";
 
@@ -1143,13 +1147,14 @@ namespace Generic.DataLayer
                     divn.Style.Add("display", "none");
                     fileupload = new FileUpload();
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
+                    fileupload.Attributes.Add("data-val-filesize", _translator.Translate("Maximum file size is 2MB", _currentLanguage));
+                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("required", "");
                     fileupload.Attributes.Add("fileextensions", "");
-                    fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
-                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
-                    fileupload.Attributes.Add("data-val-required", "Required");
-                    fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+
                     fileupload.Attributes.Add("data-val", "true");
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                     txtbox.Width = 600;
@@ -1190,7 +1195,7 @@ namespace Generic.DataLayer
                     txtbox.Width = 600;
                     divn.InnerHtml = incldComment + " "; //"Include comments here: ";                   
                     txtbox.Attributes.Add("required", "");
-                    txtbox.Attributes.Add("data-val-required", "Required");
+                    txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
                     txtbox.Attributes.Add("data-val", "true");
                     divn.Controls.Add(txtbox);
 
@@ -1214,9 +1219,9 @@ namespace Generic.DataLayer
                     divn.Attributes["data-code"] = answersVsResponse[0];
                     foreach (var answer in answersVsResponse[1].Split(";".ToArray()))
                     {
-                        var listBoxItem = new ListItem(answer, indexChB.ToString());
+                        var listBoxItem = new ListItem(_translator.Translate(answer, _currentLanguage), indexChB.ToString());
                         listBoxItem.Attributes.Add("required", "");
-                        listBoxItem.Attributes.Add("data-val-required", "Please select at least one option");
+                        listBoxItem.Attributes.Add("data-val-required", _translator.Translate("Please select at least one option", _currentLanguage));
                         listBoxItem.Attributes.Add("data-val", "true");
                         list.Items.Add(listBoxItem);
                         indexChB++;
@@ -1227,9 +1232,9 @@ namespace Generic.DataLayer
                     divn.ID = (question.commentType == CommentType.YN_CHECKBOX_N ? "n" : "y") + "Div_" + question.id.ToString();
                     foreach (var answer in answersVsResponse[0].Split(";".ToArray()))
                     {
-                        var listBoxItem = new ListItem(answer, indexChB.ToString());
+                        var listBoxItem = new ListItem(_translator.Translate(answer, _currentLanguage), indexChB.ToString());
                         listBoxItem.Attributes.Add("required", "");
-                        listBoxItem.Attributes.Add("data-val-required", "Please select at least one option");
+                        listBoxItem.Attributes.Add("data-val-required", _translator.Translate("Please select at least one option", _currentLanguage));
                         listBoxItem.Attributes.Add("data-val", "true");
                         list.Items.Add(listBoxItem);
                         indexChB++;
@@ -1269,8 +1274,8 @@ namespace Generic.DataLayer
                 txtbox.Width = 100;
                 txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedate";
                 txtbox.Attributes.Add("required", "");
-                txtbox.Attributes.Add("data-val-required", "Required");
-                txtbox.Attributes.Add("data-val-dpDate", "Enter valid date value");
+                txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                txtbox.Attributes.Add("data-val-dpDate", _translator.Translate("Enter valid date value", _currentLanguage));
                 txtbox.Attributes.Add("data-val", "true");
                 txtbox.Attributes.Add("class", "duedate dpDate");
                 txtbox.Attributes.Add("style", "vertical-align:top");
@@ -1284,12 +1289,12 @@ namespace Generic.DataLayer
                     textNew.Width = 500;
                     textNew.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedateAlert";
                     textNew.Attributes.Add("required", "");
-                    textNew.Attributes.Add("data-val-required", "Required");
+                    textNew.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
                     //textNew.Attributes.Add("data-val-date", "Enter valid date value");
                     textNew.Attributes.Add("data-val", "true");
                     textNew.Attributes.Add("style", "vertical-align:top");
                     var alertHeaderCell = new TableHeaderCell();
-                    alertHeaderCell.Text = "<span style='font-size:13px;'>Please enter the alert text</span>";
+                    alertHeaderCell.Text = "<span style='font-size:13px;'>"+ _translator.Translate("Please enter the alert text", _currentLanguage)+"</span>";
                     alertHeaderCell.Attributes.Add("style", "text-align:left;");
                     headerRow.Cells.Add(alertHeaderCell);
                     var alertCtrlCell = new TableHeaderCell();
@@ -1494,19 +1499,20 @@ namespace Generic.DataLayer
                     if (question.required == 1)
                     {
                         dropDownList.Attributes.Add("data-val", "true");
-                        dropDownList.Attributes.Add("data-val-required", "Required");
+                        dropDownList.Attributes.Add("data-val-required",  _translator.Translate("Required",_currentLanguage));
                     }
 
                     dropDownList.Width = 250;
                     tableCell = new TableCell();
                     tableCell.HorizontalAlign = HorizontalAlign.Left;
-                    string selectval = convertLanguageApi("Please select one");
+                    string selectval = _translator.Translate("Please select one",_currentLanguage);
                     dropDownList.Items.Add(new ListItem(selectval, ""));
                     dropDownList.Attributes.Add("onChange", "showdropdowndiv(this);");
                     for (int i = 0; i < responseCollection.Count; i++)
                     {
+                        
                         //dropDownList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
-                        dropDownList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
+                        dropDownList.Items.Add(new ListItem(_translator.Translate(responseCollection[i].id, TranslationType.Response, _currentLanguage), responseCollection[i].id.ToString()));
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                         {
                             dropDownList.ClearSelection();
@@ -1556,7 +1562,7 @@ namespace Generic.DataLayer
 
                         //tableRadio.Rows.Add(new 
                         //radioButtonList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
-                        var optionText = responseCollection[i].description;
+                        var optionText = _translator.Translate(responseCollection[i].id, TranslationType.Response, _currentLanguage);
                         var hasAdditionalCommentBox = optionText.Contains("????");
                         optionText = optionText.Replace("????", "");
                         Regex reg = new Regex("\\([A-Z][A-Z]\\)");
@@ -1574,7 +1580,7 @@ namespace Generic.DataLayer
                         if (question.required == 1)
                         {
                             radioButtonList.Items[i].Attributes["data-val"] = "true";
-                            radioButtonList.Items[i].Attributes["data-val-required"] = "Required";
+                            radioButtonList.Items[i].Attributes["data-val-required"] =_translator.Translate( "Required",_currentLanguage);
                             radioButtonList.Items[i].Attributes["required"] = "";  
                           
                         }
@@ -1613,7 +1619,7 @@ namespace Generic.DataLayer
 
                             tableCell = new TableCell();
                             tableCell.ColumnSpan = 2;
-                            tableCell.Text = surveyfrm.convertLanguageApi("File uploaded") + ": " + Path.GetFileName(uploadedFile);
+                            tableCell.Text = _translator.Translate("File uploaded",_currentLanguage) + ": " + Path.GetFileName(uploadedFile);
                             tableRow.Controls.Add(tableCell);
                             table.Controls.Add(tableRow);
 
@@ -1710,7 +1716,7 @@ namespace Generic.DataLayer
                     {
                         checkBox = new CheckBox();
                         checkBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_" + responseCollection[i].id.ToString() + "_checkBox";
-                        checkBox.Text = convertLanguageApi(responseCollection[i].description);
+                        checkBox.Text = _translator.Translate(responseCollection[i].id, TranslationType.Response, _currentLanguage);// convertLanguageApi(responseCollection[i].description);
 
                         if (showContentOnly == false)
                         {
@@ -1764,7 +1770,7 @@ namespace Generic.DataLayer
                     tableCell.Controls.Add(textBox);
 
                     Literal literal = new Literal();
-                    literal.Text = "<p>" + surveyfrm.convertLanguageApi("Please upload the file here") + "</p>";
+                    literal.Text = "<p>" + _translator.Translate("Please upload the file here",_currentLanguage) + "</p>";
                     if (showContentOnly == false)
                     {
                         string uploadedFile = "";// question.getUploadedFile(partner, protocol, touchpoint, questionnaire, survey);
@@ -1773,7 +1779,7 @@ namespace Generic.DataLayer
                         if (!string.IsNullOrEmpty(uploadedFile))
                         {
 
-                            literal.Text = "<p>" + surveyfrm.convertLanguageApi("File uploaded") + ": " + Path.GetFileName(uploadedFile) + "</p>";
+                            literal.Text = "<p>" + _translator.Translate("File uploaded",_currentLanguage) + ": " + Path.GetFileName(uploadedFile) + "</p>";
                         }
 
 
@@ -1856,11 +1862,11 @@ namespace Generic.DataLayer
                     tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(15);
                     for (int i = 0; i < responseCollection.Count; i++)
                     {
-                        radioButtonList.Items.Add(new ListItem(convertLanguageApi(responseCollection[i].description), responseCollection[i].id.ToString()));
+                        radioButtonList.Items.Add(new ListItem(_translator.Translate(responseCollection[i].id, TranslationType.Response, _currentLanguage), responseCollection[i].id.ToString()));
                         if (question.required == 1)
                         {
                             radioButtonList.Items[i].Attributes.Add("data-val", "true");
-                            radioButtonList.Items[i].Attributes.Add("data-val-required", "Required");
+                            radioButtonList.Items[i].Attributes.Add("data-val-required", _translator.Translate("Required",_currentLanguage));
                             radioButtonList.Items[i].Attributes.Add("required", "");
                         }
 

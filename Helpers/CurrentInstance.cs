@@ -25,6 +25,7 @@ namespace Generic.Helpers
                 System.Web.HttpContext.Current.Session["EnterpriseId"] = value;
             }
         }
+        
 
 
         public static int MultiTenantProjectType = 1;

@@ -29,6 +29,14 @@ max-width: 350px;
     .alertify-message {
         font-size:14px;
     }
+    #languageSelection{
+        padding-left:35%;
+    }
+    #languageSelection img{
+        height:20px;
+        width:30px;
+        cursor:pointer;
+    }
 </style>
 
 <link href="@Url.Content("~/Content/themes/base/alertify.core.css")" rel="stylesheet" />
@@ -53,7 +61,7 @@ max-width: 350px;
 </script>
 
 @section BottomFooter{
-    <div class="supplyfot">
+    <div class="supplyfot" style="margin-top:10px;">
         <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
             <tr>
                 <td height="60">&nbsp;
@@ -147,19 +155,23 @@ max-width: 350px;
                 </table>
             </td>
         </tr>
-        @*<tr>
+        <tr>
             <td>
-                <div>
-                    <img src="~/Contents/images/ChineseSimplified.jpg" />
-                    <img src="~/Contents/images/French.jpg" />
-                    <img src="~/Contents/images/us.jpg" />
-                    <img src="~/Contents/images/Italian.jpg" />
-                    <img src="~/Contents/images/Spanish.jpg" />
-                    <img src="~/Contents/images/Portuguese.jpg" />
+                @if (ViewBag.ENTERPRISE_ID == 1)
+                { 
+                <div id="languageSelection">
+                    <img src="~/Contents/images/us.jpg" data-language="en" title="English" />
+                    <img src="~/Contents/images/Arabic.gif" data-language="ar" title="Arabic"/>
+                    <img src="~/Contents/images/ChineseSimplified.jpg" data-language="zh-CN" title="Chinese Simplified" />
+                    <img src="~/Contents/images/French.jpg" data-language="fr" title="French" />
+                    <img src="~/Contents/images/DeutschGerman.jpg" data-language="de" title="German" />
+                    <img src="~/Contents/images/Italian.jpg" data-language="it" title="Italian" />
+                    <img src="~/Contents/images/Russia-Flag-icon.png" data-language="ru" title="Russian" />
+                    <img src="~/Contents/images/Spanish.jpg" data-language="es" title="Spanish" />
                 </div>
-                
+                }
             </td>
-        </tr>*@
+        </tr>
     </table>
 }
 <table width="416px" height="281" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -176,7 +188,7 @@ max-width: 350px;
                     </td>
                 </tr>
                 <tr>
-                    <td height="28" class="infologintitle">Please enter your access code:
+                    <td height="28" class="infologintitle">@ViewBag.ACCESS_CODE_PLEASE_ENTER
                     </td>
                 </tr>
                 <tr>
@@ -193,7 +205,7 @@ max-width: 350px;
 
                             <table width="300" border="0" align="center" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <td width="94" class="infologintext">*Access Code:
+                                    <td width="94" class="infologintext">*@ViewBag.ACCESS_CODE_SIPLE_TEXT 
                                     </td>
                                     <td width="136">
                                         <input name="AccessCode" type="text" id="AccessCode" value="@ViewBag.accesscode" class="infologinbox" />
@@ -235,4 +247,14 @@ max-width: 350px;
     </tr>
 </table>
 
-                     
+             <script>
+                 $(document).ready(function () {
+
+                     $("#languageSelection img").click(function () {
+                         $.post("@Url.Action("SetLanguage")", { language: $(this).data("language") }).done(function (result) {
+                             if (result)
+                             window.location.reload();
+                         });
+                     })
+                 });
+             </script>        

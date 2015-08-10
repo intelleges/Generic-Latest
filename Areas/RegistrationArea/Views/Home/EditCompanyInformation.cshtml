@@ -138,8 +138,7 @@
                         <td>
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
-                                    <td height="25" colspan="2" class="infotitlebg">Company Information <span class="infotitlenormal">(please verify your company information
-                                                            is Correct)</span>
+                                    <td height="25" colspan="2" class="infotitlebg">@ViewBag.COMPANY_INFORMATION_TEXT <span class="infotitlenormal">(@ViewBag.VERIFY_COMPANY_INFO)</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -158,7 +157,7 @@
                                                     <td colspan="3" style="height: 20px;">&nbsp;</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">Company*</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.Company *</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
                                                         @*<input name="ctl00$contentQuestionnaireBody$txtCompanyName" type="text" value="ABC" id="ctl00_contentQuestionnaireBody_txtCompanyName" class="infocontbox" /><span id="ctl00_contentQuestionnaireBody_requiredtxtCompanyName" style="color:Red;display:none;"><br />Required</span>*@
@@ -171,13 +170,13 @@
                                                     <td class="esigncont" align="right">
                                                         <p>
                                                             <br />
-                                                            <b>Physical Address</b><br />
+                                                            <b>@ViewBag.PHYSYCAL_ADDRESS</b><br />
                                                         </p>
                                                     </td>
                                                     <td colspan="2"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">Address One*</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.ADDRESS_ONE *</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
                                                      
@@ -188,7 +187,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">Address Two</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.ADDRESS_TWO</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
                                                         @* <input name="ctl00$contentQuestionnaireBody$txtAddress2" type="text" value="123" id="ctl00_contentQuestionnaireBody_txtAddress2" class="infocontbox" />*@
@@ -197,7 +196,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">City*</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.CITY*</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
                                                         @*                    <input name="ctl00$contentQuestionnaireBody$txtCity" type="text" value="xyz" id="ctl00_contentQuestionnaireBody_txtCity" class="infocontbox" />
@@ -207,7 +206,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">State</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.STATE_TEXT</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
                                                        
@@ -233,7 +232,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">Postal Code*</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.POSTAL_CODE *</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
 
@@ -244,7 +243,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">Province</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.PROVINCE</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
                                                         @*  <input name="ctl00$contentQuestionnaireBody$txtProvince" type="text" id="ctl00_contentQuestionnaireBody_txtProvince" class="infocontbox" onchange="provinceChange()" />*@
@@ -254,7 +253,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">Country*</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.COUNTRY_TEXT *</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
                                                         
@@ -325,4 +324,4 @@
     </tr>
 </table>
 
-<span style="color: #8faebb;">*Required Fields</span>
+<span style="color: #8faebb;">* @ViewBag.REQUIRED_FIELDS</span>
