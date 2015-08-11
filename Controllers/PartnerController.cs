@@ -1148,14 +1148,17 @@ namespace Generic.Controllers
                     {
                         if (partnumbers.internalID != null)
                         {
-                            if (partnumbers.PARTNER_SAP_ID == null || partnumbers.dunsNumber == null || partnumbers.PART_NUMBER_INTERNAL == null || partnumbers.PART_NUMBER_SAP == null || partnumbers.PARTNUMBER_DETAIL == null)
+                            if (partnumbers.PARTNER_SAP_ID == null || partnumbers.dunsNumber == null || partnumbers.PART_NUMBER_INTERNAL == null || partnumbers.PART_NUMBER_SAP == null)
                             {
                                 ErrorView objerrorView = new ErrorView();
                                 objerrorView.errorMessage = "Record " + recordNumber.ToString() + " of " + countpartNumbers + " has invalid values.";
                                 return PartialView("_Error", objerrorView);
                             }
 
-
+                            if( partnumbers.PARTNUMBER_DETAIL == null)
+                            {
+                                partnumbers.PARTNUMBER_DETAIL = partnumbers.PART_NUMBER_INTERNAL;
+                            }
                             var objstateSpreadSheet = db.pr_getStateByStateCode(partnumbers.StateName).FirstOrDefault();
                             string stateIdSpreadSheet = null;
                             if (objstateSpreadSheet != null)
