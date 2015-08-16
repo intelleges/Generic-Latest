@@ -1063,6 +1063,10 @@ namespace Generic.Controllers
                                     objQuestion.commentType = CommentType.YN_CHECKBOX_N;
                                 else if (excelQuestionnaire.CommentType == "XX_CHECKBOX_X")
                                     objQuestion.commentType = CommentType.XX_CHECKBOX_X;
+                                else if (excelQuestionnaire.CommentType == "YN_UPLOADEXPIRY_Y")
+                                    objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_Y;
+                                else if (excelQuestionnaire.CommentType == "YN_UPLOADEXPIRY_N")
+                                    objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_N;
                                 else
                                 {
                                     objQuestion.commentType = 0;
@@ -1105,7 +1109,7 @@ namespace Generic.Controllers
                                     string[] sArray = new string[200];
                                     char[] splitter = { ';' };
                                     int id = 0;
-                                    sArray = responses.Split(splitter);
+                                    sArray = responses.Split(splitter,StringSplitOptions.RemoveEmptyEntries);
 
                                     for (int i = 0; i < sArray.Length; i++)
                                     {
@@ -1116,7 +1120,7 @@ namespace Generic.Controllers
                                             objResponse.active = true;
                                             objResponse.description = sArray[i];
                                             objResponse.enterprise = EnterpriseID;
-                                            if (responseType.ToLower() == "dropdown")
+                                            if (responseType.ToLower() == "dropdown" || responseType.ToLower() == "list")
                                             {
                                                 Regex reg = new Regex("\\([A-Z][A-Z]\\)");
                                                 var match = reg.Match(objResponse.description);

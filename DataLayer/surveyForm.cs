@@ -1253,9 +1253,9 @@ namespace Generic.DataLayer
                 tableCell.Controls.Add(divn);
             }
 
-            if (question.commentType == CommentType.YN_DUEDATE_N || question.commentType == CommentType.YN_DUEDATE_Y || question.commentType == CommentType.YN_ALERT_N || question.commentType == CommentType.YN_ALERT_Y)
+            if (question.commentType == CommentType.YN_DUEDATE_N || question.commentType == CommentType.YN_DUEDATE_Y || question.commentType == CommentType.YN_ALERT_N || question.commentType == CommentType.YN_ALERT_Y || question.commentType == CommentType.YN_UPLOADEXPIRY_Y || question.commentType == CommentType.YN_UPLOADEXPIRY_N)
             {
-                var divPrefix = question.commentType == CommentType.YN_DUEDATE_N || question.commentType == CommentType.YN_ALERT_N ? "n" : "y";
+                var divPrefix = question.commentType == CommentType.YN_DUEDATE_N || question.commentType == CommentType.YN_ALERT_N || question.commentType == CommentType.YN_UPLOADEXPIRY_N ? "n" : "y";
                 HtmlGenericControl divn = new HtmlGenericControl();
                 divn.ID = divPrefix+"Div_" + question.id.ToString();
                 //divn.Visible = false;
@@ -1302,6 +1302,29 @@ namespace Generic.DataLayer
                     alertCtrlCell.Controls.Add(textNew);
                     controlRow.Cells.Add(alertCtrlCell);
                     //divn.Controls.Add(textNew);
+                }
+
+                if(question.commentType==CommentType.YN_UPLOADEXPIRY_Y||question.commentType==CommentType.YN_UPLOADEXPIRY_N)
+                {
+                    fileupload = new FileUpload();
+                    fileupload.Attributes.Add("data-val-filesize", _translator.Translate("Maximum file size is 2MB", _currentLanguage));
+                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
+                    fileupload.Attributes.Add("required", "");
+                    fileupload.Attributes.Add("fileextensions", "");
+                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+
+                    fileupload.Attributes.Add("data-val", "true");
+                    fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
+                    var alertHeaderCell = new TableHeaderCell();
+                    alertHeaderCell.Text = "<span style='font-size:13px;'>" + _translator.Translate("Upload written procedures here", _currentLanguage) + "</span>";
+                    alertHeaderCell.Attributes.Add("style", "text-align:left;");
+                    headerRow.Cells.Add(alertHeaderCell);
+                    var alertCtrlCell = new TableHeaderCell();
+                    alertCtrlCell.Attributes.Add("style", "text-align:left;");
+                    alertCtrlCell.Controls.Add(fileupload);
+                    controlRow.Cells.Add(alertCtrlCell);
                 }
                 tb.Rows.Add(headerRow);
                 tb.Rows.Add(controlRow);
