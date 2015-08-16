@@ -1252,14 +1252,75 @@ namespace Generic.DataLayer
                 //tableRow.Controls.AddAt(0,cell);
                 tableCell.Controls.Add(divn);
             }
+            if (question.commentType == CommentType.YN_UPLOADEXPIRY_Y || question.commentType == CommentType.YN_UPLOADEXPIRY_N)
+            {
+                var divPrefix = question.commentType == CommentType.YN_UPLOADEXPIRY_N ? "n" : "y";
+                HtmlGenericControl divn = new HtmlGenericControl();
+                divn.ID = divPrefix + "Div_" + question.id.ToString();
+                //divn.Visible = false;
+                divn.Style.Add("display", "none");
 
-            if (question.commentType == CommentType.YN_DUEDATE_N || question.commentType == CommentType.YN_DUEDATE_Y || question.commentType == CommentType.YN_ALERT_N || question.commentType == CommentType.YN_ALERT_Y || question.commentType == CommentType.YN_UPLOADEXPIRY_Y || question.commentType == CommentType.YN_UPLOADEXPIRY_N)
+                Table tb = new Table();
+                tb.Attributes.Add("style", "width:100%");
+                TableRow headerRow = new TableRow();
+
+                var dueHeaderCell = new TableHeaderCell();
+                dueHeaderCell.Text ="<span style='font-size:13px;'>" + _translator.Translate("Upload written procedures here", _currentLanguage) + "</span>" ;
+                dueHeaderCell.Attributes.Add("style", "text-align:left;");
+                headerRow.Cells.Add(dueHeaderCell);
+                TableRow controlRow = new TableRow();
+                var duedateCtrlCell = new TableCell();
+                duedateCtrlCell.Attributes.Add("style", "vertical-align:middle");
+
+                txtbox = new TextBox();
+                txtbox.Width = 100;
+                txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedate";
+                txtbox.Attributes.Add("required", "");
+                txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                txtbox.Attributes.Add("data-val-dpDate", _translator.Translate("Enter valid date value", _currentLanguage));
+                txtbox.Attributes.Add("data-val", "true");
+                txtbox.Attributes.Add("class", "duedate dpDate");
+                txtbox.Attributes.Add("style", "vertical-align:top");
+                //divn.InnerHtml = inclDueDate + " ";//"Include comments here: ";
+                
+
+                fileupload = new FileUpload();
+                fileupload.Attributes.Add("data-val-filesize", _translator.Translate("Maximum file size is 2MB", _currentLanguage));
+                fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
+                fileupload.Attributes.Add("required", "");
+                fileupload.Attributes.Add("fileextensions", "");
+                fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                fileupload.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                fileupload.Attributes.Add("data-val", "true");
+                fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
+
+                var alertHeaderCell = new TableHeaderCell();
+                alertHeaderCell.Text = inclDueDate;
+                alertHeaderCell.Attributes.Add("style", "text-align:left;");
+                headerRow.Cells.Add(alertHeaderCell);
+                var alertCtrlCell = new TableHeaderCell();
+                alertCtrlCell.Attributes.Add("style", "text-align:left;");
+                
+                duedateCtrlCell.Controls.Add(fileupload);
+                controlRow.Cells.Add(duedateCtrlCell);
+                alertCtrlCell.Controls.Add(txtbox);
+                controlRow.Cells.Add(alertCtrlCell);
+
+                tb.Rows.Add(headerRow);
+                tb.Rows.Add(controlRow);
+                divn.Controls.Add(tb);
+                tableCell.Controls.AddAt(0, divn);
+            }
+
+            if (question.commentType == CommentType.YN_DUEDATE_N || question.commentType == CommentType.YN_DUEDATE_Y || question.commentType == CommentType.YN_ALERT_N || question.commentType == CommentType.YN_ALERT_Y )
             {
                 var divPrefix = question.commentType == CommentType.YN_DUEDATE_N || question.commentType == CommentType.YN_ALERT_N || question.commentType == CommentType.YN_UPLOADEXPIRY_N ? "n" : "y";
                 HtmlGenericControl divn = new HtmlGenericControl();
                 divn.ID = divPrefix+"Div_" + question.id.ToString();
                 //divn.Visible = false;
                 divn.Style.Add("display", "none");
+
                 Table tb = new Table();
                 tb.Attributes.Add("style","width:100%");
                 TableRow headerRow = new TableRow();
@@ -1270,6 +1331,7 @@ namespace Generic.DataLayer
                 TableRow controlRow = new TableRow();
                 var duedateCtrlCell = new TableCell();
                 duedateCtrlCell.Attributes.Add("style", "vertical-align:middle");
+
                 txtbox = new TextBox();
                 txtbox.Width = 100;
                 txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedate";
@@ -1304,28 +1366,7 @@ namespace Generic.DataLayer
                     //divn.Controls.Add(textNew);
                 }
 
-                if(question.commentType==CommentType.YN_UPLOADEXPIRY_Y||question.commentType==CommentType.YN_UPLOADEXPIRY_N)
-                {
-                    fileupload = new FileUpload();
-                    fileupload.Attributes.Add("data-val-filesize", _translator.Translate("Maximum file size is 2MB", _currentLanguage));
-                    fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
-                    fileupload.Attributes.Add("required", "");
-                    fileupload.Attributes.Add("fileextensions", "");
-                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
-                    fileupload.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
-                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
-
-                    fileupload.Attributes.Add("data-val", "true");
-                    fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
-                    var alertHeaderCell = new TableHeaderCell();
-                    alertHeaderCell.Text = "<span style='font-size:13px;'>" + _translator.Translate("Upload written procedures here", _currentLanguage) + "</span>";
-                    alertHeaderCell.Attributes.Add("style", "text-align:left;");
-                    headerRow.Cells.Add(alertHeaderCell);
-                    var alertCtrlCell = new TableHeaderCell();
-                    alertCtrlCell.Attributes.Add("style", "text-align:left;");
-                    alertCtrlCell.Controls.Add(fileupload);
-                    controlRow.Cells.Add(alertCtrlCell);
-                }
+                
                 tb.Rows.Add(headerRow);
                 tb.Rows.Add(controlRow);
                 divn.Controls.Add(tb);
