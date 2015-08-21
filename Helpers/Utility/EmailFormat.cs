@@ -154,7 +154,31 @@ namespace Generic.Helpers.Utility
             MatchCollection collection = regex.Matches(sEmailBody);
             string sVariable = "";
             string sValue = "";
+            var hintTagsRegex = new Regex(@"<[Hh][Ii][Nn][Tt]\b[^>]*>(.*?)</[Hh][Ii][Nn][Tt]>");
+            var hints = hintTagsRegex.Matches(sEmailBody);
+            foreach(var match in hints)
+            {
+                sVariable = match.ToString();
+                sValue = sVariable;
+                var attributesREgex = new Regex("(?<=text=[\"'])([\\s\\d\\w])+(?=['\"])");
+                var text = attributesREgex.Match(sVariable);
+                if(text.Success)
+                {
+                    var elementTextExpression = new Regex("(?<=>)([\\s\\d\\w])+(?=</)");
+                    var innerText = elementTextExpression.Match(sVariable);
+                    if(innerText.Success)
+                    {
+                        sValue = string.Format("<a href='#' data-toggle='popover' title='{1}' data-placement='top'>{0}</a>", innerText.Value, HttpUtility.HtmlEncode(text.Value));
+                    }
+                }
 
+
+
+                sEmailBody = sEmailBody.Replace(sVariable, sValue);
+
+            }
+             sVariable = "";
+             sValue = "";
             //iterate each variale found
             foreach (Match match in collection)
             {
