@@ -1199,8 +1199,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
                     //JB skip logic handling begins
-                    if (answer == "74" || answer == "75" || answer == "76" || answer != "")
-                    {
+                    //if (answer == "74" || answer == "75" || answer == "76" || answer != "")
+                    //{
                         if (objQuestion.skipLogicJump != null)
                         {
                             if (objQuestion.skipLogicAnswer != null)
@@ -1252,6 +1252,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                             if (foundFlage)
                                             {
                                                 question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
+                                                var currentQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
                                                 var context = new EntitiesDBContext();
 
                                                 int? rID = context.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault().response;
@@ -1259,6 +1260,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
                                                 int check = 0;
+                                                //if skip logic answer type is multiply then check by response.id
+                                                if (currentQuestion.skipLogicAnswer == SkipLogicAnswer.D)
+                                                {
+                                                    check = responsenew.id == ansLogicStatus ? 1 : 0;
+                                                } else
                                                 if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
                                                 {
                                                     foundFlage = true;
@@ -1358,7 +1364,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             }
             
