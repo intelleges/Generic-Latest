@@ -150,6 +150,37 @@ type="text/javascript"></script>
 @Scripts.Render("~/bundles/jqueryui")
 @Scripts.Render("~/bundles/jqueryval")
 <script>
+    var $jQval = $.validator,
+        adapters,
+        data_validation = "unobtrusiveValidation";
+
+    function setValidationValues(options, ruleName, value) {
+        options.rules[ruleName] = value;
+        if (options.message) {
+            options.messages[ruleName] = options.message;
+        }
+    }
+    //The validation method
+    $jQval.addMethod("selectall", function (value, element, params) {
+        var hasNonChecked = false;
+        $("input[name='" + $(element).attr("name") + "']").each(function () {
+            if (!$(this).prop("checked")) {
+                hasNonChecked = true;
+                return false;
+            }
+        });
+        if (hasNonChecked) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+
+    $.validator.unobtrusive.adapters.add(
+'selectall', function (options) {
+    setValidationValues(options, "selectall", true);
+});
+    $jQval.unobtrusive.parse();
     $(function () {
         //jQuery.validator.unobtrusive.adapters.add("dpdate", function (options) {
         //    options.rules['dpdate'] = true;

@@ -1207,43 +1207,93 @@ namespace Generic.DataLayer
             if (question.commentType == CommentType.XX_CHECKBOX_X || question.commentType == CommentType.YN_CHECKBOX_N || question.commentType == CommentType.YN_CHECKBOX_Y)
             {
                 Generic.Helpers.UIControl.ExtendedChechBoxList list = new Generic.Helpers.UIControl.ExtendedChechBoxList();
+                Generic.Helpers.UIControl.MyRadioButtonList rList = new UIControl.MyRadioButtonList();
+                bool useRadioList = false;
                 list.UseValidation = true;
                 list.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_checkboxList";
+                rList.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_checkboxList";
                 HtmlGenericControl divn = new HtmlGenericControl("div");
                 divn.Attributes["class"] = "fullWidth";
                 var indexChB = 0;
                 var answersVsResponse = question.subCheckBoxChoice.Split(":".ToArray());
-                if (answersVsResponse.Length > 1)
+                if (answersVsResponse.Length > 2)
                 {
-                    divn.ID = "nDiv_" + question.id.ToString();
-                    divn.Attributes["data-code"] = answersVsResponse[0];
-                    foreach (var answer in answersVsResponse[1].Split(";".ToArray()))
+                    if(question.commentType == CommentType.XX_CHECKBOX_X)
                     {
-                        var listBoxItem = new ListItem(_translator.Translate(answer, _currentLanguage), indexChB.ToString());
-                        listBoxItem.Attributes.Add("required", "");
-                        listBoxItem.Attributes.Add("data-val-required", _translator.Translate("Please select at least one option", _currentLanguage));
-                        listBoxItem.Attributes.Add("data-val", "true");
-                        list.Items.Add(listBoxItem);
-                        indexChB++;
+                        divn.ID = "nDiv_" + question.id.ToString();
+                        divn.Attributes["data-code"] = answersVsResponse[0];
+                    }
+                    else
+                    {
+                        divn.ID = (question.commentType == CommentType.YN_CHECKBOX_N ? "n" : "y") + "Div_" + question.id.ToString();
+                    }
+                    var controlType = answersVsResponse[1].Split("=".ToArray(), StringSplitOptions.RemoveEmptyEntries);
+                    if (controlType[0] == "checkbox")
+                        foreach (var answer in answersVsResponse[2].Split(";".ToArray(), StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            var listBoxItem = new ListItem(_translator.Translate(answer, _currentLanguage), indexChB.ToString());
+                            if (controlType[1] == "0")
+                            {
+                                listBoxItem.Attributes.Add("required", "");
+                                listBoxItem.Attributes.Add("data-val-required", _translator.Translate("Please select at least one option", _currentLanguage));
+                            }
+                            else
+                            {
+                                listBoxItem.Attributes.Add("data-val-selectall", _translator.Translate("Please select all options", _currentLanguage));
+                            }
+                            listBoxItem.Attributes.Add("data-val", "true");
+                            list.Items.Add(listBoxItem);
+                            indexChB++;
+                        }
+                    else
+                    {
+                        useRadioList = true;
+                        foreach (var answer in answersVsResponse[2].Split(";".ToArray(), StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            var listBoxItem = new ListItem(_translator.Translate(answer, _currentLanguage), indexChB.ToString());
+                            if (controlType[1] == "1")
+                            {
+                                listBoxItem.Attributes.Add("required", "");
+                                listBoxItem.Attributes.Add("data-val-required", _translator.Translate("Please select at least one option", _currentLanguage));
+                                listBoxItem.Attributes.Add("data-val", "true");
+                            }
+                            rList.Items.Add(listBoxItem);
+                            indexChB++;
+                        }
                     }
                 }
                 else
-                {
-                    divn.ID = (question.commentType == CommentType.YN_CHECKBOX_N ? "n" : "y") + "Div_" + question.id.ToString();
-                    foreach (var answer in answersVsResponse[0].Split(";".ToArray()))
+                    if (answersVsResponse.Length > 1)
                     {
-                        var listBoxItem = new ListItem(_translator.Translate(answer, _currentLanguage), indexChB.ToString());
-                        listBoxItem.Attributes.Add("required", "");
-                        listBoxItem.Attributes.Add("data-val-required", _translator.Translate("Please select at least one option", _currentLanguage));
-                        listBoxItem.Attributes.Add("data-val", "true");
-                        list.Items.Add(listBoxItem);
-                        indexChB++;
+                        divn.ID = "nDiv_" + question.id.ToString();
+                        divn.Attributes["data-code"] = answersVsResponse[0];
+                        foreach (var answer in answersVsResponse[1].Split(";".ToArray()))
+                        {
+                            var listBoxItem = new ListItem(_translator.Translate(answer, _currentLanguage), indexChB.ToString());
+                            listBoxItem.Attributes.Add("required", "");
+                            listBoxItem.Attributes.Add("data-val-required", _translator.Translate("Please select at least one option", _currentLanguage));
+                            listBoxItem.Attributes.Add("data-val", "true");
+                            list.Items.Add(listBoxItem);
+                            indexChB++;
+                        }
                     }
-                        
-                }
+                    else
+                    {
+                        divn.ID = (question.commentType == CommentType.YN_CHECKBOX_N ? "n" : "y") + "Div_" + question.id.ToString();
+                        foreach (var answer in answersVsResponse[0].Split(";".ToArray()))
+                        {
+                            var listBoxItem = new ListItem(_translator.Translate(answer, _currentLanguage), indexChB.ToString());
+                            listBoxItem.Attributes.Add("required", "");
+                            listBoxItem.Attributes.Add("data-val-required", _translator.Translate("Please select at least one option", _currentLanguage));
+                            listBoxItem.Attributes.Add("data-val", "true");
+                            list.Items.Add(listBoxItem);
+                            indexChB++;
+                        }
+
+                    }
                 divn.Style.Add("display", "none");
                 divn.Style.Add("margin-left","30px");
-                divn.Controls.Add(list);
+                divn.Controls.Add((useRadioList ? (Control)rList : (Control)list));
                 //var cell = new TableCell();
                 //cell.Attributes["style"] = "width:5%;border-spacing:0;padding-right:5px;font-size:medium;";
                 //cell.Text = "&nbsp;";
