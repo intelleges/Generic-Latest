@@ -82,7 +82,7 @@ namespace Generic.Helpers.Utility
             }
             if (email.type == "emailAlert")
             {
-                var emails = email.emailTo.Split(new char[]{';'});
+                var emails = email.emailTo.Split(new char[]{';'},StringSplitOptions.RemoveEmptyEntries);
                 foreach(var emailTo in emails)
                 {
                     mail.AddTo(emailTo);
