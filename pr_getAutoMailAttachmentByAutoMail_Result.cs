@@ -10,15 +10,12 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class autoMailAttachment
+    public partial class pr_getAutoMailAttachmentByAutoMail_Result
     {
         public int id { get; set; }
         public int autoMail { get; set; }
         public byte[] attachment { get; set; }
         public string note { get; set; }
-    
-        public virtual autoMailMessage autoMailMessage { get; set; }
     }
 }

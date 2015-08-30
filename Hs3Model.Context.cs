@@ -29,7 +29,6 @@ namespace Generic
     
         public virtual DbSet<accessLevel> accessLevel { get; set; }
         public virtual DbSet<agency> agency { get; set; }
-        public virtual DbSet<autoMailAttachment> autoMailAttachment { get; set; }
         public virtual DbSet<autoMailMessage> autoMailMessage { get; set; }
         public virtual DbSet<autoMailType> autoMailType { get; set; }
         public virtual DbSet<country> country { get; set; }
@@ -194,6 +193,7 @@ namespace Generic
         public virtual DbSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponses { get; set; }
         public virtual DbSet<partnumberSiteZcodePPTQQuestionResponse> partnumberSiteZcodePPTQQuestionResponses { get; set; }
         public virtual DbSet<question> questions { get; set; }
+        public virtual DbSet<autoMailAttachment> autoMailAttachments { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -251,23 +251,6 @@ namespace Generic
                 new ObjectParameter("footer2", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addAutomail", protocolParameter, touchpointParameter, partnerTypeParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
-        }
-    
-        public virtual ObjectResult<Nullable<decimal>> pr_addAutoMailAttachment(Nullable<int> autoMail, string attachment, string note)
-        {
-            var autoMailParameter = autoMail.HasValue ?
-                new ObjectParameter("autoMail", autoMail) :
-                new ObjectParameter("autoMail", typeof(int));
-    
-            var attachmentParameter = attachment != null ?
-                new ObjectParameter("attachment", attachment) :
-                new ObjectParameter("attachment", typeof(string));
-    
-            var noteParameter = note != null ?
-                new ObjectParameter("note", note) :
-                new ObjectParameter("note", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAutoMailAttachment", autoMailParameter, attachmentParameter, noteParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAutoMailType(string description, Nullable<int> sortOrder, Nullable<int> active)
@@ -2582,24 +2565,6 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailMessage>("pr_getAutomail", mergeOption, idParameter);
-        }
-    
-        public virtual ObjectResult<autoMailAttachment> pr_getAutoMailAttachment(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailAttachment>("pr_getAutoMailAttachment", idParameter);
-        }
-    
-        public virtual ObjectResult<autoMailAttachment> pr_getAutoMailAttachment(Nullable<int> id, MergeOption mergeOption)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<autoMailAttachment>("pr_getAutoMailAttachment", mergeOption, idParameter);
         }
     
         public virtual ObjectResult<autoMailType> pr_getAutoMailType(Nullable<int> id)
@@ -5209,27 +5174,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutomail", idParameter, protocolParameter, touchpointParameter, partnerTypeParameter, mailTypeParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter);
         }
     
-        public virtual int pr_modifyAutoMailAttachment(Nullable<int> id, Nullable<int> autoMail, string attachment, string note)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var autoMailParameter = autoMail.HasValue ?
-                new ObjectParameter("autoMail", autoMail) :
-                new ObjectParameter("autoMail", typeof(int));
-    
-            var attachmentParameter = attachment != null ?
-                new ObjectParameter("attachment", attachment) :
-                new ObjectParameter("attachment", typeof(string));
-    
-            var noteParameter = note != null ?
-                new ObjectParameter("note", note) :
-                new ObjectParameter("note", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutoMailAttachment", idParameter, autoMailParameter, attachmentParameter, noteParameter);
-        }
-    
         public virtual int pr_modifyAutoMailType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<int> active)
         {
             var idParameter = id.HasValue ?
@@ -7169,15 +7113,6 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutomail", idParameter);
-        }
-    
-        public virtual int pr_removeAutoMailAttachment(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutoMailAttachment", idParameter);
         }
     
         public virtual int pr_removeAutoMailType(Nullable<int> id)
@@ -16924,6 +16859,71 @@ namespace Generic
                 new ObjectParameter("enterprise", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestion", idParameter, questionParameter, nameParameter, titleParameter, tagParameter, responseTypeParameter, requiredParameter, weightParameter, skipLogicAnswerParameter, skipLogicJumpParameter, subCheckBoxChoiceParameter, accessLevelParameter, commentRequiredParameter, commentBoxTxtParameter, commentUploadTxtParameter, calendarMessageTxtParameter, commentTypeParameter, spinOffQuestionnaireParameter, spinOffQIDParameter, emailAlertParameter, emailAlertListParameter, updatedParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addAutoMailAttachment(Nullable<int> autoMail, byte[] attachment, string note)
+        {
+            var autoMailParameter = autoMail.HasValue ?
+                new ObjectParameter("autoMail", autoMail) :
+                new ObjectParameter("autoMail", typeof(int));
+    
+            var attachmentParameter = attachment != null ?
+                new ObjectParameter("attachment", attachment) :
+                new ObjectParameter("attachment", typeof(byte[]));
+    
+            var noteParameter = note != null ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addAutoMailAttachment", autoMailParameter, attachmentParameter, noteParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutoMailAttachment_Result> pr_getAutoMailAttachment(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutoMailAttachment_Result>("pr_getAutoMailAttachment", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutoMailAttachmentByAutoMail_Result> pr_getAutoMailAttachmentByAutoMail(Nullable<int> automail)
+        {
+            var automailParameter = automail.HasValue ?
+                new ObjectParameter("automail", automail) :
+                new ObjectParameter("automail", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutoMailAttachmentByAutoMail_Result>("pr_getAutoMailAttachmentByAutoMail", automailParameter);
+        }
+    
+        public virtual int pr_modifyAutoMailAttachment(Nullable<int> id, Nullable<int> autoMail, byte[] attachment, string note)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var autoMailParameter = autoMail.HasValue ?
+                new ObjectParameter("autoMail", autoMail) :
+                new ObjectParameter("autoMail", typeof(int));
+    
+            var attachmentParameter = attachment != null ?
+                new ObjectParameter("attachment", attachment) :
+                new ObjectParameter("attachment", typeof(byte[]));
+    
+            var noteParameter = note != null ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutoMailAttachment", idParameter, autoMailParameter, attachmentParameter, noteParameter);
+        }
+    
+        public virtual int pr_removeAutoMailAttachment(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutoMailAttachment", idParameter);
         }
     }
 }

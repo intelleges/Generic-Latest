@@ -15,7 +15,7 @@ namespace Generic
     {
         public int id { get; set; }
         public int autoMail { get; set; }
-        public string attachment { get; set; }
+        public byte[] attachment { get; set; }
         public string note { get; set; }
     }
 }

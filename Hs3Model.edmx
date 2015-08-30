@@ -32,7 +32,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="autoMail" Type="int" Nullable="false" />
-          <Property Name="attachment" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="attachment" Type="image" Nullable="false" />
           <Property Name="note" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="autoMailMessage">
@@ -4077,7 +4077,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_addAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="autoMail" Type="int" Mode="In" />
-          <Parameter Name="attachment" Type="varchar" Mode="In" />
+          <Parameter Name="attachment" Type="image" Mode="In" />
           <Parameter Name="note" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_addAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5491,6 +5491,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getAutoMailAttachmentByAutoMail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="automail" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6628,7 +6631,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_modifyAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="autoMail" Type="int" Mode="In" />
-          <Parameter Name="attachment" Type="varchar" Mode="In" />
+          <Parameter Name="attachment" Type="image" Mode="In" />
           <Parameter Name="note" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_modifyAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -9200,7 +9203,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
         <EntityContainer Name="hs3MVCMTQa2Entities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="accessLevel" EntityType="hs3MVCMTQa2Model.accessLevel" />
           <EntitySet Name="agency" EntityType="hs3MVCMTQa2Model.agency" />
-          <EntitySet Name="autoMailAttachment" EntityType="hs3MVCMTQa2Model.autoMailAttachment" />
           <EntitySet Name="autoMailMessage" EntityType="hs3MVCMTQa2Model.autoMailMessage" />
           <EntitySet Name="autoMailType" EntityType="hs3MVCMTQa2Model.autoMailType" />
           <EntitySet Name="country" EntityType="hs3MVCMTQa2Model.country" />
@@ -9299,10 +9301,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <AssociationSet Name="FK_agency_enterprise" Association="hs3MVCMTQa2Model.FK_agency_enterprise">
             <End EntitySet="enterprise" Role="enterprise" />
             <End EntitySet="agency" Role="agency" />
-          </AssociationSet>
-          <AssociationSet Name="FK_autoMailAttachment_autoMailMessage" Association="hs3MVCMTQa2Model.FK_autoMailAttachment_autoMailMessage">
-            <End EntitySet="autoMailMessage" Role="autoMailMessage" />
-            <End EntitySet="autoMailAttachment" Role="autoMailAttachment" />
           </AssociationSet>
           <AssociationSet Name="FK_autoMailMessage_autoMailType" Association="hs3MVCMTQa2Model.FK_autoMailMessage_autoMailType">
             <End EntitySet="autoMailType" Role="autoMailType" />
@@ -9583,11 +9581,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="text" Mode="In" Type="String" />
             <Parameter Name="footer1" Mode="In" Type="String" />
             <Parameter Name="footer2" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="pr_addAutoMailAttachment" ReturnType="Collection(Decimal)">
-            <Parameter Name="autoMail" Mode="In" Type="Int32" />
-            <Parameter Name="attachment" Mode="In" Type="String" />
-            <Parameter Name="note" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_addAutoMailType" ReturnType="Collection(Decimal)">
             <Parameter Name="description" Mode="In" Type="String" />
@@ -10233,9 +10226,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getAutomail" EntitySet="autoMailMessage" ReturnType="Collection(hs3MVCMTQa2Model.autoMailMessage)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getAutoMailAttachment" EntitySet="autoMailAttachment" ReturnType="Collection(hs3MVCMTQa2Model.autoMailAttachment)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_getAutoMailType" EntitySet="autoMailType" ReturnType="Collection(hs3MVCMTQa2Model.autoMailType)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -10719,12 +10709,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="text" Mode="In" Type="String" />
             <Parameter Name="footer1" Mode="In" Type="String" />
             <Parameter Name="footer2" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="pr_modifyAutoMailAttachment">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="autoMail" Mode="In" Type="Int32" />
-            <Parameter Name="attachment" Mode="In" Type="String" />
-            <Parameter Name="note" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyAutoMailType">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -11252,9 +11236,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeAutomail">
-          <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_removeAutoMailAttachment">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeAutoMailType">
@@ -14220,6 +14201,31 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="active" Mode="In" Type="Boolean" />
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="pr_addAutoMailAttachment" ReturnType="Collection(Decimal)">
+            <Parameter Name="autoMail" Mode="In" Type="Int32" />
+            <Parameter Name="attachment" Mode="In" Type="Binary" />
+            <Parameter Name="note" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutoMailAttachment" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailAttachment_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutoMailAttachmentByAutoMail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailAttachmentByAutoMail_Result)">
+          <Parameter Name="automail" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyAutoMailAttachment">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="autoMail" Mode="In" Type="Int32" />
+            <Parameter Name="attachment" Mode="In" Type="Binary" />
+            <Parameter Name="note" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeAutoMailAttachment">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="autoMailAttachments" EntityType="hs3MVCMTQa2Model.autoMailAttachment" />
+          <AssociationSet Name="FK_autoMailAttachment_autoMailMessage" Association="hs3MVCMTQa2Model.FK_autoMailAttachment_autoMailMessage">
+            <End Role="autoMailMessage" EntitySet="autoMailMessage" />
+            <End Role="autoMailAttachment" EntitySet="autoMailAttachments" />
+          </AssociationSet>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -14244,16 +14250,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="enterprise" Type="Int32" />
           <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_agency_enterprise" FromRole="agency" ToRole="enterprise" />
         </EntityType>
-        <EntityType Name="autoMailAttachment">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="autoMail" Nullable="false" Type="Int32" />
-          <Property Name="attachment" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="note" MaxLength="1000" FixedLength="false" Unicode="false" Type="String" />
-          <NavigationProperty Name="autoMailMessage" Relationship="hs3MVCMTQa2Model.FK_autoMailAttachment_autoMailMessage" FromRole="autoMailAttachment" ToRole="autoMailMessage" />
-        </EntityType>
         <EntityType Name="autoMailMessage">
           <Key>
             <PropertyRef Name="id" />
@@ -14265,13 +14261,13 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="footer2" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="mailType" Nullable="false" Type="Int32" />
           <Property Name="partnerTypeTouchpointQuestionnaire" Nullable="false" Type="Int32" />
-          <NavigationProperty Name="autoMailAttachment" Relationship="hs3MVCMTQa2Model.FK_autoMailAttachment_autoMailMessage" FromRole="autoMailMessage" ToRole="autoMailAttachment" />
           <NavigationProperty Name="autoMailType" Relationship="hs3MVCMTQa2Model.FK_autoMailMessage_autoMailType" FromRole="autoMailMessage" ToRole="autoMailType" />
           <NavigationProperty Name="partnerTypeTouchpointQuestionnaire1" Relationship="hs3MVCMTQa2Model.FK_autoMailMessage_partnerTypeTouchpointQuestionnaire" FromRole="autoMailMessage" ToRole="partnerTypeTouchpointQuestionnaire" />
           <Property Name="sendDateCalcFactor" Nullable="false" Type="Int32" />
           <Property Name="sendDateSet" Precision="0" Type="DateTime" />
           <NavigationProperty Name="automailMessagePPTQ" Relationship="hs3MVCMTQa2Model.FK_automailMessagePPTQ_autoMailMessage" FromRole="autoMailMessage" ToRole="automailMessagePPTQ" />
           <NavigationProperty Name="pptqAutoMailMessageLog" Relationship="hs3MVCMTQa2Model.FK_pptqAutoMailMessageLog_autoMailMessage" FromRole="autoMailMessage" ToRole="pptqAutoMailMessageLog" />
+          <NavigationProperty Name="autoMailAttachments" Relationship="hs3MVCMTQa2Model.FK_autoMailAttachment_autoMailMessage" FromRole="autoMailMessage" ToRole="autoMailAttachment" />
         </EntityType>
         <EntityType Name="autoMailType">
           <Key>
@@ -15665,18 +15661,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_autoMailAttachment_autoMailMessage">
-          <End Type="hs3MVCMTQa2Model.autoMailMessage" Multiplicity="1" Role="autoMailMessage" />
-          <End Type="hs3MVCMTQa2Model.autoMailAttachment" Multiplicity="*" Role="autoMailAttachment" />
-          <ReferentialConstraint>
-            <Principal Role="autoMailMessage">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="autoMailAttachment">
-              <PropertyRef Name="autoMail" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_autoMailMessage_autoMailType">
           <End Type="hs3MVCMTQa2Model.autoMailType" Multiplicity="1" Role="autoMailType" />
           <End Type="hs3MVCMTQa2Model.autoMailMessage" Multiplicity="*" Role="autoMailMessage" />
@@ -16430,12 +16414,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Boolean" Name="active" Nullable="true" />
           <Property Type="Int32" Name="enterprise" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="pr_getAutoMailAttachment_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="Int32" Name="autoMail" Nullable="false" />
-          <Property Type="String" Name="attachment" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="note" Nullable="true" MaxLength="1000" />
         </ComplexType>
         <ComplexType Name="pr_getAutoMailType_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -22659,6 +22637,40 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <End Type="hs3MVCMTQa2Model.question" Role="question" Multiplicity="*" />
           <End Type="hs3MVCMTQa2Model.survey" Role="survey" Multiplicity="*" />
         </Association>
+        <ComplexType Name="pr_getAutoMailAttachment_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="autoMail" Nullable="false" />
+          <Property Type="Binary" Name="attachment" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="note" Nullable="true" MaxLength="1000" />
+        </ComplexType>
+        <ComplexType Name="pr_getAutoMailAttachmentByAutoMail_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="autoMail" Nullable="false" />
+          <Property Type="Binary" Name="attachment" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="note" Nullable="true" MaxLength="1000" />
+        </ComplexType>
+        <EntityType Name="autoMailAttachment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="autoMail" Type="Int32" Nullable="false" />
+          <Property Name="attachment" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="note" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="autoMailMessage" Relationship="hs3MVCMTQa2Model.FK_autoMailAttachment_autoMailMessage" FromRole="autoMailAttachment" ToRole="autoMailMessage" />
+        </EntityType>
+        <Association Name="FK_autoMailAttachment_autoMailMessage">
+          <End Type="hs3MVCMTQa2Model.autoMailMessage" Role="autoMailMessage" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.autoMailAttachment" Role="autoMailAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="autoMailMessage">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="autoMailAttachment">
+              <PropertyRef Name="autoMail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -22704,35 +22716,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                   <ScalarProperty Name="id" ParameterName="id" Version="Current" />
                 </UpdateFunction>
                 <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removeAgency">
-                  <ScalarProperty Name="id" ParameterName="id" />
-                </DeleteFunction>
-              </ModificationFunctionMapping>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="autoMailAttachment">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.autoMailAttachment">
-              <MappingFragment StoreEntitySet="autoMailAttachment">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="autoMail" ColumnName="autoMail" />
-                <ScalarProperty Name="attachment" ColumnName="attachment" />
-                <ScalarProperty Name="note" ColumnName="note" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.autoMailAttachment">
-              <ModificationFunctionMapping>
-                <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addAutoMailAttachment">
-                  <ScalarProperty Name="note" ParameterName="note" />
-                  <ScalarProperty Name="attachment" ParameterName="attachment" />
-                  <ScalarProperty Name="autoMail" ParameterName="autoMail" />
-                  <ResultBinding Name="id" ColumnName="id" />
-                </InsertFunction>
-                <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutoMailAttachment">
-                  <ScalarProperty Name="note" ParameterName="note" Version="Current" />
-                  <ScalarProperty Name="attachment" ParameterName="attachment" Version="Current" />
-                  <ScalarProperty Name="autoMail" ParameterName="autoMail" Version="Current" />
-                  <ScalarProperty Name="id" ParameterName="id" Version="Current" />
-                </UpdateFunction>
-                <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutoMailAttachment">
                   <ScalarProperty Name="id" ParameterName="id" />
                 </DeleteFunction>
               </ModificationFunctionMapping>
@@ -25173,7 +25156,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </EndProperty>
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="pr_addAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_addAgency" />
-          <FunctionImportMapping FunctionImportName="pr_addAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutoMailAttachment" />
           <FunctionImportMapping FunctionImportName="pr_addAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutoMailType" />
           <FunctionImportMapping FunctionImportName="pr_addCountry" FunctionName="hs3MVCMTQa2Model.Store.pr_addCountry" />
           <FunctionImportMapping FunctionImportName="pr_addDomain" FunctionName="hs3MVCMTQa2Model.Store.pr_addDomain" />
@@ -25284,8 +25266,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_getAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_getAgency">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getAgencyAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getAgencyAll">
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailAttachment">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailType">
           </FunctionImportMapping>
@@ -25649,7 +25629,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAgency" />
-          <FunctionImportMapping FunctionImportName="pr_modifyAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutoMailAttachment" />
           <FunctionImportMapping FunctionImportName="pr_modifyAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutoMailType" />
           <FunctionImportMapping FunctionImportName="pr_modifyCountry" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyCountry" />
           <FunctionImportMapping FunctionImportName="pr_modifyDomain" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyDomain" />
@@ -25706,7 +25685,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_modifyTouchpointQuestionResponseValue" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyTouchpointQuestionResponseValue" />
           <FunctionImportMapping FunctionImportName="pr_modifyUserRole" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyUserRole" />
           <FunctionImportMapping FunctionImportName="pr_removeAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAgency" />
-          <FunctionImportMapping FunctionImportName="pr_removeAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutoMailAttachment" />
           <FunctionImportMapping FunctionImportName="pr_removeAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutoMailType" />
           <FunctionImportMapping FunctionImportName="pr_removeCountry" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCountry" />
           <FunctionImportMapping FunctionImportName="pr_removeDomain" FunctionName="hs3MVCMTQa2Model.Store.pr_removeDomain" />
@@ -29793,6 +29771,39 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="pr_addQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestion" />
           <FunctionImportMapping FunctionImportName="pr_modifyQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestion" />
+          <FunctionImportMapping FunctionImportName="pr_addAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutoMailAttachment" />
+          <FunctionImportMapping FunctionImportName="pr_getAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailAttachment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutoMailAttachment_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="autoMail" ColumnName="autoMail" />
+                <ScalarProperty Name="attachment" ColumnName="attachment" />
+                <ScalarProperty Name="note" ColumnName="note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAutoMailAttachmentByAutoMail" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailAttachmentByAutoMail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutoMailAttachmentByAutoMail_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="autoMail" ColumnName="autoMail" />
+                <ScalarProperty Name="attachment" ColumnName="attachment" />
+                <ScalarProperty Name="note" ColumnName="note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutoMailAttachment" />
+          <FunctionImportMapping FunctionImportName="pr_removeAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutoMailAttachment" />
+          <EntitySetMapping Name="autoMailAttachments">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.autoMailAttachment">
+              <MappingFragment StoreEntitySet="autoMailAttachment">
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="attachment" ColumnName="attachment" />
+                <ScalarProperty Name="autoMail" ColumnName="autoMail" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

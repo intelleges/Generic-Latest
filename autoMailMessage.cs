@@ -17,9 +17,9 @@ namespace Generic
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public autoMailMessage()
         {
-            this.autoMailAttachment = new HashSet<autoMailAttachment>();
             this.automailMessagePPTQ = new HashSet<automailMessagePPTQ>();
             this.pptqAutoMailMessageLog = new HashSet<pptqAutoMailMessageLog>();
+            this.autoMailAttachments = new HashSet<autoMailAttachment>();
         }
     
         public int id { get; set; }
@@ -32,13 +32,13 @@ namespace Generic
         public int sendDateCalcFactor { get; set; }
         public Nullable<System.DateTime> sendDateSet { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<autoMailAttachment> autoMailAttachment { get; set; }
         public virtual autoMailType autoMailType { get; set; }
         public virtual partnerTypeTouchpointQuestionnaire partnerTypeTouchpointQuestionnaire1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<automailMessagePPTQ> automailMessagePPTQ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pptqAutoMailMessageLog> pptqAutoMailMessageLog { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<autoMailAttachment> autoMailAttachments { get; set; }
     }
 }

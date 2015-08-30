@@ -31,8 +31,53 @@ padding: 1px!important;
 position: relative;
 top: 2px;
 }
+    .tw-bs .modal-backdrop{
+        z-index:0 !important;
+    }
 </style>
-
+<div class="tw-bs">
+    <div class="container-fluid">
+        <div class="modal fade" id="addNoteDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Upload Automail Message Attachment</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="modalGetPassword" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label class="control-label" for="noteTitle">Attachment</label>
+                                <input id="noteTitle" name="noteTitle" class="form-control" type="file" placeholder="Please select file" data-val-required="*" data-val="true" />
+                                <span data-valmsg-replace="true" data-valmsg-for="noteTitle" class="field-validation-valid help-inline" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="note">Note</label>
+                                <input id="note" name="note" class="form-control" type="text" placeholder="Please enter note" data-val-required="*" data-val="true" />
+                                <span data-valmsg-replace="true" data-valmsg-for="note" class="field-validation-valid help-inline" />
+                            </div>
+                            @*<div class="form-group">
+                <label class="control-label" for="noteText">Text</label>
+                <textarea id="noteText" name="noteText" class="form-control" placeholder="Please Enter Note's' Title" data-val-required="*" data-val="true"></textarea>
+                <span data-valmsg-replace="true" data-valmsg-for="noteText" class="field-validation-valid help-inline" />
+                <script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace('noteText');
+                </script>
+            </div>*@
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" name="submit">Upload</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @(Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
 .ToolBar(commands =>
 {
@@ -42,13 +87,27 @@ top: 2px;
 .Columns(columns =>
         {
             columns.Bound(o => o.subject).Title("Subject").Width(80);
-            columns.Bound(o => o.text).Title("Text AutoMail").Width(195);
-            columns.Bound(o => o.mailType).Title("Mail Type").Width(25);
+            columns.Bound(o => o.text).Title("Text AutoMail").Width(170).Template(@<text><span title="@item.text">
+    @item.ShortText
+    
+    </span></text>);
+            columns.Bound(o => o.mailType).Title("Mail Type").Width(50).Template(
+                @<text><a href='#' id='@item.mailType' class="menu_block">@item.mailType</a><div class="display_menu" style="display: none;"><ul><li><a>Test</a></li><li><a>Edit/Remove</a></li><li><a href="javascript:addViewDoc(@item.id)">View/Add Doc</a></li><li><a>Add Next/Last</a></li></ul></div>
+</text>
+
+
+
+
+
+
+
+
+
+            );
         })
         .DataKeys(keys => keys.Add(o => o.id))
         .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
         .Sortable(sorting => sorting.Enabled(true))
-
         .Scrollable(scrolling => scrolling
            .Enabled(true)
            .Height(380))
@@ -64,10 +123,10 @@ top: 2px;
     }
 
     .display_menu {
-        left: 65px;
+        left: -50px;
         overflow: visible;
         position: absolute;
-        top: -5px;
+        top: 30px;
         background: #fff;
         border: 1px solid #ddd;
         z-index: 100;
@@ -86,10 +145,25 @@ top: 2px;
         list-style: none outside none;
         width: 143px;
     }
+    .display_menu a{
+        cursor:pointer;
+    }
 </style>
-<script src="~/Scripts/jquery-1.8.2.js"></script>
+
+@section scripts{
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
 <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+<script src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
+@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/bootstrap.js"></script>
 <script type="text/javascript">
+    var selectedMailId=0;
+    function addViewDoc(id) {
+        $("#noteTitle").val("");
+        $("#note").val("");
+        $("#addNoteDialog").modal("toggle");
+        selectedMailId = id;
+    }
     $(function () {
         jQuery.noConflict();
         $("#EmailDialog").dialog({
@@ -98,6 +172,23 @@ top: 2px;
         $('#popup').bind('dialogclose', function (event) {
             window.location.replace(window.location.href);
         });
+        $("#modalGetPassword").submit(function (e) {
+            e.preventDefault();
+            var data = new FormData(this); // <-- 'this' is your form element
+            data.append("id", selectedMailId);
+            $.ajax({
+                url: '@Url.Action("UploadQuestionnaireAutomailDocument", "Questionnaire")',
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST'
+            }).done(function(result){
+                $("#addNoteDialog").modal("toggle");
+            }).error(function () {
+                alertify.alert("Something went wrong. Please try again later.");
+            })
+        })
     });
 
     function CloseMe() {
@@ -207,3 +298,4 @@ top: 2px;
 
 </script>
 
+}

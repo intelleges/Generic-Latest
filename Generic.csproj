@@ -1007,6 +1007,9 @@
     <Compile Include="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getAutoMailAttachmentByAutoMail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getAutoMailAttachment_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

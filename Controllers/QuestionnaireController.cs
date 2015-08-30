@@ -17,6 +17,7 @@ using System.Data;
 using Generic.Helpers;
 using System.Data.Entity;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Generic.Controllers
 {
@@ -424,6 +425,24 @@ namespace Generic.Controllers
             return View(lstquestionaireAutoMailDetails);
         }
 
+        public async Task<ActionResult> UploadQuestionnaireAutomailDocument(HttpPostedFileBase noteTitle, string note, int id)
+        {
+            return await Task.Run(() =>
+            {
+                if(noteTitle!=null&&noteTitle.ContentLength!=0)
+                {
+                    using(var stream  = new MemoryStream()){
+                        noteTitle.InputStream.CopyTo(stream);
+                        stream.Seek(0, SeekOrigin.Begin);
+                        db.pr_addAutoMailAttachment(id, stream.ToArray(), note);
+                    }
+                    
+                }
+                
+                return Json(true);
+            });
+        }
+
         public ActionResult QuestionnaireQuestionnaireTestAutomailAll(int id = 0)
         {
             var _enterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
@@ -464,7 +483,7 @@ namespace Generic.Controllers
                 var _touchpoint = db.pr_getTouchpoint(_partnertypeTouchpoint.touchpoint).FirstOrDefault();
                 var _enterprise = db.pr_getEnterprise(_partner.enterprise).FirstOrDefault();
 
-                for (var autoMailTypeCounter = autoMailTypes.Invitation; autoMailTypeCounter <= autoMailTypes.Alert; autoMailTypeCounter++)
+                for (var autoMailTypeCounter = Generic.Helpers.Utility.autoMailTypes.Invitation; autoMailTypeCounter <= Generic.Helpers.Utility.autoMailTypes.Alert; autoMailTypeCounter++)
                 {
                     var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypeCounter, _ptq.id);
 
@@ -499,7 +518,7 @@ namespace Generic.Controllers
                 objAutoMailViewModel.footer2 = AutoMailData.footer2;
                 objAutoMailViewModel.sendDateCalcFactor = AutoMailData.sendDateCalcFactor;
                 objAutoMailViewModel.sendDateSet = AutoMailData.sendDateSet;
-                objAutoMailViewModel.mailType = AutoMailData.mailType;
+                objAutoMailViewModel.mailType = (AutoMailTypes)AutoMailData.mailType;
                 objAutoMailViewModel.partnerTypeTouchpointQuestionnaire = AutoMailData.partnerTypeTouchpointQuestionnaire;
 
 
@@ -1681,7 +1700,7 @@ namespace Generic.Controllers
                         {
                             // context.questionnaireQuestionnaireCMS.Attach(questionnaireCMSitem);
                             context.pr_addAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid),questionnaireCMSitem.subject,string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
-                                 questionnaireCMSitem.footer1,questionnaireCMSitem.footer2,questionnaireCMSitem.sendDateCalcFactor, questionnaireCMSitem.sendDateSet,questionnaireCMSitem.mailType);
+                                 questionnaireCMSitem.footer1,questionnaireCMSitem.footer2,questionnaireCMSitem.sendDateCalcFactor, questionnaireCMSitem.sendDateSet,(int)questionnaireCMSitem.mailType);
                             //int modifiedAutoMail = context.pr_modifyAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid), questionnaireCMSitem.id,
                             //    questionnaireCMSitem.subject, string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
                             //    questionnaireCMSitem.footer1, questionnaireCMSitem.footer2, questionnaireCMSitem.sendDateCalcFactor, questionnaireCMSitem.sendDateSet,

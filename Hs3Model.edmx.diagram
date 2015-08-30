@@ -7,7 +7,6 @@
       <Diagram DiagramId="9967287749084393b59eb2759d3608ea" Name="Diagram1" ZoomLevel="69">
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.accessLevel" PointX="0.5" PointY="1.125" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.agency" PointX="3" PointY="35.875" Width="1.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailAttachment" PointX="33" PointY="62.375" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailMessage" PointX="30.75" PointY="62" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailType" PointX="28.5" PointY="58.375" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.country" PointX="3" PointY="38.75" Width="1.5" IsExpanded="false" />
@@ -103,7 +102,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.zCode" PointX="0.5" PointY="16.375" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.zCodeBatchUpdate" PointX="18.75" PointY="0.75" Width="1.5" IsExpanded="false" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_agency_enterprise" />
-        <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_autoMailAttachment_autoMailMessage" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_autoMailMessage_autoMailType" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_autoMailMessage_partnerTypeTouchpointQuestionnaire" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_country_enterprise" />
@@ -294,6 +292,8 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionResponse_question1" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionTranslation_question" />
         <AssociationConnector Association="hs3MVCMTQa2Model.surveyQuestion" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailAttachment" Width="1.5" PointX="33" PointY="61.25" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_autoMailAttachment_autoMailMessage" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
