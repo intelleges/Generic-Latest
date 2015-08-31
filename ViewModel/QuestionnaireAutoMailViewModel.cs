@@ -15,6 +15,20 @@ namespace Generic.ViewModel
         Reminder = 4,
         Alert = 5
     };
+
+    [Serializable]
+    public class AutoMailExportModel
+    {
+        public int RID { get; set; }
+        public int Type { get; set; }
+        public string Subject { get; set; }
+        public string Text { get; set; }
+        public string Footer { get; set; }
+        public string Signature { get; set; }
+        public int Send_Date_Calc_Factor { get; set; }
+
+    }
+
     [Serializable]
     public class QuestionnaireAutoMailViewModel //:autoMailMessage
     {

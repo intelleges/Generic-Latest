@@ -1305,10 +1305,18 @@ namespace Generic.Controllers
 
             Session["AutoMailexport"] = db.Database.SqlQuery<QuestionnaireAutoMailViewModel>("EXEC pr_getAutomailMessageByQuestionnaire '" + id + "'").ToList();
 
-            List<QuestionnaireAutoMailViewModel> lstAutoMail = (List<QuestionnaireAutoMailViewModel>)Session["AutoMailexport"];
+            List<AutoMailExportModel> lstAutoMail = ((List<QuestionnaireAutoMailViewModel>)Session["AutoMailexport"]).Select(o=>new AutoMailExportModel(){
+                RID = o.id,
+                Footer = o.footer1,
+                Send_Date_Calc_Factor = o.sendDateCalcFactor,
+                Signature=o.footer2,
+                Subject = o.subject,
+                Text=o.text,
+                Type = (int)o.mailType
+            }).ToList();
 
             var stream = new MemoryStream();
-            var serializer = new XmlSerializer(typeof(List<QuestionnaireAutoMailViewModel>));
+            var serializer = new XmlSerializer(typeof(List<AutoMailExportModel>));
 
             //We turn it into an XML and save it in the memory
             serializer.Serialize(stream, lstAutoMail);
@@ -1675,14 +1683,14 @@ namespace Generic.Controllers
                 var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
                 //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.partnerTypeTouchpointQuestionnaire1, autoMailid);
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.id, "id");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.subject, "subject");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.text, "text");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer1, "footer1");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer2, "footer2");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateCalcFactor, "sendDateCalcFactor");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.id, "RID");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.subject, "Subject");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.text, "Text");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer1, "Footer");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer2, "Signature");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateCalcFactor, "Send Date Calc Factor");
                 excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateSet, "sendDateSet");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.mailType, "mailType");
+                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.mailType, "Type");
                 excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.partnerTypeTouchpointQuestionnaire, "partnerTypeTouchpointQuestionnaire");
 
 
