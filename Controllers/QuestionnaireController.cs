@@ -925,6 +925,10 @@ namespace Generic.Controllers
                                     responses = excelQuestionnaire.Response.Substring(9, excelQuestionnaire.Response.Length - 9).Trim();
                                     responseType = "CheckBox";
                                 }
+                                else if (excelQuestionnaire.Response.ToLower().Contains("text_"))
+                                {                                   
+                                    responseType = excelQuestionnaire.Response.ToLower();
+                                }
 
                                 //get response type
                                 switch (excelQuestionnaire.Response.ToLower())
@@ -962,8 +966,22 @@ namespace Generic.Controllers
                                     case "text/upload":
                                         responseTypeId = 14;
                                         break;
+                                    case "text_number":
+                                        responseTypeId = 6;
+                                        break;
+                                    case "text_email":
+                                        responseTypeId = 16;
+                                        break;
                                     default:
-                                        if (responseType.ToLower().Substring(0, 4) == "list")
+                                        if (responseType.ToLower().Contains("text_number_"))
+                                        {
+                                            responseTypeId = 17;
+                                        }
+                                        else if (responseType.ToLower().Contains("text_"))
+                                        {
+                                            responseTypeId = 18;
+                                        }
+                                        else if (responseType.ToLower().Substring(0, 4) == "list")
                                         {
                                             responseTypeId = 11;
                                         }
@@ -975,6 +993,9 @@ namespace Generic.Controllers
                                         {
                                             responseTypeId = 12;
                                         }
+                                        
+                                        
+                                        
                                         break;
                                 }
                                 if (excelQuestionnaire.Required.ToLower() == "y" || excelQuestionnaire.Required.ToLower() == "yes" || excelQuestionnaire.Required.ToLower() == "1")
@@ -1006,7 +1027,7 @@ namespace Generic.Controllers
                                 objQuestion.title = excelQuestionnaire.Title;
                                 objQuestion.tag = string.Empty;
                                 objQuestion.responseType = responseTypeId;
-                                objQuestion.required = isRequired;
+                                objQuestion.required = responseTypeId==17||responseTypeId==18?int.Parse(responseType.Split("_".ToArray(),StringSplitOptions.RemoveEmptyEntries)[responseTypeId==17?2:1]): isRequired;
                                 objQuestion.calendarMessageTxt = excelQuestionnaire.CalendarMessageText;
 
                                 if (excelQuestionnaire.skipLogicAnswer == "N")

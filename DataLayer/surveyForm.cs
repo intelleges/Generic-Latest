@@ -413,7 +413,7 @@ namespace Generic.DataLayer
 
             var objresponseByQuestion = db.pr_getResponseByQuestion(question.id).ToList();
             //Add required validation control
-            if (question.required == 1 && this.showContentOnly == false)
+            if (question.required >0 && this.showContentOnly == false)
             {
 
                 if (responseTypeDescription == "dropdown")
@@ -492,7 +492,7 @@ namespace Generic.DataLayer
 
 
 
-
+            
             //add question answer control
             if (responseTypeDescription == "dropdown")
             {
@@ -503,7 +503,7 @@ namespace Generic.DataLayer
 
                 tableRow = getAnswerRow(survey.id, question.id, responseTypeDescription, answerCssClass, table);
             }
-            else if (responseTypeDescription.Contains("text"))
+            else if (responseTypeDescription.Contains("text") || question.responseType > 15)
             {
                 tableCell.ColumnSpan = 2;
 
@@ -1493,14 +1493,118 @@ namespace Generic.DataLayer
             }
 
             responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
+            if (question.responseType > 15)
+            {
+                switch(question.responseType)
+                {
+                    case 16:
+                        textBox = new TextBox();
+                    textBox.TextMode = TextBoxMode.Email;
+                    textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                    textBox.Width = 600;
+                    if(question.required>0)
+                    {                        
+                        textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
+                        textBox.Attributes["data-val-required"] = "Required";
+                        textBox.Attributes["data-val-email"] = "Email required";
+                    }
+                    if (pptqResponse != null&&pptqResponse.comment != null && pptqResponse.comment.Length > 0)
+                    {
 
+                        textBox.Text = convertLanguageApi(pptqResponse.comment);
+                    }
+
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableRow.Controls.Add(tableCell);
+
+                    tableCell = new TableCell();
+                    tableCell.ColumnSpan = 2;
+                    tableCell.Controls.Add(textBox);
+                    tableRow.Controls.Add(tableCell);
+                        break;
+                    case 17:
+                        textBox = new TextBox();
+                    textBox.TextMode = TextBoxMode.Number;
+                    textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                    textBox.Width = 600;
+                    if(question.required>0)
+                    {                        
+                         textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
+                        textBox.Attributes["data-val-required"] = "Required";
+                        textBox.Attributes["data-val-number"] = "Required number";
+                        textBox.Attributes["data-val-length"] = "Required number where length equals {0}";
+                        textBox.Attributes["data-val-length-min"] = question.required.ToString();
+                        textBox.Attributes["data-val-length-max"] = question.required.ToString();
+                    }
+                    if (pptqResponse != null&&pptqResponse.comment != null && pptqResponse.comment.Length > 0)
+                    {
+
+                        textBox.Text = convertLanguageApi(pptqResponse.comment);
+                    }
+
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableRow.Controls.Add(tableCell);
+
+                    tableCell = new TableCell();
+                    tableCell.ColumnSpan = 2;
+                    tableCell.Controls.Add(textBox);
+                    tableRow.Controls.Add(tableCell);
+                        break;
+                    case 18:
+                        textBox = new TextBox();
+                    //textBox.TextMode = TextBoxMode.Number;
+                    textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                    textBox.Width = 600;
+                    if(question.required>0)
+                    {                        
+                         textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
+                        textBox.Attributes["data-val-required"] = "Required";                        
+                        textBox.Attributes["data-val-length"] = "Required number where length equals {0}";
+                        textBox.Attributes["data-val-length-min"] = question.required.ToString();
+                        textBox.Attributes["data-val-length-max"] = question.required.ToString();
+                    }
+                    if (pptqResponse != null&&pptqResponse.comment != null && pptqResponse.comment.Length > 0)
+                    {
+
+                        textBox.Text = convertLanguageApi(pptqResponse.comment);
+                    }
+
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableRow.Controls.Add(tableCell);
+
+                    tableCell = new TableCell();
+                    tableCell.ColumnSpan = 2;
+                    tableCell.Controls.Add(textBox);
+                    tableRow.Controls.Add(tableCell);
+                        break;
+                }
+            } else
             switch (responseType)
             {
                 case "textComment":
                     textBox = new TextBox();
                     textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                     textBox.Width = 600;
-
+                    if (question.required > 0)
+                    {
+                        textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";                        
+                        textBox.Attributes["data-val-required"] = "Required";
+                    }
                     if (pptqResponse != null)
                     {
                         //textBox.Text = response.description;
@@ -1522,9 +1626,15 @@ namespace Generic.DataLayer
                     break;
                 case "textInteger":
                     textBox = new TextBox();
+                    textBox.TextMode = TextBoxMode.Number;
                     textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                     textBox.Width = 600;
-
+                    if (question.required > 0)
+                    {
+                        textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
+                        textBox.Attributes["data-val-number"] = "Required number";
+                        textBox.Attributes["data-val-required"] = "Required";
+                    }
                     if (pptqResponse.comment != null && pptqResponse.comment.Length > 0)
                     {
                         //textBox.Text = response.description;
@@ -1544,11 +1654,17 @@ namespace Generic.DataLayer
                     tableCell.Controls.Add(textBox);
                     tableRow.Controls.Add(tableCell);
                     break;
-                case "textNumber":
+                case "textNumber":                    
                     textBox = new TextBox();
+                    textBox.TextMode = TextBoxMode.Number;
                     textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                     textBox.Width = 600;
-
+                    if(question.required>0)
+                    {                        
+                         textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
+                         textBox.Attributes["data-val-number"] = "Required number";
+                        textBox.Attributes["data-val-required"] = "Required";
+                    }
                     if (pptqResponse != null&&pptqResponse.comment != null && pptqResponse.comment.Length > 0)
                     {
 
