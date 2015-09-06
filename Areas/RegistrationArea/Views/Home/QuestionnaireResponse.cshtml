@@ -336,7 +336,7 @@
         //var logic
     }
     function showIfNeeded(divname,id, code) {
-        if ($("#" + id + " option:selected").text().indexOf(code, 0) !== -1) {
+        if ($("#" + id + " option:selected").data("code") === code) {
             $(divname).show();
         } else {
             $(divname).hide();
@@ -349,7 +349,7 @@
         var result = parts[parts.length - 2];
         var divname = "#nDiv_" + result;
         
-        var arr = expr.exec($(divname + " span").text());
+        var arr = expr.exec($(divname).data("code"));
         if (arr && arr.length > 0) {
             showIfNeeded(divname, s, arr[0]);            
         } else {

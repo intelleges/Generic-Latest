@@ -160,11 +160,11 @@ namespace Generic.Helpers.Utility
             {
                 sVariable = match.ToString();
                 sValue = sVariable;
-                var attributesREgex = new Regex("(?<=text=[\"'])([\\s\\d\\w])+(?=['\"])");
+                var attributesREgex = new Regex("(?<=text=[\"'])([\\s\\d\\w\\W\\S])+(?=['\"])");
                 var text = attributesREgex.Match(sVariable);
                 if(text.Success)
                 {
-                    var elementTextExpression = new Regex("(?<=>)([\\s\\d\\w])+(?=</)");
+                    var elementTextExpression = new Regex("(?<=>)([\\s\\d\\w\\W\\S])+(?=</)");
                     var innerText = elementTextExpression.Match(sVariable);
                     if(innerText.Success)
                     {

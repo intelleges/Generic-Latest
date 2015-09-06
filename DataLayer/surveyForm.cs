@@ -1123,15 +1123,22 @@ namespace Generic.DataLayer
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "nDiv_" + question.id.ToString();
                     //divn.Visible = false;
-                    if (pptqResponse != null && pptqResponse.response == 75)
+                    Regex checkCOde = new Regex("\\([A-Z][A-Z]\\)");
+
+                    
+                    txtbox = new TextBox();
+                    if(pptqResponse.response1 != null && checkCOde.IsMatch(incldComment))
+                    {
+divn.Attributes["data-code"]=checkCOde.Match(incldComment).Value;
+incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
+                    }
+                    if (pptqResponse != null && pptqResponse.response == 75 || divn.Attributes["data-code"] != null && divn.Attributes["data-code"].Replace("(", "").Replace(")", "") == pptqResponse.response1.zcode)
                     {
                         txtbox.Text = pptqResponse.comment;
 
                     }
                     else
-                    divn.Style.Add("display", "none");
-                    txtbox = new TextBox();
-
+                        divn.Style.Add("display", "none");
                     txtbox.Width = 600;
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                     txtbox.Attributes.Add("required", "");
@@ -1750,11 +1757,19 @@ namespace Generic.DataLayer
                     string selectval = _translator.Translate("Please select one",_currentLanguage);
                     dropDownList.Items.Add(new ListItem(selectval, ""));
                     dropDownList.Attributes.Add("onChange", "showdropdowndiv(this);");
+                    Regex checkCOde = new Regex("\\([A-Z][A-Z]\\)");
                     for (int i = 0; i < responseCollection.Count; i++)
                     {
                         
                         //dropDownList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
-                        dropDownList.Items.Add(new ListItem(_translator.Translate(responseCollection[i].id, TranslationType.Response, _currentLanguage), responseCollection[i].id.ToString()));
+                        var item = new ListItem(_translator.Translate(responseCollection[i].id, TranslationType.Response, _currentLanguage), responseCollection[i].id.ToString());
+                        
+                        if (checkCOde.IsMatch(item.Text))
+                        {
+                            item.Attributes["data-code"] = checkCOde.Match(item.Text).Value;
+                            item.Text=item.Text.Replace(checkCOde.Match(item.Text).Value, "");
+                        }
+                        dropDownList.Items.Add(item);
                         if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                         {
                             dropDownList.ClearSelection();
