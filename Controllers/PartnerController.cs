@@ -2047,6 +2047,16 @@ namespace Generic.Controllers
             return inputList.Replace(";", currentPersonIdStringAddition);
         }
 
+        //public ActionResult FindRemind()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public ActionResult FindRemind()
+        //{
+        //    return View();
+        //}
+
         [HttpPost]
         public string Remind(string accessCode)
         {

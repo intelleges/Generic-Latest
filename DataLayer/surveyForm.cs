@@ -1123,6 +1123,12 @@ namespace Generic.DataLayer
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "nDiv_" + question.id.ToString();
                     //divn.Visible = false;
+                    if (pptqResponse != null && pptqResponse.response == 75)
+                    {
+                        txtbox.Text = pptqResponse.comment;
+
+                    }
+                    else
                     divn.Style.Add("display", "none");
                     txtbox = new TextBox();
 
@@ -1190,6 +1196,11 @@ namespace Generic.DataLayer
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "yDiv_" + question.id.ToString();
                     //divn.Visible = false;
+                    if (pptqResponse != null&&pptqResponse.response==74)
+                    {
+                        txtbox.Text = pptqResponse.comment;
+                        
+                    }else
                     divn.Style.Add("display", "none");
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
                     txtbox.Width = 600;
@@ -1530,6 +1541,7 @@ namespace Generic.DataLayer
                     case 17:
                         textBox = new TextBox();
                     textBox.TextMode = TextBoxMode.Number;
+                    textBox.Attributes["min"] = "0";
                     textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                     textBox.Width = 600;
                     if(question.required>0)
@@ -1569,7 +1581,7 @@ namespace Generic.DataLayer
                     {                        
                          textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
                         textBox.Attributes["data-val-required"] = "Required";                        
-                        textBox.Attributes["data-val-length"] = "Required number where length equals {0}";
+                        textBox.Attributes["data-val-length"] = "Required text where length equals {0}";
                         textBox.Attributes["data-val-length-min"] = question.required.ToString();
                         textBox.Attributes["data-val-length-max"] = question.required.ToString();
                     }
