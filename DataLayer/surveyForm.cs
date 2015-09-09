@@ -1127,7 +1127,7 @@ namespace Generic.DataLayer
 
                     
                     txtbox = new TextBox();
-                    if(pptqResponse.response1 != null && checkCOde.IsMatch(incldComment))
+                    if (pptqResponse!=null&&pptqResponse.response1 != null && checkCOde.IsMatch(incldComment))
                     {
 divn.Attributes["data-code"]=checkCOde.Match(incldComment).Value;
 incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
