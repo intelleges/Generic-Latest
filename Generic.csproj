@@ -4547,6 +4547,7 @@
     <Content Include="Views\Contract\Create.cshtml" />
     <Content Include="Views\Contract\ContractApproval.cshtml" />
     <Content Include="Views\Contract\ContactData.cshtml" />
+    <Content Include="Views\Partner\FindRemind.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

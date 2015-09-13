@@ -70,7 +70,7 @@
 
 
 <form action="@Url.Content("~/Partner/RemovePartner")" method="post">
-    <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
+    <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
 
     @if (ViewBag.searchType == "Invite")
     {
@@ -78,15 +78,15 @@
         @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100px;" })
     }
 
-     @*.ToolBar(commands => commands
-               .Custom()
-                   .HtmlAttributes(new { id = "go" })
-                   .Text("Go")
-                   .Action("Go", "Partner").HtmlAttributes(new { onclick = "resotreMultiple(event)" }))*@
+    @*.ToolBar(commands => commands
+        .Custom()
+            .HtmlAttributes(new { id = "go" })
+            .Text("Go")
+            .Action("Go", "Partner").HtmlAttributes(new { onclick = "resotreMultiple(event)" }))*@
 
 
     @( Html.Telerik().Grid(Model).Name("PartnerGrid")
-         
+
 
  .ToolBar(commands =>
             {
@@ -102,33 +102,33 @@
                    .Template(@<text>
 
 
-    <input type='checkbox' id='chkMessage' name='chkSelect' class="chkPartners" value='@item.id' />
+                    <input type='checkbox' id='chkMessage' name='chkSelect' class="chkPartners" value='@item.id' />
 
-    <input type="hidden"  name='partnertypeID' value='@item.partnertypeID' />
+                    <input type="hidden" name='partnertypeID' value='@item.partnertypeID' />
 
-    <input type="hidden"  name='touchpoint' value='@item.campaign' />
+                    <input type="hidden" name='touchpoint' value='@item.campaign' />
 
-    <input type="hidden"  name='AccessCode' value='@item.AccessCode' />
+                    <input type="hidden" name='AccessCode' value='@item.AccessCode' />
 
-    <input type="hidden"  name='ContactEmail' value='@item.ContactEmail' />
+                    <input type="hidden" name='ContactEmail' value='@item.ContactEmail' />
 
-    </text>)
+                </text>)
                    .Width(50)
                    .HtmlAttributes(new { style = "text-align:center" }).Sortable(false);
 
 
             columns.Bound(o => o.internalID).Title("Internal ID").Width(100).Encoded(false);
             columns.Bound(o => o.PartnerName).Title("Partner Name").Width(400).Template(@<text><a href='#' id='@item.PartnerName' class="menu_block">@item.PartnerName</a>
-    <div class="display_menu" style="display: none;">
-        <ul>
-            <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-            <li><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
-            <li><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
-            <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-            <li><a href="javascript:openCompletePopup()">Complete</a></li>
-        </ul>
-    </div>
-    </text>);
+            <div class="display_menu" style="display: none;">
+                <ul>
+                    <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+                    <li><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
+                    <li><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
+                    <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+                    <li><a href="javascript:openCompletePopup()">Complete</a></li>
+                </ul>
+            </div>
+            </text>);
             columns.Bound(o => o.Contact).Title("Contact").Width(100);
             columns.Bound(o => o.phone).Title("Phone").Width(100);
             columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="OpenManualAddModal('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>);
@@ -149,8 +149,11 @@
             columns.Bound(o => o.Group).Title("Group").Width(100);
             columns.Bound(o => o.AccessCode).Title("AccessCode").Width(100).Template(@<text><a href='#' id='@item.AccessCode' class="menu_block">@item.AccessCode</a><div class="display_menu" style="display: none;">
                 <ul>
-                    <li><a href="#">Remind
-                    </a></li>
+                    <li>
+                        <a href="#">
+                            Remind
+                        </a>
+                    </li>
                     <li><a href="#">Re-Invite (intelleges.com)</a></li>
                     <li><a href="#">Re-Invite (racix.net)</a></li>
                     <li><a href="#">Rescind</a></li>
@@ -175,7 +178,7 @@
 
 
 
-)
+    )
 </form>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>

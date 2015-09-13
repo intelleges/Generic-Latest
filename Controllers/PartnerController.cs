@@ -1674,6 +1674,9 @@ namespace Generic.Controllers
             else if (searchType == "Invite")
             {
                 return RedirectToAction("InvitePartner");
+            } else if(searchType == "Remind")
+            {
+                return RedirectToAction("FindRemind");
             }
             else
             {
@@ -2047,15 +2050,22 @@ namespace Generic.Controllers
             return inputList.Replace(";", currentPersonIdStringAddition);
         }
 
-        //public ActionResult FindRemind()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public ActionResult FindRemind()
-        //{
-        //    return View();
-        //}
+        public ActionResult FindRemind()
+        {
+            string arguments = Session["partnersearch"].ToString() + "active=1;statusID=6";
+
+            List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+            List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
+            ViewBag.searchType = "Remind";
+            return View(objPartnerViewModelList);
+            //return View();
+        }
+        [HttpPost]
+        public ActionResult FindRemind(int[] pptqIds, string subject, string text, HttpFileCollectionBase attachment)
+        {
+            var error = "";
+            return Json(error);
+        }
 
         [HttpPost]
         public string Remind(string accessCode)

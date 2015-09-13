@@ -1751,7 +1751,7 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                         dropDownList.Attributes.Add("data-val-required",  _translator.Translate("Required",_currentLanguage));
                     }
 
-                    dropDownList.Width = 250;
+                    dropDownList.Width = 300;
                     tableCell = new TableCell();
                     tableCell.HorizontalAlign = HorizontalAlign.Left;
                     string selectval = _translator.Translate("Please select one",_currentLanguage);
