@@ -2060,10 +2060,22 @@ namespace Generic.Controllers
             return View(objPartnerViewModelList);
             //return View();
         }
-        [HttpPost]
-        public ActionResult FindRemind(int[] pptqIds, string subject, string text, HttpFileCollectionBase attachment)
+        [HttpPost, ValidateInput(false)]
+        public ActionResult FindRemind(string accessCodes, string subject, string text, HttpPostedFileBase attachment, bool ccSender)
         {
             var error = "";
+            EmailFormat formatter = new EmailFormat();
+            var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            foreach(var accessCode in accessCodes.Split(",".ToArray(),StringSplitOptions.RemoveEmptyEntries))
+            {
+                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                
+                var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1);
+                SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+            }
+            //if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
+            
+            
             return Json(error);
         }
 
