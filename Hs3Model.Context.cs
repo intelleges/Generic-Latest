@@ -16933,5 +16933,10 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeAutoMailAttachment", idParameter);
         }
+    
+        public virtual ObjectResult<pr_getIndustryFocusDetailAll_Result> pr_getIndustryFocusDetailAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIndustryFocusDetailAll_Result>("pr_getIndustryFocusDetailAll");
+        }
     }
 }

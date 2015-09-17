@@ -5729,6 +5729,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getIndustryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getIndustryFocusDetailAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -14232,6 +14233,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <End Role="response" EntitySet="response" />
             <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponses" />
           </AssociationSet>
+          <FunctionImport Name="pr_getIndustryFocusDetailAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIndustryFocusDetailAll_Result)" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -22679,6 +22681,17 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="pr_getIndustryFocusDetailAll_Result">
+          <Property Type="Int32" Name="industry" Nullable="false" />
+          <Property Type="String" Name="industryDescription" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="focus" Nullable="false" />
+          <Property Type="String" Name="focusDescription" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="author" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="partnertypetouchpointquestionnaire" Nullable="true" />
+          <Property Type="String" Name="questionnaireTitle" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -29814,6 +29827,21 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIndustryFocusDetailAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getIndustryFocusDetailAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIndustryFocusDetailAll_Result">
+                <ScalarProperty Name="industry" ColumnName="industry" />
+                <ScalarProperty Name="industryDescription" ColumnName="industryDescription" />
+                <ScalarProperty Name="focus" ColumnName="focus" />
+                <ScalarProperty Name="focusDescription" ColumnName="focusDescription" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="partnertypetouchpointquestionnaire" ColumnName="partnertypetouchpointquestionnaire" />
+                <ScalarProperty Name="questionnaireTitle" ColumnName="questionnaireTitle" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

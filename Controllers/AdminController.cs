@@ -839,6 +839,20 @@ namespace Generic.Controllers
 
         [Authorize]
         public virtual ActionResult Icons()
+        {           
+
+            return View();
+        }
+
+        [Authorize]
+        public virtual ActionResult PickAProtocol()
+        {
+            var model = db.pr_getIndustryFocusDetailAll().ToList();
+            return View(model);
+        }
+
+        [Authorize]
+        public virtual ActionResult ManualRemind()
         {
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
 
@@ -855,14 +869,13 @@ namespace Generic.Controllers
                 ViewBag.pieChartData = pieChartData;
             }
 
-            if(SessionSingleton.LoggedInUserId == 3)
+            if (SessionSingleton.LoggedInUserId == 3)
             {
                 if (SchedulerServiceHelper.init(2))
                 {
                     ViewData["schedulerMessage"] = "Scheduler Service has been successfully processed";
                 }
             }
-
             return View();
         }
 
