@@ -41,5 +41,7 @@ namespace Generic
         public string emailAlert { get; set; }
         public string emailAlertList { get; set; }
         public int questionnaire { get; set; }
+        public string subCheckBoxChoice { get; set; }
+        public string calendarMessageText { get; set; }
     }
 }

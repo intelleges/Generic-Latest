@@ -817,7 +817,7 @@
           <Property Name="response" Type="int" />
           <Property Name="comment" Type="varchar(max)" />
           <Property Name="uploadedFile" Type="image" />
-          <Property Name="uploadedFileType" Type="varchar" MaxLength="50" />
+          <Property Name="uploadedFileType" Type="varchar" MaxLength="500" />
           <Property Name="actionDate" Type="datetime2" Precision="7" />
           <Property Name="value" Type="int" />
           <Property Name="score" Type="int" />
@@ -1567,6 +1567,8 @@
           <Property Name="qWeight" Type="int" Nullable="false" />
           <Property Name="skipLogic" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="skipLogicAnswer" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="subCheckBoxChoice" Type="varchar(max)" />
+          <Property Name="calendarMessageText" Type="varchar(max)" />
           <Property Name="skipLogicJump" Type="varchar(max)" Nullable="false" />
           <Property Name="commentBoxMessageText" Type="varchar(max)" Nullable="false" />
           <Property Name="uploadMessageText" Type="varchar(max)" Nullable="false" />
@@ -4956,6 +4958,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="qWeight" Type="int" Mode="In" />
           <Parameter Name="skipLogic" Type="varchar" Mode="In" />
           <Parameter Name="skipLogicAnswer" Type="varchar" Mode="In" />
+          <Parameter Name="subCheckBoxChoice" Type="varchar(max)" Mode="In" />
+          <Parameter Name="calendarMessageText" Type="varchar(max)" Mode="In" />
           <Parameter Name="skipLogicJump" Type="varchar(max)" Mode="In" />
           <Parameter Name="commentBoxMessageText" Type="varchar(max)" Mode="In" />
           <Parameter Name="uploadMessageText" Type="varchar(max)" Mode="In" />
@@ -13728,6 +13732,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="qWeight" Mode="In" Type="Int32" />
             <Parameter Name="skipLogic" Mode="In" Type="String" />
             <Parameter Name="skipLogicAnswer" Mode="In" Type="String" />
+            <Parameter Name="subCheckBoxChoice" Mode="In" Type="String" />
+            <Parameter Name="calendarMessageText" Mode="In" Type="String" />
             <Parameter Name="skipLogicJump" Mode="In" Type="String" />
             <Parameter Name="commentBoxMessageText" Mode="In" Type="String" />
             <Parameter Name="uploadMessageText" Mode="In" Type="String" />
@@ -14001,15 +14007,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getPPTQDocByPPTQ" EntitySet="pptqDocs" ReturnType="Collection(hs3MVCMTQa2Model.pptqDoc)">
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponses" EntityType="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
-          <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire">
-            <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
-            <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response" Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response">
-            <End Role="response" EntitySet="response" />
-            <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponses" />
-          </AssociationSet>
           <FunctionImport Name="pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" ReturnType="Collection(Decimal)">
             <Parameter Name="question" Mode="In" Type="Int32" />
             <Parameter Name="response" Mode="In" Type="Int32" />
@@ -14225,6 +14222,15 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <AssociationSet Name="FK_autoMailAttachment_autoMailMessage" Association="hs3MVCMTQa2Model.FK_autoMailAttachment_autoMailMessage">
             <End Role="autoMailMessage" EntitySet="autoMailMessage" />
             <End Role="autoMailAttachment" EntitySet="autoMailAttachments" />
+          </AssociationSet>
+          <EntitySet Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponses" EntityType="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
+          <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire">
+            <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
+            <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response" Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response">
+            <End Role="response" EntitySet="response" />
+            <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponses" />
           </AssociationSet>
           
         </EntityContainer>
@@ -18909,8 +18915,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <NavigationProperty Name="touchpointQuestionResponseValue_deprecated" Relationship="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" FromRole="response" ToRole="touchpointQuestionResponseValue_deprecated" />
           <NavigationProperty Name="responseTranslation" Relationship="hs3MVCMTQa2Model.FK_responseTranslation_response" FromRole="response" ToRole="responseTranslation" />
           <NavigationProperty Name="language" Relationship="hs3MVCMTQa2Model.responseLanguage" FromRole="response" ToRole="language" />
-          <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponses" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="response" ToRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
           <NavigationProperty Name="partnumberSiteZcodePPTQQuestionResponses" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" FromRole="response" ToRole="partnumberSiteZcodePPTQQuestionResponse" />
+          <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponses" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="response" ToRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
         </EntityType>
         <Association Name="FK_questionResponse_response">
           <End Type="hs3MVCMTQa2Model.response" Multiplicity="1" Role="response" />
@@ -22022,6 +22028,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="emailAlert" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="emailAlertList" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="questionnaire" Type="Int32" Nullable="false" />
+          <Property Name="subCheckBoxChoice" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="calendarMessageText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <ComplexType Name="pr_getQuestionnaireLoad_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -22308,61 +22316,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="uploadedBy" Nullable="false" />
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Boolean" Name="active" Nullable="false" />
-        </ComplexType>
-        <EntityType Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="question" Type="Int32" Nullable="false" />
-          <Property Name="response" Type="Int32" />
-          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="uploadedFile" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="uploadedFileType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="actionDate" Type="DateTime" Precision="7" />
-          <Property Name="value" Type="Int32" />
-          <Property Name="score" Type="Int32" />
-          <Property Name="partnerPartnerTypeTouchpointQuestionnaire" Type="Int32" />
-          <Property Name="timestamp" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaire1" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" FromRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" ToRole="partnerPartnertypeTouchpointQuestionnaire" />
-          <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" ToRole="response" />
-        </EntityType>
-        <Association Name="FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire">
-          <End Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire" Role="partnerPartnertypeTouchpointQuestionnaire" Multiplicity="0..1" />
-          <End Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="partnerPartnertypeTouchpointQuestionnaire">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
-              <PropertyRef Name="partnerPartnerTypeTouchpointQuestionnaire" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response">
-          <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="0..1" />
-          <End Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="response">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
-              <PropertyRef Name="response" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="Int32" Name="question" Nullable="false" />
-          <Property Type="Int32" Name="response" Nullable="true" />
-          <Property Type="String" Name="comment" Nullable="true" />
-          <Property Type="Binary" Name="uploadedFile" Nullable="true" MaxLength="Max" />
-          <Property Type="String" Name="uploadedFileType" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="actionDate" Nullable="true" />
-          <Property Type="Int32" Name="value" Nullable="true" />
-          <Property Type="Int32" Name="score" Nullable="true" />
-          <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
-          <Property Type="DateTime" Name="timestamp" Nullable="true" />
         </ComplexType>
         <ComplexType Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -22668,6 +22621,61 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </Principal>
             <Dependent Role="autoMailAttachment">
               <PropertyRef Name="autoMail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="response" Nullable="true" />
+          <Property Type="String" Name="comment" Nullable="true" />
+          <Property Type="Binary" Name="uploadedFile" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="uploadedFileType" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="actionDate" Nullable="true" />
+          <Property Type="Int32" Name="value" Nullable="true" />
+          <Property Type="Int32" Name="score" Nullable="true" />
+          <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
+          <Property Type="DateTime" Name="timestamp" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question" Type="Int32" Nullable="false" />
+          <Property Name="response" Type="Int32" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="uploadedFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="uploadedFileType" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="actionDate" Type="DateTime" Precision="7" />
+          <Property Name="value" Type="Int32" />
+          <Property Name="score" Type="Int32" />
+          <Property Name="partnerPartnerTypeTouchpointQuestionnaire" Type="Int32" />
+          <Property Name="timestamp" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaire1" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" FromRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" ToRole="partnerPartnertypeTouchpointQuestionnaire" />
+          <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" ToRole="response" />
+        </EntityType>
+        <Association Name="FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire">
+          <End Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire" Role="partnerPartnertypeTouchpointQuestionnaire" Multiplicity="0..1" />
+          <End Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerPartnertypeTouchpointQuestionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
+              <PropertyRef Name="partnerPartnerTypeTouchpointQuestionnaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response">
+          <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="0..1" />
+          <End Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="response">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
+              <PropertyRef Name="response" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -29240,6 +29248,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="questionnaireLoads">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireLoad">
               <MappingFragment StoreEntitySet="questionnaireLoad">
+                <ScalarProperty Name="calendarMessageText" ColumnName="calendarMessageText" />
+                <ScalarProperty Name="subCheckBoxChoice" ColumnName="subCheckBoxChoice" />
                 <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
                 <ScalarProperty Name="emailAlertList" ColumnName="emailAlertList" />
                 <ScalarProperty Name="emailAlert" ColumnName="emailAlert" />
@@ -29545,23 +29555,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_unArchivePPTQDoc" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePPTQDoc" />
           <FunctionImportMapping FunctionImportName="pr_getPPTQDocByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQDocByPPTQ">
           </FunctionImportMapping>
-          <EntitySetMapping Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponses">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
-              <MappingFragment StoreEntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
-                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-                <ScalarProperty Name="partnerPartnerTypeTouchpointQuestionnaire" ColumnName="partnerPartnerTypeTouchpointQuestionnaire" />
-                <ScalarProperty Name="score" ColumnName="score" />
-                <ScalarProperty Name="value" ColumnName="value" />
-                <ScalarProperty Name="actionDate" ColumnName="actionDate" />
-                <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
-                <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="response" ColumnName="response" />
-                <ScalarProperty Name="question" ColumnName="question" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
           <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse">
             <ResultMapping>
@@ -29800,6 +29793,23 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="attachment" ColumnName="attachment" />
                 <ScalarProperty Name="autoMail" ColumnName="autoMail" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponses">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
+              <MappingFragment StoreEntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="partnerPartnerTypeTouchpointQuestionnaire" ColumnName="partnerPartnerTypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="actionDate" ColumnName="actionDate" />
+                <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
+                <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="question" ColumnName="question" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

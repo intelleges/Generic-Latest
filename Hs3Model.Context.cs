@@ -190,10 +190,10 @@ namespace Generic
         public virtual DbSet<reminderScheduledTaskHeartBeat> reminderScheduledTaskHeartBeats { get; set; }
         public virtual DbSet<ptqSendDateReminderCount> ptqSendDateReminderCounts { get; set; }
         public virtual DbSet<pptqDoc> pptqDocs { get; set; }
-        public virtual DbSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponses { get; set; }
         public virtual DbSet<partnumberSiteZcodePPTQQuestionResponse> partnumberSiteZcodePPTQQuestionResponses { get; set; }
         public virtual DbSet<question> questions { get; set; }
         public virtual DbSet<autoMailAttachment> autoMailAttachments { get; set; }
+        public virtual DbSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponses { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -15207,7 +15207,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireByFooter_Result>("pr_getQuestionnaireByFooter", footerParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireLoad(Nullable<int> qid, Nullable<int> page, string surveySet, string survey, string question, string response, string comment, string title, string required, Nullable<int> length, Nullable<int> titleLength, Nullable<int> yValue, Nullable<int> nValue, Nullable<int> otherValue, Nullable<int> qWeight, string skipLogic, string skipLogicAnswer, string skipLogicJump, string commentBoxMessageText, string uploadMessageText, string commentType, string spinOffQuestionnaire, Nullable<int> spinOffID, string emailAlert, string emailAlertList, Nullable<int> questionnaire)
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireLoad(Nullable<int> qid, Nullable<int> page, string surveySet, string survey, string question, string response, string comment, string title, string required, Nullable<int> length, Nullable<int> titleLength, Nullable<int> yValue, Nullable<int> nValue, Nullable<int> otherValue, Nullable<int> qWeight, string skipLogic, string skipLogicAnswer, string subCheckBoxChoice, string calendarMessageText, string skipLogicJump, string commentBoxMessageText, string uploadMessageText, string commentType, string spinOffQuestionnaire, Nullable<int> spinOffID, string emailAlert, string emailAlertList, Nullable<int> questionnaire)
         {
             var qidParameter = qid.HasValue ?
                 new ObjectParameter("qid", qid) :
@@ -15277,6 +15277,14 @@ namespace Generic
                 new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
                 new ObjectParameter("skipLogicAnswer", typeof(string));
     
+            var subCheckBoxChoiceParameter = subCheckBoxChoice != null ?
+                new ObjectParameter("subCheckBoxChoice", subCheckBoxChoice) :
+                new ObjectParameter("subCheckBoxChoice", typeof(string));
+    
+            var calendarMessageTextParameter = calendarMessageText != null ?
+                new ObjectParameter("calendarMessageText", calendarMessageText) :
+                new ObjectParameter("calendarMessageText", typeof(string));
+    
             var skipLogicJumpParameter = skipLogicJump != null ?
                 new ObjectParameter("skipLogicJump", skipLogicJump) :
                 new ObjectParameter("skipLogicJump", typeof(string));
@@ -15313,7 +15321,7 @@ namespace Generic
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireLoad", qidParameter, pageParameter, surveySetParameter, surveyParameter, questionParameter, responseParameter, commentParameter, titleParameter, requiredParameter, lengthParameter, titleLengthParameter, yValueParameter, nValueParameter, otherValueParameter, qWeightParameter, skipLogicParameter, skipLogicAnswerParameter, skipLogicJumpParameter, commentBoxMessageTextParameter, uploadMessageTextParameter, commentTypeParameter, spinOffQuestionnaireParameter, spinOffIDParameter, emailAlertParameter, emailAlertListParameter, questionnaireParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireLoad", qidParameter, pageParameter, surveySetParameter, surveyParameter, questionParameter, responseParameter, commentParameter, titleParameter, requiredParameter, lengthParameter, titleLengthParameter, yValueParameter, nValueParameter, otherValueParameter, qWeightParameter, skipLogicParameter, skipLogicAnswerParameter, subCheckBoxChoiceParameter, calendarMessageTextParameter, skipLogicJumpParameter, commentBoxMessageTextParameter, uploadMessageTextParameter, commentTypeParameter, spinOffQuestionnaireParameter, spinOffIDParameter, emailAlertParameter, emailAlertListParameter, questionnaireParameter);
         }
     
         public virtual ObjectResult<questionnaireLoad> pr_getQuestionnaireLoad(Nullable<int> id)

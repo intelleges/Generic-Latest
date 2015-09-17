@@ -279,9 +279,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.reminderScheduledTaskHeartBeat" Width="1.5" PointX="20.375" PointY="17.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.ptqSendDateReminderCount" Width="1.5" PointX="20.375" PointY="20.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqDoc" Width="1.5" PointX="21.375" PointY="2.75" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Width="1.5" PointX="18" PointY="38.625" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Width="1.5" PointX="12.75" PointY="56" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" />
@@ -294,6 +291,9 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.surveyQuestion" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailAttachment" Width="1.5" PointX="33" PointY="61.25" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_autoMailAttachment_autoMailMessage" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Width="1.5" PointX="18" PointY="38.625" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
