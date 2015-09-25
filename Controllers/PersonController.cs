@@ -190,7 +190,7 @@ namespace Generic.Controllers
             if (enterpriseId.HasValue)
             {
                 ViewBag.enterpriseId = enterpriseId.Value;
-                ViewBag.enterprise = new SelectList(db.pr_getEnterpriseAll(), "id", "description", enterpriseId);
+                ViewBag.enterprise = new SelectList(db.pr_getEnterpriseAll(), "id", "companyName", enterpriseId);
                 //ViewBag.campaign = new SelectList(db.pr_getTouchpointAllByEnterprise(1), "id", "description");
                 ViewBag.manager = new SelectList(db.pr_getPersonByEnterprise2(1), "id", "FullName");
 
@@ -207,7 +207,7 @@ namespace Generic.Controllers
 
                 ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
                 ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
-                ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+                ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise2(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
                 ViewBag.GroupId = new SelectList(db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             }
             return View();

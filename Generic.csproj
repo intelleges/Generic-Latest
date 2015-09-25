@@ -1877,6 +1877,9 @@
     <Compile Include="pr_getRoleAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getRoleByEnterprise2_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getRoleByEnterprise_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

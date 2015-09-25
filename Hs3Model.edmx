@@ -6475,6 +6475,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getRoleByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getRoleByEnterprise2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getRoleByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -14234,6 +14237,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponses" />
           </AssociationSet>
           <FunctionImport Name="pr_getIndustryFocusDetailAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIndustryFocusDetailAll_Result)" />
+          <FunctionImport Name="pr_getRoleByEnterprise2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleByEnterprise2_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -22692,6 +22698,15 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="questionnaireTitle" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="questionnaire" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getRoleByEnterprise2_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="accessLevel" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="access" Nullable="true" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -29839,6 +29854,19 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="partnertypetouchpointquestionnaire" ColumnName="partnertypetouchpointquestionnaire" />
                 <ScalarProperty Name="questionnaireTitle" ColumnName="questionnaireTitle" />
                 <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getRoleByEnterprise2" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleByEnterprise2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRoleByEnterprise2_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="access" ColumnName="access" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -16938,5 +16938,14 @@ namespace Generic
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIndustryFocusDetailAll_Result>("pr_getIndustryFocusDetailAll");
         }
+    
+        public virtual ObjectResult<pr_getRoleByEnterprise2_Result> pr_getRoleByEnterprise2(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRoleByEnterprise2_Result>("pr_getRoleByEnterprise2", enterpriseParameter);
+        }
     }
 }

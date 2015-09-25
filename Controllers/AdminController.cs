@@ -1056,11 +1056,8 @@ namespace Generic.Controllers
             model.ComboBoxAttributes.OpenOnFocus = model.ComboBoxAttributes.OpenOnFocus ?? false;
             model.DropDownListAttributes.Width = model.DropDownListAttributes.Width ?? 200;
             model.DropDownListAttributes.SelectedIndex = model.DropDownListAttributes.SelectedIndex ?? 0;
-
             model.Touchpoints = db.pr_getTouchpointAllByEnterprise((int)Session["MyEnterPriseId"]).ToList();
-
             return PartialView("_TouchpointPartial", model);
-
         }
 
         public JsonResult ChangeTouchpoint(int selectedTouchpoint)
