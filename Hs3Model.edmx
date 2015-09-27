@@ -1519,6 +1519,20 @@
           <Property Name="letter" Type="int" />
           <Property Name="levelType" Type="int" />
         </EntityType>
+        <EntityType Name="questionnaireAutomailMessageLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rid" Type="int" Nullable="false" />
+          <Property Name="type" Type="int" Nullable="false" />
+          <Property Name="subject" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="text" Type="varchar(max)" Nullable="false" />
+          <Property Name="footer" Type="varchar(max)" />
+          <Property Name="signature" Type="varchar(max)" />
+          <Property Name="sendDateCalcFactor" Type="int" Nullable="false" />
+          <Property Name="questionnaire" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="questionnaireCMS">
           <Key>
             <PropertyRef Name="id" />
@@ -1527,6 +1541,17 @@
           <Property Name="description" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="questionnaireCMSLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="questionnaireCMS" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="text" Type="varchar(max)" />
+          <Property Name="link" Type="nvarchar(max)" />
+          <Property Name="questionnaire" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="questionnaireLevel">
           <Key>
@@ -4926,10 +4951,26 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="letter" Type="int" Mode="In" />
           <Parameter Name="levelType" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addQuestionnaireAutomailMessageLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rid" Type="int" Mode="In" />
+          <Parameter Name="type" Type="int" Mode="In" />
+          <Parameter Name="subject" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar(max)" Mode="In" />
+          <Parameter Name="footer" Type="varchar(max)" Mode="In" />
+          <Parameter Name="signature" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sendDateCalcFactor" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addQuestionnaireCMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_addQuestionnaireCMSLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaireCMS" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar(max)" Mode="In" />
+          <Parameter Name="link" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addQuestionnaireLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -8370,7 +8411,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="question" EntityType="Self.question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionLanguage" EntityType="Self.questionLanguage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaire" EntityType="Self.questionnaire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="questionnaireAutomailMessageLoad" EntityType="Self.questionnaireAutomailMessageLoad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireCMS" EntityType="Self.questionnaireCMS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="questionnaireCMSLoad" EntityType="Self.questionnaireCMSLoad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireLevel" EntityType="Self.questionnaireLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireLevelType" EntityType="Self.questionnaireLevelType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireLoad" EntityType="Self.questionnaireLoad" Schema="dbo" store:Type="Tables" />
@@ -14238,7 +14281,25 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </AssociationSet>
           <FunctionImport Name="pr_getIndustryFocusDetailAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIndustryFocusDetailAll_Result)" />
           <FunctionImport Name="pr_getRoleByEnterprise2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleByEnterprise2_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="questionnaireAutomailMessageLoads" EntityType="hs3MVCMTQa2Model.questionnaireAutomailMessageLoad" />
+          <EntitySet Name="questionnaireCMSLoads" EntityType="hs3MVCMTQa2Model.questionnaireCMSLoad" />
+          <FunctionImport Name="pr_addQuestionnaireAutomailMessageLoad" ReturnType="Collection(Decimal)">
+            <Parameter Name="rid" Mode="In" Type="Int32" />
+            <Parameter Name="type" Mode="In" Type="Int32" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="footer" Mode="In" Type="String" />
+            <Parameter Name="signature" Mode="In" Type="String" />
+            <Parameter Name="sendDateCalcFactor" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addQuestionnaireCMSLoad" ReturnType="Collection(Decimal)">
+            <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="link" Mode="In" Type="String" />
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
@@ -22707,6 +22768,31 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="enterprise" Nullable="true" />
           <Property Type="Int32" Name="access" Nullable="true" />
         </ComplexType>
+        <EntityType Name="questionnaireAutomailMessageLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rid" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+          <Property Name="subject" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="footer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sendDateCalcFactor" Type="Int32" Nullable="false" />
+          <Property Name="questionnaire" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="questionnaireCMSLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="questionnaireCMS" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="questionnaire" Type="Int32" Nullable="false" />
+        </EntityType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -29870,6 +29956,35 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="questionnaireAutomailMessageLoads">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireAutomailMessageLoad">
+              <MappingFragment StoreEntitySet="questionnaireAutomailMessageLoad">
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="signature" ColumnName="signature" />
+                <ScalarProperty Name="footer" ColumnName="footer" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="rid" ColumnName="rid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questionnaireCMSLoads">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireCMSLoad">
+              <MappingFragment StoreEntitySet="questionnaireCMSLoad">
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addQuestionnaireAutomailMessageLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireAutomailMessageLoad" />
+          <FunctionImportMapping FunctionImportName="pr_addQuestionnaireCMSLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireCMSLoad" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

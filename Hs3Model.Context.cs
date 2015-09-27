@@ -194,6 +194,8 @@ namespace Generic
         public virtual DbSet<question> questions { get; set; }
         public virtual DbSet<autoMailAttachment> autoMailAttachments { get; set; }
         public virtual DbSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponses { get; set; }
+        public virtual DbSet<questionnaireAutomailMessageLoad> questionnaireAutomailMessageLoads { get; set; }
+        public virtual DbSet<questionnaireCMSLoad> questionnaireCMSLoads { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -16946,6 +16948,64 @@ namespace Generic
                 new ObjectParameter("enterprise", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRoleByEnterprise2_Result>("pr_getRoleByEnterprise2", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireAutomailMessageLoad(Nullable<int> rid, Nullable<int> type, string subject, string text, string footer, string signature, Nullable<int> sendDateCalcFactor)
+        {
+            var ridParameter = rid.HasValue ?
+                new ObjectParameter("rid", rid) :
+                new ObjectParameter("rid", typeof(int));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var footerParameter = footer != null ?
+                new ObjectParameter("footer", footer) :
+                new ObjectParameter("footer", typeof(string));
+    
+            var signatureParameter = signature != null ?
+                new ObjectParameter("signature", signature) :
+                new ObjectParameter("signature", typeof(string));
+    
+            var sendDateCalcFactorParameter = sendDateCalcFactor.HasValue ?
+                new ObjectParameter("sendDateCalcFactor", sendDateCalcFactor) :
+                new ObjectParameter("sendDateCalcFactor", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireAutomailMessageLoad", ridParameter, typeParameter, subjectParameter, textParameter, footerParameter, signatureParameter, sendDateCalcFactorParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireCMSLoad(Nullable<int> questionnaireCMS, string description, string text, string link, Nullable<int> questionnaire)
+        {
+            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
+                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
+                new ObjectParameter("questionnaireCMS", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var linkParameter = link != null ?
+                new ObjectParameter("link", link) :
+                new ObjectParameter("link", typeof(string));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireCMSLoad", questionnaireCMSParameter, descriptionParameter, textParameter, linkParameter, questionnaireParameter);
         }
     }
 }

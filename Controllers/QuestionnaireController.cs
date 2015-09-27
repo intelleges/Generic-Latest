@@ -165,6 +165,7 @@ namespace Generic.Controllers
                         {
                             context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
                         }
+                        context.pr_addQuestionnaireCMSLoad(questionnaireCMSID.id, cms.ITEM, cms.TEXT, cms.LINK, questionnaireId).FirstOrDefault();
                     }
                 }
             }
@@ -835,6 +836,7 @@ namespace Generic.Controllers
                         db.Entry(objQuestionnaire).State = EntityState.Added;
                         db.SaveChanges();
                         int questionnaireId = objQuestionnaire.id;
+                        
 
                         Session["QuestionnaireId"] = questionnaireId;
                         Session["protocolId"] = protocol;
@@ -1132,6 +1134,7 @@ namespace Generic.Controllers
                                     db.questions.Add(objQuestion);
                                     db.SaveChanges();
                                     questionSet.Add(objQuestion.id);
+                                    db.pr_addQuestionnaireLoad(excelQuestionnaire.QID, excelQuestionnaire.Page, excelQuestionnaire.Surveyset, excelQuestionnaire.Survey, excelQuestionnaire.Question, excelQuestionnaire.Response, excelQuestionnaire.Comment, excelQuestionnaire.Title, excelQuestionnaire.Required, excelQuestionnaire.Length, excelQuestionnaire.titleLength, excelQuestionnaire.yValue, excelQuestionnaire.nValue, excelQuestionnaire.otherValue, excelQuestionnaire.qWeight, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicAnswer, excelQuestionnaire.SubCheckBoxChoice, excelQuestionnaire.CalendarMessageText, excelQuestionnaire.skipLogicJump, excelQuestionnaire.CommentBoxMessageText, excelQuestionnaire.UploadMessageText, excelQuestionnaire.CommentType, "", excelQuestionnaire.spinoffid, excelQuestionnaire.emailalert, excelQuestionnaire.emailalertlist, questionnaireId).FirstOrDefault();
                                 }
                                 catch (Exception ex)
                                 {
@@ -1700,22 +1703,22 @@ namespace Generic.Controllers
 
                 // The files are not actually saved in this demo
                 file.SaveAs(physicalPath);
-                string sheetname = "Sheet1";
+                string sheetname = "mailMessage";
                 var excelRead = new ExcelQueryFactory(physicalPath.ToString());
-
+                excelRead.AddMapping<ExcelAutoMailMessage>(x => x.SendDateCalcFactor, "Send Date Calc Factor");
                 //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.partnerTypeTouchpointQuestionnaire1, autoMailid);
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.id, "RID");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.subject, "Subject");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.text, "Text");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer1, "Footer");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer2, "Signature");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateCalcFactor, "Send Date Calc Factor");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateSet, "sendDateSet");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.mailType, "Type");
-                excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.partnerTypeTouchpointQuestionnaire, "partnerTypeTouchpointQuestionnaire");
+                //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.id, "RID");
+                //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.subject, "Subject");
+                //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.text, "Text");
+                //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer1, "Footer");
+                //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.footer2, "Signature");
+                //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateCalcFactor, "Send Date Calc Factor");
+                //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.sendDateSet, "sendDateSet");
+                //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.mailType, "Type");
+                //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.partnerTypeTouchpointQuestionnaire, "partnerTypeTouchpointQuestionnaire");
 
 
-                var questionnaireCMSinExcel = from a in excelRead.Worksheet<QuestionnaireAutoMailViewModel>(sheetname) select a;
+                var questionnaireCMSinExcel = from a in excelRead.Worksheet<ExcelAutoMailMessage>(sheetname) select a;
                 List<Tuple<int, string>> uploadedquestionnaireCMS = new List<Tuple<int, string>>();
 
                 db.pr_removeAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid));
@@ -1728,8 +1731,9 @@ namespace Generic.Controllers
                         if (!string.IsNullOrEmpty(autoMailid))
                         {
                             // context.questionnaireQuestionnaireCMS.Attach(questionnaireCMSitem);
-                            context.pr_addAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid),questionnaireCMSitem.subject,string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
-                                 questionnaireCMSitem.footer1,questionnaireCMSitem.footer2,questionnaireCMSitem.sendDateCalcFactor, questionnaireCMSitem.sendDateSet,(int)questionnaireCMSitem.mailType);
+                            context.pr_addAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid),questionnaireCMSitem.Subject,string.IsNullOrEmpty(questionnaireCMSitem.Text) ? "" : questionnaireCMSitem.Text,
+                                 questionnaireCMSitem.Footer,questionnaireCMSitem.Signature,questionnaireCMSitem.SendDateCalcFactor,null,int.Parse(questionnaireCMSitem.Type));
+                            context.pr_addQuestionnaireAutomailMessageLoad(Convert.ToInt32(autoMailid), int.Parse(questionnaireCMSitem.Type), questionnaireCMSitem.Subject, questionnaireCMSitem.Text, questionnaireCMSitem.Footer, questionnaireCMSitem.Signature, questionnaireCMSitem.SendDateCalcFactor).FirstOrDefault();
                             //int modifiedAutoMail = context.pr_modifyAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid), questionnaireCMSitem.id,
                             //    questionnaireCMSitem.subject, string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
                             //    questionnaireCMSitem.footer1, questionnaireCMSitem.footer2, questionnaireCMSitem.sendDateCalcFactor, questionnaireCMSitem.sendDateSet,
