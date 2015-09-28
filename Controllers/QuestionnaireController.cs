@@ -1733,7 +1733,7 @@ namespace Generic.Controllers
                             // context.questionnaireQuestionnaireCMS.Attach(questionnaireCMSitem);
                             context.pr_addAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid),questionnaireCMSitem.Subject,string.IsNullOrEmpty(questionnaireCMSitem.Text) ? "" : questionnaireCMSitem.Text,
                                  questionnaireCMSitem.Footer,questionnaireCMSitem.Signature,questionnaireCMSitem.SendDateCalcFactor,null,int.Parse(questionnaireCMSitem.Type));
-                            context.pr_addQuestionnaireAutomailMessageLoad(Convert.ToInt32(autoMailid), int.Parse(questionnaireCMSitem.Type), questionnaireCMSitem.Subject, questionnaireCMSitem.Text, questionnaireCMSitem.Footer, questionnaireCMSitem.Signature, questionnaireCMSitem.SendDateCalcFactor).FirstOrDefault();
+                            context.pr_addQuestionnaireAutomailMessageLoad(Convert.ToInt32(questionnaireCMSitem.RID), int.Parse(questionnaireCMSitem.Type), questionnaireCMSitem.Subject, questionnaireCMSitem.Text, questionnaireCMSitem.Footer, questionnaireCMSitem.Signature, questionnaireCMSitem.SendDateCalcFactor,Convert.ToInt32(autoMailid)).FirstOrDefault();
                             //int modifiedAutoMail = context.pr_modifyAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid), questionnaireCMSitem.id,
                             //    questionnaireCMSitem.subject, string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
                             //    questionnaireCMSitem.footer1, questionnaireCMSitem.footer2, questionnaireCMSitem.sendDateCalcFactor, questionnaireCMSitem.sendDateSet,

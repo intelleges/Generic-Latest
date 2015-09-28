@@ -4959,6 +4959,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="footer" Type="varchar(max)" Mode="In" />
           <Parameter Name="signature" Type="varchar(max)" Mode="In" />
           <Parameter Name="sendDateCalcFactor" Type="int" Mode="In" />
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addQuestionnaireCMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -14285,6 +14286,13 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImport>
           <EntitySet Name="questionnaireAutomailMessageLoads" EntityType="hs3MVCMTQa2Model.questionnaireAutomailMessageLoad" />
           <EntitySet Name="questionnaireCMSLoads" EntityType="hs3MVCMTQa2Model.questionnaireCMSLoad" />
+          <FunctionImport Name="pr_addQuestionnaireCMSLoad" ReturnType="Collection(Decimal)">
+            <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="link" Mode="In" Type="String" />
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="pr_addQuestionnaireAutomailMessageLoad" ReturnType="Collection(Decimal)">
             <Parameter Name="rid" Mode="In" Type="Int32" />
             <Parameter Name="type" Mode="In" Type="Int32" />
@@ -14293,12 +14301,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="footer" Mode="In" Type="String" />
             <Parameter Name="signature" Mode="In" Type="String" />
             <Parameter Name="sendDateCalcFactor" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_addQuestionnaireCMSLoad" ReturnType="Collection(Decimal)">
-            <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
-            <Parameter Name="description" Mode="In" Type="String" />
-            <Parameter Name="text" Mode="In" Type="String" />
-            <Parameter Name="link" Mode="In" Type="String" />
             <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           
@@ -29983,8 +29985,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_addQuestionnaireAutomailMessageLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireAutomailMessageLoad" />
           <FunctionImportMapping FunctionImportName="pr_addQuestionnaireCMSLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireCMSLoad" />
+          <FunctionImportMapping FunctionImportName="pr_addQuestionnaireAutomailMessageLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireAutomailMessageLoad" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -16950,7 +16950,32 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRoleByEnterprise2_Result>("pr_getRoleByEnterprise2", enterpriseParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireAutomailMessageLoad(Nullable<int> rid, Nullable<int> type, string subject, string text, string footer, string signature, Nullable<int> sendDateCalcFactor)
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireCMSLoad(Nullable<int> questionnaireCMS, string description, string text, string link, Nullable<int> questionnaire)
+        {
+            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
+                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
+                new ObjectParameter("questionnaireCMS", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var linkParameter = link != null ?
+                new ObjectParameter("link", link) :
+                new ObjectParameter("link", typeof(string));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireCMSLoad", questionnaireCMSParameter, descriptionParameter, textParameter, linkParameter, questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireAutomailMessageLoad(Nullable<int> rid, Nullable<int> type, string subject, string text, string footer, string signature, Nullable<int> sendDateCalcFactor, Nullable<int> questionnaire)
         {
             var ridParameter = rid.HasValue ?
                 new ObjectParameter("rid", rid) :
@@ -16980,32 +17005,11 @@ namespace Generic
                 new ObjectParameter("sendDateCalcFactor", sendDateCalcFactor) :
                 new ObjectParameter("sendDateCalcFactor", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireAutomailMessageLoad", ridParameter, typeParameter, subjectParameter, textParameter, footerParameter, signatureParameter, sendDateCalcFactorParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireCMSLoad(Nullable<int> questionnaireCMS, string description, string text, string link, Nullable<int> questionnaire)
-        {
-            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
-                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
-                new ObjectParameter("questionnaireCMS", typeof(int));
-    
-            var descriptionParameter = description != null ?
-                new ObjectParameter("description", description) :
-                new ObjectParameter("description", typeof(string));
-    
-            var textParameter = text != null ?
-                new ObjectParameter("text", text) :
-                new ObjectParameter("text", typeof(string));
-    
-            var linkParameter = link != null ?
-                new ObjectParameter("link", link) :
-                new ObjectParameter("link", typeof(string));
-    
             var questionnaireParameter = questionnaire.HasValue ?
                 new ObjectParameter("questionnaire", questionnaire) :
                 new ObjectParameter("questionnaire", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireCMSLoad", questionnaireCMSParameter, descriptionParameter, textParameter, linkParameter, questionnaireParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireAutomailMessageLoad", ridParameter, typeParameter, subjectParameter, textParameter, footerParameter, signatureParameter, sendDateCalcFactorParameter, questionnaireParameter);
         }
     }
 }
