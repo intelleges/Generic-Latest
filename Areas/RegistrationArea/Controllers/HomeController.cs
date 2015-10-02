@@ -541,7 +541,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     foreach (var choiceStr in choices)
                     {
                         var keyPair = choiceStr.Split(new char[] { ':' });
-                        if (keyPair.Length > 1 && keyPair[0].ToLower() == answer.zcode.ToLower())
+                        if (keyPair.Length > 1 && answer.zcode!=null&&keyPair[0].ToLower() == answer.zcode.ToLower())
                         {
                             SendEmailAlert(pptq.partner1, answer.description, question.Question, pptq.accesscode, text, keyPair[1], ptq.questionnaire, question.id, answerId);
                                 
