@@ -3031,6 +3031,8 @@
     <Content Include="Content\kendo\2015.2.624\fonts\DejaVu\DejaVuSans-Bold.ttf" />
     <Content Include="Content\kendo\2015.2.624\fonts\DejaVu\DejaVuSans.ttf" />
     <Content Include="DummyData\dummyData.xlsx" />
+    <Content Include="allow more then 255 symbols%28x64%29.reg" />
+    <Content Include="allow more then 255 symbols%28x86%29.reg" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

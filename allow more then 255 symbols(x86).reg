@@ -1,0 +1,4 @@
+Windows Registry Editor Version 5.00 
+
+[HKLM\Software\Microsoft\Jet\4.0\Engines\Excel]
+"TypeGuessRows"=dword:0
