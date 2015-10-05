@@ -1,4 +1,5 @@
-﻿using Google.Apis.Services;
+﻿using Generic.Helpers.Utility;
+using Google.Apis.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,6 +14,8 @@ namespace Generic.Helpers
         Google.Apis.Translate.v2.TranslateService _gService;
         private EntitiesDBContext _db = new EntitiesDBContext();
         IDatabaseTranslationService _dbservice;
+        EmailFormat _emailFormat;
+        public partnerPartnertypeTouchpointQuestionnaire PPTQ { get; set; }
         public GoogleTranslatorHelper(IDatabaseTranslationService dbservice)
         {
             _dbservice = dbservice;
@@ -20,10 +23,12 @@ namespace Generic.Helpers
             {
                 ApiKey = ConfigurationManager.AppSettings["GoogleTranslateApiKey"]
             });
+            _emailFormat = new EmailFormat();
         }
 
-        public string Translate(int id, TranslationType type, string lang, int cmsId=0)
+        public string Translate(int id, TranslationType type, string lang, int cmsId = 0)
         {
+            if (PPTQ == null) throw new Exception("Please setup PPTQ to use translation services");
             switch (type)
             {
                 case TranslationType.Question:
@@ -48,13 +53,14 @@ namespace Generic.Helpers
                 var question = _db.pr_getQuestion(id).FirstOrDefault();
                 if (question != null)
                 {
+                    var text = _emailFormat.sGetEmailBody(question.Question, null, PPTQ.partner1, PPTQ.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, PPTQ.partnerTypeTouchpointQuestionnaire1.touchpoint1);
                     if (lang == "en" || string.IsNullOrEmpty(question.Question))
                     {
-                        result = question.Question;
+                        result = text;
                     }
                     else
                     {
-                        result = GoogleTranslate(question.Question, lang);
+                        result = GoogleTranslate(text, lang);
                         _dbservice.SetQuestionTranslation(id, result, lang);
                     }
                 }
@@ -69,15 +75,17 @@ namespace Generic.Helpers
             else
             {
                 var cmsItem = _db.pr_getQuestionnaireQuestionnaireCMS(id, cmsId).FirstOrDefault();
+                
                 if (cmsItem != null)
                 {
-                    if (lang == "en"||string.IsNullOrEmpty(cmsItem.text))
+                    var text = _emailFormat.sGetEmailBody(cmsItem.text, null, PPTQ.partner1, PPTQ.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, PPTQ.partnerTypeTouchpointQuestionnaire1.touchpoint1);
+                    if (lang == "en" || string.IsNullOrEmpty(text))
                     {
-                        result = cmsItem.text;
+                        result = text;
                     }
                     else
                     {
-                        result = GoogleTranslate(cmsItem.text, lang);
+                        result = GoogleTranslate(text, lang);
                         _dbservice.SetCmsItemTranslation(id, result, lang, cmsId);
                     }
                 }
@@ -92,15 +100,17 @@ namespace Generic.Helpers
             else
             {
                 var response = _db.pr_getResponse(id).FirstOrDefault();
+                
                 if (response != null)
                 {
+                    var text = _emailFormat.sGetEmailBody(response.description, null, PPTQ.partner1, PPTQ.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, PPTQ.partnerTypeTouchpointQuestionnaire1.touchpoint1);
                     if (lang == "en" || string.IsNullOrEmpty(response.description))
                     {
-                        result = response.description;
+                        result = text;
                     }
                     else
                     {
-                        result = GoogleTranslate(response.description, lang);
+                        result = GoogleTranslate(text, lang);
                         _dbservice.SetResponseTranslation(id, result, lang);
                     }
                 }
@@ -137,6 +147,10 @@ namespace Generic.Helpers
             
             if (!string.IsNullOrEmpty(text) && !string.IsNullOrEmpty(lang))
             {
+                if(PPTQ!=null)
+                {
+                    text = _emailFormat.sGetEmailBody(text, null, PPTQ.partner1, PPTQ.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, PPTQ.partnerTypeTouchpointQuestionnaire1.touchpoint1);
+                }
                 if (lang.ToLower() == "en")
                     return text;
                 return GoogleTranslate(text, lang);

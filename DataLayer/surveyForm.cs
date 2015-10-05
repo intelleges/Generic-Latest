@@ -45,7 +45,7 @@ namespace Generic.DataLayer
             this.touchpoint = touchpoint;
             this.partner = partner;
             this.questionnaire = questionnaire;
-            _translator = translator;
+            _translator = translator;            
             _currentLanguage=  currentLanguage;
         }
 

@@ -97,8 +97,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
             ViewBag.accesscode = accessCode;
-            ViewBag.ACCESS_CODE_PLEASE_ENTER = _translator.Translate(PLEASE_ENTER_ACCESS_CODE, CurrentLanguage);
-            ViewBag.ACCESS_CODE_SIPLE_TEXT = _translator.Translate(ACCESS_CODE_SIPLE_TEXT, CurrentLanguage);
+            
             ViewBag.CMS_TITLE = CMS.ACCESS_CODE_TITLE;
             ViewBag.CMS_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;
             ViewBag.CMS_PANEL_ONE = CMS.ACCESS_CODE_PANEL_ONE;
@@ -110,9 +109,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             
             var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            
             var cmsId=0;
             if (ppptq_cms != null)
             {
+                _translator.PPTQ = ppptq_cms;
+                ViewBag.ACCESS_CODE_PLEASE_ENTER = _translator.Translate(PLEASE_ENTER_ACCESS_CODE, CurrentLanguage);
+                ViewBag.ACCESS_CODE_SIPLE_TEXT = _translator.Translate(ACCESS_CODE_SIPLE_TEXT, CurrentLanguage);
                 Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(db.pr_getPartner(ppptq_cms.partner).FirstOrDefault().enterprise.ToString());
 
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
@@ -195,14 +198,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.CMS_PANEL_TWO = CMS.ACCESS_CODE_PANEL_TWO;
             ViewBag.CMS_FOOTER_ONE = CMS.ACCESS_CODE_FOOTER_ONE;
             ViewBag.CMS_FOOTER_TWO = CMS.ACCESS_CODE_FOOTER_TWO;
-            ViewBag.ACCESS_CODE_PLEASE_ENTER = _translator.Translate(PLEASE_ENTER_ACCESS_CODE, CurrentLanguage);
-            ViewBag.ACCESS_CODE_SIPLE_TEXT = _translator.Translate(ACCESS_CODE_SIPLE_TEXT, CurrentLanguage);
+            
             ViewBag.CMS_SUBMIT_TEXT = "Login";
 
             int cmsId = 0;
             var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             if (ppptq != null)
             {
+                _translator.PPTQ = ppptq;
+                ViewBag.ACCESS_CODE_PLEASE_ENTER = _translator.Translate(PLEASE_ENTER_ACCESS_CODE, CurrentLanguage);
+                ViewBag.ACCESS_CODE_SIPLE_TEXT = _translator.Translate(ACCESS_CODE_SIPLE_TEXT, CurrentLanguage);
                 if (new int[] { 6, 7, 8 }.Contains(ppptq.status))
                 {
                     var objPartner = db.pr_getPartner(ppptq.partner).FirstOrDefault();
@@ -350,8 +355,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             catch { }
 
-            ViewBag.VERIFY_COMPANY_INFO = _translator.Translate(VERIFY_COMPANY_INFO, CurrentLanguage);
-            ViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(COMPANY_INFORMATION_TEXT, CurrentLanguage);
+            
             ViewBag.CMS_PAGE_TITLE = CMS.COMPANY_PAGE_TITLE;
             ViewBag.CMS_PAGE_SUBTITLE = CMS.COMPANY_PAGE_SUBTITLE;
             ViewBag.CMS_PAGE_PANEL_ONE = CMS.COMPANY_PAGE_PANEL_ONE;
@@ -369,6 +373,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
             int cms_id = 0;
             if (ppptq != null)
             {
+                _translator.PPTQ = ppptq;
+                ViewBag.VERIFY_COMPANY_INFO = _translator.Translate(VERIFY_COMPANY_INFO, CurrentLanguage);
+                ViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(COMPANY_INFORMATION_TEXT, CurrentLanguage);
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
@@ -440,12 +447,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
             ViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
             ViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
-            ViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
-            ViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
+            
             var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
             var cmsId = 0;
             if (ppptq != null)
             {
+                _translator.PPTQ = ppptq;
+                ViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
+                ViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
@@ -621,6 +630,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             int cmsId = 0;
             if (ppptq_cms != null)
             {
+                _translator.PPTQ = ppptq_cms;
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
@@ -1767,6 +1777,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 return RedirectToAction("Default");
             }
+            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+            _translator.PPTQ = ppptq_cms;
             ViewBag.CMS_PAGE_TITLE = CMS.COMPANY_EDIT_PAGE_TITLE;
             ViewBag.CMS_PAGE_SUBTITLE = CMS.COMPANY_EDIT_PAGE_SUBTITLE;
             ViewBag.CMS_PAGE_PANEL_ONE = CMS.COMPANY_EDIT_PAGE_PANEL_ONE;
@@ -1779,22 +1791,23 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
             ViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
             ViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
-            ViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(COMPANY_INFORMATION_TEXT, CurrentLanguage);
-            ViewBag.VERIFY_COMPANY_INFO = _translator.Translate(VERIFY_COMPANY_INFO, CurrentLanguage);
-            ViewBag.Company = _translator.Translate(Company, CurrentLanguage);
-            ViewBag.PHYSYCAL_ADDRESS = _translator.Translate(PHYSYCAL_ADDRESS, CurrentLanguage);
-            ViewBag.ADDRESS_ONE = _translator.Translate(ADDRESS_ONE, CurrentLanguage);
-            ViewBag.ADDRESS_TWO = _translator.Translate(ADDRESS_TWO, CurrentLanguage);
-            ViewBag.CITY = _translator.Translate(CITY, CurrentLanguage);
-            ViewBag.STATE_TEXT = _translator.Translate(STATE_TEXT, CurrentLanguage);
-            ViewBag.POSTAL_CODE = _translator.Translate(POSTAL_CODE, CurrentLanguage);
-            ViewBag.PROVINCE = _translator.Translate(PROVINCE, CurrentLanguage);
-            ViewBag.COUNTRY_TEXT = _translator.Translate(COUNTRY_TEXT, CurrentLanguage);
-            ViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
-            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+            
+            
             int cmsId = 0;
             if (ppptq_cms != null)
             {
+                ViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(COMPANY_INFORMATION_TEXT, CurrentLanguage);
+                ViewBag.VERIFY_COMPANY_INFO = _translator.Translate(VERIFY_COMPANY_INFO, CurrentLanguage);
+                ViewBag.Company = _translator.Translate(Company, CurrentLanguage);
+                ViewBag.PHYSYCAL_ADDRESS = _translator.Translate(PHYSYCAL_ADDRESS, CurrentLanguage);
+                ViewBag.ADDRESS_ONE = _translator.Translate(ADDRESS_ONE, CurrentLanguage);
+                ViewBag.ADDRESS_TWO = _translator.Translate(ADDRESS_TWO, CurrentLanguage);
+                ViewBag.CITY = _translator.Translate(CITY, CurrentLanguage);
+                ViewBag.STATE_TEXT = _translator.Translate(STATE_TEXT, CurrentLanguage);
+                ViewBag.POSTAL_CODE = _translator.Translate(POSTAL_CODE, CurrentLanguage);
+                ViewBag.PROVINCE = _translator.Translate(PROVINCE, CurrentLanguage);
+                ViewBag.COUNTRY_TEXT = _translator.Translate(COUNTRY_TEXT, CurrentLanguage);
+                ViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
@@ -1897,6 +1910,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
             var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+            _translator.PPTQ = ppptq_cms;
             ViewBag.CMS_PAGE_TITLE = CMS.COMPANY_EDIT_PAGE_TITLE;
             ViewBag.CMS_PAGE_SUBTITLE = CMS.COMPANY_EDIT_PAGE_SUBTITLE;
             ViewBag.CMS_PAGE_PANEL_ONE = CMS.COMPANY_EDIT_PAGE_PANEL_ONE;
@@ -1909,21 +1923,22 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
             ViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
             ViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
-            ViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(COMPANY_INFORMATION_TEXT, CurrentLanguage);
-            ViewBag.VERIFY_COMPANY_INFO = _translator.Translate(VERIFY_COMPANY_INFO, CurrentLanguage);
-            ViewBag.Company = _translator.Translate(Company, CurrentLanguage);
-            ViewBag.PHYSYCAL_ADDRESS = _translator.Translate(PHYSYCAL_ADDRESS, CurrentLanguage);
-            ViewBag.ADDRESS_ONE = _translator.Translate(ADDRESS_ONE, CurrentLanguage);
-            ViewBag.ADDRESS_TWO = _translator.Translate(ADDRESS_TWO, CurrentLanguage);
-            ViewBag.CITY = _translator.Translate(CITY, CurrentLanguage);
-            ViewBag.STATE_TEXT = _translator.Translate(STATE_TEXT, CurrentLanguage);
-            ViewBag.POSTAL_CODE = _translator.Translate(POSTAL_CODE, CurrentLanguage);
-            ViewBag.PROVINCE = _translator.Translate(PROVINCE, CurrentLanguage);
-            ViewBag.COUNTRY_TEXT = _translator.Translate(COUNTRY_TEXT, CurrentLanguage);
-            ViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
+            
             int cmsId = 0;
             if (ppptq_cms != null)
             {
+                ViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(COMPANY_INFORMATION_TEXT, CurrentLanguage);
+                ViewBag.VERIFY_COMPANY_INFO = _translator.Translate(VERIFY_COMPANY_INFO, CurrentLanguage);
+                ViewBag.Company = _translator.Translate(Company, CurrentLanguage);
+                ViewBag.PHYSYCAL_ADDRESS = _translator.Translate(PHYSYCAL_ADDRESS, CurrentLanguage);
+                ViewBag.ADDRESS_ONE = _translator.Translate(ADDRESS_ONE, CurrentLanguage);
+                ViewBag.ADDRESS_TWO = _translator.Translate(ADDRESS_TWO, CurrentLanguage);
+                ViewBag.CITY = _translator.Translate(CITY, CurrentLanguage);
+                ViewBag.STATE_TEXT = _translator.Translate(STATE_TEXT, CurrentLanguage);
+                ViewBag.POSTAL_CODE = _translator.Translate(POSTAL_CODE, CurrentLanguage);
+                ViewBag.PROVINCE = _translator.Translate(PROVINCE, CurrentLanguage);
+                ViewBag.COUNTRY_TEXT = _translator.Translate(COUNTRY_TEXT, CurrentLanguage);
+                ViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
@@ -1970,7 +1985,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 return HttpNotFound();
             }
-
+            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
             ViewBag.CMS_PAGE_TITLE = CMS.CONTACT_EDIT_PAGE_TITLE;
             ViewBag.CMS_PAGE_SUBTITLE = CMS.CONTACT_EDIT_PAGE_SUBTITLE;
             ViewBag.CMS_PAGE_PANEL_ONE = CMS.CONTACT_EDIT_PAGE_PANEL_ONE;
@@ -1983,22 +1998,24 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
             ViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
             ViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
-            ViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
-            ViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
-            ViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
+            
 
-
-            ViewBag.FIRST_NAME = _translator.Translate(FIRST_NAME, CurrentLanguage);
-            ViewBag.LAST_NAME = _translator.Translate(LAST_NAME, CurrentLanguage);
-            ViewBag.TITLE_TEXT = _translator.Translate(TITLE_TEXT, CurrentLanguage);
-            ViewBag.EMAIL_TEXT = _translator.Translate(EMAIL_TEXT, CurrentLanguage);
-            ViewBag.PHONE_TEXT = _translator.Translate(PHONE_TEXT, CurrentLanguage);
-            ViewBag.FAX_TEXT = _translator.Translate(FAX_TEXT, CurrentLanguage);
-
-            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+            
             var cmsId = 0;
             if (ppptq_cms != null)
             {
+                _translator.PPTQ = ppptq_cms; 
+                ViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
+                ViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
+                ViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
+
+
+                ViewBag.FIRST_NAME = _translator.Translate(FIRST_NAME, CurrentLanguage);
+                ViewBag.LAST_NAME = _translator.Translate(LAST_NAME, CurrentLanguage);
+                ViewBag.TITLE_TEXT = _translator.Translate(TITLE_TEXT, CurrentLanguage);
+                ViewBag.EMAIL_TEXT = _translator.Translate(EMAIL_TEXT, CurrentLanguage);
+                ViewBag.PHONE_TEXT = _translator.Translate(PHONE_TEXT, CurrentLanguage);
+                ViewBag.FAX_TEXT = _translator.Translate(FAX_TEXT, CurrentLanguage);
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
@@ -2117,17 +2134,19 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
             ViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
             ViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
-            ViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
-
-
-            ViewBag.FIRST_NAME = _translator.Translate(FIRST_NAME, CurrentLanguage);
-            ViewBag.LAST_NAME = _translator.Translate(LAST_NAME, CurrentLanguage);
-            ViewBag.TITLE_TEXT = _translator.Translate(TITLE_TEXT, CurrentLanguage);
-            ViewBag.EMAIL_TEXT = _translator.Translate(EMAIL_TEXT, CurrentLanguage);
-            ViewBag.PHONE_TEXT = _translator.Translate(PHONE_TEXT, CurrentLanguage);
+            
             int cmsId = 0;
             if (ppptq_cms != null)
             {
+                _translator.PPTQ = ppptq_cms;
+                ViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
+
+
+                ViewBag.FIRST_NAME = _translator.Translate(FIRST_NAME, CurrentLanguage);
+                ViewBag.LAST_NAME = _translator.Translate(LAST_NAME, CurrentLanguage);
+                ViewBag.TITLE_TEXT = _translator.Translate(TITLE_TEXT, CurrentLanguage);
+                ViewBag.EMAIL_TEXT = _translator.Translate(EMAIL_TEXT, CurrentLanguage);
+                ViewBag.PHONE_TEXT = _translator.Translate(PHONE_TEXT, CurrentLanguage);
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
@@ -2197,12 +2216,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
                 return RedirectToAction("Finish");
             }
-            ViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
-            ViewBag.FIRST_NAME = _translator.Translate(FIRST_NAME, CurrentLanguage);
-            ViewBag.LAST_NAME = _translator.Translate(LAST_NAME, CurrentLanguage);
-            ViewBag.TITLE_TEXT = _translator.Translate(TITLE_TEXT, CurrentLanguage);
-            ViewBag.EMAIL_TEXT = _translator.Translate(EMAIL_TEXT, CurrentLanguage);
-            ViewBag.PHONE_TEXT = _translator.Translate(PHONE_TEXT, CurrentLanguage);
+            
             ViewBag.CMS_PAGE_TITLE = CMS.ESIGNATURE_PAGE_TITLE;
             ViewBag.CMS_PAGE_SUBTITLE = CMS.ESIGNATURE_PAGE_SUBTITLE;
             ViewBag.CMS_PAGE_PANEL_ONE = CMS.ESIGNATURE_PAGE_PANEL_ONE;
@@ -2214,6 +2228,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
             int cmsId = 0;
             if (ppptq_cms != null)
             {
+                _translator.PPTQ = ppptq_cms;
+                ViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
+                ViewBag.FIRST_NAME = _translator.Translate(FIRST_NAME, CurrentLanguage);
+                ViewBag.LAST_NAME = _translator.Translate(LAST_NAME, CurrentLanguage);
+                ViewBag.TITLE_TEXT = _translator.Translate(TITLE_TEXT, CurrentLanguage);
+                ViewBag.EMAIL_TEXT = _translator.Translate(EMAIL_TEXT, CurrentLanguage);
+                ViewBag.PHONE_TEXT = _translator.Translate(PHONE_TEXT, CurrentLanguage);
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
@@ -2377,6 +2398,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (ppptq_cms != null)
             {
+                _translator.PPTQ = ppptq_cms;
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 var leftSites = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(ppptq_cms.id).ToList();
                 var isCompletedSurvey = !(leftSites != null && leftSites.Count() > 0);
@@ -2512,6 +2534,7 @@ Intelleges Team";
                             var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
                             Email email = new Email(amm);
                             EmailFormat emailFormat = new EmailFormat();
+                            email.subject = emailFormat.sGetEmailBody(email.subject, person, objPartner, _enterprise, objtouchpoint, ptq.id);
                             email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, _enterprise, objtouchpoint, ptq.id);
                             email.emailTo = objPartner.email;
                             SendEmail objSendEmail = new SendEmail();
@@ -2533,6 +2556,7 @@ Intelleges Team";
                     var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
                     Email email = new Email(amm);
                     EmailFormat emailFormat = new EmailFormat();
+                    email.subject = emailFormat.sGetEmailBody(email.subject, person, objPartner, _enterprise, objtouchpoint, ptq.id);
                     email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, _enterprise, objtouchpoint, ptq.id);
                     email.emailTo = objPartner.email;
                     SendEmail objSendEmail = new SendEmail();
@@ -2681,6 +2705,8 @@ Intelleges Team";
         {
             try
             {
+                var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+                _translator.PPTQ = ppptq_cms;
                 var cmdId = questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PDF).FirstOrDefault().id;
                 ViewBag.QUESTIONNAIRE_PDF = _translator.Translate(ptqId, TranslationType.CMS, CurrentLanguage, cmdId);
                 //"~/Registration/Home/FileDownloadCMS?CMSName=" + CMS.QUESTIONNAIRE_PDF

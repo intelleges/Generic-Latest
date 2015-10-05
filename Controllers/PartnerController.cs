@@ -835,32 +835,35 @@ namespace Generic.Controllers
                     db.SaveChanges();
 
                     var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
-                    amm.text.Replace("[partner Access Code]", partnerItem.accesscode);
-
-                    var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(partnerItem.accesscode, loadGroup).FirstOrDefault();
-
-                    //if (objpartnerByAccessCode != null)
-                    //{
-
-                    //    amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
-                    //}
-
-                    var objtouchpoint = db.pr_getTouchpoint(touchpoint).FirstOrDefault();
-                    Email email = new Email(amm);
-
-                    if (Session["loadgroup"] != null)
+                    if (amm != null)
                     {
-                        email.loadgroup = Session["loadgroup"].ToString();
+                        amm.text.Replace("[partner Access Code]", partnerItem.accesscode);
+
+                        var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(partnerItem.accesscode, loadGroup).FirstOrDefault();
+
+                        //if (objpartnerByAccessCode != null)
+                        //{
+
+                        //    amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
+                        //}
+
+                        var objtouchpoint = db.pr_getTouchpoint(touchpoint).FirstOrDefault();
+                        Email email = new Email(amm);
+
+                        if (Session["loadgroup"] != null)
+                        {
+                            email.loadgroup = Session["loadgroup"].ToString();
+                        }
+                        email.accesscode = partnerItem.accesscode;
+                        email.protocolTouchpoint = objtouchpoint.description;
+
+                        EmailFormat emailFormat = new EmailFormat();
+                        email.subject = emailFormat.sGetEmailBody(amm.subject, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+                        email.body = emailFormat.sGetEmailBody(email.body, person, objpartner,pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+                        email.emailTo = objpartner.email;
+                        SendEmail objSendEmail = new SendEmail();
+                        objSendEmail.sendEmail(email);
                     }
-                    email.accesscode = partnerItem.accesscode;
-                    email.protocolTouchpoint = objtouchpoint.description;
-
-                    EmailFormat emailFormat = new EmailFormat();
-                    email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
-                    email.emailTo = objpartner.email;
-                    SendEmail objSendEmail = new SendEmail();
-                    objSendEmail.sendEmail(email);
-
 
 
                 }
@@ -1540,7 +1543,8 @@ namespace Generic.Controllers
                     email.protocolTouchpoint = objtouchpoint.description;
 
                     EmailFormat emailFormat = new EmailFormat();
-                    email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
+                    email.subject = emailFormat.sGetEmailBody(email.subject, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+                    email.body = emailFormat.sGetEmailBody(email.body, person, objpartner,pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
                     email.emailTo = objpartner.email;
                     SendEmail objSendEmail = new SendEmail();
 

@@ -8,6 +8,7 @@ namespace Generic.Helpers
 {
     public interface IGoogleTranslatorHelper:IDisposable
     {
+        partnerPartnertypeTouchpointQuestionnaire PPTQ { get; set; }
         string Translate(int id, TranslationType type, string lang, int cmsId = 0);
         string Translate(string text, string lang);
     }

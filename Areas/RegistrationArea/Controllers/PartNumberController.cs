@@ -27,6 +27,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public PartNumberController(IGoogleTranslatorHelper translator)
         {
             _translator = translator;
+            if (Session["accessCode"] != null)
+            {
+                var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+                _translator.PPTQ = ppptq_cms;
+            }
         }
         //
         // GET: /RegistrationArea/PartNumber/
@@ -64,6 +69,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
             if (ppptq_cms != null)
             {
+                _translator.PPTQ = ppptq_cms;
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
