@@ -2822,7 +2822,7 @@ Intelleges Team";
             EmailFormat formatter = new EmailFormat();
              var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptqID);
             var partner = db.pr_getPartner(quest.partner).FirstOrDefault();
-            htmltext = formatter.sGetEmailBody(htmltext, null, partner, null, quest.partnerTypeTouchpointQuestionnaire1.touchpoint1, quest.partnerTypeTouchpointQuestionnaire);
+            htmltext = formatter.sGetEmailBody(htmltext, null, partner, quest.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, quest.partnerTypeTouchpointQuestionnaire1.touchpoint1, quest.partnerTypeTouchpointQuestionnaire);
             //name of the view...
             var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(htmltext), null);
 
