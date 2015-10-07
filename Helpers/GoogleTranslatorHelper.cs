@@ -78,6 +78,7 @@ namespace Generic.Helpers
                 
                 if (cmsItem != null)
                 {
+                    if (cmsItem.text == "") return cmsItem.text;
                     var text = _emailFormat.sGetEmailBody(cmsItem.text, null, PPTQ.partner1, PPTQ.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, PPTQ.partnerTypeTouchpointQuestionnaire1.touchpoint1);
                     if (lang == "en" || string.IsNullOrEmpty(text))
                     {
