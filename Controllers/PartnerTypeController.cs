@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Generic.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -37,8 +38,13 @@ namespace Generic.Controllers
         //
         // GET: /PartnerType/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int? ptypeId)
         {
+            if (ptypeId.HasValue)
+            {
+                var ptype = db.pr_getPartnerType(ptypeId).FirstOrDefault();
+                ViewBag.name = ptype.name;
+            }
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description");
             ViewBag.partnerClass = new SelectList(db.partnerClass, "id", "description");
             return View();
@@ -48,18 +54,15 @@ namespace Generic.Controllers
         // POST: /PartnerType/Create
 
         [HttpPost]
-        public ActionResult Create(partnerType partnertype)
+        public ActionResult Create(CreatePartnerTypeModel ptype)
         {
             if (ModelState.IsValid)
-            {
-                db.partnerType.Add(partnertype);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            {               
+                var id = db.pr_addPartnerType(ptype.Name, ptype.Alias, ptype.Description, null, Generic.Helpers.CurrentInstance.EnterpriseID, 1, 1).FirstOrDefault();                              
+                return RedirectToAction("Create", new { ptypeId = id });
             }
-
-            ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partnertype.enterprise);
-            ViewBag.partnerClass = new SelectList(db.partnerClass, "id", "description", partnertype.partnerClass);
-            return View(partnertype);
+           
+            return View(ptype);
         }
 
         //

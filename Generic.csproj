@@ -814,6 +814,7 @@
     <Compile Include="Models\ContactDataTouchpoint.cs" />
     <Compile Include="Models\ContactDataZcodeModel.cs" />
     <Compile Include="Models\ContractModel.cs" />
+    <Compile Include="Models\CreatePartnerTypeModel.cs" />
     <Compile Include="Models\enterprise.extension.cs" />
     <Compile Include="Models\jsTree3Node.cs" />
     <Compile Include="Models\MenuModel.cs" />
