@@ -91,6 +91,168 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
 
 
+        public virtual ActionResult SaveForLaterConfirm()
+        {
+            ViewBag.accesscode = Session["accessCode"];
+
+            ViewBag.CMS_TITLE = CMS.ACCESS_CODE_TITLE;
+            ViewBag.CMS_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;
+            ViewBag.CMS_PANEL_ONE = CMS.ACCESS_CODE_PANEL_ONE;
+            ViewBag.CMS_PANEL_TWO = CMS.ACCESS_CODE_PANEL_TWO;
+            ViewBag.CMS_FOOTER_ONE = CMS.ACCESS_CODE_FOOTER_ONE;
+            ViewBag.CMS_FOOTER_TWO = CMS.ACCESS_CODE_FOOTER_TWO;
+            ViewBag.CMS_SUBMIT_TEXT = CMS.ACCESS_CODE_SUBMIT_TEXT.Substring(0, 10);
+            ViewBag.RETRIEVE_ACCESS_CODE_TEXT = CMS.RETRIEVE_ACCESS_CODE_TEXT;
+            ViewBag.SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT = CMS.SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT;
+            ViewBag.SAVE_FOR_LATER_TEXT_NOTICE = CMS.SAVE_FOR_LATER_TEXT_NOTICE;
+            ViewBag.QUESTIONNAIRE_DOC_OTHER_2 = CMS.QUESTIONNAIRE_DOC_OTHER_2;
+            ViewBag.SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT = CMS.SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT;
+            ViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF;
+            ViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ;
+            ViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER;
+            ViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO;
+            ViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL;
+            ViewBag.QUESTIONNAIRE_DOC_OTHER_2 = CMS.QUESTIONNAIRE_DOC_OTHER_2;
+
+            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+
+            var cmsId = 0;
+            if (ppptq_cms != null)
+            {
+                var enterpriseInfo = ppptq_cms.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.enterpriseSystemInfo.FirstOrDefault();
+                if(enterpriseInfo!=null)
+                    ViewBag.ENTERPRISE_URL = enterpriseInfo.companyWebSite;
+                _translator.PPTQ = ppptq_cms;
+                ViewBag.ACCESS_CODE_PLEASE_ENTER = _translator.Translate(PLEASE_ENTER_ACCESS_CODE, CurrentLanguage);
+                ViewBag.ACCESS_CODE_SIPLE_TEXT = _translator.Translate(ACCESS_CODE_SIPLE_TEXT, CurrentLanguage);
+                Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(db.pr_getPartner(ppptq_cms.partner).FirstOrDefault().enterprise.ToString());
+
+                var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                ViewBag.ENTERPRISE_ID = ptq.questionnaire1.enterprise;
+                var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
+                var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
+                try
+                {
+                    
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT).id;
+                    var SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                    if (SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT != null)
+                    {
+                        ViewBag.SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT = SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT;
+                    }
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER_2).id;
+                    var QUESTIONNAIRE_DOC_OTHER_2 = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                    if (QUESTIONNAIRE_DOC_OTHER_2 != null)
+                    {
+                        ViewBag.QUESTIONNAIRE_DOC_OTHER_2 = QUESTIONNAIRE_DOC_OTHER_2;
+                    }
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.SAVE_FOR_LATER_TEXT_NOTICE).id;
+                    var SAVE_FOR_LATER_TEXT_NOTICE = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                    if (SAVE_FOR_LATER_TEXT_NOTICE != null)
+                    {
+                        ViewBag.SAVE_FOR_LATER_TEXT_NOTICE = SAVE_FOR_LATER_TEXT_NOTICE;
+                    }
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT).id;
+                    var SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                    if (SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT != null)
+                    {
+                        ViewBag.SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT = SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT;
+                    }
+
+
+
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_TITLE).id;
+                    //var cms_Title = cms.FirstOrDefault(x => x.questionnaireCMS == cmsId);
+                    var cms_Title = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);// cms.FirstOrDefault(x => );
+                    if (cms_Title != null)
+                    {
+                        ViewBag.CMS_TITLE = cms_Title;
+
+                        Session["QuestionnaireTitle"] = cms_Title;
+
+                    }
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBTITLE).id;
+                    var cms_SubTitle = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                    if (cms_SubTitle != null)
+                    {
+                        ViewBag.CMS_SUBTITLE = cms_SubTitle;
+                    }
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_PANEL_ONE).id;
+                    var cms_PanelOne = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                    if (cms_PanelOne != null)
+                    {
+                        ViewBag.CMS_PANEL_ONE = cms_PanelOne;
+                    }
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_PANEL_TWO).id;
+                    var cms_PanelTwo = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                    if (cms_PanelTwo != null)
+                    {
+                        ViewBag.CMS_PANEL_TWO = cms_PanelTwo;
+                    }
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_ONE).id;
+                    var cms_FooterOne = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                    if (cms_FooterOne != null)
+                    {
+                        ViewBag.CMS_FOOTER_ONE = cms_FooterOne;
+                    }
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_TWO).id;
+                    var cms_FooterTwo = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                    if (cms_FooterTwo != null)
+                    {
+                        ViewBag.CMS_FOOTER_TWO = cms_FooterTwo;
+                    }
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBMIT_TEXT).id;
+                    var cms_SubmitText = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                    if (cms_SubmitText != null)
+                    {
+                        ViewBag.CMS_SUBMIT_TEXT = cms_SubmitText;
+                    }
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.RETRIEVE_ACCESS_CODE_TEXT).id;
+                    var ret_AccCode = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                    if (ret_AccCode != null)
+                    {
+                        ViewBag.RETRIEVE_ACCESS_CODE_TEXT = ret_AccCode;
+                    }
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PDF).id;
+                    var cms_quiestionnare = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PDF).id);
+                    if (cms_quiestionnare != null)
+                        ViewBag.QUESTIONNAIRE_PDF = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_FAQ).id;
+                    var cms_QuestionnareFAQ = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_FAQ).id);
+                    if (cms_QuestionnareFAQ != null)
+                        ViewBag.QUESTIONNAIRE_FAQ = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER).id;
+                    var cms_questionnare_doc = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER).id);
+                    if (cms_questionnare_doc != null)
+                        ViewBag.QUESTIONNAIRE_DOC_OTHER = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_VIDEO).id;
+                    var cms_Questionnare_video = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_VIDEO).id);
+                    if (cms_Questionnare_video != null)
+                        ViewBag.QUESTIONNAIRE_VIDEO = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_US_EMAIL).id;
+                    var cms_ContactEmail = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.CONTACT_US_EMAIL).id);
+                    if (cms_ContactEmail != null)
+                    {
+                        ViewBag.CONTACT_US_EMAIL = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                        ViewBag.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK = cms_ContactEmail.link;
+                    }
+                }
+                catch (Exception exc)
+                {
+                }
+            }
+            else
+            {
+                ViewBag.message = "wrongstatus";
+            }
+            return View();
+        }
+
         public virtual ActionResult Index(string id = "", string accessCode = null, bool? advanced=null)
         {
 
@@ -991,7 +1153,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //  string errorMessage = "";
             string goEsignature = "";
             var cms = db.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(questionnaireId).FirstOrDefault();
-            int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+            int pptq = pptqObj.id;
 
 
 
@@ -1437,7 +1600,22 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (saveForLaterButton == true)
             {
-                TempData["message"] = "Your answers have been saved";                
+                TempData["message"] = "Your answers have been saved";
+                var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Incomplete, pptqObj.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                if (amm != null)
+                {
+                    Email email = new Email(amm);
+                    var objtouchpoint = db.pr_getTouchpoint(touchpointId).FirstOrDefault();
+                    email.accesscode = pptqObj.accesscode;
+                    email.protocolTouchpoint = objtouchpoint.description;
+                    EmailFormat emailFormat = new EmailFormat();
+                    email.subject = emailFormat.sGetEmailBody(amm.subject, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                    email.body = emailFormat.sGetEmailBody(email.body, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                    email.emailTo = pptqObj.partner1.email;
+                    SendEmail objSendEmail = new SendEmail();
+                    objSendEmail.sendEmail(email);
+                }
+               return RedirectToAction("SaveForLaterConfirm");
                 //#region 20130222 new code
                 //SaveLater(questionnaire, question);
                 //#endregion

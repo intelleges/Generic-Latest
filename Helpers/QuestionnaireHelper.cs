@@ -177,6 +177,11 @@ namespace Generic.Helpers.Questionnaire
 
         // added by Suresh on 22nd July for test response result as pdf
         public const string QUESTIONNAIRE_RESPONSE_PDF = "QUESTIONNAIRE_RESPONSE_PDF";
+
+        public const string SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT = "SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT";
+        public const string SAVE_FOR_LATER_TEXT_NOTICE = "SAVE_FOR_LATER_TEXT_NOTICE";
+        public const string QUESTIONNAIRE_DOC_OTHER_2 = "QUESTIONNAIRE_DOC_OTHER_2";
+        public const string SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT = "SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT";
     }
 
     public static class ZCode
