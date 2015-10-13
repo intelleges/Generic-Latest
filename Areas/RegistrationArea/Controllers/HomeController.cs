@@ -991,7 +991,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (objQuestion.responseType == ResponseType.DROPDOWN)
             {
-                if (responseZcode.zcode != null)
+                if (responseZcode!=null&&responseZcode.zcode != null)
                 {
                     Session["CountryCode"] = responseZcode.zcode;
                 }
@@ -1434,11 +1434,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                                                 int check = 0;
                                                 //if skip logic answer type is multiply then check by response.id
-                                                if (currentQuestion.skipLogicAnswer == SkipLogicAnswer.D)
+                                                if(responsenew!=null)
+                                                if (responsenew!=null&&currentQuestion.skipLogicAnswer == SkipLogicAnswer.D)
                                                 {
                                                     check = responsenew.id == ansLogicStatus ? 1 : 0;
                                                 } else
-                                                if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
+                                                    if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
                                                 {
                                                     foundFlage = true;
 
@@ -1600,7 +1601,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (saveForLaterButton == true)
             {
-                TempData["message"] = "Your answers have been saved";
+               // TempData["message"] = "Your answers have been saved";
                 var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Incomplete, pptqObj.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 if (amm != null)
                 {
