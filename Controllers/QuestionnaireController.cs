@@ -268,7 +268,7 @@ namespace Generic.Controllers
                 var defaultProtocol = db.pr_getProtocolAll(enterpriseId).FirstOrDefault().id;
                 var dtp = db.pr_addTouchpoint(defaultProtocol, personId, personId, personId, touchpointName, touchpointName, defaultPtq.touchpoint1.purpose, defaultPtq.touchpoint1.target, defaultPtq.touchpoint1.abbreviation, DateTime.Now, DateTime.Now.AddMonths(12), defaultPtq.touchpoint1.automaticReminder, defaultPtq.touchpoint1.sortOrder, 1).FirstOrDefault();
                 //create new Campaign for this issue
-                db.pr_addCampaign(touchpointName + " Campaign", DateTime.Now.Year, DateTime.Now, null, personId, personId, 1, true, (int)dtp, 1).FirstOrDefault();
+                db.pr_addCampaign(touchpointName + " Campaign", DateTime.Now, null, personId, personId, 1, true).FirstOrDefault();
                 //var dtp = db.touchpoint.FirstOrDefault(o => o.person == personId);
 
                 var questionnarie = Convert.ToInt32(db.pr_addQuestionnaire(defaultPtq.questionnaire1.title + touchpointName, defaultPtq.questionnaire1.description, defaultPtq.questionnaire1.footer, defaultPtq.questionnaire1.locked, defaultPtq.questionnaire1.sortOrder, 1, defaultPtq.questionnaire1.multiLanguage, enterpriseId, personId, (int)defPartnerType, defaultPtq.questionnaire1.letter, defaultPtq.questionnaire1.levelType).FirstOrDefault());

@@ -15,20 +15,22 @@ namespace Generic
     public partial class campaignRule
     {
         public int id { get; set; }
-        public int campaign { get; set; }
-        public int initTest { get; set; }
-        public int ptqCurrent { get; set; }
-        public int status { get; set; }
-        public int statusLogic { get; set; }
-        public int score { get; set; }
-        public int scoreLogic { get; set; }
-        public int responseInterval { get; set; }
-        public int responseIntervalLogic { get; set; }
-        public bool straightline { get; set; }
-        public int delayInterval { get; set; }
-        public int delayIntervalLogic { get; set; }
-        public int ptqNext { get; set; }
-        public int sortOrder { get; set; }
-        public bool active { get; set; }
+        public Nullable<int> campaign { get; set; }
+        public Nullable<int> initTest { get; set; }
+        public Nullable<int> ptqCurrent { get; set; }
+        public Nullable<int> status { get; set; }
+        public Nullable<int> statusLogic { get; set; }
+        public Nullable<int> score { get; set; }
+        public Nullable<int> scoreLogic { get; set; }
+        public Nullable<int> responseInterval { get; set; }
+        public Nullable<int> responseIntervalLogic { get; set; }
+        public Nullable<bool> straightline { get; set; }
+        public Nullable<int> delayInterval { get; set; }
+        public Nullable<int> delayIntervalLogic { get; set; }
+        public Nullable<int> ptqNext { get; set; }
+        public Nullable<int> sortOrder { get; set; }
+        public Nullable<bool> active { get; set; }
+        public Nullable<System.DateTime> hardEndDate { get; set; }
+        public Nullable<System.DateTime> switchOffDate { get; set; }
     }
 }

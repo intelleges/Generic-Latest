@@ -172,7 +172,6 @@ namespace Generic
         public virtual DbSet<confirmationSpreadsheetDataLoad> confirmationSpreadsheetDataLoad { get; set; }
         public virtual DbSet<view_QuestionnaireCMS> view_QuestionnaireCMS { get; set; }
         public virtual DbSet<personLinkedinAuthInfo> personLinkedinAuthInfo { get; set; }
-        public virtual DbSet<campaign> campaign { get; set; }
         public virtual DbSet<campaignRule> campaignRule { get; set; }
         public virtual DbSet<bulkContent> bulkContent { get; set; }
         public virtual DbSet<focus> focus { get; set; }
@@ -196,6 +195,7 @@ namespace Generic
         public virtual DbSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponses { get; set; }
         public virtual DbSet<questionnaireAutomailMessageLoad> questionnaireAutomailMessageLoads { get; set; }
         public virtual DbSet<questionnaireCMSLoad> questionnaireCMSLoads { get; set; }
+        public virtual DbSet<campaign> campaigns { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -13820,51 +13820,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addIndustryFocus", industryParameter, focusParameter, enterpriseParameter, activeParameter, partnertypetouchpointquestionnaireParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addCampaign(string description, Nullable<int> year, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> author, Nullable<int> owner, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> touchpoint, Nullable<int> status)
-        {
-            var descriptionParameter = description != null ?
-                new ObjectParameter("description", description) :
-                new ObjectParameter("description", typeof(string));
-    
-            var yearParameter = year.HasValue ?
-                new ObjectParameter("year", year) :
-                new ObjectParameter("year", typeof(int));
-    
-            var startDateParameter = startDate.HasValue ?
-                new ObjectParameter("startDate", startDate) :
-                new ObjectParameter("startDate", typeof(System.DateTime));
-    
-            var endDateParameter = endDate.HasValue ?
-                new ObjectParameter("endDate", endDate) :
-                new ObjectParameter("endDate", typeof(System.DateTime));
-    
-            var authorParameter = author.HasValue ?
-                new ObjectParameter("author", author) :
-                new ObjectParameter("author", typeof(int));
-    
-            var ownerParameter = owner.HasValue ?
-                new ObjectParameter("owner", owner) :
-                new ObjectParameter("owner", typeof(int));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
-    
-            var touchpointParameter = touchpoint.HasValue ?
-                new ObjectParameter("touchpoint", touchpoint) :
-                new ObjectParameter("touchpoint", typeof(int));
-    
-            var statusParameter = status.HasValue ?
-                new ObjectParameter("status", status) :
-                new ObjectParameter("status", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaign", descriptionParameter, yearParameter, startDateParameter, endDateParameter, authorParameter, ownerParameter, sortOrderParameter, activeParameter, touchpointParameter, statusParameter);
-        }
-    
         public virtual ObjectResult<pr_getLogicAll_Result> pr_getLogicAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLogicAll_Result>("pr_getLogicAll");
@@ -15387,32 +15342,18 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaignStatus", descriptionParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual ObjectResult<campaign> pr_getCampaign(Nullable<int> id)
+        public virtual ObjectResult<pr_getCampaign_Result> pr_getCampaign(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<campaign>("pr_getCampaign", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaign_Result>("pr_getCampaign", idParameter);
         }
     
-        public virtual ObjectResult<campaign> pr_getCampaign(Nullable<int> id, MergeOption mergeOption)
+        public virtual ObjectResult<pr_getCampaignAll_Result> pr_getCampaignAll()
         {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<campaign>("pr_getCampaign", mergeOption, idParameter);
-        }
-    
-        public virtual ObjectResult<campaign> pr_getCampaignAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<campaign>("pr_getCampaignAll");
-        }
-    
-        public virtual ObjectResult<campaign> pr_getCampaignAll(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<campaign>("pr_getCampaignAll", mergeOption);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignAll_Result>("pr_getCampaignAll");
         }
     
         public virtual ObjectResult<pr_getCampaignRule_Result> pr_getCampaignRule(Nullable<int> id)
@@ -15443,7 +15384,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignStatusAll_Result>("pr_getCampaignStatusAll");
         }
     
-        public virtual int pr_modifyCampaign(Nullable<int> id, string description, Nullable<int> year, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> author, Nullable<int> owner, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> touchpoint, Nullable<int> status)
+        public virtual int pr_modifyCampaign(Nullable<int> id, string description, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> author, Nullable<int> owner, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -15452,10 +15393,6 @@ namespace Generic
             var descriptionParameter = description != null ?
                 new ObjectParameter("description", description) :
                 new ObjectParameter("description", typeof(string));
-    
-            var yearParameter = year.HasValue ?
-                new ObjectParameter("year", year) :
-                new ObjectParameter("year", typeof(int));
     
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("startDate", startDate) :
@@ -15481,15 +15418,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            var touchpointParameter = touchpoint.HasValue ?
-                new ObjectParameter("touchpoint", touchpoint) :
-                new ObjectParameter("touchpoint", typeof(int));
-    
-            var statusParameter = status.HasValue ?
-                new ObjectParameter("status", status) :
-                new ObjectParameter("status", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCampaign", idParameter, descriptionParameter, yearParameter, startDateParameter, endDateParameter, authorParameter, ownerParameter, sortOrderParameter, activeParameter, touchpointParameter, statusParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCampaign", idParameter, descriptionParameter, startDateParameter, endDateParameter, authorParameter, ownerParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual int pr_modifyCampaignRule(Nullable<int> id, Nullable<int> campaign, Nullable<int> ptqCurrent, Nullable<int> status, Nullable<int> score, Nullable<System.TimeSpan> responseInterval, Nullable<bool> straightline, Nullable<int> delayInterval, Nullable<int> ptqNext, Nullable<int> sortOrder, Nullable<bool> active)
@@ -17010,6 +16939,39 @@ namespace Generic
                 new ObjectParameter("questionnaire", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireAutomailMessageLoad", ridParameter, typeParameter, subjectParameter, textParameter, footerParameter, signatureParameter, sendDateCalcFactorParameter, questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addCampaign(string description, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> author, Nullable<int> owner, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("startDate", startDate) :
+                new ObjectParameter("startDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var authorParameter = author.HasValue ?
+                new ObjectParameter("author", author) :
+                new ObjectParameter("author", typeof(int));
+    
+            var ownerParameter = owner.HasValue ?
+                new ObjectParameter("owner", owner) :
+                new ObjectParameter("owner", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaign", descriptionParameter, startDateParameter, endDateParameter, authorParameter, ownerParameter, sortOrderParameter, activeParameter);
         }
     }
 }

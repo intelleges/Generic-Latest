@@ -19,8 +19,8 @@ namespace Generic.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.protocol = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
-            ViewBag.status = new SelectList(db.pr_getCampaignStatusAll().ToList(), "id", "description");
+            //ViewBag.protocol = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
+            //ViewBag.status = new SelectList(db.pr_getCampaignStatusAll().ToList(), "id", "description");
             return View();
         }
 
@@ -31,7 +31,7 @@ namespace Generic.Controllers
             try
             {
 
-                db.pr_addCampaign(model.description, model.year, model.startDate, model.endDate, SessionSingleton.LoggedInUserId, SessionSingleton.LoggedInUserId, 1, true, model.touchpoint, model.status);
+                db.pr_addCampaign(model.description, model.startDate, model.endDate, SessionSingleton.LoggedInUserId, SessionSingleton.LoggedInUserId, 1, true).FirstOrDefault();
                 // db.pr_addCampaign(model.description, model.year, model.sortOrder, true, model.protocol).FirstOrDefault();
                 ViewBag.message = "Congratulations you have successfully added " + model.description;
             }
@@ -39,8 +39,8 @@ namespace Generic.Controllers
             {
                 ViewBag.message = "Unhandled error";
             }
-            ViewBag.protocol = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
-            ViewBag.status = new SelectList(db.pr_getCampaignStatusAll().ToList(), "id", "description");
+            //ViewBag.protocol = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
+            //ViewBag.status = new SelectList(db.pr_getCampaignStatusAll().ToList(), "id", "description");
             return View();
         }
 
@@ -48,8 +48,8 @@ namespace Generic.Controllers
 
         public ActionResult Index()
         {
-            var currentTouchpoints = db.pr_getTouchpointAllByEnterprise(Helpers.CurrentInstance.EnterpriseID).Select(o => o.id).ToList();
-            var list = db.campaign.Where(o => currentTouchpoints.Contains(o.touchpoint)).ToList();
+            //var currentTouchpoints = db.pr_getTouchpointAllByEnterprise(Helpers.CurrentInstance.EnterpriseID).Select(o => o.id).ToList();
+            var list = db.campaigns.ToList();
             return View(list);
         }
 
@@ -66,11 +66,7 @@ namespace Generic.Controllers
             ViewBag.protocol = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
             ViewBag.statuses = new SelectList(db.pr_getCampaignStatusAll().ToList(), "id", "description");
             var prev = db.pr_getCampaign(id).FirstOrDefault();
-            db.pr_modifyCampaign(id, model.description, model.year, model.startDate, model.endDate, prev.author, prev.owner, prev.sortOrder, prev.active, model.touchpoint, model.status);
-            if (prev.status != model.status)
-            {
-
-            }
+            db.pr_modifyCampaign(id, model.description,  model.startDate, model.endDate, prev.author, prev.owner, prev.sortOrder, prev.active);           
             return View();
         }
 
@@ -177,7 +173,7 @@ namespace Generic.Controllers
                     SendEmail objSendEmail = new SendEmail();
                     objSendEmail.sendEmail(email);
                     var currentCompaign = db.pr_getCampaign(campaign).FirstOrDefault();
-                    var cuurentTouchpoint = db.pr_getTouchpoint(currentCompaign.touchpoint).FirstOrDefault();
+                    var cuurentTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1;
                     db.pr_addCampaignRule(campaign, cuurentTouchpoint.partnerTypeTouchpointQuestionnaire.FirstOrDefault().id, 0, 0, 0, true, 0, pptq.partnerTypeTouchpointQuestionnaire1.id, 1, true).FirstOrDefault();
                 }
 

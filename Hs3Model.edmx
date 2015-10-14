@@ -112,36 +112,35 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="year" Type="int" Nullable="false" />
           <Property Name="startDate" Type="datetime" />
           <Property Name="endDate" Type="datetime" />
           <Property Name="author" Type="int" />
           <Property Name="owner" Type="int" />
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
-          <Property Name="touchpoint" Type="int" Nullable="false" />
-          <Property Name="status" Type="int" />
         </EntityType>
         <EntityType Name="campaignRule">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="campaign" Type="int" Nullable="false" />
-          <Property Name="initTest" Type="int" Nullable="false" />
-          <Property Name="ptqCurrent" Type="int" Nullable="false" />
-          <Property Name="status" Type="int" Nullable="false" />
-          <Property Name="statusLogic" Type="int" Nullable="false" />
-          <Property Name="score" Type="int" Nullable="false" />
-          <Property Name="scoreLogic" Type="int" Nullable="false" />
-          <Property Name="responseInterval" Type="int" Nullable="false" />
-          <Property Name="responseIntervalLogic" Type="int" Nullable="false" />
-          <Property Name="straightline" Type="bit" Nullable="false" />
-          <Property Name="delayInterval" Type="int" Nullable="false" />
-          <Property Name="delayIntervalLogic" Type="int" Nullable="false" />
-          <Property Name="ptqNext" Type="int" Nullable="false" />
-          <Property Name="sortOrder" Type="int" Nullable="false" />
-          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="campaign" Type="int" />
+          <Property Name="initTest" Type="int" />
+          <Property Name="ptqCurrent" Type="int" />
+          <Property Name="status" Type="int" />
+          <Property Name="statusLogic" Type="int" />
+          <Property Name="score" Type="int" />
+          <Property Name="scoreLogic" Type="int" />
+          <Property Name="responseInterval" Type="int" />
+          <Property Name="responseIntervalLogic" Type="int" />
+          <Property Name="straightline" Type="bit" />
+          <Property Name="delayInterval" Type="int" />
+          <Property Name="delayIntervalLogic" Type="int" />
+          <Property Name="ptqNext" Type="int" />
+          <Property Name="hardEndDate" Type="date" />
+          <Property Name="switchOffDate" Type="date" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" />
         </EntityType>
         <EntityType Name="campaignStatus">
           <Key>
@@ -4155,15 +4154,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_addCampaign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
-          <Parameter Name="year" Type="int" Mode="In" />
           <Parameter Name="startDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
           <Parameter Name="author" Type="int" Mode="In" />
           <Parameter Name="owner" Type="int" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
-          <Parameter Name="touchpoint" Type="int" Mode="In" />
-          <Parameter Name="status" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addCampaignRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="campaign" Type="int" Mode="In" />
@@ -6719,15 +6715,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_modifyCampaign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
-          <Parameter Name="year" Type="int" Mode="In" />
           <Parameter Name="startDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
           <Parameter Name="author" Type="int" Mode="In" />
           <Parameter Name="owner" Type="int" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
-          <Parameter Name="touchpoint" Type="int" Mode="In" />
-          <Parameter Name="status" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_modifyCampaignRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -13322,20 +13315,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="active" Mode="In" Type="Boolean" />
             <Parameter Name="partnertypetouchpointquestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="campaign" EntityType="hs3MVCMTQa2Model.campaign" />
           <EntitySet Name="campaignRule" EntityType="hs3MVCMTQa2Model.campaignRule" />
-          <FunctionImport Name="pr_addCampaign" ReturnType="Collection(Decimal)">
-            <Parameter Name="description" Mode="In" Type="String" />
-            <Parameter Name="year" Mode="In" Type="Int32" />
-            <Parameter Name="startDate" Mode="In" Type="DateTime" />
-            <Parameter Name="endDate" Mode="In" Type="DateTime" />
-            <Parameter Name="author" Mode="In" Type="Int32" />
-            <Parameter Name="owner" Mode="In" Type="Int32" />
-            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-            <Parameter Name="active" Mode="In" Type="Boolean" />
-            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
-            <Parameter Name="status" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_getLogicAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLogicAll_Result)" />
           <FunctionImport Name="pr_addCampaignRule" ReturnType="Collection(Decimal)">
             <Parameter Name="campaign" Mode="In" Type="Int32" />
@@ -13808,10 +13788,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <FunctionImport Name="pr_getCampaign" EntitySet="campaign" ReturnType="Collection(hs3MVCMTQa2Model.campaign)">
+          <FunctionImport Name="pr_getCampaign" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaign_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getCampaignAll" EntitySet="campaign" ReturnType="Collection(hs3MVCMTQa2Model.campaign)" />
+          <FunctionImport Name="pr_getCampaignAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignAll_Result)" />
           <FunctionImport Name="pr_getCampaignRule" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignRule_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -13823,15 +13803,12 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_modifyCampaign">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="description" Mode="In" Type="String" />
-            <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="startDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
             <Parameter Name="author" Mode="In" Type="Int32" />
             <Parameter Name="owner" Mode="In" Type="Int32" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
-            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
-            <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyCampaignRule">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -13861,10 +13838,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_removeCampaignStatus">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <AssociationSet Name="touchpointcampaign" Association="hs3MVCMTQa2Model.touchpointcampaign">
-            <End Role="touchpoint" EntitySet="touchpoint" />
-            <End Role="campaign" EntitySet="campaign" />
-          </AssociationSet>
           <EntitySet Name="campaignStatus" EntityType="hs3MVCMTQa2Model.campaignStatu" />
           <FunctionImport Name="pr_getPartnertypeTouchpointQuestionnaireByQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnertypeTouchpointQuestionnaireByQuestion_Result)">
           <Parameter Name="question" Mode="In" Type="Int32" />
@@ -14303,6 +14276,16 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="sendDateCalcFactor" Mode="In" Type="Int32" />
             <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="pr_addCampaign" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="startDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="author" Mode="In" Type="Int32" />
+            <Parameter Name="owner" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <EntitySet Name="campaigns" EntityType="hs3MVCMTQa2Model.campaign" />
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -15610,7 +15593,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <NavigationProperty Name="touchpointTarget" Relationship="hs3MVCMTQa2Model.FK_touchpoint_touchpointTarget" FromRole="touchpoint" ToRole="touchpointTarget" />
           <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" FromRole="touchpoint" ToRole="partnumberSpreadsheetDataLoad" />
           <NavigationProperty Name="enterpriseContactUs" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_touchpoint" FromRole="touchpoint" ToRole="enterpriseContactUs" />
-          <NavigationProperty Name="campaigns" Relationship="hs3MVCMTQa2Model.touchpointcampaign" FromRole="touchpoint" ToRole="campaign" />
         </EntityType>
         <EntityType Name="touchpointGroup">
           <Key>
@@ -21325,43 +21307,28 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="enterprise" Nullable="true" />
           <Property Type="Int32" Name="access" Nullable="true" />
         </ComplexType>
-        <EntityType Name="campaign">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="description" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="year" Nullable="false" />
-          <Property Type="Int32" Name="sortOrder" Nullable="false" />
-          <Property Type="Boolean" Name="active" Nullable="false" />          
-          <Property Name="startDate" Type="DateTime" Precision="3" />
-          <Property Name="endDate" Type="DateTime" Precision="3" />
-          <Property Name="author" Type="Int32" />
-          <Property Name="owner" Type="Int32" />
-          <Property Name="touchpoint" Type="Int32" Nullable="false" />
-          <Property Name="status" Type="Int32" />
-          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.touchpointcampaign" FromRole="campaign" ToRole="touchpoint" />                    
-        </EntityType>
         <EntityType Name="campaignRule">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="campaign" Nullable="false" />
-          <Property Type="Int32" Name="initTest" Nullable="false" />
-          <Property Type="Int32" Name="ptqCurrent" Nullable="false" />
-          <Property Type="Int32" Name="status" Nullable="false" />
-          <Property Type="Int32" Name="statusLogic" Nullable="false" />
-          <Property Type="Int32" Name="score" Nullable="false" />
-          <Property Type="Int32" Name="scoreLogic" Nullable="false" />
-          <Property Type="Int32" Name="responseInterval" Nullable="false" />
-          <Property Type="Int32" Name="responseIntervalLogic" Nullable="false" />
-          <Property Type="Boolean" Name="straightline" Nullable="false" />
-          <Property Type="Int32" Name="delayInterval" Nullable="false" />
-          <Property Type="Int32" Name="delayIntervalLogic" Nullable="false" />
-          <Property Type="Int32" Name="ptqNext" Nullable="false" />
-          <Property Type="Int32" Name="sortOrder" Nullable="false" />
-          <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="Int32" Name="campaign" />
+          <Property Type="Int32" Name="initTest" />
+          <Property Type="Int32" Name="ptqCurrent" />
+          <Property Type="Int32" Name="status" />
+          <Property Type="Int32" Name="statusLogic" />
+          <Property Type="Int32" Name="score" />
+          <Property Type="Int32" Name="scoreLogic" />
+          <Property Type="Int32" Name="responseInterval" />
+          <Property Type="Int32" Name="responseIntervalLogic" />
+          <Property Type="Boolean" Name="straightline" />
+          <Property Type="Int32" Name="delayInterval" />
+          <Property Type="Int32" Name="delayIntervalLogic" />
+          <Property Type="Int32" Name="ptqNext" />
+          <Property Type="Int32" Name="sortOrder" />
+          <Property Type="Boolean" Name="active" />
+          <Property Name="hardEndDate" Type="DateTime" Precision="0" />
+          <Property Name="switchOffDate" Type="DateTime" Precision="0" />
         </EntityType>
         <ComplexType Name="pr_getLogicAll_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -22134,29 +22101,23 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
         <ComplexType Name="pr_getCampaign_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
-          <Property Type="Int32" Name="year" Nullable="false" />
           <Property Type="DateTime" Name="startDate" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="endDate" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="author" Nullable="true" />
           <Property Type="Int32" Name="owner" Nullable="true" />
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
-          <Property Type="Int32" Name="touchpoint" Nullable="false" />
-          <Property Type="Int32" Name="status" Nullable="true" />
-        </ComplexType>
+          </ComplexType>
         <ComplexType Name="pr_getCampaignAll_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
-          <Property Type="Int32" Name="year" Nullable="false" />
           <Property Type="DateTime" Name="startDate" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="endDate" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="author" Nullable="true" />
           <Property Type="Int32" Name="owner" Nullable="true" />
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
-          <Property Type="Int32" Name="touchpoint" Nullable="false" />
-          <Property Type="Int32" Name="status" Nullable="true" />
-        </ComplexType>
+          </ComplexType>
         <ComplexType Name="pr_getCampaignRule_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="Int32" Name="campaign" Nullable="false" />
@@ -22205,18 +22166,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
-        <Association Name="touchpointcampaign">
-          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
-          <End Type="hs3MVCMTQa2Model.campaign" Role="campaign" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="touchpoint">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="campaign">
-              <PropertyRef Name="touchpoint" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="campaignStatu">
           <Key>
             <PropertyRef Name="id" />
@@ -22794,6 +22743,19 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="questionnaire" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="campaign">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="startDate" Type="DateTime" Precision="3" />
+          <Property Name="endDate" Type="DateTime" Precision="3" />
+          <Property Name="author" Type="Int32" />
+          <Property Name="owner" Type="Int32" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
         </EntityType>
         
       </Schema>
@@ -28502,26 +28464,11 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_bootstrapGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapGroup" />
           <FunctionImportMapping FunctionImportName="pr_bootstrapPartnertype" FunctionName="hs3MVCMTQa2Model.Store.pr_bootstrapPartnertype" />
           <FunctionImportMapping FunctionImportName="pr_addIndustryFocus" FunctionName="hs3MVCMTQa2Model.Store.pr_addIndustryFocus" />
-          <EntitySetMapping Name="campaign">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.campaign">
-              <MappingFragment StoreEntitySet="campaign">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-                <ScalarProperty Name="owner" ColumnName="owner" />
-                <ScalarProperty Name="author" ColumnName="author" />
-                <ScalarProperty Name="endDate" ColumnName="endDate" />
-                <ScalarProperty Name="startDate" ColumnName="startDate" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="year" ColumnName="year" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="campaignRule">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.campaignRule">
               <MappingFragment StoreEntitySet="campaignRule">
+                <ScalarProperty Name="switchOffDate" ColumnName="switchOffDate" />
+                <ScalarProperty Name="hardEndDate" ColumnName="hardEndDate" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="ptqNext" ColumnName="ptqNext" />
@@ -28541,7 +28488,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_addCampaign" FunctionName="hs3MVCMTQa2Model.Store.pr_addCampaign" />
           <FunctionImportMapping FunctionImportName="pr_getLogicAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getLogicAll">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getLogicAll_Result">
@@ -29403,8 +29349,32 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_checkDuplicateIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_checkDuplicateIteratePerson" />
           <FunctionImportMapping FunctionImportName="pr_addCampaignStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_addCampaignStatus" />
           <FunctionImportMapping FunctionImportName="pr_getCampaign" FunctionName="hs3MVCMTQa2Model.Store.pr_getCampaign">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCampaign_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                </ComplexTypeMapping>
+            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getCampaignAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCampaignAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCampaignAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getCampaignRule" FunctionName="hs3MVCMTQa2Model.Store.pr_getCampaignRule">
             <ResultMapping>
@@ -29987,6 +29957,21 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addQuestionnaireCMSLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireCMSLoad" />
           <FunctionImportMapping FunctionImportName="pr_addQuestionnaireAutomailMessageLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireAutomailMessageLoad" />
+          <FunctionImportMapping FunctionImportName="pr_addCampaign" FunctionName="hs3MVCMTQa2Model.Store.pr_addCampaign" />
+          <EntitySetMapping Name="campaigns">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.campaign">
+              <MappingFragment StoreEntitySet="campaign">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

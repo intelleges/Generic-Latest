@@ -13,7 +13,7 @@ namespace Generic.Controllers
         // GET: /CampaignRule/
         protected void LoadDropDowns()
         {
-            ViewBag.campaign = new SelectList(db.campaign.ToList(), "id", "description");
+            ViewBag.campaign = new SelectList(db.campaigns.ToList(), "id", "description");
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
             ViewBag.parnerType = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
             ViewBag.logicList = new SelectList(db.pr_getLogicAll().ToList(), "id", "description");

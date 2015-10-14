@@ -253,7 +253,6 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLinkedinAuthInfo_person" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_pptqAutoMailMessageLog_autoMailMessage" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_pptqAutoMailMessageLog_partnerPartnertypeTouchpointQuestionnaire" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.campaign" Width="1.5" PointX="4.75" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.campaignRule" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.bulkContent" Width="1.5" PointX="3.8759254514593282" PointY="31.687325790378882" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.focus" Width="1.5" PointX="9.1407187642253565" PointY="5.8866994408363009" IsExpanded="false" />
@@ -273,7 +272,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.iteratePartner" Width="1.5" PointX="7.15287849267613" PointY="18.8295812545482" IsExpanded="false" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireLoad" Width="1.5" PointX="21.375" PointY="0.75" IsExpanded="false" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.touchpointcampaign" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.campaignStatu" Width="1.5" PointX="13.375" PointY="13.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PersonData" Width="1.5" PointX="18.375" PointY="17.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.reminderScheduledTaskHeartBeat" Width="1.5" PointX="20.375" PointY="17.75" />
@@ -296,6 +294,7 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireAutomailMessageLoad" Width="1.5" PointX="21.375" PointY="6.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireCMSLoad" Width="1.5" PointX="21.375" PointY="10.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.campaign" Width="1.5" PointX="21.375" PointY="13.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

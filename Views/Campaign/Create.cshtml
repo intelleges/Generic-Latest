@@ -85,10 +85,7 @@
             text-decoration: none;
         }
 </style>
-<p>
 
-    @Html.ActionLink("Back to list", "Index")
-</p>
 @using(Html.BeginForm("Create", "Campaign", FormMethod.Post, new {id="createCampaignForm"}))
 {
     @Html.ValidationSummary(true)
@@ -96,17 +93,7 @@
     <fieldset>
         <legend>Create New Campaign</legend>
         <div class="threecol">
-            <div class="editor-label">
-            @Html.LabelFor(model => model.touchpoint, "Touchpoint")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(
-    x => x.touchpoint, 
-    (SelectList)ViewBag.protocol,
- "<select touchpoint>"
-)            
-            @Html.ValidationMessageFor(model => model.touchpoint)
-        </div>
+           
             <div class="editor-label">
             @Html.LabelFor(model => model.description,"Description")
         </div>
@@ -115,41 +102,26 @@
             @Html.ValidationMessageFor(model => model.description)
         </div>
             <div class="editor-label">
-            @Html.LabelFor(model => model.year,"Year")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.year)
-            @Html.ValidationMessageFor(model => model.year)
-        </div>
-        </div>
-        <div class="threecol">
-            <div class="editor-label">
                 @Html.LabelFor(model => model.startDate, "Start Date")
             </div>
             <div class="editor-field">
-               @Html.Telerik().DatePickerFor(model => model.startDate)
+                @Html.Telerik().DatePickerFor(model => model.startDate)
                 @Html.ValidationMessageFor(model => model.startDate)
             </div>
             <div class="editor-label">
                 @Html.LabelFor(model => model.endDate, "End Date")
             </div>
             <div class="editor-field">
-                @Html.Telerik().DatePickerFor(model => model.endDate)               
-               
+                @Html.Telerik().DatePickerFor(model => model.endDate)
+
                 @Html.ValidationMessageFor(model => model.endDate)
             </div>
+           
+        </div>
+        <div class="threecol">
             
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.status, "Status")
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownListFor(
-x => x.status,
-(SelectList)ViewBag.status,
-    "<select status>"
-)
-                    @Html.ValidationMessageFor(model => model.status)
-                </div>
+            
+                
             </div>
 
             <p style="float: right; width: 20%;">
