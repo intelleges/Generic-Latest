@@ -27,11 +27,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public PartNumberController(IGoogleTranslatorHelper translator)
         {
             _translator = translator;
+            
+        }
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
             if (Session["accessCode"] != null)
             {
                 var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
                 _translator.PPTQ = ppptq_cms;
             }
+            base.OnActionExecuting(filterContext);
         }
         //
         // GET: /RegistrationArea/PartNumber/
