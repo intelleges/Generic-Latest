@@ -37,6 +37,7 @@ namespace Generic
         public Nullable<int> iteratePartnerStatus { get; set; }
         public string iteratePartnerStatusDescription { get; set; }
         public int person { get; set; }
+        public string objection { get; set; }
         public int personID { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }

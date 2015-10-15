@@ -553,6 +553,11 @@
                 $("#PSU"+data.id).append("<li><a href='#' onclick='changeStatus(" + data.id + "," + $(this).val() + ");'>" + $(this).text() + "</a></li>");
             }
         });
+        $("#iterateObjections option").each(function () {
+            if ($(this).val()) {
+                $("#OBJ_" + data.id).append("<li><a href='#' onclick='changeObjection(" + data.id + "," + $(this).val() + ");'>" + $(this).text() + "</a></li>");
+            }
+        });
     }
 
     function Grid_onDataBound(e) {
@@ -2002,6 +2007,17 @@
             }
         });
     }
+    function changeObjection(id, objection) {
+        $.post("ChangeObjection", {
+            partnerId: id,
+            objectionId: objection
+        }).done(function (result) {
+            if (result === true) {
+                $("#IteratePartners").data("tGrid").ajaxRequest();               
+                clearFields();
+            }
+        });
+    }
     function changeNextAction(id, nextAction) {
         var d = new Date();
         //var offset = d.getTimezoneOffset();
@@ -2505,6 +2521,7 @@
     @{
         var counter = 1;
     }
+    @Html.DropDownList("iterateObjections", (SelectList)ViewBag.iterateObjections, new { @style = "display:none" });
     @Html.Telerik().Grid(new List<Generic.pr_getIteratePartnerPerson3_Result>()).Name("IteratePartners").DataBinding(binding => binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o => o.Enabled(true)).DataKeys(o => o.Add(p => p.id)).Columns(columns =>
 {
     columns.Bound(o => o.name).Title("Company name").ClientTemplate(@"
@@ -2548,6 +2565,7 @@
        <span style='width:100%'><p><#=title#></p> <span class='address2'><#=address2#></span> - <a href='http://<#=federalID#>'><#=federalID#></a></span>
     </div>
 ");
+    columns.Bound(o => o.objection).Title("Objection").Width(100).ClientTemplate("<a id='OBJ<#=id#>' class='menu_block'><#=objection#></a><div class='display_menu_right' style='display: none;'><ul id='OBJ_<#=id#>'></ul></div>");
     columns.Bound(o => o.lastContact).Title("Last Contact").Width(100).ClientTemplate(@"
 <a href='#' id='LC<#=id#>' class='menu_block'><#=lastContact#></a>
     <div class='display_menu' style='display: none;'>

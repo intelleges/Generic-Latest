@@ -32,6 +32,7 @@ namespace Generic
         public Nullable<int> nextAction { get; set; }
         public Nullable<System.DateTime> nextActionDate { get; set; }
         public Nullable<bool> notes { get; set; }
+        public Nullable<int> objection { get; set; }
     
         public virtual iteratePartner iteratePartner1 { get; set; }
     }

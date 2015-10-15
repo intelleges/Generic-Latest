@@ -17,7 +17,7 @@ namespace Generic
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public iteratePartner()
         {
-            this.iteratePerson = new HashSet<iteratePerson>();
+            this.iteratePersons = new HashSet<iteratePerson>();
         }
     
         public int id { get; set; }
@@ -40,12 +40,12 @@ namespace Generic
         public Nullable<bool> active { get; set; }
         public Nullable<System.DateTime> dateAdded { get; set; }
         public Nullable<System.DateTime> lastModified { get; set; }
+        public Nullable<System.DateTime> emailLastUpdate { get; set; }
         public int person { get; set; }
         public Nullable<System.Guid> note { get; set; }
-        public Nullable<System.DateTime> emailLastUpdate { get; set; }
         public Nullable<int> pptq { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<iteratePerson> iteratePerson { get; set; }
+        public virtual ICollection<iteratePerson> iteratePersons { get; set; }
     }
 }

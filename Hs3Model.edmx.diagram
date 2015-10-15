@@ -269,8 +269,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.iteratePerson" Width="1.5" PointX="15.625" PointY="21" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.iterateStatus" Width="1.5" PointX="19.375" PointY="3.75" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.iterateAction" Width="1.5" PointX="4.47225713193056" PointY="21.127051258984512" IsExpanded="false" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.iteratePartner" Width="1.5" PointX="7.15287849267613" PointY="18.8295812545482" IsExpanded="false" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireLoad" Width="1.5" PointX="21.375" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.campaignStatu" Width="1.5" PointX="13.375" PointY="13.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PersonData" Width="1.5" PointX="18.375" PointY="17.75" />
@@ -295,6 +293,9 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireAutomailMessageLoad" Width="1.5" PointX="21.375" PointY="6.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireCMSLoad" Width="1.5" PointX="21.375" PointY="10.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.campaign" Width="1.5" PointX="21.375" PointY="13.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.iterateObjection" Width="1.5" PointX="5.375" PointY="22.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.iteratePartner" Width="1.5" PointX="13.375" PointY="18.25" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

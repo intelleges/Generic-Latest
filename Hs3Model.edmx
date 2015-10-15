@@ -473,6 +473,17 @@
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="iterateObjection">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="code" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="enterprise" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="iteratePartner">
           <Key>
             <PropertyRef Name="id" />
@@ -523,6 +534,7 @@
           <Property Name="previousContactDate" Type="datetime" />
           <Property Name="nextAction" Type="int" />
           <Property Name="nextActionDate" Type="datetime" />
+          <Property Name="objection" Type="int" />
           <Property Name="notes" Type="bit" />
         </EntityType>
         <EntityType Name="iterateStatus">
@@ -4366,6 +4378,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_addIterateObjection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="code" Type="nchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="internalID" Type="varchar" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
@@ -5260,6 +5279,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_archiveIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveIterateObjection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archiveIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5773,6 +5795,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_getIterateActionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getIterateNextAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getIterateObjection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getIterateObjectionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5784,6 +5812,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getIteratePartnerPerson3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getIteratePartnerPerson4" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getIteratePartnerStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -6918,6 +6949,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyIterateObjection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="code" Type="nchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_modifyIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="internalID" Type="varchar" Mode="In" />
@@ -6973,6 +7012,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="nextAction" Type="int" Mode="In" />
           <Parameter Name="nextActionDate" Type="date" Mode="In" />
           <Parameter Name="notes" Type="bit" Mode="In" />
+          <Parameter Name="objection" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_modifyIteratestatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -8331,6 +8371,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="hs3Menu_deprecated" EntityType="Self.hs3Menu_deprecated" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="industry" EntityType="Self.industry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iterateAction" EntityType="Self.iterateAction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="iterateObjection" EntityType="Self.iterateObjection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iteratePartner" EntityType="Self.iteratePartner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iteratePerson" EntityType="Self.iteratePerson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iterateStatus" EntityType="Self.iterateStatus" Schema="dbo" store:Type="Tables" />
@@ -13406,26 +13447,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="ical" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="iteratePerson" EntityType="hs3MVCMTQa2Model.iteratePerson" />
-          <FunctionImport Name="pr_modifyIteratePerson">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="firstname" Mode="In" Type="String" />
-            <Parameter Name="lastname" Mode="In" Type="String" />
-            <Parameter Name="title" Mode="In" Type="String" />
-            <Parameter Name="email" Mode="In" Type="String" />
-            <Parameter Name="phone" Mode="In" Type="String" />
-            <Parameter Name="fax" Mode="In" Type="String" />
-            <Parameter Name="active" Mode="In" Type="Boolean" />
-            <Parameter Name="dateAdded" Mode="In" Type="DateTime" />
-            <Parameter Name="lastModified" Mode="In" Type="DateTime" />
-            <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
-            <Parameter Name="lastContact" Mode="In" Type="Int32" />
-            <Parameter Name="lastContactDate" Mode="In" Type="DateTime" />
-            <Parameter Name="previousContact" Mode="In" Type="Int32" />
-            <Parameter Name="previousContactDate" Mode="In" Type="DateTime" />
-            <Parameter Name="nextAction" Mode="In" Type="Int32" />
-            <Parameter Name="nextActionDate" Mode="In" Type="DateTime" />
-            <Parameter Name="notes" Mode="In" Type="Boolean" />
-          </FunctionImport>
           <FunctionImport Name="pr_removeIteratePerson">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -13586,11 +13607,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="iterateAction" EntityType="hs3MVCMTQa2Model.iterateAction" />
-          <EntitySet Name="iteratePartner" EntityType="hs3MVCMTQa2Model.iteratePartner" />
-          <AssociationSet Name="FK_iteratePerson_iteratePartner" Association="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner">
-            <End Role="iteratePartner" EntitySet="iteratePartner" />
-            <End Role="iteratePerson" EntitySet="iteratePerson" />
-          </AssociationSet>
           <FunctionImport Name="pr_getIteratePartnerStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerStatus_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -13624,9 +13640,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
             <Parameter Name="internalID" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getIteratePartnerPerson3" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerPerson3_Result)">
-          <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_addIteratePerson" ReturnType="Collection(Decimal)">
             <Parameter Name="firstname" Mode="In" Type="String" />
@@ -14286,6 +14299,63 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <EntitySet Name="campaigns" EntityType="hs3MVCMTQa2Model.campaign" />
+          <EntitySet Name="iterateObjections" EntityType="hs3MVCMTQa2Model.iterateObjection" />
+          <FunctionImport Name="pr_addIterateObjection" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveIterateObjection">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIterateObjection" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIterateObjection_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIterateObjectionAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIterateObjectionAll_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIteratePartnerPerson4" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerPerson4_Result)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyIterateObjection">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyIteratePerson">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="fax" Mode="In" Type="String" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="dateAdded" Mode="In" Type="DateTime" />
+            <Parameter Name="lastModified" Mode="In" Type="DateTime" />
+            <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
+            <Parameter Name="lastContact" Mode="In" Type="Int32" />
+            <Parameter Name="lastContactDate" Mode="In" Type="DateTime" />
+            <Parameter Name="previousContact" Mode="In" Type="Int32" />
+            <Parameter Name="previousContactDate" Mode="In" Type="DateTime" />
+            <Parameter Name="nextAction" Mode="In" Type="Int32" />
+            <Parameter Name="nextActionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="notes" Mode="In" Type="Boolean" />
+            <Parameter Name="objection" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIteratePartnerPerson3" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerPerson3_Result)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="iteratePartners" EntityType="hs3MVCMTQa2Model.iteratePartner" />
+          <AssociationSet Name="FK_iteratePerson_iteratePartner" Association="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner">
+            <End Role="iteratePartner" EntitySet="iteratePartners" />
+            <End Role="iteratePerson" EntitySet="iteratePerson" />
+          </AssociationSet>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -21559,6 +21629,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="nextAction" />
           <Property Type="DateTime" Name="nextActionDate" Precision="3" />
           <Property Type="Boolean" Name="notes" />
+          <Property Name="objection" Type="Int32" />
           <NavigationProperty Name="iteratePartner1" Relationship="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" FromRole="iteratePerson" ToRole="iteratePartner" />
         </EntityType>
         <EntityType Name="iterateStatus">
@@ -21779,48 +21850,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </EntityType>
-        <EntityType Name="iteratePartner">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="internalID" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="name" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="address1" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="address2" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="city" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="state" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="zipcode" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="country" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="dunsnumber" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="federalID" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="numberOfEmployees" />
-          <Property Type="Int32" Name="annualRevenue" />
-          <Property Type="Int32" Name="status" />
-          <Property Type="Int32" Name="owner" />
-          <Property Type="Int32" Name="author" />
-          <Property Type="DateTime" Name="dateApproved" Precision="0" />
-          <Property Type="Boolean" Name="active" />
-          <Property Type="DateTime" Name="dateAdded" Precision="0" />
-          <Property Type="DateTime" Name="lastModified" Precision="3" />
-          <Property Type="Int32" Name="person" Nullable="false" />
-          <Property Type="Guid" Name="note" />
-          <NavigationProperty Name="iteratePerson" Relationship="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" FromRole="iteratePartner" ToRole="iteratePerson" />
-          <Property Name="emailLastUpdate" Type="DateTime" Precision="3" />
-          <Property Name="pptq" Type="Int32" />
-        </EntityType>
-        <Association Name="FK_iteratePerson_iteratePartner">
-          <End Type="hs3MVCMTQa2Model.iteratePartner" Role="iteratePartner" Multiplicity="1" />
-          <End Type="hs3MVCMTQa2Model.iteratePerson" Role="iteratePerson" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="iteratePartner">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="iteratePerson">
-              <PropertyRef Name="iteratePartner" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="pr_getIteratePartnerStatus_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
@@ -21898,51 +21927,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Decimal" Name="score" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Int32" Name="priority" Nullable="true" />
           <Property Type="String" Name="loadGroup" Nullable="true" MaxLength="8" />
-        </ComplexType>
-        <ComplexType Name="pr_getIteratePartnerPerson3_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="internalID" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="name" Nullable="true" MaxLength="300" />
-          <Property Type="String" Name="address1" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="address2" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="city" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="state" Nullable="true" MaxLength="2" />
-          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="country" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="dunsnumber" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="federalID" Nullable="true" MaxLength="200" />
-          <Property Type="Int32" Name="numberOfEmployees" Nullable="true" />
-          <Property Type="Int32" Name="annualRevenue" Nullable="true" />
-          <Property Type="Guid" Name="note" Nullable="true" />
-          <Property Type="String" Name="owner" Nullable="false" MaxLength="401" />
-          <Property Type="String" Name="author" Nullable="false" MaxLength="401" />
-          <Property Type="DateTime" Name="dateApproved" Nullable="true" />
-          <Property Type="Boolean" Name="active" Nullable="true" />
-          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
-          <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="emailLastUpdate" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="iteratePartnerStatus" Nullable="true" />
-          <Property Type="String" Name="iteratePartnerStatusDescription" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="person" Nullable="false" />
-          <Property Type="Int32" Name="personID" Nullable="false" />
-          <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="email" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="personActive" Nullable="false" />
-          <Property Type="DateTime" Name="personDateAdded" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="personLastModified" Nullable="true" />
-          <Property Type="Int32" Name="iteratePartner" Nullable="false" />
-          <Property Type="String" Name="lastContact" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="lastContactDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="previousContact" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="previousContactDate" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="nextActionID" Nullable="false" />
-          <Property Type="String" Name="nextAction" Nullable="true" MaxLength="101" />
-          <Property Type="DateTime" Name="nextActionDate" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="notes" Nullable="true" />
         </ComplexType>
         <ComplexType Name="pr_getTotalCallCount_Result">
           <Property Type="String" Name="firstname" Nullable="false" MaxLength="200" />
@@ -22757,6 +22741,167 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="sortOrder" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="iterateObjection">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="enterprise" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getIterateObjection_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="code" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getIterateObjectionAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="code" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePartnerPerson4_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="166" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="state" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="country" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="dunsnumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="federalID" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="numberOfEmployees" Nullable="true" />
+          <Property Type="Int32" Name="annualRevenue" Nullable="true" />
+          <Property Type="Guid" Name="note" Nullable="true" />
+          <Property Type="String" Name="objection" Nullable="false" MaxLength="66" />
+          <Property Type="String" Name="owner" Nullable="false" MaxLength="401" />
+          <Property Type="String" Name="author" Nullable="false" MaxLength="401" />
+          <Property Type="DateTime" Name="dateApproved" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="emailLastUpdate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="iteratePartnerStatus" Nullable="true" />
+          <Property Type="String" Name="iteratePartnerStatusDescription" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="personID" Nullable="false" />
+          <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="personActive" Nullable="false" />
+          <Property Type="DateTime" Name="personDateAdded" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="personLastModified" Nullable="true" />
+          <Property Type="Int32" Name="iteratePartner" Nullable="false" />
+          <Property Type="String" Name="lastContact" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="lastContactDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="previousContact" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="previousContactDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="nextActionID" Nullable="false" />
+          <Property Type="String" Name="nextAction" Nullable="true" MaxLength="101" />
+          <Property Type="DateTime" Name="nextActionDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="notes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePartnerPerson3_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="166" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="state" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="country" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="dunsnumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="federalID" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="numberOfEmployees" Nullable="true" />
+          <Property Type="Int32" Name="annualRevenue" Nullable="true" />
+          <Property Type="Guid" Name="note" Nullable="true" />
+          <Property Type="String" Name="owner" Nullable="false" MaxLength="401" />
+          <Property Type="String" Name="author" Nullable="false" MaxLength="401" />
+          <Property Type="DateTime" Name="dateApproved" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="emailLastUpdate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="iteratePartnerStatus" Nullable="true" />
+          <Property Type="String" Name="iteratePartnerStatusDescription" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="String" Name="objection" Nullable="false" MaxLength="66" />
+          <Property Type="Int32" Name="personID" Nullable="false" />
+          <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="personActive" Nullable="false" />
+          <Property Type="DateTime" Name="personDateAdded" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="personLastModified" Nullable="true" />
+          <Property Type="Int32" Name="iteratePartner" Nullable="false" />
+          <Property Type="String" Name="lastContact" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="lastContactDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="previousContact" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="previousContactDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="nextActionID" Nullable="false" />
+          <Property Type="String" Name="nextAction" Nullable="true" MaxLength="101" />
+          <Property Type="DateTime" Name="nextActionDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="notes" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="iteratePartner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="internalID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="zipcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="dunsnumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="federalID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="numberOfEmployees" Type="Int32" />
+          <Property Name="annualRevenue" Type="Int32" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="owner" Type="Int32" />
+          <Property Name="author" Type="Int32" />
+          <Property Name="dateApproved" Type="DateTime" Precision="0" />
+          <Property Name="active" Type="Boolean" />
+          <Property Name="dateAdded" Type="DateTime" Precision="0" />
+          <Property Name="lastModified" Type="DateTime" Precision="3" />
+          <Property Name="emailLastUpdate" Type="DateTime" Precision="3" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="note" Type="Guid" />
+          <Property Name="pptq" Type="Int32" />
+          <NavigationProperty Name="iteratePersons" Relationship="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" FromRole="iteratePartner" ToRole="iteratePerson" />
+        </EntityType>
+        <Association Name="FK_iteratePerson_iteratePartner">
+          <End Type="hs3MVCMTQa2Model.iteratePartner" Role="iteratePartner" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.iteratePerson" Role="iteratePerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="iteratePartner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="iteratePerson">
+              <PropertyRef Name="iteratePartner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -28659,6 +28804,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="iteratePerson">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iteratePerson">
               <MappingFragment StoreEntitySet="iteratePerson">
+                <ScalarProperty Name="objection" ColumnName="objection" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
                 <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
                 <ScalarProperty Name="nextAction" ColumnName="nextAction" />
@@ -28680,7 +28826,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_modifyIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIteratePerson" />
           <FunctionImportMapping FunctionImportName="pr_removeIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_removeIteratePerson" />
           <EntitySetMapping Name="iterateStatus">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iterateStatus">
@@ -28983,36 +29128,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="iteratePartner">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iteratePartner">
-              <MappingFragment StoreEntitySet="iteratePartner">
-                <ScalarProperty Name="pptq" ColumnName="pptq" />
-                <ScalarProperty Name="emailLastUpdate" ColumnName="emailLastUpdate" />
-                <ScalarProperty Name="note" ColumnName="note" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
-                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
-                <ScalarProperty Name="author" ColumnName="author" />
-                <ScalarProperty Name="owner" ColumnName="owner" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
-                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
-                <ScalarProperty Name="federalID" ColumnName="federalID" />
-                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
-                <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="address2" ColumnName="address2" />
-                <ScalarProperty Name="address1" ColumnName="address1" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="internalID" ColumnName="internalID" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_getIteratePartnerStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerStatus">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerStatus_Result">
@@ -29118,55 +29233,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="score" ColumnName="score" />
                 <ScalarProperty Name="priority" ColumnName="priority" />
                 <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerPerson3" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerPerson3">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerPerson3_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="internalID" ColumnName="internalID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="address1" ColumnName="address1" />
-                <ScalarProperty Name="address2" ColumnName="address2" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
-                <ScalarProperty Name="federalID" ColumnName="federalID" />
-                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
-                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
-                <ScalarProperty Name="note" ColumnName="note" />
-                <ScalarProperty Name="owner" ColumnName="owner" />
-                <ScalarProperty Name="author" ColumnName="author" />
-                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
-                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
-                <ScalarProperty Name="emailLastUpdate" ColumnName="emailLastUpdate" />
-                <ScalarProperty Name="iteratePartnerStatus" ColumnName="iteratePartnerStatus" />
-                <ScalarProperty Name="iteratePartnerStatusDescription" ColumnName="iteratePartnerStatusDescription" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="personID" ColumnName="personID" />
-                <ScalarProperty Name="firstname" ColumnName="firstname" />
-                <ScalarProperty Name="lastname" ColumnName="lastname" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="fax" ColumnName="fax" />
-                <ScalarProperty Name="personActive" ColumnName="personActive" />
-                <ScalarProperty Name="personDateAdded" ColumnName="personDateAdded" />
-                <ScalarProperty Name="personLastModified" ColumnName="personLastModified" />
-                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
-                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
-                <ScalarProperty Name="lastContactDate" ColumnName="lastContactDate" />
-                <ScalarProperty Name="previousContact" ColumnName="previousContact" />
-                <ScalarProperty Name="previousContactDate" ColumnName="previousContactDate" />
-                <ScalarProperty Name="nextActionID" ColumnName="nextActionID" />
-                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
-                <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
-                <ScalarProperty Name="notes" ColumnName="notes" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -29968,6 +30034,176 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="endDate" ColumnName="endDate" />
                 <ScalarProperty Name="startDate" ColumnName="startDate" />
                 <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="iterateObjections">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iterateObjection">
+              <MappingFragment StoreEntitySet="iterateObjection">
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addIterateObjection" FunctionName="hs3MVCMTQa2Model.Store.pr_addIterateObjection" />
+          <FunctionImportMapping FunctionImportName="pr_archiveIterateObjection" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveIterateObjection" />
+          <FunctionImportMapping FunctionImportName="pr_getIterateObjection" FunctionName="hs3MVCMTQa2Model.Store.pr_getIterateObjection">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIterateObjection_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIterateObjectionAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getIterateObjectionAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIterateObjectionAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerPerson4" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerPerson4">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerPerson4_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
+                <ScalarProperty Name="federalID" ColumnName="federalID" />
+                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
+                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="objection" ColumnName="objection" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="emailLastUpdate" ColumnName="emailLastUpdate" />
+                <ScalarProperty Name="iteratePartnerStatus" ColumnName="iteratePartnerStatus" />
+                <ScalarProperty Name="iteratePartnerStatusDescription" ColumnName="iteratePartnerStatusDescription" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="personID" ColumnName="personID" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="personActive" ColumnName="personActive" />
+                <ScalarProperty Name="personDateAdded" ColumnName="personDateAdded" />
+                <ScalarProperty Name="personLastModified" ColumnName="personLastModified" />
+                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
+                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
+                <ScalarProperty Name="lastContactDate" ColumnName="lastContactDate" />
+                <ScalarProperty Name="previousContact" ColumnName="previousContact" />
+                <ScalarProperty Name="previousContactDate" ColumnName="previousContactDate" />
+                <ScalarProperty Name="nextActionID" ColumnName="nextActionID" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyIterateObjection" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIterateObjection" />
+          <FunctionImportMapping FunctionImportName="pr_modifyIteratePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIteratePerson" />
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerPerson3" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerPerson3">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerPerson3_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
+                <ScalarProperty Name="federalID" ColumnName="federalID" />
+                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
+                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="emailLastUpdate" ColumnName="emailLastUpdate" />
+                <ScalarProperty Name="iteratePartnerStatus" ColumnName="iteratePartnerStatus" />
+                <ScalarProperty Name="iteratePartnerStatusDescription" ColumnName="iteratePartnerStatusDescription" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="objection" ColumnName="objection" />
+                <ScalarProperty Name="personID" ColumnName="personID" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="personActive" ColumnName="personActive" />
+                <ScalarProperty Name="personDateAdded" ColumnName="personDateAdded" />
+                <ScalarProperty Name="personLastModified" ColumnName="personLastModified" />
+                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
+                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
+                <ScalarProperty Name="lastContactDate" ColumnName="lastContactDate" />
+                <ScalarProperty Name="previousContact" ColumnName="previousContact" />
+                <ScalarProperty Name="previousContactDate" ColumnName="previousContactDate" />
+                <ScalarProperty Name="nextActionID" ColumnName="nextActionID" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="iteratePartners">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iteratePartner">
+              <MappingFragment StoreEntitySet="iteratePartner">
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="emailLastUpdate" ColumnName="emailLastUpdate" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
+                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
+                <ScalarProperty Name="federalID" ColumnName="federalID" />
+                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

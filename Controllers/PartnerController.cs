@@ -2166,6 +2166,7 @@ namespace Generic.Controllers
             ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
             ViewBag.nextaction = new SelectList(db.pr_getIterateNextAction().ToList(), "id", "nextAction");
             ViewBag.partnerstatus = new SelectList(db.pr_getIteratePartnerStatusAll().ToList(), "id", "description");
+            ViewBag.iterateObjections = new SelectList(db.pr_getIterateObjectionAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
             ViewBag.currentUserPartnerType = new SelectList(db.pr_getPartnertypeByTouchpoint(db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault().campaign).ToList(), "id", "name");
 
             //Scheduler Initializeer
@@ -2482,7 +2483,7 @@ namespace Generic.Controllers
                         db.pr_modifyIteratePartnerStatusByNote(gId, newStatus.id);
                         iterateStatus = newStatus.id;
                         iterateStatusDesc = newStatus.description;
-                        var partner = db.iteratePartner.FirstOrDefault(o => o.note == gId);
+                        var partner = db.iteratePartners.FirstOrDefault(o => o.note == gId);
                         if (partner != null)
                         {
                             partnerId = partner.id;
@@ -2639,7 +2640,7 @@ namespace Generic.Controllers
             if (SessionHelper.EvernoteCredentials != null)
             {
                 var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
-                var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
+                var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
                 if (iPartner != null && iPartner.note.HasValue)
                 {
                     var note = GetNoteStore().getNote(SessionHelper.EvernoteCredentials.AuthToken, iPartner.note.Value.ToString(), true, false, false, false);
@@ -2666,7 +2667,7 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult GetIteratePartnerByNote(Guid noteId)
         {
-            var iParner = db.iteratePartner.FirstOrDefault(o => o.note == noteId);
+            var iParner = db.iteratePartners.FirstOrDefault(o => o.note == noteId);
             if(iParner!=null)
                 return Json(new { partnerId = iParner.id, partnerName = iParner.name, finded = true});
             else
@@ -2964,7 +2965,7 @@ namespace Generic.Controllers
                     //find existed notebook for partner
                     Notebook notebook = GetNoteStore().listNotebooks(authToken).FirstOrDefault(o => o.Name == DefaultNoteBook);
                     var pId = int.Parse(partnerId);
-                    var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == pId);
+                    var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == pId);
                     var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == pId);
                     if (notebook == null)
                     {
@@ -3282,7 +3283,7 @@ namespace Generic.Controllers
         {
             //var touchpoint = db.pr_getTouchpointByProtocol(protocolId).Where(x => x.active == 1).Select(x => new { x.id, x.title }).ToList();
             var touchpoint = TID;
-            iteratePartner _Obj = db.iteratePartner.Where(i => i.id == TID).FirstOrDefault();
+            iteratePartner _Obj = db.iteratePartners.Where(i => i.id == TID).FirstOrDefault();
             if (_Obj != null)
             {
                 //_Obj.person = DateTime.Now; 
@@ -3345,7 +3346,7 @@ namespace Generic.Controllers
         {
             try
             {
-                var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerid);
+                var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerid);
                 if (iPartner != null)
                 {
                     var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == partnerid);
@@ -3381,9 +3382,23 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
+        public ActionResult ChangeObjection(int partnerId, int objectionId)
+        {
+            var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
+            if (iPartner != null)
+            {
+                var iteratePerson = iPartner.iteratePersons.FirstOrDefault();
+                iteratePerson.objection = objectionId;
+                db.Entry(iteratePerson).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return Json(true);
+        }
+
+        [HttpPost]
         public ActionResult ChangeiteratePartnerStatus(int partnerId, int partnerStatusId)
         {
-            var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
+            var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
             if (iPartner != null)
             {
                 if (iPartner.note != null)
@@ -3417,10 +3432,10 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult ChangeIteratePartnerNextAction(int partnerId, int nextActionId, DateTime localDate)
         {
-             var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
+             var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
              if (iPartner != null)
              {
-                 var iPerson = iPartner.iteratePerson.FirstOrDefault();
+                 var iPerson = iPartner.iteratePersons.FirstOrDefault();
                  if (iPerson != null)
                  {
                      iPerson.nextAction = nextActionId;
@@ -3453,10 +3468,10 @@ namespace Generic.Controllers
         public ActionResult ChangeIteratePartnerLastContact(int partnerId, int lastContactId)
         {
             var result = db.pr_getIteratePartnerStatusByLastContact(partnerId, lastContactId).FirstOrDefault();
-            var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
+            var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
             if (iPartner != null)
             {
-                var iPerson = iPartner.iteratePerson.FirstOrDefault();
+                var iPerson = iPartner.iteratePersons.FirstOrDefault();
                 if (iPerson != null)
                 {
                     iPerson.previousContact = iPerson.lastContact;
@@ -3482,7 +3497,7 @@ namespace Generic.Controllers
             try
             {
                 var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == partnerId);
-                var iPartner = db.iteratePartner.FirstOrDefault(o=>o.id==partnerId);
+                var iPartner = db.iteratePartners.FirstOrDefault(o=>o.id==partnerId);
                 var staff = db.pr_getPersonStuff(SessionSingleton.LoggedInUserId).FirstOrDefault();
                 var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
                 var currentEnterprise = db.enterprise.FirstOrDefault(o=>o.id==SessionSingleton.MyEnterPriseId);
@@ -3546,7 +3561,7 @@ namespace Generic.Controllers
                 {
                     //then create new partner
                     string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-                    var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
+                    var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
                     var iPerson = db.iteratePerson.FirstOrDefault(o => o.id == personId);
                     var partner = new partner();
                     partner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
@@ -3614,8 +3629,8 @@ namespace Generic.Controllers
             try
             {            
                 //InteratePartnerStatus
-                var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == partnerId);
-                var iPerson = iPartner.iteratePerson.FirstOrDefault();
+                var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
+                var iPerson = iPartner.iteratePersons.FirstOrDefault();
                 var partnerStatuses = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.description, p => p.id);
                var addedPartner = db.pr_addIteratePartner(iPartner.internalID,iPartner.name,iPartner.address1,iPartner.address2, iPartner.city,iPartner.state, iPartner.zipcode, iPartner.country,iPartner.dunsnumber,iPartner.federalID, iPartner.numberOfEmployees,iPartner.annualRevenue,partnerStatuses["zDefault"],SessionSingleton.LoggedInUserId,SessionSingleton.LoggedInUserId,iPartner.dateApproved,true,DateTime.Now,null,null,SessionSingleton.LoggedInUserId,null,null).FirstOrDefault();
                db.pr_addIteratePerson(firstName, lastName, title, email, phoneNumber, iPerson.fax, true, DateTime.Now, null, (int)addedPartner, 1, DateTime.Now.AddDays(-3), 1, DateTime.Now.AddDays(-3), 1, DateTime.Now, false);
@@ -3711,8 +3726,8 @@ namespace Generic.Controllers
          {
              try
              {
-                 var iPartner = db.iteratePartner.FirstOrDefault(o => o.id == iPartnerId);
-                 var iPerson = iPartner.iteratePerson.FirstOrDefault();
+                 var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == iPartnerId);
+                 var iPerson = iPartner.iteratePersons.FirstOrDefault();
                  if (iPartner != null)
                  {
                      var loadGroup = db.pr_getAccesscode().FirstOrDefault();
