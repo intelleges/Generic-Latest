@@ -2541,7 +2541,7 @@
         </ul>
     </div>
 ").Width(230);
-    columns.Bound(o => o.nextAction).Title("Next Action").Width(120).ClientTemplate(@"
+    columns.Bound(o => o.nextAction).Title("Next Action").Width(100).ClientTemplate(@"
 <a href='#' id='NA<#=id#>' class='menu_block' ondblclick='callIfNeed(<#=id#>,<#=nextActionID#>, this)'><#=nextAction#></a>
 ").Filterable(false);
     columns.Bound(o => o.NextActionDateDisplay).Title("Next Action Date").Width(130).ClientTemplate(@"
@@ -2566,7 +2566,7 @@
     </div>
 ");
     columns.Bound(o => o.objection).Title("Objection").Width(100).ClientTemplate("<a id='OBJ<#=id#>' class='menu_block'><#=objection#></a><div class='display_menu_right' style='display: none;'><ul id='OBJ_<#=id#>'></ul></div>");
-    columns.Bound(o => o.lastContact).Title("Last Contact").Width(100).ClientTemplate(@"
+    columns.Bound(o => o.lastContact).Title("Last Contact").Width(120).ClientTemplate(@"
 <a href='#' id='LC<#=id#>' class='menu_block'><#=lastContact#></a>
     <div class='display_menu' style='display: none;'>
         <ul>
