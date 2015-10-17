@@ -4175,13 +4175,20 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_addCampaignRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="campaign" Type="int" Mode="In" />
+          <Parameter Name="initTest" Type="int" Mode="In" />
           <Parameter Name="ptqCurrent" Type="int" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
+          <Parameter Name="statusLogic" Type="int" Mode="In" />
           <Parameter Name="score" Type="int" Mode="In" />
+          <Parameter Name="scoreLogic" Type="int" Mode="In" />
           <Parameter Name="responseInterval" Type="int" Mode="In" />
+          <Parameter Name="responseIntervalLogic" Type="int" Mode="In" />
           <Parameter Name="straightline" Type="bit" Mode="In" />
           <Parameter Name="delayInterval" Type="int" Mode="In" />
+          <Parameter Name="delayIntervalLogic" Type="int" Mode="In" />
           <Parameter Name="ptqNext" Type="int" Mode="In" />
+          <Parameter Name="hardEndDate" Type="date" Mode="In" />
+          <Parameter Name="switchOffDate" Type="date" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
@@ -5518,6 +5525,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="table" Type="nvarchar" Mode="In" />
           <Parameter Name="argsList" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_eventNotificationCheck" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
@@ -5601,7 +5611,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getCampaign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getCampaignAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getCampaignAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCampaignRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6038,6 +6050,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPartnerStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getPartnerStatusAllByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerStatusByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
@@ -6081,6 +6096,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_getPartnertypeTouchpointQuestionnaireByTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPartnumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -6756,13 +6774,20 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_modifyCampaignRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="campaign" Type="int" Mode="In" />
+          <Parameter Name="initTest" Type="int" Mode="In" />
           <Parameter Name="ptqCurrent" Type="int" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
+          <Parameter Name="statusLogic" Type="int" Mode="In" />
           <Parameter Name="score" Type="int" Mode="In" />
-          <Parameter Name="responseInterval" Type="time" Mode="In" />
+          <Parameter Name="scoreLogic" Type="int" Mode="In" />
+          <Parameter Name="responseInterval" Type="int" Mode="In" />
+          <Parameter Name="responseIntervalLogic" Type="int" Mode="In" />
           <Parameter Name="straightline" Type="bit" Mode="In" />
           <Parameter Name="delayInterval" Type="int" Mode="In" />
+          <Parameter Name="delayIntervalLogic" Type="int" Mode="In" />
           <Parameter Name="ptqNext" Type="int" Mode="In" />
+          <Parameter Name="hardEndDate" Type="date" Mode="In" />
+          <Parameter Name="switchOffDate" Type="date" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
@@ -13360,13 +13385,20 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getLogicAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLogicAll_Result)" />
           <FunctionImport Name="pr_addCampaignRule" ReturnType="Collection(Decimal)">
             <Parameter Name="campaign" Mode="In" Type="Int32" />
+            <Parameter Name="initTest" Mode="In" Type="Int32" />
             <Parameter Name="ptqCurrent" Mode="In" Type="Int32" />
             <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="statusLogic" Mode="In" Type="Int32" />
             <Parameter Name="score" Mode="In" Type="Int32" />
+            <Parameter Name="scoreLogic" Mode="In" Type="Int32" />
             <Parameter Name="responseInterval" Mode="In" Type="Int32" />
+            <Parameter Name="responseIntervalLogic" Mode="In" Type="Int32" />
             <Parameter Name="straightline" Mode="In" Type="Boolean" />
             <Parameter Name="delayInterval" Mode="In" Type="Int32" />
+            <Parameter Name="delayIntervalLogic" Mode="In" Type="Int32" />
             <Parameter Name="ptqNext" Mode="In" Type="Int32" />
+            <Parameter Name="hardEndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="switchOffDate" Mode="In" Type="DateTime" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
@@ -13804,7 +13836,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getCampaign" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaign_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getCampaignAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignAll_Result)" />
+          <FunctionImport Name="pr_getCampaignAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignAll_Result)" >
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="pr_getCampaignRule" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignRule_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -13826,13 +13860,20 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_modifyCampaignRule">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="campaign" Mode="In" Type="Int32" />
+            <Parameter Name="initTest" Mode="In" Type="Int32" />
             <Parameter Name="ptqCurrent" Mode="In" Type="Int32" />
             <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="statusLogic" Mode="In" Type="Int32" />
             <Parameter Name="score" Mode="In" Type="Int32" />
-            <Parameter Name="responseInterval" Mode="In" Type="Time" />
+            <Parameter Name="scoreLogic" Mode="In" Type="Int32" />
+            <Parameter Name="responseInterval" Mode="In" Type="Int32" />
+            <Parameter Name="responseIntervalLogic" Mode="In" Type="Int32" />
             <Parameter Name="straightline" Mode="In" Type="Boolean" />
             <Parameter Name="delayInterval" Mode="In" Type="Int32" />
+            <Parameter Name="delayIntervalLogic" Mode="In" Type="Int32" />
             <Parameter Name="ptqNext" Mode="In" Type="Int32" />
+            <Parameter Name="hardEndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="switchOffDate" Mode="In" Type="DateTime" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
@@ -14356,6 +14397,15 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <End Role="iteratePartner" EntitySet="iteratePartners" />
             <End Role="iteratePerson" EntitySet="iteratePerson" />
           </AssociationSet>
+          <FunctionImport Name="pr_getPartnerStatusAllByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerStatusAllByEnterprise_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -22902,6 +22952,28 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="pr_getPartnerStatusAllByEnterprise_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="partnertypeID" Nullable="false" />
+          <Property Type="String" Name="partnertype" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="protocolID" Nullable="false" />
+          <Property Type="String" Name="protocol" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="touchpointID" Nullable="false" />
+          <Property Type="String" Name="touchpoint" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="questionnaireID" Nullable="false" />
+          <Property Type="String" Name="questionnaire" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus_Result">
+          <Property Type="Int32" Name="newStatus" Nullable="false" />
+          <Property Type="Int32" Name="next" Nullable="false" />
+          <Property Type="String" Name="nextStep" Nullable="false" MaxLength="21" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -30208,6 +30280,40 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerStatusAllByEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerStatusAllByEnterprise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerStatusAllByEnterprise_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partnertypeID" ColumnName="partnertypeID" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="protocolID" ColumnName="protocolID" />
+                <ScalarProperty Name="protocol" ColumnName="protocol" />
+                <ScalarProperty Name="touchpointID" ColumnName="touchpointID" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="questionnaireID" ColumnName="questionnaireID" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus_Result">
+                <ScalarProperty Name="newStatus" ColumnName="newStatus" />
+                <ScalarProperty Name="next" ColumnName="next" />
+                <ScalarProperty Name="nextStep" ColumnName="nextStep" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

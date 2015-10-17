@@ -24,12 +24,14 @@
     .modal-dialog {
         z-index: 1050;
     }
+
     #partnersDocGrid {
         font-size: 11px;
     }
-    #partnersDocGrid .t-header{
-        padding: .8em .8em !important;
-    }
+
+        #partnersDocGrid .t-header {
+            padding: .8em .8em !important;
+        }
 </style>
 <div class="tw-bs">
     <div class="container">
@@ -45,12 +47,12 @@
                     <div class="modal-body">
                         @*<button class="buttons glyphicon glyphicon-plus float-right" title="Add new document"></button>*@
                         @*<form>
-                            <div class="form-group">
-                                <label for="uploadedFile">Upload  file</label>
-                                <input type="file" class="form-control" id="uploadedFile" />
-                            </div>
-                        </form>*@
-                        
+                                <div class="form-group">
+                                    <label for="uploadedFile">Upload  file</label>
+                                    <input type="file" class="form-control" id="uploadedFile" />
+                                </div>
+                            </form>*@
+
                     </div>
                 </div>
             </div>
@@ -71,13 +73,13 @@
                 @{
 
                     var columnData = item.PartnerName;
-                     var width = 30;
-            var visibleText = string.Empty;
-            if(columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-            <a href='#' id='@item.PartnerName' class="menu_block" title="@columnData">@visibleText</a>
+                    var width = 30;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <a href='#' id='@item.PartnerName' class="menu_block" title="@columnData">@visibleText</a>
                 }
                 <div class="display_menu" style="display: none;">
                     <ul>
@@ -91,11 +93,10 @@
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF('@item.status','@item.AccessCode')">Print PDF</a></li>
 
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintHTML('@item.status','@item.AccessCode')">Print HTML</a></li>
-                        @if(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
-
-        {
+                        @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
+                        {
                             <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
-        }
+                        }
                         <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
                         <li>@Html.ActionLink("Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>
                     </ul>
@@ -107,7 +108,7 @@
             var columnData = item.Contact;
             var width = 30;
             var visibleText = string.Empty;
-            if(columnData != null)
+            if (columnData != null)
             {
                 visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
             }
@@ -154,7 +155,7 @@
             var columnData = item.ContactTitle;
             var width = 12;
             var visibleText = string.Empty;
-            if(columnData != null)
+            if (columnData != null)
             {
                 visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
             }
@@ -170,7 +171,7 @@
             var columnData = item.owner;
             var width = 14;
             var visibleText = string.Empty;
-            if(columnData != null)
+            if (columnData != null)
             {
                 visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
             }
@@ -185,7 +186,7 @@
             var columnData = item.Country;
             var width = 13;
             var visibleText = string.Empty;
-            if(columnData != null)
+            if (columnData != null)
             {
                 visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
             }
@@ -200,7 +201,7 @@
             var columnData = item.city;
             var width = 10;
             var visibleText = string.Empty;
-            if(columnData != null)
+            if (columnData != null)
             {
                 visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
             }
@@ -215,7 +216,7 @@
             var columnData = item.state;
             var width = 5;
             var visibleText = string.Empty;
-            if(columnData != null)
+            if (columnData != null)
             {
                 visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
             }
@@ -231,7 +232,7 @@
             var columnData = item.address;
             var width = 20;
             var visibleText = string.Empty;
-            if(columnData != null)
+            if (columnData != null)
             {
                 visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
             }
@@ -305,14 +306,14 @@
             columns.Bound(o => o.status).Title("Status").Width(150).Template(@<text>
 
                 @{
-            var columnData = item.status;
-            var width = 20;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-            <p title="@columnData">@visibleText</p>
+                    var columnData = item.status;
+                    var width = 20;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
                 }
 
 
@@ -374,7 +375,7 @@
     <script src="~/Scripts/jquery-ui-1.9.2.js"></script>*@
 <script type="text/javascript">
     function printDocs(accessCode) {
-        
+
         //var grid = $("#partnersDocGrid").data("tGrid");
         // grid.ajax.selectUrl = "/Partner/ShowDocs/?accessCode=" + accessCode;
         //grid.ajaxRequest();
@@ -550,12 +551,27 @@
         $("#genericPopup").dialog('open');
     }
     function checkToPrintPDF(status, accesscode) {
-        if (status.toLowerCase() == 'responded/complete') {
-            window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
-        } else {
-            alert("it's not responded yet");
-        }
+        $.getJSON('/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus', { accessCode: accesscode }, function (data) {
+            alertify.confirm(data[0].nextStep + " Continue to PDF?", function (e) {
+                if (e) {
+                    // click yes
+                    window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
+
+                } else {
+                    // click no
+                }
+            });
+            @*if (status.toLowerCase() == 'responded/complete') {
+                    window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
+                } else {
+                    alert("it's not responded yet");
+            }*@
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            debugger;
+            alertify.alert('Error getting Touch Point!');
+        });
     }
+
     function checkToPrintHTML(status, accesscode) {
         if (status.toLowerCase() == 'responded/complete') {
             window.location.href = "@Url.Content("~/Partner/PrintHTML/?accesscode=")" + accesscode;

@@ -3851,6 +3851,16 @@ namespace Generic.Controllers
              else
                  return Json(new { error = "There is no a such a person" });
          }
+
+
+        public ActionResult PartnertypeTouchpointQuestionnaireCampaignStatus(string accessCode)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+
+            var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus(pptq.id);
+            return Json(message, JsonRequestBehavior.AllowGet);
+
+        }
     }
     
 }

@@ -114,19 +114,19 @@
             </div>
             <div class="editor-field">
                 <label>
-                @Html.CheckBoxFor(model => model.straightline, new { @style="width:20px;" })
+                @Html.CheckBoxFor(model => model.initStraightLineBool, new { @style = "width:20px;" })
                 Straight line</label>
                 @Html.ValidationMessageFor(model => model.straightline)
             </div>
         </div>
-        <h3>Current</h3>
-        <div class="twocol">
+        <h3>Current Touchpoint</h3>
+        <div class="threecol">
             <div class="editor-label">
-                @Html.LabelFor(model => model.parnerTypeCurrent, "Partner type")
+                @Html.LabelFor(model => model.currentProtocol, "Protocol")
             </div>
             <div class="editor-field">
-                @Html.DropDownListFor(model => model.parnerTypeCurrent, (SelectList)ViewBag.parnerType, "<select partner type>")
-                @Html.ValidationMessageFor(model => model.parnerTypeCurrent)
+                @Html.DropDownListFor(model => model.currentProtocol, (SelectList)ViewBag.protocol, "<select protocol>")
+                @Html.ValidationMessageFor(model => model.currentProtocol)
             </div>
             <div class="editor-label">
                 @Html.LabelFor(model => model.touchpointCurrent, "Touchpoint")
@@ -134,6 +134,13 @@
             <div class="editor-field">
                 @Html.DropDownListFor(model => model.touchpointCurrent, (SelectList)ViewBag.touchpoint, "<select touchpoint>")
                 @Html.ValidationMessageFor(model => model.touchpointCurrent)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.partnerTypeCurrent, "Partner type")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.partnerTypeCurrent, (SelectList)ViewBag.partnerType, "<select partner type>")
+                @Html.ValidationMessageFor(model => model.partnerTypeCurrent)
             </div>
         </div>
         <br />
@@ -185,6 +192,7 @@
             @Html.ValidationMessageFor(model => model.responseInterval)
         </div>
         </div>
+
         <div class="twocol">
              <div class="editor-label">
             @Html.LabelFor(model => model.delayIntervalLogic,"Delay interval Logic")
@@ -199,18 +207,34 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.delayInterval)
             @Html.ValidationMessageFor(model => model.delayInterval)
+        </div>       
         </div>
 
-       
-        </div>
-        <h3>Next Current</h3>
         <div class="twocol">
             <div class="editor-label">
-                @Html.LabelFor(model => model.parnerTypeNext, "Partner type")
+                @Html.LabelFor(model => model.switchOffDate, "Transition Date", new { style = "font-weight:bold;" })
             </div>
             <div class="editor-field">
-                @Html.DropDownListFor(model => model.parnerTypeNext, (SelectList)ViewBag.parnerType, "<select partner type>")
-                @Html.ValidationMessageFor(model => model.parnerTypeNext)
+                @Html.Telerik().DatePickerFor(model => model.switchOffDate)
+                @Html.ValidationMessageFor(model => model.switchOffDate)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.hardEndDate, "Hard End Date", new { style="font-weight:bold;" })
+            </div>
+            <div class="editor-field">
+                @Html.Telerik().DatePickerFor(model => model.hardEndDate)
+                @Html.ValidationMessageFor(model => model.hardEndDate)
+            </div>
+        </div>
+
+        <h3>Next Touchpoint</h3>
+        <div class="threecol">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.nextProtocol, "Protocol")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.nextProtocol, (SelectList)ViewBag.protocol, "<select protocol>")
+                @Html.ValidationMessageFor(model => model.nextProtocol)
             </div>
             <div class="editor-label">
                 @Html.LabelFor(model => model.touchpointNext, "Touchpoint")
@@ -218,6 +242,13 @@
             <div class="editor-field">
                 @Html.DropDownListFor(model => model.touchpointNext, (SelectList)ViewBag.touchpoint, "<select touchpoint>")
                 @Html.ValidationMessageFor(model => model.touchpointNext)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.partnerTypeNext, "Partner type")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.partnerTypeNext, (SelectList)ViewBag.partnerType, "<select partner type>")
+                @Html.ValidationMessageFor(model => model.partnerTypeNext)
             </div>
         </div>
 
@@ -231,28 +262,268 @@
 
 <script>
     $(document).ready(function () {
-        $("#btnClear").click(function () {
-            $("#touchpointNext").val("");
-            $("#parnerTypeNext").val("");
-            $("#delayInterval").val("");
-            $("#delayIntervalLogic").val("");
-            $("#responseInterval").val("");
-            $("#responseIntervalLogic").val("");
-            $("#score").val("");
-            $("#scoreLogic").val("");
-            $("#status").val("");
-            $("#statusLogic").val("");
-            $("#touchpointCurrent").val("");
-            $("#parnerTypeCurrent").val("");
-            $("#straightline").val("");
-            $("#initTestBool").val("");
-            $("#campaign").val("");            
+
+        $("form").submit(function () {
+            return validateControl();
+
         });
+
+        @if(Model!=null)
+        {
+            <text>
+            var saved = @(ViewBag.saved) ;
+            if(saved){
+                alertify.alert("Congratulations you just added @Model.campaign")
+                clearForm();
+            }
+            else{
+                alertify.alert("Contract saving error");
+            }
+        </text>
+        }
+        
+
+
+        $('#currentProtocol').change(function () {
+            var protocolid = $(this).find(":selected").val();
+            
+            if (protocolid.length > 0) {
+                $.getJSON('/TouchPoint/GetTouchPointByprotocolId', { protocolId: protocolid }, function (data) {
+                    
+                    $('#touchpointCurrent option').remove();
+                    $('#touchpointCurrent').append('<option value="">&lt;select touchpoint&gt;</option');
+                    $.each(data.Data, function(i, item) {
+                        $('#touchpointCurrent').append('<option value="' + item.id + '">' + item.description + '</option');
+                    });
+
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    debugger;
+                    alertify.alert('Error getting Touch Point!');
+                });
+                
+                //alertify.alert(protocolid);
+            }
+        });
+
+        $('#touchpointCurrent').change(function () {
+            var touchpointid = $(this).find(":selected").val();
+            
+            if (touchpointid.length > 0) {
+                $.getJSON('/Partner/GetPartnerTypes', { id: touchpointid }, function (data) {
+                    $('#partnerTypeCurrent option').remove();
+                    $('#partnerTypeCurrent').append('<option value="">&lt;select partner type&gt;</option');
+                    $.each(data, function(i, item) {
+                        $('#partnerTypeCurrent').append('<option value="' + item.id + '">' + item.description + '</option');
+                    });
+
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    debugger;
+                    alertify.alert('Error getting Touch Point!');
+                });
+               
+            }
+        });
+
+
+
+
+        $('#nextProtocol').change(function () {
+            var protocolid = $(this).find(":selected").val();
+            
+            if (protocolid.length > 0) {
+                $.getJSON('/TouchPoint/GetTouchPointByprotocolId', { protocolId: protocolid }, function (data) {
+                    
+                    $('#touchpointNext option').remove();
+                    $('#touchpointNext').append('<option value="">&lt;select touchpoint&gt;</option');
+                    $.each(data.Data, function(i, item) {
+                        $('#touchpointNext').append('<option value="' + item.id + '">' + item.description + '</option');
+                    });
+
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    debugger;
+                    alertify.alert('Error getting Touch Point!');
+                });
+                
+                //alertify.alert(protocolid);
+            }
+        });
+
+        $('#touchpointNext').change(function () {
+            var touchpointid = $(this).find(":selected").val();
+            
+            if (touchpointid.length > 0) {
+                $.getJSON('/Partner/GetPartnerTypes', { id: touchpointid }, function (data) {
+                    $('#partnerTypeNext option').remove();
+                    $('#partnerTypeNext').append('<option value="">&lt;select partner type&gt;</option');
+                    $.each(data, function(i, item) {
+                        $('#partnerTypeNext').append('<option value="' + item.id + '">' + item.description + '</option');
+                    });
+
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    debugger;
+                    alertify.alert('Error getting Touch Point!');
+                });
+               
+            }
+        });
+
+        function clearForm() {
+            $("#campaign").val("");
+            $("#initTestBool").val("");
+            $("#initstraightlinebool").val("");
+            $("#currentProtocol").val("");
+            $("#touchpointCurrent").val("");
+            $("#partnerTypeCurrent").val("");
+            $("#statusLogic").val("");
+            $("#status").val("");
+            $("#scoreLogic").val("");
+            $("#score").val("");
+            $("#responseIntervalLogic").val("");
+            $("#responseInterval").val("");
+            $("#delayIntervalLogic").val("");
+            $("#delayInterval").val("");
+            $("#transitionDate").val("");
+            $("#hardEndDate").val("");
+            $("#nextProtocol").val("");
+            $("#touchpointNext").val("");
+            $("#partnerTypeNext").val("");
+        }
+
+       
+            
+        function validateControl() {
+            if ($("#campaign").val() == "") {
+                alertify.alert("Campaign is required");
+                return false;
+            }
+            if ($("#currentProtocol").val() == "") {
+                alertify.alert("Protocol is required");
+                return false;
+            }
+            if ($("#touchpointCurrent").val() == "") {
+                alertify.alert("Touchpoint is required");
+                return false;
+            }
+            if ($("#partnerTypeCurrent").val() == "") {
+                alertify.alert("Partner Type is required");
+                return false;
+            }
+            if ($("#statusLogic").val() == "") {
+                alertify.alert("Status Logic is required");
+                return false;
+            }
+            if ($("#status").val() == "") {
+                alertify.alert("Status is required");
+                return false;
+            }
+            if ($("#scoreLogic").val() == "") {
+                alertify.alert("Score Logic is required");
+                return false;
+            }
+            //if ($("#score").val() == "") {
+            //    alertify.alert("Score is required");
+            //    return false;
+            //}
+            if ($("#responseIntervalLogic").val() == "") {
+                alertify.alert("Response Interval Logic is required");
+                return false;
+            }
+            //if ($("#responseInterval").val() == "") {
+            //    alertify.alert("Response Interval is required");
+            //    return false;
+            //}
+            if ($("#delayIntervalLogic").val() == "") {
+                alertify.alert("Delay Interval Logic is required");
+                return false;
+            }
+            //if ($("#delayInterval").val() == "") {
+            //    alertify.alert("Delay Interval is required");
+            //    return false;
+            //}
+            
+            if ($("#switchOffDate").val() == "") {
+                alertify.alert("Transition Date is required");
+                return false;
+            }
+            if ($("#hardEndDate").val() == "") {
+                alertify.alert("Hard End Date is required");
+                return false;
+            }
+            if ($("#nextProtocol").val() == "") {
+                alertify.alert("Next Protocol is required");
+                return false;
+            }
+
+            if ($("#touchpointNext").val() == "") {
+                alertify.alert("Next TouchPoint is required");
+                return false;
+            }
+
+            if ($("#partnerTypeNext").val() == "") {
+                alertify.alert("Next Partner Type is required");
+                return false;
+            }
+
+            if ($("#switchOffDate").val() == "") {
+                alertify.alert("Transition Date is required");
+                return false;
+            }
+            if ($("#hardEndDate").val() == "") {
+                alertify.alert("Hard End Date is required");
+                return false;
+            }
+
+            var transitionDate = $('#switchOffDate').val();
+            var hardEndDate = $('#hardEndDate').val();
+            var currentDate = Date();
+
+            if (Date.parse(transitionDate) >= Date.parse(hardEndDate)) {
+                alertify.alert("Transition Date should be less than Hard End Date");
+                return false;
+            }
+            
+            if(Date.parse(hardEndDate) <= Date.parse(currentDate)){
+                alertify.alert("Hard End Date cannot be less than Today");
+                return false;
+            }
+        }
+
+        var _addValidation = function (elem) {
+            elem.attr("data-val", "true");
+            elem.attr("data-val-required", " ");
+        };
+     
+        
+
+        _addValidation($("#campaign"));
+        _addValidation($("#currentProtocol"));
+        _addValidation($("#touchpointCurrent"));
+        _addValidation($("#partnerTypeCurrent"));
+        _addValidation($("#statusLogic"));
+        _addValidation($("#status"));
+        _addValidation($("#scoreLogic"));
+        _addValidation($("#responseIntervalLogic"));
+        _addValidation($("#delayIntervalLogic"));
+        _addValidation($("#switchOffDate"));
+        _addValidation($("#hardEndDate"));
+        _addValidation($("#nextProtocol"));
+        _addValidation($("#touchpointNext"));
+        _addValidation($("#partnerTypeNext"));
+        _addValidation($("#hardEndDate"));
+        
+        $("#btnClear").click(function () {
+            clearForm();
+        });
+
+
         var message = "@ViewBag.message";
         if (message) {
             alertify.alert(message);
             if(!@ViewBag.error)
-            $("#btnClear").click();
+            {
+                clearForm();
+            }
+            
         }
     });
 </script>

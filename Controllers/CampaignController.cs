@@ -174,7 +174,7 @@ namespace Generic.Controllers
                     objSendEmail.sendEmail(email);
                     var currentCompaign = db.pr_getCampaign(campaign).FirstOrDefault();
                     var cuurentTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1;
-                    db.pr_addCampaignRule(campaign, cuurentTouchpoint.partnerTypeTouchpointQuestionnaire.FirstOrDefault().id, 0, 0, 0, true, 0, pptq.partnerTypeTouchpointQuestionnaire1.id, 1, true).FirstOrDefault();
+                    db.pr_addCampaignRule(campaign, cuurentTouchpoint.partnerTypeTouchpointQuestionnaire.FirstOrDefault().id, 0, 0, 0, 0, 0, 0, 0, true, 0, pptq.partnerTypeTouchpointQuestionnaire1.id, 1, DateTime.Now, DateTime.Now, 1, true).FirstOrDefault();                    
                 }
 
                 

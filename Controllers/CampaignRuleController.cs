@@ -13,9 +13,13 @@ namespace Generic.Controllers
         // GET: /CampaignRule/
         protected void LoadDropDowns()
         {
-            ViewBag.campaign = new SelectList(db.campaigns.ToList(), "id", "description");
+            ViewBag.protocol = new SelectList(db.pr_getProtocolAll
+              (Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
+
+            ViewBag.campaign = new SelectList(db.pr_getCampaignAll
+              (Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
-            ViewBag.parnerType = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
+            ViewBag.partnerType = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
             ViewBag.logicList = new SelectList(db.pr_getLogicAll().ToList(), "id", "description");
             ViewBag.status = new SelectList(db.pr_getPartnerStatusAll().ToList(), "id", "description");
         }
@@ -33,8 +37,8 @@ namespace Generic.Controllers
             {
                 ViewBag.error = "false";
                 var error = "";
-                var current = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(model.parnerTypeCurrent, model.touchpointCurrent).FirstOrDefault();
-                var next = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(model.parnerTypeNext, model.touchpointNext).FirstOrDefault();
+                var current = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(model.partnerTypeCurrent, model.touchpointCurrent).FirstOrDefault();
+                var next = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(model.partnerTypeNext, model.touchpointNext).FirstOrDefault();
                 if (next == null)
                 {
                     error = "[Next] Partnertype Touchpoint Questionnaire does not exists";
@@ -46,12 +50,16 @@ namespace Generic.Controllers
                 }
                 if (string.IsNullOrEmpty(error))
                 {
-                    var parnerTypeNext = db.pr_getPartnerType(model.parnerTypeNext).FirstOrDefault();
-                    var parnerTypeCurrent = db.pr_getPartnerType(model.parnerTypeCurrent).FirstOrDefault();
+                    var partnerTypeNext = db.pr_getPartnerType(model.partnerTypeNext).FirstOrDefault();
+                    var partnerTypeCurrent = db.pr_getPartnerType(model.partnerTypeCurrent).FirstOrDefault();
                     var touchpointNext = db.pr_getTouchpoint(model.touchpointNext).FirstOrDefault();
                     var touchpointCurrent = db.pr_getTouchpoint(model.touchpointCurrent).FirstOrDefault();
-                    db.pr_addCampaignRule(model.campaign, current.id, model.status, model.score, model.responseInterval, model.straightline, model.delayInterval, next.id, 1, true);
-                    ViewBag.message = string.Format("Congratulations you have successfully added campaign rule that sequences from (current) {0} for {1} to (next) {2} for {3}", parnerTypeCurrent.name, touchpointCurrent.description, parnerTypeNext.name, touchpointNext.description);
+
+
+                    db.pr_addCampaignRule(model.campaign, model.initTest, current.id, model.status,
+                        model.statusLogic, model.score, model.scoreLogic, model.responseInterval, model.responseIntervalLogic, model.straightline, model.delayInterval, model.delayIntervalLogic, next.id, model.hardEndDate, model.switchOffDate, 
+                        1, true);
+                    ViewBag.message = string.Format("Congratulations you have successfully added campaign rule that sequences from (current) {0} for {1} to (next) {2} for {3}", partnerTypeCurrent.name, touchpointCurrent.description, partnerTypeNext.name, touchpointNext.description);
                 }
                 else
                 {

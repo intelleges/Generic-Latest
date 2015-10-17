@@ -13826,11 +13826,15 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLogicAll_Result>("pr_getLogicAll");
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addCampaignRule(Nullable<int> campaign, Nullable<int> ptqCurrent, Nullable<int> status, Nullable<int> score, Nullable<int> responseInterval, Nullable<bool> straightline, Nullable<int> delayInterval, Nullable<int> ptqNext, Nullable<int> sortOrder, Nullable<bool> active)
+        public virtual ObjectResult<Nullable<decimal>> pr_addCampaignRule(Nullable<int> campaign, Nullable<int> initTest, Nullable<int> ptqCurrent, Nullable<int> status, Nullable<int> statusLogic, Nullable<int> score, Nullable<int> scoreLogic, Nullable<int> responseInterval, Nullable<int> responseIntervalLogic, Nullable<bool> straightline, Nullable<int> delayInterval, Nullable<int> delayIntervalLogic, Nullable<int> ptqNext, Nullable<System.DateTime> hardEndDate, Nullable<System.DateTime> switchOffDate, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var campaignParameter = campaign.HasValue ?
                 new ObjectParameter("campaign", campaign) :
                 new ObjectParameter("campaign", typeof(int));
+    
+            var initTestParameter = initTest.HasValue ?
+                new ObjectParameter("initTest", initTest) :
+                new ObjectParameter("initTest", typeof(int));
     
             var ptqCurrentParameter = ptqCurrent.HasValue ?
                 new ObjectParameter("ptqCurrent", ptqCurrent) :
@@ -13840,13 +13844,25 @@ namespace Generic
                 new ObjectParameter("status", status) :
                 new ObjectParameter("status", typeof(int));
     
+            var statusLogicParameter = statusLogic.HasValue ?
+                new ObjectParameter("statusLogic", statusLogic) :
+                new ObjectParameter("statusLogic", typeof(int));
+    
             var scoreParameter = score.HasValue ?
                 new ObjectParameter("score", score) :
                 new ObjectParameter("score", typeof(int));
     
+            var scoreLogicParameter = scoreLogic.HasValue ?
+                new ObjectParameter("scoreLogic", scoreLogic) :
+                new ObjectParameter("scoreLogic", typeof(int));
+    
             var responseIntervalParameter = responseInterval.HasValue ?
                 new ObjectParameter("responseInterval", responseInterval) :
                 new ObjectParameter("responseInterval", typeof(int));
+    
+            var responseIntervalLogicParameter = responseIntervalLogic.HasValue ?
+                new ObjectParameter("responseIntervalLogic", responseIntervalLogic) :
+                new ObjectParameter("responseIntervalLogic", typeof(int));
     
             var straightlineParameter = straightline.HasValue ?
                 new ObjectParameter("straightline", straightline) :
@@ -13856,9 +13872,21 @@ namespace Generic
                 new ObjectParameter("delayInterval", delayInterval) :
                 new ObjectParameter("delayInterval", typeof(int));
     
+            var delayIntervalLogicParameter = delayIntervalLogic.HasValue ?
+                new ObjectParameter("delayIntervalLogic", delayIntervalLogic) :
+                new ObjectParameter("delayIntervalLogic", typeof(int));
+    
             var ptqNextParameter = ptqNext.HasValue ?
                 new ObjectParameter("ptqNext", ptqNext) :
                 new ObjectParameter("ptqNext", typeof(int));
+    
+            var hardEndDateParameter = hardEndDate.HasValue ?
+                new ObjectParameter("hardEndDate", hardEndDate) :
+                new ObjectParameter("hardEndDate", typeof(System.DateTime));
+    
+            var switchOffDateParameter = switchOffDate.HasValue ?
+                new ObjectParameter("switchOffDate", switchOffDate) :
+                new ObjectParameter("switchOffDate", typeof(System.DateTime));
     
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
@@ -13868,7 +13896,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaignRule", campaignParameter, ptqCurrentParameter, statusParameter, scoreParameter, responseIntervalParameter, straightlineParameter, delayIntervalParameter, ptqNextParameter, sortOrderParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaignRule", campaignParameter, initTestParameter, ptqCurrentParameter, statusParameter, statusLogicParameter, scoreParameter, scoreLogicParameter, responseIntervalParameter, responseIntervalLogicParameter, straightlineParameter, delayIntervalParameter, delayIntervalLogicParameter, ptqNextParameter, hardEndDateParameter, switchOffDateParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addBulkContent(string partnertype, string touchpoint, byte[] questionnaire, byte[] questionnaireCMS, byte[] automailMessageInvite, byte[] automailMessageComplete, byte[] automailMessageIncomplete, byte[] automailMessageRemindOne, byte[] automailMessageRemindTwo, byte[] automailMessageRemindThree, byte[] automailMessageRemindPastDue, Nullable<int> sortOrder, Nullable<int> active)
@@ -15266,9 +15294,13 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaign_Result>("pr_getCampaign", idParameter);
         }
     
-        public virtual ObjectResult<pr_getCampaignAll_Result> pr_getCampaignAll()
+        public virtual ObjectResult<pr_getCampaignAll_Result> pr_getCampaignAll(Nullable<int> enterprise)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignAll_Result>("pr_getCampaignAll");
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignAll_Result>("pr_getCampaignAll", enterpriseParameter);
         }
     
         public virtual ObjectResult<pr_getCampaignRule_Result> pr_getCampaignRule(Nullable<int> id)
@@ -15336,7 +15368,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCampaign", idParameter, descriptionParameter, startDateParameter, endDateParameter, authorParameter, ownerParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual int pr_modifyCampaignRule(Nullable<int> id, Nullable<int> campaign, Nullable<int> ptqCurrent, Nullable<int> status, Nullable<int> score, Nullable<System.TimeSpan> responseInterval, Nullable<bool> straightline, Nullable<int> delayInterval, Nullable<int> ptqNext, Nullable<int> sortOrder, Nullable<bool> active)
+        public virtual int pr_modifyCampaignRule(Nullable<int> id, Nullable<int> campaign, Nullable<int> initTest, Nullable<int> ptqCurrent, Nullable<int> status, Nullable<int> statusLogic, Nullable<int> score, Nullable<int> scoreLogic, Nullable<int> responseInterval, Nullable<int> responseIntervalLogic, Nullable<bool> straightline, Nullable<int> delayInterval, Nullable<int> delayIntervalLogic, Nullable<int> ptqNext, Nullable<System.DateTime> hardEndDate, Nullable<System.DateTime> switchOffDate, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -15346,6 +15378,10 @@ namespace Generic
                 new ObjectParameter("campaign", campaign) :
                 new ObjectParameter("campaign", typeof(int));
     
+            var initTestParameter = initTest.HasValue ?
+                new ObjectParameter("initTest", initTest) :
+                new ObjectParameter("initTest", typeof(int));
+    
             var ptqCurrentParameter = ptqCurrent.HasValue ?
                 new ObjectParameter("ptqCurrent", ptqCurrent) :
                 new ObjectParameter("ptqCurrent", typeof(int));
@@ -15354,13 +15390,25 @@ namespace Generic
                 new ObjectParameter("status", status) :
                 new ObjectParameter("status", typeof(int));
     
+            var statusLogicParameter = statusLogic.HasValue ?
+                new ObjectParameter("statusLogic", statusLogic) :
+                new ObjectParameter("statusLogic", typeof(int));
+    
             var scoreParameter = score.HasValue ?
                 new ObjectParameter("score", score) :
                 new ObjectParameter("score", typeof(int));
     
+            var scoreLogicParameter = scoreLogic.HasValue ?
+                new ObjectParameter("scoreLogic", scoreLogic) :
+                new ObjectParameter("scoreLogic", typeof(int));
+    
             var responseIntervalParameter = responseInterval.HasValue ?
                 new ObjectParameter("responseInterval", responseInterval) :
-                new ObjectParameter("responseInterval", typeof(System.TimeSpan));
+                new ObjectParameter("responseInterval", typeof(int));
+    
+            var responseIntervalLogicParameter = responseIntervalLogic.HasValue ?
+                new ObjectParameter("responseIntervalLogic", responseIntervalLogic) :
+                new ObjectParameter("responseIntervalLogic", typeof(int));
     
             var straightlineParameter = straightline.HasValue ?
                 new ObjectParameter("straightline", straightline) :
@@ -15370,9 +15418,21 @@ namespace Generic
                 new ObjectParameter("delayInterval", delayInterval) :
                 new ObjectParameter("delayInterval", typeof(int));
     
+            var delayIntervalLogicParameter = delayIntervalLogic.HasValue ?
+                new ObjectParameter("delayIntervalLogic", delayIntervalLogic) :
+                new ObjectParameter("delayIntervalLogic", typeof(int));
+    
             var ptqNextParameter = ptqNext.HasValue ?
                 new ObjectParameter("ptqNext", ptqNext) :
                 new ObjectParameter("ptqNext", typeof(int));
+    
+            var hardEndDateParameter = hardEndDate.HasValue ?
+                new ObjectParameter("hardEndDate", hardEndDate) :
+                new ObjectParameter("hardEndDate", typeof(System.DateTime));
+    
+            var switchOffDateParameter = switchOffDate.HasValue ?
+                new ObjectParameter("switchOffDate", switchOffDate) :
+                new ObjectParameter("switchOffDate", typeof(System.DateTime));
     
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
@@ -15382,7 +15442,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCampaignRule", idParameter, campaignParameter, ptqCurrentParameter, statusParameter, scoreParameter, responseIntervalParameter, straightlineParameter, delayIntervalParameter, ptqNextParameter, sortOrderParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCampaignRule", idParameter, campaignParameter, initTestParameter, ptqCurrentParameter, statusParameter, statusLogicParameter, scoreParameter, scoreLogicParameter, responseIntervalParameter, responseIntervalLogicParameter, straightlineParameter, delayIntervalParameter, delayIntervalLogicParameter, ptqNextParameter, hardEndDateParameter, switchOffDateParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual int pr_modifyCampaignStatus(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
@@ -17067,6 +17127,33 @@ namespace Generic
                 new ObjectParameter("person", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPerson3_Result>("pr_getIteratePartnerPerson3", personParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerStatusAllByEnterprise_Result> pr_getPartnerStatusAllByEnterprise(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerStatusAllByEnterprise_Result>("pr_getPartnerStatusAllByEnterprise", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise_Result> pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise_Result>("pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus_Result> pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus_Result>("pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus", pptqParameter);
         }
     }
 }
