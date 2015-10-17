@@ -551,7 +551,7 @@
         $("#genericPopup").dialog('open');
     }
     function checkToPrintPDF(status, accesscode) {
-        $.getJSON('/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus', { accessCode: accesscode }, function (data) {
+        $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus")', { accessCode: accesscode }, function (data) {
             alertify.confirm(data[0].nextStep + " Continue to PDF?", function (e) {
                 if (e) {
                     // click yes

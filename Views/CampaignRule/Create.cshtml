@@ -271,25 +271,25 @@
         @if(Model!=null)
         {
             <text>
-            var saved = @(ViewBag.saved) ;
-            if(saved){
-                alertify.alert("Congratulations you just added @Model.campaign")
-                clearForm();
-            }
-            else{
-                alertify.alert("Contract saving error");
-            }
+        var saved = @(ViewBag.saved) ;
+        if(saved){
+            alertify.alert("Congratulations you just added @Model.campaign")
+            clearForm();
+        }
+        else{
+            alertify.alert("Contract saving error");
+        }
         </text>
         }
-        
+
 
 
         $('#currentProtocol').change(function () {
             var protocolid = $(this).find(":selected").val();
             
             if (protocolid.length > 0) {
-                $.getJSON('/TouchPoint/GetTouchPointByprotocolId', { protocolId: protocolid }, function (data) {
-                    
+                $.getJSON('@Url.Content("~/TouchPoint/GetTouchPointByprotocolId")', { protocolId: protocolid }, function (data) {
+
                     $('#touchpointCurrent option').remove();
                     $('#touchpointCurrent').append('<option value="">&lt;select touchpoint&gt;</option');
                     $.each(data.Data, function(i, item) {
@@ -300,16 +300,16 @@
                     debugger;
                     alertify.alert('Error getting Touch Point!');
                 });
-                
+
                 //alertify.alert(protocolid);
             }
         });
 
         $('#touchpointCurrent').change(function () {
             var touchpointid = $(this).find(":selected").val();
-            
+
             if (touchpointid.length > 0) {
-                $.getJSON('/Partner/GetPartnerTypes', { id: touchpointid }, function (data) {
+                $.getJSON('@Url.Content("~/Partner/GetPartnerTypes")', { id: touchpointid }, function (data) {
                     $('#partnerTypeCurrent option').remove();
                     $('#partnerTypeCurrent').append('<option value="">&lt;select partner type&gt;</option');
                     $.each(data, function(i, item) {
@@ -320,7 +320,7 @@
                     debugger;
                     alertify.alert('Error getting Touch Point!');
                 });
-               
+
             }
         });
 
@@ -329,10 +329,10 @@
 
         $('#nextProtocol').change(function () {
             var protocolid = $(this).find(":selected").val();
-            
+
             if (protocolid.length > 0) {
-                $.getJSON('/TouchPoint/GetTouchPointByprotocolId', { protocolId: protocolid }, function (data) {
-                    
+                $.getJSON('@Url.Content("~/TouchPoint/GetTouchPointByprotocolId")', { protocolId: protocolid }, function (data) {
+
                     $('#touchpointNext option').remove();
                     $('#touchpointNext').append('<option value="">&lt;select touchpoint&gt;</option');
                     $.each(data.Data, function(i, item) {
@@ -343,16 +343,16 @@
                     debugger;
                     alertify.alert('Error getting Touch Point!');
                 });
-                
+
                 //alertify.alert(protocolid);
             }
         });
 
         $('#touchpointNext').change(function () {
             var touchpointid = $(this).find(":selected").val();
-            
+
             if (touchpointid.length > 0) {
-                $.getJSON('/Partner/GetPartnerTypes', { id: touchpointid }, function (data) {
+                $.getJSON('@Url.Content("~/Partner/GetPartnerTypes")', { id: touchpointid }, function (data) {
                     $('#partnerTypeNext option').remove();
                     $('#partnerTypeNext').append('<option value="">&lt;select partner type&gt;</option');
                     $.each(data, function(i, item) {
@@ -363,7 +363,7 @@
                     debugger;
                     alertify.alert('Error getting Touch Point!');
                 });
-               
+
             }
         });
 
@@ -389,8 +389,8 @@
             $("#partnerTypeNext").val("");
         }
 
-       
-            
+
+
         function validateControl() {
             if ($("#campaign").val() == "") {
                 alertify.alert("Campaign is required");
@@ -440,7 +440,7 @@
             //    alertify.alert("Delay Interval is required");
             //    return false;
             //}
-            
+
             if ($("#switchOffDate").val() == "") {
                 alertify.alert("Transition Date is required");
                 return false;
@@ -481,7 +481,7 @@
                 alertify.alert("Transition Date should be less than Hard End Date");
                 return false;
             }
-            
+
             if(Date.parse(hardEndDate) <= Date.parse(currentDate)){
                 alertify.alert("Hard End Date cannot be less than Today");
                 return false;
@@ -492,8 +492,8 @@
             elem.attr("data-val", "true");
             elem.attr("data-val-required", " ");
         };
-     
-        
+
+
 
         _addValidation($("#campaign"));
         _addValidation($("#currentProtocol"));
@@ -510,21 +510,21 @@
         _addValidation($("#touchpointNext"));
         _addValidation($("#partnerTypeNext"));
         _addValidation($("#hardEndDate"));
-        
+
         $("#btnClear").click(function () {
             clearForm();
         });
 
 
         var message = "@ViewBag.message";
-        if (message) {
-            alertify.alert(message);
-            if(!@ViewBag.error)
-            {
-                clearForm();
-            }
-            
-        }
+    if (message) {
+        alertify.alert(message);
+        if(!@ViewBag.error)
+        {
+            clearForm();
+    }
+
+    }
     });
 </script>
 @section Scripts {
