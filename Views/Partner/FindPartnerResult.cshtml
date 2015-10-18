@@ -552,15 +552,22 @@
     }
     function checkToPrintPDF(status, accesscode) {
         $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus")', { accessCode: accesscode }, function (data) {
-            alertify.confirm(data[0].nextStep + " Continue to PDF?", function (e) {
-                if (e) {
-                    // click yes
-                    window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
+            
+            if (data[0].newStatus == 8) {
+                alertify.confirm(data[0].nextStep, function (e) {
+                    if (e) {
+                        // click yes
+                        window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
 
-                } else {
-                    // click no
-                }
-            });
+                    } else {
+                        // click no
+                    }
+                });
+            }
+            else {
+                alertify.alert(data[0].nextStep);
+            }
+           
             @*if (status.toLowerCase() == 'responded/complete') {
                     window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
                 } else {
