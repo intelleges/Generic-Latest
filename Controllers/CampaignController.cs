@@ -49,8 +49,9 @@ namespace Generic.Controllers
         public ActionResult Index()
         {
             //var currentTouchpoints = db.pr_getTouchpointAllByEnterprise(Helpers.CurrentInstance.EnterpriseID).Select(o => o.id).ToList();
-            var list = db.campaigns.ToList();
-            return View(list);
+            //var campaignList = db.campaigns.ToList();
+            var campaignList = db.pr_getCampaignAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            return View(campaignList);
         }
 
         public ActionResult Edit(int id)

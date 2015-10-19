@@ -4098,7 +4098,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="PartnumberSpreadsheetDataLoadStatus" Type="int" Mode="In" />
           <Parameter Name="loadGroup" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="fnReplaceCharAtPos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
           <Parameter Name="Str" Type="varchar" Mode="In" />
           <Parameter Name="Pos" Type="int" Mode="In" />
@@ -5617,7 +5616,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getCampaignRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getCampaignRuleAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getCampaignRuleAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCampaignStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -13836,13 +13837,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getCampaign" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaign_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getCampaignAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignAll_Result)" >
-          <Parameter Name="enterprise" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getCampaignRule" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignRule_Result)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getCampaignRuleAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignRuleAll_Result)" />
           <FunctionImport Name="pr_getCampaignStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignStatus_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -14401,6 +14395,15 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCampaignRule" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignRule_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCampaignRuleAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignRuleAll_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCampaignAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignAll_Result)">
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus_Result)">
@@ -21445,7 +21448,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="delayInterval" />
           <Property Type="Int32" Name="delayIntervalLogic" />
           <Property Type="Int32" Name="ptqNext" />
-          <Property Type="Int32" Name="sortOrder" />
           <Property Type="Boolean" Name="active" />
           <Property Name="hardEndDate" Type="DateTime" Precision="0" />
           <Property Name="switchOffDate" Type="DateTime" Precision="0" />
@@ -22154,40 +22156,40 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </ComplexType>
         <ComplexType Name="pr_getCampaignRule_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="Int32" Name="campaign" Nullable="false" />
-          <Property Type="Int32" Name="initTest" Nullable="false" />
-          <Property Type="Int32" Name="ptqCurrent" Nullable="false" />
-          <Property Type="Int32" Name="status" Nullable="false" />
-          <Property Type="Int32" Name="statusLogic" Nullable="false" />
-          <Property Type="Int32" Name="score" Nullable="false" />
-          <Property Type="Int32" Name="scoreLogic" Nullable="false" />
-          <Property Type="Int32" Name="responseInterval" Nullable="false" />
-          <Property Type="Int32" Name="responseIntervalLogic" Nullable="false" />
-          <Property Type="Boolean" Name="straightline" Nullable="false" />
-          <Property Type="Int32" Name="delayInterval" Nullable="false" />
-          <Property Type="Int32" Name="delayIntervalLogic" Nullable="false" />
-          <Property Type="Int32" Name="ptqNext" Nullable="false" />
-          <Property Type="Int32" Name="sortOrder" Nullable="false" />
-          <Property Type="Boolean" Name="active" Nullable="false" />
-        </ComplexType>
+          <Property Type="String" Name="campaign" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="initTest" Nullable="true" />
+          <Property Type="String" Name="ptqCurrent" Nullable="true" MaxLength="103" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="statusLogic" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="score" Nullable="true" />
+          <Property Type="String" Name="scoreLogic" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="responseInterval" Nullable="true" />
+          <Property Type="String" Name="responseIntervalLogic" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="straightline" Nullable="true" />
+          <Property Type="Int32" Name="delayInterval" Nullable="true" />
+          <Property Type="String" Name="delayIntervalLogic" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ptqNext" Nullable="true" MaxLength="103" />
+          <Property Type="DateTime" Name="switchOffDate" Nullable="true" />
+          <Property Type="DateTime" Name="hardEndDate" Nullable="true" />
+          </ComplexType>
         <ComplexType Name="pr_getCampaignRuleAll_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="Int32" Name="campaign" Nullable="false" />
-          <Property Type="Int32" Name="initTest" Nullable="false" />
-          <Property Type="Int32" Name="ptqCurrent" Nullable="false" />
-          <Property Type="Int32" Name="status" Nullable="false" />
-          <Property Type="Int32" Name="statusLogic" Nullable="false" />
-          <Property Type="Int32" Name="score" Nullable="false" />
-          <Property Type="Int32" Name="scoreLogic" Nullable="false" />
-          <Property Type="Int32" Name="responseInterval" Nullable="false" />
-          <Property Type="Int32" Name="responseIntervalLogic" Nullable="false" />
-          <Property Type="Boolean" Name="straightline" Nullable="false" />
-          <Property Type="Int32" Name="delayInterval" Nullable="false" />
-          <Property Type="Int32" Name="delayIntervalLogic" Nullable="false" />
-          <Property Type="Int32" Name="ptqNext" Nullable="false" />
-          <Property Type="Int32" Name="sortOrder" Nullable="false" />
-          <Property Type="Boolean" Name="active" Nullable="false" />
-        </ComplexType>
+          <Property Type="String" Name="campaign" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="initTest" Nullable="true" />
+          <Property Type="String" Name="ptqCurrent" Nullable="true" MaxLength="103" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="statusLogic" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="score" Nullable="true" />
+          <Property Type="String" Name="scoreLogic" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="responseInterval" Nullable="true" />
+          <Property Type="String" Name="responseIntervalLogic" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="straightline" Nullable="true" />
+          <Property Type="Int32" Name="delayInterval" Nullable="true" />
+          <Property Type="String" Name="delayIntervalLogic" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ptqNext" Nullable="true" MaxLength="103" />
+          <Property Type="DateTime" Name="switchOffDate" Nullable="true" />
+          <Property Type="DateTime" Name="hardEndDate" Nullable="true" />
+          </ComplexType>
         <ComplexType Name="pr_getCampaignStatus_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
@@ -28687,7 +28689,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="switchOffDate" ColumnName="switchOffDate" />
                 <ScalarProperty Name="hardEndDate" ColumnName="hardEndDate" />
                 <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="ptqNext" ColumnName="ptqNext" />
                 <ScalarProperty Name="delayIntervalLogic" ColumnName="delayIntervalLogic" />
                 <ScalarProperty Name="delayInterval" ColumnName="delayInterval" />
@@ -29500,64 +29501,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getCampaignAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCampaignAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCampaignAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="startDate" ColumnName="startDate" />
-                <ScalarProperty Name="endDate" ColumnName="endDate" />
-                <ScalarProperty Name="author" ColumnName="author" />
-                <ScalarProperty Name="owner" ColumnName="owner" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getCampaignRule" FunctionName="hs3MVCMTQa2Model.Store.pr_getCampaignRule">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCampaignRule_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="campaign" ColumnName="campaign" />
-                <ScalarProperty Name="initTest" ColumnName="initTest" />
-                <ScalarProperty Name="ptqCurrent" ColumnName="ptqCurrent" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="statusLogic" ColumnName="statusLogic" />
-                <ScalarProperty Name="score" ColumnName="score" />
-                <ScalarProperty Name="scoreLogic" ColumnName="scoreLogic" />
-                <ScalarProperty Name="responseInterval" ColumnName="responseInterval" />
-                <ScalarProperty Name="responseIntervalLogic" ColumnName="responseIntervalLogic" />
-                <ScalarProperty Name="straightline" ColumnName="straightline" />
-                <ScalarProperty Name="delayInterval" ColumnName="delayInterval" />
-                <ScalarProperty Name="delayIntervalLogic" ColumnName="delayIntervalLogic" />
-                <ScalarProperty Name="ptqNext" ColumnName="ptqNext" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getCampaignRuleAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCampaignRuleAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCampaignRuleAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="campaign" ColumnName="campaign" />
-                <ScalarProperty Name="initTest" ColumnName="initTest" />
-                <ScalarProperty Name="ptqCurrent" ColumnName="ptqCurrent" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="statusLogic" ColumnName="statusLogic" />
-                <ScalarProperty Name="score" ColumnName="score" />
-                <ScalarProperty Name="scoreLogic" ColumnName="scoreLogic" />
-                <ScalarProperty Name="responseInterval" ColumnName="responseInterval" />
-                <ScalarProperty Name="responseIntervalLogic" ColumnName="responseIntervalLogic" />
-                <ScalarProperty Name="straightline" ColumnName="straightline" />
-                <ScalarProperty Name="delayInterval" ColumnName="delayInterval" />
-                <ScalarProperty Name="delayIntervalLogic" ColumnName="delayIntervalLogic" />
-                <ScalarProperty Name="ptqNext" ColumnName="ptqNext" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getCampaignStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getCampaignStatus">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCampaignStatus_Result">
@@ -30302,6 +30245,64 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
                 <ScalarProperty Name="questionnaireID" ColumnName="questionnaireID" />
                 <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCampaignRule" FunctionName="hs3MVCMTQa2Model.Store.pr_getCampaignRule">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCampaignRule_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="initTest" ColumnName="initTest" />
+                <ScalarProperty Name="ptqCurrent" ColumnName="ptqCurrent" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="statusLogic" ColumnName="statusLogic" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="scoreLogic" ColumnName="scoreLogic" />
+                <ScalarProperty Name="responseInterval" ColumnName="responseInterval" />
+                <ScalarProperty Name="responseIntervalLogic" ColumnName="responseIntervalLogic" />
+                <ScalarProperty Name="straightline" ColumnName="straightline" />
+                <ScalarProperty Name="delayInterval" ColumnName="delayInterval" />
+                <ScalarProperty Name="delayIntervalLogic" ColumnName="delayIntervalLogic" />
+                <ScalarProperty Name="ptqNext" ColumnName="ptqNext" />
+                <ScalarProperty Name="switchOffDate" ColumnName="switchOffDate" />
+                <ScalarProperty Name="hardEndDate" ColumnName="hardEndDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCampaignRuleAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCampaignRuleAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCampaignRuleAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="initTest" ColumnName="initTest" />
+                <ScalarProperty Name="ptqCurrent" ColumnName="ptqCurrent" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="statusLogic" ColumnName="statusLogic" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="scoreLogic" ColumnName="scoreLogic" />
+                <ScalarProperty Name="responseInterval" ColumnName="responseInterval" />
+                <ScalarProperty Name="responseIntervalLogic" ColumnName="responseIntervalLogic" />
+                <ScalarProperty Name="straightline" ColumnName="straightline" />
+                <ScalarProperty Name="delayInterval" ColumnName="delayInterval" />
+                <ScalarProperty Name="delayIntervalLogic" ColumnName="delayIntervalLogic" />
+                <ScalarProperty Name="ptqNext" ColumnName="ptqNext" />
+                <ScalarProperty Name="switchOffDate" ColumnName="switchOffDate" />
+                <ScalarProperty Name="hardEndDate" ColumnName="hardEndDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCampaignAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCampaignAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCampaignAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -9,6 +9,8 @@ namespace Generic.Controllers
     public class CampaignRuleController : Controller
     {
         EntitiesDBContext db = new EntitiesDBContext();
+
+        
         //
         // GET: /CampaignRule/
         protected void LoadDropDowns()
@@ -23,6 +25,14 @@ namespace Generic.Controllers
             ViewBag.logicList = new SelectList(db.pr_getLogicAll().ToList(), "id", "description");
             ViewBag.status = new SelectList(db.pr_getPartnerStatusAll().ToList(), "id", "description");
         }
+
+        public ActionResult Index()
+        {
+            var campaignRuleList = db.pr_getCampaignRuleAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            //return Json(campaignRuleList, JsonRequestBehavior.AllowGet);
+            return View(campaignRuleList);
+        }
+
 
         public ActionResult Create()
         {

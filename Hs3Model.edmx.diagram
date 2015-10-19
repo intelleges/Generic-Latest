@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9967287749084393b59eb2759d3608ea" Name="Diagram1" ZoomLevel="69">
+      <Diagram DiagramId="9967287749084393b59eb2759d3608ea" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.accessLevel" PointX="0.5" PointY="1.125" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.agency" PointX="3" PointY="35.875" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailMessage" PointX="30.75" PointY="62" Width="1.5" IsExpanded="false" />
@@ -257,7 +257,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.bulkContent" Width="1.5" PointX="3.8759254514593282" PointY="31.687325790378882" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.focus" Width="1.5" PointX="9.1407187642253565" PointY="5.8866994408363009" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.industry" Width="1.5" PointX="10.602153589298089" PointY="20.353580886662744" IsExpanded="false" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseContactUs" Width="1.5" PointX="1.125" PointY="10.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseContactUs" Width="1.5" PointX="6.125" PointY="9" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseLandingPagePTQ" Width="1.5" PointX="10.187545196240556" PointY="7.0477210316097931" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.landingPage" Width="1.5" PointX="5.6228825159477456" PointY="26.075822097284636" IsExpanded="false" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_country" />

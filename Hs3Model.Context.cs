@@ -15294,29 +15294,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaign_Result>("pr_getCampaign", idParameter);
         }
     
-        public virtual ObjectResult<pr_getCampaignAll_Result> pr_getCampaignAll(Nullable<int> enterprise)
-        {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignAll_Result>("pr_getCampaignAll", enterpriseParameter);
-        }
-    
-        public virtual ObjectResult<pr_getCampaignRule_Result> pr_getCampaignRule(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignRule_Result>("pr_getCampaignRule", idParameter);
-        }
-    
-        public virtual ObjectResult<pr_getCampaignRuleAll_Result> pr_getCampaignRuleAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignRuleAll_Result>("pr_getCampaignRuleAll");
-        }
-    
         public virtual ObjectResult<pr_getCampaignStatus_Result> pr_getCampaignStatus(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -17145,6 +17122,33 @@ namespace Generic
                 new ObjectParameter("enterprise", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise_Result>("pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCampaignRule_Result> pr_getCampaignRule(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignRule_Result>("pr_getCampaignRule", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCampaignRuleAll_Result> pr_getCampaignRuleAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignRuleAll_Result>("pr_getCampaignRuleAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCampaignAll_Result> pr_getCampaignAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignAll_Result>("pr_getCampaignAll", enterpriseParameter);
         }
     
         public virtual ObjectResult<pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus_Result> pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus(Nullable<int> pptq)

@@ -28,7 +28,6 @@ namespace Generic
         public Nullable<int> delayInterval { get; set; }
         public Nullable<int> delayIntervalLogic { get; set; }
         public Nullable<int> ptqNext { get; set; }
-        public Nullable<int> sortOrder { get; set; }
         public Nullable<bool> active { get; set; }
         public Nullable<System.DateTime> hardEndDate { get; set; }
         public Nullable<System.DateTime> switchOffDate { get; set; }

@@ -14,20 +14,20 @@ namespace Generic
     public partial class pr_getCampaignRule_Result
     {
         public int id { get; set; }
-        public int campaign { get; set; }
-        public int initTest { get; set; }
-        public int ptqCurrent { get; set; }
-        public int status { get; set; }
-        public int statusLogic { get; set; }
-        public int score { get; set; }
-        public int scoreLogic { get; set; }
-        public int responseInterval { get; set; }
-        public int responseIntervalLogic { get; set; }
-        public bool straightline { get; set; }
-        public int delayInterval { get; set; }
-        public int delayIntervalLogic { get; set; }
-        public int ptqNext { get; set; }
-        public int sortOrder { get; set; }
-        public bool active { get; set; }
+        public string campaign { get; set; }
+        public Nullable<int> initTest { get; set; }
+        public string ptqCurrent { get; set; }
+        public Nullable<int> status { get; set; }
+        public string statusLogic { get; set; }
+        public Nullable<int> score { get; set; }
+        public string scoreLogic { get; set; }
+        public Nullable<int> responseInterval { get; set; }
+        public string responseIntervalLogic { get; set; }
+        public Nullable<bool> straightline { get; set; }
+        public Nullable<int> delayInterval { get; set; }
+        public string delayIntervalLogic { get; set; }
+        public string ptqNext { get; set; }
+        public Nullable<System.DateTime> switchOffDate { get; set; }
+        public Nullable<System.DateTime> hardEndDate { get; set; }
     }
 }

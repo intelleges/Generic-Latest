@@ -1,0 +1,408 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.pr_getCampaignRuleAll_Result>>
+
+@using System.Web.Mvc.Html
+@using System.Collections.Generic
+@using Generic
+@using System.Web.Optimization
+@using Telerik.Web.Mvc.UI;
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = ViewBag.enterpriseName + " Campaigns Rule";
+}
+
+<style>
+    div#CampaignRuleGrid {
+        font-size: 11px;
+    }
+
+    #modal {
+        height: 489px;
+    }
+
+    .ui-dialog {
+        width: 99% !important;
+        left: 0;
+    }
+
+    .modal-dialog {
+        z-index: 1050;
+    }
+</style>
+
+@( Html.Telerik().Grid(Model).Name("CampaignRuleGrid")
+        .ToolBar(commands => commands
+        .Custom()
+        .HtmlAttributes(new { id = "export" })
+        .Text("Export to Excel")
+        .Action("ExportExcel", "partner"))
+
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.id).Title("ID").Width(30).Encoded(false);
+            columns.Bound(o => o.campaign).Title("Campaign Name").Width(130).Template(@<text>
+                @{
+
+                    var columnData = item.campaign;
+                    var width = 100;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <a href='#' id='@item.campaign' class="menu_block" title="@columnData">@visibleText</a>
+                }
+            </text>);
+            columns.Bound(o => o.initTest).Title("initTest").Width(60).Encoded(false);
+            columns.Bound(o => o.ptqCurrent).Title("ptqCurrent").Width(150).Template(@<text>
+
+                @{
+                    var columnData = item.ptqCurrent;
+                    var width = 130;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+
+                    <p title="@columnData">@visibleText</p>
+                }
+            </text>);
+
+            columns.Bound(o => o.status).Title("Status").Width(50).Encoded(false);
+            columns.Bound(o => o.statusLogic).Title("statusLogic").Width(80).Encoded(false);
+            columns.Bound(o => o.score).Title("score").Width(50).Encoded(false);
+            columns.Bound(o => o.scoreLogic).Title("scoreLogic").Width(80).Encoded(false);
+            columns.Bound(o => o.responseInterval).Title("responseInterval").Width(120).Encoded(false);
+            columns.Bound(o => o.responseIntervalLogic).Title("responseIntervalLogic").Width(150).Encoded(false);
+            columns.Bound(o => o.straightline).Title("straightline").Width(80).Encoded(false);
+            columns.Bound(o => o.delayInterval).Title("delayInterval").Width(100).Encoded(false);
+            columns.Bound(o => o.delayIntervalLogic).Title("delayIntervalLogic").Width(120).Encoded(false);
+            columns.Bound(o => o.ptqNext).Title("ptqNext").Width(150).Template(@<text>
+
+                @{
+                    var columnData = item.ptqNext;
+                    var width = 80;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
+
+
+            </text>);
+
+            columns.Bound(o => o.ptqNext).Title("switchOffDate").Width(100).Template(@<text>
+        @{
+            var strswitchOffDate = ((DateTime)item.switchOffDate).ToString("MM/dd/yyyy");
+            <p title="switchOffDate">@strswitchOffDate</p>
+        }
+            </text>);
+            columns.Bound(o => o.ptqNext).Title("hardEndDate").Width(100).Template(@<text>
+        @{
+            var strhardEndDate = ((DateTime)item.hardEndDate).ToString("MM/dd/yyyy");
+            <p title="switchOffDate">@strhardEndDate</p>
+        }
+            </text>);
+
+
+        })
+                        .DataKeys(keys => keys.Add(o => o.id))
+                        .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+                        .Sortable(sorting => sorting.Enabled(true))
+                        .Scrollable(scrolling => scrolling
+                        .Enabled(true)
+                        .Height(380))
+                        .HtmlAttributes(new { @class = "ra" })
+
+
+
+)
+
+<div id="EmailDialog" title="Questionnaire Routing Form">
+    <p>Email dialog</p>
+</div>
+<div id="genericPopup" title=""></div>
+<style>
+    .t-grid-content {
+        overflow-x: scroll !important;
+    }
+
+        .t-grid-content tr > td:hover .menu_block + .display_menu {
+            display: block !important;
+        }
+
+    .display_menu {
+        left: 65px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+
+    .t-grid-content tr > td {
+        overflow: visible !important;
+        position: relative;
+    }
+
+    .display_menu > ul {
+        padding: 0 16px;
+    }
+
+    .display_menu li {
+        list-style: none outside none;
+        width: 143px;
+    }
+
+    #madalEmailForm .table td[colspan='5'] {
+        text-align: center;
+    }
+</style>
+@*<script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/jquery-ui-1.9.2.js"></script>*@
+<script type="text/javascript">
+    function printDocs(accessCode) {
+
+        //var grid = $("#partnersDocGrid").data("tGrid");
+        // grid.ajax.selectUrl = "/Partner/ShowDocs/?accessCode=" + accessCode;
+        //grid.ajaxRequest();
+        grid.rebind({ accessCode: accessCode });
+        //$("#emailDialog").modal("toggle");
+        @*$.post("ShowDocs", { accessCode: accessCode }).done(function (result) {
+            //if (result.length) {
+                $("#madalEmailForm").html("");
+                $("#madalEmailForm").append("<table class='table table-hover'></table>");
+                $("#madalEmailForm table").append("<th><td>Title</td><td>Doc Type</td><td>Upload Date</td><td>Uploaded by</td></th>");
+                if (!result.length) {
+                    $("#madalEmailForm table").append("<tr><td colspan='5'>There is no any documents</td></tr>");
+                }
+
+                for (var i = 0; i < result.length; i++) {
+                    //$("#madalEmailForm table").append("<tr><td></td><td></td><td></td><td></td><td></td></tr>");
+                   // $("#madalEmailForm").append("<p><a href='@Url.Action("DownloadPdf", "Partner")/" + result[i].id + "/?accessCode=" + accessCode + "' target='_blank'>" + result[i].title + "</p>");
+                }
+
+           // } else {
+               // alertify.alert('There are no available documents for this partner.');
+           // }
+        });*@
+    }
+    $(function () {
+        //jQuery.noConflict();
+        $("#EmailDialog").dialog({
+            autoOpen: false
+        });
+
+        $('#popup').bind('dialogclose', function (event) {
+            window.location.replace(window.location.href);
+        });
+
+
+
+    });
+    var currentPTQAccessCode = null;
+    function changePTQ(accessCode) {
+        currentPTQAccessCode = accessCode;
+        $("#ptqList").data("tDropDownList").reload();
+        $("#changePtqDialog").modal("toggle");
+    }
+
+    function CloseMe() {
+        $("#genericPopup").dialog('close');
+        //$(".t-icon .t-refresh").trigger('click');
+
+        window.location.replace(window.location.href);
+    }
+
+    function remind(accessCodeValue) {
+        $.post("Remind", { accessCode: accessCodeValue }).done(function (result) {
+
+            if (result) {
+                alertify.alert(result);
+            }
+        });
+    }
+
+
+    function OpenEmailDialog(ac) {
+        //jQuery.noConflict();
+
+        $.get("@Url.Content("~/WrongContact/Index")", { accessCode: ac }, function (data) {
+
+            $("#EmailDialog").html(data);
+            $("#EmailDialog").dialog({
+                width: 1200,
+                height: 1000,
+            });
+            $("#EmailDialog").dialog('open');
+        });
+    }
+    $('#menu_block').hover(function () {
+        // alert("call");
+        $('#display_menu').show();
+    }, function () {
+        $('#display_menu').hide();
+    })
+
+    $('#menu_block').mouseenter(function () {
+        $('#display_menu').show();
+    }).mouseleave(function () {
+
+        $('#display_menu').hide();
+
+    });
+
+    function openEditPopup(id) {
+        $.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
+            $("#genericPopup").html(data);
+        });
+
+        $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
+        $("#genericPopup").dialog('open');
+    }
+
+    function openRemovePopup(id, internalid, name) {
+
+
+
+        alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
+        });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to Remove " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+            if (e) {
+                // Click no
+            } else {
+                // click yes
+
+                $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
+                    // $(".t-icon .t-refresh").trigger('click');
+                    window.location.replace(window.location.href);
+                });
+
+            }
+        });
+
+
+    }
+
+
+    function openArchivePopup(id, internalid, name) {
+
+
+
+        alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
+        });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to Archive " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+            if (e) {
+                // Click no
+            } else {
+                // click yes
+
+                $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
+                    // $(".t-icon .t-refresh").trigger('click');
+                    window.location.replace(window.location.href);
+                });
+
+            }
+        });
+
+
+    }
+
+    function openViewDetailPopup(id) {
+        $("#genericPopup").html("<p>Loading Data...</p>");
+        $.get("@Url.Content("~/Partner/Details/")" + id, function (data) {
+            $("#genericPopup").html(data);
+        });
+        $("#genericPopup").dialog({ height: 600, title: "View Detail" });
+        $("#genericPopup").dialog('open');
+    }
+
+    function openCompletePopup(accesscode) {
+        $("#genericPopup").html("<p>Loading Data...</p>");
+        $.get("@Url.Content("~/Registration?Accesscode=")" + accesscode, function (data) {
+            $("#genericPopup").html(data);
+        });
+        $("#genericPopup").dialog({ height: 600, title: "Complete" });
+        $("#genericPopup").dialog('open');
+    }
+    function checkToPrintPDF(status, accesscode) {
+        $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus")', { accessCode: accesscode }, function (data) {
+            alertify.confirm(data[0].nextStep + " Continue to PDF?", function (e) {
+                if (e) {
+                    // click yes
+                    window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
+
+                } else {
+                    // click no
+                }
+            });
+            @*if (status.toLowerCase() == 'responded/complete') {
+                    window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
+                } else {
+                    alert("it's not responded yet");
+            }*@
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            debugger;
+            alertify.alert('Error getting Touch Point!');
+        });
+    }
+
+    function checkToPrintHTML(status, accesscode) {
+        if (status.toLowerCase() == 'responded/complete') {
+            window.location.href = "@Url.Content("~/Partner/PrintHTML/?accesscode=")" + accesscode;
+        } else {
+            alert("it's not responded yet");
+        }
+    }
+
+    $(function () {
+        $(".t-widget.t-dropdown.t-header").css("width", "100%");
+    });
+    $("#changePtqBtn").click(function () {
+
+    })
+</script>
+<div class="tw-bs">
+    <div class="container-fluid">
+        <div class="modal fade" id="changePtqDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Change  Partner type Touchpoint Questionnaire </h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <form id="changePtqForm">
+                            <div class="form-group">
+                                @Html.Label("ptqList", "Questionnaire")
+                                @Html.Telerik().DropDownList().Name("ptqList").DataBinding(conf => conf.Ajax().Select("CurrentPtqList", "Campaign")).DropDownHtmlAttributes(new { style = "width:500px;white-space:nowrap;" })
+                            </div>
+                            <button type="button" class="btn btn-default btn-block" id="changePtqBtn">Save</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
