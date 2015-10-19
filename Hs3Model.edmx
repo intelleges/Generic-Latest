@@ -5527,6 +5527,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_eventNotificationCheck" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
@@ -14407,6 +14410,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus_Result)">
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2" ReturnType="Collection(hs3MVCMTQa2Model.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2_Result)">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           
@@ -22976,6 +22982,11 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="next" Nullable="false" />
           <Property Type="String" Name="nextStep" Nullable="false" MaxLength="21" />
         </ComplexType>
+        <ComplexType Name="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2_Result">
+          <Property Type="Int32" Name="newStatus" Nullable="false" />
+          <Property Type="Int32" Name="next" Nullable="false" />
+          <Property Type="String" Name="nextStep" Nullable="false" MaxLength="21" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -30309,6 +30320,15 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus_Result">
+                <ScalarProperty Name="newStatus" ColumnName="newStatus" />
+                <ScalarProperty Name="next" ColumnName="next" />
+                <ScalarProperty Name="nextStep" ColumnName="nextStep" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2" FunctionName="hs3MVCMTQa2Model.Store.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2_Result">
                 <ScalarProperty Name="newStatus" ColumnName="newStatus" />
                 <ScalarProperty Name="next" ColumnName="next" />
                 <ScalarProperty Name="nextStep" ColumnName="nextStep" />

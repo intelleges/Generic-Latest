@@ -2091,6 +2091,12 @@ namespace Generic.Controllers
             var result = "Congratulations, you have just sent a reminder to " + pptq.partner1.name + " with access code " + accessCode;
             if (pptq != null)
             {
+                
+                var message = db.pr_getAutoMailmessageByMailtypeandPTQ(4, pptq.id).FirstOrDefault();
+                if (message == null)
+                {
+                    return "Sorry, there is NO AUTOMAIL AVAILABLE for this Touchpoint.";
+                }
                 if (new int[] { 6, 7 }.Contains(pptq.status))
                     SchedulerServiceHelper.SendFirstReminderByPptq(pptq.id);
                 else
@@ -3858,6 +3864,15 @@ namespace Generic.Controllers
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
 
             var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus(pptq.id);
+            return Json(message, JsonRequestBehavior.AllowGet);
+
+        }
+        public ActionResult PartnertypeTouchpointQuestionnaireCampaignStatus2(string accessCode)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+
+            //var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus(pptq.id);
+            var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptq.id);
             return Json(message, JsonRequestBehavior.AllowGet);
 
         }

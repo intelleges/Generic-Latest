@@ -17159,5 +17159,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus_Result>("pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus", pptqParameter);
         }
+    
+        public virtual ObjectResult<pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2_Result> pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2_Result>("pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2", pptqParameter);
+        }
     }
 }

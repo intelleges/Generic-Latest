@@ -339,9 +339,13 @@
 </div>
 <div id="genericPopup" title=""></div>
 <style>
-    .t-grid-content tr > td:hover .menu_block + .display_menu {
-        display: block !important;
+    .t-grid-content {
+        overflow-x: scroll !important;
     }
+
+        .t-grid-content tr > td:hover .menu_block + .display_menu {
+            display: block !important;
+        }
 
     .display_menu {
         left: 65px;
@@ -551,9 +555,57 @@
         $("#genericPopup").dialog('open');
     }
     function checkToPrintPDF(status, accesscode) {
-        $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus")', { accessCode: accesscode }, function (data) {
+        $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus2")', { accessCode: accesscode }, function (data) {
             
-            if (data[0].newStatus == 8) {
+            if (data[0].next == 6) {
+                alertify.alert(data[0].nextStep);
+
+            }
+            else if (data[0].next == 5) {
+                alertify.alert(data[0].nextStep);
+            }
+            else if (data[0].next == 4) {
+                alertify.alert(data[0].nextStep);
+            }
+            else if (data[0].next == 3) {
+                alertify.confirm(data[0].nextStep, function (e) {
+                    if (e) {
+                        // click yes
+                        window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
+
+                    } else {
+                        // click no
+                    }
+                });
+            }
+            else if (data[0].next == 2) {
+                alertify.confirm(data[0].nextStep, function (e) {
+                    if (e) {
+                        // click yes
+                        remind(accesscode);
+
+                    } else {
+                        // click no
+                    }
+                });
+            }
+            else if (data[0].next == 1) {
+                alertify.confirm(data[0].nextStep, function (e) {
+                    if (e) {
+                        // click yes
+                        remind(accesscode);
+
+                    } else {
+                        // click no
+                    }
+                });
+            }
+            else {
+                alertify.alert(data[0].nextStep);
+            }
+
+            //alertify.alert(data[0].nextStep);
+            @*if (data[0].newStatus == 8) {
                 alertify.confirm(data[0].nextStep, function (e) {
                     if (e) {
                         // click yes
@@ -566,8 +618,8 @@
             }
             else {
                 alertify.alert(data[0].nextStep);
-            }
-           
+            }*@
+
             @*if (status.toLowerCase() == 'responded/complete') {
                     window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
                 } else {
