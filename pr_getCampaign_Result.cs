@@ -14,12 +14,12 @@ namespace Generic
     public partial class pr_getCampaign_Result
     {
         public int id { get; set; }
+        public int sortOrder { get; set; }
+        public bool active { get; set; }
         public string description { get; set; }
         public Nullable<System.DateTime> startDate { get; set; }
         public Nullable<System.DateTime> endDate { get; set; }
         public Nullable<int> author { get; set; }
         public Nullable<int> owner { get; set; }
-        public int sortOrder { get; set; }
-        public bool active { get; set; }
     }
 }

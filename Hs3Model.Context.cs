@@ -15285,15 +15285,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCampaignStatus", descriptionParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual ObjectResult<pr_getCampaign_Result> pr_getCampaign(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaign_Result>("pr_getCampaign", idParameter);
-        }
-    
         public virtual ObjectResult<pr_getCampaignStatus_Result> pr_getCampaignStatus(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -17124,13 +17115,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise_Result>("pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise", enterpriseParameter);
         }
     
-        public virtual ObjectResult<pr_getCampaignRule_Result> pr_getCampaignRule(Nullable<int> id)
+        public virtual ObjectResult<campaignRule> pr_getCampaignRule(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignRule_Result>("pr_getCampaignRule", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<campaignRule>("pr_getCampaignRule", idParameter);
+        }
+    
+        public virtual ObjectResult<campaignRule> pr_getCampaignRule(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<campaignRule>("pr_getCampaignRule", mergeOption, idParameter);
         }
     
         public virtual ObjectResult<pr_getCampaignRuleAll_Result> pr_getCampaignRuleAll(Nullable<int> enterprise)
@@ -17167,6 +17167,51 @@ namespace Generic
                 new ObjectParameter("pptq", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2_Result>("pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2", pptqParameter);
+        }
+    
+        public virtual int pr_archiveCampaignRule(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveCampaignRule", idParameter);
+        }
+    
+        public virtual int pr_unArchiveCampaignRule(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveCampaignRule", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCampaign_Result> pr_getCampaign(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaign_Result>("pr_getCampaign", idParameter);
+        }
+    
+        public virtual ObjectResult<touchpoint> pr_getTouchpointByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointByPTQ", ptqParameter);
+        }
+    
+        public virtual ObjectResult<touchpoint> pr_getTouchpointByPTQ(Nullable<int> ptq, MergeOption mergeOption)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointByPTQ", mergeOption, ptqParameter);
         }
     }
 }

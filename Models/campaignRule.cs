@@ -46,6 +46,35 @@ namespace Generic
 
         public sealed class campaignRuleMetadata
         {
+            public int id { get; set; }
+            [Required(ErrorMessage = " ")]
+            public int campaign { get; set; }
+            public int initTest { get; set; }
+
+            public int ptqCurrent { get; set; }
+            [Required(ErrorMessage = " ")]
+            public int status { get; set; }
+            [Required(ErrorMessage = " ")]
+            public int statusLogic { get; set; }
+            [Required(ErrorMessage = " ")]
+            public int score { get; set; }
+            [Required(ErrorMessage = " ")]
+            public int scoreLogic { get; set; }
+            [Required(ErrorMessage = " ")]
+            public int responseInterval { get; set; }
+            [Required(ErrorMessage = " ")]
+            public int responseIntervalLogic { get; set; }
+            [Required(ErrorMessage = " ")]
+            public bool straightline { get; set; }
+            [Required(ErrorMessage = " ")]
+            public int delayInterval { get; set; }
+            [Required(ErrorMessage = " ")]
+            public int delayIntervalLogic { get; set; }
+            public int ptqNext { get; set; }
+            public bool active { get; set; }
+            public DateTime hardEndDate  { get; set; }
+            public DateTime switchOffDate { get; set; }
+
             [Required(ErrorMessage = " ")]
             public bool initTestBool { get; set; }
             [Required(ErrorMessage = " ")]
@@ -62,35 +91,6 @@ namespace Generic
             public int partnerTypeCurrent { get; set; }
             [Required(ErrorMessage = " ")]
             public int partnerTypeNext { get; set; }
-            [Required(ErrorMessage = " ")]
-
-            public int id { get; set; }
-             [Required(ErrorMessage = " ")]
-            public int campaign { get; set; }
-            public int initTest { get; set; }
-
-            public int ptqCurrent { get; set; }
-             [Required(ErrorMessage = " ")]
-            public int status { get; set; }
-             [Required(ErrorMessage = " ")]
-            public int statusLogic { get; set; }
-             [Required(ErrorMessage = " ")]
-            public int score { get; set; }
-             [Required(ErrorMessage = " ")]
-            public int scoreLogic { get; set; }
-             [Required(ErrorMessage = " ")]
-             public int responseInterval { get; set; }
-             [Required(ErrorMessage = " ")]
-            public int responseIntervalLogic { get; set; }
-            [Required(ErrorMessage = " ")]
-             public bool straightline { get; set; }
-             [Required(ErrorMessage = " ")]
-            public int delayInterval { get; set; }
-             [Required(ErrorMessage = " ")]
-            public int delayIntervalLogic { get; set; }
-            public int ptqNext { get; set; }
-            public int sortOrder { get; set; }
-            public bool active { get; set; }
         }
     }
 }

@@ -51,8 +51,19 @@
                     {
                         visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
                     }
-                    <a href='#' id='@item.campaign' class="menu_block" title="@columnData">@visibleText</a>
+                    <a href='#' @*id='@item.campaign'*@ class="menu_block" title="@columnData">@visibleText</a>
                 }
+                <div class="display_menu" style="display: none;">
+                    <ul>
+
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id, '@item.campaign')">Remove</a></li>
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openArchivePopup(@item.id, '@item.campaign')">Archive</a></li>
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+                        
+                    </ul>
+                </div>
+
             </text>);
             columns.Bound(o => o.initTest).Title("initTest").Width(60).Encoded(false);
             columns.Bound(o => o.ptqCurrent).Title("ptqCurrent").Width(150).Template(@<text>
@@ -257,73 +268,8 @@
 
     });
 
-    function openEditPopup(id) {
-        $.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
-            $("#genericPopup").html(data);
-        });
+    
 
-        $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
-        $("#genericPopup").dialog('open');
-    }
-
-    function openRemovePopup(id, internalid, name) {
-
-
-
-        alertify.set({
-            labels: {
-                ok: "No",
-                cancel: "Yes"
-            },
-            buttonFocus: "cancel"
-        });
-        // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Remove " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
-            if (e) {
-                // Click no
-            } else {
-                // click yes
-
-                $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
-                    // $(".t-icon .t-refresh").trigger('click');
-                    window.location.replace(window.location.href);
-                });
-
-            }
-        });
-
-
-    }
-
-
-    function openArchivePopup(id, internalid, name) {
-
-
-
-        alertify.set({
-            labels: {
-                ok: "No",
-                cancel: "Yes"
-            },
-            buttonFocus: "cancel"
-        });
-        // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Archive " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
-            if (e) {
-                // Click no
-            } else {
-                // click yes
-
-                $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
-                    // $(".t-icon .t-refresh").trigger('click');
-                    window.location.replace(window.location.href);
-                });
-
-            }
-        });
-
-
-    }
 
     function openViewDetailPopup(id) {
         $("#genericPopup").html("<p>Loading Data...</p>");
@@ -371,6 +317,80 @@
             alert("it's not responded yet");
         }
     }
+
+    //Start of Popup Handler
+    function openEditPopup(id) {
+        $.get("@Url.Content("~/CampaignRule/Edit/")" + id, function (data) {
+            $("#genericPopup").html(data);
+        });
+
+        $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
+        $("#genericPopup").dialog('open');
+    }
+
+    function openRemovePopup(id, name) {
+
+        alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
+        });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to Remove " + name + ". Are you sure you want to do this?", function (e) {
+            if (e) {
+                // Click no
+            } else {
+                // click yes
+
+                $.get("@Url.Content("~/CampaignRule/Delete/")" + id, function (data) {
+                    window.location.replace(window.location.href);
+                });
+
+            }
+        });
+    }
+
+
+    function openArchivePopup(id, name) {
+        alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
+        });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to Archive " + name + ". Are you sure you want to do this?", function (e) {
+            if (e) {
+                // Click no
+            } else {
+                // click yes
+
+                $.get("@Url.Content("~/CampaignRule/Archive/")" + id, function (data) {
+                    // $(".t-icon .t-refresh").trigger('click');
+                    window.location.replace(window.location.href);
+                });
+
+            }
+        });
+
+
+    }
+
+    function openViewDetailPopup(id) {
+        @*$("#genericPopup").html("<p>Loading Data...</p>");
+        $.get("@Url.Content("~/Partner/Details/")" + id, function (data) {
+            $("#genericPopup").html(data);
+        });
+        $("#genericPopup").dialog({ height: 600, title: "View Detail" });
+        $("#genericPopup").dialog('open');*@
+    }
+
+    //End of Popup Handler
+
+
 
     $(function () {
         $(".t-widget.t-dropdown.t-header").css("width", "100%");

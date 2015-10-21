@@ -104,9 +104,10 @@
             </div>
             <div class="editor-field">
                 <label>
-                @Html.CheckBoxFor(model => model.initTestBool, new { @style="width:20px;" })
-                    Init test</label>
-                
+                    @Html.CheckBoxFor(model => model.initTestBool, new { @style = "width:20px;" })
+                    Init test
+                </label>
+
                 @Html.ValidationMessageFor(model => model.initTestBool)
             </div>
             <div class="editor-label">
@@ -114,8 +115,9 @@
             </div>
             <div class="editor-field">
                 <label>
-                @Html.CheckBoxFor(model => model.initStraightLineBool, new { @style = "width:20px;" })
-                Straight line</label>
+                    @Html.CheckBoxFor(model => model.initStraightLineBool, new { @style = "width:20px;" })
+                    Straight line
+                </label>
                 @Html.ValidationMessageFor(model => model.straightline)
             </div>
         </div>
@@ -146,14 +148,14 @@
         <br />
         <div class="twocol">
             <div class="editor-label">
-                @Html.LabelFor(model => model.statusLogic,"Status Logic")
+                @Html.LabelFor(model => model.statusLogic, "Status Logic")
             </div>
             <div class="editor-field">
                 @Html.DropDownListFor(model => model.statusLogic, (SelectList)ViewBag.logicList, "<select logic>")
-            @Html.ValidationMessageFor(model => model.statusLogic)
+                @Html.ValidationMessageFor(model => model.statusLogic)
             </div>
             <div class="editor-label">
-                @Html.LabelFor(model => model.status,"Status")
+                @Html.LabelFor(model => model.status, "Status")
             </div>
             <div class="editor-field">
                 @Html.DropDownListFor(model => model.status, (SelectList)ViewBag.status, "<select status>")
@@ -162,52 +164,52 @@
         </div>
         <div class="twocol">
             <div class="editor-label">
-            @Html.LabelFor(model => model.scoreLogic,"Score Logic")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.scoreLogic, (SelectList)ViewBag.logicList, "<select logic>")
-            @Html.ValidationMessageFor(model => model.scoreLogic)
-        </div>
-             <div class="editor-label">
-            @Html.LabelFor(model => model.score,"Score")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.score)
-            @Html.ValidationMessageFor(model => model.score)
-        </div>
+                @Html.LabelFor(model => model.scoreLogic, "Score Logic")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.scoreLogic, (SelectList)ViewBag.logicList, "<select logic>")
+                @Html.ValidationMessageFor(model => model.scoreLogic)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.score, "Score")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.score)
+                @Html.ValidationMessageFor(model => model.score)
+            </div>
         </div>
         <div class="twocol">
             <div class="editor-label">
-            @Html.LabelFor(model => model.responseIntervalLogic,"Response interval Logic")
-        </div>
-        <div class="editor-field">
-           @Html.DropDownListFor(model => model.responseIntervalLogic, (SelectList)ViewBag.logicList, "<select logic>")
-            @Html.ValidationMessageFor(model => model.responseIntervalLogic)
-        </div>
+                @Html.LabelFor(model => model.responseIntervalLogic, "Response interval Logic")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.responseIntervalLogic, (SelectList)ViewBag.logicList, "<select logic>")
+                @Html.ValidationMessageFor(model => model.responseIntervalLogic)
+            </div>
             <div class="editor-label">
-            @Html.LabelFor(model => model.responseInterval,"Response interval")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.responseInterval)
-            @Html.ValidationMessageFor(model => model.responseInterval)
-        </div>
+                @Html.LabelFor(model => model.responseInterval, "Response interval")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.responseInterval)
+                @Html.ValidationMessageFor(model => model.responseInterval)
+            </div>
         </div>
 
         <div class="twocol">
-             <div class="editor-label">
-            @Html.LabelFor(model => model.delayIntervalLogic,"Delay interval Logic")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.delayIntervalLogic, (SelectList)ViewBag.logicList, "<select logic>")
-            @Html.ValidationMessageFor(model => model.delayIntervalLogic)
-        </div>
             <div class="editor-label">
-            @Html.LabelFor(model => model.delayInterval,"Delay interval")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.delayInterval)
-            @Html.ValidationMessageFor(model => model.delayInterval)
-        </div>       
+                @Html.LabelFor(model => model.delayIntervalLogic, "Delay interval Logic")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.delayIntervalLogic, (SelectList)ViewBag.logicList, "<select logic>")
+                @Html.ValidationMessageFor(model => model.delayIntervalLogic)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.delayInterval, "Delay interval")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.delayInterval)
+                @Html.ValidationMessageFor(model => model.delayInterval)
+            </div>
         </div>
 
         <div class="twocol">
@@ -219,7 +221,7 @@
                 @Html.ValidationMessageFor(model => model.switchOffDate)
             </div>
             <div class="editor-label">
-                @Html.LabelFor(model => model.hardEndDate, "Hard End Date", new { style="font-weight:bold;" })
+                @Html.LabelFor(model => model.hardEndDate, "Hard End Date", new { style = "font-weight:bold;" })
             </div>
             <div class="editor-field">
                 @Html.Telerik().DatePickerFor(model => model.hardEndDate)
@@ -286,7 +288,7 @@
 
         $('#currentProtocol').change(function () {
             var protocolid = $(this).find(":selected").val();
-            
+
             if (protocolid.length > 0) {
                 $.getJSON('@Url.Content("~/TouchPoint/GetTouchPointByprotocolId")', { protocolId: protocolid }, function (data) {
 
@@ -517,14 +519,14 @@
 
 
         var message = "@ViewBag.message";
-    if (message) {
-        alertify.alert(message);
-        if(!@ViewBag.error)
-        {
-            clearForm();
-    }
+        if (message) {
+            alertify.alert(message);
+            if(!"@ViewBag.error")
+            {
+                clearForm();
+            }
+        }
 
-    }
     });
 </script>
 @section Scripts {
