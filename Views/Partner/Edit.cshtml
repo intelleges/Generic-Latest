@@ -285,6 +285,7 @@
 
         $.post("@Url.Content("~//Partner/Edit/")", $("form").serialize(), function (data) {
             if (data.success) {
+
                 CloseMe();
             }
         });

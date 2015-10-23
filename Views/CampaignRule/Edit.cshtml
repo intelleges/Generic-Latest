@@ -257,33 +257,32 @@
 
         <p style="float: right; width: 20%;">
             <input type="button" value="Save" onclick="savedata()" />
-            <input type="button" onclick="CloseMe()" value="Cancel" />
+            <input type="button" onclick="CloseMe()" value="Cancel"  id="btnCancel"/>
         </p>
     </fieldset>
 }
 
 
 <script type="text/javascript">
+    function closeForm()
+    {
+        $("#btnCancel").click();
+    }
     function savedata() {
 
         $.post("@Url.Content("~//CampaignRule/Edit/")", $("form").serialize(), function (data) {
             if (data.success) {
-                alertify.alert(data.message)
+                alertify.set({
+                    labels: {
+                        ok: "OK",
+                    },
+                    delay: 5000,
+                    buttonFocus: "ok"
+                });
+                alertify.alert(data.message);
                 CloseMe();
             }
         });
-
-
-        //var $form = $('form');
-        //if ($form.valid()) {
-
-        //    alert("valida data");
-        //}
-        //else {
-        //    alert("invalid");
-
-        //    $form.submit();
-        //}
     }
 </script>
 @section Scripts {

@@ -2092,7 +2092,8 @@ namespace Generic.Controllers
             if (pptq != null)
             {
                 
-                var message = db.pr_getAutoMailmessageByMailtypeandPTQ(4, pptq.id).FirstOrDefault();
+                //var message = db.pr_getAutoMailmessageByMailtypeandPTQ(4, pptq.id).FirstOrDefault();
+                var message = db.pr_getAutoMailmessageByMailtypeandPTQ(4, pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
                 if (message == null)
                 {
                     return "Sorry, there is NO AUTOMAIL AVAILABLE for this Touchpoint.";
@@ -2106,6 +2107,32 @@ namespace Generic.Controllers
 
             }
             return result;
+        }
+
+        public ActionResult RemindJSON(string accessCode)
+        {
+
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var result = "Congratulations, you have just sent a reminder to " + pptq.partner1.name + " with access code " + accessCode;
+            if (pptq != null)
+            {
+                
+                //var message = db.pr_getAutoMailmessageByMailtypeandPTQ(4, pptq.id).FirstOrDefault();
+                var message = db.pr_getAutoMailmessageByMailtypeandPTQ(4, pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+
+                if (message == null)
+                {
+                    return Json("Sorry, there is NO AUTOMAIL AVAILABLE for this Touchpoint.", JsonRequestBehavior.AllowGet);
+                }
+                if (new int[] { 6, 7 }.Contains(pptq.status))
+                    SchedulerServiceHelper.SendFirstReminderByPptq(pptq.id);
+                else
+                {
+                    result = "The status for " + pptq.partner1.name + " with " + accessCode + " access code does not permit reminders at this time. Please contact your system adminitrator.";
+                }
+
+            }
+            return  Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult RailReport()

@@ -214,7 +214,7 @@ namespace Generic.Controllers
 
                     string msg =  string.Format("Congratulations you have successfully updated campaign rule that sequences from (current) {0} for {1} to (next) {2} for {3}", partnerTypeCurrent.name, touchpointCurrent.description, partnerTypeNext.name, touchpointNext.description);
 
-                    return Json(new { success = true, message = msg }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, message = msg, id=model.id }, JsonRequestBehavior.AllowGet);
 
                 }
                 else

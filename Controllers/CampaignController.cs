@@ -67,7 +67,8 @@ namespace Generic.Controllers
             ViewBag.protocol = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
             ViewBag.statuses = new SelectList(db.pr_getCampaignStatusAll().ToList(), "id", "description");
             var prev = db.pr_getCampaign(id).FirstOrDefault();
-            db.pr_modifyCampaign(id, model.description,  model.startDate, model.endDate, prev.author, prev.owner, prev.sortOrder, prev.active);           
+            
+            db.pr_modifyCampaign(id, model.description,  model.startDate, model.endDate, model.author, model.owner, prev.sortOrder, prev.active);           
             return View();
         }
 
