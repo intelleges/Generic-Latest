@@ -497,6 +497,7 @@ namespace Generic.Controllers
             ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
             return View(partner);
         }
+
         protected string RenderActionResultToString(ActionResult result)
         {
             // Create memory writer.
