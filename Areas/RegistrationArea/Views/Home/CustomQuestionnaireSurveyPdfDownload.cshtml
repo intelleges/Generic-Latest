@@ -27,7 +27,7 @@
     <table width="100%" style="margin-top:10px;">
         <tr>
             <td style="font-size: 25px; text-align:center; color: #081835">
-                SUPPLIER CERTIFICATION and REPRESENTATION FOR CALENDAR YEAR 2015<br />
+                SUPPLIER CERTIFICATION and REPRESENTATION FOR CALENDAR YEAR 2016<br />
                 U.S. GOVERNMENT REGULATIONS AND STATUTES
             </td>
         </tr>
@@ -170,10 +170,6 @@
             <input type="text" style="width:450px; height:20px" value="@(ViewBag.Input1 ?? String.Empty)" />
         </p>
 
-        Canadian
-        Non-U.S. Small Business (under 500 employees)
-        Non-U.S. Large Business (500 + employees)
-
         <p style="height:3px"><input type="checkbox" @ViewBag.Checkbox15 /> Canadian</p>
         <p style="height:3px"><input type="checkbox" @ViewBag.Checkbox16 /> Non-U.S. Small Business (under 500 employees)</p>
         <p style="height:3px"><input type="checkbox" @ViewBag.Checkbox17 /> Non-U.S. Large Business (500 + employees)</p>
@@ -187,7 +183,7 @@
                 </td>
                 <td valign="top">
                     <p>
-                        Supplier understands, under 15 U.S.C. 645(d), any person who misrepresents a firm’s status that is small, HUBZone small, small disadvantaged, service-disabled veteran-owned small, economically disadvantaged women-owned small, or women-owned small eligible under the WOSB Program in order to obtain a contract to be awarded under the preference programs established pursuant to section 8, 9, 15, 31 and 36 of the Small Business Act or any other provision of Federal law that specifically references section 8(d) for a definition of program eligibility, shall (i) be punished by imposition of fine, imprisonment, or both; (ii) be subject to administrative remedies, including suspension and debarment; and (iii) be ineligible for participation in programs conducted under the authority of the Act (FAR 52.219-1(d)(2)).
+                        Supplier understands, under 15 U.S.C. 645(d), any person who misrepresents a firm's status that is small, HUBZone small, small disadvantaged, service-disabled veteran-owned small, economically disadvantaged women-owned small, or women-owned small eligible under the WOSB Program in order to obtain a contract to be awarded under the preference programs established pursuant to section 8, 9, 15, 31 and 36 of the Small Business Act or any other provision of Federal law that specifically references section 8(d) for a definition of program eligibility, shall (i) be punished by imposition of fine, imprisonment, or both; (ii) be subject to administrative remedies, including suspension and debarment; and (iii) be ineligible for participation in programs conducted under the authority of the Act (FAR 52.219-1(d)(2)).
                     </p>
                 </td>
             </tr>
@@ -201,7 +197,7 @@
             </tr>
         </table>
 
-        <p><b> MINORITY OWNERSHIP:  <i>ONLY</i>  IF SUPPLIER HAS REPRESENTED ITSELF ABOVE AS A SMALL DISADVANTAGED BUSINESS (SDB) OR WOMEN-OWNED SMALL DISADVANTAGED BUSINESS (WOSDB), PLEASE CHECK THE APPROPRIATE CATEGORY OF OWNERSHIP:  (FAR 52.219-1 Alt 1)</b></p>
+        <p><b> MINORITY OWNERSHIP:  <i><u>ONLY</u></i>  IF SUPPLIER HAS REPRESENTED ITSELF ABOVE AS A SMALL DISADVANTAGED BUSINESS (SDB) OR WOMEN-OWNED SMALL DISADVANTAGED BUSINESS (WOSDB), PLEASE CHECK THE APPROPRIATE CATEGORY OF OWNERSHIP:  (FAR 52.219-1 Alt 1)</b></p>
 
         <p style="height:3px"><input type="checkbox" @ViewBag.Checkbox20 /> A. Black American</p>
         <p style="height:3px"><input type="checkbox" @ViewBag.Checkbox21 /> B. Hispanic American</p>
@@ -217,11 +213,11 @@
         </p>
 
     </div>
-    <p style="margin-top:32px; color:gray">
+    <p style="margin-top:60px; color:gray">
         <b>
             <i style="text-align:left">Page 1 of 5</i>
-            <i style="margin-left:250px">Supplier Certification and Representation</i>
-            <i style="margin-left:200px">AF 0014H (2015)</i>
+            <i style="margin-left:250px">Supplier Certifications and Representations</i>
+            <i style="margin-left:200px">AF 0014I (2016)</i>
         </b>
     </p>
     <div style="margin-top:35px">
@@ -291,13 +287,13 @@
     </div>
 
     <div>
-        <p><b> 5. <i>CERTIFICATION OF EQUAL OPPORTUNITY REPORTS</i></b></p>
+        <p><b> 5. <i>CERTIFICATION OF EQUAL OPPORTUNITY COMPLIANCE REPORTS</i></b></p>
 
         <p><i>SUPPLIER</i> has filed all required Compliance reports.</p>
 
         <p>
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox30 /> YES </b>
-            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox31 />NO&nbsp;&nbsp;Less than 50 employees, therefore exempt</b>
+            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox31 />NO&nbsp;&nbsp;<input type="checkbox" @ViewBag.Checkbox73 />Less than 50 employees, therefore exempt</b>
 
         </p>
         <p><b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input7 ?? String.Empty)" style="width:450px; height:20px" /></b></p>
@@ -305,12 +301,12 @@
 
     <div>
 
-        <p><b> 6. <i>CERTIFICATION OF AFFIRMATIVE ACTION COMPLIANCE</i></b> <b><i style="color:blue;">(Check ONLY one)</i></b></p>
+        <p><b> 6. <i>CERTIFICATION OF AFFIRMATIVE ACTION PROGRAM COMPLIANCE</i></b> <b><i style="color:blue;">(Check ONLY one)</i></b></p>
 
-        <p><input type="checkbox" @ViewBag.Checkbox32 /> A. Supplier <b><i>HAS</i></b> developed and has on file, at each establishment, affirmative action programs required by the rules and regulations of the Secretary of Labor (41 CFR 60-1 and 60-2); OR
+        <p><input type="checkbox" @ViewBag.Checkbox32 /> A. Supplier has developed and has on file, at each establishment, affirmative action programs required by the rules and regulations of the Secretary of Labor (41 CFR 60-1 and 60-2); OR
 
-        <p><input type="checkbox" @ViewBag.Checkbox33 /> B. Supplier <b><i>HAS NOT</i></b> previously had contracts subject to the written affirmative action program requirement of the rules and regulations of the Secretary of Labor.
-        <p><input type="checkbox" @ViewBag.Checkbox34 /> C. Supplier <b><i>HAS</i></b> has less than 50 employees, therefore exempt.
+        <p><input type="checkbox" @ViewBag.Checkbox33 /> B. Supplier has not previously had contracts subject to the written affirmative action program requirement of the rules and regulations of the Secretary of Labor.
+        <p><input type="checkbox" @ViewBag.Checkbox34 /> C. Supplier has less than 50 employees, therefore exempt.
     </div>
     <div>
         <p><b> 7. <i>CERTIFICATION OF COMPLIANCE WITH VETERANS EMPLOYMENT REPORTING REQUIREMENTS</i></b></p>
@@ -319,7 +315,7 @@
 
         <p>
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox35 /> YES </b>
-            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox36 /> NO&nbsp;&nbsp;Less than 50 employees, therefore exempt</b>
+            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox36 /> NO&nbsp;&nbsp;<input type="checkbox" @ViewBag.Checkbox74 />Less than 50 employees, therefore exempt</b>
             <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input8 ?? String.Empty)" style="width:350px; height:20px" /></b>
         </p>
 
@@ -336,11 +332,11 @@
         <p><input type="checkbox" @ViewBag.Checkbox38 /> B. Supplier certifies, to the best of its knowledge and belief that your firm and/or any of its Principals ARE NOT presently debarred, suspended, proposed for debarment, or declared ineligible for the award of contracts by any Federal agency</p>
 
     </div>
-    <p style="margin-top:150px;color:gray">
+    <p style="margin-top:200px;color:gray">
         <b>
             <i style="text-align:left">Page 2 of 5</i>
-            <i style="margin-left:250px">Supplier Certification and Representation</i>
-            <i style="margin-left:200px">AF 0014H (2015)</i>
+            <i style="margin-left:250px">Supplier Certifications and Representations</i>
+            <i style="margin-left:200px">AF 0014I (2016)</i>
         </b>
     </p>
     <div>
@@ -356,11 +352,11 @@
 
         <p>B. Each signature on an offer to Honeywell is considered to be a certification by the signatory that the signatory:</p>
 
-        <p style="margin-left:40px">1. Is the person in the offeror’s organization responsible for determining the prices being offered in any bid or proposal, and that the signatory has not participated and will not participate in any action contrary to subparagraphs A.1 through A.3 of this Section; or</p>
+        <p style="margin-left:40px">1. Is the person in the offeror's organization responsible for determining the prices being offered in any bid or proposal, and that the signatory has not participated and will not participate in any action contrary to subparagraphs A.1 through A.3 of this Section; or</p>
 
         <p style="margin-left:40px">2. (i) Has been authorized, in writing, to act as agent for the principals involved in certifying that those principals have not participated, and will not participate in any action contrary to subparagraphs A.1 through A.3 of this Section; (ii) As an authorized agent, does certify that such principals have not participated, and will not participate, in any action contrary to subparagraphs A.1 through A.3 of this Section; and (iii) As an agent, has not personally participated, and will not participate, in any action contrary to subparagraphs A.1 through A.3 of this Section.</p>
 
-        <p>C. If <i>SUPPLIER</i> deletes or modifies subparagraph A.2 of this Section, SUPPLIER must furnish with its offer a signed statement setting forth in detail the circumstances of the disclosure.</p>
+        <p>C. If <i>SUPPLIER</i> deletes or modifies subparagraph A.2 of this Section, <i>SUPPLIER</i> must furnish with its offer a signed statement setting forth in detail the circumstances of the disclosure.</p>
 
         <p>
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox39 /> YES </b>
@@ -373,7 +369,7 @@
     <div>
         <p><b>10. <i>CERTIFICATION REGARDING PAYMENTS TO INFLUENCE CERTAIN FEDERAL TRANSACTIONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.203-11</a>)</i></b></p>
 
-        <p><i>SUPPLIER</i> certifies, to the best of its knowledge and belief, NO Federal appropriated funds have been paid or will be paid to any person to influence or attempt to influence certain Government officials to award or modify a Federal contract.</p>
+        <p><i>SUPPLIER</i> certifies, to the best of its knowledge and belief, <b><u>NO</u></b> Federal appropriated funds have been paid or will be paid to any person to influence or attempt to influence certain Government officials to award or modify a Federal contract.</p>
 
         <p>
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox41 /> YES </b>
@@ -398,7 +394,7 @@
     <div>
         <p><b>12. <i>STATEMENT TO PREVENT TRANSACTIONS WITH DENIED PERSONS/DEBARRED PARTIES/SDN</i></b></p>
 
-        <p>To ensure compliance of U.S. export laws, Honeywell does not conduct any business transaction with the “Denied Persons List” published by the U.S. Department of Commerce, the “Denied Parties List” published by the Department of State and the “Specially Designated Nationals” list published by the Department of Treasury, Foreign Assets Control.  Honeywell expects all suppliers and its subcontractors to comply with these laws as well.  Supplier agrees to include this requirement in lower-tier Purchase Orders and/or subcontracts.  (You may view the U.S. Government web sites of the Agencies noted above to access their lists).
+        <p>To ensure compliance of U.S. export laws, Honeywell does not conduct any business transaction with the "Denied Persons List" published by the U.S. Department of Commerce, the "Denied Parties List" published by the Department of State and the "Specially Designated Nationals" list published by the Department of Treasury, Foreign Assets Control.  Honeywell expects all suppliers and its subcontractors to comply with these laws as well.  Supplier agrees to include this requirement in lower-tier Purchase Orders and/or subcontracts.  (You may view the U.S. Government web sites of the Agencies noted above to access their lists).
         <p>
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox45 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox46 /> NO </b>
@@ -440,30 +436,30 @@
     <div>
         <p><b>14. <i>EXECUTIVE COMPENSATION REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10</a>)</i></b></p>
 
-        <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox53 />&nbsp;A. <i>SUPPLIER's</i> executive compensation is not available to the public through period reports filed under Section 13(a) or 15(d) of the Securities Exchange Act of 1934 or under Section 6104 of the Internal Revenue Code of 1986.</p>
+        <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox53 />&nbsp;A. <i>SUPPLIER's</i> executive compensation is <b><u>not</u></b> available to the public through period reports filed under Section 13(a) or 15(d) of the Securities Exchange Act of 1934 or under Section 6104 of the Internal Revenue Code of 1986.</p>
 
-        <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox54 />&nbsp;A. <i>SUPPLIER's</i> derived 80% or more and $25,000,000 or more of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants) and cooperative agreements in the preceding fiscal year.</p>
+        <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox54 />&nbsp;A. SUPPLIER derived 80% or more and $25,000,000 or more of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants) and cooperative agreements in the preceding fiscal year.</p>
         <p>
-            <i>NOTE:</i>  If A and B are checked, Honeywell is required to report SUPPLIER’s executive compensation to the Government and this information will be made public.  Completion of below is required.
+            <i>NOTE:</i>  If A and B are checked, Honeywell is required to report SUPPLIER's executive compensation to the Government and this information will be made public.  Completion of below is required.
         </p>
         <p style="margin-top:50px; color:gray">
             <b>
                 <i style="text-align:left">Page 3 of 5</i>
-                <i style="margin-left:250px">Supplier Certification and Representation</i>
-                <i style="margin-left:200px">AF 0014H (2015)</i>
+                <i style="margin-left:250px">Supplier Certifications and Representations</i>
+                <i style="margin-left:200px">AF 0014I (2016)</i>
             </b>
         </p>
         <p><b>14. <i>EXECUTIVE COMPENSATION REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10</a>) Continued</i></b></p>
-
+        <p>Total Compensation, as defined in FAR 52.204-10(a), for the five (5) most highly compensated executives earned during the preceding fiscal year is: </p>
         <table width="100%" cellpadding="0" cellspacing="0" border="1">
             <tr>
-                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                <td style="font-size: 15px; padding-left: 5px; padding-bottom:5px;">
                     Name
                 </td>
-                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                <td style="font-size: 15px; padding-left: 5px; padding-bottom:5px;">
                     Title
                 </td>
-                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                <td style="font-size: 15px; padding-left: 5px; padding-bottom:5px;">
                     Total Compensation
                 </td>
             </tr>
@@ -540,7 +536,7 @@
         </p>
 
         <p>
-            <i>NOTE</i>:  If yes, Honeywell is required to report to the Government 1st tier subcontract awards, valued $30,000 or more, that peg to prime contracts containing FAR 52.294-10.  Information pertaining to the subcontract award, along with the following information required by FAR 52.204-10(c)(1), will be made public.
+            <b><i>NOTE</i></b>:  If yes, Honeywell is required to report to the Government 1st tier subcontract awards, valued $30,000 or more, that peg to prime contracts containing FAR 52.204-10.  Information pertaining to the subcontract award, along with the following information required by FAR 52.204-10(c)(1), will be made public.
         </p>
         <p>
             To comply with FAR 52.204-10, please provide the place of performance address if different than this Certification.  SUPPLIER certifies the physical place of performance is:
@@ -567,33 +563,33 @@
     <div>
         <p><b>16. <i>CERTIFICATION REGARDING POLITICAL CONTRIBUTIONS, FEES, AND COMMISSIONS (<a href='http://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&SID=9f40509b0e3da13737d77a645b79f912&rgn=div5&view=text&node=22:1.0.1.13.67&idno=22'> ITAR PART 130</a>)</i></b></p>
 
-        <p> Please note 22 CFR § 130.12(b) requires Supplier to respond to this section within 20 days, unless Supplier provides the information directly to the U.S. State Department in accordance with 22 CFR § 130.12(c).  U.S. law requires Honeywell to inform the Department of State if we have not received a response within 25 days of this request.  Additionally, 22 CFR § 130.14 requires Supplier to maintain the records upon which the information below is based for a minimum of five (5) years from the date of the report. </p>
+        <p> Please note 22 CFR 130.12(b) requires Supplier to respond to this section <b><u>within 20 days</u></b>, unless Supplier provides the information directly to the U.S. State Department in accordance with 22 CFR  130.12(c).  U.S. law requires Honeywell to inform the Department of State if we have not received a response within 25 days of this request.  Additionally, 22 CFR  130.14 requires Supplier to maintain the records upon which the information below is based for a minimum of five (5) years from the date of the report. </p>
 
-        <p>A. <i>SUPPLIER</i> certifies it <b>SELLS</b> defense articles, technical data, and/or defense services to Honeywell that are:  (1) controlled for export under U.S. International Traffic in Arms Regulations (ITAR) (22 CFR Parts 120-130); and (2) valued in an amount of $500,000 or more (sold $500,000 or more in ITAR controlled goods to Honeywell); and (3) for delivery (or incorporation into another product for delivery) to, or for the use of, the armed forces of an international organization or a country other than the United States. </p>
+        <p>A. <i>SUPPLIER</i> certifies it <b>SELLS</b> defense articles, technical data, and/or defense services to Honeywell that are:  (1) controlled for export under U.S. International Traffic in Arms Regulations (ITAR) (22 CFR Parts 120-130); <b>and</b> (2) valued in an amount of $500,000 or more (sold $500,000 or more in ITAR controlled goods to Honeywell); <b>and</b> (3) for delivery (or incorporation into another product for delivery) to, or for the use of, the armed forces of an international organization or a country other than the United States. </p>
 
         <p style="margin-left:20px">
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox57 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox58 /> NO </b>
         </p>
 
-        <p> B. <i>SUPPLIER</i> certifies it has paid, offered to pay, or agreed to pay any “fees”, “commissions”, or “political contributions” as defined in 22 CFR § 130.5 and 22 CFR § 130.6 in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.</p>
+        <p> B. <i>SUPPLIER</i> certifies it has paid, offered to pay, or agreed to pay any "fees", "commissions", or "political contributions" as defined in 22 CFR  130.5 and 22 CFR  130.6 in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.</p>
 
         <p style="margin-left:20px">
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox59 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox60 /> NO </b>
         </p>
         <p>
-            NOTE:  22 CFR § 130.9(d) requires SUPPLIER to inform Honeywell as soon as possible if SUPPLIER subsequently learns that it paid, offered to pay, or agreed to pay any fees, commissions, or political contributions in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.
-            If Item B. is YES, please complete Exhibit I for each fee, commission, and political contribution, using additional sheets as necessary, referencing the Sales Order/Contract Number at issue, and numbering each successive sheet X of X accordingly.
+            NOTE:  22 CFR  130.9(d) requires <i>SUPPLIER</i> to inform Honeywell as soon as possible if <i>SUPPLIER</i> subsequently learns that it paid, offered to pay, or agreed to pay any fees, commissions, or political contributions in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.
+            <i>If Item B. is YES, please complete Exhibit I for each fee, commission, and political contribution, using additional sheets as necessary, referencing the Sales Order/Contract Number at issue, and numbering each successive sheet X of X accordingly.</i>
         </p>
         <p><b><i style="color:red;"><u>If Item B. is YES, please complete Exhibit I</u> for each fee, commission, and political contribution, using additional sheets as necessary, referencing the Sales Order/Contract Number at issue, and numbering each successive sheet X of X accordingly.</i></b></p>
 
     </div>
 
     <div>
-        <p><b>17. <i>COMBATING TRAFFICKING IN PERSONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>(FAR 52.222-50)</a>)  – POLICY</i></b></p>
+        <p><b>17. <i>COMBATING TRAFFICKING IN PERSONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>FAR 52.222-50</a>) - POLICY</i></b></p>
         <p>
-            <i>SUPPLIER</i> has notified its employees and agents of the U.S. Government’s policy regarding Combating Trafficking in Persons as described in 52.222-50(b), as well as those resulting actions that may be taken against employees or agents for violations of this policy.
+            <i>SUPPLIER</i> has notified its employees and agents of the U.S. Government's policy regarding Combating Trafficking in Persons as described in 52.222-50(b), as well as those resulting actions that may be taken against employees or agents for violations of this policy.
         </p>
         <p>
             <b><input type="checkbox" @ViewBag.Checkbox61 /> YES </b>
@@ -604,7 +600,7 @@
 
 
     <div>
-        <p><b>18. <i>COMBATING TRAFFICKING IN PERSONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>(FAR 52.222-50)</a>)  – NOTIFICATION</i></b></p>
+        <p><b>18. <i>COMBATING TRAFFICKING IN PERSONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>FAR 52.222-50</a>) - NOTIFICATION</i></b></p>
         <p>
             <i>SUPPLIER</i> will inform Honeywell, and applicable Government officials, of any credible information received from any source alleging an employee, subcontractor, subcontractor employee, or agent has engaged in conduct that violates 52.222-50(b), along with the actions taken against said employee, subcontractor, subcontractor employee or agent.
         </p>
@@ -614,29 +610,29 @@
             <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input35 ?? String.Empty)" style="width:450px; height:20px" /></b>
         </p>
     </div>
-    <p style="margin-top:150px; color:gray">
+    <p style="margin-top:100px; color:gray">
         <b>
             <i style="text-align:left">Page 4 of 5</i>
-            <i style="margin-left:250px">Supplier Certification and Representation</i>
-            <i style="margin-left:200px">AF 0014H (2015)</i>
+            <i style="margin-left:250px">Supplier Certifications and Representations</i>
+            <i style="margin-left:200px">AF 0014I (2016)</i>
         </b>
     </p>
     <div>
-        <p><b>19. <i>COMBATING TRAFFICKING IN PERSONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>(FAR 52.222-50)</a>)  – COMPLIANCE PLAN</i></b></p>
+        <p><b>19. <i>COMBATING TRAFFICKING IN PERSONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>FAR 52.222-50</a>) - COMPLIANCE PLAN</i></b></p>
         <p>
             <i>SUPPLIER</i>, as described in 52.222-50(h), will implement and maintain a compliance plan, covering the performance period of the U.S. Government contract/subcontract, awarded by Honeywell-Aerospace, for any portion that is:  (i) for supplies (other than commercially available off-the-shelf items as defined in Paragraph (1) of FAR 2.101) acquired overseas, or services performed overseas, and (ii) has an estimated value exceeding $500,000.
         </p>
         <p>
             <b><input type="checkbox" @ViewBag.Checkbox65 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox66 /> NO </b>
-            <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input36 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox75 />If NO, comment required: <input type="text" value="@(ViewBag.Input36 ?? String.Empty)" style="width:450px; height:20px" /></b>
         </p>
     </div>
 
     <div>
-        <p><b>20. <i>CERTIFICATION REGARDING TRAFFICKING IN PERSONS COMPLIANCE PLAN (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>(FAR 52.222-50)</a>)</i></b></p>
+        <p><b>20. <i>CERTIFICATION REGARDING TRAFFICKING IN PERSONS COMPLIANCE PLAN (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>FAR 52.222-50</a>)</i></b></p>
         <p>
-            A. <i>SUPPLIER</i>, has been awarded a contract/subcontract by Honeywell-Aerospace, in which 52.222-56 applies and has implemented the required compliance plan as described in 52.222-50(h) to prevent any prohibited activities identified in 52.222-50(b) and to monitor , detect, and terminate the contract with any subcontractor(s) engaging in prohibited activities.
+            A. <i>SUPPLIER</i> has been awarded a contract/subcontract by Honeywell-Aerospace, in which 52.222-56 applies and has implemented the required compliance plan as described in 52.222-50(h) to prevent any prohibited activities identified in 52.222-50(b) and to monitor, detect, and terminate the contract with any subcontractor(s) engaging in prohibited activities.
         </p>
         <p>
             <b><input type="checkbox" @ViewBag.Checkbox67 /> YES </b>
@@ -647,13 +643,13 @@
             B. After conducting due diligence, either:
         </p>
         <p>
-            <b><input type="checkbox" @ViewBag.Checkbox69 /> To the best of SUPPLIER’s knowledge and belief, neither it nor any of its agents, subcontractors, or their agents is engaged in any such activities; OR </b>
+            <b><input type="checkbox" @ViewBag.Checkbox69 /> To the best of SUPPLIER's knowledge and belief, neither it nor any of its agents, subcontractors, or their agents is engaged in any such activities; OR </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox70 /> If abuses relating to any of the prohibited activities identified in 52.222-50(b) have been found, SUPPLIER or its subcontractor has taken the appropriate remedial and referral actions. </b>
         </p>
     </div>
 
     <div>
-        <p><b>21. <i>COUNTERFEIT PARTS – AUTHORIZED SOURCE VERIFICATION</i></b></p>
+        <p><b>21. <i>COUNTERFEIT PARTS - AUTHORIZED SOURCE VERIFICATION</i></b></p>
         <p>
             <i>SUPPLIER</i> has verified, and has retained as a quality record, that each transaction is authorized in accordance with SPOC-419.3.2.
         </p>
@@ -691,8 +687,8 @@
     <p style="margin-top:730px;color:gray">
         <b>
             <i style="text-align:left">Page 5 of 5</i>
-            <i style="margin-left:250px">Supplier Certification and Representation</i>
-            <i style="margin-left:200px">AF 0014H (2015)</i>
+            <i style="margin-left:250px">Supplier Certifications and Representations</i>
+            <i style="margin-left:200px">AF 0014I (2016)</i>
         </b>
     </p>
 </body>

@@ -3632,7 +3632,7 @@ Intelleges Team";
                     case 5768:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox38 = _chacked;
+                            ViewBag.Checkbox0 = _chacked;
                         }
                         else if (item.rid == _responseNO)
                         {
@@ -3645,7 +3645,7 @@ Intelleges Team";
                     case 5848:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox38 = _chacked;
+                            ViewBag.Checkbox0 = _chacked;
                         }
                         else if (item.rid == _responseNO)
                         {
