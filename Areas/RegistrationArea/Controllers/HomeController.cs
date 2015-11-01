@@ -4673,17 +4673,18 @@ Intelleges Team";
             return pptqID;
         }
 
-        [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
+        
         public ActionResult CustomizedPDFConfirmation()
         {
             string ViewName = string.Empty;
             int pptqID = 0;
-            if (Session["accesscode"].ToString() == "261520RU")
+            var question = db.pr_getQuestionnaireByAccesscode(Session["accesscode"].ToString()).FirstOrDefault();
+            if (question.footer == "3")
             {
                 pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload";
             }
-            else
+            else if (question.footer == "2")
             {
                 pptqID = FillPdfHtml(ViewBag, db, Session, Server);
                 ViewName = "CustomizedQuestionnaireSurveyPdfDownload";
