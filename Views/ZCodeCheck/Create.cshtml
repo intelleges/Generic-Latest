@@ -1,0 +1,321 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.invalidZcode>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = ViewBag.Project + "Admin";
+}
+
+<h2>Create zCode Check</h2>
+<style type="text/css">
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .twocol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .twocol .editor-field {
+        width: 35%;
+        display: inline-block;
+    }
+
+    .threecol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .threecol .editor-field {
+        width: 20%;
+        display: inline-block;
+    }
+
+        .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+            width: 90%;
+            display: inline-block;
+            font-size: 11px;
+        }
+
+    .txtClass {
+        border-radius: 5px;
+    }
+
+    .ddlClass {
+        height: 25px;
+        width: 96% !important;
+        border-radius: 5px;
+    }
+
+    #DueDate {
+        border-radius: 5px;
+        height: 18px;
+    }
+
+
+    .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 20px;
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
+    }
+
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+
+         .btn-label {
+        margin-left: -30px;
+        margin-right: 20px;
+    }
+
+    .btn-label-action {
+        margin-left: -45px;
+    }
+
+    .btn-label, .btn-label-action {
+        background: rgba(228, 228, 228, 0.56);
+        width: 5% !important;
+        text-align: center;
+        padding: 4px;
+        border: 1px solid rgb(228, 228, 228);
+        border-radius: 0 3px 3px 0;
+        border-left: 0;
+    }
+
+        .btn-label label, .btn-label-action label {
+            margin-top: -1px;
+            margin-bottom: 1px;
+        }
+
+    .action-drop-down {
+        height: 27px;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>invalidZcodee</legend>
+        <h3>Current Touchpoint</h3>
+        <div class="threecol">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.currentProtocol, "Protocol")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.currentProtocol, (SelectList)ViewBag.protocol, "<select protocol>")
+                @Html.ValidationMessageFor(model => model.currentProtocol)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.touchpointCurrent, "Touchpoint")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.touchpointCurrent, (SelectList)ViewBag.touchpoint, "<select touchpoint>")
+                @Html.ValidationMessageFor(model => model.touchpointCurrent)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.partnerTypeCurrent, "Partner type")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.partnerTypeCurrent, (SelectList)ViewBag.partnerType, "<select partner type>")
+                @Html.ValidationMessageFor(model => model.partnerTypeCurrent)
+            </div>
+
+            <h3>Add zCode Check</h3>
+
+            <div class="threecol">
+                <div class="editor-field" style="width: 40%;">
+                    @Html.TextBoxFor(model => model.zCode)
+                    @Html.ValidationMessageFor(model => model.zCode)
+                </div>
+
+                <div class="editor-label btn-label">
+                    @Html.LabelFor(model => model.zCode, "Add")
+                </div>
+
+
+                <div class="editor-field" style="width: 42%;">
+                    @Html.DropDownListFor(model => model.zCodeActionType, (SelectList)ViewBag.zCodeCheckActionTypes, "<select action type>", new { @class = "action-drop-down" })
+                    @Html.ValidationMessageFor(model => model.zCodeActionType)
+                </div>
+                <div class="editor-label btn-label-action">
+                    @Html.LabelFor(model => model.zCodeActionType, "Action")
+                </div>
+            </div>
+            </div>
+        <br />
+
+        <p style="float: right; width: 20%;">
+            <input type="submit" value="Save" class="btn" />
+            <input type="button" value="Clear" class="btn" id="btnClear" />
+        </p>
+    </fieldset>
+}
+
+
+<script>
+    $(document).ready(function () {
+
+        $("form").submit(function () {
+            return validateControl();
+
+        });
+
+        @if(Model!=null)
+        {
+            <text>
+        var saved = @(ViewBag.saved) ;
+        if(saved){
+            alertify.alert("Congratulations you just added @Model.zCode")
+            clearForm();
+        }
+        else{
+            alertify.alert("Contract saving error");
+        }
+        </text>
+        }
+
+
+
+        $('#currentProtocol').change(function () {
+            var protocolid = $(this).find(":selected").val();
+
+            if (protocolid.length > 0) {
+                $.getJSON('@Url.Content("~/TouchPoint/GetTouchPointByprotocolId")', { protocolId: protocolid }, function (data) {
+
+                    $('#touchpointCurrent option').remove();
+                    $('#touchpointCurrent').append('<option value="">&lt;select touchpoint&gt;</option');
+                    $.each(data.Data, function(i, item) {
+                        $('#touchpointCurrent').append('<option value="' + item.id + '">' + item.description + '</option');
+                    });
+
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    debugger;
+                    alertify.alert('Error getting Touch Point!');
+                });
+
+                //alertify.alert(protocolid);
+            }
+        });
+
+        $('#touchpointCurrent').change(function () {
+            var touchpointid = $(this).find(":selected").val();
+
+            if (touchpointid.length > 0) {
+                $.getJSON('@Url.Content("~/Partner/GetPartnerTypes")', { id: touchpointid }, function (data) {
+                    $('#partnerTypeCurrent option').remove();
+                    $('#partnerTypeCurrent').append('<option value="">&lt;select partner type&gt;</option');
+                    $.each(data, function(i, item) {
+                        $('#partnerTypeCurrent').append('<option value="' + item.id + '">' + item.description + '</option');
+                    });
+
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    debugger;
+                    alertify.alert('Error getting Touch Point!');
+                });
+
+            }
+        });
+
+
+
+
+      
+
+     
+
+        function clearForm() {
+           
+            $("#currentProtocol").val("");
+            $("#touchpointCurrent").val("");
+            $("#partnerTypeCurrent").val("");
+           
+            $("#zCodeActionType").val("");
+            $("#zCode").val("");
+
+        }
+
+
+
+        function validateControl() {
+            
+            if ($("#currentProtocol").val() == "") {
+                alertify.alert("Protocol is required");
+                return false;
+            }
+            if ($("#touchpointCurrent").val() == "") {
+                alertify.alert("Touchpoint is required");
+                return false;
+            }
+            if ($("#partnerTypeCurrent").val() == "") {
+                alertify.alert("Partner Type is required");
+                return false;
+            }
+            if ($("#zCodeActionType").val() == "") {
+                alertify.alert("zCpde Action type is required");
+                return false;
+            }
+            if ($("#zCode").val() == "") {
+                alertify.alert("zCode is required");
+                return false;
+            }
+
+
+        }
+
+        var _addValidation = function (elem) {
+            elem.attr("data-val", "true");
+            elem.attr("data-val-required", " ");
+        };
+
+
+
+        _addValidation($("#currentProtocol"));
+        _addValidation($("#touchpointCurrent"));
+        _addValidation($("#partnerTypeCurrent"));
+        _addValidation($("#zCodeActionType"));
+        _addValidation($("#zCode"));
+
+
+
+        $("#btnClear").click(function () {
+            clearForm();
+        });
+
+
+        var message = "@ViewBag.message";
+        if (message) {
+            alertify.alert(message);
+            if("@ViewBag.error"=="false")
+            {
+                clearForm();
+            }
+        }
+
+    });
+</script>
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+}
