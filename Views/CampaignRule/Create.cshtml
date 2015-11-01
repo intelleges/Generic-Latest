@@ -521,8 +521,8 @@
         var message = "@ViewBag.message";
         if (message) {
             alertify.alert(message);
-            if(!"@ViewBag.error")
-            {
+            if("@ViewBag.error"=="false")
+                            {
                 clearForm();
             }
         }

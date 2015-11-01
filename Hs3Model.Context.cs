@@ -197,6 +197,8 @@ namespace Generic
         public virtual DbSet<campaign> campaigns { get; set; }
         public virtual DbSet<iterateObjection> iterateObjections { get; set; }
         public virtual DbSet<iteratePartner> iteratePartners { get; set; }
+        public virtual DbSet<invalidZcode> invalidZcodes { get; set; }
+        public virtual DbSet<zCodeCheckActionType> zCodeCheckActionTypes { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -17212,6 +17214,211 @@ namespace Generic
                 new ObjectParameter("ptq", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<touchpoint>("pr_getTouchpointByPTQ", mergeOption, ptqParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addZcodeCheckActionType(string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addZcodeCheckActionType", descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveInvalidZcode(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveInvalidZcode", idParameter);
+        }
+    
+        public virtual int pr_archiveZcodeCheckActionType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveZcodeCheckActionType", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_checkForInvalidZcode(Nullable<int> pptq, string zcode)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var zcodeParameter = zcode != null ?
+                new ObjectParameter("zcode", zcode) :
+                new ObjectParameter("zcode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_checkForInvalidZcode", pptqParameter, zcodeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getInvalidZcode_Result> pr_getInvalidZcode(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getInvalidZcode_Result>("pr_getInvalidZcode", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getInvalidZcodeAll_Result> pr_getInvalidZcodeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getInvalidZcodeAll_Result>("pr_getInvalidZcodeAll");
+        }
+    
+        public virtual ObjectResult<pr_getInvalidZcodeAllByPTQ_Result> pr_getInvalidZcodeAllByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getInvalidZcodeAllByPTQ_Result>("pr_getInvalidZcodeAllByPTQ", ptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSystemMasterByPTQ_Result> pr_getSystemMasterByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSystemMasterByPTQ_Result>("pr_getSystemMasterByPTQ", ptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getZcodeCheckActionType_Result> pr_getZcodeCheckActionType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getZcodeCheckActionType_Result>("pr_getZcodeCheckActionType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getZcodeCheckActionTypeAll_Result> pr_getZcodeCheckActionTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getZcodeCheckActionTypeAll_Result>("pr_getZcodeCheckActionTypeAll");
+        }
+    
+        public virtual int pr_modifyInvalidZcode(Nullable<int> id, Nullable<int> ptq, string zCode, Nullable<int> zCodeActionType, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var zCodeParameter = zCode != null ?
+                new ObjectParameter("zCode", zCode) :
+                new ObjectParameter("zCode", typeof(string));
+    
+            var zCodeActionTypeParameter = zCodeActionType.HasValue ?
+                new ObjectParameter("zCodeActionType", zCodeActionType) :
+                new ObjectParameter("zCodeActionType", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyInvalidZcode", idParameter, ptqParameter, zCodeParameter, zCodeActionTypeParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyZcodeCheckActionType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyZcodeCheckActionType", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeInvalidZcode(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeInvalidZcode", idParameter);
+        }
+    
+        public virtual int pr_removeZcodeCheckActionType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeZcodeCheckActionType", idParameter);
+        }
+    
+        public virtual int pr_unArchiveInvalidZcode(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveInvalidZcode", idParameter);
+        }
+    
+        public virtual int pr_unArchiveZcodeCheckActionType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveZcodeCheckActionType", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addInvalidZcode(Nullable<int> ptq, string zCode, Nullable<int> zCodeActionType, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var zCodeParameter = zCode != null ?
+                new ObjectParameter("zCode", zCode) :
+                new ObjectParameter("zCode", typeof(string));
+    
+            var zCodeActionTypeParameter = zCodeActionType.HasValue ?
+                new ObjectParameter("zCodeActionType", zCodeActionType) :
+                new ObjectParameter("zCodeActionType", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addInvalidZcode", ptqParameter, zCodeParameter, zCodeActionTypeParameter, sortOrderParameter, activeParameter);
         }
     }
 }

@@ -640,6 +640,7 @@
     <Compile Include="Controllers\TouchpointController.cs" />
     <Compile Include="Controllers\UserHomeController.cs" />
     <Compile Include="Controllers\WrongContactController.cs" />
+    <Compile Include="Controllers\zCodeCheckController.cs" />
     <Compile Include="country.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -761,6 +762,9 @@
     <Compile Include="industry.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="invalidZcode.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="iterateAction.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -834,6 +838,7 @@
     <Compile Include="Models\SignupModels.cs" />
     <Compile Include="Models\StringContainer.cs" />
     <Compile Include="Models\TouchpointComboModel.cs" />
+    <Compile Include="Models\invalidZcode.cs" />
     <Compile Include="multiTenantProjectType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -994,6 +999,12 @@
     <Compile Include="pr_addReminderScheduledTaskHeartBeat_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_findUserRole_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1058,9 +1069,6 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCampaignRuleAll_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_getCampaignRule_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCampaignStatusAll_Result.cs">
@@ -1232,6 +1240,15 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getIndustryFocusDetailAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getInvalidZcodeAllByPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getInvalidZcodeAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getInvalidZcode_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getIterateActionAll_Result.cs">
@@ -1471,6 +1488,9 @@
     <Compile Include="pr_getPartnerrRemitAddress_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerStatusAllByEnterprise_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerStatusAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1505,6 +1525,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnertypeTouchpointQuestionnaireByTouchpoint_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerTypeTouchpointQuestionnaireForDropdownByEnterprise_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnertypeTouchpointQuestionnaire_Result.cs">
@@ -1987,6 +2010,9 @@
     <Compile Include="pr_getSurvey_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getSystemMasterByPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getSystemMaster_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2033,6 +2059,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getViewQuestionnaireCMSByQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getZcodeCheckActionTypeAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getZcodeCheckActionType_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_PerformSelectedActions_Result.cs">
@@ -2291,6 +2323,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="zCodeBatchUpdate.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="zCodeCheckActionType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="zcta.cs">
@@ -3047,6 +3082,7 @@
     <Content Include="allow more then 255 symbols%28x64%29.reg" />
     <Content Include="allow more then 255 symbols%28x86%29.reg" />
     <Content Include="Areas\RegistrationArea\Views\Home\SaveForLaterConfirm.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -4575,6 +4611,9 @@
     <Content Include="Views\Contract\ContactData.cshtml" />
     <Content Include="Views\Partner\FindRemind.cshtml" />
     <EmbeddedResource Include="Views\Admin\PickAProtocol.cshtml" />
+    <Content Include="Views\CampaignRule\Index.cshtml" />
+    <Content Include="Views\CampaignRule\Edit.cshtml" />
+    <Content Include="Views\ZCodeCheck\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

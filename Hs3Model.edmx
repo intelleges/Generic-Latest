@@ -464,6 +464,17 @@
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="invalidZcode">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ptq" Type="int" Nullable="false" />
+          <Property Name="zCode" Type="varchar(max)" Nullable="false" />
+          <Property Name="zCodeActionType" Type="int" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="iterateAction">
           <Key>
             <PropertyRef Name="id" />
@@ -2161,6 +2172,15 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.touchpointPartnerRerouter' does no
           <Property Name="zcode" Type="varchar" MaxLength="20" />
           <Property Name="dunsnumber" Type="varchar" MaxLength="20" />
           <Property Name="loadhistory" Type="int" />
+        </EntityType>
+        <EntityType Name="zCodeCheckActionType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="zcta">
           <Key>
@@ -4379,6 +4399,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="partnertypetouchpointquestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addInvalidZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ptq" Type="int" Mode="In" />
+          <Parameter Name="zCode" Type="varchar(max)" Mode="In" />
+          <Parameter Name="zCodeActionType" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -5246,6 +5273,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_addZcodeCheckActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_archiveAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5283,6 +5315,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveHs3Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveInvalidZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5427,6 +5462,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_archiveTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveZcodeCheckActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_bootstrapAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
@@ -5473,6 +5511,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="phone" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_checkForInvalidZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="zcode" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="pr_checkPartnumberBadZcodeCountByZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="zcode" Type="varchar" Mode="In" />
@@ -5809,6 +5851,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_getIndustryAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getIndustryFocusDetailAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getInvalidZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getInvalidZcodeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getInvalidZcodeAllByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6672,6 +6721,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getSystemMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getSystemMasterByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getTemplate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6727,6 +6779,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getViewQuestionnaireCMSByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getZcodeCheckActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getZcodeCheckActionTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_modifyAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -6977,6 +7033,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="isDynamicCreated" Type="bit" Mode="In" />
           <Parameter Name="device" Type="int" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyInvalidZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="ptq" Type="int" Mode="In" />
+          <Parameter Name="zCode" Type="varchar(max)" Mode="In" />
+          <Parameter Name="zCodeActionType" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_modifyIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -7722,6 +7786,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="access" Type="int" Mode="In" />
           <Parameter Name="accessLevel" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyZcodeCheckActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_PerformSelectedActions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inputList" Type="nvarchar(max)" Mode="In" />
         </Function>
@@ -7801,6 +7871,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeHs3Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeInvalidZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -8057,6 +8130,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_removeUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeZcodeCheckActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_replacePTQforPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
           <Parameter Name="oldPTQ" Type="int" Mode="In" />
@@ -8115,6 +8191,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveHs3Menu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveInvalidZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -8254,6 +8333,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveZcodeCheckActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unSubscribePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -8408,6 +8490,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="groupRiskGoal" EntityType="Self.groupRiskGoal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="hs3Menu_deprecated" EntityType="Self.hs3Menu_deprecated" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="industry" EntityType="Self.industry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="invalidZcode" EntityType="Self.invalidZcode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iterateAction" EntityType="Self.iterateAction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iterateObjection" EntityType="Self.iterateObjection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iteratePartner" EntityType="Self.iteratePartner" Schema="dbo" store:Type="Tables" />
@@ -8534,6 +8617,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="UM_M_Menu_deprecated" EntityType="Self.UM_M_Menu_deprecated" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="zCode" EntityType="Self.zCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="zCodeBatchUpdate" EntityType="Self.zCodeBatchUpdate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zCodeCheckActionType" EntityType="Self.zCodeCheckActionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="zcta" EntityType="Self.zcta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="customizedLSMWReport" EntityType="Self.customizedLSMWReport" Schema="honeywellBAA" store:Type="Tables" />
           <EntitySet Name="RESPONSE2" EntityType="Self.RESPONSE2" store:Type="Tables" store:Schema="dbo">
@@ -14431,7 +14515,71 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getTouchpointByPTQ" EntitySet="touchpoint" ReturnType="Collection(hs3MVCMTQa2Model.touchpoint)">
+          <Parameter Name="ptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="invalidZcodes" EntityType="hs3MVCMTQa2Model.invalidZcode" />
+          <EntitySet Name="zCodeCheckActionTypes" EntityType="hs3MVCMTQa2Model.zCodeCheckActionType" />
+          <FunctionImport Name="pr_addZcodeCheckActionType" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveInvalidZcode">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveZcodeCheckActionType">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_checkForInvalidZcode" ReturnType="Collection(Int32)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="zcode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getInvalidZcode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getInvalidZcode_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getInvalidZcodeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getInvalidZcodeAll_Result)" />
+          <FunctionImport Name="pr_getInvalidZcodeAllByPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getInvalidZcodeAllByPTQ_Result)">
+          <Parameter Name="ptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSystemMasterByPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSystemMasterByPTQ_Result)">
+          <Parameter Name="ptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getZcodeCheckActionType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getZcodeCheckActionType_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getZcodeCheckActionTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getZcodeCheckActionTypeAll_Result)" />
+          <FunctionImport Name="pr_modifyInvalidZcode">
+            <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="zCode" Mode="In" Type="String" />
+            <Parameter Name="zCodeActionType" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyZcodeCheckActionType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeInvalidZcode">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeZcodeCheckActionType">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveInvalidZcode">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveZcodeCheckActionType">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addInvalidZcode" ReturnType="Collection(Decimal)">
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="zCode" Mode="In" Type="String" />
+            <Parameter Name="zCodeActionType" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           
         </EntityContainer>
@@ -22987,6 +23135,95 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="next" Nullable="false" />
           <Property Type="String" Name="nextStep" Nullable="false" MaxLength="21" />
         </ComplexType>
+        <EntityType Name="invalidZcode">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ptq" Type="Int32" Nullable="false" />
+          <Property Name="zCode" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="zCodeActionType" Type="Int32" Nullable="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="zCodeCheckActionType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getInvalidZcode_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="ptq" Nullable="false" />
+          <Property Type="String" Name="zCode" Nullable="false" />
+          <Property Type="Int32" Name="zCodeActionType" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getInvalidZcodeAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="ptq" Nullable="false" />
+          <Property Type="String" Name="zCode" Nullable="false" />
+          <Property Type="Int32" Name="zCodeActionType" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getInvalidZcodeAllByPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="ptq" Nullable="false" />
+          <Property Type="String" Name="zCode" Nullable="false" />
+          <Property Type="Int32" Name="zCodeActionType" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getSystemMasterByPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" />
+          <Property Type="String" Name="nickName" Nullable="true" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_getZcodeCheckActionType_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getZcodeCheckActionTypeAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -30318,6 +30555,132 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getTouchpointByPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointByPTQ" />
+          <EntitySetMapping Name="invalidZcodes">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.invalidZcode">
+              <MappingFragment StoreEntitySet="invalidZcode">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="zCodeActionType" ColumnName="zCodeActionType" />
+                <ScalarProperty Name="zCode" ColumnName="zCode" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zCodeCheckActionTypes">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.zCodeCheckActionType">
+              <MappingFragment StoreEntitySet="zCodeCheckActionType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addZcodeCheckActionType" FunctionName="hs3MVCMTQa2Model.Store.pr_addZcodeCheckActionType" />
+          <FunctionImportMapping FunctionImportName="pr_archiveInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveInvalidZcode" />
+          <FunctionImportMapping FunctionImportName="pr_archiveZcodeCheckActionType" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveZcodeCheckActionType" />
+          <FunctionImportMapping FunctionImportName="pr_checkForInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_checkForInvalidZcode" />
+          <FunctionImportMapping FunctionImportName="pr_getInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_getInvalidZcode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getInvalidZcode_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="zCode" ColumnName="zCode" />
+                <ScalarProperty Name="zCodeActionType" ColumnName="zCodeActionType" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getInvalidZcodeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getInvalidZcodeAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getInvalidZcodeAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="zCode" ColumnName="zCode" />
+                <ScalarProperty Name="zCodeActionType" ColumnName="zCodeActionType" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getInvalidZcodeAllByPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getInvalidZcodeAllByPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getInvalidZcodeAllByPTQ_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="zCode" ColumnName="zCode" />
+                <ScalarProperty Name="zCodeActionType" ColumnName="zCodeActionType" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSystemMasterByPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getSystemMasterByPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSystemMasterByPTQ_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getZcodeCheckActionType" FunctionName="hs3MVCMTQa2Model.Store.pr_getZcodeCheckActionType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getZcodeCheckActionType_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getZcodeCheckActionTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getZcodeCheckActionTypeAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getZcodeCheckActionTypeAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyInvalidZcode" />
+          <FunctionImportMapping FunctionImportName="pr_modifyZcodeCheckActionType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyZcodeCheckActionType" />
+          <FunctionImportMapping FunctionImportName="pr_removeInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_removeInvalidZcode" />
+          <FunctionImportMapping FunctionImportName="pr_removeZcodeCheckActionType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeZcodeCheckActionType" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveInvalidZcode" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveZcodeCheckActionType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveZcodeCheckActionType" />
+          <FunctionImportMapping FunctionImportName="pr_addInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_addInvalidZcode" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

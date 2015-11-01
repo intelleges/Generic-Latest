@@ -296,6 +296,8 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.iterateObjection" Width="1.5" PointX="5.375" PointY="22.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.iteratePartner" Width="1.5" PointX="13.375" PointY="18.25" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_iteratePerson_iteratePartner" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.invalidZcode" Width="1.5" PointX="15.375" PointY="22.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.zCodeCheckActionType" Width="1.5" PointX="7.375" PointY="19.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
