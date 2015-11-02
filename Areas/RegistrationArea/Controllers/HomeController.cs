@@ -4013,6 +4013,7 @@ Intelleges Team";
             var _responseSplitter = "--";
 
             //Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
+            
 
             foreach (var item in _PPTQQuestionResponse)
             {
@@ -4292,7 +4293,16 @@ Intelleges Team";
                         break;
 
                     case 19030:
-                        ViewBag.Checkbox2 = item.rid == _responseYES ? _chacked : string.Empty;
+                        var isBigBusiness = _PPTQQuestionResponse.Where(x=>x.qid == 18995).FirstOrDefault();
+                        if (isBigBusiness != null && isBigBusiness.rid == _responseYES)
+                        {
+                            ViewBag.CheckboxLarge = _chacked;
+                            ViewBag.Checkbox2 = item.rid == _responseYES ? _chacked : string.Empty;
+                        }
+                        else
+                        {
+                            ViewBag.CheckboxLarge = string.Empty;
+                        }
                         break;
 
                     case 19043:
@@ -4300,7 +4310,16 @@ Intelleges Team";
                         break;
 
                     case 19045:
-                        ViewBag.Checkbox4 = item.rid == _responseYES ? _chacked : string.Empty;
+                        var isSmallBusiness = _PPTQQuestionResponse.Where(x=>x.qid == 18994).First();
+                        if (isSmallBusiness != null && isSmallBusiness.rid == _responseYES)
+                        {
+                            ViewBag.CheckboxSmall = _chacked;
+                            ViewBag.Checkbox4 = item.rid == _responseYES ? _chacked : string.Empty;
+                        }
+                        else
+                        {
+                            ViewBag.CheckboxSmall = string.Empty;
+                        }
                         break;
 
                     case 19040:
@@ -4684,7 +4703,7 @@ Intelleges Team";
                 pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload";
             }
-            else if (question.footer == "2")
+            else
             {
                 pptqID = FillPdfHtml(ViewBag, db, Session, Server);
                 ViewName = "CustomizedQuestionnaireSurveyPdfDownload";
