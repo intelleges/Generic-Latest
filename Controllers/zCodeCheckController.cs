@@ -22,7 +22,16 @@ namespace Generic.Controllers
         // GET: ZCodeCheck
         public ActionResult Index()
         {
-            return View();
+            var zcodes = (from z in db.pr_getInvalidZcodeAll().ToList()
+                          join ptq in db.partnerTypeTouchpointQuestionnaire on z.ptq equals ptq.id
+                          join t in db.touchpoint on ptq.touchpoint equals t.id
+                          join pt in db.partnerType on ptq.partnerType equals pt.id
+                          join a in db.zCodeCheckActionTypes on z.zCodeActionType equals a.id
+                          select new Generic.ViewModel.InvalidZCodeViewModel {Id= z.id,Touchpoint=t.description, PartnerType= pt.description,ZCode=z.zCode,ZCodeActionType=a.description }
+                            ).ToList();
+             //var zcodes = db.pr_getInvalidZcodeAllByPTQ(3098).ToList();
+             
+            return View(zcodes);
         }
         public ActionResult Create()
         {
