@@ -823,6 +823,7 @@
     <Compile Include="Models\ContractModel.cs" />
     <Compile Include="Models\CreatePartnerTypeModel.cs" />
     <Compile Include="Models\enterprise.extension.cs" />
+    <Compile Include="ViewModel\InvalidZCodeViewModel.cs" />
     <Compile Include="Models\jsTree3Node.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\Models.cs" />
@@ -3083,6 +3084,18 @@
     <Content Include="allow more then 255 symbols%28x86%29.reg" />
     <Content Include="Areas\RegistrationArea\Views\Home\SaveForLaterConfirm.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload.cshtml" />
+    <Content Include="Contents\js\jquery.min.js.map">
+      <DependentUpon>jquery.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bootstrap.min.js.map">
+      <DependentUpon>bootstrap.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-1.8.2.min.js.map">
+      <DependentUpon>jquery-1.8.2.min.js</DependentUpon>
+    </Content>
+    <Content Include="HomeSiteArea\js\jquery-1.9.1.min.js.map">
+      <DependentUpon>jquery-1.9.1.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -4452,6 +4465,27 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js.map">
+      <DependentUpon>jquery.unobtrusive-ajax.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.ui.datepicker.validation.min.js.map">
+      <DependentUpon>jquery.ui.datepicker.validation.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-1.9.1.min.js.map">
+      <DependentUpon>jquery-1.9.1.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.bootstrap-duallistbox.min.js.map">
+      <DependentUpon>jquery.bootstrap-duallistbox.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-ui-1.9.2.min.js.map">
+      <DependentUpon>jquery-ui-1.9.2.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-migrate-1.2.1.min.js.map">
+      <DependentUpon>jquery-migrate-1.2.1.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-ui-1.9.0.min.js.map">
+      <DependentUpon>jquery-ui-1.9.0.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -4528,6 +4562,24 @@
     <Content Include="Scripts\kendo\2015.2.624\kendo.autocomplete.min.js.map" />
     <Content Include="Scripts\kendo\2015.2.624\kendo.angular.min.js.map" />
     <Content Include="Scripts\kendo\2015.2.624\jquery.min.map" />
+    <Content Include="Scripts\jquery.validate.min.js.map">
+      <DependentUpon>jquery.validate.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js.map">
+      <DependentUpon>jquery.validate.unobtrusive.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\moment.min.js.map">
+      <DependentUpon>moment.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\validator.min.js.map">
+      <DependentUpon>validator.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jsTree3\jstree.min.js.map">
+      <DependentUpon>jstree.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\moment-with-locales.min.js.map">
+      <DependentUpon>moment-with-locales.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="VoiceResponse\incoming-calls.xml">
       <SubType>Designer</SubType>
@@ -4614,6 +4666,7 @@
     <Content Include="Views\CampaignRule\Index.cshtml" />
     <Content Include="Views\CampaignRule\Edit.cshtml" />
     <Content Include="Views\ZCodeCheck\Create.cshtml" />
+    <Content Include="Views\ZCodeCheck\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
