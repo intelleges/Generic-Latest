@@ -2370,6 +2370,24 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 return RedirectToAction("Default");
             }
             partnerPartnertypeTouchpointQuestionnaire pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+
+
+            // Validate the zCode.
+            var zCodeValidationResult = db.pr_checkForInvalidZcode(pptq.id, pptq.zcode);
+
+            // Obtain the zCode error code.
+            var zCodeValidationErrorCode = zCodeValidationResult.First();
+
+            //Check the zCode erro code. 
+            if (zCodeValidationErrorCode != 0 && zCodeValidationErrorCode != 6)
+            {
+                //TODO:: provide a correct validation message;
+
+                // Create error message.
+                ViewBag.message = string.Format("Error Code: {0}", zCodeValidationErrorCode);
+                return View();
+            }
+
             if (ModelState.IsValid)
             {
                 
@@ -4004,7 +4022,7 @@ Intelleges Team";
 
             var _questionnaire = db.pr_getQuestionnaireByAccesscode(Session["accessCode"].ToString()).FirstOrDefault();
             var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
-            var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID);
+            var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
 
             var _responseYES = 74;
@@ -4095,46 +4113,81 @@ Intelleges Team";
 
 
                     case 18986:
-                        if (item.rid == _responseYES)
+                        //if (item.rid == _responseYES)
+                        //{
+                        //    ViewBag.Checkbox65 = _chacked;
+                        //}
+                        //else if (item.rid == _responseNO)
+                        //{
+                        //    ViewBag.Checkbox66 = _chacked;
+                        //    comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                        //    if (comments.Length > 1)
+                        //        ViewBag.Input36 = comments[1];
+                        //}
+                        switch (item.rid)
                         {
-                            ViewBag.Checkbox65 = _chacked;
-                        }
-                        else if (item.rid == _responseNO)
-                        {
-                            ViewBag.Checkbox66 = _chacked;
-                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
-                            if (comments.Length > 1)
-                                ViewBag.Input36 = comments[1];
+                            case 37522:
+                                ViewBag.Checkbox65 = _chacked;
+                                break;
+                            case 37523:
+                                ViewBag.Checkbox66 = _chacked;
+                                comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                                if (comments.Length > 1)
+                                    ViewBag.Input36 = comments[1];
+                                break;
+                            case 37524:
+                                ViewBag.Checkbox75 = _chacked;
+                                break;
                         }
                         break;
 
 
                     case 18987:
+                        //if (item.rid == _responseYES)
+                        //{
+                        //    ViewBag.Checkbox60 = _chacked;
+                        //}
+                        //else if (item.rid == _responseNO)
+                        //{
+                        //    ViewBag.Checkbox61 = _chacked;
+                        //    comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                        //    if (comments.Length > 1)
+                        //        ViewBag.Input0 = comments[1];
+                        //}
+
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                            ViewBag.Checkbox67 = _chacked;
                         }
                         else if (item.rid == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            ViewBag.Checkbox68 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
-                                ViewBag.Input0 = comments[1];
+                                ViewBag.Input37 = comments[1];
                         }
                         break;
 
 
                     case 18988:
+                        //if (item.rid == _responseYES)
+                        //{
+                        //    ViewBag.Checkbox60 = _chacked;
+                        //}
+                        //else if (item.rid == _responseNO)
+                        //{
+                        //    ViewBag.Checkbox61 = _chacked;
+                        //    comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                        //    if (comments.Length > 1)
+                        //        ViewBag.Input0 = comments[1];
+                        //}
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                            ViewBag.Checkbox69 = _chacked;
                         }
                         else if (item.rid == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
-                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
-                            if (comments.Length > 1)
-                                ViewBag.Input0 = comments[1];
+                            ViewBag.Checkbox70 = _chacked;                        
                         }
                         break;
 
@@ -4153,14 +4206,17 @@ Intelleges Team";
                         break;
 
                     case 18991:
+                        comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                         if (item.rid == _responseYES)
                         {
                             ViewBag.Checkbox60 = _chacked;
+                            if (comments.Length > 1)
+                                ViewBag.Input5 = comments[1];
+
                         }
                         else if (item.rid == _responseNO)
                         {
                             ViewBag.Checkbox61 = _chacked;
-                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
                                 ViewBag.Input0 = comments[1];
                         }
@@ -4289,37 +4345,55 @@ Intelleges Team";
                     #endregion
                     #region 1 Question
                     case 19038:
-                        ViewBag.Checkbox1 = item.rid == _responseYES ? _chacked : string.Empty;
+                       // ViewBag.Checkbox1 = item.rid == _responseYES ? _chacked : string.Empty;
+                        ViewBag.CheckboxSmall = item.rid == _responseYES ? _chacked : string.Empty;   
                         break;
 
                     case 19030:
-                        var isBigBusiness = _PPTQQuestionResponse.Where(x=>x.qid == 18995).FirstOrDefault();
-                        if (isBigBusiness != null && isBigBusiness.rid == _responseYES)
-                        {
-                            ViewBag.CheckboxLarge = _chacked;
-                            ViewBag.Checkbox2 = item.rid == _responseYES ? _chacked : string.Empty;
-                        }
-                        else
-                        {
-                            ViewBag.CheckboxLarge = string.Empty;
-                        }
+                        //var isBigBusiness = _PPTQQuestionResponse.Where(x=>x.qid == 18995).FirstOrDefault();
+                        //if (isBigBusiness != null && isBigBusiness.rid == _responseYES)
+                        //{
+                        //    ViewBag.CheckboxLarge = _chacked;
+                        //    ViewBag.Checkbox2 = item.rid == _responseYES ? _chacked : string.Empty;
+                        //}
+                        //else
+                        //{
+                        //    ViewBag.CheckboxLarge = string.Empty;
+                        //}
+                        ViewBag.CheckboxLarge = item.rid == _responseYES ? _chacked : string.Empty;                      
                         break;
 
                     case 19043:
-                        ViewBag.Checkbox3 = item.rid == _responseYES ? _chacked : string.Empty;
+                        if (ViewBag.CheckboxLarge == _chacked)
+                        {
+                            ViewBag.Checkbox1 = item.rid == _responseYES ? _chacked : string.Empty;
+                        }
+                        else if (ViewBag.CheckboxSmall == _chacked)
+                        { 
+                             ViewBag.Checkbox3 = item.rid == _responseYES ? _chacked : string.Empty;
+                        }
+                        //ViewBag.Checkbox3 = item.rid == _responseYES ? _chacked : string.Empty;
                         break;
 
                     case 19045:
-                        var isSmallBusiness = _PPTQQuestionResponse.Where(x=>x.qid == 18994).First();
-                        if (isSmallBusiness != null && isSmallBusiness.rid == _responseYES)
+                        if (ViewBag.CheckboxLarge == _chacked)
                         {
-                            ViewBag.CheckboxSmall = _chacked;
+                             ViewBag.Checkbox2 = item.rid == _responseYES ? _chacked : string.Empty;
+                        }
+                        else if (ViewBag.CheckboxSmall == _chacked)
+                        {
                             ViewBag.Checkbox4 = item.rid == _responseYES ? _chacked : string.Empty;
                         }
-                        else
-                        {
-                            ViewBag.CheckboxSmall = string.Empty;
-                        }
+                        //var isSmallBusiness = _PPTQQuestionResponse.Where(x=>x.qid == 18994).FirstOrDefault();
+                        //if (isSmallBusiness != null && isSmallBusiness.rid == _responseYES)
+                        //{
+                        //    ViewBag.CheckboxSmall = _chacked;
+                        //    ViewBag.Checkbox4 = item.rid == _responseYES ? _chacked : string.Empty;
+                        //}
+                        //else
+                        //{
+                        //    ViewBag.CheckboxSmall = string.Empty;
+                        //}
                         break;
 
                     case 19040:
@@ -4472,16 +4546,32 @@ Intelleges Team";
 
                     #region 5 Question
                     case 18997:
-                        if (item.rid == _responseYES)
+                        //if (item.rid == _responseYES)
+                        //{
+                        //    ViewBag.Checkbox30 = _chacked;
+                        //}
+                        //else if (item.rid == _responseNO)
+                        //{
+                        //    ViewBag.Checkbox31 = _chacked;
+                        //    comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                        //    if (comments.Length > 1)
+                        //        ViewBag.Input5 = comments[1];
+                        //}
+                        switch (item.rid)
                         {
-                            ViewBag.Checkbox30 = _chacked;
-                        }
-                        else if (item.rid == _responseNO)
-                        {
-                            ViewBag.Checkbox31 = _chacked;
-                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
-                            if (comments.Length > 1)
-                                ViewBag.Input5 = comments[1];
+                            case 37528:
+                                ViewBag.Checkbox30 = _chacked;
+                                break;
+                            case 37529:
+                                ViewBag.Checkbox31 = _chacked;
+                                comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                                if (comments.Length > 1)
+                                    ViewBag.Input5 = comments[1];
+                                break;
+                            case 37530:
+                                ViewBag.Checkbox73 = _chacked;
+                                break;
+
                         }
                         break;
 
@@ -4504,16 +4594,31 @@ Intelleges Team";
 
                     #region 7 Question
                     case 18999:
-                        if (item.rid == _responseYES)
+                        //if (item.rid == _responseYES)
+                        //{
+                        //    ViewBag.Checkbox34 = _chacked;
+                        //}
+                        //else if (item.rid == _responseNO)
+                        //{
+                        //    ViewBag.Checkbox35 = _chacked;
+                        //    comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                        //    if (comments.Length > 1)
+                        //        ViewBag.Input6 = comments[1];
+                        //}
+                        switch (item.rid)
                         {
-                            ViewBag.Checkbox34 = _chacked;
-                        }
-                        else if (item.rid == _responseNO)
-                        {
-                            ViewBag.Checkbox35 = _chacked;
-                            comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
-                            if (comments.Length > 1)
-                                ViewBag.Input6 = comments[1];
+                            case 37534:
+                                ViewBag.Checkbox35 = _chacked;
+                                break;
+                            case 37535:
+                                ViewBag.Checkbox36 = _chacked;
+                                comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
+                                if (comments.Length > 1)
+                                    ViewBag.Input8 = comments[1];
+                                break;
+                            case 37536:
+                                ViewBag.Checkbox74 = _chacked;
+                                break;
                         }
                         break;
 
@@ -4555,11 +4660,11 @@ Intelleges Team";
                     case 19000:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox40 = _chacked;
+                            ViewBag.Checkbox41 = _chacked;
                         }
                         else if (item.rid == _responseNO)
                         {
-                            ViewBag.Checkbox41 = _chacked;
+                            ViewBag.Checkbox42 = _chacked;
                         }
                         break;
 
@@ -4569,14 +4674,14 @@ Intelleges Team";
                     case 19001:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox42 = _chacked;
+                            ViewBag.Checkbox43 = _chacked;
                         }
                         else if (item.rid == _responseNO)
                         {
-                            ViewBag.Checkbox43 = _chacked;
+                            ViewBag.Checkbox44 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
-                                ViewBag.Input8 = comments[1];
+                                ViewBag.Input10 = comments[1];
                         }
                         break;
 
@@ -4586,14 +4691,14 @@ Intelleges Team";
                     case 19002:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox44 = _chacked;
+                            ViewBag.Checkbox45 = _chacked;
                         }
                         else if (item.rid == _responseNO)
                         {
-                            ViewBag.Checkbox45 = _chacked;
+                            ViewBag.Checkbox46 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
-                                ViewBag.Input9 = comments[1];
+                                ViewBag.Input11 = comments[1];
                         }
                         break;
 
@@ -4603,14 +4708,14 @@ Intelleges Team";
                     case 19046:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox46 = _chacked;
+                            ViewBag.Checkbox47 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
-                                ViewBag.Input10 = comments[1];
+                                ViewBag.Input12 = comments[1];
                         }
                         else if (item.rid == _responseNO)
                         {
-                            ViewBag.Checkbox47 = _chacked;
+                            ViewBag.Checkbox48 = _chacked;
 
                         }
                         break;
@@ -4618,14 +4723,14 @@ Intelleges Team";
                     case 19047:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox48 = _chacked;
+                            ViewBag.Checkbox49 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
-                                ViewBag.Input11 = comments[1];
+                                ViewBag.Input13 = comments[1];
                         }
                         else if (item.rid == _responseNO)
                         {
-                            ViewBag.Checkbox49 = _chacked;
+                            ViewBag.Checkbox50 = _chacked;
 
                         }
                         break;
@@ -4633,14 +4738,14 @@ Intelleges Team";
                     case 19048:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox50 = _chacked;
+                            ViewBag.Checkbox51 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
-                                ViewBag.Input12 = comments[1];
+                                ViewBag.Input14 = comments[1];
                         }
                         else if (item.rid == _responseNO)
                         {
-                            ViewBag.Checkbox51 = _chacked;
+                            ViewBag.Checkbox52 = _chacked;
                         }
                         break;
 
@@ -4650,22 +4755,22 @@ Intelleges Team";
                     case 19049:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox56 = _chacked;
+                            ViewBag.Checkbox57 = _chacked;
                         }
                         else if (item.rid == _responseNO)
                         {
-                            ViewBag.Checkbox57 = _chacked;
+                            ViewBag.Checkbox58 = _chacked;
                         }
                         break;
 
                     case 19050:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox58 = _chacked;
+                            ViewBag.Checkbox59 = _chacked;
                         }
                         else if (item.rid == _responseNO)
                         {
-                            ViewBag.Checkbox59 = _chacked;
+                            ViewBag.Checkbox60 = _chacked;
                         }
                         break;
 
@@ -4702,16 +4807,17 @@ Intelleges Team";
             {
                 pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload";
+                return ViewCustomizedPdf(pptqID, ViewName);
+              
             }
-            else
+            else if (question.footer == "2")
             {
                 pptqID = FillPdfHtml(ViewBag, db, Session, Server);
                 ViewName = "CustomizedQuestionnaireSurveyPdfDownload";
+                return ViewCustomizedPdf(pptqID, ViewName);
             }
-            
-
-            return ViewCustomizedPdf(pptqID, ViewName);
-
+            pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
+            return ViewCustomPdf(pptqID);
         }
 
         protected ActionResult ViewCustomizedPdf(int pptqID, string ViewName)
@@ -4750,6 +4856,9 @@ Intelleges Team";
                // bytes = System.IO.File.ReadAllBytes(fileName);
                 var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptqID);
                 db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, bytes, quest.docFolderAddress, quest.score, quest.loadGroup);
+
+                // Alexander Changed to check invalid zcode
+                var result = db.pr_checkForInvalidZcode(pptqID, quest.zcode);
                 //db.pr_addPPTQpdf(pptqID, bytes);
                 //using (var context = new EntitiesDBContext())
                 //{

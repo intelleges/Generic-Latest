@@ -7,6 +7,9 @@
 
 <link href="~/Content/ProgressBar/skins/tiny-green/progressbar.css" rel="stylesheet" />
 <link href="~/Content/ProgressBar/skins/default/progressbar.css" rel="stylesheet" />
+<link href="@Url.Content("~/Content/themes/base/alertify.core.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/themes/base/alertify.default.css")" rel="stylesheet" />
+
 
 <script>
     $(document).ready(function () {
@@ -17,6 +20,12 @@
 
             var progressBarWidth = percent * $element.width() / 100;
             $element.find('div').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
+        }
+
+        // Obtain the zCode error message and if it is not empty then show it.
+        var message = '@ViewBag.message';
+        if (message.length > 0) {
+                alertify.alert(message);
         }
 
     });
