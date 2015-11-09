@@ -146,15 +146,15 @@
                                 <tr>
                                     <td colspan="2" style="font-size: 16px; padding-bottom: 75px;" align="center" width="30%">
                                         <span id="lblPrintAnswer">
-                                            @if (ViewBag.CMS_PAGE_PREVIOUS_LINK == null)
-                                            {
-                                                 <a href='@Url.Action("Finish", "/Home/PrintPDF/", new {accesscode = ViewBag.ACCESS_CODE}, Request.Url.Scheme)'>@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
+                                            @*@if (ViewBag.CMS_PAGE_PREVIOUS_LINK == null) --> Commented by Jitendra for testing
+    {
+         <a href='@Url.Action("Finish", "/Home/PrintPDF/", new {accesscode = ViewBag.ACCESS_CODE}, Request.Url.Scheme)'>@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>*@
                                                 @*<a href="checkToPrintPDF('@ViewBag.ACCESS_CODE')" target="_blank">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>*@
-                                            } 
+                                            @*} 
                                             else
-                                            {
+                                            {*@
                                                 <a href='@Url.Action("Finish", "/Home/PrintCustomizedPDFConfirmation/", new {accesscode = ViewBag.ACCESS_CODE}, Request.Url.Scheme)'>@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
-                                            }
+                                            @*}*@
                                         </span>
                                     </td>
                                 </tr>

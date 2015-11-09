@@ -4808,7 +4808,7 @@ Intelleges Team";
                 pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload";
                 return ViewCustomizedPdf(pptqID, ViewName);
-              
+
             }
             else if (question.footer == "2")
             {
@@ -4816,6 +4816,7 @@ Intelleges Team";
                 ViewName = "CustomizedQuestionnaireSurveyPdfDownload";
                 return ViewCustomizedPdf(pptqID, ViewName);
             }
+           // else return PDFConfirmation();
             pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
             return ViewCustomPdf(pptqID);
         }
@@ -4925,7 +4926,9 @@ Intelleges Team";
             if (!string.IsNullOrEmpty(accesscode))
             {
                 Session["accessCode"] = accesscode;
-                Response.Redirect("~/Registration/Home/CustomizedPDFConfirmation");
+                if (db.pr_getQuestionnaireByAccesscode(Session["accesscode"].ToString()).FirstOrDefault().footer != "1")
+                    Response.Redirect("~/Registration/Home/CustomizedPDFConfirmation");
+                else Response.Redirect("~/Registration/Home/PDFConfirmation");
             }
             return RedirectToAction("~/Registration/Home");
         }

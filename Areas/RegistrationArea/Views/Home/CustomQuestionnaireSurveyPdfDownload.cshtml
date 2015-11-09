@@ -552,14 +552,14 @@
                     <td><input type="text" value="@(ViewBag.Input33 ?? String.Empty)" style="width:300px; height:20px" /></b></td>
                 </tr>
             </table>
-           
-            
+
+
         </p>
     </div>
     <div>
         <p><b>16. <i>CERTIFICATION REGARDING POLITICAL CONTRIBUTIONS, FEES, AND COMMISSIONS (<a href='http://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&SID=9f40509b0e3da13737d77a645b79f912&rgn=div5&view=text&node=22:1.0.1.13.67&idno=22'> ITAR PART 130</a>)</i></b></p>
 
-        <p> Please note 22 CFR 130.12(b) requires Supplier to respond to this section <b><u>within 20 days</u></b>, unless Supplier provides the information directly to the U.S. State Department in accordance with 22 CFR  130.12(c).  U.S. law requires Honeywell to inform the Department of State if we have not received a response within 25 days of this request.  Additionally, 22 CFR  130.14 requires Supplier to maintain the records upon which the information below is based for a minimum of five (5) years from the date of the report. </p>
+        <p> Please note 22 CFR &sect; 130.12(b) requires Supplier to respond to this section <b><u>within 20 days</u></b>, unless Supplier provides the information directly to the U.S. State Department in accordance with 22 CFR &sect; 130.12(c).  U.S. law requires Honeywell to inform the Department of State if we have not received a response within 25 days of this request.  Additionally, 22 CFR &sect; 130.14 requires Supplier to maintain the records upon which the information below is based for a minimum of five (5) years from the date of the report. </p>
 
         <p>A. <i>SUPPLIER</i> certifies it <b>SELLS</b> defense articles, technical data, and/or defense services to Honeywell that are:  (1) controlled for export under U.S. International Traffic in Arms Regulations (ITAR) (22 CFR Parts 120-130); <b>and</b> (2) valued in an amount of $500,000 or more (sold $500,000 or more in ITAR controlled goods to Honeywell); <b>and</b> (3) for delivery (or incorporation into another product for delivery) to, or for the use of, the armed forces of an international organization or a country other than the United States. </p>
 
@@ -567,15 +567,17 @@
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox57 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox58 /> NO </b>
         </p>
+        @if (ViewBag.Checkbox58 != String.Empty)
+        {
+            <p> B. <i>SUPPLIER</i> certifies it has paid, offered to pay, or agreed to pay any "fees", "commissions", or "political contributions" as defined in 22 CFR &sect; 130.5 and 22 CFR &sect; 130.6 in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.</p>
 
-        <p> B. <i>SUPPLIER</i> certifies it has paid, offered to pay, or agreed to pay any "fees", "commissions", or "political contributions" as defined in 22 CFR  130.5 and 22 CFR  130.6 in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.</p>
-
-        <p style="margin-left:20px">
-            <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox59 /> YES </b>
-            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox60 /> NO </b>
-        </p>
+            <p style="margin-left:20px">
+                <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox59 /> YES </b>
+                <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox60 /> NO </b>
+            </p>
+        }
         <p>
-            NOTE:  22 CFR  130.9(d) requires <i>SUPPLIER</i> to inform Honeywell as soon as possible if <i>SUPPLIER</i> subsequently learns that it paid, offered to pay, or agreed to pay any fees, commissions, or political contributions in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.
+            NOTE:  22 CFR &sect; 130.9(d) requires <i>SUPPLIER</i> to inform Honeywell as soon as possible if <i>SUPPLIER</i> subsequently learns that it paid, offered to pay, or agreed to pay any fees, commissions, or political contributions in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.
             <i>If Item B. is YES, please complete Exhibit I for each fee, commission, and political contribution, using additional sheets as necessary, referencing the Sales Order/Contract Number at issue, and numbering each successive sheet X of X accordingly.</i>
         </p>
         <p><b><i style="color:red;"><u>If Item B. is YES, please complete Exhibit I</u> for each fee, commission, and political contribution, using additional sheets as necessary, referencing the Sales Order/Contract Number at issue, and numbering each successive sheet X of X accordingly.</i></b></p>
@@ -621,26 +623,27 @@
         <p>
             <b><input type="checkbox" @ViewBag.Checkbox65 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox66 /> NO </b>
-            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox75 />If NO, comment required: <input type="text" value="@(ViewBag.Input36 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox75 /> N/A </b><br />
+            <b>If NO, comment required: <input type="text" value="@(ViewBag.Input36 ?? String.Empty)" style="width:450px; height:20px" /></b>
         </p>
     </div>
 
     <div>
-        <p><b>20. <i>CERTIFICATION REGARDING TRAFFICKING IN PERSONS COMPLIANCE PLAN (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>FAR 52.222-50</a>)</i></b></p>
+        <p><b>20. <i>CERTIFICATION REGARDING TRAFFICKING IN PERSONS COMPLIANCE PLAN (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>FAR 52.222-56</a>)</i></b></p>
         <p>
             A. <i>SUPPLIER</i> has been awarded a contract/subcontract by Honeywell-Aerospace, in which 52.222-56 applies and has implemented the required compliance plan as described in 52.222-50(h) to prevent any prohibited activities identified in 52.222-50(b) and to monitor, detect, and terminate the contract with any subcontractor(s) engaging in prohibited activities.
         </p>
         <p>
             <b><input type="checkbox" @ViewBag.Checkbox67 /> YES </b>
-            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox68 /> NO </b>
-            <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input37 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox68 /> NO </b><br />
+            <b >If NO, comment required: <input type="text" value="@(ViewBag.Input37 ?? String.Empty)" style="width:450px; height:20px" /></b>
         </p>
         <p>
             B. After conducting due diligence, either:
         </p>
         <p>
-            <b><input type="checkbox" @ViewBag.Checkbox69 /> To the best of SUPPLIER's knowledge and belief, neither it nor any of its agents, subcontractors, or their agents is engaged in any such activities; OR </b>
-            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox70 /> If abuses relating to any of the prohibited activities identified in 52.222-50(b) have been found, SUPPLIER or its subcontractor has taken the appropriate remedial and referral actions. </b>
+            <span style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox69 /> To the best of SUPPLIER's knowledge and belief, neither it nor any of its agents, subcontractors, or their agents is engaged in any such activities; OR</span><br />
+            <span style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox70 /> If abuses relating to any of the prohibited activities identified in 52.222-50(b) have been found, SUPPLIER or its subcontractor has taken the appropriate remedial and referral actions.</span>
         </p>
     </div>
 
@@ -688,4 +691,5 @@
         </b>
     </p>
 </body>
+
 </html>
