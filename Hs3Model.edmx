@@ -8437,6 +8437,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="xx_getTelerikBoundColumnSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tablename" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="xx_removePDFFrom5346" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="xx_updateMenuArchiveRestoreRemove" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="action" Type="varchar" Mode="In" />
           <Parameter Name="entity" Type="varchar" Mode="In" />
@@ -14530,10 +14531,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_archiveZcodeCheckActionType">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_checkForInvalidZcode" ReturnType="Collection(Int32)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
-            <Parameter Name="zcode" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="pr_getInvalidZcode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getInvalidZcode_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -14580,6 +14577,11 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="zCodeActionType" Mode="In" Type="Int32" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="xx_removePDFFrom5346" />
+          <FunctionImport Name="pr_checkForInvalidZcode" ReturnType="Collection(hs3MVCMTQa2Model.pr_checkForInvalidZcode9_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="zcode" Mode="In" Type="String" />
           </FunctionImport>
           
         </EntityContainer>
@@ -23224,6 +23226,24 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_checkForInvalidZcode7_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="newStatus" Nullable="false" />
+          <Property Type="Int32" Name="next" Nullable="false" />
+          <Property Type="String" Name="nextstep" Nullable="false" MaxLength="37" />
+        </ComplexType>
+        <ComplexType Name="pr_checkForInvalidZcode8_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="newStatus" Nullable="false" />
+          <Property Type="Int32" Name="next" Nullable="false" />
+          <Property Type="String" Name="nextstep" Nullable="false" MaxLength="37" />
+        </ComplexType>
+        <ComplexType Name="pr_checkForInvalidZcode9_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="newStatus" Nullable="false" />
+          <Property Type="Int32" Name="next" Nullable="false" />
+          <Property Type="String" Name="nextstep" Nullable="false" MaxLength="37" />
+        </ComplexType>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -30580,7 +30600,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_addZcodeCheckActionType" FunctionName="hs3MVCMTQa2Model.Store.pr_addZcodeCheckActionType" />
           <FunctionImportMapping FunctionImportName="pr_archiveInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveInvalidZcode" />
           <FunctionImportMapping FunctionImportName="pr_archiveZcodeCheckActionType" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveZcodeCheckActionType" />
-          <FunctionImportMapping FunctionImportName="pr_checkForInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_checkForInvalidZcode" />
           <FunctionImportMapping FunctionImportName="pr_getInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_getInvalidZcode">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getInvalidZcode_Result">
@@ -30681,6 +30700,17 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_unArchiveInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveInvalidZcode" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveZcodeCheckActionType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveZcodeCheckActionType" />
           <FunctionImportMapping FunctionImportName="pr_addInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_addInvalidZcode" />
+          <FunctionImportMapping FunctionImportName="xx_removePDFFrom5346" FunctionName="hs3MVCMTQa2Model.Store.xx_removePDFFrom5346" />
+          <FunctionImportMapping FunctionImportName="pr_checkForInvalidZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_checkForInvalidZcode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_checkForInvalidZcode9_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="newStatus" ColumnName="newStatus" />
+                <ScalarProperty Name="next" ColumnName="next" />
+                <ScalarProperty Name="nextstep" ColumnName="nextstep" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

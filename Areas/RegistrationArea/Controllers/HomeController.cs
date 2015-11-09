@@ -2379,12 +2379,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var zCodeValidationErrorCode = zCodeValidationResult.First();
 
             //Check the zCode erro code. 
-            if (zCodeValidationErrorCode != 0 && zCodeValidationErrorCode != 6)
+            if (zCodeValidationErrorCode.newStatus != 0 && zCodeValidationErrorCode.newStatus != 6)
             {
                 //TODO:: provide a correct validation message;
 
                 // Create error message.
-                ViewBag.message = string.Format("Error Code: {0}", zCodeValidationErrorCode);
+                ViewBag.message = zCodeValidationErrorCode.nextstep;
                 return View();
             }
 

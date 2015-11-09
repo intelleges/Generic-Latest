@@ -17251,19 +17251,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveZcodeCheckActionType", idParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> pr_checkForInvalidZcode(Nullable<int> pptq, string zcode)
-        {
-            var pptqParameter = pptq.HasValue ?
-                new ObjectParameter("pptq", pptq) :
-                new ObjectParameter("pptq", typeof(int));
-    
-            var zcodeParameter = zcode != null ?
-                new ObjectParameter("zcode", zcode) :
-                new ObjectParameter("zcode", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_checkForInvalidZcode", pptqParameter, zcodeParameter);
-        }
-    
         public virtual ObjectResult<pr_getInvalidZcode_Result> pr_getInvalidZcode(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -17419,6 +17406,24 @@ namespace Generic
                 new ObjectParameter("active", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addInvalidZcode", ptqParameter, zCodeParameter, zCodeActionTypeParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int xx_removePDFFrom5346()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("xx_removePDFFrom5346");
+        }
+    
+        public virtual ObjectResult<pr_checkForInvalidZcode9_Result> pr_checkForInvalidZcode(Nullable<int> pptq, string zcode)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var zcodeParameter = zcode != null ?
+                new ObjectParameter("zcode", zcode) :
+                new ObjectParameter("zcode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_checkForInvalidZcode9_Result>("pr_checkForInvalidZcode", pptqParameter, zcodeParameter);
         }
     }
 }
