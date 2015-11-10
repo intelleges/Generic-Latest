@@ -335,7 +335,7 @@
             <i style="margin-left:200px">AF 0014I (2016)</i>
         </b>
     </p>
-    <div>
+    <div style="margin-top:60px">
         <p><b> 9. <i>CERTIFICATE OF INDEPENDENT PRICE DETERMINATION (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583 '>FAR 52.203-2</a>)</i></b></p>
 
         <p>A. <i>SUPPLIER</i> certifies:</p>
@@ -445,7 +445,7 @@
                 <i style="margin-left:200px">AF 0014I (2016)</i>
             </b>
         </p>
-        <p><b>14. <i>EXECUTIVE COMPENSATION REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10</a>) Continued</i></b></p>
+        <p style="margin-top:60px"><b>14. <i>EXECUTIVE COMPENSATION REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10</a>) Continued</i></b></p>
         <p>Total Compensation, as defined in FAR 52.204-10(a), for the five (5) most highly compensated executives earned during the preceding fiscal year is: </p>
         <table width="100%" cellpadding="0" cellspacing="0" border="1">
             <tr>
@@ -577,8 +577,7 @@
             </p>
         }
         <p>
-            NOTE:  22 CFR &sect; 130.9(d) requires <i>SUPPLIER</i> to inform Honeywell as soon as possible if <i>SUPPLIER</i> subsequently learns that it paid, offered to pay, or agreed to pay any fees, commissions, or political contributions in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.
-            <i>If Item B. is YES, please complete Exhibit I for each fee, commission, and political contribution, using additional sheets as necessary, referencing the Sales Order/Contract Number at issue, and numbering each successive sheet X of X accordingly.</i>
+            NOTE:  22 CFR &sect; 130.9(d) requires <i>SUPPLIER</i> to inform Honeywell as soon as possible if <i>SUPPLIER</i> subsequently learns that it paid, offered to pay, or agreed to pay any fees, commissions, or political contributions in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.         
         </p>
         <p><b><i style="color:red;"><u>If Item B. is YES, please complete Exhibit I</u> for each fee, commission, and political contribution, using additional sheets as necessary, referencing the Sales Order/Contract Number at issue, and numbering each successive sheet X of X accordingly.</i></b></p>
 
@@ -615,7 +614,7 @@
             <i style="margin-left:200px">AF 0014I (2016)</i>
         </b>
     </p>
-    <div>
+    <div style="margin-top:60px">
         <p><b>19. <i>COMBATING TRAFFICKING IN PERSONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>FAR 52.222-50</a>) - COMPLIANCE PLAN</i></b></p>
         <p>
             <i>SUPPLIER</i>, as described in 52.222-50(h), will implement and maintain a compliance plan, covering the performance period of the U.S. Government contract/subcontract, awarded by Honeywell-Aerospace, for any portion that is:  (i) for supplies (other than commercially available off-the-shelf items as defined in Paragraph (1) of FAR 2.101) acquired overseas, or services performed overseas, and (ii) has an estimated value exceeding $500,000.
@@ -635,7 +634,8 @@
         </p>
         <p>
             <b><input type="checkbox" @ViewBag.Checkbox67 /> YES </b>
-            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox68 /> NO </b><br />
+            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox68 /> NO </b>
+            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox76 /> N/A </b><br />
             <b >If NO, comment required: <input type="text" value="@(ViewBag.Input37 ?? String.Empty)" style="width:450px; height:20px" /></b>
         </p>
         <p>
@@ -661,7 +661,11 @@
     <p style="text-align:center; font-size:21px"><i><u><b>CERTIFICATION</b></u></i></p>
 
     <p>Supplier hereby certifies the information presented here is true and correct and meets the intent and spirit of the statements made above.  This certification shall apply to all solicitations, agreements, Purchase Orders, contracts, or subcontracts received from Honeywell, and shall be valid for the calendar year noted on Page 1.  If any changes to the above occur, Supplier will immediately notify their Honeywell-Aerospace Sourcing or Procurement representative, in writing, regarding its change in status.</p>
-
+    <p>
+        <b><input type="checkbox" @ViewBag.Checkbox77 /> YES </b>
+        <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox78 /> NO </b>
+        <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input39 ?? String.Empty)" style="width:450px; height:20px" /></b>
+    </p>
 
     <table width="100%" cellpadding="0" cellspacing="0" border="1">
         <tr style="height:40px">
@@ -683,7 +687,7 @@
     </table>
     </div>
     </form>
-    <p style="margin-top:730px;color:gray">
+    <p style="margin-top:700px;color:gray">
         <b>
             <i style="text-align:left">Page 5 of 5</i>
             <i style="margin-left:250px">Supplier Certifications and Representations</i>
