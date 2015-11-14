@@ -4077,11 +4077,12 @@ Intelleges Team";
                     case 18981:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                          //  ViewBag.Checkbox60 = _chacked;
+                            ViewBag.Checkbox59 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            ViewBag.Checkbox60 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                            // if (comments.Length > 1)
                                 ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
@@ -4211,6 +4212,13 @@ Intelleges Team";
                             ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
                         }
                         break;
+                    case 18990:
+                        comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+                       
+                            ViewBag.Input5 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+
+                       
+                        break;
 
                     case 18991:
                         comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
@@ -4218,7 +4226,7 @@ Intelleges Team";
                         {
                             ViewBag.Checkbox60 = _chacked;
                             //if (comments.Length > 1)
-                                ViewBag.Input5 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+                                ViewBag.Input6 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
 
                         }
                         else if (item.response == _responseNO)
@@ -4247,10 +4255,10 @@ Intelleges Team";
                         switch (item.response)
                         {
                             case 37537:
-                                ViewBag.Checkbox53 = _chacked;
+                                ViewBag.Checkbox54 = _chacked;
                                 break;
                             case 37538:
-                                ViewBag.Checkbox54 = _chacked;
+                                ViewBag.Checkbox53 = _chacked;
                                 break;
                         }
                         break;
@@ -4272,6 +4280,10 @@ Intelleges Team";
                         }
                         switch (item.response)
                         {
+                            case 37539:
+                                ViewBag.Checkbox54 = _chacked;
+                                ViewBag.Checkbox53 = string.Empty;
+                                break;
                             case 37577:
                                 ViewBag.Checkbox53 = _chacked;
                                 break;
@@ -4703,7 +4715,7 @@ Intelleges Team";
                                 ViewBag.Checkbox31 = _chacked;
                                 comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                              //   if (comments.Length > 1)
-                                    ViewBag.Input5 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+                                    ViewBag.Input7 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
                                 break;
                             case 37530:
                                 ViewBag.Checkbox73 = _chacked;
@@ -4896,7 +4908,7 @@ Intelleges Team";
                         if (item.response == _responseYES)
                         {
                             ViewBag.Checkbox57 = _chacked;
-                            ViewBag.Checkbox58 = string.Empty;
+                           // ViewBag.Checkbox58 = string.Empty;
                         }
                         else if (item.response == _responseNO)
                         {
