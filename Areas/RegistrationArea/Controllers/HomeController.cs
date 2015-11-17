@@ -4204,7 +4204,7 @@ Intelleges Team";
                     case 18992:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                            //ViewBag.Checkbox60 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
@@ -4226,7 +4226,7 @@ Intelleges Team";
                         comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                          //  ViewBag.Checkbox60 = _chacked;
                             //if (comments.Length > 1)
                             ViewBag.Input6 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
 
@@ -4243,7 +4243,7 @@ Intelleges Team";
                     case 19003:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                           // ViewBag.Checkbox60 = _chacked;
                             ViewBag.Checkbox53 = _chacked;
                         }
                         else if (item.response == _responseNO)
@@ -4257,9 +4257,12 @@ Intelleges Team";
                         switch (item.response)
                         {
                             case 37537:
-                                ViewBag.Checkbox54 = _chacked;
+                               // ViewBag.Checkbox54 = _chacked;
+                                ViewBag.Checkbox53 = _chacked;
+                                ViewBag.Case19003 = 37537;
                                 break;
                             case 37538:
+                                //ViewBag.Checkbox54 = _chacked;
                                 ViewBag.Checkbox53 = _chacked;
                                 break;
                         }
@@ -4269,7 +4272,7 @@ Intelleges Team";
                     case 19004:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                            //ViewBag.Checkbox60 = _chacked;
                             ViewBag.Checkbox53 = _chacked;
                         }
                         else if (item.response == _responseNO)
@@ -4313,7 +4316,7 @@ Intelleges Team";
                     case 19008:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                           // ViewBag.Checkbox60 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
@@ -4342,7 +4345,7 @@ Intelleges Team";
                     case 19012:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                           // ViewBag.Checkbox60 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
@@ -4400,7 +4403,7 @@ Intelleges Team";
                     case 19020:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                           // ViewBag.Checkbox60 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
@@ -4429,7 +4432,7 @@ Intelleges Team";
                     case 19024:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                           // ViewBag.Checkbox60 = _chacked;
                             ViewBag.Checkbox55 = _chacked;
                         }
                         else if (item.response == _responseNO)
@@ -4446,7 +4449,7 @@ Intelleges Team";
                     case 19025:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                            //ViewBag.Checkbox60 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
@@ -4937,7 +4940,7 @@ Intelleges Team";
                     case 19051:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                            //ViewBag.Checkbox60 = _chacked;
                             ViewBag.Checkbox77 = _chacked;
                         }
                         else if (item.response == _responseNO)

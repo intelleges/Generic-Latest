@@ -434,9 +434,20 @@
 
         <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox53 />&nbsp;A. <i>SUPPLIER's</i> executive compensation is <b><u>not</u></b> available to the public through period reports filed under Section 13(a) or 15(d) of the Securities Exchange Act of 1934 or under Section 6104 of the Internal Revenue Code of 1986.</p>
 
-        <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox54 />&nbsp;A. SUPPLIER derived 80% or more and $25,000,000 or more of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants) and cooperative agreements in the preceding fiscal year.</p>
-        <p>
-            <i>NOTE:</i>  If A and B are checked, Honeywell is required to report SUPPLIER's executive compensation to the Government and this information will be made public.  Completion of below is required.
+        @if (ViewBag.Case19003 != null)
+        {
+            <p style="margin-left:20px"><input type="checkbox" />&nbsp;B. SUPPLIER derived 80% or more and $25,000,000 or more of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants) and cooperative agreements in the preceding fiscal year.</p>
+
+        }
+        else
+        {
+            <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox54 />&nbsp;B. SUPPLIER derived 80% or more and $25,000,000 or more of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants) and cooperative agreements in the preceding fiscal year.</p>
+
+
+        }
+      
+
+        <i>NOTE:</i>  If A and B are checked, Honeywell is required to report SUPPLIER's executive compensation to the Government and this information will be made public.  Completion of below is required.
         </p>
         <p style="margin-top:50px; color:gray">
             <b>
@@ -571,14 +582,24 @@
         {
             <p> B. <i>SUPPLIER</i> certifies it has paid, offered to pay, or agreed to pay any "fees", "commissions", or "political contributions" as defined in 22 CFR &sect; 130.5 and 22 CFR &sect; 130.6 in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.</p>
 
-        
-            <p style="margin-left:20px">
-                <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox59 /> YES </b>
-                <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox60 /> NO </b>
-            </p>
+            if (ViewBag.Checkbox58 != null)
+            {
+                <p style="margin-left:20px">
+                    <b style="margin-left:40px"><input type="checkbox" /> YES </b>
+                    <b style="margin-left:20px"><input type="checkbox" /> NO </b>
+                </p>
+            }
+            else
+            {
+                <p style="margin-left:20px">
+                    <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox59 /> YES </b>
+                    <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox60 /> NO </b>
+                </p>
+            }
+
         }
         <p>
-            NOTE:  22 CFR &sect; 130.9(d) requires <i>SUPPLIER</i> to inform Honeywell as soon as possible if <i>SUPPLIER</i> subsequently learns that it paid, offered to pay, or agreed to pay any fees, commissions, or political contributions in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.         
+            NOTE:  22 CFR &sect; 130.9(d) requires <i>SUPPLIER</i> to inform Honeywell as soon as possible if <i>SUPPLIER</i> subsequently learns that it paid, offered to pay, or agreed to pay any fees, commissions, or political contributions in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.
         </p>
         <p><b><i style="color:red;"><u>If Item B. is YES, please complete Exhibit I</u> for each fee, commission, and political contribution, using additional sheets as necessary, referencing the Sales Order/Contract Number at issue, and numbering each successive sheet X of X accordingly.</i></b></p>
 
@@ -637,7 +658,7 @@
             <b><input type="checkbox" @ViewBag.Checkbox67 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox68 /> NO </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox76 /> N/A </b><br />
-            <b >If NO, comment required: <input type="text" value="@(ViewBag.Input37 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b>If NO, comment required: <input type="text" value="@(ViewBag.Input37 ?? String.Empty)" style="width:450px; height:20px" /></b>
         </p>
         <p>
             B. After conducting due diligence, either:
@@ -698,3 +719,10 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
