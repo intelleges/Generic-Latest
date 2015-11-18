@@ -4256,11 +4256,11 @@ Intelleges Team";
                         }
                         switch (item.response)
                         {
-                            case 37537:
+                            //case 37537:
                                // ViewBag.Checkbox54 = _chacked;
-                                ViewBag.Checkbox53 = _chacked;
-                                ViewBag.Case19003 = 37537;
-                                break;
+                              //  ViewBag.Checkbox53 = _chacked;
+                            //    ViewBag.Case19003 = 37537;
+                          //      break;
                             case 37538:
                                 //ViewBag.Checkbox54 = _chacked;
                                 ViewBag.Checkbox53 = _chacked;
@@ -4273,7 +4273,7 @@ Intelleges Team";
                         if (item.response == _responseYES)
                         {
                             //ViewBag.Checkbox60 = _chacked;
-                            ViewBag.Checkbox53 = _chacked;
+                           // ViewBag.Checkbox53 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
@@ -4287,14 +4287,14 @@ Intelleges Team";
                         {
                             case 37539:
                                 ViewBag.Checkbox54 = _chacked;
-                                //ViewBag.Checkbox53 = string.Empty;
-                                break;
-                            case 37577:
-                                ViewBag.Checkbox53 = _chacked;
-                                break;
+                               // ViewBag.Checkbox53 = string.Empty;
+                               break;
+                           /* case 37577:
+                            //    ViewBag.Checkbox53 = _chacked;
+                             //   break;
                             case 37578:
                                 ViewBag.Checkbox54 = _chacked;
-                                break;
+                                break;*/
                         }
                         break;
                     case 19005:
