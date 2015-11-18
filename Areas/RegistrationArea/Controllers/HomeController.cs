@@ -3941,11 +3941,11 @@ Intelleges Team";
                     case 5805:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                            ViewBag.Checkbox61 = _chacked;
                         }
                         else if (item.rid == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            ViewBag.Checkbox62 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
                                 ViewBag.Input14 = comments[1];
@@ -3954,11 +3954,11 @@ Intelleges Team";
                     case 5885:
                         if (item.rid == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                            ViewBag.Checkbox61 = _chacked;
                         }
                         else if (item.rid == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            ViewBag.Checkbox62 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split(item.response, _responseSplitter);
                             if (comments.Length > 1)
                                 ViewBag.Input14 = comments[1];
@@ -4047,16 +4047,16 @@ Intelleges Team";
                     case 18978:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                            ViewBag.Checkbox77 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            ViewBag.Checkbox78 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             //if (comments.Length =1)
                             //    ViewBag.Input0 = comments[1];
 
-                            ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]);
+                            ViewBag.Input39 = (comments.Length > 1 ? comments[1] : comments[0]);
                         }
                         break;
 
@@ -4941,17 +4941,18 @@ Intelleges Team";
                         if (item.response == _responseYES)
                         {
                             //ViewBag.Checkbox60 = _chacked;
-                            ViewBag.Checkbox77 = _chacked;
+                            ViewBag.Checkbox61 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
-                            ViewBag.Checkbox78 = _chacked;
+                            ViewBag.Checkbox62 = _chacked;
+                           // ViewBag.Checkbox78 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             //  if (comments.Length > 1)
                             // {
-                            ViewBag.Input14 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
-                            ViewBag.Input39 = (comments.Length > 1 ? comments[1] : comments[0]); // comments[1];
+                        //    ViewBag.Input14 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+                          //  ViewBag.Input39 = (comments.Length > 1 ? comments[1] : comments[0]); // comments[1];
+                            ViewBag.Input34 = (comments.Length > 1 ? comments[1] : comments[0]); // comments[1];
                             // }
                         }
                         break;
