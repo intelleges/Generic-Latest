@@ -4914,23 +4914,23 @@ Intelleges Team";
                     case 19049:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox57 = _chacked;
+                            ViewBag.Checkbox56 = _chacked;
                             // ViewBag.Checkbox58 = string.Empty;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox58 = _chacked;
+                            ViewBag.Checkbox57 = _chacked;
                         }
                         break;
 
                     case 19050:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox59 = _chacked;
+                            ViewBag.Checkbox58 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                            ViewBag.Checkbox59 = _chacked;
                         }
                         break;
 
