@@ -571,18 +571,27 @@
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox57 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox58 /> NO </b>
         </p>
-        @if (ViewBag.Checkbox58 != String.Empty)
-        {
+    
             <p> B. <i>SUPPLIER</i> certifies it has paid, offered to pay, or agreed to pay any "fees", "commissions", or "political contributions" as defined in 22 CFR &sect; 130.5 and 22 CFR &sect; 130.6 in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.</p>
-
+        @if (ViewBag.case19049 == 75)
+        {
+            <p style="margin-left:20px">
+                <b style="margin-left:40px"><input type="checkbox"  /> YES </b>
+                <b style="margin-left:20px"><input type="checkbox"  /> NO </b>
+            </p>
+        }
+        else
+        {
+            <p style="margin-left:20px">
+                <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox59 /> YES </b>
+                <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox60 /> NO </b>
+            </p>
+        }
           
-                <p style="margin-left:20px">
-                    <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox59 /> YES </b>
-                    <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox60 /> NO </b>
-                </p>
+              
            
 
-        }
+        
         <p>
             NOTE:  22 CFR &sect; 130.9(d) requires <i>SUPPLIER</i> to inform Honeywell as soon as possible if <i>SUPPLIER</i> subsequently learns that it paid, offered to pay, or agreed to pay any fees, commissions, or political contributions in connection with the sale of defense articles, technical data, and/or defense services to Honeywell.
         </p>

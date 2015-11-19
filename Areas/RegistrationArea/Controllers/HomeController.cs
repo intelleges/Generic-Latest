@@ -4047,16 +4047,16 @@ Intelleges Team";
                     case 18978:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox77 = _chacked;
+                            // ViewBag.Checkbox77 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox78 = _chacked;
+                            // ViewBag.Checkbox78 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             //if (comments.Length =1)
                             //    ViewBag.Input0 = comments[1];
 
-                            ViewBag.Input39 = (comments.Length > 1 ? comments[1] : comments[0]);
+                            //  ViewBag.Input39 = (comments.Length > 1 ? comments[1] : comments[0]);
                         }
                         break;
 
@@ -4079,12 +4079,12 @@ Intelleges Team";
                         if (item.response == _responseYES)
                         {
                             //  ViewBag.Checkbox60 = _chacked;
-                            
-                           // ViewBag.Checkbox59 = _chacked;
+
+                            // ViewBag.Checkbox59 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                            //ViewBag.Checkbox60 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             // if (comments.Length > 1)
                             ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
@@ -4208,7 +4208,7 @@ Intelleges Team";
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            //ViewBag.Checkbox61 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             // if (comments.Length > 1)
                             ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
@@ -4226,14 +4226,14 @@ Intelleges Team";
                         comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                         if (item.response == _responseYES)
                         {
-                          //  ViewBag.Checkbox60 = _chacked;
+                            //  ViewBag.Checkbox60 = _chacked;
                             //if (comments.Length > 1)
                             ViewBag.Input6 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
 
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            //ViewBag.Checkbox61 = _chacked;
                             // if (comments.Length > 1)
                             ViewBag.Input6 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
                         }
@@ -4243,12 +4243,12 @@ Intelleges Team";
                     case 19003:
                         if (item.response == _responseYES)
                         {
-                           // ViewBag.Checkbox60 = _chacked;
+                            // ViewBag.Checkbox60 = _chacked;
                             ViewBag.Checkbox53 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            //ViewBag.Checkbox61 = _chacked;
                             ViewBag.Checkbox54 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             //   if (comments.Length > 1)
@@ -4257,10 +4257,10 @@ Intelleges Team";
                         switch (item.response)
                         {
                             //case 37537:
-                               // ViewBag.Checkbox54 = _chacked;
-                              //  ViewBag.Checkbox53 = _chacked;
+                            // ViewBag.Checkbox54 = _chacked;
+                            //  ViewBag.Checkbox53 = _chacked;
                             //    ViewBag.Case19003 = 37537;
-                          //      break;
+                            //      break;
                             case 37538:
                                 //ViewBag.Checkbox54 = _chacked;
                                 ViewBag.Checkbox53 = _chacked;
@@ -4273,11 +4273,11 @@ Intelleges Team";
                         if (item.response == _responseYES)
                         {
                             //ViewBag.Checkbox60 = _chacked;
-                           // ViewBag.Checkbox53 = _chacked;
+                            // ViewBag.Checkbox53 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            //ViewBag.Checkbox61 = _chacked;
                             ViewBag.Checkbox54 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             ///if (comments.Length > 1)
@@ -4287,14 +4287,14 @@ Intelleges Team";
                         {
                             case 37539:
                                 ViewBag.Checkbox54 = _chacked;
-                               // ViewBag.Checkbox53 = string.Empty;
-                               break;
-                           /* case 37577:
-                            //    ViewBag.Checkbox53 = _chacked;
-                             //   break;
-                            case 37578:
-                                ViewBag.Checkbox54 = _chacked;
-                                break;*/
+                                // ViewBag.Checkbox53 = string.Empty;
+                                break;
+                            /* case 37577:
+                             //    ViewBag.Checkbox53 = _chacked;
+                              //   break;
+                             case 37578:
+                                 ViewBag.Checkbox54 = _chacked;
+                                 break;*/
                         }
                         break;
                     case 19005:
@@ -4316,11 +4316,11 @@ Intelleges Team";
                     case 19008:
                         if (item.response == _responseYES)
                         {
-                           // ViewBag.Checkbox60 = _chacked;
+                            // ViewBag.Checkbox60 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            //ViewBag.Checkbox61 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             // if (comments.Length > 1)
                             ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
@@ -4345,11 +4345,11 @@ Intelleges Team";
                     case 19012:
                         if (item.response == _responseYES)
                         {
-                           // ViewBag.Checkbox60 = _chacked;
+                            // ViewBag.Checkbox60 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            // ViewBag.Checkbox61 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             // if (comments.Length > 1)
                             ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
@@ -4374,11 +4374,11 @@ Intelleges Team";
                     case 19016:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox60 = _chacked;
+                            // ViewBag.Checkbox60 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            //ViewBag.Checkbox61 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             //  if (comments.Length > 1)
                             ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
@@ -4403,11 +4403,11 @@ Intelleges Team";
                     case 19020:
                         if (item.response == _responseYES)
                         {
-                           // ViewBag.Checkbox60 = _chacked;
+                            // ViewBag.Checkbox60 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            // ViewBag.Checkbox61 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             // if (comments.Length > 1)
                             ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
@@ -4432,13 +4432,13 @@ Intelleges Team";
                     case 19024:
                         if (item.response == _responseYES)
                         {
-                           // ViewBag.Checkbox60 = _chacked;
+                            // ViewBag.Checkbox60 = _chacked;
                             ViewBag.Checkbox55 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
-                            ViewBag.Checkbox56 = _chacked;
+                            //  ViewBag.Checkbox61 = _chacked;
+                            // ViewBag.Checkbox56 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             // if (comments.Length > 1)
                             ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
@@ -4453,7 +4453,7 @@ Intelleges Team";
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox61 = _chacked;
+                            // ViewBag.Checkbox61 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
                             //  if (comments.Length > 1)
                             ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
@@ -4595,17 +4595,19 @@ Intelleges Team";
                         }
                         break;
 
-                    case 18994:
+                    case 18993:
                         ViewBag.Checkbox15 = item.response == _responseYES ? _chacked : string.Empty;
+                        break;
+
+                    case 18994:
+                        ViewBag.Checkbox16 = item.response == _responseYES ? _chacked : string.Empty;
                         break;
 
                     case 18995:
                         ViewBag.Checkbox17 = item.response == _responseYES ? _chacked : string.Empty;
                         break;
 
-                    case 18993:
-                        ViewBag.Checkbox15 = item.response == _responseYES ? _chacked : string.Empty;
-                        break;
+
 
                     case 19039:
                         if (item.response == _responseYES)
@@ -4914,23 +4916,24 @@ Intelleges Team";
                     case 19049:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox56 = _chacked;
+                            ViewBag.Checkbox57 = _chacked;
                             // ViewBag.Checkbox58 = string.Empty;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox57 = _chacked;
+                            ViewBag.Checkbox58 = _chacked;
+                            ViewBag.case19049 = 75;
                         }
                         break;
 
                     case 19050:
                         if (item.response == _responseYES)
                         {
-                            ViewBag.Checkbox58 = _chacked;
+                            ViewBag.Checkbox59 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox59 = _chacked;
+                            ViewBag.Checkbox60 = _chacked;
                         }
                         break;
 
@@ -4940,20 +4943,16 @@ Intelleges Team";
                     case 19051:
                         if (item.response == _responseYES)
                         {
-                            //ViewBag.Checkbox60 = _chacked;
-                            ViewBag.Checkbox61 = _chacked;
+                            ViewBag.Checkbox77 = _chacked;
                         }
                         else if (item.response == _responseNO)
                         {
-                            ViewBag.Checkbox62 = _chacked;
-                           // ViewBag.Checkbox78 = _chacked;
+                            ViewBag.Checkbox78 = _chacked;
                             comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
-                            //  if (comments.Length > 1)
-                            // {
-                        //    ViewBag.Input14 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
-                          //  ViewBag.Input39 = (comments.Length > 1 ? comments[1] : comments[0]); // comments[1];
-                            ViewBag.Input34 = (comments.Length > 1 ? comments[1] : comments[0]); // comments[1];
-                            // }
+
+                            ViewBag.Input39 = (comments.Length > 1 ? comments[1] : comments[0]);
+
+
                         }
                         break;
 
