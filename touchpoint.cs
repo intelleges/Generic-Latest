@@ -24,9 +24,9 @@ namespace Generic
             this.touchpointQuestionResponseValue_deprecated = new HashSet<touchpointQuestionResponseValue_deprecated>();
             this.touchpointQuestionWeight_deprecated = new HashSet<touchpointQuestionWeight_deprecated>();
             this.questionnaire = new HashSet<questionnaire>();
-            this.partnerSpreadsheetDataLoad = new HashSet<partnerSpreadsheetDataLoad>();
             this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
             this.enterpriseContactUs = new HashSet<enterpriseContactUs>();
+            this.partnerSpreadsheetDataLoads = new HashSet<partnerSpreadsheetDataLoad>();
         }
     
         public int id { get; set; }
@@ -60,12 +60,12 @@ namespace Generic
         public virtual ICollection<touchpointQuestionWeight_deprecated> touchpointQuestionWeight_deprecated { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<questionnaire> questionnaire { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
         public virtual touchpointTarget touchpointTarget { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<enterpriseContactUs> enterpriseContactUs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoads { get; set; }
     }
 }

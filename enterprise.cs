@@ -40,8 +40,8 @@ namespace Generic
             this.site = new HashSet<site>();
             this.questionnaireLevelType = new HashSet<questionnaireLevelType>();
             this.menu1 = new HashSet<menu>();
-            this.partnerSpreadsheetDataLoad = new HashSet<partnerSpreadsheetDataLoad>();
             this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
+            this.partnerSpreadsheetDataLoads = new HashSet<partnerSpreadsheetDataLoad>();
         }
     
         public int id { get; set; }
@@ -114,9 +114,9 @@ namespace Generic
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<menu> menu1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoad { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<partnumberSpreadsheetDataLoad> partnumberSpreadsheetDataLoad { get; set; }
         public virtual enterpriseContactUs enterpriseContactUs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoads { get; set; }
     }
 }

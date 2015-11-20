@@ -17,6 +17,7 @@ namespace Generic
         public int id { get; set; }
         public string partner_internal_id { get; set; }
         public string partner_sap_id { get; set; }
+        public string partner_duns_number { get; set; }
         public string partner_name { get; set; }
         public string partner_address_one { get; set; }
         public string partner_address_two { get; set; }

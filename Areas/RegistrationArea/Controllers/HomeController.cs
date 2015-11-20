@@ -2370,28 +2370,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 return RedirectToAction("Default");
             }
+
+
             partnerPartnertypeTouchpointQuestionnaire pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
-
-
-            // Validate the zCode.
-            var zCodeValidationResult = db.pr_checkForInvalidZcode(pptq.id, pptq.zcode);
-
-            // Obtain the zCode error code.
-            var zCodeValidationErrorCode = zCodeValidationResult.First();
-
-            //Check the zCode erro code. 
-            if (zCodeValidationErrorCode.newStatus != 0 && zCodeValidationErrorCode.newStatus != 6)
-            {
-                //TODO:: provide a correct validation message;
-
-                // Create error message.
-                ViewBag.message = zCodeValidationErrorCode.nextstep;
-                return View();
-            }
-
             if (ModelState.IsValid)
             {
-
+                
                 eSignature objeSignature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq.id).FirstOrDefault();
                 if (objeSignature == null)
                 {
@@ -2401,17 +2385,47 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     db.pr_modifyEsignature(objeSignatureNew.id, objeSignatureNew.firstName, objeSignatureNew.lastName, objeSignatureNew.title, objeSignatureNew.email, "Yes", objeSignatureNew.officer, objeSignatureNew.phone, DateTime.Now, pptq.id);
                 }
+                // Validate the zCode.
+                var zCodeValidationResult = db.pr_checkForInvalidZcode(pptq.id, pptq.zcode);
+
+                // Obtain the zCode error code.
+                var zCodeValidationErrorCode = zCodeValidationResult.FirstOrDefault();
                 using (var dbConext = new EntitiesDBContext())
                 {
                     var count = dbConext.pr_checkPartnumberStatusCountByPPTQ(pptq.id).FirstOrDefault();
-                    // var statuses = dbConext.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq.id).ToList().Select(x => x.status).Distinct().ToList();
-                    //if (statuses.Count == 0 || (statuses.Count == 1 && statuses.FirstOrDefault() == Status.COMPLETED))
-                    if (count == 0)
+                    
+                    if (count == 0 && !(zCodeValidationErrorCode != null && zCodeValidationErrorCode.newStatus != 0 && zCodeValidationErrorCode.newStatus != 6))
                     {
                         dbConext.pr_modifyPPTQStatus(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Complete);
                     }
-                    else dbConext.pr_modifyPPTQStatus(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Incomplete);
+                    else
+                    {
+
+                        dbConext.pr_modifyPPTQStatus(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Incomplete);
+                        // (By:Manpreet) Send Email to Partner--- START HERE--
+                        if (zCodeValidationErrorCode.newStatus == 2)
+                        {
+                            var touchpoint = db.pr_getTouchpoint((int)Session["touchpoint"]).FirstOrDefault();
+                            //Send Alert to TouchAdmin
+                            var _person = db.pr_getPerson(touchpoint.admin).FirstOrDefault();
+                            Email email = new Email();
+                            string strEmailBody = Session["currentEmail"] + " with Invalid zCode " + pptq.zcode + " for access code " + Session["accessCode"] + ". The status has been reset to incomplete for this partner.";
+                            email.subject = "Intelleges: Email Alert for Invalid zCode";
+                            email.body = strEmailBody;
+                            email.emailTo = _person.email;
+                            SendEmail objSendEmail = new SendEmail();
+                            objSendEmail.sendEmail(email);
+                        }
+                        //--- ENDS HERE----
+                        Session["IncorrectZipCode"] = zCodeValidationErrorCode.nextstep;
+                    }
                 }
+                
+
+
+                
+
+               
                 return RedirectToAction("Finish");
             }
 
@@ -2602,10 +2616,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var isCompletedSurvey = !(leftSites != null && leftSites.Count() > 0);
                 ViewBag.isCompletedSurvey = !isCompletedSurvey;
 
+                
                 var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
                 partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
                 enterprise _enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-                if (isCompletedSurvey)
+                if (isCompletedSurvey && Session["IncorrectZipCode"]==null)
                 {
                     #region subscriptionType action
                     if (ppptq_cms.partnerTypeTouchpointQuestionnaire1.questionnaire1.levelType == Generic.Helpers.Questionnaire.LevelType.SUBSCRIPTION)
@@ -2713,6 +2728,7 @@ Intelleges Team";
 
                             touchpoint objCurrentTouchpoint = db.pr_getTouchpoint(objSystemMaster.campaign).FirstOrDefault();
 
+                            
                             EmailFormat emailFormat = new EmailFormat();
                             mail.subject = emailFormat.sGetEmailBody(mail.subject, objSystemMaster, objSystemMaster, objCurrentTouchpoint, objEnterprise, objSystemMaster);
                             //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);

@@ -823,6 +823,9 @@
     <Compile Include="Models\ContractModel.cs" />
     <Compile Include="Models\CreatePartnerTypeModel.cs" />
     <Compile Include="Models\enterprise.extension.cs" />
+    <Compile Include="partnerSpreadsheetDataLoad.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_checkForInvalidZcode7_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -907,9 +910,6 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnerSpendAmount.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="partnerSpreadsheetDataLoad.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnerStatus.cs">

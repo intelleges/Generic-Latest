@@ -1008,6 +1008,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="partner_internal_id" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="partner_sap_id" Type="varchar" MaxLength="300" />
+          <Property Name="partner_duns_number" Type="varchar" MaxLength="12" />
           <Property Name="partner_name" Type="varchar(max)" />
           <Property Name="partner_address_one" Type="varchar(max)" />
           <Property Name="partner_address_two" Type="varchar(max)" />
@@ -4625,6 +4626,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_addPartnerSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner_internal_id" Type="varchar" Mode="In" />
           <Parameter Name="partner_sap_id" Type="varchar" Mode="In" />
+          <Parameter Name="partner_duns_number" Type="varchar" Mode="In" />
           <Parameter Name="partner_name" Type="varchar(max)" Mode="In" />
           <Parameter Name="partner_address_one" Type="varchar(max)" Mode="In" />
           <Parameter Name="partner_address_two" Type="varchar(max)" Mode="In" />
@@ -4645,66 +4647,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="partnertype" Type="int" Mode="In" />
           <Parameter Name="touchpoint" Type="int" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
-          <Parameter Name="partnerSpreadsheetDataLoadStatus" Type="int" Mode="In" />
+          <Parameter Name="PartnerSpreadsheetDataLoadStatus" Type="int" Mode="In" />
           <Parameter Name="loadGroup" Type="varchar" Mode="In" />
           <Parameter Name="dueDate" Type="datetime" Mode="In" />
-          <Parameter Name="group" Type="int" Mode="In" />
-        </Function>
-        <Function Name="pr_addPartnerSpreadsheetDataLoadOLD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="partner_internal_id" Type="varchar" Mode="In" />
-          <Parameter Name="partner_sap_id" Type="varchar" Mode="In" />
-          <Parameter Name="partner_name" Type="varchar(max)" Mode="In" />
-          <Parameter Name="partner_address_one" Type="varchar(max)" Mode="In" />
-          <Parameter Name="partner_address_two" Type="varchar(max)" Mode="In" />
-          <Parameter Name="partner_city" Type="varchar(max)" Mode="In" />
-          <Parameter Name="partner_state" Type="varchar" Mode="In" />
-          <Parameter Name="partner_zipcode" Type="varchar" Mode="In" />
-          <Parameter Name="partner_country" Type="varchar" Mode="In" />
-          <Parameter Name="partner_poc_first_name" Type="varchar" Mode="In" />
-          <Parameter Name="partner_poc_last_name" Type="varchar" Mode="In" />
-          <Parameter Name="partner_poc_title" Type="varchar" Mode="In" />
-          <Parameter Name="partner_poc_phone_number" Type="varchar" Mode="In" />
-          <Parameter Name="partner_poc_email_address" Type="varchar" Mode="In" />
-          <Parameter Name="ro_first_name" Type="varchar" Mode="In" />
-          <Parameter Name="ro_last_name" Type="varchar" Mode="In" />
-          <Parameter Name="ro_email" Type="varchar" Mode="In" />
-          <Parameter Name="date_loaded" Type="datetime" Mode="In" />
-          <Parameter Name="enterprise" Type="int" Mode="In" />
-          <Parameter Name="partnertype" Type="int" Mode="In" />
-          <Parameter Name="touchpoint" Type="int" Mode="In" />
-          <Parameter Name="person" Type="int" Mode="In" />
-          <Parameter Name="partnerSpreadsheetDataLoadStatus" Type="int" Mode="In" />
-          <Parameter Name="loadGroup" Type="varchar" Mode="In" />
-          <Parameter Name="dueDate" Type="datetime" Mode="In" />
-          <Parameter Name="group" Type="int" Mode="In" />
-        </Function>
-        <Function Name="pr_addPartnerSpreadsheetDataLoadqq" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="partner_internal_id" Type="varchar" Mode="In" />
-          <Parameter Name="partner_sap_id" Type="varchar" Mode="In" />
-          <Parameter Name="partner_name" Type="varchar(max)" Mode="In" />
-          <Parameter Name="partner_address_one" Type="varchar(max)" Mode="In" />
-          <Parameter Name="partner_address_two" Type="varchar(max)" Mode="In" />
-          <Parameter Name="partner_city" Type="varchar(max)" Mode="In" />
-          <Parameter Name="partner_state" Type="varchar" Mode="In" />
-          <Parameter Name="partner_zipcode" Type="varchar" Mode="In" />
-          <Parameter Name="partner_country" Type="varchar" Mode="In" />
-          <Parameter Name="partner_poc_first_name" Type="varchar" Mode="In" />
-          <Parameter Name="partner_poc_last_name" Type="varchar" Mode="In" />
-          <Parameter Name="partner_poc_title" Type="varchar" Mode="In" />
-          <Parameter Name="partner_poc_phone_number" Type="varchar" Mode="In" />
-          <Parameter Name="partner_poc_email_address" Type="varchar" Mode="In" />
-          <Parameter Name="ro_first_name" Type="varchar" Mode="In" />
-          <Parameter Name="ro_last_name" Type="varchar" Mode="In" />
-          <Parameter Name="ro_email" Type="varchar" Mode="In" />
-          <Parameter Name="date_loaded" Type="datetime" Mode="In" />
-          <Parameter Name="enterprise" Type="int" Mode="In" />
-          <Parameter Name="partnertype" Type="int" Mode="In" />
-          <Parameter Name="touchpoint" Type="int" Mode="In" />
-          <Parameter Name="person" Type="int" Mode="In" />
-          <Parameter Name="partnerSpreadsheetDataLoadStatus" Type="int" Mode="In" />
-          <Parameter Name="loadGroup" Type="varchar" Mode="In" />
-          <Parameter Name="dueDate" Type="datetime" Mode="In" />
-          <Parameter Name="group" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addPartnerType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="name" Type="varchar" Mode="In" />
@@ -12784,51 +12729,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_unArchiveMultiTenantProjectType">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="partnerSpreadsheetDataLoad" EntityType="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad" />
-          <AssociationSet Name="FK__partner__enter__7B863AD4" Association="hs3MVCMTQa2Model.FK__partner__enter__7B863AD4">
-            <End Role="enterprise" EntitySet="enterprise" />
-            <End Role="partnerSpreadsheetDataLoad" EntitySet="partnerSpreadsheetDataLoad" />
-          </AssociationSet>
-          <AssociationSet Name="FK__partner__partn__7C7A5F0D" Association="hs3MVCMTQa2Model.FK__partner__partn__7C7A5F0D">
-            <End Role="partnerType" EntitySet="partnerType" />
-            <End Role="partnerSpreadsheetDataLoad" EntitySet="partnerSpreadsheetDataLoad" />
-          </AssociationSet>
-          <AssociationSet Name="FK__partner__perso__7E62A77F" Association="hs3MVCMTQa2Model.FK__partner__perso__7E62A77F">
-            <End Role="person" EntitySet="person" />
-            <End Role="partnerSpreadsheetDataLoad" EntitySet="partnerSpreadsheetDataLoad" />
-          </AssociationSet>
-          <AssociationSet Name="FK__partner__touch__7D6E8346" Association="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346">
-            <End Role="touchpoint" EntitySet="touchpoint" />
-            <End Role="partnerSpreadsheetDataLoad" EntitySet="partnerSpreadsheetDataLoad" />
-          </AssociationSet>
-          <FunctionImport Name="pr_addPartnerSpreadsheetDataLoad" ReturnType="Collection(Int32)">
-            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
-            <Parameter Name="partner_sap_id" Mode="In" Type="String" />
-            <Parameter Name="partner_name" Mode="In" Type="String" />
-            <Parameter Name="partner_address_one" Mode="In" Type="String" />
-            <Parameter Name="partner_address_two" Mode="In" Type="String" />
-            <Parameter Name="partner_city" Mode="In" Type="String" />
-            <Parameter Name="partner_state" Mode="In" Type="String" />
-            <Parameter Name="partner_zipcode" Mode="In" Type="String" />
-            <Parameter Name="partner_country" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_first_name" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_last_name" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_title" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_phone_number" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_email_address" Mode="In" Type="String" />
-            <Parameter Name="ro_first_name" Mode="In" Type="String" />
-            <Parameter Name="ro_last_name" Mode="In" Type="String" />
-            <Parameter Name="ro_email" Mode="In" Type="String" />
-            <Parameter Name="date_loaded" Mode="In" Type="DateTime" />
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-            <Parameter Name="partnertype" Mode="In" Type="Int32" />
-            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
-            <Parameter Name="person" Mode="In" Type="Int32" />
-            <Parameter Name="partnerSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
-            <Parameter Name="loadGroup" Mode="In" Type="String" />
-            <Parameter Name="dueDate" Mode="In" Type="DateTime" />
-            <Parameter Name="group" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_getEventNotificationByLoadGroup" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByLoadGroup_Result)">
           <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
@@ -13989,62 +13889,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="oldPTQ" Mode="In" Type="Int32" />
             <Parameter Name="newPTQ" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_addPartnerSpreadsheetDataLoadOLD" ReturnType="Collection(Int32)">
-            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
-            <Parameter Name="partner_sap_id" Mode="In" Type="String" />
-            <Parameter Name="partner_name" Mode="In" Type="String" />
-            <Parameter Name="partner_address_one" Mode="In" Type="String" />
-            <Parameter Name="partner_address_two" Mode="In" Type="String" />
-            <Parameter Name="partner_city" Mode="In" Type="String" />
-            <Parameter Name="partner_state" Mode="In" Type="String" />
-            <Parameter Name="partner_zipcode" Mode="In" Type="String" />
-            <Parameter Name="partner_country" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_first_name" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_last_name" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_title" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_phone_number" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_email_address" Mode="In" Type="String" />
-            <Parameter Name="ro_first_name" Mode="In" Type="String" />
-            <Parameter Name="ro_last_name" Mode="In" Type="String" />
-            <Parameter Name="ro_email" Mode="In" Type="String" />
-            <Parameter Name="date_loaded" Mode="In" Type="DateTime" />
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-            <Parameter Name="partnertype" Mode="In" Type="Int32" />
-            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
-            <Parameter Name="person" Mode="In" Type="Int32" />
-            <Parameter Name="partnerSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
-            <Parameter Name="loadGroup" Mode="In" Type="String" />
-            <Parameter Name="dueDate" Mode="In" Type="DateTime" />
-            <Parameter Name="group" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_addPartnerSpreadsheetDataLoadqq" ReturnType="Collection(Int32)">
-            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
-            <Parameter Name="partner_sap_id" Mode="In" Type="String" />
-            <Parameter Name="partner_name" Mode="In" Type="String" />
-            <Parameter Name="partner_address_one" Mode="In" Type="String" />
-            <Parameter Name="partner_address_two" Mode="In" Type="String" />
-            <Parameter Name="partner_city" Mode="In" Type="String" />
-            <Parameter Name="partner_state" Mode="In" Type="String" />
-            <Parameter Name="partner_zipcode" Mode="In" Type="String" />
-            <Parameter Name="partner_country" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_first_name" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_last_name" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_title" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_phone_number" Mode="In" Type="String" />
-            <Parameter Name="partner_poc_email_address" Mode="In" Type="String" />
-            <Parameter Name="ro_first_name" Mode="In" Type="String" />
-            <Parameter Name="ro_last_name" Mode="In" Type="String" />
-            <Parameter Name="ro_email" Mode="In" Type="String" />
-            <Parameter Name="date_loaded" Mode="In" Type="DateTime" />
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-            <Parameter Name="partnertype" Mode="In" Type="Int32" />
-            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
-            <Parameter Name="person" Mode="In" Type="Int32" />
-            <Parameter Name="partnerSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
-            <Parameter Name="loadGroup" Mode="In" Type="String" />
-            <Parameter Name="dueDate" Mode="In" Type="DateTime" />
-            <Parameter Name="group" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_addPartnumberDetail" ReturnType="Collection(Int32)">
             <Parameter Name="partnumber" Mode="In" Type="Int32" />
             <Parameter Name="description" Mode="In" Type="String" />
@@ -14583,6 +14427,51 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="pptq" Mode="In" Type="Int32" />
             <Parameter Name="zcode" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="partnerSpreadsheetDataLoads" EntityType="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad" />
+          <AssociationSet Name="FK__partner__enter__7B863AD4" Association="hs3MVCMTQa2Model.FK__partner__enter__7B863AD4">
+            <End Role="enterprise" EntitySet="enterprise" />
+            <End Role="partnerSpreadsheetDataLoad" EntitySet="partnerSpreadsheetDataLoads" />
+          </AssociationSet>
+          <AssociationSet Name="FK__partner__partn__7C7A5F0D" Association="hs3MVCMTQa2Model.FK__partner__partn__7C7A5F0D">
+            <End Role="partnerType" EntitySet="partnerType" />
+            <End Role="partnerSpreadsheetDataLoad" EntitySet="partnerSpreadsheetDataLoads" />
+          </AssociationSet>
+          <AssociationSet Name="FK__partner__perso__7E62A77F" Association="hs3MVCMTQa2Model.FK__partner__perso__7E62A77F">
+            <End Role="person" EntitySet="person" />
+            <End Role="partnerSpreadsheetDataLoad" EntitySet="partnerSpreadsheetDataLoads" />
+          </AssociationSet>
+          <AssociationSet Name="FK__partner__touch__7D6E8346" Association="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346">
+            <End Role="touchpoint" EntitySet="touchpoint" />
+            <End Role="partnerSpreadsheetDataLoad" EntitySet="partnerSpreadsheetDataLoads" />
+          </AssociationSet>
+          <FunctionImport Name="pr_addPartnerSpreadsheetDataLoad" ReturnType="Collection(Decimal)">
+            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
+            <Parameter Name="partner_sap_id" Mode="In" Type="String" />
+            <Parameter Name="partner_duns_number" Mode="In" Type="String" />
+            <Parameter Name="partner_name" Mode="In" Type="String" />
+            <Parameter Name="partner_address_one" Mode="In" Type="String" />
+            <Parameter Name="partner_address_two" Mode="In" Type="String" />
+            <Parameter Name="partner_city" Mode="In" Type="String" />
+            <Parameter Name="partner_state" Mode="In" Type="String" />
+            <Parameter Name="partner_zipcode" Mode="In" Type="String" />
+            <Parameter Name="partner_country" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_first_name" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_last_name" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_title" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_phone_number" Mode="In" Type="String" />
+            <Parameter Name="partner_poc_email_address" Mode="In" Type="String" />
+            <Parameter Name="ro_first_name" Mode="In" Type="String" />
+            <Parameter Name="ro_last_name" Mode="In" Type="String" />
+            <Parameter Name="ro_email" Mode="In" Type="String" />
+            <Parameter Name="date_loaded" Mode="In" Type="DateTime" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="PartnerSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
+            <Parameter Name="loadGroup" Mode="In" Type="String" />
+            <Parameter Name="dueDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
           
         </EntityContainer>
         <EntityType Name="accessLevel">
@@ -14750,9 +14639,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="subscriptionStatus" Type="Int32" />
           <Property Name="chargifyID" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
           <Property Type="Int32" Name="multiTenantProjectType" />
-          <NavigationProperty Name="partnerSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partner__enter__7B863AD4" FromRole="enterprise" ToRole="partnerSpreadsheetDataLoad" />
           <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__enter__7B863AD4" FromRole="enterprise" ToRole="partnumberSpreadsheetDataLoad" />
           <NavigationProperty Name="enterpriseContactUs" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_enterprise" FromRole="enterprise" ToRole="enterpriseContactUs" />
+          <NavigationProperty Name="partnerSpreadsheetDataLoads" Relationship="hs3MVCMTQa2Model.FK__partner__enter__7B863AD4" FromRole="enterprise" ToRole="partnerSpreadsheetDataLoad" />
         </EntityType>
         <EntityType Name="enterpriseObjectName">
           <Key>
@@ -15383,9 +15272,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_partnerType_enterprise" FromRole="partnerType" ToRole="enterprise" />
           <NavigationProperty Name="partnerClass1" Relationship="hs3MVCMTQa2Model.FK_partnerType_partnerClass" FromRole="partnerType" ToRole="partnerClass" />
           <NavigationProperty Name="partnerTypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType" FromRole="partnerType" ToRole="partnerTypeTouchpointQuestionnaire" />
-          <NavigationProperty Name="partnerSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partner__partn__7C7A5F0D" FromRole="partnerType" ToRole="partnerSpreadsheetDataLoad" />
           <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__partn__7C7A5F0D" FromRole="partnerType" ToRole="partnumberSpreadsheetDataLoad" />
           <NavigationProperty Name="enterpriseContactUs" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_partnerType" FromRole="partnerType" ToRole="enterpriseContactUs" />
+          <NavigationProperty Name="partnerSpreadsheetDataLoads" Relationship="hs3MVCMTQa2Model.FK__partner__partn__7C7A5F0D" FromRole="partnerType" ToRole="partnerSpreadsheetDataLoad" />
         </EntityType>
         <EntityType Name="partnerTypeGroupGoal">
           <Key>
@@ -15466,9 +15355,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <NavigationProperty Name="partner" Relationship="hs3MVCMTQa2Model.partnerRelationshipOwner" FromRole="person" ToRole="partner" />
           <NavigationProperty Name="group1" Relationship="hs3MVCMTQa2Model.personGroup" FromRole="person" ToRole="group" />
           <NavigationProperty Name="role" Relationship="hs3MVCMTQa2Model.personRole" FromRole="person" ToRole="role" />
-          <NavigationProperty Name="partnerSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partner__perso__7E62A77F" FromRole="person" ToRole="partnerSpreadsheetDataLoad" />
           <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__perso__7E62A77F" FromRole="person" ToRole="partnumberSpreadsheetDataLoad" />
           <NavigationProperty Name="personLinkedinAuthInfo" Relationship="hs3MVCMTQa2Model.FK_personLinkedinAuthInfo_person" FromRole="person" ToRole="personLinkedinAuthInfo" />
+          <NavigationProperty Name="partnerSpreadsheetDataLoads" Relationship="hs3MVCMTQa2Model.FK__partner__perso__7E62A77F" FromRole="person" ToRole="partnerSpreadsheetDataLoad" />
           
         </EntityType>
         <EntityType Name="personLoginAudit">
@@ -15884,12 +15773,12 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <NavigationProperty Name="touchpointQuestionResponseValue_deprecated" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionResponseValue_touchpoint" FromRole="touchpoint" ToRole="touchpointQuestionResponseValue_deprecated" />
           <NavigationProperty Name="touchpointQuestionWeight_deprecated" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionWeight_touchpoint" FromRole="touchpoint" ToRole="touchpointQuestionWeight_deprecated" />
           <NavigationProperty Name="questionnaire" Relationship="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" FromRole="touchpoint" ToRole="questionnaire" />
-          <NavigationProperty Name="partnerSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346" FromRole="touchpoint" ToRole="partnerSpreadsheetDataLoad" />
           <Property Type="String" Name="purpose" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="target" />
           <NavigationProperty Name="touchpointTarget" Relationship="hs3MVCMTQa2Model.FK_touchpoint_touchpointTarget" FromRole="touchpoint" ToRole="touchpointTarget" />
           <NavigationProperty Name="partnumberSpreadsheetDataLoad" Relationship="hs3MVCMTQa2Model.FK__partnumbe__touch__7D6E8346" FromRole="touchpoint" ToRole="partnumberSpreadsheetDataLoad" />
           <NavigationProperty Name="enterpriseContactUs" Relationship="hs3MVCMTQa2Model.FK_enterpriseContactUs_touchpoint" FromRole="touchpoint" ToRole="enterpriseContactUs" />
+          <NavigationProperty Name="partnerSpreadsheetDataLoads" Relationship="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346" FromRole="touchpoint" ToRole="partnerSpreadsheetDataLoad" />
         </EntityType>
         <EntityType Name="touchpointGroup">
           <Key>
@@ -20259,89 +20148,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
-        <EntityType Name="partnerSpreadsheetDataLoad">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="partner_internal_id" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="partner_sap_id" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="partner_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="partner_address_one" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="partner_address_two" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="partner_city" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="partner_state" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="partner_zipcode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="partner_country" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="partner_poc_first_name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="partner_poc_last_name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="partner_poc_title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="partner_poc_phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="partner_poc_email_address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ro_first_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ro_last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ro_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="date_loaded" Type="DateTime" Precision="3" />
-          <Property Name="enterprise" Type="Int32" Nullable="false" />
-          <Property Name="partnertype" Type="Int32" Nullable="false" />
-          <Property Name="touchpoint" Type="Int32" Nullable="false" />
-          <Property Name="person" Type="Int32" Nullable="false" />
-          <Property Name="partnerSpreadsheetDataLoadStatus" Type="Int32" />
-          <Property Name="loadGroup" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK__partner__enter__7B863AD4" FromRole="partnerSpreadsheetDataLoad" ToRole="enterprise" />
-          <NavigationProperty Name="partnerType1" Relationship="hs3MVCMTQa2Model.FK__partner__partn__7C7A5F0D" FromRole="partnerSpreadsheetDataLoad" ToRole="partnerType" />
-          <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK__partner__perso__7E62A77F" FromRole="partnerSpreadsheetDataLoad" ToRole="person" />
-          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346" FromRole="partnerSpreadsheetDataLoad" ToRole="touchpoint" />
-          <Property Type="DateTime" Name="dueDate" Precision="0" />
-        </EntityType>
-        <Association Name="FK__partner__enter__7B863AD4">
-          <End Type="hs3MVCMTQa2Model.enterprise" Role="enterprise" Multiplicity="1" />
-          <End Type="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad" Role="partnerSpreadsheetDataLoad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="enterprise">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnerSpreadsheetDataLoad">
-              <PropertyRef Name="enterprise" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__partner__partn__7C7A5F0D">
-          <End Type="hs3MVCMTQa2Model.partnerType" Role="partnerType" Multiplicity="1" />
-          <End Type="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad" Role="partnerSpreadsheetDataLoad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="partnerType">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnerSpreadsheetDataLoad">
-              <PropertyRef Name="partnertype" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__partner__perso__7E62A77F">
-          <End Type="hs3MVCMTQa2Model.person" Role="person" Multiplicity="1" />
-          <End Type="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad" Role="partnerSpreadsheetDataLoad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="person">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnerSpreadsheetDataLoad">
-              <PropertyRef Name="person" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__partner__touch__7D6E8346">
-          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
-          <End Type="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad" Role="partnerSpreadsheetDataLoad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="touchpoint">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnerSpreadsheetDataLoad">
-              <PropertyRef Name="touchpoint" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="pr_getEventNotificationByLoadGroup_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
@@ -23244,6 +23050,90 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="next" Nullable="false" />
           <Property Type="String" Name="nextstep" Nullable="false" MaxLength="37" />
         </ComplexType>
+        <EntityType Name="partnerSpreadsheetDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="partner_internal_id" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="partner_sap_id" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="partner_duns_number" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="partner_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="partner_address_one" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="partner_address_two" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="partner_city" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="partner_state" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="partner_zipcode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="partner_country" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="partner_poc_first_name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="partner_poc_last_name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="partner_poc_title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="partner_poc_phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="partner_poc_email_address" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ro_first_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ro_last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ro_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="date_loaded" Type="DateTime" Precision="3" />
+          <Property Name="enterprise" Type="Int32" Nullable="false" />
+          <Property Name="partnertype" Type="Int32" Nullable="false" />
+          <Property Name="touchpoint" Type="Int32" Nullable="false" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="partnerSpreadsheetDataLoadStatus" Type="Int32" />
+          <Property Name="loadGroup" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="dueDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK__partner__enter__7B863AD4" FromRole="partnerSpreadsheetDataLoad" ToRole="enterprise" />
+          <NavigationProperty Name="partnerType1" Relationship="hs3MVCMTQa2Model.FK__partner__partn__7C7A5F0D" FromRole="partnerSpreadsheetDataLoad" ToRole="partnerType" />
+          <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK__partner__perso__7E62A77F" FromRole="partnerSpreadsheetDataLoad" ToRole="person" />
+          <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346" FromRole="partnerSpreadsheetDataLoad" ToRole="touchpoint" />
+        </EntityType>
+        <Association Name="FK__partner__enter__7B863AD4">
+          <End Type="hs3MVCMTQa2Model.enterprise" Role="enterprise" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad" Role="partnerSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enterprise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerSpreadsheetDataLoad">
+              <PropertyRef Name="enterprise" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__partner__partn__7C7A5F0D">
+          <End Type="hs3MVCMTQa2Model.partnerType" Role="partnerType" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad" Role="partnerSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partnerType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerSpreadsheetDataLoad">
+              <PropertyRef Name="partnertype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__partner__perso__7E62A77F">
+          <End Type="hs3MVCMTQa2Model.person" Role="person" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad" Role="partnerSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerSpreadsheetDataLoad">
+              <PropertyRef Name="person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__partner__touch__7D6E8346">
+          <End Type="hs3MVCMTQa2Model.touchpoint" Role="touchpoint" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad" Role="partnerSpreadsheetDataLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="touchpoint">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerSpreadsheetDataLoad">
+              <PropertyRef Name="touchpoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         
       </Schema>
     </edmx:ConceptualModels>
@@ -27677,39 +27567,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_removeMultiTenantProjectType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeMultiTenantProjectType" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveEnterprise1" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveEnterprise" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveMultiTenantProjectType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveMultiTenantProjectType" />
-          <EntitySetMapping Name="partnerSpreadsheetDataLoad">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad">
-              <MappingFragment StoreEntitySet="partnerSpreadsheetDataLoad">
-                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
-                <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
-                <ScalarProperty Name="partnerSpreadsheetDataLoadStatus" ColumnName="partnerSpreadsheetDataLoadStatus" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
-                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="date_loaded" ColumnName="date_loaded" />
-                <ScalarProperty Name="ro_email" ColumnName="ro_email" />
-                <ScalarProperty Name="ro_last_name" ColumnName="ro_last_name" />
-                <ScalarProperty Name="ro_first_name" ColumnName="ro_first_name" />
-                <ScalarProperty Name="partner_poc_email_address" ColumnName="partner_poc_email_address" />
-                <ScalarProperty Name="partner_poc_phone_number" ColumnName="partner_poc_phone_number" />
-                <ScalarProperty Name="partner_poc_title" ColumnName="partner_poc_title" />
-                <ScalarProperty Name="partner_poc_last_name" ColumnName="partner_poc_last_name" />
-                <ScalarProperty Name="partner_poc_first_name" ColumnName="partner_poc_first_name" />
-                <ScalarProperty Name="partner_country" ColumnName="partner_country" />
-                <ScalarProperty Name="partner_zipcode" ColumnName="partner_zipcode" />
-                <ScalarProperty Name="partner_state" ColumnName="partner_state" />
-                <ScalarProperty Name="partner_city" ColumnName="partner_city" />
-                <ScalarProperty Name="partner_address_two" ColumnName="partner_address_two" />
-                <ScalarProperty Name="partner_address_one" ColumnName="partner_address_one" />
-                <ScalarProperty Name="partner_name" ColumnName="partner_name" />
-                <ScalarProperty Name="partner_sap_id" ColumnName="partner_sap_id" />
-                <ScalarProperty Name="partner_internal_id" ColumnName="partner_internal_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_addPartnerSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerSpreadsheetDataLoad" />
           <FunctionImportMapping FunctionImportName="pr_getEventNotificationByLoadGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationByLoadGroup">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationByLoadGroup_Result">
@@ -29805,8 +29662,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_replacePTQforPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_replacePTQforPPTQ">
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_addPartnerSpreadsheetDataLoadOLD" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerSpreadsheetDataLoadOLD" />
-          <FunctionImportMapping FunctionImportName="pr_addPartnerSpreadsheetDataLoadqq" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerSpreadsheetDataLoadqq" />
           <FunctionImportMapping FunctionImportName="pr_addPartnumberDetail" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberDetail" />
           <FunctionImportMapping FunctionImportName="pr_addPartnumberSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnumberSpreadsheetDataLoad" />
           <FunctionImportMapping FunctionImportName="pr_getPartnumberDetail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberDetail">
@@ -30711,6 +30566,40 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="partnerSpreadsheetDataLoads">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerSpreadsheetDataLoad">
+              <MappingFragment StoreEntitySet="partnerSpreadsheetDataLoad">
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
+                <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
+                <ScalarProperty Name="partnerSpreadsheetDataLoadStatus" ColumnName="partnerSpreadsheetDataLoadStatus" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="date_loaded" ColumnName="date_loaded" />
+                <ScalarProperty Name="ro_email" ColumnName="ro_email" />
+                <ScalarProperty Name="ro_last_name" ColumnName="ro_last_name" />
+                <ScalarProperty Name="ro_first_name" ColumnName="ro_first_name" />
+                <ScalarProperty Name="partner_poc_email_address" ColumnName="partner_poc_email_address" />
+                <ScalarProperty Name="partner_poc_phone_number" ColumnName="partner_poc_phone_number" />
+                <ScalarProperty Name="partner_poc_title" ColumnName="partner_poc_title" />
+                <ScalarProperty Name="partner_poc_last_name" ColumnName="partner_poc_last_name" />
+                <ScalarProperty Name="partner_poc_first_name" ColumnName="partner_poc_first_name" />
+                <ScalarProperty Name="partner_country" ColumnName="partner_country" />
+                <ScalarProperty Name="partner_zipcode" ColumnName="partner_zipcode" />
+                <ScalarProperty Name="partner_state" ColumnName="partner_state" />
+                <ScalarProperty Name="partner_city" ColumnName="partner_city" />
+                <ScalarProperty Name="partner_address_two" ColumnName="partner_address_two" />
+                <ScalarProperty Name="partner_address_one" ColumnName="partner_address_one" />
+                <ScalarProperty Name="partner_name" ColumnName="partner_name" />
+                <ScalarProperty Name="partner_duns_number" ColumnName="partner_duns_number" />
+                <ScalarProperty Name="partner_sap_id" ColumnName="partner_sap_id" />
+                <ScalarProperty Name="partner_internal_id" ColumnName="partner_internal_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPartnerSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerSpreadsheetDataLoad" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

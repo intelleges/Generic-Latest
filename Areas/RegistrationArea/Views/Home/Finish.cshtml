@@ -182,7 +182,7 @@
                                         <input type="button" name="btnNext" id="btnNext"
 	                                       value="@ViewBag.CMS_PAGE_NEXT_TEXT"
 	                                       onclick="redirect('@link    ')"
-	                                       style="border-width:0px;" />
+	                                       style="border-width:0;" />
                                     </td>
                                 </tr>
                             </tbody>
@@ -198,3 +198,11 @@
         <td></td>
     </tr>
 </table>
+@if(Session["IncorrectZipCode"]!=null)
+{
+    <script>
+        $(document).ready(function () {
+            alertify.alert("@Session["IncorrectZipCode"].ToString()");
+        });
+    </script>
+}

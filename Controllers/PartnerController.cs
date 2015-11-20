@@ -390,7 +390,8 @@ namespace Generic.Controllers
             GenerateCreateDropDownLists();
             try
             {
-                int? PartnerId = db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, partner.state.ToString(), partner.zipcode, partner.country.ToString(), partner.firstName, partner.lastName, partner.title, partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
+
+                int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, "", partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, partner.state.ToString(), partner.zipcode, partner.country.ToString(), partner.firstName, partner.lastName, partner.title, partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate).ToList().FirstOrDefault();
                 uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
                 Session["uploadedpartnerList"] = uploadedpartners;
                 Session["partnertype"] = partnertype;
@@ -689,9 +690,10 @@ namespace Generic.Controllers
                         {
                             var _person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
                             var _enterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
-                            int? PartnerId = context.pr_addPartnerSpreadsheetDataLoad(
+                            int? PartnerId =(int) context.pr_addPartnerSpreadsheetDataLoad(
                                 partners.internalID,
                                 partners.PARTNER_SAP_ID,
+                                partners.dunsNumber,
                                 partners.name,
                                 partners.address1 != null ? partners.address1.Length > 20 ? partners.address1.Substring(0, 20) : partners.address1 : null,
                                 partners.address2 != null ? partners.address2.Length > 20 ? partners.address2.Substring(0, 20) : partners.address2 : null,
@@ -714,8 +716,8 @@ namespace Generic.Controllers
                                 _person,
                                 null,
                                 loadGroup,
-                                partners.DUE_DATE,
-                                group).ToList().FirstOrDefault();
+                                partners.DUE_DATE
+                               ).ToList().FirstOrDefault();
                             uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
                         }
                         catch
@@ -1614,6 +1616,7 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult FindPartner(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode, string searchType)
         {
+            db.xx_removePDFFrom5346();
             //dbo.pr_dynamicFilters 'partner', ' Campaign=1009; Group=20;Country=2; Type=4'
             //var objPartners = db.pr_dynamicFiltersPartner("view_PartnerData", "name=well;enterprise=3");
 
@@ -3602,7 +3605,7 @@ namespace Generic.Controllers
                     var partner = new partner();
                     partner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
                     //TODO: STATE from string to INT, also country
-                    db.pr_addPartnerSpreadsheetDataLoad(iPartner.internalID, iPartner.dunsnumber, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, "", iPartner.zipcode, "", iPerson.firstname, iPerson.lastname, iPerson.title, iPerson.phone, iPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, currentUser.campaign, currentUser.id, (int)PartnerStatus.Loaded, loadGroup, DateTime.Now.AddDays(4), group).ToList().FirstOrDefault();
+                    db.pr_addPartnerSpreadsheetDataLoad(iPartner.internalID,"", iPartner.dunsnumber, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, "", iPartner.zipcode, "", iPerson.firstname, iPerson.lastname, iPerson.title, iPerson.phone, iPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, currentUser.campaign, currentUser.id, (int)PartnerStatus.Loaded, loadGroup, DateTime.Now.AddDays(4)).ToList().FirstOrDefault();
                     var dbPartner = db.pr_getPartnerByEmailAndInternalID(CurrentInstance.EnterpriseID, iPerson.email, iPartner.internalID).FirstOrDefault();
                     var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, currentUser.campaign).FirstOrDefault();
 
@@ -3767,7 +3770,9 @@ namespace Generic.Controllers
                  if (iPartner != null)
                  {
                      var loadGroup = db.pr_getAccesscode().FirstOrDefault();
-                     int? PartnerId = db.pr_addPartnerSpreadsheetDataLoad(iPartner.internalID, iPartner.dunsnumber, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, "1", iPartner.zipcode, "1", iPerson.firstname, iPerson.lastname, iPerson.title, iPerson.phone, iPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, 1, 3111, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DateTime.Now.AddDays(2), 1).ToList().FirstOrDefault();
+                     int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(iPartner.internalID,"", iPartner.dunsnumber, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, "1", iPartner.zipcode, "1", iPerson.firstname, iPerson.lastname, iPerson.title, iPerson.phone, iPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, 1, 3111, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DateTime.Now.AddDays(2)).ToList().FirstOrDefault();
+
+ 
                      var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(1, 3111).FirstOrDefault();
                      var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault();
                      if (pptq!=null)
