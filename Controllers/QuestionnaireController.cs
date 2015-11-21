@@ -464,8 +464,9 @@ namespace Generic.Controllers
 
             var _partnerId = db.pr_addPartnerSpreadsheetDataLoad(_internalID,_internalID,"",_currentPerson.firstName+ "_" + _currentPerson.lastName,_currentPerson.address1,_currentPerson.address2,_currentPerson.city, _currentPerson.state.ToString(), _currentPerson.zipcode, 
                     _currentPerson.country.ToString(), _currentPerson.firstName, _currentPerson.lastName, _currentPerson.title, _currentPerson.phone,
-                    _currentPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, _partnertypeTouchpoint.partnerType, 
-                    _partnertypeTouchpoint.touchpoint, _currentPerson.id, _partnerSpreadsheetDataLoadStatus, _loadGroup, _dueDate).ToList().FirstOrDefault();
+                    _currentPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, _partnertypeTouchpoint.partnerType,
+                    _partnertypeTouchpoint.touchpoint, _currentPerson.id, _partnerSpreadsheetDataLoadStatus, _loadGroup, _dueDate, _group.id).ToList().FirstOrDefault();
+
             var _partners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(_loadGroup).ToList();
             var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(_partnertypeTouchpoint.partnerType, _partnertypeTouchpoint.touchpoint).LastOrDefault().id;
             

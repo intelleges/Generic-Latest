@@ -4647,9 +4647,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="partnertype" Type="int" Mode="In" />
           <Parameter Name="touchpoint" Type="int" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
-          <Parameter Name="PartnerSpreadsheetDataLoadStatus" Type="int" Mode="In" />
+          <Parameter Name="partnerSpreadsheetDataLoadStatus" Type="int" Mode="In" />
           <Parameter Name="loadGroup" Type="varchar" Mode="In" />
           <Parameter Name="dueDate" Type="datetime" Mode="In" />
+          <Parameter Name="group" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addPartnerType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="name" Type="varchar" Mode="In" />
@@ -14444,7 +14445,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="partnerSpreadsheetDataLoad" EntitySet="partnerSpreadsheetDataLoads" />
           </AssociationSet>
-          <FunctionImport Name="pr_addPartnerSpreadsheetDataLoad" ReturnType="Collection(Decimal)">
+          <FunctionImport Name="pr_addPartnerSpreadsheetDataLoad" ReturnType="Collection(Int32)">
             <Parameter Name="partner_internal_id" Mode="In" Type="String" />
             <Parameter Name="partner_sap_id" Mode="In" Type="String" />
             <Parameter Name="partner_duns_number" Mode="In" Type="String" />
@@ -14468,9 +14469,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="partnertype" Mode="In" Type="Int32" />
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
             <Parameter Name="person" Mode="In" Type="Int32" />
-            <Parameter Name="PartnerSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
+            <Parameter Name="partnerSpreadsheetDataLoadStatus" Mode="In" Type="Int32" />
             <Parameter Name="loadGroup" Mode="In" Type="String" />
             <Parameter Name="dueDate" Mode="In" Type="DateTime" />
+            <Parameter Name="group" Mode="In" Type="Int32" />
           </FunctionImport>
           
         </EntityContainer>
