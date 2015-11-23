@@ -208,10 +208,10 @@
 </table>
 <script>
     $(document).ready(function () {
-        $(document).on("click", "#btnCancel", null, function () {
+        $(document).on("click", "#btnExit", null, function () {
             window.history.back();
         });
-        $(document).on("click", "#btnExit", null, function () {
+        $(document).on("click", "#btnCancelbtnExit", null, function () {
             if ("@ViewBag.ENTERPRISE_URL") {
                 window.location.href = "http://@ViewBag.ENTERPRISE_URL";
                 //window.location.host = ;
