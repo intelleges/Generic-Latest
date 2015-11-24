@@ -93,7 +93,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         public virtual ActionResult SaveForLaterConfirm()
         {
-            ViewBag.accesscode = Session["accessCode"];
+             ViewBag.accesscode = Session["accessCode"];
 
             ViewBag.CMS_TITLE = CMS.ACCESS_CODE_TITLE;
             ViewBag.CMS_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;

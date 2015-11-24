@@ -1127,12 +1127,12 @@ namespace Generic.DataLayer
 
                     
                     txtbox = new TextBox();
-                    if (pptqResponse!=null&&pptqResponse.response1 != null && checkCOde.IsMatch(incldComment))
+                    if (checkCOde.IsMatch(incldComment))
                     {
 divn.Attributes["data-code"]=checkCOde.Match(incldComment).Value;
 incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     }
-                    if (pptqResponse != null && pptqResponse.response == 75 || divn.Attributes["data-code"] != null && divn.Attributes["data-code"].Replace("(", "").Replace(")", "") == pptqResponse.response1.zcode)
+                    if (pptqResponse != null && pptqResponse.response == 75 || pptqResponse != null && pptqResponse.response1 != null && divn.Attributes["data-code"] != null && divn.Attributes["data-code"].Replace("(", "").Replace(")", "") == pptqResponse.response1.zcode)
                     {
                         txtbox.Text = pptqResponse.comment;
 
