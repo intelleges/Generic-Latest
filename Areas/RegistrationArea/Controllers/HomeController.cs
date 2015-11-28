@@ -850,6 +850,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     if (cms_questionnare_doc != null)
                         ViewBag.QUESTIONNAIRE_DOC_OTHER = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
 
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER_2).id;
+                    var cms_questionnare_doc_2 = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER_2).id);
+                    if (cms_questionnare_doc_2 != null)
+                        ViewBag.QUESTIONNAIRE_DOC_OTHER_2 = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+
                     cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_VIDEO).id;
                     var cms_Questionnare_video = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_VIDEO).id);
                     if (cms_Questionnare_video != null)
