@@ -316,7 +316,7 @@
         }
 
         function CloseManualAddModalWithAlert(alert) {
-            // jQuery.noConflict();
+            jQuery.noConflict(); // Sergeys change: uncommented this line
             $("#popup").dialog('close');
             alertify.alert(alert);
         }
