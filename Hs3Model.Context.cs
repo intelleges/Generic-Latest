@@ -126,8 +126,6 @@ namespace Generic
         public virtual DbSet<partnumber> partnumber { get; set; }
         public virtual DbSet<questionnaireLevelType> questionnaireLevelType { get; set; }
         public virtual DbSet<site> site { get; set; }
-        public virtual DbSet<questionnaireCMS> questionnaireCMS { get; set; }
-        public virtual DbSet<questionnaireQuestionnaireCMS> questionnaireQuestionnaireCMS { get; set; }
         public virtual DbSet<partNumberSiteZcodePPTQ> partNumberSiteZcodePPTQSet { get; set; }
         public virtual DbSet<partnumberStatus> partnumberStatus { get; set; }
         public virtual DbSet<response> response { get; set; }
@@ -199,6 +197,8 @@ namespace Generic
         public virtual DbSet<invalidZcode> invalidZcodes { get; set; }
         public virtual DbSet<zCodeCheckActionType> zCodeCheckActionTypes { get; set; }
         public virtual DbSet<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoads { get; set; }
+        public virtual DbSet<questionnaireCMS> questionnaireCMS { get; set; }
+        public virtual DbSet<questionnaireQuestionnaireCMS> questionnaireQuestionnaireCMS { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -9345,31 +9345,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireCMS", descriptionParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual int pr_addQuestionnaireQuestionnaireCMS(Nullable<int> questionnaire, Nullable<int> questionnaireCMS, string text, string link, byte[] doc)
-        {
-            var questionnaireParameter = questionnaire.HasValue ?
-                new ObjectParameter("questionnaire", questionnaire) :
-                new ObjectParameter("questionnaire", typeof(int));
-    
-            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
-                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
-                new ObjectParameter("questionnaireCMS", typeof(int));
-    
-            var textParameter = text != null ?
-                new ObjectParameter("text", text) :
-                new ObjectParameter("text", typeof(string));
-    
-            var linkParameter = link != null ?
-                new ObjectParameter("link", link) :
-                new ObjectParameter("link", typeof(string));
-    
-            var docParameter = doc != null ?
-                new ObjectParameter("doc", doc) :
-                new ObjectParameter("doc", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addQuestionnaireQuestionnaireCMS", questionnaireParameter, questionnaireCMSParameter, textParameter, linkParameter, docParameter);
-        }
-    
         public virtual int pr_archiveQuestionnaireCMS(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -9393,50 +9368,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireCMSAll_Result>("pr_getQuestionnaireCMSAll");
         }
     
-        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMS(Nullable<int> questionnaire, Nullable<int> questionnaireCMS)
-        {
-            var questionnaireParameter = questionnaire.HasValue ?
-                new ObjectParameter("questionnaire", questionnaire) :
-                new ObjectParameter("questionnaire", typeof(int));
-    
-            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
-                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
-                new ObjectParameter("questionnaireCMS", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMS", questionnaireParameter, questionnaireCMSParameter);
-        }
-    
-        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMS(Nullable<int> questionnaire, Nullable<int> questionnaireCMS, MergeOption mergeOption)
-        {
-            var questionnaireParameter = questionnaire.HasValue ?
-                new ObjectParameter("questionnaire", questionnaire) :
-                new ObjectParameter("questionnaire", typeof(int));
-    
-            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
-                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
-                new ObjectParameter("questionnaireCMS", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMS", mergeOption, questionnaireParameter, questionnaireCMSParameter);
-        }
-    
-        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(Nullable<int> questionnaire)
-        {
-            var questionnaireParameter = questionnaire.HasValue ?
-                new ObjectParameter("questionnaire", questionnaire) :
-                new ObjectParameter("questionnaire", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire", questionnaireParameter);
-        }
-    
-        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(Nullable<int> questionnaire, MergeOption mergeOption)
-        {
-            var questionnaireParameter = questionnaire.HasValue ?
-                new ObjectParameter("questionnaire", questionnaire) :
-                new ObjectParameter("questionnaire", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire", mergeOption, questionnaireParameter);
-        }
-    
         public virtual int pr_modifyQuestionnaireCMS(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
@@ -9458,31 +9389,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireCMS", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual int pr_modifyQuestionnaireQuestionnaireCMS(Nullable<int> questionnaire, Nullable<int> questionnaireCMS, string text, string link, byte[] doc)
-        {
-            var questionnaireParameter = questionnaire.HasValue ?
-                new ObjectParameter("questionnaire", questionnaire) :
-                new ObjectParameter("questionnaire", typeof(int));
-    
-            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
-                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
-                new ObjectParameter("questionnaireCMS", typeof(int));
-    
-            var textParameter = text != null ?
-                new ObjectParameter("text", text) :
-                new ObjectParameter("text", typeof(string));
-    
-            var linkParameter = link != null ?
-                new ObjectParameter("link", link) :
-                new ObjectParameter("link", typeof(string));
-    
-            var docParameter = doc != null ?
-                new ObjectParameter("doc", doc) :
-                new ObjectParameter("doc", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireQuestionnaireCMS", questionnaireParameter, questionnaireCMSParameter, textParameter, linkParameter, docParameter);
-        }
-    
         public virtual int pr_removeQuestionnaireCMS(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -9490,19 +9396,6 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaireCMS", idParameter);
-        }
-    
-        public virtual int pr_removeQuestionnaireQuestionnaireCMS(Nullable<int> questionnaire, Nullable<int> questionnaireCMS)
-        {
-            var questionnaireParameter = questionnaire.HasValue ?
-                new ObjectParameter("questionnaire", questionnaire) :
-                new ObjectParameter("questionnaire", typeof(int));
-    
-            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
-                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
-                new ObjectParameter("questionnaireCMS", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaireQuestionnaireCMS", questionnaireParameter, questionnaireCMSParameter);
         }
     
         public virtual int pr_unArchiveQuestionnaireCMS(Nullable<int> id)
@@ -9815,24 +9708,6 @@ namespace Generic
                 new ObjectParameter("partnumberSiteZcodePPTQ", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireByPartnumberSiteZcodePPTQ_Result>("pr_getQuestionnaireByPartnumberSiteZcodePPTQ", partnumberSiteZcodePPTQParameter);
-        }
-    
-        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(Nullable<int> questionnaire)
-        {
-            var questionnaireParameter = questionnaire.HasValue ?
-                new ObjectParameter("questionnaire", questionnaire) :
-                new ObjectParameter("questionnaire", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMSByQuestionnaire", questionnaireParameter);
-        }
-    
-        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(Nullable<int> questionnaire, MergeOption mergeOption)
-        {
-            var questionnaireParameter = questionnaire.HasValue ?
-                new ObjectParameter("questionnaire", questionnaire) :
-                new ObjectParameter("questionnaire", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMSByQuestionnaire", mergeOption, questionnaireParameter);
         }
     
         public virtual ObjectResult<xx_getQuestionnaire_Result> xx_getQuestionnaire(Nullable<int> questionnaire)
@@ -11681,19 +11556,6 @@ namespace Generic
                 new ObjectParameter("partnertypetouchpointquestionnaireNew", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAutoMailMessageOldToNew", partnertypetouchpointquestionnaireOldParameter, partnertypetouchpointquestionnaireNewParameter);
-        }
-    
-        public virtual int pr_modifyQuestionnaireQuestionnaireCMSOldToNew(Nullable<int> questionnaireOld, Nullable<int> questionnaireNew)
-        {
-            var questionnaireOldParameter = questionnaireOld.HasValue ?
-                new ObjectParameter("questionnaireOld", questionnaireOld) :
-                new ObjectParameter("questionnaireOld", typeof(int));
-    
-            var questionnaireNewParameter = questionnaireNew.HasValue ?
-                new ObjectParameter("questionnaireNew", questionnaireNew) :
-                new ObjectParameter("questionnaireNew", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireQuestionnaireCMSOldToNew", questionnaireOldParameter, questionnaireNewParameter);
         }
     
         public virtual int pr_modifyResponseZcodeForCountryCode(Nullable<int> offset, Nullable<int> responseIDLower, Nullable<int> responseIDUpper)
@@ -17210,6 +17072,130 @@ namespace Generic
                 new ObjectParameter("group", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnerSpreadsheetDataLoad", partner_internal_idParameter, partner_sap_idParameter, partner_duns_numberParameter, partner_nameParameter, partner_address_oneParameter, partner_address_twoParameter, partner_cityParameter, partner_stateParameter, partner_zipcodeParameter, partner_countryParameter, partner_poc_first_nameParameter, partner_poc_last_nameParameter, partner_poc_titleParameter, partner_poc_phone_numberParameter, partner_poc_email_addressParameter, ro_first_nameParameter, ro_last_nameParameter, ro_emailParameter, date_loadedParameter, enterpriseParameter, partnertypeParameter, touchpointParameter, personParameter, partnerSpreadsheetDataLoadStatusParameter, loadGroupParameter, dueDateParameter, groupParameter);
+        }
+    
+        public virtual ObjectResult<pr_addQuestionnaireQuestionnaireCMS_Result> pr_addQuestionnaireQuestionnaireCMS(Nullable<int> questionnaire, Nullable<int> questionnaireCMS, string text, string link, byte[] doc, string uploadedFileType)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
+                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
+                new ObjectParameter("questionnaireCMS", typeof(int));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var linkParameter = link != null ?
+                new ObjectParameter("link", link) :
+                new ObjectParameter("link", typeof(string));
+    
+            var docParameter = doc != null ?
+                new ObjectParameter("doc", doc) :
+                new ObjectParameter("doc", typeof(byte[]));
+    
+            var uploadedFileTypeParameter = uploadedFileType != null ?
+                new ObjectParameter("uploadedFileType", uploadedFileType) :
+                new ObjectParameter("uploadedFileType", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_addQuestionnaireQuestionnaireCMS_Result>("pr_addQuestionnaireQuestionnaireCMS", questionnaireParameter, questionnaireCMSParameter, textParameter, linkParameter, docParameter, uploadedFileTypeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireQuestionnaireCMS_Result> pr_getQuestionnaireQuestionnaireCMS(Nullable<int> questionnaire, Nullable<int> questionnaireCMS)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
+                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
+                new ObjectParameter("questionnaireCMS", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireQuestionnaireCMS_Result>("pr_getQuestionnaireQuestionnaireCMS", questionnaireParameter, questionnaireCMSParameter);
+        }
+    
+        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<questionnaireQuestionnaireCMS> pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(Nullable<int> questionnaire, MergeOption mergeOption)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<questionnaireQuestionnaireCMS>("pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire", mergeOption, questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result> pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result>("pr_getQuestionnaireQuestionnaireCMSByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual int pr_modifyQuestionnaireQuestionnaireCMS(Nullable<int> questionnaire, Nullable<int> questionnaireCMS, string text, string link, byte[] doc, string uploadedFileType)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
+                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
+                new ObjectParameter("questionnaireCMS", typeof(int));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var linkParameter = link != null ?
+                new ObjectParameter("link", link) :
+                new ObjectParameter("link", typeof(string));
+    
+            var docParameter = doc != null ?
+                new ObjectParameter("doc", doc) :
+                new ObjectParameter("doc", typeof(byte[]));
+    
+            var uploadedFileTypeParameter = uploadedFileType != null ?
+                new ObjectParameter("uploadedFileType", uploadedFileType) :
+                new ObjectParameter("uploadedFileType", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireQuestionnaireCMS", questionnaireParameter, questionnaireCMSParameter, textParameter, linkParameter, docParameter, uploadedFileTypeParameter);
+        }
+    
+        public virtual int pr_modifyQuestionnaireQuestionnaireCMSOldToNew(Nullable<int> questionnaireOld, Nullable<int> questionnaireNew)
+        {
+            var questionnaireOldParameter = questionnaireOld.HasValue ?
+                new ObjectParameter("questionnaireOld", questionnaireOld) :
+                new ObjectParameter("questionnaireOld", typeof(int));
+    
+            var questionnaireNewParameter = questionnaireNew.HasValue ?
+                new ObjectParameter("questionnaireNew", questionnaireNew) :
+                new ObjectParameter("questionnaireNew", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireQuestionnaireCMSOldToNew", questionnaireOldParameter, questionnaireNewParameter);
+        }
+    
+        public virtual int pr_removeQuestionnaireQuestionnaireCMS(Nullable<int> questionnaire, Nullable<int> questionnaireCMS)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var questionnaireCMSParameter = questionnaireCMS.HasValue ?
+                new ObjectParameter("questionnaireCMS", questionnaireCMS) :
+                new ObjectParameter("questionnaireCMS", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaireQuestionnaireCMS", questionnaireParameter, questionnaireCMSParameter);
         }
     }
 }

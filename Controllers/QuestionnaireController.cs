@@ -126,44 +126,44 @@ namespace Generic.Controllers
                         {
                             if (uploadCMSFilePDF == null)
                             {
-                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null, null);
                             }
                             else
                             {
                                 byte[] uploadedFile = new byte[uploadCMSFilePDF.InputStream.Length];
                                 uploadCMSFilePDF.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, uploadedFile);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, uploadedFile, MimeMapping.GetMimeMapping(uploadCMSFilePDF.FileName));
                             }
                         }
                         else if (cms.ITEM == CMS.QUESTIONNAIRE_FAQ)
                         {
                             if (uploadCMSFileFAQ == null)
                             {
-                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null, null);
                             }
                             else
                             {
                                 byte[] uploadedFile = new byte[uploadCMSFileFAQ.InputStream.Length];
                                 uploadCMSFileFAQ.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, uploadedFile);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, uploadedFile, MimeMapping.GetMimeMapping(uploadCMSFileFAQ.FileName));
                             }
                         }
                         else if (cms.ITEM == CMS.QUESTIONNAIRE_DOC_OTHER)
                         {
                             if (uploadCMSFileOther == null)
                             {
-                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null, null);
                             }
                             else
                             {
                                 byte[] uploadedFile = new byte[uploadCMSFileOther.InputStream.Length];
                                 uploadCMSFileOther.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, uploadedFile);
+                                context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, uploadedFile, MimeMapping.GetMimeMapping(uploadCMSFileOther.FileName));
                             }
                         }
                         else
                         {
-                            context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null);
+                            context.pr_addQuestionnaireQuestionnaireCMS(questionnaireId, questionnaireCMSID.id, cms.TEXT, cms.LINK, null, null);
                         }
                         context.pr_addQuestionnaireCMSLoad(questionnaireCMSID.id, cms.ITEM, cms.TEXT, cms.LINK, questionnaireId).FirstOrDefault();
                     }
@@ -280,7 +280,7 @@ namespace Generic.Controllers
 
                 //copy QuestionnaireCMS
                 foreach (var cms in defaultPtq.questionnaire1.questionnaireQuestionnaireCMS)
-                    db.pr_addQuestionnaireQuestionnaireCMS((int)questionnarie, cms.questionnaireCMS, cms.text, cms.link, cms.doc);
+                    db.pr_addQuestionnaireQuestionnaireCMS((int)questionnarie, cms.questionnaireCMS, cms.text, cms.link, cms.doc, cms.uploadedFileType);
 
                 var questions = db.pr_getQuestionByQuestionnaire((int)defaultPtq.questionnaire).ToList();
 
@@ -1665,7 +1665,7 @@ namespace Generic.Controllers
                             int modifiedQuestionnaire = context.pr_modifyQuestionnaireQuestionnaireCMS(Convert.ToInt32(questionnaireid),
                                 questionnaireCMSitem.questionnaireCMS,
                                 string.IsNullOrEmpty(questionnaireCMSitem.text) ? "" : questionnaireCMSitem.text,
-                                questionnaireCMSitem.link, questionnaireCMSitem.doc);
+                                questionnaireCMSitem.link, questionnaireCMSitem.doc, questionnaireCMSitem.docType);
                         }
                     }
                 }
@@ -1767,15 +1767,25 @@ namespace Generic.Controllers
                 {
                     file.InputStream.CopyTo(stream);
                     var questObj = db.pr_getQuestionnaireQuestionnaireCMS(selectedQ, cmsId).FirstOrDefault();
-                    db.pr_modifyQuestionnaireQuestionnaireCMS(selectedQ, cmsId, questObj.text, questObj.link, stream.ToArray());
+
+                    db.pr_modifyQuestionnaireQuestionnaireCMS(selectedQ, cmsId, questObj.text, questObj.link, stream.ToArray(), MimeMapping.GetMimeMapping(file.FileName));
                 }
                 return Json("Document successfully uploaded");
             }
             catch (Exception ex)
             {
                 return Json(ex.Message);
-
             }
+        }
+
+        public virtual ActionResult DownloadQDoc(int selectedQ, int cmsId)
+        {
+            var questObj = db.pr_getQuestionnaireQuestionnaireCMS(selectedQ, cmsId).FirstOrDefault();
+            if (questObj != null && questObj.doc!=null)
+            {
+                return File(questObj.doc, questObj.uploadedFileType);
+            }
+            return Json("No uploaded document", JsonRequestBehavior.AllowGet);
         }
     }
 }

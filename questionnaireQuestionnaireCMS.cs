@@ -19,6 +19,7 @@ namespace Generic
         public string text { get; set; }
         public string link { get; set; }
         public byte[] doc { get; set; }
+        public string uploadedFileType { get; set; }
     
         public virtual questionnaire questionnaire1 { get; set; }
         public virtual questionnaireCMS questionnaireCMS1 { get; set; }

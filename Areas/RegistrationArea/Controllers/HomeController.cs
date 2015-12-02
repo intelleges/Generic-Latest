@@ -2538,7 +2538,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 //copy QuestionnaireCMS
                 foreach (var cms in defaultPtq.questionnaire1.questionnaireQuestionnaireCMS)
-                    db.pr_addQuestionnaireQuestionnaireCMS((int)questionnarie, cms.questionnaireCMS, cms.text, cms.link, cms.doc);
+                    db.pr_addQuestionnaireQuestionnaireCMS((int)questionnarie, cms.questionnaireCMS, cms.text, cms.link, cms.doc, cms.uploadedFileType);
 
                 var questions = db.pr_getQuestionByQuestionnaire((int)defaultPtq.questionnaire).ToList();
 

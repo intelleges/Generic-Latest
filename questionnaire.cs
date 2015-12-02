@@ -21,9 +21,9 @@ namespace Generic
             this.partnerTypeTouchpointQuestionnaire1 = new HashSet<partnerTypeTouchpointQuestionnaire>();
             this.page = new HashSet<page>();
             this.touchpoint = new HashSet<touchpoint>();
-            this.questionnaireQuestionnaireCMS = new HashSet<questionnaireQuestionnaireCMS>();
             this.questionnaireRule = new HashSet<questionnaireRule>();
             this.questionnaireRule1 = new HashSet<questionnaireRule>();
+            this.questionnaireQuestionnaireCMS = new HashSet<questionnaireQuestionnaireCMS>();
         }
     
         public int id { get; set; }
@@ -50,10 +50,10 @@ namespace Generic
         public virtual ICollection<touchpoint> touchpoint { get; set; }
         public virtual questionnaireLevelType questionnaireLevelType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<questionnaireQuestionnaireCMS> questionnaireQuestionnaireCMS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<questionnaireRule> questionnaireRule { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<questionnaireRule> questionnaireRule1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<questionnaireQuestionnaireCMS> questionnaireQuestionnaireCMS { get; set; }
     }
 }

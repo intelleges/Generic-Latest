@@ -18,5 +18,6 @@ namespace Generic
         public string text { get; set; }
         public string link { get; set; }
         public byte[] doc { get; set; }
+        public string uploadedFileType { get; set; }
     }
 }

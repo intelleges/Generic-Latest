@@ -58,8 +58,8 @@ font-size: 100% !important;
         <li><a href="javascript:openArchivePopup(@ViewBag.questionnaire,'@item.questionnaireCMS')">Archive</a></li>
         <li><a href="javascript:openViewDetailPopup(@ViewBag.questionnaire)">View Detail</a></li>
         <li><a href="javascript:uploadFile(@ViewBag.questionnaire ,@item.questionnaireCMS)">Upload document</a></li>
-       
-        
+        <li>@Html.ActionLink("Download document", "DownloadQDoc", new { selectedQ = ViewBag.questionnaire, cmsId = item.questionnaireCMS }, new {target="_blank" })</li>
+
     </ul>
 </div>
 </text>).Filterable(false);

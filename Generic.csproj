@@ -823,35 +823,6 @@
     <Compile Include="Models\ContractModel.cs" />
     <Compile Include="Models\CreatePartnerTypeModel.cs" />
     <Compile Include="Models\enterprise.extension.cs" />
-    <Compile Include="partnerSpreadsheetDataLoad.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_checkForInvalidZcode7_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_checkForInvalidZcode8_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="pr_checkForInvalidZcode9_Result.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\InvalidZCodeViewModel.cs" />
-    <Compile Include="Models\jsTree3Node.cs" />
-    <Compile Include="Models\MenuModel.cs" />
-    <Compile Include="Models\Models.cs" />
-    <Compile Include="Models\partner.cs" />
-    <Compile Include="Models\PartnerExternalDocModel.cs" />
-    <Compile Include="Models\person.extension.cs" />
-    <Compile Include="Models\PersonComboModel.cs" />
-    <Compile Include="Models\ProductTypeModel.cs" />
-    <Compile Include="Models\pr_getIteratePartnerPerson3_Result.cs" />
-    <Compile Include="Models\QuestionnaireModel.cs" />
-    <Compile Include="Models\RailModelView.cs" />
-    <Compile Include="Models\ShowDocsModel.cs" />
-    <Compile Include="Models\SignupModels.cs" />
-    <Compile Include="Models\StringContainer.cs" />
-    <Compile Include="Models\TouchpointComboModel.cs" />
-    <Compile Include="Models\invalidZcode.cs" />
     <Compile Include="multiTenantProjectType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -910,6 +881,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnerSpendAmount.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="partnerSpreadsheetDataLoad.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnerStatus.cs">
@@ -990,7 +964,6 @@
     <Compile Include="product.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="protocol.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1006,7 +979,19 @@
     <Compile Include="pr_addPTQGroup_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_addQuestionnaireQuestionnaireCMS_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_addReminderScheduledTaskHeartBeat_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_checkForInvalidZcode7_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_checkForInvalidZcode8_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_checkForInvalidZcode9_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2_Result.cs">
@@ -2185,9 +2170,6 @@
     <Compile Include="score.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Session\AppFlowMetadata.cs" />
-    <Compile Include="Session\IntellegesAuthorizationCodeMvcApp.cs" />
-    <Compile Include="Session\SessionSingleton.cs" />
     <Compile Include="site.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2257,6 +2239,27 @@
     <Compile Include="UM_M_Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\InvalidZCodeViewModel.cs" />
+    <Compile Include="Models\jsTree3Node.cs" />
+    <Compile Include="Models\MenuModel.cs" />
+    <Compile Include="Models\Models.cs" />
+    <Compile Include="Models\partner.cs" />
+    <Compile Include="Models\PartnerExternalDocModel.cs" />
+    <Compile Include="Models\person.extension.cs" />
+    <Compile Include="Models\PersonComboModel.cs" />
+    <Compile Include="Models\ProductTypeModel.cs" />
+    <Compile Include="Models\pr_getIteratePartnerPerson3_Result.cs" />
+    <Compile Include="Models\QuestionnaireModel.cs" />
+    <Compile Include="Models\RailModelView.cs" />
+    <Compile Include="Models\ShowDocsModel.cs" />
+    <Compile Include="Models\SignupModels.cs" />
+    <Compile Include="Models\StringContainer.cs" />
+    <Compile Include="Models\TouchpointComboModel.cs" />
+    <Compile Include="Models\invalidZcode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Session\AppFlowMetadata.cs" />
+    <Compile Include="Session\IntellegesAuthorizationCodeMvcApp.cs" />
+    <Compile Include="Session\SessionSingleton.cs" />
     <Compile Include="ViewModel\ConfirmPartnerViewModel.cs" />
     <Compile Include="ViewModel\QuestionnaireAutoMailViewModel.cs" />
     <Compile Include="ViewModel\ExcelQuestionnaireQuestionnireCMS.cs" />

@@ -1645,6 +1645,7 @@
           <Property Name="text" Type="varchar(max)" Nullable="false" />
           <Property Name="link" Type="text" />
           <Property Name="doc" Type="image" />
+          <Property Name="uploadedFileType" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="questionnaireRule">
           <Key>
@@ -5016,6 +5017,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="text" Type="varchar(max)" Mode="In" />
           <Parameter Name="link" Type="text" Mode="In" />
           <Parameter Name="doc" Type="image" Mode="In" />
+          <Parameter Name="uploadedFileType" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="pr_addQuestionnairerule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar(max)" Mode="In" />
@@ -7541,6 +7543,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="text" Type="varchar(max)" Mode="In" />
           <Parameter Name="link" Type="text" Mode="In" />
           <Parameter Name="doc" Type="image" Mode="In" />
+          <Parameter Name="uploadedFileType" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="pr_modifyQuestionnaireQuestionnaireCMSOldToNew" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaireOld" Type="int" Mode="In" />
@@ -12029,27 +12032,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
             <Parameter Name="internalId" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="questionnaireCMS" EntityType="hs3MVCMTQa2Model.questionnaireCMS" />
-          <EntitySet Name="questionnaireQuestionnaireCMS" EntityType="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS" />
-          <AssociationSet Name="FK_questionnaireQuestionnaireCMS_questionnaire" Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire">
-            <End EntitySet="questionnaire" Role="questionnaire" />
-            <End EntitySet="questionnaireQuestionnaireCMS" Role="questionnaireQuestionnaireCMS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_questionnaireQuestionnaireCMS_questionnaireCMS" Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaireCMS">
-            <End EntitySet="questionnaireCMS" Role="questionnaireCMS" />
-            <End EntitySet="questionnaireQuestionnaireCMS" Role="questionnaireQuestionnaireCMS" />
-          </AssociationSet>
           <FunctionImport Name="pr_addQuestionnaireCMS" ReturnType="Collection(Decimal)">
             <Parameter Name="description" Mode="In" Type="String" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="pr_addQuestionnaireQuestionnaireCMS">
-            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
-            <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
-            <Parameter Name="text" Mode="In" Type="String" />
-            <Parameter Name="link" Mode="In" Type="String" />
-            <Parameter Name="doc" Mode="In" Type="Binary" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveQuestionnaireCMS">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -12058,32 +12044,14 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireCMSAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireCMSAll_Result)" />
-          <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMS" EntitySet="questionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireQuestionnaireCMS)">
-            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
-            <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" EntitySet="questionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireQuestionnaireCMS)">
-          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_modifyQuestionnaireCMS">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="description" Mode="In" Type="String" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <FunctionImport Name="pr_modifyQuestionnaireQuestionnaireCMS">
-            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
-            <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
-            <Parameter Name="text" Mode="In" Type="String" />
-            <Parameter Name="link" Mode="In" Type="String" />
-            <Parameter Name="doc" Mode="In" Type="Binary" />
-          </FunctionImport>
           <FunctionImport Name="pr_removeQuestionnaireCMS">
           <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_removeQuestionnaireQuestionnaireCMS">
-            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
-            <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveQuestionnaireCMS">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -12190,9 +12158,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireByPartnumberSiteZcodePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByPartnumberSiteZcodePPTQ_Result)">
           <Parameter Name="partnumberSiteZcodePPTQ" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" EntitySet="questionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireQuestionnaireCMS)">
-          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="xx_getQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.xx_getQuestionnaire_Result)">
           <Parameter Name="questionnaire" Mode="In" Type="Int32" />
@@ -12757,10 +12722,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_modifyAutoMailMessageOldToNew">
             <Parameter Name="partnertypetouchpointquestionnaireOld" Mode="In" Type="Int32" />
             <Parameter Name="partnertypetouchpointquestionnaireNew" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_modifyQuestionnaireQuestionnaireCMSOldToNew">
-            <Parameter Name="questionnaireOld" Mode="In" Type="Int32" />
-            <Parameter Name="questionnaireNew" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyResponseZcodeForCountryCode">
             <Parameter Name="offset" Mode="In" Type="Int32" />
@@ -14474,8 +14435,51 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="dueDate" Mode="In" Type="DateTime" />
             <Parameter Name="group" Mode="In" Type="Int32" />
           </FunctionImport>
-          
-        </EntityContainer>
+          <FunctionImport Name="pr_addQuestionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.pr_addQuestionnaireQuestionnaireCMS_Result)">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="link" Mode="In" Type="String" />
+            <Parameter Name="doc" Mode="In" Type="Binary" />
+            <Parameter Name="uploadedFileType" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMS_Result)">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" EntitySet="questionnaireQuestionnaireCMS" ReturnType="Collection(hs3MVCMTQa2Model.questionnaireQuestionnaireCMS)">
+          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result)">
+          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyQuestionnaireQuestionnaireCMS">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="link" Mode="In" Type="String" />
+            <Parameter Name="doc" Mode="In" Type="Binary" />
+            <Parameter Name="uploadedFileType" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyQuestionnaireQuestionnaireCMSOldToNew">
+            <Parameter Name="questionnaireOld" Mode="In" Type="Int32" />
+            <Parameter Name="questionnaireNew" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeQuestionnaireQuestionnaireCMS">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="questionnaireCMS" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="questionnaireCMS" EntityType="hs3MVCMTQa2Model.questionnaireCMS" />
+          <EntitySet Name="questionnaireQuestionnaireCMS" EntityType="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS" />
+          <AssociationSet Name="FK_questionnaireQuestionnaireCMS_questionnaire" Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="questionnaireQuestionnaireCM" EntitySet="questionnaireQuestionnaireCMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaireQuestionnaireCMS_questionnaireCMS" Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaireCMS">
+            <End Role="questionnaireCM" EntitySet="questionnaireCMS" />
+            <End Role="questionnaireQuestionnaireCM" EntitySet="questionnaireQuestionnaireCMS" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
             <PropertyRef Name="id" />
@@ -15526,9 +15530,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <NavigationProperty Name="touchpoint" Relationship="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" FromRole="questionnaire" ToRole="touchpoint" />
           <Property Name="levelType" Type="Int32" />
           <NavigationProperty Name="questionnaireLevelType" Relationship="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" FromRole="questionnaire" ToRole="questionnaireLevelType" />
-          <NavigationProperty Name="questionnaireQuestionnaireCMS" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" FromRole="questionnaire" ToRole="questionnaireQuestionnaireCMS" />
           <NavigationProperty Name="questionnaireRule" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire" FromRole="questionnaire" ToRole="questionnaireRule" />
           <NavigationProperty Name="questionnaireRule1" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1" FromRole="questionnaire" ToRole="questionnaireRule" />
+          <NavigationProperty Name="questionnaireQuestionnaireCMS" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" FromRole="questionnaire" ToRole="questionnaireQuestionnaireCM" />
         </EntityType>
         <EntityType Name="questionResponse">
           <Key>
@@ -18918,53 +18922,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Boolean" Name="active" Nullable="false" />
           <Property Type="Int32" Name="partner" Nullable="false" />
         </ComplexType>
-        <EntityType Name="questionnaireCMS">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="description" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="sortOrder" Type="Int32" />
-          <Property Name="active" Nullable="false" Type="Boolean" />
-          <NavigationProperty Name="questionnaireQuestionnaireCMS" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaireCMS" FromRole="questionnaireCMS" ToRole="questionnaireQuestionnaireCMS" />
-        </EntityType>
-        <EntityType Name="questionnaireQuestionnaireCMS">
-          <Key>
-            <PropertyRef Name="questionnaire" />
-            <PropertyRef Name="questionnaireCMS" />
-          </Key>
-          <Property Name="questionnaire" Nullable="false" Type="Int32" />
-          <Property Name="questionnaireCMS" Nullable="false" Type="Int32" />
-          <Property Name="text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
-          <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" FromRole="questionnaireQuestionnaireCMS" ToRole="questionnaire" />
-          <NavigationProperty Name="questionnaireCMS1" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaireCMS" FromRole="questionnaireQuestionnaireCMS" ToRole="questionnaireCMS" />
-          <Property Name="link" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="doc" MaxLength="Max" FixedLength="false" Type="Binary" />
-        </EntityType>
-        <Association Name="FK_questionnaireQuestionnaireCMS_questionnaire">
-          <End Type="hs3MVCMTQa2Model.questionnaire" Multiplicity="1" Role="questionnaire" />
-          <End Type="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS" Multiplicity="*" Role="questionnaireQuestionnaireCMS" />
-          <ReferentialConstraint>
-            <Principal Role="questionnaire">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="questionnaireQuestionnaireCMS">
-              <PropertyRef Name="questionnaire" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_questionnaireQuestionnaireCMS_questionnaireCMS">
-          <End Type="hs3MVCMTQa2Model.questionnaireCMS" Multiplicity="1" Role="questionnaireCMS" />
-          <End Type="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS" Multiplicity="*" Role="questionnaireQuestionnaireCMS" />
-          <ReferentialConstraint>
-            <Principal Role="questionnaireCMS">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="questionnaireQuestionnaireCMS">
-              <PropertyRef Name="questionnaireCMS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="pr_getQuestionnaireCMS_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
@@ -18976,16 +18933,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Boolean" Name="active" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="pr_getQuestionnaireQuestionnaireCMS_Result">
-          <Property Type="Int32" Name="questionnaire" Nullable="false" />
-          <Property Type="Int32" Name="questionnaireCMS" Nullable="false" />
-          <Property Type="String" Name="text" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire_Result">
-          <Property Type="Int32" Name="questionnaire" Nullable="false" />
-          <Property Type="Int32" Name="questionnaireCMS" Nullable="false" />
-          <Property Type="String" Name="text" Nullable="false" />
         </ComplexType>
         <ComplexType Name="pr_getPartnumberByPPTQandSite_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -19227,13 +19174,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="partnerType" Nullable="false" />
           <Property Type="Int32" Name="letter" Nullable="true" />
           <Property Type="Int32" Name="levelType" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result">
-          <Property Type="Int32" Name="questionnaire" Nullable="false" />
-          <Property Type="Int32" Name="questionnaireCMS" Nullable="false" />
-          <Property Type="String" Name="text" Nullable="false" />
-          <Property Type="String" Name="link" Nullable="true" MaxLength="Max" />
-          <Property Type="Binary" Name="doc" Nullable="true" MaxLength="Max" />
         </ComplexType>
         <ComplexType Name="xx_getQuestionnaire_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -23136,8 +23076,87 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        
-      </Schema>
+        <ComplexType Name="pr_addQuestionnaireQuestionnaireCMS_Result">
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="Int32" Name="questionnaireCMS" Nullable="false" />
+          <Property Type="String" Name="text" Nullable="false" />
+          <Property Type="String" Name="link" Nullable="true" MaxLength="Max" />
+          <Property Type="Binary" Name="doc" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="uploadedFileType" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireQuestionnaireCMS_Result">
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="Int32" Name="questionnaireCMS" Nullable="false" />
+          <Property Type="String" Name="text" Nullable="false" />
+          <Property Type="String" Name="link" Nullable="true" MaxLength="Max" />
+          <Property Type="Binary" Name="doc" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="uploadedFileType" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire_Result">
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="Int32" Name="questionnaireCMS" Nullable="false" />
+          <Property Type="String" Name="text" Nullable="false" />
+          <Property Type="String" Name="link" Nullable="true" MaxLength="Max" />
+          <Property Type="Binary" Name="doc" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="uploadedFileType" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result">
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="Int32" Name="questionnaireCMS" Nullable="false" />
+          <Property Type="String" Name="text" Nullable="false" />
+          <Property Type="String" Name="link" Nullable="true" MaxLength="Max" />
+          <Property Type="Binary" Name="doc" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="uploadedFileType" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="questionnaireCMS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="questionnaireQuestionnaireCMS" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaireCMS" FromRole="questionnaireCM" ToRole="questionnaireQuestionnaireCM" />
+        </EntityType>
+        <EntityType Name="questionnaireQuestionnaireCMS">
+          <Key>
+            <PropertyRef Name="questionnaire" />
+            <PropertyRef Name="questionnaireCMS" />
+          </Key>
+          <Property Name="questionnaire" Type="Int32" Nullable="false" />
+          <Property Name="questionnaireCMS" Type="Int32" Nullable="false" />
+          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="uploadedFileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" FromRole="questionnaireQuestionnaireCM" ToRole="questionnaire" />
+          <NavigationProperty Name="questionnaireCMS1" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaireCMS" FromRole="questionnaireQuestionnaireCM" ToRole="questionnaireCM" />
+        </EntityType>
+        <Association Name="FK_questionnaireQuestionnaireCMS_questionnaire">
+          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS" Role="questionnaireQuestionnaireCM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireQuestionnaireCM">
+              <PropertyRef Name="questionnaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaireQuestionnaireCMS_questionnaireCMS">
+          <End Type="hs3MVCMTQa2Model.questionnaireCMS" Role="questionnaireCM" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS" Role="questionnaireQuestionnaireCM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaireCM">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireQuestionnaireCM">
+              <PropertyRef Name="questionnaireCMS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -26561,29 +26580,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPartnumberByInternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberByInternalID">
           </FunctionImportMapping>
-          <EntitySetMapping Name="questionnaireCMS">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireCMS">
-              <MappingFragment StoreEntitySet="questionnaireCMS">
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="questionnaireQuestionnaireCMS">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS">
-              <MappingFragment StoreEntitySet="questionnaireQuestionnaireCMS">
-                <ScalarProperty Name="doc" ColumnName="doc" />
-                <ScalarProperty Name="link" ColumnName="link" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
-                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireCMS" />
-          <FunctionImportMapping FunctionImportName="pr_addQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireQuestionnaireCMS" />
           <FunctionImportMapping FunctionImportName="pr_archiveQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveQuestionnaireCMS" />
           <FunctionImportMapping FunctionImportName="pr_getQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireCMS">
             <ResultMapping>
@@ -26605,14 +26602,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMS">
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire">
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireCMS" />
-          <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireQuestionnaireCMS" />
           <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireCMS" />
-          <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireQuestionnaireCMS" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionnaireCMS" />
           <FunctionImportMapping FunctionImportName="pr_getPartnumberByPPTQandSite" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberByPPTQandSite">
           </FunctionImportMapping>
@@ -26707,8 +26698,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="levelType" ColumnName="levelType" />
               </ComplexTypeMapping>
             </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="xx_getQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.xx_getQuestionnaire">
             <ResultMapping>
@@ -27721,7 +27710,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyAutoMailMessageOldToNew" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutoMailMessageOldToNew" />
-          <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireQuestionnaireCMSOldToNew" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireQuestionnaireCMSOldToNew" />
           <FunctionImportMapping FunctionImportName="pr_modifyResponseZcodeForCountryCode" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyResponseZcodeForCountryCode" />
           <FunctionImportMapping FunctionImportName="Recover_Dropped_Objects_Proc" FunctionName="hs3MVCMTQa2Model.Store.Recover_Dropped_Objects_Proc" />
           <FunctionImportMapping FunctionImportName="pr_getGroupByPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupByPTQ" />
@@ -30602,6 +30590,69 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addPartnerSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerSpreadsheetDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_addQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireQuestionnaireCMS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_addQuestionnaireQuestionnaireCMS_Result">
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMS_Result">
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireQuestionnaireCMSByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire_Result">
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireQuestionnaireCMS" />
+          <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireQuestionnaireCMSOldToNew" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireQuestionnaireCMSOldToNew" />
+          <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireQuestionnaireCMS" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireQuestionnaireCMS" />
+          <EntitySetMapping Name="questionnaireCMS">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireCMS">
+              <MappingFragment StoreEntitySet="questionnaireCMS">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questionnaireQuestionnaireCMS">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS">
+              <MappingFragment StoreEntitySet="questionnaireQuestionnaireCMS">
+                <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
+                <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="questionnaireCMS" ColumnName="questionnaireCMS" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
