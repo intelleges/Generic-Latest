@@ -2958,7 +2958,7 @@ Intelleges Team";
                 //declare byte array to get file content from database and string to store file name
                 byte[] fileData;
                 byte[] fileDataBinary = null;
-                string fileName;
+                string fileName="application/pdf";
 
 
                 //if (CMSName == CMS.QUESTIONNAIRE_RESPONSE_PDF)
@@ -2988,24 +2988,33 @@ Intelleges Team";
                     if (CMSName == CMS.QUESTIONNAIRE_PDF)
                     {
                         fileDataBinary = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PDF).FirstOrDefault().id).FirstOrDefault().doc;
+                        fileName = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_PDF).FirstOrDefault().id).FirstOrDefault().uploadedFileType;
                     }
                     else if (CMSName == CMS.QUESTIONNAIRE_FAQ)
                     {
                         fileDataBinary = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_FAQ).FirstOrDefault().id).FirstOrDefault().doc;
+                        fileName = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_FAQ).FirstOrDefault().id).FirstOrDefault().uploadedFileType;
                     }
-                    else
+                    else if (CMSName == CMS.QUESTIONNAIRE_DOC_OTHER)
                     {
                         //QUESTIONNAIRE_DOC_OTHER
                         fileDataBinary = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER).FirstOrDefault().id).FirstOrDefault().doc;
+                        fileName = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER).FirstOrDefault().id).FirstOrDefault().uploadedFileType;
 
 
+                    }
+                    else
+                    {
+                        fileDataBinary = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER_2).FirstOrDefault().id).FirstOrDefault().doc;
+                        fileName = cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER_2).FirstOrDefault().id).FirstOrDefault().uploadedFileType;
                     }
                 }
 
                 fileData = (byte[])fileDataBinary.ToArray();
-                fileName = CMSName;
+               // fileName = CMSName;
+                
                 //return file and provide byte file content and file name --application/pdf
-                return File(fileData, "application/pdf", fileName);
+                return File(fileData, fileName);
             }
             catch
             {
