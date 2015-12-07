@@ -2395,6 +2395,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 // Obtain the zCode error code.
                 var zCodeValidationErrorCode = zCodeValidationResult.FirstOrDefault();
+                TempData["IncorrectZipCode"] = zCodeValidationErrorCode.nextstep;
                 using (var dbConext = new EntitiesDBContext())
                 {
                     var count = dbConext.pr_checkPartnumberStatusCountByPPTQ(pptq.id).FirstOrDefault();
@@ -2422,7 +2423,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             objSendEmail.sendEmail(email);
                         }
                         //--- ENDS HERE----
-                        Session["IncorrectZipCode"] = zCodeValidationErrorCode.nextstep;
+                        //TempData["IncorrectZipCode"] = zCodeValidationErrorCode.nextstep;
                     }
                 }
                 
@@ -2625,7 +2626,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
                 partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
                 enterprise _enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-                if (isCompletedSurvey && Session["IncorrectZipCode"]==null)
+                if (isCompletedSurvey && TempData["IncorrectZipCode"]==null)
                 {
                     #region subscriptionType action
                     if (ppptq_cms.partnerTypeTouchpointQuestionnaire1.questionnaire1.levelType == Generic.Helpers.Questionnaire.LevelType.SUBSCRIPTION)

@@ -198,11 +198,11 @@
         <td></td>
     </tr>
 </table>
-@if(Session["IncorrectZipCode"]!=null)
+@if(TempData["IncorrectZipCode"]!=null)
 {
     <script>
         $(document).ready(function () {
-            alertify.alert("@Session["IncorrectZipCode"].ToString()");
+            alertify.alert("@TempData["IncorrectZipCode"].ToString()");
         });
     </script>
 }
