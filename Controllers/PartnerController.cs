@@ -2071,17 +2071,20 @@ namespace Generic.Controllers
             //return View();
         }
         [HttpPost, ValidateInput(false)]
-        public ActionResult FindRemind(string accessCodes, string subject, string text, HttpPostedFileBase attachment, bool ccSender)
+        public ActionResult FindRemind(string accessCodes, string subject, string text, HttpPostedFileBase attachment, bool? ccSender)
         {
             var error = "";
             EmailFormat formatter = new EmailFormat();
             var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
-            foreach(var accessCode in accessCodes.Split(",".ToArray(),StringSplitOptions.RemoveEmptyEntries))
+            if (!string.IsNullOrEmpty(accessCodes) && accessCodes.Contains(','))
             {
-                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-                
-                var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1);
-                SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+                foreach (var accessCode in accessCodes.Split(",".ToArray(), StringSplitOptions.RemoveEmptyEntries))
+                {
+                    var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+
+                    var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1);
+                    SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+                }
             }
             //if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
             

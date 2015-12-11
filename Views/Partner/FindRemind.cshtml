@@ -104,7 +104,7 @@
 
  .ToolBar(commands =>
             {
-                commands.Template("<input style='width: 50px;' type='submit' value='Go' />");
+                commands.Template("<input style='width: 50px;' type='button' value='Go' id='btnGo' />");
             })
 
         .Columns(columns =>
@@ -230,15 +230,16 @@
 
 @section scripts{
 @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-<script src="/Scripts/bootstrap.js"></script>
-<script src="/Scripts/validator.js"></script>
+@*<script src="~/Scripts/jquery-ui-1.9.2.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>*@
+<script src="~/Scripts/validator.js"></script>
 <script type="text/javascript">
     var tipsShowed = false;
     $(function () {
       
-        $("#innerEmailDialog").dialog({
-            autoOpen: false
-        });
+        //$("#innerEmailDialog").dialog({
+        //    autoOpen: false
+        //});
         $("#emailDialog").submit(function (e) {
 
             e.preventDefault();
@@ -278,8 +279,8 @@
             });
         });
 
-        $("#gridForm").submit(function (e) {
-            e.preventDefault();
+        $("#btnGo").click(function (e) {
+           /// e.preventDefault();
             if ($('input:checkbox[name$=chkSelect]:checked').length == 0) {
                 alertify.alert("Please select at least one partner");
             } else {

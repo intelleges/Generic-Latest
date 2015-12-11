@@ -334,11 +334,11 @@
         //        }
         //    });
         //}
-        $(function () {
-            $.blockUI.defaults.css = {};
-            //jQuery.noConflict();
-            $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
-        });
+        //$(function () {
+        //    $.blockUI.defaults.css = {};
+        //    //jQuery.noConflict();
+        //    $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+        //});
 
 
     </script>
@@ -439,7 +439,7 @@
     </script>
     <script src="/Scripts/bootstrap.js"></script>
     @RenderSection("scripts", required: false)
-    @(Html.Telerik().ScriptRegistrar().jQuery(true).jQueryValidation(false)
+    @(Html.Telerik().ScriptRegistrar().jQuery(false).jQueryValidation(false)
             //.DefaultGroup(group => group
             //            .Add("~/Scripts/jquery-1.9.1.min.js")
             //.Combined(true)
