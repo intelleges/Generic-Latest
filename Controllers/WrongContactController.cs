@@ -239,7 +239,7 @@ namespace Generic.Controllers
                         }
                         else
                         {
-                            ViewBag.CMS_PAGE_NEXT_LINK = cms_PageNextText.link;
+                            ViewBag.CMS_PAGE_NEXT_LINK = !cms_PageNextText.link.StartsWith("http://") ? "http://" + cms_PageNextText.link : cms_PageNextText.link;
                         }
                     }
 
