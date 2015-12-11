@@ -2265,6 +2265,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 ViewBag.isEmailChanged = "1";
                 ViewBag.accessCode = Session["accessCode"];
+                Session["currentEmail"] = objpartner.email;
                 partner.email = Session["currentEmail"].ToString();
 
                 ViewBag.CMS_PAGE_TITLE = CMS.CONTACT_EDIT_PAGE_TITLE;

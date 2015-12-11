@@ -98,7 +98,8 @@ namespace Generic.Controllers
 
 
             }
-
+            if (Session["currentEmail"] !=null)
+                objPartner.email = Session["currentEmail"].ToString();
             return View(objPartner);
         }
 
