@@ -2394,8 +2394,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 // Validate the zCode.
                 var zCodeValidationResult = db.pr_checkForInvalidZcode(pptq.id, pptq.zcode);
 
+               
+        
                 // Obtain the zCode error code.
                 var zCodeValidationErrorCode = zCodeValidationResult.FirstOrDefault();
+                
                 TempData["IncorrectZipCode"] = zCodeValidationErrorCode.nextstep;
                 using (var dbConext = new EntitiesDBContext())
                 {
@@ -2409,9 +2412,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
 
                         dbConext.pr_modifyPPTQStatus(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Incomplete);
+
+
+                        var pptq_emaildata = pptq.automailMessagePPTQ;
+                       // var emailhtl = dbConext.pr_getAutomailMessageByMailtypeandPTQ(2, pptq.automailMessagePPTQ, DateTime.Now, null);
+
                         // (By:Manpreet) Send Email to Partner--- START HERE--
                         if (zCodeValidationErrorCode.newStatus == 2)
                         {
+
+
                             var touchpoint = db.pr_getTouchpoint((int)Session["touchpoint"]).FirstOrDefault();
                             //Send Alert to TouchAdmin
                             var _person = db.pr_getPerson(touchpoint.admin).FirstOrDefault();
@@ -2423,6 +2433,19 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             SendEmail objSendEmail = new SendEmail();
                             objSendEmail.sendEmail(email);
                         }
+                        else {
+                            var touchpoint = db.pr_getTouchpoint((int)Session["touchpoint"]).FirstOrDefault();
+                            //Send Alert to TouchAdmin
+                            var _person = db.pr_getPerson(touchpoint.admin).FirstOrDefault();
+                            Email email = new Email();
+                            string strEmailBody = Session["currentEmail"] + " with Invalid zCode " + pptq.zcode + " for access code " + Session["accessCode"] + ". The status has been reset to incomplete for this partner.";
+                            email.subject = "Intelleges: Email Alert for Invalid zCode";
+                            email.body = strEmailBody;
+                            email.emailTo = _person.email;
+                            SendEmail objSendEmail = new SendEmail();
+                            objSendEmail.sendEmail(email);
+                        }
+
                         //--- ENDS HERE----
                         //TempData["IncorrectZipCode"] = zCodeValidationErrorCode.nextstep;
                     }
