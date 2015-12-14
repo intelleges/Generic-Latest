@@ -93,7 +93,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         public virtual ActionResult SaveForLaterConfirm()
         {
-             ViewBag.accesscode = Session["accessCode"];
+            ViewBag.accesscode = Session["accessCode"];
 
             ViewBag.CMS_TITLE = CMS.ACCESS_CODE_TITLE;
             ViewBag.CMS_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;
@@ -2381,7 +2381,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             partnerPartnertypeTouchpointQuestionnaire pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
             if (ModelState.IsValid)
             {
-                
+
                 eSignature objeSignature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq.id).FirstOrDefault();
                 if (objeSignature == null)
                 {
@@ -2394,16 +2394,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 // Validate the zCode.
                 var zCodeValidationResult = db.pr_checkForInvalidZcode(pptq.id, pptq.zcode);
 
-               
-        
+
+
                 // Obtain the zCode error code.
                 var zCodeValidationErrorCode = zCodeValidationResult.FirstOrDefault();
-                
+
                 TempData["IncorrectZipCode"] = zCodeValidationErrorCode.nextstep;
                 using (var dbConext = new EntitiesDBContext())
                 {
                     var count = dbConext.pr_checkPartnumberStatusCountByPPTQ(pptq.id).FirstOrDefault();
-                    
+
                     if (count == 0 && !(zCodeValidationErrorCode != null && zCodeValidationErrorCode.newStatus != 0 && zCodeValidationErrorCode.newStatus != 6))
                     {
                         dbConext.pr_modifyPPTQStatus(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Complete);
@@ -2415,12 +2415,15 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
                         var pptq_emaildata = pptq.automailMessagePPTQ;
-                       // var emailhtl = dbConext.pr_getAutomailMessageByMailtypeandPTQ(2, pptq.automailMessagePPTQ, DateTime.Now, null);
+
 
                         // (By:Manpreet) Send Email to Partner--- START HERE--
                         if (zCodeValidationErrorCode.newStatus == 2)
                         {
 
+                            // var emailhtl = dbConext.pr_getAutoMailmessageByMailtypeandPTQ(2, pptq.automailMessagePPTQ);
+
+                            // var emailhtl = dbConext.pr_getAutoMailmessageByMailtypeandPTQ(2, pptq.id);
 
                             var touchpoint = db.pr_getTouchpoint((int)Session["touchpoint"]).FirstOrDefault();
                             //Send Alert to TouchAdmin
@@ -2433,7 +2436,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             SendEmail objSendEmail = new SendEmail();
                             objSendEmail.sendEmail(email);
                         }
-                        else {
+                        else
+                        {
+
+                            // var emailhtl = dbConext.pr_getAutoMailmessageByMailtypeandPTQ(3, pptq.id);
                             var touchpoint = db.pr_getTouchpoint((int)Session["touchpoint"]).FirstOrDefault();
                             //Send Alert to TouchAdmin
                             var _person = db.pr_getPerson(touchpoint.admin).FirstOrDefault();
@@ -2450,12 +2456,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         //TempData["IncorrectZipCode"] = zCodeValidationErrorCode.nextstep;
                     }
                 }
-                
 
 
-                
 
-               
+
+
+
                 return RedirectToAction("Finish");
             }
 
@@ -2631,6 +2637,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         public ActionResult Finish()
         {
+            int _mailType = 3;
             if (Session["hs3Registration"] == null)
             {
                 return RedirectToAction("Default");
@@ -2646,11 +2653,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var isCompletedSurvey = !(leftSites != null && leftSites.Count() > 0);
                 ViewBag.isCompletedSurvey = !isCompletedSurvey;
 
-                
+
                 var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
                 partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
                 enterprise _enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-                if (isCompletedSurvey && TempData["IncorrectZipCode"]==null)
+                if (isCompletedSurvey && TempData["IncorrectZipCode"] == null)
                 {
                     #region subscriptionType action
                     if (ppptq_cms.partnerTypeTouchpointQuestionnaire1.questionnaire1.levelType == Generic.Helpers.Questionnaire.LevelType.SUBSCRIPTION)
@@ -2758,7 +2765,7 @@ Intelleges Team";
 
                             touchpoint objCurrentTouchpoint = db.pr_getTouchpoint(objSystemMaster.campaign).FirstOrDefault();
 
-                            
+
                             EmailFormat emailFormat = new EmailFormat();
                             mail.subject = emailFormat.sGetEmailBody(mail.subject, objSystemMaster, objSystemMaster, objCurrentTouchpoint, objEnterprise, objSystemMaster);
                             //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
@@ -2772,7 +2779,18 @@ Intelleges Team";
                     #endregion
                     else
                     {
-                        var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, ptq.id).FirstOrDefault();
+                        var result = db.pr_checkForInvalidZcode(ppptq_cms.id, ppptq_cms.zcode);
+
+                        var zCodeActionType = result.FirstOrDefault();
+
+                        if (zCodeActionType.newStatus == 2)
+                            _mailType = autoMailTypes.Incomplete;
+                        else
+                            _mailType = autoMailTypes.Complete_Confirmation;
+
+                        //  var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, ptq.id).FirstOrDefault();
+                        var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(_mailType, ptq.id).FirstOrDefault();
+
                         if (amm != null)
                         {
                             var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
@@ -2983,7 +3001,7 @@ Intelleges Team";
                 //declare byte array to get file content from database and string to store file name
                 byte[] fileData;
                 byte[] fileDataBinary = null;
-                string fileName="application/pdf";
+                string fileName = "application/pdf";
 
 
                 //if (CMSName == CMS.QUESTIONNAIRE_RESPONSE_PDF)
@@ -3036,8 +3054,8 @@ Intelleges Team";
                 }
 
                 fileData = (byte[])fileDataBinary.ToArray();
-               // fileName = CMSName;
-                
+                // fileName = CMSName;
+
                 //return file and provide byte file content and file name --application/pdf
                 return File(fileData, fileName);
             }
