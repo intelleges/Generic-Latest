@@ -147,7 +147,7 @@
             </div>
         }
             </text>);
-            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="OpenManualAddModal('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>);
+            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="RedirectScreen('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>);
 
             columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(100).Template(@<text>
 
@@ -417,6 +417,11 @@
 
 
     });
+
+    function RedirectScreen(url)
+    {
+        window.location.replace(url);
+    }
     var currentPTQAccessCode = null;
     function changePTQ(accessCode) {
         currentPTQAccessCode = accessCode;
