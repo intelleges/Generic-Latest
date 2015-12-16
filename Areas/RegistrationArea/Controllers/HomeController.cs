@@ -2657,7 +2657,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
                 partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
                 enterprise _enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-                if (isCompletedSurvey && TempData["IncorrectZipCode"] == null)
+
+                var result1 = db.pr_checkForInvalidZcode(ppptq_cms.id, ppptq_cms.zcode);
+
+                var zCodeActionType = result1.FirstOrDefault();
+
+                //if (isCompletedSurvey && TempData["IncorrectZipCode"] == null)
+                if (isCompletedSurvey)
                 {
                     #region subscriptionType action
                     if (ppptq_cms.partnerTypeTouchpointQuestionnaire1.questionnaire1.levelType == Generic.Helpers.Questionnaire.LevelType.SUBSCRIPTION)
@@ -2779,9 +2785,7 @@ Intelleges Team";
                     #endregion
                     else
                     {
-                        var result = db.pr_checkForInvalidZcode(ppptq_cms.id, ppptq_cms.zcode);
 
-                        var zCodeActionType = result.FirstOrDefault();
 
                         if (zCodeActionType.newStatus == 2)
                             _mailType = autoMailTypes.Incomplete;
@@ -2813,6 +2817,8 @@ Intelleges Team";
                 }
                 else
                 {
+
+
                     var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Incomplete, ptq.id).FirstOrDefault();
 
                     var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
