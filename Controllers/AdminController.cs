@@ -21,7 +21,7 @@ using WebMatrix.WebData;
 
 namespace Generic.Controllers
 {
-   
+
     public class AdminController : Controller
     {
         protected EntitiesDBContext db = new EntitiesDBContext();
@@ -48,7 +48,7 @@ namespace Generic.Controllers
         /// Login Form
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult Index(int? contactUs=1, string returnUrl=null)
+        public virtual ActionResult Index(int? contactUs = 1, string returnUrl = null)
         {
 
             try
@@ -92,7 +92,7 @@ namespace Generic.Controllers
             var person = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
 
             var validation = db.pr_validatePasswordByEmail(person.email, password).FirstOrDefault();
-            if (!validation.HasValue || (validation.HasValue&&validation.Value == 0))
+            if (!validation.HasValue || (validation.HasValue && validation.Value == 0))
                 resultString = "Invalid password";
             return resultString;
         }
@@ -138,11 +138,11 @@ namespace Generic.Controllers
                 Credentials = credentials
             };
 
-            var request = new Hammock.RestRequest 
-            { 
-                Path = "requestToken" 
+            var request = new Hammock.RestRequest
+            {
+                Path = "requestToken"
             };
-            
+
             Hammock.RestResponse response = client.Request(request);
 
             String[] strResponseAttributes = response.Content.Split('&');
@@ -196,16 +196,16 @@ namespace Generic.Controllers
                 Version = "1.0"
             };
 
-            var client = new Hammock.RestClient 
-            { 
-                Authority = "https://api.linkedin.com/uas/oauth", 
-                Credentials = credentials, 
-                Method = Hammock.Web.WebMethod.Post 
+            var client = new Hammock.RestClient
+            {
+                Authority = "https://api.linkedin.com/uas/oauth",
+                Credentials = credentials,
+                Method = Hammock.Web.WebMethod.Post
             };
 
-            var request = new Hammock.RestRequest 
-            { 
-                Path = "accessToken" 
+            var request = new Hammock.RestRequest
+            {
+                Path = "accessToken"
             };
 
             Hammock.RestResponse response = client.Request(request);
@@ -351,7 +351,7 @@ namespace Generic.Controllers
                 person resultPerson = db.pr_getPersonByEmail(Convert.ToInt32(enterpriseid), email).FirstOrDefault();
 
                 FormsAuthentication.SetAuthCookie(email, false);
-                
+
                 SessionSingleton.LoggedInUserId = resultPerson.id;
                 SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(resultPerson.id).FirstOrDefault().role;
                 SessionSingleton.MyEnterPriseId = resultPerson.enterprise;
@@ -380,7 +380,7 @@ namespace Generic.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
-       
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -392,17 +392,17 @@ namespace Generic.Controllers
                 if (MembershipService.ValidateUser(userName, password))
                 {
                     FormsAuthentication.SetAuthCookie(userName, false);
-                   
+
                     person person = db.pr_doLogin(userName, password).FirstOrDefault();
                     var ip = Request.UserHostAddress;
                     string[] computer_name = System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
                     String ecn = System.Environment.MachineName;
                     var computerName = computer_name[0].ToString();
                     var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
-                    
+
                     if (res == null)
                     {
-                      //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
+                        //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
                         ViewBag.Message = "You failed to update login date & time";
                     }
 
@@ -415,7 +415,8 @@ namespace Generic.Controllers
                     {
                         SessionSingleton.EnterpriseURL = db.pr_getEnterpriseSystemInfo(person.enterprise).FirstOrDefault().companyWebSite;
                     }
-                    catch {
+                    catch
+                    {
                         SessionSingleton.EnterpriseURL = "#";
                     }
                     Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
@@ -434,7 +435,7 @@ namespace Generic.Controllers
                             return RedirectToAction("Home", "Admin");
                         }
                     }
-                    
+
                     //}
                 }
                 else
@@ -454,8 +455,8 @@ namespace Generic.Controllers
 
             //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
             //FormsAuthentication.RedirectToLoginPage();
-  
-            db.pr_modifyPersonLastLogoutDate( SessionSingleton.LoggedInUserId, DateTime.Now);
+
+            db.pr_modifyPersonLastLogoutDate(SessionSingleton.LoggedInUserId, DateTime.Now);
             FormsAuthentication.SignOut();
             Session.Abandon();
 
@@ -502,12 +503,12 @@ namespace Generic.Controllers
                     //pieChartData += "['Not Started'," + objCount.Not_Started + "]";
 
                     ViewBag.pieChartData = pieChartData;
-                   
+
                     var y = db.pr_getTouchpointByPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
                     var dataAll = db.pr_getReminderSentCountAll("MVCMT - R", y.description, Generic.Helpers.CurrentInstance.EnterpriseID);
-                    var dataToday = db.pr_getReminderSentCountDaily(DateTime.Now, "MVCMT - R",y.description, Generic.Helpers.CurrentInstance.EnterpriseID);
+                    var dataToday = db.pr_getReminderSentCountDaily(DateTime.Now, "MVCMT - R", y.description, Generic.Helpers.CurrentInstance.EnterpriseID);
 
-                    Dictionary<string , int?> dataAllDictionary = new Dictionary<string,int?>();
+                    Dictionary<string, int?> dataAllDictionary = new Dictionary<string, int?>();
                     dataAllDictionary.Add("bounce", 0);
                     dataAllDictionary.Add("deferred", 0);
                     dataAllDictionary.Add("click", 0);
@@ -516,7 +517,7 @@ namespace Generic.Controllers
                     dataAllDictionary.Add("open", 0);
                     dataAllDictionary.Add("processed", 0);
 
-                    foreach(var o in dataAll)
+                    foreach (var o in dataAll)
                     {
                         if (o.@event.Trim().ToLower() == "bounce")
                         {
@@ -557,11 +558,11 @@ namespace Generic.Controllers
                     dataTodayDictionary.Add("open", 0);
                     dataTodayDictionary.Add("processed", 0);
 
-                    foreach(var t in dataToday)
+                    foreach (var t in dataToday)
                     {
-                        if(t.@event.Trim().ToLower() == "bounce")
+                        if (t.@event.Trim().ToLower() == "bounce")
                         {
-                             dataTodayDictionary["bounce"] = t.total;
+                            dataTodayDictionary["bounce"] = t.total;
                         }
                         else if (t.@event.Trim().ToLower() == "deferred")
                         {
@@ -579,16 +580,16 @@ namespace Generic.Controllers
                         {
                             dataTodayDictionary["dropped"] = t.total;
                         }
-                         else if (t.@event.Trim().ToLower() == "open")
+                        else if (t.@event.Trim().ToLower() == "open")
                         {
                             dataTodayDictionary["open"] = t.total;
                         }
                         else if (t.@event.Trim().ToLower() == "processed")
                         {
                             dataTodayDictionary["processed"] = t.total;
-                         }
-                        
-                       
+                        }
+
+
                     }
 
                     ViewBag.dataAll = dataAllDictionary;
@@ -675,12 +676,18 @@ namespace Generic.Controllers
         }
 
         [Authorize]
-        public virtual ActionResult Dashbord1()
+        public virtual ActionResult Dashbord1(int? id)
         {
 
             Dashboard1 dashBoard = new Dashboard1();
+            int _touchpoint = 0;
 
-            var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(SessionSingleton.Touchpoint).ToList();
+            if (id == null)
+                _touchpoint = SessionSingleton.Touchpoint;
+            else
+                _touchpoint = (int)id;
+
+            var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(_touchpoint).ToList();
 
             foreach (var ptqItem in ptq)
             {
@@ -707,10 +714,6 @@ namespace Generic.Controllers
                     datalist.partnerType.Add(data);
 
                 }
-
-
-
-
 
                 if (dashBoard.partnerType == null)
                 {
@@ -746,27 +749,29 @@ namespace Generic.Controllers
                 {
                     dashBoard.ptqDashboard = dashBoard.ptqDashboard.Union(objDashboard).ToList().Distinct().ToList();
                 }
-                
-                
+
+
             }
+
+            //ViewBag.TouchPoints = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title"); ;
             return View(dashBoard);
         }
 
         [Authorize]
         public virtual ActionResult DashboardPartners(int status, int group, int partnerType)
         {
-           
+
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
             if (group != 0)
                 arguments += "groupID=" + group + ";";
-         
+
             if (partnerType != 0)
                 arguments += "partnertypeID=" + partnerType + ";";
 
             if (status != 0)
                 arguments += "StatusID=" + status + ";";
             Session["partnersearch"] = arguments;
-            return RedirectToAction("FindPartnerResult","partner");
+            return RedirectToAction("FindPartnerResult", "partner");
         }
 
 
@@ -839,7 +844,7 @@ namespace Generic.Controllers
 
         [Authorize]
         public virtual ActionResult Icons()
-        {           
+        {
 
             return View();
         }
@@ -942,7 +947,7 @@ namespace Generic.Controllers
             var fileFullPath = "";
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
             if (uploadLogo != null)
-            {                
+            {
                 if (enterprise != null)
                 {
                     byte[] uploadedFile = new byte[uploadLogo.InputStream.Length];
@@ -972,7 +977,7 @@ namespace Generic.Controllers
 
                     enterprise.applicationPath = fileFullPath;
                     db.Entry(enterprise).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();                    
+                    db.SaveChanges();
                 }
             }
             if (enterprise.logo == null)
@@ -1115,15 +1120,21 @@ namespace Generic.Controllers
             return detail;
         }
 
+
+        public IEnumerable<SelectListItem> GetAllTouchPoints()
+        {
+
+            return new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
+        }
         public virtual ActionResult RemiderChartData()
         {
             var result = new List<object[]>();
             result.Add(new object[] { "Group", "Bounce", "Click", "Deferred", "Delivered", "Dropped", "Open", "Processed" });
             var data = db.pr_getEventNotificationByProtocolTouchpointCategoryCount("xxx").ToList();
             var grouped = data.GroupBy(o => o.description, p => p);
-            if (!grouped.Any(o=>o.Key=="Invite"))
+            if (!grouped.Any(o => o.Key == "Invite"))
             {
-                result.Add(new object[] {"Invite",300,500,250,666,168,278,400 });
+                result.Add(new object[] { "Invite", 300, 500, 250, 666, 168, 278, 400 });
             }
             if (!grouped.Any(o => o.Key == "Iterate"))
             {
@@ -1133,7 +1144,7 @@ namespace Generic.Controllers
             {
                 result.Add(new object[] { "Reminder", 300, 500, 250, 666, 168, 278, 400 });
             }
-            foreach(var group in grouped)
+            foreach (var group in grouped)
             {
                 var values = new List<object>();
                 values.Add(group.Key);
@@ -1149,5 +1160,5 @@ namespace Generic.Controllers
         }
     }
 
-     
+
 }

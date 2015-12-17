@@ -11,22 +11,32 @@
     string ProductName = string.Empty;
     string SubscriptionTypeName = string.Empty;
     string SubscriptionStatusName = string.Empty;
+
+    IEnumerable<SelectListItem> touchpoints = null;
+    Generic.Controllers.AdminController objAdminController = null;
     try
     {
         Generic.Controllers.EnterpriseController objEnterpriseController = new Generic.Controllers.EnterpriseController();
+         objAdminController = new Generic.Controllers.AdminController();
+
+
         Generic.enterprise objEnterprise = objEnterpriseController.GetEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID);
         EnterpriseName = objEnterprise.description;
         ProductName = objEnterpriseController.GetProduct((int)objEnterprise.product).description;
         SubscriptionTypeName = objEnterpriseController.GetSubscriptionType((int)objEnterprise.subscriptionType).description;
         SubscriptionStatusName = objEnterpriseController.GetSubscriptionStatus((int)objEnterprise.subscriptionStatus).description;
+
+
+
+
     }
     catch { }
     Generic.Controllers.PersonController objPersonController = new Generic.Controllers.PersonController();
 
     Generic.person objPerson = objPersonController.GetPerson(User.Identity.Name);
-    if (objPerson!=null)
-    { 
-    LoginName = objPerson.firstName + " " + objPerson.lastName;
+    if (objPerson != null)
+    {
+        LoginName = objPerson.firstName + " " + objPerson.lastName;
     }
 
 }
@@ -47,7 +57,7 @@
     <script src="~/Scripts/jquery.blockUI.js"></script>
     <script src="~/Scripts/kendo/2015.2.624/kendo.ui.core.min.js"></script>
     @*<script src="~/Scripts/kendo/2015.1.318/kendo.core.min.js"></script>*@
-    
+
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("header", false)
@@ -63,6 +73,16 @@
     <script>
         alertify.set({ buttonReverse: true });
     </script>
+    <style>
+        #Touchpoint {
+            width: 290px;
+            margin: 10px;
+        }
+
+        #reports {
+            margin: 5px 0px;
+        }
+    </style>
 </head>
 
 
@@ -190,8 +210,6 @@
                             @Html.Action("Menu", "Admin")
 
 
-
-
                         </div>
                     </header>
                     <section class="content-wrapper main-content clear-fix">
@@ -199,27 +217,39 @@
 
                         <div style="margin-top: -20px;">
 
-                            <a href="@Url.Content("~/Admin/View1")">View 1</a>
-                            <a href="@Url.Content("~/Admin/View2")">View 2</a>
-                            <a href="@Url.Content("~/Admin/View3")">View 3</a>
-                            @* <a href="@Url.Content("~/Admin/View4")">View 4</a>*@
-                            <a href="@Url.Content("~/Campaign/Index")">Campaigns</a>
+                            @if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1"))
+                            {
+                                <div id="rootMenu" style="float:left;">
 
-                            <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard</a>
-                            <a href="@Url.Content("~/Admin/Icons")">Icons</a>
+                                    <a href="@Url.Content("~/Admin/View1")">View 1</a>
+                                    <a href="@Url.Content("~/Admin/View2")">View 2</a>
+                                    <a href="@Url.Content("~/Admin/View3")">View 3</a>
+                                    @* <a href="@Url.Content("~/Admin/View4")">View 4</a>*@
+                                    <a href="@Url.Content("~/Campaign/Index")">Campaigns</a>
 
-
-                            <a href="#">Welcome</a>
-
-                            <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
-
-                            @* <a href="@Url.Content("~/Admin/Home")">Home Page</a>*@
-                            <a href="@Url.Content("~/Partner/Iterate")">Iterate</a>
+                                    <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard</a>
+                                    <a href="@Url.Content("~/Admin/Icons")">Icons</a>
 
 
+                                    <a href="#">Welcome</a>
 
+                                    <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
 
+                                    @* <a href="@Url.Content("~/Admin/Home")">Home Page</a>*@
+                                    <a href="@Url.Content("~/Partner/Iterate")">Iterate</a>
 
+                                </div>
+                            }
+                            else
+                            {
+                                touchpoints = objAdminController.GetAllTouchPoints();
+                                <div style="float:left;" id="type">
+                                    <b>Select Touchpoint</b>
+                                   
+                                    @Html.DropDownList("Touchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "form-control" })
+
+                                </div>
+                            }
                             <select id="reports" name="reports">
                                 <option value="">Select Report</option>
 
@@ -274,8 +304,8 @@
                             }
                             catch { }
 
-                            
-                            
+
+
                         </div>
                     </p>
                 </div>
@@ -289,20 +319,20 @@
                 .Render();
     }
 
-        <div id="popup" style="display:none;">
-            <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
-        </div>
-        @* @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
-            @Scripts.Render("~/bundles/jqueryui")*@
+    <div id="popup" style="display:none;">
+        <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
+    </div>
+    @* @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")*@
     <script type="text/javascript">
 
         function onSplitter2Load(e) {
             @RenderSection("onSplitter2Load",false)
         }
         function OpenManualAddModal(url) {
-             jQuery.noConflict(); // Sergeys change: uncommented this line
-           
-            
+            jQuery.noConflict(); // Sergeys change: uncommented this line
+
+
             $("#popup").dialog({
                 autoOpen: true,
                 modal: true,
@@ -422,7 +452,8 @@
     <script>
 
         $(document).ready(function () {
-
+           
+            $('#Touchpoint').val(GetURLParameter());
             $("#reports").change(function () {
                 if ($("#reports").val() != '') {
                     if ($("#reports").val().indexOf("Rail") > 0) {
@@ -433,8 +464,34 @@
                 }
             });
 
+            $('#Touchpoint').change(function () {
+
+                var objtouchpointID = $('#Touchpoint').val();               
+
+                if (objtouchpointID == "") {
+                    objtouchpointID = 0;
+                }
+                else
+                {
+
+                    window.location.assign("/Admin/Dashbord1/" + objtouchpointID);
+                }
+            });
+
+            
+
 
         });
+
+        function GetURLParameter() {
+            var sPageURL = window.location.href;
+            var indexOfLastSlash = sPageURL.lastIndexOf("/");
+
+            if (indexOfLastSlash > 0 && sPageURL.length - 1 != indexOfLastSlash)
+                return sPageURL.substring(indexOfLastSlash + 1);
+            else
+                return 0;
+        }
 
     </script>
     <script src="/Scripts/bootstrap.js"></script>

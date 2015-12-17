@@ -21,6 +21,7 @@ namespace Generic.ViewModel
         public List<Generic.group> groups { get; set; }
         public List<Generic.ptqGroup> ptqGroups { get; set; }
         public List<pr_getDashboardCountForReferenceByPTQ_Result> ptqDashboard { get; set; }
+        public List<pr_getTouchpointAllByEnterprise_Result> ptqtouchPoints { get; set; }
         
     }
     public class PartnerTypeData
