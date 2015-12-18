@@ -244,7 +244,7 @@
                             {
                                 touchpoints = objAdminController.GetAllTouchPoints();
                                 <div style="float:left;" id="type">
-                                    <b>Select Touchpoint</b>
+                                    @*<b>Select Touchpoint</b>*@
                                    
                                     @Html.DropDownList("Touchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "form-control" })
 
@@ -474,7 +474,7 @@
                 else
                 {
 
-                    window.location.assign("/Admin/Dashbord1/" + objtouchpointID);
+                    window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID);
                 }
             });
 
