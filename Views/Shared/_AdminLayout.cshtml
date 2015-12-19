@@ -80,8 +80,13 @@
         }
 
         #reports {
-            margin: 10px 10px 10px 15px;
+            margin: 10px 10px 10px 10px !important;
         }
+
+        select#templates {
+    height: 25px;
+    width: 228px !important;
+}
     </style>
 </head>
 
@@ -255,7 +260,7 @@
                                 </div>
                             }
                             <div>
-                                <select id="reports" name="reports">
+                                <select id="reports" name="reports" style="margin: 10px 10px 10px 1px;">
                                     <option value="">Select Report</option>
 
                                     @* <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</option>
