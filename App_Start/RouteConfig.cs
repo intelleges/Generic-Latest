@@ -21,6 +21,14 @@ namespace Generic
                 new string[] { "Generic.Controllers" }  //NOTE: namespace to check 
                 );
 
+            routes.MapRoute("GenericNew2", // Route name 
+                "{controller}/{action}/{id}/{groupid}",
+                // URL with parameters 
+                new { controller = "Admin", action = "Index", id = UrlParameter.Optional, groupid = UrlParameter.Optional },// Parameter defaults 
+                null,
+                new string[] { "Generic.Controllers" }  //NOTE: namespace to check 
+                );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

@@ -219,6 +219,20 @@ namespace Generic.Controllers
                 return Json(new { Data = group }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult GetGroupsByTouchpoint(int touchpointId)
+        {
+            if (touchpointId == 0)
+            {
+                var group = db.pr_getGroupByTouchpoint(touchpointId).ToList();
+                return Json(new { Data = group }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var group = db.pr_getGroupByTouchpoint(touchpointId).Select(x => new { x.id, x.description }).ToList();
+                return Json(new { Data = group }, JsonRequestBehavior.AllowGet);
+            }
+        }
         //public ActionResult GetGroupByTouchpointName(string touchpointId)
         //{
         //    if (touchpointId == 0)

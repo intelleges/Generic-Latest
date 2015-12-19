@@ -676,11 +676,13 @@ namespace Generic.Controllers
         }
 
         [Authorize]
-        public virtual ActionResult Dashbord1(int? id)
+        public virtual ActionResult Dashbord1(int? id, int? groupid)
         {
 
             Dashboard1 dashBoard = new Dashboard1();
             int _touchpoint = 0;
+
+
 
             if (id == null)
                 _touchpoint = SessionSingleton.Touchpoint;
@@ -697,60 +699,119 @@ namespace Generic.Controllers
 
                 //  db.pr_getPartnerByPTQGroupStatus(
 
+                // pr_getDashboardCountForReferenceByPTQAndGroup
 
-                var groupDataList = db.pr_getGroupByPTQ(ptqItem.id).ToList();
-                var ptqgroupDataList = db.pr_getPTQGroupByPTQ(ptqItem.id).ToList();
-
-                PartnerTypeDataList datalist = new PartnerTypeDataList();
-                datalist.partnerType = new List<PartnerTypeData>();
-
-                foreach (var item in objDashboard.Select(x => x.partnertype).Distinct())
+                if (groupid == null)
                 {
-                    PartnerTypeData data = new PartnerTypeData();
-                    data.ID = item;
+                    var groupDataList = db.pr_getGroupByPTQ(ptqItem.id).ToList();
+                    var ptqgroupDataList = db.pr_getPTQGroupByPTQ(ptqItem.id).ToList();
 
-                    data.Description = db.pr_getPartnerType(item).FirstOrDefault().description;
+                    PartnerTypeDataList datalist = new PartnerTypeDataList();
+                    datalist.partnerType = new List<PartnerTypeData>();
 
-                    datalist.partnerType.Add(data);
+                    foreach (var item in objDashboard.Select(x => x.partnertype).Distinct())
+                    {
+                        PartnerTypeData data = new PartnerTypeData();
+                        data.ID = item;
 
-                }
+                        data.Description = db.pr_getPartnerType(item).FirstOrDefault().description;
 
-                if (dashBoard.partnerType == null)
-                {
-                    dashBoard.partnerType = datalist.partnerType;
+                        datalist.partnerType.Add(data);
+
+                    }
+
+                    if (dashBoard.partnerType == null)
+                    {
+                        dashBoard.partnerType = datalist.partnerType;
+                    }
+                    else
+                    {
+                        dashBoard.partnerType = dashBoard.partnerType.Union(datalist.partnerType).ToList().Distinct().ToList();
+                    }
+
+
+                    if (dashBoard.groups == null)
+                    {
+                        dashBoard.groups = groupDataList;
+                    }
+                    else
+                    {
+                        dashBoard.groups = dashBoard.groups.Union(groupDataList).ToList().Distinct().ToList();
+                    }
+                    if (dashBoard.ptqGroups == null)
+                    {
+                        dashBoard.ptqGroups = ptqgroupDataList;
+                    }
+                    else
+                    {
+                        dashBoard.ptqGroups = dashBoard.ptqGroups.Union(ptqgroupDataList).ToList().Distinct().ToList();
+                    }
+                    if (dashBoard.ptqDashboard == null)
+                    {
+                        dashBoard.ptqDashboard = objDashboard;
+                    }
+                    else
+                    {
+                        dashBoard.ptqDashboard = dashBoard.ptqDashboard.Union(objDashboard).ToList().Distinct().ToList();
+                    }
+
                 }
                 else
                 {
-                    dashBoard.partnerType = dashBoard.partnerType.Union(datalist.partnerType).ToList().Distinct().ToList();
-                }
+                    var groupDataList = db.pr_getGroupByPTQ(ptqItem.id).ToList().Where(gro => gro.id == (int)groupid).ToList();
+                    var ptqgroupDataList = db.pr_getPTQGroupByPTQ(ptqItem.id).ToList().Where(gro => gro.group == (int)groupid).ToList();
 
 
-                if (dashBoard.groups == null)
-                {
-                    dashBoard.groups = groupDataList;
-                }
-                else
-                {
-                    dashBoard.groups = dashBoard.groups.Union(groupDataList).ToList().Distinct().ToList();
-                }
-                if (dashBoard.ptqGroups == null)
-                {
-                    dashBoard.ptqGroups = ptqgroupDataList;
-                }
-                else
-                {
-                    dashBoard.ptqGroups = dashBoard.ptqGroups.Union(ptqgroupDataList).ToList().Distinct().ToList();
-                }
-                if (dashBoard.ptqDashboard == null)
-                {
-                    dashBoard.ptqDashboard = objDashboard;
-                }
-                else
-                {
-                    dashBoard.ptqDashboard = dashBoard.ptqDashboard.Union(objDashboard).ToList().Distinct().ToList();
-                }
+                    PartnerTypeDataList datalist = new PartnerTypeDataList();
+                    datalist.partnerType = new List<PartnerTypeData>();
+
+                    foreach (var item in objDashboard.Select(x => x.partnertype).Distinct())
+                    {
+                        PartnerTypeData data = new PartnerTypeData();
+                        data.ID = item;
+
+                        data.Description = db.pr_getPartnerType(item).FirstOrDefault().description;
+
+                        datalist.partnerType.Add(data);
+
+                    }
+
+                    if (dashBoard.partnerType == null)
+                    {
+                        dashBoard.partnerType = datalist.partnerType;
+                    }
+                    else
+                    {
+                        dashBoard.partnerType = dashBoard.partnerType.Union(datalist.partnerType).ToList().Distinct().ToList();
+                    }
 
 
+                    if (dashBoard.groups == null)
+                    {
+                        dashBoard.groups = groupDataList;
+                    }
+                    else
+                    {
+                        dashBoard.groups = dashBoard.groups.Union(groupDataList).ToList().Distinct().ToList();
+                    }
+                    if (dashBoard.ptqGroups == null)
+                    {
+                        dashBoard.ptqGroups = ptqgroupDataList;
+                    }
+                    else
+                    {
+                        dashBoard.ptqGroups = dashBoard.ptqGroups.Union(ptqgroupDataList).ToList().Distinct().ToList();
+                    }
+                    if (dashBoard.ptqDashboard == null)
+                    {
+                        dashBoard.ptqDashboard = objDashboard;
+                    }
+                    else
+                    {
+                        dashBoard.ptqDashboard = dashBoard.ptqDashboard.Union(objDashboard).ToList().Distinct().ToList();
+                    }
+
+                }
             }
 
             //ViewBag.TouchPoints = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title"); ;

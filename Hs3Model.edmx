@@ -2393,7 +2393,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PartnerData' does not have a 
           <Property Name="Contact" Type="varchar" MaxLength="512" />
           <Property Name="phone" Type="varchar" MaxLength="100" />
           <Property Name="ContactEmail" Type="varchar" MaxLength="255" />
-          <Property Name="dunsNumber" Type="varchar" MaxLength="20" />
+          <Property Name="dunsNumber" Type="varchar" MaxLength="255" />
           <Property Name="ContactTitle" Type="varchar" MaxLength="255" />
           <Property Name="owner" Type="varchar" MaxLength="402" Nullable="false" />
           <Property Name="countryID" Type="int" />
@@ -3414,6 +3414,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK_personRelationship_person2' has been omitted from the storage model. Column 'personHasThe' of table 'hs3MVCMTQa2Model.Store.personRelationship' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
         <Association Name="FK_personRelationship_person2">
           <End Role="person" Type="Self.person" Multiplicity="1" />
           <End Role="personRelationship" Type="Self.personRelationship" Multiplicity="*" />
@@ -3425,7 +3427,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               <PropertyRef Name="personHasThe" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
+        </Association>-->
         <Association Name="FK_personRelationship_personRelationshipType">
           <End Role="personRelationshipType" Type="Self.personRelationshipType" Multiplicity="1" />
           <End Role="personRelationship" Type="Self.personRelationship" Multiplicity="*" />
@@ -3714,6 +3716,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK_questionResponse_question1' has been omitted from the storage model. Column 'question' of table 'hs3MVCMTQa2Model.Store.questionResponse' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
         <Association Name="FK_questionResponse_question1">
           <End Role="question" Type="Self.question" Multiplicity="1" />
           <End Role="questionResponse" Type="Self.questionResponse" Multiplicity="*" />
@@ -3725,7 +3729,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               <PropertyRef Name="question" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
+        </Association>-->
         <Association Name="FK_questionResponse_response">
           <End Role="response" Type="Self.response" Multiplicity="1" />
           <End Role="questionResponse" Type="Self.questionResponse" Multiplicity="*" />
@@ -3990,6 +3994,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_questionnaire' has been omitted from the storage model. Column 'questionnaire' of table 'hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
         <Association Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire">
           <End Role="questionnaire" Type="Self.questionnaire" Multiplicity="1" />
           <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
@@ -4001,7 +4007,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               <PropertyRef Name="questionnaire" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
+        </Association>-->
+        <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touchpoint' has been omitted from the storage model. Column 'touchpoint' of table 'hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
         <Association Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint">
           <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
           <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
@@ -4013,7 +4021,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               <PropertyRef Name="touchpoint" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
+        </Association>-->
         <Association Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
           <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
           <End Role="touchpointPartnerTypeScoreAutoMail" Type="Self.touchpointPartnerTypeScoreAutoMail" Multiplicity="*" />
@@ -5659,6 +5667,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_getDashboardCountForReferenceByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getDashboardCountForReferenceByPTQAndGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ptq" Type="int" Mode="In" />
+          <Parameter Name="group" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getDomain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -9129,10 +9141,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <End Role="person" EntitySet="person" />
             <End Role="personRelationship" EntitySet="personRelationship" />
           </AssociationSet>
-          <AssociationSet Name="FK_personRelationship_person2" Association="Self.FK_personRelationship_person2">
-            <End Role="person" EntitySet="person" />
-            <End Role="personRelationship" EntitySet="personRelationship" />
-          </AssociationSet>
           <AssociationSet Name="FK_personRelationship_personRelationshipType" Association="Self.FK_personRelationship_personRelationshipType">
             <End Role="personRelationshipType" EntitySet="personRelationshipType" />
             <End Role="personRelationship" EntitySet="personRelationship" />
@@ -9229,10 +9237,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <End Role="question" EntitySet="question" />
             <End Role="questionResponse" EntitySet="questionResponse" />
           </AssociationSet>
-          <AssociationSet Name="FK_questionResponse_question1" Association="Self.FK_questionResponse_question1">
-            <End Role="question" EntitySet="question" />
-            <End Role="questionResponse" EntitySet="questionResponse" />
-          </AssociationSet>
           <AssociationSet Name="FK_questionResponse_response" Association="Self.FK_questionResponse_response">
             <End Role="response" EntitySet="response" />
             <End Role="questionResponse" EntitySet="questionResponse" />
@@ -9319,14 +9323,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_partnerType" Association="Self.FK_touchpointPartnerTypeQuestionnaire_partnerType">
             <End Role="partnerType" EntitySet="partnerType" />
-            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
-          </AssociationSet>
-          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire" Association="Self.FK_touchpointPartnerTypeQuestionnaire_questionnaire">
-            <End Role="questionnaire" EntitySet="questionnaire" />
-            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
-          </AssociationSet>
-          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint" Association="Self.FK_touchpointPartnerTypeQuestionnaire_touchpoint">
-            <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
           </AssociationSet>
           <AssociationSet Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint" Association="Self.FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
@@ -14479,6 +14475,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <End Role="questionnaireCM" EntitySet="questionnaireCMS" />
             <End Role="questionnaireQuestionnaireCM" EntitySet="questionnaireQuestionnaireCMS" />
           </AssociationSet>
+          <FunctionImport Name="pr_getDashboardCountForReferenceByPTQAndGroup" EntitySet="group" ReturnType="Collection(hs3MVCMTQa2Model.group)">
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="group" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -20685,7 +20685,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="Expr1" Nullable="false" MaxLength="115" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="campaign" Nullable="false" />
           <Property Type="Boolean" Name="active" />
-          <Property Type="String" Name="dunsNumber" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="dunsNumber" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="partnumberSpreadsheetDataLoad">
           <Key>
@@ -23156,6 +23156,13 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="pr_getDashboardCountForReferenceByPTQAndGroup_Result">
+          <Property Type="Int32" Name="group" Nullable="false" />
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="statusID" Nullable="false" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -30653,6 +30660,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_getDashboardCountForReferenceByPTQAndGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_getDashboardCountForReferenceByPTQAndGroup">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -30667,8 +30676,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
         <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>

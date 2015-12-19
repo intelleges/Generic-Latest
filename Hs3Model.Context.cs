@@ -17197,5 +17197,31 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaireQuestionnaireCMS", questionnaireParameter, questionnaireCMSParameter);
         }
+    
+        public virtual ObjectResult<group> pr_getDashboardCountForReferenceByPTQAndGroup(Nullable<int> ptq, Nullable<int> group)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getDashboardCountForReferenceByPTQAndGroup", ptqParameter, groupParameter);
+        }
+    
+        public virtual ObjectResult<group> pr_getDashboardCountForReferenceByPTQAndGroup(Nullable<int> ptq, Nullable<int> group, MergeOption mergeOption)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getDashboardCountForReferenceByPTQAndGroup", mergeOption, ptqParameter, groupParameter);
+        }
     }
 }

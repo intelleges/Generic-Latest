@@ -17,7 +17,7 @@
     try
     {
         Generic.Controllers.EnterpriseController objEnterpriseController = new Generic.Controllers.EnterpriseController();
-         objAdminController = new Generic.Controllers.AdminController();
+        objAdminController = new Generic.Controllers.AdminController();
 
 
         Generic.enterprise objEnterprise = objEnterpriseController.GetEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID);
@@ -80,7 +80,7 @@
         }
 
         #reports {
-            margin: 5px 0px;
+            margin: 10px 10px 10px 15px;
         }
     </style>
 </head>
@@ -245,29 +245,35 @@
                                 touchpoints = objAdminController.GetAllTouchPoints();
                                 <div style="float:left;" id="type">
                                     @*<b>Select Touchpoint</b>*@
-                                   
+
                                     @Html.DropDownList("Touchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "form-control" })
 
+                                    <select id="group" name="group">
+
+                                        <option value="">Select Group</option>
+                                    </select>
                                 </div>
                             }
-                            <select id="reports" name="reports">
-                                <option value="">Select Report</option>
+                            <div>
+                                <select id="reports" name="reports">
+                                    <option value="">Select Report</option>
 
-                                @* <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</option>
-                                    <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</option>*@
+                                    @* <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</option>
+                                        <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</option>*@
 
-                                <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForReport3")">Report 3</option>
-                                <option value="@Url.Content("~/Partner/EventNotificationBounceReportDownload")">Bounce Report</option>
-                                <option value="@Url.Content("~/Partner/ResponsesByProtocolTouchpointGroupPartnertype2Download")">Response Detail</option>
-                                <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForAgingReport")">Aging Report</option>
-                                <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForMailDeliveredReport")">Mail Delivered</option>
-                                <option value="@Url.Content("~/Partner/RailReport")">RAIL Report</option>
-                                <option value="@Url.Content("~/Partner/GetTwillioCallsHistory")">Calls Report</option>
-                            </select>
+                                    <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForReport3")">Report 3</option>
+                                    <option value="@Url.Content("~/Partner/EventNotificationBounceReportDownload")">Bounce Report</option>
+                                    <option value="@Url.Content("~/Partner/ResponsesByProtocolTouchpointGroupPartnertype2Download")">Response Detail</option>
+                                    <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForAgingReport")">Aging Report</option>
+                                    <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForMailDeliveredReport")">Mail Delivered</option>
+                                    <option value="@Url.Content("~/Partner/RailReport")">RAIL Report</option>
+                                    <option value="@Url.Content("~/Partner/GetTwillioCallsHistory")">Calls Report</option>
+                                </select>
 
 
 
-                            @Html.Action("downloadTemplate", "Admin")
+                                @Html.Action("downloadTemplate", "Admin")
+                            </div>
 
                         </div>
 
@@ -452,8 +458,13 @@
     <script>
 
         $(document).ready(function () {
+
+            var touchpointid = GetURLParameter(0);
+
            
-            $('#Touchpoint').val(GetURLParameter());
+
+            BindGroup(touchpointid)
+
             $("#reports").change(function () {
                 if ($("#reports").val() != '') {
                     if ($("#reports").val().indexOf("Rail") > 0) {
@@ -466,32 +477,100 @@
 
             $('#Touchpoint').change(function () {
 
-                var objtouchpointID = $('#Touchpoint').val();               
+                var objtouchpointID = $('#Touchpoint').val();
 
                 if (objtouchpointID == "") {
                     objtouchpointID = 0;
                 }
-                else
-                {
 
-                    window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID);
+                else {
+
+                    //window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID);
+                    window.location.assign("/Admin/Dashbord1/" + objtouchpointID);
                 }
             });
 
-            
+            $('#group').change(function () {
+
+                var objtouchpointID = $('#Touchpoint').val();
+                var objgroupID = $('#group').val();
+
+                if (objtouchpointID == "" && objgroupID == "") {
+                    objtouchpointID = 0;
+                }
+
+                else {
+
+                    window.location.assign("/Admin/Dashbord1/" + objtouchpointID + "/" + objgroupID);
+                }
+            });
+
 
 
         });
 
-        function GetURLParameter() {
-            var sPageURL = window.location.href;
-            var indexOfLastSlash = sPageURL.lastIndexOf("/");
+        function GetURLParameter(ind) {
 
-            if (indexOfLastSlash > 0 && sPageURL.length - 1 != indexOfLastSlash)
-                return sPageURL.substring(indexOfLastSlash + 1);
-            else
-                return 0;
+
+            var index = window.location.href.indexOf("Dashbord1");
+
+            var sPageURL = window.location.href.substring(index + 10);
+
+
+
+            var values = sPageURL.split("/");
+
+           
+
+
+            if (values.length < 0) {
+
+                return -1;
+            }
+            else {
+
+                if (ind == 0)
+                    return values[0];
+                else
+                    return values[1];
+
+            }
         }
+
+        function BindGroup(objtouchpointID) {
+
+            $('#Touchpoint').val(objtouchpointID);
+
+
+            var formData = { touchpointId: objtouchpointID };
+            $.ajax({
+                url: "@Url.Content("~/Group/GetGroupsByTouchpoint")",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    var len = data.Data.length;
+                    var i = 0;
+                    var groupSelectList = "<option value=''>Select Group</option>";
+                    for (i = 0; i < len; i++) {
+                        groupSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
+                    }
+
+                    $('#group').html(groupSelectList);
+
+                    var objgroupid = GetURLParameter(1);
+
+                   
+                    $('#group').val(objgroupid);
+
+                },
+                error: function (data) {
+                    var touchpointSelectList = "<option value=''>Select Group</option>";
+                    $('#group').html(touchpointSelectList);
+                }
+            });
+        }
+
+
 
     </script>
     <script src="/Scripts/bootstrap.js"></script>
