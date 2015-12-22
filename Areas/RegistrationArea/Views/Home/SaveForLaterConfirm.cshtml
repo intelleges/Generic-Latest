@@ -199,8 +199,9 @@
     <tr>
         <td>
             <div style="float:right">
-                <input type="button" name="btnCancel" id="btnCancel" value="@ViewBag.SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT" style="border-width: 0px;" />
+               
                 <input type="button" name="btnExit" id="btnExit" value="@ViewBag.SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT" style="border-width: 0px;" />
+                <input type="button" name="btnCancel" id="btnCancel" value="@ViewBag.SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT" style="border-width: 0px;" />
 
               <!--  .SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT-->
             </div>
@@ -212,7 +213,7 @@
         $(document).on("click", "#btnExit", null, function () {
             window.history.back();
         });
-        $(document).on("click", "#btnCancelbtnExit", null, function () {
+        $(document).on("click", "#btnCancel", null, function () {
             if ("@ViewBag.ENTERPRISE_URL") {
                 window.location.href = "http://@ViewBag.ENTERPRISE_URL";
                 //window.location.host = ;
