@@ -2314,6 +2314,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.ESIGNATURE_PAGE_PREVIOUS_TEXT;
             ViewBag.CMS_PAGE_NEXT_TEXT = CMS.ESIGNATURE_PAGE_NEXT_TEXT;
             ViewBag.ESIGNATURE_PAGE_TEXT = CMS.ESIGNATURE_PAGE_TEXT;
+            ViewBag.QUESTIONNAIRE_DOC_OTHER_2 = CMS.QUESTIONNAIRE_DOC_OTHER_2;
 
             ViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
             ViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
@@ -2360,6 +2361,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     cmsId = questionnairCMSAll.Where(q => q.description == CMS.ESIGNATURE_PAGE_TEXT).FirstOrDefault().id;
                     var floatText = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
                     ViewBag.ESIGNATURE_PAGE_TEXT = new EmailFormat().sGetEmailBody(floatText, null, pptq.partner1, null, ptq.id);
+
+
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER_2).id;
+                    var QUESTIONNAIRE_DOC_OTHER_2 = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                    if (QUESTIONNAIRE_DOC_OTHER_2 != null)
+                    {
+                        ViewBag.QUESTIONNAIRE_DOC_OTHER_2 = QUESTIONNAIRE_DOC_OTHER_2;
+                    }
                     QuestionnaireMenuLinks(cms, questionnairCMSAll, ptq.questionnaire);
                 }
                 catch { }
@@ -2902,7 +2911,15 @@ Intelleges Team";
                     cmsId = questionnairCMSAll.Where(q => q.description == CMS.CONFIRMATION_PAGE_PREVIOUS_TEXT).FirstOrDefault().id;
                     ViewBag.CMS_PAGE_PREVIOUS_TEXT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
                 }
-                catch { } try
+                catch { }
+
+                try
+                {
+                    cmsId = questionnairCMSAll.Where(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER_2).FirstOrDefault().id;
+                    ViewBag.QUESTIONNAIRE_DOC_OTHER_2 = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+                }
+                catch { }
+                try
                 {
                     ViewBag.ACCESS_CODE = Session["accessCode"];
                 }
