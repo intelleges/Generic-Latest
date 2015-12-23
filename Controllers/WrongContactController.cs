@@ -39,8 +39,8 @@ namespace Generic.Controllers
             if (ppptq != null)
             {
 
-              
-                
+
+
 
 
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
@@ -79,8 +79,8 @@ namespace Generic.Controllers
                     var cms_PageHeaderText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_PAGE_HEADER_TEXT).id);
                     if (cms_PageHeaderText != null)
                     {
-                        
-                        
+
+
                         ViewBag.CMS_PAGE_HEADER_TEXT = cms_PageHeaderText.text;
                     }
                     var cms_PagePreviuosText = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_PAGE_PREVIOUS_TEXT).id);
@@ -98,26 +98,39 @@ namespace Generic.Controllers
 
 
             }
-            if (Session["currentEmail"] !=null)
+            if (Session["currentEmail"] != null)
                 objPartner.email = Session["currentEmail"].ToString();
             return View(objPartner);
         }
 
         [HttpPost]
-        public ActionResult Index(partner partner, string accessCode = null)
+        public ActionResult Index(partner partner, string accessCode = null, string listing = null)
         {
             partner objpartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
             objpartner.firstName = partner.firstName;
 
             Session["New Contact Name"] = partner.firstName;
-            Session["New Contact Full Name"] =partner.firstName +" "+ partner.lastName;
+            Session["New Contact Full Name"] = partner.firstName + " " + partner.lastName;
 
+            if (objpartner.email != partner.email)
+            {
+                Session["ACEmail"] = objpartner.email;
+                Session["ACNewEmail"] = partner.email;
+                Session["accessCode"] = accessCode;
+            }
+            else
+            {
+                Session["ACEmail"] = null;
+                Session["ACNewEmail"] = null;
+                
+
+            }
             objpartner.lastName = partner.lastName;
             objpartner.title = partner.title;
             objpartner.email = partner.email;
             objpartner.phone = partner.phone;
             objpartner.fax = partner.fax;
-           
+
             if (ModelState.IsValid)
             {
                 db.Entry(objpartner).State = EntityState.Modified;
@@ -128,8 +141,8 @@ namespace Generic.Controllers
 
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint((int)Session["partnerType"], (int)Session["touchpoint"]).FirstOrDefault().id;
                 var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(objpartner.id, ptq).FirstOrDefault();
-              
-              
+
+
 
                 //var objpartner = db.pr_getPartner(partnerId).FirstOrDefault();
                 //objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
@@ -147,11 +160,13 @@ namespace Generic.Controllers
                 email.body = emailFormat.sGetEmailBody(email.body, objperson, objpartner, objtouchpoint, ptq);
                 email.emailTo = objpartner.email;
                 SendEmail objSendEmail = new SendEmail();
-                objSendEmail.sendEmail(email);
+                // objSendEmail.sendEmail(email);
 
+                if (listing.Trim().ToLower().Equals("y"))
+                    return RedirectToAction("../Partner/FindPartnerResult");
+                else
+                    return RedirectToAction("RedirectConfirmation");
 
-                return RedirectToAction("RedirectConfirmation");
-               
             }
             return View(partner);
         }
@@ -198,9 +213,9 @@ namespace Generic.Controllers
                     {
                         cms_PagePanelOne.text = cms_PagePanelOne.text.Replace("[Touchpoint Title]", cms_PageTitle.text);
                         cms_PagePanelOne.text = cms_PagePanelOne.text.Replace("[New Contact Name]", Session["New Contact Name"].ToString());
-                        cms_PagePanelOne.text = cms_PagePanelOne.text.Replace("[New Contact Full Name]", Session["New Contact Full Name"].ToString());                      
+                        cms_PagePanelOne.text = cms_PagePanelOne.text.Replace("[New Contact Full Name]", Session["New Contact Full Name"].ToString());
 
-                     
+
                         ViewBag.CMS_PAGE_PANEL_ONE = cms_PagePanelOne.text;
                     }
                     var cms_PagePanelTwo = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.REDIRECT_CONFIRMATION_PAGE_PANEL_TWO).id);
@@ -208,7 +223,7 @@ namespace Generic.Controllers
                     {
                         cms_PagePanelTwo.text = cms_PagePanelTwo.text.Replace("[Touchpoint Title]", cms_PageTitle.text);
                         cms_PagePanelTwo.text = cms_PagePanelTwo.text.Replace("[New Contact Name]", Session["New Contact Name"].ToString());
-                        cms_PagePanelTwo.text = cms_PagePanelTwo.text.Replace("[New Contact Full Name]", Session["New Contact Full Name"].ToString());                      
+                        cms_PagePanelTwo.text = cms_PagePanelTwo.text.Replace("[New Contact Full Name]", Session["New Contact Full Name"].ToString());
 
                         ViewBag.CMS_PAGE_PANEL_TWO = cms_PagePanelTwo.text;
                     }
@@ -220,7 +235,7 @@ namespace Generic.Controllers
                     {
                         cms_PageHeaderText.text = cms_PageHeaderText.text.Replace("[Touchpoint Title]", cms_PageTitle.text);
                         cms_PageHeaderText.text = cms_PageHeaderText.text.Replace("[New Contact Name]", Session["New Contact Name"].ToString());
-                        cms_PageHeaderText.text = cms_PageHeaderText.text.Replace("[New Contact Full Name]", Session["New Contact Full Name"].ToString());                      
+                        cms_PageHeaderText.text = cms_PageHeaderText.text.Replace("[New Contact Full Name]", Session["New Contact Full Name"].ToString());
 
                         ViewBag.CMS_PAGE_HEADER_TEXT = cms_PageHeaderText.text;
 
@@ -232,11 +247,11 @@ namespace Generic.Controllers
                     if (cms_PageNextText != null)
                     {
                         ViewBag.CMS_PAGE_NEXT_TEXT = cms_PageNextText.text;
-                       
+
                         if (cms_PageNextText.link == null)
                         {
                             ViewBag.CMS_PAGE_NEXT_LINK = db.pr_getEnterpriseSystemInfo(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault().companyWebSite;
-                            
+
                         }
                         else
                         {

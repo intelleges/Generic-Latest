@@ -147,7 +147,7 @@
             </div>
         }
             </text>);
-            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="RedirectScreen('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>);
+            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="RedirectScreen('../WrongContact/Index?accesscode=@item.AccessCode&listing=y');">@item.ContactEmail</a></text>);
 
             columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(100).Template(@<text>
 
@@ -418,8 +418,7 @@
 
     });
 
-    function RedirectScreen(url)
-    {
+    function RedirectScreen(url) {
         window.location.replace(url);
     }
     var currentPTQAccessCode = null;
@@ -561,7 +560,7 @@
     }
     function checkToPrintPDF(status, accesscode) {
         $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus2")', { accessCode: accesscode }, function (data) {
-            
+
             if (data[0].next == 6) {
                 alertify.alert(data[0].nextStep);
 
@@ -678,3 +677,19 @@
         </div>
     </div>
 </div>
+@if(Session["ACNewEmail"]!=null)
+        {
+    <script>
+
+        $(document).ready(function () {
+
+
+            alertify.alert("This is done.You have successfully changed the point-of-contact email address for <br/> Access Code: @Session["accessCode"].ToString() from @Session["ACEmail"].ToString() to @Session["ACNewEmail"].ToString()");
+
+
+        });
+        
+    </script>
+    
+            Session["ACNewEmail"] = null;
+}
