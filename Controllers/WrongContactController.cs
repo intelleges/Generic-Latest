@@ -160,7 +160,7 @@ namespace Generic.Controllers
                 email.body = emailFormat.sGetEmailBody(email.body, objperson, objpartner, objtouchpoint, ptq);
                 email.emailTo = objpartner.email;
                 SendEmail objSendEmail = new SendEmail();
-                // objSendEmail.sendEmail(email);
+                 objSendEmail.sendEmail(email);
 
                 if (listing.Trim().ToLower().Equals("y"))
                     return RedirectToAction("../Partner/FindPartnerResult");
