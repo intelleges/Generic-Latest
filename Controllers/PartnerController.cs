@@ -3663,6 +3663,7 @@ namespace Generic.Controllers
         public ActionResult getIteratePartnerNoteIds()
         {
             var result = db.pr_getIteratePartnerPerson3(SessionSingleton.LoggedInUserId).ToList();
+            //var result = db.pr_getIteratePartnerByPersonLatest(SessionSingleton.LoggedInUserId).ToList();
             return Json(result.Select(o => o.note).ToList().Distinct());
         }
 

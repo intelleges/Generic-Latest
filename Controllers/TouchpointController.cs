@@ -498,6 +498,12 @@ namespace Generic.Controllers
             base.Dispose(disposing);
         }
 
-       
+        public ActionResult GetGroupByPerson()
+        {
+
+                var group = db.pr_getGroupByPerson(SessionSingleton.PersonId); ;
+                return Json(new { Data = group }, JsonRequestBehavior.AllowGet);
+            
+        }
     }
 }

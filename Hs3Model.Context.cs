@@ -17223,5 +17223,32 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<group>("pr_getDashboardCountForReferenceByPTQAndGroup", mergeOption, ptqParameter, groupParameter);
         }
+    
+        public virtual ObjectResult<pr_getIteratePartnerByPerson_Result> pr_getIteratePartnerByPerson(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerByPerson_Result>("pr_getIteratePartnerByPerson", personParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerByPerson1_Result> pr_getIteratePartnerByPerson1(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerByPerson1_Result>("pr_getIteratePartnerByPerson1", personParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerByPersonLatest_Result> pr_getIteratePartnerByPersonLatest(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerByPersonLatest_Result>("pr_getIteratePartnerByPersonLatest", personParameter);
+        }
     }
 }
