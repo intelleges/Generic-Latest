@@ -461,59 +461,6 @@
 
 
     <script>
-
-        $(document).ready(function () {
-
-            var touchpointid = GetURLParameter(0);
-
-           
-
-            BindGroup(touchpointid)
-
-            $("#reports").change(function () {
-                if ($("#reports").val() != '') {
-                    if ($("#reports").val().indexOf("Rail") > 0) {
-                        window.location.assign($("#reports").val());
-                    } else {
-                        window.open($("#reports").val());
-                    }
-                }
-            });
-
-            $('#Touchpoint').change(function () {
-
-                var objtouchpointID = $('#Touchpoint').val();
-
-                if (objtouchpointID == "") {
-                    objtouchpointID = 0;
-                }
-
-                else {
-
-                    //window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID);
-                    window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID);
-                }
-            });
-
-            $('#group').change(function () {
-
-                var objtouchpointID = $('#Touchpoint').val();
-                var objgroupID = $('#group').val();
-
-                if (objtouchpointID == "" && objgroupID == "") {
-                    objtouchpointID = 0;
-                }
-
-                else {
-
-                    window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID + "/" + objgroupID);
-                }
-            });
-
-
-
-        });
-
         function GetURLParameter(ind) {
 
 
@@ -525,7 +472,7 @@
 
             var values = sPageURL.split("/");
 
-           
+
 
 
             if (values.length < 0) {
@@ -541,39 +488,24 @@
 
             }
         }
+        $(document).ready(function () {
 
-        function BindGroup(objtouchpointID) {
-
-            $('#Touchpoint').val(objtouchpointID);
-
-
-            var formData = { touchpointId: objtouchpointID };
-            $.ajax({
-                url: "@Url.Content("~/Group/GetGroupsByTouchpoint")",
-                type: "post",
-                data: formData,
-                success: function (data) {
-                    var len = data.Data.length;
-                    var i = 0;
-                    var groupSelectList = "<option value=''>Select Group</option>";
-                    for (i = 0; i < len; i++) {
-                        groupSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
+            
+            $("#reports").change(function () {
+                if ($("#reports").val() != '') {
+                    if ($("#reports").val().indexOf("Rail") > 0) {
+                        window.location.assign($("#reports").val());
+                    } else {
+                        window.open($("#reports").val());
                     }
-
-                    $('#group').html(groupSelectList);
-
-                    var objgroupid = GetURLParameter(1);
-
-                   
-                    $('#group').val(objgroupid);
-
-                },
-                error: function (data) {
-                    var touchpointSelectList = "<option value=''>Select Group</option>";
-                    $('#group').html(touchpointSelectList);
                 }
             });
-        }
+
+
+        });
+
+
+        
 
 
 

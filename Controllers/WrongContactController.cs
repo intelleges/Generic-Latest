@@ -162,7 +162,7 @@ namespace Generic.Controllers
                 SendEmail objSendEmail = new SendEmail();
                  objSendEmail.sendEmail(email);
 
-                if (listing.Trim().ToLower().Equals("y"))
+                 if (listing!=null&&listing.Trim().ToLower().Equals("y"))
                     return RedirectToAction("../Partner/FindPartnerResult");
                 else
                     return RedirectToAction("RedirectConfirmation");

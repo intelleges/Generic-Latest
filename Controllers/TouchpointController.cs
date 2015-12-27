@@ -500,10 +500,10 @@ namespace Generic.Controllers
 
         public ActionResult GetGroupByPerson()
         {
+           
+            var group = db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId);
+            return Json(new { Data = group.Select(o=>new {id=o.id, title=o.name}).ToList() }, JsonRequestBehavior.AllowGet);
 
-                var group = db.pr_getGroupByPerson(SessionSingleton.PersonId); ;
-                return Json(new { Data = group }, JsonRequestBehavior.AllowGet);
-            
         }
     }
 }
