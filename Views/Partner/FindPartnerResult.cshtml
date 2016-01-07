@@ -92,7 +92,7 @@
 
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF('@item.status','@item.AccessCode')">Print PDF</a></li>
 
-                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintHTML('@item.status','@item.AccessCode')">Print HTML</a></li>
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetPdf('@item.AccessCode')">Reset PDF</a></li>
                         @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
                         {
                             <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
@@ -557,6 +557,15 @@
         });
         $("#genericPopup").dialog({ height: 600, title: "Complete" });
         $("#genericPopup").dialog('open');
+    }
+    function resetPdf(accessCode) {
+        $.get('@Url.Content("~/Partner/ResetPdf")' + '?accesscode=' + accessCode, function (data) {
+            if (data) {
+                alertify.alert("Pdf document was reset");
+            } else {
+                alertify.alert("Something went wrong, please try again later");
+            }
+        });
     }
     function checkToPrintPDF(status, accesscode) {
         $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus2")', { accessCode: accesscode }, function (data) {

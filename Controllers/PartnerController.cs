@@ -1714,6 +1714,20 @@ namespace Generic.Controllers
 
 
         }
+
+
+        public ActionResult ResetPdf(string accessCode)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            if (pptq != null)
+            {
+                db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(pptq.id)
+                    ;
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult PrintPDF(string accesscode)
         {
             if (!string.IsNullOrEmpty(accesscode))

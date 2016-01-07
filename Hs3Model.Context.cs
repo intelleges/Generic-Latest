@@ -17250,5 +17250,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerByPersonLatest_Result>("pr_getIteratePartnerByPersonLatest", personParameter);
         }
+    
+        public virtual int pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("PartnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("PartnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_resetPartnerPartnertypeTouchpointQuestionnairePDF", partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
     }
 }

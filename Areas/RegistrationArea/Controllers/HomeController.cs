@@ -3076,7 +3076,7 @@ Intelleges Team";
                     }
                 }
 
-                fileData = (byte[])fileDataBinary.ToArray();
+                fileData = fileDataBinary.ToArray();
                 // fileName = CMSName;
 
                 //return file and provide byte file content and file name --application/pdf
@@ -3206,39 +3206,43 @@ Intelleges Team";
 
         public ActionResult PDFConfirmation()
         {
-            QuestionnaireModel modl = new QuestionnaireModel();
-            List<pr_getPartnerQuestionResponseByAccessCode_Result> result = db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
+            List<pr_getPartnerQuestionResponseByAccessCode_Result> result =
+                db.pr_getPartnerQuestionResponseByAccessCode(Session["accessCode"].ToString()).ToList();
 
             var find = db.pr_getPartnerHeaderByAccessCode(Session["accessCode"].ToString()).ToList();
             ViewBag.reslt2 = find;
-            List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
-            var _partnerId = pptq.partner;
-            var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
-            ViewBag.partner = _partner;
-
-            var _country = db.pr_getCountry(_partner.country).FirstOrDefault();
-            if (_country != null)
-                ViewBag.country = _country.name;
-            else
-                ViewBag.country = string.Empty;
-
-            var _state = db.pr_getState(_partner.state).FirstOrDefault();
-            if (_state != null)
-                ViewBag.state = _state.stateCode;
-            else
-                ViewBag.state = string.Empty;
-
-            if (enterprise == null)
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var pptq =
+                db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString())
+                    .FirstOrDefault();
+            if (pptq != null)
             {
+                var _partnerId = pptq.partner;
+                var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
+                ViewBag.partner = _partner;
+
+                if (_partner != null)
+                {
+                    var _country = db.pr_getCountry(_partner.country).FirstOrDefault();
+                    ViewBag.country = _country != null ? _country.name : string.Empty;
+                }
+
+                if (_partner != null)
+                {
+                    var _state = db.pr_getState(_partner.state).FirstOrDefault();
+                    ViewBag.state = _state != null ? _state.stateCode : string.Empty;
+                }
             }
-            else
+
+
+            var firstOrDefault = enterprise.FirstOrDefault();
+            if (firstOrDefault != null)
             {
-                var logo = enterprise.FirstOrDefault().logo;
+                var logo = firstOrDefault.logo;
                 string dirname = @"C:\https\MVCMT\logo\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
                 if (Directory.Exists(dirname))
                 {
-                    var fileName = dirname + enterprise.FirstOrDefault().id + "Logo.png";
+                    var fileName = dirname + firstOrDefault.id + "Logo.png";
                     if (!System.IO.File.Exists(fileName))
                     {
                         var fs = new BinaryWriter(new FileStream(fileName, FileMode.Append, FileAccess.Write));
@@ -3249,8 +3253,11 @@ Intelleges Team";
                 }
             }
 
+
+
             ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
-            return ViewPdf(result, pptq.id);
+            if (pptq != null) return ViewPdf(result, pptq.id);
+            else throw new Exception("Cannot find pptq");
         }
 
         public ActionResult OrdersInHTML()
@@ -5187,7 +5194,8 @@ Intelleges Team";
             if (!string.IsNullOrEmpty(accesscode))
             {
                 Session["accessCode"] = accesscode;
-                if (db.pr_getQuestionnaireByAccesscode(Session["accesscode"].ToString()).FirstOrDefault().footer != "1")
+                var prGetQuestionnaireByAccesscodeResult = db.pr_getQuestionnaireByAccesscode(Session["accesscode"].ToString()).FirstOrDefault();
+                if (prGetQuestionnaireByAccesscodeResult != null && prGetQuestionnaireByAccesscodeResult.footer != "1")
                     Response.Redirect("~/Registration/Home/CustomizedPDFConfirmation");
                 else Response.Redirect("~/Registration/Home/PDFConfirmation");
             }
