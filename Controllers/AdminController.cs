@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -127,8 +128,8 @@ namespace Generic.Controllers
             {
                 CallbackUrl = "https://intelleges.com/mvcmt/Generic/Admin/ExternalLoginCallback",
                 //CallbackUrl = "http://localhost:51090/Admin/ExternalLoginCallback",
-                ConsumerKey = "7747cjm5yf3gbp",
-                ConsumerSecret = "SzdxJQqxWWonlMz5",
+                ConsumerKey =ConfigurationManager.AppSettings["LinkedInConsumerKey"],
+                ConsumerSecret = ConfigurationManager.AppSettings["LinkedInConsumerSecret"],
                 Type = Hammock.Authentication.OAuth.OAuthType.RequestToken
             };
 
@@ -185,8 +186,8 @@ namespace Generic.Controllers
 
             var credentials = new Hammock.Authentication.OAuth.OAuthCredentials
             {
-                ConsumerKey = "7747cjm5yf3gbp",
-                ConsumerSecret = "SzdxJQqxWWonlMz5",
+                ConsumerKey = ConfigurationManager.AppSettings["LinkedInConsumerKey"],
+                ConsumerSecret = ConfigurationManager.AppSettings["LinkedInConsumerSecret"],
                 Token = fullLinkedinAuthInfo.token,
                 TokenSecret = fullLinkedinAuthInfo.tokenSecret,
                 Verifier = verifier,
@@ -248,12 +249,12 @@ namespace Generic.Controllers
             {
                 List<Generic.enterprise> result = db.pr_getEnterpriseByEmail(email).ToList();
 
-                if (result.Count() == 0)
+                if (!result.Any())
                 {
                     var message = "Thank you for your interest in Intelleges. You currently do not have an Intelleges account, and right now LinkedIn members are by INVITATION ONLY. We are happy to add you to our WAITING LIST and send you an invite if this policy changes in the future. Please click Yes if you would like to be added. If you don &apos;t want to be added, click No. Thank you.";
                     TempData["LinkedInMessage"] = new KeyValuePair<string, string>("promptYesNo", message);
                 }
-                else if (result.Count() >= 1)
+                else if (result.Any())
                 {
                     person resultPerson = db.pr_getPersonByEmail(result[0].id, email).FirstOrDefault();
 
