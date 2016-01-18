@@ -87,7 +87,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     if (cms_PageTitle != null)
                         ViewBag.CMS_PAGE_TITLE = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
 
-                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_TITLE).id;
+                    cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_SUBTITLE).id;
                     var cms_PageSubtitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_SUBTITLE).id);
                     if (cms_PageSubtitle != null)
                         ViewBag.CMS_PAGE_SUBTITLE = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
