@@ -84,9 +84,9 @@
         }
 
         select#templates {
-    height: 25px;
-    width: 215px !important;
-}
+            height: 25px;
+            width: 215px !important;
+        }
     </style>
 </head>
 
@@ -344,13 +344,13 @@
             jQuery.noConflict(); // Sergeys change: uncommented this line
 
 
-            $("#popup").dialog({
+            jQuery("#popup").dialog({
                 autoOpen: true,
                 modal: true,
                 height: 550,
                 width: 900,
                 open: function () {
-                    $("#modal").attr("src", url);
+                    jQuery("#modal").attr("src", url);
 
                 }
             });
@@ -490,7 +490,7 @@
         }
         $(document).ready(function () {
 
-            
+
             $("#reports").change(function () {
                 if ($("#reports").val() != '') {
                     if ($("#reports").val().indexOf("Rail") > 0) {
@@ -505,7 +505,7 @@
         });
 
 
-        
+
 
 
 
