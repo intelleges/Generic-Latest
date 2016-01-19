@@ -3120,6 +3120,10 @@
     <Content Include="HomeSiteArea\js\jquery-1.9.1.min.js.map">
       <DependentUpon>jquery-1.9.1.min.js</DependentUpon>
     </Content>
+    <Content Include="Areas\RegistrationArea\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Shared\_BottomSection.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Shared\_TopSection.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
