@@ -256,7 +256,7 @@
                 <label for="licenseStartDate">License Start Date</label>
             </div>
             <div class="editor-field">
-                @Html.Telerik().DatePicker(model => model.licenseStartDate)
+                @Html.Telerik().DatePickerFor(model => model.licenseStartDate)
                 .Value(DateTime.Today)
                 @Html.ValidationMessageFor(model => model.licenseStartDate)
             </div>
