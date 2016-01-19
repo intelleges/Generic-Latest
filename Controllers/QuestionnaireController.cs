@@ -814,7 +814,7 @@ namespace Generic.Controllers
                         var fileName = TempData["fileName"];
                         var physicalPath = TempData["physicalPath"];
                         string sheetname = "surveyQuestion";
-                        var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+                        var excelRead = new ExcelQueryFactory(Convert.ToString(physicalPath));
 
                         //  excelRead.AddMapping<ExcelPartner>(x => x.internalID, "Internal ID");
                         List<ExcelQuestionnaire> questionnaireinExcel = null;
@@ -874,8 +874,47 @@ namespace Generic.Controllers
                         foreach (var excelQuestionnaire in questionnaireinExcel)
                         {                            
                             responses = null; responseType = string.Empty;
-                            if (string.IsNullOrEmpty(excelQuestionnaire.Response))
-                                throw new Exception("Response value for question with ID " + excelQuestionnaire.QID + " is empty. Please edit spreadsheet and reupload it");
+                            //if (string.IsNullOrEmpty(excelQuestionnaire.Response))
+                            //    throw new Exception("Response value for question with ID " + excelQuestionnaire.QID + " is empty. Please edit spreadsheet and reupload it");
+
+                            if (string.IsNullOrEmpty(excelQuestionnaire.Surveyset) ||
+                                string.IsNullOrEmpty(excelQuestionnaire.Survey) || string.IsNullOrEmpty(excelQuestionnaire.Question) ||
+                                string.IsNullOrEmpty(excelQuestionnaire.Response) || string.IsNullOrEmpty(excelQuestionnaire.Title) ||
+                                string.IsNullOrEmpty(excelQuestionnaire.Required))
+                            {
+                                string errorMessage = "";
+                                if (string.IsNullOrEmpty(excelQuestionnaire.Surveyset))
+                                {
+                                    errorMessage = "Value for QId = " + excelQuestionnaire.QID + " and Column = Surveyset is empty , ";
+                                }
+                                if (string.IsNullOrEmpty(excelQuestionnaire.Survey))
+                                {
+                                    errorMessage += "Value for QId = " + excelQuestionnaire.QID + " and Column = Survey is empty , ";
+                                }
+                                if (string.IsNullOrEmpty(excelQuestionnaire.Question))
+                                {
+                                    errorMessage += " Value for QId = " + excelQuestionnaire.QID + " and Column = Question is empty , ";
+                                }
+                                if (string.IsNullOrEmpty(excelQuestionnaire.Response))
+                                {
+                                    errorMessage += " Value for QId = " + excelQuestionnaire.QID + " and Column = Response is empty , ";
+                                }
+                                if (string.IsNullOrEmpty(excelQuestionnaire.Title))
+                                {
+                                    errorMessage += "Value for QId = " + excelQuestionnaire.QID + " and Column = Title is empty , ";
+                                }
+                                if (string.IsNullOrEmpty(excelQuestionnaire.Required))
+                                {
+                                    errorMessage += "Value for QId = " + excelQuestionnaire.QID + " and Column = Required is empty , ";
+                                }
+                                if (errorMessage != "")
+                                {
+                                    errorMessage = errorMessage.TrimEnd(',');
+                                    errorMessage += "Please edit spreadsheet and reupload it";
+                                    throw new Exception(errorMessage);
+                                }
+
+                            }
 
                             if (excelQuestionnaire.Page < 1 || excelQuestionnaire.Surveyset.Length < 1 || excelQuestionnaire.Survey.Length < 1 || excelQuestionnaire.Question.Length < 1 || excelQuestionnaire.Response.Length < 1 || excelQuestionnaire.Title.Length < 1 || excelQuestionnaire.Required.Length < 1)
                             {
