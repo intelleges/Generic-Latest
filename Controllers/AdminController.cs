@@ -682,10 +682,10 @@ namespace Generic.Controllers
 
             Dashboard1 dashBoard = new Dashboard1();
             int _touchpoint = 0;
+            var groupList = new List<group>();
 
 
-
-            if (id == null)
+            if (id == null || id==0)
                 _touchpoint = SessionSingleton.Touchpoint;
             else
                 _touchpoint = (int)id;
@@ -701,8 +701,8 @@ namespace Generic.Controllers
                 //  db.pr_getPartnerByPTQGroupStatus(
 
                 // pr_getDashboardCountForReferenceByPTQAndGroup
-
-                if (groupid == null)
+               
+                if (groupid == null ||groupid==0)
                 {
                     var groupDataList = db.pr_getGroupByPTQ(ptqItem.id).ToList();
                     var ptqgroupDataList = db.pr_getPTQGroupByPTQ(ptqItem.id).ToList();
@@ -734,10 +734,12 @@ namespace Generic.Controllers
                     if (dashBoard.groups == null)
                     {
                         dashBoard.groups = groupDataList;
+                        groupList = dashBoard.groups;
                     }
                     else
                     {
                         dashBoard.groups = dashBoard.groups.Union(groupDataList).ToList().Distinct().ToList();
+                        groupList = dashBoard.groups;
                     }
                     if (dashBoard.ptqGroups == null)
                     {
@@ -759,6 +761,7 @@ namespace Generic.Controllers
                 }
                 else
                 {
+                    var grpList = db.pr_getGroupByPTQ(ptqItem.id).ToList();
                     var groupDataList = db.pr_getGroupByPTQ(ptqItem.id).ToList().Where(gro => gro.id == (int)groupid).ToList();
                     var ptqgroupDataList = db.pr_getPTQGroupByPTQ(ptqItem.id).ToList().Where(gro => gro.group == (int)groupid).ToList();
 
@@ -790,10 +793,12 @@ namespace Generic.Controllers
                     if (dashBoard.groups == null)
                     {
                         dashBoard.groups = groupDataList;
+                        groupList = grpList;
                     }
                     else
                     {
                         dashBoard.groups = dashBoard.groups.Union(groupDataList).ToList().Distinct().ToList();
+                        groupList = groupList.Union(grpList).ToList().Distinct().ToList();
                     }
                     if (dashBoard.ptqGroups == null)
                     {
@@ -814,8 +819,19 @@ namespace Generic.Controllers
 
                 }
             }
+            
+            if (groupList != null && groupList.Count > 0)
+            {
+                var groups = new SelectList(groupList, "id", "description",groupid);
+                ViewBag.Groups = groups;
+            }
+            else
+            {
+                ViewBag.Groups = null;
+            }
+           
 
-            //ViewBag.TouchPoints = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title"); ;
+            ViewBag.TouchPoints = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title", _touchpoint); ;
             return View(dashBoard);
         }
 

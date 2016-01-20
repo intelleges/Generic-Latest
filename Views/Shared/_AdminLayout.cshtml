@@ -13,6 +13,7 @@
     string SubscriptionStatusName = string.Empty;
 
     IEnumerable<SelectListItem> touchpoints = null;
+    IEnumerable<SelectListItem> groups = null;
     Generic.Controllers.AdminController objAdminController = null;
     try
     {
@@ -247,16 +248,26 @@
                             }
                             else
                             {
-                                touchpoints = objAdminController.GetAllTouchPoints();
+                                //touchpoints = objAdminController.GetAllTouchPoints();
+                                touchpoints = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
+                                groups = ViewBag.Groups as IEnumerable<SelectListItem>;
+                                
                                 <div style="float:left;" id="type">
                                     @*<b>Select Touchpoint</b>*@
 
-                                    @Html.DropDownList("Touchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "form-control" })
+                                    @Html.DropDownList("Touchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "form-control",onchange="Update_Dashboard_Values()" })
 
-                                    <select id="group" name="group">
-
-                                        <option value="">Select Group</option>
-                                    </select>
+                                    @if (groups != null)
+                                    {
+                                        @Html.DropDownList("Group", (IEnumerable<SelectListItem>)groups, "Select Group", new { @class = "form-control", onchange = "Update_Dashboard_Values()" })
+                                    }
+                                    else
+                                    {
+                                        <select id="Group" name="group">
+                                            <option value="">Select Group</option>
+                                        </select>
+                                    }
+                                  
                                 </div>
                             }
                             <div>
@@ -527,7 +538,25 @@
     </text>)
     )
 
-
+<script>
+    function Update_Dashboard_Values() {
+        var touchPointId = $("#Touchpoint").val() == "" ? 0 : parseInt($("#Touchpoint").val());
+        var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
+        window.location = "Dashbord1?id=" + touchPointId + "&groupid=" + groupId;
+        @*$.ajax({
+            url: '@Url.Action("Dashbord1", "Admin")',
+            type: 'GET',
+            dataType: 'html',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { id: touchPointId, groupid: groupId },
+            success: function (data) {
+                debugger;
+            }
+        });*@
+    }
+</script>
 
 </body>
 

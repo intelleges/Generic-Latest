@@ -71,7 +71,7 @@
         text-align: right;
         color: darkblue;
         padding-right: 0;
-        width: 30px;
+        width: 47px;
         font-weight: bold;
     }
 
@@ -111,7 +111,7 @@
                 </table>
             </td>
             <td style="border-left:0">
-                @for (int n = 0; n < 3; n++)
+                @for (int n = 0; n < 2; n++)
                 {
 
                     if (groupAdded < groupCount)
@@ -141,7 +141,7 @@
                             {
 
                                 <tr>
-                                    <td class="AlgnRight"> @Model.ptqGroups[groupAdded].goal &nbsp;</td>
+                                    <td class="AlgnRight"> @Model.ptqGroups[groupAdded].goal&nbsp; </td>
                                     <td class="AlgnRight">
                                         <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Unconfirmed)&Group=@Model.groups[groupAdded].id" target="_blank">
                                             @{ int? uc = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Unconfirmed).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
@@ -201,10 +201,12 @@
                                     </td>
                                     <td class="AlgnRight">
                                         @{
-                                totalRow += nr + ri + rc + uc + con;
+                                
+                                int? t = nr + ri + rc + uc + con;
+                                totalRow += t;
 
-                                @Html.Raw(totalRow)
                                         }
+                                        @t&nbsp;
                                     </td>
                                 </tr>
 
