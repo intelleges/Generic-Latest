@@ -251,12 +251,19 @@
                                 //touchpoints = objAdminController.GetAllTouchPoints();
                                 touchpoints = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
                                 groups = ViewBag.Groups as IEnumerable<SelectListItem>;
-                                
+
                                 <div style="float:left;" id="type">
                                     @*<b>Select Touchpoint</b>*@
-
-                                    @Html.DropDownList("Touchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "form-control",onchange="Update_Dashboard_Values()" })
-
+                                    @if (touchpoints != null)
+                                    {
+                                        @Html.DropDownList("Touchpoint", (IEnumerable<SelectListItem>) touchpoints, "Select Touchpoint", new {@class = "form-control", onchange = "Update_Dashboard_Values()"})
+                                    }
+                                    else
+                                    {
+                                        <select id="Touchpoint" name="Touchpoint">
+                                            <option value="">Select Touchpoint</option>
+                                        </select>
+                                    }
                                     @if (groups != null)
                                     {
                                         @Html.DropDownList("Group", (IEnumerable<SelectListItem>)groups, "Select Group", new { @class = "form-control", onchange = "Update_Dashboard_Values()" })
@@ -267,7 +274,7 @@
                                             <option value="">Select Group</option>
                                         </select>
                                     }
-                                  
+
                                 </div>
                             }
                             <div>
@@ -538,12 +545,12 @@
     </text>)
     )
 
-<script>
-    function Update_Dashboard_Values() {
-        var touchPointId = $("#Touchpoint").val() == "" ? 0 : parseInt($("#Touchpoint").val());
-        var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
-        window.location = "Dashbord1?id=" + touchPointId + "&groupid=" + groupId;
-        @*$.ajax({
+    <script>
+        function Update_Dashboard_Values() {
+            var touchPointId = $("#Touchpoint").val() == "" ? 0 : parseInt($("#Touchpoint").val());
+            var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
+            window.location = "Dashbord1?id=" + touchPointId + "&groupid=" + groupId;
+            @*$.ajax({
             url: '@Url.Action("Dashbord1", "Admin")',
             type: 'GET',
             dataType: 'html',
@@ -555,8 +562,8 @@
                 debugger;
             }
         });*@
-    }
-</script>
+        }
+    </script>
 
 </body>
 
