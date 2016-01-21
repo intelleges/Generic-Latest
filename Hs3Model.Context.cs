@@ -17259,5 +17259,61 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_resetPartnerPartnertypeTouchpointQuestionnairePDF", partnerPartnertypeTouchpointQuestionnaireParameter);
         }
+    
+        public virtual ObjectResult<pr_getEventNotificationByTouchpoint_Result> pr_getEventNotificationByTouchpoint(Nullable<int> enterprise, Nullable<int> touchpoint)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationByTouchpoint_Result>("pr_getEventNotificationByTouchpoint", enterpriseParameter, touchpointParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEventNotificationByTouchpointAndEvent_Result> pr_getEventNotificationByTouchpointAndEvent(Nullable<int> enterprise, Nullable<int> touchpoint, string @event)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var eventParameter = @event != null ?
+                new ObjectParameter("event", @event) :
+                new ObjectParameter("event", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationByTouchpointAndEvent_Result>("pr_getEventNotificationByTouchpointAndEvent", enterpriseParameter, touchpointParameter, eventParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEventNotificationByTouchpointCount_Result> pr_getEventNotificationByTouchpointCount(Nullable<int> enterprise, Nullable<int> touchpoint)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationByTouchpointCount_Result>("pr_getEventNotificationByTouchpointCount", enterpriseParameter, touchpointParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEventNotificationByTouchpointCountToday_Result> pr_getEventNotificationByTouchpointCountToday(Nullable<int> enterprise, Nullable<int> touchpoint)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationByTouchpointCountToday_Result>("pr_getEventNotificationByTouchpointCountToday", enterpriseParameter, touchpointParameter);
+        }
     }
 }

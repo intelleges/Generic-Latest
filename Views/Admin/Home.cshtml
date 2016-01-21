@@ -1,4 +1,4 @@
-﻿@inherits System.Web.Mvc.WebViewPage
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.partnerPartnertypeTouchpointQuestionnaire>
 @using System.Web.Mvc.Html
 @using Generic.Helpers;
 @using Telerik.Web.Mvc.UI;
@@ -8,7 +8,8 @@
 }
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-    google.load("visualization", "1", { packages: ["corechart","bar"] });
+    google.load("visualization", "1", { packages: ["corechart", "bar"] });
+    var columnsArray = ['Bounce', 'Click', 'Deferred', 'Delivered', 'Dropped', 'Open', 'Processed'];
     google.setOnLoadCallback(drawChart);
     function drawChart() {
         //var data = google.visualization.arrayToDataTable([
@@ -37,6 +38,7 @@
         /* */
 
         //});
+        
         var data = google.visualization.arrayToDataTable([
                      ['Group', 'Bounce', 'Click', 'Deferred', 'Delivered', 'Dropped', 'Open', 'Processed'],
                      ['Invite', 1000, 400, 200, 1000, 400, 200, 1000],
@@ -52,6 +54,15 @@
         var chart = new google.visualization.BarChart(document.getElementById('columnchart_material'));
 
         chart.draw(data, options);
+        google.visualization.events.addListener(chart, 'select', function(e) {
+            if (chart.getSelection()) {
+                var column = columnsArray[chart.getSelection()[0].column - 1];
+                $.post("SetEventGroup", { group: column }).done(function () {
+                    $("#EventNotificationsGridPanel").show();
+                    $("#EventNotifications").data("tGrid").ajaxRequest();
+                });
+            }
+        });
         var datadaily = google.visualization.arrayToDataTable([
                      ['Group', 'Bounce', 'Click', 'Deferred', 'Delivered', 'Dropped', 'Open', 'Processed'],
                      ['Invite', 20, 30, 50, 90, 10, 10, 27],
@@ -102,24 +113,37 @@
 
 
 <style>
-.page {
-  
-  
-  
-  height:500px;              
-  float: left;
-}
+    .page {
+        height: 500px;
+        float: left;
+    }
 
-.pageHolder{
-  
-  width: 100%;
-}
-div.pageHolder-footer{
-    clear: left;
-    height: 0;
-}
+    .pageHolder {
+        width: 100%;
+    }
+
+    div.pageHolder-footer {
+        clear: left;
+        height: 0;
+    }
 </style>
+<div>
+    @{
+        var touchpoints = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
+        string selectedToucId = "0";
+        if (touchpoints != null && touchpoints.Any(o => o.Selected))
+        {
+            selectedToucId = touchpoints.FirstOrDefault(o => o.Selected).Value;
+        }
+    }
 
+    @using (Html.BeginForm("Home", "Admin", System.Web.Mvc.FormMethod.Post))
+    {
+        @Html.DropDownList("touchpoint", (IEnumerable<SelectListItem>) touchpoints, "Select Touchpoint", new {@class = "form-control", onchange = "submit()"})
+    }
+
+
+</div>
 <div class="pageHolder">
     <div id="donutchart" class="page" style="width:50%;"></div>
     <div id="btnStatusPanel" class="absolutStatusPanel">
@@ -128,20 +152,24 @@ div.pageHolder-footer{
     <div id="columnchart_material" class="page" style="width:50%;"></div>
     <div id="columnchart_material_daily" class="page" style="width:50%;"></div>
     <div class='pageHolder-footer'></div>
+    <div id="EventNotificationsGridPanel">
+        @Html.Telerik().Grid(new List<Generic.pr_getEventNotificationByTouchpointAndEvent_Result>()).Name("EventNotifications").DataBinding(binding => binding.Ajax().Select("AjaxIteratePartners", "Admin", new { touchpoint = selectedToucId })).Editable(o => o.Enabled(true)).DataKeys(o => o.Add(p => p.internalid)).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().HtmlAttributes(new { style = "font-size:10px;" })
+    </div>
 </div>
 
-<div id="divPTQ" style="width:100%;float:left;">
+<div id="divPTQ" style="width: 100%; float: left;">
     @ViewBag.PTQ
 </div>
+
 @*<div class="admin-nav-about">
-    <nav>
-        <ul id="menu">
-            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-            <li>@Html.ActionLink("About", "About", "Home")</li>
-            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-        </ul>
-    </nav>
-</div>*@
+        <nav>
+            <ul id="menu">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
+        </nav>
+    </div>*@
 
 
 

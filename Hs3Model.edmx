@@ -5757,6 +5757,23 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getEventNotificationByProtocolTouchpointCategoryDailyCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="protocoltouchpoint" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getEventNotificationByTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getEventNotificationByTouchpointAndEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+          <Parameter Name="event" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getEventNotificationByTouchpointCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getEventNotificationByTouchpointCountToday" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getEventNotificationDelivered" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
@@ -14495,7 +14512,24 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_resetPartnerPartnertypeTouchpointQuestionnairePDF">
-            <Parameter Name="PartnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="PartnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEventNotificationByTouchpoint" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByTouchpoint_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEventNotificationByTouchpointAndEvent" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByTouchpointAndEvent_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+            <Parameter Name="event" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEventNotificationByTouchpointCount" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByTouchpointCount_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEventNotificationByTouchpointCountToday" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByTouchpointCountToday_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -23314,6 +23348,44 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="objection" Nullable="true" />
           <Property Type="Boolean" Name="notes" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getEventNotificationByTouchpoint_Result">
+          <Property Type="String" Name="internalid" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="511" />
+          <Property Type="String" Name="accesscode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="401" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Touchpoint" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="timestamp" Nullable="true" Precision="23" />
+          <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="reason" Nullable="true" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="pr_getEventNotificationByTouchpointAndEvent_Result">
+          <Property Type="String" Name="internalid" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="511" />
+          <Property Type="String" Name="accesscode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="401" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Touchpoint" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="timestamp" Nullable="true" Precision="23" />
+          <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="reason" Nullable="true" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="pr_getEventNotificationByTouchpointCount_Result">
+          <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getEventNotificationByTouchpointCountToday_Result">
+          <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -30864,6 +30936,60 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_resetPartnerPartnertypeTouchpointQuestionnairePDF" FunctionName="hs3MVCMTQa2Model.Store.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF" />
+          <FunctionImportMapping FunctionImportName="pr_getEventNotificationByTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationByTouchpoint">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationByTouchpoint_Result">
+                <ScalarProperty Name="internalid" ColumnName="internalid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="url" ColumnName="url" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getEventNotificationByTouchpointAndEvent" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationByTouchpointAndEvent">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationByTouchpointAndEvent_Result">
+                <ScalarProperty Name="internalid" ColumnName="internalid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="Touchpoint" ColumnName="Touchpoint" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="url" ColumnName="url" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getEventNotificationByTouchpointCount" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationByTouchpointCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationByTouchpointCount_Result">
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getEventNotificationByTouchpointCountToday" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationByTouchpointCountToday">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationByTouchpointCountToday_Result">
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           
         </EntityContainerMapping>
       </Mapping>

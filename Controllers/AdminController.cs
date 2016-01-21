@@ -18,6 +18,7 @@ using System.Reflection;
 using Generic.ViewModel;
 using System.Data;
 using WebMatrix.WebData;
+using Telerik.Web.Mvc;
 
 
 namespace Generic.Controllers
@@ -466,11 +467,47 @@ namespace Generic.Controllers
 
 
         }
+        [Authorize]
+        [HttpPost]
+        public ActionResult SetEventGroup(string group)
+        {
+            Session["EventGroup"] = group;
+            return Json(true);
+        }
+
+        [Authorize]
+        [GridAction]
+        public ActionResult AjaxIteratePartners(int? touchpoint)
+        {
+            try
+            {
+                if (Session["EventGroup"]==null) throw  new Exception("EventGroupNotFound");
+                var result = db.pr_getEventNotificationByTouchpointAndEvent(CurrentInstance.EnterpriseID, touchpoint, Session["EventGroup"].ToString()).ToList();
+                //if (SessionSingleton.AddIteratePartnerId.HasValue)
+                //{
+                //    var topItem = result.FirstOrDefault(o => o.id == SessionSingleton.AddIteratePartnerId.Value);
+                //    result.Remove(topItem);
+                //    result.Insert(0, topItem);
+                //    SessionSingleton.AddIteratePartnerId = null;
+                //}
+                return Json(new GridModel(result), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new GridModel(), JsonRequestBehavior.AllowGet);
+            }
+        }
 
         [Authorize]
         public virtual ActionResult Home()
         {
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            ViewBag.TouchPoints = db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).Select(o=>new SelectListItem()
+            {
+                Text = o.title,
+                Value = o.id.ToString(),
+                Selected = o.id == SessionSingleton.Touchpoint
+            }).ToList();
             var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(SessionSingleton.Touchpoint).ToList();
             var PTQ = "";
             //DataTable dt;
@@ -504,10 +541,164 @@ namespace Generic.Controllers
                     //pieChartData += "['Not Started'," + objCount.Not_Started + "]";
 
                     ViewBag.pieChartData = pieChartData;
+                    var dataAll =
+                        db.pr_getEventNotificationByTouchpointCount(Generic.Helpers.CurrentInstance.EnterpriseID,
+                            SessionSingleton.Touchpoint);
+                    var dataToday =
+                        db.pr_getEventNotificationByTouchpointCountToday(Generic.Helpers.CurrentInstance.EnterpriseID,
+                            SessionSingleton.Touchpoint);
+                    //var y = db.pr_getTouchpointByPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+                    //var dataAll = db.pr_getReminderSentCountAll("MVCMT - R", y.description, Generic.Helpers.CurrentInstance.EnterpriseID);
+                    //var dataToday = db.pr_getReminderSentCountDaily(DateTime.Now, "MVCMT - R", y.description, Generic.Helpers.CurrentInstance.EnterpriseID);
 
-                    var y = db.pr_getTouchpointByPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
-                    var dataAll = db.pr_getReminderSentCountAll("MVCMT - R", y.description, Generic.Helpers.CurrentInstance.EnterpriseID);
-                    var dataToday = db.pr_getReminderSentCountDaily(DateTime.Now, "MVCMT - R", y.description, Generic.Helpers.CurrentInstance.EnterpriseID);
+                    Dictionary<string, int?> dataAllDictionary = new Dictionary<string, int?>();
+                    dataAllDictionary.Add("bounce", 0);
+                    dataAllDictionary.Add("deferred", 0);
+                    dataAllDictionary.Add("click", 0);
+                    dataAllDictionary.Add("delivered", 0);
+                    dataAllDictionary.Add("dropped", 0);
+                    dataAllDictionary.Add("open", 0);
+                    dataAllDictionary.Add("processed", 0);
+
+                    foreach (var o in dataAll)
+                    {
+                        if (o.@event.Trim().ToLower() == "bounce")
+                        {
+                            dataAllDictionary["bounce"] = o.total;
+                        }
+                        else if (o.@event.Trim().ToLower() == "deferred")
+                        {
+                            dataAllDictionary["deferred"] = o.total;
+                        }
+                        else if (o.@event.Trim().ToLower() == "click")
+                        {
+                            dataAllDictionary["click"] = o.total;
+                        }
+                        else if (o.@event.Trim().ToLower() == "delivered")
+                        {
+                            dataAllDictionary["delivered"] = o.total;
+                        }
+                        else if (o.@event.Trim().ToLower() == "dropped")
+                        {
+                            dataAllDictionary["dropped"] = o.total;
+                        }
+                        else if (o.@event.Trim().ToLower() == "open")
+                        {
+                            dataAllDictionary["open"] = o.total;
+                        }
+                        else if (o.@event.Trim().ToLower() == "processed")
+                        {
+                            dataAllDictionary["processed"] = o.total;
+                        }
+                    }
+
+                    Dictionary<string, int?> dataTodayDictionary = new Dictionary<string, int?>();
+                    dataTodayDictionary.Add("bounce", 0);
+                    dataTodayDictionary.Add("deferred", 0);
+                    dataTodayDictionary.Add("click", 0);
+                    dataTodayDictionary.Add("delivered", 0);
+                    dataTodayDictionary.Add("dropped", 0);
+                    dataTodayDictionary.Add("open", 0);
+                    dataTodayDictionary.Add("processed", 0);
+
+                    foreach (var t in dataToday)
+                    {
+                        if (t.@event.Trim().ToLower() == "bounce")
+                        {
+                            dataTodayDictionary["bounce"] = t.total;
+                        }
+                        else if (t.@event.Trim().ToLower() == "deferred")
+                        {
+                            dataTodayDictionary["deferred"] = t.total;
+                        }
+                        else if (t.@event.Trim().ToLower() == "click")
+                        {
+                            dataTodayDictionary["click"] = t.total;
+                        }
+                        else if (t.@event.Trim().ToLower() == "delivered")
+                        {
+                            dataTodayDictionary["delivered"] = t.total;
+                        }
+                        else if (t.@event.Trim().ToLower() == "dropped")
+                        {
+                            dataTodayDictionary["dropped"] = t.total;
+                        }
+                        else if (t.@event.Trim().ToLower() == "open")
+                        {
+                            dataTodayDictionary["open"] = t.total;
+                        }
+                        else if (t.@event.Trim().ToLower() == "processed")
+                        {
+                            dataTodayDictionary["processed"] = t.total;
+                        }
+
+
+                    }
+
+                    ViewBag.dataAll = dataAllDictionary;
+                    ViewBag.dataToday = dataTodayDictionary;
+                }
+                catch { }
+
+            }
+            if (PTQ != null)
+                ViewBag.PTQ = PTQ;
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public virtual ActionResult Home(int? touchpoint)
+        {
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            ViewBag.TouchPoints = db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).Select(o => new SelectListItem()
+            {
+                Text = o.title,
+                Value = o.id.ToString(),
+                Selected = o.id==touchpoint
+            }).ToList();
+            var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(SessionSingleton.Touchpoint).ToList();
+            var PTQ = "";
+            //DataTable dt;
+            try
+            {
+                //PTQ = (db.pr_getGroupByPTQ2(Convert.ToInt32(Session["PTQ"]))).ToString();
+                //dt = db.pr_getGroupByPTQ2(2);
+                ViewBag.abc = db.pr_getGroupByPTQ2(2);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            //db.pr_getrol
+            if (enterprise != null)
+            {
+                ViewBag.enterpriseName = enterprise.description;
+                try
+                {
+                    //pr_getStatusCountForReferenceByPTQ
+                    //  List<pr_getStatusCountForReferenceByPTQ_Result> objCount = db.pr_getStatusCountForReferenceByPTQ(ptq.FirstOrDefault().id).ToList();
+                    List<pr_getPartnerStatusCountByTouchpoint_Result> objCount = db.pr_getPartnerStatusCountByTouchpoint(SessionSingleton.Touchpoint).ToList();
+
+                    //pr_getCountFromPPTQByStatus_Result objCount = db.pr_getCountFromPPTQByStatus(1).FirstOrDefault();
+                    string pieChartData = "['Status','Count'],";
+                    foreach (var data in objCount)
+                    {
+                        pieChartData += "['" + data.status + "'," + data.total + "],";
+                    }
+                    //  pieChartData += "['Total'," + objCount.total + "]";
+                    //pieChartData += "['Not Started'," + objCount.Not_Started + "]";
+
+                    ViewBag.pieChartData = pieChartData;
+                    var dataAll =
+                        db.pr_getEventNotificationByTouchpointCount(Generic.Helpers.CurrentInstance.EnterpriseID,
+                            touchpoint);
+                    var dataToday =
+                        db.pr_getEventNotificationByTouchpointCountToday(Generic.Helpers.CurrentInstance.EnterpriseID,
+                            touchpoint);
+                    //var y = db.pr_getTouchpointByPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+                    //var dataAll = db.pr_getReminderSentCountAll("MVCMT - R", y.description, Generic.Helpers.CurrentInstance.EnterpriseID);
+                    //var dataToday = db.pr_getReminderSentCountDaily(DateTime.Now, "MVCMT - R", y.description, Generic.Helpers.CurrentInstance.EnterpriseID);
 
                     Dictionary<string, int?> dataAllDictionary = new Dictionary<string, int?>();
                     dataAllDictionary.Add("bounce", 0);
