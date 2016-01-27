@@ -24,8 +24,8 @@
 
     int groupAdded = 0;
 
-    decimal c = decimal.Parse(groupCount.ToString()) / 3;
-    int c2 = groupCount % 3 > 0 ? 1 : 0;
+    decimal c = decimal.Parse(groupCount.ToString()) / 2;
+    int c2 = groupCount % 2 > 0 ? 1 : 0;
     int partnerTablesCount = int.Parse(Math.Floor(c).ToString()) + c2;
 
 }

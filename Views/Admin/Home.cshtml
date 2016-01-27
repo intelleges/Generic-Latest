@@ -152,9 +152,9 @@
     <div id="columnchart_material" class="page" style="width:50%;"></div>
     <div id="columnchart_material_daily" class="page" style="width:50%;"></div>
     <div class='pageHolder-footer'></div>
-    <div id="EventNotificationsGridPanel">
+    @*<div id="EventNotificationsGridPanel">
         @Html.Telerik().Grid(new List<Generic.pr_getEventNotificationByTouchpointAndEvent_Result>()).Name("EventNotifications").DataBinding(binding => binding.Ajax().Select("AjaxIteratePartners", "Admin", new { touchpoint = selectedToucId })).Editable(o => o.Enabled(true)).DataKeys(o => o.Add(p => p.internalid)).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().HtmlAttributes(new { style = "font-size:10px;" })
-    </div>
+    </div>*@
 </div>
 
 <div id="divPTQ" style="width: 100%; float: left;">
