@@ -1,9 +1,15 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
 @using System.Web.Mvc.Html
+@using Generic.Areas.RegistrationArea.Models
 @using Generic.Helpers
 @{
     ViewBag.Title = "Index";
-    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout(); 
+    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
+    var formData = new ViewBagModel();
+    if (ViewBag.FormData != null)
+    {
+        formData = ViewBag.FormData as ViewBagModel;
+    }
 }
 
 
@@ -21,27 +27,8 @@ Html.RenderPartial("_TestPartialArea",null);
 
 *@
 
-<style>
-
- .infologin  img {
-max-width: 350px;
-}
-    .alertify-message {
-        font-size:14px;
-    }
-    #languageSelection{
-        padding-left:35%;
-    }
-    #languageSelection img{
-        height:20px;
-        width:30px;
-        cursor:pointer;
-    }
-</style>
-
-<link href="@Url.Content("~/Content/themes/base/alertify.core.css")" rel="stylesheet" />
-<link href="@Url.Content("~/Content/themes/base/alertify.default.css")" rel="stylesheet" />
-
+@Styles.Render("~/bundles/alertifyCss")
+@Styles.Render("~/bundles/registrationCss")
 
 <script>
     $(document).ready(function () {
@@ -61,10 +48,10 @@ max-width: 350px;
 </script>
 
 @section BottomFooter{
-    <div class="supplyfot" style="margin-top:10px;">
-        <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <div class="supplyfot supplyfoots">
+        <table border="0" align="center" cellpadding="0" cellspacing="0">
             <tr>
-                <td height="60">&nbsp;
+                <td>&nbsp;
                 </td>
             </tr>
         </table>
@@ -72,124 +59,26 @@ max-width: 350px;
 }
 
 @section Top{
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-            <td height="77" valign="top">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td width="76%" align="center" valign="top" class="supplytitleblueone">
-                            <span id="ctl00_lblSurvey">
-                                @{
-                                    
-                                    @Html.Raw(ViewBag.CMS_TITLE)
-                                   
-
-                                    
-                                    <span style="font-size: 12px">
-                                        @Html.Raw(ViewBag.CMS_SUBTITLE)
-                                    </span>
-                                    
-                                
-                                }
-
-                            </span>
-                        </td>                        
-                    </tr>
-                </table>
-            </td>
-            @*<td width="13%" height="106" valign="bottom">
-                <img src="~/Contents/images/tickmark.gif" alt="" width="95" height="89" class="surveyban" />
-            </td>*@
-        </tr>
-        <tr>
-            <td height="119" valign="top">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td valign="top">
-                            <table width="400" border="0" align="center" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td class="supplyleft">&nbsp;
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <!-- <td class="supplyleft">
-                                                    Honeywell Site Security Survey is designed to capture information about your site’s
-                                                    practices pertaining to safeguarding the supply chain.
-                                                </td>-->
-                                    <td class="supplyleft">
-
-                                        <div id="ctl00_RegistrationPageText">
-                                           
-                                            
-                                                @Html.Raw(ViewBag.CMS_PANEL_ONE)
-                                            
-
-                                        </div>
-
-
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td valign="top">
-
-                            <table width="400" border="0" align="center" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td class="supplyright">&nbsp;
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="supplyright">
-
-                                        
-                                            
-                                                @Html.Raw(ViewBag.CMS_PANEL_TWO)
-                                            
-
-                                        <!--<span style="color: #0096c9;">Instructions:</span> Enter your access code (found in your invitation email) below to complete Honeywell’s Site Security Survey.-->
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @if (ViewBag.ENTERPRISE_ID == 1)
-                { 
-                <div id="languageSelection">
-                    <img src="~/Contents/images/us.jpg" data-language="en" title="English" />
-                    <img src="~/Contents/images/Arabic.gif" data-language="ar" title="Arabic"/>
-                    <img src="~/Contents/images/ChineseSimplified.jpg" data-language="zh-CN" title="Chinese Simplified" />
-                    <img src="~/Contents/images/French.jpg" data-language="fr" title="French" />
-                    <img src="~/Contents/images/DeutschGerman.jpg" data-language="de" title="German" />
-                    <img src="~/Contents/images/Italian.jpg" data-language="it" title="Italian" />
-                    <img src="~/Contents/images/Russia-Flag-icon.png" data-language="ru" title="Russian" />
-                    <img src="~/Contents/images/Spanish.jpg" data-language="es" title="Spanish" />
-                </div>
-                }
-            </td>
-        </tr>
-    </table>
+    @Html.Partial("_TopSection");
 }
-<table width="416px" height="281" border="0" align="center" cellpadding="0" cellspacing="0">
+<table class="mainsupply" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
         <td valign="top" class="infologin">
-            <table width="320px" border="0" align="center" cellpadding="0" cellspacing="0">
+            <table border="0" align="center" cellpadding="0" cellspacing="0">
                 <tr>
-                     <td width="308" height="116" align="center" style="width:308px!important; ">&nbsp;
+                     <td class="sup1" align="center">&nbsp;
 
                          @Html.Action("InstanceLogo", "Admin", new { area = "" }) 
 
                     </td>
-                    <td width="12" height="142" rowspan="2">&nbsp;
+                    <td class="sup2" rowspan="2">
+                        &nbsp;
                     </td>
                 </tr>
                 <tr>
-                    <td height="28" class="infologintitle">@ViewBag.ACCESS_CODE_PLEASE_ENTER
-                    </td>
+                    <td  class="infologintitle sup3">
+                        @formData.ACCESS_CODE_PLEASE_ENTER
+                </td>
                 </tr>
                 <tr>
                     <td>&nbsp;
@@ -203,17 +92,18 @@ max-width: 350px;
                         @using (Html.BeginForm())
                         {
 
-                            <table width="300" border="0" align="center" cellpadding="0" cellspacing="0">
+                            <table class="tablesupply"  border="0" align="center" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <td width="94" class="infologintext">*@ViewBag.ACCESS_CODE_SIPLE_TEXT 
+                                    <td class="tbsup1 infologintext">
+                                        *@formData.ACCESS_CODE_SIPLE_TEXT
                                     </td>
-                                    <td width="136">
+                                    <td class="tbsup2">
                                         <input name="AccessCode" type="text" id="AccessCode" value="@ViewBag.accesscode" class="infologinbox" />
                                     </td>
-                                    <td width="70">
+                                    <td class="tbsup3 inputstyle">
 
-                                        <input type="submit" name="btnlogin" id="btnlogin" value="@ViewBag.CMS_SUBMIT_TEXT" style="border-width: 0px;" />
-                                        <div id="ctl00_contentQuestionnaireBody_ValidationSummary1" style="color: Red; display: none;">
+                                        <input type="submit" name="btnlogin" id="btnlogin" value="@formData.CMS_SUBMIT_TEXT"  />
+                                        <div class="errormsg" id="ctl00_contentQuestionnaireBody_ValidationSummary1" style=" display: none;">
                                         </div>
                                     </td>
                                 </tr>
@@ -224,10 +114,10 @@ max-width: 350px;
                     </td>
                 </tr>
                 <tr>
-                    <td align="center" style="    height: 55px;">
+                    <td class="tbsup4" align="center" >
                         <div class="retrieveAccessCode">
 
-                           <a id="LkBtnRetrieveAccessCode" class="LkBtnRetrieveAccessCode" href="#">@ViewBag.RETRIEVE_ACCESS_CODE_TEXT</a>
+                           <a id="LkBtnRetrieveAccessCode" class="LkBtnRetrieveAccessCode" href="#">@formData.RETRIEVE_ACCESS_CODE_TEXT</a>
                         </div>
                         <div class="retrieveAccessCodeMSg">
                         </div>
@@ -240,10 +130,10 @@ max-width: 350px;
 
 @*<span style="color: #8faebb;">*Required Fields</span> *@   
 
-<table style="width: 100%;">
+<table class="table-full">
     <tr>
-        <td>@ViewBag.CMS_FOOTER_ONE</td>
-        <td>@ViewBag.CMS_FOOTER_TWO</td>
+        <td>@formData.CMS_FOOTER_ONE</td>
+        <td>@formData.CMS_FOOTER_TWO</td>
     </tr>
 </table>
 
@@ -253,8 +143,8 @@ max-width: 350px;
                      $("#languageSelection img").click(function () {
                          $.post("@Url.Action("SetLanguage")", { language: $(this).data("language") }).done(function (result) {
                              if (result)
-                             window.location.reload();
+                                 window.location.reload();
                          });
-                     })
+                     });
                  });
              </script>        

@@ -1,8 +1,14 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<Generic.eSignature>
 @using System.Web.Mvc.Html
+@using Generic.Areas.RegistrationArea.Models
 @{
     Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();    
     //ViewBag.Title = "CompanyInfomation";
+    var formData = new ViewBagModel();
+    if (ViewBag.FormData != null)
+    {
+        formData = ViewBag.FormData as ViewBagModel;
+    }
 }
 @section Bottom{
     @Html.Partial("_BottomSection");
@@ -11,8 +17,10 @@
 @section Top{
     @Html.Partial("_TopSection");
 }
-}
-<table width="89%" height="78" border="0" align="center" cellpadding="0" cellspacing="0">
+
+@Styles.Render("~/bundles/registrationCss")
+
+<table class="table-align" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
         <td>&nbsp;</td>
     </tr>
@@ -20,100 +28,106 @@
         <td>
             <div class="supplycon">
                 <div class="commonh"></div>
-                    <div class="redheader" align="center">  <table width="100%"><tbody><tr><td align="center">
-                        @*<span id="lblCompanyName" style="font-size:xx-large">            
-                                                                                                                  @if(!((bool)ViewBag.isCompletedSurvey)){
-                                                                                                                  @ViewBag.CONFIRMATION_PAGE_HEADLINE
-                                                                                                                  }else{
-                                                                                                                  @ViewBag.WARNING
-                                                                                                                  }
-                                                                                                              </span>*@
-                        <a id="IntLogo" href="#"> 
-                            @{
-                                if (@ViewBag.logoSrc != null)
-                                {    
-                                    string imageBase64 = Convert.ToBase64String(@ViewBag.logoSrc);
-                                    string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
-                                    <img src="@imageSrc"  style="max-height: 50px;" />
-                                }
-                            }
-                        </a>
-                        </td>
-                        </tr><tr>
-                        <td align="center">
-                        </td></tr>
-                        </tbody></table>
-
-                    </div>
-                    <div align="center">
-                        <table style="padding-top: 25px; padding-left: 50px; padding-right: 50px; padding-bottom: 25px;" width="100%">
-                            <tbody>
-                                <tr height="25" valign="top">
-                                    <td colspan="2" style="font-size: 18px; font-weight: bold;" align="center">
-                                        <div id="lblThankYou">
-
-                                            @if(!((bool)ViewBag.isCompletedSurvey))
-                                            {
-                                               @Html.Raw(ViewBag.CONFIRMATION_PAGE_SIGNOFF_STATEMENT)
-                                            } 
-                                            else
-                                            {
-                                                @Html.Raw(ViewBag.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT)
+                <div class="redheader" align="center">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td align="center">
+                                    @*<span id="lblCompanyName" style="font-size:xx-large">
+                                            @if(!((bool)ViewBag.isCompletedSurvey)){
+                                            @ViewBag.CONFIRMATION_PAGE_HEADLINE
+                                            }else{
+                                            @ViewBag.WARNING
                                             }
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="font-size: 16px; padding-bottom: 75px;" align="center" width="30%">
-                                        <span id="lblPrintAnswer">
-
-                                            @if (ViewBag.CMS_PAGE_PREVIOUS_TEXT != null && ViewBag.CMS_PAGE_PREVIOUS_TEXT.ToString().ToLower().Contains("pdf"))
-                                            {
-                                                <a href='@Url.Action("Finish", "/Home/PrintCustomizedPDFConfirmation/", new {accesscode = ViewBag.ACCESS_CODE}, Request.Url.Scheme)'>@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
-                                            }
-                                            else
-                                            {
-                                                <a href="#" onclick="history.go(-1);">@ViewBag.CMS_PAGE_PREVIOUS_TEXT</a>
-                                            }
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 12px;" align="left" width="70%"></td>
-                                    <td style="font-size: 12px;" align="left" width="30%">  
+                                        </span>*@
+                                    <a id="IntLogo" href="#">
                                         @{
-                                            string link = @ViewBag.CMS_PAGE_NEXT_LINK;
+                                            if (@ViewBag.logoSrc != null)
+                                            {
+                                                string imageBase64 = Convert.ToBase64String(@ViewBag.logoSrc);
+                                                string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                                                <img src="@imageSrc" style="max-height: 50px;" />
+                                            }
                                         }
-                                        <script>
-                                            function redirect(url) {
-                                                window.location.href = "http://" + url;
-                                                return false;
-                                            };
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center"></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                                            function checkToPrintPDF(accesscode) {
-                                                window.location.href = "@Url.Content("~/Registration/Home/PrintPDF/?accesscode=")" + accesscode;
-                                            };
-
-                                            function PrintCustomizedPDFConfirmation(accesscode) {
-                                                window.location.href = "@Url.Content("~/Registration/Home/PrintCustomizedPDFConfirmation/?accesscode=")" + accesscode;
-                                            };
-                                        </script>
-        
-                                        <input type="button" name="btnNext" id="btnNext"
-	                                       value="@ViewBag.CMS_PAGE_NEXT_TEXT"
-	                                       onclick="redirect('@link    ')"
-	                                       style="border-width:0;" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
-            </td>
-        </tr>
+                <div align="center">
+                    <table class="tablewraper">
+                        <tbody>
+                            <tr class="wraptb6" valign="top">
+                                <td class="tdfont1" colspan="2" align="center">
+                                    <div id="lblThankYou">
+
+                                        @if (!((bool)formData.isCompletedSurvey))
+                                        {
+                                            @Html.Raw(formData.CONFIRMATION_PAGE_SIGNOFF_STATEMENT)
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(formData.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT)
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="tdfont" colspan="2"  align="center">
+                                    <span id="lblPrintAnswer">
+
+                                        @if (formData.CMS_PAGE_PREVIOUS_TEXT != null && formData.CMS_PAGE_PREVIOUS_TEXT.ToString().ToLower().Contains("pdf"))
+                                        {
+                                            <a href='@Url.Action("Finish", "/Home/PrintCustomizedPDFConfirmation/", new {accesscode = ViewBag.ACCESS_CODE}, Request.Url.Scheme)'>@formData.CMS_PAGE_PREVIOUS_TEXT</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" onclick="history.go(-1);">@formData.CMS_PAGE_PREVIOUS_TEXT</a>
+                                        }
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdfont2"  align="left"></td>
+                                <td class="tdfont3"  align="left">
+                                    @{
+                                        string link = @formData.CMS_PAGE_NEXT_LINK;
+                                    }
+                                    <script>
+                                        function redirect(url) {
+                                            window.location.href = "http://" + url;
+                                            return false;
+                                        };
+
+                                        function checkToPrintPDF(accesscode) {
+                                            window.location.href = "@Url.Content("~/Registration/Home/PrintPDF/?accesscode=")" + accesscode;
+                                        };
+
+                                        function PrintCustomizedPDFConfirmation(accesscode) {
+                                            window.location.href = "@Url.Content("~/Registration/Home/PrintCustomizedPDFConfirmation/?accesscode=")" + accesscode;
+                                        };
+                                    </script>
+
+                                    <input type="button" name="btnNext" id="btnNext"
+                                           value="@formData.CMS_PAGE_NEXT_TEXT"
+                                           onclick="redirect('@link    ')"
+                                           style="border-width:0;" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </td>
+    </tr>
     <tr>
         <td>&nbsp;</td>
     </tr>
@@ -121,6 +135,7 @@
         <td></td>
     </tr>
 </table>
+
 @if(TempData["IncorrectZipCode"]!=null)
 {
     <script>

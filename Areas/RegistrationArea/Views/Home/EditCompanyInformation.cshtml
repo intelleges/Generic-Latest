@@ -3,13 +3,19 @@
 @using System.Web.Mvc.Html;
 @using Telerik.Web.Mvc.UI;
 @using Telerik.Web.Mvc.UI.Html;
+@using Generic.Areas.RegistrationArea.Models
 @using Generic;
 @{
     Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout(); 
     ViewBag.Title = "Edit Company Infomation";
+    var formData = new ViewBagModel();
+    if (ViewBag.FormData != null)
+    {
+        formData = ViewBag.FormData as ViewBagModel;
+    }
 }
 
-
+@Styles.Render("~/bundles/registrationCss")
 
 @section Bottom{
     @*<div class="">
@@ -41,25 +47,27 @@
 @section Top{
     @Html.Partial("_TopSection");
 }
-}
 
-<table width="89%" height="78" border="0" align="center" cellpadding="0" cellspacing="0">
+
+<table class="tablesign2" height="78" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
-        <td>&nbsp;
+        <td>
+            &nbsp;
         </td>
     </tr>
     <tr>
         <td>
             @using (Html.BeginForm())
             {
-    
-                                
-                <table class="infobox" width="665" border="0" align="center" cellpadding="0" cellspacing="0">
+
+
+                <table class="infobox" border="0" align="center" cellpadding="0" cellspacing="0">
                     <tr>
                         <td>
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <table class="innertable" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
-                                    <td height="25" colspan="2" class="infotitlebg">@ViewBag.COMPANY_INFORMATION_TEXT <span class="infotitlenormal">(@ViewBag.VERIFY_COMPANY_INFO)</span>
+                                    <td height="25" colspan="2" class="infotitlebg">
+                                        @formData.COMPANY_INFORMATION_TEXT <span class="infotitlenormal">(@formData.VERIFY_COMPANY_INFO)</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -78,7 +86,7 @@
                                                     <td colspan="3" style="height: 20px;">&nbsp;</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.Company *</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@formData.Company *</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
                                                         @*<input name="ctl00$contentQuestionnaireBody$txtCompanyName" type="text" value="ABC" id="ctl00_contentQuestionnaireBody_txtCompanyName" class="infocontbox" /><span id="ctl00_contentQuestionnaireBody_requiredtxtCompanyName" style="color:Red;display:none;"><br />Required</span>*@
@@ -91,16 +99,16 @@
                                                     <td class="esigncont" align="right">
                                                         <p>
                                                             <br />
-                                                            <b>@ViewBag.PHYSYCAL_ADDRESS</b><br />
+                                                            <b>@formData.PHYSYCAL_ADDRESS</b><br />
                                                         </p>
                                                     </td>
                                                     <td colspan="2"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.ADDRESS_ONE *</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@formData.ADDRESS_ONE *</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
-                                                     
+
 
                                                         @Html.EditorFor(model => model.address1)
                                                         @Html.ValidationMessageFor(model => model.address1)
@@ -108,7 +116,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.ADDRESS_TWO</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@formData.ADDRESS_TWO</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
                                                         @* <input name="ctl00$contentQuestionnaireBody$txtAddress2" type="text" value="123" id="ctl00_contentQuestionnaireBody_txtAddress2" class="infocontbox" />*@
@@ -117,54 +125,54 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.CITY*</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@formData.CITY*</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
                                                         @*                    <input name="ctl00$contentQuestionnaireBody$txtCity" type="text" value="xyz" id="ctl00_contentQuestionnaireBody_txtCity" class="infocontbox" />
-                    <span id="ctl00_contentQuestionnaireBody_requiredtxtCity" style="color:Red;display:none;"><br />Required</span>*@
+                                    <span id="ctl00_contentQuestionnaireBody_requiredtxtCity" style="color:Red;display:none;"><br />Required</span>*@
                                                         @Html.EditorFor(model => model.city)
                                                         @Html.ValidationMessageFor(model => model.city)
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.STATE_TEXT</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@formData.STATE_TEXT</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
-                                                       
+
                                                         @(Html.Telerik().ComboBox()
             .Name("state")
-            .AutoFill((bool)ViewBag.combobox.ComboBoxAttributes.AutoFill)            
-            .BindTo(new SelectList((IEnumerable<state>)ViewBag.states, "id", "stateCode", (int)ViewBag.combobox.ComboBoxAttributes.SelectedIndex))          
+            .AutoFill((bool)ViewBag.combobox.ComboBoxAttributes.AutoFill)
+            .BindTo(new SelectList((IEnumerable<state>)ViewBag.states, "id", "stateCode", (int)ViewBag.combobox.ComboBoxAttributes.SelectedIndex))
             .HtmlAttributes(new { style = string.Format("width:{0}px", ViewBag.combobox.ComboBoxAttributes.Width) })
             .Filterable(filtering =>
             {
-                if ((int)ViewBag.combobox.ComboBoxAttributes.FilterMode != 0) 
+                if ((int)ViewBag.combobox.ComboBoxAttributes.FilterMode != 0)
                 {
                     filtering.FilterMode(AutoCompleteFilterMode.StartsWith);
                 }
             })
             .HighlightFirstMatch((bool)ViewBag.combobox.ComboBoxAttributes.HighlightFirst)
-    )
+                                                        )
 
-                                                   
-                                                    @Html.ValidationMessageFor(model => model.state)
+
+                                                        @Html.ValidationMessageFor(model => model.state)
 
 
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.POSTAL_CODE *</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@formData.POSTAL_CODE *</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
 
                                                         @*<input name="ctl00$contentQuestionnaireBody$txtZipCode" type="text" value="12345" id="ctl00_contentQuestionnaireBody_txtZipCode" class="infocontbox" />
-                    <span id="ctl00_contentQuestionnaireBody_requiredtxtZipCode" style="color:Red;display:none;"><br />Required</span>*@
+                                    <span id="ctl00_contentQuestionnaireBody_requiredtxtZipCode" style="color:Red;display:none;"><br />Required</span>*@
                                                         @Html.EditorFor(model => model.zipcode)
                                                         @Html.ValidationMessageFor(model => model.zipcode)
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.PROVINCE</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@formData.PROVINCE</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
                                                         @*  <input name="ctl00$contentQuestionnaireBody$txtProvince" type="text" id="ctl00_contentQuestionnaireBody_txtProvince" class="infocontbox" onchange="provinceChange()" />*@
@@ -174,27 +182,27 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="esigncont" align="right" style="width: 148px;">@ViewBag.COUNTRY_TEXT *</td>
+                                                    <td class="esigncont" align="right" style="width: 148px;">@formData.COUNTRY_TEXT *</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
-                                                        
-                                                          @(Html.Telerik().ComboBox()
+
+                                                        @(Html.Telerik().ComboBox()
             .Name("country")
-            .AutoFill((bool)ViewBag.comboboxCountry.ComboBoxAttributes.AutoFill)            
-            .BindTo(new SelectList((IEnumerable<country>)ViewBag.countries, "id", "name",(int)ViewBag.comboboxCountry.ComboBoxAttributes.SelectedIndex))
+            .AutoFill((bool)ViewBag.comboboxCountry.ComboBoxAttributes.AutoFill)
+            .BindTo(new SelectList((IEnumerable<country>)ViewBag.countries, "id", "name", (int)ViewBag.comboboxCountry.ComboBoxAttributes.SelectedIndex))
             .HtmlAttributes(new { style = string.Format("width:{0}px", ViewBag.comboboxCountry.ComboBoxAttributes.Width) })
             .Filterable(filtering =>
             {
-                if ((int)ViewBag.comboboxCountry.ComboBoxAttributes.FilterMode != 0) 
+                if ((int)ViewBag.comboboxCountry.ComboBoxAttributes.FilterMode != 0)
                 {
                     filtering.FilterMode(AutoCompleteFilterMode.StartsWith);
                 }
             })
             .HighlightFirstMatch((bool)ViewBag.comboboxCountry.ComboBoxAttributes.HighlightFirst)
-    )
+                                                        )
                                                         @Html.ValidationMessageFor(model => model.country)
-                                               			
-			
+
+
 
 
                                                     </td>
@@ -207,17 +215,19 @@
                                             <tr>
                                                 <td width="103" align="right" valign="bottom">
 
-                                                    <input type="submit" name="btnCancel" id="btnCancel" value="@ViewBag.CMS_PAGE_PREVIOUS_TEXT" onclick="javascript: history.go(-1); return false;" style="border-width: 0px;" />
+                                                    <input type="submit" name="btnCancel" id="btnCancel" value="@formData.CMS_PAGE_PREVIOUS_TEXT" onclick="javascript: history.go(-1); return false;" style="border-width: 0px;" />
 
                                                 </td>
                                                 <td width="112" align="right" valign="bottom">
-                                                    <input type="submit" name="btnNext" id="btnNext" value="@ViewBag.CMS_PAGE_NEXT_TEXT" style="border-width: 0px;" />
+                                                    <input type="submit" name="btnNext" id="btnNext" value="@formData.CMS_PAGE_NEXT_TEXT" style="border-width: 0px;" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>&nbsp;
+                                                <td>
+                                                    &nbsp;
                                                 </td>
-                                                <td>&nbsp;
+                                                <td>
+                                                    &nbsp;
                                                 </td>
                                             </tr>
 
@@ -226,23 +236,28 @@
 
                                 </tr>
                                 <tr>
-                                    <td>&nbsp;
+                                    <td>
+                                        &nbsp;
                                     </td>
-                                    <td>&nbsp;
+                                    <td>
+                                        &nbsp;
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">&nbsp;
+                        <td colspan="2">
+                            &nbsp;
                         </td>
                     </tr>
                 </table>
-                         
+
             }
         </td>
     </tr>
 </table>
 
-<span style="color: #8faebb;">* @ViewBag.REQUIRED_FIELDS</span>
+
+
+<span style="color: #8faebb;">* @formData.REQUIRED_FIELDS</span>

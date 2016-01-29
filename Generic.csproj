@@ -575,6 +575,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Areas\RegistrationArea\Controllers\HomeController.cs" />
     <Compile Include="Areas\RegistrationArea\Controllers\PartNumberController.cs" />
+    <Compile Include="Areas\RegistrationArea\Models\ValidatezCode.cs" />
+    <Compile Include="Areas\RegistrationArea\Models\ViewBagModel.cs" />
+    <Compile Include="Areas\RegistrationArea\Models\ViewBagPdfModel.cs" />
     <Compile Include="Areas\RegistrationArea\RegistrationAreaRegistration.cs" />
     <Compile Include="autoMailAttachment.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
@@ -1193,6 +1196,18 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getEventNotificationByProtocolTouchpointCategoryDailyCount_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getEventNotificationByTouchpointAndEvent_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getEventNotificationByTouchpointCountToday_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getEventNotificationByTouchpointCount_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getEventNotificationByTouchpoint_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getEventNotificationDelivered_Result.cs">
@@ -2612,6 +2627,8 @@
     <Content Include="Contents\images\xlsx-1567.png" />
     <Content Include="Contents\IntellegesLogin_files\contact-us.js" />
     <Content Include="Contents\IntellegesLogin_files\merck_india.jpg" />
+    <Content Include="Contents\RegistrationStyle\css\registration.css" />
+    <Content Include="Contents\RegistrationStyle\js\registration.js" />
     <Content Include="Content\bootstrap-duallistbox.css" />
     <Content Include="Content\bootstrap-duallistbox.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -4698,7 +4715,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
-    <Folder Include="Areas\RegistrationArea\Models\" />
     <Folder Include="Filters\" />
     <Folder Include="Views\AuthCallback\" />
     <Folder Include="Views\Gmail\" />

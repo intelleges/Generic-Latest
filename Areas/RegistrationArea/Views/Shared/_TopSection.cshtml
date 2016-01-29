@@ -1,18 +1,27 @@
-﻿<table width="100%" border="0" cellspacing="0" cellpadding="0">
+﻿@using Generic.Areas.RegistrationArea.Models
+@{
+    var formData = new ViewBagModel();
+    if (ViewBag.FormData != null)
+    {
+        formData = ViewBag.FormData as ViewBagModel;
+    }
+}
+
+<table class="table-full" border="0" cellspacing="0" cellpadding="0">
     <tr>
-        <td height="77" valign="top">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <td class="topsec1" valign="top">
+            <table class="table-full" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td width="76%" align="center" valign="top" class="supplytitleblueone">
-                        <span id="ctl00_lblSurvey">
+                    <td class="topsec2 supplytitleblueone" align="center" valign="top" >
+                        <span class="topsecfont" id="ctl00_lblSurvey">
 
 
                             @{
 
-                                @Html.Raw(ViewBag.CMS_PAGE_TITLE)
+                                @Html.Raw(formData.CMS_PAGE_TITLE)
 
-                                <span style="font-size: 12px">
-                                    @Html.Raw(ViewBag.CMS_PAGE_SUBTITLE)
+                                <span>
+                                    @Html.Raw(formData.CMS_PAGE_SUBTITLE)
                                 </span>
 
 
@@ -20,7 +29,7 @@
 
                         </span>
                     </td>
-                    <td width="13%" height="106" valign="bottom">
+                    <td class="topsec3" valign="bottom">
                         @*<img src="~/Contents/images/tickmark.gif" alt="" width="95" height="89" class="surveyban" />*@
                     </td>
                 </tr>
@@ -29,11 +38,11 @@
 
     </tr>
     <tr>
-        <td height="119" valign="top">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <td class="tabsec4" valign="top">
+            <table class="table-full" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td valign="top">
-                        <table width="400" border="0" align="center" cellpadding="0" cellspacing="0">
+                        <table class="topsectioninner" border="0" align="center" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td class="supplyleft">
                                     &nbsp;
@@ -47,7 +56,7 @@
 
 
 
-                                        @Html.Raw(ViewBag.CMS_PAGE_PANEL_ONE)
+                                        @Html.Raw(formData.CMS_PAGE_PANEL_ONE)
 
 
 
@@ -61,7 +70,7 @@
                     </td>
                     <td valign="top">
 
-                        <table width="400" border="0" align="center" cellpadding="0" cellspacing="0">
+                        <table class="topsectioninner" border="0" align="center" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td class="supplyright">
                                     &nbsp;
@@ -70,7 +79,7 @@
                             <tr>
                                 <td class="supplyright">
 
-                                    @Html.Raw(ViewBag.CMS_PAGE_PANEL_TWO)
+                                    @Html.Raw(formData.CMS_PAGE_PANEL_TWO)
 
 
 
@@ -79,6 +88,23 @@
                                 </td>
                             </tr>
                         </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @if (formData.ENTERPRISE_ID == 1)
+                        {
+                            <div id="languageSelection">
+                                <img src="~/Contents/images/us.jpg" data-language="en" title="English" />
+                                <img src="~/Contents/images/Arabic.gif" data-language="ar" title="Arabic" />
+                                <img src="~/Contents/images/ChineseSimplified.jpg" data-language="zh-CN" title="Chinese Simplified" />
+                                <img src="~/Contents/images/French.jpg" data-language="fr" title="French" />
+                                <img src="~/Contents/images/DeutschGerman.jpg" data-language="de" title="German" />
+                                <img src="~/Contents/images/Italian.jpg" data-language="it" title="Italian" />
+                                <img src="~/Contents/images/Russia-Flag-icon.png" data-language="ru" title="Russian" />
+                                <img src="~/Contents/images/Spanish.jpg" data-language="es" title="Spanish" />
+                            </div>
+                        }
                     </td>
                 </tr>
             </table>

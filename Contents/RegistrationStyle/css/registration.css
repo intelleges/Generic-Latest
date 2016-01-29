@@ -1,0 +1,435 @@
+﻿.esignature {
+    width: 100%;
+}
+
+.tablesign {
+    width: 100%;
+}
+
+    .tablesign > tr > td {
+        width: 20%;
+    }
+
+        .tablesign > tr > td > table {
+            width: 100%;
+        }
+
+            .tablesign > tr > td > table > tr > td {
+                width: 22%;
+            }
+
+    .tablesign ul.qmmc {
+        width: 775px;
+    }
+
+    .tablesign .lasttd {
+        width: 20%;
+    }
+
+.tablesign2 {
+    width: 89%;
+    height: 78px;
+}
+
+
+    .tablesign2 tr td table {
+        width: 665px;
+    }
+
+        .tablesign2 tr td table table {
+            width: 100%;
+        }
+
+    .tablesign2 #progressBar {
+        width: 660px;
+    }
+
+.innertable {
+    width: 100%;
+}
+
+    .innertable .cls .infotitlebg {
+        height: 25px;
+    }
+
+.contentQuestionnaireBody > tr > td {
+    width: 100%;
+}
+
+.contentQuestionnairfirst td:first-child {
+    height: 20px;
+}
+
+.contentQuestionnaireBody .esigncont {
+    width: 148px;
+}
+
+#errorFrstName, #errorlastName {
+    color: red;
+}
+
+.contentQuestionnairthrd td:first-child {
+    height: 5px;
+}
+
+.errormsg {
+    color: red;
+}
+
+.contentQuestionnairfour td:first-child {
+    height: 5px;
+}
+
+.contentQuestionnairfive .esigncont {
+    width: 148px;
+}
+
+.contentQuestionnairsix td:first-child {
+    height: 5px;
+}
+
+.contentQuestionnairseven td:first-child {
+    height: 10px;
+}
+
+.contentwraptd {
+    width: 100%;
+}
+
+.tablesign2 tr td table .contentwraptd table {
+    width: 230px;
+    8faebb;
+}
+
+.Previoustd {
+    width: 103px;
+}
+
+.nextbtntd {
+    width: 112px;
+}
+
+.formdatarequir {
+    color: #8faebb;
+}
+
+#firstName, #lastName, #email {
+    width: 450px;
+    font-size: 17px;
+}
+
+.tableinr {
+    width: 60%;
+}
+
+    .tableinr > table {
+        width: 400px;
+    }
+
+    .tableinr > table {
+        width: 400px;
+    }
+
+        .tableinr > table > tr > td {
+            height: 20px;
+        }
+
+.tableinnertd {
+    height: 150px;
+}
+
+.viewtable {
+    width: 40%;
+}
+
+    .viewtable > table {
+        width: 230px;
+    }
+
+.viewtd1 {
+    width: 103px;
+}
+
+.viewtd2 {
+    width: 112px;
+}
+
+.viewtd3 {
+    width: 15px;
+}
+
+.tablesign2 tr td table .tableinnertd > table {
+    width: 300px;
+}
+
+#panelinformation {
+}
+
+.panelinformation-td1 {
+    width: 60%;
+}
+
+    .panelinformation-td1 > table {
+        width: 400px;
+    }
+
+.td1iner {
+    height: 20px;
+}
+
+.td1iner2 {
+    width: 148px;
+}
+
+.panelinformation-td2 {
+    width: 40%;
+}
+
+.td1iner3 {
+    height: 5px;
+}
+
+.td1iner4 {
+    height: 10px;
+}
+
+.panelinformation > table {
+    width: 230px;
+}
+
+.panl-td1 {
+}
+
+.panelinformation-td1 #firstName, .panelinformation-td1 #lastName, .panelinformation-td1 #email {
+    width: auto;
+    font-size: inherit;
+}
+
+.outertable {
+    width: 400px;
+}
+
+.table-align {
+    width: 89%;
+    height: 78px;
+}
+
+    .table-align table {
+        width: 100%;
+    }
+
+.tablewraper {
+    padding-top: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 25px;
+}
+
+.wraptb6 {
+    height: 25px;
+}
+
+    .wraptb6 .tdfont {
+        font-size: 16px;
+        padding-bottom: 75px;
+        width: 30%:;
+    }
+
+.tdfont {
+    font-size: 16px;
+    padding-bottom: 75px;
+}
+
+.tdfont1 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tdfont2 {
+    font-size: 12px;
+    width: 70%;
+}
+
+.tdfont3 {
+    font-size: 12px;
+    width: 30%;
+}
+
+.table-full {
+    width: 100%;
+}
+
+    .table-full p {
+        font-size: 16px;
+    }
+
+.pull-right {
+    float: right;
+}
+
+.pull-left {
+    float: left;
+}
+
+.inputstyle input {
+    border-width: 0;
+}
+
+.infologin img {
+    max-width: 350px;
+}
+
+.alertify-message {
+    font-size: 14px;
+}
+
+#languageSelection {
+    padding-left: 35%;
+}
+
+#languageSelection img {
+    height: 20px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.space {
+    width: 20px;
+    height: 10px;
+}
+
+
+/* index css */
+
+.supplyfoots {
+    margin-top: 10px;
+}
+.supplyfoots table{
+    width: 60%;
+}
+.supplyfoots table tr td{
+    height: 60px;
+}
+.mainsupply {
+    width: 416px;
+    height: 281px;
+}
+.mainsupply table {
+    width: 320px;
+}
+
+.sup1 {
+    width: 308px;
+    height: 116px;
+}
+.sup2 {
+    width: 12px;
+    height: 142px;
+}
+.sup3 {
+    height: 28px;
+}
+.tablesupply {
+    width: 300px;
+}
+.tbsup1 {
+    width: 74px;
+}
+.tbsup2 {
+    width: 120px;
+}
+
+.tbsup3 {
+    width: 100px;
+}
+.red {
+    color: red;
+}
+.tbsup4 {
+    height: 55px;
+}
+
+ .infologin  img {
+max-width: 350px;
+}
+    .alertify-message {
+        font-size:14px;
+    }
+    #languageSelection{
+        padding-left:35%;
+    }
+    #languageSelection img{
+        height:20px;
+        width:30px;
+        cursor:pointer;
+    }
+
+    /* top section */
+    .topsec1 {
+        height: 77px;
+    }
+
+    .topsec2 {
+        width: 76%;
+    }
+    .topsecfont > span {
+        font-size: 12px;
+    }
+    .topsec3 {
+        width: 13%;
+        height: 106px;
+    }
+    .tabsec4 {
+        height: 119px;
+    }
+    .topsectioninner {
+        width: 400px;
+    }
+
+    .supplytitleblueone {
+    color: #091935;
+    font-size: 26px;
+    font-weight: bold;
+    padding: 60px 10px 0 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+    /*QuestionnaireResponse*/
+
+.tblQuestionnare {
+    margin: auto; 
+    width: 88%;
+}
+.tblQuestionnare > tr > td{
+    text-align: right; 
+    width: 85%;
+}
+.progressQstn{
+    width: 660px;
+}
+.divQuestionnaire {
+    width: 800px;
+}
+.tableInnerQstn {
+    width: 100%;
+    margin-top:-15px;
+}
+.paddingtop {
+    padding-top: 25px;
+}
+
+.field-validation-error{
+        color:red;
+        text-transform: uppercase;
+        /*font-weight:bolder;*/
+        /*float: right;*/
+        margin-left:50px;
+    }
+
+.fullWidth {
+    height: 100% !important;
+    font-size: 16px;
+    margin-left: 41px !important;
+}
+

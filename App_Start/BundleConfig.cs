@@ -47,6 +47,26 @@ namespace Generic
             bundles.Add(new StyleBundle("~/Content/jstree").Include("~/Scripts/jsTree3/themes/default/style.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jstree").Include("~/Scripts/jsTree3/jstree.js"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/registrationJs").Include(
+                   "~/Contents/RegistrationStyle/js/registration.js"
+                   ));
+            bundles.Add(new StyleBundle("~/bundles/registrationCss").Include(
+                   "~/Contents/RegistrationStyle/css/registration.css"
+                   ));
+            bundles.Add(new StyleBundle("~/bundles/alertifyCss").Include(
+                  "~/Content/themes/base/alertify.core.css",
+                   "~/Content/themes/base/alertify.default.css"
+                   ));
+            bundles.Add(new StyleBundle("~/bundles/progressBarCss").Include(
+                 "~/Content/ProgressBar/skins/tiny-green/progressbar.css",
+                  "~/Content/ProgressBar/skins/default/progressbar.css"
+                  ));
+
+            bundles.Add(new ScriptBundle("~/bundles/animatedCollapseJs").Include(
+                  "~/contents/js/animatedcollapse.js"
+                   ));
         }
     }
 }

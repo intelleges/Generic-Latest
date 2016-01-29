@@ -1,23 +1,36 @@
-﻿<div class="">
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="float: left;">
+﻿@using Generic.Areas.RegistrationArea.Models
+@{ 
+    var formData = new ViewBagModel();
+   if (ViewBag.FormData != null)
+   {
+       formData = ViewBag.FormData as ViewBagModel;
+   }
+}
+<div class="esignature">
+    <table class="tablesign" border="0" cellspacing="0" cellpadding="0">
+        @*" style="float: left; margin-top: -44px*@
         <tr>
-            <td width="20%" align="right">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <td align="right">
+                <table border="0" cellspacing="0" cellpadding="0">
                     <tr>
+
                         <td valign="top">
-                            <ul id="qm0" class="qmmc" style="width: 775px;">
+                            <ul id="qm0" class="qmmc">
+
                                 <li><a class="qmparent" href=""></a></li>
-                                <li><a class="qmparent" href="mailto:@ViewBag.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>
-                                <li><a class="qmparent" href="~/Registration/Home/PDFConfirmation" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>
-                                @*<li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>*@
-                                <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@ViewBag.QUESTIONNAIRE_FAQ</a> </li>
-                                <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@ViewBag.QUESTIONNAIRE_DOC_OTHER</a> </li>
-                                <li><a class="qmparent" href="@ViewBag.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@ViewBag.QUESTIONNAIRE_VIDEO</a> </li>
-                                <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER_2" target="_blank">@ViewBag.QUESTIONNAIRE_DOC_OTHER_2</a> </li>
+                                <li><a class="qmparent" href="mailto:@formData.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK" id="contactUS">@formData.CONTACT_US_EMAIL</a></li>
+                                <li><a class="qmparent" href="~/Registration/Home/PDFConfirmation" target="_blank"></a></li>
+                                <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank"> @formData.QUESTIONNAIRE_PDF</a></li>
+                                <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@formData.QUESTIONNAIRE_FAQ</a> </li>
+                                <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@formData.QUESTIONNAIRE_DOC_OTHER</a> </li>
+                                <li><a class="qmparent" href="@formData.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@formData.QUESTIONNAIRE_VIDEO</a> </li>
+                                <li>
+                                    <a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER_2" target="_blank">@formData.QUESTIONNAIRE_DOC_OTHER_2</a>
+                                </li>
                                 <li class="qmclear">&nbsp;</li>
                             </ul>
                         </td>
-                        <td align="right" valign="top"></td>
+                        <td class="lasttd" align="right" valign="top"></td>
                     </tr>
                 </table>
             </td>

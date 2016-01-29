@@ -1,0 +1,141 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Generic.Areas.RegistrationArea.Models
+{
+    public class ViewBagPdfModel
+    {
+        public string partnerHeader { get; set; }
+        public partner partner { get; set; }
+        public string signature { get; set; }
+        public string personTitle { get; set; }
+        public string completeDate { get;set; }
+        public string country { get; set; }
+        public string state { get; set; }
+        public string logoSrc { get; set; }
+        public string QuestionnaireTitle { get; set; }
+        public string Checkbox71 { get; set; }
+        public string Checkbox72 { get; set; }
+        public string Input38 { get; set; }
+        public string Checkbox61 { get; set; }
+        public string Checkbox62 { get; set; }
+        public string Input34 { get; set; }
+        public string Checkbox63 { get; set; }
+        public string Checkbox64 { get; set; }
+        public string Input35 { get; set; }
+        public string Checkbox65 { get; set; }
+        public string Checkbox66 { get; set; }
+        public string Input36 { get; set; }
+        public string Checkbox75 { get; set; }
+        public string Checkbox67 { get; set; }
+        public string Checkbox68 { get; set; }
+        public string Input37 { get; set; }
+        public string Checkbox76 { get; set; }
+        public string Checkbox69 { get; set; }
+        public string Checkbox70 { get; set; }
+        public string Checkbox53 { get; set; }
+        public string Checkbox54 { get; set; }
+        public string Input15 { get; set; }
+        public string Input16 { get; set; }
+        public string Input17 { get; set; }
+        public string Input18 { get; set; }
+        public string Input19 { get; set; }
+        public string Input20 { get; set; }
+        public string Input21 { get; set; }
+        public string Input22 { get; set; }
+        public string Input23 { get; set; }
+        public string Input24 { get; set; }
+        public string Input25 { get; set; }
+        public string Input26 { get; set; }
+        public string Input27 { get; set; }
+        public string Input28 { get; set; }
+        public string Input29 { get; set; }
+        public string Checkbox55 { get; set; }
+        public string Input30 { get; set; }
+        public string Input31 { get; set; }
+        public string Input32 { get; set; }
+        public string Input33 { get; set; }
+        public string CheckboxSmall { get; set; }
+        public string CheckboxLarge { get; set; }
+        public string Checkbox1 { get; set; }
+        public string Checkbox2 { get; set; }
+        public string Checkbox3 { get; set; }
+        public string Checkbox4 { get; set; }
+        public string Checkbox5 { get; set; }
+        public string Checkbox6 { get; set; }
+        public string Checkbox7 { get; set; }
+        public string Checkbox8 { get; set; }
+        public string Checkbox9 { get; set; }
+        public string Checkbox10 { get; set; }
+        public string Checkbox11 { get; set; }
+        public string Checkbox11_comment { get; set; }
+        public string Checkbox12 { get; set; }
+        public string Checkbox13 { get; set; }
+        public string Checkbox14 { get; set; }
+        public string Input0 { get; set; }
+        public string Checkbox15 { get; set; }
+        public string Checkbox16 { get; set; }
+        public string Checkbox17 { get; set; }
+        public string Checkbox18 { get; set; }
+        public string Checkbox19 { get; set; }
+        public string Input1 { get; set; }
+        public string Checkbox20 { get; set; }
+        public string Checkbox21 { get; set; }
+        public string Checkbox22 { get; set; }
+        public string Checkbox23 { get; set; }
+        public string Checkbox24 { get; set; }
+        public string Checkbox25 { get; set; }
+        public string Input2 { get; set; }
+        public string Checkbox26 { get; set; }
+        public string Checkbox27 { get; set; }
+        public string Input4 { get; set; }
+        public string Input5 { get; set; }
+        public string Input6 { get; set; }
+        public string Checkbox28 { get; set; }
+        public string Checkbox29 { get; set; }
+        public string Checkbox30 { get; set; }
+        public string Checkbox31 { get; set; }
+        public string Input7 { get; set; }
+        public string Checkbox73 { get; set; }
+        public string Checkbox32 { get; set; }
+        public string Checkbox33 { get; set; }
+        public string Checkbox34 { get; set; }
+        public string Checkbox35 { get; set; }
+        public string Checkbox36 { get; set; }
+        public string Input8 { get; set; }
+        public string Checkbox74 { get; set; }
+        public string Checkbox37 { get; set; }
+        public string Checkbox38 { get; set; }
+        public string Checkbox39 { get; set; }
+        public string Checkbox40 { get; set; }
+        public string Input9 { get; set; }
+        public string Checkbox41 { get; set; }
+        public string Checkbox42 { get; set; }
+        public string Checkbox43 { get; set; }
+        public string Checkbox44 { get; set; }
+        public string Input10 { get; set; }
+        public string Checkbox45 { get; set; }
+        public string Checkbox46 { get; set; }
+        public string Input11 { get; set; }
+        public string Checkbox47 { get; set; }
+        public string Input12 { get; set; }
+        public string Checkbox48 { get; set; }
+        public string Checkbox49 { get; set; }
+        public string Input13 { get; set; }
+        public string Checkbox50 { get; set; }
+        public string Checkbox51 { get; set; }
+        public string Input14 { get; set; }
+        public string Checkbox52 { get; set; }
+        public string Checkbox57 { get; set; }
+        public string Checkbox58 { get; set; }
+        public string case19049 { get; set; }
+        public string Checkbox59 { get; set; }
+        public string Checkbox60 { get; set; }
+        public string Checkbox78 { get; set; }
+        public string Input39 { get; set; }
+        public string Checkbox77 { get; set; }
+        
+    }
+}
