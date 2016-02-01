@@ -60,22 +60,22 @@ namespace Generic.Areas.RegistrationArea.Models
                         SendEmail objSendEmail = new SendEmail();
                         objSendEmail.sendEmail(email);
                     }
-                    else
-                    {
+                    //else
+                    //{
 
-                        // var emailhtl = dbConext.pr_getAutoMailmessageByMailtypeandPTQ(3, pptq.id);
-                        var touchpoint = db.pr_getTouchpoint((int)sessionTouchPoint).FirstOrDefault();
-                        //Send Alert to TouchAdmin
-                        var _person = db.pr_getPerson(touchpoint != null ? touchpoint.admin : 0).FirstOrDefault();
-                        Email email = new Email();
-                        string zCode = pptq != null ? pptq.zcode : "";
-                        string strEmailBody = sessionCurrentEmail + " with Invalid zCode " + zCode + " for access code " + sessionAccessCode + ". The status has been reset to incomplete for this partner.";
-                        email.subject = "Intelleges: Email Alert for Invalid zCode";
-                        email.body = strEmailBody;
-                        email.emailTo = _person != null ? _person.email : "";
-                        SendEmail objSendEmail = new SendEmail();
-                        objSendEmail.sendEmail(email);
-                    }
+                    //    // var emailhtl = dbConext.pr_getAutoMailmessageByMailtypeandPTQ(3, pptq.id);
+                    //    var touchpoint = db.pr_getTouchpoint((int)sessionTouchPoint).FirstOrDefault();
+                    //    //Send Alert to TouchAdmin
+                    //    var _person = db.pr_getPerson(touchpoint != null ? touchpoint.admin : 0).FirstOrDefault();
+                    //    Email email = new Email();
+                    //    string zCode = pptq != null ? pptq.zcode : "";
+                    //    string strEmailBody = sessionCurrentEmail + " with Invalid zCode " + zCode + " for access code " + sessionAccessCode + ". The status has been reset to incomplete for this partner.";
+                    //    email.subject = "Intelleges: Email Alert for Invalid zCode";
+                    //    email.body = strEmailBody;
+                    //    email.emailTo = _person != null ? _person.email : "";
+                    //    SendEmail objSendEmail = new SendEmail();
+                    //    objSendEmail.sendEmail(email);
+                    //}
 
                     //--- ENDS HERE----
                     //TempData["IncorrectZipCode"] = zCodeValidationErrorCode.nextstep;
