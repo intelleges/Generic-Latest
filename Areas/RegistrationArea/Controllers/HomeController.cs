@@ -5057,14 +5057,14 @@ Intelleges Team";
             int pptqID = 0;
             string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
-            if (question.footer == "3")
+            if (question!=null && question.footer == "3")
             {
                 pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload";
                 return ViewCustomizedPdf(pptqID, ViewName);
 
             }
-            else if (question.footer == "2")
+            else if (question != null && question.footer == "2")
             {
                 pptqID = FillPdfHtml(ViewBag, db, Session, Server);
                 ViewName = "CustomizedQuestionnaireSurveyPdfDownload";

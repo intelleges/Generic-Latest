@@ -1074,14 +1074,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var pptqq = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
 
 
+                        if (pptqq != null)
+                        {
+                            byte[] uploadedFile = new byte[Request.Files[i].InputStream.Length];
+                            Request.Files[i].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
 
-                        byte[] uploadedFile = new byte[Request.Files[i].InputStream.Length];
-                        Request.Files[i].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+                            using (var dbContext = new EntitiesDBContext())
+                                dbContext.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(pptqq.id, questionId,
+                                    pptqq.response, pptqq.comment, uploadedFile, Request.Files[i].ContentType, null,
+                                    pptqq.value, pptqq.score, pptq);
 
-
-                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(pptqq.id, questionId, pptqq.response, pptqq.comment, uploadedFile, Request.Files[i].ContentType,null, pptqq.value, pptqq.score, pptq);
-
-
+                        }
 
                     }
                     else
