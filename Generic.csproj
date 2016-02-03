@@ -248,6 +248,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\recaptcha.1.0.5.0\lib\.NetFramework 4.0\Recaptcha.dll</HintPath>
     </Reference>
+    <Reference Include="Recaptcha.Web">
+      <HintPath>..\IntellegesWebsite\bin\Recaptcha.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Remotion">
       <HintPath>..\packages\LinqToExcel.1.10.1\lib\Remotion.dll</HintPath>
     </Reference>
@@ -2377,6 +2380,60 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="Contents\AdminStyle\css\bootstrap.css" />
+    <Content Include="Contents\AdminStyle\css\bootstrap.min.css" />
+    <Content Include="Contents\AdminStyle\css\styleHome.css" />
+    <Content Include="Contents\AdminStyle\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Contents\AdminStyle\images\carousel-imgs\aerospace-and-defense-companies.jpg" />
+    <Content Include="Contents\AdminStyle\images\carousel-imgs\core-service-areas.jpg" />
+    <Content Include="Contents\AdminStyle\images\carousel-imgs\financial-institutions.jpg" />
+    <Content Include="Contents\AdminStyle\images\carousel-imgs\gain-access-videos-1.jpg" />
+    <Content Include="Contents\AdminStyle\images\carousel-imgs\gain-access-videos-2.jpg" />
+    <Content Include="Contents\AdminStyle\images\carousel-imgs\government-contractors.jpg" />
+    <Content Include="Contents\AdminStyle\images\carousel-imgs\homepage-first-image.jpg" />
+    <Content Include="Contents\AdminStyle\images\carousel-imgs\is-your-team-ready.jpg" />
+    <Content Include="Contents\AdminStyle\images\carousel-imgs\location.jpg" />
+    <Content Include="Contents\AdminStyle\images\carousel-imgs\one-platform-for-all-requirements.jpg" />
+    <Content Include="Contents\AdminStyle\images\carousel-imgs\timeline.jpg" />
+    <Content Include="Contents\AdminStyle\images\carousel-imgs\zcodes-for-erp-system-integration.jpg" />
+    <Content Include="Contents\AdminStyle\images\contact-img.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\advanced.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\automated-lang.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\buy-american-act.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\call-foot.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\call-icon.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\contact-icon.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\easy-to-use.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\enterprise.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\fb-foot.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\fb-icon.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\footer-logo.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\hd-logo.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\home-icon.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\integrated-crm.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\linkdin-foot.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\linkdin-icon.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\login-icon.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\logo.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\logo1.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\logo2.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\logo3.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\logo4.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\logo5.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\question-level-img.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\sep.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\standard.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\the-solution.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\theproblem.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\track-monitor1.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\track-monitor2.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\twitter-foot.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\twitter-icon.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\video-icon.png" />
+    <Content Include="Contents\AdminStyle\images\login-img.png" />
+    <Content Include="Contents\AdminStyle\js\bootstrap.js" />
+    <Content Include="Contents\AdminStyle\js\bootstrap.min.js" />
+    <Content Include="Contents\AdminStyle\js\jquery.js" />
     <Content Include="Contents\css\b118june_styles.css" />
     <Content Include="Contents\css\bubble-tooltip.css" />
     <Content Include="Contents\css\custom-dropdown.css" />
@@ -3141,6 +3198,22 @@
     <Content Include="Areas\RegistrationArea\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Shared\_BottomSection.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Shared\_TopSection.cshtml" />
+    <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Black.woff" />
+    <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-BlackOblique.woff" />
+    <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Book.woff" />
+    <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-BookOblique.woff" />
+    <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Heavy.woff" />
+    <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-HeavyOblique.woff" />
+    <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Light.woff" />
+    <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-LightOblique.woff" />
+    <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Medium.woff" />
+    <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-MediumOblique.woff" />
+    <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Oblique.woff" />
+    <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Roman.woff" />
+    <Content Include="Contents\AdminStyle\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Contents\AdminStyle\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Contents\AdminStyle\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Contents\AdminStyle\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -4712,6 +4785,7 @@
     <Content Include="Views\CampaignRule\Edit.cshtml" />
     <Content Include="Views\ZCodeCheck\Create.cshtml" />
     <Content Include="Views\ZCodeCheck\Index.cshtml" />
+    <Content Include="Views\Shared\_NewAdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
