@@ -67,6 +67,13 @@ namespace Generic
             bundles.Add(new ScriptBundle("~/bundles/animatedCollapseJs").Include(
                   "~/contents/js/animatedcollapse.js"
                    ));
+
+            bundles.Add(new StyleBundle("~/bundles/HomebootstrapCss").Include("~/Contents/AdminStyle/css/bootstrap.min.css"));
+            bundles.Add(new StyleBundle("~/bundles/HomeStyles").Include("~/Contents/AdminStyle/css/styleHome.css"));
+            bundles.Add(new StyleBundle("~/bundles/Font-awesome").Include("~/font-awesome/css/font-awesome.min.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/Homejquery").Include("~/Contents/AdminStyle/js/jquery.js"));
+            bundles.Add(new ScriptBundle("~/bundles/HomeBootstrapJs").Include("~/Contents/AdminStyle/js/bootstrap.min.js"));
         }
     }
 }

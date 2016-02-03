@@ -1,4 +1,4 @@
-﻿@inherits System.Web.Mvc.WebViewPage<Generic.enterprise>
+﻿@*@inherits System.Web.Mvc.WebViewPage<Generic.enterprise>
 @using System.Web.Mvc.Html
 @using System.Collections.Generic
 @using Generic
@@ -17,15 +17,13 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Contents/IntellegesLogin_files/style.css")">
     <script src="@Url.Content("~/Contents/IntellegesLogin_files/ga_002.js")" async="" type="text/javascript"></script>
     <script src="@Url.Content("~/Contents/IntellegesLogin_files/ga.js")" async="" type="text/javascript"></script>
-    @*<script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jquery_002.js")"></script>*@
-    @*<script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/modal.js")"></script>*@
-    @*<script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/TrialHelper.js")"></script>*@
+    
     <!-- Menu -->
 
     <link href="@Url.Content("~/Content/themes/base/alertify.core.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/themes/base/alertify.default.css")" rel="stylesheet" />  
     <link rel="stylesheet" href="@Url.Content("~/Contents/IntellegesLogin_files/jqx.css")" type="text/css">
-    @*<script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jquery-1.js")"></script>*@
+   
     <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jqxcore.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jqxmenu.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Contents/IntellegesLogin_files/jquery.js")" charset="utf-8"></script>
@@ -251,14 +249,7 @@
             });
 
             $("#linkedinLoginBtn").on("click", function () {
-                @*$('<form>', {
-                    "id": "linkedinForm",
-                    "html": '@Html.AntiForgeryToken()' + '<input type="text" name="provider" value="' + "LinkedIn" + '" />',
-                    "action":'@ViewBag.LinkedInLoginUri' ,
-                    "method": 'post',
-                    "style": 'display: none'
-                }).appendTo(document.body).submit();*@
-
+               
             });
 
             $("#linkedinConfirmDialog").dialog({
@@ -597,7 +588,7 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
 
                         </div>
                         <!-- .form-inputs-section homepage-signin-div -->
-                        @* LiButton *@
+                      
                         <div style="float: left;">
                             <img id="linkedinLoginBtn" title="Log in using your Link1edIn account" 
                                 src="~/Contents/images/LiButton.png" border="0" style="width:140px"/>
@@ -636,4 +627,107 @@ With over 15-years of thought-leadership backed by a stellar record of deliverin
     <script src="@Url.Content("~/Contents/IntellegesLogin_files/contact-us.js")"></script>
      
 </body>
-</html>
+</html>*@
+
+@using System.Web.Optimization
+
+@inherits System.Web.Mvc.WebViewPage<Generic.enterprise>
+@{
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="modal fade" id="get_password_dialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                </button>
+                <h4 class="modal-title" id="gpsLabel">Get Your Password</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modalGetPassword">
+                    <p>
+                        If you have forgotten your password or haven't created one, enter your email address and click Submit.
+                    </p>
+                    <div class="form-group">
+                        <label class="control-label" for="inputEmailGetPassword">Your Email Address</label>
+                        <input id="inputEmailGetPassword" class="form-control" type="email" placeholder="Please Enter Your Email" required data-error="Incorect email adress" />
+                        <div class="help-block with-errors"></div>
+                        <button type="button" class="btn btn-primary" name="GetPassword">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="banner"></div>
+<section class="page-inner">
+    <form id="loginForm" action="~/Admin/Index" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-sm-6">
+                <img src="@Url.Content("~/Contents/AdminStyle/images/login-img.png")" alt=""/>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="login-form">
+                    <h1 class="small">One platform for all data & document collection requirements</h1>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Enter your email</label>
+                        <input type="email" name="username" class="form-control" id="txtUserName" placeholder="Intelleges ID">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Enter your Password</label>
+                        <input type="password" name="password" class="form-control" id="txtPassword" placeholder="Password">
+                    </div>
+                    <div id="loginerrordiv" style="color: red">
+                        @foreach (System.Web.Mvc.ModelState modelState in ViewData.ModelState.Values)
+                        {
+                            foreach (System.Web.Mvc.ModelError error in modelState.Errors)
+                            {
+                                if (error != null)
+                                {
+
+                                    <span>Your Intelleges ID or password was entered incorrectly.</span>
+
+                                }
+
+                            }
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox">
+                                        Remember me
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <a class="forgot-password-link" id="forgotPasswordLinq" href="#">Forgot Password?</a>
+                            </div>
+                            <div class="col-sm-4">
+                                <button type="submit" class="btn btn-custom btn-md pull-right">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="login-content">
+            <h4 class="primary-color tt_u">Collect - Store - Share</h4>
+            <ul>
+                <li>Organise your team with our software</li>
+                <li>Create a Knowledge Centered Organization</li>
+                <li>Make better decisions</li>
+            </ul>
+        </div>
+    </form>
+</section>
+@Scripts.Render("~/Scripts/jquery.validate.min.js")
+@Scripts.Render("~/Scripts/validator.min.js")

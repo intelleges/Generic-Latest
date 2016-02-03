@@ -1,0 +1,332 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using Recaptcha.Web.Mvc;
+@using System.Web.Optimization;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Intelleges</title>
+   
+    @Styles.Render("~/bundles/alertifyCss")
+    <script src="@Url.Content("~/Scripts/alertify.js")"></script>
+    <!-- Bootstrap Core CSS -->
+    @Styles.Render("~/bundles/HomebootstrapCss")
+    <!-- Custom CSS -->
+    @Styles.Render("~/bundles/HomeStyles")
+    <!-- Custom Fonts -->
+    @Styles.Render("~/bundles/Font-awesome")
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    @Scripts.Render("https://www.google.com/recaptcha/api/js/recaptcha_ajax.js")
+</head>
+
+<body>
+    <script>
+        var _localAddress = "@Request.ServerVariables["REMOTE_ADDR"]";
+        var _publicKey = "@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]";
+        var _contactUsHost = "@System.Configuration.ConfigurationManager.AppSettings["contactUsHost"]";
+        var _contactUsDisplayed = false;
+    </script>
+    @*Contact Us Popup*@
+
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="contact_us_dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                    <h1 class="modal-title">Contact us</h1>
+                </div>
+                <div class="modal-body">
+                    <form id="modalformControls" role="form">
+                        <p>
+                            <img src="@Url.Content("~/Contents/AdminStyle/images/contact-img.png")" alt="" />
+                        </p>
+                        <h4 class="primary-color tt_u">One platform for all data & document collection requirements.</h4>
+                        <p>
+                            @if (!string.IsNullOrEmpty(ViewBag.ContactUsText))
+                            {
+                                @ViewBag.ContactUsText
+                            }
+                            else
+                            {
+                                <text> Thank you for visiting Intelleges. We welcome your input. To make sure we CONNECT YOU with the person at our company THAT CAN BEST SERVE YOU, please complete the two fields below and we will send you an email link where you can SUBMIT YOUR COMMENTS. If you need to contact us directly please email info@intelleges.com. Thanks again for your visit and we look forward to receiving your comments.</text>
+                            }
+                        </p>
+                        <hr class="normal" />
+                        <div class="form-group">
+                            <label for="inputEmail">Your email address</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Please Enter Your Email"
+                                   required data-error="Incorect email adress">
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Your secret code</label>
+                            <div class="row">
+                                <div class="col-sm-10">
+
+                                    <div class="secret-code" id="contact_us_dialog_captcha"></div>
+                                </div>
+                                <div class="col-sm-2 centred-button">
+                                    <button type="button" class="btn btn-custom btn-md pull-right">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    @*Watch Video Popup*@
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="eModalLabel" id="watchvideo_dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+                    <h1 class="modal-title">Watch Video</h1>
+                </div>
+                <div class="modal-body" style="text-align: center;">
+                    <iframe width="639" height="390" src="https://www.youtube.com/embed/7BstopG9qbU"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+    <div class="container wrap">
+        <header>
+            <div class="container header-inner">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="logo">
+                            <a href="https://www.intelleges.com/"><img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/logo.png")" alt="" /></a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="header-right">
+                            <div class="contact-info">
+                                <div class="social-icons">
+                                    <a href="#">
+                                        <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/fb-icon.png")" alt="" />
+                                    </a>
+                                    <a href="#">
+                                        <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/twitter-icon.png")" alt="" />
+                                    </a>
+                                    <a href="#">
+                                        <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/linkdin-icon.png")" alt="" />
+                                    </a>
+                                </div>
+                                <div class="contact">
+                                    <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/call-icon.png")" alt="" />
+                                    (917) 818 0225
+                                </div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <a href="#watchvideo_dialog" data-toggle="modal" data-target="#watchvideo_dialog">
+                                        <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/video-icon.png")" alt="" />Watch Video
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.intelleges.com/mvcmt/Generic">
+                                        <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/login-icon.png")" alt="" />Customer Login
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#contact_us_dialog" data-toggle="modal" data-target="#contact_us_dialog" id="contact-us-menu">
+                                        <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/contact-icon.png")" alt="" />Contact Us
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.intelleges.com/">
+                                        <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/home-icon.png")" alt="" />Home
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Navigation -->
+                    <nav class="navbar" role="navigation">
+                        <div class="topnav">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown">
+                                        <a href="#" data-toggle="dropdown">Company<i class="fa fa-angle-down"></i></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">About</a></li>
+                                            @*<li><a href="#">Products</a></li>
+                                                <li><a href="#">Link 3</a></li>*@
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Industries</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" data-toggle="dropdown">Solutions<i class="fa fa-angle-down"></i></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Effective solutions</a></li>
+                                            <li><a href="#">Proven solutions</a></li>
+                                            @*<li><a href="#">Link 3</a></li>*@
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Customer</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Support</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Demo</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" data-toggle="dropdown">News and Events<i class="fa fa-angle-down"></i></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">News</a></li>
+                                            @*<li><a href="#">Link 2</a></li>
+                                                <li><a href="#">Link 3</a></li>*@
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Partner</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- /.navbar-collapse -->
+                        </div>
+                        <!-- /.container -->
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div class="content">
+            <!--<p class="text-center">"Preparing organization to <span class="secondary-color">effectively collect information</span> (data and documents) <span class="secondary-color">as needed</span> at a moment's notice from anyone anywhere at any time"</p>-->
+            @RenderBody();
+
+
+            <!-- Footer -->
+            <footer>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="footer-logo">
+                            <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/footer-logo.png")" alt="" />
+                        </div>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="https://www.intelleges.com/">Home</a>
+                            </li>
+                            <li class="footer-menu-divider">|</li>
+                            <li>
+                                <a href="#about">ERP/MES Integration</a>
+                            </li>
+                            <li class="footer-menu-divider">|</li>
+                            <li>
+                                <a href="#services">Company</a>
+                            </li>
+                            <li class="footer-menu-divider">|</li>
+                            <li>
+                                <a href="#contact">News and Events</a>
+                            </li>
+                            <li class="footer-menu-divider">|</li>
+                            <li>
+                                <a href="#contact">Demo</a>
+                            </li>
+                            <li class="footer-menu-divider">|</li>
+                            <li>
+                                <a href="#contact">Support</a>
+                            </li>
+                            <li class="footer-menu-divider">|</li>
+                            <li>
+                                <a href="#contact">Customers</a>
+                            </li>
+                            <li class="footer-menu-divider">|</li>
+                            <li>
+                                <a href="#contact">Solutions</a>
+                            </li>
+                            <li class="footer-menu-divider">|</li>
+                            <li>
+                                <a href="#contact_us_dialog" data-toggle="modal" data-target="#contact_us_dialog" id="contact-us-menu1">Contact</a>
+                            </li>
+                        </ul>
+                        <p class="copyright small">&copy; 2015 Intelleges - 3960 Broadway, New York, New York 10032</p>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="footer-contact">
+                            <p>
+                                <a href="#">
+                                    <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/fb-foot.png")" alt="" />
+                                </a>
+                                <a href="#">
+                                    <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/twitter-foot.png")" alt="" />
+                                </a>
+                                <a href="#">
+                                    <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/linkdin-foot.png")" alt="" />
+                                </a>
+                            </p>
+                            <p>
+                                <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/call-foot.png")" alt="" />&nbsp;&nbsp;(917) 818 0225
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+    <!-- jQuery -->
+    @Scripts.Render("~/bundles/Homejquery")
+    @Scripts.Render("~/Scripts/validator.js")
+    <!-- Bootstrap Core JavaScript -->
+    @Scripts.Render("~/bundles/HomeBootstrapJs")
+    <script src="@Url.Content("~/Contents/IntellegesLogin_files/contact-us.js")"></script>
+    <script>
+        $(document).ready(function () {
+            var windowWidth = $(window).width();
+            var headerHeight = $("header").height();
+            if (windowWidth > 767) {
+                $(".banner").css("padding-top", (headerHeight - 15) + "px");
+            }
+
+            //carousel speed
+            $('.carousel').carousel({
+                interval: 10000
+            });
+        });
+        if ('@ViewData["enterpriseresultmessage"]' != '')
+            alert('@ViewData["enterpriseresultmessage"]');
+
+    </script>
+</body>
+
+</html>
+

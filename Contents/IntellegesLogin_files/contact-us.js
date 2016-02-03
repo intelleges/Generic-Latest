@@ -33,6 +33,13 @@
         createCaptcha();
         $('#inputEmail').val("");
     });
+    $("#contact-us-menu1").on("click", function () {
+        createCaptcha();
+        $('#inputEmail').val("");
+    });
+    $("#contact-us-menu2").on("click", function () {
+        $("#contact-us-menu").click();
+    });
     function createCaptcha() {
         Recaptcha.create(_publicKey, "contact_us_dialog_captcha", { theme: "clean" });
         $("#recaptcha_response_field").attr("placeholder", "Please Enter Your Security Code");
