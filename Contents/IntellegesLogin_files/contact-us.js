@@ -33,6 +33,10 @@
         createCaptcha();
         $('#inputEmail').val("");
     });
+    $("#contact-us-menu").on("click", function () {
+        createCaptcha();
+        $('#inputEmail').val("");
+    });
     $("#contact-us-menu1").on("click", function () {
         createCaptcha();
         $('#inputEmail').val("");
