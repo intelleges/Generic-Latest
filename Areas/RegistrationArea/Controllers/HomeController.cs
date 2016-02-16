@@ -108,10 +108,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT;
             objViewBag.SAVE_FOR_LATER_TEXT_NOTICE = CMS.SAVE_FOR_LATER_TEXT_NOTICE;
             objViewBag.CMS_PAGE_NEXT_TEXT = CMS.SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT;
-            objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF;
-            objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ;
-            objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER;
-            objViewBag.QUESTIONNAIRE_DOC_OTHER_2 = CMS.QUESTIONNAIRE_DOC_OTHER_2;
+            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF;
+            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ;
+            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER;
+            //objViewBag.QUESTIONNAIRE_DOC_OTHER_2 = CMS.QUESTIONNAIRE_DOC_OTHER_2;
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var ppptqCms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
 
@@ -689,11 +689,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objViewBag.CMS_PAGE_NEXT_TEXT = CMS.COMPANY_PAGE_NEXT_TEXT;
 
 
-            objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
-            objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
+            //objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             int cms_id = 0;
@@ -748,11 +748,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.CONTACT_PAGE_PREVIOUS_TEXT;
             objViewBag.CMS_PAGE_NEXT_TEXT = CMS.CONTACT_PAGE_NEXT_TEXT;
 
-            objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
-            objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
+            //objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             var cmsId = 0;
@@ -917,9 +917,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objViewBag.CMS_PAGE_NEXT_TEXT = CMS.QUESTIONNAIRE_PAGE_NEXT_TEXT;
             objViewBag.SAVE_FOR_LATER_TEXT = CMS.SAVE_FOR_LATER_TEXT;
 
-            objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF;
-            objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ;
-            objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER;
+            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF;
+            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ;
+            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER;
             //objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO;
             //objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL;
 
@@ -2055,11 +2055,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.COMPANY_EDIT_PAGE_PREVIOUS_TEXT;
             objViewBag.CMS_PAGE_NEXT_TEXT = CMS.COMPANY_EDIT_PAGE_NEXT_TEXT;
 
-            objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
-            objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
+            //objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
 
 
             int cmsId = 0;
@@ -2183,11 +2183,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.COMPANY_EDIT_PAGE_PREVIOUS_TEXT;
             objViewBag.CMS_PAGE_NEXT_TEXT = CMS.COMPANY_EDIT_PAGE_NEXT_TEXT;
 
-            objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
-            objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
+            //objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
 
             int cmsId = 0;
             if (ppptq_cms != null)
@@ -2250,11 +2250,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.CONTACT_EDIT_PAGE_PREVIOUS_TEXT;
             objViewBag.CMS_PAGE_NEXT_TEXT = CMS.CONTACT_EDIT_PAGE_NEXT_TEXT;
 
-            objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
-            objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
+            //objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
 
 
 
@@ -2396,10 +2396,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             ViewBagModel objViewBag = new ViewBagModel();
            
-            objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_DOC_OTHER_2 = CMS.QUESTIONNAIRE_DOC_OTHER_2;
-            objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_DOC_OTHER_2 = CMS.QUESTIONNAIRE_DOC_OTHER_2;
+            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
             objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.ESIGNATURE_PAGE_PREVIOUS_TEXT;
             objViewBag.CMS_PAGE_NEXT_TEXT = CMS.ESIGNATURE_PAGE_NEXT_TEXT;
             objViewBag.ESIGNATURE_PAGE_TEXT = CMS.ESIGNATURE_PAGE_TEXT;
@@ -2488,10 +2488,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             ViewBagModel objViewBag = new ViewBagModel();
            
-            objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_DOC_OTHER_2 = CMS.QUESTIONNAIRE_DOC_OTHER_2;
-            objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
-            objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_DOC_OTHER_2 = CMS.QUESTIONNAIRE_DOC_OTHER_2;
+            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
+            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
             objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.ESIGNATURE_PAGE_PREVIOUS_TEXT;
             objViewBag.CMS_PAGE_NEXT_TEXT = CMS.ESIGNATURE_PAGE_NEXT_TEXT;
             objViewBag.ESIGNATURE_PAGE_TEXT = CMS.ESIGNATURE_PAGE_TEXT;
@@ -2872,9 +2872,9 @@ Intelleges Team";
                 ViewBag.WARNING = CMS.WARNING;
 
 
-                objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
-                objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
-                objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
+                //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
+                //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
+                //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
                
                 #region Added by Suresh for the Logo
 
@@ -2971,8 +2971,8 @@ Intelleges Team";
                     var contactUsEmail = replaceBlank(_translator.Translate(ptqId, TranslationType.CMS, CurrentLanguage, cmdId));
                     if (!string.IsNullOrEmpty(contactUsEmail))
                         objViewBagModel.CONTACT_US_EMAIL = contactUsEmail;
-                    else
-                        objViewBagModel.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
+                    //else
+                    //    objViewBagModel.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
                 }
                 ////QUESTIONNAIRE_VIDEO_LINK
                 cmd = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_VIDEO);
@@ -2985,8 +2985,8 @@ Intelleges Team";
                     var questionnaireVideo = _translator.Translate(ptqId, TranslationType.CMS, CurrentLanguage, cmdId);
                     if (!string.IsNullOrEmpty(questionnaireVideo))
                         objViewBagModel.QUESTIONNAIRE_VIDEO = questionnaireVideo;
-                    else
-                        objViewBagModel.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
+                    //else
+                    //    objViewBagModel.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
                 }
             }
             catch
