@@ -1,4 +1,4 @@
-@font-face {
+/*@font-face {
     font-family: 'Avenir LT Std 65 Medium';
     font-style: normal;
     font-weight: normal;
@@ -17,7 +17,37 @@
     font-style: normal;
     font-weight: normal;
     src: local('Avenir LT Std 95 Black'), url('../fonts/AvenirLTStd-Black.woff') format('woff');
+}*/
+
+/*-------------------- font kit -----------------------*/
+
+@font-face {
+    font-family: 'Avenir-Roman-webfont';
+    src: url('../fonts/Avenir-Roman-webfont.eot');
+    src: url('../fonts/Avenir-Roman-webfont.eot?iefix') format('eot'), url('../fonts/Avenir-Roman-webfont.otf'), url('../fonts/Avenir-Roman-webfont.woff') format('woff'), url('../fonts/Avenir-Roman-webfont.ttf') format('truetype'), url('../fonts/Avenir-Roman-webfont.svg#webfont1BSMunJa') format('svg');
 }
+
+@font-face {
+    font-family: 'Avenir-Medium-webfont';
+    src: url('../fonts/Avenir-Medium-webfont.eot');
+    src: url('../fonts/Avenir-Medium-webfont.eot?iefix') format('eot'), url('../fonts/Avenir-Medium-webfont.otf'), url('../fonts/Avenir-Medium-webfont.woff') format('woff'), url('../fonts/Avenir-Medium-webfont.ttf') format('truetype'), url('../fonts/Avenir-Medium-webfont.svg#webfont1BSMunJa') format('svg');
+}
+
+@font-face {
+    font-family: 'AvenirLTStd-Black';
+    src: url('../fonts/AvenirLTStd-Black.eot');
+    src: url('../fonts/AvenirLTStd-Black.eot?iefix') format('eot'), url('../fonts/AvenirLTStd-Black.otf'), url('../fonts/AvenirLTStd-Black.woff') format('woff'), url('../fonts/AvenirLTStd-Black.ttf') format('truetype'), url('../fonts/AvenirLTStd-Black.svg#webfont1BSMunJa') format('svg');
+}
+
+
+
+
+
+
+
+
+
+
 
 
 body,
@@ -26,10 +56,14 @@ html {
     height: 100%;
 }
 
+    html body {
+        font-family: 'Avenir-Roman-webfont';
+    }
+
 body {
     background-color: #dcdfe1;
-    font-size: 13px;
-    font-family: 'Avenir LT Std 65 Medium', sans-serif;
+    font-size: 17px;
+    font-family: 'AvenirLTStd-Black';
     color: #264f6a;
     overflow-x: hidden;
 }
@@ -38,15 +72,22 @@ img {
     max-width: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, strong, b {
     font-weight: normal;
+    font-family: 'AvenirLTStd-Black';
+}
+
+p {
+    margin: 0 0 10px;
+    font-size: 15.5px;
+    line-height: normal;
 }
 
 h1 {
     text-transform: uppercase;
     color: #006bb4;
     font-size: 30px;
-    font-family: 'Avenir LT Std 95 Black';
+    /*font-family: 'Avenir LT Std 95 Black';*/
     margin: 0 0 15px 0;
 }
 
@@ -55,7 +96,7 @@ h1 {
     }
 
     h1 span {
-        font-family: 'Avenir LT Std 65 Medium';
+        /*font-family: 'Avenir LT Std 65 Medium';*/
     }
 
 h2 {
@@ -66,6 +107,10 @@ h2 {
 h4 {
     line-height: 1.5em;
     color: #264f6a;
+}
+
+h5 {
+    color: #5f5f5f;
 }
 
 a, button {
@@ -86,7 +131,7 @@ a {
 }
 
 header .header-inner {
-    padding-top: 30px;
+    padding-top: 20px;
     background: #fff;
     -webkit-box-shadow: 0 2px 1px rgba(8, 8, 8, 0.15);
     -moz-box-shadow: 0 2px 1px rgba(8, 8, 8, 0.15);
@@ -94,7 +139,8 @@ header .header-inner {
 }
 
 header .header-right {
-    margin-bottom: 30px;
+    margin-bottom: 0;
+    min-height: 100px;
 }
 
 .header-right .contact-info {
@@ -105,20 +151,18 @@ header .header-right {
     list-style: none;
     margin: 0;
     padding: 0;
+    margin-top: 15px;
 }
 
-    .header-right ul li {
-        display: inline-block;
+
+    .header-right ul li:after {
+        /*content: ' |';*/
+        margin: 0 5px;
     }
 
-        .header-right ul li:after {
-            content: ' |';
-            margin: 0 5px;
-        }
-
-        .header-right ul li:last-child:after {
-            display: none;
-        }
+    .header-right ul li:last-child:after {
+        display: none;
+    }
 
 .contact-info .social-icons, .contact-info .contact {
     display: inline-block;
@@ -138,13 +182,26 @@ header .header-right {
     line-height: 0;
 }
 
-.header-right ul {
-    margin-top: 15px;
+
+
+.header-right ul li {
+    border-left: 1px solid #003366;
+    margin: 0;
+    padding: 0 10.5px;
+    line-height: 13px;
+    display: inline-block;
 }
+
+    .header-right ul li:first-child {
+        border: none;
+        padding-left: 0;
+    }
 
     .header-right ul li a {
         font-size: 14px;
         vertical-align: middle;
+        line-height: 13px;
+        display: inline-block;
     }
 
         .header-right ul li a img {
@@ -164,7 +221,8 @@ header .header-right {
     padding: 7px 20px;
     text-transform: uppercase;
     font-weight: normal;
-    font-size: 13px;
+    font-size: 14px;
+    /*font-family: 'Avenir-Medium-webfont';*/
 }
 
     .navbar-nav > li > a > i {
@@ -184,7 +242,7 @@ header .header-right {
         background: #006BB4;
     }
 
-.content {
+.content-new {
     padding-top: 15px;
 }
 
@@ -222,6 +280,10 @@ header .header-right {
     background-image: none !important;
     text-shadow: none;
     color: #006bb4;
+}
+
+#myCarousel .item img {
+    width: 100%;
 }
 
 .banner {
@@ -415,12 +477,13 @@ hr {
     position: relative;
     color: #515151;
     padding-bottom: 40px;
+    min-height: 265px;
 }
 
     .plan .plan-info .hd {
         margin-bottom: 20px;
         font-size: 20px;
-        font-family: 'Avenir LT Std 95 Black';
+        /*font-family: 'Avenir LT Std 95 Black';*/
         text-transform: uppercase;
         margin: -20px -20px 20px -20px;
         padding: 10px;
@@ -431,7 +494,6 @@ hr {
         display: table-cell;
         padding-right: 20px;
         width: 100px;
-        vertical-align: middle;
     }
 
     .plan .plan-info .p-about {
@@ -447,8 +509,10 @@ hr {
         border-radius: 0;
     }
 
+
+
 .plan .plan-details h3 {
-    font-family: 'Avenir LT Std 85 Heavy';
+    /*font-family: 'Avenir LT Std 85 Heavy';*/
     color: #515151;
     font-size: 18px;
 }
@@ -480,8 +544,12 @@ hr {
     background: #f25e2f;
     color: #fff;
     padding: 10px 20px;
-    font-size: 13px;
+    font-size: 17px;
     text-transform: uppercase;
+}
+
+.ppr-sub-img img {
+    width: 100%;
 }
 
 body .page-inner li {
@@ -499,7 +567,7 @@ body .page-inner li {
 
 .contact-us {
     background: #f58416;
-    margin: 0 -15px;
+    margin: 0 -50px;
     font-size: 24px;
     color: #fff;
     line-height: 44px;
@@ -518,7 +586,7 @@ body .page-inner li {
     }
 
         .contact-us .btn-contact b {
-            font-family: 'Avenir LT Std 95 Black';
+            /*font-family: 'Avenir LT Std 95 Black';*/
         }
 
         .contact-us .btn-contact:hover {
@@ -526,7 +594,7 @@ body .page-inner li {
         }
 
 .partners .carousel {
-    max-width: 850px;
+    max-width: 1050px;
     margin: 50px auto 0 auto;
     border: thin solid #fac8af;
     padding: 30px 20px;
@@ -589,6 +657,7 @@ footer .list-inline > li {
 
 footer .list-inline {
     margin-top: 17px;
+    font-size: 16px;
 }
 
 .footer-contact img {
@@ -612,6 +681,8 @@ footer a {
 
 .copyright {
     color: #85b7d9;
+    font-size: 13px;
+    margin-top: 30px;
 }
 
 /* about page css */
@@ -620,6 +691,7 @@ footer a {
     padding: 80px 40px;
     color: #fff;
     background: #2c99e4 url('../img/banner-light-effect.png') center top no-repeat;
+    position: relative;
 }
 
     .inner-banner p {
@@ -632,6 +704,12 @@ footer a {
         -moz-text-shadow: 0 2px 1px rgba(0,0,0,0.15);
         text-shadow: 0 2px 1px rgba(0,0,0,0.15);
     }
+
+.banner-img {
+    position: absolute;
+    bottom: 0;
+    right: 170px;
+}
 
 .btn-wrap {
     padding: 20px;
@@ -715,7 +793,7 @@ footer a {
 label {
     color: #006bb4;
     text-transform: uppercase;
-    font-size: 15px;
+    font-size: 17px;
 }
 
 hr.normal {
@@ -740,7 +818,7 @@ hr.normal {
 .form-control {
     border-radius: 1px;
     height: 38px;
-    font-size: 15px;
+    font-size: 17px;
 }
 
 .checkbox, .forgot-password-link {
@@ -762,14 +840,773 @@ hr.normal {
 .login-form {
     padding-top: 15px;
 }
-.login-form .form-group{
-    margin: 25px 0;
-}
+
+    .login-form .form-group {
+        margin: 25px 0;
+    }
 
 .login-content {
     margin-top: 20px;
 }
 
+.banner-light-effect {
+    background-image: url('../img/banner-light-effect2.png');
+    background-position: right bottom;
+}
+
+.integration-experts {
+    padding: 0;
+}
+
+body .page-inner .integration-experts li::before {
+    content: "" !important;
+}
+
+.integration-experts > li {
+    display: inline-block;
+    padding: 7px;
+}
+
+.sub-space {
+    padding-bottom: 20px;
+}
+
+.sub-top {
+    margin: 20px 0;
+}
+
+.sub-hd-blue-h3 {
+    color: #006bb4;
+    font-size: 20px;
+    line-height: 20px;
+    margin: 30px 0 20px;
+}
+
+.team-sub p {
+    font-size: 17px;
+    line-height: 24px;
+}
+
+.team-sub {
+    padding: 12px 0 40px;
+}
+
+.sub-hd-white {
+    color: #fff;
+    font-size: 18px;
+    line-height: 26px;
+    text-shadow: 0 2px 1px rgba(0, 0, 0, 0.15);
+}
+
+.wider {
+    max-width: 100%;
+}
+
+.document-sub {
+    padding: 12px 0 40px;
+}
+
+    .document-sub p {
+        font-size: 17px;
+        line-height: 24px;
+    }
+
+    .document-sub .sub-hd-blue-h3 {
+        color: #006bb4;
+        font-size: 24px;
+        line-height: 20px;
+        margin: 0 0 20px;
+    }
+
+.document-sub {
+}
+
+.separator-i {
+    margin-bottom: 40px;
+}
+
+
+.demo-btn {
+    display: block !important;
+    margin-left: 0px !important;
+    margin-bottom: 15px;
+}
+
+.icons-block ul {
+    list-style-type: none;
+}
+
+body .page-inner .icons-block li::before {
+    content: "" !important;
+}
+
+.icons-block ul li {
+    color: #5f5f5f;
+}
+
+    .icons-block ul li span {
+        /*font-family: 'Avenir LT Std 95 Black';*/
+        color: #006bb4;
+        margin-left: -20px;
+        margin-right: 5px;
+    }
+
+.inner-image {
+    margin: 0 -50px;
+}
+
+/*============ CONTACT new css ===========*/
+
+.container-wrap {
+    padding: 0;
+}
+
+.contact-inner section {
+    padding: 0;
+}
+
+.address-sub {
+    padding-right: 20px;
+}
+
+    .address-sub .sub-hd-blue {
+        color: #264d6a;
+    }
+
+.contact-inner {
+    padding: 0;
+    margin: -1px -50px;
+}
+
+.sub-hd-blue-h3 a {
+    color: #006bb4;
+    font-size: 20px;
+    line-height: 20px;
+    margin: 30px 0 20px;
+}
+/*============ END CONTACT new css ===========*/
+
+.banner .carousel-control {
+    width: 4%;
+}
+
+.navbar-nav li ul {
+    display: none;
+}
+
+.navbar-nav li:hover ul {
+    display: block;
+}
+
+.indx {
+    margin: 0 -50px;
+}
+
+.video-item {
+    position: relative;
+}
+
+    .video-item > img {
+        opacity: 0;
+    }
+
+    .video-item .inner-banner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+    }
+
+    .video-item .tm-content {
+        background: #fff;
+        padding: 2px 10px;
+        display: inline-block;
+        width: 100%;
+        margin-left: 28%;
+    }
+
+        .video-item .tm-content h1 {
+            font-size: 22px;
+            text-shadow: none;
+            color: #006bb4;
+            margin: 0;
+            line-height: normal;
+        }
+
+        .video-item .tm-content h5 {
+            color: orange;
+            margin: 0;
+        }
+
+        .video-item .tm-content h6 {
+            color: #333;
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .video-item .tm-content p {
+            color: #555;
+            font-size: 12px;
+            margin: 0;
+        }
+
+.btn-get {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    color: #006bb4;
+}
+
+
+/*---------------QuestionnaireResponse css---------------*/
+.top-margin {
+    margin-top: 140px;
+}
+
+.logo-new {
+    margin-top: 7px;
+}
+
+.box-shadow-dropdown {
+    display: inline-block;
+}
+
+.shadow-box {
+    width: 100%;
+    -moz-box-shadow: 0 0 5px 5px #888;
+    -webkit-box-shadow: 0 0 5px 5px#888;
+    box-shadow: 0px 0px 10px 6px #F6F6F6;
+    border-radius: 3px;
+    padding: 25px;
+}
+
+    .shadow-box ul li a {
+        background: #fff;
+        color: #5b5b5b;
+        border: 1px solid #cbcbcb;
+    }
+
+        .shadow-box ul li a:hover, .shadow-box ul li a:active, .shadow-box ul li a:focus {
+            border: 1px solid #cbcbcb !important;
+        }
+
+body .shadow-box li::before {
+    content: "" !important;
+}
+
+.shadow-box ul li ul li {
+    display: block;
+}
+
+    .shadow-box ul li ul li a {
+        background: #fff;
+        color: #5b5b5b;
+        border: none;
+    }
+
+.progress-sub {
+    padding-bottom: 15px;
+}
+
+.progress {
+    height: 7px;
+    background: #dedede;
+    width: 86%;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+    color: #006bb4;
+}
+
+.shadow-box .progress {
+    margin-top: 20px;
+}
+
+.Later-button {
+    display: inline-block;
+}
+
+.Table {
+    display: table;
+}
+
+.Heading {
+    display: table-row;
+    background: #035587;
+    color: #fff;
+}
+
+.Row {
+    display: table-row;
+}
+
+.Cell {
+    display: table-cell;
+    border-right: 2px solid #fff;
+    border-bottom: 2 px solid #fff;
+    padding: 0px 8px;
+}
+
+    .Cell p {
+        margin: 8px 0px;
+    }
+
+    .Cell:last-child {
+        border-right: transparent;
+    }
+
+.Row:first-child > .Cell {
+    border-bottom: transparent;
+    background: #f9cb9c;
+}
+
+.Row:last-child > .Cell {
+    border-bottom: transparent;
+    background: #9fc5f8;
+}
+
+.Table label {
+    color: #5f5f5f;
+    font-size: 14px;
+}
+
+.Table h5 {
+    /*font-family: 'Avenir LT Std 95 Black';*/
+}
+
+.Table p span {
+    /*font-family: 'Avenir LT Std 85 Heavy';*/
+    text-decoration: underline;
+}
+
+.honeywell-hd {
+    font-size: 22px;
+    text-transform: uppercase;
+    font-family: 'AvenirLTStd-Black';
+    color: #006bb4;
+}
+
+.center-line {
+    border-left: thin solid #ddd;
+    padding-left: 60px;
+}
+
+.navbar-nav {
+    visibility: hidden;
+}
+
+.admin-header .navbar-nav {
+    visibility: visible;
+}
+
+.shd-box-btn button{
+    margin-top: 0px!important;
+    padding: 10px 12px;
+}
+.questionnaireDdl{
+    margin-bottom: 20px;
+}
+.questionnaireDdl button{
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+    padding: 10px 12px;
+}
+.questionnaireDdl li{
+    margin-right: 15px;
+}
+    .questionnaireDdl li a:hover {
+        background: #fff!important;
+        color: #333;
+    }
+.shadow-box button {
+    margin-top: -5px;
+    background: #dfdfdf;
+    border: 1px solid #cacaca;
+    border-radius: 0px;
+    color: #7a7a7a;
+    margin-bottom: 20px;
+}
+
+.shadow-box-hd button:hover {
+    color: #7a7a7a;
+}
+
+.shadow-box h2 {
+    color: #5b5b5b;
+    display: inline;
+}
+
+    .shadow-box h2 span {
+        /*font-family: 'Avenir LT Std 95 Black';*/
+    }
+
+.footer-tele {
+    margin-top: 30px;
+}
+
+.pre-next-btn {
+    margin-top: 20px;
+}
+
+    .pre-next-btn button {
+        background: #dfdfdf;
+        width: 95px;
+        border-radius: 0px;
+        border: 1px solid #cacaca;
+        color: #7a7a7a;
+        margin-left: 10px;
+    }
+
+
+.questionaire-table table tr > td {
+    text-align: left;
+    border: 1.5px solid #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+    .questionaire-table table tr > td.brownbg:first-child, .questionaire-table table tr > td.bluebg:first-child {
+        text-align: center;
+    }
+
+    .questionaire-table table tr > td:nth-child(n+2) {
+        width: 60%;
+        text-align: left;
+    }
+
+    .questionaire-table table tr > td:nth-child(n+3) {
+        width: 300px !important;
+        text-align: center;
+        padding: 0 !important;
+    }
+
+    .questionaire-table table tr > td > table tr > td {
+        border: none;
+    }
+
+.questionaire-table table tr td table {
+    vertical-align: middle;
+    display: inline-block;
+    width: 100%;
+}
+.questionaire-table table table tr td label {
+    /*width: 94%;*/
+    padding-left: 10px;
+    /*vertical-align: top;
+    display:inline-block;*/
+}
+.questionaire-table table .bluebg label, .questionaire-table table .brownbg label {
+    font-size: 13px;
+    padding-right: 13px;
+    border-right: 1px solid #333;
+    color: #333;
+    display: inline-block;
+    width: auto;
+    padding-left: 0;
+    vertical-align:middle;
+}
+
+.questionaire-table table .bluebg input, .questionaire-table table .brownbg input {
+    margin: 4px 4px 0 0;
+    vertical-align: top;
+}
+
+.questionaire-table table .bluebg td, .questionaire-table table .brownbg td {
+    width: 100px !important;
+    padding: 0;
+    text-align: center;
+}
+
+    .questionaire-table table .bluebg td:last-child label, .questionaire-table table .brownbg td:last-child label {
+        border: none;
+        padding-right: 0;
+    }
+
+.Later-button .btn {
+    background: #dfdfdf;
+    width: auto;
+    border-radius: 0px;
+    border: 1px solid #cacaca;
+    color: #7a7a7a;
+    margin-left: 10px;
+}
+
+.questionaire-table table tr > td[colspan="3"] {
+    padding: 0;
+}
+
+    .questionaire-table table tr > td[colspan="3"] span {
+        width: 100%;
+        /*display: inline-block;
+    float: left;*/
+        padding: 0;
+    }
+
+    .questionaire-table table tr > td[colspan="3"] > span:first-child {
+        padding: 5px 0;
+        height:auto !important;
+    }
+
+    .questionaire-table table tr > td[colspan="3"] span br {
+        display: none;
+    }
+
+    .questionaire-table table tr > td[colspan="3"] input {
+        width: 85% !important;
+        margin: 1px 0;
+    }
+
+.questionaire-table table tr > td .field-validation-error {
+    width: 100%;
+    margin-left: 0;
+}
+
+.questionaire-table table tr > td[colspan="3"] span > span > span {
+    width: 100%;
+    display: inline-block;
+}
+
+.questionaire-table table tr > td[colspan="3"] span > span {
+    font-size: 15px !important;
+    padding-bottom: 3px;
+}
+/*-------------------End Questionnaire Response css----------------------*/
+
+
+
+/*---------------RegistrationIndex css---------------*/
+.font-heavy {
+    /*font-family: 'Avenir LT Std 85 Heavy';*/
+}
+
+.outer-shadow {
+    padding: 40px 60px !important;
+}
+
+.sub-box a {
+    color: #006bb4;
+}
+
+.sub-box hr {
+    margin: 40px 0px;
+}
+
+.sub-box h1 {
+    color: red;
+    text-transform: none;
+}
+
+.sub-box h4 {
+    color: #7a7a7a;
+}
+
+.sub-box input {
+    border-color: #006bb4;
+}
+
+.sub-box label {
+    color: #7a7a7a;
+    text-transform: none;
+    font-weight:normal;
+}
+
+    .sub-box label i {
+        font-size: 8px;
+        vertical-align: top;
+    }
+
+.sub-box form {
+    margin-top: 20px;
+}
+
+.sub-honeywell {
+    margin-top: 30px;
+    display: block;
+}
+
+    .sub-honeywell a {
+        margin-right: 10px;
+    }
+
+.shadow-box .honeywell-color-btn {
+    border-radius: 0px;
+    padding: 8px 15px;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+    margin: 0;
+}
+
+    .shadow-box .honeywell-color-btn:hover, .shadow-box .honeywell-color-btn:focus {
+        color: #fff;
+        background-color: #ec971f;
+        border-color: #d58512;
+    }
+    .outer-popup {
+    padding: 40px 60px !important;
+    width: 600px;
+    margin: 0 auto;
+}
+.outer-popup img{
+    height:auto !important;
+    width:50%
+}
+
+#languageSelection.languageSelection {
+    padding-left: 0;
+    padding-bottom: 30px;
+}
+/*-------------------End RegistrationIndex css----------------------*/
+
+
+/*-------------------CompanyInformation css----------------------*/
+.black-box-hd{
+    background: #5b5b5b;
+    padding: 15px;
+    color: #fff;
+    font-size: 18px;
+}
+.padding-none{
+    padding: 0px;
+}
+.main-content {
+    margin: 20px 0px;
+    display: inline-block;
+    width: 100%;
+}
+.main-content h4{
+    color: #5b5b5b!important;
+}
+.save-btn{
+    margin-top: -5px;
+    margin-left: 10px;
+    background: #dfdfdf;
+    border: 1px solid #cacaca;
+    border-radius: 0px;
+    color: #7a7a7a;
+}
+.save-btn:hover{
+    color: #7a7a7a;
+}
+/*-------------------End CompanyInformation css----------------------*/
+
+/*-------------------Edit CompanyInformation css----------------------*/
+.black-box-form label{
+    text-align: left!important;
+}
+.black-box-form input{
+    border-color: #7a7a7a;
+}
+.black-box-form select{
+    border-color: #7a7a7a;
+    color: #999;
+}
+.phy-add-bold{
+    font-family: 'Avenir LT Std 95 Black';
+}
+.next-btns {
+    padding-right: 20px;
+}
+.next-btns .save-btn {
+    margin-top: 0;
+}
+.selectbox div {
+    width: 100% !important;
+}
+.selectbox .t-combobox .t-input{
+    height:38px;
+    padding: 6px 12px;
+}
+.sub-box .form-deault input{
+    border-color:#ccc;
+}
+.selectbox span.t-header {
+    background: transparent !important;
+    height: 40px !important;
+    background-image: none;
+    border: none !important;
+    padding: 10px;
+    cursor:pointer;
+}
+.selectbox .t-header {
+    background: transparent !important;
+    background-image: none;
+}
+
+.form-deault label{
+    padding-right:0;
+}
+.form-deault .save-btn {
+    margin-top: 0;
+}
+div#lblThankYou {
+   padding-top: 20px;
+}
+div#lblThankYou p {
+    line-height: 24px;
+}
+.honeywell-color-btn{
+    border-radius:0 !important;
+}
+
+.padding-bottom{
+    padding-bottom:15px;
+}
+.inforspace span, .inforspace {
+    line-height:24px;
+    font-size:15.5px;
+    display:inline-block;
+}
+
+/*-- login form --*/
+
+.login-form{
+    font-size:16px;
+}
+
+.login-form label{
+    font-size:16px;
+}
+.login-content{
+    text-align:justify;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*-------------------End Edit CompanyInformation css----------------------*/
+@media screen and (min-width:2500px) and (max-width:50000px) {
+    .tab-content #video1 > iframe {
+        height: 1090px;
+    }
+
+    .tab-content #video2 > iframe {
+        height: 1090px;
+    }
+}
+
+@media screen and (min-width:1500px) and (max-width:2500px) {
+    .tab-content #video1 > iframe {
+        height: 380px;
+    }
+
+    .tab-content #video2 > iframe {
+        height: 380px;
+    }
+}
 
 
 @media all and (max-width: 1200px) {
@@ -796,6 +1633,11 @@ hr.normal {
 @media all and (max-width: 767px) {
     header .header-right {
         margin-top: 20px;
+    }
+
+    .center-line {
+        border-left: none;
+        padding-left: 0px;
     }
 
     .banner, footer {
@@ -831,6 +1673,14 @@ hr.normal {
 
     footer {
         padding: 20px;
+    }
+
+    .banner-content {
+        margin-bottom: 30px;
+    }
+
+    .banner-img {
+        display: none;
     }
 }
 

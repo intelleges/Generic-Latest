@@ -7,7 +7,7 @@
     }
 }
 
-<table class="table-full" border="0" cellspacing="0" cellpadding="0">
+@*<table class="table-full" border="0" cellspacing="0" cellpadding="0">
     <tr>
         <td class="topsec1" valign="top">
             <table class="table-full" border="0" cellspacing="0" cellpadding="0">
@@ -30,7 +30,7 @@
                         </span>
                     </td>
                     <td class="topsec3" valign="bottom">
-                        @*<img src="~/Contents/images/tickmark.gif" alt="" width="95" height="89" class="surveyban" />*@
+                        
                     </td>
                 </tr>
             </table>
@@ -84,7 +84,7 @@
 
 
 
-                                    <!--<span style="color: #0096c9;">Instructions:</span> Enter your access code (found in your invitation email) below to complete Honeywell’s Site Security Survey.-->
+                                    <span style="color: #0096c9;">Instructions:</span> Enter your access code (found in your invitation email) below to complete Honeywell’s Site Security Survey.
                                 </td>
                             </tr>
                         </table>
@@ -110,4 +110,22 @@
             </table>
         </td>
     </tr>
-</table>
+</table>*@
+<div class="honeywell-hd text-center">@Html.Raw(formData.CMS_PAGE_TITLE)</div>
+<div class="text-center">@Html.Raw(formData.CMS_PAGE_SUBTITLE)</div>
+<p>&nbsp;</p>
+<div class="row">
+    <div class="col-sm-6">
+        <p>@Html.Raw(formData.CMS_PAGE_PANEL_ONE)</p>
+
+
+        <p>&nbsp;</p>
+    </div>
+    <div class="col-sm-6">
+        <div class="center-line">
+            <p>@Html.Raw(formData.CMS_PAGE_PANEL_TWO)</p>
+
+        </div>
+        <p>&nbsp;</p>
+    </div>
+</div>

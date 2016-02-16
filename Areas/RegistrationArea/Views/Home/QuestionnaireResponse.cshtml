@@ -1,11 +1,176 @@
-﻿@inherits System.Web.Mvc.WebViewPage
+﻿@*@inherits System.Web.Mvc.WebViewPage
+    @using System.Web.Mvc.Html
+    @using System.Web.Mvc
+    @using Generic.Helpers
+    @using Generic.Areas.RegistrationArea.Models
+    @{
+        Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
+        ViewBag.Title = "Questionnaire Response";
+        var formData = new ViewBagModel();
+        if (ViewBag.FormData != null)
+        {
+            formData = ViewBag.FormData as ViewBagModel;
+        }
+    }
+
+    @Styles.Render("~/bundles/registrationCss")
+    @Styles.Render("~/bundles/progressBarCss")
+    @Scripts.Render("~/bundles/animatedCollapseJs")
+
+    @section zCodes{
+        @Html.Raw(ViewBag.zcodeList)
+    }
+
+    @section Bottom{
+
+        @Html.Partial("_BottomSection");
+    }
+
+    @section Top{
+        @Html.Partial("_TopSection");
+    }
+
+
+
+    <div class="supplycon">
+        <div align="center" class="redheader">
+
+            <table class="tblQuestionnare">
+                <tr>
+                    <td>
+
+                        <div id="progressBar" class="tiny-green progressQstn">
+                            <div></div>
+                        </div>
+
+                        <input id="barpercent" type="hidden" value="@ViewBag.percentageProgressbar" />
+                    </td>
+
+                    <td align="left">
+                        <input type="submit" value="@formData.SAVE_FOR_LATER_TEXT" form="QuestionnaireResponse" id="saveforLater" formnovalidate class="cancel" />
+
+                            <span id="ctl00_contentQuestionnaireTitle_lblQuestionnaireTitle" class="redheader"></span>
+
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+        <div>
+            <table class="table-full">
+                <tr>
+                    <td>
+
+                        <div align="center">
+
+
+                            <div class="divQuestionnaire" align="left">
+
+                                @using (Html.BeginForm("QuestionnaireResponse", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "QuestionnaireResponse" }))
+                                {
+
+                                    @Html.Raw(ViewBag.questions)
+
+
+
+                                    <table class="tableInnerQstn" border="0" align="center" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td align="right"></td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td align="right">
+                                                <span id="lblErrormsg" class="redheader"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"></td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td align="right" class="inputstyle">
+                                                <input type="submit" name="btnBack" id="btnBack" value="@formData.CMS_PAGE_PREVIOUS_TEXT" onclick="javascript: history.go(-1); return false;"  />
+                                                <input type="submit" name="btnSubmit" id="btnSubmit" value="@formData.CMS_PAGE_NEXT_TEXT"  />
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                    <div align="right" class="paddingtop">
+                                        <input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
+                                        <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
+                                        <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
+
+                                        <input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
+                                        <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
+                                        <input type="hidden" value="false" id="btnSaveForLater" name="btnSaveForLater" />
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+
+
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    @section scripts{
+
+        <script type="text/javascript">
+            $(function () {
+                $(".duedate").datepicker({
+                    showOn: "button",
+                    buttonImage: "../../Contents/images/calendar_button.gif",
+                    buttonImageOnly: true,
+                    buttonText: "Select date",
+                    minDate: Date.parse("1900-01-01"),
+                    maxDate: Date.parse("2100-01-01")
+                });
+            });
+            $(document).ready(function () {
+                var message = '@ViewBag.message';
+            if (message !== "") {
+                alertify.alert(message);
+                //alert(message);
+
+            }
+
+            var percentage = $('#barpercent').val();
+            progressBar(percentage, $('#progressBar'));
+
+            $("#QuestionnaireResponse").submit(function (e) {
+                var $btn = $("input[type=submit][clicked=true]");
+                if ($btn.prop("id") == "saveforLater") {
+                    $("#btnSaveForLater").val("true");
+                    $(this).validate().cancelSubmit = true;
+                } else {
+                    $("#btnSaveForLater").val("false");
+                }
+            });
+
+            $("input[type=submit]").click(function () {
+
+                $("input[type=submit]", $(this).parents("body")).removeAttr("clicked");
+                $(this).attr("clicked", "true");
+            });
+
+        });
+
+        </script>
+    }*@
+@inherits System.Web.Mvc.WebViewPage
 @using System.Web.Mvc.Html
 @using System.Web.Mvc
 @using Generic.Helpers
 @using Generic.Areas.RegistrationArea.Models
 @{
-	Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
-	ViewBag.Title = "Questionnaire Response";
+    Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
+    ViewBag.Title = "Questionnaire Response";
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
     {
@@ -17,151 +182,116 @@
 @Styles.Render("~/bundles/progressBarCss")
 @Scripts.Render("~/bundles/animatedCollapseJs")
 
-@section zCodes{
-	@Html.Raw(ViewBag.zcodeList)
-}
+<div class="top-margin">
 
-@section Bottom{
-
-    @Html.Partial("_BottomSection");
-}
-
-@section Top{
-    @Html.Partial("_TopSection");
-}
-
-
-
-<div class="supplycon">
-	<div align="center" class="redheader">
-
-		<table class="tblQuestionnare">
-			<tr>
-				<td>
-
-                    <div id="progressBar" class="tiny-green progressQstn">
-                        <div></div>
-                    </div>
-
-					<input id="barpercent" type="hidden" value="@ViewBag.percentageProgressbar" />
-				</td>
-		   
-				<td align="left">  @*style="width: 425px"*@
-					<input type="submit" value="@formData.SAVE_FOR_LATER_TEXT" form="QuestionnaireResponse" id="saveforLater" formnovalidate class="cancel" />
-					@*<p>*@
-						<span id="ctl00_contentQuestionnaireTitle_lblQuestionnaireTitle" class="redheader"></span>
-				   @* </p>*@
-				</td>
-			</tr>
-
-		</table>
-
-	</div>
-	<div>
-        <table class="table-full">
-            <tr>
-                <td>
-
-                    <div align="center">
-
-
-                        <div class="divQuestionnaire" align="left">
-
-                            @using (Html.BeginForm("QuestionnaireResponse", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "QuestionnaireResponse" }))
-                            {
-
-                                @Html.Raw(ViewBag.questions)
-
-
-
-                                <table class="tableInnerQstn" border="0" align="center" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td align="right"></td>
-                                        <td>
-                                            &nbsp;
-                                        </td>
-                                        <td align="right">
-                                            <span id="lblErrormsg" class="redheader"></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"></td>
-                                        <td>
-                                            &nbsp;
-                                        </td>
-                                        <td align="right" class="inputstyle">
-                                            <input type="submit" name="btnBack" id="btnBack" value="@formData.CMS_PAGE_PREVIOUS_TEXT" onclick="javascript: history.go(-1); return false;"  />
-                                            <input type="submit" name="btnSubmit" id="btnSubmit" value="@formData.CMS_PAGE_NEXT_TEXT"  />
-                                        </td>
-                                    </tr>
-
-                                </table>
-
-                                <div align="right" class="paddingtop">
-                                    <input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
-                                    <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
-                                    <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
-
-                                    <input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
-                                    <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
-                                    <input type="hidden" value="false" id="btnSaveForLater" name="btnSaveForLater" />
-                                </div>
-
-                            }
-                        </div>
-                    </div>
-
-
-
-                </td>
-            </tr>
-        </table>
-	</div>
 </div>
 
-@section scripts{
 
-@*<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
-	<script type="text/javascript">
-		$(function () {
-			$(".duedate").datepicker({
-				showOn: "button",
-				buttonImage: "../../Contents/images/calendar_button.gif",
-				buttonImageOnly: true,
-				buttonText: "Select date",
-				minDate: Date.parse("1900-01-01"),
-				maxDate: Date.parse("2100-01-01")
-			});
-		});
-		$(document).ready(function () {            
-			var message = '@ViewBag.message';
-		if (message !== "") {
-			alertify.alert(message);
-			//alert(message);
+<section class="page-inner">
+    <div class="container">
+       @Html.Partial("_TopSection")
+        @*@Html.Raw(ViewBag.zcodeList)*@
+        @using (Html.BeginForm("QuestionnaireResponse", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "QuestionnaireResponse" }))
+        {
+            <div class="progress-sub">
+                <div class="progress">
+                    <div class="progress-bar" id="progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                        <span class="sr-only">@ViewBag.percentageProgressbar Complete</span>
+                    </div>
+                    @*<div id="progressBar" class="tiny-green progressQstn">
+                            <div></div>
+                        </div>*@
+                    <input id="barpercent" type="hidden" value="@ViewBag.percentageProgressbar" />
 
-		}
-	   
-		var percentage = $('#barpercent').val();
-		progressBar(percentage, $('#progressBar'));
+                </div>
+                <div class=" Later-button">
+                    <input type="submit" value="@formData.SAVE_FOR_LATER_TEXT" form="QuestionnaireResponse" id="saveforLater" formnovalidate class="btn btn-default pull-right cancel" />
+                    @*<button class="btn btn-default pull-right cancel" type="submit" form="QuestionnaireResponse" id="saveforLater" formnovalidate>@formData.SAVE_FOR_LATER_TEXT</button>*@
+                </div>
+            </div>
+            <div class="questionaire-table">
 
-		$("#QuestionnaireResponse").submit(function (e) {
-			var $btn = $("input[type=submit][clicked=true]");
-			if ($btn.prop("id") == "saveforLater") {
-				$("#btnSaveForLater").val("true");
-				$(this).validate().cancelSubmit = true;
-			} else {
-				$("#btnSaveForLater").val("false");
-			}
-		});
+                <div class="shadow-outer">
+                    <div class="shadow-box">
 
-		$("input[type=submit]").click(function () {
+                        <div class="shadow-box-hd">
 
-			$("input[type=submit]", $(this).parents("body")).removeAttr("clicked");
-			$(this).attr("clicked", "true");
-		});
+                            @*<button class="btn btn-default pull-right" type="submit" form="QuestionnaireResponse" id="saveforLater" formnovalidate >@formData.SAVE_FOR_LATER_TEXT</button>*@
 
-	});
+                        </div>
 
-	</script>
-}
+                        @Html.Raw(ViewBag.questions)
+                    </div>
+
+                </div>
+                <div>
+                    <input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
+                    <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
+                    <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
+
+                    <input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
+                    <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
+                    <input type="hidden" value="false" id="btnSaveForLater" name="btnSaveForLater" />
+                </div>
+
+
+                <div class="pre-next-btn">
+                    <button class="btn btn-default pull-right" type="submit" name="btnSubmit" id="btnSubmit">@formData.CMS_PAGE_NEXT_TEXT</button>
+                    <button class="btn btn-default pull-right" type="submit" name="btnBack" id="btnBack" onclick="javascript: history.go(-1); return false;">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                </div>
+
+            </div>
+        }
+    </div>
+
+
+
+</section>
+@Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var percentage = $('#barpercent').val() + '%';
+        $('#progressbar').width(percentage);
+        var message = '@ViewBag.message';
+        if (message !== "") {
+            alertify.alert(message);
+            //alert(message);
+
+        }
+
+        //progressBar(percentage, $('#progressBar'));
+
+        $("#QuestionnaireResponse").submit(function (e) {
+            debugger;
+            var $btn = $("input[type=submit][clicked=true]");
+            if ($btn.prop("id") == "saveforLater") {
+                $("#btnSaveForLater").val("true");
+                $(this).validate().cancelSubmit = true;
+            } else {
+                $("#btnSaveForLater").val("false");
+            }
+        });
+
+        $("input[type=submit]").click(function () {
+
+            $("input[type=submit]", $(this).parents("body")).removeAttr("clicked");
+            $(this).attr("clicked", "true");
+        });
+
+        $(".duedate").datepicker({
+            showOn: "button",
+            buttonImage: "../../Contents/images/calendar_button.gif",
+            buttonImageOnly: true,
+            buttonText: "Select date",
+            minDate: Date.parse("1900-01-01"),
+            maxDate: Date.parse("2100-01-01")
+        });
+
+    });
+
+
+</script>
+

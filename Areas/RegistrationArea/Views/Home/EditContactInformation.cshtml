@@ -2,7 +2,8 @@
 @using System.Web.Mvc.Html
 @using Generic.Areas.RegistrationArea.Models
 @{
-    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();  
+    //Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();  
+     Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     //ViewBag.Title = "CompanyInfomation";
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
@@ -13,226 +14,290 @@
 
 @Styles.Render("~/bundles/registrationCss")
 @Styles.Render("~/bundles/alertifyCss")
-@section Bottom{
-    @*<div class="">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="float: left; margin-top: -44px">
-            <tr>
-                <td width="20%" align="right">
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td width="22%" valign="top">
-                               <ul id="qm0" class="qmmc" style="width: 775px;">
-                                    <li><a class="qmparent" href=""></a></li>
-                                    <li><a class="qmparent" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>                                    
-                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>
-                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@ViewBag.QUESTIONNAIRE_FAQ</a> </li>
-                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@ViewBag.QUESTIONNAIRE_DOC_OTHER</a> </li>
-                                    <li><a class="qmparent" href="@ViewBag.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@ViewBag.QUESTIONNAIRE_VIDEO</a> </li>
-                                    <li class="qmclear">&nbsp;</li>
-                                </ul> 
-                            </td>
-                            <td width="20%" align="right" valign="top"></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>*@
+@Scripts.Render("~/bundles/jquery")
 
-}
 
-@section Top{
-    @Html.Partial("_TopSection");
-}
+@*@section Top{
+        @Html.Partial("_TopSection");
+    }
 
-<table class="tablesign2 outertable" border="0" align="center" cellpadding="0" cellspacing="0">
-    <tr>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @using (Html.BeginForm())
-            {
-
-                <table class="infobox"  border="0" align="center" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td>
-                            <table class="innertable" border="0" cellspacing="0" cellpadding="0">
-                                <tr class="cls">
-                                    <td colspan="2" class="infotitlebg">
-                                        @formData.CONTACT_INFORMATION_TEXT<span class="infotitlenormal">(@formData.VERIFY_CONTACT_TEXT_INFORMATION)</span>
-                                    </td>
-                                </tr>
-                                <div id="panelinformation">
-
-                                    <tr>
-                                        <td class="panelinformation-td1" >
-                                            <table border="0" cellpadding="0" cellspacing="0">
-                                                <tr>
-                                                    <td class="td1iner" ></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td1iner2 esigncont"  align="right" class="esigncont">
-                                                        @formData.FIRST_NAME *:
-                                                    </td>
-                                                    <td class="tCenterColumn">
-                                                        &nbsp;
-                                                    </td>
-                                                    <td class="tRightColumn">
-                                                        @Html.EditorFor(model => model.firstName)
-                                                        @Html.ValidationMessageFor(model => model.firstName)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td1iner3"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="right" class="esigncont">
-                                                        @formData.LAST_NAME*:
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                        @Html.EditorFor(model => model.lastName)
-                                                        @Html.ValidationMessageFor(model => model.lastName)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td1iner3"  ></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="right" class="esigncont">
-                                                        @formData.TITLE_TEXT *:
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                        @Html.EditorFor(model => model.title)
-                                                        @Html.ValidationMessageFor(model => model.title)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td1iner3" ></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td1iner2 esigncont" align="right" class="esigncont">
-                                                        @formData.EMAIL_TEXT*:
-                                                    </td>
-                                                    <td class="tCenterColumn">
-                                                        &nbsp;
-                                                    </td>
-                                                    <td class="tRightColumn">
-                                                        @Html.EditorFor(model => model.email)
-                                                        @Html.ValidationMessageFor(model => model.email)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class ="td1iner3"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="right" class="esigncont">
-                                                        @formData.PHONE_TEXT*:
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                        @Html.EditorFor(model => model.phone)
-                                                        @Html.ValidationMessageFor(model => model.phone)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td1iner3"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="right" class="esigncont">
-                                                        @formData.FAX_TEXT:
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                        @Html.EditorFor(model => model.fax)
-                                                        @Html.ValidationMessageFor(model => model.fax)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td1iner3"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td1iner4"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td class="panelinformation-td2" align="right" valign="bottom">
-                                            <table  border="0" cellspacing="0" cellpadding="0">
-                                                <tr>
-                                                    <td class="Previoustd" align="right" valign="bottom">
-                                                        <input type="submit" name="btnCancel" id="btnCancel" value="@formData.CMS_PAGE_PREVIOUS_TEXT" onclick="javascrit: history.go(-1); return false;" style="border-width: 0px;" />
-                                                    </td>
-                                                    <td class="nextbtntd"  align="right" valign="bottom">
-                                                        <input type="submit" name="btnNext" id="btnNext" value="@formData.CMS_PAGE_NEXT_TEXT" style="border-width: 0px;" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-            </tr>
-
-        </div>
-
+    <table class="tablesign2 outertable" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
             <td>
                 &nbsp;
             </td>
         </tr>
+        <tr>
+            <td>
+                @using (Html.BeginForm())
+                {
+
+                    <table class="infobox"  border="0" align="center" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <table class="innertable" border="0" cellspacing="0" cellpadding="0">
+                                    <tr class="cls">
+                                        <td colspan="2" class="infotitlebg">
+                                            @formData.CONTACT_INFORMATION_TEXT<span class="infotitlenormal">(@formData.VERIFY_CONTACT_TEXT_INFORMATION)</span>
+                                        </td>
+                                    </tr>
+                                    <div id="panelinformation">
+
+                                        <tr>
+                                            <td class="panelinformation-td1" >
+                                                <table border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td class="td1iner" ></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td1iner2 esigncont"  align="right" class="esigncont">
+                                                            @formData.FIRST_NAME *:
+                                                        </td>
+                                                        <td class="tCenterColumn">
+                                                            &nbsp;
+                                                        </td>
+                                                        <td class="tRightColumn">
+                                                            @Html.EditorFor(model => model.firstName)
+                                                            @Html.ValidationMessageFor(model => model.firstName)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td1iner3"></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right" class="esigncont">
+                                                            @formData.LAST_NAME*:
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            @Html.EditorFor(model => model.lastName)
+                                                            @Html.ValidationMessageFor(model => model.lastName)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td1iner3"  ></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right" class="esigncont">
+                                                            @formData.TITLE_TEXT *:
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            @Html.EditorFor(model => model.title)
+                                                            @Html.ValidationMessageFor(model => model.title)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td1iner3" ></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td1iner2 esigncont" align="right" class="esigncont">
+                                                            @formData.EMAIL_TEXT*:
+                                                        </td>
+                                                        <td class="tCenterColumn">
+                                                            &nbsp;
+                                                        </td>
+                                                        <td class="tRightColumn">
+                                                            @Html.EditorFor(model => model.email)
+                                                            @Html.ValidationMessageFor(model => model.email)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class ="td1iner3"></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right" class="esigncont">
+                                                            @formData.PHONE_TEXT*:
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            @Html.EditorFor(model => model.phone)
+                                                            @Html.ValidationMessageFor(model => model.phone)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td1iner3"></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right" class="esigncont">
+                                                            @formData.FAX_TEXT:
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            @Html.EditorFor(model => model.fax)
+                                                            @Html.ValidationMessageFor(model => model.fax)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td1iner3"></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td1iner4"></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="panelinformation-td2" align="right" valign="bottom">
+                                                <table  border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td class="Previoustd" align="right" valign="bottom">
+                                                            <input type="submit" name="btnCancel" id="btnCancel" value="@formData.CMS_PAGE_PREVIOUS_TEXT" onclick="javascrit: history.go(-1); return false;" style="border-width: 0px;" />
+                                                        </td>
+                                                        <td class="nextbtntd"  align="right" valign="bottom">
+                                                            <input type="submit" name="btnNext" id="btnNext" value="@formData.CMS_PAGE_NEXT_TEXT" style="border-width: 0px;" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                </tr>
+
+            </div>
+
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+    </td>
+    </tr>
     </table>
-</td>
-</tr>
-</table>
 
-            }
+                }
 
-        </td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span class="formdatarequir" style="color: #8faebb;">*@formData.REQUIRED_FIELDS</span>
-        </td>
-    </tr>
-</table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="formdatarequir" style="color: #8faebb;">@formData.REQUIRED_FIELDS</span>
+            </td>
+        </tr>
+    </table>*@
+
+<div class="top-margin">
+
+</div>
+
+<section class="page-inner">
+    <div class="small-container">
+       @Html.Partial("_TopSection")
+
+        <div class="sub-box">
+            <div class="shadow-box padding-none full-width">
+                <div class="black-box-hd">@formData.CONTACT_INFORMATION_TEXT (@formData.VERIFY_CONTACT_TEXT_INFORMATION)</div>
+                <div class="row main-content">
+                @using (Html.BeginForm())
+                {
+                    <div class="form-horizontal black-box-form">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.FIRST_NAME:<i class="fa fa-asterisk"></i> </label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.firstName,new{@class="form-control"})
+                                    @Html.ValidationMessageFor(model => model.firstName)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.LAST_NAME:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.lastName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.lastName)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.TITLE_TEXT:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.title, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.title)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.EMAIL_TEXT:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.email, new { @class = "form-control", @type = "email" })
+                                    @Html.ValidationMessageFor(model => model.email)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.PHONE_TEXT:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.phone, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.phone)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.FAX_TEXT:</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.fax,new{@class="form-control"})
+                                    @Html.ValidationMessageFor(model => model.fax)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <button type="submit" name="btnNext" id="btnNext" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                            <button type="submit" name="btnCancel" id="btnCancel" onclick="javascrit: history.go(-1); return false;" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                        </div>
+                    </div>
+                }
+
+
+                </div>
+            </div>
+            <div class="sub-honeywell text-center">
+                <label for="exampleInputName2"><i class="fa fa-asterisk"></i>@formData.REQUIRED_FIELDS</label>
+            </div>
+        </div>
+
+</section>
+
+
 <script type="text/javascript">
     $(document).ready(function () {
         if ('@ViewBag.isEmailChanged' == "1") {

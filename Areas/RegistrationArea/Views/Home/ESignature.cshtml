@@ -3,8 +3,9 @@
 @using Generic.Areas.RegistrationArea.Models
 
 @{
-    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();   
+    //Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();   
     //ViewBag.Title = "CompanyInfomation";
+     Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
     {
@@ -14,7 +15,7 @@
 @Styles.Render("~/bundles/progressBarCss")
 @Styles.Render("~/bundles/alertifyCss")
 @Styles.Render("~/bundles/registrationCss")
-
+@Scripts.Render("~/bundles/jquery")
 
 <script>
     $(document).ready(function () {
@@ -32,7 +33,7 @@
     });
 </script>
 
-@section Bottom{
+@*@section Bottom{
    
 @Html.Partial("_BottomSection");
 }
@@ -77,10 +78,7 @@
                                     <tr>
                                         <td class="infotitlebg" colspan="2">
                                             <span class="infotitlenormal">
-
                                                 @formData.ESIGNATURE_PAGE_TEXT
-                                                @* Thank you for completing your online <span id="ctl00_contentQuestionnaireBody_lblprovidertype">Conflict Minerals (3TG)</span> Certification questionnaire.  Please provide your email below. By providing your email below, you hereby certify that the information submitted in response to questions in this online questionnaire are accurate and true and this completes the registration process*@
-
                                             </span>
                                         </td>
 
@@ -252,7 +250,91 @@
     </tr>
     <tr>
         <td>
-            <span class="formdatarequir" >*@formData.REQUIRED_FIELDS</span>
+            <span class="formdatarequir" >@formData.REQUIRED_FIELDS</span>
         </td>
     </tr>
-</table>
+</table>*@
+
+
+<div class="top-margin">
+
+</div>
+
+<section class="page-inner">
+    <div class="small-container">
+       @Html.Partial("_TopSection")
+
+        <div class="sub-box">
+            <div class="shadow-box padding-none full-width">
+                <div class="black-box-hd text-center" style="padding:15px 70px;">@formData.ESIGNATURE_PAGE_TEXT</div>
+                <div class="row main-content" id="ctl00_contentQuestionnaireBody_pnlAddEsignature">
+                    @using (Html.BeginForm())
+                        {
+                    <div class="form-horizontal black-box-form">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.FIRST_NAME:<i class="fa fa-asterisk"></i> </label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.firstName, new { @class="form-control" })
+                                    <span id="errorFrstName" style="display: none;">Required</span>
+                                    @Html.ValidationMessageFor(model => model.firstName)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.LAST_NAME:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.lastName, new { @class = "form-control" })
+                                    <span id="errorlastName" style="display: none;">Required</span>
+                                    @Html.ValidationMessageFor(model => model.lastName)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.EMAIL_TEXT:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+                                    <span id="errorEmail errormsg" style="display:none; ">Required</span>
+                                    @Html.ValidationMessageFor(model => model.email)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-9" id="ctl00_contentQuestionnaireBody_title" style="display: none">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.TITLE_TEXT:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    <input name="ctl00$contentQuestionnaireBody$txtTitle" type="text" id="ctl00_contentQuestionnaireBody_txtTitle" class="txtBox form-control" size="200" />
+                                    <span id="ctl00_contentQuestionnaireBody_requiredTitle" class="errormsg" style="display: none;">Required</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-9" id="ctl00_contentQuestionnaireBody_phone" style="display: none">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.PHONE_TEXT:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    <input name="ctl00$contentQuestionnaireBody$txtPhone" type="text" id="ctl00_contentQuestionnaireBody_txtPhone" class="txtBox form-control" />
+                                    <span id="ctl00_contentQuestionnaireBody_requiredPhone" class="errormsg" style="display: none;">Required</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="next-btns">
+                            <button type="submit" name="btnNext" id="btnNext" onclick="return validateEsignature();" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                            <button type="submit" name="btnPrevious" id="btnPrevious" onclick="history.go(-1); return false;" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                        </div>
+                    </div>
+                        }
+
+
+                </div>
+            </div>
+            <div class="sub-honeywell text-center">
+                <label for="exampleInputName2"><i class="fa fa-asterisk"></i>@formData.REQUIRED_FIELDS</label>
+            </div>
+        </div>
+    </div>
+</section>

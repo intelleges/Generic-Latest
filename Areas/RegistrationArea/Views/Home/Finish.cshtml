@@ -2,25 +2,27 @@
 @using System.Web.Mvc.Html
 @using Generic.Areas.RegistrationArea.Models
 @{
-    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();    
+   // Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();    
     //ViewBag.Title = "CompanyInfomation";
+    Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
     {
         formData = ViewBag.FormData as ViewBagModel;
     }
 }
-@section Bottom{
+
+@*@section Bottom{
     @Html.Partial("_BottomSection");
 }
 
 @section Top{
     @Html.Partial("_TopSection");
-}
+}*@
 
 @Styles.Render("~/bundles/registrationCss")
-
-<table class="table-align" border="0" align="center" cellpadding="0" cellspacing="0">
+@Scripts.Render("~/bundles/jquery")
+@*<table class="table-align" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
         <td>&nbsp;</td>
     </tr>
@@ -33,13 +35,7 @@
                         <tbody>
                             <tr>
                                 <td align="center">
-                                    @*<span id="lblCompanyName" style="font-size:xx-large">
-                                            @if(!((bool)ViewBag.isCompletedSurvey)){
-                                            @ViewBag.CONFIRMATION_PAGE_HEADLINE
-                                            }else{
-                                            @ViewBag.WARNING
-                                            }
-                                        </span>*@
+                                  
                                     <a id="IntLogo" href="#">
                                         @{
                                             if (@ViewBag.logoSrc != null)
@@ -134,7 +130,80 @@
     <tr>
         <td></td>
     </tr>
-</table>
+</table>*@
+
+<div class="top-margin">
+
+</div>
+
+<section class="page-inner">
+    <div class="small-container">
+       @Html.Partial("_TopSection")
+
+        <div class="sub-box text-center">
+            <div class="shadow-box outer-shadow text-center">
+                <h1>
+                    <a id="IntLogo" href="#">
+                        @{
+                            if (@ViewBag.logoSrc != null)
+                            {
+                                string imageBase64 = Convert.ToBase64String(@ViewBag.logoSrc);
+                                string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                                <img src="@imageSrc" style="max-height: 50px;" />
+                            }
+                        }
+                    </a>
+
+                </h1>
+
+                <div id="lblThankYou">
+
+                    @if (!((bool)formData.isCompletedSurvey))
+                    {
+                        <p> @Html.Raw(formData.CONFIRMATION_PAGE_SIGNOFF_STATEMENT)</p>
+                    }
+                    else
+                    {
+                        <p>  @Html.Raw(formData.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT)</p>
+                    }
+                </div>
+
+            </div>
+            <div class="sub-honeywell text-right">
+                <span id="lblPrintAnswer">
+
+                    @if (formData.CMS_PAGE_PREVIOUS_TEXT != null && formData.CMS_PAGE_PREVIOUS_TEXT.ToString().ToLower().Contains("pdf"))
+                    {
+                        <a href='@Url.Action("Finish", "/Home/PrintCustomizedPDFConfirmation/", new {accesscode = ViewBag.ACCESS_CODE}, Request.Url.Scheme)'>@formData.CMS_PAGE_PREVIOUS_TEXT</a>
+                    }
+                    else
+                    {
+                        <a href="#" onclick="history.go(-1);">@formData.CMS_PAGE_PREVIOUS_TEXT</a>
+                    }
+                </span>
+                @{
+                    string link = formData.CMS_PAGE_NEXT_LINK;
+                }
+                <script>
+                    function redirect(url) {
+                        window.location.href = "http://" + url;
+                        return false;
+                    };
+
+                    function checkToPrintPDF(accesscode) {
+                        window.location.href = "@Url.Content("~/Registration/Home/PrintPDF/?accesscode=")" + accesscode;
+                    };
+
+                    function PrintCustomizedPDFConfirmation(accesscode) {
+                        window.location.href = "@Url.Content("~/Registration/Home/PrintCustomizedPDFConfirmation/?accesscode=")" + accesscode;
+                    };
+                </script>
+                <button type="button" name="btnNext" id="btnNext" class="btn btn-warning honeywell-color-btn" onclick="redirect('@link')">@formData.CMS_PAGE_NEXT_TEXT</button>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 @if(TempData["IncorrectZipCode"]!=null)
 {

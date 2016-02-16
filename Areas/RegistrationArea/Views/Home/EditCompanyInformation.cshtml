@@ -6,7 +6,8 @@
 @using Generic.Areas.RegistrationArea.Models
 @using Generic;
 @{
-    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout(); 
+    //Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout(); 
+    Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     ViewBag.Title = "Edit Company Infomation";
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
@@ -16,35 +17,9 @@
 }
 
 @Styles.Render("~/bundles/registrationCss")
+@Scripts.Render("~/bundles/jquery")
 
-@section Bottom{
-    @*<div class="">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="float: left; margin-top: -44px">
-            <tr>
-                <td width="20%" align="right">
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td width="22%" valign="top">
-                                <ul id="qm0" class="qmmc" style="width: 775px;">
-                                    <li><a class="qmparent" href=""></a></li>
-                                    <li><a class="qmparent" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>                                    
-                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>
-                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@ViewBag.QUESTIONNAIRE_FAQ</a> </li>
-                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@ViewBag.QUESTIONNAIRE_DOC_OTHER</a> </li>
-                                    <li><a class="qmparent" href="@ViewBag.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@ViewBag.QUESTIONNAIRE_VIDEO</a> </li>
-                                    <li class="qmclear">&nbsp;</li>
-                                </ul> 
-                            </td>
-                            <td width="20%" align="right" valign="top"></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>*@
-
-}
-@section Top{
+@*@section Top{
     @Html.Partial("_TopSection");
 }
 
@@ -89,7 +64,7 @@
                                                     <td class="esigncont" align="right" style="width: 148px;">@formData.Company *</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
-                                                        @*<input name="ctl00$contentQuestionnaireBody$txtCompanyName" type="text" value="ABC" id="ctl00_contentQuestionnaireBody_txtCompanyName" class="infocontbox" /><span id="ctl00_contentQuestionnaireBody_requiredtxtCompanyName" style="color:Red;display:none;"><br />Required</span>*@
+                                                      
                                                         @Html.EditorFor(model => model.name)
                                                         @Html.ValidationMessageFor(model => model.name)
 
@@ -119,7 +94,7 @@
                                                     <td class="esigncont" align="right" style="width: 148px;">@formData.ADDRESS_TWO</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
-                                                        @* <input name="ctl00$contentQuestionnaireBody$txtAddress2" type="text" value="123" id="ctl00_contentQuestionnaireBody_txtAddress2" class="infocontbox" />*@
+                                                       
                                                         @Html.EditorFor(model => model.address2)
                                                         @Html.ValidationMessageFor(model => model.address2)
                                                     </td>
@@ -128,8 +103,7 @@
                                                     <td class="esigncont" align="right" style="width: 148px;">@formData.CITY*</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
-                                                        @*                    <input name="ctl00$contentQuestionnaireBody$txtCity" type="text" value="xyz" id="ctl00_contentQuestionnaireBody_txtCity" class="infocontbox" />
-                                    <span id="ctl00_contentQuestionnaireBody_requiredtxtCity" style="color:Red;display:none;"><br />Required</span>*@
+                                                       
                                                         @Html.EditorFor(model => model.city)
                                                         @Html.ValidationMessageFor(model => model.city)
                                                     </td>
@@ -165,8 +139,7 @@
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
 
-                                                        @*<input name="ctl00$contentQuestionnaireBody$txtZipCode" type="text" value="12345" id="ctl00_contentQuestionnaireBody_txtZipCode" class="infocontbox" />
-                                    <span id="ctl00_contentQuestionnaireBody_requiredtxtZipCode" style="color:Red;display:none;"><br />Required</span>*@
+                                                     
                                                         @Html.EditorFor(model => model.zipcode)
                                                         @Html.ValidationMessageFor(model => model.zipcode)
                                                     </td>
@@ -175,7 +148,7 @@
                                                     <td class="esigncont" align="right" style="width: 148px;">@formData.PROVINCE</td>
                                                     <td style="width: 10px;">&nbsp;</td>
                                                     <td style="width: 242px;">
-                                                        @*  <input name="ctl00$contentQuestionnaireBody$txtProvince" type="text" id="ctl00_contentQuestionnaireBody_txtProvince" class="infocontbox" onchange="provinceChange()" />*@
+                                                     
                                                         @Html.EditorFor(model => model.province)
                                                         @Html.ValidationMessageFor(model => model.province)
 
@@ -260,4 +233,153 @@
 
 
 
-<span style="color: #8faebb;">* @formData.REQUIRED_FIELDS</span>
+<span style="color: #8faebb;">* @formData.REQUIRED_FIELDS</span>*@
+
+<div class="top-margin">
+
+</div>
+
+<section class="page-inner">
+    <div class="small-container">
+        @Html.Partial("_TopSection")
+
+        @using (Html.BeginForm())
+        {
+            <div class="sub-box">
+                <div class="shadow-box form-deault padding-none full-width">
+                    <div class="black-box-hd">@formData.COMPANY_INFORMATION_TEXT (@formData.VERIFY_COMPANY_INFO)</div>
+                    <div class="row main-content" id=" ctl00_contentquestionnairebody_panelcontent">
+
+                        <div class="form-horizontal black-box-form">
+                            <span id="ctl00_contentQuestionnaireBody_lblErrorMessage" style="color: Red;"></span>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.Company:<i class="fa fa-asterisk"></i> </label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.name, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.name)
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-12 control-label">
+                                        <strong>
+                                            @formData.PHYSYCAL_ADDRESS
+                                    </strong>
+                                </label>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.ADDRESS_ONE:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.address1, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.address1)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.ADDRESS_TWO:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.address2, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.address2)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.CITY:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.city, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.city)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.STATE_TEXT:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9 selectbox">
+                                    @(Html.Telerik().ComboBox()
+            .Name("state")
+            .AutoFill((bool)ViewBag.combobox.ComboBoxAttributes.AutoFill)
+            .BindTo(new SelectList((IEnumerable<state>)ViewBag.states, "id", "stateCode", (int)ViewBag.combobox.ComboBoxAttributes.SelectedIndex))
+            .HtmlAttributes(new { style = string.Format("width:{0}px", ViewBag.combobox.ComboBoxAttributes.Width) })
+            .Filterable(filtering =>
+            {
+                if ((int)ViewBag.combobox.ComboBoxAttributes.FilterMode != 0)
+                {
+                    filtering.FilterMode(AutoCompleteFilterMode.StartsWith);
+                }
+            })
+            .HighlightFirstMatch((bool)ViewBag.combobox.ComboBoxAttributes.HighlightFirst)
+                                    )
+
+
+                                    @Html.ValidationMessageFor(model => model.state)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.POSTAL_CODE:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.zipcode, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.zipcode)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.PROVINCE:</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.province, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.province)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.COUNTRY_TEXT:</label>
+                                <div class="col-sm-9 selectbox">
+                                    @(Html.Telerik().ComboBox()
+            .Name("country")
+            .AutoFill((bool)ViewBag.comboboxCountry.ComboBoxAttributes.AutoFill)
+            .BindTo(new SelectList((IEnumerable<country>)ViewBag.countries, "id", "name", (int)ViewBag.comboboxCountry.ComboBoxAttributes.SelectedIndex))
+            .HtmlAttributes(new { style = string.Format("width:{0}px", ViewBag.comboboxCountry.ComboBoxAttributes.Width) })
+            .Filterable(filtering =>
+            {
+                if ((int)ViewBag.comboboxCountry.ComboBoxAttributes.FilterMode != 0)
+                {
+                    filtering.FilterMode(AutoCompleteFilterMode.StartsWith);
+                }
+            })
+            .HighlightFirstMatch((bool)ViewBag.comboboxCountry.ComboBoxAttributes.HighlightFirst)
+                                    )
+                                    @Html.ValidationMessageFor(model => model.country)
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" name="btnCancel" id="btnCancel" onclick="javascript: history.go(-1); return false;" class="btn btn-default pull-left save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                            <button type="submit" name="btnNext" id="btnNext" class="btn btn-default pull-left save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="sub-honeywell text-center">
+                <label for="exampleInputName2"><i class="fa fa-asterisk"></i>@formData.REQUIRED_FIELDS</label>
+            </div>
+        </div>
+        }
+    </div>
+</section>

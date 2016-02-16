@@ -4,7 +4,8 @@
 @using Generic.Helpers
 @{
     ViewBag.Title = "Company Infomation";
-    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
+  //  Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
+    Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
     {
@@ -14,7 +15,7 @@
 
 @Styles.Render("~/bundles/registrationCss")
 
-@section Bottom{
+@*@section Bottom{*@
     @*<div >
         <table width="100%" border="0" cellspacing="0" cellpadding="0" style="float: left; margin-top: -44px">
             <tr>
@@ -41,12 +42,12 @@
     </div>*@
 
 }
-@section Top{
+@*@section Top{
     @Html.Partial("_TopSection");
 
-}
+}*@
 
-<table class="tablesign2" border="0" align="center" cellpadding="0" cellspacing="0">
+@*<table class="tablesign2" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
         <td>
             &nbsp;
@@ -154,7 +155,67 @@
             &nbsp;
         </td>
     </tr>
-</table>
+</table>*@
+<div class="top-margin">
+
+</div>
+
+<section class="page-inner">
+    <div class="small-container">
+       @Html.Partial("_TopSection")
+
+        <div class="sub-box">
+            <div class="shadow-box padding-none full-width">
+                <div class="black-box-hd">@formData.COMPANY_INFORMATION_TEXT (@formData.VERIFY_COMPANY_INFO)</div>
+                <div class="row main-content">
+                    <div class="col-md-12 padding-bottom">
+
+
+                        <h4><span id="ctl00_contentQuestionnaireBody_lblCompanyName"> @Model.name </span></h4>
+
+                    </div>
+                    <div id="ctl00_contentQuestionnaireBody_lblAddress">
+                        <div class="col-md-12 padding-bottom">
+                            <p>@Model.address1<br />@Model.address2</p>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <p>@Model.city, @formData.state @Model.zipcode<br>@formData.country</p>
+                        </div>
+                     </div>
+                    <!-- show remit address -->
+                    <span id="ctl00_contentQuestionnaireBody_lblRemitAddress"></span>
+                    <!-- end show remit address -->
+                    <!-- show federalId -->
+                    <span id="ctl00_contentQuestionnaireBody_lblFederalId"></span>
+                    <!-- end show federalId -->
+                    <!-- show dunsNumber -->
+                    <span id="ctl00_contentQuestionnaireBody_lblDunsNumber"></span>
+                    <!-- end show dunsNumber -->
+                    <!-- show naicsCode -->
+                    <span id="ctl00_contentQuestionnaireBody_lblNaicsCode"></span>
+                    <!-- end show naicsCode -->
+                    <!-- show businessDescription -->
+                    <span id="ctl00_contentQuestionnaireBody_lblBusinessDescription"></span>
+                    <!-- end show businessDescription -->
+                    <!-- end show content -->
+                        <div class="col-sm-6">
+                            <form action="@Url.Action("CorrectCompanyInformation")">
+                                
+                                <button type="submit" name="btnNext" id="btnNext" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                            </form>
+                            
+                           
+                            <button type="submit" name="btnEdit" id="btnEdit" onclick="window.location = 'EditCompanyInformation';" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                        </div>
+
+
+
+</div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 

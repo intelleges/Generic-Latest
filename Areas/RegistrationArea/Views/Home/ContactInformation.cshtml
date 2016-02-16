@@ -3,7 +3,8 @@
 @using Generic.Areas.RegistrationArea.Models
 @using Generic.Helpers
 @{
-    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
+   // Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
+    Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     ViewBag.Title = "Contact Information";
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
@@ -13,33 +14,8 @@
 }
 @Styles.Render("~/bundles/registrationCss")
 
-@section Bottom{
-    @*<div class="">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="float: left; margin-top: -44px">
-            <tr>
-                <td width="20%" align="right">
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td width="22%" valign="top">
-                                <ul id="qm0" class="qmmc" style="width: 775px;">
-                                    <li><a class="qmparent" href=""></a></li>
-                                    <li><a class="qmparent" id="contactUS">@ViewBag.CONTACT_US_EMAIL</a></li>                                    
-                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank">@ViewBag.QUESTIONNAIRE_PDF</a></li>
-                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@ViewBag.QUESTIONNAIRE_FAQ</a> </li>
-                                    <li><a class="qmparent" href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@ViewBag.QUESTIONNAIRE_DOC_OTHER</a> </li>
-                                    <li><a class="qmparent" href="@ViewBag.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@ViewBag.QUESTIONNAIRE_VIDEO</a> </li>
-                                    <li class="qmclear">&nbsp;</li>
-                                </ul>  
-                            </td>
-                            <td width="20%" align="right" valign="top"></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>*@
-}
-@section Top{
+
+@*@section Top{
      @Html.Partial("_TopSection");
 }
 
@@ -135,4 +111,55 @@
             &nbsp;
         </td>
     </tr>
-</table>
+</table>*@
+
+<div class="top-margin">
+
+</div>
+
+<section class="page-inner">
+    <div class="small-container">
+        @Html.Partial("_TopSection")
+
+        <div class="sub-box">
+            <div class="shadow-box padding-none full-width">
+                <div class="black-box-hd">@formData.CONTACT_INFORMATION_TEXT (@formData.VERIFY_CONTACT_TEXT_INFORMATION)</div>
+                <div class="row main-content">
+                    <div class="col-md-12">
+
+                        <h4 class="padding-bottom"><span id="ctl00_contentQuestionnaireBody_lblFirstName">@Model.firstName</span>&nbsp;<span id="ctl00_contentQuestionnaireBody_lblLastName">@Model.lastName</span></h4>
+                    </div>
+                    <div class="col-md-12 padding-bottom">
+                        <p class="">
+                            <span class="padding-bottom" id="ctl00_contentQuestionnaireBody_lblTitle">@Model.title</span>
+                        </p>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <p>
+                            <span id="ctl00_contentQuestionnaireBody_lblEmail">@Model.email</span>
+                            <br />
+                            <span id="ctl00_contentQuestionnaireBody_lblPhone">@Model.phone</span>
+                            <br />
+                            <span id="ctl00_contentQuestionnaireBody_lblFax">@Model.fax</span>
+                        </p>
+                    </div>
+
+
+
+
+                    <div class="col-sm-6 ">
+                        <form action="@Url.Action("CorrectContactInformation")">
+                            <button type="submit" name="btnNext" id="btnNext" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                        </form>
+
+                        <button type="submit" name="btnEdit" id="btnEdit" onclick="window.location = 'EditContactInformation';" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+  
+</section>

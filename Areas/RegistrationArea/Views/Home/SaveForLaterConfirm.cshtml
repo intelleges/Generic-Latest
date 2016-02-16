@@ -5,7 +5,8 @@
 @using Generic.Helpers
 @{
     ViewBag.Title = "Index";
-    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
+    //Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
+    Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
     {
@@ -50,7 +51,8 @@
 
     });
 </script>*@
-@section Bottom{
+
+@*@section Bottom{
 @Html.Partial("_BottomSection");
 }
 @section BottomFooter{
@@ -77,11 +79,35 @@
                 <input type="button" name="btnExit" id="btnExit" value="@formData.CMS_PAGE_NEXT_TEXT" />
                 <input type="button" name="btnCancel" id="btnCancel" value="@formData.CMS_PAGE_PREVIOUS_TEXT" />
 
-              <!--  .SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT-->
             </div>
         </td>
     </tr>
-</table>
+</table>*@
+
+<div class="top-margin">
+
+</div>
+
+<section class="page-inner">
+    <div class="small-container">
+       @Html.Partial("_TopSection")
+
+        <div class="sub-box text-center">
+            <div class="shadow-box outer-shadow text-center">
+                <p>
+                    @Html.Raw(@formData.SAVE_FOR_LATER_TEXT_NOTICE)
+                </p>
+            </div>
+
+            <div class="sub-honeywell text-right">
+                <button type="button" name="btnExit" id="btnExit" class="btn btn-warning honeywell-color-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                <button type="button" name="btnCancel" id="btnCancel" class="btn btn-warning honeywell-color-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+@Scripts.Render("~/bundles/jquery")
 <script>
     $(document).ready(function () {
         $(document).on("click", "#btnExit", null, function () {
@@ -99,13 +125,6 @@
         });
     });
 </script>
-@*<span style="color: #8faebb;">*Required Fields</span> *@
 
-@*<table style="width: 100%;">
-    <tr>
-        <td>@ViewBag.CMS_FOOTER_ONE</td>
-        <td>@ViewBag.CMS_FOOTER_TWO</td>
-    </tr>
-</table>*@
 
       

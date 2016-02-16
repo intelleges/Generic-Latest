@@ -35,6 +35,17 @@ namespace Generic.Helpers
                 return "~/tmp/Views/Shared/_LayoutMasterPartner.cshtml";
             }
         }
+        //public static string GetRegistrationLayout()
+        //{
+        //    if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
+        //    {
+        //        return "~/Views/Shared/_NewRegistrationLayout.cshtml";
+        //    }
+        //    else
+        //    {
+        //        return "~/tmp/Views/Shared/_NewRegistrationLayout.cshtml";
+        //    }
+        //}
 
         public static string GetMasterLayout()
         {
