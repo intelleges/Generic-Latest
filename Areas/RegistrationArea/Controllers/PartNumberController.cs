@@ -1073,8 +1073,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
 
                         var pptqq = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
-
-
+                        
                         if (pptqq != null)
                         {
                             byte[] uploadedFile = new byte[Request.Files[i].InputStream.Length];
@@ -1083,7 +1082,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             using (var dbContext = new EntitiesDBContext())
                                 dbContext.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(pptqq.id, questionId,
                                     pptqq.response, pptqq.comment, uploadedFile, Request.Files[i].ContentType, null,
-                                    pptqq.value, pptqq.score, pptq);
+                                    pptqq.value, pptqq.score, pptqq.partNumberSiteZcodePPTQ);
 
                         }
 

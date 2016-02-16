@@ -1178,6 +1178,9 @@ namespace Generic.Controllers
                                     db.questions.Add(objQuestion);
                                     db.SaveChanges();
                                     questionSet.Add(objQuestion.id);
+                                    excelQuestionnaire.CommentBoxMessageText = excelQuestionnaire.CommentBoxMessageText ?? "";
+                                    excelQuestionnaire.UploadMessageText = excelQuestionnaire.UploadMessageText ?? "";
+                                    excelQuestionnaire.CommentType = excelQuestionnaire.CommentType ?? "";
                                     db.pr_addQuestionnaireLoad(excelQuestionnaire.QID, excelQuestionnaire.Page, excelQuestionnaire.Surveyset, excelQuestionnaire.Survey, excelQuestionnaire.Question, excelQuestionnaire.Response, excelQuestionnaire.Comment, excelQuestionnaire.Title, excelQuestionnaire.Required, excelQuestionnaire.Length, excelQuestionnaire.titleLength, excelQuestionnaire.yValue, excelQuestionnaire.nValue, excelQuestionnaire.otherValue, excelQuestionnaire.qWeight, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicAnswer, excelQuestionnaire.SubCheckBoxChoice, excelQuestionnaire.CalendarMessageText, excelQuestionnaire.skipLogicJump, excelQuestionnaire.CommentBoxMessageText, excelQuestionnaire.UploadMessageText, excelQuestionnaire.CommentType, "", excelQuestionnaire.spinoffid, excelQuestionnaire.emailalert, excelQuestionnaire.emailalertlist, questionnaireId).FirstOrDefault();
                                 }
                                 catch (Exception ex)

@@ -2383,6 +2383,7 @@
     <Content Include="Contents\AdminStyle\css\bootstrap.css" />
     <Content Include="Contents\AdminStyle\css\bootstrap.min.css" />
     <Content Include="Contents\AdminStyle\css\styleHome.css" />
+    <Content Include="Contents\AdminStyle\fonts\Avenir-Roman-webfont.svg" />
     <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Black.svg" />
     <Content Include="Contents\AdminStyle\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Contents\AdminStyle\images\carousel-imgs\aerospace-and-defense-companies.jpg" />
@@ -3235,6 +3236,8 @@
     <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Black.eot" />
     <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Black.otf" />
     <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Black.ttf" />
+    <Content Include="Contents\AdminStyle\fonts\Avenir-Roman-webfont.otf" />
+    <Content Include="Contents\AdminStyle\fonts\Avenir-Roman-webfont.woff" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
