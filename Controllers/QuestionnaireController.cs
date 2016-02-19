@@ -788,6 +788,10 @@ namespace Generic.Controllers
 
         }
 
+        private int GetPage(ExcelQuestionnaire previosRow, ExcelQuestionnaire currentRow, List<int> landingPages)
+        {
+            return previosRow != null ? (previosRow.Surveyset != currentRow.Surveyset || previosRow.skipLogic.ToLower() == "y" || landingPages.Any(o => o == currentRow.QID) ? previosRow.Page + 1 : previosRow.Page) : 1;            
+        }
         [HttpPost]
         public ActionResult UploadQuestionnaire(int protocol, string protocolName
             , int touchpoint, string touchpointName
@@ -862,7 +866,8 @@ namespace Generic.Controllers
                         int pageId = 0, surveySetId = 0, surveyId = 0, responseTypeId = 0, isRequired = 0,
                             isRequiredComment = 0, jumpToQID = 0, hasSkipLogicQuestionId = 0, isSkipLogicAnwerYes = 0,
                             k = 0, responseId = 0, questionValue = 0;
-
+                        ExcelQuestionnaire previosExcelRow = null;
+                        List<int> landingPages = new List<int>();
                         var questionnaireLoads = new HashSet<int>();
                         var questionSet = new HashSet<int>();
                         var responseSet = new HashSet<int>();
@@ -872,7 +877,9 @@ namespace Generic.Controllers
 
 
                         foreach (var excelQuestionnaire in questionnaireinExcel)
-                        {                            
+                        {
+                            excelQuestionnaire.Page = GetPage(previosExcelRow, excelQuestionnaire, landingPages);
+                            previosExcelRow = excelQuestionnaire;
                             responses = null; responseType = string.Empty;
                             //if (string.IsNullOrEmpty(excelQuestionnaire.Response))
                             //    throw new Exception("Response value for question with ID " + excelQuestionnaire.QID + " is empty. Please edit spreadsheet and reupload it");
@@ -1096,6 +1103,10 @@ namespace Generic.Controllers
                                 {
                                     objQuestion.skipLogicAnswer = SkipLogicAnswer.D;
                                 }
+                                else if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogicAnswer)&&excelQuestionnaire.skipLogicAnswer!="NULL")
+                                {
+                                    throw new Exception("Question with QID:" + excelQuestionnaire .QID+ " has wrong skipLogicAnswer value. The possible values are : N, Y, M, A, D, NULL or empty value.");
+                                }
 
                                 //objQuestion.skipLogicJump Pending
                                 objQuestion.accessLevel = 1;
@@ -1253,6 +1264,8 @@ namespace Generic.Controllers
                         #endregion
                                 if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
                                 {
+                                    var allAnswers = excelQuestionnaire.skipLogicJump.Split(";".ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
+                                    landingPages.AddRange(allAnswers.Select(o => o.Split(":".ToCharArray()).Length > 1 ? Convert.ToInt32(o.Split(":".ToCharArray())[1]) : 0).ToList().Distinct());
                                     //try getting skipLogicJump Qid                                
                                     if (excelQuestionnaire.skipLogicAnswer == "D")
                                     {
