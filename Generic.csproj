@@ -4723,6 +4723,7 @@
       <DependentUpon>moment-with-locales.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\_references.js" />
+    <Content Include="SkipLogicAnswerPattern.txt" />
     <Content Include="VoiceResponse\incoming-calls.xml">
       <SubType>Designer</SubType>
     </Content>

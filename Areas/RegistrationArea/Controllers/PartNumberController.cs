@@ -530,7 +530,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                         string[] subStrQuestionlogic = strQuestionLogic[k].Split('&');
                                         Boolean logicOneStatus = false;
                                         Boolean logicTwoStatus = false;
-                                        int gotoQuestionId = 0;
+                                        int gotoQuestionId = 0, gotoELseQuestionId = 0;
                                         for (int j = 0; j < subStrQuestionlogic.Length; j++)
                                         {
                                             string[] strquestionid = subStrQuestionlogic[j].Split('=');
@@ -544,6 +544,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                             if (strNewQuestionAns.Length > 1)
                                             {
                                                 gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
+                                            }
+                                            if (strNewQuestionAns.Length > 2)
+                                            {
+                                                gotoELseQuestionId = Convert.ToInt32(strNewQuestionAns[2]);
                                             }
                                             string answerStatus = "";
                                             Boolean foundFlage = false;
@@ -636,6 +640,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                             jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
                                             break;
                                         }
+                                        else
+                                            if (gotoELseQuestionId != 0)
+                                                jumpToQuestion = gotoELseQuestionId;
                                     }
 
 

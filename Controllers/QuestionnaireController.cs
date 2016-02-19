@@ -868,6 +868,7 @@ namespace Generic.Controllers
                             k = 0, responseId = 0, questionValue = 0;
                         ExcelQuestionnaire previosExcelRow = null;
                         List<int> landingPages = new List<int>();
+                        Dictionary<int,question> questions =new Dictionary<int,question>();
                         var questionnaireLoads = new HashSet<int>();
                         var questionSet = new HashSet<int>();
                         var responseSet = new HashSet<int>();
@@ -1187,7 +1188,7 @@ namespace Generic.Controllers
                                     objQuestion.active = true;
                                     objQuestion.enterprise = EnterpriseID;
                                     db.questions.Add(objQuestion);
-                                    db.SaveChanges();
+                                    db.SaveChanges();                                   
                                     questionSet.Add(objQuestion.id);
                                     excelQuestionnaire.CommentBoxMessageText = excelQuestionnaire.CommentBoxMessageText ?? "";
                                     excelQuestionnaire.UploadMessageText = excelQuestionnaire.UploadMessageText ?? "";
@@ -1261,18 +1262,34 @@ namespace Generic.Controllers
                                 {
                                     excelQuestionnaire.skipLogicJump = null;
                                 }
+                                questions.Add(excelQuestionnaire.QID, db.pr_getQuestion(objQuestion.id).FirstOrDefault());
                         #endregion
                                 if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogic) && !string.IsNullOrEmpty(excelQuestionnaire.skipLogicJump))
                                 {
                                     var allAnswers = excelQuestionnaire.skipLogicJump.Split(";".ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
-                                    landingPages.AddRange(allAnswers.Select(o => o.Split(":".ToCharArray()).Length > 1 ? Convert.ToInt32(o.Split(":".ToCharArray())[1]) : 0).ToList().Distinct());
-                                    //try getting skipLogicJump Qid                                
-                                    if (excelQuestionnaire.skipLogicAnswer == "D")
+                                    foreach (var answer in allAnswers)
                                     {
-                                        //lets use answer's codes mapping for multiply answers skip logic
-                                        jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump, GetCodeMapping(db.pr_getResponseByQuestion(questionId).ToList(), responses));
+                                        var split = answer.Split(":");
+                                        if (split.Length > 2)
+                                        {
+                                            landingPages.Add(Convert.ToInt32(split[1]));
+                                            landingPages.Add(Convert.ToInt32(split[2]));
+                                        }
+                                        else if (split.Length > 1)
+                                        {
+                                            landingPages.Add(Convert.ToInt32(split[1]));
+                                        }
                                     }
-                                    else jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump);
+                                    //landingPages.AddRange(allAnswers.Select(o => o.Split(":".ToCharArray()).Length > 1 ? Convert.ToInt32(o.Split(":".ToCharArray())[1]) : 0).ToList().Distinct());
+
+                                    //try getting skipLogicJump Qid                                
+                                    //if (excelQuestionnaire.skipLogicAnswer == "D")
+                                    //{
+                                    //    //lets use answer's codes mapping for multiply answers skip logic
+                                    //    jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump, GetCodeMapping(db.pr_getResponseByQuestion(questionId).ToList(), responses));
+                                    //}
+                                    //else 
+                                    jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questions, excelQuestionnaire.skipLogicJump);
 
                                     if (jumpToQIDstr.Length > 0)
                                     {
@@ -1465,50 +1482,83 @@ namespace Generic.Controllers
             return result;
         }
 
-        private string getskipLogicJumpQuestionIdLogic(int questionId, int QID, string skipLogic, string skipLogicJump, Dictionary<string, int> codeMapping=null)
+        private string getskipLogicJumpQuestionIdLogic(Dictionary<int, question> questionsIds, string skipLogicJump)
         {
             //1=Y&3=Y:15;1=Y&3=N:16;
             //QID is 3
-           
             string retString = "";
             string[] arrySkipLogicJump = skipLogicJump.Split(';');
 
             for (int i = 0; i < arrySkipLogicJump.Length - 1; i++)
             {
-                string[] subSrting = arrySkipLogicJump[i].Split('&');
+                string[] subSrting = arrySkipLogicJump[i].Split("&|".ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
+                int QID = 0, questionId=0;
+
                 for (int j = 0; j < subSrting.Length; j++)
                 {
-                    string[] questionStr = subSrting[j].Split('=');
-                    int firstQid = Convert.ToInt32(questionStr[0].ToString());
-                    int diff = QID - firstQid;
-                    int ActualFristQid = questionId - diff;
-                    var value = "";
-                    string[] tempStr = questionStr[1].Split(':');
-                    if (tempStr.Length > 0)
+                    bool isEquality = false;
+                    string[] questionStr=null;
+                    if (subSrting[j].Contains("!="))
+                        questionStr = subSrting[j].Split("!=");
+                    else if (subSrting[j].Contains('='))
                     {
-                        questionStr[1] = tempStr[0];
-                        value = tempStr[0];
+                        questionStr = subSrting[j].Split('=');
+                        isEquality = true;
                     }
-                    if (questionStr[1].ToLower() == "y" || questionStr[1].ToLower() == "yes")
+                    if (questionStr != null)
                     {
-                        value = "1";
-                    }
-                    //country code mapping can be used for M responseType only
-                    if (codeMapping != null)
-                    {
-                        value = codeMapping.ContainsKey(value) ? codeMapping[value].ToString() : value;
-                    }
-                    if (j != subSrting.Length - 1)
-                    {
-                        retString += ActualFristQid + "=" + value + "&";
-                    }
-                    else
-                    {
-                        retString += ActualFristQid + "=" + value;
+                        int firstQid = QID = Convert.ToInt32(questionStr[0].ToString());                       
+                        var question = questionsIds[firstQid];
+                        int ActualFristQid = questionId = question.id;
+                        
+                        var value = "";
+                        var intValue=0;
+                        string[] tempStr = questionStr[1].Split(':');
+                        
+                        if (tempStr.Length > 0)
+                        {
+                            questionStr[1] = tempStr[0];
+                            value = tempStr[0];
+                        }
+                        if (int.TryParse(value, out intValue))
+                        {
+
+                        }
+                        else
+                        {
+                            var responses = db.pr_getResponseByQuestion(question.id).ToList();
+                            if (responses.Count > 2)
+                            {
+
+                                var response = responses.FirstOrDefault(o => o.description.Contains("(" + value + ")"));
+                                if (response != null)
+                                    value = response.id.ToString();
+                            }
+                        }
+                        if (j != subSrting.Length - 1)
+                        {
+                            retString += ActualFristQid + (isEquality?"=":"!=") + value +arrySkipLogicJump[i].Substring(arrySkipLogicJump[i].IndexOf(subSrting[j])+subSrting[j].Length,1);
+                        }
+                        else
+                        {
+                            retString += ActualFristQid + (isEquality ? "=" : "!=") + value;
+                        }
                     }
                 }
                 string[] columnSp = arrySkipLogicJump[i].Split(':');
-                if (columnSp.Length > 0)
+                if (columnSp.Length > 2)
+                {
+                    int gotoQID = int.Parse(columnSp[1]);
+
+                    int number = questionId + (gotoQID - QID);
+                    retString += ":" + number ;
+
+                    gotoQID = int.Parse(columnSp[2]);
+                    number = questionId + (gotoQID - QID);
+                    retString += ":" + number + ";";
+                }
+                else 
+                if (columnSp.Length > 1)
                 {
                     int gotoQID = int.Parse(columnSp[1]);
 

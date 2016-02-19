@@ -1466,17 +1466,23 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         if (objQuestion.skipLogicAnswer != null)
                         {
 
-                            if (objQuestion.skipLogicJump.Contains("&"))
+                            if (objQuestion.skipLogicJump.Contains("&") || objQuestion.skipLogicJump.Contains("|"))
                             {
                                 string[] strQuestionLogic = objQuestion.skipLogicJump.Split(';');
                                 for (int k = 0; k < strQuestionLogic.Length - 1; k++)
                                 {
-                                    string[] subStrQuestionlogic = strQuestionLogic[k].Split('&');
+                                    string[] subStrQuestionlogic = strQuestionLogic[k].Split("&|".ToCharArray());
                                     Boolean logicOneStatus = false;
                                     Boolean logicTwoStatus = false;
-                                    int gotoQuestionId = 0;
+                                    int gotoQuestionId = 0, gotoELseQuestionId=0;
                                     for (int j = 0; j < subStrQuestionlogic.Length; j++)
                                     {
+                                       if(subStrQuestionlogic[j].Contains("!="))
+                                       {
+                                           //todo != check
+                                       }
+                                       else 
+                                       {
                                         string[] strquestionid = subStrQuestionlogic[j].Split('=');
                                         int questionidLogic = Convert.ToInt32(strquestionid[0]);
                                         string[] strNewQuestionAns = strquestionid[1].Split(':');
@@ -1488,6 +1494,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                         if (strNewQuestionAns.Length > 1)
                                         {
                                             gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
+                                        }
+                                           if (strNewQuestionAns.Length > 2)
+                                        {
+                                            gotoELseQuestionId = Convert.ToInt32(strNewQuestionAns[2]);
                                         }
                                         string answerStatus = "";
 
@@ -1567,7 +1577,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                                 }
                                             }
                                         }
-
+                                       }
 
                                         //int ansLogicStatus =Convert.ToInt32(
                                     }
@@ -1576,7 +1586,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                         objQuestion.skipLogicJump = gotoQuestionId.ToString();
                                         jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
                                         break;
-                                    }
+                                    } else 
+                                        if(gotoELseQuestionId!=0)
+ jumpToQuestion = gotoELseQuestionId;
                                 }
                             }
                             else if (answer != "74")

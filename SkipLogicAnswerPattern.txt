@@ -1,0 +1,19 @@
+﻿boolean_expression:to_questionid_true:to_questionid_false
+
+where:
+boolean_expression - expression which indicates are previos and/or current questions answers have the same values as user has selected during the questionnaire, 
+boolean_expression pattern is: [questionid_1(= OR !=)some_value_1(& OR |)questionid_2(= OR !=)some_value_2...questionid_N(= OR !=)some_value_N],
+where:
+ questionid_1..questionid_N  - the set of some questions Id 
+ =  - logical equality
+ != - logical unequality
+ & - logical AND,
+ | - logical OR
+ some_value_1..some_value_N - the set of some values which depend on answer type 
+
+ to_questionid_true - question id where page wil be redirected when boolean_expression is true
+
+ to_questionid_false - question id where page will be redirected when boolean_expression is false
+
+
+
